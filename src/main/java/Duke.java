@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static List<String> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     private static void printIndented(String qn) {
         System.out.println("    " + qn);
@@ -17,12 +17,34 @@ public class Duke {
         printHR();
         if (line.equals("list")) {
             int counter = 1;
-            for (String task : tasks) {
+            for (Task task : tasks) {
                 printIndented(counter++ + ". " + task);
             }
         } else {
-            tasks.add(line);
-            printIndented("added: " + line);
+            String[] words = line.split(" ");
+
+            if (words[0].equals("done")) {
+                if (words.length == 1) {
+                    printIndented("Please supply a number. Eg: done 2");
+                } else {
+                    try {
+                        int taskNo = Integer.parseInt(words[1]);
+                        if (taskNo > tasks.size() || taskNo <= 0) {
+                            printIndented("Please enter a valid task number.");
+                        } else {
+                            tasks.get(taskNo - 1).markAsDone();
+                            printIndented("Nice! I've marked this task as done:");
+                            printIndented("  " + tasks.get(taskNo - 1));
+                        }
+                    } catch (NumberFormatException e) {
+                        printIndented("Please supply a number. Eg: done 2");
+                    }
+                }
+            } else {
+                Task task = new Task(line);
+                tasks.add(task);
+                printIndented("added: " + line);
+            }
         }
         printHR();
     }
