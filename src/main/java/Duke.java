@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private static List<String> tasks = new ArrayList<>();
+
     private static void printIndented(String qn) {
         System.out.println("    " + qn);
     }
@@ -11,7 +15,15 @@ public class Duke {
 
     private static void eval(String line) {
         printHR();
-        printIndented(line);
+        if (line.equals("list")) {
+            int counter = 1;
+            for (String task : tasks) {
+                printIndented(counter++ + ". " + task);
+            }
+        } else {
+            tasks.add(line);
+            printIndented("added: " + line);
+        }
         printHR();
     }
 
