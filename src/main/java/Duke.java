@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,16 +16,25 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
+        ArrayList<String> library = new ArrayList<String>();
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        Scanner sc = new Scanner(System.in);
 
         while (true) {
             String command = sc.nextLine();
-            if (command.equals("bye")) {
+            if (command.equals("list")) {
+                for (int i = 0; i < library.size(); i++) {
+                    System.out.print(i + 1);
+                    System.out.println(". " + library.get(i));
+                }
+            } else if (command.equals("bye")) {
                 break;
+            } else {
+                library.add(command);
+                System.out.println("added: " + command);
             }
-            System.out.println(command);
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
