@@ -1,4 +1,4 @@
-public class Task {
+class Task {
     private String description;
     private boolean isDone;
 
@@ -7,15 +7,15 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    String getStatusIcon() {
         return (isDone ? "✓" : "✗"); //return tick or X symbols
     }
 
-    public void markAsDone() {
+    void markAsDone() {
         isDone = true;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 }

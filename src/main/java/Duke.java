@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,7 +14,7 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
-        ArrayList<Task> library = new ArrayList<Task>();
+        TaskList taskList = new TaskList();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Hello! I'm Duke");
@@ -24,10 +23,7 @@ public class Duke {
         while (true) {
             String command = sc.nextLine();
             if (command.equals("list")) {
-                for (int i = 0; i < library.size(); i++) {
-                    System.out.print(i + 1);
-                    System.out.println(".[" + library.get(i).getStatusIcon() + "] " + library.get(i).getDescription());
-                }
+                taskList.showAllTasks();
             } else if (command.equals("bye")) {
                 break;
             } else if (command.contains("done")) {
@@ -37,14 +33,14 @@ public class Duke {
                 for (String i : allInputs) {
                     if (!i.equals("done")) {
                         int index = Integer.parseInt(i) - 1;
-                        Task chosenTask = library.get(index);
+                        Task chosenTask = taskList.getTask(index);
                         chosenTask.markAsDone();
                         System.out.println("[" + chosenTask.getStatusIcon() + "] " + chosenTask.getDescription());
                     }
                 }
             } else {
                 Task newTask = new Task(command);
-                library.add(newTask);
+                taskList.addToTaskList(newTask);
                 System.out.println("added: " + command);
             }
         }
