@@ -33,14 +33,14 @@ public class Duke {
                 for (String i : allInputs) {
                     if (!i.equals("done")) {
                         int index = Integer.parseInt(i) - 1;
-                        Task chosenTask = taskList.getTask(index);
-                        chosenTask.markAsDone();
-                        System.out.println("[" + chosenTask.getStatusIcon() + "] " + chosenTask.getDescription());
+                        ToDos chosenToDos = taskList.getTask(index);
+                        chosenToDos.markAsDone();
+                        System.out.println("[" + chosenToDos.getStatusIcon() + "] " + chosenToDos.getDescription());
                     }
                 }
             } else {
-                Task newTask = new Task(command);
-                taskList.addToTaskList(newTask);
+                ToDos newToDos = new ToDos(command);
+                taskList.addToToDos(newToDos);
                 System.out.println("added: " + command);
             }
         }
