@@ -3,6 +3,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+// Java program to illustrate creating an array of
+// objects
+class todoList
+{
+    public int roll_no;
+    public String todo;
+    todoList(int roll_no, String todo)
+    {
+        this.roll_no = roll_no;
+        this.todo = todo;
+    }
+}
+
 public class Duke {
     public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
@@ -14,6 +27,11 @@ public class Duke {
         System.out.println("Hello from\n" + logo + "\n" + line + "\n" + "Hello I am " +
                 "Duke.");
         System.out.println("How can I help you?");
+        // declares an Array of integers.
+        todoList[] arr;
+        // allocating memory for 5 objects of type Student.
+        arr = new todoList[101];
+        int todolist_number = 1;
 
         while (true) {
             //Enter data using BufferReader
@@ -25,8 +43,21 @@ public class Duke {
             if (s.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (!s.equals("list")){
+                System.out.println("added: " + s);
+                arr[todolist_number - 1] = new todoList(todolist_number, s);
+             //   arr[todolist_number - 1].todo = s;
+                todolist_number += 1;
+
             } else {
-                System.out.println(s);
+                if (todolist_number == 1) {
+                    System.out.println("No tasks had been added yet!");
+                } else {
+                    for (int i = 0; i < arr.length - 1; i++)
+                        if (arr[i] != null) {
+                            System.out.println(arr[i].roll_no + ". " + arr[i].todo);
+                        }
+                }
             }
 
         }
