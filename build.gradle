@@ -1,10 +1,17 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
 }
+
+
 
 group 'seedu.duke'
 version '0.1.0'
+
+checkstyle {
+    toolVersion = '7.6.1'
+}
 
 repositories {
     mavenCentral()
