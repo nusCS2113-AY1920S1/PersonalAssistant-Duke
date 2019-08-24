@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,6 +14,7 @@ public class Duke {
         System.out.println(LINE_BREAK);
         boolean isExit = false;
         Scanner userInput = new Scanner(System.in);
+        ArrayList<String> toDoList = new ArrayList<>();
 
         // begin repeated inputs of commands
         while (!isExit) {
@@ -24,10 +26,20 @@ public class Duke {
                 System.out.println(temp);
                 System.out.println(LINE_BREAK);
                 userInput.close();
-            } else {
-                // user is not exiting duke, echo back the command
+            } else if (temp.toLowerCase().equals("list")) {
+                // user indicates to list items, iterate through toDoList and print
+                int listCount = 1;
                 System.out.println(LINE_BREAK);
-                System.out.println(temp);
+                for (String output : toDoList) {
+                    System.out.println(listCount + ". " + output);
+                    listCount += 1;
+                }
+                System.out.println(LINE_BREAK);
+            } else {
+                // user is not exiting duke, indicate item has been added
+                toDoList.add(temp);
+                System.out.println(LINE_BREAK);
+                System.out.println("added: " + temp);
                 System.out.println(LINE_BREAK);
             }
         }
