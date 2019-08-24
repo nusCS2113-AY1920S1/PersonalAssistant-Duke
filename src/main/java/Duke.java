@@ -14,15 +14,26 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println(separator);
 
-        inputCommand();
+        String myString = inputCommand();
+
+        while (!myString.equals("bye")) {
+            System.out.println(separator);
+            System.out.println(myString);
+            System.out.println(separator);
+            myString = inputCommand();
+            if (myString.equals("bye")) {
+                System.out.println(separator);
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(separator);
+                break;
+            }
+        }
     }
 
-    private static void inputCommand() {
+    private static String inputCommand() {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter an integer: ");
-        int number = input.nextInt();
-        System.out.println("You entered " + number);
+        return input.next();
     }
 }
 
