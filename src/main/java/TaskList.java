@@ -1,28 +1,31 @@
 import java.util.ArrayList;
 
 class TaskList {
-    private ArrayList<ToDos> listOfToDos;
-    private ArrayList<Deadline> listOfDeadlines;
-    private ArrayList<Event> listOfEvents;
+    private ArrayList<ITask> listOfTasks;
 
     TaskList() {
-        listOfToDos = new ArrayList<>();
-        listOfDeadlines = new ArrayList<>();
-        listOfEvents = new ArrayList<>();
+        listOfTasks = new ArrayList<>();
     }
 
-    void addToToDos(ToDos newToDos) {
-        listOfToDos.add(newToDos);
+    void addToList(ITask newTask) {
+        this.listOfTasks.add(newTask);
     }
 
     void showAllTasks() {
-        for (int i = 0; i < listOfToDos.size(); i++) {
+        for (int i = 0; i < this.listOfTasks.size(); i++) {
             System.out.print(i + 1);
-            System.out.println(".[" + listOfToDos.get(i).getStatusIcon() + "] " + listOfToDos.get(i).getDescription());
+            System.out.println(".[" + this.listOfTasks.get(i).getInitials() + "]"
+                    + "[" + this.listOfTasks.get(i).getStatusIcon() + "] "
+                    + this.listOfTasks.get(i).getDescription()
+            );
         }
     }
 
-    ToDos getTask(int index) {
-        return listOfToDos.get(index);
+    ITask getTask(int index) {
+        return this.listOfTasks.get(index);
+    }
+
+    int getNumOfTasks() {
+        return this.listOfTasks.size();
     }
 }
