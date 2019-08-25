@@ -48,11 +48,15 @@ public class Duke {
                     System.out.println(LINE_BREAK);
                     try {
                         int index = Integer.parseInt(temp.substring(1)) - 1;
-                        toDoList.get(index).setDone();
-                        Task tempTask = toDoList.get(index);
-                        System.out.println("    " + "Nice! I've marked this task as done");
-                        System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
-                        System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        try {
+                            toDoList.get(index).setDone();
+                            Task tempTask = toDoList.get(index);
+                            System.out.println("    " + "Nice! I've marked this task as done");
+                            System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
+                            System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        } catch (IndexOutOfBoundsException A) {
+                            System.out.println("    The index you've entered does not exist in your list of tasks!");
+                        }
                     } catch (StringIndexOutOfBoundsException S) {
                         System.out.println("    Sorry, please enter the number of the task completed");
                         System.out.println("    Input the description in this manner :\n" + "       done 1 ");
@@ -64,11 +68,15 @@ public class Duke {
                     System.out.println(LINE_BREAK);
                     try {
                         int index = Integer.parseInt(temp.substring(1)) - 1;
-                        Task tempTask = toDoList.get(index);
-                        System.out.println("    " + "Noted. I've deleted this task");
-                        System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
-                        toDoList.remove(index);
-                        System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        try {
+                            Task tempTask = toDoList.get(index);
+                            System.out.println("    " + "Noted. I've deleted this task");
+                            System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
+                            toDoList.remove(index);
+                            System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        } catch (IndexOutOfBoundsException A){
+                            System.out.println("    The index you've entered does not exist in your list of tasks!");
+                        }
                     } catch (StringIndexOutOfBoundsException S) {
                         System.out.println("    Sorry, please enter the number of the task to be deleted");
                         System.out.println("    Input the description in this manner :\n" + "       delete 1 ");
