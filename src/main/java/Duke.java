@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,14 +22,14 @@ public class Duke {
                 printIndented(counter++ + ". " + task);
             }
         } else {
-            String[] words = line.split(" ");
+            List<String> words = Arrays.asList(line.split(" "));
 
-            if (words[0].equals("done")) {
-                if (words.length == 1) {
+            if (words.get(0).equals("done")) {
+                if (words.size() == 1) {
                     printIndented("Please supply a number. Eg: done 2");
                 } else {
                     try {
-                        int taskNo = Integer.parseInt(words[1]);
+                        int taskNo = Integer.parseInt(words.get(1));
                         if (taskNo > tasks.size() || taskNo <= 0) {
                             printIndented("Please enter a valid task number.");
                         } else {
@@ -40,10 +41,20 @@ public class Duke {
                         printIndented("Please supply a number. Eg: done 2");
                     }
                 }
-            } else {
-                Task task = new Task(line);
+
+            } else if (words.get(0).equals("todo")) {
+                Task task = new Todo(words.subList(1, words.size()));
                 tasks.add(task);
-                printIndented("added: " + line);
+
+                printIndented("Got it . I've added this task:");
+                printIndented("  " + task);
+                printIndented("Now you have "
+                        + tasks.size()
+                        + (tasks.size() > 1 ? " tasks" : " task")
+                        + " in the list.");
+
+            } else {
+                printIndented("Please enter a valid command.");
             }
         }
         printHR();

@@ -1,9 +1,8 @@
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task() {
         this.isDone = false;
     }
 
@@ -11,12 +10,7 @@ public class Task {
         this.isDone = true;
     }
 
-    public void markAsUndone() {
-        this.isDone = false;
-    }
-
     public String toString() {
-        String icon = this.isDone ? "\u2713" : "\u2718";
-        return "[" + icon + "] " + this.name;
+        return "[" + (this.isDone ? "\u2713" : "\u2718") + "]";
     }
 }
