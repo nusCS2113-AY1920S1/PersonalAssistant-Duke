@@ -2,11 +2,13 @@ public class Event implements ITask {
     private String description;
     private boolean isDone;
     private String initials;
+    private String timing;
 
-    Event(String description) {
+    Event(String description, String timing) {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
+        this.timing = timing;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class Event implements ITask {
 
     @Override
     public String getDescription() {
-        return this.description;
+        return this.description + " (at:" + this.timing + ")";
     }
 
     @Override

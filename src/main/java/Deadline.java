@@ -2,11 +2,13 @@ public class Deadline implements ITask {
     private String description;
     private boolean isDone;
     private String initials;
+    private String dueDate;
 
-    Deadline(String description) {
+    Deadline(String description, String dueDate) {
         this.description = description;
         this.isDone = false;
         this.initials = "D";
+        this.dueDate = dueDate;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class Deadline implements ITask {
 
     @Override
     public String getDescription() {
-        return this.description;
+        return this.description + " (by:" + this.dueDate + ")";
     }
 
     @Override
