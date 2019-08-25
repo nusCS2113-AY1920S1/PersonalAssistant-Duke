@@ -14,4 +14,8 @@ public class Task {
     public void markAsDone() { //marks a task as done
         this.isDone = true;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
