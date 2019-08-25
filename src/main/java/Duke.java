@@ -23,55 +23,51 @@ public class Duke {
                 + " in the list.");
     }
 
-    private static void eval(String line) {
-        printHR();
-        if (line.equals("list")) {
+    private static void eval(String line) throws DukeException {
+        List<String> words = Arrays.asList(line.split(" "));
+
+        // list all tasks
+        if (words.get(0).equals("list") && words.size() == 1) {
             printIndented("Here are the tasks in your list:");
             int counter = 1;
             for (Task task : tasks) {
                 printIndented(counter++ + ". " + task);
             }
-        } else {
-            List<String> words = Arrays.asList(line.split(" "));
 
-            if (words.get(0).equals("done")) {
-                if (words.size() == 1) {
-                    printIndented("Please supply a number. Eg: done 2");
-                } else {
-                    try {
-                        int taskNo = Integer.parseInt(words.get(1));
-                        if (taskNo > tasks.size() || taskNo <= 0) {
-                            printIndented("Please enter a valid task number.");
-                        } else {
-                            tasks.get(taskNo - 1).markAsDone();
-                            printIndented("Nice! I've marked this task as done:");
-                            printIndented("  " + tasks.get(taskNo - 1));
-                        }
-                    } catch (NumberFormatException e) {
-                        printIndented("Please supply a number. Eg: done 2");
-                    }
-                }
-
-            } else if (words.get(0).equals("todo")) {
-                Task task = new Todo(words.subList(1, words.size()));
-                tasks.add(task);
-                printTaskAddedMessage(task);
-
-            } else if (words.get(0).equals("deadline")) {
-                Task task = new Deadline(words.subList(1, words.size()));
-                tasks.add(task);
-                printTaskAddedMessage(task);
-
-            } else if (words.get(0).equals("event")) {
-                Task task = new Event(words.subList(1, words.size()));
-                tasks.add(task);
-                printTaskAddedMessage(task);
-
-            } else {
-                printIndented("Please enter a valid command.");
+        // Mark tasks as done
+        } else if (words.get(0).equals("done")) {
+            try {
+                int taskNo = Integer.parseInt(words.get(1));
+                tasks.get(taskNo - 1).markAsDone();
+                printIndented("Nice! I've marked this task as done:");
+                printIndented("  " + tasks.get(taskNo - 1));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please supply a number. Eg: done 2");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please supply a valid number.");
             }
+
+        // Add todo tasks
+        } else if (words.get(0).equals("todo")) {
+            Task task = new Todo(words.subList(1, words.size()));
+            tasks.add(task);
+            printTaskAddedMessage(task);
+
+        // Add deadline tasks
+        } else if (words.get(0).equals("deadline")) {
+            Task task = new Deadline(words.subList(1, words.size()));
+            tasks.add(task);
+            printTaskAddedMessage(task);
+
+        // Add event task
+        } else if (words.get(0).equals("event")) {
+            Task task = new Event(words.subList(1, words.size()));
+            tasks.add(task);
+            printTaskAddedMessage(task);
+
+        } else {
+            throw new DukeException("Please enter a valid command.");
         }
-        printHR();
     }
 
     private static void repl() {
@@ -82,7 +78,13 @@ public class Duke {
             if (input.equals("bye")) {
                 return;
             } else {
-                eval(input);
+                printHR();
+                try {
+                    eval(input);
+                } catch (DukeException e) {
+                    printIndented(e.getMessage());
+                }
+                printHR();
             }
         }
     }

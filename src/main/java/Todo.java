@@ -3,8 +3,11 @@ import java.util.List;
 public class Todo extends Task {
     private String description;
 
-    public Todo(List<String> input) {
+    public Todo(List<String> input) throws DukeException {
         this.description = String.join(" ", input);
+        if (input.size() == 0) {
+            throw new DukeException("Format for todo: todo <task>");
+        }
     }
 
     @Override
