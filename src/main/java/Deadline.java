@@ -23,7 +23,7 @@ public class Deadline implements ITask {
 
     @Override
     public String getDescription() {
-        return this.description + " (by:" + this.dueDate + ")";
+        return this.description + " (by: " + this.dueDate + ")";
     }
 
     @Override

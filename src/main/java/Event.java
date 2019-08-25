@@ -23,7 +23,7 @@ public class Event implements ITask {
 
     @Override
     public String getDescription() {
-        return this.description + " (at:" + this.timing + ")";
+        return this.description + " (at: " + this.timing + ")";
     }
 
     @Override

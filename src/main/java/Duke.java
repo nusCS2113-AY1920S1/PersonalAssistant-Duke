@@ -9,12 +9,12 @@ public class Duke {
      * @param args Refers to CLI arguments
      */
     public static void main(String[] args) throws IOException {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+        /*String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);*/
         TaskList taskList = new TaskList();
         TaskFactory taskFactory = new TaskFactory();
         Scanner sc = new Scanner(System.in);
@@ -41,7 +41,6 @@ public class Duke {
                     }
                 }
             } else {
-                // TODO implement handling for different type of tasks
                 ITask newTask = taskFactory.createTask(command);
                 taskList.addToList(newTask);
                 System.out.println("Got it. I've added this task:");
@@ -50,7 +49,8 @@ public class Duke {
                         + "[" + newTask.getStatusIcon() + "] "
                         + newTask.getDescription()
                 );
-                System.out.println("Now you have " + taskList.getNumOfTasks() + " tasks in your list.");
+                String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
+                System.out.println("Now you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in your list.");
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
