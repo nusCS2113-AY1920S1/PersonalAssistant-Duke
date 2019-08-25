@@ -10,7 +10,7 @@ group 'seedu.duke'
 version '0.1.0'
 
 checkstyle {
-    toolVersion = '7.6.1'
+    toolVersion = '8.2.3'
 }
 
 repositories {
