@@ -1,5 +1,4 @@
 public abstract class Task {
-    private String name;
     private boolean isDone;
 
     public Task() {
@@ -10,6 +9,7 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    @Override
     public String toString() {
         return "[" + (this.isDone ? "\u2713" : "\u2718") + "]";
     }

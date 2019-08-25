@@ -14,9 +14,19 @@ public class Duke {
         printIndented("____________________________________________________________");
     }
 
+    private static void printTaskAddedMessage(Task task) {
+        printIndented("Got it . I've added this task:");
+        printIndented("  " + task);
+        printIndented("Now you have "
+                + tasks.size()
+                + (tasks.size() > 1 ? " tasks" : " task")
+                + " in the list.");
+    }
+
     private static void eval(String line) {
         printHR();
         if (line.equals("list")) {
+            printIndented("Here are the tasks in your list:");
             int counter = 1;
             for (Task task : tasks) {
                 printIndented(counter++ + ". " + task);
@@ -45,13 +55,17 @@ public class Duke {
             } else if (words.get(0).equals("todo")) {
                 Task task = new Todo(words.subList(1, words.size()));
                 tasks.add(task);
+                printTaskAddedMessage(task);
 
-                printIndented("Got it . I've added this task:");
-                printIndented("  " + task);
-                printIndented("Now you have "
-                        + tasks.size()
-                        + (tasks.size() > 1 ? " tasks" : " task")
-                        + " in the list.");
+            } else if (words.get(0).equals("deadline")) {
+                Task task = new Deadline(words.subList(1, words.size()));
+                tasks.add(task);
+                printTaskAddedMessage(task);
+
+            } else if (words.get(0).equals("event")) {
+                Task task = new Event(words.subList(1, words.size()));
+                tasks.add(task);
+                printTaskAddedMessage(task);
 
             } else {
                 printIndented("Please enter a valid command.");

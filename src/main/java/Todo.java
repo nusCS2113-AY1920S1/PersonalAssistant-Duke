@@ -1,6 +1,4 @@
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Todo extends Task {
     private String description;
@@ -9,7 +7,8 @@ public class Todo extends Task {
         this.description = String.join(" ", input);
     }
 
+    @Override
     public String toString() {
-        return "[T]" + super.toString() + " " + this.description;
+        return String.format("[T]%s %s", super.toString(), this.description);
     }
 }
