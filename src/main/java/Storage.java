@@ -20,16 +20,11 @@ public class Storage {
             objectStream.close();
             return tasks;
         } catch (FileNotFoundException e) {
-            System.err.println("File doesn't exist, not loading anything.");
+            System.out.println("    File doesn't exist, will create a new file.");
             return new ArrayList<>();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
             System.err.println("An unexpected error occurred when reading the file, not loading anything. " + e);
-            return new ArrayList<>();
-        } catch (ClassNotFoundException e) {
-            System.err.println("Invalid file contents, not loading anything.");
-            return new ArrayList<>();
-        } catch (ClassCastException e) {
-            System.err.println("Invalid file contents, not loading anything.");
+            System.err.println("The contents of the file might be deleted if you continue with Duke.");
             return new ArrayList<>();
         }
     }
