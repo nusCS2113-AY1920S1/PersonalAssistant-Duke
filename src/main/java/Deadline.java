@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Deadline extends Task {
     private String description;
-    private String deadline;
+    private DateTime deadline;
 
     public Deadline(List<String> input) throws DukeException {
         int separatorIndex = input.indexOf("/by");
@@ -10,7 +10,7 @@ public class Deadline extends Task {
             throw new DukeException("Format for deadline: deadline <task> /by <deadline>");
         }
         this.description = String.join(" ", input.subList(0, separatorIndex));
-        this.deadline = String.join(" ", input.subList(separatorIndex + 1, input.size()));
+        this.deadline = new DateTime(input.subList(separatorIndex + 1, input.size()));
     }
 
     @Override
