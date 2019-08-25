@@ -1,3 +1,8 @@
+import Model_Classes.Deadline;
+import Model_Classes.Event;
+import Model_Classes.Task;
+import Model_Classes.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,40 +23,68 @@ public class Duke {
 
         // begin repeated inputs of commands
         while (!isExit) {
-            String temp = userInput.nextLine();
-            if (temp.toLowerCase().equals("bye")) {
-                // user indicated bye to exit duke
-                isExit = true;
-                System.out.println(LINE_BREAK);
-                System.out.println("    " + temp);
-                System.out.println(LINE_BREAK);
-                userInput.close();
-            } else if (temp.toLowerCase().equals("list")) {
-                // user indicates to list items, iterate through toDoList and print
-                int listCount = 1;
-                System.out.println(LINE_BREAK);
-                for (Task output : toDoList) {
-                    System.out.println("    " + listCount + ". " + output.getStatusIcon() + output.getDescription());
-                    listCount += 1;
-                }
-                System.out.println(LINE_BREAK);
-            } else if (temp.toLowerCase().contains("done")) {
-                // user indicates item is done, mark item as done
-                String[] splitTemp = temp.split(" ");
-                int index = Integer.parseInt(splitTemp[1]) - 1; // reduce by 1 to match entries in toDoList
-                toDoList.get(index).setDone();
-                Task tempTask = toDoList.get(index);
-                System.out.println(LINE_BREAK);
-                System.out.println("    " + "Nice!, I've marked this task as done");
-                System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
-                System.out.println(LINE_BREAK);
-            } else {
-                // user is not exiting duke, indicate item has been added
-                Task newTask = new Task(temp);
-                toDoList.add(newTask);
-                System.out.println(LINE_BREAK);
-                System.out.println("    added: " + temp);
-                System.out.println(LINE_BREAK);
+            String temp = userInput.next().toLowerCase();
+            switch (temp) {
+                case "bye" :
+                    // user indicated bye to exit duke
+                    isExit = true;
+                    System.out.println(LINE_BREAK);
+                    System.out.println("    " + temp);
+                    System.out.println(LINE_BREAK);
+                    userInput.close();
+                    break;
+                case "list" :
+                    // user indicates to list items, iterate through toDoList and print
+                    int listCount = 1;
+                    System.out.println(LINE_BREAK);
+                    for (Task output : toDoList) {
+                        System.out.println("    " + listCount + ". " + output.getStatusIcon() + output.getDescription());
+                        listCount += 1;
+                    }
+                    System.out.println(LINE_BREAK);
+                    break;
+                case "done" :
+                    String indexString = userInput.next();
+                    int index = Integer.parseInt(indexString) - 1;
+                    toDoList.get(index).setDone();
+                    Task tempTask = toDoList.get(index);
+                    System.out.println(LINE_BREAK);
+                    System.out.println("    " + "Nice! I've marked this task as done");
+                    System.out.println("    " + tempTask.getStatusIcon() + " " + tempTask.getDescription());
+                    System.out.println(LINE_BREAK);
+                    break;
+                case "todo" :
+                    temp = userInput.nextLine();
+                    ToDo newToDo = new ToDo(temp);
+                    toDoList.add(newToDo);
+                    System.out.println(LINE_BREAK);
+                    System.out.println("    " + "Got it. I've added this task to the list");
+                    System.out.println("      " + newToDo.toString());
+                    System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                    System.out.println(LINE_BREAK);
+                    break;
+                case "deadline" :
+                    temp = userInput.nextLine();
+                    String[] splitDeadline = temp.split("/");
+                    Deadline newDeadline = new Deadline(splitDeadline[0], splitDeadline[1]);
+                    toDoList.add(newDeadline);
+                    System.out.println(LINE_BREAK);
+                    System.out.println("    " + "Got it. I've added this task to the list");
+                    System.out.println("      " + newDeadline.toString());
+                    System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                    System.out.println(LINE_BREAK);
+                    break;
+                case "event" :
+                    temp = userInput.nextLine();
+                    String[] splitEvent = temp.split("/");
+                    Event newEvent = new Event(splitEvent[0], splitEvent[1]);
+                    toDoList.add(newEvent);
+                    System.out.println(LINE_BREAK);
+                    System.out.println("    " + "Got it. I've added this task to the list");
+                    System.out.println("      " + newEvent.toString());
+                    System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                    System.out.println(LINE_BREAK);
+                    break;
             }
         }
     }

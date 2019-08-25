@@ -1,3 +1,5 @@
+package Model_Classes;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -17,5 +19,9 @@ public class Task {
 
     public void setDone() {
         isDone = true;
+    }
+
+    public String toString() {
+        return getStatusIcon() + getDescription();
     }
 }
