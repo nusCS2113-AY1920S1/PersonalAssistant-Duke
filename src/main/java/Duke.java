@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class Duke {
     private static List<Task> tasks = new ArrayList<>();
 
+    private static Storage storage = new Storage("tasks.dat");
+
     private static void printIndented(String qn) {
         System.out.println("    " + qn);
     }
@@ -68,6 +70,8 @@ public class Duke {
         } else {
             throw new DukeException("Please enter a valid command.");
         }
+
+        storage.save(tasks);
     }
 
     private static void repl() {
@@ -94,6 +98,8 @@ public class Duke {
         printIndented("Hello! I'm Duke");
         printIndented("What can I do for you?");
         printHR();
+
+        tasks = storage.load();
 
         repl();
 
