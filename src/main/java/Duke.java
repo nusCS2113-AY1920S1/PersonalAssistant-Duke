@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -15,33 +17,37 @@ public class Duke {
         System.out.println(separator);
 
         String myString = inputCommand();
-        String
+        ArrayList<String> myList = new ArrayList<>(); //Instantiate an array list of a dynamic size
 
         // as long as input is not bye, keep running
         while (!myString.equals("bye")) {
-            System.out.println(separator);
-            System.out.println("Added: " + myString);
-            System.out.println(separator);
-            myString = inputCommand();
-            if (myString.equals("bye")) { //end duke
+            if (myString.equals("list")) { //request for list, output the storage
                 System.out.println(separator);
-                System.out.println("Bye. Hope to see you again soon!");
+                for (int i = 0; i < myList.size(); i++) { //Standard for-each loop: for (String element: myList)
+                    System.out.println((i + 1) + ". " + myList.get(i));
+                }
                 System.out.println(separator);
-                break;
+                myString = inputCommand();
             }
-            else if (myString.equals("list")) { //request for list, output the storage
+            else { //if not requesting for list, add command to list
                 System.out.println(separator);
-                for (int i = 0; i < length)
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("Added: " + myString);
+                myList.add(myString); //adds the command to the list
                 System.out.println(separator);
+                myString = inputCommand();
             }
         }
+
+        //indicates end of duke
+        System.out.println(separator);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(separator);
     }
 
-    private static String inputCommand() {
+    private static String inputCommand() { //read commands and returns that command to be processed in main
         Scanner input = new Scanner(System.in);
 
-        return input.next();
+        return input.nextLine();
     }
 }
 
