@@ -1,17 +1,43 @@
-public class Tasks {
-    public int roll_no;
-    public String todo;
-    public boolean done;
+public abstract class Tasks {
+    protected String description;
+    protected String type;
+    protected boolean done;
 
-    public Tasks(int roll_no, String todo, boolean b)
-    {
-        this.roll_no = roll_no;
-        this.todo = todo;
+    public Tasks(String description, String type) {
+        this.description = description;
+        this.type = type;
         this.done = false;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public String getStatusIcon() {
         return (done ? "\u2713" : "\u2718"); //return tick or X symbols
     }
+
+
 
 }
