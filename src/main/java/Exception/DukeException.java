@@ -12,7 +12,7 @@ public class DukeException extends Exception{
     public static final DukeException INVALID_FORMAT_IN_EVENT = new DukeException(" ☹ OOPS!!! Invalid format. Please key in the task in the correct structure, e.g. event project meeting /at Mon 2-4pm");
     public static final DukeException TASK_DOES_NOT_EXIST = new DukeException("☹ OOPS!!! Task does not exist.");
     public static final DukeException TASK_NO_MISSING = new DukeException("☹ OOPS!!! Please provide a task number, e.g. done 1.");
-
+    public static final DukeException FILE_NOT_FOUND = new DukeException("☹ OOPS!!! Unknown error extracting tasks from database.");
 
     private String message;
 

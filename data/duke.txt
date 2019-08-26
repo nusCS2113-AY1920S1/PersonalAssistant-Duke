@@ -1,0 +1,6 @@
+T | ✓ | eat dinner
+D | ✓ | finish assignment (by: tmr 12 noon) | tmr 12 noon
+E | ✓ | concert (at: marina bay) | marina bay
+D | ✘ | eat (by: sunday) | sunday
+E | ✘ | eat (at: sengkang) | sengkang
+E | ✘ | cc event (at: sunday 12noon) | sunday 12noon
