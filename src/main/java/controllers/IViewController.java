@@ -1,5 +1,9 @@
 package controllers;
 
+import models.ITask;
+
+import java.io.IOException;
+
 public interface IViewController {
-    void onCommandReceived(String input);
+    ITask onCommandReceived(String input) throws IOException;
 }
