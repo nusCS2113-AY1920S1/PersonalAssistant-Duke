@@ -1,5 +1,7 @@
 package views;
 
+import controllers.ConsoleInputController;
+
 import java.util.Scanner;
 
 public class CLIView {
@@ -11,6 +13,8 @@ public class CLIView {
 
     private final String HORILINE = "____________________________________________________________";
 
+    private ConsoleInputController consoleInputController;
+
     public void start() {
         Scanner sc = new Scanner(System.in);
 
@@ -21,7 +25,12 @@ public class CLIView {
 
         while (true) {
             String command = sc.nextLine();
-            // TODO handle input commands using another class;
+            consoleInputController.onCommandReceived(command);
         }
+    }
+
+    public void end() {
+        System.out.println("\t Bye. Hope to see you again soon!");
+        System.exit(0);
     }
 }
