@@ -1,10 +1,21 @@
+package models;
+
 public class Deadline implements ITask {
+    /**
+     * Class representing the Deadline data model.
+     */
     private String description;
     private boolean isDone;
     private String initials;
     private String dueDate;
 
-    Deadline(String description, String dueDate) {
+    /**\
+     * Constructor of Deadline data model.
+     *
+     * @param description : Description of new task
+     * @param dueDate : Due date of deadline
+     */
+    public Deadline(String description, String dueDate) {
         this.description = description;
         this.isDone = false;
         this.initials = "D";

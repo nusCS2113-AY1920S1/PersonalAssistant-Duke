@@ -1,9 +1,19 @@
+package models;
+
 public class ToDos implements ITask {
+    /**
+     * Class representing the ToDos data model.
+     */
     private String description;
     private boolean isDone;
     private String initials;
 
-    ToDos(String description) {
+    /**
+     * Constructor of ToDos data model.
+     *
+     * @param description : Description of new task
+     */
+    public ToDos(String description) {
         this.description = description;
         this.isDone = false;
         this.initials = "T";

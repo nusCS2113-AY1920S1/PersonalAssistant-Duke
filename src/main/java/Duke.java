@@ -1,10 +1,11 @@
+import models.ITask;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     /**
      * Main class.
-     * Level 1 Completed
      *
      * @param args Refers to CLI arguments
      */

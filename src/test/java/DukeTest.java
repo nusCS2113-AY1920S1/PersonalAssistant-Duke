@@ -1,3 +1,6 @@
+import models.Deadline;
+import models.Event;
+import models.ToDos;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -34,6 +37,7 @@ public class DukeTest {
                 new Deadline("return book", "Sunday").getDescription());
     }
 
+    @Test
     void testEventOutput() {
         assertEquals("project meeting (at: Mon 2-4pm)",
                 new Event("project meeting", "Mon 2-4pm").getDescription());

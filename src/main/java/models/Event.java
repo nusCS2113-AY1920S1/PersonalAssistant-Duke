@@ -1,10 +1,21 @@
+package models;
+
 public class Event implements ITask {
+    /**
+     * Class representing the Event class model.
+     */
     private String description;
     private boolean isDone;
     private String initials;
     private String timing;
 
-    Event(String description, String timing) {
+    /**
+     * Constructor of Event data model.
+     *
+     * @param description : Description of the Event
+     * @param timing : Timing at which the Event is held
+     */
+    public Event(String description, String timing) {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
