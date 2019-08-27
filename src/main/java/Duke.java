@@ -49,14 +49,20 @@ public class Duke {
                 //check if its a deadline, there will be a "/by "
                 else if (bufferArray[0].equals("deadline")) {
 
-                    //Split the input into 2, before and after /by
-                    String[] bufferDeadline = myString.split("/by ", 2);
-                    //Now, split the first part to exclude the word "deadline"
-                    String[] bufferDescription = bufferDeadline[0].split(" ", 2);
+                    try {
+                        //Split the input into 2, before and after /by
+                        String[] bufferDeadline = myString.split("/by ", 2);
+                        //Now, split the first part to exclude the word "deadline"
+                        String[] bufferDescription = bufferDeadline[0].split(" ", 2);
 
-                    //Create a new deadline with description from user input
-                    Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
-                    addToList(newTask, myList);
+                        //Create a new deadline with description from user input
+                        Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
+                        addToList(newTask, myList);
+
+                        //Error to be displayed when /by is not in deadline input
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error! Deadline tasks must contain '/by' followed by the deadline.");
+                    }
                 }
                 //check if its an event, there should be a "/at "
                 else if (bufferArray[0].equals("event")) {
@@ -69,6 +75,11 @@ public class Duke {
                     //Create a new deadline with description from user input
                     Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
                     addToList(newTask, myList);
+                }
+
+                //Error when first word is not any of the above keywords
+                else {
+                    System.out.println("Sorry! I do not understand what you mean :(.");
                 }
             }
             separator();
@@ -88,11 +99,10 @@ public class Duke {
     }
 
     private static void separator() {
-        String SEPARATOR = "____________________________________________________________";
-        System.out.println(SEPARATOR);
+        System.out.println("____________________________________________________________");
     }
 
-    //Method to add a task to a list and output the size of list its size
+    //Method to add a task to a list and output the size of list
     private static void addToList(Task taskData, ArrayList<Task> myTasks) {
         myTasks.add(taskData);
         System.out.println("Got it. I've added this task:");
