@@ -194,7 +194,8 @@ public class Duke {
                     // invalid command, prompt for a correct command
                     System.out.println(LINE_BREAK);
                     System.out.println("    I'm sorry, I don't understand this command....");
-                    System.out.println("    Try typing todo, deadline or event followed by the task description!");
+                    System.out.println("    Try typing todo, deadline or event followed by the task description to add tasks to your todo list");
+                    System.out.println("    Type list, find, done, delete to perform operations on your todo list");
                     System.out.println(LINE_BREAK);
                     break;
             }
