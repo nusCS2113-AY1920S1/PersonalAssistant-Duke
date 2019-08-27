@@ -49,8 +49,13 @@ public class Duke {
                 //First word is not done, hence the user is adding a task
                 //check if its a todos, adds a standard task description with no timing
                 else if (bufferArray[0].equals("todo")) {
-                    Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
-                    addToList(newTask, myList);
+
+                    try {
+                        Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
+                        addToList(newTask, myList);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error! Description of a Todo task must not be empty.");
+                    }
 
                 }
                 //check if its a deadline, there will be a "/by "
