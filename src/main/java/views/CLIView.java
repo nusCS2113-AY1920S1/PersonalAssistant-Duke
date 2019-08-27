@@ -2,6 +2,7 @@ package views;
 
 import controllers.ConsoleInputController;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CLIView {
@@ -10,12 +11,15 @@ public class CLIView {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-
     private final String HORILINE = "____________________________________________________________";
 
     private ConsoleInputController consoleInputController;
 
-    public void start() {
+    public CLIView() {
+        this.consoleInputController = new ConsoleInputController(this);
+    }
+
+    public void start() throws IOException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(HORILINE);

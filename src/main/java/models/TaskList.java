@@ -1,19 +1,19 @@
-import models.ITask;
+package models;
 
 import java.util.ArrayList;
 
-class TaskList {
+public class TaskList {
     private ArrayList<ITask> listOfTasks;
 
-    TaskList() {
+    public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
-    void addToList(ITask newTask) {
+    public void addToList(ITask newTask) {
         this.listOfTasks.add(newTask);
     }
 
-    void showAllTasks() {
+    public void showAllTasks() {
         for (int i = 0; i < this.listOfTasks.size(); i++) {
             System.out.print(i + 1);
             System.out.println(".[" + this.listOfTasks.get(i).getInitials() + "]"
@@ -23,11 +23,11 @@ class TaskList {
         }
     }
 
-    ITask getTask(int index) {
+    public ITask getTask(int index) {
         return this.listOfTasks.get(index);
     }
 
-    int getNumOfTasks() {
+    public int getNumOfTasks() {
         return this.listOfTasks.size();
     }
 }

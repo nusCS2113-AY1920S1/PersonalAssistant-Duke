@@ -1,53 +1,53 @@
 package controllers;
 
-import models.Deadline;
-import models.Event;
 import models.ITask;
-import models.ToDos;
+import models.TaskList;
 import views.CLIView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ConsoleInputController implements IViewController {
 
     private CLIView consoleView;
     private TaskFactory taskFactory;
+    private TaskList taskList;
 
-    public ConsoleInputController(CLIView view, TaskFactory taskFactory) {
+    public ConsoleInputController(CLIView view) {
         this.consoleView = view;
-        this.taskFactory = taskFactory;
+        this.taskFactory = new TaskFactory();
+        this.taskList = new TaskList();
     }
 
     @Override
-    public ITask onCommandReceived(String input) throws IOException {
+    public void onCommandReceived(String input) throws IOException {
         if (input.equals("bye")) {
             consoleView.end();
-        }
+        } else if (input.equals("list")) {
+            taskList.showAllTasks();
+        } else if (input.contains("done")) {
+            String[] allInputs = input.split(" ");
+            System.out.println("Nice! I've marked this task as done:");
 
-        String[] allArgs = input.split(" ");
-        List<String> listArgs = new ArrayList<>(Arrays.asList(allArgs));
-        String tempString;
-        String[] parsedStrings;
-        switch (allArgs[0]) {
-            case "todo":
-                listArgs.remove(0);
-                String description = String.join(" ", listArgs);
-                return new ToDos(description);
-            case "deadline":
-                listArgs.remove(0); // Remove "deadline"
-                tempString = String.join(" ", listArgs);
-                parsedStrings = tempString.split(" /by ");
-                return new Deadline(parsedStrings[0], parsedStrings[1]);
-            case "event":
-                listArgs.remove(0); // Remove "event"
-                tempString = String.join(" ", listArgs);
-                parsedStrings = tempString.split(" /at ");
-                return new Event(parsedStrings[0], parsedStrings[1]);
-            default:
-                throw new IOException("No such tasks implemented");
+            for (String i : allInputs) {
+                if (!i.equals("done")) {
+                    int index = Integer.parseInt(i) - 1;
+                    ITask chosenToDos = taskList.getTask(index);
+                    chosenToDos.markAsDone();
+                    System.out.println("[" + chosenToDos.getStatusIcon() + "] " + chosenToDos.getDescription());
+                }
+            }
+        } else {
+            ITask newTask = taskFactory.createTask(input);
+            // TODO refactor this to repository (3T architecture)
+            taskList.addToList(newTask);
+            System.out.println("Got it. I've added this task:");
+            System.out.print("\t");
+            System.out.println("[" + newTask.getInitials() + "]"
+                    + "[" + newTask.getStatusIcon() + "] "
+                    + newTask.getDescription()
+            );
+            String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
+            System.out.println("Now you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in your list.");
         }
     }
 }
