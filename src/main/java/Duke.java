@@ -54,6 +54,22 @@ public class Duke {
                     System.out.println(LINE_BREAK);
                     break;
 
+                case "find" :
+                    temp = userInput.nextLine();
+                    System.out.println(LINE_BREAK);
+                    int queryCount = 1;
+                    for (Task query : toDoList) {
+                        if (query.toString().toLowerCase().contains(temp)) {
+                            System.out.println("    " + queryCount + ". " + query.toString());
+                        }
+                        queryCount += 1;
+                    }
+                    if (queryCount == 1) {
+                        System.out.println("    This search returned nothing.... Try searching with a new keyword!");
+                    }
+                    System.out.println(LINE_BREAK);
+                    break;
+
                 case "done" :
                     temp = userInput.nextLine();
                     System.out.println(LINE_BREAK);
