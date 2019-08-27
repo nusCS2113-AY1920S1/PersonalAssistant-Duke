@@ -33,10 +33,17 @@ public class Duke {
 
                 //check if first word is "done", second word should be an integer if true
                 if (bufferArray[0].equals("done")) {
-                    int taskNumber = Integer.parseInt(bufferArray[1]); //get the task number as an integer
-                    myList.get(taskNumber - 1).markAsDone(); //marks that task number as done
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println((taskNumber) + "." + myList.get(taskNumber - 1).getStatusIcon());
+                    try {
+                        int taskNumber = Integer.parseInt(bufferArray[1]); //get the task number as an integer
+                        myList.get(taskNumber - 1).markAsDone(); //marks that task number as done
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println((taskNumber) + "." + myList.get(taskNumber - 1).getStatusIcon());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error! 'Done' must be followed by a number. Please type 'list' to display " +
+                                "the list of tasks and their numbers.");
+                    } catch (IndexOutOfBoundsException d) {
+                        System.out.println("Error! Task list does not contain that task number.");
+                    }
                 }
 
                 //First word is not done, hence the user is adding a task
@@ -67,19 +74,23 @@ public class Duke {
                 //check if its an event, there should be a "/at "
                 else if (bufferArray[0].equals("event")) {
 
-                    //Split the input into 2, before and after /at
-                    String[] bufferEvent = myString.split("/at ", 2);
-                    //Now, split the first part to exclude the word "event"
-                    String[] bufferDescription = bufferEvent[0].split(" ", 2);
+                    try {
+                        //Split the input into 2, before and after /at
+                        String[] bufferEvent = myString.split("/at ", 2);
+                        //Now, split the first part to exclude the word "event"
+                        String[] bufferDescription = bufferEvent[0].split(" ", 2);
 
-                    //Create a new deadline with description from user input
-                    Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
-                    addToList(newTask, myList);
+                        //Create a new deadline with description from user input
+                        Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
+                        addToList(newTask, myList);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
+                    }
                 }
 
                 //Error when first word is not any of the above keywords
                 else {
-                    System.out.println("Sorry! I do not understand what you mean :(.");
+                    System.out.println("Error! I do not understand what that mean.");
                 }
             }
             separator();
