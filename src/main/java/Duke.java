@@ -29,7 +29,7 @@ public class Duke {
                 }
                 System.out.println(SEPARATOR);
             }
-            //if not requesting for list, check for number or task description
+            //if not requesting for list, check for done, event, todos, deadline
             else {
                 //splits the input according to white spaces, limit 2 means it only splits 1 space
                 String[] bufferArray = myString.split(" ", 2);
@@ -44,6 +44,13 @@ public class Duke {
                             + myList.get(taskNumber - 1).getDescription());
                     System.out.println(SEPARATOR);
                 }
+                //check if its a todos
+
+                //check if its a deadline
+
+                //check if its an event
+
+
                 //first word is not "done", hence it is a task description
                 else {
                     System.out.println(SEPARATOR);
