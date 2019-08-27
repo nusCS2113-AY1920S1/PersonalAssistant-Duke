@@ -4,19 +4,25 @@ import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class Duke {
    private static final String LINE_BREAK = "    -----------------------------------------------------------";
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("How may I help you?");
+        System.out.println("How may I serve you?");
+        //System.out.println("~~ type 'help' to show commands ~~");
         System.out.println(LINE_BREAK);
         boolean isExit = false;
         Scanner userInput = new Scanner(System.in);
@@ -109,17 +115,30 @@ public class Duke {
                 case "deadline" :
                     temp = userInput.nextLine();
                     System.out.println(LINE_BREAK);
-                    String[] splitDeadline = temp.split("/");
-                    splitDeadline[1] = splitDeadline[1].replaceAll("\\s+", "");
+                    String[] splitDeadline = temp.split("/", 2);
                     try {
-                        Deadline newDeadline = new Deadline(splitDeadline[0], splitDeadline[1]);
-                        toDoList.add(newDeadline);
-                        System.out.println("    " + "Got it. I've added this task to the list");
-                        System.out.println("      " + newDeadline.toString());
-                        System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        try {
+                            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(splitDeadline[1]);
+                            DateFormat dateFormat = new SimpleDateFormat("EE MMM yyyy h:mma");
+                            String by = dateFormat.format(date);
+                            try {
+                                Deadline newDeadline = new Deadline(splitDeadline[0], by);
+                                toDoList.add(newDeadline);
+                                System.out.println("    " + "Got it. I've added this task to the list");
+                                System.out.println("      " + newDeadline.toString());
+                                System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("    please input date format as dd/mm/yyyy HH:mm");
+                                System.out.println("    example: deadline meeting/30/12/2019 18:00");
+                            }
+                        } catch (ParseException e) {
+                            System.out.println("    please input date format as dd/mm/yyyy HH:mm");
+                            System.out.println("    example: deadline meeting/30/12/2019 18:00");
+                        }
                     } catch (ArrayIndexOutOfBoundsException A) {
                         System.out.println("    Sorry, the description of the deadline is wrongly set");
-                        System.out.println("    Input the description in this manner :\n" + "       deadline Example Task / Date to be finished");
+                        System.out.println("    Input the description in this manner :\n" + "       deadline Example Task/dd/mm/yyyy HH:mm");
+                        System.out.println("    example: deadline project/29/02/2000 18:00");
                     }
                     System.out.println(LINE_BREAK);
                     break;
@@ -127,17 +146,30 @@ public class Duke {
                 case "event" :
                     temp = userInput.nextLine();
                     System.out.println(LINE_BREAK);
-                    String[] splitEvent = temp.split("/");
-                    splitEvent[1] = splitEvent[1].replaceAll("\\s+", "");
+                    String[] splitEvent = temp.split("/", 2);
                     try {
-                        Event newEvent = new Event(splitEvent[0], splitEvent[1]);
-                        toDoList.add(newEvent);
-                        System.out.println("    " + "Got it. I've added this task to the list");
-                        System.out.println("      " + newEvent.toString());
-                        System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                        try {
+                            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(splitEvent[1]);
+                            DateFormat dateFormat = new SimpleDateFormat("EE MMM yyyy h:mma");
+                            String by = dateFormat.format(date);
+                            try {
+                                Event newEvent = new Event(splitEvent[0], by);
+                                toDoList.add(newEvent);
+                                System.out.println("    " + "Got it. I've added this task to the list");
+                                System.out.println("      " + newEvent.toString());
+                                System.out.println("    You now have " + toDoList.size() + " tasks in the list");
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("    Sorry, the description of the event is wrongly set");
+                                System.out.println("    Input the description in this manner :\n" + "       event Example Task / Date to be finished");
+                            }
+                        } catch (ParseException e) {
+                            System.out.println("    please input date format as dd/mm/yyyy HH:mm");
+                            System.out.println("    example: deadline meeting/30/12/2019 18:00");
+                        }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("    Sorry, the description of the event is wrongly set");
-                        System.out.println("    Input the description in this manner :\n" + "       event Example Task / Date to be finished");
+                        System.out.println("    Input the description in this manner :\n" + "       event Example Task/dd/mm/yyyy HH:mm");
+                        System.out.println("    example: event project/29/02/2000 18:00");
                     }
                     System.out.println(LINE_BREAK);
                     break;
