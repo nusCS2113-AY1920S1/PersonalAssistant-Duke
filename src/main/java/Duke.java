@@ -20,46 +20,76 @@ public class Duke {
 
         // as long as input is not bye, keep running
         while (!myString.equals("bye")) {
+            System.out.println(SEPARATOR);
             if (myString.equals("list")) { //request for list, output the storage
-                System.out.println(SEPARATOR);
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < myList.size(); i++) { //Standard for-each loop: for (String element: myList)
-                    System.out.println((i + 1) + ".[" + myList.get(i).getStatusIcon() + "] "
-                            + myList.get(i).getDescription());
+                    System.out.println((i + 1) + "." + myList.get(i).getStatusIcon());
                 }
-                System.out.println(SEPARATOR);
             }
             //if not requesting for list, check for done, event, todos, deadline
             else {
                 //splits the input according to white spaces, limit 2 means it only splits 1 space
                 String[] bufferArray = myString.split(" ", 2);
 
+
                 //check if first word is "done", second word should be an integer if true
                 if (bufferArray[0].equals("done")) {
-                    System.out.println(SEPARATOR);
                     int taskNumber = Integer.parseInt(bufferArray[1]); //get the task number as an integer
                     myList.get(taskNumber - 1).markAsDone(); //marks that task number as done
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println((taskNumber) + ".[" + myList.get(taskNumber - 1).getStatusIcon() + "] "
-                            + myList.get(taskNumber - 1).getDescription());
-                    System.out.println(SEPARATOR);
+                    System.out.println((taskNumber) + "." + myList.get(taskNumber - 1).getStatusIcon());
                 }
-                //check if its a todos
+                //First word is not done, hence the user is adding a task
+                //check if its a todos, adds a standard task description with no timing
+                else if (bufferArray[0].equals("todo")) {
+                    Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
+                    myList.add(newTask); //adds the task to the list
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask.getStatusIcon());
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
 
-                //check if its a deadline
+                }
+                //check if its a deadline, there will be a "/by "
+                else if (bufferArray[0].equals("deadline")) {
 
+                    //Split the input into 2, before and after /by
+                    String[] bufferDeadline = myString.split("/by ", 2);
+                    //Now, split the first part to exclude the word "deadline"
+                    String[] bufferDescription = bufferDeadline[0].split(" ", 2);
+
+                    //Create a new deadline with description from user input
+                    Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
+                    myList.add(newTask); //adds the task to the list
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask.getStatusIcon());
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                }
                 //check if its an event
+                else if (bufferArray[0].equals("event")) {
+
+                    //Split the input into 2, before and after /at
+                    String[] bufferEvent = myString.split("/at ", 2);
+                    //Now, split the first part to exclude the word "event"
+                    String[] bufferDescription = bufferEvent[0].split(" ", 2);
+
+                    //Create a new deadline with description from user input
+                    Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
+                    myList.add(newTask); //adds the task to the list
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask.getStatusIcon());
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                }
 
 
                 //first word is not "done", hence it is a task description
                 else {
-                    System.out.println(SEPARATOR);
                     System.out.println("Added: " + myString);
                     Task newTask = new Task(myString); //Create a new task with description from user input
                     myList.add(newTask); //adds the task to the list
-                    System.out.println(SEPARATOR);
                 }
             }
+            System.out.println(SEPARATOR);
             myString = inputCommand(); //after processing command, wait for new input form user
         }
 
