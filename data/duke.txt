@@ -1,6 +1,14 @@
-T | ✓ | eat dinner
-D | ✓ | finish assignment (by: tmr 12 noon) | tmr 12 noon
-E | ✓ | concert (at: marina bay) | marina bay
-D | ✘ | eat (by: sunday) | sunday
-E | ✘ | eat (at: sengkang) | sengkang
-E | ✘ | cc event (at: sunday 12noon) | sunday 12noon
+T | ✓ | eat
+D | ✘ | sleep (by: 27th of August 2019, 01:11 PM) | 27th of August 2019, 01:11 PM
+E | ✓ | concert (at: 02nd of December 2019, 06:00 PM) | 02nd of December 2019, 06:00 PM
+E | ✘ | run (at: 11th of November 2011, 11:11 AM) | 11th of November 2011, 11:11 AM
+T | ✘ | assignment /by 1/1/1 0000
+T | ✘ | assignment /by 1/1/1 2300
+D | ✘ | assignment2 (by: 01st of January 0001, 12:00 AM) | 01st of January 0001, 12:00 AM
+E | ✘ | assignment3 (at: 12th of January 0011, 12:00 AM) | 12th of January 0011, 12:00 AM
+E | ✘ | assingment (at: 12th of November 2011, 12:01 AM) | 12th of November 2011, 12:01 AM
+E | ✘ | assignment (at: 02nd of March 2019, 06:02 AM) | 02nd of March 2019, 06:02 AM
+E | ✘ | asiign (at: 01st of March 2019, 06:02 AM) | 01st of March 2019, 06:02 AM
+E | ✘ | aisi (at: 28th of February 2019, 03:02 AM) | 28th of February 2019, 03:02 AM
+E | ✘ | todo (at: 2nd December 2019, 6pm) | 2nd December 2019, 6pm
+D | ✘ | event (by: today) | today

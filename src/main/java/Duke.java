@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -97,6 +98,8 @@ public class Duke {
         try {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
+            TimeParser timeParser = new TimeParser();
+            time1 = timeParser.convertStringToDate(time1);
             if (todoTask1.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_EVENT;
             }
@@ -138,6 +141,9 @@ public class Duke {
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
+            TimeParser timeParser = new TimeParser();
+            time = timeParser.convertStringToDate(time);
+
             if (todoTask.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_DEADLINE;
             }
