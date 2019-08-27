@@ -192,7 +192,7 @@ public class Duke {
                 String done = s.getStatusIcon().equals("[\u2713] ") ? "y" : "n";
                 String type = String.valueOf(s.toString().charAt(1));
                 String description = s.getDescription();
-                String[] tempString = s.toString().split(":");
+                String[] tempString = s.toString().split("[(]");
                 String time = "";
                 if (!type.equals("T")) {
                     time = tempString[1].substring(1, tempString[1].length()-1);
