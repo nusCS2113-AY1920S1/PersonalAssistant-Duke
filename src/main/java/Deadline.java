@@ -10,8 +10,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    @Override
+    public String getType() {
+        return "[D]";
+    }
+
+    public String getBy() {
+        return this.by;
+    }
+
     public String getStatusIcon() {
-        return "[D]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + "(by: " + by + ")";
+        return "[D]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + " (by: " + by + ")";
     }
 }

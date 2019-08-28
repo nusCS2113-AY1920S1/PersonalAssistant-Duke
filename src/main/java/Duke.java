@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -46,56 +47,68 @@ public class Duke {
                     }
                 }
 
-                //First word is not done, hence the user is adding a task
+                //First word is not 'done', hence the user is adding a task
                 //check if its a todos, adds a standard task description with no timing
-                else if (bufferArray[0].equals("todo")) {
-
-                    try {
-                        Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
-                        addToList(newTask, myList);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Description of a Todo task must not be empty.");
-                    }
-
-                }
-                //check if its a deadline, there will be a "/by "
-                else if (bufferArray[0].equals("deadline")) {
-
-                    try {
-                        //Split the input into 2, before and after /by
-                        String[] bufferDeadline = myString.split("/by ", 2);
-                        //Now, split the first part to exclude the word "deadline"
-                        String[] bufferDescription = bufferDeadline[0].split(" ", 2);
-
-                        //Create a new deadline with description from user input
-                        Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
-                        addToList(newTask, myList);
-
-                        //Error to be displayed when /by is not in deadline input
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Deadline tasks must contain '/by' followed by the deadline.");
-                    }
-                }
-                //check if its an event, there should be a "/at "
-                else if (bufferArray[0].equals("event")) {
-
-                    try {
-                        //Split the input into 2, before and after /at
-                        String[] bufferEvent = myString.split("/at ", 2);
-                        //Now, split the first part to exclude the word "event"
-                        String[] bufferDescription = bufferEvent[0].split(" ", 2);
-
-                        //Create a new deadline with description from user input
-                        Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
-                        addToList(newTask, myList);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
-                    }
-                }
-
-                //Error when first word is not any of the above keywords
+                //After adding a new task to list, save this data to a save file
                 else {
-                    System.out.println("Error! I do not understand what that mean.");
+                    if (bufferArray[0].equals("todo")) {
+
+                        try {
+                            Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
+                            addToList(newTask, myList);
+                            saveData(newTask);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Error! Description of a Todo task must not be empty.");
+                        }
+
+                    }
+                    //check if its a deadline, there will be a "/by "
+                    else if (bufferArray[0].equals("deadline")) {
+
+                        try {
+                            //Split the input into 2, before and after /by
+                            String[] bufferDeadline = myString.split("/by ", 2);
+                            //Now, split the first part to exclude the word "deadline"
+                            String[] bufferDescription = bufferDeadline[0].split(" ", 2);
+                            //Remove the space after task description and /by for easier formatting
+                            bufferDescription[1] = bufferDescription[1].substring(0, bufferDescription[1].length() - 1);
+
+                            //Create a new deadline with description from user input
+                            Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
+                            addToList(newTask, myList);
+                            saveData(newTask);
+
+                            //Error to be displayed when /by is not in deadline input
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Error! Deadline tasks must contain '/by' followed by the deadline.");
+                        }
+                    }
+                    //check if its an event, there should be a "/at "
+                    else if (bufferArray[0].equals("event")) {
+
+                        try {
+                            //Split the input into 2, before and after /at
+                            String[] bufferEvent = myString.split("/at ", 2);
+                            //Now, split the first part to exclude the word "event"
+                            String[] bufferDescription = bufferEvent[0].split(" ", 2);
+                            //Remove the space after task description and /by for easier formatting
+                            bufferDescription[1] = bufferDescription[1].substring(0, bufferDescription[1].length() - 1);
+
+                            //Create a new deadline with description from user input
+                            Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
+                            addToList(newTask, myList);
+                            saveData(newTask);
+
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
+                        }
+                    }
+
+
+                    //Error when first word is not any of the above keywords
+                    else {
+                        System.out.println("Error! I do not understand what that mean.");
+                    }
                 }
             }
             separator();
@@ -132,6 +145,45 @@ public class Duke {
         for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
             System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
         }
+    }
+
+    //Method to save new tasks to a persistent storage
+    private static void saveData(Task newTask) {
+        String fileName = "save.txt"; //name to save file
+
+        try {
+
+            File file = new File("save.txt");
+            FileWriter fw = new FileWriter(file, true); //appends incoming task to file
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            // Note that write() does not automatically
+            // append a newline character.
+            bw.write(newTask.getType());
+            bw.write("|");
+            bw.write(newTask.getStatus());
+            bw.write("|");
+            bw.write(newTask.getDescription());
+            bw.write("|");
+            //if incoming data is deadline or event, additional segment for deadline
+            if (newTask.getType().equals("[D]") || newTask.getType().equals("[E]")) {
+                bw.write(newTask.getBy());
+            }
+            bw.newLine(); //new line for next input
+
+            // Always close files.
+            bw.close();
+            fw.close();
+        }
+        catch(IOException ex) {
+            System.out.println("Error writing to file '"+ fileName + "'");
+        }
+    }
+
+    //method to read data from a persistent storage and output them to a list
+    private static void readSave(ArrayList<Task> myTasks) {
+        FileReader fr = new File("save.txt");
+        BufferedWriter bw = new BufferedWriter(fr);
     }
 
 }

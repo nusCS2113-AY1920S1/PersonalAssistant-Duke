@@ -7,14 +7,26 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    public String getStatus() {
 
-        return "[" + (isDone ? "\u2713" : "\u2718") + "] "; //return tick or X symbols in a bracket
+        return "[" + (isDone ? "\u2713" : "\u2718") + "]"; //return tick or X symbols in a bracket
     }
 
     public void markAsDone() { //marks a task as done
 
         this.isDone = true;
+    }
+
+    public String getType() { //returns type of task, to be overwritten
+        return "Task";
+    }
+
+    public String getBy() { //returns deadline or event date, to be overwritten
+        return "Date";
+    }
+
+    public String getStatusIcon() {
+        return "Full_description"; //returns the full task data, to be overwritten
     }
 
     public String getDescription() {

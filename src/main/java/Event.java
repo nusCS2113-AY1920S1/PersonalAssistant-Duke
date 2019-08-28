@@ -7,8 +7,15 @@ public class Event extends Task {
         this.at = at;
     }
 
-    @Override
+    public String getType() {
+        return "[E]";
+    }
+
+    public String getBy() {
+        return this.at;
+    }
+
     public String getStatusIcon() {
-        return "[E]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + "(at: " + at + ")";
+        return "[E]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + " (at: " + at + ")";
     }
 }
