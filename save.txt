@@ -1,4 +1,4 @@
 [D]/1/Test/Monday
 [T]/1/Homework/
-[E]/0/Meeting/Tuesday
+[E]/1/Meeting/Tuesday
 [D]/1/another homework/tuesday

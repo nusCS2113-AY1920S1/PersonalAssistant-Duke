@@ -277,11 +277,6 @@ public class Duke {
 
             myList.set(taskNumber - 1, bufferNew);
 
-        } catch (IOException e) {
-            System.out.println("No save file exists. Creating new one.");
-        }
-
-        try {
             File file = new File("save.txt");
             FileWriter clear = new FileWriter(file); //intial write to clear file
             clear.close();
@@ -300,8 +295,8 @@ public class Duke {
             bw.close();
             fw.close();
 
-        } catch(IOException ex) {
-            System.out.println("Error writing to file 'save.txt'");
+        } catch (IOException e) {
+            System.out.println("No save file exists. Creating new one.");
         }
 
     }
