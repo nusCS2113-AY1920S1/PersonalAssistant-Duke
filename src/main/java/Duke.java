@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Duke {
     public static void main(String[] args) {
@@ -17,8 +19,11 @@ public class Duke {
         System.out.println("What can I do for you?");
         separator();
 
-        String myString = inputCommand(); //get raw input from user
         ArrayList<Task> myList = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
+        readSave(myList);
+        separator();
+
+        String myString = inputCommand(); //get raw input from user
 
         // as long as input is not bye, keep running
         while (!myString.equals("bye")) {
@@ -139,6 +144,11 @@ public class Duke {
         System.out.println("Now you have " + myTasks.size() + " task(s) in the list.");
     }
 
+    //Adds to list from save data without spamming "got it..."
+    private static void addToListQuietly(Task taskData, ArrayList<Task> myTasks) {
+        myTasks.add(taskData);
+    }
+
     //Method to get the tasks in a list
     private static void getList(ArrayList<Task> myTasks) {
         System.out.println("Here are the tasks in your list:");
@@ -160,11 +170,11 @@ public class Duke {
             // Note that write() does not automatically
             // append a newline character.
             bw.write(newTask.getType());
-            bw.write("|");
-            bw.write(newTask.getStatus());
-            bw.write("|");
+            bw.write("/");
+            bw.write(newTask.getStatusInt());
+            bw.write("/");
             bw.write(newTask.getDescription());
-            bw.write("|");
+            bw.write("/");
             //if incoming data is deadline or event, additional segment for deadline
             if (newTask.getType().equals("[D]") || newTask.getType().equals("[E]")) {
                 bw.write(newTask.getBy());
@@ -181,9 +191,53 @@ public class Duke {
     }
 
     //method to read data from a persistent storage and output them to a list
+    //Should be done in the beginning
     private static void readSave(ArrayList<Task> myTasks) {
-        FileReader fr = new File("save.txt");
-        BufferedWriter bw = new BufferedWriter(fr);
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+
+            // read line by line
+            //[D]|[tick]|description|date
+            String myString;
+            while ((myString = br.readLine()) != null) {
+                String[] bufferLine = myString.split("/");
+                //bufferLine[2] and [3] are the task description and date respectively
+                //bufferLine[1] is the statusDone icon, and its [1] character should be a tick or cross
+                //Check task type to see if any dates are needed
+                if (bufferLine[0].equals("[D]")) {
+                    Task newTask = new Deadline(bufferLine[2], bufferLine[3]);
+                    //Check if the task has already been done
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    addToListQuietly(newTask, myTasks);
+                }
+                else if (bufferLine[0].equals("[E]")) {
+                    Task newTask = new Event(bufferLine[2], bufferLine[3]);
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    addToListQuietly(newTask, myTasks);
+                }
+                //Task type is a todos, no dates
+                else {
+                    Task newTask = new Todo(bufferLine[2]);
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    addToListQuietly(newTask, myTasks);
+                }
+            }
+
+            //once all data has been added to list, display the list
+            System.out.println("Save detected. Here are your tasks from the previous session: ");
+            for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
+                System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
+            }
+
+        } catch (IOException e) {
+            System.err.format("No save data exists.", e);
+        }
     }
 
 }

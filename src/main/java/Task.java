@@ -12,6 +12,11 @@ public class Task {
         return "[" + (isDone ? "\u2713" : "\u2718") + "]"; //return tick or X symbols in a bracket
     }
 
+    //Return status icon as int, for easier reading when saving
+    public String getStatusInt() {
+        return isDone ? "1" : "0";
+    }
+
     public void markAsDone() { //marks a task as done
 
         this.isDone = true;
