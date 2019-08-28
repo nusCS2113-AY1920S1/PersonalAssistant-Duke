@@ -13,14 +13,8 @@ public class TaskList {
         this.listOfTasks.add(newTask);
     }
 
-    public void showAllTasks() {
-        for (int i = 0; i < this.listOfTasks.size(); i++) {
-            System.out.print(i + 1);
-            System.out.println(".[" + this.listOfTasks.get(i).getInitials() + "]"
-                    + "[" + this.listOfTasks.get(i).getStatusIcon() + "] "
-                    + this.listOfTasks.get(i).getDescription()
-            );
-        }
+    public ArrayList<ITask> getAllTasks() {
+        return this.listOfTasks;
     }
 
     public ITask getTask(int index) {
