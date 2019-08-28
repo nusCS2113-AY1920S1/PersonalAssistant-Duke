@@ -4,29 +4,73 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimeParser {
+    Date date;
     public String convertStringToDate (String time) {
-        try{
+        String line;
+        try {
             SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            Date date = formatter1.parse(time);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            int actualDate = calendar.get(Calendar.DATE);
-            if ((actualDate <= 3) || (actualDate >= 21)) {
-                if (actualDate % 10 == 1) {
-                    return new SimpleDateFormat("dd'st of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
-                } else if (actualDate % 10 == 2) {
-                    return new SimpleDateFormat("dd'nd of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
-                } else if (actualDate % 10 == 3) {
-                    return new SimpleDateFormat("dd'rd of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
-                } else {
-                    return new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
+            date = formatter1.parse(time);
+            line = convertDateToLine(date);
+            return line;
+        } catch (ParseException e1) {
+            SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy HHmm");
+            try {
+                date = formatter2.parse(time);
+                line = convertDateToLine(date);
+                return line;
+            } catch (ParseException e2) {
+                SimpleDateFormat formatter3 = new SimpleDateFormat("MMM dd yyyy HHmm");
+                try {
+                    date = formatter3.parse(time);
+                    line = convertDateToLine(date);
+                    return line;
+                } catch (ParseException e3) {
+                    SimpleDateFormat formatter4 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    try {
+                        date = formatter4.parse(time);
+                        line = convertDateToLine(date);
+                        return line;
+                    } catch (ParseException e4) {
+                        SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                        try {
+                            date = formatter5.parse(time);
+                            line = convertDateToLine(date);
+                            return line;
+                        } catch (ParseException e5) {
+                            SimpleDateFormat formatter6 = new SimpleDateFormat("MMM dd yyyy HHmm");
+                            try {
+                                date = formatter6.parse(time);
+                                line = convertDateToLine(date);
+                                return line;
+                            } catch (ParseException e6) {
+                                return time;
+                            }
+
+                        }
+                    }
+
                 }
+            }
+        }
+    }
+
+
+    private String convertDateToLine(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int actualDate = calendar.get(Calendar.DATE);
+        if ((actualDate <= 3) || (actualDate >= 21)) {
+            if (actualDate % 10 == 1) {
+                return new SimpleDateFormat("dd'st of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
+            } else if (actualDate % 10 == 2) {
+                return new SimpleDateFormat("dd'nd of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
+            } else if (actualDate % 10 == 3) {
+                return new SimpleDateFormat("dd'rd of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
             } else {
                 return new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
             }
-        } catch (ParseException e) {
-            // cannot convert to date and so return back my time
-            return time;
+        } else {
+            return new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
         }
     }
 

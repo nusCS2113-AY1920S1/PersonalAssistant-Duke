@@ -21,7 +21,6 @@ public class Duke {
     private static Storage storage;
 
 
-
     public static void main(String[] args) throws DukeException {
         Duke myDuke = new Duke();
         myDuke.run();
@@ -43,7 +42,7 @@ public class Duke {
         System.out.println(space + "What can I do for you?");
         System.out.println(line);
         //=================================
-        todolist_number = userToDoList.size() + 1;
+
         while (true) {
             Scanner in = new Scanner(System.in);
             String s = in.nextLine();
@@ -57,21 +56,25 @@ public class Duke {
             try {
                 switch (firstWord) {
                     case "list":
-                    System.out.println(line + "\n" + space + "Here are the tasks in your list:");
-                    for (int i = 0; i < userToDoList.size(); i++) {
-                        String message = userToDoList.get(i).getDescription();
-                        int j = i + 1;
-                        System.out.println(space + j + ".[" + userToDoList.get(i).getType()
-                                + "][" + userToDoList.get(i).getStatusIcon()
-                                + "] " + message);
-                    }
-                    System.out.println(line);
-                    break;
+                        System.out.println(line + "\n" + space + "Here are the tasks in your list:");
+                        for (int i = 0; i < userToDoList.size(); i++) {
+                            String message = userToDoList.get(i).getDescription();
+                            int j = i + 1;
+                            System.out.println(space + j + ".[" + userToDoList.get(i).getType()
+                                    + "][" + userToDoList.get(i).getStatusIcon()
+                                    + "] " + message);
+                        }
+                        System.out.println(line);
+                        break;
                     //================================================
                     case "done":
                         doneCommand(s);
                         break;
                     //================================================
+                   // case "delete":
+                     //   deleteCommand(s);
+                       // break;
+                        //================================================
                     case "todo":
                         todoCommand(s);
                         break;
@@ -82,7 +85,7 @@ public class Duke {
                     //================================================
                     case "event":
                         eventCommand(s);
-                    break;
+                        break;
                     //================================================
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
@@ -94,8 +97,31 @@ public class Duke {
         }
     }
 
+    /**private void deleteCommand(String s) throws DukeException {
+        try {
+            String[] tokens = s.split(" ");
+            int num = Integer.parseInt(tokens[1]);
+
+            System.out.println(line + "\n" + space + "Noted. I've removed this task:" + "\n" + space + " [" + userToDoList.get(num - 1).getType()
+                    + "][" + userToDoList.get(num - 1).getStatusIcon()
+                    + "] " + userToDoList.get(num - 1).getDescription());
+            userToDoList.remove(num - 1);
+            storage.saveTask(userToDoList);
+            System.out.println(space + "Now you have " + userToDoList.size() + " tasks in the list.");
+            System.out.println(line);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw DukeException.TASK_NO_MISSING_DELETE;
+        }  catch (NumberFormatException e) {
+        throw DukeException.TASK_DOES_NOT_EXIST;
+    } catch (IndexOutOfBoundsException e) {
+        throw DukeException.TASK_DOES_NOT_EXIST;
+    }
+    }**/
+
+
     private static void eventCommand(String s) throws DukeException {
         try {
+            todolist_number = userToDoList.size() + 1;
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
             TimeParser timeParser = new TimeParser();
@@ -129,7 +155,6 @@ public class Duke {
                 System.out.println(space + "Now you have " + todolist_number + " task in the list.");
             }
             System.out.println(line);
-            todolist_number += 1;
             storage.saveTask(userToDoList);
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_EVENT;
@@ -138,6 +163,7 @@ public class Duke {
 
 
     private static void deadlineCommand(String s) throws DukeException {
+        todolist_number = userToDoList.size() + 1;
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
@@ -178,6 +204,7 @@ public class Duke {
     }
 
     private static void todoCommand(String s) throws DukeException {
+        todolist_number = userToDoList.size() + 1;
 
         try {
             String joinTokens = s.substring(s.indexOf(" ") + 1);
