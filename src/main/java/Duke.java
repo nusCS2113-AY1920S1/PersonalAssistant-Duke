@@ -44,12 +44,13 @@ public class Duke {
                         myList.get(taskNumber - 1).markAsDone(); //marks that task number as done
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println((taskNumber) + "." + myList.get(taskNumber - 1).getStatusIcon());
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                        updateSave(taskNumber); //Updates task status in save file
+                    } catch (ArrayIndexOutOfBoundsException | IOException e) {
                         System.out.println("Error! 'Done' must be followed by a number. Please type 'list' to display " +
                                 "the list of tasks and their numbers.");
-                    } catch (IndexOutOfBoundsException d) {
+                    } /*catch (IndexOutOfBoundsException d) {
                         System.out.println("Error! Task list does not contain that task number.");
-                    }
+                    }*/
                 }
 
                 //First word is not 'done', hence the user is adding a task
@@ -196,10 +197,13 @@ public class Duke {
 
         try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
 
+            boolean saveExistence = false;
+
             // read line by line
             //[D]|[tick]|description|date
             String myString;
             while ((myString = br.readLine()) != null) {
+                saveExistence = true;
                 String[] bufferLine = myString.split("/");
                 //bufferLine[2] and [3] are the task description and date respectively
                 //bufferLine[1] is the statusDone icon, and its [1] character should be a tick or cross
@@ -229,15 +233,77 @@ public class Duke {
                 }
             }
 
+            br.close();
+
             //once all data has been added to list, display the list
-            System.out.println("Save detected. Here are your tasks from the previous session: ");
-            for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
-                System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
+            if (saveExistence) {
+                System.out.println("Save detected. Here are your tasks from the previous session: ");
+                for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
+                    System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
+                }
+            }
+            //If there is no save data, print this message
+            else {
+                System.out.println("No save data detected on save file.");
             }
 
         } catch (IOException e) {
-            System.err.format("No save data exists.", e);
+            System.out.println("No save file exists. Creating new one.");
         }
+    }
+
+    //method to update the task completed status within a text file
+    private static void updateSave(int taskNumber) throws IOException {
+
+        ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+
+            // read line by line
+            //[D]/1/description/date
+            String myString;
+            while ((myString = br.readLine()) != null) {
+                myList.add(myString);
+            }
+
+            br.close();
+
+            //At this point, myList should contain all lines of save data
+            //bufferUpdate contains the task that needs to be updated
+            String bufferUpdate = myList.get(taskNumber - 1);
+            String bufferNew = "";
+            //Replace one character in the string
+            bufferNew += bufferUpdate.substring(0, 4) + "1" + bufferUpdate.substring(5);
+
+            myList.set(taskNumber - 1, bufferNew);
+
+        } catch (IOException e) {
+            System.out.println("No save file exists. Creating new one.");
+        }
+
+        try {
+            File file = new File("save.txt");
+            FileWriter clear = new FileWriter(file); //intial write to clear file
+            clear.close();
+
+            //Now append to empty file
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            //Now, myList contains the updated save data, output everything into save.txt
+            for (int n = 0; n < myList.size(); n++) {
+                bw.write(myList.get(n));
+                bw.newLine();
+            }
+
+            //order of closing is important
+            bw.close();
+            fw.close();
+
+        } catch(IOException ex) {
+            System.out.println("Error writing to file 'save.txt'");
+        }
+
     }
 
 }

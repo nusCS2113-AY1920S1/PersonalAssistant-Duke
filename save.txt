@@ -1,6 +1,4 @@
-[T]/0/help/
-[E]/0/help/monday
-[D]/1/test/tuesday
-[D]/0/another test/wednesday
-[T]/0/another another test/
-[E]/0/help test/friday
+[D]/1/Test/Monday
+[T]/1/Homework/
+[E]/0/Meeting/Tuesday
+[D]/1/another homework/tuesday
