@@ -1,7 +1,7 @@
 package controllers;
 
-import java.io.IOException;
+import exceptions.DukeException;
 
 public interface IViewController {
-    void onCommandReceived(String input) throws IOException;
+    void onCommandReceived(String input) throws DukeException;
 }

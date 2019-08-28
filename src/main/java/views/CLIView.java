@@ -1,10 +1,10 @@
 package views;
 
 import controllers.ConsoleInputController;
+import exceptions.DukeException;
 import models.ITask;
 import models.TaskList;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class CLIView {
@@ -21,7 +21,7 @@ public class CLIView {
         this.consoleInputController = new ConsoleInputController(this);
     }
 
-    public void start() throws IOException {
+    public void start() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(HORILINE);
@@ -79,6 +79,12 @@ public class CLIView {
                 System.out.println("[" + chosenToDos.getStatusIcon() + "] " + chosenToDos.getDescription());
             }
         }
+        System.out.println(HORILINE);
+    }
+
+    public void invalidCommandMessage(DukeException newException) {
+        System.out.println(HORILINE);
+        System.out.println("\t" + newException.getMessage());
         System.out.println(HORILINE);
     }
 }
