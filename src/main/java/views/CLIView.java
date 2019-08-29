@@ -23,6 +23,7 @@ public class CLIView {
 
     public void start() {
         Scanner sc = new Scanner(System.in);
+        consoleInputController.readData();
 
         System.out.println(HORILINE);
         System.out.println("\tHello! I'm Duke");

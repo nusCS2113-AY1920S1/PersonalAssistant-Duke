@@ -5,9 +5,7 @@ import models.ITask;
 import models.TaskList;
 import views.CLIView;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class ConsoleInputController implements IViewController {
 
@@ -51,11 +49,26 @@ public class ConsoleInputController implements IViewController {
 
             out.writeObject(taskList);
 
+            out.flush();
             out.close();
             file.close();
-            System.out.println("Object has been serialized");
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readData() {
+        try {
+            FileInputStream file = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            this.taskList = (TaskList) in.readObject();
+
+            in.close();
+            file.close();
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
