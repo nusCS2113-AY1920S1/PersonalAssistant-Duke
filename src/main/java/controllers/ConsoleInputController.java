@@ -68,8 +68,10 @@ public class ConsoleInputController implements IViewController {
             in.close();
             file.close();
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.getSuppressed();
         }
     }
 }
