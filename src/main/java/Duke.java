@@ -4,51 +4,40 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Duke {
-    private static final int LINE_LENGTH = 50;
-    private static final int NUM_SPACE = 4;
-    private static ArrayList<Task> storeList =
-             new ArrayList<>();
+    private static ArrayList<Task> storeList = new ArrayList<>();
+    private static FileHandling dataStorage = new FileHandling("storeData.txt");
 
     private static void printDash() {
-        for (int i = 0; i < LINE_LENGTH; i++) {
-            System.out.print("_");
+        String str ="";
+        for (int i = 0; i < 75; i++) {
+            str += "_";
         }
-        System.out.println();
+        printSpaces(str);
     }
 
-    private static void printSpaces() {
-        for (int i = 0; i < NUM_SPACE; i++) {
-            System.out.print(" ");
-        }
+    private static void printSpaces(String printStr) {
+        System.out.println("    " + printStr);
     }
 
     private static void printList() {
+        printSpaces(" Here are your tasks in your list:");
         for (int i = 0; i < storeList.size(); i++) {
-            System.out.println(" " + (i + 1) + ". "
-                    + storeList.get(i).toString());
-            printSpaces();
+            printSpaces(" " + (i + 1) + ". " + storeList.get(i).toString());
         }
         printDash();
     }
 
     private static void printTaskDone(int num) {
-        System.out.println(" Nice! I have marked this "
-                + "task as done:");
-        printSpaces();
         storeList.get(num).markAsDone();
-        System.out.println(" " + storeList.get(num).toString());
-        printSpaces();
+        printSpaces(" Nice! I have marked this task as done:");
+        printSpaces(" " + storeList.get(num).toString());
         printDash();
     }
 
     private static void addTask(Task taskA) {
-        System.out.println(" Got it. I have added this task:");
-        printSpaces();
-        System.out.println("  " + taskA.toString());
-        printSpaces();
-        System.out.println(" Now you have " + storeList.size()
-                + " tasks in the list.");
-        printSpaces();
+        printSpaces(" Got it. I have added this task:");
+        printSpaces("  " + taskA.toString());
+        printSpaces(" Now you have " + storeList.size() + " tasks in the list.");
         printDash();
     }
 
@@ -58,74 +47,50 @@ public class Duke {
         while (true) {
             str = sc.nextLine();
             if (str.equals("bye")) {
-                printSpaces();
                 printDash();
-                printSpaces();
-                System.out.println(" Bye. Hope to see you again"
-                        + " soon.");
-                printSpaces();
+                printSpaces(" Bye.Hope to see you again soon.");
                 printDash();
                 break;
             }
             try {
                 processInput(str);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                printSpaces();
+                printSpaces(e.getMessage());
                 printDash();
             }
         }
     }
 
     private static void processInput(String str) throws DukeException {
-        Scanner sc = new Scanner(System.in);
         //To process the various forms on input given to DUKE
-        printSpaces();
         printDash();
-        printSpaces();
         List<String> splitInput = new ArrayList<String>(
                 Arrays.asList(str.split(" ")));
-
-        //to print the list
-        if (str.equals("list")) {
+        if (str.equals("list")) { //To print the list
             printList();
-        }
-
-        //marking a task as done
-        else if (splitInput.get(0).equals("done")) {
+        } else if (splitInput.get(0).equals("done")) { //marking task as done
             try {
                 int temp = Integer.parseInt(splitInput.get(1));
                 printTaskDone(temp - 1);
             } catch (NumberFormatException obj) {
-                throw new DukeException("OOPS! Enter a "
-                        + "positive integer after \"done\"");
+                throw new DukeException(" OOPS! Enter a positive integer after \"done\"");
             } catch (IndexOutOfBoundsException obj) {
-                throw new DukeException("OOPS! Enter a number that "
-                        + "is present in the list");
+                throw new DukeException(" OOPS! Enter a number that is present in the list");
             }
-        }
-
-        //adding a task which has no timing constraints
-        else if (splitInput.get(0).equals("todo")) {
+        } else if (splitInput.get(0).equals("todo")) { //adding a task that has no timing constraints
             try {
                 storeList.add(new Todo(str.substring(5)));
                 addTask(storeList.get(storeList.size() - 1));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException(" OOPS! The description of a todo list cannot be empty");
             }
-            catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS! The description of"
-                        + " a todo list cannot be empty");
-            }
-        }
-
-        //adding a task that has a deadline
-        else if (splitInput.get(0).equals("deadline")) {
+        } else if (splitInput.get(0).equals("deadline")) {//adding a task that has a deadline
             int i;
             int k = 0;
             String split1 = "";
             String split2 = "";
             if (splitInput.size() == 1) {
-                throw new DukeException("OOPS! The description of deadline"
-                       + " cannot be empty");
+                throw new DukeException(" OOPS! The description of deadline cannot be empty");
             }
             for (i = 1; i < splitInput.size(); i++) {
                 if (splitInput.get(i).equals("/by")) {
@@ -139,22 +104,18 @@ public class Duke {
                 }
             }
             if (k == 0) {
-                throw new DukeException("Please make sure that you have "
-                        + "entered \"/by\" to separate task and time");
+                throw new DukeException(" Please make sure that you have entered \"/by\" "
+                        + "to separate task and time");
             }
             storeList.add(new Deadline(split1.trim(), split2.trim()));
             addTask(storeList.get(storeList.size() - 1));
-        }
-
-        //adding an event to the list
-        else if (splitInput.get(0).equals("event")) {
+        } else if (splitInput.get(0).equals("event")) {//adding event to the list
             int i;
             int k = 0;
             String split1 = "";
             String split2 = "";
             if (splitInput.size() == 1) {
-                throw new DukeException("OOPS! the description for an "
-                      + "event cannot be empty");
+                throw new DukeException(" OOPS! the description for an event cannot be empty");
             }
             for (i = 1; i < splitInput.size(); i++) {
                 if (splitInput.get(i).equals("/at")) {
@@ -168,32 +129,30 @@ public class Duke {
                 }
             }
             if (k == 0) {
-                throw new DukeException("Please make sure you have used "
-                       +  "\"at\" to separate task and time");
+                throw new DukeException(" Please make sure you have used \"/at\" to separate"
+                        + " task and time");
             }
             storeList.add(new Event(split1.trim(), split2.trim()));
             addTask(storeList.get(storeList.size() - 1));
         } else {
-            throw new DukeException("Please enter a valid command");
+            throw new DukeException(" Please enter a valid command");
         }
+        dataStorage.saveData(storeList);
     }
-    /** This function is responsible for the proper execution
-     *  of Duke.
-     */
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.print("____");
+        printSpaces(" Hello from\n" + logo);
         printDash();
-        System.out.println("Hello! I am Duke \n"
-                + "What can I do for you?");
-        System.out.print("____");
+        printSpaces(" Hello! I am Duke");
+        printSpaces(" What can I do for you?");
         printDash();
+        storeList = dataStorage.retrieveData();
         takeInput();
+
     }
 }

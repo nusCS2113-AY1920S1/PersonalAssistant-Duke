@@ -11,4 +11,9 @@ public class Event extends Task {
         return ("[E]" + super.toString() + " (at: "
                 + at + ")");
     }
+
+    @Override
+    public String fileOutFormat() {
+        return ("E" + super.fileOutFormat() + "|" + at);
+    }
 }
