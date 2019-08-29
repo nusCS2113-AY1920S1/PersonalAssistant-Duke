@@ -1,4 +1,5 @@
-[D]/1/Test/Monday
+[D]/1/Test/02-02-2019 2359
 [T]/1/Homework/
-[E]/1/Meeting/Tuesday
-[D]/1/another homework/tuesday
+[E]/1/Meeting/03-12-2019 1256
+[D]/1/another homework/05-06-2018 0134
+[D]/0/another meeting/123123123
