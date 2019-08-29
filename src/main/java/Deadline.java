@@ -45,13 +45,13 @@ public class Deadline extends Task {
                 hour = gcal.get(Calendar.HOUR);
             }
 
-
-            niceDate = gcal.get(Calendar.DATE) + " "
-                    + month[gcal.get(Calendar.MONTH)] + " "
-                    + gcal.get(Calendar.YEAR) + ", "
-                    + hour + ":"
-                    + gcal.get(Calendar.MINUTE) + " "
-                    + amPm[gcal.get(Calendar.AM_PM)];
+            niceDate = String.format("%d %s %d, %02d:%02d %s",
+                    gcal.get(Calendar.DATE),
+                    month[gcal.get(Calendar.MONTH)],
+                    gcal.get(Calendar.YEAR),
+                    hour,
+                    gcal.get(Calendar.MINUTE),
+                    amPm[gcal.get(Calendar.AM_PM)]);
         }
 
         catch (ParseException e) {

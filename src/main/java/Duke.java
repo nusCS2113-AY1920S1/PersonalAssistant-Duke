@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
@@ -81,6 +82,12 @@ public class Duke {
                             //Remove the space after task description and /by for easier formatting
                             bufferDescription[1] = bufferDescription[1].substring(0, bufferDescription[1].length() - 1);
 
+                            //Have to check whether date format is correct
+                            //This provides the pattern of the date input
+                            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+                            //This reads the date input in the format given
+                            Date newDate = dateFormatter.parse(bufferDeadline[1]);
+
                             //Create a new deadline with description from user input
                             Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
                             addToList(newTask, myList);
@@ -89,6 +96,8 @@ public class Duke {
                             //Error to be displayed when /by is not in deadline input
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error! Deadline tasks must contain '/by' followed by the deadline.");
+                        } catch (ParseException c) {
+                            System.out.println("Error! Please enter date in the format DD-MM-YYYY 2359.");
                         }
                     }
                     //check if its an event, there should be a "/at "
@@ -102,6 +111,12 @@ public class Duke {
                             //Remove the space after task description and /by for easier formatting
                             bufferDescription[1] = bufferDescription[1].substring(0, bufferDescription[1].length() - 1);
 
+                            //Have to check whether date format is correct
+                            //This provides the pattern of the date input
+                            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+                            //This reads the date input in the format given
+                            Date newDate = dateFormatter.parse(bufferEvent[1]);
+
                             //Create a new deadline with description from user input
                             Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
                             addToList(newTask, myList);
@@ -109,6 +124,8 @@ public class Duke {
 
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
+                        } catch (ParseException c) {
+                            System.out.println("Error! Please enter date in the format DD-MM-YYYY 2359.");
                         }
                     }
 
