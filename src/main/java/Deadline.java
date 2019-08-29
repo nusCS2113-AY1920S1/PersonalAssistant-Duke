@@ -1,9 +1,12 @@
 public class Deadline extends Task {
     protected String by;
+    private DateTimeRecognition convertDate;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by)throws DukeException {
         super(description);
         this.by = by;
+        convertDate = new DateTimeRecognition(this.by);
+        convertDate.dateTime();
     }
 
     @Override

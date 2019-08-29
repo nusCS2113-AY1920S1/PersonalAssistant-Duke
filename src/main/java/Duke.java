@@ -8,7 +8,7 @@ public class Duke {
     private static FileHandling dataStorage = new FileHandling("storeData.txt");
 
     private static void printDash() {
-        String str ="";
+        String str = "";
         for (int i = 0; i < 75; i++) {
             str += "_";
         }
@@ -20,7 +20,7 @@ public class Duke {
     }
 
     private static void printList() {
-        printSpaces(" Here are your tasks in your list:");
+        printSpaces(" Here are the tasks in your list:");
         for (int i = 0; i < storeList.size(); i++) {
             printSpaces(" " + (i + 1) + ". " + storeList.get(i).toString());
         }
@@ -37,7 +37,8 @@ public class Duke {
     private static void addTask(Task taskA) {
         printSpaces(" Got it. I have added this task:");
         printSpaces("  " + taskA.toString());
-        printSpaces(" Now you have " + storeList.size() + " tasks in the list.");
+        printSpaces(" Now you have " + ((storeList.size() > 1) ? " tasks in the list." : "task in "
+                + "the list"));
         printDash();
     }
 
@@ -84,7 +85,7 @@ public class Duke {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException(" OOPS! The description of a todo list cannot be empty");
             }
-        } else if (splitInput.get(0).equals("deadline")) {//adding a task that has a deadline
+        } else if (splitInput.get(0).equals("deadline")) { //adding a task that has a deadline
             int i;
             int k = 0;
             String split1 = "";
@@ -109,7 +110,7 @@ public class Duke {
             }
             storeList.add(new Deadline(split1.trim(), split2.trim()));
             addTask(storeList.get(storeList.size() - 1));
-        } else if (splitInput.get(0).equals("event")) {//adding event to the list
+        } else if (splitInput.get(0).equals("event")) { //adding event to the list
             int i;
             int k = 0;
             String split1 = "";
@@ -140,6 +141,9 @@ public class Duke {
         dataStorage.saveData(storeList);
     }
 
+    /**
+     * Duke is a chat bot which can store/respond to specific commands
+     */
     public static void main(String[] args)throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
