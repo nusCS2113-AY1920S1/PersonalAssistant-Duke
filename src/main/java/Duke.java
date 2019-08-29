@@ -51,9 +51,9 @@ public class Duke {
                     } catch (ArrayIndexOutOfBoundsException | IOException e) {
                         System.out.println("Error! 'Done' must be followed by a number. Please type 'list' to display " +
                                 "the list of tasks and their numbers.");
-                    } /*catch (IndexOutOfBoundsException d) {
+                    } catch (IndexOutOfBoundsException d) {
                         System.out.println("Error! Task list does not contain that task number.");
-                    }*/
+                    }
                 }
 
                 //First word is not 'done', hence the user is adding a task
