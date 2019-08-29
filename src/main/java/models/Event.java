@@ -1,6 +1,8 @@
 package models;
 
-public class Event implements ITask {
+import java.io.Serializable;
+
+public class Event implements ITask, Serializable {
     /**
      * Class representing the Event class model.
      */

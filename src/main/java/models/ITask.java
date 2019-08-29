@@ -1,6 +1,8 @@
 package models;
 
-public interface ITask {
+import java.io.Serializable;
+
+public interface ITask extends Serializable {
     String getStatusIcon();
 
     void markAsDone();

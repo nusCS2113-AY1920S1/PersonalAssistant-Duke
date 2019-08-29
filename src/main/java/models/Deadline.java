@@ -1,6 +1,8 @@
 package models;
 
-public class Deadline implements ITask {
+import java.io.Serializable;
+
+public class Deadline implements ITask, Serializable {
     /**
      * Class representing the Deadline data model.
      */

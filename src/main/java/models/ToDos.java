@@ -1,6 +1,8 @@
 package models;
 
-public class ToDos implements ITask {
+import java.io.Serializable;
+
+public class ToDos implements ITask, Serializable {
     /**
      * Class representing the ToDos data model.
      */
