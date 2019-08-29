@@ -1,10 +1,9 @@
 import controllers.TaskFactory;
+import exceptions.DukeException;
 import models.Deadline;
 import models.Event;
 import models.ToDos;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,19 +14,19 @@ public class DukeTest {
         try {
             assertEquals(new ToDos("write book").getDescription()
                     , new TaskFactory().createTask("todo write book").getDescription());
-        } catch (IOException e) {
+        } catch (DukeException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    void testDeadlineCreation() throws IOException {
+    void testDeadlineCreation() throws DukeException {
         assertEquals(new Deadline("return book", "Sunday").getDescription()
                 , new TaskFactory().createTask("deadline return book /by Sunday").getDescription());
     }
 
     @Test
-    void testEventCreation() throws IOException {
+    void testEventCreation() throws DukeException {
         assertEquals(new Event("project meeting", "Mon 2-4pm").getDescription()
                 , new TaskFactory().createTask("event project meeting /at Mon 2-4pm").getDescription());
     }

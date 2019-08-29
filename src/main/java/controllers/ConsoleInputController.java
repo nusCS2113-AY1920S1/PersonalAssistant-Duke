@@ -14,12 +14,20 @@ public class ConsoleInputController implements IViewController {
     private TaskList taskList;
     private String filePath = ".\\src\\main\\java\\saves\\duke.txt";
 
+    /**
+     * Constructor.
+     * @param view : takes in a View model, in this case a command line view.
+     */
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
         this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
     }
 
+    /**
+     * Method that is called upon receiving commands from CLI.
+     * @param input : Input typed by user into CLI
+     */
     @Override
     public void onCommandReceived(String input) {
         if (input.equals("bye")) {
@@ -42,6 +50,9 @@ public class ConsoleInputController implements IViewController {
         }
     }
 
+    /**
+     * Method that is called in order to saveData to persistent storage.
+     */
     public void saveData() {
         try {
             FileOutputStream file = new FileOutputStream(filePath);
@@ -58,6 +69,11 @@ public class ConsoleInputController implements IViewController {
         }
     }
 
+    /**
+     * Method that is called when reading data from persistent storage.
+     * If file read is empty, will throw EOFException which is suppressed.
+     * If file read is corrupted, will throw IOException which is suppressed also.
+     */
     public void readData() {
         try {
             FileInputStream file = new FileInputStream(filePath);
