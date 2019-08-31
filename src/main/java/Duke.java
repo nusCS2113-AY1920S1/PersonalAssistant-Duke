@@ -75,6 +75,35 @@ public class Duke {
                     }
                 }
 
+                //check if first word is "find", bufferArray[1] should contain 1 word if true
+                else if (bufferArray[0].equals("find")) {
+                    try {
+                        int count = 1; //counter to count number of matching tasks
+                        boolean foundFlag = false;
+                        for (int i = 0; i < myList.size(); i++) {
+                            //Checks if a word exists in task description
+                            if (myList.get(i).getDescription().toLowerCase().contains(bufferArray[1])) {
+                                //This ensures that matching tasks is only run once and only when task is matched
+                                if (!foundFlag) {
+                                    System.out.println("Here are the matching tasks in your list:");
+                                    foundFlag = true;
+                                }
+                                System.out.println((count) + "." + myList.get(i).getStatusIcon());
+                                count++; //increment counter by 1 everytime a task matches
+                            }
+                        }
+
+                        //If there are no tasks that matches the keyword
+                        if (!foundFlag) {
+                            System.out.println(("Sorry! Unable to find any tasks matching that keyword"));
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error! 'find' must be followed by a word.");
+                    } catch (IndexOutOfBoundsException d) {
+                        System.out.println("Error! Task list does not contain that task number.");
+                    }
+                }
+
                 //First word is not 'done', hence the user is adding a task
                 //check if its a todos, adds a standard task description with no timing
                 //After adding a new task to list, save this data to a save file
