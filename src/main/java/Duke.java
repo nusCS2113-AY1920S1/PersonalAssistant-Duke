@@ -56,6 +56,23 @@ public class Duke {
                     }
                 }
 
+                //check if first word is "delete", second word should be an integer if true
+                if (bufferArray[0].equals("delete")) {
+                    try {
+                        int taskNumber = Integer.parseInt(bufferArray[1]); //get the task number as an integer
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(myList.get(taskNumber - 1).getStatusIcon());
+                        myList.remove(taskNumber - 1); //remove the element from the list
+                        System.out.println("Now you have " + myList.size() + " task(s) in the list.");
+                        deleteSave(taskNumber); //Updates task status in save file
+                    } catch (ArrayIndexOutOfBoundsException | IOException e) {
+                        System.out.println("Error! 'Delete' must be followed by a number. Please type 'list' to display " +
+                                "the list of tasks and their numbers.");
+                    } catch (IndexOutOfBoundsException d) {
+                        System.out.println("Error! Task list does not contain that task number.");
+                    }
+                }
+
                 //First word is not 'done', hence the user is adding a task
                 //check if its a todos, adds a standard task description with no timing
                 //After adding a new task to list, save this data to a save file
@@ -295,6 +312,50 @@ public class Duke {
             bufferNew += bufferUpdate.substring(0, 4) + "1" + bufferUpdate.substring(5);
 
             myList.set(taskNumber - 1, bufferNew);
+
+            File file = new File("save.txt");
+            FileWriter clear = new FileWriter(file); //intial write to clear file
+            clear.close();
+
+            //Now append to empty file
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            //Now, myList contains the updated save data, output everything into save.txt
+            for (int n = 0; n < myList.size(); n++) {
+                bw.write(myList.get(n));
+                bw.newLine();
+            }
+
+            //order of closing is important
+            bw.close();
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("No save file exists. Creating new one.");
+        }
+
+    }
+
+    //method to delete the task completed status within a text file
+    private static void deleteSave(int taskNumber) throws IOException {
+
+        ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+
+            // read line by line
+            //[D]/1/description/date
+            String myString;
+            while ((myString = br.readLine()) != null) {
+                myList.add(myString);
+            }
+
+            br.close();
+
+            //At this point, myList should contain all lines of save
+            //Remove the task at the index position indicated by the user
+            myList.remove(taskNumber - 1);
 
             File file = new File("save.txt");
             FileWriter clear = new FileWriter(file); //intial write to clear file
