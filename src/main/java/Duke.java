@@ -170,7 +170,7 @@ public class Duke {
             String time = s.substring(s.indexOf("/by") + 4);
             TimeParser timeParser = new TimeParser();
             time = timeParser.convertStringToDate(time);
-
+            //==============================================
             if (todoTask.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_DEADLINE;
             }
@@ -183,6 +183,7 @@ public class Duke {
             if (time.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_DEADLINE;
             }
+            //==============================================
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
             Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
