@@ -3,18 +3,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Exception.DukeException;
+import exceptions.DukeException;
 
 
 public class Duke {
 
     private static List<Tasks> userToDoList;
     protected static String logo =
-            " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
+        " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
     protected static String line = "   ____________________________________________________________";
     protected static String space = "    ";
     static int todolist_number = 1;
@@ -26,6 +26,10 @@ public class Duke {
         myDuke.run();
     }
 
+    /**
+     * Runs the duke program where it first extracts tasks from duke.txt.
+     * After which, it takes in input from users and run the appropriate commands.
+     */
     public void run() throws DukeException {
 
         storage = new Storage("data/duke.txt");
@@ -36,17 +40,14 @@ public class Duke {
             // no tasks in database
         }
         //=================================
-        System.out.println(space + "Hello from\n" + logo + "\n" + space + "Hello I am " +
-                "Duke.");
-
+        System.out.println(space + "Hello from\n" + logo + "\n" + space + "Hello I am " + "Duke.");
         System.out.println(space + "What can I do for you?");
         System.out.println(line);
         //=================================
-
         while (true) {
             Scanner in = new Scanner(System.in);
             String s = in.nextLine();
-            String arr[] = s.split(" ", 2);
+            String[] arr = s.split(" ", 2);
             String firstWord = arr[0];
             if (s.equals("bye")) {
                 System.out.println(line + "\n" + space + "Bye. Hope to see you again soon!");
@@ -61,8 +62,8 @@ public class Duke {
                             String message = userToDoList.get(i).getDescription();
                             int j = i + 1;
                             System.out.println(space + j + ".[" + userToDoList.get(i).getType()
-                                    + "][" + userToDoList.get(i).getStatusIcon()
-                                    + "] " + message);
+                                + "][" + userToDoList.get(i).getStatusIcon()
+                                + "] " + message);
                         }
                         System.out.println(line);
                         break;
@@ -74,7 +75,7 @@ public class Duke {
                    // case "delete":
                      //   deleteCommand(s);
                        // break;
-                        //================================================
+                    //================================================
                     case "todo":
                         todoCommand(s);
                         break;
@@ -86,7 +87,6 @@ public class Duke {
                     case "event":
                         eventCommand(s);
                         break;
-                    //================================================
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
 
@@ -97,26 +97,27 @@ public class Duke {
         }
     }
 
-    /**private void deleteCommand(String s) throws DukeException {
+    private void deleteCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
             int num = Integer.parseInt(tokens[1]);
 
-            System.out.println(line + "\n" + space + "Noted. I've removed this task:" + "\n" + space + " [" + userToDoList.get(num - 1).getType()
-                    + "][" + userToDoList.get(num - 1).getStatusIcon()
-                    + "] " + userToDoList.get(num - 1).getDescription());
+            System.out.println(line + "\n" + space + "Noted. I've removed this task:"
+                + "\n" + space + " [" + userToDoList.get(num - 1).getType()
+                + "][" + userToDoList.get(num - 1).getStatusIcon()
+                + "] " + userToDoList.get(num - 1).getDescription());
             userToDoList.remove(num - 1);
             storage.saveTask(userToDoList);
             System.out.println(space + "Now you have " + userToDoList.size() + " tasks in the list.");
             System.out.println(line);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw DukeException.TASK_NO_MISSING_DELETE;
-        }  catch (NumberFormatException e) {
-        throw DukeException.TASK_DOES_NOT_EXIST;
-    } catch (IndexOutOfBoundsException e) {
-        throw DukeException.TASK_DOES_NOT_EXIST;
+        } catch (NumberFormatException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        } catch (IndexOutOfBoundsException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        }
     }
-    }**/
 
 
     private static void eventCommand(String s) throws DukeException {
@@ -145,8 +146,8 @@ public class Duke {
             userToDoList.add(newToDo1);
 
             System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [E]["
-                    + userToDoList.get(todolist_number - 1).getStatusIcon()
-                    + "] " + todoTask1 + "(at: " + time1 + ")");
+                + userToDoList.get(todolist_number - 1).getStatusIcon()
+                + "] " + todoTask1 + "(at: " + time1 + ")");
 
 
             if (todolist_number > 1) {
@@ -187,8 +188,8 @@ public class Duke {
             Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
             userToDoList.add(newToDo2);
             System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [D]["
-                    + userToDoList.get(todolist_number - 1).getStatusIcon()
-                    + "] " + todoTask + "(by: " + time + ")");
+                + userToDoList.get(todolist_number - 1).getStatusIcon()
+                + "] " + todoTask + "(by: " + time + ")");
             if (todolist_number > 1) {
                 System.out.println(space + "Now you have " + todolist_number + " tasks in the list.");
             } else {
@@ -220,12 +221,14 @@ public class Duke {
 
             Tasks newToDo = new Todo(joinTokens, "T");
             userToDoList.add(newToDo);
-            System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [" + userToDoList.get(todolist_number - 1).getType()
-                    + "][" + userToDoList.get(todolist_number - 1).getStatusIcon()
-                    + "] " + joinTokens);
+            System.out.println(line + "\n" + space + "Got it. I've added this task:"
+                + "\n" + space + " [" + userToDoList.get(todolist_number - 1).getType()
+                + "][" + userToDoList.get(todolist_number - 1).getStatusIcon()
+                + "] " + joinTokens);
 
             if (todolist_number > 1) {
-                System.out.println(space + "Now you have " + todolist_number + " tasks in the list.");
+                System.out.println(space
+                    + "Now you have " + todolist_number + " tasks in the list.");
             } else {
                 System.out.println(space + "Now you have " + todolist_number + " task in the list.");
             }
@@ -246,8 +249,8 @@ public class Duke {
             userToDoList.get(num - 1).setDone(true);
             System.out.println(line + "\n" + space + "Nice! I've marked this task as done:");
             System.out.println(space + " [" + userToDoList.get(num - 1).getType()
-                    + "][" + userToDoList.get(num - 1).getStatusIcon()
-                    + "] " + userToDoList.get(num - 1).getDescription());
+                + "][" + userToDoList.get(num - 1).getStatusIcon()
+                + "] " + userToDoList.get(num - 1).getDescription());
             System.out.println(line);
             storage.saveTask(userToDoList);
         } catch (ArrayIndexOutOfBoundsException e) {

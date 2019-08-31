@@ -5,7 +5,12 @@ import java.util.Date;
 
 public class TimeParser {
     Date date;
-    public String convertStringToDate (String time) {
+
+    /**
+     * Takes in a string and see whether can manipulate to a date.
+     * After which, return back the date as string.
+     */
+    public String convertStringToDate(String time) {
         String line;
         try {
             SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HHmm");

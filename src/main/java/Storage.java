@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Exception.DukeException;
+import exceptions.DukeException;
 
 public class Storage {
 
@@ -16,6 +16,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Extracts the tasks from duke.txt file when user opens the programme
+     * Returns back the list of tasks.
+     */
     public List<Tasks> getTasksFromDatabase() throws DukeException {
         List<Tasks> userToDoListTask = new ArrayList<>();
         List<String> userToDoListString = new ArrayList<>();
@@ -45,7 +49,7 @@ public class Storage {
                 } else {
                     tasks = new Event(taskMessage, "E", arr[3].strip());
                 }
-                if (done.equals("\u2713")) {
+                if (done.equals("✓")) {
                     tasks.setDone(true);
                 } else {
                     tasks.setDone(false);
@@ -57,7 +61,9 @@ public class Storage {
         return userToDoListTask;
     }
 
-
+    /**
+     * Takes the list of tasks and save them into the duke.txt file
+     */
     public void saveTask(List<Tasks> userToDoList) throws DukeException {
         File f = new File(filePath);
         try {
@@ -68,9 +74,11 @@ public class Storage {
                 if (taskType == "T") {
                     line = "T | " + task.getStatusIcon() + " | " + task.getDescription();
                 } else if (taskType == "D") {
-                    line = "D | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + ((Deadline) task).getDeadline();
+                    line = "D | " + task.getStatusIcon() + " | "
+                            + task.getDescription() + " | " + ((Deadline) task).getDeadline();
                 } else {
-                    line = "E | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + ((Event) task).getTime();
+                    line = "E | " + task.getStatusIcon() + " | "
+                            + task.getDescription() + " | " + ((Event) task).getTime();
                 }
                 fileWriter.write(line + "\n");
             }

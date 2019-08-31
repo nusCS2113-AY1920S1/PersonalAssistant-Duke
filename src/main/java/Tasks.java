@@ -3,6 +3,10 @@ public abstract class Tasks {
     protected String type;
     protected boolean done;
 
+    /**
+     * Represents a task in a todolist.
+     * A task can have description, type and whether is it done or not.
+     */
     public Tasks(String description, String type) {
         this.description = description;
         this.type = type;
