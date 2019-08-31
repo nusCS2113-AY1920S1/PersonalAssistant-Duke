@@ -57,7 +57,7 @@ public class Duke {
                 }
 
                 //check if first word is "find", bufferArray[1] should contain 1 word if true
-                if (bufferArray[0].equals("find")) {
+                else if (bufferArray[0].equals("find")) {
                     try {
                         int count = 1; //counter to count number of matching tasks
                         boolean foundFlag = false;
