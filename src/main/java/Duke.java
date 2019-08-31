@@ -57,9 +57,11 @@ public class Duke {
                 }
 
                 //check if first word is "delete", second word should be an integer if true
-                if (bufferArray[0].equals("delete")) {
+                else if (bufferArray[0].equals("delete")) {
                     try {
                         int taskNumber = Integer.parseInt(bufferArray[1]); //get the task number as an integer
+                        //Bait out errors before they occur
+                        Task buffer = myList.get(taskNumber - 1);
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(myList.get(taskNumber - 1).getStatusIcon());
                         myList.remove(taskNumber - 1); //remove the element from the list
