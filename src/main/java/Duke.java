@@ -9,41 +9,14 @@ public class Duke {
 
     private static Storage storage = new Storage("tasks.dat");
 
-    private static void printIndented(String qn) {
-        System.out.println("    " + qn);
-    }
-
-    private static void printHR() {
-        printIndented("____________________________________________________________");
-    }
-
-    private static void printNumTasksMessage() {
-        printIndented("Now you have "
-                + tasks.size()
-                + (tasks.size() > 1 ? " tasks" : " task")
-                + " in the list.");
-    }
-
-    private static void printTasks(List<Task> tasks) {
-        int counter = 1;
-        for (Task task : tasks) {
-            printIndented(counter++ + ". " + task);
-        }
-    }
-
-    private static void printTaskAddedMessage(Task task) {
-        printIndented("Got it . I've added this task:");
-        printIndented("  " + task);
-        printNumTasksMessage();
-    }
+    private static Ui ui = new Ui();
 
     private static void eval(String line) throws DukeException {
         List<String> words = Arrays.asList(line.split(" "));
 
         // list all tasks
         if (words.get(0).equals("list") && words.size() == 1) {
-            printIndented("Here are the tasks in your list:");
-            printTasks(tasks);
+            ui.showTaskList(tasks);
 
         // Find tasks
         } else if (words.get(0).equals("find")) {
@@ -54,10 +27,9 @@ public class Duke {
                                 .filter(task -> task.containsKeyword(searchTerm))
                                 .collect(Collectors.toList());
                 if (filteredTasks.size() > 0) {
-                    printIndented("Here are the matching tasks in your list:");
-                    printTasks(filteredTasks);
+                    ui.showSearchResult(filteredTasks);
                 } else {
-                    printIndented("There are no matching tasks.");
+                    throw new DukeException("There are no matching tasks.");
                 }
             } else {
                 throw new DukeException("Please enter at least a keyword to search.");
@@ -69,10 +41,7 @@ public class Duke {
                 int taskNo = Integer.parseInt(words.get(1));
                 Task toRemove = tasks.get(taskNo - 1);
                 tasks.remove(toRemove);
-
-                printIndented("Noted. I've removed this task:");
-                printIndented("  " + toRemove);
-                printNumTasksMessage();
+                ui.showDeletedTask(tasks, toRemove);
             } catch (NumberFormatException e) {
                 throw new DukeException("Please supply a number. Eg: done 2");
             } catch (IndexOutOfBoundsException e) {
@@ -83,9 +52,9 @@ public class Duke {
         } else if (words.get(0).equals("done")) {
             try {
                 int taskNo = Integer.parseInt(words.get(1));
-                tasks.get(taskNo - 1).markAsDone();
-                printIndented("Nice! I've marked this task as done:");
-                printIndented("  " + tasks.get(taskNo - 1));
+                Task task = tasks.get(taskNo - 1);
+                task.markAsDone();
+                ui.showDoneTask(task);
             } catch (NumberFormatException e) {
                 throw new DukeException("Please supply a number. Eg: done 2");
             } catch (IndexOutOfBoundsException e) {
@@ -96,19 +65,19 @@ public class Duke {
         } else if (words.get(0).equals("todo")) {
             Task task = new Todo(words.subList(1, words.size()));
             tasks.add(task);
-            printTaskAddedMessage(task);
+            ui.showTaskAdded(tasks, task);
 
         // Add deadline tasks
         } else if (words.get(0).equals("deadline")) {
             Task task = new Deadline(words.subList(1, words.size()));
             tasks.add(task);
-            printTaskAddedMessage(task);
+            ui.showTaskAdded(tasks, task);
 
         // Add event task
         } else if (words.get(0).equals("event")) {
             Task task = new Event(words.subList(1, words.size()));
             tasks.add(task);
-            printTaskAddedMessage(task);
+            ui.showTaskAdded(tasks, task);
 
         } else {
             throw new DukeException("Please enter a valid command.");
@@ -125,29 +94,23 @@ public class Duke {
             if (input.equals("bye")) {
                 return;
             } else {
-                printHR();
+                ui.beginBlock();
                 try {
                     eval(input);
                 } catch (DukeException e) {
-                    printIndented(e.getMessage());
+                    ui.showError(e.getMessage());
                 }
-                printHR();
+                ui.endBlock();
             }
         }
     }
 
     public static void main(String[] args) {
-        printHR();
-        printIndented("Hello! I'm Duke");
-        printIndented("What can I do for you?");
-        printHR();
+        ui.showWelcome();
 
         tasks = storage.load();
-
         repl();
 
-        printHR();
-        printIndented("Bye. Hope to see you again soon!");
-        printHR();
+        ui.showBye();
     }
 }
