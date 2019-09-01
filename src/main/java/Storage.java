@@ -12,33 +12,26 @@ public class Storage {
     // Unchecked type coercion is necessary here.
     // And possible cast exceptions are handled
     @SuppressWarnings("unchecked")
-    public List<Task> load() {
+    public TaskList load() throws DukeException {
         try {
             FileInputStream fileStream = new FileInputStream(this.fileName);
             ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-            List<Task> tasks = (List<Task>) objectStream.readObject();
+            TaskList taskList = (TaskList) objectStream.readObject();
             objectStream.close();
-            return tasks;
-        } catch (FileNotFoundException e) {
-            System.out.println("    File doesn't exist, will create a new file.");
-            return new ArrayList<>();
+            return taskList;
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            System.err.println("An unexpected error occurred when reading the file, not loading anything. " + e);
-            System.err.println("The contents of the file might be deleted if you continue with Duke.");
-            return new ArrayList<>();
+            throw new DukeException("Unable to read file, continuing with empty list.");
         }
     }
 
-    public void save(List<Task> tasks) {
+    public void save(TaskList taskList) throws DukeException {
         try {
             FileOutputStream fileStream = new FileOutputStream(this.fileName);
             ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
-            objectStream.writeObject(tasks);
+            objectStream.writeObject(taskList);
             objectStream.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("Unable to open " + this.fileName);
         } catch (IOException e) {
-            System.err.println("An unexpected error occurred when writing to the file. " + e);
+            throw new DukeException("An unexpected error occurred when writing to the file. " + e);
         }
     }
 }
