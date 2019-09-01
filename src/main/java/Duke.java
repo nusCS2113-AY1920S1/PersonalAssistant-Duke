@@ -72,9 +72,9 @@ public class Duke {
                         doneCommand(s);
                         break;
                     //================================================
-                   // case "delete":
-                     //   deleteCommand(s);
-                       // break;
+                    case "delete":
+                       deleteCommand(s);
+                       break;
                     //================================================
                     case "todo":
                         todoCommand(s);

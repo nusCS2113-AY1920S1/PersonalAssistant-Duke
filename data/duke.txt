@@ -1,4 +1,0 @@
-E | ✓ | concert (at: esplanade 12-2pm) | esplanade 12-2pm
-E | ✓ | makan (at: 23rd of September 1902, 02:09 AM) | 23rd of September 1902, 02:09 AM
-D | ✘ | eat (by: 20th of September 2019, 07:02 PM) | 20th of September 2019, 07:02 PM
-T | ✓ | makan
