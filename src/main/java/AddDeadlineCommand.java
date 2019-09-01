@@ -12,5 +12,6 @@ public class AddDeadlineCommand extends Command {
         Task task = new Deadline(words.subList(0, words.size()));
         taskList.add(task);
         ui.showTaskAdded(taskList.getTasks(), task);
+        storage.save(taskList);
     }
 }

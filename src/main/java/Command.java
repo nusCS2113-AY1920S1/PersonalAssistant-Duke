@@ -1,5 +1,3 @@
-import java.util.List;
-
 abstract public class Command {
     protected boolean isExit;
 

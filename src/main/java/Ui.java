@@ -1,12 +1,11 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Ui {
-    private void printIndented(String line) {
-        System.out.println("    " + line);
-    }
+    private Scanner sc;
 
-    private void printHR() {
-        printIndented("____________________________________________________________");
+    public Ui() {
+        sc = new Scanner(System.in);
     }
 
     public void beginBlock() {
@@ -25,27 +24,11 @@ public class Ui {
     }
 
     public void showBye() {
-        beginBlock();
         printIndented("Bye. Hope to see you again soon!");
-        endBlock();
     }
 
     public void showError(String message) {
         printIndented(message);
-    }
-
-    private void showNumTasks(List<Task> tasks) {
-        printIndented("Now you have "
-                + tasks.size()
-                + (tasks.size() > 1 ? " tasks" : " task")
-                + " in the list.");
-    }
-
-    private void showTasks(List<Task> tasks) {
-        int counter = 1;
-        for (Task task : tasks) {
-            printIndented(counter++ + ". " + task);
-        }
     }
 
     public void showTaskAdded(List<Task> tasks, Task task) {
@@ -73,5 +56,31 @@ public class Ui {
     public void showDoneTask(Task task) {
         printIndented("Nice! I've marked this task as done:");
         printIndented("  " + task);
+    }
+
+    public String readCommand() {
+        return sc.nextLine();
+    }
+
+    private void printIndented(String line) {
+        System.out.println("    " + line);
+    }
+
+    private void showNumTasks(List<Task> tasks) {
+        printIndented("Now you have "
+                + tasks.size()
+                + (tasks.size() > 1 ? " tasks" : " task")
+                + " in the list.");
+    }
+
+    private void showTasks(List<Task> tasks) {
+        int counter = 1;
+        for (Task task : tasks) {
+            printIndented(counter++ + ". " + task);
+        }
+    }
+
+    private void printHR() {
+        printIndented("____________________________________________________________");
     }
 }

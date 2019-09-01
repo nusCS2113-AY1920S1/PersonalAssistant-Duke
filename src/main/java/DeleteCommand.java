@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
             Task toRemove = taskList.get(taskNo);
             taskList.delete(taskNo);
             ui.showDeletedTask(taskList.getTasks(), toRemove);
+            storage.save(taskList);
         } catch (NumberFormatException e) {
             throw new DukeException("Please supply a number. Eg: done 2");
         } catch (IndexOutOfBoundsException e) {

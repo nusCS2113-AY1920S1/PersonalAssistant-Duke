@@ -12,5 +12,6 @@ public class AddTodoCommand extends Command {
         Task task = new Todo(words.subList(0, words.size()));
         taskList.add(task);
         ui.showTaskAdded(taskList.getTasks(), task);
+        storage.save(taskList);
     }
 }
