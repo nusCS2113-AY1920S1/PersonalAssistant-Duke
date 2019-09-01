@@ -9,76 +9,49 @@ public class Duke {
 
     private static Ui ui = new Ui();
 
+    private static Storage storage;
+
     private static void eval(String line) throws DukeException {
         List<String> words = Arrays.asList(line.split(" "));
+        Command c = null;
+
+        String keyword = words.get(0);
+        List<String> arguments = words.subList(1, words.size());
 
         // list all tasks
-        if (words.get(0).equals("list") && words.size() == 1) {
-            ui.showTaskList(taskList.getTasks());
+        if (keyword.equals("list") && words.size() == 1) {
+            c = new ListCommand();
 
         // Find tasks
-        } else if (words.get(0).equals("find")) {
-            if (words.size() > 1) {
-                String searchTerm = String.join(" ", words.subList(1, words.size()));
-                List<Task> filteredTasks =
-                        taskList.getTasks().stream()
-                                .filter(task -> task.containsKeyword(searchTerm))
-                                .collect(Collectors.toList());
-                if (filteredTasks.size() > 0) {
-                    ui.showSearchResult(filteredTasks);
-                } else {
-                    throw new DukeException("There are no matching tasks.");
-                }
-            } else {
-                throw new DukeException("Please enter at least a keyword to search.");
-            }
+        } else if (keyword.equals("find")) {
+            c = new FindCommand(arguments);
 
         // Delete tasks
-        } else if (words.get(0).equals("delete")) {
-            try {
-                int taskNo = Integer.parseInt(words.get(1));
-                Task toRemove = taskList.get(taskNo - 1);
-                taskList.delete(taskNo - 1);
-                ui.showDeletedTask(taskList.getTasks(), toRemove);
-            } catch (NumberFormatException e) {
-                throw new DukeException("Please supply a number. Eg: done 2");
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Please supply a valid number.");
-            }
+        } else if (keyword.equals("delete")) {
+            c = new DeleteCommand(arguments);
 
         // Mark tasks as done
-        } else if (words.get(0).equals("done")) {
-            try {
-                int taskNo = Integer.parseInt(words.get(1));
-                Task task = taskList.get(taskNo - 1);
-                task.markAsDone();
-                ui.showDoneTask(task);
-            } catch (NumberFormatException e) {
-                throw new DukeException("Please supply a number. Eg: done 2");
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Please supply a valid number.");
-            }
+        } else if (keyword.equals("done")) {
+            c = new DoneCommand(arguments);
 
         // Add todo tasks
-        } else if (words.get(0).equals("todo")) {
-            Task task = new Todo(words.subList(1, words.size()));
-            taskList.add(task);
-            ui.showTaskAdded(taskList.getTasks(), task);
+        } else if (keyword.equals("todo")) {
+            c = new AddTodoCommand(arguments);
 
         // Add deadline tasks
-        } else if (words.get(0).equals("deadline")) {
-            Task task = new Deadline(words.subList(1, words.size()));
-            taskList.add(task);
-            ui.showTaskAdded(taskList.getTasks(), task);
+        } else if (keyword.equals("deadline")) {
+            c = new AddDeadlineCommand(arguments);
 
         // Add event task
-        } else if (words.get(0).equals("event")) {
-            Task task = new Event(words.subList(1, words.size()));
-            taskList.add(task);
-            ui.showTaskAdded(taskList.getTasks(), task);
+        } else if (keyword.equals("event")) {
+            c = new AddEventCommand(arguments);
 
         } else {
             throw new DukeException("Please enter a valid command.");
+        }
+
+        if (c != null) {
+            c.execute(taskList, ui, storage);
         }
     }
 
@@ -104,7 +77,7 @@ public class Duke {
     public static void main(String[] args) {
         ui.showWelcome();
 
-        Storage storage = new Storage("tasks.dat");
+        storage = new Storage("tasks.dat");
         try {
             taskList = storage.load();
         } catch (DukeException e) {
