@@ -16,13 +16,17 @@ public class Duke {
         printIndented("____________________________________________________________");
     }
 
-    private static void printTaskAddedMessage(Task task) {
-        printIndented("Got it . I've added this task:");
-        printIndented("  " + task);
+    private static void printNumTasksMessage() {
         printIndented("Now you have "
                 + tasks.size()
                 + (tasks.size() > 1 ? " tasks" : " task")
                 + " in the list.");
+    }
+
+    private static void printTaskAddedMessage(Task task) {
+        printIndented("Got it . I've added this task:");
+        printIndented("  " + task);
+        printNumTasksMessage();
     }
 
     private static void eval(String line) throws DukeException {
@@ -36,7 +40,23 @@ public class Duke {
                 printIndented(counter++ + ". " + task);
             }
 
-        // Mark tasks as done
+            // Delete tasks
+        } else if (words.get(0).equals("delete")) {
+            try {
+                int taskNo = Integer.parseInt(words.get(1));
+                Task toRemove = tasks.get(taskNo - 1);
+                tasks.remove(toRemove);
+
+                printIndented("Noted. I've removed this task:");
+                printIndented("  " + toRemove);
+                printNumTasksMessage();
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please supply a number. Eg: done 2");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please supply a valid number.");
+            }
+
+            // Mark tasks as done
         } else if (words.get(0).equals("done")) {
             try {
                 int taskNo = Integer.parseInt(words.get(1));
@@ -49,19 +69,19 @@ public class Duke {
                 throw new DukeException("Please supply a valid number.");
             }
 
-        // Add todo tasks
+            // Add todo tasks
         } else if (words.get(0).equals("todo")) {
             Task task = new Todo(words.subList(1, words.size()));
             tasks.add(task);
             printTaskAddedMessage(task);
 
-        // Add deadline tasks
+            // Add deadline tasks
         } else if (words.get(0).equals("deadline")) {
             Task task = new Deadline(words.subList(1, words.size()));
             tasks.add(task);
             printTaskAddedMessage(task);
 
-        // Add event task
+            // Add event task
         } else if (words.get(0).equals("event")) {
             Task task = new Event(words.subList(1, words.size()));
             tasks.add(task);
