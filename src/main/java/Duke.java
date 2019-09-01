@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Duke {
     private static List<Task> tasks = new ArrayList<>();
@@ -23,6 +24,13 @@ public class Duke {
                 + " in the list.");
     }
 
+    private static void printTasks(List<Task> tasks) {
+        int counter = 1;
+        for (Task task : tasks) {
+            printIndented(counter++ + ". " + task);
+        }
+    }
+
     private static void printTaskAddedMessage(Task task) {
         printIndented("Got it . I've added this task:");
         printIndented("  " + task);
@@ -35,12 +43,27 @@ public class Duke {
         // list all tasks
         if (words.get(0).equals("list") && words.size() == 1) {
             printIndented("Here are the tasks in your list:");
-            int counter = 1;
-            for (Task task : tasks) {
-                printIndented(counter++ + ". " + task);
+            printTasks(tasks);
+
+        // Find tasks
+        } else if (words.get(0).equals("find")) {
+            if (words.size() > 1) {
+                String searchTerm = String.join(" ", words.subList(1, words.size()));
+                List<Task> filteredTasks =
+                        tasks.stream()
+                                .filter(task -> task.containsKeyword(searchTerm))
+                                .collect(Collectors.toList());
+                if (filteredTasks.size() > 0) {
+                    printIndented("Here are the matching tasks in your list:");
+                    printTasks(filteredTasks);
+                } else {
+                    printIndented("There are no matching tasks.");
+                }
+            } else {
+                throw new DukeException("Please enter at least a keyword to search.");
             }
 
-            // Delete tasks
+        // Delete tasks
         } else if (words.get(0).equals("delete")) {
             try {
                 int taskNo = Integer.parseInt(words.get(1));
@@ -69,19 +92,19 @@ public class Duke {
                 throw new DukeException("Please supply a valid number.");
             }
 
-            // Add todo tasks
+        // Add todo tasks
         } else if (words.get(0).equals("todo")) {
             Task task = new Todo(words.subList(1, words.size()));
             tasks.add(task);
             printTaskAddedMessage(task);
 
-            // Add deadline tasks
+        // Add deadline tasks
         } else if (words.get(0).equals("deadline")) {
             Task task = new Deadline(words.subList(1, words.size()));
             tasks.add(task);
             printTaskAddedMessage(task);
 
-            // Add event task
+        // Add event task
         } else if (words.get(0).equals("event")) {
             Task task = new Event(words.subList(1, words.size()));
             tasks.add(task);

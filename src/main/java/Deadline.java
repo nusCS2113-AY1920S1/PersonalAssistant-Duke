@@ -14,6 +14,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s %s (by: %s)", super.toString(), this.description, this.deadline);
     }
