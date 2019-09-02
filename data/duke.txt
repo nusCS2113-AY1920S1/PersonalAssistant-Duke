@@ -1,0 +1,7 @@
+E | ✘ | eat dinner (at: 20th of December 2019, 06:48 PM) | 20th of December 2019, 06:48 PM
+T | ✓ | eat book
+D | ✓ | return book (by: JUne 6th) | JUne 6th
+E | ✘ | go toilet (at: noon) | noon
+D | ✓ | hand up assignment (by: 20th of August 2019, 11:59 PM) | 20th of August 2019, 11:59 PM
+E | ✘ | concert (at: esplanade) | esplanade
+D | ✓ | eaty (by: today) | today
