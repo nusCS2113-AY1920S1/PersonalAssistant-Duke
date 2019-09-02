@@ -37,7 +37,8 @@ public class Duke {
     private static void addTask(Task taskA) {
         printSpaces(" Got it. I have added this task:");
         printSpaces("  " + taskA.toString());
-        printSpaces(" Now you have " + ((storeList.size() > 1) ? " tasks in the list." : "task in "
+        printSpaces(" Now you have " + storeList.size()
+               + ((storeList.size() > 1) ? " tasks in the list." : " task in "
                 + "the list"));
         printDash();
     }
@@ -135,6 +136,22 @@ public class Duke {
             }
             storeList.add(new Event(split1.trim(), split2.trim()));
             addTask(storeList.get(storeList.size() - 1));
+        } else if (splitInput.get(0).equals("delete")) { //To delete a task
+            try {
+                int temp = Integer.parseInt(splitInput.get(1));
+                String del = storeList.get(temp - 1).toString();
+                printSpaces(" Noted. I have removed this task:");
+                printSpaces( "  " + del);
+                storeList.remove(temp - 1);
+                printSpaces(" Now you have " + storeList.size()
+                       + ((storeList.size() > 1) ? " tasks in the list." : " task in "
+                        + "the list"));
+                printDash();
+            } catch (NumberFormatException obj) {
+                throw new DukeException(" OOPS! Enter a positive integer after \"delete\"");
+            } catch (IndexOutOfBoundsException obj) {
+                throw new DukeException(" OOPS! Enter a number that is present in the list");
+            }
         } else {
             throw new DukeException(" Please enter a valid command");
         }
