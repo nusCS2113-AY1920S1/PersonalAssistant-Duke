@@ -72,10 +72,13 @@ public class Duke {
                         doneCommand(s);
                         break;
                     //================================================
-                    case "delete":
-                       deleteCommand(s);
-                       break;
+                    //case "delete":
+                      // deleteCommand(s);
+                       //break;
                     //================================================
+                    case "find":
+                        findCommand(s);
+                        break;
                     case "todo":
                         todoCommand(s);
                         break;
@@ -94,6 +97,31 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(line + "\n" + space + e.getError() + "\n" + line);
             }
+        }
+    }
+
+    private void findCommand(String s) throws DukeException {
+        try {
+            String find = s.substring(5);
+            int j = 1;
+            if (find.equals(" ") || (find.equals(""))) {
+                throw DukeException.TASK_NO_MISSING_FIND;
+            } else {
+                System.out.println(line + "\n" + space + "Here are the matching tasks in your list:");
+                for (int i = 0; i < userToDoList.size(); i += 1) {
+                    String desLowerCase = userToDoList.get(i).getDescription().toLowerCase();
+                    String findLowerCase = find.toLowerCase();
+                    if (desLowerCase.contains(findLowerCase)) {
+                        System.out.println(space + j + ".["
+                            + userToDoList.get(i).getType() + "][" + userToDoList.get(i).getStatusIcon()
+                            + "] " + userToDoList.get(i).getDescription());
+                        j += 1;
+                    }
+                }
+                System.out.println(line);
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw DukeException.TASK_NO_MISSING_FIND;
         }
     }
 
