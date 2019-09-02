@@ -1,6 +1,8 @@
-public class Todo extends Tasks {
+package task;
 
-    public Todo(String description, String type) {
+public class ToDo extends Tasks {
+
+    public ToDo(String description, String type) {
         super(description, type);
 
     }
@@ -9,3 +11,4 @@ public class Todo extends Tasks {
         return "[T]" + "[" + getStatusIcon() + "] " + description;
     }
 }
+

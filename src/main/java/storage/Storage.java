@@ -1,3 +1,5 @@
+package storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,8 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import exceptions.DukeException;
+import task.*;
 
 public class Storage {
 
@@ -43,7 +45,7 @@ public class Storage {
                 String taskMessage = arr[2].strip();
                 Tasks tasks;
                 if (type.equals("T")) {
-                    tasks = new Todo(taskMessage, "T");
+                    tasks = new ToDo(taskMessage, "T");
                 } else if (type.equals("D")) {
                     tasks = new Deadline(taskMessage, "D", arr[3].strip());
                 } else {

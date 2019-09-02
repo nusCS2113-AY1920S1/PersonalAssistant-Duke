@@ -1,9 +1,10 @@
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import exceptions.DukeException;
+import storage.Storage;
+import task.*;
 
 
 public class Duke {
@@ -220,7 +221,7 @@ public class Duke {
                 throw DukeException.EMPTY_TASK_IN_TODO;
             }
 
-            Tasks newToDo = new Todo(joinTokens, "T");
+            Tasks newToDo = new ToDo(joinTokens, "T");
             userToDoList.add(newToDo);
             System.out.println(line + "\n" + space + "Got it. I've added this task:"
                 + "\n" + space + " [" + userToDoList.get(todolist_number - 1).getType()

@@ -1,3 +1,5 @@
+package task;
+
 public class Deadline extends Tasks {
 
     private String deadline;
@@ -17,6 +19,7 @@ public class Deadline extends Tasks {
 
     public String toMessage() {
         return description
-                + "(by: " + deadline + ")";
+            + "(by: " + deadline + ")";
     }
 }
+

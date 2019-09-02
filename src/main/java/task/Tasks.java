@@ -1,3 +1,5 @@
+package task;
+
 public abstract class Tasks {
     protected String description;
     protected String type;
