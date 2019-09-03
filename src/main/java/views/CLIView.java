@@ -113,4 +113,22 @@ public class CLIView {
         System.out.println("\t" + newException.getMessage());
         System.out.println(horiLine);
     }
+
+    public void deleteTask(TaskList taskList, String input) {
+        System.out.println(horiLine);
+        String[] allInputs = input.split(" ");
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.print("\t  ");
+        for (String i : allInputs) {
+            if (!i.equals("delete")) {
+                int index = Integer.parseInt(i) - 1;
+                ITask chosenTask = taskList.getTask(index);
+                taskList.deleteFromList(chosenTask);
+                System.out.println("[" + chosenTask.getStatusIcon() + "] " + chosenTask.getDescription());
+            }
+        }
+        String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
+        System.out.println("\tNow you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in the list." );
+        System.out.println(horiLine);
+    }
 }

@@ -37,7 +37,11 @@ public class ConsoleInputController implements IViewController {
         } else if (input.contains("done")) {
             consoleView.markDone(taskList, input);
             saveData();
-        } else {
+        } else if (input.contains("delete")) {
+            consoleView.deleteTask(taskList, input);
+            saveData();
+        }
+        else {
             // TODO refactor this to repository (3T architecture)
             try {
                 ITask newTask = taskFactory.createTask(input);

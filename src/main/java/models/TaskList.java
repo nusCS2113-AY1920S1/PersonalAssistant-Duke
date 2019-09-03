@@ -14,6 +14,10 @@ public class TaskList implements Serializable {
         this.listOfTasks.add(newTask);
     }
 
+    public void deleteFromList(ITask oldTask) {
+        listOfTasks.remove(oldTask);
+    }
+
     public ArrayList<ITask> getAllTasks() {
         return this.listOfTasks;
     }
