@@ -2,8 +2,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,7 +21,8 @@ public class Duke {
         separator();
 
         ArrayList<Task> myList = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
-        readSave(myList);
+        Storage save = new Storage("save.txt"); //initialize the storage class
+        save.readSave(myList);
         separator();
 
         String myString = inputCommand(); //get raw input from user
@@ -47,7 +46,7 @@ public class Duke {
                         myList.get(taskNumber - 1).markAsDone(); //marks that task number as done
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println((taskNumber) + "." + myList.get(taskNumber - 1).getStatusIcon());
-                        updateSave(taskNumber); //Updates task status in save file
+                        save.updateSave(taskNumber); //Updates task status in save file
                     } catch (ArrayIndexOutOfBoundsException | IOException e) {
                         System.out.println("Error! 'Done' must be followed by a number. Please type 'list' to display " +
                                 "the list of tasks and their numbers.");
@@ -66,7 +65,7 @@ public class Duke {
                         System.out.println(myList.get(taskNumber - 1).getStatusIcon());
                         myList.remove(taskNumber - 1); //remove the element from the list
                         System.out.println("Now you have " + myList.size() + " task(s) in the list.");
-                        deleteSave(taskNumber); //Updates task status in save file
+                        save.deleteSave(taskNumber); //Updates task status in save file
                     } catch (ArrayIndexOutOfBoundsException | IOException e) {
                         System.out.println("Error! 'Delete' must be followed by a number. Please type 'list' to display " +
                                 "the list of tasks and their numbers.");
@@ -113,7 +112,7 @@ public class Duke {
                         try {
                             Task newTask = new Todo(bufferArray[1]); //Create a new todos with description from user input
                             addToList(newTask, myList);
-                            saveData(newTask);
+                            save.saveData(newTask);
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error! Description of a Todo task must not be empty.");
                         }
@@ -139,7 +138,7 @@ public class Duke {
                             //Create a new deadline with description from user input
                             Task newTask = new Deadline(bufferDescription[1], bufferDeadline[1]);
                             addToList(newTask, myList);
-                            saveData(newTask);
+                            save.saveData(newTask);
 
                             //Error to be displayed when /by is not in deadline input
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -168,7 +167,7 @@ public class Duke {
                             //Create a new deadline with description from user input
                             Task newTask = new Event(bufferDescription[1], bufferEvent[1]);
                             addToList(newTask, myList);
-                            saveData(newTask);
+                            save.saveData(newTask);
 
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
@@ -212,10 +211,6 @@ public class Duke {
         System.out.println("Now you have " + myTasks.size() + " task(s) in the list.");
     }
 
-    //Adds to list from save data without spamming "got it..."
-    private static void addToListQuietly(Task taskData, ArrayList<Task> myTasks) {
-        myTasks.add(taskData);
-    }
 
     //Method to get the tasks in a list
     private static void getList(ArrayList<Task> myTasks) {
@@ -223,193 +218,6 @@ public class Duke {
         for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
             System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
         }
-    }
-
-    //Method to save new tasks to a persistent storage
-    private static void saveData(Task newTask) {
-        String fileName = "save.txt"; //name to save file
-
-        try {
-
-            File file = new File("save.txt");
-            FileWriter fw = new FileWriter(file, true); //appends incoming task to file
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            // Note that write() does not automatically
-            // append a newline character.
-            bw.write(newTask.getType());
-            bw.write("/");
-            bw.write(newTask.getStatusInt());
-            bw.write("/");
-            bw.write(newTask.getDescription());
-            bw.write("/");
-            //if incoming data is deadline or event, additional segment for deadline
-            if (newTask.getType().equals("[D]") || newTask.getType().equals("[E]")) {
-                bw.write(newTask.getBy());
-            }
-            bw.newLine(); //new line for next input
-
-            // Always close files.
-            bw.close();
-            fw.close();
-        }
-        catch(IOException ex) {
-            System.out.println("Error writing to file '"+ fileName + "'");
-        }
-    }
-
-    //method to read data from a persistent storage and output them to a list
-    //Should be done in the beginning
-    private static void readSave(ArrayList<Task> myTasks) {
-
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
-
-            boolean saveExistence = false;
-
-            // read line by line
-            //[D]|[tick]|description|date
-            String myString;
-            while ((myString = br.readLine()) != null) {
-                saveExistence = true;
-                String[] bufferLine = myString.split("/");
-                //bufferLine[2] and [3] are the task description and date respectively
-                //bufferLine[1] is the statusDone icon, and its [1] character should be a tick or cross
-                //Check task type to see if any dates are needed
-                if (bufferLine[0].equals("[D]")) {
-                    Task newTask = new Deadline(bufferLine[2], bufferLine[3]);
-                    //Check if the task has already been done
-                    if (bufferLine[1].equals("1")) {
-                        newTask.markAsDone();
-                    }
-                    addToListQuietly(newTask, myTasks);
-                }
-                else if (bufferLine[0].equals("[E]")) {
-                    Task newTask = new Event(bufferLine[2], bufferLine[3]);
-                    if (bufferLine[1].equals("1")) {
-                        newTask.markAsDone();
-                    }
-                    addToListQuietly(newTask, myTasks);
-                }
-                //Task type is a todos, no dates
-                else {
-                    Task newTask = new Todo(bufferLine[2]);
-                    if (bufferLine[1].equals("1")) {
-                        newTask.markAsDone();
-                    }
-                    addToListQuietly(newTask, myTasks);
-                }
-            }
-
-            br.close();
-
-            //once all data has been added to list, display the list
-            if (saveExistence) {
-                System.out.println("Save detected. Here are your tasks from the previous session: ");
-                for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
-                    System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
-                }
-            }
-            //If there is no save data, print this message
-            else {
-                System.out.println("No save data detected on save file.");
-            }
-
-        } catch (IOException e) {
-            System.out.println("No save file exists. Creating new one.");
-        }
-    }
-
-    //method to update the task completed status within a text file
-    private static void updateSave(int taskNumber) throws IOException {
-
-        ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
-
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
-
-            // read line by line
-            //[D]/1/description/date
-            String myString;
-            while ((myString = br.readLine()) != null) {
-                myList.add(myString);
-            }
-
-            br.close();
-
-            //At this point, myList should contain all lines of save data
-            //bufferUpdate contains the task that needs to be updated
-            String bufferUpdate = myList.get(taskNumber - 1);
-            String bufferNew = "";
-            //Replace one character in the string
-            bufferNew += bufferUpdate.substring(0, 4) + "1" + bufferUpdate.substring(5);
-
-            myList.set(taskNumber - 1, bufferNew);
-
-            File file = new File("save.txt");
-            FileWriter clear = new FileWriter(file); //intial write to clear file
-            clear.close();
-
-            //Now append to empty file
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            //Now, myList contains the updated save data, output everything into save.txt
-            for (int n = 0; n < myList.size(); n++) {
-                bw.write(myList.get(n));
-                bw.newLine();
-            }
-
-            //order of closing is important
-            bw.close();
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("No save file exists. Creating new one.");
-        }
-
-    }
-
-    //method to delete the task completed status within a text file
-    private static void deleteSave(int taskNumber) throws IOException {
-
-        ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
-
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
-
-            // read line by line
-            //[D]/1/description/date
-            String myString;
-            while ((myString = br.readLine()) != null) {
-                myList.add(myString);
-            }
-
-            br.close();
-
-            //At this point, myList should contain all lines of save
-            //Remove the task at the index position indicated by the user
-            myList.remove(taskNumber - 1);
-
-            File file = new File("save.txt");
-            FileWriter clear = new FileWriter(file); //intial write to clear file
-            clear.close();
-
-            //Now append to empty file
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            //Now, myList contains the updated save data, output everything into save.txt
-            for (int n = 0; n < myList.size(); n++) {
-                bw.write(myList.get(n));
-                bw.newLine();
-            }
-
-            //order of closing is important
-            bw.close();
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("No save file exists. Creating new one.");
-        }
-
     }
 
 }
