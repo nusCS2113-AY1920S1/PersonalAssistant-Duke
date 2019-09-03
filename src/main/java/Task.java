@@ -17,6 +17,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean checkKeyword(String str) {
+        return (this.description.contains(str));
+    }
+
     public String toString() {
         return ("[" + getStatusIcon() + "] "
                 + description);
