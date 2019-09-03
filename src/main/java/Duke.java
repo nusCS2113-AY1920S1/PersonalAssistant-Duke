@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import exceptions.DukeException;
@@ -36,7 +37,7 @@ public class Duke {
         storage = new Storage("data/duke.txt");
         try {
             userToDoList = storage.getTasksFromDatabase();
-        } catch (DukeException e) {
+        } catch (NoSuchElementException e) {
             userToDoList = new ArrayList<>();
             // no tasks in database
         }
@@ -73,9 +74,9 @@ public class Duke {
                         doneCommand(s);
                         break;
                     //================================================
-                    //case "delete":
-                      // deleteCommand(s);
-                       //break;
+                    case "delete":
+                       deleteCommand(s);
+                       break;
                     //================================================
                     case "find":
                         findCommand(s);
