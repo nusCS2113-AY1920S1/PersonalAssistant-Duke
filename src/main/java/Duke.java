@@ -38,7 +38,7 @@ public class Duke {
         printSpaces(" Got it. I have added this task:");
         printSpaces("  " + taskA.toString());
         printSpaces(" Now you have " + storeList.size()
-               + ((storeList.size() > 1) ? " tasks in the list." : " task in "
+               + ((storeList.size() == 1) ? " task in the list." : " tasks in "
                 + "the list"));
         printDash();
     }
@@ -144,7 +144,7 @@ public class Duke {
                 printSpaces( "  " + del);
                 storeList.remove(temp - 1);
                 printSpaces(" Now you have " + storeList.size()
-                       + ((storeList.size() > 1) ? " tasks in the list." : " task in "
+                       + ((storeList.size() == 1) ? " task in the list." : " tasks in "
                         + "the list"));
                 printDash();
             } catch (NumberFormatException obj) {
