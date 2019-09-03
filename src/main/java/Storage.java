@@ -8,7 +8,6 @@ public class Storage {
 
     public Storage (String destination) { //initialization with destination, this will be used throughout the program
         this.destination = destination;
-
     }
 
     //Adds to list from save data without spamming "got it..."
