@@ -24,6 +24,11 @@ public class TaskList {
         System.out.println("Now you have " + myList.size() + " task(s) in the list.");
     }
 
+    //Adds to list from save data without spamming "got it..."
+    public void addToListQuietly(Task taskData) {
+        myList.add(taskData);
+    }
+
     //method to remove task from list
     public void removeFromList(int taskNumber) {
         myList.remove(taskNumber);

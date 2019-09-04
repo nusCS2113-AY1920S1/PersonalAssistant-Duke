@@ -5,30 +5,33 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Parser {
-    protected String userInput;
-    protected Storage save = new Storage("save.txt"); //initialize the storage class
-    protected ArrayList<Task> myTasks = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
-    protected save.readSave(myTasks);
-    protected TaskList myList = new TaskList(myTasks);
+    protected Storage save; //initialize the storage class
+    protected TaskList myList;
 
 
-    public void readInput(String userInput) {
-        this.userInput = userInput;
+
+    public Parser() {
+
+    }
+
+    //Set the save used by the parse
+    public void setSave(Storage save) {
+        this.save = save;
+    }
+
+    //Currently, Parser will take in the entire raw input and taskList
+    public void setTaskList(TaskList myList) {
+        this.myList = myList;
     }
 
     //The entire point of this class is to understand and perform what the user does
-    //Currently, Parser will take in the entire raw input
-    public Parser () {
+    public void parseInput(String userInput) {
 
 
         // as long as input is not bye, keep running
         UI.separator();
         if (userInput.equals("list")) { //request for list, output the storage
             myList.getList();
-        }
-        //indicates end of duke
-        else if (userInput.equals("bye")) {
-            System.out.println("Bye. Hope to see you again soon!");
         }
         //if not requesting for list, check for done, event, todos, deadline
         else {

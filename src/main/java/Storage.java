@@ -10,16 +10,13 @@ public class Storage {
         this.destination = destination;
     }
 
-    //Adds to list from save data without spamming "got it..."
-    private static void addToListQuietly(Task taskData, ArrayList<Task> myTasks) {
-        myTasks.add(taskData);
-    }
+
 
     //method to read data from a persistent storage and output them to a list provided as argument
     //Should be done in the beginning
-    public static void readSave(ArrayList<Task> myTasks) {
+    public void readSave(TaskList myTasks) {
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(this.destination))) {
 
             boolean saveExistence = false;
 
@@ -38,14 +35,14 @@ public class Storage {
                     if (bufferLine[1].equals("1")) {
                         newTask.markAsDone();
                     }
-                    addToListQuietly(newTask, myTasks);
+                    myTasks.addToListQuietly(newTask);
                 }
                 else if (bufferLine[0].equals("[E]")) {
                     Task newTask = new Event(bufferLine[2], bufferLine[3]);
                     if (bufferLine[1].equals("1")) {
                         newTask.markAsDone();
                     }
-                    addToListQuietly(newTask, myTasks);
+                    myTasks.addToListQuietly(newTask);
                 }
                 //Task type is a todos, no dates
                 else {
@@ -53,7 +50,7 @@ public class Storage {
                     if (bufferLine[1].equals("1")) {
                         newTask.markAsDone();
                     }
-                    addToListQuietly(newTask, myTasks);
+                    myTasks.addToListQuietly(newTask);
                 }
             }
 
@@ -62,8 +59,8 @@ public class Storage {
             //once all data has been added to list, display the list
             if (saveExistence) {
                 System.out.println("Save detected. Here are your tasks from the previous session: ");
-                for (int i = 0; i < myTasks.size(); i++) { //Standard for-each loop: for (String element: myList)
-                    System.out.println((i + 1) + "." + myTasks.get(i).getStatusIcon());
+                for (int i = 0; i < myTasks.getSize(); i++) { //Standard for-each loop: for (String element: myList)
+                    System.out.println((i + 1) + "." + myTasks.getTask(i).getStatusIcon());
                 }
             }
             //If there is no save data, print this message
@@ -77,12 +74,11 @@ public class Storage {
     }
 
     //Method to save new tasks to a persistent storage
-    public static void saveData(Task newTask) {
-        String fileName = "save.txt"; //name to save file
+    public void saveData(Task newTask) {
 
         try {
 
-            File file = new File("save.txt");
+            File file = new File(this.destination);
             FileWriter fw = new FileWriter(file, true); //appends incoming task to file
             BufferedWriter bw = new BufferedWriter(fw);
 
@@ -104,16 +100,16 @@ public class Storage {
             bw.close();
             fw.close();
         } catch (IOException ex) {
-            System.out.println("Error writing to file '" + fileName + "'");
+            System.out.println("Error writing to file '" + this.destination + "'");
         }
     }
 
     //method to update the task completed status within a text file
-    public static void updateSave(int taskNumber) throws IOException {
+    public void updateSave(int taskNumber) throws IOException {
 
         ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(this.destination))) {
 
             // read line by line
             //[D]/1/description/date
@@ -133,7 +129,7 @@ public class Storage {
 
             myList.set(taskNumber - 1, bufferNew);
 
-            File file = new File("save.txt");
+            File file = new File(this.destination);
             FileWriter clear = new FileWriter(file); //intial write to clear file
             clear.close();
 
@@ -158,11 +154,11 @@ public class Storage {
     }
 
     //method to delete the task completed status within a text file
-    public static void deleteSave(int taskNumber) throws IOException {
+    public void deleteSave(int taskNumber) throws IOException {
 
         ArrayList<String> myList = new ArrayList<>(); //list to store save data temporarily
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("save.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(this.destination))) {
 
             // read line by line
             //[D]/1/description/date
@@ -177,7 +173,7 @@ public class Storage {
             //Remove the task at the index position indicated by the user
             myList.remove(taskNumber - 1);
 
-            File file = new File("save.txt");
+            File file = new File(this.destination);
             FileWriter clear = new FileWriter(file); //intial write to clear file
             clear.close();
 
