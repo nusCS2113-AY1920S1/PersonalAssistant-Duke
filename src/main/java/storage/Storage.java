@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
 import exceptions.DukeException;
 import task.*;
 
 public class Storage {
 
-    private String filePath;
+    private static String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -34,11 +36,22 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw DukeException.FILE_NOT_FOUND;
         }
+        List <String> store = new ArrayList<>();
         for (int i = 0; i < userToDoListString.size(); i += 1) {
             String line = userToDoListString.get(i);
             if (line.trim().isEmpty()) { //ignore empty lines
                 continue;
             } else {
+               /**
+                store.clear();
+                StringTokenizer st1 = new StringTokenizer(line, "\\| ");
+                while (st1.hasMoreTokens()) {
+                    store.add(st1.nextToken());
+                }
+                String type = store.get(0);
+                String done = store.get(1);
+                String taskMessage = store.get(2);
+                **/
                 String[] arr = line.split("\\|");
                 String type = arr[0].strip();
                 String done = arr[1].strip();
@@ -47,9 +60,9 @@ public class Storage {
                 if (type.equals("T")) {
                     tasks = new ToDo(taskMessage, "T");
                 } else if (type.equals("D")) {
-                    tasks = new Deadline(taskMessage, "D", arr[3].strip());
+                    tasks = new Deadline(taskMessage, "D", arr[3].strip()); //arr[3].strip()
                 } else {
-                    tasks = new Event(taskMessage, "E", arr[3].strip());
+                    tasks = new Event(taskMessage, "E", arr[3].strip()); //arr[3].strip()
                 }
                 if (done.equals("✓")) {
                     tasks.setDone(true);
@@ -63,10 +76,9 @@ public class Storage {
         return userToDoListTask;
     }
 
-    /**
-     * Takes the list of tasks and save them into the duke.txt file
-     */
-    public void saveTask(List<Tasks> userToDoList) throws DukeException {
+    //Runs the duke program where it first extracts tasks from duke.txt.
+    // After which, it takes in input from users and run the appropriate commands.
+    public static void saveTask(List<Tasks> userToDoList) throws DukeException {
         File f = new File(filePath);
         try {
             FileWriter fileWriter = new FileWriter(f);
