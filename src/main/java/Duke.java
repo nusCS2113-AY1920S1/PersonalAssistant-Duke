@@ -2,21 +2,31 @@ import java.util.ArrayList;
 
 
 public class Duke {
-    public static void main(String[] args) {
 
-        UI ui = new UI(); //initialize ui class that handles input from user
+    private TaskList myList;
+    private Storage save;
+    private UI ui;
+    private Parser parse;
 
-        ui.welcomeMessage(); //Output welcome message
+    //Method to initialize all important classes and data on startup
+    public Duke(String filePath) {
+
+        ui = new UI(); //initialize ui class that handles input from user
+
 
         ArrayList<Task> myTasks = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
-        TaskList myList = new TaskList(myTasks); //Initialise tasklist
-        Storage save = new Storage("save.txt"); //initialize the storage class
-
-        save.readSave(myList); //initial reading of save file during startup
-
-        Parser parse = new Parser();
+        myList = new TaskList(myTasks); //Initialise tasklist
+        save = new Storage(filePath); //initialize the storage class
+        parse = new Parser();
         parse.setSave(save);
         parse.setTaskList(myList);
+
+    }
+
+    //method to run the actual duke program
+    public void run() {
+        ui.welcomeMessage(); //Output welcome message
+        save.readSave(myList); //initial reading of save file during startup
 
         UI.separator();
 
@@ -28,12 +38,13 @@ public class Duke {
         }
 
         ui.byeMessage();
-
     }
 
+    public static void main(String[] args) {
 
+        new Duke("save.txt").run();
 
-
+    }
 
 }
 
