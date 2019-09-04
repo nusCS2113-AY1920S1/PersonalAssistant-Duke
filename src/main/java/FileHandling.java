@@ -11,8 +11,9 @@ public class FileHandling {
     }
 
     public ArrayList<Task> retrieveData() throws DukeException {
+
         try {
-            FileReader readFile= new FileReader(this.file);
+            FileReader readFile = new FileReader(this.file);
             BufferedReader read = new BufferedReader(readFile);
             ArrayList<Task> initialData = new ArrayList<>();
             String input;
@@ -45,21 +46,18 @@ public class FileHandling {
             }
             return initialData;
         } catch (FileNotFoundException obj) {
-            System.out.println("     Invalid file name/file path. File not found." +
-                    "Will make a new file ...");
-            return new ArrayList<>();
+            throw new DukeException(" Invalid file name/file path. File not found."
+                    + "Will make a new file ...");
         } catch (IOException obj) {
-            System.out.println("     Error while reading data from the file");
-            System.err.println(obj.getMessage());
-            return new ArrayList<>();
+            throw new DukeException(" Error while reading data from the file. Will continue "
+                   + "with empty list");
         } catch (ArrayIndexOutOfBoundsException obj) {
-            System.out.println("     Index out of bounds. Probably due to invalid format of storing" +
-                    "Todo/Deadline/Event data");
-            return new ArrayList<>();
+            throw new DukeException(" Index out of bounds. Probably due to invalid format of storing"
+                    + "Todo/Deadline/Event data");
         }
     }
 
-    public void saveData(ArrayList<Task> storeDataInFile) {
+    public void saveData(ArrayList<Task> storeDataInFile) throws DukeException {
 
         try {
             FileWriter writin = new FileWriter(this.file);
@@ -70,8 +68,7 @@ public class FileHandling {
             }
             outData.close();
         } catch (IOException obj) {
-            System.out.println("     Error with input output operations while handling the file.");
-            System.err.println(obj.getMessage());
+            throw new DukeException(" Error occurred while writing data to the file " + obj);
         }
     }
 }
