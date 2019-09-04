@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class TaskList implements Serializable {
     private ArrayList<ITask> listOfTasks;
+    private ArrayList<ITask> searchedTasks;
 
     public TaskList() {
         listOfTasks = new ArrayList<>();
@@ -28,5 +29,16 @@ public class TaskList implements Serializable {
 
     public int getNumOfTasks() {
         return this.listOfTasks.size();
+    }
+
+    public ArrayList<ITask> getSearchedTasks(String input) {
+        String [] allinputs = input.split(" ");
+        searchedTasks = new ArrayList<>();
+        for (ITask task : listOfTasks) {
+            if (task.getDescription().contains(allinputs[1])) {
+                searchedTasks.add(task);
+            }
+        }
+        return searchedTasks;
     }
 }
