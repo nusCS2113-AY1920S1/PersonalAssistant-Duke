@@ -29,7 +29,6 @@ public class Parser {
 
 
         // as long as input is not bye, keep running
-        UI.separator();
         if (userInput.equals("list")) { //request for list, output the storage
             myList.getList();
         }
@@ -183,6 +182,7 @@ public class Parser {
                 }
             }
         }
-        UI.separator();
+
+        System.out.println("");
     }
 }
