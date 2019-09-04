@@ -31,7 +31,6 @@ javafx {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
-    testImplementation 'org.hamcrest:hamcrest-library:1.3'
 }
 
 test {
