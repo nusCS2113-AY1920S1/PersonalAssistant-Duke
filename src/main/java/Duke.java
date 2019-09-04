@@ -12,6 +12,9 @@ public class Duke extends Application {
     private UI ui;
     private Parser parse;
 
+
+
+
     //Method to initialize all important classes and data on startup
     public Duke(String filePath) {
 
@@ -28,9 +31,8 @@ public class Duke extends Application {
 
         ui.welcomeMessage(); //Output welcome message
 
-        System.out.println();
-        save.readSave(myList); //initial reading of save file during startup
-        System.out.println();
+        getSave(myList); //Save file detection
+
 
         /*
         String myString = ui.inputCommand(); //get raw input from user
@@ -46,9 +48,30 @@ public class Duke extends Application {
 
     }
 
-    //method to run the actual duke program
+    //method output initial reading of save file
     private void run() {
 
+    }
+
+    String getSave(TaskList myList) {
+        // Create a stream to hold the output
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(output);
+        // IMPORTANT: Save the old System.out!
+        PrintStream old = System.out;
+        // Tell Java to use your special stream
+        System.setOut(ps);
+
+        //Java will read whatever is output to the console, and relay it to the chatbox
+        save.readSave(myList); //initial reading of save file during startup
+
+        // Put things back
+        System.out.flush();
+        System.setOut(old);
+        // Show what happened
+        System.out.println(output.toString());
+
+        return output.toString();
     }
 
 
@@ -72,8 +95,6 @@ public class Duke extends Application {
      */
 
     String getResponse(String myString) {
-
-
         // Create a stream to hold the output
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);

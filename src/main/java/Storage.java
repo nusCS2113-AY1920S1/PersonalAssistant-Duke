@@ -130,7 +130,7 @@ public class Storage {
             myList.set(taskNumber - 1, bufferNew);
 
             File file = new File(this.destination);
-            FileWriter clear = new FileWriter(file); //intial write to clear file
+            FileWriter clear = new FileWriter(file); //initial write to clear file
             clear.close();
 
             //Now append to empty file

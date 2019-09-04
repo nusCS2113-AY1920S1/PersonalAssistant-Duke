@@ -69,6 +69,6 @@ public class Deadline extends Task {
     }
 
     public String getStatusIcon() {
-        return "[D]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + " (by: " + this.getDeadline() + ")";
+        return "[D]" + "[" + (isDone ? "Y" : "N") + "] " + this.description + " (by: " + this.getDeadline() + ")";
     }
 }

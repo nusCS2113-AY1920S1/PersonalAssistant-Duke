@@ -9,7 +9,7 @@ public class Task {
 
     public String getStatus() {
 
-        return "[" + (isDone ? "\u2713" : "\u2718") + "]"; //return tick or X symbols in a bracket
+        return "[" + (isDone ? "Y" : "N") + "]"; //return tick or X symbols in a bracket
     }
 
     //Return status icon as int, for easier reading when saving

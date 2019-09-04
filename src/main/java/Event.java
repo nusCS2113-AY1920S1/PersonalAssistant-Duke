@@ -67,6 +67,6 @@ public class Event extends Task {
     }
 
     public String getStatusIcon() {
-        return "[E]" + "[" + (isDone ? "\u2713" : "\u2718") + "] " + this.description + " (at: " + this.getDeadline() + ")";
+        return "[E]" + "[" + (isDone ? "Y" : "N") + "] " + this.description + " (at: " + this.getDeadline() + ")";
     }
 }
