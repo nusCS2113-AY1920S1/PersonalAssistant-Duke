@@ -121,9 +121,10 @@ public class Parser {
                     String message = TaskList.getMessage(i).toLowerCase();
                     String type = TaskList.getType(i).toLowerCase();
                     String icon = TaskList.getStatus(i);
-                    if ((message.contains(findLowerCase)) || (type.contains(findLowerCase)) || (icon.contains(findLowerCase))) {
-                        Ui.showFindTasks(TaskList.getType(i), TaskList.getStatus(i), TaskList.getMessage(i)
-                            , j);
+                    if ((message.contains(findLowerCase)) || (type.contains(findLowerCase)) ||
+                        (icon.contains(findLowerCase))) {
+                        Ui.showFindTasks(TaskList.getType(i), TaskList.getStatus(i),
+                            TaskList.getMessage(i), j);
                         j += 1;
                     }
                 }

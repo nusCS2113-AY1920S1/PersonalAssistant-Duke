@@ -14,6 +14,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Ui that handles users' inputs.
+     * Extracts task from Duke.txt or creates a new tasklist.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +29,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints welcome message.
+     * After which, takes in user's input and pass it to Parser class.
+     */
     public void run() throws DukeException {
         ui.showWelcome();
         System.out.flush();

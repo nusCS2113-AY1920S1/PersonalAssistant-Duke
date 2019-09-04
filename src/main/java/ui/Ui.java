@@ -39,6 +39,9 @@ public class Ui {
         System.out.println(line + "\n" + space + "Here are the tasks in your list:");
     }
 
+    /**
+     * Prints a respective task when user enters list.
+     */
     public static void showListTask(String type, String icon, String message, int num) {
         System.out.println(space + num + ".[" + type
             + "][" + icon
@@ -49,11 +52,17 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints a message once user enters bye.
+     */
     public static void showByeMessage() {
         System.out.println(line + "\n" + space + "Bye. Hope to see you again soon!");
         System.out.println(line);
     }
 
+    /**
+     * Prints a message once a task has been done and updated into tasklist.
+     */
     public static void showMarkAsDone(String type, String status, String message) {
         System.out.println(line + "\n" + space + "Nice! I've marked this task as done:");
         System.out.println(space + " [" + type
@@ -66,6 +75,9 @@ public class Ui {
         System.out.println(line + "\n" + space + message + "\n" + line);
     }
 
+    /**
+     * Prints a message once a To-Do task has been successfully added into tasklist.
+     */
     public static void showToDoSucess(String type, String status, String message, int todolist_number) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:"
             + "\n" + space + " [" + type
@@ -85,6 +97,9 @@ public class Ui {
         System.out.println(line + "\n" + space + "Here are the matching tasks in your list:");
     }
 
+    /**
+     * Prints a message once a task has been deleted from tasklist.
+     */
     public static void showDeleteMessage(String type, String status, String message, int num) {
         System.out.println(line + "\n" + space + "Noted. I've removed this task:"
             + "\n" + space + " [" + type
@@ -94,6 +109,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints a respective task when user enters find.
+     */
     public static void showFindTasks(String type, String status, String message, int num) {
         System.out.println(space + num + ".["
             + type + "][" + status
@@ -106,13 +124,19 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Reads users' input.
+     */
     public String readInput() {
         String line = in.nextLine().trim();
         return line.trim();
 
     }
 
-    public static void showEventMessage (String status, String message, int num) {
+    /**
+     * Prints a message once a event task has been successfully added into tasklist.
+     */
+    public static void showEventMessage(String status, String message, int num) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [E]["
             + status
             + "] " + message);
@@ -124,7 +148,10 @@ public class Ui {
         System.out.println(line);
     }
 
-    public static void showDeadlineMessage (String status, String message, int num) {
+    /**
+     * Prints a message once a deadline task has been successfully added into tasklist.
+     */
+    public static void showDeadlineMessage(String status, String message, int num) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [D]["
             + status
             + "] " + message);

@@ -21,7 +21,7 @@ public class Storage {
     }
 
     /**
-     * Extracts the tasks from duke.txt file when user opens the programme
+     * Extracts the tasks from duke.txt file when user opens the programme.
      * Returns back the list of tasks.
      */
     public List<Tasks> getTasksFromDatabase() throws DukeException {
@@ -36,22 +36,12 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw DukeException.FILE_NOT_FOUND;
         }
-        List <String> store = new ArrayList<>();
+        List<String> store = new ArrayList<>();
         for (int i = 0; i < userToDoListString.size(); i += 1) {
             String line = userToDoListString.get(i);
             if (line.trim().isEmpty()) { //ignore empty lines
                 continue;
             } else {
-               /**
-                store.clear();
-                StringTokenizer st1 = new StringTokenizer(line, "\\| ");
-                while (st1.hasMoreTokens()) {
-                    store.add(st1.nextToken());
-                }
-                String type = store.get(0);
-                String done = store.get(1);
-                String taskMessage = store.get(2);
-                **/
                 String[] arr = line.split("\\|");
                 String type = arr[0].strip();
                 String done = arr[1].strip();
@@ -76,8 +66,9 @@ public class Storage {
         return userToDoListTask;
     }
 
-    //Runs the duke program where it first extracts tasks from duke.txt.
-    // After which, it takes in input from users and run the appropriate commands.
+    /**
+     * Saves tasks into duke.txt file.
+     */
     public static void saveTask(List<Tasks> userToDoList) throws DukeException {
         File f = new File(filePath);
         try {

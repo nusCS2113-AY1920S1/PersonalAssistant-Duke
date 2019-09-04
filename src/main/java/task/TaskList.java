@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private static List<Tasks> tasks ;
+    private static List<Tasks> tasks;
 
     public TaskList(List<Tasks> tasks) {
 
@@ -22,6 +22,9 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Removes task from tasklist.
+     */
     public static void removeTask(int num) throws DukeException {
         try {
             tasks.remove(num);
@@ -34,6 +37,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Extracts the type of a particular task from tasklist.
+     */
     public static String getType(int num) throws DukeException {
         try {
             String type = tasks.get(num).getType();
@@ -47,6 +53,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Extracts the status icon of a particular task from tasklist.
+     */
     public static String getStatus(int num) throws DukeException {
         try {
             String status = tasks.get(num).getStatusIcon();
@@ -60,6 +69,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Extracts the task description from a particular task from tasklist.
+     */
     public static String getMessage(int num) throws DukeException {
         try {
             String message = tasks.get(num).getDescription();
