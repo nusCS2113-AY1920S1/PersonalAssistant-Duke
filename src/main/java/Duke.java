@@ -152,6 +152,23 @@ public class Duke {
             } catch (IndexOutOfBoundsException obj) {
                 throw new DukeException(" OOPS! Enter a number that is present in the list");
             }
+        } else if (splitInput.get(0).equals("find")) { // can check for a word, letter or a part of a word
+            if (splitInput.size() == 1) {
+                throw new DukeException(" Please enter a keyword after join");
+            }
+            String keyword = String.join("", splitInput.subList(1, splitInput.size()));
+            ArrayList<Task> containsKeyword = new ArrayList<Task>();
+            for (int i = 0; i < storeList.size(); i++) {
+                if (storeList.get(i).checkKeyword(keyword)) {
+                    containsKeyword.add(storeList.get(i));
+                }
+            }
+            printDash();
+            printSpaces(" Here are the matching tasks in your list:");
+            for (int i = 0; i < containsKeyword.size(); i++) {
+                printSpaces(" " + (i + 1) + ". " + containsKeyword.get(i).toString());
+            }
+            printDash();
         } else {
             throw new DukeException(" Please enter a valid command");
         }
