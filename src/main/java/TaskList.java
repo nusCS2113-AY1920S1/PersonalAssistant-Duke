@@ -24,7 +24,23 @@ public class TaskList {
         System.out.println("Now you have " + myList.size() + " task(s) in the list.");
     }
 
+    //method to remove task from list
     public void removeFromList(int taskNumber) {
         myList.remove(taskNumber);
+    }
+
+    //method to update the status of a task
+    public void updateTask(int taskNumber) {
+        myList.get(taskNumber).markAsDone();
+    }
+
+    //Method to display task description and stats as a task
+    public Task getTask(int taskNumber) {
+        return myList.get(taskNumber);
+    }
+
+    //method to return size of list
+    public int getSize() {
+        return myList.size();
     }
 }
