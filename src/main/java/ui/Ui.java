@@ -106,13 +106,9 @@ public class Ui {
         System.out.println(line);
     }
 
-    public String readInput() throws DukeException{
-        try {
-            String line = in.nextLine().trim();
-            return line.trim();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+    public String readInput() {
+        String line = in.nextLine().trim();
+        return line.trim();
 
     }
 

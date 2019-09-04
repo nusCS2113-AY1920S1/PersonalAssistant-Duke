@@ -1,4 +1,5 @@
-E | ✓ | finish assignment (at: 20/09/2019) | 20/09/2019
-D | ✘ | review movie (by: 20th of February 2019, 08:09 PM) | 20th of February 2019, 08:09 PM
-E | ✘ | eat later (at: noon) | noon
-D | ✘ | watch movies (by: 21st of August 2018, 09:08 AM) | 21st of August 2018, 09:08 AM
+D | ✓ | assignment (by: 09th of April 2019, 09:04 AM) | 09th of April 2019, 09:04 AM
+E | ✘ | concert (at: esplanade) | esplanade
+T | ✓ | chat with friends
+E | ✘ | meetup and eat (at: 20th of September 2019, 08:09 PM) | 20th of September 2019, 08:09 PM
+D | ✓ | eat with family (by: sunday) | sunday

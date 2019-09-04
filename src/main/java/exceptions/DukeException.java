@@ -29,6 +29,7 @@ public class DukeException extends Exception {
 
     public static final DukeException FILE_NOT_FOUND = new DukeException("☹ OOPS!!! Unknown error "
             + "extracting tasks from database.");
+    public static final DukeException INPUT_NOT_FOUND = new DukeException("☹ OOPS!!! No input found");
 
     private String message;
 

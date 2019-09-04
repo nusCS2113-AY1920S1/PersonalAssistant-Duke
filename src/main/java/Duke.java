@@ -25,7 +25,7 @@ public class Duke {
         }
     }
 
-    public void run() {
+    public void run() throws DukeException {
         ui.showWelcome();
         System.out.flush();
         while (true) {
@@ -38,13 +38,13 @@ public class Duke {
                 if (check == 1) {
                     break;
                 }
-            } catch (DukeException e) {
-                Ui.showError(e.getMessage());
+            } catch (NullPointerException e) {
+                throw DukeException.INPUT_NOT_FOUND;
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke("data/duke.txt").run();
     }
 }
