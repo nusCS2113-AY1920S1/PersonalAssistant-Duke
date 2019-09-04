@@ -5,6 +5,7 @@ import exceptions.DukeException;
 import models.ITask;
 import models.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CLIView {
@@ -24,7 +25,7 @@ public class CLIView {
     /**
      * Method to call when View model is started.
      */
-    public void start() {
+    public void start() throws DukeException {
         Scanner sc = new Scanner(System.in);
         consoleInputController.readData();
 
@@ -108,9 +109,23 @@ public class CLIView {
      * Method to be called when a Invalid Command is input by the user.
      * @param newException : Exception that is thrown when an Invalid Command is detected
      */
-    public void invalidCommandMessage(DukeException newException) {
+    public void invalidCommandMessage(Exception newException) {
         System.out.println(horiLine);
         System.out.println("\t" + newException.getMessage());
+        System.out.println(horiLine);
+    }
+
+    public void findTask(TaskList taskList, String input) {
+        System.out.println(horiLine);
+        System.out.println("\tHere are the matching tasks in your list:");
+        ArrayList<ITask> results = taskList.getSearchedTasks(input);
+        for (int i = 0; i < results.size(); i++) {
+            System.out.print("\t" + (i + 1));
+            System.out.println(".[" + results.get(i).getInitials() + "]"
+                    + "[" + results.get(i).getStatusIcon() + "] "
+                    + results.get(i).getDescription()
+            );
+        }
         System.out.println(horiLine);
     }
 }

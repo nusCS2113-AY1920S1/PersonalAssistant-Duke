@@ -37,6 +37,12 @@ public class ConsoleInputController implements IViewController {
         } else if (input.contains("done")) {
             consoleView.markDone(taskList, input);
             saveData();
+        } else if (input.contains("find")) {
+            try {
+                consoleView.findTask(taskList, input);
+            } catch (ArrayIndexOutOfBoundsException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
         } else {
             // TODO refactor this to repository (3T architecture)
             try {
