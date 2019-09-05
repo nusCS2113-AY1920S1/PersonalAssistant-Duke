@@ -12,7 +12,7 @@ public class ConsoleInputController implements IViewController {
     private CLIView consoleView;
     private TaskFactory taskFactory;
     private TaskList taskList;
-    private String filePath = ".\\src\\main\\java\\saves\\TaskLists.txt";
+    private String filePath = "D:\\For Git\\CS2113_Duke\\src\\main\\java\\saves\\TaskLists.txt";
 
     /**
      * Constructor.
