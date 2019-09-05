@@ -13,7 +13,7 @@ public class DateTimeRecognition {
         try {
             SimpleDateFormat identifyFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date dateAndTime = identifyFormat.parse(date);
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             throw new DukeException(" The format for including date and time for an event/"
                     + "deadline is <dd/mm/yyyy HHmm>");
         }

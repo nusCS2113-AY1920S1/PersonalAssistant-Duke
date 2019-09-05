@@ -76,7 +76,7 @@ public class Ui {
 
     public void deleteMessage(ArrayList<Task> taskList, String taskA) {
         printSpaces(" Noted. I have removed this task:");
-        printSpaces( "  " + taskA);
+        printSpaces("  " + taskA);
         showNumTasks(taskList);
     }
 

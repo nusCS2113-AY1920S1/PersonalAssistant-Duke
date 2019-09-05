@@ -1,9 +1,9 @@
-abstract public class Command {
+public abstract class Command {
     boolean isExit = false;
 
     public boolean isExit() {
         return this.isExit;
     }
 
-    abstract public void execute(TaskList tasks,Ui ui,FileHandling storage) throws DukeException;
+    public abstract void execute(TaskList tasks,Ui ui,FileHandling storage) throws DukeException;
 }

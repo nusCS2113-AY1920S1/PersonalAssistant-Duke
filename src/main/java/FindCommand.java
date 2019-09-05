@@ -10,7 +10,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute (TaskList tasks,Ui ui,FileHandling storage)throws DukeException {
+    public void execute(TaskList tasks,Ui ui,FileHandling storage)throws DukeException {
         if (splitInput.size() == 1) {
             throw new DukeException(" Please enter a keyword after join");
         }

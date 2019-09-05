@@ -3,7 +3,7 @@ public class Duke {
     private FileHandling storage;
     private TaskList tasks;
 
-    public Duke (String filename) {
+    public Duke(String filename) {
         try {
             ui = new Ui();
             storage = new FileHandling(filename);
@@ -30,7 +30,7 @@ public class Duke {
         }
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         new Duke("storeData.txt").run();
     }
 }

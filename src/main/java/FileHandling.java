@@ -22,21 +22,20 @@ public class FileHandling {
                 int k = 0;
                 List<String> columns = Arrays.asList(input.split("\\|"));
                 switch (columns.get(0)) {
-                    case "T":
-                        initialData.add(new Todo(columns.get(2)));
-                        break;
-                    case "E":
-                        initialData.add(new Event(columns.get(2), columns.get(3)));
-                        break;
-                    case "D":
-                        initialData.add(new Deadline(columns.get(2), columns.get(3)));
-                        break;
-                    default:
-
-                        System.out.println("\n     There is an invalid entry in the file. This entry will "
-                                + "not be copied to the list:");
-                        System.out.println("     " + input);
-                        k = 1;
+                case "T":
+                    initialData.add(new Todo(columns.get(2)));
+                    break;
+                case "E":
+                    initialData.add(new Event(columns.get(2), columns.get(3)));
+                    break;
+                case "D":
+                    initialData.add(new Deadline(columns.get(2), columns.get(3)));
+                    break;
+                default:
+                    System.out.println("\n     There is an invalid entry in the file. This entry will "
+                            + "not be copied to the list:");
+                    System.out.println("     " + input);
+                    k = 1;
                 }
                 if (k == 0) {
                     if (columns.get(1).equals("1")) {

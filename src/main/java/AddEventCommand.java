@@ -1,4 +1,5 @@
 import java.util.List;
+
 public class AddEventCommand extends Command {
     private List<String> splitInput;
 
