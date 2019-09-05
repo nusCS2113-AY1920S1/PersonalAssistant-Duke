@@ -2,9 +2,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ui {
+    private Scanner sc = new Scanner(System.in);
 
     public String readCommand() {
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
