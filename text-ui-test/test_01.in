@@ -1,8 +1,0 @@
-list
-todo read book
-deadline return book /by 12/12/2019
-deadline return book /by 12/12/2019 1200
-event book reading /at 10/12/2019 1200
-event book reading /at 10/12/2019 1200 to 10/12/2019 1400
-list
-bye
