@@ -2,8 +2,15 @@ import java.util.List;
 
 public class Event extends Task {
     private String description;
-    private DateTime start, end;
+    private DateTime end;
+    private DateTime start;
 
+    /**
+     * Create an event task from user input.
+     *
+     * @param input tokenized user input
+     * @throws DukeException error if user input is invalid
+     */
     public Event(List<String> input) throws DukeException {
         int separatorIndex = input.indexOf("/at");
         if (input.size() == 0 || separatorIndex <= 0) {

@@ -4,6 +4,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an instant of Duke to be executed.
+     *
+     * @param filePath name of file to store tasks
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,6 +21,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Begins the execution of Duke.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

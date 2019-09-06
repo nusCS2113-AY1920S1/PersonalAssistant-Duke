@@ -13,6 +13,10 @@ public class Storage {
 
     // Unchecked type coercion is necessary here.
     // And possible cast exceptions are handled
+
+    /**
+     * Returns the tasklist loaded from file.
+     */
     @SuppressWarnings("unchecked")
     public TaskList load() throws DukeException {
         try {
@@ -26,6 +30,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given tasklist to file.
+     *
+     * @param taskList the tasklist to be saved
+     * @throws DukeException an error if unable to write to file
+     */
     public void save(TaskList taskList) throws DukeException {
         try {
             FileOutputStream fileStream = new FileOutputStream(this.fileName);

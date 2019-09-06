@@ -3,6 +3,12 @@ import java.util.List;
 public class Todo extends Task {
     private String description;
 
+    /**
+     * Creates a todo task from given user input.
+     *
+     * @param input tokenized user input
+     * @throws DukeException the error if user input is invalid
+     */
     public Todo(List<String> input) throws DukeException {
         this.description = String.join(" ", input);
         if (input.size() == 0) {

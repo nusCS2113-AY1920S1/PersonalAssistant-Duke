@@ -1,7 +1,14 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class Parser {
+class Parser {
+    /**
+     * Returns the command to execute after parsing user input.
+     *
+     * @param input the user input
+     * @return the command to execute
+     * @throws DukeException the exception if user input is invalid
+     */
     public static Command parse(String input) throws DukeException {
         List<String> words = Arrays.asList(input.split(" "));
         String keyword = words.get(0);

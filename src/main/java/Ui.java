@@ -16,6 +16,9 @@ public class Ui {
         printHR();
     }
 
+    /**
+     * Prints welcome message.
+     */
     public void showWelcome() {
         beginBlock();
         printIndented("Hello! I'm Duke");
@@ -31,6 +34,12 @@ public class Ui {
         printIndented(message);
     }
 
+    /**
+     * Prints the task that was added.
+     *
+     * @param tasks list of all tasks
+     * @param task  the task that was added
+     */
     public void showTaskAdded(List<Task> tasks, Task task) {
         printIndented("Got it . I've added this task:");
         printIndented("  " + task);
@@ -47,6 +56,12 @@ public class Ui {
         showTasks(tasks);
     }
 
+    /**
+     * Shows the task that was just deleted.
+     *
+     * @param tasks list of all tasks
+     * @param task the task that was just deleted
+     */
     public void showDeletedTask(List<Task> tasks, Task task) {
         printIndented("Noted. I've removed this task:");
         printIndented("  " + task);

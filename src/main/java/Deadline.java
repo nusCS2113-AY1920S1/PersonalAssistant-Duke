@@ -4,6 +4,12 @@ public class Deadline extends Task {
     private String description;
     private DateTime deadline;
 
+    /**
+     * Creates a deadline task from user input.
+     *
+     * @param input tokenized user input
+     * @throws DukeException an error if user input is invalid
+     */
     public Deadline(List<String> input) throws DukeException {
         int separatorIndex = input.indexOf("/by");
         if (input.size() == 0 || separatorIndex <= 0) {
