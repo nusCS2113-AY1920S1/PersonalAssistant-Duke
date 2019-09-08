@@ -43,8 +43,9 @@ public class Storage {
      *
      */
     protected void loadDuke(ArrayList<Task> tasks){
-        File f = new File(saveFilePath);
+
         try {
+            File f = new File(saveFilePath);
             FileReader fr = new FileReader(f);
 
             //read into a char array
@@ -91,7 +92,7 @@ public class Storage {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Save File not found. Will create new save file.");
         }
     }
 
