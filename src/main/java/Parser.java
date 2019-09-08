@@ -44,14 +44,14 @@ public class Parser {
                 try {
                     throw new Duke.DukeException("☹ OOPS!!! The description of a "+cmd+" cannot be empty.");
                 } catch (Duke.DukeException e) {
-                    System.out.println(e);
+                    d.ui.printg(e.toString());
                 }
             }
             else{
                 try {
                     throw new Duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (Duke.DukeException e) {
-                    System.out.println(e);
+                    d.ui.printg(e.toString());
                 }
             }
 

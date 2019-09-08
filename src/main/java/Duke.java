@@ -26,17 +26,9 @@ import java.util.Date;
 
 import static java.lang.System.exit;
 
-public class Duke extends Application {
+public class Duke extends Application{
 
     private static final String saveFilePath="./duke.txt";
-
-    //JavaFX testing
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-
-
 
     //objects supporting Duke
     Ui ui;
@@ -52,12 +44,11 @@ public class Duke extends Application {
      * Starts off the parser CLI parsing loop
      */
     public Duke(){
-
+        System.out.println("Duke constructor");
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        ui = new Ui(tasklist.arrlist);
-        ui.showWelcome();
+        ui = new Ui(this,tasklist.arrlist);
 
         storage = new Storage(saveFilePath);
         storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
@@ -65,7 +56,6 @@ public class Duke extends Application {
         //start parsing commands
         parser = new Parser(this);
     }
-
 
     /**
      * @Function
@@ -76,100 +66,12 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-
-        //make GUI components
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane,userInput,sendButton);
-
-        Scene scene = new Scene(mainLayout);
-        System.out.println("Displaying GUI!");
-
-        stage.setTitle("Duke");
-
-        //Setting dimensions of components/stage
-        stage.setResizable(true);
-        stage.setMinHeight(400);
-        stage.setMinWidth(400);
-        mainLayout.setPrefSize(400,400);
-
-        scrollPane.setPrefSize(385,385);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325);
-        sendButton.setPrefWidth(55);
-
-        //set the constraints of the 3 UI elements to the parent (AnchorPane)
-        AnchorPane.setTopAnchor(scrollPane,userInput.getHeight()+30.0);
-        AnchorPane.setTopAnchor(userInput,1.0);
-        AnchorPane.setTopAnchor(sendButton,1.0);
-        AnchorPane.setRightAnchor(userInput,20.0);
-
-
-        //on clicking the send button
-        sendButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                handleUserInput();
-            }
-        });
-
-        //on user pressing enter while focus is on textfield
-        userInput.setOnAction(actionEvent -> handleUserInput());
-
-        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
-
-        stage.setScene(scene);
-        stage.show();
+        System.out.println("Start");
+        ui.start(stage);
+        ui.showWelcome();
 
     }
 
-
-
-    /**
-     * @Function
-     * This function creates 2 dialog boxes, 1 echoing user input and the other containing a processed reply
-     * from Duke. Clears userinput box after processing
-     * @UsedIn: sendButton.setOnMouseClicked
-     */
-    private void handleUserInput(){
-        String cmd = userInput.getText();
-
-        //send to parser to parse
-        parser.processCommands(cmd);
-
-        //show the command in the dialog container. todo: Just temporary. Remove as needed.
-        dialogContainer.getChildren().addAll(getDialogLabel(cmd));
-
-        userInput.clear();
-
-    }
-
-
-
-    /**
-     * @Function
-     * @param text
-     * @return
-     * This function returns a label (node) with the text as text
-     * @UsedIn: Application.start()
-     */
-    private Label getDialogLabel(String text){
-        Label label = new Label(text);
-        label.setWrapText(true);
-
-        return label;
-    }
 
 
     /**
@@ -210,16 +112,6 @@ public class Duke extends Application {
 
 
 
-    //Test Client
-    public static void main(String[] args) {
-
-        //start the program flow
-        new Duke();
-
-    }
-
-
-
     /**
      * @InnerClass
      * Extends Exception
@@ -244,13 +136,7 @@ public class Duke extends Application {
 
 
 
-
-
 }
-
-
-
-
 
 
 

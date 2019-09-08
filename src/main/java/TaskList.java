@@ -30,21 +30,21 @@ public class TaskList {
         switch(s){
             case "todo":
                 arrlist.add(new Todo(cs.trim()));
-                System.out.println("[T][\u2718] "+cs);
+                d.ui.printg("[T][\u2718] "+cs);
                 break;
             case "event":
                 token="/at";
 
                 description= getDescription(cs,token);
                 arrlist.add(new Event(description));
-                System.out.println("[E][\u2718] "+description);
+                d.ui.printg("[E][\u2718] "+description);
                 break;
             case "deadline":
                 token="/by";
 
                 description=getDescription(cs,token);
                 arrlist.add(new Deadline(description));
-                System.out.println("[D][\u2718] "+description);
+                d.ui.printg("[D][\u2718] "+description);
                 break;
 
         }
