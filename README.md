@@ -2,6 +2,7 @@
 
 **Prerequisites**
 
+* CS2113/T or CS2103/T
 * JDK 11
 * Recommended: IntelliJ IDE
 * Fork this repo to your GitHub account and clone the fork to your computer
