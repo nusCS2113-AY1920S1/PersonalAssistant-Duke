@@ -35,27 +35,7 @@ public class Duke extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Scene scene;
 
-    private Image trump;
-
-    {
-        try {
-            trump = new Image(new FileInputStream("/root/IdeaProjects/duke/src/main/trump.jpeg"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Image kim;
-
-    {
-        try {
-            kim = new Image(new FileInputStream("/root/IdeaProjects/duke/src/main/Kim_Jong-un_IKS_2018.jpg"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     //objects supporting Duke
@@ -176,17 +156,6 @@ public class Duke extends Application {
     }
 
 
-    /**
-     * @Function
-     * @param userSaid
-     * @return
-     * This function is Duke's response to what the user typed.
-     */
-    private String getResponse(String userSaid){
-        return "Kim agrees when you say "+ userSaid;
-    }
-
-
 
     /**
      * @Function
@@ -215,26 +184,6 @@ public class Duke extends Application {
         exit(0);
     }
 
-
-
-
-    /**
-     * @Function
-     * This function returns the number cardinal when passed an integer
-     * @param n, No Return Value
-     * @UsedIn:
-     */
-    private static String getDayOfMonthSuffix(final int n) {
-        if (n >= 11 && n <= 13) {
-            return "th";
-        }
-        switch (n % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
-            default: return "th";
-        }
-    }
 
 
     /**
@@ -299,10 +248,16 @@ public class Duke extends Application {
 
 }
 
+
+
+
+
+
+
 /**
  * @Class
  * This class is a dialog box used for implementing custom control
- */
+
 class DialogBox extends HBox {
 
     private Label text;
@@ -341,5 +296,5 @@ class DialogBox extends HBox {
 }
 
 
-
+ */
 
