@@ -1,3 +1,6 @@
+package duke.task;
+
+import duke.dukeexception.DukeException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +12,7 @@ public class DateTime implements Serializable {
     private int minute;
 
     /**
-     * Create a DateTime object from user input.
+     * Create a Duke.Task.Duke.Task.DateTime object from user input.
      *
      * @param tokens tokenized user input
      * @throws DukeException error if user input is invalid

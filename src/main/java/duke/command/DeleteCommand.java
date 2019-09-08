@@ -1,7 +1,13 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.dukeexception.DukeException;
+
 import java.util.List;
 
 public class DeleteCommand extends Command {
-    List<String> words;
+    private List<String> words;
 
     public DeleteCommand(List<String> words) {
         this.words = words;

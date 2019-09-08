@@ -1,15 +1,21 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Task;
+import duke.dukeexception.DukeException;
 import java.util.List;
 
-public class AddDeadlineCommand extends Command {
+public class AddTodoCommand extends Command {
     private List<String> words;
 
-    public AddDeadlineCommand(List<String> words) {
+    public AddTodoCommand(List<String> words) {
         this.words = words;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        Task task = new Deadline(words.subList(0, words.size()));
+        Task task = new Todo(words.subList(0, words.size()));
         taskList.add(task);
         ui.showTaskAdded(taskList.getTasks(), task);
         storage.save(taskList);

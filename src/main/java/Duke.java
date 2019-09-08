@@ -1,3 +1,9 @@
+import duke.command.Command;
+import duke.command.Storage;
+import duke.command.Ui;
+import duke.dukeexception.DukeException;
+import duke.task.TaskList;
+
 public class Duke {
 
     private Storage storage;
@@ -9,7 +15,7 @@ public class Duke {
      *
      * @param filePath name of file to store tasks
      */
-    public Duke(String filePath) {
+    private Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
 
@@ -24,7 +30,7 @@ public class Duke {
     /**
      * Begins the execution of Duke.
      */
-    public void run() {
+    private void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

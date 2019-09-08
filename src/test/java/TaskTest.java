@@ -1,3 +1,5 @@
+import duke.dukeexception.DukeException;
+import duke.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

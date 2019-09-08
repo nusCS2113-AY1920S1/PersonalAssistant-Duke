@@ -1,4 +1,9 @@
-abstract class Command {
+package duke.command;
+
+import duke.dukeexception.DukeException;
+import duke.task.TaskList;
+
+public abstract class Command {
     protected boolean isExit;
 
     public boolean isExit() {
