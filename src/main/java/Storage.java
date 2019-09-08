@@ -19,8 +19,9 @@ public class Storage {
      *
      */
     protected void saveDuke(ArrayList<Task> tasks){
-        File f = new File(saveFilePath);
+
         try {
+            File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
             for(Task t:tasks){
                 pw.printf("%s %s %s\n",t.symbol,t.isDone,t.description);
@@ -28,7 +29,7 @@ public class Storage {
             pw.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Save-file not found. Will generate new one.");
         }
     }
 
