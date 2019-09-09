@@ -1,3 +1,5 @@
+package ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,7 +9,7 @@ public class Ui {
     private Scanner sc;
 
     /**
-     * Constructs a new Ui object.
+     * Constructs a new ui.Ui object.
      */
     public Ui(){
         sc = new Scanner(System.in);
@@ -25,7 +27,7 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
 
         printLine();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm ui.Duke");
         System.out.println("What can I do for you?");
         printLine();
     }

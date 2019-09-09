@@ -1,3 +1,9 @@
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+
 public class Command {
     /**
      * This method parses the input command of the user and execute the different functions based on the given command.
