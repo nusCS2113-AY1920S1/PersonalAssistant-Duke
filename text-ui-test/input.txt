@@ -1,0 +1,12 @@
+list
+event project meeting /at 11-11-2019 11:11
+deadline doanother /by 11-11-2019 12:34
+todo testing 
+delete 2
+find do
+deadline
+todo
+event
+abcd
+list
+bye

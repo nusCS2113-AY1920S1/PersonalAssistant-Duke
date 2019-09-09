@@ -29,7 +29,7 @@ FXML is a XML-based language that allows us to define our user interface. Proper
 
 The FXML snippet define a TextField similar to the one that we programmatically defined previous in Tutorial 2. Notice how concise FXML is compared to the plain Java version.
 
-Let's return to Duke and convert it to use FXML instead.
+Let's return to duke.Duke and convert it to use FXML instead.
 
 # Rebuilding the Scene using FXML
 
@@ -48,15 +48,15 @@ Create the following files in `src/main/resources/view`:
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
-  <children>
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-    <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
-      <content>
-        <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
-      </content>
-    </ScrollPane>
-  </children>
+   <children>
+      <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
+      <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+         <content>
+            <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+         </content>
+      </ScrollPane>
+   </children>
 </AnchorPane>
 ```
 
@@ -70,13 +70,13 @@ Create the following files in `src/main/resources/view`:
 <?import javafx.scene.layout.HBox?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Label fx:id="dialog" text="Label" wrapText="true" />
-    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
-  </children>
-  <padding>
-    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-  </padding>
+   <children>
+      <Label fx:id="dialog" text="Label" wrapText="true" />
+      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+   </padding>
 </fx:root>
 ```
 
@@ -101,7 +101,7 @@ We will get to that later.
 
 ## Using Controllers
 
-As part of the effort to separate the code handling Duke's logic and UI, let's _refactor_ the UI-related code to its own class.
+As part of the effort to separate the code handling duke.Duke's logic and UI, let's _refactor_ the UI-related code to its own class.
 We call these UI classes _controllers_. 
 
 Let's implement the `MainWindow` controller class that we specified in `MainWindow.fxml`.
@@ -128,7 +128,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private duke.Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -138,12 +138,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
+    public void setDuke(duke.Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing duke.Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -168,7 +168,7 @@ Similarly, methods like private methods like `handleUserInput` can be used in FX
 
 ## Using FXML in our application
 
-Let's create a new `Main` class as the bridge between the existing logic in `Duke` and the UI in `MainWindow`.
+Let's create a new `Main` class as the bridge between the existing logic in `duke.Duke` and the UI in `MainWindow`.
 
 **Main.java**
 ```java
@@ -182,11 +182,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for duke.Duke using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private duke.Duke duke = new duke.Duke();
 
     @Override
     public void start(Stage stage) {
