@@ -1,5 +1,8 @@
 # Setting up
 
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-W13-3/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-W13-3/main?branch=master)
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W13-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W13-3/main)
+
 **Prerequisites**
 
 * JDK 11
