@@ -1,3 +1,6 @@
+package Commands;
+import Tasks.*;
+import Interface.*;
 /**
  * Represents the command to end the program.
  */

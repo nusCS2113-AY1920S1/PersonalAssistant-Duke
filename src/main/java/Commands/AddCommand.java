@@ -1,3 +1,6 @@
+package Commands;
+import Tasks.*;
+import Interface.*;
 /**
  * Represents the command to add a Task object to a TaskList object.
  */

@@ -1,3 +1,5 @@
+package JavaFx;
+import Interface.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

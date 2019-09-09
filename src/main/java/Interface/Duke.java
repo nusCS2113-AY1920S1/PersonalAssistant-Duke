@@ -1,3 +1,6 @@
+package Interface;
+import Tasks.*;
+import Commands.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import java.io.IOException;

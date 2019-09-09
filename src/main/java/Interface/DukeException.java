@@ -1,3 +1,4 @@
+package Interface;
 /**
  * Represents the exception specifically catered to
  * Duke program should any error occur
