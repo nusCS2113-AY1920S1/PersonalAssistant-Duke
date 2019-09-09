@@ -1,20 +1,39 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 group 'seedu.duke'
 version '0.1.0'
 
+checkstyle {
+    toolVersion = '8.23'
+}
+
 repositories {
     mavenCentral()
 }
 
-application {
-    // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
-}
-
 run {
     standardInput = System.in
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    // Change this to your main class.
+    mainClassName = "Duke"
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.base' ]
 }
