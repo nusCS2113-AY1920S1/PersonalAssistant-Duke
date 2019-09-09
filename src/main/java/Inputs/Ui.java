@@ -1,4 +1,7 @@
-import javafx.application.Application;
+package Inputs;
+
+import COMPal.Duke;
+import Tasks.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,7 +45,7 @@ public class Ui {
      * @param stage
      * @throws Exception
      * This function is for setting up the JavaFX(GUI) stage, overridden from javafx.application.Application
-     * @UsedIn: Launcher.java (indirect call)
+     * @UsedIn: COMPal.Launcher.java (indirect call)
      */
     public void start(Stage stage) {
 
@@ -59,7 +62,7 @@ public class Ui {
         Scene scene = new Scene(mainLayout);
         d.ui.printg("Displaying GUI!");
 
-        stage.setTitle("Duke");
+        stage.setTitle("COMPal.Duke");
 
         //Setting dimensions of components/stage
         stage.setResizable(true);
@@ -120,7 +123,7 @@ public class Ui {
     /**
      * @Function
      * This function creates 2 dialog boxes, 1 echoing user input and the other containing a processed reply
-     * from Duke. Clears userinput box after processing
+     * from COMPal.Duke. Clears userinput box after processing
      * @UsedIn: sendButton.setOnMouseClicked
      */
     private void handleUserInput(){
@@ -155,7 +158,7 @@ public class Ui {
 
     /**
      * @Function
-     * Simply prints the welcome message for Duke
+     * Simply prints the welcome message for COMPal.Duke
      */
     public void showWelcome(){
         String logo = " ____        _        \n"
@@ -164,7 +167,7 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         printg("Hello there!\n" + logo);
-        printg("Hello! I'm Duke\n" +
+        printg("Hello! I'm COMPal\n" +
                 "     What can I do for you?");
     }
 
@@ -194,7 +197,7 @@ public class Ui {
     /**
      * @Function
      * No Params, No Return Value
-     * This function handles the list command which lists the tasks currently in Duke's tracking
+     * This function handles the list command which lists the tasks currently in COMPal.Duke's tracking
      * It will display the task symbol (T,E,D), the status (done or not done) and the description string
      * @UsedIn: parser.processCommands
      */

@@ -1,10 +1,17 @@
+package Tasks;
+
+import COMPal.Duke;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
 
-    protected ArrayList<Task> arrlist;
-    protected Duke d;
+    public ArrayList<Task> arrlist;
+    public Duke d;
 
     public TaskList(Duke d){
         this.d=d;
