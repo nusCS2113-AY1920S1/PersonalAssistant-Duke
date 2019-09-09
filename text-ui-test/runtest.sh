@@ -21,15 +21,15 @@ fi
 cd ..
 dir=$(cd $(dirname ${BASH_SOURCE[0]}); pwd )
 cd src/main/java
-if ! javac logic.Duke.java -Xlint:none -d ${dir}/bin
+if ! javac duke.logic.Duke.java -Xlint:none -d ${dir}/bin
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
-cd ${dir}/text-ui-test
+cd ${dir}/text-duke.ui-test
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin logic.Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin duke.logic.Duke < input.txt > ACTUAL.TXT
 
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED.TXT

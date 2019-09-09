@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 group 'seedu.duke'
@@ -11,8 +12,7 @@ repositories {
 }
 
 application {
-    // Change this to your main class.
-    mainClassName = "logic.Duke"
+    mainClassName = "duke.Launcher"
 }
 
 run {
@@ -20,9 +20,10 @@ run {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile 'com.jfoenix:jfoenix:9.0.8' // Java 9
 }
 
-test {
-    useJUnitPlatform()
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }

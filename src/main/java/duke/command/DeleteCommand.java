@@ -1,13 +1,14 @@
-package command;
+package duke.command;
 
-import commons.DukeException;
-import commons.Message;
-import commons.Ui;
-import storage.Storage;
-import task.TaskList;
+import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 
 /**
- * Represents a command that deletes a Task from TaskList.
+ * Represents a duke.command that deletes a Task from TaskList.
  */
 public class DeleteCommand extends Command {
     private int index;
@@ -16,12 +17,12 @@ public class DeleteCommand extends Command {
         this.index = index - 1;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         try {
             String message = Message.getDeletion(tasks.get(index), tasks);
             tasks.remove(index);
             storage.serialize(tasks);
-            Ui.showToUser(message);
+            ui.refreshTaskList(tasks, tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please provide valid index");
         }

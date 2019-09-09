@@ -1,4 +1,4 @@
-package commons;
+package duke.commons;
 
 public class Ui {
     private static String output;

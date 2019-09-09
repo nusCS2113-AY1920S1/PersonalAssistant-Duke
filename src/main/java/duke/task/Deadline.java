@@ -1,6 +1,6 @@
-package task;
+package duke.task;
 
-import parser.TimeParser;
+import duke.parser.TimeParser;
 
 import java.util.Date;
 
@@ -24,11 +24,10 @@ public class Deadline extends Task {
 
     /**
      * Returns a summary of the deadline.
-     *
      * @return Returns a summary of the deadline, including the description, the status icon, and the due time.
      */
     @Override
     public String toString() {
-        return String.format(super.toString(), "⏰") + String.format(" (by: %s)", TimeParser.convertDateToString(by));
+        return String.format(" by %s ", TimeParser.convertDateToString(by));
     }
 }

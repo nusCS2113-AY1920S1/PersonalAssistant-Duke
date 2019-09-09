@@ -29,11 +29,11 @@ This is a project for AY19/20 CS2113T, National Univeristy of Singapore.
 
 # Tutorials 
 
-logic.Duke Increment | Tutorial
+duke.logic.Duke Increment | Tutorial
 ---------------|---------------
 `A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
 `A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for logic.Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for duke.logic.Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
 
 [fx1]: <tutorials/javaFxTutorialPart1.md>
 [fx2]: <tutorials/javaFxTutorialPart2.md>

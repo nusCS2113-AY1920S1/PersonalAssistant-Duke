@@ -1,11 +1,11 @@
-package parser;
+package duke.parser;
 
-import command.*;
-import commons.DukeException;
-import commons.Message;
-import task.Deadline;
-import task.Event;
-import task.Todo;
+import duke.command.*;
+import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 import java.util.Dictionary;
 import java.util.Hashtable;

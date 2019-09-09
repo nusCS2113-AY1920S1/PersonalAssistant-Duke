@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="605.0" prefWidth="413.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="duke.ui.MainWindow">
+    <children>
+        <JFXTextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0"
+                      prefWidth="338.0" promptText="Enter any duke.command to start" AnchorPane.bottomAnchor="10.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+        <StackPane fx:id="stackPane" prefHeight="556.0" prefWidth="413.0" AnchorPane.bottomAnchor="50.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="324.0"
+                            prefWidth="268.0" styleClass="edge-to-edge" vvalue="1.0">
+                    <content>
+                        <JFXListView fx:id="taskList" prefHeight="236.0" prefWidth="400.0"/>
+                    </content>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </ScrollPane>
+                <HBox fx:id="popUp" alignment="BOTTOM_CENTER" maxHeight="30.0" prefHeight="30.0" prefWidth="220.0"
+                      StackPane.alignment="BOTTOM_CENTER">
+                    <children>
+                        <Label fx:id="popUpLable" alignment="CENTER" maxHeight="30.0" prefHeight="30.0"
+                               text="popup message here"/>
+                        <JFXButton fx:id="popUpOkay" alignment="CENTER" defaultButton="true" minWidth="61.0"
+                                   onAction="#handleOkay" prefHeight="30.0" prefWidth="61.0"
+                                   style="-fx-background-radius-fx-background-radius: 25;" text="Okay"/>
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="10.0"/>
+                    </StackPane.margin>
+                </HBox>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>

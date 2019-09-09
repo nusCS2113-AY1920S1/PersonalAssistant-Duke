@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import commons.DukeException;
-import commons.Message;
-import commons.Ui;
-import storage.Storage;
-import task.TaskList;
+import duke.commons.DukeException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 
 /**
  * Represents a done command that set a Task to done.
@@ -17,11 +17,11 @@ public class DoneCommand extends Command {
         this.index = index - 1;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         try {
             tasks.get(index).setDone(true);
             storage.serialize(tasks);
-            Ui.showToUser(Message.getDone(tasks.get(index)));
+            ui.refreshTaskList(tasks, tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Index out of bound.");
         }

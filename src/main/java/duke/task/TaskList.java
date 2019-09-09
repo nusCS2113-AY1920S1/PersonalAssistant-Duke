@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ public class TaskList implements Serializable {
 
     /**
      * Get a Task.
-     *
      * @param index index of the Task to get.
      * @return a Task at the index.
      */
@@ -32,7 +31,6 @@ public class TaskList implements Serializable {
 
     /**
      * Remove a Task.
-     *
      * @param index index of the Task to remove.
      */
     public void remove(int index) {
@@ -41,11 +39,14 @@ public class TaskList implements Serializable {
 
     /**
      * Returns the number of Tasks in the list.
-     *
      * @return the number of Tasks in the list.
      */
     public int size() {
         return tasks.size();
+    }
+
+    public int indexOf(Task task) {
+        return tasks.indexOf(task);
     }
 }
 
