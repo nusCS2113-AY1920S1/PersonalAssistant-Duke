@@ -1,3 +1,5 @@
+# Project Cube
+
 # Setting up
 
 **Prerequisites**
