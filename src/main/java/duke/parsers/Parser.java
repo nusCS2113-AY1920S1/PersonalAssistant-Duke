@@ -20,7 +20,7 @@ public class Parser {
      *
      * @param userInput The userInput read by the user interface.
      * @return The corresponding Command object.
-     * @throws IllegalArgumentException If userInput is undefined.
+     * @throws DukeException If userInput is undefined.
      */
     public static Command parse(String userInput) throws DukeException {
         String commandWord = getCommandWord(userInput);

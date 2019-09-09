@@ -25,13 +25,13 @@ public class ParserStorage {
             String status = taskParts[1].strip();
             String description = taskParts[2].strip();
             Task task;
-            if (type.equals("D")) {
+            if ("D".equals(type)) {
                 try {
                     task = new Deadline(description, ParserTime.parseStringToDate(taskParts[3].strip()));
                 } catch (DukeDateTimeParseException e) {
                     task = new Deadline(description, taskParts[3].strip());
                 }
-            } else if (type.equals("E")) {
+            } else if ("E".equals(type)) {
                 try {
                     task = new Event(description, ParserTime.parseStringToDate(taskParts[3].strip()));
                 } catch (DukeDateTimeParseException e) {
@@ -40,7 +40,7 @@ public class ParserStorage {
             } else {
                 task = new Todo(description);
             }
-            task.setDone(status.equals("true"));
+            task.setDone("true".equals(status));
             return task;
         } catch (Exception e) {
             throw new DukeException(Message.CORRUPTED_TASK);
