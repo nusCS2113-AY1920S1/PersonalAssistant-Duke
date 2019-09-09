@@ -1,8 +1,8 @@
-package command;
+package duke.command;
 
-import commons.DukeException;
-import storage.Storage;
-import task.TaskList;
+import duke.commons.DukeException;
+import duke.storage.Storage;
+import duke.task.TaskList;
 
 /**
  * Represents a command that can be executed by the user.

@@ -1,11 +1,11 @@
-package command;
+package duke.command;
 
-import commons.DukeException;
-import commons.Message;
-import commons.Ui;
-import storage.Storage;
-import task.Task;
-import task.TaskList;
+import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.commons.Ui;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a command that serach for tasks in TaskList.

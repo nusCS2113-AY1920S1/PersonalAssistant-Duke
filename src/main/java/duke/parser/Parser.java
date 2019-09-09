@@ -1,11 +1,11 @@
-package parser;
+package duke.parser;
 
-import command.*;
-import commons.DukeException;
-import commons.Message;
-import task.Deadline;
-import task.Event;
-import task.Todo;
+import duke.command.*;
+import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -30,8 +30,8 @@ public class Parser {
      * Parse user input.
      *
      * @param line user input.
-     * @return the command from user input.
-     * @throws DukeException if it is not valid command or command parameters are invalid.
+     * @return the duke.command from user input.
+     * @throws DukeException if it is not valid duke.command or duke.command parameters are invalid.
      */
     public static Command getCommand(String line) throws DukeException {
 
@@ -67,7 +67,7 @@ public class Parser {
         Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^/]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
-            throw new DukeException("Please enter a command");
+            throw new DukeException("Please enter a duke.command");
         }
         params.put("cmd", commandWordMatcher.group(1).strip());
         if (commandWordMatcher.group(2) != null) {

@@ -1,6 +1,6 @@
-package parser;
+package duke.parser;
 
-import commons.DukeException;
+import duke.commons.DukeException;
 
 import java.text.DateFormat;
 import java.text.ParseException;

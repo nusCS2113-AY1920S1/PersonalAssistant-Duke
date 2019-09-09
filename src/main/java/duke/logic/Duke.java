@@ -1,17 +1,17 @@
-package logic;
+package duke.logic;
 
-import command.Command;
-import commons.DukeException;
-import commons.Message;
-import commons.Ui;
-import parser.Parser;
-import storage.Storage;
-import task.TaskList;
+import duke.command.Command;
+import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.commons.Ui;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
 /**
- * Control logic of Duke.
+ * Control duke.logic of Duke.
  */
 public class Duke {
 
@@ -36,7 +36,7 @@ public class Duke {
     }
 
     /**
-     * Initializes scanner and storage.
+     * Initializes scanner and duke.storage.
      */
     public void initialize() {
 

@@ -1,7 +1,7 @@
-package storage;
+package duke.storage;
 
-import commons.DukeException;
-import task.TaskList;
+import duke.commons.DukeException;
+import duke.task.TaskList;
 
 import java.io.*;
 

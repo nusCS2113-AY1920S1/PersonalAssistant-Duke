@@ -1,6 +1,6 @@
-package task;
+package duke.task;
 
-import parser.TimeParser;
+import duke.parser.TimeParser;
 
 import java.util.Date;
 

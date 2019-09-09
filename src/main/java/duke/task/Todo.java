@@ -1,7 +1,7 @@
-package task;
+package duke.task;
 
 /**
- * Represents a Todo. A Todo is a task without time information.
+ * Represents a Todo. A Todo is a duke.task without time information.
  */
 public class Todo extends Task {
 

@@ -12,7 +12,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "logic.Duke"
+    mainClassName = "duke.logic.Duke"
 }
 
 run {

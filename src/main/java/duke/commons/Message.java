@@ -1,7 +1,7 @@
-package commons;
+package duke.commons;
 
-import task.Task;
-import task.TaskList;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Message {
     private static final String BEGIN_DIVIDER = "----------------------------------------------";

@@ -128,7 +128,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private logic.Duke duke;
+    private duke.logic.Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -138,12 +138,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(logic.Duke d) {
+    public void setDuke(duke.logic.Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing logic.Duke's reply and then appends them to
+     *duke.logic
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -186,7 +186,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private logic.Duke duke = new logic.Duke();
+    private duke.logic.Duke duke = new duke.logic.Duke();
 
     @Override
     public void start(Stage stage) {

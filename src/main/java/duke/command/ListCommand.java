@@ -1,9 +1,9 @@
-package command;
+package duke.command;
 
-import commons.Message;
-import commons.Ui;
-import storage.Storage;
-import task.TaskList;
+import duke.commons.Message;
+import duke.commons.Ui;
+import duke.storage.Storage;
+import duke.task.TaskList;
 
 /**
  * Represents a command lists all tasks in TaskList.
