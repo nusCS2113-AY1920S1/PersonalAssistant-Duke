@@ -1,4 +1,4 @@
-T | ✓ | repair car
-E | ✘ | eat at hawker centre (at: 20th of September 2019, 08:19 PM) | 20th of September 2019, 08:19 PM
-E | ✓ | different concert (at: 20th of December 1997, 07:29 PM) | 20th of December 1997, 07:29 PM
-D | ✓ | finish assignment (by: 01st of February 1999, 11:59 PM) | 01st of February 1999, 11:59 PM
+T | ✓ | eat later at night
+D | ✓ | finish assignment (by: 11th of November 2011, 11:11 AM) | 11th of November 2011, 11:11 AM
+E | ✘ | do deadline (at: don't know) | don't know
+D | ✘ | finish cleaning house (by: 11 i think) | 11 i think
