@@ -71,6 +71,14 @@ public class Ui {
         System.out.println(line);
     }
 
+    public static void showMarkAsUnDone(String type, String status, String message) {
+        System.out.println(line + "\n" + space + "Nice! I've unmarked this task as done:");
+        System.out.println(space + " [" + type
+            + "][" + status
+            + "] " + message);
+        System.out.println(line);
+    }
+
     public static void showError(String message) {
         System.out.println(line + "\n" + space + message + "\n" + line);
     }

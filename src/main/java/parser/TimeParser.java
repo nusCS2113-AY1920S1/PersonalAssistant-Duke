@@ -6,13 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimeParser {
-    Date date;
+    static Date date;
 
     /**
      * Takes in a string and see whether can manipulate to a date.
      * After which, return back the date as string.
      */
-    public String convertStringToDate(String time) {
+    public static String convertStringToDate(String time) {
         String line;
         try {
             SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -62,7 +62,7 @@ public class TimeParser {
     }
 
 
-    private String convertDateToLine(Date date) {
+    private static String convertDateToLine(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int actualDate = calendar.get(Calendar.DATE);

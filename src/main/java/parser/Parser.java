@@ -5,11 +5,12 @@ import storage.Storage;
 import task.*;
 import ui.Ui;
 
+import javax.print.DocFlavor;
 import java.util.List;
 
 public class Parser {
 
-    public int handleCommand(String firstWord, String s) {
+    public static int handleCommand(String firstWord, String s) {
         int check = 0;
         if (s.equals("bye")) {
             Ui.showByeMessage();
@@ -53,7 +54,8 @@ public class Parser {
         return check;
     }
 
-    private void listCommand() {
+
+    private static void listCommand() {
         Ui.showListIntroMessage();
         List<Tasks> userToDoList = TaskList.getList();
         for (int i = 0; i < userToDoList.size(); i++) {
@@ -108,7 +110,7 @@ public class Parser {
         }
     }
 
-    private void findCommand(String s) throws DukeException {
+    private static void findCommand(String s) throws DukeException {
         try {
             String find = s.substring(5);
             int j = 1;
@@ -135,7 +137,7 @@ public class Parser {
         }
     }
 
-    private void deleteCommand(String s) throws DukeException {
+    private static void deleteCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
             int num = Integer.parseInt(tokens[1]);
@@ -211,7 +213,6 @@ public class Parser {
             TaskList.addTask(newToDo2);
             Ui.showDeadlineMessage(TaskList.getStatus(todolist_number), newtodoTask, todolist_number + 1);
             Storage.saveTask(TaskList.getList());
-
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_DEADLINE;
         }

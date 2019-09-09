@@ -18,6 +18,10 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    public static Tasks getTask(int num) {
+        return tasks.get(num);
+    }
+
     public static void addTask(Tasks task)  {
         tasks.add(task);
     }
@@ -95,6 +99,9 @@ public class TaskList {
 
     public static void markTaskAsDone(int num) {
         tasks.get(num).setDone(true);
+    }
 
+    public static void markTaskAsUndone(int num) {
+        tasks.get(num).setDone(false);
     }
 }
