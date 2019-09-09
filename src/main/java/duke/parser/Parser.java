@@ -30,8 +30,8 @@ public class Parser {
      * Parse user input.
      *
      * @param line user input.
-     * @return the duke.command from user input.
-     * @throws DukeException if it is not valid duke.command or duke.command parameters are invalid.
+     * @return the command from user input.
+     * @throws DukeException if it is not valid command or command parameters are invalid.
      */
     public static Command getCommand(String line) throws DukeException {
 
@@ -67,7 +67,7 @@ public class Parser {
         Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^/]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
-            throw new DukeException("Please enter a duke.command");
+            throw new DukeException("Please enter a command");
         }
         params.put("cmd", commandWordMatcher.group(1).strip());
         if (commandWordMatcher.group(2) != null) {

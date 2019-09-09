@@ -1,10 +1,10 @@
 package duke.command;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.commons.Ui;
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.ui.Ui;
+
 
 /**
  * Represents a command that terminates the program
@@ -12,8 +12,7 @@ import duke.task.TaskList;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
-        Ui.showToUser(Message.getExit());
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         System.exit(0);
     }
 }

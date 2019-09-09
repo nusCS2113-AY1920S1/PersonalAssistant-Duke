@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//TODO rewrite test since it doesn't work with GUI version.
 public class DukeTest {
 
     private Duke duke = new Duke();

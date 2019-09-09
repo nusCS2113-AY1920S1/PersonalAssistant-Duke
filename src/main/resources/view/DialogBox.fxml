@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
+         prefWidth="300.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1">
+    <children>
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" percentWidth="60.0"
+                                   prefWidth="240.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" percentWidth="40.0"
+                                   prefWidth="50.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="230.0" GridPane.valignment="CENTER">
+                    <children>
+                        <JFXCheckBox fx:id="checkBox" checkedColor="#4059a9" text="1. "/>
+                        <Label fx:id="description" text="Label"/>
+                    </children>
+                </HBox>
+                <Label fx:id="typeLabel" alignment="CENTER" prefHeight="34.0" text="TODO" textFill="WHITE"
+                       GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </Label>
+            </children>
+        </GridPane>
+    </children>
+</fx:root>

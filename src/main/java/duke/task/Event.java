@@ -25,12 +25,19 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Date getFrom() {
+        return from;
+    }
+
+    public Date getTo() {
+        return to;
+    }
+
     /**
      * Returns a summary of the event.
-     *
      * @return Returns a summary of the event, including the description, the status icon, and the start and end time.
      */
     public String toString() {
-        return String.format(super.toString(), "\uD83D\uDCC5") + String.format(" (%s -- %s)", TimeParser.convertDateToString(from), TimeParser.convertDateToString(to));
+        return String.format("  %s  \n  %s   ", TimeParser.convertDateToString(from), TimeParser.convertDateToString(to));
     }
 }

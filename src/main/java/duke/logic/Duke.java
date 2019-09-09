@@ -2,73 +2,36 @@ package duke.logic;
 
 import duke.command.Command;
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.commons.Ui;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
-import java.util.Scanner;
-
-/**
- * Control duke.logic of Duke.
- */
 public class Duke {
 
-    private Scanner scanner;
-    private Storage storage;
-    private static TaskList tasks;
+    private static final Storage STORAGE = new Storage("duke.dat");
+    private static TaskList tasks = new TaskList();
+    private Ui ui;
 
-    /**
-     * Returns the response to userInput.
-     *
-     * @param input input from user.
-     * @return the response to userInput.
-     */
-    public String getResponse(String input) {
+    public Duke(Ui ui) {
+        this.ui = ui;
+        try {
+            tasks = STORAGE.deserialize();
+        } catch (DukeException e) {
+            e.printStackTrace();
+            ui.showError(e.getMessage());
+            ui.disableInput();
+        }
+        ui.refreshTaskList(tasks, tasks);
+    }
+
+    public void executeInput(String input) {
         try {
             Command command = Parser.getCommand(input);
-            command.execute(tasks, storage);
+            command.execute(tasks, STORAGE, ui);
         } catch (DukeException e) {
-            Ui.showError(e.getMessage());
+            ui.showError(e.getMessage());
         }
-        return Ui.getOutput();
-    }
-
-    /**
-     * Initializes scanner and duke.storage.
-     */
-    public void initialize() {
-
-        Ui.showToUser(Message.getWelcome());
-
-        scanner = new Scanner(System.in);
-
-        storage = new Storage("duke.dat");
-
-        try {
-            tasks = storage.deserialize();
-        } catch (DukeException e) {
-            Ui.showError(e.getMessage());
-        }
-    }
-
-    /**
-     * Starts polling IO.
-     */
-    public void start() {
-
-        initialize();
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            getResponse(line);
-        }
-    }
-
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.start();
     }
 
 }

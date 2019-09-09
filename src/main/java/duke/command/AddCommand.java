@@ -1,14 +1,13 @@
 package duke.command;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.commons.Ui;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
- * Represents a command that adds a Task to TaskList.
+ * Represents a duke.command that adds a Task to TaskList.
  */
 public class AddCommand extends Command {
 
@@ -19,9 +18,9 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         tasks.add(task);
         storage.serialize(tasks);
-        Ui.showToUser(Message.getAddition(task, tasks));
+        ui.refreshTaskList(tasks, tasks);
     }
 }

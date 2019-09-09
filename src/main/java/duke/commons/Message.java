@@ -4,22 +4,21 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class Message {
+    public static final String MESSAGE_LIST_ITEM = "%1$d. %2$s %3$s";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "This is an unknown duke.command.";
     private static final String BEGIN_DIVIDER = "----------------------------------------------";
     private static final String END_DIVIDER = BEGIN_DIVIDER + System.lineSeparator();
-
     private static final String MESSAGE_ERROR = "\u2639 OOPS!!! %s";
-    private static final String MESSAGE_HELLO = "Hello! I'm logic.Duke";
+    private static final String MESSAGE_HELLO = "Hello! I'm duke.logic.Duke";
     private static final String MESSAGE_HELLO_2 = "What can I do for you?";
-    private static final String MESSAGE_ADDED = "Got it. I've added this task:\n  %s\n" +
+    private static final String MESSAGE_ADDED = "Got it. I've added this duke.task:\n  %s\n" +
             "Now you have %d tasks in the list.";
-    public static final String MESSAGE_LIST_ITEM = "%1$d. %2$s %3$s";
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_FINISH_DONE = "Nice! I've marked this task as done:\n  ✅ %s";
-    private static final String MESSAGE_DELETION = "Noted. I've removed this task: \n" +
+    private static final String MESSAGE_FINISH_DONE = "Nice! I've marked this duke.task as done:\n  ✅ %s";
+    private static final String MESSAGE_DELETION = "Noted. I've removed this duke.task: \n" +
             " %s \n" +
             "Now you have %d tasks in the list.";
     private static final String MESSAGE_SEARCH = "Here are the matching tasks in your list:";
-    public static final String MESSAGE_UNKNOWN_COMMAND = "This is an unknown command.";
 
     public static String getMessageError(String message) {
         return buildMessage(BEGIN_DIVIDER, String.format(MESSAGE_ERROR, message), END_DIVIDER);

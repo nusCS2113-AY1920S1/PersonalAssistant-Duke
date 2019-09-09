@@ -23,7 +23,6 @@ public class Storage {
 
     /**
      * Serialize TaskList to file.
-     *
      * @param tasks the TaskList to serialize.
      * @throws DukeException if fails to serialize due to IO exception.
      */
@@ -42,7 +41,6 @@ public class Storage {
 
     /**
      * Deserialize TaskList from file. If the file is not found, returns an empty TaskList.
-     *
      * @return a TaskList object.
      * @throws DukeException if file is damaged.
      */
@@ -56,12 +54,13 @@ public class Storage {
             fileIn.close();
             return tasks;
         } catch (ClassNotFoundException c) {
-            throw new DukeException("File is damaged");
+            c.printStackTrace();
+            throw new DukeException("Data damaged. Please delete the file.");
         } catch (IOException i) {
             if (i instanceof FileNotFoundException) {
                 return new TaskList();
             } else {
-                throw new DukeException("IO Exception");
+                throw new DukeException("Data damaged. Please delete the file.");
             }
         }
     }

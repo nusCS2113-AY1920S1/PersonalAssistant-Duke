@@ -1,14 +1,14 @@
 package duke.command;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.commons.Ui;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
+
 
 /**
- * Represents a command that serach for tasks in TaskList.
+ * Represents a duke.command that serach for tasks in TaskList.
  */
 public class FindCommand extends Command {
     private String keyWord;
@@ -17,7 +17,7 @@ public class FindCommand extends Command {
         this.keyWord = keyWord.strip();
     }
 
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         TaskList results = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
@@ -25,6 +25,7 @@ public class FindCommand extends Command {
                 results.add(t);
             }
         }
-        Ui.showToUser(Message.getSearch(results));
+        ui.showMessage("Found " + results.size() + " duke.task(s).");
+        ui.refreshTaskList(results, tasks);
     }
 }
