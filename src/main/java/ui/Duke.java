@@ -1,4 +1,8 @@
-/*AY1920S1-CS2113T-W17-2*/
+package ui;/*AY1920S1-CS2113T-W17-2*/
+
+import command.Command;
+import storage.Storage;
+import task.TaskList;
 
 public class Duke {
     /**
@@ -15,7 +19,7 @@ public class Duke {
     private TaskList taskList;
 
     /**
-     * Constructs a new Duke object.
+     * Constructs a new ui.Duke object.
      * @param path The path of the save file in the local computer.
      */
     public Duke(String path){
