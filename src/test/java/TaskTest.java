@@ -19,7 +19,7 @@ public class TaskTest {
     }
 
     @Test
-    void TestCheckKeyword() {
+    void testCheckKeyword() {
         Task obj = new Todo("leave cca");
         assertFalse(obj.checkKeyword("book"));
     }

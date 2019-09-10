@@ -42,13 +42,13 @@ public class TaskListTest {
     @Test
     void checkGetAllTasks() {
         TaskList obj = new TaskList();
-        Task taskA = new Todo("return book");
-        Task taskB = new Todo("study for CS2113");
         obj.addTask(new Todo("return book"));
         obj.addTask(new Todo("study for CS2113"));
         ArrayList<Task> storeTest = new ArrayList<>();
         storeTest = obj.getAllTasks();
         assertTrue(storeTest.size() == 2);
+        Task taskA = new Todo("return book");
+        Task taskB = new Todo("study for CS2113");
         assertEquals(storeTest.get(0).toString(),taskA.toString());
         assertEquals(storeTest.get(1).toString(),taskB.toString());
     }

@@ -6,6 +6,6 @@ public class ParserTest {
     @Test
     void checkParsing() throws DukeException {
         Parser obj = new Parser();
-        assertThrows(DukeException.class,()-> obj.parse("gfgregt4e"));
+        assertThrows(DukeException.class,() -> obj.parse("gfgregt4e"));
     }
 }
