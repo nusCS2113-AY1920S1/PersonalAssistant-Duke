@@ -40,7 +40,8 @@ public class ParserUtil {
             throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
         try {
-            return new Deadline(deadlineDetails[0].strip(), ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
+            return new Deadline(deadlineDetails[0].strip(),
+                    ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
         } catch (DukeDateTimeParseException e) {
             return new Deadline(deadlineDetails[0].strip(), deadlineDetails[1].strip());
         }
