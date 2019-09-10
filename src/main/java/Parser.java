@@ -3,14 +3,9 @@ import java.util.Scanner;
 public class Parser {
     private static String[] substring;
 
-    public static String[] stringSplit(String ss)
+    public static Command Parse(String ss) throws DukeExceptionThrow
     {
-        String temp1 = ss;
-        return substring = temp1.split(" ", 2);
-    }
-
-    public static Command Parse(String[] command) throws DukeExceptionThrow
-    {
+        String[] command = ss.split(" ", 2);
         try
         {
             switch (command[0]) {
@@ -26,11 +21,11 @@ public class Parser {
                     ToDos t = new ToDos(command[1]);
                     return new AddCommand(t);
                 case "deadline":
-                    String[] temp = command[1].split("/by");
+                    String[] temp = command[1].split(" /by ");
                     Deadline d = new Deadline(temp[0], temp[1]);
                     return new AddCommand(d);
                 case "event":
-                    String[] temp1 = command[1].split("/at");
+                    String[] temp1 = command[1].split(" /at ");
                     Events z = new Events(temp1[0], temp1[1]);
                     return new AddCommand(z);
                 case "find":

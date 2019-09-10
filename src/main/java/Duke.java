@@ -32,7 +32,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.Parse(Parser.stringSplit(fullCommand));
+                Command c = Parser.Parse(fullCommand);
                 c.run(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeExceptionThrow e) {
