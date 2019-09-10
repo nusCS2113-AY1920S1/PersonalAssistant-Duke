@@ -1,0 +1,12 @@
+T | 1 | read book
+D | 1 | return book | June 6th
+D | 0 | do chores | Saturday
+E | 0 | hackathon | Fri 8am-5pm
+T | 0 | finish assignment
+E | 0 | hackathon | Fri 8am-5pm
+T | 0 | finish assignment
+D | 0 | do chores | Saturday
+E | 0 | hackathon | Fri 8am-5pm
+T | 0 | finish assignment
+D | 0 | do chores | Saturday
+E | 0 | hackathon | Fri 8am-5pm
