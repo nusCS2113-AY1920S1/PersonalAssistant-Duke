@@ -2,15 +2,16 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.List;
 
-/**
- * Returns void main function for duke.
- *
- * @param args.
- * @return Void.
- * @throws DukeException | ParseException | IOException | NullPointerException
- */
+
 
 public class Duke {
+    /**
+     * Returns void main function for duke.
+     *
+     * @param args
+     * @return Void.
+     * @throws DukeException | ParseException | IOException | NullPointerException
+     */
     public static void main(String[] args) {
 
         List<Task> list;
@@ -32,7 +33,10 @@ public class Duke {
             if(e instanceof ParseException){
                 ui.showDateFormatError();
             }
-            else {
+            else if (e instanceof IOException){
+                ui.showIOErrorMessage(e);
+            }
+            else{
                 ui.showErrorMessage(e);
             }
         }
