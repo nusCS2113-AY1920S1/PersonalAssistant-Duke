@@ -6,13 +6,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a <code>Storage</code> class that deals with reading tasks from
+ * a file and saving tasks in the file.
+ */
 public class Storage {
+    /**
+     * A string that represents a relative file path from the project folder.
+     */
     private String filePath;
-
+    /**
+     * Constructs a <code>Storage</code> object with a specific file path.
+     * @param path A string that represents the path of the file to read or
+     * write.
+     */
     public Storage(String path) {
         this.filePath = path;
     }
-
+    /**
+     * Read tasks from the file and store into a <code>ArrayList</code> of
+     * <code>Task</code>.
+     * @return A <code>ArrayList</code> of tasks from the file.
+     * @throws DukeExceptionThrow If file is not found.
+     */
     public ArrayList<Task> load() throws DukeExceptionThrow
     {
         File newDuke = new File(filePath);
@@ -57,7 +73,11 @@ public class Storage {
             throw new DukeExceptionThrow("File is not found!");
         }
     }
-
+    /**
+     * Saves tasks to the local file.
+     * @param task The <code>TaskList</code> storing tasks.
+     * @throws DukeExceptionThrow If writing to the local file failed.
+     */
     public void save(ArrayList<Task> task) {
         try {
             FileWriter ww = new FileWriter("./data/duke.txt");
