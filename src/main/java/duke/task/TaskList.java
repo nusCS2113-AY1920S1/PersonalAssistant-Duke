@@ -20,6 +20,9 @@ public class TaskList implements Serializable {
         tasks.add(task);
     }
 
+    public void add(Task task, int index) {
+        tasks.add(index, task);
+    }
     /**
      * Get a Task.
      * @param index index of the Task to get.
@@ -30,11 +33,20 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Remove a Task.
+     * Remove a Task by index
      * @param index index of the Task to remove.
      */
     public void remove(int index) {
         tasks.remove(index);
+    }
+
+    /**
+     * Remove a Task.
+     *
+     * @param task the Task to remove.
+     */
+    public void remove(Task task) {
+        tasks.remove(task);
     }
 
     /**

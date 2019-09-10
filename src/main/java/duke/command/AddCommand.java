@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Represents a duke.command that adds a Task to TaskList.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements Undoable {
 
     protected Task task;
 
@@ -22,5 +22,17 @@ public class AddCommand extends Command {
         tasks.add(task);
         storage.serialize(tasks);
         ui.refreshTaskList(tasks, tasks);
+    }
+
+    @Override
+    public void undo(TaskList tasks, Storage storage, Ui ui) throws DukeException {
+        tasks.remove(task);
+        storage.serialize(tasks);
+        ui.refreshTaskList(tasks, tasks);
+    }
+
+    @Override
+    public void redo(TaskList tasks, Storage storage, Ui ui) throws DukeException {
+
     }
 }
