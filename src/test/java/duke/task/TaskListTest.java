@@ -7,7 +7,7 @@ public class TaskListTest extends TaskList {
     private boolean isEmpty = true;
 
     /**
-     * Overrides size function
+     * Overrides size function.
      * @return 1 or 0 depending whether the TaskList has 1 or 0 task
      */
     @Override
@@ -16,7 +16,7 @@ public class TaskListTest extends TaskList {
     }
 
     /**
-     * Adds task to TaskList
+     * Adds task to TaskList.
      * @param task The task to be added.
      */
     @Override
@@ -25,7 +25,7 @@ public class TaskListTest extends TaskList {
     }
 
     /**
-     * Deletes task from TaskList
+     * Deletes task from TaskList.
      * @param i The index of the task to be retrieved, starting from 1.
      */
     @Override

@@ -9,7 +9,7 @@ public class TaskTest extends Task {
     }
 
     /**
-     * This overrides the toString for ease of testing
+     * This overrides the toString for ease of testing.
      * @return task done or task not done
      */
     @Override

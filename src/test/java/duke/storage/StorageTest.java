@@ -13,7 +13,7 @@ public class StorageTest extends Storage {
     }
 
     /**
-     * Tests the readFile function
+     * Tests the readFile function.
      * @return null since no file will be read in this case
      */
     @Test

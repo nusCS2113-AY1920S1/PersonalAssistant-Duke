@@ -48,7 +48,7 @@ public class Parser {
     }
 
     /**
-     * Checks if the inputs are blank spaces or empty
+     * Checks if the inputs are blank spaces or empty.
      *
      * @param input The raw input that the user enters.
      * @throws DukeException if the input is blank or empty.
@@ -61,7 +61,7 @@ public class Parser {
     }
 
     /**
-     * Parses a input and returns a sanitised action string
+     * Parses a input and returns a sanitised action string.
      *
      * @param input The raw input that the user enters.
      * @return The corresponding sanitised action field without the data.
