@@ -6,17 +6,7 @@ import java.text.*;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of Duke.
  */
-
 public class Duke {
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -66,6 +56,15 @@ public class Duke {
      * @throws DukeException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, DukeException {
+
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+
+
         new Duke("data/duke.txt").run();
     }
 
