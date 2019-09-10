@@ -5,7 +5,7 @@ import java.util.List;
 public class DeleteCommand extends Command {
 
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
         if(ui.FullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
         }

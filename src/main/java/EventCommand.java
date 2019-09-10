@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
         String description = "";
         if(ui.FullCommand.length() == 5) {
             throw new DukeException("OOPS!!! The description of an event cannot be empty.");
