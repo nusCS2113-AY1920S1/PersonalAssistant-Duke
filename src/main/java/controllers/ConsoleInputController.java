@@ -51,7 +51,6 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
         } else {
-            // TODO refactor this to repository (3T architecture)
             try {
                 ITask newTask = taskFactory.createTask(input);
                 taskList.addToList(newTask);
@@ -62,7 +61,7 @@ public class ConsoleInputController implements IViewController {
             }
         }
     }
-
+    // TODO refactor saving data and reading data to repository/database
     /**
      * Method that is called in order to saveData to persistent storage.
      */
