@@ -1,8 +1,9 @@
 package controllers;
 
 import exceptions.DukeException;
-import models.ITask;
-import models.TaskList;
+import models.commands.DoneCommand;
+import models.tasks.ITask;
+import models.tasks.TaskList;
 import views.CLIView;
 
 import java.io.*;
@@ -35,7 +36,8 @@ public class ConsoleInputController implements IViewController {
         } else if (input.equals("list")) {
             consoleView.printAllTasks(taskList);
         } else if (input.contains("done")) {
-            consoleView.markDone(taskList, input);
+            DoneCommand doneCommand = new DoneCommand(input);
+            consoleView.markDone(taskList, doneCommand);
             saveData();
         } else if (input.contains("delete")) {
             consoleView.deleteTask(taskList, input);

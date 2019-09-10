@@ -1,9 +1,9 @@
 package views;
 
 import controllers.ConsoleInputController;
-import exceptions.DukeException;
-import models.ITask;
-import models.TaskList;
+import models.commands.DoneCommand;
+import models.tasks.ITask;
+import models.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class CLIView {
     /**
      * Method to call when View model is started.
      */
-    public void start() throws DukeException {
+    public void start() {
         Scanner sc = new Scanner(System.in);
         consoleInputController.readData();
 
@@ -87,21 +87,10 @@ public class CLIView {
     /**
      * Method to be called when user prompts for a task to be marked as done.
      * @param taskList : list of tasks.
-     * @param input : Will be parsed to find out which tasks does user want to be marked as done.
      */
-    public void markDone(TaskList taskList, String input) {
+    public void markDone(TaskList taskList, DoneCommand doneCommand) {
         System.out.println(horiLine);
-        String[] allInputs = input.split(" ");
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.print("\t  ");
-        for (String i : allInputs) {
-            if (!i.equals("done")) {
-                int index = Integer.parseInt(i) - 1;
-                ITask chosenToDos = taskList.getTask(index);
-                chosenToDos.markAsDone();
-                System.out.println("[" + chosenToDos.getStatusIcon() + "] " + chosenToDos.getDescription());
-            }
-        }
+        doneCommand.execute(taskList);
         System.out.println(horiLine);
     }
 

@@ -1,8 +1,8 @@
 import controllers.TaskFactory;
 import exceptions.DukeException;
-import models.Deadline;
-import models.Event;
-import models.ToDos;
+import models.tasks.Deadline;
+import models.tasks.Event;
+import models.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,32 +1,29 @@
-package models;
+package models.tasks;
 
 import java.io.Serializable;
 
-public class Deadline implements ITask, Serializable {
+public class ToDos implements ITask, Serializable {
     /**
-     * Class representing the Deadline data model.
+     * Class representing the ToDos data model.
      */
     private String description;
     private boolean isDone;
     private String initials;
-    private String dueDate;
 
-    /**\
-     * Constructor of Deadline data model.
+    /**
+     * Constructor of ToDos data model.
      *
      * @param description : Description of new task
-     * @param dueDate : Due date of deadline
      */
-    public Deadline(String description, String dueDate) {
+    public ToDos(String description) {
         this.description = description;
         this.isDone = false;
-        this.initials = "D";
-        this.dueDate = dueDate;
+        this.initials = "T";
     }
 
     @Override
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✗");
+        return (isDone ? "✓" : "✗"); //return tick or X symbols
     }
 
     @Override
@@ -36,7 +33,7 @@ public class Deadline implements ITask, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (by: " + this.dueDate + ")";
+        return this.description;
     }
 
     @Override

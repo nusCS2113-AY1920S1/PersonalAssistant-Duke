@@ -1,4 +1,4 @@
-package models;
+package models.tasks;
 
 import java.io.Serializable;
 

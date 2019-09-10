@@ -1,27 +1,27 @@
-package models;
+package models.tasks;
 
 import java.io.Serializable;
 
-public class Event implements ITask, Serializable {
+public class Deadline implements ITask, Serializable {
     /**
-     * Class representing the Event class model.
+     * Class representing the Deadline data model.
      */
     private String description;
     private boolean isDone;
     private String initials;
-    private String timing;
+    private String dueDate;
 
-    /**
-     * Constructor of Event data model.
+    /**\
+     * Constructor of Deadline data model.
      *
-     * @param description : Description of the Event
-     * @param timing : Timing at which the Event is held
+     * @param description : Description of new task
+     * @param dueDate : Due date of deadline
      */
-    public Event(String description, String timing) {
+    public Deadline(String description, String dueDate) {
         this.description = description;
         this.isDone = false;
-        this.initials = "E";
-        this.timing = timing;
+        this.initials = "D";
+        this.dueDate = dueDate;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Event implements ITask, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (at: " + this.timing + ")";
+        return this.description + " (by: " + this.dueDate + ")";
     }
 
     @Override

@@ -1,6 +1,6 @@
 package repositories;
 
-import models.ITask;
+import models.tasks.ITask;
 
 import java.util.ArrayList;
 
