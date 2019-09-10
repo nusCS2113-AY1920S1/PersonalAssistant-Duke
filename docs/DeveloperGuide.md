@@ -130,3 +130,8 @@ System: NUSPal
 
 # Non-Functional Requirements
 
+Should work on any mainstream OS as long as it has Java 9 or higher installed.
+
+Should be able to hold up to 1000 prints without a noticeable sluggishness in performance for typical usage.
+
+A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
