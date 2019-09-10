@@ -25,12 +25,12 @@ public class Duke extends Application {
 
 
     /**
-     * The primary method that is called when the GUI is starting up.
+     * The constructor that is called when the GUI is starting up.
      * It will initialise all the classes related to the management of user input and save data.
      * Its output will go to the terminal, which will then be echoed to the UI as daduke.
      * Its initialization requires the file path of the save file in order to save the task data.
      *
-     * @param filePath the file path of the save file
+     * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
     public Duke(String filePath) {
@@ -76,8 +76,8 @@ public class Duke extends Application {
      * It reads in data from a list, that is taken from the save file, and outputs it to the terminal.
      * It will then be returned to MainWindow.java to be output to the GUI
      *
-     * @param myList the array list to be read from, it should contain the save data
-     * @return the save data as a string to be output to the GUI
+     * @param myList The array list to be read from, it should contain the save data.
+     * @return The save data as a string to be output to the GUI.
      */
 
     String getSave(TaskList myList) {
@@ -123,8 +123,8 @@ public class Duke extends Application {
      * Whatever is output in the terminal is recorded as printstream
      * This is then returned to the GUI to be printed there
      *
-     * @param myString the string to be parsed
-     * @return the string to be written by Duke in the GUI
+     * @param myString The string to be parsed.
+     * @return The string to be written by Duke in the GUI.
      *
      */
 

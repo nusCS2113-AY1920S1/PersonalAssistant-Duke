@@ -4,6 +4,14 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * This is a class that inherits from the Task class.
+ * In addition to its parent's methods, it also has the ability to parse the input date.
+ *
+ * @author Lee Zhen Yu
+ * @version %I%
+ * @since 1.0
+ */
 public class Deadline extends Task {
 
     //deadline do homework /by no idea :-p
@@ -11,10 +19,26 @@ public class Deadline extends Task {
     //Deadline reads in an input, separate via a /by
     protected String by;
 
+    /**
+     * Constructor of the deadline class requires a description and a date for a task to be done by
+     * These are specific to every deadline object
+     *
+     * @param description The description of the task.
+     * @param by When the task is to be done by. This is in the format "dd-MM-yyyy HHmm"
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
+
+    /**
+     * A method to return the date and time of a deadline of a task.
+     * It reads in the date as dd-MM-yyyy HHmm and is converted into a gregorian calender object.
+     * From this gregorian calender object we can easily extract the exact date and time of the deadline.
+     * This raw date and time requires minor adjustments to be readable to the average user
+     *
+     * @return The date and time of the deadline in a format familiar to the user
+     */
 
     //Format of deadline dd-MM-yyyy HHmm
     //Method to display deadline nicely when list is called
@@ -60,14 +84,29 @@ public class Deadline extends Task {
         return niceDate;
     }
 
+    /**
+     * A method to return the type of task of this object.
+     *
+     * @return This will return [D] to show that this task is a deadline task.
+     */
     public String getType() {
         return "[D]";
     }
 
+    /**
+     * A method to return the deadline of the task as given in the user input.
+     *
+     * @return A string containing the user input of the deadline.
+     */
     public String getBy() {
         return this.by;
     }
 
+    /**
+     * A method to return the entire task status, including its status, task type, deadline and description
+     *
+     * @return It returns everything about a task in a formatted string that is easily understood by the user
+     */
     public String getStatusIcon() {
         return "[D]" + "[" + (isDone ? "Y" : "N") + "] " + this.description + " (by: " + this.getDeadline() + ")";
     }
