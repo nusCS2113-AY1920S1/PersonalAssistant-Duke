@@ -1,3 +1,9 @@
+package duke.task;
+
+import duke.command.*;
+import duke.core.*;
+import duke.exception.*;
+
 /**
  * Represents a Todo task. Stores a description and whether it is done.
  */

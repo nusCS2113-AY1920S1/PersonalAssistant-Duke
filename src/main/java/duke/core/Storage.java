@@ -1,3 +1,9 @@
+package duke.core;
+
+import duke.command.*;
+import duke.exception.*;
+import duke.task.*;
+
 import java.util.*;
 import java.io.*;
 import java.text.*;

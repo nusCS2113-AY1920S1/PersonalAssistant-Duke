@@ -1,25 +1,32 @@
+package duke.command;
+
+import duke.core.*;
+import duke.exception.*;
+import duke.task.*;
+
 import java.util.*;
 import java.io.*;
 import java.text.*;
 
 /**
- * Carries out the necessary operations to delete a Task from the TaskList, when
+ * Carries out the necessary operations to mark a Task as done, when
  * supplied the index number of that Task in the TaskList.
  */
 
-public class DeleteCommand extends Command {
+public class DoneCommand extends Command {
     protected int taskNo;
 
     /**
-     * Constructor for a DeleteCommand.
-     * @param taskNo the index number of the Task to be deleted.
+     * Constructor for a DoneCommand.
+     * @param taskNo the index number of the Task to be marked as done.
      */
-    public DeleteCommand(String taskNo) {
+    public DoneCommand(String taskNo) {
+        super();
         this.taskNo = Integer.parseInt(taskNo) - 1;
     }
 
     /**
-     * This method will check if the task number is valid, and then delete the Task
+     * This method will check if the task number is valid, and then mark as done the Task
      * whose index number matches the number provided by the user.
      * @param ui An instance of the user interface.
      * @param storage An instance of the Storage class.
@@ -30,8 +37,7 @@ public class DeleteCommand extends Command {
         if (taskNo + 1 > tasks.getNumberOfItems()) {
             throw new DukeException("We don't have that many tasks!");
         }
-        Task thisTask = tasks.getItem(taskNo);
-        tasks.deleteItem(taskNo);
-        ui.printRemovedTask(thisTask.toString(), tasks.getNumberOfItems());
+        tasks.markItemAsDone(taskNo);
+        ui.printTask("Nice! I've marked this task as done:", tasks.getItemToPrint(taskNo));
     }
 }
