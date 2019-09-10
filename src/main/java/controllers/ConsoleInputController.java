@@ -1,6 +1,7 @@
 package controllers;
 
 import exceptions.DukeException;
+import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.tasks.ITask;
 import models.tasks.TaskList;
@@ -40,7 +41,8 @@ public class ConsoleInputController implements IViewController {
             consoleView.markDone(taskList, doneCommand);
             saveData();
         } else if (input.contains("delete")) {
-            consoleView.deleteTask(taskList, input);
+            DeleteCommand deleteCommand = new DeleteCommand(input);
+            consoleView.deleteTask(taskList, deleteCommand);
             saveData();
         } else if (input.contains("find")) {
             try {
