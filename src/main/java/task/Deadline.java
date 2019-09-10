@@ -1,53 +1,58 @@
+package task;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * Events are tasks with a start and end time
+ * Tasks which have a deadline
+ * Lists the task name and stores the deadline in Date format
  */
-public class Event extends Task {
+public class Deadline extends Task {
     protected Date dateTime;
-    protected String at;
+    protected String by;
 
     /**
-     * Event Constructor
-     * @param description task description
-     * @param at task time period
+     * task.Deadline Constructor
+     * @param description task descriprtion
+     * @param by task deadline
      */
-    public Event (String description, String at) {
+    public Deadline(String description, String by) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(at);
+            this.dateTime = sdf.parse(by);
         } catch (ParseException e) {
             System.out.println("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
-        this.at = at;
+        this.by = by;
     }
 
     /**
-     * Event Constructor from text file
+     * task.Deadline Constructor from text file
      * @param i isDone status
      * @param description
-     * @param at
+     * @param by
      */
-    public Event (String i, String description, String at) {
+    public Deadline(String i, String description, String by) {
         super(description);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(at);
+            this.dateTime = sdf.parse(by);
         } catch (ParseException e) {
             System.out.println("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
-        this.at = at;
+        this.by = by;
         this.isDone = i.equals("1");
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + dateTime + ")";
+        return "[D]" + super.toString() + " (by: " + this.dateTime + ")";
     }
 
     /**
@@ -57,15 +62,6 @@ public class Event extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        return "E | " + boolToInt + " | " + this.description + " | " + this.at + "\n";
-    }
-
-    @Override
-    public void saveInFile() throws IOException {
-        int boolToInt = isDone ? 1 : 0;
-        String toWrite = "E | " + boolToInt + " | " + this.description + " | " + this.at + "\n";
-        FileOutputStream f = new FileOutputStream(Constants.FILENAME, true);
-        f.write(toWrite.getBytes());
-        f.close();
+        return "D | " + boolToInt + " | " + this.description + " | " + this.by + "\n";
     }
 }

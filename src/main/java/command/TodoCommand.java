@@ -1,7 +1,15 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.TaskList;
+import task.Todo;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Command to add new Todo to task list
+ * command.Command to add new task.Todo to task list
  */
 public class TodoCommand extends Command {
     private String string;

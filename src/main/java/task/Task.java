@@ -1,13 +1,15 @@
+package task;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Class from which Todo, Deadline and Event are extended from
+ * Class from which task.Todo, task.Deadline and task.Event are extended from
  */
 abstract public class Task {
 
     /**
-     * Task description
+     * task.Task description
      */
     protected String description;
 
@@ -59,12 +61,5 @@ abstract public class Task {
      */
     public String toWriteFile() {
         return this.description;
-    }
-
-    public void saveInFile() throws IOException{
-        String toWrite = this.isDone + " | " + this.description;
-        FileOutputStream f = new FileOutputStream(Constants.FILENAME, true);
-        f.write(toWrite.getBytes());
-        f.close();
     }
 }

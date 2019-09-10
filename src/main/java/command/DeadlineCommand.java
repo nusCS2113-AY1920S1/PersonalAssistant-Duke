@@ -1,7 +1,15 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.Deadline;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Class to interpret Deadline command
+ * Class to interpret task.Deadline command
  */
 public class DeadlineCommand extends Command {
 
@@ -11,7 +19,7 @@ public class DeadlineCommand extends Command {
     String[] splitD;
 
     /**
-     * Constructor for Deadline command
+     * Constructor for task.Deadline command
      * @param input raw user input
      * @param splitStr string array containing the individual words from user input
      * @throws DukeException if user input does not follow correct format
