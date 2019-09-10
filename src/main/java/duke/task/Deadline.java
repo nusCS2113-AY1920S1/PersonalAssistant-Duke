@@ -110,7 +110,7 @@ public class Deadline extends Task {
         try {
             return LocalDateTime.parse(date, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Time must be in the format day#/month#/yyyy hhmm.");
+            throw new DukeException("Time must be in the format DD/MM/YYYY HHMM format");
         }
     }
 

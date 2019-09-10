@@ -26,7 +26,7 @@ public class DoneCommand extends Command {
         this.data = data;
         String pattern = "^[0-9]+$";
         if (!data.matches(pattern)) {
-            throw new DukeException("The task number should be numeric only");
+            throw new DukeException("The task number should be numeric and cannot be blank");
         } else {
             try {
                 this.taskNumber = Integer.parseInt(data);

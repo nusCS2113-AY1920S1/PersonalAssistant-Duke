@@ -62,6 +62,7 @@ public class DeleteCommand extends Command {
             }
         } else {
             ui.printError("Invalid task number, there are " + tasks.size() + " tasks");
+            ui.printError("You entered: " + data);
         }
 
     }
