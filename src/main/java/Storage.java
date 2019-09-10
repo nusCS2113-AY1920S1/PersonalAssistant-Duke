@@ -73,6 +73,60 @@ public class Storage {
         }
     }
 
+    //method to read data from a persistent storage and output them to a list provided as argument
+    //This reads in quietly without outputting anything
+    public void readSaveQuietly(TaskList myTasks) {
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(this.destination))) {
+
+            boolean saveExistence = false;
+
+            // read line by line
+            //[D]|[tick]|description|date
+            String myString;
+            while ((myString = br.readLine()) != null) {
+                saveExistence = true;
+                String[] bufferLine = myString.split("/");
+                //bufferLine[2] and [3] are the task description and date respectively
+                //bufferLine[1] is the statusDone icon, and its [1] character should be a tick or cross
+                //Check task type to see if any dates are needed
+                if (bufferLine[0].equals("[D]")) {
+                    Task newTask = new Deadline(bufferLine[2], bufferLine[3]);
+                    //Check if the task has already been done
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    myTasks.addToListQuietly(newTask);
+                }
+                else if (bufferLine[0].equals("[E]")) {
+                    Task newTask = new Event(bufferLine[2], bufferLine[3]);
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    myTasks.addToListQuietly(newTask);
+                }
+                //Task type is a todos, no dates
+                else {
+                    Task newTask = new Todo(bufferLine[2]);
+                    if (bufferLine[1].equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    myTasks.addToListQuietly(newTask);
+                }
+            }
+
+            br.close();
+
+            //If there is no save data, print this message
+            if (!saveExistence){
+                System.out.println("No save data detected on save file.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("No save file exists. Creating new one.");
+        }
+    }
+
     //Method to save new tasks to a persistent storage
     public void saveData(Task newTask) {
 

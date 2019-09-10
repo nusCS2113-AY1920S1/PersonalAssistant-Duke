@@ -31,7 +31,7 @@ public class Duke extends Application {
 
         ui.welcomeMessage(); //Output welcome message
 
-        getSave(myList); //Save file detection
+        save.readSaveQuietly(myList); //Save file detection
 
 
         /*
