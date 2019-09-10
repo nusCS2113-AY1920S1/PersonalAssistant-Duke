@@ -1,7 +1,14 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Command to find and display tasks the user searches for
+ * command.Command to find and display tasks the user searches for
  */
 public class FindCommand extends Command{
 

@@ -1,7 +1,15 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.Event;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Command to create and save events
+ * command.Command to create and save events
  */
 public class EventCommand extends Command{
     String[] splitD;

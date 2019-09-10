@@ -1,7 +1,14 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Command to exit Duke programme
+ * command.Command to exit Duke programme
  */
 public class ByeCommand extends Command {
 

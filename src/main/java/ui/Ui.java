@@ -1,3 +1,5 @@
+package ui;
+
 import java.util.Scanner;
 
 /**
@@ -10,7 +12,7 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
-    void showLoadingError() {
+    public void showLoadingError() {
         System.out.println(":( OOPS!!! File path not found. Creating directory /data/data.txt");
     }
 

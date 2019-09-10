@@ -1,7 +1,14 @@
+package command;
+
+import dukeException.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Command to mark task as done
+ * command.Command to mark task as done
  */
 public class DoneCommand extends Command {
     private int n;
