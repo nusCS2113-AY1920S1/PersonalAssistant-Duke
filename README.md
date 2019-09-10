@@ -1,3 +1,5 @@
+Welcome to T12-4 project! Have fun!!
+
 # Setting up
 
 **Prerequisites**
