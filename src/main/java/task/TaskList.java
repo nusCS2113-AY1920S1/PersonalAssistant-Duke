@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Removes task from tasklist.
+     * Removes a particular task from database.
      */
     public static void removeTask(int num) throws DukeException {
         try {
@@ -42,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Extracts the type of a particular task from tasklist.
+     * Extracts the type of a particular task from database.
      */
     public static String getType(int num) throws DukeException {
         try {
@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Extracts the status icon of a particular task from tasklist.
+     * Extracts the status icon of a particular task from database.
      */
     public static String getStatus(int num) throws DukeException {
         try {
@@ -74,7 +74,7 @@ public class TaskList {
     }
 
     /**
-     * Extracts the task description from a particular task from tasklist.
+     * Extracts the task description from a particular task from database.
      */
     public static String getMessage(int num) throws DukeException {
         try {

@@ -2,14 +2,23 @@ package parser;
 
 import exceptions.DukeException;
 import storage.Storage;
-import task.*;
+import task.ToDo;
+import task.Event;
+import task.Deadline;
+import task.Tasks;
+import task.TaskList;
 import ui.Ui;
 
-import javax.print.DocFlavor;
 import java.util.List;
 
+/**
+ * This class deals with making sense of the user command and doing the appropriate actions.
+ */
 public class Parser {
 
+    /**
+     * Takes in users' input and call the aprropriate functions to execute the right action.
+     */
     public static int handleCommand(String firstWord, String s) {
         int check = 0;
         if (s.equals("bye")) {
@@ -54,7 +63,9 @@ public class Parser {
         return check;
     }
 
-
+    /**
+     * Prints the list of tasks in database by calling the showListTask function under Ui class.
+     */
     private static void listCommand() {
         Ui.showListIntroMessage();
         List<Tasks> userToDoList = TaskList.getList();
@@ -67,6 +78,11 @@ public class Parser {
         Ui.printLine();
     }
 
+    /**
+     * Mark a particular task as done.
+     * Then, prints the confirmation message by calling showMarkAsDone function under Ui class.
+     * Finally, updates the database.
+     */
     private static void doneCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
@@ -86,8 +102,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a new To-Do task with users' input.
+     * Then, prints a confirmation message by calling showToDoSuccess function under Ui class.
+     * Finally, adds the task into database.
+     */
     private static void todoCommand(String s) throws DukeException {
-        int todolist_number = TaskList.getTotalTasksNumber() + 1;
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
         try {
             String joinTokens = s.substring(s.indexOf(" ") + 1);
             if (joinTokens.equals(" ")) {
@@ -101,8 +122,8 @@ public class Parser {
             }
             Tasks newToDo = new ToDo(joinTokens, "T");
             TaskList.addTask(newToDo);
-            Ui.showToDoSucess(TaskList.getType(todolist_number - 1),
-                TaskList.getStatus(todolist_number - 1), TaskList.getMessage(todolist_number - 1),
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
                 TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
         } catch (DukeException e) {
@@ -110,6 +131,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Prints tasks that contain the keyword entered by user.
+     */
     private static void findCommand(String s) throws DukeException {
         try {
             String find = s.substring(5);
@@ -123,8 +147,8 @@ public class Parser {
                     String message = TaskList.getMessage(i).toLowerCase();
                     String type = TaskList.getType(i).toLowerCase();
                     String icon = TaskList.getStatus(i);
-                    if ((message.contains(findLowerCase)) || (type.contains(findLowerCase)) ||
-                        (icon.contains(findLowerCase))) {
+                    if ((message.contains(findLowerCase)) || (type.contains(findLowerCase))
+                        || (icon.contains(findLowerCase))) {
                         Ui.showFindTasks(TaskList.getType(i), TaskList.getStatus(i),
                             TaskList.getMessage(i), j);
                         j += 1;
@@ -137,6 +161,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a particular task as entered by user.
+     * Then, prints the confirmation message by calling showDeleteMessage function under Ui class.
+     * Finally, updates the database.
+     */
     private static void deleteCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
@@ -155,9 +184,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a new event task with users' input.
+     * Then, prints a confirmation message by calling showEventMessage function under Ui class.
+     * Finally, adds the task into database.
+     */
     private static void eventCommand(String s) throws DukeException {
         try {
-            int todolist_number = TaskList.getTotalTasksNumber();
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
             TimeParser timeParser = new TimeParser();
@@ -177,17 +210,22 @@ public class Parser {
             Event task1 = new Event(todoTask1, "E", time1);
             String newtodoTask1 = task1.toMessage();
             Tasks newToDo1 = new Event(newtodoTask1, "E", time1);
+            int todolistNumber = TaskList.getTotalTasksNumber();
             TaskList.addTask(newToDo1);
-            Ui.showEventMessage(TaskList.getStatus(todolist_number), newtodoTask1, todolist_number + 1);
+            Ui.showEventMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_EVENT;
         }
     }
 
-
+    /**
+     * Creates a new deadline task with users' input.
+     * Then, prints a confirmation message by calling showDeadlineMessage function under Ui class.
+     * Finally, adds the task into database.
+     */
     private static void deadlineCommand(String s) throws DukeException {
-        int todolist_number = TaskList.getTotalTasksNumber();
+        int todolistNumber = TaskList.getTotalTasksNumber();
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
@@ -211,7 +249,7 @@ public class Parser {
             String newtodoTask = task.toMessage();
             Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
             TaskList.addTask(newToDo2);
-            Ui.showDeadlineMessage(TaskList.getStatus(todolist_number), newtodoTask, todolist_number + 1);
+            Ui.showDeadlineMessage(TaskList.getStatus(todolistNumber), newtodoTask, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_DEADLINE;

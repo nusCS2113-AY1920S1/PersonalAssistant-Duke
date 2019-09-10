@@ -10,8 +10,14 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import exceptions.DukeException;
-import task.*;
+import task.Tasks;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
 
+/**
+ * This class deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
     private static String filePath;
@@ -50,9 +56,9 @@ public class Storage {
                 if (type.equals("T")) {
                     tasks = new ToDo(taskMessage, "T");
                 } else if (type.equals("D")) {
-                    tasks = new Deadline(taskMessage, "D", arr[3].strip()); //arr[3].strip()
+                    tasks = new Deadline(taskMessage, "D", arr[3].strip());
                 } else {
-                    tasks = new Event(taskMessage, "E", arr[3].strip()); //arr[3].strip()
+                    tasks = new Event(taskMessage, "E", arr[3].strip());
                 }
                 if (done.equals("✓")) {
                     tasks.setDone(true);
@@ -80,10 +86,10 @@ public class Storage {
                     line = "T | " + task.getStatusIcon() + " | " + task.getDescription();
                 } else if (taskType == "D") {
                     line = "D | " + task.getStatusIcon() + " | "
-                            + task.getDescription() + " | " + ((Deadline) task).getDeadline();
+                        + task.getDescription() + " | " + ((Deadline) task).getDeadline();
                 } else {
                     line = "E | " + task.getStatusIcon() + " | "
-                            + task.getDescription() + " | " + ((Event) task).getTime();
+                        + task.getDescription() + " | " + ((Event) task).getTime();
                 }
                 fileWriter.write(line + "\n");
             }

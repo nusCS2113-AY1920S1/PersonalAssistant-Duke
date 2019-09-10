@@ -5,12 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This class deals with manipulating a string into a date if it is possible to.
+ */
 public class TimeParser {
     static Date date;
 
     /**
-     * Takes in a string and see whether can manipulate to a date.
-     * After which, return back the date as string.
+     * Manipulate a string into an date and return it back as string.
+     * If not, simply just return back the string.
      */
     public static String convertStringToDate(String time) {
         String line;
@@ -62,6 +65,9 @@ public class TimeParser {
     }
 
 
+    /**
+     * Converts a date back to string and returns the string.
+     */
     private static String convertDateToLine(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

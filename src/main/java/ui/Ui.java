@@ -1,12 +1,10 @@
 package ui;
 
-import exceptions.DukeException;
-import task.Tasks;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * This class handles user's input and do the required appropriate actions.
+ */
 public class Ui {
 
     protected static String logo =
@@ -23,18 +21,18 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
+    /**
+     * Prints the welcome message at the start when user opens the duke application.
+     */
     public void showWelcome() {
         System.out.println(space + "Hello from\n" + logo + "\n" + space + "Hello I am " + "Duke.");
         System.out.println(space + "What can I do for you?");
         System.out.println(line);
     }
 
-    public void showUnknownCommand() {
-        System.out.println(line);
-        System.out.println(space + DukeException.UNKNOWN_COMMAND);
-        System.out.println(line);
-    }
-
+    /**
+     * Prints a message before the application lists out each respective task in database.
+     */
     public static void showListIntroMessage() {
         System.out.println(line + "\n" + space + "Here are the tasks in your list:");
     }
@@ -61,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message once a task has been done and updated into tasklist.
+     * Prints a message once a task has been done and updated into database.
      */
     public static void showMarkAsDone(String type, String status, String message) {
         System.out.println(line + "\n" + space + "Nice! I've marked this task as done:");
@@ -71,6 +69,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints a message when a particular task has been marked as done by user.
+     */
     public static void showMarkAsUnDone(String type, String status, String message) {
         System.out.println(line + "\n" + space + "Nice! I've unmarked this task as done:");
         System.out.println(space + " [" + type
@@ -84,19 +85,19 @@ public class Ui {
     }
 
     /**
-     * Prints a message once a To-Do task has been successfully added into tasklist.
+     * Prints a message once a To-Do task has been successfully added into database.
      */
-    public static void showToDoSucess(String type, String status, String message, int todolist_number) {
+    public static void showToDoSucess(String type, String status, String message, int todolistNumber) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:"
             + "\n" + space + " [" + type
             + "][" + status
             + "] " + message);
 
-        if (todolist_number > 1) {
+        if (todolistNumber > 1) {
             System.out.println(space
-                + "Now you have " + todolist_number + " tasks in the list.");
+                + "Now you have " + todolistNumber + " tasks in the list.");
         } else {
-            System.out.println(space + "Now you have " + todolist_number + " task in the list.");
+            System.out.println(space + "Now you have " + todolistNumber + " task in the list.");
         }
         System.out.println(line);
     }
@@ -106,7 +107,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message once a task has been deleted from tasklist.
+     * Prints a message once a task has been deleted from database.
      */
     public static void showDeleteMessage(String type, String status, String message, int num) {
         System.out.println(line + "\n" + space + "Noted. I've removed this task:"
@@ -118,7 +119,7 @@ public class Ui {
     }
 
     /**
-     * Prints a respective task when user enters find.
+     * Prints a respective task when user enter find.
      */
     public static void showFindTasks(String type, String status, String message, int num) {
         System.out.println(space + num + ".["
@@ -126,6 +127,9 @@ public class Ui {
             + "] " + message);
     }
 
+    /**
+     * Prints a error message when database is empty.
+     */
     public void showLoadingError() {
         System.out.println(line);
         System.out.println(space + "Existing database is empty!");
@@ -134,6 +138,7 @@ public class Ui {
 
     /**
      * Reads users' input.
+     * Returns these input.
      */
     public String readInput() {
         String line = in.nextLine().trim();
@@ -142,7 +147,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message once a event task has been successfully added into tasklist.
+     * Prints a message once a event task has been successfully added into database.
      */
     public static void showEventMessage(String status, String message, int num) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [E]["
@@ -157,7 +162,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message once a deadline task has been successfully added into tasklist.
+     * Prints a message once a deadline task has been successfully added into database.
      */
     public static void showDeadlineMessage(String status, String message, int num) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [D]["

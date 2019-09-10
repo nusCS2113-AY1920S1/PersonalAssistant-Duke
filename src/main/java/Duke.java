@@ -1,12 +1,13 @@
 import exceptions.DukeException;
 import parser.Parser;
 import storage.Storage;
-import task.*;
+import task.TaskList;
 import ui.Ui;
 
 /**
- * Runs the duke program where it first extracts tasks from duke.txt.
- * After which, it takes in input from users and run the appropriate commands.
+ * The duke program simply runs a to-do application.
+ * The program will first extracts existing tasks, if any, from duke.txt.
+ * After which, it takes users' input and run the appropriate commands.
  */
 public class Duke {
 
@@ -15,8 +16,8 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Creates a new Ui that handles users' inputs.
-     * Extracts task from Duke.txt or creates a new tasklist.
+     * Creates a new Ui class that handles users' inputs.
+     * Extracts task from Duke.txt or creates a new tasklist class.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -30,8 +31,8 @@ public class Duke {
     }
 
     /**
-     * Prints welcome message.
-     * After which, takes in user's input and pass it to Parser class.
+     * The function first prints welcome message.
+     * After which, it takes in user's input and pass it to Parser class to excecute the approriate commands.
      */
     public void run() throws DukeException {
         ui.showWelcome();
@@ -52,6 +53,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main duke function.
+     */
     public static void main(String[] args) throws DukeException {
         new Duke("data/duke.txt").run();
     }
