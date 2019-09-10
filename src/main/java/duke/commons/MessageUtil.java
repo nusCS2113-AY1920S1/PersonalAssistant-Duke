@@ -3,7 +3,7 @@ package duke.commons;
 /**
  * Messages used by duke.Duke.
  */
-public class Message {
+public class MessageUtil {
     public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means :-(";
     public static final String EMPTY_DESCRIPTION = "⛔ The description cannot be empty. :-(";
     public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";

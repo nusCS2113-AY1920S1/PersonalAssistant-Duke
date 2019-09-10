@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.parsers.ParserStorage;
+import duke.commons.MessageUtil;
+import duke.parsers.ParserStorageUtil;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
@@ -43,13 +43,13 @@ public class Storage {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                newTasks.add(ParserStorage.createTaskFromStorage(s.nextLine()));
+                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
             s.close();
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         } catch (FileNotFoundException e) {
-            ui.showError(Message.FILE_NOT_FOUND);
+            ui.showError(MessageUtil.FILE_NOT_FOUND);
         }
         tasks = newTasks;
     }
@@ -61,11 +61,11 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {
-                writer.write(ParserStorage.toStorageString(task) + "\n");
+                writer.write(ParserStorageUtil.toStorageString(task) + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            ui.showError(Message.FILE_NOT_SAVE);
+            ui.showError(MessageUtil.FILE_NOT_SAVE);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }

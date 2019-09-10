@@ -8,7 +8,7 @@ import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commons.DukeException;
-import duke.commons.Message;
+import duke.commons.MessageUtil;
 
 /**
  * Parser for duke.commands entered by the duke.Duke user. It reads from standard input and
@@ -42,7 +42,7 @@ public class Parser {
         case "find":
             return new FindCommand(getWord(userInput));
         default:
-            throw new DukeException(Message.UNKNOWN_COMMAND);
+            throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
     }
 
@@ -66,7 +66,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ")[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(Message.INVALID_FORMAT);
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
     }
 }

@@ -2,7 +2,7 @@ package duke.parsers;
 
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
-import duke.commons.Message;
+import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
@@ -20,7 +20,7 @@ public class ParserUtil {
     protected static Todo createTodo(String userInput) throws DukeException {
         String description = userInput.substring("todo".length()).strip();
         if (description.isEmpty()) {
-            throw new DukeException(Message.EMPTY_DESCRIPTION);
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
         return new Todo(description);
     }
@@ -34,13 +34,13 @@ public class ParserUtil {
     protected static Deadline createDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("/by");
         if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
-            throw new DukeException(Message.INVALID_FORMAT);
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
         if (deadlineDetails[0].strip().isEmpty()) {
-            throw new DukeException(Message.EMPTY_DESCRIPTION);
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
         try {
-            return new Deadline(deadlineDetails[0].strip(), ParserTime.parseStringToDate(deadlineDetails[1].strip()));
+            return new Deadline(deadlineDetails[0].strip(), ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
         } catch (DukeDateTimeParseException e) {
             return new Deadline(deadlineDetails[0].strip(), deadlineDetails[1].strip());
         }
@@ -55,13 +55,13 @@ public class ParserUtil {
     protected static Event createEvent(String userInput) throws DukeException {
         String[] eventDetails = userInput.substring("event".length()).strip().split("/at");
         if (eventDetails.length != 2 || eventDetails[1] == null) {
-            throw new DukeException(Message.INVALID_FORMAT);
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
         if (eventDetails[0].strip().isEmpty()) {
-            throw new DukeException(Message.EMPTY_DESCRIPTION);
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
         try {
-            return new Event(eventDetails[0].strip(), ParserTime.parseStringToDate(eventDetails[1].strip()));
+            return new Event(eventDetails[0].strip(), ParserTimeUtil.parseStringToDate(eventDetails[1].strip()));
         } catch (DukeDateTimeParseException e) {
             return new Event(eventDetails[0].strip(), eventDetails[1].strip());
         }
@@ -78,7 +78,7 @@ public class ParserUtil {
             int index = Integer.parseInt(userInput.replaceAll("\\D+", ""));
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(Message.INVALID_FORMAT);
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
     }
 }
