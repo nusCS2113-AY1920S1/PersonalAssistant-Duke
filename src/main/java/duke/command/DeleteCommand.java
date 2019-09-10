@@ -13,6 +13,14 @@ public class DeleteCommand extends Command {
         this.words = words;
     }
 
+    /**
+     * Deletes a user specified task.
+     *
+     * @param taskList List containing tasks
+     * @param ui Userinterface object
+     * @param storage Storage object
+     * @throws DukeException Exception thrown when errors besides invalid format and index are found
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

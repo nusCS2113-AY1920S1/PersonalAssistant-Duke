@@ -7,6 +7,7 @@ import duke.dukeexception.DukeException;
 import java.util.List;
 
 public class AddDeadlineCommand extends Command {
+    /** List containing String objects. */
     private List<String> words;
 
     public AddDeadlineCommand(List<String> words) {
