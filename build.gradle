@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+
+
+group 'seedu.duke'
+version '0.1.0'
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    // Change this to your main class.
+    mainClassName = "Duke"
+}
+
+run {
+    standardInput = System.in
+}
