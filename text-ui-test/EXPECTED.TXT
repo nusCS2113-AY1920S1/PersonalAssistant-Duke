@@ -1,0 +1,21 @@
+	____________________________________________________________
+	Hello! I'm Duke
+	What can I do for you?
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list
+	1. [T][?] read book
+	2. [D][?] return book (by: Thursday, 6th of June 2019, 09:00 AM)
+	3. [E][?] project meeting (at: Tuesday, 6th of August 2019, 02:00 PM)
+	4. [T][?] join sports club
+	5. [D][?] cry immensely (by: Sunday, 1st of September 2019, 11:00 AM)
+	6. [E][?] fly to Bangkok (at: Tuesday, 6th of August 2019, 10:00 PM)
+	7. [D][?] test my Duke project (by: Friday, 30th of August 2019, 11:59 PM)
+	8. [D][?] lion safari (by: Monday, 31th of August 2020, 03:00 AM)
+	____________________________________________________________
+	____________________________________________________________
+	☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+	____________________________________________________________
+	____________________________________________________________
+	Bye. Hope to see you again soon!
+	____________________________________________________________
