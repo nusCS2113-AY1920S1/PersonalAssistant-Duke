@@ -1,3 +1,6 @@
+#
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -12,3 +15,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+# Data directory for data export
+/data/
+
+# Directory for javadoc
+/javadoc/

@@ -1,0 +1,147 @@
+list
+todo read book
+deadline return book /by 6/6/2019 1234
+event project meeting /at 06/08/2019 1400
+todo join sports club
+todo borrow book
+list
+list list
+todo
+todo 
+todo  
+todo   
+list 
+list  
+list   
+list abcdefg
+deadline
+deadline 
+deadline  
+deadline   
+deadline /by
+deadline  /by
+deadline   /by
+deadline    /by
+deadline /by 1/1/2019 1200
+deadline  /by 1/1/2019 1200
+deadline   /by 1/1/2019 1200
+deadline    /by 1/1/2019 1200
+deadline /by 1/1/2019
+deadline  /by 1/1/2019
+deadline   /by 1/1/2019
+deadline    /by 1/1/2019
+deadline /by 1/1/2019 
+deadline  /by 1/1/2019  
+deadline   /by 1/1/2019   
+deadline    /by 1/1/2019    
+deadline /by 1/1/2019 1
+deadline /by 1/1/2019 12
+deadline /by 1/1/2019 123
+deadline /by 1/1/2019 1234
+deadline buy fruits
+deadline buy fruits /by
+deadline buy fruits /by 
+deadline buy fruits /by  
+deadline buy fruits /by   
+deadline buy fruits /by 1/1/2019
+deadline buy fruits /by 1/1/2019 
+deadline buy fruits /by 1/1/2019  
+deadline buy fruits /by 1/1/2019   
+deadline buy fruits /by 1/1/2019 1
+deadline buy fruits /by 1/1/2019 12
+deadline buy fruits /by 1/1/2019 123
+deadline buy fruits(should pass) /by 1/1/2019 1234
+deadline /by haha(should pass) /by 1/2/2019 1800
+deadline /by /by haha /by 1/2/2019/0800
+deadline testing /by1/2/2019 1235
+deadline testing/by 1/2/2019 1235
+event
+event 
+event  
+event   
+event /at
+event  /at
+event   /at
+event    /at
+event /at 1/1/2019 1200
+event  /at 1/1/2019 1200
+event   /at 1/1/2019 1200
+event    /at 1/1/2019 1200
+event /at 1/1/2019
+event  /at 1/1/2019
+event   /at 1/1/2019
+event    /at 1/1/2019
+event /at 1/1/2019 
+event  /at 1/1/2019  
+event   /at 1/1/2019   
+event    /at 1/1/2019    
+event /at 1/1/2019 1
+event /at 1/1/2019 12
+event /at 1/1/2019 123
+event /at 1/1/2019 1234
+event sing karaoke
+event sing karaoke /at
+event sing karaoke /at 
+event sing karaoke /at  
+event sing karaoke /at   
+event sing karaoke /at 1/1/2019
+event sing karaoke /at 1/1/2019 
+event sing karaoke /at 1/1/2019  
+event sing karaoke /at 1/1/2019   
+event sing karaoke /at 1/1/2019 1
+event sing karaoke /at 1/1/2019 12
+event sing karaoke /at 1/1/2019 123
+event sing karaoke(should pass) /at 1/1/2019 1234
+event /at haha(should pass) /at 1/2/2019 1800
+event /at /at /at 1/02/2019 0900
+event testing /at1/2/2019 1234
+event testing/at 1/2/2019 1234
+done
+done 
+done  
+done   
+done    
+done a
+done ab
+done abc
+done 1a
+done 1 a
+done 1 abc
+done 1
+done 9
+done 0
+done 1
+done 4
+done 3.141592654
+done 9999999999
+done 9999999999999999999999999
+done 2147483647
+done 2147483648
+done 2147483646
+list
+delete
+delete 
+delete  
+delete   
+delete a
+delete ab
+delete abc
+delete 1a
+delete 1 a
+delete 1 abc
+delete 1
+delete 9
+delete 0
+delete 1
+delete 3
+list
+find
+find 
+find  
+find   
+find book mark
+find book
+find join
+find buy
+bye FCH :(
+bye
