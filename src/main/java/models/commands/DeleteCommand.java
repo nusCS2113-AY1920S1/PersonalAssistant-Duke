@@ -4,7 +4,9 @@ import models.tasks.ITask;
 import models.tasks.TaskList;
 
 public class DeleteCommand implements ICommand {
+
     private String input;
+
     public DeleteCommand(String input) {
         this.input = input;
     }
@@ -23,6 +25,6 @@ public class DeleteCommand implements ICommand {
             }
         }
         String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
-        System.out.println("\tNow you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in the list." );
+        System.out.println("\tNow you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in the list.");
     }
 }

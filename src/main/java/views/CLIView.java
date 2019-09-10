@@ -105,12 +105,25 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
+    /**
+     * Method that is called when user wishes to delete a task.
+     * This method is responsible for handling printing of horizontal lines.
+     * However, certain printing has been abstracted to DeleteCommand
+     * @param taskList : List of tasks from which the chosen task should be deleted from.
+     * @param deleteCommand : Command that holds the logic for searching and printing certain delete messages.
+     */
     public void deleteTask(TaskList taskList, DeleteCommand deleteCommand) {
         System.out.println(horiLine);
         deleteCommand.execute(taskList);
         System.out.println(horiLine);
     }
 
+    /**
+     * Method that is called when user wishes to find a specific task.
+     * This method updates the UI (in this case CLI) with relevant print messages and information.
+     * @param taskList : Current list of tasks. Users will enter a keyword to search for a task residing in this list.
+     * @param input : Full command that user has keyed into CLI.
+     */
     public void findTask(TaskList taskList, String input) {
         System.out.println(horiLine);
         System.out.println("\tHere are the matching tasks in your list:");

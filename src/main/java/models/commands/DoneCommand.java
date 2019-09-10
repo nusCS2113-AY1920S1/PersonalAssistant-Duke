@@ -4,7 +4,9 @@ import models.tasks.ITask;
 import models.tasks.TaskList;
 
 public class DoneCommand implements ICommand {
+
     private String input;
+
     public DoneCommand(String input) {
         this.input = input;
     }

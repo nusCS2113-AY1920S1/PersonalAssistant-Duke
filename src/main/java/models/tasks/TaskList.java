@@ -31,6 +31,11 @@ public class TaskList implements Serializable {
         return this.listOfTasks.size();
     }
 
+    /**
+     * Method that returns tasks that match with search keywords.
+     * @param input : Keyword that users wish to search for
+     * @return : Returns an ArrayList of ITask that matches keyword
+     */
     public ArrayList<ITask> getSearchedTasks(String input) {
         String [] allinputs = input.split(" ");
         searchedTasks = new ArrayList<>();

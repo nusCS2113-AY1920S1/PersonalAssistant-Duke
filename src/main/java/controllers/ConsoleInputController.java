@@ -62,6 +62,7 @@ public class ConsoleInputController implements IViewController {
         }
     }
     // TODO refactor saving data and reading data to repository/database
+
     /**
      * Method that is called in order to saveData to persistent storage.
      */
