@@ -41,7 +41,7 @@ public class TaskFactory {
             tempString = String.join(" ", listArgs);
             parsedStrings = tempString.split(" /by ");
             try {
-                // Correct format as 2 December 2019, 6 PM
+                // Correct format as 2 December 2019 6 PM
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 date = formatter.parse(parsedStrings[1]);
 
