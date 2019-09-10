@@ -1,8 +1,8 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private final String ticks = "\u2713";
-    private final String cross = "\u2718";
+    private final String ticks = "Y";
+    private final String cross = "N";
 
     public Task(String description) {
         this.description = description;

@@ -6,6 +6,12 @@ public class Event extends Task {
     private DateTimeRecognition to;
     private DateTimeRecognition from;
 
+    /**
+     * This constructor instantiates the object for the Event class.
+     * @param description stores the event description.
+     * @param at stores the time for the event in a particular format.
+     * @throws DukeException when the user inputs event task in an invalid format.
+     */
     public Event(String description, String at)throws DukeException {
         super(description);
         this.at = at;
@@ -19,7 +25,6 @@ public class Event extends Task {
         from.dateTime();
         to.dateTime();
     }
-
 
     @Override
     public String toString() {

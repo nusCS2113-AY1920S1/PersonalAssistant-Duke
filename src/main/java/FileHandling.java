@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +15,11 @@ public class FileHandling {
         this.file = file;
     }
 
+    /**
+     * This function handles loading data from the file.
+     * @return a list that stores the tasks loaded from the file.
+     * @throws DukeException when there are errors while handling the file.
+     */
     public ArrayList<Task> retrieveData() throws DukeException {
 
         try {
@@ -56,6 +66,11 @@ public class FileHandling {
         }
     }
 
+    /**
+     * This function is responsible for saving data from the list into the file.
+     * @param storeDataInFile list of tasks that are to be stored in the file.
+     * @throws DukeException when there are errors while loading data into the file.
+     */
     public void saveData(ArrayList<Task> storeDataInFile) throws DukeException {
 
         try {

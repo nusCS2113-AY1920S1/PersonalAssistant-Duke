@@ -9,6 +9,10 @@ public class DateTimeRecognition {
         this.date = date;
     }
 
+    /**
+     * This function enables Duke to read dates in a "dd/MM/yyyy HHmm format".
+     * @throws DukeException when the date format is incorrect.
+     */
     public void dateTime() throws DukeException {
         try {
             SimpleDateFormat identifyFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");

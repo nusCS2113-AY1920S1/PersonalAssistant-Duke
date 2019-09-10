@@ -4,6 +4,12 @@ import java.util.List;
 
 public class Parser {
 
+    /**
+     * This function just parses the fullCommand into different tasks/commands.
+     * @param fullCommand stores the command entered by the user.
+     * @return objects of type Command depending on the command given by the user.
+     * @throws DukeException when the command given is invalid.
+     */
     public static Command parse(String fullCommand)throws DukeException {
         List<String> splitInput = new ArrayList<String>(
                 Arrays.asList(fullCommand.split(" ")));
