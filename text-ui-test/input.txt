@@ -1,0 +1,9 @@
+todo todoTest
+event eventTest /at 11/11/1111 1111
+deadline deadlineTest /by 12/12/1212 1212
+list
+find event
+done 2
+remove 1
+list
+bye
