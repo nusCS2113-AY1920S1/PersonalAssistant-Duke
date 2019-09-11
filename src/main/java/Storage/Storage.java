@@ -1,7 +1,6 @@
 package Storage;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,11 +11,9 @@ import java.util.Scanner;
 public class Storage {
     String directory = System.getProperty("user.home");
     String fileName = "sample.txt";
-<<<<<<< HEAD:src/main/java/Storage.java
-    String absolutePath = "C:\\Users\\Jess\\Documents\\GitHub\\main\\src\\main\\java\\Save";
-=======
+
     String absolutePath = "C:\\Users\\ayh_j\\main\\src\\main\\java\\Save";
->>>>>>> 5ba040dc4f9463a3dabfa55d2e56ee8220afba12:src/main/java/Storage/Storage.java
+
     protected void Storages(String fileContent) throws IOException{
 
         FileWriter fileWriter = new FileWriter(absolutePath);

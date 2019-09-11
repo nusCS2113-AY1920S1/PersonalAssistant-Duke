@@ -1,16 +1,30 @@
+import UI.Ui;
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD
+import java.io.IOException;
+<<<<<<< HEAD
+import java.text.ParseException;
+import java.util.ArrayList;
+=======
+<<<<<<< HEAD
 
 import java.io.IOException;
+=======
+>>>>>>> Jason
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+>>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
+=======
+>>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
+>>>>>>> Jason
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DukeTest {
-
     @Test
     public void testUi() {
         Ui ui = new Ui();

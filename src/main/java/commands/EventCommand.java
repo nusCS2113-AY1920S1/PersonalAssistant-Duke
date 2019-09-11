@@ -1,4 +1,18 @@
+<<<<<<< HEAD:src/main/java/EventCommand.java
+<<<<<<< HEAD
+import UI.Ui;
+=======
+<<<<<<< HEAD
 import Storage.Storage;
+>>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
+=======
+>>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
+>>>>>>> Jason
+=======
+package commands;
+
+import commands.Command;
+>>>>>>> Jess:src/main/java/commands/EventCommand.java
 
 import java.io.IOException;
 import java.text.ParseException;
