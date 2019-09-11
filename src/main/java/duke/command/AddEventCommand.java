@@ -1,4 +1,5 @@
 package duke.command;
+
 import java.util.List;
 
 import duke.exceptions.DukeException;
@@ -6,7 +7,6 @@ import duke.storage.FileHandling;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
 
 public class AddEventCommand extends Command {
     private List<String> splitInput;

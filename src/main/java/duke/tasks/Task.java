@@ -2,7 +2,7 @@ package duke.tasks;
 
 public class Task {
     protected String description;
-    protected boolean isDone;
+    public boolean isDone;
     private final String ticks = "Y";
     private final String cross = "N";
 
