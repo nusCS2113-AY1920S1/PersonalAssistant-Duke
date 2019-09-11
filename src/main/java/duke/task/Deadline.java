@@ -1,11 +1,8 @@
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package duke.task;
+
 /**
  * Represents a task with a deadline. It is
- * extended from the <code>Task</code> class.
+ * extended from the <code>duke.task.Task</code> class.
  */
 public class Deadline extends Task {
     /**
@@ -13,7 +10,7 @@ public class Deadline extends Task {
      */
     protected String by;
     /**
-     * Constructs a <code>Deadline</code> object. Date and time are parsed and
+     * Constructs a <code>duke.task.Deadline</code> object. Date and time are parsed and
      * stored in <code>dateTime</code> field if input is of "dd/MM/yyyy HHmm"
      * format.
      * @param description A string that describes the specific

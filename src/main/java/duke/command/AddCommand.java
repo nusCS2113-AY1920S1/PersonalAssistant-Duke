@@ -1,8 +1,16 @@
+package duke.command;
+
+import duke.core.DukeExceptionThrow;
+import duke.core.Storage;
+import duke.core.TaskList;
+import duke.core.Ui;
+import duke.task.Task;
+
 /**
- * Represents a command class to add a task. The <code>AddCommand</code> class
- * extends from the <code>Command</code> class to represent user instruction
- * to add a new <code>ToDo</code>, <code>Deadline</code> or <code>Event</code>
- * task to the <code>TaskList</code>.
+ * Represents a command class to add a task. The <code>duke.command.AddCommand</code> class
+ * extends from the <code>duke.command.Command</code> class to represent user instruction
+ * to add a new <code>ToDo</code>, <code>duke.task.Deadline</code> or <code>Event</code>
+ * task to the <code>duke.core.TaskList</code>.
  */
 public class AddCommand extends Command {
     /**
@@ -10,7 +18,7 @@ public class AddCommand extends Command {
      */
     private Task t;
     /**
-     * Constructs a <code>AddCommand</code> object.
+     * Constructs a <code>duke.command.AddCommand</code> object.
      * @param tt Specifies the task to be added.
      */
     public AddCommand(Task tt) {
@@ -18,8 +26,8 @@ public class AddCommand extends Command {
         this.t = tt;
     }
     /**
-     * Indicates whether Duke should exist
-     * @return A boolean. True if the command tells Duke to exit, false
+     * Indicates whether duke.Duke should exist
+     * @return A boolean. True if the command tells duke.Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -27,7 +35,7 @@ public class AddCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect TaskList, UI, and storage.
+     * run the command with the respect duke.core.TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update

@@ -1,6 +1,14 @@
+package duke.command;
+
+import duke.core.DukeExceptionThrow;
+import duke.core.Storage;
+import duke.core.TaskList;
+import duke.core.Ui;
+import duke.task.Task;
+
 /**
- * Represents a command to mark a task as done. The <code>DoneCommand</code>
- * class extends from the <code>Command</code> class to represent user
+ * Represents a command to mark a task as done. The <code>duke.command.DoneCommand</code>
+ * class extends from the <code>duke.command.Command</code> class to represent user
  * instruction to mark an existing task.
  */
 public class DoneCommand extends Command {
@@ -9,7 +17,7 @@ public class DoneCommand extends Command {
      */
     private int Id;
     /**
-     * Constructs a <code>DoneCommand</code> object.
+     * Constructs a <code>duke.command.DoneCommand</code> object.
      * @param taskId Specifies the index of the task.
      */
     public DoneCommand(int taskId) {
@@ -17,8 +25,8 @@ public class DoneCommand extends Command {
         this.Id = taskId;
     }
     /**
-     * Indicates whether Duke should exist
-     * @return A boolean. True if the command tells Duke to exit, false
+     * Indicates whether duke.Duke should exist
+     * @return A boolean. True if the command tells duke.Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -26,7 +34,7 @@ public class DoneCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect TaskList, UI, and storage.
+     * run the command with the respect duke.core.TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update

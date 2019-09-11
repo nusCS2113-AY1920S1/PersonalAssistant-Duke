@@ -1,11 +1,8 @@
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package duke.task;
 
 /**
  * Represents a task with a event. It is
- * extended from the <code>Task</code> class.
+ * extended from the <code>duke.task.Task</code> class.
  */
 public class Events extends Task {
     /**

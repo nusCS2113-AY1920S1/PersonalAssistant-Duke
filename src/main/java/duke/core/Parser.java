@@ -1,14 +1,21 @@
+package duke.core;
+
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Events;
+import duke.task.ToDos;
+
 /**
- * Represents a <code>Parser</code> that parses user input into a specific
- * type of <code>Command</code>.
+ * Represents a <code>duke.core.Parser</code> that parses user input into a specific
+ * type of <code>duke.command.Command</code>.
  */
 public class Parser {
     private static String[] substring;
 
     /**
-     * Parses a <code>Task</code> from a string array.
+     * Parses a <code>duke.task.Task</code> from a string array.
      * @param ss The string array to be parsed.
-     * @return The <code>Command</code> received from user.
+     * @return The <code>duke.command.Command</code> received from user.
      */
     public static Command Parse(String ss) throws DukeExceptionThrow
     {

@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
- * Represents a task.  <code>Task</code> is an abstract class that can not be
+ * Represents a task.  <code>duke.task.Task</code> is an abstract class that can not be
  * instantiated
  */
 public abstract class Task {
@@ -26,7 +28,7 @@ public abstract class Task {
     protected LocalDateTime ld;
 
     /**
-     * Initialises the minimum fields required to setup a <code>Task</code>.
+     * Initialises the minimum fields required to setup a <code>duke.task.Task</code>.
      * @param description A string that represents the description of certain task.
      */
     public Task(String description) {
@@ -50,7 +52,7 @@ public abstract class Task {
      * Returns a string with the following format to be stored in a local file
      * @return A string in a specific format to be stored in a local file.
      */
-    abstract String writeTxt();
+    public abstract String writeTxt();
     /**
      * Marks the task as done.
      */

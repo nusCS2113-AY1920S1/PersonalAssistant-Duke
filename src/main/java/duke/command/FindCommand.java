@@ -1,6 +1,13 @@
+package duke.command;
+
+import duke.core.DukeExceptionThrow;
+import duke.core.Storage;
+import duke.core.TaskList;
+import duke.core.Ui;
+
 /**
- * Represents a command to find a certain task from Duke's task list.
- * The <code>ExitCommand</code> class extends from the <code>Command</code>
+ * Represents a command to find a certain task from duke.Duke's task list.
+ * The <code>duke.command.ExitCommand</code> class extends from the <code>duke.command.Command</code>
  * class for the user to find a specific task object from the storage.
  */
 public class FindCommand extends Command {
@@ -9,7 +16,7 @@ public class FindCommand extends Command {
      */
     private String taskName;
     /**
-     * Constructs a <code>FindCommand</code> object.
+     * Constructs a <code>duke.command.FindCommand</code> object.
      * @param name Specifies the name of the task.
      */
     public FindCommand(String name) {
@@ -17,8 +24,8 @@ public class FindCommand extends Command {
         this.taskName = name;
     }
     /**
-     * Indicates whether Duke should exist
-     * @return A boolean. True if the command tells Duke to exit, false
+     * Indicates whether duke.Duke should exist
+     * @return A boolean. True if the command tells duke.Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -26,7 +33,7 @@ public class FindCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect TaskList, UI, and storage.
+     * run the command with the respect duke.core.TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update

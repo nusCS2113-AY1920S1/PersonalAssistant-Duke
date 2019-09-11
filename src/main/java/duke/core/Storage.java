@@ -1,13 +1,19 @@
+package duke.core;
+
+import duke.task.Deadline;
+import duke.task.Events;
+import duke.task.Task;
+import duke.task.ToDos;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
- * Represents a <code>Storage</code> class that deals with reading tasks from
+ * Represents a <code>duke.core.Storage</code> class that deals with reading tasks from
  * a file and saving tasks in the file.
  */
 public class Storage {
@@ -16,7 +22,7 @@ public class Storage {
      */
     private String filePath;
     /**
-     * Constructs a <code>Storage</code> object with a specific file path.
+     * Constructs a <code>duke.core.Storage</code> object with a specific file path.
      * @param path A string that represents the path of the file to read or
      * write.
      */
@@ -25,7 +31,7 @@ public class Storage {
     }
     /**
      * Read tasks from the file and store into a <code>ArrayList</code> of
-     * <code>Task</code>.
+     * <code>duke.task.Task</code>.
      * @return A <code>ArrayList</code> of tasks from the file.
      * @throws DukeExceptionThrow If file is not found.
      */
@@ -75,7 +81,7 @@ public class Storage {
     }
     /**
      * Saves tasks to the local file.
-     * @param task The <code>TaskList</code> storing tasks.
+     * @param task The <code>duke.core.TaskList</code> storing tasks.
      * @throws DukeExceptionThrow If writing to the local file failed.
      */
     public void save(ArrayList<Task> task) {
