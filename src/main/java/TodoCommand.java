@@ -1,10 +1,12 @@
+import UI.Ui;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 public class TodoCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
         String description = "";
         if(ui.FullCommand.length() <= 4) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");

@@ -1,10 +1,12 @@
+import UI.Ui;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 public class DoneCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException , NullPointerException {
         if (ui.FullCommand.equals("done")){
             throw new DukeException("The task done number cannot be empty.");
         }
