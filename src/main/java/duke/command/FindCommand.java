@@ -6,8 +6,8 @@ import duke.core.TaskList;
 import duke.core.Ui;
 
 /**
- * Represents a command to find a certain task from duke.Duke's task list.
- * The <code>duke.command.ExitCommand</code> class extends from the <code>duke.command.Command</code>
+ * Represents a command to find a certain task from Duke's task list.
+ * The ExitCommand class extends from the Command
  * class for the user to find a specific task object from the storage.
  */
 public class FindCommand extends Command {
@@ -16,7 +16,7 @@ public class FindCommand extends Command {
      */
     private String taskName;
     /**
-     * Constructs a <code>duke.command.FindCommand</code> object.
+     * Constructs a FindCommand object.
      * @param name Specifies the name of the task.
      */
     public FindCommand(String name) {
@@ -24,7 +24,7 @@ public class FindCommand extends Command {
         this.taskName = name;
     }
     /**
-     * Indicates whether duke.Duke should exist
+     * Indicates whether Duke should exist
      * @return A boolean. True if the command tells duke.Duke to exit, false
      *          otherwise.
      */

@@ -5,13 +5,13 @@ import duke.core.TaskList;
 import duke.core.Ui;
 
 /**
- * Represents a command to exit duke.Duke. The <code>duke.command.ExitCommand</code> class
- * extends from the <code>duke.command.Command</code> class for the user to quit the
+ * Represents a command to exit Duke. The command.ExitCommand class
+ * extends from the Command class for the user to quit the
  * program
  */
 public class ExitCommand extends Command {
     /**
-     * Constructs a <code>duke.command.ExitCommand</code> object.
+     * Constructs a ExitCommand object.
      */
     public ExitCommand() {
         super();

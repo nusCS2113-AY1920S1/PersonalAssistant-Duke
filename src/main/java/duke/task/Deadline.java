@@ -2,7 +2,7 @@ package duke.task;
 
 /**
  * Represents a task with a deadline. It is
- * extended from the <code>duke.task.Task</code> class.
+ * extended from the Task class.
  */
 public class Deadline extends Task {
     /**
@@ -10,8 +10,8 @@ public class Deadline extends Task {
      */
     private String by;
     /**
-     * Constructs a <code>duke.task.Deadline</code> object. Date and time are parsed and
-     * stored in <code>dateTime</code> field if input is of "dd/MM/yyyy HHmm"
+     * Constructs a Deadline object. Date and time are parsed and
+     * stored in dateTime field if input is of "dd/MM/yyyy HHmm"
      * format.
      * @param description A string that describes the specific
      *          description of task.

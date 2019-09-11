@@ -7,8 +7,8 @@ import duke.core.Ui;
 import duke.task.Task;
 
 /**
- * Represents a command to delete a task. The <code>duke.command.DeleteCommand</code> class
- * extends from the <code>duke.command.Command</code> class to represent user instruction
+ * Represents a command to delete a task. The command.DeleteCommand class
+ * extends from the Command class to represent user instruction
  * to delete an task from task list.
  */
 public class DeleteCommand extends Command {
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
      */
     private int Id;
     /**
-     * Constructs a <code>duke.command.DeleteCommand</code> object.
+     * Constructs a DeleteCommand object.
      * @param taskId Specifies the index of the task to be deleted.
      */
 
@@ -26,8 +26,8 @@ public class DeleteCommand extends Command {
         this.Id = taskId;
     }
     /**
-     * Indicates whether duke.Duke should exist
-     * @return A boolean. True if the command tells duke.Duke to exit, false
+     * Indicates whether Duke should exist
+     * @return A boolean. True if the command tells Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect duke.core.TaskList, UI, and storage.
+     * run the command with the respect TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update

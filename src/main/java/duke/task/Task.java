@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
- * Represents a task.  <code>duke.task.Task</code> is an abstract class that can not be
+ * Represents a task.  Task is an abstract class that can not be
  * instantiated
  */
 public abstract class Task {
@@ -28,7 +28,7 @@ public abstract class Task {
     protected LocalDateTime ld;
 
     /**
-     * Initialises the minimum fields required to setup a <code>duke.task.Task</code>.
+     * Initialises the minimum fields required to setup a Task.
      * @param description A string that represents the description of certain task.
      */
     public Task(String description) {

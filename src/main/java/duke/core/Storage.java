@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents a <code>duke.core.Storage</code> class that deals with reading tasks from
+ * Represents a Storage class that deals with reading tasks from
  * a file and saving tasks in the file.
  */
 public class Storage {
@@ -22,7 +22,7 @@ public class Storage {
      */
     private String filePath;
     /**
-     * Constructs a <code>duke.core.Storage</code> object with a specific file path.
+     * Constructs a Storage object with a specific file path.
      * @param path A string that represents the path of the file to read or
      * write.
      */
@@ -30,9 +30,8 @@ public class Storage {
         this.filePath = path;
     }
     /**
-     * Read tasks from the file and store into a <code>ArrayList</code> of
-     * <code>duke.task.Task</code>.
-     * @return A <code>ArrayList</code> of tasks from the file.
+     * Read tasks from the file and store into a ArrayList of task.
+     * @return A ArrayList of tasks from the file.
      * @throws DukeExceptionThrow If file is not found.
      */
     public ArrayList<Task> load() throws DukeExceptionThrow
@@ -81,7 +80,7 @@ public class Storage {
     }
     /**
      * Saves tasks to the local file.
-     * @param task The <code>duke.core.TaskList</code> storing tasks.
+     * @param task The TaskList storing tasks.
      * @throws DukeExceptionThrow If writing to the local file failed.
      */
     public void save(ArrayList<Task> task) {

@@ -6,16 +6,16 @@ import duke.task.Event;
 import duke.task.ToDo;
 
 /**
- * Represents a <code>duke.core.Parser</code> that parses user input into a specific
- * type of <code>duke.command.Command</code>.
+ * Represents a Parser that parses user input into a specific
+ * type of Command.
  */
 public class Parser {
     private static String[] substring;
 
     /**
-     * Parses a <code>duke.task.Task</code> from a string array.
+     * Parses a Task from a string array.
      * @param ss The string array to be parsed.
-     * @return The <code>duke.command.Command</code> received from user.
+     * @return The Command received from user.
      */
     public static Command Parse(String ss) throws DukeExceptionThrow
     {

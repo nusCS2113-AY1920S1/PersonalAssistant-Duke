@@ -7,10 +7,10 @@ import duke.core.Ui;
 import duke.task.Task;
 
 /**
- * Represents a command class to add a task. The <code>duke.command.AddCommand</code> class
- * extends from the <code>duke.command.Command</code> class to represent user instruction
- * to add a new <code>ToDo</code>, <code>duke.task.Deadline</code> or <code>Event</code>
- * task to the <code>duke.core.TaskList</code>.
+ * Represents a command class to add a task. The AddCommand class
+ * extends from the Command class to represent user instruction
+ * to add a new ToDo, Deadline or Event
+ * task to the duke.core.TaskList.
  */
 public class AddCommand extends Command {
     /**
@@ -18,12 +18,12 @@ public class AddCommand extends Command {
      */
     private Task t;
     /**
-     * Constructs a <code>duke.command.AddCommand</code> object.
-     * @param tt Specifies the task to be added.
+     * Constructs a AddCommand object.
+     * @param task Specifies the task to be added.
      */
-    public AddCommand(Task tt) {
+    public AddCommand(Task task) {
         super();
-        this.t = tt;
+        this.t = task;
     }
     /**
      * Indicates whether duke.Duke should exist

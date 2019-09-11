@@ -13,7 +13,7 @@ import duke.core.Ui;
 public abstract class Command {
 
     /**
-     * run the command with the respect duke.core.TaskList, UI, and storage.
+     * run the command with the respect TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update
@@ -23,7 +23,7 @@ public abstract class Command {
     public abstract void run(TaskList tasks, Ui ui, Storage storage) throws DukeExceptionThrow;
     /**
      * Decide whether duke should exist.
-     * @return A boolean. True if the command tells duke.Duke to exit, false
+     * @return A boolean. True if the command tells Duke to exit, false
      *          otherwise.
      */
     public abstract boolean isExit();
