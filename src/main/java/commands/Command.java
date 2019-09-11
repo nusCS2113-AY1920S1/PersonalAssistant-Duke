@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/java/Command.java
 <<<<<<< HEAD
 import UI.Ui;
 =======
@@ -7,6 +8,9 @@ import Storage.Storage;
 =======
 >>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
 >>>>>>> Jason
+=======
+package commands;
+>>>>>>> Jess:src/main/java/commands/Command.java
 
 import java.io.IOException;
 import java.text.ParseException;

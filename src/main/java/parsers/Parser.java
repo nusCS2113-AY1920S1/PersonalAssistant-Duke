@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/parsers/Parser.java
 package parsers;
+=======
+import commands.*;
+>>>>>>> Jess:src/main/java/Parser.java
 
 public class Parser {
     public static Command parse(String command) throws DukeException {
