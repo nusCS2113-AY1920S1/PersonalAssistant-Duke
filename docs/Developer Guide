@@ -1,0 +1,6 @@
+# Developer Guide
+
+## Glossary
+Must-Have: products that must be included in the application, if not, the application is practically useless
+Nice-To-Have: products that can benefit users significantly if implemented but is not necessary for the application to run properly
+Not-Useful: products that do not benefit users or fit into our product vision (do not implement!!)
