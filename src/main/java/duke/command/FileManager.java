@@ -1,16 +1,19 @@
-import javax.imageio.IIOException;
+package duke.command;
+
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class FileManager {
     public void saveFile(List<Task> taskList) {
@@ -21,9 +24,9 @@ public class FileManager {
             for (Task pastTask : taskList){
                 if(pastTask instanceof Todo){
                     System.out.println("T | " + (pastTask.isDone ? 1 : 0) + " | " + pastTask.description);
-                }else if(pastTask instanceof  Deadline){
+                }else if(pastTask instanceof Deadline){
                     System.out.println("D | " + (pastTask.isDone ? 1 : 0) + " | " + pastTask.description + " | " + ((Deadline) pastTask).by);
-                }else if (pastTask instanceof  Event){
+                }else if (pastTask instanceof Event){
                     System.out.println("E | " + (pastTask.isDone ? 1 : 0) + " | " + pastTask.description + " | " + ((Event) pastTask).at);
                 }
             }

@@ -1,5 +1,9 @@
+package duke.exceptions;
+
+import duke.command.Ui;
+
 public class DukeException extends Exception {
-    enum ExceptionType{
+    public enum ExceptionType{
         INVALID_COMMAND,
         INVALID_TODO,
         INVALID_DEADLINE,

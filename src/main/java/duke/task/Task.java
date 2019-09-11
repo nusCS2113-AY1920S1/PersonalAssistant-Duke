@@ -1,6 +1,8 @@
-public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+package duke.task;
+
+public  class Task {
+    public String description;
+    public boolean isDone;
 
     public  Task(String description) {
         this.description = description;
@@ -22,4 +24,6 @@ public abstract class Task {
         this.isDone = true;
     }
     //
+
+
 }

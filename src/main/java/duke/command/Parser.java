@@ -1,6 +1,7 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+package duke.command;
+
+import duke.exceptions.DukeException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -67,7 +68,7 @@ public class Parser {
 
     /**
      *
-     * @return the description of the Todo task
+     * @return the description of the duke.task.Todo task
      */
     public String buildTodo(){
         description = String.join(" ", inputList.subList(1, inputList.size()));
