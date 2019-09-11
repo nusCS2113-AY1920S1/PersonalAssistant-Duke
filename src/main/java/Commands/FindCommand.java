@@ -1,3 +1,11 @@
+package Commands;
+
+import Commands.Command;
+import Task.Task;
+import Utils.DukeException;
+import Utils.Storage;
+import core.Ui;
+
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
@@ -12,7 +20,7 @@ public class FindCommand extends Command {
         String output = "Here are the matching tasks in your list:";
         int resultCount = 1;
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).description.contains(line)) {
+            if (tasks.get(i).getDescription().contains(line)) {
                 output += "\n" + (resultCount++) + "." + tasks.get(i);
             }
         }

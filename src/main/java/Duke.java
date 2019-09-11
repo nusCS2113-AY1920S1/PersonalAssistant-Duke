@@ -1,6 +1,11 @@
+import Commands.Command;
+import Task.Task;
+import Utils.DukeException;
+import Utils.Parser;
+import Utils.Storage;
+import core.Ui;
+
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -41,6 +46,6 @@ public class Duke {
      * @param args command line arguments, not used here
      */
     public static void main(String[] args) {
-        new Duke("../data/tasks.txt").run();
+        new Duke("data/tasks.txt").run();
     }
 }

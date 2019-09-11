@@ -1,3 +1,12 @@
+package Commands;
+
+import Task.Task;
+import Utils.DukeException;
+import Utils.Parser;
+import Utils.Storage;
+import core.Ui;
+
+
 import java.util.ArrayList;
 
 public class AddCommand extends Command {

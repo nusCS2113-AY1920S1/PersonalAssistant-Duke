@@ -1,3 +1,11 @@
+package Utils;
+
+import Commands.*;
+import Task.Deadline;
+import Task.Event;
+import Task.Task;
+import Task.ToDo;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -5,7 +13,7 @@ public class Parser {
     /**
      * <p>parse a line in the data text to an object.</p>
      * @param line a line of String to be parsed, without \n last
-     * @return a Task object produced by the input line
+     * @return a Task.Task object produced by the input line
      * @throws ParseException if the line cannot be parsed properly
      */
     public static Task dataLine(String line) throws ParseException {
@@ -45,9 +53,9 @@ public class Parser {
     }
 
     /**
-     * <p>Parse a command line String to a Command object.</p>
+     * <p>Parse a command line String to a Commands.Command object.</p>
      * @param line the input command line String
-     * @return the new Command object
+     * @return the new Commands.Command object
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
@@ -73,9 +81,9 @@ public class Parser {
     }
 
     /**
-     * <p>Parse an add command to get the corresponding Task object.</p>
+     * <p>Parse an add command to get the corresponding Task.Task object.</p>
      * @param line the add command line with "add" removed
-     * @return the corresponding Task object
+     * @return the corresponding Task.Task object
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Task addCommand(String line) throws DukeException {
@@ -117,7 +125,7 @@ public class Parser {
                 throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy hhmm");
             }
         } else {
-            throw new DukeException("Task type " + splites[0] + " not recognized");
+            throw new DukeException("Task.Task type " + splites[0] + " not recognized");
         }
     }
 }
