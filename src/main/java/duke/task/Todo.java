@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a specific {@link Task} todo, not necessarily indicating a deadline or a specific date
  */
