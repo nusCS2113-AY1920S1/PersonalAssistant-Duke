@@ -65,7 +65,9 @@ public class Duke extends Application {
 
     }
 
-
+    /**
+     * Method to run the Duke program.
+     */
     //method output initial reading of save file
     private void run() {
 
@@ -101,7 +103,12 @@ public class Duke extends Application {
         return output.toString();
     }
 
-
+    /**
+     * Method to run the duke program with the file path of the save file.
+     * To be overwritten.
+     *
+     * @param args A duke program.
+     */
     private static void main(String[] args) {
 
         new Duke("save.txt").run();
@@ -109,6 +116,11 @@ public class Duke extends Application {
     }
 
 
+    /**
+     * Method to be overwritten in the Main class.
+     *
+     * @param stage The stage object to be initialized, done in the Main class.
+     */
     // This entire start method is to be overwritten by the start method in Main
     @Override
     public void start(Stage stage) {

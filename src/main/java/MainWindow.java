@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
+ *
+ * @author Lee Zhen Yu
+ * @version %I%
+ * @since 1.0
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -32,6 +36,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Method that runs when duke GUI is started up.
+     * It does not take any input from the terminal yet, and does not output to the terminal either.
+     *
+     * @param d The duke helper that is going to be initialized
+     */
     //This method initializes duke
     public void setDuke(Duke d) {
 

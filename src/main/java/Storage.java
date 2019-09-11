@@ -3,15 +3,35 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * The class that handles save data.
+ * It creates a save object that contains the file path to the save file, and methods to edit the save file.
+ *
+ * @author Lee Zhen Yu
+ * @version %I%
+ * @since 1.0
+ */
 public class Storage {
     protected String destination; //string containing location of save file
 
+    /**
+     * Constructer of a save object.
+     * This save object has a specific save file, which is taken in as argument during construction.
+     *
+     * @param destination The file path of the save file.
+     */
     public Storage (String destination) { //initialization with destination, this will be used throughout the program
         this.destination = destination;
     }
 
 
-
+    /**
+     * Method to read data from a persistent storage and output them to the taskList specified in the argument.
+     * The save file has already been declared during construction of this object, hence only the taskList is needed.
+     * It will also output the content of the save data in a format friendly to the reader.
+     *
+     * @param myTasks The taskList that will contain the save data from the save file.
+     */
     //method to read data from a persistent storage and output them to a list provided as argument
     //Should be done in the beginning
     public void readSave(TaskList myTasks) {
@@ -73,6 +93,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to read the save file and output them into the taskList specified as an argument.
+     * This will not output any text regarding the existence of the save file.
+     * It will also not output any tasks from the save data.
+     * This is more a method to be used in the background without spamming the user.
+     *
+     * @param myTasks The taskList to be written to.
+     */
     //method to read data from a persistent storage and output them to a list provided as argument
     //This reads in quietly without outputting anything
     public void readSaveQuietly(TaskList myTasks) {
@@ -127,6 +155,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method takes in a new task and saves them to the save file.
+     * It will append this new task in a new line of the save file.
+     *
+     * @param newTask The new task to be saved in the save file.
+     */
     //Method to save new tasks to a persistent storage
     public void saveData(Task newTask) {
 
@@ -158,6 +192,18 @@ public class Storage {
         }
     }
 
+    /**
+     * This method will update the status of a particular task in the save file.
+     * From not done to done.
+     * It will place the entire save file into a temporary array list so that the save file can be written to.
+     * The array list will then have the specified task updated to reflect its new status.
+     * Finally the array list will then be written to the save file.
+     * This will overwrite the contents of the save file instead of updating only one line, however I do not know an
+     * alternative.
+     *
+     * @param taskNumber The number of the task to be updated.
+     * @throws IOException When there is no save file, this error message will be thrown.
+     */
     //method to update the task completed status within a text file
     public void updateSave(int taskNumber) throws IOException {
 
@@ -207,6 +253,15 @@ public class Storage {
 
     }
 
+    /**
+     * Method to delete a particular task in a save file.
+     * The entire save file is saved into a temporary array list.
+     * One of the elements of the array list corresponding to the task number is then deleted.
+     * Then the whole array list is written to the save file, overwriting its current contents.
+     *
+     * @param taskNumber The number of the task to be deleted.
+     * @throws IOException Error thrown when there is no save file detected.
+     */
     //method to delete the task completed status within a text file
     public void deleteSave(int taskNumber) throws IOException {
 

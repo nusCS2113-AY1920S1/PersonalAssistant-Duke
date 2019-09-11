@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 /**
  * This is a class that inherits from the Task class.
  * In addition to its parent's methods, it also has the ability to parse the input date.
+ * Very similar to the Event class.
  *
  * @author Lee Zhen Yu
  * @version %I%
@@ -24,7 +25,7 @@ public class Deadline extends Task {
      * These are specific to every deadline object
      *
      * @param description The description of the task.
-     * @param by When the task is to be done by. This is in the format "dd-MM-yyyy HHmm"
+     * @param by When the task is to be done by. This is in the format "dd-MM-yyyy HHmm".
      */
     public Deadline(String description, String by) {
         super(description);

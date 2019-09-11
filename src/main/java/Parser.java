@@ -4,26 +4,58 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Class to process user input and perform according to user input.
+ * Has the ability to catch errors and return an error message.
+ * Most of the input processing is done here, however date parsing is done within the task object.
+ *
+ * @author Lee Zhen Yu
+ * @version %I%
+ * @since 1.0
+ */
 public class Parser {
     protected Storage save; //initialize the storage class
     protected TaskList myList;
 
 
-
+    /**
+     * Constructor for parsers
+     */
     public Parser() {
 
     }
 
+    /**
+     * Sets the save file to be used for saving data
+     *
+     * @param save The save file object to be updated everytime the task list changes
+     */
     //Set the save used by the parse
     public void setSave(Storage save) {
         this.save = save;
     }
 
+    /**
+     * Takes in the taskList to be used for recording tasks.
+     * Every time this taskList is updated, it is saved to the save file.
+     *
+     * @param myList The task list to be used for duke.
+     */
     //Currently, Parser will take in the entire raw input and taskList
     public void setTaskList(TaskList myList) {
         this.myList = myList;
     }
 
+    /**
+     * The main method to parse the user input.
+     * It takes in the user input and creates, updates or deletes a task in the taskList.
+     * Every time the taskList is changed it will also update the save file to reflect the changes.
+     * It will break up the user input into multiple parts to be processed.
+     * Most notably, the first word is the command itself, and is to be checked first.
+     * Depending on the command given, the rest of the user input will be further broken down.
+     *
+     * @param userInput The user input to be processed.
+     */
     //The entire point of this class is to understand and perform what the user does
     public void parseInput(String userInput) {
 

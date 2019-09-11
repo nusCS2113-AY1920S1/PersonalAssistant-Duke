@@ -8,11 +8,21 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Duke using FXML.
+ *
+ * @author Lee Zhen Yu
+ * @version %I%
+ * @since 1.0
  */
 public class Main extends Application {
 
     private Duke duke = new Duke("save.txt");
 
+    /**
+     * Constructor to initialize the main window of the GUI.
+     * The settings are loaded from an fxml file.
+     *
+     * @param stage The stage class
+     */
     @Override
     public void start(Stage stage) {
         try {
