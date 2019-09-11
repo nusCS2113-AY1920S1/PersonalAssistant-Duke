@@ -1,51 +1,50 @@
 
+
 # COMPal - Develepor Guide
 
 Welcome to **COMpal** Developer Guide! This Developer guide is still being work on for now!
 
 **Appendix A**
- - User Stories
- - Use Case
- - Non-Functional Requirements
+ - [User Stories](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#user-stories)
+ - [Use Case](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#use-case)
+ - [Non-Functional Requirements](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
 
 
 # User Stories
-
+Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | As a ...|      I want to...     |  So that i can ... | Priority |
 |:----------|:-------------:|:------:|:----------|
-| forgetful student|  track my assignment tasks and deadlines |  better manage my schedule |
-| unorganized student |   organise my contact of friends   |   |
-| forgetful student |securely save my passwords in one location |   remember all of them or store them securely |
-| sociable student | check on the timetables of my friends  |     sync our schedules and organise study sessions together |
-| hardworking student | organise my group project’s progress |     |
-|  considerate student| check on the timetable of my group mates |  organise team meetings that do not clash with our schedules   |
-| time-management expert | efficiently manage my project timeline | remind my group mates of deadlines to meet |
-| organised student| sort out my contacts according to my multiple group projects |    better coordinate group work |
-| registered user | required to log in I |  can access the list of passwords stored in the system to retrieved stored password |
-| lazy student | store & retrieve my CAP | I don’t bother to go to the website to verify |
-| friendly student | share my contact with new friends i’ve met in class |    make more friends |
-| hardworking student | track my progress of each module |   achieve a good CAP |
-| self-professed foodie | link up with my friends for lunch breaks whenever they are free |  |
-| busy student | keep everything academic related in a single app |   organise my life |
-| CCA Oriented student  | store CCA related activities and notes for me |     organize my external school life |
-| computing student | type for long periods of time on my keyboard  |   to listen to the therapeutic sounds of keyboard clicking |
-| Student who is in charge of events | to organize my events |  not have conflicting schedule |
-| programming beginner | keep track of common commands and lines of code | improve faster |
-| studious student | keep notes using command line|  |
-| new student | come up with a study plan |  optimize my school timetable |
-|  unorganised student | prioritise my tasks better according to the deadlines and importance |   |
-| struggling student | prioritise more important lessons |  I do not lag too far behind  |
-| overloading student | maintain a perfect schedule |  get high CAP while overloading  |
-| sociable student | use the application to keep in contact with my friends by sending email |    |
-| new user | view the user guide easily  |  learn how to use the app  |
-| Software Engineer Student | store my user stories  |  check them regularly   |
-| student new to computing | to use more command based tools  |  to get used to it  |
-| forgetful student | keep track of my school results such as for labs or midterms |tabulate my own results |
-|hardworking student | optimise my timetable|graduate as early as possible|
-| spendthrift student| manage my finances | |
-
-
+| user | login the application with a password | be the only one to have access to the application  |
+| computing student | to use command based interface | to get used to it  |
+| busy student | keep everything academic related in a single app |  easy access to all school related activities stored |
+| student | store different type of school-related task based on priority ranking | better manage my school schedule |
+| student | store school contacts based on module,discipline & courses tag | better manage my school contact |
+| student | store my various username & passwords securely | access school related system with stored username and password |
+| student | store my own timetable | view my school schedule |
+| student | store my daily school expenses | track my expenses |
+| student | store the timetables of my friends  |  sync our schedules and organise study sessions together |
+| student | store the result/grade of module assignment,attendance,midterm results | estimate received grade.  |
+| student | store my received module grades for each semsester | |
+| student | store school-related notes for each module | note down things that are being taght in lecture |
+| student | store module exam dates,midterms and test | keep track of the dates given |
+| student  | view the timetable of my friends or group mates |  organise team meetings that do not clash with our schedules   |
+| new user | view the user guide easily | learn how to use the app  |
+| student  | view my individual module component results for that semester | gauge my expected results |
+| student  | view my ongoing school-related task | keep track of what of my progress is |
+| student  | mark my ongoing school-related task as completed based by task & subtask |  |
+| forgetful student | track my assignment progress | know what is needed to be done |
+| student           | track my Cumlative GPA | work towards the GPA I aim for  |
+| forgetful student | be notified of my classes to attend |  better manage my schedule |
+| forgetful student | be notified of school-related task due |  better manage my schedule |
+| forgetful student | be notified of upcoming midterms & exam |  better manage my schedule |
+| student | sort my contact stored based by modules,group,course & disciple taken |  |
+| student | sort my tasks according to the deadlines & importance set | be more organised |
+| student | find specified things in the application using a keyword | find related thing |
+| student | send emails of school contact in my contact list  |  |
+| student  | share my contact information (School E-mail,Phone number) with school peers easily |  | 
+| student  | plan my future module to be taken | |
+| student  | prioritise more important modules then other |  I do not lag too far behind in the one im weaker in  |
 
 # Use Case
 
@@ -130,8 +129,8 @@ System: NUSPal
 
 # Non-Functional Requirements
 
-Should work on any mainstream OS as long as it has Java 9 or higher installed.
+- Should work on any mainstream OS as long as it has Java 9 or higher installed.
 
-Should be able to hold up to 1000 prints without a noticeable sluggishness in performance for typical usage.
+- Should be able to hold up to 1000 prints without a noticeable sluggishness in performance for typical usage.
 
-A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+- A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
