@@ -1,0 +1,10 @@
+todo
+todo read book
+list
+done 2
+done
+done 1
+delete
+delete 2
+delete 1
+bye

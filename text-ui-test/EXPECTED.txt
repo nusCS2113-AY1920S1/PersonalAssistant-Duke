@@ -1,0 +1,18 @@
+Hello! I'm Duke
+What can I do for you?
+☹ OOPS!!! The description of todo cannot be empty.
+Got it. I've added this task:
+  [T][✗] read book
+Now you have 1 task in the list.
+Here are the tasks in your list:
+1.[T][✗] read book
+There is no such task.
+☹ OOPS!!! The description of done cannot be empty.
+Nice! I've marked this task as done:
+[T][✓] read book
+☹ OOPS!!! The description of delete cannot be empty.
+There is no such task.
+Noted. I've removed this task:
+  [T][✓] read book
+Now you have 0 tasks in the list.
+Bye! Hope to see you again soon.
