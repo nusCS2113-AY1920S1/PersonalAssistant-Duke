@@ -1,3 +1,5 @@
+import commands.*;
+
 public class Parser {
     public static Command parse(String command) throws DukeException {
         switch (command){

@@ -1,23 +1,25 @@
+package commands;
+
+import commands.Command;
+
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EventCommand extends Command {
+public class TodoCommand extends Command {
     @Override
     public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
         String description = "";
-        if(ui.FullCommand.length() == 5) {
-            throw new DukeException("OOPS!!! The description of an event cannot be empty.");
+        if(ui.FullCommand.length() <= 4) {
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
         else{
-            description = ui.FullCommand.split("/")[0].substring(6);
+            description = ui.FullCommand.substring(5);
         }
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Event ev = new Event(description, fmt.parse(ui.FullCommand.split("/")[1].substring(3)));
-        list.add(ev);
+        Todo to = new Todo(description);
+        list.add(to);
         System.out.println("Got it. I've added this task:");
-        System.out.println(ev.listformat());
+        System.out.println(to.listformat());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

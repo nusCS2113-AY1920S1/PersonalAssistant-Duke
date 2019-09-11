@@ -1,3 +1,7 @@
+package commands;
+
+import commands.Command;
+
 import java.text.ParseException;
 import java.util.List;
 
