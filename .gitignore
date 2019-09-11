@@ -12,6 +12,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
-.class
-.txt
+*.class
+*.txt
 ArrayList
+.project
+.settings/
+.classpath
