@@ -5,7 +5,7 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * The duke program simply runs a to-do application.
+ * The duke program runs a to-do application.
  * The program will first extracts existing tasks, if any, from duke.txt.
  * After which, it takes users' input and run the appropriate commands.
  */

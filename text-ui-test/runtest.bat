@@ -10,11 +10,9 @@ REM compile the code into the bin folder
 REM create a new file listing all your Java sources
 type nul > all.javas
 REM find all Java source files
-for /F "tokens=*" %%f in ('dir ..\src\main\java /B/A:-D/S "*.java" 2^>nul') do (
-    echo %%f >> all.javas
-)
 
-javac  -cp ..\bin\production -Xlint:none -d ..\bin\production @all.javas
+
+javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\Duke.java ..\src\main\java\exceptions\*.java ..\src\main\java\storage\*.java ..\src\main\java\task\*.java ..\src\main\java\parser\*.java ..\src\main\java\ui\*.java
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********

@@ -1,3 +1,2 @@
-D | ✘ | finish assignment (by: 20:09:2019 1800) | 20:09:2019 1800
 D | ✓ | complete duke (by: 1900) | 1900
 E | ✓ | finish assignment (at: 7pm to 9pm) | 7pm to 9pm
