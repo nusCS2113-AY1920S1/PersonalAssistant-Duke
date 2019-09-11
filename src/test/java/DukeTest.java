@@ -2,8 +2,15 @@ import UI.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.util.ArrayList;
+=======
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
