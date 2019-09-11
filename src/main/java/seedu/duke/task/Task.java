@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.task;
 
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.

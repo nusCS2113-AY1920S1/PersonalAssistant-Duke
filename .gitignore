@@ -1,5 +1,22 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# IDEA files
+/.idea/
+/out/
+/*.iml
 
-# Ignore Gradle build output directory
-build
+# Gradle build files
+/.gradle/
+/build/
+src/main/resources/docs/
+
+# MacOS custom attributes files created by Finder
+.DS_Store
+*.iml
+bin/
+
+# files created on run
+.classpath
+/data
+.project
+.settings
+
+text-ui-test/ACTUAL.TXT

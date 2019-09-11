@@ -1,6 +1,7 @@
-package seedu.duke;
+package seedu.duke.task;
 
 import java.util.ArrayList;
+import seedu.duke.ui.Ui;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods that add, remove and perform operations on elements

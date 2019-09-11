@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.data;
 
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.util.ArrayList;
+import seedu.duke.task.*;
 
 public class StorageTest {
 

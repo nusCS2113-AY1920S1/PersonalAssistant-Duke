@@ -13,7 +13,6 @@ repositories {
 application {
     // Change this to your main class.
     mainClassName = "seedu.duke.Duke"
-    // executableDir = "src.main.java"
 }
 
 run {

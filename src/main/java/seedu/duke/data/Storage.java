@@ -1,5 +1,6 @@
-package seedu.duke;
+package seedu.duke.data;
 
+import seedu.duke.task.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;

@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.task;
 
 /**
  * A class that inherits from the abstract class Task. This task type is a simple todo that can be marked as done when done.

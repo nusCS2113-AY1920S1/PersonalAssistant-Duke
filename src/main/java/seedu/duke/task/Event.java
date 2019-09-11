@@ -1,5 +1,6 @@
-package seedu.duke;
+package seedu.duke.task;
 
+import seedu.duke.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

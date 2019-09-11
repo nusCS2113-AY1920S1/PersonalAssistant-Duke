@@ -2,6 +2,10 @@ package seedu.duke;
 
 import java.io.IOException;
 import java.util.Scanner;
+import seedu.duke.ui.Ui;
+import seedu.duke.data.Storage;
+import seedu.duke.task.TaskList;
+import seedu.duke.command.Parser;
 
 /**
  * A personal assitant that takes in user input and gives and performs an operation that can help the user

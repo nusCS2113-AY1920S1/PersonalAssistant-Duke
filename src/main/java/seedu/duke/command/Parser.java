@@ -1,4 +1,7 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.task.TaskList;
+import seedu.duke.ui.Ui;
 
 /**
  * Takes raw user input as string, makes sense out of the input using regex and then performs operations based on the input.
