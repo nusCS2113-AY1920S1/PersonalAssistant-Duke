@@ -11,7 +11,7 @@ import duke.ui.Ui;
 /**
  * Represents a duke.command that deletes a Task from TaskList.
  */
-public class DeleteCommand extends Command implements Undoable {
+public class DeleteCommand extends UndoableCommand {
     private int index;
     private Task deleted;
     public DeleteCommand(int index) {
@@ -30,14 +30,12 @@ public class DeleteCommand extends Command implements Undoable {
         }
     }
 
-    @Override
     public void undo(TaskList tasks, Storage storage, Ui ui) throws DukeException {
         tasks.add(deleted, index);
         storage.serialize(tasks);
         ui.refreshTaskList(tasks, tasks);
     }
 
-    @Override
     public void redo(TaskList tasks, Storage storage, Ui ui) throws DukeException {
 
     }

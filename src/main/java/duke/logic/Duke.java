@@ -1,7 +1,6 @@
 package duke.logic;
 
 import duke.command.Command;
-import duke.command.CommandManager;
 import duke.commons.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
