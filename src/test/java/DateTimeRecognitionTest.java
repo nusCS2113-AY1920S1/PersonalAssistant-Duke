@@ -7,9 +7,9 @@ public class DateTimeRecognitionTest {
     @Test
     void checkDateFormat() {
         DateTimeRecognition dateA = new DateTimeRecognition("qwrfEFER");
-        assertThrows(DukeException.class,()-> dateA.dateTime());
+        assertThrows(DukeException.class,() -> dateA.dateTime());
         DateTimeRecognition dateB = new DateTimeRecognition("1800");
-        assertThrows(DukeException.class,()-> dateB.dateTime());
+        assertThrows(DukeException.class,() -> dateB.dateTime());
 
     }
 }
