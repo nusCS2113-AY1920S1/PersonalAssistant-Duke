@@ -1,9 +1,9 @@
 package duke.core;
 
 import duke.task.Deadline;
-import duke.task.Events;
+import duke.task.Event;
 import duke.task.Task;
-import duke.task.ToDos;
+import duke.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,7 +45,7 @@ public class Storage {
                 String[] newTask = ss.nextLine().split(" \\| ");
                 if (newTask[0].equals("T"))
                 {
-                    Task x = new ToDos(newTask[2]);
+                    Task x = new ToDo(newTask[2]);
                     if (newTask[1].equals("1"))
                     {
                         x.markAsDone();
@@ -63,7 +63,7 @@ public class Storage {
                 }
                 if (newTask[0].equals("E"))
                 {
-                    Task t = new Events(newTask[2], newTask[3]);
+                    Task t = new Event(newTask[2], newTask[3]);
                     if (newTask[1].equals("1"))
                     {
                         t.markAsDone();

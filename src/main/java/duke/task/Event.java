@@ -4,7 +4,7 @@ package duke.task;
  * Represents a task with a event. It is
  * extended from the <code>duke.task.Task</code> class.
  */
-public class Events extends Task {
+public class Event extends Task {
     /**
      * A string that represents the time of the event.
      */
@@ -16,7 +16,7 @@ public class Events extends Task {
      * @param description A string that saves the description of the task.
      * @param at A string that specifies the time of the event.
      */
-    public Events(String description, String at) {
+    public Event(String description, String at) {
         super(description);
         this.at = at;
     }

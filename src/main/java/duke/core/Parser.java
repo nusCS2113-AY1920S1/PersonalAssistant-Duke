@@ -2,8 +2,8 @@ package duke.core;
 
 import duke.command.*;
 import duke.task.Deadline;
-import duke.task.Events;
-import duke.task.ToDos;
+import duke.task.Event;
+import duke.task.ToDo;
 
 /**
  * Represents a <code>duke.core.Parser</code> that parses user input into a specific
@@ -40,7 +40,7 @@ public class Parser {
                 }
             case "todo":
                 try{
-                ToDos t = new ToDos(command[1]);
+                ToDo t = new ToDo(command[1]);
                 return new AddCommand(t);
                 }catch(Exception e){
                     throw new DukeExceptionThrow(e.getMessage());
@@ -56,7 +56,7 @@ public class Parser {
             case "event":
                 try{
                 String[] temp1 = command[1].split(" /at ");
-                Events z = new Events(temp1[0], temp1[1]);
+                Event z = new Event(temp1[0], temp1[1]);
                 return new AddCommand(z);
                 }catch(Exception e) {
                     throw new DukeExceptionThrow(e.getMessage());

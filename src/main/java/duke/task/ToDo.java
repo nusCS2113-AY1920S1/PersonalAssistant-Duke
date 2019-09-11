@@ -4,14 +4,14 @@ package duke.task;
  * Represents a task without a specific time. This class
  * extends from the duke.task.Task class.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
     protected boolean isToDo;
 
     /**
      *  Constructs a <code>ToDo</code> object.
      * @param description A string of the task description.
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
         this.isToDo = true;
     }
