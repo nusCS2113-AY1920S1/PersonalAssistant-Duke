@@ -1,3 +1,8 @@
+/**
+ * This is the Todo class that inherit from Task.
+ *
+ * @author tygq13
+ */
 package task;
 
 public class Todo extends Task{

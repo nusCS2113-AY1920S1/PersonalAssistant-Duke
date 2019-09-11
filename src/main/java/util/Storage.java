@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class Storage {
 	 */
 	public Storage(String filePath) {
 		this.filePath = filePath;
-		fileFullPath = filePath + File.separator + fileName;
+		this.fileFullPath = filePath + File.separator + fileName;
 	}
 
 	/**
@@ -88,7 +87,7 @@ public class Storage {
 		        fileInput.close();
 		        in.close();
 		    } catch (IOException | ClassNotFoundException e) {
-		    	throw new DukeException("unable to read from date file");
+		    	throw new DukeLoadingException(fileFullPath);
 		    }
 		}
 		return list;
@@ -109,7 +108,7 @@ public class Storage {
 			out.close();
 			fileAppend.close();
 		} catch (IOException e) {
-	    	throw new DukeException("couldn't write into file");
+	    	throw new DukeLoadingException(fileFullPath);
 	    }
 	}
 
@@ -130,7 +129,7 @@ public class Storage {
 			out.close();
 			fileSave.close();
 		} catch (IOException e) {
-	    	throw new DukeException("couldn't write into file");
+	    	throw new DukeLoadingException(fileFullPath);
 	    }
 	}
 }
