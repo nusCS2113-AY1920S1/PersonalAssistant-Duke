@@ -1,4 +1,14 @@
 import java.io.*;
+import java.util.ArrayList;
+
+//import command.Command;
+import command.*;
+import exception.*;//DukeException;
+import ui.*;
+import storage.*;//Storage;
+import task.*;//TaskList;
+import parser.*;//Parser;
+
 
 /**
  * The main project class.
@@ -10,7 +20,7 @@ import java.io.*;
 
 public class Duke {
 
-    private String filePath = "D:/DukeDatabase/ArrayList";
+    private String filePath = "../../DukeDatabase/ArrayList";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -27,11 +37,13 @@ public class Duke {
 
     public Duke(){
         ui = new Ui();
+
         try {
             storage = new Storage(this.filePath, file);
             tasks = new TaskList(storage.loadFile(file));
         }
         catch (DukeException e) {
+            tasks = new TaskList(new ArrayList<>());
             Ui.printMessage(e.getMessage());
         }
     }

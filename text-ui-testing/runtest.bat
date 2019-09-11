@@ -7,7 +7,13 @@
    del ACTUAL.TXT
    
    REM compile the code into the bin folder
-   javac  -cp ..\src -Xlint -d ..\bin ..\java\*.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\command\*.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\storage\Storage.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\ui\Ui.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\parser\*.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\task\*.java
+   javac  -cp ..\src\main\java -Xlint -d ..\bin ..\src\main\java\exception\DukeException.java
+   javac  -cp ..\src -Xlint -d ..\bin ..\src\main\java\Duke.java
    IF ERRORLEVEL 1 (
        echo ********** BUILD FAILURE **********
        exit /b 1

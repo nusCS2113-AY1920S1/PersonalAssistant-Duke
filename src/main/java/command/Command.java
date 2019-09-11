@@ -1,3 +1,10 @@
+package command;
+
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * The command abstract class is used to ensure that all the classes have implementations of the methods and have the
  * implementation of isExit().

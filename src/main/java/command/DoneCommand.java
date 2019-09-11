@@ -1,3 +1,11 @@
+package command;
+
+import exception.DukeException;
+import task.Task;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * The DoneCommand class is used when the user intends to mark a task as done.
  *

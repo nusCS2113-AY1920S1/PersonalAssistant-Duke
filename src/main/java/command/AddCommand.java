@@ -1,3 +1,14 @@
+package command;
+
+import exception.DukeException;
+import task.Task;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
+import ui.Ui;
+
 /**
  * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
  *
