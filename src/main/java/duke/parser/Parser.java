@@ -1,3 +1,12 @@
+package duke.parser;
+
+import duke.Duke;
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 /**
  * Represents a parser used to parse the input String from the user into a Duke understandable {@link Command}
  */

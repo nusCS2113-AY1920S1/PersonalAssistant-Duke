@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 /**
  * Represents a specific {@link Command} used to exit the program after the user inputs "bye"
  */
