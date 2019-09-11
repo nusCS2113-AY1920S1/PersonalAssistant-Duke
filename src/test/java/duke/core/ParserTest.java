@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParserTest {
     /**
      * Test the return command type of Parser.parse(userInput)
-     * @throws DukeException
+     * @throws DukeException referencing a Duke specified exception with error log
      */
     @Test
     public void commandTypeTest() throws DukeException {

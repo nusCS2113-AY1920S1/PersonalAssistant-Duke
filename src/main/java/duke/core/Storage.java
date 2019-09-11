@@ -21,50 +21,47 @@ public class Storage {
      * A string that represents a relative file path from the project folder.
      */
     private String filePath;
+
     /**
      * Constructs a Storage object with a specific file path.
+     *
      * @param path A string that represents the path of the file to read or
-     * write.
+     *             write.
      */
     public Storage(String path) {
         this.filePath = path;
     }
+
     /**
      * Read tasks from the file and store into a ArrayList of task.
+     *
      * @return A ArrayList of tasks from the file.
      * @throws DukeException If file is not found.
      */
-    public ArrayList<Task> load() throws DukeException
-    {
+    public ArrayList<Task> load() throws DukeException {
         File newDuke = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner ss = new Scanner(newDuke);
             while (ss.hasNext()) {
                 String[] newTask = ss.nextLine().split(" \\| ");
-                if (newTask[0].equals("T"))
-                {
+                if (newTask[0].equals("T")) {
                     Task x = new Todo(newTask[2]);
-                    if (newTask[1].equals("1"))
-                    {
+                    if (newTask[1].equals("1")) {
                         x.markAsDone();
                     }
                     tasks.add(x);
                 }
-                if (newTask[0].equals("D"))
-                {
+                if (newTask[0].equals("D")) {
                     Task t = new Deadline(newTask[2], newTask[3]);
-                    if (newTask[1].equals("1"))
-                    {
+                    if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
                     tasks.add(t);
                 }
-                if (newTask[0].equals("E"))
-                {
+                if (newTask[0].equals("E")) {
                     Task t = new Event(newTask[2], newTask[3]);
-                    if (newTask[1].equals("1"))
-                    {
+                    if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
                     tasks.add(t);
@@ -72,28 +69,26 @@ public class Storage {
 
             }
             return tasks;
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             throw new DukeException("File is not found!");
         }
     }
+
     /**
      * Saves tasks to the local file.
+     *
      * @param task The TaskList storing tasks.
      * @throws DukeException If writing to the local file failed.
      */
-    public void save(ArrayList<Task> task) {
+    public void save(ArrayList<Task> task) throws DukeException {
         try {
-            FileWriter ww = new FileWriter("./data/duke.txt");
-            for (Task t : task)
-            {
-                ww.write(t.writeTxt() + System.lineSeparator());
+            FileWriter fileWriter = new FileWriter("./data/duke.txt");
+            for (Task t : task) {
+                fileWriter.write(t.writeTxt() + System.lineSeparator());
             }
-            ww.close();
-        } catch (IOException e)
-        {
-            System.out.println("File writing process encounters an error " + e.getMessage());
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new DukeException("File writing process encounters an error " + e.getMessage());
         }
     }
 

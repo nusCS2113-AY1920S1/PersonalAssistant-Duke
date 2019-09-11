@@ -15,41 +15,45 @@ public class DeleteCommand extends Command {
     /**
      * The index of the task to be deleted.
      */
-    private int Id;
+    private int taskId;
+
     /**
      * Constructs a DeleteCommand object.
+     *
      * @param taskId Specifies the index of the task to be deleted.
      */
 
     public DeleteCommand(int taskId) {
         super();
-        this.Id = taskId;
+        this.taskId = taskId;
     }
+
     /**
      * Indicates whether Duke should exist
+     *
      * @return A boolean. True if the command tells Duke to exit, false
-     *          otherwise.
+     * otherwise.
      */
     @Override
     public boolean isExit() {
         return false;
     }
+
     /**
      * run the command with the respect TaskList, UI, and storage.
-     * @param tasks The task list where tasks are saved.
-     * @param ui The user interface.
+     *
+     * @param tasks   The task list where tasks are saved.
+     * @param ui      The user interface.
      * @param storage object that handles local text file update
      */
-    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            Task t = tasks.getTask(Id);
-            tasks.deleteTask(Id);
-            ui.taskRemoved(t, tasks.getSize());
+            Task task = tasks.getTask(taskId);
+            tasks.deleteTask(taskId);
+            ui.taskRemoved(task, tasks.getSize());
             storage.save(tasks.fullTaskList());
-        }
-        catch (IndexOutOfBoundsException e)
-        {
-            ui.showError(e.getMessage());
+        } catch (DukeException e) {
+            throw new DukeException("Fails to delete task. " + e.getMessage());
         }
     }
 }

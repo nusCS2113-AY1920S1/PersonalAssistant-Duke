@@ -14,17 +14,20 @@ public abstract class Command {
 
     /**
      * run the command with the respect TaskList, UI, and storage.
-     * @param tasks The task list where tasks are saved.
-     * @param ui The user interface.
+     *
+     * @param tasks   The task list where tasks are saved.
+     * @param ui      The user interface.
      * @param storage object that handles local text file update
      * @throws DukeException throw exception during execution of the
-     *      command.
+     *                       command.
      */
-    public abstract void run(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+
     /**
      * Decide whether duke should exist.
+     *
      * @return A boolean. True if the command tells Duke to exit, false
-     *          otherwise.
+     * otherwise.
      */
     public abstract boolean isExit();
 

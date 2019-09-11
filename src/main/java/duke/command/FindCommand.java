@@ -15,31 +15,37 @@ public class FindCommand extends Command {
      * Name of the task to be found.
      */
     private String taskName;
+
     /**
      * Constructs a FindCommand object.
+     *
      * @param name Specifies the name of the task.
      */
     public FindCommand(String name) {
         super();
         this.taskName = name;
     }
+
     /**
      * Indicates whether Duke should exist
+     *
      * @return A boolean. True if the command tells Duke to exit, false
-     *          otherwise.
+     * otherwise.
      */
     @Override
     public boolean isExit() {
         return false;
     }
+
     /**
      * run the command with the respect TaskList, UI, and storage.
-     * @param tasks The task list where tasks are saved.
-     * @param ui The user interface.
+     *
+     * @param tasks   The task list where tasks are saved.
+     * @param ui      The user interface.
      * @param storage object that handles local text file update
      */
     @Override
-    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.taskFound(tasks.fullTaskList(), taskName);
     }
 }

@@ -95,7 +95,11 @@ public abstract class Task {
         DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
         DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
 
-        ld = LocalDateTime.parse(timeBeforeFormat, parser);
+        try {
+            ld = LocalDateTime.parse(timeBeforeFormat, parser);
+        } catch (DateTimeParseException error) {
+            return timeBeforeFormat;
+        }
 
         String output;
 
@@ -109,10 +113,6 @@ public abstract class Task {
             output = ld.format(thFormatter);
             ;
         }
-
         return output;
-
     }
-
-
 }
