@@ -5,7 +5,7 @@ package duke.task;
  * extends from the duke.task.Task class.
  */
 public class ToDo extends Task {
-    protected boolean isToDo;
+    private boolean isToDo;
 
     /**
      *  Constructs a <code>ToDo</code> object.

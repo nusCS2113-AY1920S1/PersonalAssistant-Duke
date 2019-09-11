@@ -8,7 +8,7 @@ public class Deadline extends Task {
     /**
      * A string that represents the deadline of the task.
      */
-    protected String by;
+    private String by;
     /**
      * Constructs a <code>duke.task.Deadline</code> object. Date and time are parsed and
      * stored in <code>dateTime</code> field if input is of "dd/MM/yyyy HHmm"

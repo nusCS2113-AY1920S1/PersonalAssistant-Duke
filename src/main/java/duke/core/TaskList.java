@@ -11,7 +11,7 @@ public class TaskList  {
     /**
      * An <code>ArrayList</code> structure.
      */
-    protected ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
      * instantiate a new <code>duke.core.TaskList</code> with a empty list.

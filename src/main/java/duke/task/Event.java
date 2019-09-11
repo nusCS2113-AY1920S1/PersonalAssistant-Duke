@@ -8,7 +8,7 @@ public class Event extends Task {
     /**
      * A string that represents the time of the event.
      */
-    protected String at;
+    private String at;
     /**
      * Constructs a <code>Event</code> object. Date and time are parsed and
      * stored in <code>dateTime</code> field if input is of "dd/MM/yyyy HHmm"
