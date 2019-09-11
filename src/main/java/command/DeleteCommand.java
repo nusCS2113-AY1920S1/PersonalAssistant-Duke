@@ -1,3 +1,8 @@
+/**
+ * This handles command that deal with deletion of task.
+ *
+ * @author tygq13
+ */
 package command;
 
 import ui.*;
