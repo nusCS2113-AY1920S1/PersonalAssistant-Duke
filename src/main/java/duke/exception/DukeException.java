@@ -1,3 +1,9 @@
+package duke.exception;
+
+import duke.command.*;
+import duke.core.*;
+import duke.task.*;
+
 /**
  * A custom exception for Duke, when inputs don't fit the desired format or
  * have no meaning.
