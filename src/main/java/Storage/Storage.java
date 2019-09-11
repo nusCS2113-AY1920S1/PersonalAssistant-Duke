@@ -1,3 +1,5 @@
+package Storage;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,9 +12,7 @@ import java.util.Scanner;
 public class Storage {
     String directory = System.getProperty("user.home");
     String fileName = "sample.txt";
-
     String absolutePath = "D:\\main\\src\\main\\java\\Save";
-
     protected void Storages(String fileContent) throws IOException{
 
         FileWriter fileWriter = new FileWriter(absolutePath);
