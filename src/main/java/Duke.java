@@ -1,10 +1,12 @@
+import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import commands.Command;
+import parsers.*;
+import Exception.DukeException;
 import java.io.*;
 import java.text.ParseException;
-import java.util.List;
-
+import java.util.ArrayList;
 
 
 public class Duke {
@@ -17,7 +19,7 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-        List<Task> list;
+        ArrayList<Task> list;
         Storage store = new Storage();
         boolean isExit = false;
         Ui ui = new Ui();
@@ -46,11 +48,5 @@ public class Duke {
         finally{
             System.out.println("System exiting");
         }
-
-//        finally{
-//        level 9 branch
-//            System.out.println("");
-//        }
-//        level 6
     }
 }

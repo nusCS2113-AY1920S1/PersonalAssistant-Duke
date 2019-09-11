@@ -1,8 +1,10 @@
+package Tasks;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
-    protected Date by ;
+    public Date by ;
 
     public Deadline(String description, Date by) {
         super(description);

@@ -1,26 +1,16 @@
-<<<<<<< HEAD:src/main/java/TodoCommand.java
-<<<<<<< HEAD
-import UI.Ui;
-=======
-<<<<<<< HEAD
-import Storage.Storage;
->>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
-=======
->>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
->>>>>>> Jason
-=======
 package commands;
-
-import commands.Command;
->>>>>>> Jess:src/main/java/commands/TodoCommand.java
-
+import Tasks.Task;
+import UI.Ui;
+import Tasks.*;
+import Storage.Storage;
+import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class TodoCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         if(ui.FullCommand.length() <= 4) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
@@ -35,10 +25,10 @@ public class TodoCommand extends Command {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getClass().getName().equals("Deadline")) {
+            if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Event")){
+            else if(list.get(i).getClass().getName().equals("Tasks.Event")){
                 sb.append(list.get(i).toString()+"\n");
             }
             else{
