@@ -1,5 +1,7 @@
 package duke.task;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,18 @@ import java.util.List;
 public class TaskList implements Serializable {
 
     private List<Task> tasks = new ArrayList<>();
+
+    public TaskList() {
+
+    }
+
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
 
     /**
      * Add a new Task.
@@ -28,6 +42,7 @@ public class TaskList implements Serializable {
      * @param index index of the Task to get.
      * @return a Task at the index.
      */
+    @JsonIgnore
     public Task get(int index) {
         return tasks.get(index);
     }

@@ -1,5 +1,6 @@
 package duke.task;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.parser.TimeParser;
 
 import java.util.Date;
@@ -17,9 +18,13 @@ public class Deadline extends Task {
      * @param description the description of the Deadline.
      * @param by          the due date of the Deadline.
      */
-    public Deadline(String description, Date by) {
+    public Deadline(@JsonProperty("description") String description, @JsonProperty("by") Date by) {
         super(description);
         this.by = by;
+    }
+
+    public Date getBy() {
+        return by;
     }
 
     /**
