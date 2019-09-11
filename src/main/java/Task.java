@@ -53,7 +53,8 @@ public class Task {
      * @return string containing task in the format [(tick/cross)] (task description)
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
 }

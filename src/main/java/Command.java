@@ -112,9 +112,8 @@ public class Command {
                     int slashPos = continuation.indexOf("/by");
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    Date dateOfDeadline = new Date(date);
-                    tasks.addTask(new Deadline(description, dateOfDeadline.toString()));
-                    ui.taskAdded(new Deadline(description, dateOfDeadline.toString()), tasks.getNumTasks());
+                    tasks.addTask(new Deadline(description, date));
+                    ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.deadlineFormatWrong();
@@ -130,9 +129,8 @@ public class Command {
                     int slashPos = continuation.indexOf("/at");
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    Date dateOfEvent = new Date(date);
-                    tasks.addTask(new Event(description, dateOfEvent.toString()));
-                    ui.taskAdded(new Event(description, dateOfEvent.toString()), tasks.getNumTasks());
+                    tasks.addTask(new Event(description, date));
+                    ui.taskAdded(new Event(description, date), tasks.getNumTasks());
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.eventFormatWrong();
