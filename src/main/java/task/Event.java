@@ -1,15 +1,16 @@
+package task;
 import java.io.Serializable;
 /**
- * This extension of the task class will allow the user to add a task of deadline type.
+ * This extension of the task class will allow the user to add a task of event type.
  *
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Deadline extends Task implements Serializable{
+public class Event extends Task implements Serializable{
 
     private String date;
 
-    public Deadline(String description, String date){
+    public Event(String description, String date) {
         super(description);
         this.date = date;
     }
@@ -22,7 +23,6 @@ public class Deadline extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: " + date + ")";
+        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + date + ")";
     }
 }
-

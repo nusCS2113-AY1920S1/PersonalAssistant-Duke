@@ -1,3 +1,10 @@
+package command;
+
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * The ExitCommand class is used when the user inputs bye and intends to terminate the program.
  *
@@ -13,7 +20,7 @@ public class ExitCommand extends Command {
      * This execute function calls the super.CommandOut function which is used to terminate the program by updating the
      * boolean flag exit to true.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         super.CommandOut();
         ui.printGoodbye();
     }

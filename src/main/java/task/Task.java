@@ -1,3 +1,4 @@
+package task;
 import java.io.Serializable;
 
 /**
@@ -7,9 +8,9 @@ import java.io.Serializable;
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-class Task implements Serializable{
+public class Task implements Serializable{
 
-    protected String description; // basically similar to describing features of the class
+    public String description; // basically similar to describing features of the class
     protected boolean isDone;
 
     /**

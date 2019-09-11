@@ -1,3 +1,6 @@
+package storage;
+import exception.DukeException;
+import task.*;
 import java.io.*;
 import java.util.ArrayList;
 /**
@@ -54,7 +57,6 @@ public class Storage {
      * read the file or a class in not found.
      */
     public ArrayList<Task> loadFile(File file) throws DukeException{
-
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -65,12 +67,18 @@ public class Storage {
             return listOfTasks;
         }
         catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
             throw new DukeException(DukeException.FILE_DOES_NOT_EXIST());
+
         }
         catch (IOException e) {
             throw new DukeException(DukeException.UNABLE_TO_READ_FILE());
         }
-        catch (ClassNotFoundException e) {
+       catch (ClassNotFoundException e) {
+            throw new DukeException(DukeException.CLASS_DOES_NOT_EXIST());
+       }
+        catch (Exception e)
+        {
             throw new DukeException(DukeException.CLASS_DOES_NOT_EXIST());
         }
     }

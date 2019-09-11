@@ -1,3 +1,4 @@
+package ui;
 import java.util.Scanner;
 /**
  * The Ui class is used to handle all inputs and outputs used to interact with the end-user

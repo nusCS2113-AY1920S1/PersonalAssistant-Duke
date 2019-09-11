@@ -1,3 +1,6 @@
+package exception;
+
+import ui.Ui;
 
 /**
  * This Exception class is used to handle all of the expected exceptions and certain unexpected exceptions to give the

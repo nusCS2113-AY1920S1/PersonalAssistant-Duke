@@ -1,9 +1,15 @@
+package command;
 /**
  * The FindCommand class is used when the user intends to check all tasks for a keyword.
  *
  * @author Sai Ganesh Suresh
  * @version v1.0
  */
+import exception.DukeException;
+import task.Task;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 import java.util.ArrayList;
 
 public class FindCommand extends Command{
