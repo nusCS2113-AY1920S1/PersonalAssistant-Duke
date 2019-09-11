@@ -10,6 +10,9 @@ import util.Parser;
 import util.Storage;
 import command.Command;
 
+/**
+ * the main class of Duke Programme
+ */
 public class Duke {
 
     private Storage storage;
