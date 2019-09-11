@@ -1,5 +1,11 @@
+/**
+ * The task contain all message used when errors occur.
+ *
+ * @author tygq13
+ */
 package ui;
 
+//todo: could create relevant exception classes with the specific message
 public class Message {
 	public static final String EMPTY_DESCRIPTION 
 		= "OOPS!!! The description of a task cannot be empty";
@@ -13,4 +19,6 @@ public class Message {
 		= "OOPS!!! The date format is invalid. Please specify date in 'dd/mm/yy'";
 	public static final String INVALID_COMMAND
 		= "OOPS!!! The command is invalid. Enter 'help' to view the list of command";
+	public static final String IO_ERROR
+		= "OOPS!!! The data file is deprecated. Unable to read or write in 'data/duke.txt'";
 }
