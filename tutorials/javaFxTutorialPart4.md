@@ -48,15 +48,15 @@ Create the following files in `src/main/resources/view`:
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
-   <children>
-      <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-      <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
-         <content>
-            <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
-         </content>
-      </ScrollPane>
-   </children>
+  <children>
+    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
+    <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+      <content>
+        <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+      </content>
+    </ScrollPane>
+  </children>
 </AnchorPane>
 ```
 
@@ -70,13 +70,13 @@ Create the following files in `src/main/resources/view`:
 <?import javafx.scene.layout.HBox?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="dialog" text="Label" wrapText="true" />
-      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-   <padding>
-      <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-   </padding>
+  <children>
+    <Label fx:id="dialog" text="Label" wrapText="true" />
+    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  <padding>
+    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+  </padding>
 </fx:root>
 ```
 
