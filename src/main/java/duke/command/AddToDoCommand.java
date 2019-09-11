@@ -14,7 +14,7 @@ public class AddToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks,Ui ui,FileHandling storage)throws DukeException {
+    public void execute(TaskList tasks,Ui ui,FileHandling storage)throws DukeException{
         try {
             tasks.addTask(new Todo(fullCommand.substring(5)));
             String taskA = tasks.getTask(tasks.numTasks() - 1).toString();
