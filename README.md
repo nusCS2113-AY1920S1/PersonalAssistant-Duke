@@ -1,3 +1,11 @@
+# Team Technical Difficulties
+**Members**
+* Sean
+* Abhishek
+* Dillen
+* Cynthia
+* Jerry
+
 # Setting up
 
 **Prerequisites**
