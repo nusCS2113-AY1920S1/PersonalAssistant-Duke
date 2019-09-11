@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.core.DukeExceptionThrow;
+import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
@@ -40,7 +40,7 @@ public class DoneCommand extends Command {
      * @param storage object that handles local text file update
      */
     @Override
-    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeExceptionThrow {
+    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try
         {
             Task t = tasks.getTask(Id);

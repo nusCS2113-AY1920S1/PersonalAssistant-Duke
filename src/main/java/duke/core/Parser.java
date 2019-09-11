@@ -3,7 +3,7 @@ package duke.core;
 import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.ToDo;
+import duke.task.Todo;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -17,7 +17,7 @@ public class Parser {
      * @param ss The string array to be parsed.
      * @return The Command received from user.
      */
-    public static Command Parse(String ss) throws DukeExceptionThrow
+    public static Command parse(String ss) throws DukeException
     {
         String[] command = ss.split(" ", 2);
 
@@ -29,21 +29,21 @@ public class Parser {
                 int i = Integer.parseInt(command[1]);
                 return new DoneCommand(i);
                 }catch(Exception e){
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "delete":
                 try{
                 int x = Integer.parseInt(command[1]);
                 return new DeleteCommand(x);
                 }catch(Exception e){
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "todo":
                 try{
-                ToDo t = new ToDo(command[1]);
+                Todo t = new Todo(command[1]);
                 return new AddCommand(t);
                 }catch(Exception e){
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "deadline":
                 try{
@@ -51,7 +51,7 @@ public class Parser {
                     Deadline d = new Deadline(temp[0], temp[1]);
                     return new AddCommand(d);
                 }catch(Exception e){
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "event":
                 try{
@@ -59,18 +59,18 @@ public class Parser {
                 Event z = new Event(temp1[0], temp1[1]);
                 return new AddCommand(z);
                 }catch(Exception e) {
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "find":
                 try{
                 return new FindCommand(command[1]);
                 }catch(Exception e) {
-                    throw new DukeExceptionThrow(e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "bye":
                 return new ExitCommand();
             default:
-                throw new DukeExceptionThrow("Unrecognized user input!");
+                throw new DukeException("Unrecognized user input!");
             }
     }
 

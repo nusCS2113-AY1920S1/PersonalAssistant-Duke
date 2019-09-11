@@ -4,14 +4,14 @@ package duke.task;
  * Represents a task without a specific time. This class
  * extends from the Task class.
  */
-public class ToDo extends Task {
+public class Todo extends Task {
     private boolean isToDo;
 
     /**
      *  Constructs a ToDo object.
      * @param description A string of the task description.
      */
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
         this.isToDo = true;
     }
@@ -23,14 +23,6 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.printStatus();
-    }
-
-    /**
-     * Returns a string with the following format to be read from a local file.
-     * @return A string in a specific format to be read from a local file.
-     */
-    public String txtFormat() {
-        return "T | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
     /**

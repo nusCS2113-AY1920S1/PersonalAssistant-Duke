@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
         super();
     }
     /**
-     * Indicates whether duke.Duke should exist
-     * @return A boolean. True if the command tells duke.Duke to exit, false
+     * Indicates whether Duke should exist
+     * @return A boolean. True if the command tells Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -26,7 +26,7 @@ public class ExitCommand extends Command {
         return true;
     }
     /**
-     * run the command with the respect duke.core.TaskList, UI, and storage.
+     * run the command with the respect TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update

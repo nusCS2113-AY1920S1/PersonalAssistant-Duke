@@ -3,7 +3,7 @@ package duke.core;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,9 +32,9 @@ public class Storage {
     /**
      * Read tasks from the file and store into a ArrayList of task.
      * @return A ArrayList of tasks from the file.
-     * @throws DukeExceptionThrow If file is not found.
+     * @throws DukeException If file is not found.
      */
-    public ArrayList<Task> load() throws DukeExceptionThrow
+    public ArrayList<Task> load() throws DukeException
     {
         File newDuke = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -44,7 +44,7 @@ public class Storage {
                 String[] newTask = ss.nextLine().split(" \\| ");
                 if (newTask[0].equals("T"))
                 {
-                    Task x = new ToDo(newTask[2]);
+                    Task x = new Todo(newTask[2]);
                     if (newTask[1].equals("1"))
                     {
                         x.markAsDone();
@@ -75,13 +75,13 @@ public class Storage {
         }
         catch (FileNotFoundException e)
         {
-            throw new DukeExceptionThrow("File is not found!");
+            throw new DukeException("File is not found!");
         }
     }
     /**
      * Saves tasks to the local file.
      * @param task The TaskList storing tasks.
-     * @throws DukeExceptionThrow If writing to the local file failed.
+     * @throws DukeException If writing to the local file failed.
      */
     public void save(ArrayList<Task> task) {
         try {

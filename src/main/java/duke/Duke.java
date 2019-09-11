@@ -10,12 +10,12 @@ import duke.core.*;
  */
 public class Duke {
     /**
-     * A duke.Storage object that handles reading tasks from a local
+     * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
      */
     private Storage storage;
     /**
-     * A duke.TaskList object that deals with add, delete, mark as done,
+     * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
     private TaskList tasks;
@@ -34,7 +34,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeExceptionThrow e) {
+        } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -50,10 +50,10 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.Parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 c.run(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeExceptionThrow e) {
+            } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

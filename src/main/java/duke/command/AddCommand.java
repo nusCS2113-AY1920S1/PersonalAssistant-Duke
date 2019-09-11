@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.core.DukeExceptionThrow;
+import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
@@ -10,7 +10,7 @@ import duke.task.Task;
  * Represents a command class to add a task. The AddCommand class
  * extends from the Command class to represent user instruction
  * to add a new ToDo, Deadline or Event
- * task to the duke.core.TaskList.
+ * task to the TaskList.
  */
 public class AddCommand extends Command {
     /**
@@ -26,8 +26,8 @@ public class AddCommand extends Command {
         this.t = task;
     }
     /**
-     * Indicates whether duke.Duke should exist
-     * @return A boolean. True if the command tells duke.Duke to exit, false
+     * Indicates whether Duke should exist
+     * @return A boolean. True if the command tells Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -35,13 +35,13 @@ public class AddCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect duke.core.TaskList, UI, and storage.
+     * run the command with the respect TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update
      */
     @Override
-    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeExceptionThrow {
+    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.addTask(t);
         ui.taskAdded(t, tasks.getSize());
         storage.save(tasks.fullTaskList());

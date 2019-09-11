@@ -29,14 +29,17 @@ public abstract class Task {
 
     /**
      * Initialises the minimum fields required to setup a Task.
+     *
      * @param description A string that represents the description of certain task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
     /**
      * Returns an icon that represents the status of the task.
+     *
      * @return Tick if completed, cross if uncompleted.
      */
     public String getStatusIcon() {
@@ -44,58 +47,67 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string with the following format to be read from a local file.
-     * @return A string in a specific format to be read from a local file.
+     * Check if the task isDone
+     *
+     * @return boolean value of isDone
      */
-    abstract String txtFormat();
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     /**
      * Returns a string with the following format to be stored in a local file
+     *
      * @return A string in a specific format to be stored in a local file.
      */
     public abstract String writeTxt();
+
     /**
      * Marks the task as done.
      */
-    public void markAsDone()
-    {
+    public void markAsDone() {
         isDone = true;
     }
+
     /**
      * Returns a string with the status icon and the description of the task.
+     *
      * @return A string in a specific format with the status and description of the task.
      */
-    public String printStatus()
-    {
+    public String printStatus() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
+
     /**
      * Returns the description of the task.
+     *
      * @return A string that represents the specific activity associated with
-     *          the task.
+     * the task.
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public String timeFormatter(String timeBeforeFormat)  {
+    public String timeFormatter(String timeBeforeFormat) {
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy , ha");
-        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy , ha");
-        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy , ha");
-        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy , ha");
+        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
+        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
+        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
+        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
 
-        ld = LocalDateTime.parse(timeBeforeFormat,parser);
+        ld = LocalDateTime.parse(timeBeforeFormat, parser);
 
         String output;
 
-        if ((ld.getDayOfMonth()%10) == 1){
+        if ((ld.getDayOfMonth() % 10) == 1) {
             output = ld.format(stFormatter);
-        }else if ((ld.getDayOfMonth()%10) == 2) {
+        } else if ((ld.getDayOfMonth() % 10) == 2) {
             output = ld.format(ndFormatter);
-        }else if ((ld.getDayOfMonth()%10) == 3) {
+        } else if ((ld.getDayOfMonth() % 10) == 3) {
             output = ld.format(rdFormatter);
-        }else{
-            output = ld.format(thFormatter);;
+        } else {
+            output = ld.format(thFormatter);
+            ;
         }
 
         return output;

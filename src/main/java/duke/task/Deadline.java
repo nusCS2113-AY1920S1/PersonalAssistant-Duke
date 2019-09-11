@@ -34,13 +34,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string with the following format to be read from a local file.
-     * @return A string in a specific format to be read from a local file.
-     */
-    public String txtFormat() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + super.timeFormatter(by);
-    }
-    /**
      * Returns a string with the following format to be stored in a local file
      * @return A string in a specific format to be stored in a local file.
      */

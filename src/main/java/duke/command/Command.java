@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.core.DukeExceptionThrow;
+import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
@@ -17,10 +17,10 @@ public abstract class Command {
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update
-     * @throws DukeExceptionThrow throw exception during execution of the
+     * @throws DukeException throw exception during execution of the
      *      command.
      */
-    public abstract void run(TaskList tasks, Ui ui, Storage storage) throws DukeExceptionThrow;
+    public abstract void run(TaskList tasks, Ui ui, Storage storage) throws DukeException;
     /**
      * Decide whether duke should exist.
      * @return A boolean. True if the command tells Duke to exit, false

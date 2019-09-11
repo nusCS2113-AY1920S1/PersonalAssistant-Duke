@@ -29,13 +29,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.printStatus() + " (at: " + super.timeFormatter(at) + ")";
     }
-    /**
-     * Returns a string with the following format to be read from a local file.
-     * @return A string in a specific format to be read from a local file.
-     */
-    public String txtFormat() {
-        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + super.timeFormatter(at);
-    }
+
     /**
      * Returns a string with the following format to be stored in a local file
      * @return A string in a specific format to be stored in a local file.

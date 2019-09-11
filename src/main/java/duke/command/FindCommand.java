@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.core.DukeExceptionThrow;
+import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
@@ -25,7 +25,7 @@ public class FindCommand extends Command {
     }
     /**
      * Indicates whether Duke should exist
-     * @return A boolean. True if the command tells duke.Duke to exit, false
+     * @return A boolean. True if the command tells Duke to exit, false
      *          otherwise.
      */
     @Override
@@ -33,13 +33,13 @@ public class FindCommand extends Command {
         return false;
     }
     /**
-     * run the command with the respect duke.core.TaskList, UI, and storage.
+     * run the command with the respect TaskList, UI, and storage.
      * @param tasks The task list where tasks are saved.
      * @param ui The user interface.
      * @param storage object that handles local text file update
      */
     @Override
-    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeExceptionThrow {
+    public void run(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.taskFound(tasks.fullTaskList(), taskName);
     }
 }
