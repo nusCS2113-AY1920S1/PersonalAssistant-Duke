@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Storage {
     String directory = System.getProperty("user.home");
     String fileName = "sample.txt";
-    String absolutePath = "C:\\Users\\Jess\\Documents\\GitHub\\duke\\src\\main\\java\\Save";
+    String absolutePath = "C:\\Users\\ayh_j\\main\\src\\main\\java\\Save";
     protected void Storages(String fileContent) throws IOException{
 
         FileWriter fileWriter = new FileWriter(absolutePath);
