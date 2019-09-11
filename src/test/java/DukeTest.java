@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class DukeTest {
 
