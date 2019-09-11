@@ -1,16 +1,22 @@
+import UI.Ui;
 import org.junit.jupiter.api.Test;
+
+<<<<<<< HEAD
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+=======
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+>>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class DukeTest {
-
     @Test
     public void testUi() {
         Ui ui = new Ui();
