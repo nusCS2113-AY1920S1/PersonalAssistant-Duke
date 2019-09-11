@@ -23,7 +23,10 @@ public class Ui {
     protected void showDateFormatError (){
         System.err.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
-    protected  void showErrorMessage(Exception e) {
+    protected  void showIOErrorMessage(Exception e) {
+        System.err.println("An IOException was caught :"+e.getMessage());
+    }
+    protected void showErrorMessage(Exception e){
         System.err.println(e.getMessage());
     }
 }

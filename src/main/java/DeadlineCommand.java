@@ -6,7 +6,7 @@ import java.util.List;
 public class DeadlineCommand extends Command
 {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         if(ui.FullCommand.length() == 8) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
