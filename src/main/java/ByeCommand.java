@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import UI.Ui;
-=======
 import Storage.Storage;
->>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
