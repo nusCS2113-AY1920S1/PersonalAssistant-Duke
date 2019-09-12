@@ -25,6 +25,8 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_SEARCH = "find";
+    private static final String COMMAND_UNDO = "undo";
+    private static final String COMMAND_REDO = "redo";
 
     /**
      * Parse user input.
@@ -56,6 +58,10 @@ public class Parser {
                 return parseDeletion(line);
             case COMMAND_SEARCH:
                 return parseSearch(line);
+            case COMMAND_UNDO:
+                return parseUndo(line);
+            case COMMAND_REDO:
+                return parseRedo(line);
         }
 
         throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
@@ -64,7 +70,7 @@ public class Parser {
     private static Dictionary<String, String> parseCommandAndParams(String line) throws DukeException {
         Dictionary<String, String> params = new Hashtable<>();
 
-        Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^/]+)?");
+        Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^-]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
             throw new DukeException("Please enter a command");
@@ -74,13 +80,13 @@ public class Parser {
             params.put("primary", commandWordMatcher.group(2).strip());
         }
 
-        Pattern paramsPattern = Pattern.compile("(/\\w+ [^/]+|/\\w+)");
+        Pattern paramsPattern = Pattern.compile("(-\\w+ [^-]+|-\\w+)");
         Matcher paramsMatcher = paramsPattern.matcher(line);
 
         while (paramsMatcher.find()) {
             String s = paramsMatcher.group().strip();
             if (s.isEmpty() || s.isBlank()) continue;
-            Pattern attrAndValuePattern = Pattern.compile("/(\\w+) ([^/]+)|/(\\w+)");
+            Pattern attrAndValuePattern = Pattern.compile("-(\\w+) ([^-]+)|-(\\w+)");
             Matcher attrAndValueMatcher = attrAndValuePattern.matcher(s);
             if (!attrAndValueMatcher.find()) {
                 throw new DukeException("Please enter valid parameters");
@@ -175,5 +181,13 @@ public class Parser {
             throw new DukeException("Please enter a keyword");
         }
         return new FindCommand(args.get("primary"));
+    }
+
+    private static Command parseUndo(String line) throws DukeException {
+        return new UndoCommand();
+    }
+
+    private static Command parseRedo(String line) throws DukeException {
+        return new RedoCommand();
     }
 }

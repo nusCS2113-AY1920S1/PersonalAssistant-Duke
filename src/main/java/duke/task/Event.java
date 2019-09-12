@@ -1,5 +1,6 @@
 package duke.task;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.parser.TimeParser;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public class Event extends Task {
      * @param from        start time of the Event.
      * @param to          end time of the Event.
      */
-    public Event(String description, Date from, Date to) {
+    public Event(@JsonProperty("description") String description, @JsonProperty("from") Date from, @JsonProperty("to") Date to) {
         super(description);
         this.from = from;
         this.to = to;

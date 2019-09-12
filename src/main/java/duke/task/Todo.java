@@ -1,5 +1,7 @@
 package duke.task;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a Todo. A Todo is a duke.task without time information.
  */
@@ -10,7 +12,7 @@ public class Todo extends Task {
      *
      * @param description the description of the Todo.
      */
-    public Todo(String description) {
+    public Todo(@JsonProperty("description") String description) {
         super(description);
     }
 

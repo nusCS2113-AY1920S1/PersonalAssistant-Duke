@@ -21,6 +21,11 @@ run {
 
 dependencies {
     compile 'com.jfoenix:jfoenix:9.0.8' // Java 9
+    compile (
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
+    )
 }
 
 javafx {
