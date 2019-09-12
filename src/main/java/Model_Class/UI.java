@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package Model_Class;
 
 /**
  * User interface: contains all methods pertaining to user interaction.
@@ -40,7 +40,7 @@ public class UI {
 
     /**
      * prints entire list of tasks stored.
-     * @param tasks TaskList object containing all stored classes and pertaining methods.
+     * @param tasks Model_Class.TaskList object containing all stored classes and pertaining methods.
      */
     public static void printListOfTasks(TaskList tasks){
         System.out.print(lineSeparation);
@@ -56,7 +56,7 @@ public class UI {
     }
 
     /**
-     * @return line of underscores to separate different UI outputs.
+     * @return line of underscores to separate different Model_Class.UI outputs.
      */
     public String getLineSeparation(){
         return lineSeparation;

@@ -1,3 +1,5 @@
+package Model_Class;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,7 +16,7 @@ public class Storage {
     private Scanner scanFile;
 
     /**
-     * Creates new Storage object
+     * Creates new Model_Class.Storage object
      * @param file The storage file
      */
     public Storage(File file){
@@ -34,7 +36,7 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             fileAssigned = true;
-            System.out.println("Task list loaded!");
+            System.out.println("Model_Class.Task list loaded!");
         } catch (FileNotFoundException FNFe) {
 
             System.out.println("No Duke file found!\nCreating new file...");

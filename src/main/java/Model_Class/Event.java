@@ -1,9 +1,11 @@
+package Model_Class;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;;
 
 /**
- * Event object inherits Task.
+ * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
 public class Event extends Task {
@@ -17,7 +19,7 @@ public class Event extends Task {
     /**
      * Creates event
      * @param description Description of task.
-     * @param date Event date & time.
+     * @param date Model_Class.Event date & time.
      */
     public Event(String description, String date){
         super(description);
@@ -27,7 +29,7 @@ public class Event extends Task {
     /**
      * Creates event with boolean attached, so as to read from file correctly.
      * @param description Description of task.
-     * @param date Event date & time.
+     * @param date Model_Class.Event date & time.
      * @param isDone Boolean defining if the task is completed.
      */
     public Event(String description, String date, boolean isDone){

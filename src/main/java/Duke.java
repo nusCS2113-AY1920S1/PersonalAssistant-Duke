@@ -1,11 +1,8 @@
+import Model_Class.*;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.lang.Object;
-import java.util.EnumSet;
 
 public class Duke {
     static String lineSeparation = "____________________________________________________________\n";

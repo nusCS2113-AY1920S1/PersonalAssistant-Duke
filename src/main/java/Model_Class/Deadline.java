@@ -1,9 +1,11 @@
+package Model_Class;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Deadline object inherits Task.
+ * Model_Class.Deadline object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
 public class Deadline extends Task{
@@ -17,7 +19,7 @@ public class Deadline extends Task{
     /**
      * Creates deadline
      * @param description Description of task.
-     * @param date Deadline date & time.
+     * @param date Model_Class.Deadline date & time.
      */
     public Deadline(String description, String date){
         super(description);
@@ -27,7 +29,7 @@ public class Deadline extends Task{
     /**
      * Creates deadline with boolean attached, so as to read from file correctly.
      * @param description Description of task.
-     * @param date Deadline date & time.
+     * @param date Model_Class.Deadline date & time.
      * @param isDone Boolean defining if the task is completed or not.
      */
     public Deadline(String description, String date, boolean isDone) {

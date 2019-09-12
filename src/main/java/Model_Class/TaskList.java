@@ -1,3 +1,5 @@
+package Model_Class;
+
 import java.util.ArrayList;
 
 /**
@@ -7,12 +9,12 @@ import java.util.ArrayList;
 public class TaskList {
 
     /**
-     * list of Task objects currently stored.
+     * list of Model_Class.Task objects currently stored.
      */
     private ArrayList<Task> taskArrayList;
 
     /**
-     * Creates new TaskList object.
+     * Creates new Model_Class.TaskList object.
      * @param inputList list of strings containing all information extracted from save file
      */
     public TaskList(ArrayList<String> inputList) {
@@ -33,7 +35,7 @@ public class TaskList {
 
     /**
      * Adds a new task to the list
-     * @param task Task object to be added
+     * @param task Model_Class.Task object to be added
      */
     public void addTask(Task task){
         this.taskArrayList.add(task);
@@ -48,8 +50,8 @@ public class TaskList {
     }
 
     /**
-     * Gets list of Task objects stored
-     * @return Array<Task> containing all tasks.
+     * Gets list of Model_Class.Task objects stored
+     * @return Array<Model_Class.Task> containing all tasks.
      */
     public ArrayList<Task> getTaskArrayList(){
         return this.taskArrayList;
@@ -66,7 +68,7 @@ public class TaskList {
     /**
      * Gets a specific task using indexing.
      * @param index Index of task to be extracted
-     * @return Task object of specified task
+     * @return Model_Class.Task object of specified task
      */
     public Task getTask(int index){
         return taskArrayList.get(index);
