@@ -1,9 +1,8 @@
-package Commands;
+package commands;
 
-import Commands.Command;
-import Task.Task;
-import Utils.DukeException;
-import Utils.Storage;
+import tasks.Task;
+import utils.DukeException;
+import utils.Storage;
 import core.Ui;
 
 import java.util.ArrayList;
@@ -11,6 +10,10 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
     private String line;
 
+    /**
+     * This is a class for command FIND, which search a keyword from the task list and print all results.
+     * @param line the keyword to be searched
+     */
     public FindCommand(String line) {
         this.line = line.trim();
     }

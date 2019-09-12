@@ -1,10 +1,10 @@
-package Utils;
+package utils;
 
-import Commands.*;
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.ToDo;
+import commands.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

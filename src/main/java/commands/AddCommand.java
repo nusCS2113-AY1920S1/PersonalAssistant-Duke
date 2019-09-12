@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Task.Task;
-import Utils.DukeException;
-import Utils.Parser;
-import Utils.Storage;
+import tasks.Task;
+import utils.DukeException;
+import utils.Parser;
+import utils.Storage;
 import core.Ui;
 
 
@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class AddCommand extends Command {
     private String content;
 
+    /**
+     * This is a class for command of ADD, which add task to the task list.
+     * @param content the command line String without the first ADD command
+     */
     public AddCommand(String content) {
         this.content = content;
     }

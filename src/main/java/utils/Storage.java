@@ -1,7 +1,6 @@
-package Utils;
+package utils;
 
-import Task.Task;
-import Utils.Parser;
+import tasks.Task;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +14,8 @@ public class Storage {
     }
 
     /**
-     * read the data stored in hard disk to taskList.
+     * Read the data stored in hard disk to taskList.
+     * @return an ArrayList of Task, which is the task list
      */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -35,8 +35,9 @@ public class Storage {
     }
 
     /**
-     * save the tasks data to the hard disk.
+     * Save the tasks data to the hard disk.
      * @param taskList the array list of tasks to be saved.
+     * @return if this method executed successfully
      */
     public boolean store(ArrayList<Task> taskList) {
         String output = "";

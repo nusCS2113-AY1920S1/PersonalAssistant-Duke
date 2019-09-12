@@ -1,14 +1,16 @@
-package Commands;
+package commands;
 
-import Task.Task;
-import Utils.Storage;
+import tasks.Task;
+import utils.Storage;
 import core.Ui;
 
 import java.util.ArrayList;
 
 public class ByeCommand extends Command {
-    public ByeCommand() {
-
+    /**
+     * This is a class for command BYE, which exit the Duke assistant.
+     */
+    public ByeCommand(){
     }
 
     @Override

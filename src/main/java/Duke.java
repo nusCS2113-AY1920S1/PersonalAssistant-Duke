@@ -1,8 +1,8 @@
-import Commands.Command;
-import Task.Task;
-import Utils.DukeException;
-import Utils.Parser;
-import Utils.Storage;
+import commands.Command;
+import tasks.Task;
+import utils.DukeException;
+import utils.Parser;
+import utils.Storage;
 import core.Ui;
 
 import java.io.*;

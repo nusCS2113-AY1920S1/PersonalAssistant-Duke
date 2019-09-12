@@ -1,6 +1,4 @@
-package Task;
-
-import Task.Task;
+package tasks;
 
 public class ToDo extends Task {
     public ToDo(String description) {

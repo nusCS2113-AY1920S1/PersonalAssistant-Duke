@@ -1,6 +1,4 @@
-package Task;
-
-import Task.Task;
+package tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +6,11 @@ import java.util.Date;
 public class Event extends Task {
     private Date at;
 
+    /**
+     * This is a class for abstraction of a Event type task.
+     * @param description the description, or content of the event
+     * @param at the time when the event happen
+     */
     public Event(String description, Date at) {
         super(description);
         this.at = at;

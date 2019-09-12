@@ -1,9 +1,8 @@
-package Commands;
+package commands;
 
-import Commands.Command;
-import Task.Task;
-import Utils.DukeException;
-import Utils.Storage;
+import tasks.Task;
+import utils.DukeException;
+import utils.Storage;
 import core.Ui;
 
 import java.util.ArrayList;
@@ -11,6 +10,10 @@ import java.util.ArrayList;
 public class DoneCommand extends Command {
     private String line;
 
+    /**
+     * This is a class for command DONE, which mark one task in the task list as done.
+     * @param line the serial number of task to be marked as done
+     */
     public DoneCommand(String line) {
         this.line = line;
     }

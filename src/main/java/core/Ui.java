@@ -40,6 +40,11 @@ public class Ui {
         System.out.println(horizontalLine);
     }
 
+    /**
+     * This method is used to read a line from Scanner in.
+     * @param in the instantiated Scanner object
+     * @return the String read
+     */
     public static String readLine(Scanner in) {
         return in.nextLine();
     }

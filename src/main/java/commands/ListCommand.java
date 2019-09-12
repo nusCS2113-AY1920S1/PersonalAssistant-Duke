@@ -1,15 +1,15 @@
-package Commands;
+package commands;
 
-import Commands.Command;
-import Task.Task;
-import Utils.Storage;
+import tasks.Task;
+import utils.Storage;
 import core.Ui;
-
 import java.util.ArrayList;
 
 public class ListCommand extends Command {
-    public ListCommand() {
-
+    /**
+     * This is a class for command LIST, which list all the tasks in the task list.
+     */
+    public ListCommand(){
     }
 
     @Override

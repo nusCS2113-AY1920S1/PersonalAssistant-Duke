@@ -1,9 +1,8 @@
-package Commands;
+package commands;
 
-import Commands.Command;
-import Task.Task;
-import Utils.DukeException;
-import Utils.Storage;
+import tasks.Task;
+import utils.DukeException;
+import utils.Storage;
 import core.Ui;
 
 import java.util.ArrayList;
@@ -12,6 +11,10 @@ public class DeleteCommand extends Command {
 
     private String line;
 
+    /**
+     * This is a class for command DELETE, which remove one task from the task list.
+     * @param line the serial number in the command line after DELETE
+     */
     public DeleteCommand(String line) {
         this.line = line;
     }
