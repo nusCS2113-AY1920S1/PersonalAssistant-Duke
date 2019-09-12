@@ -19,21 +19,25 @@ public class Deadline extends Task{
     /**
      * Creates deadline
      * @param description Description of task.
-     * @param date Model_Class.Deadline date & time.
+     * @param date Deadline date & time.
      */
     public Deadline(String description, String date){
         super(description);
-        this.date = date;
+        setDate(date);
     }
 
     /**
      * Creates deadline with boolean attached, so as to read from file correctly.
      * @param description Description of task.
-     * @param date Model_Class.Deadline date & time.
+     * @param date Deadline date & time.
      * @param isDone Boolean defining if the task is completed or not.
      */
     public Deadline(String description, String date, boolean isDone) {
     	super(description, isDone);
+    	setDate(date);
+    }
+    
+    public void setDate(String date) {
     	try {
     	    SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     	    inputformat.setLenient(false);
@@ -50,7 +54,7 @@ public class Deadline extends Task{
     		} catch (ParseException pe2) {
         	    format = 3; // other types; store as string
     		}
-    	} 
+    	}
     }
 
     /**
@@ -60,11 +64,11 @@ public class Deadline extends Task{
     @Override
 	public String toString(){
     	if (format == 1) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy, hh:mm aa");
     	 	String out = outputformat.format(dateobj);
     	 	return "[D]" + super.toString() + "(by: " + out + ")";
     	} else if (format == 2) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd/MM/yyyy");
+    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy");
     	 	String out = outputformat.format(dateobj);
     	 	return "[D]" + super.toString() + "(by: " + out + ")";
     	} else {
