@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import java.io.InputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import myTasks.*;
 
 /**
  * The Duke class inherits methods from Applications and allows it to be called by another class.

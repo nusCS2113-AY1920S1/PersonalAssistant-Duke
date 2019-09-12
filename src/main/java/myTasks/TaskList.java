@@ -1,3 +1,7 @@
+package myTasks;
+
+import myTasks.Task;
+
 import java.util.ArrayList;
 
 /**

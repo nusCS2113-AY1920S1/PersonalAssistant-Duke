@@ -1,3 +1,5 @@
+package myTasks;
+
 /**
  * The task superclass.
  * It contains the description and task status.

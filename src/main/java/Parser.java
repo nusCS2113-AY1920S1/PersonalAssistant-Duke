@@ -1,8 +1,8 @@
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import myTasks.*;
 
 /**
  * Class to process user input and perform according to user input.
@@ -145,7 +145,7 @@ public class Parser {
                         myList.addToList(newTask);
                         save.saveData(newTask);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Description of a Todo task must not be empty.");
+                        System.out.println("Error! Description of a myTasks.Todo task must not be empty.");
                     }
 
                 }
@@ -173,7 +173,7 @@ public class Parser {
 
                         //Error to be displayed when /by is not in deadline input
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Deadline tasks must contain '/by' followed by the deadline.");
+                        System.out.println("Error! myTasks.Deadline tasks must contain '/by' followed by the deadline.");
                     } catch (ParseException c) {
                         System.out.println("Error! Please enter date in the format DD-MM-YYYY 2359.");
                     }
@@ -201,7 +201,7 @@ public class Parser {
                         save.saveData(newTask);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error! Event tasks must contain '/at' followed by the time of event.");
+                        System.out.println("Error! myTasks.Event tasks must contain '/at' followed by the time of event.");
                     } catch (ParseException c) {
                         System.out.println("Error! Please enter date in the format DD-MM-YYYY 2359.");
                     }

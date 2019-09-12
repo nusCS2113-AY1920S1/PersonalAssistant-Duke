@@ -1,3 +1,7 @@
+package myTasks;
+
+import myTasks.Task;
+
 /**
  * Class that inherits many of its methods from its superclass Task.
  * Unlike the deadline and event task classes, this class does not parse date inputs.
