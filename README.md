@@ -1,3 +1,8 @@
+# Links
+
+**Team Google Doc link**
+https://docs.google.com/document/d/1G6Bvc2kW0bpxYXVxCz2mC2vUknmPyHRZJHdE9Et25LQ/edit?usp=sharing
+
 # Setting up
 
 **Prerequisites**
