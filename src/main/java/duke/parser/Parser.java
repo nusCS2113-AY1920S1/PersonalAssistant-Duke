@@ -70,7 +70,7 @@ public class Parser {
     private static Dictionary<String, String> parseCommandAndParams(String line) throws DukeException {
         Dictionary<String, String> params = new Hashtable<>();
 
-        Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^/]+)?");
+        Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^-]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
             throw new DukeException("Please enter a command");
@@ -80,13 +80,13 @@ public class Parser {
             params.put("primary", commandWordMatcher.group(2).strip());
         }
 
-        Pattern paramsPattern = Pattern.compile("(/\\w+ [^/]+|/\\w+)");
+        Pattern paramsPattern = Pattern.compile("(-\\w+ [^-]+|-\\w+)");
         Matcher paramsMatcher = paramsPattern.matcher(line);
 
         while (paramsMatcher.find()) {
             String s = paramsMatcher.group().strip();
             if (s.isEmpty() || s.isBlank()) continue;
-            Pattern attrAndValuePattern = Pattern.compile("/(\\w+) ([^/]+)|/(\\w+)");
+            Pattern attrAndValuePattern = Pattern.compile("-(\\w+) ([^-]+)|-(\\w+)");
             Matcher attrAndValueMatcher = attrAndValuePattern.matcher(s);
             if (!attrAndValueMatcher.find()) {
                 throw new DukeException("Please enter valid parameters");

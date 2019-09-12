@@ -19,7 +19,7 @@ public class TimeParser {
      * @return a String representing the date.
      */
     public static String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return dateFormat.format(date);
     }
 
@@ -30,11 +30,11 @@ public class TimeParser {
      * @throws DukeException if the String is of incorrect format.
      */
     public static Date convertStringToDate(String str) throws DukeException {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
             return dateFormat.parse(str);
         } catch (ParseException e) {
-            throw new DukeException("Please enter date in correct format: dd-mm-yyyy hhmm. e.g. 18-12-1999 1800.");
+            throw new DukeException("Please enter date in correct format: dd/mm/yyyy hhmm. e.g. 18/12/1999 18:00.");
         }
     }
 }
