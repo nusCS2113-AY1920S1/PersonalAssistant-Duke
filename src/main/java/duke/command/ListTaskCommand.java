@@ -1,3 +1,6 @@
+package duke.command;
+import duke.task.*;
+
 /**
  * Class that represents command for the tasks to be listed.
  */

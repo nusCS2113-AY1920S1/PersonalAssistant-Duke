@@ -1,7 +1,10 @@
+package duke.task;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import duke.command.*;
 
 public class ParserTest {
     @Test

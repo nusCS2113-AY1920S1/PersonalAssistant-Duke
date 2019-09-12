@@ -1,3 +1,6 @@
+import duke.command.*;
+import duke.task.*;
+
 /**
  * Main class that runs Duke and contains the main method for Duke.
  */

@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.command.*;
+
 /**
  * Class that takes in a string and parses it to return a valid command to be ran
  */

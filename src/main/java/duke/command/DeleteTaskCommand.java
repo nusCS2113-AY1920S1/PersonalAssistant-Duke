@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.*;
+
 /**
  * Class that represents the command to delete a Task
  * Subclass of Command

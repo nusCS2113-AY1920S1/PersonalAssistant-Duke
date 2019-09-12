@@ -1,6 +1,9 @@
+package duke.command;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import duke.task.*;
 
 /**
  * Class that represents the command to add an event
