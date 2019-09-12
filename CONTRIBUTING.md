@@ -25,6 +25,8 @@ git clone 'your fork address'
 git remote add upstream 'your main repo address'
 ```
 ## Workflow
+Note: Dont push any commits directly to the the master of the main repository.
+
 1. Your work must address an open issue.
 2. Pull from upstream into your local repository's master.
 ```git
