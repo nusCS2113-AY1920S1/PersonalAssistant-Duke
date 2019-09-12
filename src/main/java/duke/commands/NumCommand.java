@@ -1,3 +1,7 @@
+package duke.commands;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 /**
  * Command objects for marking tasks as done, or deleting them.
  * Requires the index of the task.

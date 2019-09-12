@@ -1,3 +1,5 @@
+package duke.items;
+
 //TODO: Import an existing datetime class or write a better one.
 /**
  * Stores date and time information by field - day, month, year, hour, minute.
@@ -5,7 +7,7 @@
  * Uses a boolean variable to indicate if the date object has been properly initialised.
  */
 
-public class Date {
+public class DateTime {
     private boolean valid;
     private String dateAndTime;
     private int day;
@@ -14,7 +16,7 @@ public class Date {
     private int hour;
     private String minute;
 
-    public Date(String dateAndTime) {
+    public DateTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
         String[] details = dateAndTime.split("[ /]");
 

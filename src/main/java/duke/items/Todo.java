@@ -1,3 +1,5 @@
+package duke.items;
+
 /**
  * The least detailed task is the todo,
  * which consists of a deadline and done status.

@@ -1,3 +1,5 @@
+package duke.items;
+
 /**
  * In addition to the deadline and done status (inherited from Task),
  * the Deadline has a doByDate that is represented by a date class.
@@ -7,12 +9,12 @@
 public class Deadline extends Task {
 
     private String doBy;
-    private Date doByDate;
+    private DateTime doByDate;
 
     public Deadline(String description, String by, int taskIndex) {
         super(description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
-        this.doByDate = new Date(doBy);
+        this.doByDate = new DateTime(doBy);
     }
 
     public String getDoBy() {

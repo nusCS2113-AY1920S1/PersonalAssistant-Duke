@@ -1,6 +1,5 @@
-import java.io.IOException;
-import java.util.Scanner;
-
+package duke;
+import duke.commands.*;
 /**
  * Duke is a task list that supports 3 types of classes - Todos, deadlines and events.
  * Tasks can be added, marked as done, searched for, and deleted.
@@ -44,7 +43,7 @@ public class Duke {
             command = parser.parse(userInput);
             command.execute(taskList, ui, storage);
             //taskList.handleListInput(command); //Should only be passed good inputs.
-        } while (command.type != Command.CommandType.BYE);
+        } while (command.getType() != Command.CommandType.BYE);
 
     }
 

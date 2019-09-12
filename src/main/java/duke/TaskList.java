@@ -1,5 +1,6 @@
+package duke;
 import java.util.ArrayList;
-
+import duke.items.*;
 /**
  * Manages the list of (different types of classes),
  * including all the methods to modify the list:
