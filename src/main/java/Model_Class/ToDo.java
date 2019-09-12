@@ -1,11 +1,13 @@
+package Model_Class;
+
 /**
- * Subclass of Task class.
+ * Subclass of Model_Class.Task class.
  * Type of class available for use within Duke program, not time-specific.
  */
 public class ToDo extends Task {
 
     /**
-     * Creates new ToDo object.
+     * Creates new Model_Class.ToDo object.
      * @param description description of task
      */
     public ToDo(String description){
@@ -13,7 +15,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Creates new ToDo object.
+     * Creates new Model_Class.ToDo object.
      * Contains boolean signifying task completion so as to facilitate reading from save file.
      * @param description task description
      * @param isDone task completion

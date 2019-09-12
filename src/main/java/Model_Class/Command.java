@@ -1,3 +1,5 @@
+package Model_Class;
+
 /**
  * Represents a command that is passed via user input.
  * Multiple types of commands are possible, executed using switch case method.
@@ -17,8 +19,8 @@ public class Command {
 
     /**
      * Creates a new command with the command type and specific instructions
-     * @param command The Command type
-     * @param continuation The Command specific instructions
+     * @param command The Model_Class.Command type
+     * @param continuation The Model_Class.Command specific instructions
      */
     public Command(String command, String continuation){
         this.command = command;
@@ -28,7 +30,7 @@ public class Command {
     /**
      * Creates a new command where only command param is passed.
      * Specific instructions not necessary for these types of commands.
-     * @param command The Command type
+     * @param command The Model_Class.Command type
      */
     public Command(String command){
         this.command = command;
