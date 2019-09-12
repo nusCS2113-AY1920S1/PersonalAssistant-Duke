@@ -19,21 +19,25 @@ public class Event extends Task {
     /**
      * Creates event
      * @param description Description of task.
-     * @param date Model_Class.Event date & time.
+     * @param date Event date & time.
      */
     public Event(String description, String date){
         super(description);
-        this.date = date;
+        setDate(date); 
     }
 
     /**
      * Creates event with boolean attached, so as to read from file correctly.
      * @param description Description of task.
-     * @param date Model_Class.Event date & time.
+     * @param date Event date & time.
      * @param isDone Boolean defining if the task is completed.
      */
     public Event(String description, String date, boolean isDone){
-    	super(description, isDone);
+    	super(description, isDone);	
+    	setDate(date); 	 	
+    }
+    
+    public void setDate(String date) {
     	try {
     	    SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     	    inputformat.setLenient(false);
@@ -50,7 +54,7 @@ public class Event extends Task {
     		} catch (ParseException pe2) {
         	    format = 3; // other types; store as string
     		}
-    	} 
+    	}
     }
 
     /**
@@ -60,11 +64,11 @@ public class Event extends Task {
     @Override
     public String toString(){
     	if (format == 1) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy, hh:mm aa");
     	 	String out = outputformat.format(dateobj);
     	 	return "[E]" + super.toString() + "(at: " + out + ")";
     	} else if (format == 2) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd/MM/yyyy");
+    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy");
     	 	String out = outputformat.format(dateobj);
     	 	return "[E]" + super.toString() + "(at: " + out + ")";
     	} else {
