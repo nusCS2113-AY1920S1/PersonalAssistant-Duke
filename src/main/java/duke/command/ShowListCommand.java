@@ -1,13 +1,19 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 /**
- * ShowListCommand is a command used to display all the tasks stored in the TaskList.
+ * duke.command.ShowListCommand is a command used to display all the tasks stored in the duke.task.TaskList.
  */
 public class ShowListCommand extends Command {
 
     /**
-     * Creates and prints out the tasks from the specified TaskList in a readable format.
-     * @param tasks TaskList to have its tasks printed.
+     * Creates and prints out the tasks from the specified duke.task.TaskList in a readable format.
+     * @param tasks duke.task.TaskList to have its tasks printed.
      */
     @Override
     public void execute(TaskList tasks) {

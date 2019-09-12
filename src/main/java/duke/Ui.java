@@ -1,8 +1,12 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Ui is a class that handles all interactions to the user.
+ * duke.Ui is a class that handles all interactions to the user.
  */
 public class Ui {
 
@@ -33,13 +37,13 @@ public class Ui {
     // Echoes when an item is added
 
     /**
-     * This method prints the details of the specified task and specified TaskList size.
+     * This method prints the details of the specified task and specified duke.task.TaskList size.
      * <p>
      *     This method is typically called when a task is created, so that the user can
      *     check the details of the created task.
      * </p>
-     * @param currTask Task to be printed.
-     * @param listSize Size of the TaskList.
+     * @param currTask duke.task.Task to be printed.
+     * @param listSize Size of the duke.task.TaskList.
      */
     public static void echoAdd(Task currTask, int listSize) {
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(

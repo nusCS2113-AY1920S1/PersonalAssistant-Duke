@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 public class FindStringCommand extends Command {
@@ -26,7 +32,7 @@ public class FindStringCommand extends Command {
 
         // Find tasks that match the searchStr and add into itemsFound
         ArrayList<String> itemsFound = new ArrayList<String>();
-        for (Task currTask : tasks.list) {
+        for (Task currTask : tasks.get()) {
             String taskStr = currTask.getTask();
             if (taskStr.indexOf(searchStr) != -1) {
                 itemsFound.add(taskStr);

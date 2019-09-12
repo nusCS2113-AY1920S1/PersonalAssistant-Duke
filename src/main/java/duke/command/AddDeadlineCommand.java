@@ -1,5 +1,12 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskList;
+
 /**
- * AddDeadlineCommand is a command used to add a deadline task into the TaskList.
+ * duke.command.AddDeadlineCommand is a command used to add a deadline task into the duke.task.TaskList.
  */
 public class AddDeadlineCommand extends AddCommand {
 
@@ -10,17 +17,17 @@ public class AddDeadlineCommand extends AddCommand {
     }
 
     /**
-     * Adds a deadline task into the specified TaskList.
+     * Adds a deadline task into the specified duke.task.TaskList.
      * <p>
      *     The method first splits the input data into the task description and time.
-     *     Using the newly acquired data, a new Deadline Task is created and then stored into
-     *     the specified TaskList.
+     *     Using the newly acquired data, a new duke.task.Deadline duke.task.Task is created and then stored into
+     *     the specified duke.task.TaskList.
      * </p>
      * <p>
      *     If the method encounters an error when trying to split the input data, the method
      *     returns without doing anything.
      * </p>
-     * @param tasks The TaskList where the deadline task is to be added.
+     * @param tasks The duke.task.TaskList where the deadline task is to be added.
      */
     @Override
     public void execute(TaskList tasks) {

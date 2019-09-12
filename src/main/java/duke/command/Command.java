@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 /**
@@ -5,8 +10,8 @@ import java.util.ArrayList;
  */
 public abstract class Command {
     /**
-     * This method is called to read/write the specified TaskList after every user input.
-     * @param task TaskList containing all the tasks stored.
+     * This method is called to read/write the specified duke.task.TaskList after every user input.
+     * @param task duke.task.TaskList containing all the tasks stored.
      * @throws Exception
      */
     public abstract void execute(TaskList task) throws Exception;

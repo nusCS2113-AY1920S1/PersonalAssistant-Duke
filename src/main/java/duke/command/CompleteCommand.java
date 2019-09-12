@@ -1,14 +1,20 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 /**
- * CompleteCommand is a type of command used to change the variable 'isDone'
+ * duke.command.CompleteCommand is a type of command used to change the variable 'isDone'
  * in given particular task in the task list to true.
  */
 public class CompleteCommand extends Command {
     protected String taskNumStr;
 
     /**
-     * Creates an instance of CompleteCommand with the specified task number.
+     * Creates an instance of duke.command.CompleteCommand with the specified task number.
      * @param taskNumStr The number of the task in task list to be marked as done.
      */
     public CompleteCommand(String taskNumStr) {
@@ -42,11 +48,11 @@ public class CompleteCommand extends Command {
             msg.add(taskNumInt + " is not associated to any task number.");
             msg.add("Use 'list' to check the tasks that are here first!");
             Ui.printMsg(msg);
-            throw new Exception("Task number not in list");
+            throw new Exception("duke.task.Task number not in list");
         }
 
-        if (currTask.isDone == true) {
-            msg.add("Task " + taskNumInt + " is already completed! :)");
+        if (currTask.getIsDone() == true) {
+            msg.add("duke.task.Task " + taskNumInt + " is already completed! :)");
         } else {
             currTask.markAsDone();
             msg.add("Nice! I've marked this task as done:");
