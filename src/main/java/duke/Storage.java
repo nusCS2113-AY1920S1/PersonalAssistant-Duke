@@ -1,34 +1,41 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Storage handles the saving and loading of data from ./data/duke.txt.
+ * duke.Storage handles the saving and loading of data from ./data/duke.txt.
  */
 public class Storage {
 
     /**
-     * Returns a TaskList containing tasks from a save file (if available),
-     * else returns an empty TaskList.
+     * Returns a duke.task.TaskList containing tasks from a save file (if available),
+     * else returns an empty duke.task.TaskList.
      * <p>
      *     This method first tries to read from ./data/duke.txt. For every line
      *     in the file, this method checks the type of task stored, and then converts
-     *     them into a task accordingly and stores into a TaskList.
+     *     them into a task accordingly and stores into a duke.task.TaskList.
      * </p>
      * <p>
-     *     If ./data/duke.txt is not found, an empty TaskList will be returned.
+     *     If ./data/duke.txt is not found, an empty duke.task.TaskList will be returned.
      * </p>
      * <p>
      *     If an error occurs while reading from ./data/duke.txt, exit duke.
      * </p>
-     * @return TaskList containing data (if any) from ./data/duke.txt.
+     * @return duke.task.TaskList containing data (if any) from ./data/duke.txt.
      */
     public static ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<Task>();
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Hello! I'm Duke! I help keep track of your tasks!",
+                "Hello! I'm duke.Duke! I help keep track of your tasks!",
                 "What can I do for you?"
         ));
 

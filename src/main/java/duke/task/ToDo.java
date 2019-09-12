@@ -1,5 +1,7 @@
+package duke.task;
+
 /**
- * ToDo is a type of Task that only stores the task description
+ * duke.task.ToDo is a type of duke.task.Task that only stores the task description
  */
 public class ToDo extends Task {
     /**

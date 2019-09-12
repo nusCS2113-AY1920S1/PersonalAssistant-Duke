@@ -1,5 +1,12 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+
 /**
- * AddEventCommand is a command used to add an event task into the TaskList.
+ * duke.command.AddEventCommand is a command used to add an event task into the duke.task.TaskList.
  */
 public class AddEventCommand extends AddCommand {
 
@@ -10,17 +17,17 @@ public class AddEventCommand extends AddCommand {
     }
 
     /**
-     * Adds an event task into the specified TaskList.
+     * Adds an event task into the specified duke.task.TaskList.
      * <p>
      *     The method first splits the input data into the task description and time.
-     *     Using the newly acquired data, a new Event Task is created and then stored into
-     *     the specified TaskList.
+     *     Using the newly acquired data, a new duke.task.Event duke.task.Task is created and then stored into
+     *     the specified duke.task.TaskList.
      * </p>
      * <p>
      *     If the method encounters an error when trying to split the input data, the method
      *     returns without doing anything.
      * </p>
-     * @param tasks The TaskList where the event task is to be added.
+     * @param tasks The duke.task.TaskList where the event task is to be added.
      */
     @Override
     public void execute(TaskList tasks) {

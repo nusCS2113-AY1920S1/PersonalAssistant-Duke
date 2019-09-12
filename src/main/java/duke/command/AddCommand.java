@@ -1,10 +1,15 @@
+package duke.command;
+
+import duke.Time;
+import duke.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * AddCommand is a subclass of Command that acts as a skeleton
- * for all other commands that involve adding tasks to the TaskList.
+ * duke.command.AddCommand is a subclass of Command that acts as a skeleton
+ * for all other commands that involve adding tasks to the duke.task.TaskList.
  */
 public abstract class AddCommand extends Command{
 

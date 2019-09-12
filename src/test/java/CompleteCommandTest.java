@@ -1,3 +1,8 @@
+import duke.*;
+import duke.command.CompleteCommand;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,7 +18,7 @@ public class CompleteCommandTest {
         Task sampleTodo = new ToDo("Sample Task");
         tasks.add(sampleTodo);
         new CompleteCommand("1").execute(tasks);
-        assertEquals(true, tasks.getFromList(0).isDone);
+        assertEquals(true, tasks.getFromList(0).getIsDone());
     }
 
     @Test

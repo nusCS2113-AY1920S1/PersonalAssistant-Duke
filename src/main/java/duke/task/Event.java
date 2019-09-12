@@ -1,7 +1,9 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 
 /**
- * Deadline is a type of Task that stores the task description and due date of said task.
+ * duke.task.Deadline is a type of duke.task.Task that stores the task description and due date of said task.
  */
 public class Event extends Task {
 
@@ -10,7 +12,7 @@ public class Event extends Task {
     /**
      * Creates an instance with specified task description and due date.
      * @param description String of what the task entails.
-     * @param date Time data of the day the task is due.
+     * @param date duke.Time data of the day the task is due.
      */
     public Event(String description, LocalDateTime date) {
         super(description);

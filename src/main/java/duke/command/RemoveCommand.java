@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 public class RemoveCommand extends Command {

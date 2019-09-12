@@ -1,9 +1,11 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Time is a class that handles all time related methods.
+ * duke.Time is a class that handles all time related methods.
  */
 public class Time {
 

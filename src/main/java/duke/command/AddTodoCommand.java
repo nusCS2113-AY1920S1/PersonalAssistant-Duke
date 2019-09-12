@@ -1,8 +1,15 @@
+package duke.command;
+
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * AddToDoCommand is a command used to add a todo task into the TaskList.
+ * AddToDoCommand is a command used to add a todo task into the duke.task.TaskList.
  */
 public class AddTodoCommand extends AddCommand {
 
@@ -11,11 +18,11 @@ public class AddTodoCommand extends AddCommand {
     }
 
     /**
-     * Adds a todo task into the specified TaskList.
+     * Adds a todo task into the specified duke.task.TaskList.
      * <p>
      *     If the task description is missing, return without doing anything.
      * </p>
-     * @param tasks The TaskList where the todo task is to be added.
+     * @param tasks The duke.task.TaskList where the todo task is to be added.
      */
     @Override
     public void execute(TaskList tasks) {
