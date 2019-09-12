@@ -1,13 +1,16 @@
 package Model_Classes;
 
 
-public class Task {
+public class Task{
     private String description;
     private boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+    public boolean getDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {
