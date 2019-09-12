@@ -1,3 +1,5 @@
+package task;
+
 import java.io.Serializable;
 
 /**
@@ -37,5 +39,8 @@ public class Task implements Serializable {
      */
     public void SetDone(){
         this.isDone = true;
+    }
+    public String getDescription() {
+        return this.description;
     }
 }

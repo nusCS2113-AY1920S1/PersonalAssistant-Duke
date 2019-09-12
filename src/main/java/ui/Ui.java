@@ -1,3 +1,8 @@
+package ui;
+
+import common.TaskList;
+import task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -107,5 +112,8 @@ public class Ui {
         System.out.print(line);
         System.out.println(message);
         System.out.print(line);
+    }
+    public Scanner getIn(){
+        return this.in;
     }
 }
