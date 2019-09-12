@@ -12,7 +12,7 @@ public class Command {
 
     protected CommandType type;
 
-    //Not sure if the default constructor should be a bad command?
+    //Currently the default constructor is a bad command
     public Command() {
         this.type = CommandType.BAD;
     }

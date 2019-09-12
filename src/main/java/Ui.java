@@ -22,7 +22,6 @@ public class Ui {
         printNewLine();
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
-        //printNewLine();
     }
 
     public void printNewLine() {

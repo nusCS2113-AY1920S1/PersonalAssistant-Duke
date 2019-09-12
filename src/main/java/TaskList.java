@@ -12,42 +12,30 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> savedFile) {
         taskList = savedFile;
-        this.listIndex = taskList.size(); //Easier to start from 1.
     }
 
     public TaskList() {
         taskList = new ArrayList<Task>();
-        this.listIndex = 0;
     }
 
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public int getListIndex() {
-        return listIndex;
-    }
 
     public int getSize() {
         return taskList.size();
     }
 
-    private void setListIndex(int value) {
-        listIndex = value;
-    }
 
     /**
      * Adds a todo item to the list and prints a confirmation.
      *
      * @param todoitem the description of the task.
-     * @return Nothing.
-     * @throws InsufficientInfoException  If description is blank.
      */
     public void addTodoItem(String todoitem) {
-        taskList.add(new Todo(todoitem, listIndex)); //Use the constructor to create a new Task. Saved index starts from 1.
+        taskList.add(new Todo(todoitem, listIndex)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
-
-        setListIndex(listIndex + 1); //Increment the index
     }
 
     /**
@@ -56,11 +44,9 @@ public class TaskList {
      * @param deadline the command with the description and deadline of the task.
      */
     public void addDeadlineItem(String description, String deadline) {
-        taskList.add(new Deadline(description, deadline, listIndex)); //Use the constructor to create a new Task. Saved index starts from 1.
+        taskList.add(new Deadline(description, deadline, listIndex)); //Use the constructor to create a new Task.
         System.out.println("Deadline item added: " + description);
         System.out.println("Deadline is: " + deadline);
-
-        setListIndex(listIndex + 1); //Increment the index
     }
 
     /**
@@ -71,10 +57,9 @@ public class TaskList {
      */
     public void addEventItem(String event, String at) {
 
-        taskList.add(new Event(event, at, listIndex)); //Use the constructor to create a new Task. Saved index starts from 1.
+        taskList.add(new Event(event, at, listIndex)); //Use the constructor to create a new Task.
         System.out.println("Event item added: " + event);
         System.out.println("Event happens at: " + at);
-        setListIndex(listIndex + 1); //Increment the index
     }
 
     /**

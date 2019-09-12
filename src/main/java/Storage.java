@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
-    //Write and read functions
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -21,10 +20,10 @@ public class Storage {
         ArrayList<Task> savedList = new ArrayList<>();
 
         int i = 0;
-        File f = new File(filePath); // create a File for the given file path
+        File f = new File(filePath); //Create a File for the given file path
 
         try {
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            Scanner s = new Scanner(f); //Create a Scanner using the File as the source
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
                 String[] item = itemRaw.split("/", 4);
@@ -43,7 +42,7 @@ public class Storage {
 
                         break;
                     default:
-                        //throw an exception
+                        //TODO: throw an exception
                         System.out.println("An exception will be thrown here eventually.");
                         break;
                 }
@@ -52,7 +51,7 @@ public class Storage {
                     savedList.get(i).markAsDone();  //ArrayList indexing starts from 0.
                 }
 
-                i++; //Increment counter!
+                i++;
             }
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
@@ -81,6 +80,4 @@ public class Storage {
             System.out.println("Something went wrong saving the file :(");
         }
     }
-
-
 }

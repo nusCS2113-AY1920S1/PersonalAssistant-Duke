@@ -8,7 +8,7 @@ public class NumCommand extends Command {
 
     public NumCommand(CommandType type, int index) {
         super(type);
-        this.itemIndex = index-1; //Because of 0-indexing
+        this.itemIndex = index-1; //Because of 0-indexing, user's request for item 1 means item 0.
     }
 
     public int getItemIndex() {

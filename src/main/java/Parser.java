@@ -2,16 +2,9 @@ import java.util.Scanner;
 
 /**
  * Interprets command strings by the user.
- * Todo: Converts command strings into command objects that can be processed at the level of the duke class.
  */
 
 public class Parser {
-
-    //May reuse later.
-//    private boolean indexIsValid(TaskList list, int index) {
-//        int max = list.getSize();
-//        return index <= max;
-//    }
 
     private String addTodo(String input) throws InsufficientInfoException {
         if (input.isBlank()) {
@@ -45,6 +38,7 @@ public class Parser {
             return event;
         }
     }
+
     /**
      * Checks if the command keyword (first word is valid).
      * Determines what to do with the remaining string depending on the command.
@@ -96,19 +90,9 @@ public class Parser {
                 String description = keyword[1].trim(); //Might need to catch empty string exceptions?
                 if (!description.isBlank()) {
                     command = new FindCommand(Command.CommandType.FIND, description);
-                    //command[1] = description;
                 } else {
                     command = new Command();
                     System.out.println("Please enter the search description.");
-                    //command[0] = null;
-//                    switch (keyword[0]) {
-//                        case "deadline":
-//                            System.out.println("Please enter the description of the deadline.");
-//                        case "event":
-//                            System.out.println("Please enter the description of the event.");
-//                        case "find":
-//                            System.out.println("Please enter the search description.");
-//                    }
                 }
                 break;
             }
@@ -130,7 +114,7 @@ public class Parser {
 
         Command userCommand;
 
-        //TODO: Make this a do-while that waits for a good input
+        //TODO: Make this a do-while that waits for a good input?
         //TODO: Shift this implementation to the Ui class
         try {
             userCommand = handleListInput(userInput);
@@ -138,7 +122,7 @@ public class Parser {
             System.out.println("Please input only an integer after the command.");
             userCommand = new Command();
 
-        } catch (Exception e) { //e is a string - the exception message
+        } catch (Exception e) {
             System.out.println("Parser error: ");
             System.out.println(e);
             userCommand = new Command();

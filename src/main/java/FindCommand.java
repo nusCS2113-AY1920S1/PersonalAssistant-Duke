@@ -1,5 +1,5 @@
 /**
- * Command objects for searching for tasks.
+ * Command objects for searching for tasks by name.
  */
 public class FindCommand extends Command {
     private String search;

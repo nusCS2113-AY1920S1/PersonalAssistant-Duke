@@ -19,10 +19,8 @@ public class AddCommand extends Command {
             list.addTodoItem(description);
         } else if (super.type == CommandType.DEADLINE) {
             list.addDeadlineItem(description, details);
-        } else if (super.type == CommandType.EVENT) { //
+        } else { //Type is event
             list.addEventItem(description, details);
-        } else {
-            System.out.println("Type error."); //TODO: Should handle an error here?
         }
     }
 
