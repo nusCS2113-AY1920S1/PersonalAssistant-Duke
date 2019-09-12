@@ -9,7 +9,7 @@ import duke.ui.Ui;
  * keyword given by the user and shows the user a list of matching Tasks or else informs the user that no
  * matching duke.task.Task objects were found
  */
-class FindCommand extends Command {
+public class FindCommand extends Command {
 	private String keyword;
 
 	public FindCommand(String keyword) {

@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.*;
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
  */

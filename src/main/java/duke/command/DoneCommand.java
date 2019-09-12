@@ -10,7 +10,7 @@ import duke.ui.Ui;
 /**
  * duke.command.DoneCommand that deals with marking Tasks in the duke.tasklist.TaskList as done
  */
-class DoneCommand extends Command {
+public class DoneCommand extends Command {
 	private int index;
 
 	public DoneCommand(String index) {

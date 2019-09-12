@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * duke.command.AddCommand that deals with the adding of new duke.task.Task objects to the duke.tasklist.TaskList
  */
-class AddCommand extends Command {
+public class AddCommand extends Command {
 	String description;
 	String taskType;
 
