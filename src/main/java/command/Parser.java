@@ -1,3 +1,13 @@
+package command;
+
+import common.DukeException;
+import common.TaskList;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import ui.Ui;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +33,7 @@ public class Parser {
             if (IsBye(input)) {
                 //print bye message
                 ui.ByeMessage();
-                ui.in.close();
+                ui.getIn().close();
                 return true;
 
             } else if (IsList(input)) {
@@ -77,7 +87,7 @@ public class Parser {
             TaskList findlist = new TaskList();
             String[] splitspace = input.split(" ", 2);
             for (Task tasks : tasklist.ReturnArrayList()){
-                if(tasks.description.contains(splitspace[1])){
+                if(tasks.getDescription().contains(splitspace[1])){
                     findlist.AddTask(tasks);
                 }
             }
