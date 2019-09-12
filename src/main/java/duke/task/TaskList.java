@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.util.ArrayList;
 
 /**
@@ -5,7 +7,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private static ArrayList<Task> taskList;
+    private static ArrayList<duke.task.Task> taskList;
     /**
      * Constructor that creates a new TaskList if no TaskList is given
       */

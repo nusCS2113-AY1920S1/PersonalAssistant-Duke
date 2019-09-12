@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.*;
+
 /**
  * Class that represents the command for a task to be found
  * Subclass of Command

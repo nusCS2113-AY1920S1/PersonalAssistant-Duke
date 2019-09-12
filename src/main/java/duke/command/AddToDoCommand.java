@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.*;
+
 /**
  * Class that holds the command to add a to do
  * Subclass of Command

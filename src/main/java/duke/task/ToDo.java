@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Class representing a task to be done
  * Subclass of Task Class

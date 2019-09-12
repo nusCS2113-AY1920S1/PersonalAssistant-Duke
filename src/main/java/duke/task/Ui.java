@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.util.Scanner;
 
 /**
@@ -63,9 +65,9 @@ public class Ui {
     }
 
     /**
-     * Returns message of DukeException that occurs
-     * @param e DukeException that occurs
-     * @return Message of the DukeException
+     * Returns message of duke.task.DukeException that occurs
+     * @param e duke.task.DukeException that occurs
+     * @return Message of the duke.task.DukeException
      */
     public String printException(DukeException e) {
         return e.getMessage();

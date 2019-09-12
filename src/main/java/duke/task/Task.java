@@ -1,8 +1,10 @@
+package duke.task;
+
 /**
  * Main class used to represent various tasks
  */
 public class Task {
-    protected String description;
+    public String description;
     protected boolean isDone;
 
     /**

@@ -1,6 +1,10 @@
+package duke.command;
+
+import duke.task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 /**
  * Class that holds the command to add a deadline

@@ -1,3 +1,6 @@
+package duke.command;
+import duke.task.*;
+
 /**
  * Class that represents the command to mark the task as done
  */
