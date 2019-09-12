@@ -1,3 +1,5 @@
+package duke.items;
+
 /**
  * Task is an abstract class that stores the description and done status of a task.
  * Is extended by Todo, Deadline and Event classes.

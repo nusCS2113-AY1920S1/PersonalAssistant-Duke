@@ -1,4 +1,7 @@
+package duke;
 import java.util.Scanner;
+import duke.commands.*;
+import duke.exceptions.*;
 
 /**
  * Interprets command strings by the user.

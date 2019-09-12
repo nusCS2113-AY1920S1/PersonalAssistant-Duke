@@ -1,3 +1,7 @@
+package duke.commands;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 /**
  * This is an abstract class.
  * Command objects are sent from the Parser and executed with TaskList or Ui.
@@ -6,7 +10,7 @@
 
 public class Command {
 
-    protected enum CommandType {
+    public enum CommandType {
         TODO, DEADLINE, EVENT, BYE, LIST, DONE, DELETE, FIND, BAD
     }
 

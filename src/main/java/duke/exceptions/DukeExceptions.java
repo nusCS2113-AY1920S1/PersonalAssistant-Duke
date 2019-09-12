@@ -1,3 +1,4 @@
+package duke.exceptions;
 /**
  * Unsure of how to use DukeExceptions properly.
  */
