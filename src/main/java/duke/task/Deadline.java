@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.*;
 import java.util.Date;
 
 /**

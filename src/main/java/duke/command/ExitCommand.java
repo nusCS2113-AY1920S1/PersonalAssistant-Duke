@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * duke.command.ExitCommand class which will save all the duke.task.Task data into the JSON file and initiate the exit procedure
  */
-class ExitCommand extends Command {
+public class ExitCommand extends Command {
 	public ExitCommand() {}
 
 	@Override

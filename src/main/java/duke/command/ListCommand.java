@@ -7,7 +7,7 @@ import duke.ui.Ui;
 /**
  * duke.command.ListCommand class which executes the command of displaying the duke.tasklist.TaskList to the user
  */
-class ListCommand extends Command {
+public class ListCommand extends Command {
 	public ListCommand() {}
 
 	@Override

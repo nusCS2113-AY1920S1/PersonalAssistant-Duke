@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * duke.command.DeleteCommand which executes the procedure for deleting duke.task.Task objects from the duke.tasklist.TaskList
  */
-class DeleteCommand extends Command {
+public class DeleteCommand extends Command {
 	private int index;
 
 	public DeleteCommand(String index) {
