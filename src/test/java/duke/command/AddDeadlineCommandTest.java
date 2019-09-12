@@ -13,7 +13,7 @@ import duke.task.*;
 
 public class AddDeadlineCommandTest {
     @Test
-    public void TestToDoCommand() throws DukeException, IOException {
+    public void TestDeadlineCommand() throws DukeException, IOException {
         File tempFile = File.createTempFile("duke",".txt");
         tempFile.deleteOnExit();
 
@@ -21,11 +21,11 @@ public class AddDeadlineCommandTest {
         Ui newUi = new Ui();
         Storage newStorage = new Storage(tempFile.getPath());
 
-        AddDeadLineCommand todoCommand = new AddDeadLineCommand(false,"deadline To complete work /by 1/1/2019 1830");
-        todoCommand.execute(newTaskList, newUi, newStorage);
+        AddDeadLineCommand deadLineCommand = new AddDeadLineCommand(false,"deadline To complete work /by 1/1/2019 1830");
+        deadLineCommand.execute(newTaskList, newUi, newStorage);
 
-        assertEquals(newTaskList.getSize(), 1);
+        assertEquals(1, newTaskList.getSize());
         assertTrue(tempFile.exists());
-        assertEquals(Files.readAllLines(Paths.get(tempFile.getPath())).get(0) , "D | 0 | To complete work | 1/1/2019 1830");
+        assertEquals( "D | 0 | To complete work | 1/1/2019 1830", Files.readAllLines(Paths.get(tempFile.getPath())).get(0));
     }
 }

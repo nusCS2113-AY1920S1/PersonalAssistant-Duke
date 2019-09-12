@@ -119,12 +119,12 @@ public class Storage {
             String description = value.description;
             String newDate = "";
 
-            if (className == "ToDo") {
+            if (className.equals("ToDo")) {
                 taskType = "T";
-            } else if (className == "Deadline") {
+            } else if (className.equals("Deadline")) {
                 taskType = "D";
                 newDate = unparseDate(((Deadline) value).by);
-            } else if (className == "Event") {
+            } else if (className.equals("Event")) {
                 taskType = "E";
                 newDate = unparseDate(((Event) value).at);
             }

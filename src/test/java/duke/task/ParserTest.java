@@ -12,7 +12,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parse("bye") instanceof ExitCommand);
             assertTrue(Parser.parse("list") instanceof ListTaskCommand);
-            assertTrue(Parser.parse("todo asdasd") instanceof AddToDoCommand);
+            assertTrue(Parser.parse("todo work") instanceof AddToDoCommand);
             assertTrue(Parser.parse("event to do work /at 02/12/2019 1830") instanceof AddEventCommand);
             assertTrue(Parser.parse("deadline to do stuff /by 12/12/2020 1830") instanceof AddDeadLineCommand);
             assertTrue(Parser.parse("done 1") instanceof MarkTaskAsDoneCommand);
@@ -21,7 +21,7 @@ public class ParserTest {
 
             Parser.parse("asdasd");
         } catch (DukeException e) {
-            assertEquals("DukeException: OOPS!!! I'm sorry, but I don't know what that means :-(", e.toString());
+            assertEquals("duke.task.DukeException: OOPS!!! I'm sorry, but I don't know what that means :-(", e.toString());
         }
     }
 }
