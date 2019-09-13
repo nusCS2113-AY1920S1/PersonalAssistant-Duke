@@ -23,7 +23,6 @@ public class Storage {
 
     /**
      * Constructs a Storage object that contains duke.tasks and duke.storage related operations.
-     * Mainly save duke.tasks and get duke.tasks.
      *
      * @param filePath The filepath to the txt file.
      * @param ui The user interface displaying events on the task list.

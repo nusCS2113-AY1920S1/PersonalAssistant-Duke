@@ -11,21 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ParserUtilTest {
 
     @Test
-    void createTodo() {
-        try {
-            assertTrue(ParserUtil.createTodo("Homework") instanceof Todo);
-        } catch (Exception e) {
-            System.out.println("Fail");
-        }
+    void createTodo() throws Exception {
+        assertTrue(ParserUtil.createTodo("Homework") instanceof Todo);
     }
 
     @Test
-    void createDeadline() {
-        try {
-            assertTrue(ParserUtil.createDeadline("deadline homework /by tomorrow") instanceof Deadline);
-        } catch (Exception e) {
-            System.out.println("Fail");
-        }
+    void createDeadline() throws Exception {
+        assertTrue(ParserUtil.createDeadline("deadline homework /by tomorrow") instanceof Deadline);
     }
 
     @Test
@@ -38,11 +30,7 @@ class ParserUtilTest {
     }
 
     @Test
-    void getIndex() {
-        try {
-            assertEquals(ParserUtil.getIndex("done 1"), 0);
-        } catch (Exception e) {
-            System.out.println("Fail");
-        }
+    void getIndex() throws Exception {
+        assertEquals(ParserUtil.getIndex("done 1"), 0);
     }
 }

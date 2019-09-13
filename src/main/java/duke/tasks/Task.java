@@ -4,9 +4,9 @@ package duke.tasks;
  * A generic task, which can be marked as done.
  */
 public class Task {
-    protected String description;
+    private String description;
 
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Initializes a task not yet done with the given description.
