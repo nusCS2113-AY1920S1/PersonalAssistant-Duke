@@ -29,5 +29,9 @@ public class Task{
     public boolean getStatus(){
         return isDone;
     }
+
+//    public String getTaskType(){
+//        return type;
+//    }
 }
 

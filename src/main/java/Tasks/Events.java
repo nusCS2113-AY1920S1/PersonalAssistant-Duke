@@ -1,22 +1,30 @@
 package Tasks;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Events extends Task{
 
-    protected String at;
+    protected Date at;
+    private SimpleDateFormat simpleDateFormat;
 
-    public Events(String description, String at) {
+    public Events(String description, Date at) {
         super(description);
         this.at = at;
         super.type = "E";
+        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + at + ")";
+        return "[E]" + super.toString() + "(at: " + getAt() + ")";
     }
 
     public String getAt(){
-        return at;
+        return simpleDateFormat.format(at);
     }
 
+    public Date getDateAt() {
+        return at;
+    }
 }

@@ -1,11 +1,8 @@
-T | 0 | code for duke
+D | 1 | finish reminders  | 14/9/2019 1600
+E | 1 | NOCfest  | 15/9/2019 1400
+D | 0 | send help  | 14/9/2019 1400
+D | 0 | presentation slides  | 13/9/2019 1400
+E | 0 | present  | 1/9/2019 1200
+E | 0 | Comex  | 13/9/2019 1600
 D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 1 | code for GUI  | 6/9/2019 1400
 E | 0 | code jam  | 6/6/2011 1100

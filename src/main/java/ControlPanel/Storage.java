@@ -1,14 +1,20 @@
 package ControlPanel;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import Tasks.*;
 
 public class Storage {
 
     private String fileName;
+    private SimpleDateFormat simpleDateFormat;
     public  Storage (String filePath){
         fileName = filePath;
+        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
     public ArrayList<Task> load() {
@@ -29,10 +35,12 @@ public class Storage {
                         t = new ToDos(info[2]);
                         break;
                     case "D":
-                        t = new Deadline(info[2], info[3]);
+                        Date deadlineDate = simpleDateFormat.parse(info[3]);
+                        t = new Deadline(info[2], deadlineDate);
                         break;
                     case "E":
-                        t = new Events(info[2], info[3]);
+                        Date eventDate = simpleDateFormat.parse(info[3]);
+                        t = new Events(info[2], eventDate);
                         break;
                 }
                 if (t.getDescription().equals("default")) {
@@ -44,7 +52,7 @@ public class Storage {
                 checkList.add(t);
             }
             bufferedReader.close();
-        } catch (IOException | DukeException e) {
+        } catch (IOException | DukeException | ParseException e) {
             e.printStackTrace();
         }
         return checkList;

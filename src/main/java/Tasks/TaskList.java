@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     public void markDoneATask(int index){
-        checkList.get(index - 1).markAsDone();
+        checkList.get(index).markAsDone();
     }
 
 }

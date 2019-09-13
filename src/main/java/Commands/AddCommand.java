@@ -31,7 +31,7 @@ public class AddCommand extends Command {
                 Date date = simpleDateFormat.parse(getDate[getDate.length-1]);
                 String formattedDate = simpleDateFormat.format(date);
                 Task t = new Deadline(getDate[0].replaceFirst("deadline ", ""),
-                        formattedDate);
+                        date);
                 tasks.addTask(t);
                 break;
             }
@@ -43,7 +43,7 @@ public class AddCommand extends Command {
                 Date date = simpleDateFormat.parse(getDate[getDate.length-1]);
                 String formattedDate = simpleDateFormat.format(date);
                 Task t = new Events(getDate[0].replaceFirst("event ", ""),
-                        formattedDate);
+                        date);
                 tasks.addTask(t);
                 break;
             }
