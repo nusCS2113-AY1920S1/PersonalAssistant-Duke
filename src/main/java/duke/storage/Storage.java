@@ -28,7 +28,8 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         String sep = System.getProperty("file.separator");
-        File file = new File("savedata" + sep + "dukedata.txt");
+        File file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                            + sep + "Data" + sep + "duke.txt");
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file,true));
             bufferedReader = new BufferedReader(new FileReader(file));
