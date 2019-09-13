@@ -2,7 +2,7 @@
 /.idea/
 /out/
 /*.iml
-
+data
 # Gradle build files
 /.gradle/
 /build/
@@ -11,3 +11,9 @@ src/main/resources/docs/
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
+bin/
+
+# Test
+text-ui-test/input.txt
+text-ui-test/EXPECTED.txt
+text-ui-test/ACTUAL.txt
