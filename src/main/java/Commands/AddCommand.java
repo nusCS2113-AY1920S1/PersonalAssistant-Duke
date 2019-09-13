@@ -26,6 +26,18 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, DukeException {
         switch (type) {
+            case "period": {
+                String[] getDate1 = inputString.split("/from ");
+                String[] getDate2 = getDate1[1].split("/to ");
+                Date date1 = simpleDateFormat.parse(getDate2[0]);
+                Date date2 = simpleDateFormat.parse(getDate2[1]);
+                String formattedDate1 = simpleDateFormat.format(date1);
+                String formattedDate2 = simpleDateFormat.format(date2);
+                Task t = new Periods(getDate1[0].replaceFirst("period ", ""),
+                        formattedDate1, formattedDate2);
+                tasks.addTask(t);
+                break;
+            }
             case "deadline": {
                 String[] getDate = inputString.split("/by ");
                 Date date = simpleDateFormat.parse(getDate[getDate.length-1]);

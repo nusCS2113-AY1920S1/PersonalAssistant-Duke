@@ -26,7 +26,7 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.replace('|', '@');
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E"))) {
+                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P"))) {
                     throw new DukeException("This is not a valid input from the file!!!");
                 }
                 Task t = new Task("default");
@@ -42,6 +42,9 @@ public class Storage {
                         Date eventStartDate = simpleDateFormat.parse(info[3]);
                         Date eventEndDate = simpleDateFormat.parse(info[4]);
                         t = new Events(info[2], eventStartDate, eventEndDate);
+                        break;
+                    case "P":
+                        t = new Periods(info[2], info[3], info[4]);
                         break;
                 }
                 if (t.getDescription().equals("default")) {
@@ -86,6 +89,14 @@ public class Storage {
                     else
                         bufferedWriter.write("D | 0 | " + t.getDescription() + " | "
                                 + ((Deadline) t).getBy() + "\n");
+
+                } else if (t instanceof Periods) {
+                    if (t.getStatus())
+                        bufferedWriter.write("P | 1 | " + t.getDescription() + " | "
+                                + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
+                    else
+                        bufferedWriter.write("P | 0 | " + t.getDescription() + " | "
+                                + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
 
                 }
             }

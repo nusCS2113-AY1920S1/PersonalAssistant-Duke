@@ -39,7 +39,7 @@ public class Parser {
         }
         else {
             String keyword = cmd.split(" ")[0];
-            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo"))){
+            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period"))){
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
             }
             command = new AddCommand(keyword, cmd);
