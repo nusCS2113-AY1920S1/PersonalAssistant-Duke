@@ -5,32 +5,22 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
    __________________________________
-    Hello! I'm Duke
+    Hello! I'm duke
     What can I do for you?
    __________________________________
 
    __________________________________
-     Invalid Command
-   __________________________________
-
-   __________________________________
-    Got it. I've added this task:
-      [T][?] return book
-
-    Now you have 1 tasks in your list.
-   __________________________________
+Invalid Command   __________________________________
 
    __________________________________
     Got it. I've added this task:
       [E][?] hello  (at: 13th of December 1997, 12pm)
 
-    Now you have 2 tasks in your list.
+    Now you have 3 tasks in your list.
    __________________________________
 
    __________________________________
-    Nice! I've marked this task as done:
-      [E][?] hello  (at: 13th of December 1997, 12pm)
-
+    ☹ OOPS!!! This task has already been completed
    __________________________________
 
    __________________________________

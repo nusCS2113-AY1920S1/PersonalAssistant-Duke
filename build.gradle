@@ -1,9 +1,14 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
 }
 
-group 'seedu.duke'
+checkstyle {
+    toolVersion = '8.23'
+}
+
+group 'duke'
 version '0.1.0'
 
 repositories {
@@ -12,7 +17,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "Duke"
 }
 
 run {
