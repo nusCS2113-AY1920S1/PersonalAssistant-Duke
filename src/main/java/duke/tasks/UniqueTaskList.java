@@ -10,15 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A list of Tasks that enforces uniqueness between its elements and does not allow nulls.
- * A Task is considered unique by comparing using {@code Task#isSameTask(Task)}. As such, adding and updating of
- * Tasks uses Task#isSameTask(Task) for equality so as to ensure that the Task being added or updated is
- * unique in terms of identity in the UniqueTaskList. However, the removal of a Task uses Task#equals(Object) so
- * as to ensure that the Task with exactly the same fields will be removed.
- *
- * Supports a minimal set of list operations.
- *
- * @see Task#isSameTask(Task)
+ * A list of Tasks that enforces uniqueness between its elements.
  */
 public class UniqueTaskList implements Iterable<Task> {
     private ObservableList<Task> internalList;
@@ -89,12 +81,12 @@ public class UniqueTaskList implements Iterable<Task> {
      * Replaces the contents of this list with {@code Tasks}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Task> Tasks) throws DukeException {
-        if (!TasksAreUnique(Tasks)) {
+    public void setTasks(List<Task> tasks) throws DukeException {
+        if (!tasksAreUnique(tasks)) {
             throw new DuplicateTaskException();
         }
 
-        internalList.setAll(Tasks);
+        internalList.setAll(tasks);
     }
 
     @Override
@@ -117,10 +109,10 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if {@code Tasks} contains only unique Tasks.
      */
-    private boolean TasksAreUnique(List<Task> Tasks) {
-        for (int i = 0; i < Tasks.size() - 1; i++) {
-            for (int j = i + 1; j < Tasks.size(); j++) {
-                if (Tasks.get(i).isSameTask(Tasks.get(j))) {
+    private boolean tasksAreUnique(List<Task> tasks) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            for (int j = i + 1; j < tasks.size(); j++) {
+                if (tasks.get(i).isSameTask(tasks.get(j))) {
                     return false;
                 }
             }

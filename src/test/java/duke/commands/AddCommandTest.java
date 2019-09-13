@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commons.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddCommandTest {
 
     @Test
-    void execute() {
+    void execute() throws DukeException {
         Ui ui = new Ui();
         Storage storage = new Storage("tasks.txt", ui);
         Task task = new Todo("homework");
