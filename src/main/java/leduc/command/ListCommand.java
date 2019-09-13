@@ -7,12 +7,12 @@ import leduc.Ui;
 import leduc.task.TaskList;
 
 /**
- * Represents a List leduc.command.Command.
+ * Represents a List Command.
  * Allow to display all the tasks contained in the tasks list.
  */
 public class ListCommand extends Command {
     /**
-     * Constructor of leduc.command.ListCommand.
+     * Constructor of ListCommand.
      * @param user String which represent the input string of the user.
      */
     public  ListCommand(String user){

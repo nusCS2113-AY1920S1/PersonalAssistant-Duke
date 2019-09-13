@@ -1,21 +1,20 @@
 package leduc.command;
 
 import leduc.Parser;
-import leduc.command.Command;
-import leduc.exception.UnmeaningException;
+import leduc.exception.MeaningLessException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
 
 /**
- * Represents a leduc.command.Command which is not understood.
+ * Represents a meaning less command which is not understood.
  */
-public class UnmeaningCommand extends Command {
+public class MeaningLessCommand extends Command {
     /**
-     * Constructor of leduc.command.UnmeaningCommand.
+     * Constructor of MeaningLessCommand.
      * @param user String which represent the input string of the user.
      */
-    public  UnmeaningCommand(String user){
+    public MeaningLessCommand(String user){
         super(user);
     }
 
@@ -25,10 +24,10 @@ public class UnmeaningCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @param parser leduc.Parser which deals with making sense of the user command.
-     * @throws UnmeaningException Exception caught when the input string could not be interpreted.
+     * @throws MeaningLessException Exception caught when the input string could not be interpreted.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws UnmeaningException {
-        throw new UnmeaningException(ui);
+    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws MeaningLessException {
+        throw new MeaningLessException(ui);
     }
 
     /**

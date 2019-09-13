@@ -2,7 +2,7 @@ package leduc.storage;
 
 import leduc.Parser;
 import leduc.Ui;
-import leduc.exception.InexistentDateException;
+import leduc.exception.NonExistentDateException;
 import leduc.task.*;
 
 import java.io.BufferedReader;
@@ -31,9 +31,9 @@ public class Storage {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @return the tasks list initialized with the date in the data file.
      * @throws IOException Exception caught when the error occurred during the reading of the data file.
-     * @throws InexistentDateException Exception caught when the date of an event or deadline task present in the data file does not exist.
+     * @throws NonExistentDateException Exception caught when the date of an event or deadline task present in the data file does not exist.
      */
-    public List<Task> load(Parser parser, Ui ui) throws IOException, InexistentDateException { // load the initial data file
+    public List<Task> load(Parser parser, Ui ui) throws IOException, NonExistentDateException { // load the initial data file
         ReadFile rFile = new ReadFile(this.filePath,ui);// reader for initialization of tasks list
         BufferedReader bufferedReader = rFile.getBufferedReader();
         List<Task> tasks = new ArrayList<>();

@@ -1,19 +1,18 @@
 package leduc.command;
 
 import leduc.Parser;
-import leduc.command.Command;
-import leduc.exception.InexistentTaskException;
+import leduc.exception.NonExistentTaskException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
 /**
- * Represents a Delete leduc.command.Command.
+ * Represents a Delete Command.
  */
 public class DeleteCommand extends Command {
     /**
-     * Constructor of leduc.command.DeleteCommand.
+     * Constructor of DeleteCommand.
      * @param user String which represent the input string of the user.
      */
     public  DeleteCommand(String user){
@@ -26,12 +25,12 @@ public class DeleteCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @param parser leduc.Parser which deals with making sense of the user command.
-     * @throws InexistentTaskException Exception caught when the task to delete does not exist.
+     * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)throws InexistentTaskException {
+    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)throws NonExistentTaskException {
         int index = Integer.parseInt(user.substring(7)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
-            throw new InexistentTaskException(ui);
+            throw new NonExistentTaskException(ui);
         }
         else { // the tasks exist
             Task removedTask = tasks.remove(index);

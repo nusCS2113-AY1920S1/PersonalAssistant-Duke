@@ -42,7 +42,7 @@ public class Ui {
      */
     public void showWelcome(){
         this.displayLogo();
-        this.display("\t Hello I'm leduc.Duke\n\t What can I do for you ?");
+        this.display("\t Hello I'm Duke\n\t What can I do for you ?");
     }
 
     /**

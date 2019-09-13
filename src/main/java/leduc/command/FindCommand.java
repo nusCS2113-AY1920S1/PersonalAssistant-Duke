@@ -7,12 +7,12 @@ import leduc.Ui;
 import leduc.task.TaskList;
 
 /**
- * Represents a Find leduc.command.Command.
+ * Represents a Find Command.
  * Allow to find a specific task from the task list.
  */
 public class FindCommand extends Command {
     /**
-     * Constructor of leduc.command.FindCommand.
+     * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
      */
     public FindCommand(String user){

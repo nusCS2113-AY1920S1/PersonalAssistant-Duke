@@ -11,12 +11,12 @@ import leduc.task.TodoTask;
 import java.io.IOException;
 
 /**
- * Represents a Todo leduc.command.Command.
+ * Represents a Todo Command.
  * Allows to add the todo task in the tasks list and the data file.
  */
 public class TodoCommand extends Command {
     /**
-     * Constructor of leduc.command.TodoCommand.
+     * Constructor of TodoCommand.
      * @param user String which represent the input string of the user.
      */
     public  TodoCommand(String user){
