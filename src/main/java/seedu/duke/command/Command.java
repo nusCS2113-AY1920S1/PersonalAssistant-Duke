@@ -11,7 +11,7 @@ public abstract class Command {
     protected boolean silent = false;
 
     /**
-     * Execute the command. This method is to be overridden to specific functionality by different types of
+     * Executes the command. This method is to be overridden to specific functionality by different types of
      * command themselves.
      *
      * @return a flag whether the command is successfully executed.

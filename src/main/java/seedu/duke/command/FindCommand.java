@@ -4,7 +4,7 @@ import seedu.duke.Duke;
 import seedu.duke.TaskList;
 
 /**
- * Find Command is a specific kind of command used to find a task from task list with a keyword.
+ * FindCommand is a specific kind of command used to find a task from task list with a keyword.
  */
 public class FindCommand extends Command {
     private TaskList taskList;
@@ -22,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Execute the find command by calling the findKeyword function from the task list. Find result will be
+     * Executes the find command by calling the findKeyword function from the task list. Find result will be
      * shown by the UI.
      *
      * @return true after the look after is completed. Note that no result found will be reflected in the UI

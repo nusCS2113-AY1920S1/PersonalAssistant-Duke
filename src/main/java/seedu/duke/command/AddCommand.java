@@ -10,7 +10,7 @@ import seedu.duke.task.ToDo;
 import java.util.Date;
 
 /**
- * Add Command is a specific kind of command used to add task to the task list.
+ * AddCommand is a specific kind of command used to add task to the task list.
  */
 public class AddCommand extends Command {
     private TaskList taskList;
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Execute the add command by instantiating the task first and then add the task to task list.
+     * Executes the add command by instantiating the task first and then add the task to task list.
      *
      * @return a flag whether the task is successfully added. Returns false if the taskType is not recognised.
      */

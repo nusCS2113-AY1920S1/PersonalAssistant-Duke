@@ -18,7 +18,8 @@ import java.util.Scanner;
  */
 public class Storage {
     /**
-     * This function clear the content of the file and write all the information of the tasks in the task list
+     * This function clears the content of the file and write all the information of the tasks in the task
+     * list
      * to that file. This file follows similar structure as the user input and can be used to re-construct the
      * task list later.
      *
@@ -50,7 +51,7 @@ public class Storage {
     }
 
     /**
-     * This function read the file that is previously saved to re-construct and return the task list from the
+     * This function reads the file that is previously saved to re-construct and return the task list from the
      * file information. Note: if any error occurs during the reading or parsing of the file, an empty task
      * list will always be returned for the integrity of data.
      *
@@ -115,7 +116,7 @@ public class Storage {
         private String msg;
 
         /**
-         * Instantiation of storage exception with a message, which can be later displayed by the UI.
+         * Instantiates storage exception with a message, which can be later displayed by the UI.
          *
          * @param msg the message of the exception that can be displayed by UI
          */
@@ -125,7 +126,7 @@ public class Storage {
         }
 
         /**
-         * Convert the exception to string by returning its message.
+         * Converts the exception to string by returning its message.
          *
          * @return message of the exception.
          */
