@@ -15,6 +15,7 @@ import duke.tasks.ToDo;
  */
 public class Storage {
     private String line = null;
+    private File file = null;
     private BufferedReader bufferedReader = null;
     private BufferedWriter bufferedWriter = null;
 
@@ -28,10 +29,9 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         String sep = System.getProperty("file.separator");
-        File file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+        file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                             + sep + "Data" + sep + "duke.txt");
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(file,true));
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (Exception e) {
             throw new DukeException("Unable to access file");
@@ -125,6 +125,12 @@ public class Storage {
      */
     //TODO: maybe we can put the errors in the ui file
     public void updateFile(ArrayList<Task> tasks) {
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(file));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
         try {
             for (int i = 0; i < tasks.size(); i++) {
                 Task currentTask = tasks.get(i);
