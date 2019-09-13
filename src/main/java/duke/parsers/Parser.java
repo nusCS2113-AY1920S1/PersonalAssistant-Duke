@@ -42,11 +42,21 @@ public class Parser {
         } else if (command.equals("todo")) {
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
-            String SplitString[] = description.split(" /by ", 2);
+            String SplitString[];
+            try {
+                SplitString = description.split(" /by ", 2);
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
+            }
             return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
         } else if (command.equals("event")) {
-            String SplitString[] = description.split(" /at ", 2);
-            return new AddCommand(new Event(SplitString[0], SplitString[1]));
+            String SplitString[];
+            try {
+                SplitString = description.split(" /at ", 2);
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
+            }
+            return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("done")) {
