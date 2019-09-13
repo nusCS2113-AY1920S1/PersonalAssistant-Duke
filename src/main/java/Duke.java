@@ -40,7 +40,7 @@ public class Duke{
     }
 
     public static void main(String[] args) throws DukeException {
-        new Duke("D:/duke/data/tasks.txt").run();
+        new Duke("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt").run();
     }
 
 }//duke class
