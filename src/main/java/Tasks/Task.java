@@ -1,7 +1,9 @@
+package Tasks;
+
 abstract public class Task {
-    protected String description;
-    protected boolean isDone;
-    protected String symbol;
+    public String description;
+    public boolean isDone;
+    public String symbol;
 
     public Task(String description){
         this.description=description;
@@ -16,7 +18,7 @@ abstract public class Task {
         isDone=true;
     }
 
-    String getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 

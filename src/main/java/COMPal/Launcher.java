@@ -1,3 +1,5 @@
+package COMPal;
+
 import javafx.application.Application;
 
 

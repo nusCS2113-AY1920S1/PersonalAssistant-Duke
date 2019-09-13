@@ -1,3 +1,7 @@
+package Inputs;
+
+import COMPal.Duke;
+
 import java.util.Scanner;
 
 public class Parser {
@@ -16,7 +20,7 @@ public class Parser {
      * No return value
      * This function handles the main CLI parsing. Just pass in the cmd string and it will work its magic.
      * It uses regex to understand the command entered.
-     * @UsedIn: Duke.handleUserInput()
+     * @UsedIn: COMPal.Duke.handleUserInput()
      * todo:Replace all console output with GUI output
      */
     public void processCommands(String cmd){

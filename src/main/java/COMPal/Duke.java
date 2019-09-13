@@ -1,3 +1,9 @@
+package COMPal;
+
+import Inputs.Parser;
+import Inputs.Storage;
+import Inputs.Ui;
+import Tasks.TaskList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +36,11 @@ public class Duke extends Application{
 
     private static final String saveFilePath="./duke.txt";
 
-    //objects supporting Duke
-    Ui ui;
-    Storage storage;
-    TaskList tasklist;
-    Parser parser;
+    //objects supporting COMPal.Duke
+    public Ui ui;
+    public Storage storage;
+    public TaskList tasklist;
+    public Parser parser;
 
 
     /**
@@ -44,7 +50,7 @@ public class Duke extends Application{
      * Starts off the parser CLI parsing loop
      */
     public Duke(){
-        System.out.println("Duke constructor");
+        System.out.println("COMPal.Duke constructor");
         //Instantiate objects
         tasklist = new TaskList(this);
 
@@ -62,7 +68,7 @@ public class Duke extends Application{
      * @param stage
      * @throws Exception
      * This function is for setting up the JavaFX(GUI) stage, overridden from javafx.application.Application
-     * @UsedIn: Launcher.java (indirect call)
+     * @UsedIn: COMPal.Launcher.java (indirect call)
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -77,7 +83,7 @@ public class Duke extends Application{
     /**
      * @Function
      * No Params, No Return Value
-     * This function handles the exiting/shutdown of the program Duke
+     * This function handles the exiting/shutdown of the program COMPal.Duke
      * @UsedIn: parser.processCommands
      * TODO: Save data on exit
      */
@@ -96,7 +102,7 @@ public class Duke extends Application{
      * This function parses the date in the format dd/MM/yyyy HHmm and returns a date in the format
      * dd MMMM yyyy hh:mma
      */
-    protected static String dateParse(String when){
+    public static String dateParse(String when){
         //parse date
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date = null;
@@ -121,7 +127,7 @@ public class Duke extends Application{
      *
      * It is thrown when command is unknown or when there are invalid arguments
      */
-    static class DukeException extends Exception{
+    public static class DukeException extends Exception{
 
         String description;
         public DukeException(String description){

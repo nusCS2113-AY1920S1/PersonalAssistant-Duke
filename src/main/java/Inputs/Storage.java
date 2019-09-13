@@ -1,3 +1,10 @@
+package Inputs;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,11 +21,11 @@ public class Storage {
     /***
      * @Function
      * This function saves the arraylist of tasks to a file called duke.txt in the current directory.
-     * It writes all the properties of Task t (which are strings) to the file using PrintWriter
+     * It writes all the properties of Tasks.Task t (which are strings) to the file using PrintWriter
      * @UsedIn: tasklist.addTask, tasklist.taskDone
      *
      */
-    protected void saveDuke(ArrayList<Task> tasks){
+    public void saveDuke(ArrayList<Task> tasks){
 
         try {
             File f = new File(saveFilePath);
@@ -37,13 +44,13 @@ public class Storage {
     /***
      * @Function
      * This function loads from the textfile the list of tasks into the arraylist on startup.
-     * It creates new Task objects based on the symbol read i.e if E, then Task t = new Event(description);
+     * It creates new Tasks.Task objects based on the symbol read i.e if E, then Tasks.Task t = new Tasks.Event(description);
      * and then we add the task to the arraylist
      *
-     * @UsedIn: Duke Constructor
+     * @UsedIn: COMPal.Duke Constructor
      *
      */
-    protected void loadDuke(ArrayList<Task> tasks){
+    public void loadDuke(ArrayList<Task> tasks){
 
         try {
             File f = new File(saveFilePath);
