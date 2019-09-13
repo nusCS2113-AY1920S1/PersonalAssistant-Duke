@@ -40,7 +40,7 @@ public class AddCommand extends Command {
             }
             case "deadline": {
                 String[] getDate = inputString.split("/by ");
-                Date date = simpleDateFormat.parse(getDate[getDate.length-1]);
+                Date date = simpleDateFormat.parse(getDate[getDate.length - 1]);
                 String formattedDate = simpleDateFormat.format(date);
                 Task t = new Deadline(getDate[0].replaceFirst("deadline ", ""),
                         date);
@@ -48,11 +48,11 @@ public class AddCommand extends Command {
                 break;
             }
             case "event": {
-                if (inputString.equals("event")){
+                if (inputString.equals("event")) {
                     throw new DukeException("OOPS!!! The description of a event cannot be empty.");
                 }
                 String[] getDate = inputString.split("/at ");
-                String eventPeriod = getDate[getDate.length-1];
+                String eventPeriod = getDate[getDate.length - 1];
                 String[] startendDate = eventPeriod.split(" to ");
                 //System.out.println(startendDate[1]);
                 Date startDate = simpleDateFormat.parse(startendDate[0]);
@@ -63,10 +63,19 @@ public class AddCommand extends Command {
                 break;
             }
             case "todo": {
-                if (inputString.equals("todo")){
+                if (inputString.equals("todo")) {
                     throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 Task t = new ToDos(inputString.replaceFirst("todo ", ""));
+                tasks.addTask(t);
+                break;
+            }
+            case "duration": {
+                if (inputString.equals("duration")) {
+                    throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                }
+                String[] getDuration = inputString.split("/needs ");
+                Task t = new FixedDuration(getDuration[0].replaceFirst("duration ", ""), getDuration[1]);
                 tasks.addTask(t);
                 break;
             }
