@@ -6,7 +6,7 @@ package seedu.duke.task;
  */
 public class ToDo extends Task {
     /**
-     * Instantiate the ToDo class, which only takes in the name and set isDone flag to false like all tasks.
+     * Instantiates the ToDo class, which only takes in the name and set isDone flag to false like all tasks.
      *
      * @param name name of the task
      */
@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Function that convert the task to a human readable string containing important information about the
+     * Converts the task to a human readable string containing important information about the
      * ToDo, including the type of this task.
      *
      * @return a human readable string containing the important information
@@ -27,7 +27,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Functions that output a string with all the information of this ToDo to be stored in a file for future
+     * Outputs a string with all the information of this ToDo to be stored in a file for future
      * usage.
      *
      * @return a string containing all information of this ToDo

@@ -12,7 +12,7 @@ public class UI {
     private static final String ANSI_WHITE = "\u001B[37m";
 
     /**
-     * Instantiate the UI component, which also display the welcoming message.
+     * Instantiates the UI component, which also display the welcoming message.
      */
     public UI() {
         String logo = " ____        _        \n"
@@ -26,7 +26,7 @@ public class UI {
     }
 
     /**
-     * Show a simple message without any format.
+     * Shows a simple message without any format.
      *
      * @param msg the message that is to be shown
      */
@@ -35,7 +35,7 @@ public class UI {
     }
 
     /**
-     * Show a message in the format of a response, which is in between two lines.
+     * Shows a message in the format of a response, which is in between two lines.
      *
      * @param msg the message that is to be shown
      */
@@ -46,7 +46,7 @@ public class UI {
     }
 
     /**
-     * Show an error message in the red color.
+     * Shows an error message in the red color.
      *
      * @param msg the error message that is to be shown
      */

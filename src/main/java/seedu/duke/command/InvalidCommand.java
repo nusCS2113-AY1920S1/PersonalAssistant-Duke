@@ -1,12 +1,12 @@
 package seedu.duke.command;
 
 /**
- * Invalid Command is a specific kind of command indicating the input is not recognised as any known command.
+ * InvalidCommand is a specific kind of command indicating the input is not recognised as any known command.
  */
 public class InvalidCommand extends Command {
 
     /**
-     * Simply return false. The UI output is currently disabled.
+     * Simply returns false. The UI output is currently disabled.
      *
      * @return false.
      */
