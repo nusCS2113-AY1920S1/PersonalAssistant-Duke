@@ -22,11 +22,10 @@ public class Duke {
 
     /**
      * This is a constructor of Duke to start the program
-     * @param filePath the file path in which the input file is supposed to be read from
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -61,7 +60,7 @@ public class Duke {
      * @param args
      */
     public static void main(String[] args) {
-        new Duke("../src/main/java/duke/Data/duke.txt").run();
+        new Duke().run();
     }
 }
 
