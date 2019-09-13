@@ -1,3 +1,5 @@
+# Our application will support Java 11 and better
+# and the preferred JRE is openJDK.
 language: java
 jdk:
   - openjdk11
