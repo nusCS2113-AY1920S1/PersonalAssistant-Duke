@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class Parser {
     /**
-     * Parse the user/file input as command. It returns a command that is not yet executed. It also needs to
+     * Parses the user/file input as command. It returns a command that is not yet executed. It also needs to
      * get a UI from Duke to display the messages.
      *
      * @param input the user/file input that is to be parsed to a command
@@ -87,7 +87,7 @@ public class Parser {
     }
 
     /**
-     * Parse the specific part of a user/file input that is relevant to a task. A successful parsing always
+     * Parses the specific part of a user/file input that is relevant to a task. A successful parsing always
      * returns an AddCommand, as it is assumed that an input starting with a task name is an add command.
      *
      * @param taskList target task list to which the new task is to be added to
@@ -156,7 +156,7 @@ public class Parser {
         private String msg;
 
         /**
-         * Instantiate the exception with a message, which is ready to be displayed by the UI.
+         * Instantiates the exception with a message, which is ready to be displayed by the UI.
          *
          * @param msg the message that is ready to be displayed by UI.
          */
@@ -166,7 +166,7 @@ public class Parser {
         }
 
         /**
-         * Convert the exception ot string by returning its message, so that it can be displayed by the UI.
+         * Converts the exception ot string by returning its message, so that it can be displayed by the UI.
          *
          * @return the message of the exception
          */
