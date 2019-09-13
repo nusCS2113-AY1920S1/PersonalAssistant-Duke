@@ -1,11 +1,8 @@
-T | 0 | code for duke
+D | 1 | finish reminders  | 14/9/2019 1600
+D | 0 | send help  | 14/9/2019 1400
+D | 1 | presentation slides  | 13/9/2019 1400
 D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
-D | 0 | code for GUI  | 6/9/2019 1400
-E | 0 | code jam  | 6/6/2011 1100
+E | 0 | NOCfest  | 16/9/2019 1400 | 19/9/2019 1800
+E | 0 | Marquee  | 13/9/2019 2350 | 14/9/2019 0400
+E | 0 | farewell dinner  | 19/9/2019 1700 | 20/9/2019 1700
+E | 0 | i3 Audi  | 12/9/2019 1400 | 14/9/2019 1800
