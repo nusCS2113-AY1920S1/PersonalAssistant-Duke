@@ -1,20 +1,35 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-group 'seedu.duke'
+group 'duke'
 version '0.1.0'
 
 repositories {
     mavenCentral()
 }
-
-application {
-    // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
-}
-
 run {
     standardInput = System.in
+}
+application {
+    mainClassName = "Launcher"
+}
+
+sourceSets.main.java.srcDirs = ['src/main/java/Commands','src/main/java','src/main/java/Classes']
+sourceSets.main.resources.srcDirs =['src/main/resources']
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    dependsOn 'cleanTest'
+    useJUnitPlatform()
 }
