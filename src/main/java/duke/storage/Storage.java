@@ -14,16 +14,11 @@ import duke.tasks.ToDo;
  * @author Ivan Andika Lie
  */
 public class Storage {
-    private String filePath;
     private String line = null;
+    private File file = null;
+    private BufferedReader bufferedReader = null;
+    private BufferedWriter bufferedWriter = null;
 
-    /**
-     * This is a constructor of Storage class
-     * @param filePath this is the file path to read from and write to
-     */
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
@@ -33,19 +28,24 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
+        String sep = System.getProperty("file.separator");
+        file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                            + sep + "Data" + sep + "duke.txt");
         try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            bufferedReader = new BufferedReader(new FileReader(file));
+        } catch (Exception e) {
+            throw new DukeException("Unable to access file");
+        }
+        try {
             while((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
                 loadFile(line, tasks);
-            }
-            bufferedReader.close();
-
+        }
+        bufferedReader.close();
         } catch(FileNotFoundException e) {
-            throw new DukeException("Unable to open file '" + filePath + "'");
+            throw new DukeException("Unable to open file");
         } catch (IOException e) {
-            throw new DukeException("Error reading file '" + filePath + "'");
+            throw new DukeException("Error reading file");
         }
         return tasks;
     }
@@ -126,8 +126,12 @@ public class Storage {
     //TODO: maybe we can put the errors in the ui file
     public void updateFile(ArrayList<Task> tasks) {
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter = new BufferedWriter(new FileWriter(file));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+        try {
             for (int i = 0; i < tasks.size(); i++) {
                 Task currentTask = tasks.get(i);
                 String currentLine = currentTask.toString();
@@ -150,7 +154,7 @@ public class Storage {
             }
             bufferedWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file '" + filePath + "'");
+            System.out.println("Error writing to file");
             e.printStackTrace();
         }
     }
