@@ -15,4 +15,5 @@ bin/
 
 #My additions
 /data/*.txt
+!placeholder.txt
 /text-ui-test/*.txt
