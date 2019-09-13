@@ -33,7 +33,7 @@ public class Parser {
             description = splitCommand[1];
         }
         if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline")) {
-            if (description.equals("")) {
+            if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
@@ -42,21 +42,20 @@ public class Parser {
         } else if (command.equals("todo")) {
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
-            String SplitString[];
             try {
-                SplitString = description.split(" /by ", 2);
+                String SplitString[] = description.split(" /by ");
+                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
             }
-            return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
         } else if (command.equals("event")) {
             String SplitString[];
             try {
-                SplitString = description.split(" /at ", 2);
+                SplitString = description.split(" /at ");
+                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
             }
-            return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("done")) {
