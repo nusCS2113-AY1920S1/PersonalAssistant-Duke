@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.Calendar;
+
 /**
  * Task is a public class that represents the tasks in duke
  * A task object encapsulates the description of the task, the type of task it is, and whether
@@ -9,6 +11,7 @@ public class Task {
     protected String description;
     protected String type = "";
     protected boolean isDone;
+    protected Calendar datetime = Calendar.getInstance();
 
     /**
      * This is the constructor of Task object
