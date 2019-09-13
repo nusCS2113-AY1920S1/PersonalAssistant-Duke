@@ -28,7 +28,7 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String message;
-        if(tasks.size() >= index) {
+        if(index <= tasks.size() && index > 0) {
             Task task = tasks.deleteTask(index);
             message = new Duke_Response().DELETE_FOUND + "      " + task.toString() + "\n";
         } else{

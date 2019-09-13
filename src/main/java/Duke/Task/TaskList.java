@@ -50,8 +50,8 @@ public class TaskList extends ArrayList<Task> {
      * @param item String that contains the item user wants to find
      * @return New ArrayList with task that contains the String user input
      */
-    public ArrayList<Task> findTask(String item){
-        ArrayList<Task> foundTask = new ArrayList<>();
+    public TaskList findTask(String item){
+        TaskList foundTask = new TaskList();
         for(Task i : this){
             if(i.getDescription().contains(item))
                 foundTask.add(i);

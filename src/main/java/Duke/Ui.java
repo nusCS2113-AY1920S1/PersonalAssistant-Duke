@@ -25,7 +25,6 @@ public class Ui {
      */
     private Duke_Response dr = new Duke_Response();
 
-
     /**
      * Read in the command by user.
      * @return String input by user.
@@ -37,7 +36,7 @@ public class Ui {
 
     /**
      * Set appropriate response by Duke to be shown based on user's input.
-     * @param message the String that Duke will respond with based on user input.
+     * @param message String Duke will respond with based on user input.
      */
     public void setMessage(String message) {
         this.message = dr.SPACES + message + dr.SPACES;
@@ -45,13 +44,15 @@ public class Ui {
 
     /**
      * Prints out the greeting by Duke program when Duke starts running.
+     * @return Greetings by Duke
      */
-    public void showWelcome(){
-        System.out.println(dr.LOGO+ dr.SPACES + dr.GREET + dr.SPACES);
+    public String showWelcome(){
+        return dr.LOGO+ dr.SPACES + dr.GREET + dr.SPACES;
     }
 
     /**
      * Prints out the Duke's response based on user's input.
+     * @return Response by Duke
      */
     public String showLine(){
         return this.message;

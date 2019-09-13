@@ -1,7 +1,6 @@
 package Duke.Task;
 
-public class
-Todo extends Task {
+public class Todo extends Task {
     public final String SYMBOL = "[T]";
 
     /**

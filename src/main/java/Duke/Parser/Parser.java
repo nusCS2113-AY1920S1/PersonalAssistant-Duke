@@ -65,7 +65,7 @@ public class Parser {
      * @throws DukeException if the command is invalid or there are missing parameters.
      */
     public static Command parse(String fullCommand) throws NumberFormatException, DukeException{
-        String[] splitStr = fullCommand.split(" ", 2);
+        String[] splitStr = fullCommand.trim().split(" ", 2);
 
         switch(splitStr.length) {
             case 1:
@@ -79,6 +79,7 @@ public class Parser {
                 }
             case 2:
                 if(!splitStr[1].isEmpty()) {
+                    splitStr[1] = splitStr[1].trim();
                     switch (splitStr[0].toLowerCase()) {
                         case "todo":
                             return new AddCommand(splitStr[0], splitStr[1]);

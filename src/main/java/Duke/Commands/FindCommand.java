@@ -6,8 +6,6 @@ import Duke.Task.Task;
 import Duke.Task.TaskList;
 import Duke.Ui;
 
-import java.util.ArrayList;
-
 public class FindCommand extends Command{
     private String item;
 
@@ -28,7 +26,7 @@ public class FindCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> foundTask = tasks.findTask(item);
+        TaskList foundTask = tasks.findTask(item);
         String message;
 
         if(foundTask.isEmpty()){

@@ -7,6 +7,7 @@ import Duke.Ui;
 
 import java.io.File;
 import java.util.Scanner;
+
 /**
  * <h1>Duke</h1>
  * The Duke program implements a Task Manager for users to
@@ -22,17 +23,17 @@ public class Duke{
     /**
      * Stores and keeps track of all user's task.
      */
-    public TaskList tasks;
+    private TaskList tasks;
 
     /**
      * User Interface that handles the response of Duke.
      */
-    public Ui ui;
+    private Ui ui;
 
     /**
      * Stores filepath for Duke to write to and load from.
      */
-    public Storage storage;
+    private Storage storage;
 
 
     public Duke(File filePath){
@@ -65,7 +66,8 @@ public class Duke{
     public void run() {
         boolean isExit = false;
         Scanner sc = new Scanner(System.in);
-        ui.showWelcome();
+        System.out.println(ui.showWelcome());
+
 
         while (!isExit) {
             try {
@@ -83,6 +85,4 @@ public class Duke{
         }
         sc.close();
     }
-
-
 }

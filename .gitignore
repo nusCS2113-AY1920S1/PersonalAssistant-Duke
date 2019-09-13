@@ -12,3 +12,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+# Javafx GUI
+src/main/resource/*
+src/main/java/Launcher.java
+src/main/java/Main.java
+src/main/java/MainWindow.java
