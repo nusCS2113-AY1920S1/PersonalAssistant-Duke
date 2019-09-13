@@ -10,11 +10,11 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Shamus Neo Zhi Kai
-image::damithc.jpg[width="150", align="left"]
+image::shamussy.jpg[width="150", align="left"]
 {empty}[https://github.com/damithc[github]] [<<shamussy#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Model + Storage
+Responsibilities: Model + Logic
 
 '''
 
@@ -23,7 +23,7 @@ image::briantkm.png[width="150", align="left"]
 {empty}[https://github.com/BrianTKM[github]] [<<briantkm#, portfolio>>]
 
 Role: Assistant Team Lead +
-Responsibilities: Code Maintainer + Logic
+Responsibilities: Code Maintainer + Logic + Storage
 
 '''
 
