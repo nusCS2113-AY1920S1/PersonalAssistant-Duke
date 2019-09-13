@@ -1,8 +1,10 @@
 package Duke.Task;
 
+import Duke.DateFormatter;
+
 public class Event extends Task {
-    public final String SYMBOL = "[E]";
-    protected String at;
+    private final String SYMBOL = "[E]";
+    private String at;
 
     /**
      * Constructor for Event task
@@ -10,7 +12,7 @@ public class Event extends Task {
      * @param date The dateTime of the event
      */
     public Event(String description, String date){
-        super(description);
+        super(description.trim());
         this.at = date;
     }
 
@@ -19,7 +21,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.SYMBOL + super.toString() + " (at: " + this.at + ")\n";
+        return this.SYMBOL + super.toString() + " (at: " + new DateFormatter(this.at).getDateTime() + ")\n";
     }
 
     /**

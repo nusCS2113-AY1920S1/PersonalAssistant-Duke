@@ -1,14 +1,14 @@
 package Duke.Task;
 
 public class Todo extends Task {
-    public final String SYMBOL = "[T]";
+    private final String SYMBOL = "[T]";
 
     /**
      * Constructor for Todo task
      * @param description The deadline's task name
      */
     public Todo(String description){
-        super(description);
+        super(description.trim());
     }
 
     /**

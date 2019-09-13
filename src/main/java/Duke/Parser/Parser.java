@@ -13,7 +13,7 @@ public class Parser {
      */
     private static Command parseEvent(String taskType, String command) throws DukeException{
         String[] splitStr = command.split("/at ", 2);
-        if(splitStr.length == 1) throw new DukeException("     Invalid Command\n");
+        if(splitStr.length == 1) throw new DukeException("Invalid Command\n");
 
 
 
@@ -28,7 +28,7 @@ public class Parser {
      */
     private static Command parseDeadline(String taskType, String command) throws DukeException{
         String[] splitStr = command.split("/by ", 2);
-        if(splitStr.length == 1) throw new DukeException("     Invalid Command\n");
+        if(splitStr.length == 1) throw new DukeException("Invalid Command\n");
 
         return new AddCommand(taskType, splitStr[0], splitStr[1]);
     }
@@ -75,7 +75,7 @@ public class Parser {
                     case "bye":
                         return new ByeCommand();
                     default:
-                        throw new DukeException("     Invalid Command\n");
+                        throw new DukeException("Invalid Command\n");
                 }
             case 2:
                 if(!splitStr[1].isEmpty()) {
@@ -94,10 +94,10 @@ public class Parser {
                         case "delete":
                             return parseDelete(splitStr[1]);
                         default:
-                            throw new DukeException("     Invalid Command\n");
+                            throw new DukeException("Invalid Command\n");
                     }
                 }
         }
-        throw new DukeException("     Invalid Command\n");
+        throw new DukeException("Invalid Command\n");
     }
 }

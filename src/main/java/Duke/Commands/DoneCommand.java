@@ -32,7 +32,7 @@ public class DoneCommand extends Command{
         if(index <= tasks.size() && index > 0){
             if(!tasks.isCompletedTask(index)) {
                 Task task = tasks.doneTask(index);
-                message = new Duke_Response().DONE_FOUND + "      " + task.toString() + "\n";
+                message = new Duke_Response().DONE_FOUND + task.toString() + "\n";
             } else {
                 message = new Duke_Response().DONE_COMPLETED;
             }

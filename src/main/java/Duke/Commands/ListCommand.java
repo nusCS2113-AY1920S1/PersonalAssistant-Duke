@@ -25,7 +25,7 @@ public class ListCommand extends Command{
             message = new Duke_Response().LIST_FOUND;
             int counter = 1;
             for (Task i : tasks) {
-                message += "    " + counter + "." + i.toString();
+                message += counter + "." + i.toString();
                 counter++;
             }
         }

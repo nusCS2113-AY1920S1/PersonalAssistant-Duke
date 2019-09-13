@@ -35,7 +35,7 @@ public class FindCommand extends Command{
             message = new Duke_Response().FIND_FOUND;
             int counter = 1;
             for(Task i : foundTask){
-                message += "      " + counter + "." + i.toString();
+                message += counter + "." + i.toString();
                 counter++;
             }
         }

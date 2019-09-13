@@ -78,7 +78,7 @@ public class Duke{
             } catch (DukeException e) {
                 ui.setMessage(e.getMessage());
             } catch (NumberFormatException e){
-                ui.setMessage("     Invalid Command\n");
+                ui.setMessage("Invalid Command\n");
             } finally {
                 System.out.println(ui.showLine());
             }

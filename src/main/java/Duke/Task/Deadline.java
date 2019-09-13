@@ -1,8 +1,10 @@
 package Duke.Task;
 
+import Duke.DateFormatter;
+
 public class Deadline extends Task{
-    public final String SYMBOL = "[D]";
-    protected String by;
+    private final String SYMBOL = "[D]";
+    private String by;
 
     /**
      * Constructor for Deadline Task
@@ -10,7 +12,7 @@ public class Deadline extends Task{
      * @param by The dateTime of the deadline
      */
     public Deadline(String description, String by){
-        super(description);
+        super(description.trim());
         this.by = by;
     }
 
@@ -19,7 +21,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return SYMBOL + super.toString() + " (by: " + this.by + ")\n";
+        return SYMBOL + super.toString() + " (by: " + new DateFormatter(this.by).getDateTime() + ")\n";
     }
 
     /**

@@ -30,7 +30,7 @@ public class DeleteCommand extends Command{
         String message;
         if(index <= tasks.size() && index > 0) {
             Task task = tasks.deleteTask(index);
-            message = new Duke_Response().DELETE_FOUND + "      " + task.toString() + "\n";
+            message = new Duke_Response().DELETE_FOUND + task.toString() + "\n";
         } else{
             message = new Duke_Response().NOT_FOUND;
         }

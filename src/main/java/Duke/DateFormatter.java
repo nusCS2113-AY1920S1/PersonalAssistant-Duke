@@ -1,27 +1,19 @@
 package Duke;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 public class DateFormatter {
     private String date;
     private String time;
-    private final DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     /**
      *
      * @param message the deadline or event time to be processed to give date and time params
      */
     public DateFormatter(String message){
         String[] splitStr = message.split(" ");
-        if(splitStr.length == 2) {
-            date = formatDate(splitStr[0]);
-            time = formatTime(splitStr[1]);
-        }
 
-        if(date == null || time == null){
-            date = message;
-            time = null;
-        }
+        date = formatDate(splitStr[0]);
+        if(splitStr.length == 2)
+            time = formatTime(splitStr[1]);
     }
 
 
@@ -34,7 +26,7 @@ public class DateFormatter {
             if (month == null || day == null || !isValidDate(splitDate[0], splitDate[1], splitDate[2]))
                 return null;
 
-            return day + month + year + ", ";
+            return day + month + year;
         } else {
             return null;
         }
@@ -146,9 +138,9 @@ public class DateFormatter {
             hour = Integer.toString(Integer.parseInt(hour) - 12);
 
         if(min.equals("00"))
-            return hour + suffix;
+            return ", " + hour + suffix;
         else
-            return hour + "." + min + suffix;
+            return ", " + hour + "." + min + suffix;
     }
 
     public String getDateTime(){
@@ -160,6 +152,6 @@ public class DateFormatter {
     }
 
     public boolean isValidDateTime() {
-        return date != null && time != null;
+        return date != null;
     }
 }
