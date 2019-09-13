@@ -1,0 +1,46 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Pradeep
+image::damithc.jpg[width="150", align="left"]
+{empty}[http://github.com/Pdotdeep[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Documentation + Code Quality
+
+'''
+
+=== Marc
+image::lejolly.jpg[width="150", align="left"]
+{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Integration + Storage
+
+'''
+
+=== Wen Hui
+image::yijinl.jpg[width="150", align="left"]
+{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Deliverables and deadlines + UI
+
+'''
+
+=== Mohamed Riyas
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data + UI
+
+'''
