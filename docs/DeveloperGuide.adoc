@@ -1,0 +1,89 @@
+= Entertainment Pro - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T09-4/main/tree/master
+
+By: `CS2113T T09-04`      Since: `Sep 2019`      Licence: `MIT`
+
+== Setting up
+
+=== Prerequisites
+=== Verifying the setup
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* Our Javafx app is primarily targeted at people who have huge love and interest for movies and TV shows.
+* Our app hence aims to provide a fast and efficient way to find and/or do movies and TV shows related stuff such as getting ratings and reviews for a particular movie and/or TV shows and etc.
+* The app is also intended for people who prefer desktop apps over other types, have the ability to type fast and  prefer typing over other means of input.
+* As such, the app will have a GUI (Graphical User Interface) but most of the user interactions will happen using a CLI (Command Line Interface).
+
+
+*Value proposition*:
+
+* Users will be able to save time and effort doing movies and/or TV show related stuff compared to a typical mouse/GUI driven app.
+* Furthermore, our app intends to provide various entertainment related functionalities all under one roof so that users will not have the need to install different entertainment related apps for different purposes.
+
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |curious user |look for movies currently screening in the cinemas |I can keep up to date with these new movies.
+
+|=======================================================================
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* refers to the `Entertainment Pro` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case 1: look for movies currently screening in the cinemas
+
+*MSS*
+
+1.  User inputs command to request for list of movies showing in cinemas currently
+2.  System shows the list of movies to user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User inputs command wrongly
++
+Use case ends.
+
+[discrete]
+=== Use case 2: Add volunteer
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or higher installed.
+
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
