@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.tasks.Task;
+import duke.tasks.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -50,9 +51,11 @@ public class Ui {
     /**
      * Prints the list of duke.tasks.
      */
-    public void showList(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+    public void showList(UniqueTaskList tasks) {
+        int i = 1;
+        for (Task t : tasks) {
+            System.out.println(i + ". " + t);
+            i += 1;
         }
     }
 
