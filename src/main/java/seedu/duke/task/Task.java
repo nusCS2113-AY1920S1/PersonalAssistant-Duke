@@ -48,14 +48,14 @@ public class Task {
     }
 
     /**
-     * Mark the isDone as true.
+     * Marks the isDone as true.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Get the status whether the task is done.
+     * Gets the status whether the task is done.
      *
      * @return the isDone attribute
      */
@@ -81,7 +81,7 @@ public class Task {
     }
 
     /**
-     * The function to convert the task to a human readable string. This will return the same string as the
+     * Converts the task to a human readable string. This will return the same string as the
      * get status function for a basic task, but is overridden by more advanced task class to add more
      * information.
      *

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class TaskList extends ArrayList<Task> {
     /**
-     * Convert the task list to a string of the pre-determined format that is ready to be displayed by the
+     * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
      * UI.
      *
      * @return
@@ -29,7 +29,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Search through all the tasks in the list to look for the keyword specified. The result will be the
+     * Searches through all the tasks in the list to look for the keyword specified. The result will be the
      * string containing all the task string that is ready to be displayed.
      *
      * @param keyword the target keyword for searching
@@ -55,7 +55,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Mark the task at the specified index in the task list as done.
+     * Marks the task at the specified index in the task list as done.
      *
      * @param index the target index of which the task is to be marked as done
      * @return a message that is ready to be displayed by UI
@@ -74,7 +74,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Delete the task at the specified index in the task list.
+     * Deletes the task at the specified index in the task list.
      *
      * @param index the target index of which the task is to be deleted
      * @return a message that is ready to be displayed by UI

@@ -4,7 +4,7 @@ import seedu.duke.Duke;
 import seedu.duke.TaskList;
 
 /**
- * List Command is a specific kind of command used to display all task in a task list.
+ * ListCommand is a specific kind of command used to display all task in a task list.
  */
 public class ListCommand extends Command {
     private TaskList taskList;
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Execute the list command by calling the UI to display the target task list.
+     * Executes the list command by calling the UI to display the target task list.
      *
      * @return true after display is completed.
      */

@@ -9,7 +9,7 @@ public class Deadline extends Task {
     private Date time;
 
     /**
-     * Instantiate the Deadline with the name and the time. Time must be in during the instantiation as it
+     * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
      * cannot be changed later.
      *
      * @param name name of the Deadline
@@ -22,7 +22,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Function that convert the Deadline to a human readable string containing important information about
+     * Converts the Deadline to a human readable string containing important information about
      * the Deadline, including the type and time of this Deadline.
      *
      * @return a human readable string containing the important information
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Functions that output a string with all the information of this Deadline to be stored in a file for
+     * Outputs a string with all the information of this Deadline to be stored in a file for
      * future usage.
      *
      * @return a string containing all information of this Deadline
@@ -45,7 +45,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * A function that output a formatted string of the time of this Deadline. The format is the same as input
+     * Outputs a formatted string of the time of this Deadline. The format is the same as input
      * format and is shared by all tasks.
      *
      * @return a formatted string of the time of this Deadline

@@ -4,7 +4,7 @@ import seedu.duke.Duke;
 import seedu.duke.Parser;
 
 /**
- * Done Command is a specific kind of command used to mark a task as done.
+ * DoneCommand is a specific kind of command used to mark a task as done.
  */
 public class DoneCommand extends Command {
     private int index;
@@ -19,7 +19,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Execute the done command by calling the markDone function of the task list.
+     * Executes the done command by calling the markDone function of the task list.
      *
      * @return a flag whether the task is successfully marked as done. Returns false if the markDone function
      * throws exception.
