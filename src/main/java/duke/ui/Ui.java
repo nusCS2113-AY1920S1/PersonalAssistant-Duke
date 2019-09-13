@@ -55,14 +55,14 @@ public class Ui {
     }
 
     public void showAdded(Task currentTask, ArrayList<Task> tasks) {
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + currentTask);
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(padding + "Got it. I've added this task:");
+        System.out.println(padding + currentTask);
+        System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
     }
     public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + currentTask);
-        System.out.println("     Now you have " + (tasks.size() - 1)  + " tasks in the list.");
+        System.out.println(padding + "Noted. I've removed this task:");
+        System.out.println(padding + currentTask);
+        System.out.println(padding + "Now you have " + tasks.size()  + " tasks in the list.");
     }
 
     public String readCommand(Scanner in) {
@@ -71,11 +71,11 @@ public class Ui {
     }
 
     public void showError(String message) {
-        System.out.println("     " + message);
+        System.out.println(padding + message);
     }
 
     public void showLoadingError() {
-        System.out.println("     Failed to load file.");
+        System.out.println(padding + "Failed to load file.");
     }
 
 
