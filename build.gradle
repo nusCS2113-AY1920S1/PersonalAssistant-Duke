@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+group 'duke'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    // Change this to your main class.
+    mainClassName = "Duke"
+}
+
+run {
+    standardInput = System.in
+}
