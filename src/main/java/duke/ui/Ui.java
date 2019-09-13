@@ -78,8 +78,7 @@ public class Ui {
     }
 
     /**
-     * Scans the next line from standard input, returning a String containing the user input
-     * with leading and trailing whitespaces removed.
+     * Scans the next line from standard input.
      *
      * @return The String corresponding to the user input.
      */
