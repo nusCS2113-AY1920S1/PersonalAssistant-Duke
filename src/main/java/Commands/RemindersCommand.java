@@ -46,11 +46,11 @@ public class RemindersCommand extends Command {
                         isAfter = dueDate.after(endDay);
 
                     }else if (t instanceof Events){
-                        Date dueDate = ((Events) t).getDateAt();
+                        Date dueDate = ((Events) t).getStartDateAt();
                         isAfter = dueDate.after(endDay);
                     }
 
-                    if(isAfter){
+                    if(isAfter && !t.getStatus()){
                         System.out.println(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }
@@ -67,11 +67,11 @@ public class RemindersCommand extends Command {
                         isBefore = dueDate.before(startDay);
 
                     }else if (t instanceof Events){
-                        Date dueDate = ((Events) t).getDateAt();
+                        Date dueDate = ((Events) t).getEndDateAt();
                         isBefore = dueDate.before(startDay);
                     }
 
-                    if(isBefore){
+                    if(isBefore && !t.getStatus()){
                         System.out.println(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }
@@ -87,11 +87,14 @@ public class RemindersCommand extends Command {
                         isToday = (!dueDate.before(startDay) && !dueDate.after(endDay));
 
                     }else if (t instanceof Events){
-                        Date dueDate = ((Events) t).getDateAt();
-                        isToday = (!dueDate.before(startDay) && !dueDate.after(endDay));
+                        Date startDate = ((Events) t).getStartDateAt();
+                        Date endDate = ((Events) t).getEndDateAt();
+                        isToday = (startDate.after(startDay) && startDate.before(endDay)) ||
+                                (endDate.after(startDay) && endDate.before(endDay)) ||
+                                (startDay.after(startDate) && endDay.before(endDate));
                     }
 
-                    if(isToday){
+                    if(isToday && !t.getStatus()){
                         System.out.println(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }

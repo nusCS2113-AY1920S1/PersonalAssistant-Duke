@@ -39,8 +39,9 @@ public class Storage {
                         t = new Deadline(info[2], deadlineDate);
                         break;
                     case "E":
-                        Date eventDate = simpleDateFormat.parse(info[3]);
-                        t = new Events(info[2], eventDate);
+                        Date eventStartDate = simpleDateFormat.parse(info[3]);
+                        Date eventEndDate = simpleDateFormat.parse(info[4]);
+                        t = new Events(info[2], eventStartDate, eventEndDate);
                         break;
                 }
                 if (t.getDescription().equals("default")) {
@@ -72,10 +73,12 @@ public class Storage {
                 } else if (t instanceof Events) {
                     if (t.getStatus())
                         bufferedWriter.write("E | 1 | " + t.getDescription() + " | "
-                                + ((Events) t).getAt() + "\n");
+                                + ((Events) t).getStartAt() + " | "
+                                + ((Events) t).getEndAt() + "\n");
                     else
                         bufferedWriter.write("E | 0 | " + t.getDescription() + " | "
-                                + ((Events) t).getAt() + "\n");
+                                + ((Events) t).getStartAt() + " | "
+                                + ((Events) t).getEndAt() +  "\n");
                 } else if (t instanceof Deadline) {
                     if (t.getStatus())
                         bufferedWriter.write("D | 1 | " + t.getDescription() + " | "

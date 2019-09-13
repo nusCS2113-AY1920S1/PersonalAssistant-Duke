@@ -35,6 +35,7 @@ public class Parser {
 
         }else if(cmd.contains("schedule")){
             command  = new ViewScheduleCommand(cmd);
+
         }
         else {
             String keyword = cmd.split(" ")[0];

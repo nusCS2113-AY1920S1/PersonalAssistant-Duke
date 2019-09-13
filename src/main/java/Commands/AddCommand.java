@@ -40,10 +40,13 @@ public class AddCommand extends Command {
                     throw new DukeException("OOPS!!! The description of a event cannot be empty.");
                 }
                 String[] getDate = inputString.split("/at ");
-                Date date = simpleDateFormat.parse(getDate[getDate.length-1]);
-                String formattedDate = simpleDateFormat.format(date);
+                String eventPeriod = getDate[getDate.length-1];
+                String[] startendDate = eventPeriod.split(" to ");
+                //System.out.println(startendDate[1]);
+                Date startDate = simpleDateFormat.parse(startendDate[0]);
+                Date endDate = simpleDateFormat.parse(startendDate[1]);
                 Task t = new Events(getDate[0].replaceFirst("event ", ""),
-                        date);
+                        startDate, endDate);
                 tasks.addTask(t);
                 break;
             }
