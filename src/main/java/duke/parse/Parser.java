@@ -24,7 +24,7 @@ public class Parser {
     private final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Checks if the user has any more input during input redirection
+     * Checks if the user has any more input during input redirection.
      *
      * @return the results after checking.
      */
@@ -34,7 +34,7 @@ public class Parser {
     }
 
     /**
-     * Takes in user input line by line
+     * Takes in user input line by line.
      * 
      * @return The corresponding action done by {@link #parseActionMenu(String, String)}.
      * @throws DukeException thrown by {@link #parseActionMenu(String, String)}.

@@ -74,6 +74,8 @@ public class TaskList {
                 }
                 tasks.add(event);
                 break;
+            default:
+                break;
             }
         }
     }
