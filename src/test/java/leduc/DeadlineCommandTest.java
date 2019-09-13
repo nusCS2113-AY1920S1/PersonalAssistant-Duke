@@ -29,7 +29,7 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage("testFile/leduc.DeadlineCommandTest.txt");
+        Storage storage = new Storage("testFile/DeadlineCommandTest.txt");
         storage.getNewAppendWrite(storage.getFilePath(),ui); // need to initialized
         Parser parser = new Parser();
         List<Task> tasksList = new ArrayList<>();

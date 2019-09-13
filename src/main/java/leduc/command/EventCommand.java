@@ -2,11 +2,10 @@ package leduc.command;
 
 import leduc.Date;
 import leduc.Parser;
-import leduc.command.Command;
 import leduc.exception.DateEventFormatException;
 import leduc.exception.EmptyEventDateException;
 import leduc.exception.EmptyEventException;
-import leduc.exception.InexistentDateException;
+import leduc.exception.NonExistentDateException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
@@ -15,12 +14,12 @@ import leduc.task.TaskList;
 import java.io.IOException;
 
 /**
- * Represents a event task leduc.command.Command.
+ * Represents a event task Command.
  * Allow to add a event task to the task list and to the data file.
  */
 public class EventCommand extends Command {
     /**
-     * Constructor of leduc.command.EventCommand.
+     * Constructor of EventCommand.
      * @param user String which represent the input string of the user.
      */
     public  EventCommand(String user){
@@ -36,10 +35,10 @@ public class EventCommand extends Command {
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
      * @throws DateEventFormatException Exception caught when the format of the period of the event task is not correct.
-     * @throws InexistentDateException Exception caught when one of the two date given does not exist.
+     * @throws NonExistentDateException Exception caught when one of the two date given does not exist.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)
-            throws EmptyEventDateException , EmptyEventException , DateEventFormatException, InexistentDateException {
+            throws EmptyEventDateException , EmptyEventException , DateEventFormatException, NonExistentDateException {
         String[] taskDescription = user.substring(5).split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException(ui);

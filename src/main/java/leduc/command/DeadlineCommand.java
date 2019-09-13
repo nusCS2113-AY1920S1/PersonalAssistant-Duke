@@ -5,7 +5,7 @@ import leduc.Parser;
 import leduc.exception.DateFormatException;
 import leduc.exception.EmptyDeadlineDateException;
 import leduc.exception.EmptyDeadlineException;
-import leduc.exception.InexistentDateException;
+import leduc.exception.NonExistentDateException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.DeadlinesTask;
@@ -14,12 +14,12 @@ import leduc.task.TaskList;
 import java.io.IOException;
 
 /**
- * Represents a deadline task leduc.command.Command.
+ * Represents a deadline task Command.
  * Allow to add a deadline task to the task list and to the data file.
  */
 public class DeadlineCommand extends Command {
     /**
-     * Constructor of leduc.command.DeadlineCommand.
+     * Constructor of DeadlineCommand.
      * @param user String which represent the input string of the user.
      */
     public DeadlineCommand(String user){
@@ -35,10 +35,10 @@ public class DeadlineCommand extends Command {
      * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
      * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
      * @throws DateFormatException Exception caught when the date format is not correct.
-     * @throws InexistentDateException Exception caught when the date given does not exist.
+     * @throws NonExistentDateException Exception caught when the date given does not exist.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)
-            throws EmptyDeadlineDateException, EmptyDeadlineException, DateFormatException, InexistentDateException {
+            throws EmptyDeadlineDateException, EmptyDeadlineException, DateFormatException, NonExistentDateException {
         String[] taskDescription = user.substring(8).split("/by");
         if (taskDescription[0].isBlank()) {
             throw new EmptyDeadlineException(ui);

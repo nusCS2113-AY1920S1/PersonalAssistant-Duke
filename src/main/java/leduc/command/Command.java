@@ -7,14 +7,14 @@ import leduc.Ui;
 import leduc.task.TaskList;
 
 /**
- * Abstract class which represent a leduc.command.Command.
+ * Abstract class which represent a Command.
  * The command asked by the user will be represented by one of the subclasses of leduc.command.Command.
  */
 public abstract class Command {
     protected String user;
 
     /**
-     * Constructor of leduc.command.Command.
+     * Constructor of Command.
      * @param user String which represent the input string of the user.
      */
     public Command(String user ){

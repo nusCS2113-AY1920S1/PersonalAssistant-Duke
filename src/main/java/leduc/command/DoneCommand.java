@@ -1,18 +1,17 @@
 package leduc.command;
 
 import leduc.Parser;
-import leduc.command.Command;
-import leduc.exception.InexistentTaskException;
+import leduc.exception.NonExistentTaskException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
 
 /**
- * Represents a Delete leduc.command.Command.
+ * Represents a Delete Command.
  */
 public class DoneCommand extends Command {
     /**
-     * Constructor of leduc.command.DoneCommand
+     * Constructor of DoneCommand
      * @param user String which represent the input string of the user.
      */
     public  DoneCommand(String user){
@@ -25,12 +24,12 @@ public class DoneCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @param parser leduc.Parser which deals with making sense of the user command.
-     * @throws InexistentTaskException Exception caught when the task which is done does not exist.
+     * @throws NonExistentTaskException Exception caught when the task which is done does not exist.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws InexistentTaskException {
+    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws NonExistentTaskException {
         int index = Integer.parseInt(user.substring(5)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
-            throw new InexistentTaskException(ui);
+            throw new NonExistentTaskException(ui);
         }
         else { // to change the mark, the whole file is rewritten ( probably a better way to do it)
             tasks.get(index).taskDone();

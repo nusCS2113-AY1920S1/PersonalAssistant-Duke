@@ -1,7 +1,7 @@
 package leduc;
 
 import leduc.command.*;
-import leduc.exception.InexistentDateException;
+import leduc.exception.NonExistentDateException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +18,7 @@ public class ParserTest {
     @Test
     public void commandCreatedTest(){
         Parser parser = new Parser();
-        assertTrue(parser.parse("ok") instanceof UnmeaningCommand);
+        assertTrue(parser.parse("ok") instanceof MeaningLessCommand);
         assertTrue(parser.parse("list") instanceof ListCommand);
         assertFalse(parser.parse("listlist") instanceof ListCommand);
         assertTrue(parser.parse("find eizae") instanceof FindCommand);
@@ -47,7 +47,7 @@ public class ParserTest {
         try{ // no catch
             parser.stringToDate("12/12/1222 22:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test1 = true;
         }
         assertFalse(test1);
@@ -58,7 +58,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("31/11/1222 22:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test2 = true;
         }
         assertTrue(test2);
@@ -69,7 +69,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("35/12/1222 22:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test3 = true;
         }
         assertTrue(test3);
@@ -80,7 +80,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("29/02/2021 22:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test4 = true;
         }
         assertTrue(test4);
@@ -91,7 +91,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("29/13/2021 22:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test5 = true;
         }
         assertTrue(test5);
@@ -102,7 +102,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("29/12/2021 25:22",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test6 = true;
         }
         assertTrue(test6);
@@ -112,7 +112,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("29/12/2021 24:00",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test7 = true;
         }
         assertTrue(test7);
@@ -123,7 +123,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("29/12/2021 23:60",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test8 = true;
         }
         assertTrue(test8);
@@ -133,7 +133,7 @@ public class ParserTest {
         try{ // catch
             parser.stringToDate("-29/12/2021 23:60",ui);
         }
-        catch (InexistentDateException e){
+        catch (NonExistentDateException e){
             test9 = true;
         }
         assertTrue(test9);
