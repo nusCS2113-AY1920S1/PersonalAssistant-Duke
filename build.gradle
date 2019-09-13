@@ -18,7 +18,7 @@ repositories {
 }
 
 application {
-    mainClassName = "COMPal.Duke"
+    mainClassName = "compal.main.Duke"
 }
 
 run {

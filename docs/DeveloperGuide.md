@@ -1,6 +1,6 @@
 
 
-# COMPal - Develepor Guide
+# compal - Develepor Guide
 
 Welcome to **COMpal** Developer Guide! This Developer guide is still being work on for now!
 

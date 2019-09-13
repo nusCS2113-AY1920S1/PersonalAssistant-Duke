@@ -1,12 +1,10 @@
-package Tasks;
-
-import Tasks.Task;
+package compal.tasks;
 
 public class Deadline extends Task {
 
     public Deadline(String description) {
         super(description);
-        super.symbol="D";
+        super.symbol = "D";
     }
 
 
