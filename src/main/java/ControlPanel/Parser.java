@@ -32,6 +32,9 @@ public class Parser {
         }else if(cmd.contains("reminders")) {
             String keyword = cmd.split(" ")[0];
             command = new RemindersCommand(keyword);
+
+        }else if(cmd.contains("schedule")){
+            command  = new ViewScheduleCommand(cmd);
         }
         else {
             String keyword = cmd.split(" ")[0];
