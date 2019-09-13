@@ -37,6 +37,7 @@ public class RemindersCommand extends Command {
 
         switch (keyword){
             case "upcoming":{
+                System.out.println(" Got it. Your Upcoming Deadlines and Events: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isAfter = false;
@@ -57,6 +58,7 @@ public class RemindersCommand extends Command {
             }
 
             case "past":{
+                System.out.println(" Got it. Your Past Deadlines and Events: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isBefore = false;
@@ -76,6 +78,7 @@ public class RemindersCommand extends Command {
                 break;
             }
             case "today":{
+                System.out.println(" Got it. Today's Deadlines and Events: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isToday = false;
