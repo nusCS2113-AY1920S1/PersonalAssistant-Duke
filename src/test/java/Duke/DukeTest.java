@@ -3,9 +3,10 @@ package duke;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class DukeTest {
+public class DukeTest extends InputTest {
 
     private static final String LINE = "_______________________________\n";
 
@@ -16,21 +17,22 @@ public class DukeTest {
      */
     @Test
      public void testDuke() {
-        try {
-            InputTest.provideInput("bye");
-            Duke.main(new String[0]);
-            String output = InputTest.getOutput();
-            String expected =
-                            LINE +
-                            "Hello! I'm Duke\n" +
-                            "What can I do for you?\n" +
-                            LINE +
-                            "\n" +
-                            "Bye. Hope to see you again soon!" +
-                            LINE;
-            assertEquals(expected, output);
-        } catch (NullPointerException ignored) {
-
-        }
+        provideInput("bye");
+        Duke.main(new String[0]);
+        String output = getOutput();
+        String expected =
+                LINE
+                + "Hello! I'm Duke\n"
+                + "What can I do for you?\n"
+                + LINE
+                + "\n"
+                + LINE
+                + "\n"
+                + "Bye. Hope to see you again soon!\n"
+                + LINE
+                + "\n";
+        expected = expected.trim();
+        output = output.trim();
+        assertEquals(expected, output);
     }
 }

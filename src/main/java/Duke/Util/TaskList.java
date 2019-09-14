@@ -6,11 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
+
     /**
      * Task list where active tasks are stored.
      */
     private List<Task> tasks;
 
+    /**
+     * Constructor for TaskList class.
+     * @param store Storage class handling file writing and reading.
+     */
     public TaskList(Storage store) {
         if (store.getFileExits()) {
             tasks = store.readData();

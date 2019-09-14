@@ -38,7 +38,9 @@ public class DateTimeParser {
                         .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                         .toFormatter();
                 localDateTime = LocalDateTime.parse(dateAndTime, fmt);
-                if (localDateTime != null) break;
+                if (localDateTime != null) {
+                    break;
+                }
             } catch (DateTimeParseException e) {
                 i++;
             }
