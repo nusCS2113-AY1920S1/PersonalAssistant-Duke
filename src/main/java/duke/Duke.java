@@ -1,6 +1,6 @@
-package Duke;
+package duke;
 
-import Duke.Commands.Command;
+import duke.commands.Command;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class Duke {
     private static TaskList tasks;
 
     /**
-     * Constructor for main class to initialise the settings
+     * Constructor for main class to initialise the settings.
      */
     private Duke(String filePath) throws DukeException {
         ui = new Ui();
@@ -33,7 +33,7 @@ public class Duke {
     }
 
     /**
-     * Run the rest of the code here
+     * Run the rest of the code here.
      */
     private void run() {
         ui.showWelcome();
@@ -54,7 +54,7 @@ public class Duke {
     }
 
     /**
-     * Program Start!
+     * Program Start.
      */
     public static void main(String[] args) throws DukeException {
         new Duke(savedDataPath).run();

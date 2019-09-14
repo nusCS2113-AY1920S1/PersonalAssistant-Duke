@@ -1,9 +1,9 @@
-package Duke.Tasks;
+package duke.tasks;
 
 public class ToDo extends Task {
 
     /**
-     * Initialises the description of the task
+     * Initialises the description of the task.
      * @param description String containing description
      *                    of the task inputted by user
      */
@@ -13,7 +13,7 @@ public class ToDo extends Task {
 
     /**
      * Gets the task type in [] format and
-     * its description
+     * its description.
      * @return String containing type and description
      */
     @Override
@@ -27,7 +27,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * No extra in this task type
+     * No extra in this task type.
      * @return Null String
      */
     @Override
@@ -36,7 +36,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * No date in this task type
+     * No date in this task type.
      * @return Null String
      */
     @Override

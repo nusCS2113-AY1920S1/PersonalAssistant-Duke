@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.util.Scanner;
 
@@ -6,14 +6,14 @@ public class Ui {
     private static String border = "____________________________________________________________";
 
     /**
-     * Constructor for Ui
+     * Constructor for Ui.
      */
-    public Ui () {
+    public Ui() {
 
     }
 
     /**
-     * Shows the welcome message when first launching Duke
+     * Shows the welcome message when first launching Duke.
      */
     public void showWelcome() {
         System.out.println(border);
@@ -29,14 +29,14 @@ public class Ui {
     }
 
     /**
-     * Prints a new border to separate messages by Ui
+     * Prints a new border to separate messages by Ui.
      */
     public void showLine() {
         System.out.println(border);
     }
 
     /**
-     * Method to read command inputted by user
+     * Method to read command inputted by user.
      * @return String containing input by user
      */
     public String readCommand() {
@@ -45,14 +45,14 @@ public class Ui {
     }
 
     /**
-     * Shows error when trying to load the save file
+     * Shows error when trying to load the save file.
      */
     public void showLoadingError() {
         System.out.println("No saved files detected.");
     }
 
     /**
-     * Displays the error message on the Ui
+     * Displays the error message on the Ui.
      * @param e String containing the error message
      */
     public void showError(String e) {
@@ -60,7 +60,7 @@ public class Ui {
     }
 
     /**
-     * Displays the message on the Ui
+     * Displays the message on the Ui.
      * @param m String containing the message
      */
     public void showMessage(String m) {

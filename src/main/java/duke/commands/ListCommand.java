@@ -1,9 +1,9 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
-import Duke.Tasks.Task;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.tasks.Task;
 
 public class ListCommand extends Command {
     public ListCommand() {
@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Execute the listing of current tasks on the Ui
+     * Execute the listing of current tasks on the Ui.
      * @param tasks TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data

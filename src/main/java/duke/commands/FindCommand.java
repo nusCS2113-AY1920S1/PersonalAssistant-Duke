@@ -1,18 +1,18 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class FindCommand extends Command {
-    public FindCommand (String str) {
+    public FindCommand(String str) {
         type = CmdType.FIND;
         input = str;
     }
 
     /**
-     * Executes finding tasks corresponding to the keyword in 'input'
+     * Executes finding tasks corresponding to the keyword in 'input'.
      * @param tasks TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
