@@ -52,7 +52,7 @@ public class Parser {
             String SplitString[];
             try {
                 SplitString = description.split(" /at ");
-                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+                return new AddCommand(new Event(SplitString[0], SplitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
             }
