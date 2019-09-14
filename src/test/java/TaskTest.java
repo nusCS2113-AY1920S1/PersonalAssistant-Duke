@@ -19,4 +19,5 @@ public class TaskTest {
         assertEquals("[✘] do assignments (at: 3/2/2019 1300)",
                 new Events("do assignments", "3/2/2019 1300").toString());
     }
+
 }

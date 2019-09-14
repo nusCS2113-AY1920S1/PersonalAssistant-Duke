@@ -9,3 +9,6 @@ today reminders
 upcoming reminders
 past reminders
 schedule /on 14/09/2019
+reschedule event 1 /at 6/6/2011 1100 to 7/7/2011 1400
+reschedule deadline 4 /by 13/2/2019 1200
+reschedule deadline 4 /by 16/9/2019 1800
