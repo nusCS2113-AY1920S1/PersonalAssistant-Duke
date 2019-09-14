@@ -1,33 +1,32 @@
-#About Us
+# About Us
 
-##We are a team based in the School of Computing, National University of Singapore.
+## We are a team based in the School of Computing, National University of Singapore.
 
-##Project Team
+## Project Team
 
-###Lionel Lim
+### Lionel Lim
 *image
 *github portfolio
 Role:
 
 
-###Darren Ong
+### Darren Ong
 *image
 *github portfolio
 Role:
 
-###Jerry Ho
+### Jerry Ho
 *image
 *github portfolio
 Role:
 
-###Michelle Tan
+### Michelle Tan
 *image
 *github portfolio
 Role:
 
-###Yang Kai Ze
+### Yang Kai Ze
 *image
 *github portfolio
 Role:
-
 
