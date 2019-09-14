@@ -11,6 +11,7 @@ import duke.Ui;
  * Abstract parent of all other <code>Command</code> subclasses.
  */
 public abstract class Command {
+
     /**
      * Invokes other <code>Command</code> subclasses based on the input given by the user.
      * @param tasks Instance of <code>TaskList</code> that stores <code>Task</code> objects.
@@ -20,10 +21,11 @@ public abstract class Command {
      * @throws DukeException Catches invalid commands given by user.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
-     * @return true if <code>exitCommand</code> is called, false otherwise.
+     * @return true if <code>ExitCommand</code> is called, false otherwise.
      */
     public abstract boolean isExit();
 }

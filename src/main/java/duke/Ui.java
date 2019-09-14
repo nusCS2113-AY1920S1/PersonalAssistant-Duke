@@ -67,8 +67,7 @@ public class Ui {
         System.out.println("\t\t" + task);
         if (size > 1) {
             System.out.println("\tNow you have " + size + " tasks in your list.");
-        }
-        else {
+        } else {
             System.out.println("\tNow you have " + size + " task in the list.");
         }
         showLine();

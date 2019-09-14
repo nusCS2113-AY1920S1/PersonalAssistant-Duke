@@ -11,22 +11,22 @@ import java.util.ArrayList;
 /**
  * Represents a <code>Command</code> that finds and displays specific tasks in the <code>TaskList</code>.
  */
-public class findCommand extends Command {
+public class FindCommand extends Command {
 
     String line;
 
     /**
-     * Constructor for <code>findCommand</code>.
+     * Constructor for <code>FindCommand</code>.
      * @param line Command inputted by user.
      */
-    public findCommand(String line) {
+    public FindCommand(String line) {
         super();
         this.line = line;
     }
 
     /**
      * Finds the <code>Tasks</code> that contain the keyword(s) specified
-     * by the user after processing the command.
+     * by the user after processing the Command.
      * Displays the <code>Tasks</code> found after collating them.
      * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
      * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
@@ -35,7 +35,7 @@ public class findCommand extends Command {
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
-        String linesplit[] = line.split(" ");
+        String[] linesplit = line.split(" ");
         if (linesplit.length == 1) {
             throw new DukeException("\u2639 OOPS!!! The description of a find cannot be empty.");
         }
@@ -48,8 +48,7 @@ public class findCommand extends Command {
         }
         if (foundarr.size() == 0) {
             System.out.println("\tThere are no matching tasks in your list!");
-        }
-        else {
+        } else {
             ui.showLine();
             System.out.println("\tHere are the matching tasks in your list:");
             for (int i = 0; i < foundarr.size(); i++) {
@@ -58,8 +57,9 @@ public class findCommand extends Command {
             ui.showLine();
         }
     }
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
      * @return false.
      */

@@ -1,4 +1,5 @@
 package duke.task;
+
 /**
  * Represents a <code>Task</code> object. An <code>Event</code>
  * object is a type of <code>Task</code>.
@@ -6,6 +7,7 @@ package duke.task;
 public class Event extends Task {
 
     protected String timing;
+
     /**
      * Constructor for <code>Event</code>.
      * @param description Details of the <code>Task</code>.
@@ -15,6 +17,7 @@ public class Event extends Task {
         super(description);
         this.timing = timing;
     }
+
     /**
      * Customises the <code>toString()</code> method to print
      * the <code>Event</code> object.

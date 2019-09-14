@@ -22,8 +22,7 @@ public class Duke {
         storage = new Storage();
         try {
             arr = new TaskList(storage.readFromFile());
-        }
-        catch (DukeException exception) {
+        } catch (DukeException exception) {
             ui.showLoadingError(exception);
             arr = new TaskList();
         }
@@ -39,11 +38,10 @@ public class Duke {
         while (!isExit) {
             try {
                 String line = ui.scanLine();
-                Command command = chooseCommand.choose(line);
+                Command command = ChooseCommand.choose(line);
                 command.execute(arr, ui, storage);
                 isExit = command.isExit();
-            }
-            catch (DukeException exception) {
+            } catch (DukeException exception) {
                 ui.showLoadingError(exception);
             }
         }
