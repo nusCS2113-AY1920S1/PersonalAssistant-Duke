@@ -26,7 +26,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event(@JsonProperty("description") String description, @JsonProperty("from") Date from) {
+    public Event(String description, Date from) {
         super(description);
         this.from = from;
         this.to = null;
