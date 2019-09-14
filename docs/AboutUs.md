@@ -11,18 +11,18 @@
 
 
 ### Darren Ong
-#### *image
+#### <a href="https://ibb.co/G30sFTr"><img src="https://i.ibb.co/zHr8NJt/Whats-App-Image-2019-09-14-at-12-39-21-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-39-21-PM"  height="200" width="200"></a>
 #### [Darren](https://github.com/darrenoje)
 #### Role: Testing, Code quality
 
 ### Jerry Ho
-#### *image
+#### <a href="https://ibb.co/wSM7Dbq"><img src="https://i.ibb.co/Wkg0SdX/Whats-App-Image-2019-09-14-at-12-50-48-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-50-48-PM" height="200" width="200"></a>
 #### [Jerry](https://github.com/hwbjerry)
 #### Role: Deliverables and deadlines
 
 ### Michelle Tan
-#### *image
-#### [Michelle](https://github.com/0325961)
+#### <a href="https://ibb.co/BjXdjMS"><img src="https://i.ibb.co/ZKntKDk/Whats-App-Image-2019-09-14-at-12-44-49-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-44-49-PM" height="200" width="200"></a>
+#### [Michelle]
 #### Role: Integration, Documentation
 
 ### Yang Kai Ze
