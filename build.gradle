@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'checkstyle'
 }
 
 group 'seedu.duke'
@@ -36,4 +37,8 @@ javafx {
 
 test {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = '8.23'
 }
