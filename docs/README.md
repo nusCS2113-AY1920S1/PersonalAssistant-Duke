@@ -2,19 +2,20 @@
 
 ## Features 
 
-### Feature 1 
-Description of feature.
+### Feature 1: Adding a task  
+Adds a task to the Calendar 
 
 ## Usage
 
-### `Keyword` - Describe action
+### `deadline` - Describe action
 
-Describe action and its outcome.
+Adds a deadline to the Calendar 
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`deadline homework /by 25/9/2019 1100`
 
 Expected outcome:
 
-`outcome`
+`Got it! I've added the following task: 
+    [D][x] homework (by: Wednesday, 25th September 2019 11:00A.M.)`
