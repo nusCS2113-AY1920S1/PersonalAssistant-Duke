@@ -5,7 +5,7 @@
 ## Project Team
 
 ### Lionel Lim
-#### ![image](https://imgur.com/a/lTYLRbK)
+#### ![image](https://imgur.com/0F041Lj)
 #### [Github](https://github.com/lionlim97)
 #### Role:
 
