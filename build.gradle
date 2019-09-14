@@ -22,8 +22,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "OwlMoney"
-    archiveVersion = "1.0.0"
+    archiveBaseName = "duke"
+    archiveVersion = "mid-v1.1"
     archiveClassifier = null
     archiveAppendix = null
 }
