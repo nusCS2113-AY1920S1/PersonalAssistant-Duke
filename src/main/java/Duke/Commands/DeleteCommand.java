@@ -27,14 +27,12 @@ public class DeleteCommand extends Command {
             boolean isWithinData = false;
             for (int i = 0; i < tasks.size(); ++i) {
                 if (i == num) {
-                    String stringBuilder = "Noted. I've removed this task: " + "\n" +
-                            "  " + tasks.get(i).toString().substring(0, 3) +
-                            "[" + tasks.get(i).getStatusIcon() + "] " +
-                            tasks.get(i).toString().substring(3);
+                    String stringBuilder = "Noted. I've removed this task: " + "\n      " +
+                            tasks.get(i).getFullString() + "\nNow you have " + (tasks.size()-1)
+                            + " tasks in the list.";
                     tasks.remove(i);
                     storage.write(tasks.getData());
                     ui.showMessage(stringBuilder);
-                    ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
                     isWithinData = true;
                     break;
                 }

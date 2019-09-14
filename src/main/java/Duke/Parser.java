@@ -39,6 +39,19 @@ public class Parser{
         }
     }
 
+    private static String getString(ArrayList<Task> data, int state, StringBuilder stringBuilder, Task tempTask) {
+        if (state == 2)
+            tempTask.markAsDone();
+        data.add(tempTask);
+        if (state == 0) {
+            stringBuilder.append("Got it. I've added this task: ").append("\n   ");
+            stringBuilder.append(tempTask.getFullString()).append("\n");
+            stringBuilder.append("Now you have ").append(data.size()).append(" tasks in the list.");
+
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * Creates a new 'toBeDone' task, before adding it to current list,
      * then returning the output by Duke
@@ -54,15 +67,7 @@ public class Parser{
         StringBuilder stringBuilder = new StringBuilder();
         input = input.substring(5);
         Task tempTask = new ToDo(input);
-        if (state == 2)
-            tempTask.markAsDone();
-        data.add(tempTask);
-        if (state == 0) {
-            stringBuilder.append("Got it. I've added this task: ").append("\n");
-            stringBuilder.append("    [T][").append(tempTask.getStatusIcon()).append("] ").append(input).append("\n");
-            stringBuilder.append("Now you have ").append(data.size()).append(" tasks in the list.");
-        }
-        return stringBuilder.toString();
+        return getString(data, state, stringBuilder, tempTask);
     }
 
     /**
@@ -83,15 +88,7 @@ public class Parser{
         String tt1 = input.substring(0, startOfBy - 1);
         String tt2 = input.substring(startOfBy + 4);
         Task tempTask = new Deadline(tt1, tt2);
-        if (state == 2)
-            tempTask.markAsDone();
-        data.add(tempTask);
-        if (state == 0) {
-            stringBuilder.append("Got it. I've added this task: ").append("\n");
-            stringBuilder.append("    [D][").append(tempTask.getStatusIcon()).append("] ").append(tt1).append(" (by: ").append(tt2).append(")").append("\n");
-            stringBuilder.append("Now you have ").append(data.size()).append(" tasks in the list.");
-        }
-        return stringBuilder.toString();
+        return getString(data, state, stringBuilder, tempTask);
     }
 
     /**
@@ -112,14 +109,6 @@ public class Parser{
         String tt1 = input.substring(0, startOfAt - 1);
         String tt2 = input.substring(startOfAt + 4);
         Task tempTask = new Event(tt1, tt2);
-        if (state == 2)
-            tempTask.markAsDone();
-        data.add(tempTask);
-        if (state == 0) {
-            stringBuilder.append("Got it. I've added this task: ").append("\n");
-            stringBuilder.append("    [E][").append(tempTask.getStatusIcon()).append("] ").append(tt1).append(" (at: ").append(tt2).append(")").append("\n");
-            stringBuilder.append("Now you have ").append(data.size()).append(" tasks in the list.");
-        }
-        return stringBuilder.toString();
+        return getString(data, state, stringBuilder, tempTask);
     }
 }

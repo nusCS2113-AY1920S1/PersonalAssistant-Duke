@@ -7,6 +7,7 @@ public class DukeTest {
     @Test
     public void Test() throws DukeException {
         dummyTest();
+
         //Tests for todo
         new TodoTest().test("todo test");
         new TodoTest().jog("todo jog");

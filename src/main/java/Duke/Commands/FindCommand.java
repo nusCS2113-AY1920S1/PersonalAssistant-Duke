@@ -31,11 +31,7 @@ public class FindCommand extends Command {
                         ui.showMessage("Here are the matching tasks in your list:");
                     }
                     int temp = i + 1;
-                    String stringBuilder = temp + "." +
-                            tasks.get(i).toString().substring(0, 3) +
-                            "[" + tasks.get(i).getStatusIcon() + "] " +
-                            tasks.get(i).toString().substring(3);
-                    ui.showMessage(stringBuilder);
+                    ui.showMessage(temp + ". " + tasks.get(i).getFullString());
                     isInside = true;
                 }
             }

@@ -36,6 +36,7 @@ public class Duke {
      * Run the rest of the code here
      */
     private void run() {
+        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
