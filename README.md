@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/AY1920S1-CS2113T-T12-3/main.svg?branch=master)](https://travis-ci.com/AY1920S1-CS2113T-T12-3/main)
 # Copyright Notice
 
 This is a project for AY19/20 CS2113T, National Univeristy of Singapore.
