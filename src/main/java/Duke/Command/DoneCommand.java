@@ -1,9 +1,9 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Util.TaskList;
-import Duke.Util.Storage;
-import Duke.Util.Ui;
-import Duke.Exceptions.DukeInvalidIndexException;
+import duke.util.TaskList;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.exceptions.DukeInvalidIndexException;
 
 import java.util.Objects;
 
@@ -13,7 +13,8 @@ public class DoneCommand extends Command {
 
     /**
      * Constructor for DoneCommand.
-     * @param index is reduced by one to return to zero based indexing.
+     * @param index is reduced by one
+     *             to return to zero based indexing.
      */
     public DoneCommand(int index) {
         this.index = index - 1;
@@ -22,6 +23,7 @@ public class DoneCommand extends Command {
     private int getIndex() {
         return index;
     }
+
     /**
      * Takes in TaskList, Ui and Storage objects which then marks
      * the task index which has been completed.
@@ -29,7 +31,7 @@ public class DoneCommand extends Command {
      * @param ui Ui object containing all output methods to user.
      * @param store Storage object which updates stored data.
      * @throws DukeInvalidIndexException when user has input an index that
-     * is not within the current range
+     *                  is not within the current range.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeInvalidIndexException {

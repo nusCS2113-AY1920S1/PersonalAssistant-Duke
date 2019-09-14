@@ -1,11 +1,11 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Util.TaskList;
-import Duke.Util.Storage;
-import Duke.Util.Ui;
-import Duke.Tasks.Task;
-import Duke.Exceptions.DukeInvalidIndexException;
-import Duke.Exceptions.DukeEmptyListException;
+import duke.util.TaskList;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.tasks.Task;
+import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.DukeEmptyListException;
 
 import java.util.Objects;
 
@@ -15,7 +15,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for DeleteCommand.
-     * @param index is reduced by one to return to zero based indexing.
+     * @param index is reduced by one
+     *              to return to zero based indexing.
      */
     public DeleteCommand(int index) {
         this.index = index - 1;
@@ -24,6 +25,7 @@ public class DeleteCommand extends Command {
     private int getIndex() {
         return index;
     }
+
     /**
      * Takes in ui, tasks and store objects, and removes the tasks
      * based on the parsed user input.
@@ -31,7 +33,7 @@ public class DeleteCommand extends Command {
      * @param ui Ui object containing all the methods to output to user
      * @param store Storage object which updates stored data.
      * @throws DukeInvalidIndexException when user has input an index that
-     * is not within the current range
+     *              is not within the current range.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeInvalidIndexException, DukeEmptyListException {

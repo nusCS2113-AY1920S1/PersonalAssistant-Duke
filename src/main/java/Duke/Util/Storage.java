@@ -1,9 +1,9 @@
-package Duke.Util;
+package duke.util;
 
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Events;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

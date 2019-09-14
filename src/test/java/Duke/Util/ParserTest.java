@@ -1,8 +1,8 @@
-package Duke.Util;
+package duke.util;
 
-import Duke.Tasks.*;
-import Duke.Command.*;
-import Duke.Exceptions.*;
+import duke.tasks.*;
+import duke.command.*;
+import duke.exceptions.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

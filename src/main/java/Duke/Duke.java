@@ -1,22 +1,25 @@
-package Duke;
+package duke;
 
-import Duke.Command.Command;
-import Duke.Exceptions.DukeException;
-import Duke.Util.Parser;
-import Duke.Util.Storage;
-import Duke.Util.TaskList;
-import Duke.Util.Ui;
+import duke.command.Command;
+import duke.exceptions.DukeException;
+import duke.util.Parser;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 
 public class Duke {
     /**
-     * Classes used for storage of data,
+     * Classes used for storage of data
      * Ui output and inputs and current
-     * active tasks in TaskList
+     * active tasks in TaskList.
      */
     private Storage store;
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructor for Duke class.
+     */
     public Duke() {
         store = new Storage();
         ui = new Ui();
@@ -47,7 +50,7 @@ public class Duke {
     }
 
     /**
-     * Main entry point for Duke
+     * Main entry point for Duke.
      * @param args Additional command line parameters, unused.
      */
     public static void main(String[] args) {

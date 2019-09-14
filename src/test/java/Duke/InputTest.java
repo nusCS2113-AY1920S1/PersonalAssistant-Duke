@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

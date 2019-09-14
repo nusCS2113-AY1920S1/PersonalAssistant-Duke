@@ -1,7 +1,7 @@
-package Duke.Tasks;
+package duke.tasks;
 
-import Duke.Exceptions.DukeInvalidTimeException;
-import Duke.Util.DateTimeParser;
+import duke.exceptions.DukeInvalidTimeException;
+import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

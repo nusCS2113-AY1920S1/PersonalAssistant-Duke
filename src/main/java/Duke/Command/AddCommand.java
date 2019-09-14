@@ -1,9 +1,9 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Tasks.Task;
-import Duke.Util.TaskList;
-import Duke.Util.Ui;
-import Duke.Util.Storage;
+import duke.tasks.Task;
+import duke.util.TaskList;
+import duke.util.Ui;
+import duke.util.Storage;
 
 import java.util.Objects;
 
@@ -19,6 +19,7 @@ public class AddCommand extends Command {
     private Task getTask() {
         return task;
     }
+
     /**
      * Takes in TaskList, Ui and Storage objects which then adds
      * a new task at the end of the TaskList.
