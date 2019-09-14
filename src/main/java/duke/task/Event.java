@@ -8,7 +8,6 @@ import java.text.ParseException;
  * Represents an event that stores description and date/time.
  */
 public class Event extends Task {
-
     protected Date at;
     protected String[] suf = { "st", "nd", "rd", "th" };
     protected SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
