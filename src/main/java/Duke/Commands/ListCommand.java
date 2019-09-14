@@ -24,11 +24,7 @@ public class ListCommand extends Command {
             for (Task task : tasks.getData()) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("    ").append(idx++).append(".");
-                String before = task.toString().substring(0, 3);
-                String after = task.toString().substring(3);
-                stringBuilder.append(before);
-                stringBuilder.append("[").append(task.getStatusIcon()).append("] ");
-                stringBuilder.append(after);
+                stringBuilder.append(task.getFullString());
                 ui.showMessage(stringBuilder.toString());
             }
         } else {

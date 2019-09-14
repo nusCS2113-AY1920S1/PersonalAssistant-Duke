@@ -46,6 +46,11 @@ public class Event extends Task {
         return dateNow.toString();
     }
 
+    @Override
+    public String getFullString() {
+        return "[E][" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+    }
+
     /**
      * Method to get details of extra details
      * concerning the task

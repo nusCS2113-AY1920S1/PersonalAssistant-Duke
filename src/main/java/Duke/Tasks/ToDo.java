@@ -21,6 +21,11 @@ public class ToDo extends Task {
         return "[T]" + description;
     }
 
+    @Override
+    public String getFullString() {
+        return "[T][" + getStatusIcon() + "] " + description;
+    }
+
     /**
      * No extra in this task type
      * @return Null String
