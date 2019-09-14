@@ -7,27 +7,27 @@
 ### Lionel Lim
 #### <a href="https://imgbb.com/"><img src="https://i.ibb.co/854wkQk/Lionel.jpg" alt="Lionel" border="0"></a>
 #### [Lionel](https://github.com/lionlim97)
-#### Role:
+#### Role: Team lead, Documentation
 
 
 ### Darren Ong
 #### *image
 #### [Darren](https://github.com/darrenoje)
-#### Role:
+#### Role: Testing, Code quality
 
 ### Jerry Ho
 #### *image
 #### [Jerry](https://github.com/hwbjerry)
-#### Role:
+#### Role: Deliverables and deadlines
 
 ### Michelle Tan
 #### *image
 #### [Michelle](https://github.com/0325961)
-#### Role:
+#### Role: Integration, Documentation
 
 ### Yang Kai Ze
 #### <a href="https://ibb.co/DL3q2zv"><img src="https://i.ibb.co/4JBQrKX/Kai-Ze.jpg" alt="Kai-Ze" border="0"></a>
 #### [Kai Ze](https://github.com/Krazzen)
-#### Role:
+#### Role: Scheduling and tracking
 
 
