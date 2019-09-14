@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
+import duke.tasks.Schedule;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -26,7 +27,7 @@ public class Storage {
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load(Schedule schedule) throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
@@ -39,7 +40,7 @@ public class Storage {
         try {
             while((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, tasks);
+                loadFile(line, tasks, schedule);
         }
         bufferedReader.close();
         } catch(FileNotFoundException e) {
@@ -55,7 +56,7 @@ public class Storage {
      * @param line the line input from the input file
      * @param tasks the task arraylist that will store the tasks from the input file
      */
-    private static void loadFile(String line, ArrayList<Task> tasks) {
+    private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule) {
         String[] splitLine = line.split(" \\| ");
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -68,9 +69,9 @@ public class Storage {
         if (taskType.equals("T")) {
             loadToDo(tasks, description, isDone);
         } else if (taskType.equals("D")) {
-            loadDeadline(tasks, description, timeFrame, isDone);
+            loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
-            loadEvent(tasks, description, timeFrame, isDone);
+            loadEvent(tasks, description, timeFrame, isDone, schedule);
         }
 
     }
@@ -96,11 +97,12 @@ public class Storage {
      * @param by the deadline of the deadline task
      * @param isDone whether the deadline task is done
      */
-    private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone) {
+    private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone, Schedule schedule) {
         Deadline newDeadline = new Deadline(description, by);
         if (isDone) {
             newDeadline.markAsDone();
         }
+        schedule.update(newDeadline);
         tasks.add(newDeadline);
     }
 
@@ -111,11 +113,12 @@ public class Storage {
      * @param duration the duration of the event
      * @param isDone
      */
-    private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone) {
+    private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
         Event newEvent = new Event(description, duration);
         if (isDone) {
             newEvent.markAsDone();
         }
+        schedule.update(newEvent);
         tasks.add(newEvent);
     }
 

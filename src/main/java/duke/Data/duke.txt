@@ -4,3 +4,16 @@ D | 0 | do chores | Saturday
 T | 0 | finish assignment
 D | 0 | today | tomorrow
 D | 0 | today | 12 December 1997 06.20 PM
+T | 0 | ad
+D | 0 | go homework | 02 February 2112 12.03 PM
+T | 0 | add book
+T | 0 | add book
+D | 0 | student | 02 February 2002 10.00 AM
+D | 0 | homework | 02 February 2002 07.22 PM
+D | 0 | homework | 02 February 2002 08.00 PM
+E | 0 | go homea | 15 September 2019 01.00 AM
+E | 0 | go homeb | 15 September 2019 01.00 AM
+D | 0 | homework | 14 September 2019 11.30 AM
+D | 0 | homework | 14 September 2019 11.30 PM
+E | 0 | go homec | 15 September 2019 01.00 AM
+E | 0 | go homed | 15 September 2019 01.00 AM
