@@ -1,14 +1,15 @@
 package duke.ui;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import duke.logic.Duke;
+import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import duke.logic.Duke;
-import duke.task.TaskList;
 
 public class MainWindow extends AnchorPane {
 
@@ -44,7 +45,7 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(false);
     }
 
-    public void showMessage(String message) {
+    void showMessage(String message) {
         popUpLabel.setText(message);
         popUpLabel.setTextFill(Color.valueOf("#000000"));
         popUpButton.getStyleClass().clear();
@@ -54,7 +55,7 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(true);
     }
 
-    public void showErrorPopUp(String message) {
+    void showErrorPopUp(String message) {
         popUpLabel.setText(message);
         popUpLabel.setTextFill(Color.valueOf("#ffffff"));
         popUpButton.getStyleClass().clear();
@@ -64,14 +65,14 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(true);
     }
 
-    public void refreshTaskList(TaskList tasks, TaskList all) {
+    void refreshTaskList(TaskList tasks, TaskList all) {
         taskList.getItems().clear();
         for (int i = 0; i < tasks.size(); i++) {
             taskList.getItems().add(new DialogBox(tasks.get(i), all));
         }
     }
 
-    public void disableInput() {
+    void disableInput() {
         userInput.setDisable(true);
     }
 }

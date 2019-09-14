@@ -134,17 +134,28 @@ public class Parser {
         if (args.get("primary") == null) {
             throw new DukeException("Please enter event description");
         }
-        if (args.get("at") == null) {
-            throw new DukeException("Please enter event date");
+        if (args.get("at") == null && args.get("from") == null && args.get("to") == null) {
+            throw new DukeException("Please enter start & end time or duration");
         }
 
-        String[] dates = args.get("at").strip().split("to");
-        if (dates.length < 2 || dates[0].equals("") || dates[1].equals("")) {
-            throw new DukeException("Please enter event date");
+        if (args.get("at") != null && args.get("from") != null && args.get("to") != null) {
+            throw new DukeException("Too many arguments");
         }
 
-        Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(dates[0].strip()), TimeParser.convertStringToDate(dates[1].strip()));
-        return new AddCommand(evt);
+        if ((args.get("from") != null ^ args.get("to") != null)) {
+            throw new DukeException("Missing from/to");
+        }
+
+        if (args.get("at") != null) {
+            Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
+            return new AddCommand(evt);
+        } else {
+            Event evt = new Event(args.get("primary"),
+                    TimeParser.convertStringToDate(args.get("from")),
+                    TimeParser.convertStringToDate(args.get("to")));
+            return new AddCommand(evt);
+        }
+
     }
 
     private static Command parseList(String line) {
