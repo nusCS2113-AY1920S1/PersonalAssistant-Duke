@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"wallet"},{"l":"wallet.command"},{"l":"wallet.storage"},{"l":"wallet.task"},{"l":"wallet.ui"}]
