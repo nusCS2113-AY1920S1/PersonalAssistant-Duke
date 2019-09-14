@@ -6,10 +6,11 @@ import compal.tasks.Task;
 import compal.tasks.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,17 +32,19 @@ public class Storage {
      */
     public void saveDuke(ArrayList<Task> tasks) {
 
-        try {
+        System.out.println("Saving has been disabled temporarily as we slowly morph ComPAL from Duke.");
+        /*try {
             File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
             for (Task t : tasks) {
-                pw.printf("%s %s %s\n", t.symbol, t.isDone, t.description);
+                pw.printf(generateStorageString());
             }
             pw.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Save-file not found. Will generate new one.");
         }
+        */
     }
 
 
@@ -106,6 +109,58 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Save File not found. Will create new save file.");
         }
+    }
+
+
+    /**
+     * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
+     * Returns a fully joined string (each component string is joined by underscores)
+     */
+    public String generateStorageString(String... properties) {
+
+        StringBuilder sb = new StringBuilder();
+
+        //cat the strings with underscore separating them
+        for (String property : properties) {
+            sb.append("_");
+            sb.append(property);
+        }
+
+        return sb.toString();
+
+    }
+
+
+    /**
+     * Saves the string toSave to the saveFilePath just as it is.
+     * @param toSave String
+     */
+    public void saveString(String toSave) {
+        try {
+            File f = new File(saveFilePath);
+            PrintWriter pw = new PrintWriter(f);
+            pw.printf("%s\n", toSave);
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Save-file not found. Will generate new one.");
+        }
+    }
+
+    /**
+     * Returns the user's name as a String.
+     * @return
+     */
+    public String getUserName() {
+        File f = new File(saveFilePath);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            return br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Username Unknown";
     }
 
 

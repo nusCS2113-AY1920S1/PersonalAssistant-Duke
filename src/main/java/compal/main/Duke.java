@@ -38,7 +38,7 @@ public class Duke extends Application {
         ui = new Ui(this, tasklist.arrlist);
 
         storage = new Storage(saveFilePath);
-        storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
+        //storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
 
         //start parsing commands
         parser = new Parser(this);
@@ -50,7 +50,6 @@ public class Duke extends Application {
      *
      * @param when date input to be formatted
      * @return dateString format the date of input when
-     *
      * @Function
      * @UsedIn: ui.getDescription
      */
