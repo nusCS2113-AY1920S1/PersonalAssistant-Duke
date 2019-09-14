@@ -36,7 +36,7 @@ public class Parser {
                     //parse date
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
                     String[] dateInfo = parseDate("deadline", taskInfo);
-                    if (Arrays.toString(dateInfo).equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                    if ((Arrays.toString(dateInfo).equals("[null]")  || (dateInfo.length < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
                     Date d = new Date();
                     dateInfo[1] = d.convertDate(dateInfo[1]);
                     if (dateInfo[1].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
@@ -46,7 +46,7 @@ public class Parser {
                 } else if (taskInfo[0].equals("event")) {
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
                     String[] dateInfo = parseDate("event", taskInfo);
-                    if (dateInfo[0].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
+                    if ((Arrays.toString(dateInfo).equals("[null]") || (dateInfo.length < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
                     Date d = new Date();
                     dateInfo[1] = d.convertDate(dateInfo[1]);
                     if (dateInfo[1].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
@@ -71,7 +71,6 @@ public class Parser {
     public static String[] parseDate(String type, String[] taskInfo) {
         String[] dateInfo = { "null" };
 
-        System.out.println(Arrays.toString(dateInfo));
         if (type.equals("deadline")) {
             dateInfo = taskInfo[1].split("/by ");
             //tell AddCommand to go add itself
@@ -79,7 +78,6 @@ public class Parser {
             dateInfo = taskInfo[1].split("/at ");
             //tell AddCommand to go add itself
         }
-        System.out.println(Arrays.toString(dateInfo));
         return dateInfo;
     }
 }
