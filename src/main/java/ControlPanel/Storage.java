@@ -26,11 +26,14 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.replace('|', '@');
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P"))) {
+                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P") || info[0].equals("F"))) {
                     throw new DukeException("This is not a valid input from the file!!!");
                 }
                 Task t = new Task("default");
                 switch (info[0]) {
+                    case "F":
+                        t = new FixedDuration(info[2], info[3]);
+                        break;
                     case "T":
                         t = new ToDos(info[2]);
                         break;
@@ -44,6 +47,8 @@ public class Storage {
                         t = new Events(info[2], eventStartDate, eventEndDate);
                         break;
                     case "P":
+                        Date periodStartDate = simpleDateFormat.parse(info[3]);
+                        Date periodEndDate = simpleDateFormat.parse(info[4]);
                         t = new Periods(info[2], info[3], info[4]);
                         break;
                 }
@@ -68,7 +73,12 @@ public class Storage {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("");
             for (Task t : taskList) {
-                if (t instanceof ToDos) {
+                if (t instanceof  FixedDuration) {
+                    if(t.getStatus())
+                        bufferedWriter.write("F | 1 | " + t.getDescription() + "\n");
+                    else
+                        bufferedWriter.write("F | 0 | " + t.getDescription() + "\n");
+                } else if (t instanceof ToDos) {
                     if (t.getStatus())
                         bufferedWriter.write("T | 1 | " + t.getDescription() + "\n");
                     else
