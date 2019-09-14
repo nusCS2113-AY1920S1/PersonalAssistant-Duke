@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
 public class Events extends Task {
     private LocalDateTime dateTime;
 
+    /**
+     * Constructor for Events class, using String Varargs.
+     * @param input Parsed user input containing task name and time.
+     */
     public Events(String... input) {
         super(input[0]);
         dateTime = null;
@@ -24,20 +28,26 @@ public class Events extends Task {
         try {
             dateTime = DateTimeParser.getStringToDate(dateAndTime);
         } catch (DukeInvalidTimeException e) {
-            System.out.println(e.getMessage() + " " + dateAndTime + getTask());
+            System.out.println(e.getMessage());
         }
     }
 
     @Override
     public String writingFile() {
-        return "E" + "|" + super.writingFile() +
-                "|" + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+        return "E"
+                + "|"
+                + super.writingFile()
+                + "|"
+                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (at: " + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]")) + ")";
+        return "[E]"
+                + super.toString()
+                + " (at: "
+                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + ")";
     }
 
 }

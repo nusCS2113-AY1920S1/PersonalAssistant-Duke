@@ -3,6 +3,7 @@ package duke.tasks;
 import java.util.Objects;
 
 public class Task {
+
     /**
      * Task is the string value of the task name.
      * Done is the active status of the task.
@@ -10,6 +11,10 @@ public class Task {
     private String task;
     private Boolean done;
 
+    /**
+     * Constructor to Task class.
+     * @param task User's input of the desired task.
+     */
     public Task(String task) {
         this.task = task.trim();
         done = false;
@@ -32,7 +37,9 @@ public class Task {
      * @return Returns a string containing task name and done status.
      */
     public String writingFile() {
-        return task + "|" + (getDone() ? "1" : "0");
+        return task
+                + "|"
+                + (getDone() ? "1" : "0");
     }
 
     @Override
