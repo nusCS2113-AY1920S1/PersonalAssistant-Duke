@@ -5,28 +5,27 @@
 ## Project Team
 
 ### Lionel Lim
-*image
-*github portfolio
+[image]https://imgur.com/a/lTYLRbK
+[Github]https://github.com/lionlim97
 Role:
 
 
 ### Darren Ong
 *image
-*github portfolio
+[Github]https://github.com/darrenoje
 Role:
 
 ### Jerry Ho
 *image
-*github portfolio
+[Github]https://github.com/hwbjerry
 Role:
 
 ### Michelle Tan
 *image
-*github portfolio
+[Github]https://github.com/0325961
 Role:
 
 ### Yang Kai Ze
 *image
-*github portfolio
+[Github]https://github.com/Krazzen
 Role:
-
