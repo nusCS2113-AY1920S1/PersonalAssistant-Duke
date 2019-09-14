@@ -5,9 +5,9 @@
 ## Project Team
 
 ### Lionel Lim
-[image](https://imgur.com/a/lTYLRbK)
-[Github](https://github.com/lionlim97)
-Role:
+#### [image](https://imgur.com/a/lTYLRbK)
+#### [Github](https://github.com/lionlim97)
+#### Role:
 
 
 ### Darren Ong
@@ -29,3 +29,5 @@ Role:
 *image
 [Github](https://github.com/Krazzen)
 Role:
+
+
