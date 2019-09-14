@@ -55,7 +55,7 @@ public class Ui {
      * @Function
      * @UsedIn: COMPal.Launcher.java (indirect call)
     todo:Refactor and clean up code for this function
-    todo:Beautify the GUI and add cooler GUI stuff
+    todo:Beautify the GUI and add cooler GUI stuffx
      */
     public void start(Stage stage) {
 
