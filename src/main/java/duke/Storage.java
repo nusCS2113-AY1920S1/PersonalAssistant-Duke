@@ -1,8 +1,12 @@
-package Duke;
+package duke;
 
-import Duke.Tasks.Task;
+import duke.tasks.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -11,11 +15,11 @@ public class Storage {
 
     /**
      * Initialises the 'data' based on previous data
-     * from filepath
+     * from filepath.
      * @param filepath The storage path of the saved data
-     * @throws DukeException
+     * @throws DukeException Exception when file is not found
      */
-    public Storage (String filepath) throws DukeException {
+    public Storage(String filepath) throws DukeException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
@@ -31,18 +35,19 @@ public class Storage {
                     currStr = stringTokenizer.nextToken();
                     if (count == 1) {
                         switch (currStr) {
-                            case "T":
-                                finalOutput = new StringBuilder("todo ");
-                                cmdState = 1;
-                                break;
-                            case "D":
-                                finalOutput = new StringBuilder("deadline ");
-                                cmdState = 2;
-                                break;
-                            case "E":
-                                finalOutput = new StringBuilder("event ");
-                                cmdState = 3;
-                                break;
+                        case "T":
+                            finalOutput = new StringBuilder("todo ");
+                            cmdState = 1;
+                            break;
+                        case "D":
+                            finalOutput = new StringBuilder("deadline ");
+                            cmdState = 2;
+                            break;
+                        case "E":
+                            finalOutput = new StringBuilder("event ");
+                            cmdState = 3;
+                            break;
+                        default:
                         }
                     } else if (count == 2) {
                         if (currStr.equals("✓")) {
@@ -52,35 +57,40 @@ public class Storage {
                         finalOutput.append(currStr);
                     } else if (count == 4) {
                         switch (cmdState) {
-                            case 2:
-                                finalOutput.append(" /by ").append(currStr);
-                                break;
-                            case 3:
-                                finalOutput.append(" /at ").append(currStr);
-                                break;
+                        case 2:
+                            finalOutput.append(" /by ").append(currStr);
+                            break;
+                        case 3:
+                            finalOutput.append(" /at ").append(currStr);
+                            break;
+                        default:
                         }
                     }
                     count++;
                 }
                 switch (cmdState) {
-                    case 1:
-                        if (!isChecked)
-                            Parser.runTodo(data, finalOutput.toString(), 1);
-                        else
-                            Parser.runTodo(data, finalOutput.toString(), 2);
-                        break;
-                    case 2:
-                        if (!isChecked)
-                            Parser.runDeadline(data, finalOutput.toString(), 1);
-                        else
-                            Parser.runDeadline(data, finalOutput.toString(), 2);
-                        break;
-                    case 3:
-                        if (!isChecked)
-                            Parser.runEvent(data, finalOutput.toString(), 1);
-                        else
-                            Parser.runEvent(data, finalOutput.toString(), 2);
-                        break;
+                case 1:
+                    if (!isChecked) {
+                        Parser.runTodo(data, finalOutput.toString(), 1);
+                    } else {
+                        Parser.runTodo(data, finalOutput.toString(), 2);
+                    }
+                    break;
+                case 2:
+                    if (!isChecked) {
+                        Parser.runDeadline(data, finalOutput.toString(), 1);
+                    } else {
+                        Parser.runDeadline(data, finalOutput.toString(), 2);
+                    }
+                    break;
+                case 3:
+                    if (!isChecked) {
+                        Parser.runEvent(data, finalOutput.toString(), 1);
+                    } else {
+                        Parser.runEvent(data, finalOutput.toString(), 2);
+                    }
+                    break;
+                default:
                 }
             }
             reader.close();
@@ -92,7 +102,7 @@ public class Storage {
     }
 
     /**
-     * Loads the currently initialised ArrayList of Tasks
+     * Loads the currently initialised ArrayList of Tasks.
      * @return ArrayList of Tasks that has been initialised
      */
     public ArrayList<Task> load() {
@@ -100,27 +110,30 @@ public class Storage {
     }
 
     /**
-     * Writes current taskList onto the save file
+     * Writes current taskList onto the save file.
      * @param tasks ArrayList of Tasks needing to be written
      *              onto the save file
-     * @throws DukeException
+     * @throws DukeException when no file is found
      */
     public void write(ArrayList<Task> tasks) throws DukeException {
         try {
             PrintWriter out = new PrintWriter("./data/saved_data.txt");
             for (Task task : tasks) {
-                StringBuilder str = new StringBuilder();
-                String st1, st2, st3, st4 = null;
+                String st1;
                 st1 = task.toString().substring(1, 2);
+                String st4 = null;
                 if (st1.equals("D") || st1.equals("E")) {
                     st4 = task.getExtra();
                 }
+                String st2;
                 st2 = task.getStatusIcon();
+                String st3;
                 st3 = task.toString().substring(3);
                 if (st4 != null && st3.contains(st4)) {
                     st3 = st3.replace(st4, "");
                     st3 = st3.substring(0, st3.length() - 7);
                 }
+                StringBuilder str = new StringBuilder();
                 str.append(st1);
                 str.append("|");
                 str.append(st2);

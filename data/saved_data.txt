@@ -1,3 +1,3 @@
 T|✓|eat food
 E|✗|event|now
-T|✗|go home
+T|✗|eat

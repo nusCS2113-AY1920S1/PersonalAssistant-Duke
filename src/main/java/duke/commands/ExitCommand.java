@@ -1,8 +1,8 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes exiting the program
+     * Executes exiting the program.
      * @param tasks TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data

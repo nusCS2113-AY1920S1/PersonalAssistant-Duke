@@ -1,11 +1,11 @@
-import Duke.DukeException;
+import duke.DukeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DukeTest {
     @Test
-    public void Test() throws DukeException {
+    public void test() throws DukeException {
         dummyTest();
 
         //Tests for todo

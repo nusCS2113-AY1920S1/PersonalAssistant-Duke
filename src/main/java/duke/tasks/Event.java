@@ -1,27 +1,27 @@
-package Duke.Tasks;
+package duke.tasks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Deadline extends Task {
-    private String by;
+public class Event extends Task {
+    private String at;
     private Date dateNow;
 
     /**
-     * Initialises the description of the task
+     * Initialises the description of the task.
      * @param description String containing description
      *                    of the task inputted by user
-     * @param by The details of when task is to be done
+     * @param at The details of when task is to be done
      */
-    public Deadline(String description, String by) {
+    public Event(String description, String at) {
         super(description);
-        this.by = by;
+        this.at = at;
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         sdf.setLenient(false);
         try {
-            dateNow = sdf.parse(by);
+            dateNow = sdf.parse(at);
         } catch (ParseException e) {
             //throw new DukeException("Tasks.Task does not have dd/MM/yyyy HHmm date-time format!");
         }
@@ -29,21 +29,16 @@ public class Deadline extends Task {
 
     /**
      * Gets the task type in [] format and
-     * its description
+     * its description.
      * @return String containing type and description
      */
     @Override
     public String toString() {
-        return "[D]" + description + " (by: " + by + ")";
-    }
-
-    @Override
-    public String getFullString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[E]" + description + " (at: " + at + ")";
     }
 
     /**
-     * Method to get date of task if possible
+     * Method to get date of task if possible.
      * @return String containing the date of Task
      */
     @Override
@@ -51,15 +46,19 @@ public class Deadline extends Task {
         return dateNow.toString();
     }
 
+    @Override
+    public String getFullString() {
+        return "[E][" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+    }
+
     /**
      * Method to get details of extra details
-     * concerning the task
+     * concerning the task.
      * @return String containing details of when task
-     *         is to be done by
+     *         is to be done at
      */
     @Override
     public String getExtra() {
-        return this.by;
+        return this.at;
     }
-
 }

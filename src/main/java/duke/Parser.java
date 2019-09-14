@@ -1,16 +1,22 @@
-package Duke;
+package duke;
 
-import Duke.Commands.*;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.ToDo;
+import duke.commands.Command;
+import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 import java.util.ArrayList;
 
-public class Parser{
+public class Parser {
     /**
-     * Allows the user input to be parsed before running 'execute'
+     * Allows the user input to be parsed before running 'execute'.
      * @param input String inputted by user, which needs to be parsed
      *              to identify the intent
      * @return a subclass of the Command Class along
@@ -35,13 +41,14 @@ public class Parser{
         } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             return new AddCommand(Command.CmdType.DEADLINE, input);
         } else {
-            throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
         }
     }
 
     private static String getString(ArrayList<Task> data, int state, StringBuilder stringBuilder, Task tempTask) {
-        if (state == 2)
+        if (state == 2) {
             tempTask.markAsDone();
+        }
         data.add(tempTask);
         if (state == 0) {
             stringBuilder.append("Got it. I've added this task: ").append("\n   ");
@@ -54,7 +61,7 @@ public class Parser{
 
     /**
      * Creates a new 'toBeDone' task, before adding it to current list,
-     * then returning the output by Duke
+     * then returning the output by Duke.
      * @param data ArrayList of Tasks that's currently being stored
      * @param input Command input by user
      * @param state The type of output needed:
@@ -72,7 +79,7 @@ public class Parser{
 
     /**
      * Creates a new 'Deadline' task, before adding it to current list,
-     * then returning the output by Duke
+     * then returning the output by Duke.
      * @param data ArrayList of Tasks that's currently being stored
      * @param input Command input by user
      * @param state The type of output needed:
@@ -93,7 +100,7 @@ public class Parser{
 
     /**
      * Creates a new 'Event' task, before adding it to current list,
-     * then returning the output by Duke
+     * then returning the output by Duke.
      * @param data ArrayList of Tasks that's currently being stored
      * @param input Command input by user
      * @param state The type of output needed:

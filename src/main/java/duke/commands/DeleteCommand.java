@@ -1,18 +1,18 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class DeleteCommand extends Command {
-    public DeleteCommand (String str) {
+    public DeleteCommand(String str) {
         type = CmdType.DELETE;
         input = str;
     }
 
     /**
-     * Execute deletion of task in tasks
+     * Execute deletion of task in tasks.
      * @param tasks TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
@@ -27,8 +27,8 @@ public class DeleteCommand extends Command {
             boolean isWithinData = false;
             for (int i = 0; i < tasks.size(); ++i) {
                 if (i == num) {
-                    String stringBuilder = "Noted. I've removed this task: " + "\n      " +
-                            tasks.get(i).getFullString() + "\nNow you have " + (tasks.size()-1)
+                    String stringBuilder = "Noted. I've removed this task: " + "\n      "
+                            + tasks.get(i).getFullString() + "\nNow you have " + (tasks.size() - 1)
                             + " tasks in the list.";
                     tasks.remove(i);
                     storage.write(tasks.getData());

@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.tasks;
 
 
 public abstract class Task {
@@ -6,7 +6,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Initialises description of task and sets it to !isDone
+     * Initialises description of task and sets it to !isDone.
      * @param description String containing description
      *                    of the task inputted by user
      */
@@ -16,7 +16,7 @@ public abstract class Task {
     }
 
     /**
-     * Gets the status icon based on 'isDone'
+     * Gets the status icon based on 'isDone'.
      * @return String containing the status icon
      */
     public String getStatusIcon() {
@@ -24,7 +24,7 @@ public abstract class Task {
     }
 
     /**
-     * Method to check whether task is done
+     * Method to check whether task is done.
      * @return true when task is done, false otherwise
      */
     public boolean isDone() {
@@ -34,8 +34,9 @@ public abstract class Task {
     public String getFullString() {
         return null;
     }
+
     /**
-     * Method to mark task as done
+     * Method to mark task as done.
      */
     public void markAsDone() {
         this.isDone = true;

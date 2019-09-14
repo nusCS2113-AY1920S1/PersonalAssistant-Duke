@@ -1,9 +1,9 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class DoneCommand extends Command {
     public DoneCommand(String str) {
@@ -12,7 +12,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Execute checking of task in tasks
+     * Execute checking of task in tasks.
      * @param tasks TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
