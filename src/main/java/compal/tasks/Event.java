@@ -1,13 +1,11 @@
-package Tasks;
-
-import Tasks.Task;
+package compal.tasks;
 
 public class Event extends Task {
 
 
     public Event(String description) {
         super(description);
-        super.symbol="E";
+        super.symbol = "E";
     }
 
 
