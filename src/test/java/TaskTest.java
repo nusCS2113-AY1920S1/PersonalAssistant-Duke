@@ -1,5 +1,6 @@
 import Commands.Command;
 import Commands.RemindersCommand;
+import Commands.ViewScheduleCommand;
 import ControlPanel.DukeException;
 import ControlPanel.Storage;
 import ControlPanel.Ui;
@@ -74,8 +75,8 @@ public class TaskTest {
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
-        Command RemCmdUpcoming =  new RemindersCommand("past");
-        RemCmdUpcoming.execute(tasks, ui, storage);
+        Command RemCmdPast =  new RemindersCommand("past");
+        RemCmdPast.execute(tasks, ui, storage);
         //System.out.println("hello");
         assertEquals(" Got it. Your Past Deadlines and Events: \n" + System.getProperty("line.separator")
                         + " 1.[D][?] do assignments (by: 3/2/2019 1300)\n" + System.getProperty("line.separator")
@@ -91,10 +92,27 @@ public class TaskTest {
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
-        Command RemCmdUpcoming =  new RemindersCommand("today");
-        RemCmdUpcoming.execute(tasks, ui, storage);
+        Command RemCmdToday =  new RemindersCommand("today");
+        RemCmdToday.execute(tasks, ui, storage);
         //System.out.println("hello");
         assertEquals(" Got it. Today's Deadlines and Events: \n" + System.getProperty("line.separator")
+                        + " 1.[E][?] marquee (at: 12/9/2019 1400 to 14/9/2019 1600)\n" + System.getProperty("line.separator")
+                ,outContent.toString());
+        System.setOut(originalOut);
+    }
+
+    @Test
+    public void testViewSchedule()throws ParseException, DukeException {
+
+        ui = new Ui();
+        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt");
+        tasks = new TaskList(storage.load());
+
+        System.setOut(new PrintStream(outContent));
+        Command viewSchedule =  new ViewScheduleCommand("schedule /on 14/09/2019");
+        viewSchedule.execute(tasks, ui, storage);
+        //System.out.println("hello");
+        assertEquals(" Got it. Your schedule for 14/09/2019: \n" + System.getProperty("line.separator")
                         + " 1.[E][?] marquee (at: 12/9/2019 1400 to 14/9/2019 1600)\n" + System.getProperty("line.separator")
                 ,outContent.toString());
         System.setOut(originalOut);
