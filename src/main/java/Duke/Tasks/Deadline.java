@@ -37,6 +37,11 @@ public class Deadline extends Task {
         return "[D]" + description + " (by: " + by + ")";
     }
 
+    @Override
+    public String getFullString() {
+        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+    }
+
     /**
      * Method to get date of task if possible
      * @return String containing the date of Task

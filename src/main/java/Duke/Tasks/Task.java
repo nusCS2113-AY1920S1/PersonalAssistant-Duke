@@ -31,6 +31,9 @@ public abstract class Task {
         return isDone;
     }
 
+    public String getFullString() {
+        return null;
+    }
     /**
      * Method to mark task as done
      */

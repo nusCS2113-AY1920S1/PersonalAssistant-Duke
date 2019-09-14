@@ -2,6 +2,9 @@ package Duke;
 
 import Duke.Commands.Command;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Duke {
     private static String savedDataPath = "./data/saved_data.txt";
     private static Ui ui;
@@ -11,14 +14,21 @@ public class Duke {
     /**
      * Constructor for main class to initialise the settings
      */
-    private Duke(String filePath) {
+    private Duke(String filePath) throws DukeException {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            new File("./data").mkdir();
+            File file = new File("./data/saved_data.txt");
+            try {
+                file.createNewFile();
+                storage = new Storage(filePath);
+                tasks = new TaskList();
+            } catch (IOException error) {
+                ui.showLoadingError();
+            }
         }
     }
 
@@ -26,7 +36,6 @@ public class Duke {
      * Run the rest of the code here
      */
     private void run() {
-        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -46,7 +55,7 @@ public class Duke {
     /**
      * Program Start!
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke(savedDataPath).run();
     }
 
