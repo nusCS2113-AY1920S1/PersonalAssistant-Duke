@@ -24,6 +24,7 @@ class DukeTest extends TestExtender {
                         + "\t Bye. Hope to see you again soon!\n"
                         + "\t____________________________________________________________\n";
         assertEquals(expected, output);
+        provideInput("reminder\n");
     }
 
 }
