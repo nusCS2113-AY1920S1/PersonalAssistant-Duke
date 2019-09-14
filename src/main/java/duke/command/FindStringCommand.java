@@ -6,6 +6,9 @@ import duke.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * FindStringCommand is a Command used to find tasks corresponding to the user input.
+ */
 public class FindStringCommand extends Command {
 
     protected String inputLine;
@@ -16,6 +19,21 @@ public class FindStringCommand extends Command {
         this.commandName = "find";
     }
 
+    /**
+     * Find tasks corresponding to the user input from the specified TaskList.
+     * <p>
+     *     The method first retrieves the String to search for from 'inputLine'.
+     *     The method then looks through all the tasks in the specified TaskList
+     *     and checks if the recently retrieved string is a substring of any of
+     *     the tasks. Any matches to the task are stored in an ArrayList that gets
+     *     printed subsequently.
+     * </p>
+     * <p>
+     *     If the user did not input any strings to search for, an error will be printed
+     *     and the method will return without doing anything.
+     * </p>
+     * @param tasks The TaskList containing the tasks to be searched.
+     */
     @Override
     public void execute(TaskList tasks) {
 
