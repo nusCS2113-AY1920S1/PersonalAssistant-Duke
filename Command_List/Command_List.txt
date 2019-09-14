@@ -1,0 +1,11 @@
+list
+todo some shit
+deadline Duke Documentation /by 17/09/2019 2359
+event code jam /at 6/6/2011 1100 to 7/7/2011 1400
+find keyword
+done 1
+delete 2
+today reminders
+upcoming reminders
+past reminders
+schedule /on 14/09/2019

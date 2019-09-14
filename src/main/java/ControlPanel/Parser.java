@@ -29,9 +29,17 @@ public class Parser {
                 int serialNo = Integer.parseInt(temp);
                 command = new DeleteCommand(serialNo);
 
-        } else {
+        }else if(cmd.contains("reminders")) {
             String keyword = cmd.split(" ")[0];
-            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo"))){
+            command = new RemindersCommand(keyword);
+
+        }else if(cmd.contains("schedule")){
+            command  = new ViewScheduleCommand(cmd);
+
+        }
+        else {
+            String keyword = cmd.split(" ")[0];
+            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration"))){
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
             }
             command = new AddCommand(keyword, cmd);

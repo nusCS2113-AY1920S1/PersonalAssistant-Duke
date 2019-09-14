@@ -1,14 +1,20 @@
 package ControlPanel;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import Tasks.*;
 
 public class Storage {
 
     private String fileName;
+    private SimpleDateFormat simpleDateFormat;
     public  Storage (String filePath){
         fileName = filePath;
+        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
     public ArrayList<Task> load() {
@@ -20,19 +26,30 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.replace('|', '@');
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E"))) {
+                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P") || info[0].equals("F"))) {
                     throw new DukeException("This is not a valid input from the file!!!");
                 }
                 Task t = new Task("default");
                 switch (info[0]) {
+                    case "F":
+                        t = new FixedDuration(info[2], info[3]);
+                        break;
                     case "T":
                         t = new ToDos(info[2]);
                         break;
                     case "D":
-                        t = new Deadline(info[2], info[3]);
+                        Date deadlineDate = simpleDateFormat.parse(info[3]);
+                        t = new Deadline(info[2], deadlineDate);
                         break;
                     case "E":
-                        t = new Events(info[2], info[3]);
+                        Date eventStartDate = simpleDateFormat.parse(info[3]);
+                        Date eventEndDate = simpleDateFormat.parse(info[4]);
+                        t = new Events(info[2], eventStartDate, eventEndDate);
+                        break;
+                    case "P":
+                        Date periodStartDate = simpleDateFormat.parse(info[3]);
+                        Date periodEndDate = simpleDateFormat.parse(info[4]);
+                        t = new Periods(info[2], info[3], info[4]);
                         break;
                 }
                 if (t.getDescription().equals("default")) {
@@ -44,7 +61,7 @@ public class Storage {
                 checkList.add(t);
             }
             bufferedReader.close();
-        } catch (IOException | DukeException e) {
+        } catch (IOException | DukeException | ParseException e) {
             e.printStackTrace();
         }
         return checkList;
@@ -56,7 +73,12 @@ public class Storage {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("");
             for (Task t : taskList) {
-                if (t instanceof ToDos) {
+                if (t instanceof  FixedDuration) {
+                    if(t.getStatus())
+                        bufferedWriter.write("F | 1 | " + t.getDescription() + "\n");
+                    else
+                        bufferedWriter.write("F | 0 | " + t.getDescription() + "\n");
+                } else if (t instanceof ToDos) {
                     if (t.getStatus())
                         bufferedWriter.write("T | 1 | " + t.getDescription() + "\n");
                     else
@@ -64,10 +86,12 @@ public class Storage {
                 } else if (t instanceof Events) {
                     if (t.getStatus())
                         bufferedWriter.write("E | 1 | " + t.getDescription() + " | "
-                                + ((Events) t).getAt() + "\n");
+                                + ((Events) t).getStartAt() + " | "
+                                + ((Events) t).getEndAt() + "\n");
                     else
                         bufferedWriter.write("E | 0 | " + t.getDescription() + " | "
-                                + ((Events) t).getAt() + "\n");
+                                + ((Events) t).getStartAt() + " | "
+                                + ((Events) t).getEndAt() +  "\n");
                 } else if (t instanceof Deadline) {
                     if (t.getStatus())
                         bufferedWriter.write("D | 1 | " + t.getDescription() + " | "
@@ -75,6 +99,14 @@ public class Storage {
                     else
                         bufferedWriter.write("D | 0 | " + t.getDescription() + " | "
                                 + ((Deadline) t).getBy() + "\n");
+
+                } else if (t instanceof Periods) {
+                    if (t.getStatus())
+                        bufferedWriter.write("P | 1 | " + t.getDescription() + " | "
+                                + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
+                    else
+                        bufferedWriter.write("P | 0 | " + t.getDescription() + " | "
+                                + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
 
                 }
             }
