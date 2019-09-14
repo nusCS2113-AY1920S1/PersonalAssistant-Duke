@@ -26,6 +26,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, Date from) {
+        super(description);
+        this.from = from;
+        this.to = null;
+    }
+
     public Date getFrom() {
         return from;
     }
@@ -39,6 +45,10 @@ public class Event extends Task {
      * @return Returns a summary of the event, including the description, the status icon, and the start and end time.
      */
     public String toString() {
-        return String.format("  %s  \n  %s   ", TimeParser.convertDateToString(from), TimeParser.convertDateToString(to));
+        if (this.to != null) {
+            return String.format("  %s  \n  %s   ", TimeParser.convertDateToString(from), TimeParser.convertDateToString(to));
+        } else {
+            return String.format("  %s  ", TimeParser.convertDateToString(from));
+        }
     }
 }
