@@ -1,5 +1,7 @@
 package task;
+
 import java.io.Serializable;
+
 /**
  * This extension of the task class will allow the user to add a task of to-do type.
  *
@@ -8,7 +10,7 @@ import java.io.Serializable;
  */
 public class Todo extends Task implements Serializable {
 
-    public Todo(String description){
+    public Todo(String description) {
         super(description);
     }
 
