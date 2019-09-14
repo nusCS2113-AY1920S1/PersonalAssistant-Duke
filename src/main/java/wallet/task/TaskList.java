@@ -2,6 +2,7 @@ package wallet.task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,13 +10,13 @@ public class TaskList {
     /**
      * Stores the current list of task of the user
      */
-    private List<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
      * Constructs a new taskList object.
      * @param taskList The list of task to be added.
      */
-    public TaskList(List<Task> taskList){
+    public TaskList(ArrayList<Task> taskList){
         this.taskList = taskList;
     }
 
@@ -104,4 +105,5 @@ public class TaskList {
         }
         return null;
     }
+
 }

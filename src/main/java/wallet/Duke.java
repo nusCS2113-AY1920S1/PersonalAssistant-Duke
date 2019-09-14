@@ -2,8 +2,12 @@ package wallet;
 
 import wallet.command.Command;
 import wallet.storage.Storage;
+import wallet.task.Task;
 import wallet.task.TaskList;
+import wallet.ui.Reminder;
 import wallet.ui.Ui;
+
+import java.util.ArrayList;
 
 public class Duke {
     /**
@@ -20,13 +24,20 @@ public class Duke {
     private TaskList taskList;
 
     /**
+     * The Reminder object that handles the reminder of undone tasks
+     */
+    private Reminder reminder;
+
+    /**
      * Constructs a new ui.Duke object.
      * @param path The path of the save file in the local computer.
      */
     public Duke(String path){
         ui = new Ui();
         storage = new Storage(path);
-        taskList = new TaskList(storage.loadFile());
+        taskList = new TaskList((ArrayList<Task>) storage.loadFile());
+        reminder = new Reminder(taskList);
+
     }
 
     public static void main(String[] args) {
@@ -38,6 +49,7 @@ public class Duke {
      */
     public void run(){
         ui.welcomeMsg();
+        reminder.autoReminder();
         boolean isExit = false;
         while (!isExit){
             String cmd = ui.readLine();
