@@ -1,9 +1,6 @@
 package wallet.storage;
 
-import wallet.task.Deadline;
-import wallet.task.Event;
-import wallet.task.Task;
-import wallet.task.Todo;
+import wallet.task.*;
 
 import java.io.*;
 import java.text.ParseException;
@@ -62,6 +59,15 @@ public class Storage {
                         event.markAsDone();
                     }
                     taskList.add(event);
+                }
+                else if (strArr[0].trim().equals("DW")) {
+                    Date dateStart = sdf.parse(strArr[3].trim());
+                    Date dateEnd = sdf.parse(strArr[4].trim());
+                    DoWithinPeriod dowithin = new DoWithinPeriod(strArr[2].trim(), dateStart, dateEnd);
+                    if (strArr[1].trim().equals("1")) {
+                        dowithin.markAsDone();
+                    }
+                    taskList.add(dowithin);
                 }
             }
             raf.close();

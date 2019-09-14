@@ -97,7 +97,19 @@ public class TaskList {
                 info = description.split("/at");
                 Date date = sdf.parse(info[1].trim());
                 return new Event(info[0].trim(), date);
+            }else if(type.equals("dowithin")){
+                info = description.split("/from");
+                String temp = info[0];
+                System.out.println("Inside TaskList class: info[0] = " + info[0]);
+                System.out.println("Inside TaskList class: info[1] = " + info[1]);
+                info = info[1].split("/to");
+                System.out.println("Inside TaskList class: info[0] = " + info[0]);
+                System.out.println("Inside TaskList class: info[1] = " + info[1]);
+                Date dateStart = sdf.parse(info[0].trim());
+                Date dateEnd = sdf.parse(info[1].trim());
+                return new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
             }
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The date/time of a " + type + " cannot be empty");
         } catch (ParseException e) {

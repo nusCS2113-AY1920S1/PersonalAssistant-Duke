@@ -47,7 +47,10 @@ public class Reminder {
                 while (autoRemind == true) {
                     try {
                         Thread.sleep(timeInSeconds*1000);
+                        ui.printLine();
+                        System.out.println("This is an automated reminder message!");
                         reminderList();
+                        ui.printLine();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
