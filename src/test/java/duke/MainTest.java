@@ -1,6 +1,7 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,13 +29,13 @@ class MainTest {
     @Test
     void testTask() throws DukeException {
         Todo todo = Todo.create("test todo");
-        Event event = Event.create("test event national day /at 9/8/2019 1234");
-        Deadline deadline = Deadline.create("test deadline submission /by 12/9/2019 1314");
-
         todo.markDone();
+        assertEquals(todo.toString(), "[T][✓] test todo");
+
+        Deadline deadline = Deadline.create("test deadline submission /by 12/9/2019 1314");
         deadline.markDone();
 
-        assertEquals(todo.toString(), "[T][✓] test todo");
+        Event event = Event.create("test event national day /at 9/8/2019 1234");
         assertEquals(event.toString(), "[E][✘] test event national day "
                 + "(at: Friday 09 August 2019 12:34 PM)");
         assertEquals(deadline.toString(), "[D][✓] test deadline submission "
