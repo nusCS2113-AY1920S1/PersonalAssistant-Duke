@@ -1,4 +1,4 @@
-package task;
+package wallet.task;
 
 public class Todo extends Task {
     /**

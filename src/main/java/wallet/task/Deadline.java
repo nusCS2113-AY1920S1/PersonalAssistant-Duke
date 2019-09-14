@@ -1,4 +1,4 @@
-package task;
+package wallet.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

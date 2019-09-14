@@ -1,9 +1,4 @@
-package task;
-
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package wallet.task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

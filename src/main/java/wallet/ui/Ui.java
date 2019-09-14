@@ -1,4 +1,4 @@
-package ui;
+package wallet.ui;
 
 import java.util.Scanner;
 

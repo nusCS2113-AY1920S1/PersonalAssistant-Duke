@@ -1,8 +1,9 @@
-package ui;/*AY1920S1-CS2113T-W17-2*/
+package wallet;
 
-import command.Command;
-import storage.Storage;
-import task.TaskList;
+import wallet.command.Command;
+import wallet.storage.Storage;
+import wallet.task.TaskList;
+import wallet.ui.Ui;
 
 public class Duke {
     /**

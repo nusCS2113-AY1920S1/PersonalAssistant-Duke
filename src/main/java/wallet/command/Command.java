@@ -1,8 +1,8 @@
-package command;
+package wallet.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
+import wallet.storage.Storage;
+import wallet.task.Task;
+import wallet.task.TaskList;
 
 public class Command {
     /**
