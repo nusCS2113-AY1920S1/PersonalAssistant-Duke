@@ -5,11 +5,7 @@ import compal.tasks.Event;
 import compal.tasks.Task;
 import compal.tasks.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,18 +27,21 @@ public class Storage {
      */
     public void saveDuke(ArrayList<Task> tasks) {
 
-        try {
+        System.out.println("Saving has been disabled temporarily as we slowly morph ComPAL from Duke.");
+        /*try {
             File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
             for (Task t : tasks) {
-                pw.printf("%s %s %s\n", t.symbol, t.isDone, t.description);
+                pw.printf(generateStorageString());
             }
             pw.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Save-file not found. Will generate new one.");
         }
+        */
     }
+
 
 
     /**
@@ -71,32 +70,32 @@ public class Storage {
             Scanner strScanner = new Scanner(cmds);
             while (strScanner.hasNext()) {
                 switch (strScanner.next()) {
-                case "E":
-                    String done = strScanner.next().trim();
-                    Task t = new Event(strScanner.nextLine().strip());
-                    if (done.equals("true")) {
-                        t.isDone = true;
-                    }
-                    tasks.add(t);
-                    break;
-                case "D":
-                    String done1 = strScanner.next().trim();
-                    Task t1 = new Deadline(strScanner.nextLine().strip());
-                    if (done1.equals("true")) {
-                        t1.isDone = true;
-                    }
-                    tasks.add(t1);
-                    break;
-                case "T":
-                    String done2 = strScanner.next().trim();
-                    Task t2 = new Todo(strScanner.nextLine().strip());
-                    if (done2.equals("true")) {
-                        t2.isDone = true;
-                    }
-                    tasks.add(t2);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + strScanner.next());
+                    case "E":
+                        String done = strScanner.next().trim();
+                        Task t = new Event(strScanner.nextLine().strip());
+                        if (done.equals("true")) {
+                            t.isDone = true;
+                        }
+                        tasks.add(t);
+                        break;
+                    case "D":
+                        String done1 = strScanner.next().trim();
+                        Task t1 = new Deadline(strScanner.nextLine().strip());
+                        if (done1.equals("true")) {
+                            t1.isDone = true;
+                        }
+                        tasks.add(t1);
+                        break;
+                    case "T":
+                        String done2 = strScanner.next().trim();
+                        Task t2 = new Todo(strScanner.nextLine().strip());
+                        if (done2.equals("true")) {
+                            t2.isDone = true;
+                        }
+                        tasks.add(t2);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + strScanner.next());
                 }
 
 
@@ -106,6 +105,55 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Save File not found. Will create new save file.");
         }
+    }
+
+
+    /**
+     * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
+     * Returns a fully joined string (each component string is joined by underscores)
+     */
+    public String generateStorageString(String...properties){
+
+        StringBuilder sb = new StringBuilder();
+
+        //cat the strings with underscore separating them
+        for(String property:properties){
+            sb.append("_");
+            sb.append(property);
+        }
+
+        return sb.toString();
+
+    }
+
+
+    /**
+     *
+     * @param toSave
+     * Saves the string toSave to the saveFilePath just as it is
+     */
+    public void saveString(String toSave){
+        try {
+            File f = new File(saveFilePath);
+            PrintWriter pw = new PrintWriter(f);
+            pw.printf("%s\n",toSave);
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Save-file not found. Will generate new one.");
+        }
+    }
+
+    public String getUserName(){
+        File f = new File(saveFilePath);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            return br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Username Unknown";
     }
 
 

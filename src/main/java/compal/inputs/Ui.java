@@ -14,13 +14,16 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Ui {
 
     private ArrayList<Task> arrlist;
     private Duke duke;
-
+    private boolean isNewUser;
+    private int initStage;
+    private String username;
 
     //JavaFX testing
     private ScrollPane scrollPane;
@@ -39,6 +42,8 @@ public class Ui {
     public Ui(Duke d, ArrayList<Task> arrayList) {
         this.duke = d;
         arrlist = arrayList;
+        isNewUser=false;
+        initStage=0;
     }
 
 
@@ -50,6 +55,8 @@ public class Ui {
      *
      * @Function
      * @UsedIn: COMPal.Launcher.java (indirect call)
+     * todo : Refactor and clean up code for this function
+     * todo : Beautify the GUI and add cooler GUI stuff
      */
     public void start(Stage stage) {
 
@@ -64,7 +71,7 @@ public class Ui {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         final Scene scene = new Scene(mainLayout);
-        duke.ui.printg("Displaying GUI!");
+        System.out.println("Displaying GUI!");
 
         stage.setTitle("COMPal.Duke");
 
@@ -132,22 +139,22 @@ public class Ui {
     private void handleUserInput() {
         String cmd = userInput.getText();
 
-        //send to parser to parse
-        duke.parser.processCommands(cmd);
+        if(isNewUser){
+            firstTimeInit(initStage,cmd);
+        }else{
+            //send to parser to parse
+            duke.parser.processCommands(cmd);
+        }
 
         userInput.clear();
-
     }
 
 
     /**
-     * This function returns a label (node) with the text as text.
-     *
      * @param text Dialog text label received
      * @return Label (node) with the text as text
-     *
-     * @Function
      * @UsedIn: Application.start()
+     * Returns a label (node) with the text as text.
      */
     private Label getDialogLabel(String text) {
         Label label = new Label(text);
@@ -161,20 +168,63 @@ public class Ui {
      * Simply prints the welcome message for COMPal.Duke
      */
     public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        printg("Hello there!\n" + logo);
-        printg("Hello! I'm COMPal\n"
-                + "     What can I do for you?");
+        checkInit();
+
+
     }
 
 
     /**
-     * This function simply shows the number of tasks in the arraylist.
-     *
+     * Checks if user is a new user
+     * No Params, No Return Value
+     * @UsedIn:
+     */
+    public void checkInit(){
+        File tmpDir = new File("./duke.txt");
+        boolean saveFileExists = tmpDir.exists();
+        if(!saveFileExists){
+            isNewUser=true;
+            printg("Hello! I'm COMPal\n");
+            printg("May I have the honour of knowing your name?");
+        }else{
+            username=duke.storage.getUserName();
+            printg("Hello again "+username+"! Here are your tasks that are due soon! I've sorted it in order of importance :)");
+            //todo: Implement displaying of tasks, sorted according to priority
+        }
+    }
+
+
+    /**
+     * Performs first time initialization for new users
+     * @param stage
+     * @param value
+     * @UsedIn:
+     */
+    public void firstTimeInit(int stage,String value){
+        switch(stage){
+            case 0:
+                printg(value+"? Did I say it correctly? [Yes or No]");
+                username=value;
+                initStage=1;
+                break;
+            case 1:
+                if(value.matches("(y|Y).*")){
+                    printg("Hello "+ username+"! What a lovely name!");
+                    isNewUser=false;
+                    duke.storage.saveString(username); //save the user's name
+                    break;
+                }else{
+                    printg("Okay, what is your name then?");
+                    initStage=0;
+                }
+        }
+
+
+    }
+
+
+    /**
+     * Simply shows the number of tasks in the arraylist
      * @Function No Params, No Return Value
      * @UsedIn: tasklist.addTask
      */
@@ -183,8 +233,7 @@ public class Ui {
     }
 
     /**
-     * This function simply displays the task passed into it.
-     *
+     * Simply displays the details of the task passed into it
      * @Function No Params, No Return Value
      * @UsedIn: tasklist.taskDone, tasklist.deleteTask
      */
