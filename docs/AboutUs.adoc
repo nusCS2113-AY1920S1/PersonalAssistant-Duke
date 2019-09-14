@@ -1,0 +1,46 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke was developed by the https://github.com/AY1920S1-CS2113T-W17-4/main team. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Jasper Ong
+image::jasperosy.jpg[width="150", align="left"]
+{empty}[https://github.com/jasperosy[github]] [<<jasperosy#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops
+
+'''
+
+=== Kenneth Lee
+image::Kenlhc.jpg[width="150", align="left"]
+{empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops
+
+'''
+
+=== Kah Lok Kee
+image::KahLokKee.jpg[width="150", align="left"]
+{empty}[http://github.com/KahLokKee[github]] [<<KahLokKee#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops
+
+'''
+
+=== Debbie Tan
+image::debbiextan.jpg[width="150", align="left"]
+{empty}[http://github.com/debbiextan[github]] [<<debbiextan#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops
+
