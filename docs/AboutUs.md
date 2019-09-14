@@ -11,23 +11,23 @@
 
 
 ### Darren Ong
-*image
-[Darren](https://github.com/darrenoje)
-Role:
+#### *image
+#### [Darren](https://github.com/darrenoje)
+#### Role:
 
 ### Jerry Ho
-*image
-[Jerry](https://github.com/hwbjerry)
-Role:
+#### *image
+#### [Jerry](https://github.com/hwbjerry)
+#### Role:
 
 ### Michelle Tan
-*image
-[Michelle](https://github.com/0325961)
-Role:
+#### *image
+#### [Michelle](https://github.com/0325961)
+#### Role:
 
 ### Yang Kai Ze
-*image
-[Kai Ze](https://github.com/Krazzen)
-Role:
+#### *image
+#### [Kai Ze](https://github.com/Krazzen)
+#### Role:
 
 
