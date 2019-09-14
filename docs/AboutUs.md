@@ -26,7 +26,7 @@
 #### Role:
 
 ### Yang Kai Ze
-#### *image
+#### <a href="https://ibb.co/DL3q2zv"><img src="https://i.ibb.co/4JBQrKX/Kai-Ze.jpg" alt="Kai-Ze" border="0"></a>
 #### [Kai Ze](https://github.com/Krazzen)
 #### Role:
 
