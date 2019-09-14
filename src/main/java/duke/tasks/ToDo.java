@@ -1,10 +1,15 @@
 package duke.tasks;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Task is a public class that extends from Task
  */
 public class ToDo extends Task {
 
+    private Calendar datetime2 = Calendar.getInstance();
     /**
      * This is the constructor of ToDo object
      * @param description the description of the todo object
