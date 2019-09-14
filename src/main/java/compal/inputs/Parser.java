@@ -2,9 +2,6 @@ package compal.inputs;
 
 import compal.main.Duke;
 
-import java.io.File;
-import java.util.Scanner;
-
 public class Parser {
     Duke duke;
 
@@ -41,7 +38,7 @@ public class Parser {
             } catch (Duke.DukeException e) {
                 duke.ui.printg(e.toString());
             }
-        } else{
+        } else {
             try {
                 throw new Duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (Duke.DukeException e) {
