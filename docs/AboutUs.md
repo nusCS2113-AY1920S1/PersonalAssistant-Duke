@@ -1,8 +1,8 @@
-# About Us
+# **About Us**
 
-## We are a team based in the School of Computing, National University of Singapore.
+## *We are a team based in the School of Computing, National University of Singapore.*
 
-## Project Team
+## **Project Team**
 
 ### Lionel Lim
 #### <a href="https://imgbb.com/"><img src="https://i.ibb.co/854wkQk/Lionel.jpg" alt="Lionel" height="200" width="200"></a>
