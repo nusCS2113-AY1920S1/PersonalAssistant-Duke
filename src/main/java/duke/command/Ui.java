@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.task.Snoozeable;
 import duke.task.Task;
 import java.util.List;
 import java.util.Scanner;
@@ -83,10 +84,20 @@ public class Ui {
     }
 
     /**
+     * Shows the task that was just snoozed.
+     *
+     * @param task The task that was just snoozed
+     */
+    public void showSnoozedTask(Snoozeable task) {
+        printIndented("Noted. I've snoozed this task:");
+        printIndented("  " + task);
+    }
+
+    /**
      * Shows the task that was just deleted.
      *
      * @param tasks List of all tasks
-     * @param task The task that was just deleted
+     * @param task  The task that was just deleted
      */
     public void showDeletedTask(List<Task> tasks, Task task) {
         printIndented("Noted. I've removed this task:");

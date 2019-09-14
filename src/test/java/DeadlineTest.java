@@ -1,5 +1,6 @@
 import duke.dukeexception.DukeException;
 import duke.task.Deadline;
+import duke.task.Snoozeable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -31,5 +32,21 @@ public class DeadlineTest {
     void toString_formatted_correctly() throws DukeException {
         List<String> list = getList("do something /by 20/12/2019 1243");
         assertEquals("[D][✘] do something (by: 20/12/2019 1243)",new Deadline(list).toString());
+    }
+
+    @Test
+    void snooze_works_correctly() throws DukeException {
+        List<String> list = getList("do something /by 20/12/2019 1212");
+        Snoozeable task = new Deadline(list);
+        task.snooze();
+        assertEquals(task.toString(), "[D][✘] do something (by: 27/12/2019 1212)");
+    }
+
+    @Test
+    void snooze_over_years_works_correctly() throws DukeException {
+        List<String> list = getList("do something /by 27/12/2019 1212");
+        Snoozeable task = new Deadline(list);
+        task.snooze();
+        assertEquals(task.toString(), "[D][✘] do something (by: 03/01/2020 1212)");
     }
 }

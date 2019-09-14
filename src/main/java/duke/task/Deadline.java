@@ -4,10 +4,11 @@ import duke.dukeexception.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements Snoozeable {
     private String description;
     private Date deadline;
     private SimpleDateFormat formatter;
@@ -37,6 +38,15 @@ public class Deadline extends Task {
     @Override
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    @Override
+    public void snooze() {
+        Calendar date = Calendar.getInstance();
+
+        date.setTime(deadline);
+        date.add(Calendar.DAY_OF_MONTH, 7);
+        deadline.setTime(date.getTimeInMillis());
     }
 
     @Override
