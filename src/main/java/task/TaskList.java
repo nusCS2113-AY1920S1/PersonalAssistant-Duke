@@ -75,7 +75,16 @@ public class TaskList extends ArrayList<Task>{
     public void doneTask(int index) {
         this.get(index).done(true);
     }
-
+    public void rescheduleTask(int index, String datetime) throws DukeException{
+        String description = this.get(index).description;
+        String tasktype = this.get(index).tt;
+        if (tasktype.equals("D")) {
+            this.add(index, new Deadline(description, datetime, false));
+        } else if (tasktype.equals("E")) {
+            this.add(index, new Event(description, datetime, false));
+        } else throw new DukeException("reschedule");
+        this.remove(index + 1);
+    }
     /**
      * Searches for a task with the given keyword
      * @param keyword to be found

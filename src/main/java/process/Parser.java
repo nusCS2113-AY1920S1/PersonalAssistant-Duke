@@ -16,7 +16,7 @@ public class Parser {
      * @throws DukeException if Duke cannot make sense of the input
      */
     public static Command parse(String input) throws DukeException { //input validation
-        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event"));
+        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule"));
         String operation;
         String date;
         int index =-1;
@@ -66,6 +66,16 @@ public class Parser {
                 return new ExitCommand();
             } else if (operation.equals("list")) {
                 return new ListCommand();
+            } else if (operation.equals("reschedule")) {
+                try {
+                    index = Integer.parseInt(operation_list[1]) - 1;
+                } catch (Exception e) {
+                    throw new DukeException("index error");
+                }
+                int to_index = input.indexOf(" /to ");
+                date = input.substring(to_index + 5).trim();
+                if (to_index < 0 || date.isBlank()) throw new DukeException("datetime");
+                return new RescheduleCommand(index, date);
             }
         }
         throw new DukeException("unknown");

@@ -29,7 +29,7 @@ public class Event extends Task{
             SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy hhmm");
             Date date = sdf.parse(at);
             this.at = date;
-            super.tt = "D";
+            super.tt = "E";
             super.extra = at;
         } catch (ParseException e){
             throw new DukeException("datetime");

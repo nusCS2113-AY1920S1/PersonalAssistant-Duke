@@ -78,6 +78,8 @@ public class Ui {
             out_ =  "You have no tasks in your list";
         } else if (error_msg.equals("empty task")) {
             out_ ="OOPS!!! The description of a task cannot be empty.";
+        } else if (error_msg.equals("reschedule")) {
+            out_ = "OOPS!!! A Todo task cannot be rescheduled";
         }
         else out_ =  ("OOPS!!! " + error_msg);
         System.out.println(out_);
@@ -94,12 +96,23 @@ public class Ui {
     }
     /**
      * Shows and
-     * @return the given taska as done
+     * @return the given task as done
      * @param task to be displayed as done
      */
     public String showTaskDone(String task) {
 //        String out_ = "Nice! I've marked this task as done:\n" + "[✓] " + task;
         String out_ = "Nice! I've marked this task as done:\n" + task;
+        System.out.println(out_);
+        return out_;
+    }
+    /**
+     * Shows and
+     * @return the given task as rescheduled
+     * @param task to be displayed as rescheduled
+     */
+    public String showTaskRescheduled(String task) {
+//        String out_ = "Nice! I've marked this task as done:\n" + "[✓] " + task;
+        String out_ = "Nice! I've rescheduled this task:\n" + task;
         System.out.println(out_);
         return out_;
     }
