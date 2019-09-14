@@ -2,6 +2,7 @@ package ui;/*AY1920S1-CS2113T-W17-2*/
 
 import command.Command;
 import storage.Storage;
+import task.ScheduleList;
 import task.TaskList;
 
 public class Duke {
@@ -17,6 +18,7 @@ public class Duke {
      * The TaskList object that handles the list of task added by the user.
      */
     private TaskList taskList;
+    private ScheduleList scheduleList;
 
     /**
      * Constructs a new ui.Duke object.
@@ -41,7 +43,7 @@ public class Duke {
         while (!isExit){
             String cmd = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage);
+            isExit = Command.parse(cmd, taskList, storage, scheduleList);
             ui.printLine();
         }
         ui.byeMsg();

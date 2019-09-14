@@ -20,6 +20,14 @@ public class Event extends Task {
     }
 
     /**
+     *
+     * @return date of event task
+     */
+    public Date getDate(){
+        return date;
+    }
+
+    /**
      * Outputs the string with the correct format for printing to UI
      * @return The string formatted for printing to UI
      */

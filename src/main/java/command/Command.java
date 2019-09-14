@@ -1,8 +1,10 @@
 package command;
 
 import storage.Storage;
-import task.Task;
-import task.TaskList;
+import task.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Command {
     /**
@@ -13,7 +15,7 @@ public class Command {
      * @param fileIO The class object that handles file IO
      * @return true if the command given is bye
      */
-    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO){
+    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList){
         boolean isExit = false;
 
         String[] command = fullCommand.split(" ",2);
@@ -68,7 +70,59 @@ public class Command {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
             }
-        } else if (command[0].equals("delete")) {
+        } else if (command[0].equals ("view")) {
+            try {
+                scheduleList = new ScheduleList();
+
+                if (command[1].equals("all")) {
+                    for (Task t : taskList.getTaskList()) {
+                        if (t instanceof Deadline || t instanceof Event) {
+                                scheduleList.addSchedule(t);
+                        }
+                    }
+                    scheduleList.printScheduleList();
+                }
+                /*else if (command[1].equals("loans")){ //TODO: IF viewing just loans
+                    for (Task t : taskList.getTaskList()) {
+                        if (t instanceof Loans) {
+                            scheduleList.addSchedule(t);
+                        }
+                    }
+                    scheduleList.printScheduleList();
+                }
+                else if (command[1].equals("expenses")){ //TODO: IF viewing just expenses
+                 for (Task t : taskList.getTaskList()) {
+                        if (t instanceof Expenses) {
+                            scheduleList.addSchedule(t);
+                        }
+                    }
+                    scheduleList.printScheduleList();
+                 */
+                //TODO: Can extend to multiple categories
+                else { //TODO: Will change it to date only (Depends on our Expenses and Loans data)
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = sdf.parse(command[1].trim());
+                    for (Task t : taskList.getTaskList()) {
+                        if (t instanceof Deadline) {
+                            Date deadlineDate = ((Deadline) t).getDate();
+                            if (date.equals(deadlineDate))
+                                scheduleList.addSchedule(t);
+                        } else if (t instanceof Event) {
+                            Date eventDate = ((Event) t).getDate();
+                            if (date.equals(eventDate))
+                                scheduleList.addSchedule(t);
+                        }
+                    }
+                    if (scheduleList.getScheduleListSize() == 0)
+                        System.out.println("There is nothing due for that date/time!");
+                    else
+                        scheduleList.printScheduleList();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (command[0].equals("delete")) {
             try {
                 int index = Integer.parseInt(command[1]) - 1;
                 Task task = taskList.getTask(index);
