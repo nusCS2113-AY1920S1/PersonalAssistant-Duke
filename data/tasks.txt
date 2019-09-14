@@ -1,3 +1,7 @@
-T | 0 | return book
-D | 0 | buy bread  | 6/6/2019 1800
-F | 0 | buy bread 
+T | 0 | sleep 
+E | 0 | Google session  | 17/9/2019 1645 | 17/9/2019 1800
+D | 0 | robomaster proposal  | 17/9/2019 0000
+D | 0 | reschedule deadline GES essay   | 16/9/2019 1800
+D | 0 |  deadline GES essay   | 16/9/2019 1800
+D | 0 | GES essay   | 16/9/2019 1800
+E | 0 | buy pens   | 6/6/2011 1100 | 7/7/2011 1400
