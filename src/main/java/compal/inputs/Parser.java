@@ -2,16 +2,15 @@ package compal.inputs;
 
 import compal.main.Duke;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Parser {
     Duke duke;
-    Scanner sc;
 
 
     public Parser(Duke d) {
         this.duke = d;
-        sc = new Scanner(System.in);
     }
 
     /**
@@ -30,7 +29,6 @@ public class Parser {
             duke.ui.listTasks();
         } else if (cmd.matches("done ([0-9]+)")) {
             duke.tasklist.taskDone(cmd);
-
         } else if (cmd.matches("delete ([0-9]+)")) {
             duke.tasklist.deleteTask(cmd);
         } else if (cmd.matches("(todo|event|deadline) .+")) {
@@ -43,7 +41,7 @@ public class Parser {
             } catch (Duke.DukeException e) {
                 duke.ui.printg(e.toString());
             }
-        } else {
+        } else{
             try {
                 throw new Duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (Duke.DukeException e) {
