@@ -50,7 +50,6 @@ public class Duke extends Application {
      *
      * @param when date input to be formatted
      * @return dateString format the date of input when
-     *
      * @Function
      * @UsedIn: ui.getDescription
      */

@@ -5,7 +5,12 @@ import compal.tasks.Event;
 import compal.tasks.Task;
 import compal.tasks.Todo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,7 +48,6 @@ public class Storage {
     }
 
 
-
     /**
      * This function loads from the textfile the list of tasks into the arraylist on startup.
      * It creates new Tasks.Task objects based on the symbol read i.e if E,
@@ -70,32 +74,32 @@ public class Storage {
             Scanner strScanner = new Scanner(cmds);
             while (strScanner.hasNext()) {
                 switch (strScanner.next()) {
-                    case "E":
-                        String done = strScanner.next().trim();
-                        Task t = new Event(strScanner.nextLine().strip());
-                        if (done.equals("true")) {
-                            t.isDone = true;
-                        }
-                        tasks.add(t);
-                        break;
-                    case "D":
-                        String done1 = strScanner.next().trim();
-                        Task t1 = new Deadline(strScanner.nextLine().strip());
-                        if (done1.equals("true")) {
-                            t1.isDone = true;
-                        }
-                        tasks.add(t1);
-                        break;
-                    case "T":
-                        String done2 = strScanner.next().trim();
-                        Task t2 = new Todo(strScanner.nextLine().strip());
-                        if (done2.equals("true")) {
-                            t2.isDone = true;
-                        }
-                        tasks.add(t2);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + strScanner.next());
+                case "E":
+                    String done = strScanner.next().trim();
+                    Task t = new Event(strScanner.nextLine().strip());
+                    if (done.equals("true")) {
+                        t.isDone = true;
+                    }
+                    tasks.add(t);
+                    break;
+                case "D":
+                    String done1 = strScanner.next().trim();
+                    Task t1 = new Deadline(strScanner.nextLine().strip());
+                    if (done1.equals("true")) {
+                        t1.isDone = true;
+                    }
+                    tasks.add(t1);
+                    break;
+                case "T":
+                    String done2 = strScanner.next().trim();
+                    Task t2 = new Todo(strScanner.nextLine().strip());
+                    if (done2.equals("true")) {
+                        t2.isDone = true;
+                    }
+                    tasks.add(t2);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + strScanner.next());
                 }
 
 
@@ -112,12 +116,12 @@ public class Storage {
      * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
      * Returns a fully joined string (each component string is joined by underscores)
      */
-    public String generateStorageString(String...properties){
+    public String generateStorageString(String... properties) {
 
         StringBuilder sb = new StringBuilder();
 
         //cat the strings with underscore separating them
-        for(String property:properties){
+        for (String property : properties) {
             sb.append("_");
             sb.append(property);
         }
@@ -128,15 +132,14 @@ public class Storage {
 
 
     /**
-     *
-     * @param toSave
-     * Saves the string toSave to the saveFilePath just as it is
+     * Saves the string toSave to the saveFilePath just as it is.
+     * @param toSave String
      */
-    public void saveString(String toSave){
+    public void saveString(String toSave) {
         try {
             File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
-            pw.printf("%s\n",toSave);
+            pw.printf("%s\n", toSave);
             pw.close();
 
         } catch (FileNotFoundException e) {
@@ -144,7 +147,11 @@ public class Storage {
         }
     }
 
-    public String getUserName(){
+    /**
+     * Returns the user's name as a String.
+     * @return
+     */
+    public String getUserName() {
         File f = new File(saveFilePath);
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));

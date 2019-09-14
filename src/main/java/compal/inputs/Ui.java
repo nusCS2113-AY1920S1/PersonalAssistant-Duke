@@ -35,28 +35,27 @@ public class Ui {
     /**
      * Set up the Ui parameter.
      *
-     * @param d duke main class to be initialise
+     * @param d         duke main class to be initialise
      * @param arrayList of the data to store,display or edit .
      * @ClassConstructor
      */
     public Ui(Duke d, ArrayList<Task> arrayList) {
         this.duke = d;
         arrlist = arrayList;
-        isNewUser=false;
-        initStage=0;
+        isNewUser = false;
+        initStage = 0;
     }
 
 
     /**
-     * This function is for setting up the JavaFX(GUI) stage, overridden from javafx.application.Application.
+     * * This function is for setting up the JavaFX(GUI) stage, overridden from javafx.application.Application.
      *
      * @param stage the stage to read settings from
      * @throws Exception throw error found from javafx
-     *
      * @Function
      * @UsedIn: COMPal.Launcher.java (indirect call)
-     * todo : Refactor and clean up code for this function
-     * todo : Beautify the GUI and add cooler GUI stuff
+    todo:Refactor and clean up code for this function
+    todo:Beautify the GUI and add cooler GUI stuff
      */
     public void start(Stage stage) {
 
@@ -130,8 +129,8 @@ public class Ui {
 
 
     /**
-     * This function creates 2 dialog boxes, 1 echoing user input and the other containing a processed reply
-     * from COMPal.Duke. Clears userinput box after processing
+     * Creates 2 dialog boxes, 1 echoing user input and the other containing a processed reply
+     * from COMPal.Duke. Clears userinput box after processing.
      *
      * @Function
      * @UsedIn: sendButton.setOnMouseClicked
@@ -139,9 +138,9 @@ public class Ui {
     private void handleUserInput() {
         String cmd = userInput.getText();
 
-        if(isNewUser){
-            firstTimeInit(initStage,cmd);
-        }else{
+        if (isNewUser) {
+            firstTimeInit(initStage, cmd);
+        } else {
             //send to parser to parse
             duke.parser.processCommands(cmd);
         }
@@ -151,10 +150,10 @@ public class Ui {
 
 
     /**
+     * Returns a label (node) with the text as text.
      * @param text Dialog text label received
      * @return Label (node) with the text as text
      * @UsedIn: Application.start()
-     * Returns a label (node) with the text as text.
      */
     private Label getDialogLabel(String text) {
         Label label = new Label(text);
@@ -175,56 +174,66 @@ public class Ui {
 
 
     /**
-     * Checks if user is a new user
+     * Checks if user is a new user.
      * No Params, No Return Value
+     *
      * @UsedIn:
      */
-    public void checkInit(){
+    public void checkInit() {
         File tmpDir = new File("./duke.txt");
         boolean saveFileExists = tmpDir.exists();
-        if(!saveFileExists){
-            isNewUser=true;
+        if (!saveFileExists) {
+            isNewUser = true;
             printg("Hello! I'm COMPal\n");
             printg("May I have the honour of knowing your name?");
-        }else{
-            username=duke.storage.getUserName();
-            printg("Hello again "+username+"! Here are your tasks that are due soon! I've sorted it in order of importance :)");
+        } else {
+            username = duke.storage.getUserName();
+            printg("Hello again "
+                    + username
+                    + "! "
+                    +
+                    "Here are your tasks that are due soon! I've sorted it in order of importance :)");
             //todo: Implement displaying of tasks, sorted according to priority
         }
     }
 
 
     /**
-     * Performs first time initialization for new users
-     * @param stage
-     * @param value
+     * Performs first time initialization for new users.
+     *
+     * @param stage int
+     * @param value String
      * @UsedIn:
      */
-    public void firstTimeInit(int stage,String value){
-        switch(stage){
-            case 0:
-                printg(value+"? Did I say it correctly? [Yes or No]");
-                username=value;
-                initStage=1;
+    public void firstTimeInit(int stage, String value) {
+        switch (stage) {
+        case 0:
+            printg(value + "? Did I say it correctly? [Yes or No]");
+            username = value;
+            initStage = 1;
+            break;
+        case 1:
+            if (value.matches("(y|Y).*")) {
+                printg("Hello " + username + "! What a lovely name!");
+                isNewUser = false;
+                duke.storage.saveString(username); //save the user's name
                 break;
-            case 1:
-                if(value.matches("(y|Y).*")){
-                    printg("Hello "+ username+"! What a lovely name!");
-                    isNewUser=false;
-                    duke.storage.saveString(username); //save the user's name
-                    break;
-                }else{
-                    printg("Okay, what is your name then?");
-                    initStage=0;
-                }
-        }
+            } else {
+                printg("Okay, what is your name then?");
+                initStage = 0;
+                break;
+            }
+        default:
+            System.out.println("Unkown init stage");
 
+        }
 
     }
 
 
     /**
-     * Simply shows the number of tasks in the arraylist
+     * Simply shows the number of tasks in the arraylist.
+     *
      * @Function No Params, No Return Value
      * @UsedIn: tasklist.addTask
      */
@@ -233,7 +242,8 @@ public class Ui {
     }
 
     /**
-     * Simply displays the details of the task passed into it
+     * Simply displays the details of the task passed into it.
+     *
      * @Function No Params, No Return Value
      * @UsedIn: tasklist.taskDone, tasklist.deleteTask
      */
