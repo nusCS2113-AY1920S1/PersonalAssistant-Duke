@@ -1,11 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
+
+//import command.Command;
 import command.*;
-import exception.*;
+import exception.*;//DukeException;
 import ui.*;
-import storage.*;
-import task.*;
-import parser.*;
+import storage.*;//Storage;
+import task.*;//TaskList;
+import parser.*;//Parser;
 
 
 /**
@@ -15,6 +17,7 @@ import parser.*;
  * @author Sai Ganesh Suresh
  * @version v3.0
  */
+
 public class Duke {
 
     private String filePath = "../../DukeDatabase/ArrayList";
@@ -24,7 +27,7 @@ public class Duke {
     private File file = new File(filePath);
     private boolean isExit = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         new Duke().run();
     }
 
