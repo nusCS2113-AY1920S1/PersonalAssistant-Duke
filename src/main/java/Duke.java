@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.ParseException;
 
 import command.Command;
 import javafx.application.Application;
@@ -42,7 +43,7 @@ public class Duke  extends Application {
      */
     public Duke(String file) {
         String directory = System.getProperty("user.home");
-        directory += "\\documents\\duke\\data";
+        directory += "\\Documents\\CS2113T\\main\\data";
         String savefile = file;
         String absolutePath = directory + File.separator + savefile;
         storage = new Storage(absolutePath);
@@ -68,7 +69,7 @@ public class Duke  extends Application {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DukeException | ParseException e) {
                 ui.showError(e.getMessage());
             }
             finally {
@@ -198,7 +199,7 @@ public class Duke  extends Application {
             Command c = Parser.parse(input);
             String toGui =  c.execute(tasks, ui, storage);
             return toGui;
-        } catch (DukeException e) {
+        } catch (DukeException | ParseException e) {
             return ui.showError(e.getMessage());
         }
     }

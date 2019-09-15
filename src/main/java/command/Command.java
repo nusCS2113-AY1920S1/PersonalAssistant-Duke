@@ -2,6 +2,8 @@ package command;
 import process.*;
 import task.TaskList;
 
+import java.text.ParseException;
+
 /**
  * Represents a command registered in Duke
  */
@@ -15,7 +17,7 @@ public abstract class Command {
      * @return the response as a string from the user interface
      * @throws DukeException if command cannot be executed
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException;
     /**
      * Checks if the programme should exit
      * @return True if the programme should exit
