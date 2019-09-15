@@ -20,7 +20,6 @@ Responsibilities:
 
 **Catherine Tan**
 
-
 <img src="images/catherinetan99.png" alt="Catherine" width="150"/>
 
 \[[github](http://github.com/catherinetan99)\] \[[portfolio](#catherinetan99#)\]
@@ -29,6 +28,7 @@ Role: Developer
 Responsibilities:
 
 **Liu Peize**
+
 <img src="images/ltpz.png" alt="Peize" width="150"/>
 
 \[[github](http://github.com/ltpz)\] \[[portfolio](#ltpz#)\]
