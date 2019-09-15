@@ -5,6 +5,9 @@ import process.DukeException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a parser to make sense of user input and translate it to commands for Duke
  */
@@ -62,6 +65,14 @@ public class Parser {
                 date = input.substring(at_index + 5).trim();
                 if (date.isBlank()) throw new DukeException("datetime");
                 return new AddCommand("event", arg1, date);
+            } else if (operation.equals("task")) {
+                int delimiterIndex = input.indexOf(" /need ");
+                if (delimiterIndex == -1) throw new DukeException("Missing task delimiter. (/need)");
+                arg1 = input.substring(4, delimiterIndex).trim();
+                if (arg1.isBlank()) throw new DukeException("arg1 error "+ operation);
+                Matcher m = Pattern.compile("^(\\d+) (\\d+)$").matcher(input.substring(delimiterIndex + 7).trim());
+                if (m.find()) throw new DukeException("Invalid task argument need.");
+                return new AddCommand(arg1, m.group(0), m.group(1));
             } else if (operation.equals("bye")) {
                 return new ExitCommand();
             } else if (operation.equals("list")) {
