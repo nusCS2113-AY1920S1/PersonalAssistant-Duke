@@ -54,7 +54,7 @@ public class Storage {
                 } else if (type.equals("D")) {
                     tasks = new Deadline(taskMessage, "D", arr[3].strip());
                 } else if (type.equals("E")){
-                    tasks = new Event(taskMessage, "E", arr[3].strip());
+                    tasks = new Event(taskMessage, "E", arr[3].strip() , arr[4].strip());
                 } else {
                     tasks = new DoAfter(taskMessage, "A", arr[3].strip());
                 }
@@ -84,11 +84,11 @@ public class Storage {
                     line = "T | " + task.getStatusIcon() + " | " + task.getDescription();
                 } else if (taskType == "D") {
                     line = "D | " + task.getStatusIcon() + " | "
-                        + task.getDescription() + " | " + ((Deadline) task).getDeadline();
+                        + task.getDescription() + " | " + ((Deadline) task).getDate().getStartDateStr();
                 } else if (taskType == "E") {
                     line = "E | " + task.getStatusIcon() + " | "
-                        + task.getDescription() + " | " + ((Event) task).getTime();
-                } else {
+                        + task.getDescription() + " | " + ((Event) task).getDate().getStartDateStr() + " | " + ((Event) task).getDate().getEndDateStr();
+                } else{
                     line = "A | " + task.getStatusIcon() + " | "
                         + task.getDescription() + " | " + ((DoAfter) task).getAfter();
                 }

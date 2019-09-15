@@ -6,12 +6,29 @@ import java.util.*;
 
 public class TaskList {
     private static List<Tasks> tasks;
+    private static TreeMap<Date, Tasks> DE;
+    private static TreeMap<Date, Tasks> E;
 
-    public TaskList(List<Tasks> tasks) {
+    public TaskList(List<Tasks> tasks ) {
+        DE = new TreeMap<>();
+        E = new TreeMap<>();
+
+//        System.out.println("initialising");
+
+        for(Tasks a: tasks){
+            if(a.getType().equals("E")){
+                DE.put(((Event)a).getDate().getStartDate() , a);
+                E.put(((Event)a).getDate().getStartDate() , a);
+//                System.out.println("Added a new event");
+            }else if(a.getType().equals("D")){
+                DE.put(((Deadline)a).getDate().getStartDate() , a);
+//                System.out.println("Added a new deadline");
+            }
+        }
+
 
         this.tasks = tasks;
     }
-
     public TaskList() {
 
         tasks = new ArrayList<>();

@@ -1,25 +1,33 @@
 package task;
 
+import wrapper.MyDate;
+
 public class Deadline extends Tasks {
 
-    private String deadline;
+//    private String deadline;
+    private MyDate date;
 
     public Deadline(String description, String type, String deadline) {
         super(description, type);
-        this.deadline = deadline;
+//        this.deadline = deadline;
+        date = new MyDate(deadline);
     }
 
-    public String getDeadline() {
-        return deadline;
+//    public String getDeadline() {
+//        return deadline;
+//    }
+
+    public MyDate getDate(){
+        return date;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
-    }
+//    public void setDeadline(String deadline) {
+//        this.deadline = deadline;
+//    }
 
     public String toMessage() {
         return description
-            + "(by: " + deadline + ")";
+            + "(by: " + date.toString() + ")";
     }
 
 }
