@@ -46,6 +46,8 @@ public class DukeTest {
         //Test for reminders
         new ReminderTest().test();
 
+        //Test for freetime
+        new FindFreeTimesTest().test();
     }
 
     public void dummyTest() {
