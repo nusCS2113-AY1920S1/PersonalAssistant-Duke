@@ -1,8 +1,9 @@
 
 
-# COMPal - Develepor Guide
 
-Welcome to **COMpal** Developer Guide! This Developer guide is still being work on for now!
+# Compal - Developer Guide
+
+Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
 
 **Appendix A**
  - [User Stories](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#user-stories)
@@ -13,124 +14,170 @@ Welcome to **COMpal** Developer Guide! This Developer guide is still being work 
 # User Stories
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| As a ...|      I want to...     |  So that i can ... | Priority |
+| As a ...|      I want to...     |  So that I can ... | Priority |
 |:----------|:-------------:|:------:|:----------|
-| user | login the application with a password | be the only one to have access to the application  |
-| computing student | to use command based interface | to get used to it  |
-| busy student | keep everything academic related in a single app |  easy access to all school related activities stored |
-| student | store different type of school-related task based on priority ranking | better manage my school schedule |
-| student | store school contacts based on module,discipline & courses tag | better manage my school contact |
-| student | store my various username & passwords securely | access school related system with stored username and password |
-| student | store my own timetable | view my school schedule |
-| student | store my daily school expenses | track my expenses |
-| student | store the timetables of my friends  |  sync our schedules and organise study sessions together |
-| student | store the result/grade of module assignment,attendance,midterm results | estimate received grade.  |
-| student | store my received module grades for each semsester | |
-| student | store school-related notes for each module | note down things that are being taght in lecture |
-| student | store module exam dates,midterms and test | keep track of the dates given |
-| student  | view the timetable of my friends or group mates |  organise team meetings that do not clash with our schedules   |
-| new user | view the user guide easily | learn how to use the app  |
-| student  | view my individual module component results for that semester | gauge my expected results |
-| student  | view my ongoing school-related task | keep track of what of my progress is |
-| student  | mark my ongoing school-related task as completed based by task & subtask |  |
-| forgetful student | track my assignment progress | know what is needed to be done |
-| student           | track my Cumlative GPA | work towards the GPA I aim for  |
-| forgetful student | be notified of my classes to attend |  better manage my schedule |
-| forgetful student | be notified of school-related task due |  better manage my schedule |
-| forgetful student | be notified of upcoming midterms & exam |  better manage my schedule |
-| student | sort my contact stored based by modules,group,course & disciple taken |  |
-| student | sort my tasks according to the deadlines & importance set | be more organised |
-| student | find specified things in the application using a keyword | find related thing |
-| student | send emails of school contact in my contact list  |  |
-| student  | share my contact information (School E-mail,Phone number) with school peers easily |  | 
-| student  | plan my future module to be taken | |
-| student  | prioritise more important modules then other |  I do not lag too far behind in the one im weaker in  |
+|Student| Add the due dates of tasks that I have| Neatly organize my schedule|***
+|Student| Add my academic timetable| Store my academic schedule|***
+|Student| Add meeting schedules| Easily remember about scheduled meetings|***
+|Student| Add examination dates and times| View and track upcoming assessments|***
+|Student| Add the result/grade of module assignment, attendance, midterm results|Store module's component grades|*
+|Student| Add my received module grades for each semester| Store the semester's grades|*
+|Student| Add a description to a task that I have| Record necessary information about the task|***
+|Student| Edit due dates of tasks that I have| Update the description and deadlines of the tasks|***
+|Student| Edit my academic timetable| Update my academic schedule|***
+|Student| Edit meeting schedules| Update my appointment timings|***
+|Student| Edit examination dates and times| Update assessment dates|***
+|Student| Edit the result/grade of module assignment, attendance, midterm results| Estimate the grade that I will receive|*
+|Student| View the application in a graphical user interface| View things in an organised and quick manner|***
+|Student| View the tasks that are soon to be overdued| Keep track of the things to do|***
+|Student| View the timetable in a monthly view| See the overview of the whole month|**
+|Student| View the timetable in a weekly view| See the overview of the whole week|**
+|Student| View the timetable in a daily view| See the overview of the whole day|***
+|Student| View my ongoing school-related task| Keep track of my progress|***
+|Student| Mark my ongoing school-related task as completed by task and subtask| Keep track of the progress of individual task and subtasks|**
+|Student| Track my assignment progress| Know what needs to be done|**
+|Student| Track my cumulative GPA| Work towards the GPA I aim for|*
+|Student| Be notified of my classes to attend| Better manage my schedule|***
+|Student| Be notified of the tasks due| Better manage my schedule|***
+|Student| Be notified of upcoming examinations| Better manage my schedule|***
+|Student| Be notified of upcoming meetings| Better manage my schedule|***
+|Student| Sort my tasks according to the deadlines and importance| Know which task needs to be focused on|***
+|Student| Find specific things in the application using a keyword| Find related things|***
+|Student| Remove a scheduled slot| Delete cancelled meetings/classes|***
+|Student| Remove tasks| Delete irrelevant tasks|***
+|Student| Priortise more important timetable slots based on personal ranking| rearrange my schedule in the event that there is a timetable clash|***
 
-# Use Case
+# Use Cases
 
 System: NUSPal
 
-**Actors: Student**
+**Actors:** Student
 **Persons that can play this role** : undergraduate student, graduate student, a staff member doing a part-time course, exchange student
 
-**Use case 1:** Track a task
 
- 1. User enters a task into the command prompt
- 2. NUSPal prompts user for more details about the task
-    	
-     - List item
-     -  Task Type
-     -  Importance
-     - Deadline date
-    - Description
-     - Module Code
- 3.   User enters the relevant information
+Use case 1: Store Academic Timetable
+
+1.  User enters command to store timetable
     
- 4.  NUSPal provides an acknowledgement that the task has been added
+2.  ComPal prompts you for the timetable details
 
-**Use case 2: Store Timetable**
-
-1.  User enters command to store timetable    
-2.  NUSPal prompts you for the timetable details
-    - Number of mods
-    - Session type(enum lab lecture tutorial sectional)
-    - Day, Period and Duration
-    - Priority
-3.  User enters in time table manually
+		    
+		1.  Number of Modules
+		2.  Session type(enum lab lecture tutorial sectional)
+		3.  Day, Period and Duration   
+		4.  Priority
     
-4.  NUSPal displays the timetable
 
+4.  User enters in timetable manually
+    
+5.  ComPal displays the timetable
+    
 
-**Use case 3: Store contacts**
+  
 
-1.  User enters command to store contacts.
-    
-2.  NUSPal prompts user for name and email address.
-    
-3.  NUSPal prompt category to store
-	- Prof
-	- Students
-	- TA
-	- Tags(Optional)
+**Use case 2: Store a Schedule/Tasks**
 
-**Use case 4: Store Notes for modules**
+1.  User enters command to store a schedule
+    
+2.  COMPal prompts for the task type.
+    
 
-1.  User enter command to store notes
+1.  Assignment(DEADLINE)
     
-2.  NUSPal prompt user for title & desc/module code
+2.  Meeting (Event)
     
-3.  User enters in title & desc/module code
+4.  User enters task type.
     
-4.  NUSPal prompt user for note content
+5.  COMPal prompts for description.
     
-5.  User enters content 
+6.  User enters description.
+    
+7.  COMPal ask for importance level of schedule
+    
+8.  User enter (Enum high,med,low)
+    
+9.  If the task is of low priority, COMPal prompts user whether to allow task to increase in priority.
+    
 
+  
 
-**Use case 5: Store Passwords Securely**  
+**Use Case 3: Edit Task**
 
-1.  User enter commands to store password  
-      
-2.  NUSPal prompts for master password
-    
-3.  User enters master password
-    
-4.  User enter Description & Password
-    
-5.  NUSPal prompt for re-password for confirmation  
+*Prerequisite: User is aware of the TaskID.*
 
-
-**Use case 6: Access Passwords**
-
-1.  User enter commands to access password list
+1.  User inputs command to edit task/schedule.
     
-2.  NUSPal request master password
+2.  COMPal prompts for task ID.
     
-3.  User search by description
+3.  User enters task ID.
+    
+4.  COMPal returns task
+    
+5.  User edits task parameter.
+    
+6.  COMPal displays edited task.
+    
+
+  
+  
+  
+
+**Use Case 4: Edit Academic Schedule**
+
+1.  User inputs command to edit academic schedule.
+    
+2.  COMPal prompts for academic schedule name.
+    
+
+  
+
+**Use Case 5: Change the Views (Daily/Monthly/Weekly)**
+
+1.  User enters command to change view
+    
+2.  COMPal displays the selected view on GUI.
+    
+
+**Use Case 6: Mark Task as Done**
+
+*Prerequisite: User is aware of the TaskID.*
+
+1.  User enters command to mark task as done
+    
+2.  COMPal reflects task status changes
+    
+
+  
+
+**Use Case 7: Search for Tasks**
+
+1.  User enter search command
+    
+2.  COMPal prompts for keyword
+    
+3.  User input keyword
+    
+4.  COMPal reflects search results
 
 # Non-Functional Requirements
+1.  ComPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
+    
+2.  ComPal prompts for academic time table at the beginning of every semester.
+    
+3.  COMPal can store up to 1,000,000 tasks in a clear text file.
+    
+4.  COMPal must respond fast, within 2 seconds so that the user does not have to wait too long.
+    
+5.  COMPal system application does not take up much space on the local machine.
+    
+6.  ComPal’s GUI must be intuitive and pleasant to the eyes
+    
+7.  COMPal consistently performs specified function without failure
+    
+8.  The user’s OS must provide the correct time and date for COMPal.
 
-- Should work on any mainstream OS as long as it has Java 9 or higher installed.
 
-- Should be able to hold up to 1000 prints without a noticeable sluggishness in performance for typical usage.
 
-- A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+# Glossary
+**Task**: 
+**View**: The layout in which the schedule is displayed to the user (Daily/Weekly/Monthly)
