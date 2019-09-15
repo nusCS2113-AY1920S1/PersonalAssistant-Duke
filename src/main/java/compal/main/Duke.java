@@ -55,6 +55,11 @@ public class Duke extends Application {
      */
     public static String dateParse(String when) {
         //parse date
+        String duration = durationParse(when);
+        if (!duration.equals(null)) {
+            //reformat the time
+            when = when.substring(0,when.indexOf("/for"));
+        }
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date = null;
         try {
@@ -64,7 +69,28 @@ public class Duke extends Application {
         }
         format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
         when = format.format(date);
-        return when;
+        if (!duration.equals(null)) {
+            return when + duration;
+        } else {
+            return when;
+        }
+    }
+
+    /**
+     * This function parses the duration of a task and returns the duration string.
+     *
+     * @param when date input to be formatted
+     * @return String shows the duration
+     * @return null if the time does not have a duration message
+     * @Function
+     * @UsedIn: Duke.dataParse
+     */
+    private static String durationParse(String when) {
+        if (when.indexOf("/for") == -1) {
+            return null;
+        } else {
+            return " for" + when.substring(when.indexOf("/for") + 4);
+        }
     }
 
     /**

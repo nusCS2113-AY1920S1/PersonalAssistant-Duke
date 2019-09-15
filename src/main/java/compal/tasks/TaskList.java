@@ -121,6 +121,18 @@ public class TaskList {
             arrlist.add(new Deadline(description));
             duke.ui.printg("[D][ " + notDone + "] " + description);
             break;
+        case "fixedDurationTask":
+            token = "/on";
+            description = getDescription(cs, token);
+            arrlist.add(new FixedDurationTask(description));
+            duke.ui.printg("[F][ " + notDone + "] " + description);
+            break;
+        case "meeting":
+            token = "/at";
+            description = getDescription(cs, token);
+            arrlist.add(new Meeting(description));
+            duke.ui.printg("[M][ " + notDone + "] " + description);
+            break;
         default:
             throw new IllegalStateException("Unexpected value: " + s);
         }
