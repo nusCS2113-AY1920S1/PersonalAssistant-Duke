@@ -5,6 +5,7 @@ import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
 import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Represents a command to reschedule a task by updating its date/time.
@@ -38,6 +39,9 @@ public class RescheduleCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try{
             Task task = taskList.getTask(taskId);
+            if (task instanceof Todo){
+                throw new DukeException("Todo task cannot be reschedule");
+            }
             task.updateLocalDateTime(newDateTime);
             storage.save(taskList.fullTaskList());
             ui.taskRescheduled(task);
