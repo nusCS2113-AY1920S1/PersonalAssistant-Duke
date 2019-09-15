@@ -51,8 +51,8 @@ public class MainWindow extends AnchorPane {
             String response = duke.getResponse(input);
 
             dialogContainer.getChildren().addAll(
-                javafx.DialogBox.getUserDialog(input, userImage),
-                javafx.DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
             );
 
             userInput.clear();
@@ -64,7 +64,7 @@ public class MainWindow extends AnchorPane {
 
         } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
-                javafx.DialogBox.getDukeDialog(e.getMessage(), dukeImage)
+                DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
             userInput.clear();
         }
@@ -77,7 +77,7 @@ public class MainWindow extends AnchorPane {
         String welcomeMessage = duke.getWelcome();
 
         dialogContainer.getChildren().addAll(
-                javafx.DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
         );
     }
 }
