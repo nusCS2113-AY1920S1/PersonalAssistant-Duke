@@ -53,19 +53,7 @@ public class FreeTimeCommand extends Command {
                     eventList.add(task);
                 }
             }
-            eventList.sort((o1, o2) -> {
-                if (o1.getDateTime() == null) {
-                    return 1;
-                } else if (o2.getDateTime() == null) {
-                    return -1;
-                }
-                if (o1.getDateTime().before(o2.getDateTime())) {
-                    return -1;
-                } else if (o1.getDateTime().after(o2.getDateTime())) {
-                    return 1;
-                }
-                return 0;
-            });
+            ViewScheduleCommand.sortTasksByDate(eventList);
 
             for (Task task : eventList) {
                 Date compDate = task.getDateTime();
