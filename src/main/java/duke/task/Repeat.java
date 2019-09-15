@@ -1,52 +1,68 @@
 package duke.task;
 
-import duke.command.AddCommand;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Stores description and date/time automatically for recursive events
- * based on frequency and number of times the event is held.
+ * Represents a recursive task that stores the same description and across the different dates.
  */
 public class Repeat extends Task {
-    protected Date at;
+    protected Date from;
+    protected String[] suf = { "st", "nd", "rd", "th" };
     protected SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    protected String taskDesc;
-    protected String dateDesc;
-    protected String repeatDesc;
-    protected int timesToRepeat;
+
     /**
-     * Creates an event with the specified description, date/time, frequency and number of times it repeats.
+     * Creates a repeated task with the description of task and date/time.
      *
-     * @param taskDesc The description of the task.
-     * @param dateDesc The date/time of the task.
-     * @param listRepeatDates The different dates for the same event.
-     * @param timesToRepeat The number of times it needs to repeat.
+     * @param description The description of the task.
+     * @param from The date/time of the task.
      * @throws ParseException If there is an error converting the date/time.
      */
-    public Repeat(String taskDesc, String dateDesc, String[] listRepeatDates, int timesToRepeat) throws ParseException {
-        super(taskDesc);
-        this.taskDesc = taskDesc;
-
-        Date dateTime = null;
-        for(int i=0; i<timesToRepeat; i++){
-            try {
-                dateTime = datetimeFormat.parse(listRepeatDates[i]);
-                this.at = dateTime;
-            } catch (ParseException e) {
-                System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
-                throw e;
-            }
-            Task taskObj = new Event(this.taskDesc, listRepeatDates[i]);
-            new AddCommand(taskObj);
+    public Repeat(String description, String from) throws ParseException {
+        super(description);
+        Date dateTime;
+        try {
+            dateTime = datetimeFormat.parse(from);
+            this.from = dateTime;
+        } catch (ParseException e) {
+            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            throw e;
         }
     }
 
+    /**
+     * Extracting a task content into readable string.
+     *
+     * @return String to be displayed.
+     */
     @Override
-    public String toFile() {
-        String datetimeStr = datetimeFormat.format(at);
-        return "E|" + super.toFile() + "|" + datetimeStr;
+    public String toString() {
+        SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy, h:mm a");
+        SimpleDateFormat datetimeFormat3 = new SimpleDateFormat("MMMMM yyyy, ha");
+        String displayDT = "";
+
+        int day = Integer.parseInt(new SimpleDateFormat("d").format(from));
+        int min = Integer.parseInt(new SimpleDateFormat("m").format(from));
+        if (min > 0) {
+            displayDT = datetimeFormat2.format(from);
+        } else {
+            displayDT = datetimeFormat3.format(from);
+        }
+        int sufIndex = -1;
+
+        if (day == 1 || day == 21 || day == 31) {
+            sufIndex = 0;
+        } else if (day == 2 || day == 22) {
+            sufIndex = 1;
+        } else if (day == 3 || day == 23) {
+            sufIndex = 2;
+        } else if (day > 3 && day < 31) {
+            sufIndex = 3;
+        }
+        String suffixStr = day + suf[sufIndex];
+        displayDT = suffixStr + " of " + displayDT;
+        return "[R]" + super.toString() + " (Last day of schedule: " + displayDT + ")";
     }
+
 }

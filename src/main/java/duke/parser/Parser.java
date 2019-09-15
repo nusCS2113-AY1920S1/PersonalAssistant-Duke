@@ -4,6 +4,8 @@ import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.task.*;
 
+import java.util.ArrayList;
+
 /**
  * Represents a parser that breaks down user input into commands.
  */
@@ -21,12 +23,7 @@ public class Parser {
         String[] arr = sentence.split(" ");
         String taskDesc = "";
         String dateDesc = "";
-        String repeatDesc = "";
-        String[] listRepeatDates = {};
-        int timesToRepeat = 0;
-        int addDays = 0;
         boolean getDate = false;
-        boolean storeFrequencyOfEvent = false;
         if (sentence.equals("list")) {
             return new ListCommand();
         } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete"))) {
@@ -95,6 +92,7 @@ public class Parser {
             }
         }
         else if (arr.length > 0 && arr[0].equals("repeat")) {
+            //repeat <task> /from <date time> /for 3 <day/week/month>
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
@@ -102,77 +100,44 @@ public class Parser {
                     if (!getDate) { //detect "/"
                         getDate = true;
                     } else {
-                        if (!arr[i].equals("daily") || !arr[i].equals("weekly") || !arr[i].equals("monthly")) {
-                            dateDesc += arr[i] + " ";
-                        } else {
-                            if (!storeFrequencyOfEvent) {
-                                repeatDesc = arr[i];
-                                storeFrequencyOfEvent = true;
-                            } else {
-                                timesToRepeat = Integer.parseInt(arr[i]);
-                            }
-                        }
+                        dateDesc += arr[i] + " ";
                     }
                 }
             }
             taskDesc = taskDesc.trim();
             dateDesc = dateDesc.trim();
-            repeatDesc = repeatDesc.trim();
+
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a "
-                        + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
             } else if (dateDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
                         + arr[0] + " cannot be empty.");
             } else {
-                int[] daysInEachMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-                String splitDate[] = dateDesc.split("/", 3);
-                String splitYearAndTime[] = splitDate[2].split(" ", 2);
+                String repeatSettings;
+                int repeatTimes;
+                String repeatPeriod;
+                try {
+                    repeatSettings = dateDesc.split("/for ")[1];
+                    repeatTimes = Integer.parseInt(repeatSettings.replaceAll("[\\D]", ""));
+                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[1];
 
-                if (Integer.parseInt(splitYearAndTime[0]) % 4 == 0) {
-                    daysInEachMonth[1] = 29;
+                } catch (Exception e) {
+                    throw new DukeException("Format is in: repeat <task> /from <date time> " +
+                            "/for <repeat times> <days/weeks>");
                 }
 
-                Task taskObj;
-                switch (repeatDesc) {
-                    case "daily":
-                        addDays = 1;
-                        break;
-                    case "weekly":
-                        addDays = 7;
-                        break;
-                    default:
-                        addDays = 0;
-                        break;
+                ArrayList<Task> repeatList = new ArrayList<>();
+                String timeDesc = dateDesc.split(" ", 3)[1];
+                for (int i = 0; i < repeatTimes; i++) {
+                    Task taskObj;
+                    taskObj = new Repeat(taskDesc, dateDesc);
+                    dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
+                    repeatList.add(taskObj);
                 }
-                int date = Integer.parseInt(splitDate[0]);
-                int month = Integer.parseInt(splitDate[1]);
-                int year = Integer.parseInt(splitYearAndTime[0]);
-
-                for (int i = 0; i < timesToRepeat; i++) {
-                    int curDate = date;
-                    int curMonth = month;
-                    int curYear = year;
-                    curDate += i * addDays;
-                    while(curDate > daysInEachMonth[month]){
-                        curDate -= daysInEachMonth[month];
-                        curMonth++;
-                        if(curMonth == 13){
-                            curYear++;
-                            curMonth = 1;
-                        }
-                    }
-                    String dateInString = Integer.toString(curDate);
-                    String monthInString = Integer.toString(curMonth);
-                    String yearInString = Integer.toString(curYear);
-
-                    dateDesc = dateInString + "/" + monthInString + "/" + yearInString + " " + splitYearAndTime[1];
-                    listRepeatDates[i] = dateDesc;
-                }
-                taskObj = new Repeat(taskDesc, dateDesc, listRepeatDates, timesToRepeat);
-                return new AddCommand(taskObj);
+                return new AddMultipleCommand(repeatList);
             }
-        } else if (sentence.equals("bye")) {
+        }
+        else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");

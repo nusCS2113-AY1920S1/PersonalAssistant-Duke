@@ -33,7 +33,7 @@ Let's return to Duke and convert it to use FXML instead.
 
 # Rebuilding the Scene using FXML
 
-Scene Builder is a tool developed by Oracle and currently maintained by Gluon. It is a What-You-See-Is-What-You-Get GUI creation tool. [Download](https://gluonhq.com/products/scene-builder/#download) the appropriate version for your OS and install it.
+Scene Builder is a tool developed from Oracle and currently maintained from Gluon. It is a What-You-See-Is-What-You-Get GUI creation tool. [Download](https://gluonhq.com/products/scene-builder/#download) the appropriate version for your OS and install it.
 
 Create the following files in `src/main/resources/view`:
 
@@ -164,7 +164,7 @@ Without the annotation, we will have to make everything `public` and expose our 
 
 The `FXMLLoader` will map the a control with a `fx:id` defined in FXML to a variable with the same name in its controller.
 Notice how in `MainWindow`, we can invoke `TextField#clear()` on `userInput` and access its content just as we did in the previous example.
-Similarly, methods like private methods like `handleUserInput` can be used in FXML when annotated by `@FXML`. 
+Similarly, methods like private methods like `handleUserInput` can be used in FXML when annotated from `@FXML`.
 
 ## Using FXML in our application
 

@@ -107,7 +107,7 @@ public class Storage {
     }
 
     /**
-     * Updates the text file by interpreting the tasks of the task list.
+     * Updates the text file from interpreting the tasks of the task list.
      *
      * @param items The task list that contains a list of tasks.
      * @throws IOException  If there is an error writing the text file.
