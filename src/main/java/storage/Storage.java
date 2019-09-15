@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import exceptions.DukeException;
-import task.*;
+import task.DoAfter;
+import task.TaskList;
+import task.Deadline;
+import task.Tasks;
+import task.Event;
+import task.ToDo;
 
 /**
  * This class deals with loading tasks from the file and saving tasks in the file.
@@ -53,8 +58,8 @@ public class Storage {
                     tasks = new ToDo(taskMessage, "T");
                 } else if (type.equals("D")) {
                     tasks = new Deadline(taskMessage, "D", arr[3].strip());
-                } else if (type.equals("E")){
-                    tasks = new Event(taskMessage, "E", arr[3].strip() , arr[4].strip());
+                } else if (type.equals("E")) {
+                    tasks = new Event(taskMessage, "E", arr[3].strip(), arr[4].strip());
                 } else {
                     tasks = new DoAfter(taskMessage, "A", arr[3].strip());
                 }
@@ -87,8 +92,9 @@ public class Storage {
                         + task.getDescription() + " | " + ((Deadline) task).getDate().getStartDateStr();
                 } else if (taskType == "E") {
                     line = "E | " + task.getStatusIcon() + " | "
-                        + task.getDescription() + " | " + ((Event) task).getDate().getStartDateStr() + " | " + ((Event) task).getDate().getEndDateStr();
-                } else{
+                        + task.getDescription() + " | " + ((Event) task).getDate().getStartDateStr()
+                        + " | " + ((Event) task).getDate().getEndDateStr();
+                } else {
                     line = "A | " + task.getStatusIcon() + " | "
                         + task.getDescription() + " | " + ((DoAfter) task).getAfter();
                 }

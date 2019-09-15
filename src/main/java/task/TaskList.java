@@ -2,27 +2,33 @@ package task;
 
 import exceptions.DukeException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TreeMap;
 
 public class TaskList {
     private static List<Tasks> tasks;
     private static TreeMap<Date, Tasks> DE;
     private static TreeMap<Date, Tasks> E;
 
-    public TaskList(List<Tasks> tasks ) {
+    /**
+     * Constructor for class.
+     * @param tasks
+     */
+    public TaskList(List<Tasks> tasks) {
         DE = new TreeMap<>();
         E = new TreeMap<>();
+        //System.out.println("initialising");
 
-//        System.out.println("initialising");
-
-        for(Tasks a: tasks){
-            if(a.getType().equals("E")){
-                DE.put(((Event)a).getDate().getStartDate() , a);
-                E.put(((Event)a).getDate().getStartDate() , a);
-//                System.out.println("Added a new event");
-            }else if(a.getType().equals("D")){
-                DE.put(((Deadline)a).getDate().getStartDate() , a);
-//                System.out.println("Added a new deadline");
+        for (Tasks a: tasks) {
+            if (a.getType().equals("E")) {
+                DE.put(((Event)a).getDate().getStartDate(), a);
+                E.put(((Event)a).getDate().getStartDate(), a);
+                //System.out.println("Added a new event");
+            }else if (a.getType().equals("D")) {
+                DE.put(((Deadline)a).getDate().getStartDate(), a);
+                //System.out.println("Added a new deadline");
             }
         }
 
@@ -30,7 +36,6 @@ public class TaskList {
         this.tasks = tasks;
     }
     public TaskList() {
-
         tasks = new ArrayList<>();
     }
 
