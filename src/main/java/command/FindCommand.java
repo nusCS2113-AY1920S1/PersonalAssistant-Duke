@@ -1,5 +1,10 @@
 package command;
-
+/**
+ * The FindCommand class is used when the user intends to check all tasks for a keyword.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v1.0
+ */
 import exception.DukeException;
 import task.Task;
 import storage.Storage;
@@ -7,12 +12,6 @@ import task.TaskList;
 import ui.Ui;
 import java.util.ArrayList;
 
-/**
- * The FindCommand class is used when the user intends to check all tasks for a keyword.
- *
- * @author Sai Ganesh Suresh
- * @version v1.0
- */
 public class FindCommand extends Command{
 
     private String keyWord;
@@ -31,10 +30,12 @@ public class FindCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
-        if (holdFoundTasks.isEmpty()) {
+        if (holdFoundTasks.isEmpty())
+        {
             Ui.printMessage("There are no matching tasks in your list.");
         }
-        else{
+        else
+        {
             Ui.printMessage("Here are the matching task(s) in your list:");
         }
 

@@ -1,7 +1,5 @@
 package task;
-
 import java.util.ArrayList;
-
 /**
  * The TaskList class handles all operations performed on the TaskList as well as stores the TaskList.
  *
