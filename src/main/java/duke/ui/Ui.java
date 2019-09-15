@@ -90,4 +90,42 @@ public class Ui {
         System.out.println("\n" + line);
         return line;
     }
+
+    /**
+     * temp: getters for messages to be printed by duke
+     * @return
+     */
+    public String getWelcome() {
+        return ("Hello from\n" + logo + "\n" + MESSAGE_WELCOME);
+    }
+
+    public String getError(String errorMessage) {
+        return errorMessage;
+    }
+
+    public String getByeMessage() {
+        return MESSAGE_BYE;
+    }
+
+    public String getList(UniqueTaskList tasks) {
+        String result = "Here are the list of tasks:\n";
+        int i = 1;
+        for (Task t : tasks) {
+            result += (i + ". " + t + "\n");
+            i += 1;
+        }
+        return result;
+    }
+
+    public String getTaskDesc(Task task) {
+        return (MESSAGE_ADDITION + task);
+    }
+
+    public String getShowMarkDone(Task task) {
+        return (MESSAGE_MARK_DONE + task);
+    }
+
+    public String getDelete(Task task) {
+        return (MESSAGE_DELETE + task);
+    }
 }

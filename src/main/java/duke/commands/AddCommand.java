@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.commons.DukeException;
+import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
@@ -27,9 +28,10 @@ public class AddCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
         storage.getTasks().add(task);
-        ui.showAdd(task);
+        parser.setParserResponse(ui.getTaskDesc(task));
         storage.write();
     }
+
 }

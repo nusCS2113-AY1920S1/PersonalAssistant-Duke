@@ -14,7 +14,12 @@ import duke.ui.Ui;
  * @author  Jefferson111
  */
 public class Duke {
-    private static  final String FILE_PATH = "tasks.txt";
+    private static  final String FILE_PATH = "data/tasks.txt";
+    private boolean exitFlag = false;
+    private String dukeMessage = "";
+    private Ui ui = new Ui();
+    private Parser parser = new Parser();
+    private Storage storage = new Storage(FILE_PATH, ui);
 
     /**
      * Entry point.
@@ -26,15 +31,21 @@ public class Duke {
     /**
      * Creates duke.Duke instance.
      */
-    private Duke() {
+    Duke() {
+        /*
         Ui ui = new Ui();
+        Parser parser = new Parser();
         ui.showWelcome();
         Storage storage = new Storage(FILE_PATH, ui);
+
+
+
         while (true) {
             String userInput = ui.readCommand();
             try {
                 Command command = Parser.parse(userInput);
-                command.execute(ui, storage);
+                command.execute(parser, ui, storage);
+                dukeMessage = parser.getResponse();
                 if (command instanceof ExitCommand) {
                     break;
                 }
@@ -42,5 +53,40 @@ public class Duke {
                 ui.showError(e.getMessage());
             }
         }
+        */
+    }
+    /**
+     * Send a request to Duke, who interprets and saves response
+     * in dukeMessage
+     * @param input The user input
+     * @throws DukeException Exception that Duke throws
+     */
+    public void parseRequest(String input) throws DukeException {
+        try {
+            Command command = Parser.parse(input);
+            command.execute(parser, ui, storage);
+            dukeMessage = parser.getResponse();
+            if (command instanceof ExitCommand) {
+                exitFlag = true;
+            }
+        } catch (DukeException e) {
+            parser.setParserResponse(ui.getError(e.getMessage()));
+            dukeMessage = parser.getResponse();
+        }
+    }
+
+    public String getResponse(String input) throws DukeException {
+        parseRequest(input);
+        System.out.println("fetching response from command: " + input);
+        System.out.println(dukeMessage);
+        return dukeMessage;
+    }
+
+    public Boolean getExitStatus() {
+        return exitFlag;
+    }
+
+    public String getWelcome() {
+        return ui.getWelcome();
     }
 }
