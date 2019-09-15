@@ -2,7 +2,11 @@ package compal.tasks;
 
 import compal.main.Duke;
 
-import java.io.*;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Scanner;
@@ -13,10 +17,14 @@ public class TaskList {
     public Duke duke;
     private BitSet idBitSet;
 
+    /**
+     * Constructor for class.
+     * @param d Duke
+     */
     public TaskList(Duke d) {
         this.duke = d;
         arrlist = new ArrayList<>();
-        idBitSet = getIDBitSet();
+        idBitSet = getIdBitSet();
         if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
@@ -25,9 +33,9 @@ public class TaskList {
     }
 
     /**
-     * Saves the current bitset to file. For assignment of task IDs
+     * Saves the current bitset to file. For assignment of task IDs.
      */
-    public void writeIDBitSet() {
+    public void writeIdBitSet() {
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
@@ -39,10 +47,10 @@ public class TaskList {
     }
 
     /**
-     * Loads the current bitset saved on file and returns it
+     * Loads the current bitset saved on file and returns it.
      * @return
      */
-    public BitSet getIDBitSet() {
+    public BitSet getIdBitSet() {
         BitSet b = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
@@ -71,7 +79,7 @@ public class TaskList {
             if (!idBitSet.get(i)) {
                 taskID = i;
                 System.out.println("Task assigned id of " + taskID);
-                writeIDBitSet();
+                writeIdBitSet();
                 break;
             }
         }
@@ -97,24 +105,24 @@ public class TaskList {
         char notDone = '\u2718';
 
         switch (s) {
-            case "todo":
-                arrlist.add(new Todo(cs.trim()));
-                duke.ui.printg("[T][ " + notDone + "] " + cs);
-                break;
-            case "event":
-                token = "/at";
-                description = getDescription(cs, token);
-                arrlist.add(new Event(description));
-                duke.ui.printg("[E][ " + notDone + "] " + description);
-                break;
-            case "deadline":
-                token = "/by";
-                description = getDescription(cs, token);
-                arrlist.add(new Deadline(description));
-                duke.ui.printg("[D][ " + notDone + "] " + description);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + s);
+        case "todo":
+            arrlist.add(new Todo(cs.trim()));
+            duke.ui.printg("[T][ " + notDone + "] " + cs);
+            break;
+        case "event":
+            token = "/at";
+            description = getDescription(cs, token);
+            arrlist.add(new Event(description));
+            duke.ui.printg("[E][ " + notDone + "] " + description);
+            break;
+        case "deadline":
+            token = "/by";
+            description = getDescription(cs, token);
+            arrlist.add(new Deadline(description));
+            duke.ui.printg("[D][ " + notDone + "] " + description);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + s);
         }
 
         //at this point, an update is made to the task list, so save to file

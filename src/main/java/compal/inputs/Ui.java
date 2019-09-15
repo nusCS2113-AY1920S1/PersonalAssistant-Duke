@@ -4,10 +4,10 @@ import compal.main.Duke;
 import compal.tasks.Task;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class Ui {
 
 
     /**
-     * This function converts the object into string form using toString() and prints it onto the GUI's primary display box
-     *
+     * This function converts the object into string form using toString()
+     * and prints it onto the GUI's primary display box.
      * @param text input object received to be print on gui
      */
     public void printg(Object text) {
@@ -80,30 +80,30 @@ public class Ui {
 
 
     /**
-     * Performs first time initialization for new users. Consists of 2 steps(stages).Parser holds the current stage number.
-     *
+     * Performs first time initialization for new users.
+     * Consists of 2 steps(stages).Parser holds the current stage number.
      * @param stage int
      * @param value String
      */
     public void firstTimeInit(String value, int stage) {
         switch (stage) {
-            case 0:
-                printg(value + "? Did I say it correctly? [Yes or No]");
-                username = value;
+        case 0:
+            printg(value + "? Did I say it correctly? [Yes or No]");
+            username = value;
+            break;
+        case 1:
+            if (value.matches("(y|Y).*")) {
+                printg("Hello " + username + "! What a lovely name!");
+                duke.parser.setStatus("normal");
+                duke.storage.storeUserName(username); //save the user's name
                 break;
-            case 1:
-                if (value.matches("(y|Y).*")) {
-                    printg("Hello " + username + "! What a lovely name!");
-                    duke.parser.setStatus("normal");
-                    duke.storage.storeUserName(username); //save the user's name
-                    break;
-                } else {
-                    printg("Okay, what is your name then?");
-                    duke.parser.setStatus("init");
-                    break;
-                }
-            default:
-                System.out.println("Unknown init stage");
+            } else {
+                printg("Okay, what is your name then?");
+                duke.parser.setStatus("init");
+                break;
+            }
+        default:
+            System.out.println("Unknown init stage");
 
         }
 

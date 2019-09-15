@@ -5,7 +5,7 @@ import javafx.application.Application;
 
 
 /**
- * This class merely holds the launch code to start the GUI and passes CLI args
+ * This class merely holds the launch code to start the GUI and passes CLI args.
  */
 public class Launcher {
 

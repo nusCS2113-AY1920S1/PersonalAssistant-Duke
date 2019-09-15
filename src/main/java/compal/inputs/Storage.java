@@ -75,32 +75,32 @@ public class Storage {
             Scanner strScanner = new Scanner(cmds);
             while (strScanner.hasNext()) {
                 switch (strScanner.next()) {
-                    case "E":
-                        String done = strScanner.next().trim();
-                        Task t = new Event(strScanner.nextLine().strip());
-                        if (done.equals("true")) {
-                            t.isDone = true;
-                        }
-                        tasks.add(t);
-                        break;
-                    case "D":
-                        String done1 = strScanner.next().trim();
-                        Task t1 = new Deadline(strScanner.nextLine().strip());
-                        if (done1.equals("true")) {
-                            t1.isDone = true;
-                        }
-                        tasks.add(t1);
-                        break;
-                    case "T":
-                        String done2 = strScanner.next().trim();
-                        Task t2 = new Todo(strScanner.nextLine().strip());
-                        if (done2.equals("true")) {
-                            t2.isDone = true;
-                        }
-                        tasks.add(t2);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + strScanner.next());
+                case "E":
+                    String done = strScanner.next().trim();
+                    Task t = new Event(strScanner.nextLine().strip());
+                    if (done.equals("true")) {
+                        t.isDone = true;
+                    }
+                    tasks.add(t);
+                    break;
+                case "D":
+                    String done1 = strScanner.next().trim();
+                    Task t1 = new Deadline(strScanner.nextLine().strip());
+                    if (done1.equals("true")) {
+                        t1.isDone = true;
+                    }
+                    tasks.add(t1);
+                    break;
+                case "T":
+                    String done2 = strScanner.next().trim();
+                    Task t2 = new Todo(strScanner.nextLine().strip());
+                    if (done2.equals("true")) {
+                        t2.isDone = true;
+                    }
+                    tasks.add(t2);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + strScanner.next());
                 }
 
 

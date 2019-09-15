@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * JavaFXML Controller class for handling GUI
+ * JavaFXML Controller class for handling GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
