@@ -4,6 +4,7 @@ import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.parsers.ParserStorageUtil;
 import duke.tasks.Task;
+import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,7 +20,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private ArrayList<Task> tasks;
+    private UniqueTaskList tasks;
     private Ui ui;
 
     /**
@@ -30,6 +32,7 @@ public class Storage {
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;
+        tasks = new UniqueTaskList();
         read();
     }
 
@@ -37,7 +40,7 @@ public class Storage {
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
     private void read() {
-        ArrayList<Task> newTasks = new ArrayList<>();
+        List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -50,7 +53,11 @@ public class Storage {
         } catch (FileNotFoundException e) {
             ui.showError(MessageUtil.FILE_NOT_FOUND);
         }
-        tasks = newTasks;
+        try {
+            tasks.setTasks(newTasks);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
@@ -70,7 +77,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> getTasks() {
+    public UniqueTaskList getTasks() {
         return tasks;
     }
 }

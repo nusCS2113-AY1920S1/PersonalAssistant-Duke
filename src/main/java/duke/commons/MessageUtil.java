@@ -11,4 +11,6 @@ public class MessageUtil {
     public static final String FILE_NOT_FOUND = "☢ File not found! :-(";
     public static final String FILE_NOT_SAVE = "✋ File not saved! :-(";
     public static final String CORRUPTED_TASK = "✇ Task cannot be converted to String! :-(";
+    public static final String DUPLICATED_TASK = "✇ Task already exists! :-(";
+    public static final String TASK_NOT_FOUND = "☢ Task not found! :-(";
 }

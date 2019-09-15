@@ -44,6 +44,18 @@ public class Task {
     }
 
     /**
+     * Returns true if both tasks are the same.
+     */
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDescription().equals(getDescription());
+    }
+
+    /**
      * Returns a string representation of this task.
      *
      * @return The desired string representation.
