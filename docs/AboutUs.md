@@ -1,4 +1,5 @@
 
+
 About Us
 ============
 
@@ -18,6 +19,8 @@ Project Team
 Role: Developer  
 Responsibilities:
 
+---
+
 **Catherine Tan**
 
 <img src="images/catherinetan99.png" alt="Catherine" width="150"/>
@@ -27,6 +30,7 @@ Responsibilities:
 Role: Developer  
 Responsibilities:
 
+---
 **Liu Peize**
 
 <img src="images/ltpz.png" alt="Peize" width="150"/>
@@ -36,6 +40,7 @@ Responsibilities:
 Role: Developer  
 Responsibilities:
 
+---
 **Yue Jun Yi**
 
 
@@ -46,8 +51,8 @@ Responsibilities:
 Role: Developer  
 Responsibilities:
 
+---
 **Sholihin Kamarudin**
-
 
 <img src="images/sholihink.png" alt="Sholihin" width="150"/>
 
@@ -55,3 +60,5 @@ Responsibilities:
 
 Role: Team Lead,Developer  
 Responsibilities:
+
+---
