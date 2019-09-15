@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.asciidoctor.jvm.convert' version '2.3.0'
@@ -11,13 +12,24 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'duke.Duke'
+mainClassName = 'duke.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 run {
     standardInput = System.in
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [
+            'javafx.controls'
+            , 'javafx.base'
+            , 'javafx.graphics'
+            , 'javafx.fxml'
+            , 'javafx.web'
+    ]
 }
 
 repositories {

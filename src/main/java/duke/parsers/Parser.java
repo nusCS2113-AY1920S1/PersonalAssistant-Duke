@@ -15,8 +15,6 @@ import duke.commons.MessageUtil;
  * returns Command objects.
  */
 public class Parser {
-    private String parserResponse = "";
-
     /**
      * Parses the userInput and return a Command object.
      *
@@ -27,7 +25,6 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String commandWord = getCommandWord(userInput);
         switch (commandWord) {
-
         case "bye":
             return new ExitCommand();
         case "todo":
@@ -47,7 +44,6 @@ public class Parser {
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
-
     }
 
     /**
@@ -72,13 +68,5 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
-    }
-
-    public void setParserResponse(String response) {
-        parserResponse = response;
-    }
-
-    public String getResponse() {
-        return parserResponse;
     }
 }

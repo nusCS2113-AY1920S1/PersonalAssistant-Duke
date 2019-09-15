@@ -1,12 +1,13 @@
 package duke.parsers;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import duke.commands.AddCommand;
 import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserTest {
 

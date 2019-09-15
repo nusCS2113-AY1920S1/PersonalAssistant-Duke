@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -15,8 +14,7 @@ public class ListCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) {
-        //System.out.println(ui.getList(storage.getTasks()));
-        parser.setParserResponse(ui.getList(storage.getTasks()));
+    public void execute(Ui ui, Storage storage) {
+        ui.showList(storage.getTasks());
     }
 }
