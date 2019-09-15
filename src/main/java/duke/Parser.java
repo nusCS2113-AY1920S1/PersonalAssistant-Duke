@@ -1,11 +1,7 @@
 package duke;
 
 import duke.commands.*;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.DoAfterTask;
+import duke.tasks.*;
 
 import java.util.ArrayList;
 
@@ -114,6 +110,8 @@ public class Parser {
 
         if (hasDoAfter) {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
+        } else if (hasWithinPeriod) {
+            tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
         }
         else {
             tempTask = new ToDo(input);
