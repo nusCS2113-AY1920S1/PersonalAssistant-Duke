@@ -8,21 +8,21 @@ import duke.core.*;
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
  */
-public class Duke {
+public class Duke implements Runnable{
     /**
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
      */
-    private Storage storage;
+    public static Storage globalStorage;
     /**
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
-    private TaskList tasks;
+    public static TaskList globalTasks;
     /**
      * A Ui object that deals with interactions with the user.
      */
-    private  Ui ui;
+    public static Ui globalUi;
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -30,42 +30,49 @@ public class Duke {
      *          used for storing tasks.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        globalUi = new Ui();
+        globalStorage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            globalTasks = new TaskList(globalStorage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            globalUi.showLoadingError();
+            globalTasks = new TaskList();
         }
     }
+
     /**
      * Runs the Duke program.
      * Reads user input until a "bye" message is received.
      */
-    private void run() {
-        ui.showWelcome();
+    public void run() {
+        globalUi.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
+                String fullCommand = globalUi.readCommand();
+                globalUi.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(globalTasks, globalUi, globalStorage);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                globalUi.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                globalUi.showLine();
             }
         }
     }
     /**
-     * Starts the Duke program by passing in a specific file
-     * path.
+     * Starts the Duke thread and Reminder thread concurrently
+     * by passing a filepath to duke and a global ui object&
+     * task list to Reminder
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        Duke n = new Duke("./data/duke.txt");
+        Reminder r = new Reminder(globalTasks,globalUi);
+        Thread t1 = new Thread(n);
+        Thread t2 = new Thread(r);
+        t1.start();
+        t2.start();
     }
 }
