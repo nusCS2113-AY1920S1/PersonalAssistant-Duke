@@ -34,12 +34,13 @@ run {
 
 dependencies {
     implementation 'com.joestelmach:natty:0.13'
+    compile "org.slf4j:slf4j-simple:1.7.9"
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
 test {
     useJUnitPlatform()
-    testLogging.showStandardStreams = true
+    // testLogging.showStandardStreams = true
     testLogging {
         events "passed", "skipped", "failed"
     }
