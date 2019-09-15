@@ -32,11 +32,11 @@ public class Storage {
                 out.write(arr.get(i) + "\n");
             }
             out.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e + ", thus please try inputting other things.");
         }
     }
+
     protected ArrayList<Task> arr = new ArrayList<Task>();
 
     /**
@@ -52,19 +52,19 @@ public class Storage {
             int counter = 0;
             while ((line = reader.readLine()) != null) {
                 counter += 1;
+                boolean checker = false;
                 if (line.startsWith("[T]")) {
-                    boolean checker = checkDone(line);
+                    checker = checkDone(line);
                     line = line.substring(7).trim();
                     Task task = new Todo(line);
                     arr.add(task);
                     if (checker) {
                         arr.get(counter - 1).setStatus();
                     }
-                }
-                else if (line.startsWith("[D]")) {
-                    boolean checker = checkDone(line);
+                } else if (line.startsWith("[D]")) {
+                    checker = checkDone(line);
                     line = line.substring(7).trim();
-                    String linesplit[] = line.split("\\(by:");
+                    String[] linesplit = line.split("\\(by:");
                     String start = linesplit[0].trim();
                     String end = linesplit[1].trim();
                     end = end.substring(0, end.length() - 1);
@@ -73,11 +73,10 @@ public class Storage {
                     if (checker) {
                         arr.get(counter - 1).setStatus();
                     }
-                }
-                else if (line.startsWith("[E]")) {
-                    boolean checker = checkDone(line);
+                } else if (line.startsWith("[E]")) {
+                    checker = checkDone(line);
                     line = line.substring(7).trim();
-                    String linesplit[] = line.split("\\(at:");
+                    String[] linesplit = line.split("\\(at:");
                     String start = linesplit[0].trim();
                     String end = linesplit[1].trim();
                     end = end.substring(0, end.length() - 1);
@@ -90,8 +89,7 @@ public class Storage {
             }
             reader.close();
             return arr;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace(System.out);
             System.out.println("Look at the output.txt for any irregularities!");

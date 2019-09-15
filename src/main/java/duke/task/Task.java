@@ -1,9 +1,11 @@
 package duke.task;
+
 /**
  * Represents a <code>Task</code> object.
  * Abstract parent class of all subclasses of <code>Task</code>.
  */
 public class Task {
+
     protected String line;
     protected boolean status;
 
@@ -22,6 +24,7 @@ public class Task {
     public void setStatus() {
         this.status = true;
     }
+
     /**
      * Retrieves the description of the <code>Task</code>.
      * @return Description of the <code>Task</code>.

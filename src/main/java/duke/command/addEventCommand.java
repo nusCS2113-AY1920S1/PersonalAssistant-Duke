@@ -18,21 +18,22 @@ import java.time.format.DateTimeFormatter;
  * Represents a <code>Command</code> to add <code>Event</code> objects
  * to the <code>TaskList</code>.
  */
-public class addEventCommand extends Command {
+public class AddEventCommand extends Command {
 
     String line;
 
     /**
-     * Constructor for <code>addEventCommand</code>.
+     * Constructor for <code>AddEventCommand</code>.
      * @param line Command inputted by user.
      */
-    public addEventCommand(String line) {
+    public AddEventCommand(String line) {
         super();
         this.line = line;
     }
+
     /**
      * Performs a series of three main tasks.
-     * Processes the command inputted by user into <code>description</code> and <code>date</code>.
+     * Processes the Command inputted by user into <code>description</code> and <code>date</code>.
      * Checks for the validity of the format of <code>date</code>.
      * Adds an <code>Event</code> object to the <code>TaskList</code>
      * and prints the object added before calling methods in <code>Storage</code> to
@@ -44,7 +45,7 @@ public class addEventCommand extends Command {
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
-        String linesplit[] = line.split("/at");
+        String[] linesplit = line.split("/at");
         if (linesplit.length == 1) {
             throw new DukeException("\u2639 OOPS!!! The description of an event needs a date.");
         }
@@ -52,8 +53,7 @@ public class addEventCommand extends Command {
         String end = linesplit[1].trim();
         if (end.length() == 0) {
             throw new DukeException("\u2639 OOPS!!! The datetime of an event cannot be empty.");
-        }
-        else if (isTimeStampValid(end)) {
+        } else if (isTimeStampValid(end)) {
             String pattern = "dd-MM-yyyy HH:mm";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(end));
@@ -64,21 +64,20 @@ public class addEventCommand extends Command {
             arr.addTask(task);
             ui.addTaskMessage(task, arr.getSize());
             storage.writeToFile(arr);
-        }
-        else {
+        } else {
             System.out.println("Time format is wrong! Try again.");
         }
     }
+
     /**
      * Checks for the validity of the datetime given by user
      * by checking the format and validity of the datetime itself.
      * @param inputString datetime input by user in <code>String</code> format.
      * @return Returns true if the datetime given by user is valid, false otherwise.
      */
-    public boolean isTimeStampValid(String inputString)
-    {
+    public boolean isTimeStampValid(String inputString) {
         SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
-        try{
+        try {
             String str = "";
             format.parse(inputString);
             String pattern = "dd-MM-yyyy HH:mm";
@@ -88,14 +87,13 @@ public class addEventCommand extends Command {
             DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
             str = formatter2.format(timestamp.toLocalDateTime());
             return true;
-        }
-        catch(ParseException | DateTimeException e)
-        {
+        } catch (ParseException | DateTimeException e) {
             return false;
         }
     }
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
      * @return false.
      */
