@@ -1,4 +1,4 @@
-package javaFx;
+package duke.javafx;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(javaFx.MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(duke.javafx.MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -52,7 +52,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Returns a Dialog Box corresponding to the User
+     * Returns a Dialog Box corresponding to the User.
      * @param text the text in the Dialog Box
      * @param img the image of the user
      * @return the Dialog Box to be added
@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Returns a Dialog Box corresponding to Duke
+     * Returns a Dialog Box corresponding to Duke.
      * @param text the text in the Dialog Box
      * @param img the image used by Duke
      * @return the dialog Box to be added

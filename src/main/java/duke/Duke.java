@@ -55,9 +55,10 @@ public class Duke {
         }
         */
     }
+
     /**
      * Send a request to Duke, who interprets and saves response
-     * in dukeMessage
+     * in dukeMessage.
      * @param input The user input
      * @throws DukeException Exception that Duke throws
      */
@@ -75,6 +76,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Parse request and get response.
+     * @param input the input string
+     * @return dukeMessage the message from Duke
+     * @throws DukeException the exception thrown
+     */
     public String getResponse(String input) throws DukeException {
         parseRequest(input);
         System.out.println("fetching response from command: " + input);

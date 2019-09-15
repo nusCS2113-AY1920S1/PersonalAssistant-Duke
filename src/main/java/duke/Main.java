@@ -1,6 +1,6 @@
 package duke;
 
-import javaFx.MainWindow;
+import javafx.MainWindow;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +21,9 @@ public class Main extends Application {
     }
 
     /**
-     * starts duke GUI
-     * @param stage
+     * starts duke GUI.
+     * @param stage the stage for GUI
      */
-
     @Override
     public void start(Stage stage) {
         System.out.println("Starting Duke...");
@@ -42,14 +41,13 @@ public class Main extends Application {
     }
 
     /**
-     * stops the GUI
-     * @throws Exception
+     * stops the GUI.
+     * @throws Exception the exception thrown
      */
     @Override
     public void stop() throws Exception {
         super.stop();
         Platform.exit();
-        System.exit(0);
     }
 
 }

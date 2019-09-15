@@ -1,7 +1,6 @@
-package javaFx;
+package duke.javafx;
 
-import duke.*;
-
+import duke.Duke;
 import duke.commons.DukeException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -52,8 +51,8 @@ public class MainWindow extends AnchorPane {
             String response = duke.getResponse(input);
 
             dialogContainer.getChildren().addAll(
-                javaFx.DialogBox.getUserDialog(input, userImage),
-                javaFx.DialogBox.getDukeDialog(response, dukeImage)
+                javafx.DialogBox.getUserDialog(input, userImage),
+                javafx.DialogBox.getDukeDialog(response, dukeImage)
             );
 
             userInput.clear();
@@ -65,20 +64,20 @@ public class MainWindow extends AnchorPane {
 
         } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
-                javaFx.DialogBox.getDukeDialog(e.getMessage(), dukeImage)
+                javafx.DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
             userInput.clear();
         }
     }
 
     /**
-     * Gets duke to fetch the Welcome message, and create a new Dialog Box for it
+     * Create dialog box for welcome message.
      */
     public void getWelcome() {
         String welcomeMessage = duke.getWelcome();
 
         dialogContainer.getChildren().addAll(
-                javaFx.DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+                javafx.DialogBox.getDukeDialog(welcomeMessage, dukeImage)
         );
     }
 }

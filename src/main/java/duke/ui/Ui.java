@@ -92,8 +92,8 @@ public class Ui {
     }
 
     /**
-     * temp: getters for messages to be printed by duke
-     * @return
+     * getters for messages to be printed by duke.
+     * @return message the message to print
      */
     public String getWelcome() {
         return ("Hello from\n" + logo + "\n" + MESSAGE_WELCOME);
@@ -107,6 +107,11 @@ public class Ui {
         return MESSAGE_BYE;
     }
 
+    /**
+     * gets the task list.
+     * @param tasks task list
+     * @return message task list to print
+     */
     public String getList(UniqueTaskList tasks) {
         String result = "Here are the list of tasks:\n";
         int i = 1;
