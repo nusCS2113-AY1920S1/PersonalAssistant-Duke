@@ -46,6 +46,9 @@ public class DukeTest {
         //Test for reminders
         new ReminderTest().test();
 
+        //Test for do after task todo
+        new DoAfterTaskTest().test("todo going after my work /after lunch");
+
     }
 
     public void dummyTest() {
