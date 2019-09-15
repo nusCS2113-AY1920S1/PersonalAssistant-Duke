@@ -20,6 +20,8 @@ public class ParserTest {
         Command c6 = Parser.parse("todo abc");
         Command c7 = Parser.parse("event Meeting /at 2PM");
         Command c8 = Parser.parse("deadline event Homework ABC /by 1PM");
+        Command c9 = Parser.parse("view 16/09/2019");
+
 
         assertTrue(c1 instanceof ExitCommand, "The command type should be ");
         assertTrue(c2 instanceof DoneCommand, "The command type should be 'DoneCommand'");
@@ -29,5 +31,6 @@ public class ParserTest {
         assertTrue(c6 instanceof AddCommand, "The command type should be 'AddCommand'");
         assertTrue(c7 instanceof AddCommand, "The command type should be 'AddCommand'");
         assertTrue(c8 instanceof AddCommand, "The command type should be 'AddCommand'");
+        assertTrue(c9 instanceof ViewCommand, "The command type should be 'ViewCommand'");
     }
 }
