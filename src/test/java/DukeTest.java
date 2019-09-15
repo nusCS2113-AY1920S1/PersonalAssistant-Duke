@@ -46,6 +46,12 @@ public class DukeTest {
         //Test for reminders
         new ReminderTest().test();
 
+        //Test for do after task
+        new DoAfterTaskTest().test("todo going after my work /after lunch");
+
+        //Test for within period task
+        new WithinPeriodTask().test("todo completing my work within my house /within 1 sep to 2 dec");
+
     }
 
     public void dummyTest() {
