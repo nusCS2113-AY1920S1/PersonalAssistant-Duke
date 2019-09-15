@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 
-//import command.Command;
 import command.*;
 import exception.*;//DukeException;
 import ui.*;
@@ -20,7 +19,7 @@ import parser.*;//Parser;
 
 public class Duke {
 
-    private String filePath = "../../DukeDatabase/ArrayList";
+    private String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/ArrayList";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
