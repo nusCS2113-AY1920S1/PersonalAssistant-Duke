@@ -2,6 +2,8 @@ package duke.core;
 
 import duke.task.Task;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,6 +109,29 @@ public class Ui {
         for (Task x : a) {
             System.out.println(count + "." + x.toString());
             count++;
+        }
+    }
+
+    /**
+     * Print out the schedules on a specific date.
+     * @param a TaskList used to store tasks.
+     * @param date selected date of the schedule.
+     */
+    public void showSchedules (ArrayList<Task> a , String date) {
+        System.out.println("This is your schedules on " + date);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+            int count = 1;
+            for (Task task : a) {
+                String currentTaskDate = task.getDateTime().format(formatter);
+                if (currentTaskDate.equals(date)) {
+                    System.out.println(count + ": " + task);
+                }
+                count++;
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid format. Please Enter Date and Time in the the format of dd/MM/yyyy");
+
         }
     }
     /**

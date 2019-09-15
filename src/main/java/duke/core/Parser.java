@@ -5,6 +5,10 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Represents a Parser that parses user input into a specific
  * type of Command.
@@ -70,6 +74,16 @@ public class Parser {
                     return new RescheduleCommand(Integer.parseInt(tempCommand[0]), tempCommand[1]);
                 } catch (Exception e) {
                     throw new DukeException("Fail to reschedule task. Please enter command in the format of 'reschedule <task number> <dd/MM/yyyy HHmm>'.");
+                }
+            case "view":
+                try {
+                    DateFormat parser = new SimpleDateFormat("dd/M/yyyy");
+                    DateFormat formatter = new SimpleDateFormat("dd/M/yyyy");
+                    String date = formatter.format(parser.parse(command[1]));
+                    return new ViewCommand(date);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             case "bye":
                 return new ExitCommand();
