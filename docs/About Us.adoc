@@ -20,7 +20,7 @@ Role: Lecturer
 image::E0310898.jpg[width="150" , align="left"]
 {empty}[https://github.com/E0310898[github]] [<<Sai Ganesh Suresh#, portfolio>>]
 
-Role: Team Member
+Role: Team Member +
 Responsibilities:
 
 '''
@@ -29,7 +29,7 @@ Responsibilities:
 image::hanskw4267.jpg[width="150", align="left"]
 {empty}[https://github.com/hanskw4267[github]] [<<Hans Kurnia#, portfolio>>]
 
-Role: Team Member
+Role: Team Member +
 Responsibilities: 
 
 '''
@@ -38,7 +38,7 @@ Responsibilities:
 image::fauzt.jpg[width="150", align="left"]
 {empty}[https://github.com/fauzt[github]] [<<Fauzan#, portfolio>>]
 
-Role: Team Member
+Role: Team Member +
 Responsibilities: 
 
 '''
@@ -47,7 +47,7 @@ Responsibilities:
 image::assman.jpg[width="150", align="left"]
 {empty}[https://github.com/assman[github]] [<<Varun#, portfolio>>]
 
-Role: Team Member
+Role: Team Member +
 Responsibilities: 
 
 '''
@@ -56,7 +56,7 @@ Responsibilities:
 image::TanYiXiang.jpg[width="150", align="left"]
 {empty}[https://github.com/TanYiXiang[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Member
+Role: Team Member +
 Responsibilities: 
 
 '''
