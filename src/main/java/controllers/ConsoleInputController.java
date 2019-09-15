@@ -1,6 +1,7 @@
 package controllers;
 
 import exceptions.DukeException;
+import java.text.ParseException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.tasks.ITask;
@@ -52,6 +53,12 @@ public class ConsoleInputController implements IViewController {
             try {
                 consoleView.findTask(taskList, input);
             } catch (ArrayIndexOutOfBoundsException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+        } else if (input.contains("remind")) {
+            try {
+                consoleView.remindTask(taskList, input);
+            } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
         } else {
