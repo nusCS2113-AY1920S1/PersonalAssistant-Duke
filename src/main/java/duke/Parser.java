@@ -7,10 +7,7 @@ import duke.commands.DoneCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import duke.tasks.*;
 
 import java.util.ArrayList;
 
@@ -45,7 +42,9 @@ public class Parser {
         }
     }
 
-    private static String getString(ArrayList<Task> data, int state, StringBuilder stringBuilder, Task tempTask) {
+    private static String getString(ArrayList<Task> data, int state, Task tempTask) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         if (state == 2) {
             tempTask.markAsDone();
         }
@@ -57,6 +56,15 @@ public class Parser {
 
         }
         return stringBuilder.toString();
+    }
+
+    private static StringBuilder computeTaskDetail(String task, StringBuilder stringBuilder) {
+        String[] tokens = task.split(" ");
+        for (String token : tokens) {
+            if (token.charAt(0) != '/') stringBuilder.append(token);
+            else break;
+        }
+        return stringBuilder;
     }
 
     /**
@@ -71,10 +79,44 @@ public class Parser {
      * @return String which highlights what Duke processed
      */
     public static String runTodo(ArrayList<Task> data, String input, int state) {
-        StringBuilder stringBuilder = new StringBuilder();
+
+        StringBuilder taskDetail = new StringBuilder();
+        StringBuilder taskReq = new StringBuilder();
+        boolean hasReq = false;
+        boolean hasDoAfter = false;
+        boolean hasWithinPeriod = false;
+        boolean hasFixedDuration = false;
+        Task tempTask;
+
         input = input.substring(5);
-        Task tempTask = new ToDo(input);
-        return getString(data, state, stringBuilder, tempTask);
+        String[] tokens = input.split(" ");
+        for (String token : tokens) {
+            if (token.charAt(0) == '/' && token.equals("/after")) {
+                hasReq = true;
+                hasDoAfter = true;
+            } else if (token.charAt(0) == '/' && token.equals("/within")) {
+                hasReq = true;
+                hasWithinPeriod = true;
+            } else if (token.charAt(0) == '/' && token.equals("/needs")) {
+                hasReq = true;
+                hasFixedDuration = true;
+            }
+            else if (!hasReq) taskDetail.append(token + " ");
+            else if (hasReq) taskReq.append(token + " ");
+        }
+        String finalTaskDetail = taskDetail.toString();
+        finalTaskDetail = finalTaskDetail.substring(0, finalTaskDetail.length() - 1);
+        String finalTaskReq = taskReq.toString();
+
+        if (hasReq) finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+
+        if (hasDoAfter) {
+            tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
+        }
+        else {
+            tempTask = new ToDo(input);
+        }
+        return getString(data, state, tempTask);
     }
 
     /**
@@ -89,13 +131,12 @@ public class Parser {
      * @return String which highlights what Duke processed
      */
     public static String runDeadline(ArrayList<Task> data, String input, int state) {
-        StringBuilder stringBuilder = new StringBuilder();
         input = input.substring(9);
         int startOfBy = input.indexOf("/");
         String tt1 = input.substring(0, startOfBy - 1);
         String tt2 = input.substring(startOfBy + 4);
         Task tempTask = new Deadline(tt1, tt2);
-        return getString(data, state, stringBuilder, tempTask);
+        return getString(data, state, tempTask);
     }
 
     /**
@@ -110,12 +151,11 @@ public class Parser {
      * @return String which highlights what Duke processed
      */
     public static String runEvent(ArrayList<Task> data, String input, int state) {
-        StringBuilder stringBuilder = new StringBuilder();
         input = input.substring(6);
         int startOfAt = input.indexOf("/");
         String tt1 = input.substring(0, startOfAt - 1);
         String tt2 = input.substring(startOfAt + 4);
         Task tempTask = new Event(tt1, tt2);
-        return getString(data, state, stringBuilder, tempTask);
+        return getString(data, state, tempTask);
     }
 }
