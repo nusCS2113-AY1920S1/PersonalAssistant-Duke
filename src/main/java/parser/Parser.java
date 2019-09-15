@@ -35,6 +35,11 @@ public class Parser {
                 Ui.showError(e.getError());
             }
 
+        }else if(s.contains("get conflicts")){
+
+            TaskList.getConflicts();
+
+
         }else {
             try {
                 switch (firstWord) {
