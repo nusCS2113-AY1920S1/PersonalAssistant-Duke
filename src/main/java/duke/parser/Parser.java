@@ -5,6 +5,7 @@ import duke.commons.DukeException;
 import duke.commons.Message;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.FixedDurationTask;
 import duke.task.Todo;
 
 import java.util.Dictionary;
@@ -131,11 +132,13 @@ public class Parser {
     private static Command parseEvent(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
 
+        //TODO: Address exceptions
         if (args.get("primary") == null) {
             throw new DukeException("Please enter event description");
         }
-        if (args.get("at") == null && args.get("from") == null && args.get("to") == null) {
-            throw new DukeException("Please enter start & end time or duration");
+
+        if (args.get("at") == null && args.get("from") == null && args.get("to") == null && args.get("last") == null) {
+            throw new DukeException("Please enter start & end time / duration / time point");
         }
 
         if (args.get("at") != null && args.get("from") != null && args.get("to") != null) {
@@ -149,13 +152,19 @@ public class Parser {
         if (args.get("at") != null) {
             Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
             return new AddCommand(evt);
-        } else {
+        } else if (args.get("from") != null) {
             Event evt = new Event(args.get("primary"),
                     TimeParser.convertStringToDate(args.get("from")),
                     TimeParser.convertStringToDate(args.get("to")));
             return new AddCommand(evt);
+        } else {
+            try {
+                FixedDurationTask evt = new FixedDurationTask(args.get("primary"), Integer.parseInt(args.get("last")));
+                return new AddCommand(evt);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Duration should be an integer");
+            }
         }
-
     }
 
     private static Command parseList(String line) {

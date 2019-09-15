@@ -14,7 +14,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Deadline.class),
         @JsonSubTypes.Type(value = Todo.class),
-        @JsonSubTypes.Type(value = Event.class)}
+        @JsonSubTypes.Type(value = Event.class),
+        @JsonSubTypes.Type(value = FixedDurationTask.class)
+}
 )
 //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public abstract class Task implements java.io.Serializable {

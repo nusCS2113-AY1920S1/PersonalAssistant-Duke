@@ -1,11 +1,11 @@
 package duke.ui;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXCheckBox;
+import duke.task.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import duke.task.*;
 
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class DialogBox extends AnchorPane {
         if (task instanceof Todo) {
             typeLabel.setText(" TODO ");
             typeLabel.getStyleClass().add("todo-label");
-        } else if (task instanceof Event) {
+        } else if (task instanceof Event || task instanceof FixedDurationTask) {
             typeLabel.setText(task.toString());
             typeLabel.getStyleClass().add("event-label");
         } else if (task instanceof Deadline) {
