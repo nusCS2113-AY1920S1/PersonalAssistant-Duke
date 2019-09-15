@@ -1,7 +1,6 @@
-T | 0 | sleep 
-E | 0 | Google session  | 17/9/2019 1645 | 17/9/2019 1800
-D | 0 | robomaster proposal  | 17/9/2019 0000
-D | 0 | reschedule deadline GES essay   | 16/9/2019 1800
-D | 0 |  deadline GES essay   | 16/9/2019 1800
-D | 0 | GES essay   | 16/9/2019 1800
-E | 0 | buy pens   | 6/6/2011 1100 | 7/7/2011 1400
+E | 0 | marquee  | 12/9/2019 1400 | 14/9/2019 1600
+P | 0 | IPPT  | 14/9/2019 1400 | 15/9/2019 1800
+T | 0 | do assignments
+D | 0 | do assignments  | 3/2/2019 1300
+D | 0 | send keegs off  | 19/9/2019 2300
+
