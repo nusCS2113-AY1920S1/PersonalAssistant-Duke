@@ -11,8 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== LIU PEIZE
-image::LTPZ.png[width="150", align="left"]
-{empty}[https://github.com/LTPZ[github]] [<<LTPZ#, portfolio>>]
+=== Jaedon Kee 
+image::jaedonkey.png[width="150", align="left"]
+{empty}[http://github.com/jaedonkey[github]] [<<jaedonkey#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Catherine Tan
+image::catherinetan99.png[width="150", align="left"]
+{empty}[http://github.com/catherinetan99[github]] [<<catherinetan99#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Liu Peize
+image::ltpz.png[width="150", align="left"]
+{empty}[http://github.com/ltpz[github]] [<<ltpz#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Yue Jun Yi
+image::yueyeah.png[width="150", align="left"]
+{empty}[http://github.com/yueyeah[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Sholihin Kamarudin
+image::sholihink.png[width="150", align="left"]
+{empty}[https://github.com/sholihink[github]] [<<sholihink#, portfolio>>]
+
+Role: Team Lead +
 
 '''
