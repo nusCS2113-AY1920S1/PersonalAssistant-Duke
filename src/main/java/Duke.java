@@ -1,14 +1,19 @@
+import Events.Storage.Storage;
+import Events.Storage.TaskList;
+import UserElements.Command;
+import UserElements.Parser;
+import UserElements.UI;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.lang.Object;
-import java.util.EnumSet;
 
 public class Duke {
     static String lineSeparation = "____________________________________________________________\n";
+
+    /**
+     * main Duke method
+     */
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser();
         Scanner reader = new Scanner(System.in);
@@ -19,9 +24,9 @@ public class Duke {
 
         String userInput = reader.nextLine();
         while (!userInput.equals("bye")) {
-           Command currCommand = parser.parseInput(userInput);
-           currCommand.execute(tasks, ui, storage);
-           userInput = reader.nextLine();
+            Command currCommand = parser.parseInput(userInput);
+            currCommand.execute(tasks, ui, storage);
+            userInput = reader.nextLine();
         }
 
         ui.bye();
