@@ -12,3 +12,7 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#data files
+data/saved_data.txt
+data/test_data.txt
