@@ -2,10 +2,7 @@ package Commands;
 
 import ControlPanel.Storage;
 import ControlPanel.Ui;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.TaskList;
+import Tasks.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +34,7 @@ public class RemindersCommand extends Command {
 
         switch (keyword){
             case "upcoming":{
-                System.out.println(" Got it. Your Upcoming Deadlines and Events: \n");
+                System.out.println(" Got it. Your Upcoming Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isAfter = false;
@@ -47,6 +44,11 @@ public class RemindersCommand extends Command {
 
                     }else if (t instanceof Events){
                         Date dueDate = ((Events) t).getStartDateAt();
+                        isAfter = dueDate.after(endDay);
+                    }else if(t instanceof ToDos){
+                        isAfter = true;
+                    }else if(t instanceof Periods){
+                        Date dueDate = ((Periods) t).getDateFrom();
                         isAfter = dueDate.after(endDay);
                     }
 
@@ -58,7 +60,7 @@ public class RemindersCommand extends Command {
             }
 
             case "past":{
-                System.out.println(" Got it. Your Past Deadlines and Events: \n");
+                System.out.println(" Got it. Your Past Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isBefore = false;
@@ -69,6 +71,9 @@ public class RemindersCommand extends Command {
                     }else if (t instanceof Events){
                         Date dueDate = ((Events) t).getEndDateAt();
                         isBefore = dueDate.before(startDay);
+                    }else if(t instanceof Periods){
+                        Date dueDate = ((Periods) t).getDateTo();
+                        isBefore = dueDate.before(startDay);
                     }
 
                     if(isBefore && !t.getStatus()){
@@ -78,7 +83,7 @@ public class RemindersCommand extends Command {
                 break;
             }
             case "today":{
-                System.out.println(" Got it. Today's Deadlines and Events: \n");
+                System.out.println(" Got it. Today's Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isToday = false;
@@ -89,6 +94,12 @@ public class RemindersCommand extends Command {
                     }else if (t instanceof Events){
                         Date startDate = ((Events) t).getStartDateAt();
                         Date endDate = ((Events) t).getEndDateAt();
+                        isToday = (startDate.after(startDay) && startDate.before(endDay)) ||
+                                (endDate.after(startDay) && endDate.before(endDay)) ||
+                                (startDay.after(startDate) && endDay.before(endDate));
+                    }else if(t instanceof Periods){
+                        Date startDate = ((Periods) t).getDateFrom();
+                        Date endDate = ((Periods) t).getDateTo();
                         isToday = (startDate.after(startDay) && startDate.before(endDay)) ||
                                 (endDate.after(startDay) && endDate.before(endDay)) ||
                                 (startDay.after(startDate) && endDay.before(endDate));
