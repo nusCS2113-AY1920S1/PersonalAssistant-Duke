@@ -49,7 +49,7 @@ public class Parser {
         }else if(cmd.startsWith("reschedule")){
             command = new RescheduleCommand(cmd);
 
-        }else {
+
         } else if(cmd.contains("choose")) {
             command = new ChooseEventTime(cmd);
         }

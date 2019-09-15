@@ -9,12 +9,15 @@ import java.util.Date;
 public class MultipleEvent extends Task {
 
     protected ArrayList<Pair<Date, Date>> dates;
+    protected boolean beenChosen;
     private SimpleDateFormat simpleDateFormat;
 
     public MultipleEvent(String description, ArrayList<Pair<Date, Date>> dates) {
         super(description);
         this.dates = dates;
+        this.beenChosen = false;
         super.type = "M";
+
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
@@ -36,10 +39,15 @@ public class MultipleEvent extends Task {
         return dates;
     }
 
+    public boolean getChosenStatus() {
+        return beenChosen;
+    }
+
     @Override
     public void chooseDate(int index) {
         Pair<Date, Date> temp =  getDate(index);
         dates.clear();
         dates.add(temp);
+        beenChosen = true;
     }
 }

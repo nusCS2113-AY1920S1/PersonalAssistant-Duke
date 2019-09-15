@@ -29,7 +29,7 @@ public class RemindTest {
     public void testRemindersUpcoming()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        storage = new Storage("/Users/chengweixuanmacbook/Desktop/School/CS2113/main/data/tasks-test.txt");
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
