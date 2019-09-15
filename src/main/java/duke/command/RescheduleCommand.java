@@ -30,7 +30,7 @@ public class RescheduleCommand extends Command {
     /**
      * run the command with the respect TaskList, UI, and storage.
      *
-     * @param tasks   The task list where tasks are saved.
+     * @param taskList   The task list where tasks are saved.
      * @param ui      The user interface.
      * @param storage object that handles local text file update
      */
