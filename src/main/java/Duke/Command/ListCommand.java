@@ -1,9 +1,9 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Util.TaskList;
-import Duke.Util.Storage;
-import Duke.Util.Ui;
-import Duke.Exceptions.DukeEmptyListException;
+import duke.util.TaskList;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.exceptions.DukeEmptyListException;
 
 public class ListCommand extends Command {
 

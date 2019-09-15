@@ -1,10 +1,10 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Tasks.Task;
-import Duke.Util.Storage;
-import Duke.Util.TaskList;
-import Duke.Util.Ui;
-import Duke.Exceptions.DukeEmptyListException;
+import duke.tasks.Task;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+import duke.exceptions.DukeEmptyListException;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +20,7 @@ public class FindCommand extends Command {
     private String getKeyword() {
         return keyword;
     }
+
     /**
      * Takes in TaskList, Ui and Storage objects which then displays
      * the active TaskList which contains the task names the user inputs.

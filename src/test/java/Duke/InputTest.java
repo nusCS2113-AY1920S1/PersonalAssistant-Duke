@@ -1,41 +1,35 @@
-package Duke;
+package duke;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 /**
- * Adapted from https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
+ * Adapted from https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println.
  * Helper class to test for capturing the console output of duke.
-  */
+ */
 public class InputTest {
 
+    protected PrintStream originalSystemOut;
+    protected ByteArrayOutputStream systemOutContent;
 
-    private final InputStream systemIn = System.in;
-    private final OutputStream systemOut = System.out;
-
-    private static ByteArrayInputStream testIn;
-    private static ByteArrayOutputStream testOut;
-
+    /**
+     * Setting stream redirection for duke testing.
+     */
     @BeforeEach
-    public void setUpOutput() {
-        testOut =  new ByteArrayOutputStream();
-        System.setOut(new PrintStream(testOut));
+    public void redirectSystemOutStream() {
+        originalSystemOut = System.out;
+        systemOutContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(systemOutContent));
     }
 
-    static void provideInput(String data) {
-        testIn = new ByteArrayInputStream(data.getBytes());
-        System.setIn(testIn);
-    }
-
-    static String getOutput() {
-        return testOut.toString();
-    }
-
+    /**
+     * Restoring streams after testing.
+     */
     @AfterEach
-    public void restoreSystemInputOutput() {
-        System.setIn(systemIn);
-        System.setOut((PrintStream) systemOut);
+    public void restoreSystemOutStream() {
+        System.setOut(originalSystemOut);
     }
 }

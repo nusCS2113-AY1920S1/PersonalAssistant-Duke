@@ -1,6 +1,6 @@
-package Duke.Util;
+package duke.util;
 
-import Duke.Tasks.Task;
+import duke.tasks.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -32,14 +32,14 @@ public class Ui {
      */
     public void helloMsg() {
         System.out.println(
-                        LINE +
-                        "Hello! I'm Duke\n" +
-                        "What can I do for you?\n" +
-                        LINE);
+                LINE
+                + "Hello! I'm Duke\n"
+                + "What can I do for you?\n"
+                + LINE);
     }
 
     public void showLine() {
-        System.out.print(LINE);
+        System.out.println(LINE);
     }
 
     public void addedTaskMsg() {
@@ -52,10 +52,12 @@ public class Ui {
      */
     public void currentTaskListSizeMsg(int size) {
         System.out.println(
-                "Now you have " +
-                        size +
-                        " tasks in the list.");
+                "Now you have "
+                + size
+                + " tasks in the list."
+        );
     }
+
     public void doneTaskMsg(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" + task);
     }
@@ -67,7 +69,7 @@ public class Ui {
     public void printTaskList(List<Task> taskList) {
         int count = 1;
         for (Task temp : taskList) {
-            System.out.println(count + ". " +temp);
+            System.out.println(count + ". " + temp);
             count++;
         }
     }

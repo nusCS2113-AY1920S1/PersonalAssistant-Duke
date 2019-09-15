@@ -1,12 +1,18 @@
-package Duke.Util;
+package duke.util;
 
-import Duke.Command.*;
-import Duke.Exceptions.DukeCommandException;
-import Duke.Exceptions.DukeEmptyCommandException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Events;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.exceptions.DukeCommandException;
+import duke.exceptions.DukeEmptyCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class Parser {
 
@@ -14,10 +20,10 @@ public class Parser {
      * Checks if the index input when using the done command
      * is a valid index within the active taskList.
      * Returns DoneCommand which indicates which task index
-     * is to be marked as completed
-     * @param input Partially parsed string input by user
-     * @return DoneCommand indicating which task to be marked as completed
-     * @throws DukeEmptyCommandException when the index cannot be parsed to an integer
+     * is to be marked as completed.
+     * @param input Partially parsed string input by user.
+     * @return DoneCommand indicating which task to be marked as completed.
+     * @throws DukeEmptyCommandException when the index cannot be parsed to an integer.
      */
     private static Command checkValidDoneIndex(String input) throws DukeEmptyCommandException {
         String[] hold = input.split(" ");
@@ -31,10 +37,10 @@ public class Parser {
     }
 
     /**
-     * Checks valid inputs for task adding command
-     * @param inputs Partially parsed user input for adding command
-     * @return String array of adding command parsed by keywords
-     * @throws DukeEmptyCommandException when user inputs failed input parsing
+     * Checks valid inputs for task adding command.
+     * @param inputs Partially parsed user input for adding command.
+     * @return String array of adding command parsed by keywords.
+     * @throws DukeEmptyCommandException when user inputs failed input parsing.
      */
     private static String[] testRegex(String inputs) throws DukeEmptyCommandException {
         if (inputs.startsWith("deadline")) {
@@ -59,11 +65,11 @@ public class Parser {
 
     /**
      * Checks user input for deletion command,
-     * and returns deletion command with the intended index
-     * @param input User input to be parsed for deletion command
-     * @return DeleteCommand with the task index to be deleted
-     * @throws DukeEmptyCommandException when user inputs delete command without any index
-     * @throws DukeCommandException when user inputs delete command with an invalid index
+     * and returns deletion command with the intended index.
+     * @param input User input to be parsed for deletion command.
+     * @return DeleteCommand with the task index to be deleted.
+     * @throws DukeEmptyCommandException when user inputs delete command without any index.
+     * @throws DukeCommandException when user inputs delete command with an invalid index.
      */
     private static Command deleteTask(String input) throws DukeEmptyCommandException, DukeCommandException {
         String[] split = input.split(" ", 2);
@@ -81,8 +87,8 @@ public class Parser {
 
     /**
      * Split user input by spaces, and returns the last string in the array.
-     * @param input User when when find command is detected
-     * @return FindCommand initialized with the String to search for in taskList
+     * @param input User when when find command is detected.
+     * @return FindCommand initialized with the String to search for in taskList.
      */
     private static Command parseFind(String input) {
         String[] split = input.split(" ", 2);
@@ -93,10 +99,10 @@ public class Parser {
      * Main parser for user commands, checking for any invalid input
      * placed and empty command placed. Returns the specified command
      * for each specified command.
-     * @param input Raw user string read by Ui object
-     * @return Specified command object based on user input
-     * @throws DukeCommandException when the user inputs an invalid command
-     * @throws DukeEmptyCommandException when the user inputs and empty command
+     * @param input Raw user string read by Ui object.
+     * @return Specified command object based on user input.
+     * @throws DukeCommandException when the user inputs an invalid command.
+     * @throws DukeEmptyCommandException when the user inputs and empty command.
      */
     public static Command parse(String input) throws DukeCommandException, DukeEmptyCommandException {
         //Checks every input for keyword command
@@ -137,7 +143,7 @@ public class Parser {
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("find ")) {
-           return parseFind(input);
+            return parseFind(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new DukeCommandException();
