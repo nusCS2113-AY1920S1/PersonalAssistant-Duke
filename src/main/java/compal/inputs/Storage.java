@@ -16,10 +16,12 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String saveFilePath;
 
-    public Storage(String filePath) {
-        saveFilePath = filePath;
+    private static final String saveFilePath = "./duke.txt";
+    private static final String userPreferencesFilePath = "./prefs.txt";
+
+    public Storage() {
+        System.out.println("Storage Initialized!");
     }
 
 
@@ -32,19 +34,18 @@ public class Storage {
      */
     public void saveDuke(ArrayList<Task> tasks) {
 
-        System.out.println("Saving has been disabled temporarily as we slowly morph ComPAL from Duke.");
-        /*try {
+        try {
             File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
             for (Task t : tasks) {
-                pw.printf(generateStorageString());
+                pw.printf("%s %s %s\n", t.getSymbol(), t.isDone, t.getDescription());
             }
             pw.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Save-file not found. Will generate new one.");
         }
-        */
+
     }
 
 
@@ -133,11 +134,12 @@ public class Storage {
 
     /**
      * Saves the string toSave to the saveFilePath just as it is.
+     *
      * @param toSave String
      */
-    public void saveString(String toSave) {
+    public void saveString(String toSave, String filePath) {
         try {
-            File f = new File(saveFilePath);
+            File f = new File(filePath);
             PrintWriter pw = new PrintWriter(f);
             pw.printf("%s\n", toSave);
             pw.close();
@@ -149,10 +151,11 @@ public class Storage {
 
     /**
      * Returns the user's name as a String.
+     *
      * @return
      */
     public String getUserName() {
-        File f = new File(saveFilePath);
+        File f = new File(userPreferencesFilePath);
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
             return br.readLine();
@@ -160,7 +163,16 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Username Unknown";
+        return "Unknown User";
+    }
+
+    /**
+     * Returns the user's name as a String.
+     *
+     * @return
+     */
+    public void storeUserName(String name) {
+        saveString(name, userPreferencesFilePath);
     }
 
 

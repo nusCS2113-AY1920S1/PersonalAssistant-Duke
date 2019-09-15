@@ -5,6 +5,7 @@ import compal.inputs.Storage;
 import compal.inputs.Ui;
 import compal.tasks.TaskList;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
@@ -14,8 +15,6 @@ import java.util.Date;
 import static java.lang.System.exit;
 
 public class Duke extends Application {
-
-    private static final String saveFilePath = "./duke.txt";
 
     //objects supporting COMPal.Duke
     public Ui ui;
@@ -37,8 +36,9 @@ public class Duke extends Application {
 
         ui = new Ui(this, tasklist.arrlist);
 
-        storage = new Storage(saveFilePath);
-        //storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
+        storage = new Storage();
+
+        storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
 
         //start parsing commands
         parser = new Parser(this);
@@ -78,8 +78,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         System.out.println("Start");
-        ui.start(stage);
-        ui.showWelcome();
+        ui.checkInit();
     }
 
     /**
@@ -119,6 +118,8 @@ public class Duke extends Application {
 
 
 /**
+ * Don't delete. For future reference
+ *
  * @Class This class is a dialog box used for implementing custom control
  * <p>
  * class DialogBox extends HBox {
