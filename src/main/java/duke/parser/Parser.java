@@ -7,11 +7,7 @@ import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
+import duke.task.*;
 import duke.dukeexception.DukeException;
 
 /**
@@ -43,6 +39,16 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else {
                     if (arr[0].equals("done")) {
+                        if (items.get(tasknum).toString().contains("[A]")) {
+                            String tempString = items.get(tasknum).toString();
+                            tempString = tempString.split( ": ", 2)[1];
+                            tempString = tempString.split("\\)")[0];
+
+                            if (!items.getTaskStatus(tempString)) {
+                                throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!" +
+                                        " please complete task [" + tempString + "] before marking this as done!");
+                            }
+                        }
                         return new DoneCommand(tasknum);
                     } else { //delete
                         return new DeleteCommand(tasknum);
@@ -98,7 +104,40 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (sentence.equals("bye")) {
+        }
+        else if (arr.length > 0 && arr[0].equals("doafter")) {
+            String afterTaskDesc = "";
+            boolean detectBackSlash = false;
+            for (int i = 1; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !detectBackSlash) {
+                    taskDesc += arr[i] + " ";
+                } else {
+                    if (!detectBackSlash) {
+                        detectBackSlash = true;
+                    } else {
+                        afterTaskDesc += arr[i] + " ";
+                    }
+                }
+            }
+            taskDesc = taskDesc.trim();
+            afterTaskDesc = afterTaskDesc.trim();
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+            } else if (afterTaskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of Task for "
+                        + arr[0] + " cannot be empty.");
+            } else {
+                    String currentTasks = items.getList();
+                    if (currentTasks.contains(afterTaskDesc)) {
+                        Task taskObj;
+                        taskObj = new DoAfter(taskDesc, afterTaskDesc);
+                        return new AddCommand(taskObj);
+                    } else {
+                        throw new DukeException("(>_<) OOPS!!! You cant set a do after task for a task that is not in the list!");
+                    }
+                }
+        }
+        else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");
