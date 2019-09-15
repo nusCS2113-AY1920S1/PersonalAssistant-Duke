@@ -1,9 +1,7 @@
 package duke.commands;
 
-import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import javafx.application.Platform;
 
 /**
  * Class representing a command to exit duke.Duke.
@@ -16,7 +14,7 @@ public class ExitCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) {
-        parser.setParserResponse(ui.getByeMessage());
+    public void execute(Ui ui, Storage storage) {
+        ui.showBye();
     }
 }
