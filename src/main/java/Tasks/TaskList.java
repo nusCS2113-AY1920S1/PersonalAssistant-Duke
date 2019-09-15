@@ -2,7 +2,7 @@ package Tasks;
 
 import java.util.ArrayList;
 
-public class TaskList {
+public class TaskList implements AnomalyDetector {
     private static ArrayList<Task> checkList;
 
     //constructors

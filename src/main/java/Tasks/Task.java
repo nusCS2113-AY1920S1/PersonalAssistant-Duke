@@ -1,6 +1,6 @@
 package Tasks;
 
-public class Task{
+public class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
@@ -29,6 +29,8 @@ public class Task{
     public boolean getStatus(){
         return isDone;
     }
+
+    public String getType() { return type; }
 
 //    public String getTaskType(){
 //        return type;
