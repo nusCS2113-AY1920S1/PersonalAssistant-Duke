@@ -24,6 +24,8 @@ public class Parser {
             return new ListCommand();
         } else if (input.equals("reminder")) {
             return new ReminderCommand();
+        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
+            return new FreeTimeCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
             return new FindCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
@@ -105,7 +107,7 @@ public class Parser {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-    public static String runEvent(ArrayList<Task> data, String input, int state) {
+    public static String runEvent(ArrayList<Task> data, String input, int state) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
         input = input.substring(6);
         int startOfAt = input.indexOf("/");

@@ -8,6 +8,9 @@ import duke.tasks.Task;
 import java.util.ArrayList;
 
 public class ReminderCommand extends Command {
+    public ReminderCommand() {
+        type = CmdType.REMIND;
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
