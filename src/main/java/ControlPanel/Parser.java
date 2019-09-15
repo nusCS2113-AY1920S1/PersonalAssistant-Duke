@@ -2,9 +2,19 @@ package ControlPanel;
 
 import Commands.*;
 
+/**
+ * The class which analyze the input command line and initialize a command
+ * according to its type
+ */
 public class Parser {
     public Parser(){}
 
+    /**
+     * The constructor which runs the parser
+     * @param cmd the original input string (command)
+     * @return return a command object which is initialized based on its type
+     * @throws DukeException if any exception is caught
+     */
     public static Command parse(String cmd) throws DukeException {
         Command command = null;
         if (cmd.equals("bye")){
@@ -19,23 +29,27 @@ public class Parser {
             String keyword = cmd.split(" ")[1];
             command = new SearchCommand(keyword);
         }
-        else if(cmd.contains("done")) {
+        else if(cmd.startsWith("done")) {
             String temp = cmd.replaceAll("[^0-9]", "");
             int serialNo = Integer.parseInt(temp);
             command = new DoneCommand(serialNo);
         }
         else if (cmd.contains("delete")){
-                String temp = cmd.replaceAll("[^0-9]", "");
-                int serialNo = Integer.parseInt(temp);
-                command = new DeleteCommand(serialNo);
+            String temp = cmd.replaceAll("[^0-9]", "");
+            int serialNo = Integer.parseInt(temp);
+            command = new DeleteCommand(serialNo);
 
         }else if(cmd.contains("reminders")) {
             String keyword = cmd.split(" ")[0];
             command = new RemindersCommand(keyword);
 
-        }else if(cmd.contains("schedule")){
+        }else if(cmd.startsWith("schedule")){
             command  = new ViewScheduleCommand(cmd);
 
+        }else if(cmd.startsWith("reschedule")){
+            command = new RescheduleCommand(cmd);
+
+        }else {
         } else if(cmd.contains("choose")) {
             command = new ChooseEventTime(cmd);
         }
