@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Class representing a deadline.
  */
-public class Deadline extends Task {
-    private LocalDateTime startDate;
+public class Deadline extends TaskWithDates {
     private String deadline;
 
     /**
@@ -15,8 +14,7 @@ public class Deadline extends Task {
      * @param description A description of this deadline.
      */
     public Deadline(String description, LocalDateTime startDate) {
-        super(description);
-        this.startDate = startDate;
+        super(description, startDate);
     }
 
     /**
@@ -36,10 +34,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + (startDate == null ? deadline : startDate) + ")";
+        return "[D]" + super.toString() + " (by: " + (getStartDate() == null ? deadline : getStartDate()) + ")";
     }
 
     public String getDeadline() {
-        return startDate == null ? deadline : startDate.toString();
+        return getStartDate() == null ? deadline : getStartDate().toString();
     }
 }
