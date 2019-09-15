@@ -1,11 +1,10 @@
 package task;
 
 import exceptions.DukeException;
+import parser.TimeParser;
+import wrapper.TimeInterval;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 public class TaskList {
     private static List<Tasks> tasks;
@@ -19,24 +18,61 @@ public class TaskList {
     public TaskList(List<Tasks> tasks) {
         DE = new TreeMap<>();
         E = new TreeMap<>();
-        //System.out.println("initialising");
 
-        for (Tasks a: tasks) {
-            if (a.getType().equals("E")) {
-                DE.put(((Event)a).getDate().getStartDate(), a);
-                E.put(((Event)a).getDate().getStartDate(), a);
-                //System.out.println("Added a new event");
-            }else if (a.getType().equals("D")) {
-                DE.put(((Deadline)a).getDate().getStartDate(), a);
-                //System.out.println("Added a new deadline");
+        for(Tasks a: tasks){
+            if(a.getType().equals("E")){
+                DE.put(((Event)a).getDate().getStartDate() , a);
+                E.put(((Event)a).getDate().getStartDate() , a);
+            }else if(a.getType().equals("D")){
+                DE.put(((Deadline)a).getDate().getStartDate() , a);
             }
         }
-
 
         this.tasks = tasks;
     }
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    public static TimeInterval getFreeSlot(int hours){
+
+        Date now = new Date();
+
+        for(Map.Entry<Date , Tasks> entry : DE.entrySet()){
+            Date next = null;
+            if(entry.getValue().getType().equals("D")){
+                next = ((Deadline)entry.getValue()).getDate().getStartDate();
+            }else{
+                next = ((Event)entry.getValue()).getDate().getStartDate();
+            }
+
+            if(next.after(now)){
+                long diffHour = TimeParser.getDiffHours(now , next);
+                if(diffHour >= hours){
+                    return new TimeInterval(now , next);
+                }
+                if(entry.getValue().getType().equals("D")){
+                    now = ((Deadline)entry.getValue()).getDate().getEndDate();
+                }else{
+                    now = ((Event)entry.getValue()).getDate().getEndDate();
+                }
+            }else{
+
+                if(entry.getValue().getType().equals("D")){
+                    next = ((Deadline)entry.getValue()).getDate().getEndDate();
+                }else{
+                    next = ((Event)entry.getValue()).getDate().getEndDate();
+                }
+                if(next.after(now)){
+                    now = next;
+                }
+
+            }
+
+        }
+
+        return new TimeInterval(now , now);
+
     }
 
     public static Tasks getTask(int num) {
@@ -46,6 +82,12 @@ public class TaskList {
 
     public static void addTask(Tasks task)  {
         tasks.add(task);
+        if(task.getType().equals("E")){
+            DE.put(((Event)task).getDate().getStartDate() , task);
+            E.put(((Event)task).getDate().getStartDate() , task);
+        }else if(task.getType().equals("D")){
+            DE.put(((Deadline)task).getDate().getStartDate() , task);
+        }
     }
 
     /**

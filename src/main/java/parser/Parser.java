@@ -9,9 +9,12 @@ import task.Tasks;
 import task.Event;
 import task.ToDo;
 import ui.Ui;
+import wrapper.TimeInterval;
 
+import javax.swing.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -21,12 +24,19 @@ public class Parser {
     /**
      * Takes in users' input and call the aprropriate functions to execute the right action.
      */
-    public static int handleCommand(String firstWord, String s) {
+    public static int handleCommand(String firstWord, String s){
         int check = 0;
         if (s.equals("bye")) {
             Ui.showByeMessage();
             check = 1;
-        } else {
+        }else if(s.contains("freetime")){
+            try{
+                getFreeSlot(s);
+            }catch (DukeException e) {
+                Ui.showError(e.getError());
+            }
+
+        }else {
             try {
                 switch (firstWord) {
                 case "list":
@@ -65,6 +75,27 @@ public class Parser {
             }
         }
         return check;
+    }
+
+    private static void getFreeSlot(String s) throws DukeException {
+
+        int num = -1;
+        try {
+            String[] tokens = s.split(" ");
+            num = Integer.parseInt(tokens[1]);
+        } catch (NumberFormatException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        } catch (IndexOutOfBoundsException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        }
+
+        if(num > 0){
+
+            TimeInterval freeslot = TaskList.getFreeSlot(num);
+
+            Ui.showFreeTime(num , freeslot);
+        }
+
     }
 
     /**
@@ -214,6 +245,8 @@ public class Parser {
             throw DukeException.TASK_DOES_NOT_EXIST;
         }
     }
+
+
 
     /**
      * Creates a new event task with users' input.

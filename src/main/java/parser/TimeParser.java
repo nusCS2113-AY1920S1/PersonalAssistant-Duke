@@ -88,9 +88,20 @@ public class TimeParser {
                                                 return date;
                                             } catch (ParseException e10) {
 
-                                                return null;
+                                                SimpleDateFormat formatter11 = new SimpleDateFormat("dd/MM/yyyy");
+                                                try {
+                                                    date = formatter11.parse(time);
+                                                    return date;
+                                                } catch (ParseException e11) {
+
+                                                    return null;
+
+                                                }
+
+
 
                                             }
+
 
                                         }
 
@@ -128,6 +139,13 @@ public class TimeParser {
         } else {
             return new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
         }
+    }
+
+    public static long getDiffHours(Date date1 , Date date2){
+        long diff = Math.abs(date1.getTime() - date2.getTime());
+        long diffHours = diff / (60 * 60 * 1000);
+
+        return diffHours;
     }
 }
 
