@@ -1,8 +1,13 @@
 package duke.tasks;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+import duke.DukeException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Deadline extends Task {
     private String by;
@@ -14,16 +19,16 @@ public class Deadline extends Task {
      *                    of the task inputted by user
      * @param by The details of when task is to be done
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = by;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        sdf.setLenient(false);
+        taskType = TaskType.DEADLINE;
         try {
-            dateNow = sdf.parse(by);
-        } catch (ParseException e) {
-            //throw new DukeException("Tasks.Task does not have dd/MM/yyyy HHmm date-time format!");
+            Parser parser = new Parser();
+            List<DateGroup> groups = parser.parse(by);
+            dateNow = groups.get(0).getDates().get(0);
+        } catch (Exception e) {
+            throw new DukeException("   Date cannot be parsed: " + by);
         }
     }
 
@@ -47,8 +52,8 @@ public class Deadline extends Task {
      * @return String containing the date of Task
      */
     @Override
-    public String getDateTime() {
-        return dateNow.toString();
+    public Date getDateTime() {
+        return dateNow;
     }
 
     /**

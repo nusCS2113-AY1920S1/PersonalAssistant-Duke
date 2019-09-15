@@ -10,8 +10,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class EventTest {
+public class ReminderTest {
     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private static final PrintStream originalOut = System.out;
@@ -31,24 +32,20 @@ public class EventTest {
     }
 
     @Test
-    void test(String input) throws DukeException {
+    void test() throws DukeException {
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
+        Command c = Parser.parse("deadline a /by 0600 9/15/2019");
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [E][✗] test (at: 0000)\nNow you have 1 tasks in the list.";
-        assertEquals(exp, outContent.toString().trim());
+        c = Parser.parse("deadline b /by 0500 9/15/2019");;
+        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        restoreStreams();
+        setUpStreams();
+        c = Parser.parse("reminder");
+        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        String exp = "Here are the upcoming Deadlines:\n1.[D][✗] b (by: 0500 9/15/2019)\n2.[D][✗] a (by: 0600 9/15/2019)";
+        assertEquals(exp, outContent.toString().trim().replace("\r", ""));
         restoreStreams();
     }
 
-    @Test
-    public void birthdayAt_myBday(String input) throws DukeException {
-        setUpStreams();
-        TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [E][✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
-        assertEquals(exp, outContent.toString().trim());
-        restoreStreams();
-    }
 }
