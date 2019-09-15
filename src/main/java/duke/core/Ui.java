@@ -85,6 +85,20 @@ public class Ui {
     }
 
     /**
+     * Print out the tasks in the task list which is reaching
+     * the deadline.
+     * @param a  TaskList used to store tasks.
+     */
+    public void taskReminder(ArrayList<Task> a) {
+        System.out.println("The following tasks are reaching your deadline:");
+        System.out.println("Mark it as done to stop the reminder");
+        int count = 1;
+        for (Task x : a) {
+            System.out.println(count + "." + x.toString());
+            count++;
+        }
+    }
+    /**
      * Shows a divider line.
      */
     public void showLine() {

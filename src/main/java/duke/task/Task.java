@@ -17,7 +17,7 @@ public abstract class Task {
     /**
      * A String that represents the description of the task.
      */
-    String description;
+    protected String description;
     /**
      * A boolean that represents the status of the task( 1 means done, 0 means not yet)
      */
@@ -88,18 +88,18 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Returns a string that representing the data and time for the task
+     * in a predefined date time format.
+     * @param timeBeforeFormat a string that provides the data and time information.
+     * @return A string that represents the specific activity associated with
+     * the task.
+     */
     public String timeFormatter(String timeBeforeFormat) {
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
         DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
         DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
         DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
-
-        try {
-            ld = LocalDateTime.parse(timeBeforeFormat, parser);
-        } catch (DateTimeParseException error) {
-            return timeBeforeFormat;
-        }
 
         String output;
 
@@ -114,5 +114,28 @@ public abstract class Task {
             ;
         }
         return output;
+    }
+
+    /**
+     * update the <code>LocalDateTime</> constructor to save the date and time
+     * @param time the time retrieved from user input.
+     */
+    public void updateLocalDateTime(String time)
+    {
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        try {
+            ld = LocalDateTime.parse(time, parser);
+        } catch (DateTimeParseException error) {
+            System.out.println(error.getMessage());
+        }
+    }
+    /**
+     * Returns the data and time information stored in the task without a certain format.
+     *
+     * @return A LocalDateTime Variable that contains the date and time information.
+     */
+    public LocalDateTime getDateTime()
+    {
+        return ld;
     }
 }
