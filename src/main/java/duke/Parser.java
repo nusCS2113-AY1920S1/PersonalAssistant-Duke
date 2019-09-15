@@ -91,7 +91,7 @@ public class Parser {
         Task tempTask;
 
         input = input.substring(5);
-        String[] tokens = input.split(" ");
+        String[] tokens = input.split("\\s+"); //splitting the string when number of spaces >= 1
         for (String token : tokens) {
             if (token.charAt(0) == '/' && token.equals("/after")) {
                 hasReq = true;
@@ -157,7 +157,6 @@ public class Parser {
 
 
     public static String runEvent(ArrayList<Task> data, String input, int state) throws DukeException {
-        StringBuilder stringBuilder = new StringBuilder();
 
         input = input.substring(6);
         int startOfAt = input.indexOf("/");
