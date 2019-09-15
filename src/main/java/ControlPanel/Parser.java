@@ -36,10 +36,12 @@ public class Parser {
         }else if(cmd.contains("schedule")){
             command  = new ViewScheduleCommand(cmd);
 
+        } else if(cmd.contains("choose")) {
+            command = new ChooseEventTime(cmd);
         }
         else {
             String keyword = cmd.split(" ")[0];
-            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration"))){
+            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration") || keyword.equals("multiEvent"))){
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
             }
             command = new AddCommand(keyword, cmd);

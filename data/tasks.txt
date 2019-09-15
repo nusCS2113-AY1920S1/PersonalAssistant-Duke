@@ -1,3 +1,5 @@
-T | 0 | return book
-D | 0 | buy bread  | 6/6/2019 1800
-F | 0 | buy bread 
+T | 0 | shit
+E | 0 | shitposting  | 3/12/1997 1122 | 3/12/1188 1123
+E | 0 | shitposting  | 1/12/2009 2232 | 1/12/2009 2234
+M | 0 | shitposting  | 1/12/2009 2232 to 1/12/2009 2234 /or 
+M | 0 | shitposting  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 

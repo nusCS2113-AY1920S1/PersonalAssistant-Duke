@@ -30,6 +30,10 @@ public class Task{
         return isDone;
     }
 
+    public void chooseDate(int index) {
+
+    }
+
 //    public String getTaskType(){
 //        return type;
 //    }

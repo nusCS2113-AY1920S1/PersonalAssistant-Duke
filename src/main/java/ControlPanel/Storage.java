@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Tasks.*;
+import javafx.util.Pair;
 
 public class Storage {
 
@@ -26,7 +27,7 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.replace('|', '@');
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P") || info[0].equals("F"))) {
+                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P") || info[0].equals("F") || info[0].equals("M"))) {
                     throw new DukeException("This is not a valid input from the file!!!");
                 }
                 Task t = new Task("default");
@@ -50,6 +51,20 @@ public class Storage {
                         Date periodStartDate = simpleDateFormat.parse(info[3]);
                         Date periodEndDate = simpleDateFormat.parse(info[4]);
                         t = new Periods(info[2], info[3], info[4]);
+                        break;
+                    case "M":
+                        String[] dateStr = info[3].split(" /or ");
+                        ArrayList<Pair<Date, Date>> dates = new ArrayList<>();
+                        for (String choices : dateStr) {
+                            //System.out.println(choices);
+                            String[] startendDate = choices.split("to ");
+                            Date startDate = simpleDateFormat.parse(startendDate[0]);
+                            Date endDate = simpleDateFormat.parse(startendDate[1]);
+                            Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
+                            dates.add(tempDate);
+
+                        }
+                        t = new MultipleEvent(info[2], dates);
                         break;
                 }
                 if (t.getDescription().equals("default")) {
@@ -108,6 +123,22 @@ public class Storage {
                         bufferedWriter.write("P | 0 | " + t.getDescription() + " | "
                                 + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
 
+                } else if (t instanceof MultipleEvent) {
+                    if (t.getStatus()) {
+                        String possibleDates = "";
+                        for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
+                            possibleDates += simpleDateFormat.format(date.getKey()) + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
+                        }
+                        bufferedWriter.write("M | 1 | " + t.getDescription() + " | "
+                                + possibleDates + "\n");
+                    } else {
+                        String possibleDates = "";
+                        for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
+                            possibleDates += simpleDateFormat.format(date.getKey()) + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
+                        }
+                        bufferedWriter.write("M | 0 | " + t.getDescription() + " | "
+                                + possibleDates + "\n");
+                    }
                 }
             }
             bufferedWriter.close();
