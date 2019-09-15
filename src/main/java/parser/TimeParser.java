@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class TimeParser {
     static Date date;
+    static Date endTime;
 
     /**
      * Manipulate a string into an date and return it back as string.
@@ -55,11 +56,11 @@ public class TimeParser {
                             } catch (ParseException e6) {
                                 return time;
                             }
-
                         }
-                    }
 
+                    }
                 }
+
             }
         }
     }
@@ -86,6 +87,5 @@ public class TimeParser {
             return new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa").format(date);
         }
     }
-
 }
 

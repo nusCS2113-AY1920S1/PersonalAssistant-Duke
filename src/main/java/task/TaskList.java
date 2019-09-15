@@ -2,8 +2,7 @@ package task;
 
 import exceptions.DukeException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TaskList {
     private static List<Tasks> tasks;
@@ -21,6 +20,7 @@ public class TaskList {
     public static Tasks getTask(int num) {
         return tasks.get(num);
     }
+
 
     public static void addTask(Tasks task)  {
         tasks.add(task);

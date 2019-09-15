@@ -2,11 +2,7 @@ package parser;
 
 import exceptions.DukeException;
 import storage.Storage;
-import task.ToDo;
-import task.Event;
-import task.Deadline;
-import task.Tasks;
-import task.TaskList;
+import task.*;
 import ui.Ui;
 
 import java.util.List;
@@ -52,6 +48,9 @@ public class Parser {
                     case "event":
                         eventCommand(s);
                         break;
+                    case "do":
+                        doAfterCommand(s);
+                        break;
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
 
@@ -61,6 +60,33 @@ public class Parser {
             }
         }
         return check;
+    }
+
+    /**
+     * Creates a new doAfter task with users' input.
+     * Then, prints a confirmation message by calling showdoAfterMessage function under Ui class.
+     * Finally, adds the task into database.
+     */
+    private static void doAfterCommand(String s) throws DukeException {
+        try {
+            String doAfterTask = s.substring(3, s.indexOf("/after"));
+            String time1 = s.substring(s.indexOf("/after") + 7);
+            if ((doAfterTask.isEmpty()) || (doAfterTask.equals(" "))) {
+                throw DukeException.EMPTY_TASK_IN_DOAFTER;
+            }
+            if ((time1.isEmpty()) || (time1.equals(" "))) {
+                throw DukeException.EMPTY_TIME_IN_DOAFTER;
+            }
+            DoAfter task1 = new DoAfter(doAfterTask, "A", time1);
+            String newtodoTask1 = task1.toMessage();
+            Tasks newToDo1 = new DoAfter(newtodoTask1, "A", time1);
+            int todolistNumber = TaskList.getTotalTasksNumber();
+            TaskList.addTask(newToDo1);
+            Ui.showDoAfterMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
+            Storage.saveTask(TaskList.getList());
+        } catch (StringIndexOutOfBoundsException e) {
+            throw DukeException.INVALID_FORMAT_IN_DOAFTER;
+        }
     }
 
     /**
