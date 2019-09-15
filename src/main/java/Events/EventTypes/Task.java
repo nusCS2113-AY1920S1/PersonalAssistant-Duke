@@ -1,4 +1,4 @@
-package Model_Class;
+package Events.EventTypes;
 
 /**
  * Represents a task that can be created, deleted and completed within the Duke program.

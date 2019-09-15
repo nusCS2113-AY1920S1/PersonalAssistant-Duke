@@ -1,4 +1,11 @@
-package Model_Class;
+package UserElements;
+
+import Events.EventTypes.Deadline;
+import Events.EventTypes.Event;
+import Events.Storage.Storage;
+import Events.Storage.TaskList;
+import Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 
 /**
  * Represents a command that is passed via user input.

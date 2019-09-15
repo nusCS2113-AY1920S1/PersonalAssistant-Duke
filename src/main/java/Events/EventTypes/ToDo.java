@@ -1,4 +1,6 @@
-package Model_Class;
+package Events.EventTypes;
+
+import Events.EventTypes.Task;
 
 /**
  * Subclass of Model_Class.Task class.

@@ -1,4 +1,7 @@
-package Model_Class;
+package UserElements;
+
+import Events.Storage.TaskList;
+import Events.EventTypes.Task;
 
 /**
  * User interface: contains all methods pertaining to user interaction.

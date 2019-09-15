@@ -1,4 +1,9 @@
-package Model_Class;
+package Events.Storage;
+
+import Events.EventTypes.Deadline;
+import Events.EventTypes.Event;
+import Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 
 import java.util.ArrayList;
 
