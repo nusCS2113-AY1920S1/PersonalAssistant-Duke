@@ -1,3 +1,10 @@
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
 import java.util.ArrayList;
 
 /**
@@ -16,7 +23,7 @@ public class FindCommand extends Command {
      * Assigns the searchPhrase variable to take on the value of the requested word.
      * @param query the word to be searched for obtained from user input
      */
-    FindCommand(String query) {
+    public FindCommand(String query) {
         searchPhrase = query;
     }
 

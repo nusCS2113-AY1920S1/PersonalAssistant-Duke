@@ -1,3 +1,5 @@
+package task;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,7 +18,7 @@ public class TaskList {
      * Assigns the class array to take on the value of the latest updated list
      * @param list the list containing the latest list of tasks from the file
      */
-    TaskList(ArrayList<Task> list) {
+    public TaskList(ArrayList<Task> list) {
         tasks = list;
     }
 

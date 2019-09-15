@@ -1,12 +1,19 @@
+package storage;
+
+import task.Deadline;
+import task.Task;
+import task.Todo;
+import task.Event;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "/home/tessa/Documents/CS2113/duke/data/duke.txt";
+    private static String FILE_PATH = "src/main/data/duke.txt";
 
-    Storage() {}
-    Storage(String filePath) {
+    public Storage() {}
+    public Storage(String filePath) {
         FILE_PATH = filePath;
     }
 

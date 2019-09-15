@@ -1,3 +1,9 @@
+import command.Command;
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 public class Duke {
 
     public Ui ui;
@@ -31,8 +37,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("/home/tessa/Documents/CS2113/duke/data/duke.txt").run();
+        new Duke("src/main/data/duke.txt").run();
     }
-
 }
 

@@ -1,9 +1,11 @@
+package exception;
+
 public class DukeException extends Exception {
 
     protected ErrorType error;
     protected String errorType;
 
-    enum ErrorType {
+    public enum ErrorType {
         LIST_EMPTY,
         COMMAND_EMPTY,
         COMMAND_INVALID,
@@ -15,7 +17,7 @@ public class DukeException extends Exception {
         FORMAT_EVENT,
     }
 
-    DukeException(ErrorType e) {
+    public DukeException(ErrorType e) {
         error = e;
     }
 
