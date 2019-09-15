@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Class representing an event.
  */
-public class Event extends Task {
-    private LocalDateTime startDate;
+public class Event extends TaskWithDates {
     private String event;
 
     /**
@@ -15,8 +14,7 @@ public class Event extends Task {
      * @param description A description of this event.
      */
     public Event(String description, LocalDateTime startDate) {
-        super(description);
-        this.startDate = startDate;
+        super(description, startDate);
     }
 
     /**
@@ -36,10 +34,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + (startDate == null ? event : startDate) + ")";
+        return "[E]" + super.toString() + " (at: " + (getStartDate() == null ? event : getStartDate()) + ")";
     }
 
     public String getEvent() {
-        return startDate == null ? event : startDate.toString();
+        return getStartDate() == null ? event : getStartDate().toString();
     }
 }
