@@ -18,7 +18,7 @@ class DukeTest {
         Duke.main(new String[0]);
         String output = io.getOutput();
         String expected = "\t____________________________________________________________\n"
-                        + "\t Natty is setup on Sun Sep 15 21:00:00 SGT 2019\n"
+                        + "\t Natty is setup on Sun Sep 15 13:00:00 UTC 2019\n"
                         + "\t____________________________________________________________\n"
                         + "\t____________________________________________________________\n"
                         + "\t Hello! I'm Duke\n"
