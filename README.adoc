@@ -5,9 +5,6 @@ ifdef::env-github[]
 image::docs/images/CS2113T homepage.png[width="600"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
 
 * Financial Ghost (FG) is a desktop application written in Java OOP fashion. 
 * Developed specifically for fresh graduates of NUS, provides a financial planner available locally on the user’s desktop.
