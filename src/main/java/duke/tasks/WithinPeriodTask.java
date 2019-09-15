@@ -16,7 +16,7 @@ public class WithinPeriodTask extends ToDo {
 
     @Override
     public String getFullString() {
-        return "[T][" + getStatusIcon() + "] " + description + " after " + period;
+        return "[T][" + getStatusIcon() + "] " + description + " within " + period;
     }
 
 }
