@@ -16,7 +16,7 @@ public class Parser {
      * @throws DukeException if Duke cannot make sense of the input
      */
     public static Command parse(String input) throws DukeException { //input validation
-        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule"));
+        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule", "daily", "weekly"));
         String operation;
         String date;
         int index =-1;
@@ -76,6 +76,25 @@ public class Parser {
                 date = input.substring(to_index + 5).trim();
                 if (to_index < 0 || date.isBlank()) throw new DukeException("datetime");
                 return new RescheduleCommand(index, date);
+            } else if (operation.equals("daily") || operation.equals("weekly")) {
+                String s = input.substring(input.indexOf(" ") + 1);
+                if (s.startsWith("deadline")) {
+                    int by_index = s.indexOf(" /by ");
+                    if (by_index == -1) throw new DukeException("datetime");
+                    arg1 = s.substring(8, by_index).trim();
+                    if (arg1.isBlank()) throw new DukeException("arg1 error "+ operation);
+                    date = s.substring(by_index + 5).trim();
+                    if (date.isBlank()) throw new DukeException("datetime");
+                    return new RecurringCommand("deadline", arg1, date, input.substring(0, input.indexOf(" ")));
+                } else if (s.startsWith("event")) {
+                    int at_index = s.indexOf(" /at ");
+                    if (at_index == -1) throw new DukeException("datetime");
+                    arg1 = s.substring(5, at_index).trim();
+                    if (arg1.isBlank()) throw new DukeException("arg1 error "+ operation);
+                    date = s.substring(at_index + 5).trim();
+                    if (date.isBlank()) throw new DukeException("datetime");
+                    return new RecurringCommand("event", arg1, date, input.substring(0, input.indexOf(" ")));
+                }
             }
         }
         throw new DukeException("unknown");
