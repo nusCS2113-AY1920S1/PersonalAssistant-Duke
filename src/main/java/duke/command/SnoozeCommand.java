@@ -20,13 +20,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class SnoozeCommand extends Command {
 
-    int index;
+    String index;
 
     /**
      * Constructor for <code>SnoozeCommand</code>.
      * @param index Index of <code>Task</code> to be snoozed.
      */
-    public SnoozeCommand (int index) {
+    public SnoozeCommand(String index) {
         super();
         this.index = index;
     }
@@ -42,29 +42,33 @@ public class SnoozeCommand extends Command {
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
-        if (index >= arr.getSize() || index < 0) {
-            throw new DukeException("\u2639 OOPS!!! Invalid number!");
-        } else if (storage.taskHasTimestamp(index) == "deadline" || storage.taskHasTimestamp(index) == "event") {
-            Task task = arr.getTask(index);
-            String description = task.getLine();
-            String date = ui.getTimeStamp();
-            date = parseTimeStamp(date);
-            if (date == "failed") {
-                return;
-            }
-            else if (storage.taskHasTimestamp(index) == "deadline") {
-                Task newtask = new Deadline(description, date);
-                arr.deleteTask(index);
-                arr.addTaskToIndex(index, newtask);
-                ui.snoozeMessage(newtask);
+        try {
+            int num = Integer.parseInt(index) - 1;
+            if (num >= arr.getSize() || num < 0) {
+                throw new DukeException("\u2639 OOPS!!! Invalid number!");
+            } else if (storage.taskHasTimestamp(num) == "deadline" || storage.taskHasTimestamp(num) == "event") {
+                Task task = arr.getTask(num);
+                String description = task.getLine();
+                String date = ui.getTimeStamp();
+                date = parseTimeStamp(date);
+                if (date == "failed") {
+                    return;
+                } else if (storage.taskHasTimestamp(num) == "deadline") {
+                    Task newtask = new Deadline(description, date);
+                    arr.deleteTask(num);
+                    arr.addTaskToIndex(num, newtask);
+                    ui.snoozeMessage(newtask);
+                } else {
+                    Task newtask = new Event(description, date);
+                    arr.deleteTask(num);
+                    arr.addTaskToIndex(num, newtask);
+                    ui.snoozeMessage(newtask);
+                }
             } else {
-                Task newtask = new Event(description, date);
-                arr.deleteTask(index);
-                arr.addTaskToIndex(index, newtask);
-                ui.snoozeMessage(newtask);
+                throw new DukeException("\u2639 OOPS!!! Task does not have a timestamp!");
             }
-        } else {
-            throw new DukeException("\u2639 OOPS!!! Task does not have a timestamp!");
+        } catch (Exception e) {
+            System.out.println("\u2639 OOPS!!! Invalid number!");
         }
     }
 

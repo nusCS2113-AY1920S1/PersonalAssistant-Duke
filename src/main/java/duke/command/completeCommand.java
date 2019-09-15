@@ -11,13 +11,13 @@ import duke.task.Task;
  */
 public class CompleteCommand extends Command {
 
-    int index;
+    String index;
 
     /**
      * Constructor for <code>CompleteCommand</code>.
      * @param index Represents the index of the <code>Task</code> to be marked as done.
      */
-    public CompleteCommand(int index) {
+    public CompleteCommand(String index) {
         super();
         this.index = index;
     }
@@ -32,12 +32,17 @@ public class CompleteCommand extends Command {
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
-        if (index >= arr.getSize() || index < 0) {
-            throw new DukeException("\u2639 OOPS!!! Invalid number!");
-        } else {
-            Task task = arr.getTask(index);
-            task.setStatus();
-            ui.completeMessage(task);
+        try {
+            int num = Integer.parseInt(index) - 1;
+            if (num >= arr.getSize() || num < 0) {
+                throw new DukeException("\u2639 OOPS!!! Invalid number!");
+            } else {
+                Task task = arr.getTask(num);
+                task.setStatus();
+                ui.completeMessage(task);
+            }
+        } catch (Exception e) {
+            System.out.println("\u2639 OOPS!!! Invalid number!");
         }
     }
 

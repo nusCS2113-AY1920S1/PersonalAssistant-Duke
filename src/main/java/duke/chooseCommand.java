@@ -1,6 +1,15 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.FindCommand;
+import duke.command.DeleteCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.CompleteCommand;
+import duke.command.ListCommand;
+import duke.command.ExitCommand;
+import duke.command.AddDeadlineCommand;
+import duke.command.SnoozeCommand;
 import duke.exception.DukeException;
 
 /**
@@ -25,7 +34,7 @@ public class ChooseCommand {
             if (arr.length == 1) {
                 throw new DukeException("\u2639 OOPS!!! Please enter a number!");
             }
-            int num = Integer.parseInt(line.split(" ")[1]) - 1;
+            String num = arr[1];
             return new CompleteCommand(num);
         } else if (line.startsWith("todo")) {
             line = line.replaceFirst("todo", "");
@@ -46,7 +55,7 @@ public class ChooseCommand {
             if (arr.length == 1) {
                 throw new DukeException("\u2639 OOPS!!! Please enter a number!");
             }
-            int num = Integer.parseInt(line.split(" ")[1]) - 1;
+            String num = arr[1];
             return new SnoozeCommand(num);
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");

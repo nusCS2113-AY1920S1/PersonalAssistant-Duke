@@ -18,7 +18,7 @@ public class ChooseCommandTest {
     }
     @Test
     public void testDone() throws DukeException {
-        assertEquals(new CompleteCommand(2), ChooseCommand.choose("done 2"));
+        assertEquals(new CompleteCommand("2"), ChooseCommand.choose("done 2"));
     }
     @Test
     public void testTodo() throws DukeException {
