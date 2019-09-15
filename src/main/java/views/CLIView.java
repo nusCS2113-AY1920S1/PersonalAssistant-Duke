@@ -1,8 +1,14 @@
 package views;
 
 import controllers.ConsoleInputController;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
+import models.tasks.Deadline;
+import models.tasks.Event;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
@@ -137,4 +143,26 @@ public class CLIView {
         }
         System.out.println(horiLine);
     }
+
+    /**
+     * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
+     * @param taskList Current list of tasks.
+     * @param limit The time limit before which to find upcoming tasks. If left blank, it will be seven days from current date by default.
+     * @throws ParseException
+     */
+    public void remindTask(TaskList taskList, String limit) throws ParseException{
+        System.out.println(horiLine);
+        System.out.println("\tHere are the upcoming tasks in your list:");
+        ArrayList<ITask> results = taskList.getUpcomingTasks(limit);
+        for (int i = 0; i < results.size(); i++) {
+            System.out.print("\t" + (i + 1));
+            System.out.println(".[" + results.get(i).getInitials() + "]"
+                + "[" + results.get(i).getStatusIcon() + "] "
+                + results.get(i).getDescription()
+            );
+        }
+        System.out.println(horiLine);
+    }
+
+
 }

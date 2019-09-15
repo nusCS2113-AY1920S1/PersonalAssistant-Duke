@@ -1,9 +1,15 @@
 package models.tasks;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TaskList implements Serializable {
+
+    private static final int DAYS_FROM_NOW = 7;
     private ArrayList<ITask> listOfTasks;
     private ArrayList<ITask> searchedTasks;
 
@@ -46,4 +52,35 @@ public class TaskList implements Serializable {
         }
         return searchedTasks;
     }
+
+    public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
+        ArrayList<ITask> upcomingTasks = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy hh.mm a");
+
+        Date remindWithin;
+        Date currentDateTime = new Date(System.currentTimeMillis());
+        //If no limit given by user, by default will remind user of tasks in coming 7 days
+        if (limit == "") {
+            Calendar c = Calendar.getInstance();
+            c.setTime(currentDateTime);
+            c.add(Calendar.DATE, DAYS_FROM_NOW);
+            remindWithin = c.getTime();
+        }
+        else {
+            SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            remindWithin = inputDateFormat.parse(limit);
+        }
+
+        for (ITask task: this.listOfTasks){
+            String taskInitial = task.getInitials();
+            if (taskInitial.equals("T")) continue;
+
+            Date taskDate = dateFormat.parse(task.getDateTime());
+            if (taskDate.compareTo(currentDateTime) >= 0 && taskDate.compareTo(remindWithin) <= 0) {
+                upcomingTasks.add(task);
+            }
+        }
+        return upcomingTasks;
+    }
+
 }
