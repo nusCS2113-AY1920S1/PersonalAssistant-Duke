@@ -7,13 +7,6 @@ import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Task;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Represents a <code>Command</code> that appends a new <code>Deadline</code>
  * object to the <code>TaskList</code>.
@@ -49,46 +42,18 @@ public class AddDeadlineCommand extends Command {
         if (linesplit.length == 1) {
             throw new DukeException("\u2639 OOPS!!! The description of a deadline needs a due date.");
         }
-        String start = linesplit[0].trim();
-        String end = linesplit[1].trim();
-        if (end.length() == 0) {
+        String description = linesplit[0].trim();
+        String date = linesplit[1].trim();
+        if (date.length() == 0) {
             throw new DukeException("\u2639 OOPS!!! The datetime of a deadline cannot be empty.");
-        } else if (isTimeStampValid(end)) {
-            String pattern = "dd-MM-yyyy HH:mm";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(end));
-            Timestamp timestamp = Timestamp.valueOf(localDateTime);
-            DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-            end = formatter2.format(timestamp.toLocalDateTime());
-            Task task = new Deadline(start, end);
-            arr.addTask(task);
-            ui.addTaskMessage(task, arr.getSize());
-            storage.writeToFile(arr);
         } else {
-            System.out.println("Time format is wrong! Try again.");
-        }
-    }
-
-    /**
-     * Checks for the validity of the datetime given by user
-     * by checking the format and validity of the datetime itself.
-     * @param inputString datetime input by user in <code>String</code> format.
-     * @return Returns true if the datetime given by user is valid, false otherwise.
-     */
-    public boolean isTimeStampValid(String inputString) {
-        SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
-        try {
-            String str = "";
-            format.parse(inputString);
-            String pattern = "dd-MM-yyyy HH:mm";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(inputString));
-            Timestamp timestamp = Timestamp.valueOf(localDateTime);
-            DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-            str = formatter2.format(timestamp.toLocalDateTime());
-            return true;
-        } catch (ParseException | DateTimeException e) {
-            return false;
+            date = parseTimeStamp(date);
+            if (date != "failed") {
+                Task task = new Deadline(description, date);
+                arr.addTask(task);
+                ui.addTaskMessage(task, arr.getSize());
+                storage.writeToFile(arr);
+            }
         }
     }
 

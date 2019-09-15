@@ -110,4 +110,26 @@ public class Ui {
         System.out.println("\t" + exception.getMessage());
         showLine();
     }
+
+    /**
+     * Displays the <code>Task</code> to be snoozed.
+     * @param task <code>Task</code> to be snoozed.
+     */
+    public void snoozeMessage(Task task) {
+        showLine();
+        System.out.println("\tI have changed the date of this task!");
+        System.out.println("\t\t" + task);
+        showLine();
+    }
+
+    /**
+     * Retrieves a new <code>Timestmp</code> from the user for the <code>Task</code>
+     * to be snoozed.
+     * @return <code>Timestamp</code> input by user.
+     */
+    public String getTimeStamp() {
+        System.out.print("\tPlease enter the new date: ");
+        String timestamp = scanLine();
+        return timestamp;
+    }
 }
