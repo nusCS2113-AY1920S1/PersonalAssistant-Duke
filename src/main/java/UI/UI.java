@@ -1,8 +1,10 @@
+package UI;
+
 import java.util.Scanner;
 
 /**
- * Method to handle the UI.
- * Unlike the mainwindow and dialogbox classes, this one handles UI elements of the terminal.
+ * Method to handle the UI.UI.
+ * Unlike the mainwindow and dialogbox classes, this one handles UI.UI elements of the terminal.
  * Mostly obsolete in favor of the abovementioned two classes.
  *
  * @author Lee Zhen Yu
@@ -12,7 +14,7 @@ import java.util.Scanner;
 public class UI {
 
     /**
-     * Constructor to for an UI object of duke.
+     * Constructor to for an UI.UI object of duke.
      */
     public UI() { //initialization
 
@@ -52,7 +54,7 @@ public class UI {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke"); //introduction
+        System.out.println("Hello! I'm JavaFX.Main.Duke"); //introduction
         System.out.println("What can I do for you?");
 
     }

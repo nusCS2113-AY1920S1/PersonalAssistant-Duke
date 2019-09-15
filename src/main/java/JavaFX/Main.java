@@ -1,3 +1,6 @@
+package JavaFX;
+
+import Main.Duke;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -7,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for JavaFX.Main.Duke using FXML.
  *
  * @author Lee Zhen Yu
  * @version %I%

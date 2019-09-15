@@ -1,3 +1,5 @@
+package Main;
+
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,7 +9,7 @@ import java.io.PrintStream;
 import myTasks.*;
 
 /**
- * The Duke class inherits methods from Applications and allows it to be called by another class.
+ * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
  * It is no longer the main class, but rather it will initialize the parameters, save files and all other classes
  * not related to the GUI.
  * It also acts as a liaison between the GUI and the terminal, as it will echo whatever is in the terminal to
@@ -28,7 +30,7 @@ public class Duke extends Application {
     /**
      * The constructor that is called when the GUI is starting up.
      * It will initialise all the classes related to the management of user input and save data.
-     * Its output will go to the terminal, which will then be echoed to the UI as daduke.
+     * Its output will go to the terminal, which will then be echoed to the UI.UI as daduke.
      * Its initialization requires the file path of the save file in order to save the task data.
      *
      * @param filePath The file path of the save file.
@@ -67,7 +69,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Method to run the Duke program.
+     * Method to run the JavaFX.Main.Duke program.
      */
     //method output initial reading of save file
     private void run() {
@@ -77,13 +79,13 @@ public class Duke extends Application {
     /**
      * This method is run when the GUI is started up.
      * It reads in data from a list, that is taken from the save file, and outputs it to the terminal.
-     * It will then be returned to MainWindow.java to be output to the GUI
+     * It will then be returned to JavaFX.MainWindow.java to be output to the GUI
      *
      * @param myList The array list to be read from, it should contain the save data.
      * @return The save data as a string to be output to the GUI.
      */
 
-    String getSave(TaskList myList) {
+    public String getSave(TaskList myList) {
         // Create a stream to hold the output
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
@@ -118,11 +120,11 @@ public class Duke extends Application {
 
 
     /**
-     * Method to be overwritten in the Main class.
+     * Method to be overwritten in the JavaFX.Main class.
      *
-     * @param stage The stage object to be initialized, done in the Main class.
+     * @param stage The stage object to be initialized, done in the JavaFX.Main class.
      */
-    // This entire start method is to be overwritten by the start method in Main
+    // This entire start method is to be overwritten by the start method in JavaFX.Main
     @Override
     public void start(Stage stage) {
 
@@ -137,11 +139,11 @@ public class Duke extends Application {
      * This is then returned to the GUI to be printed there
      *
      * @param myString The string to be parsed.
-     * @return The string to be written by Duke in the GUI.
+     * @return The string to be written by JavaFX.Main.Duke in the GUI.
      *
      */
 
-    String getResponse(String myString) {
+    public String getResponse(String myString) {
         // Create a stream to hold the output
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
