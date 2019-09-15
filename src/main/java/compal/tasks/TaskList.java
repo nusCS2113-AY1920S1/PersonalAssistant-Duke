@@ -2,31 +2,101 @@ package compal.tasks;
 
 import compal.main.Duke;
 
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Scanner;
 
 public class TaskList {
 
     public ArrayList<Task> arrlist;
     public Duke duke;
+    private BitSet idBitSet;
 
+    /**
+     * Constructor for class.
+     * @param d Duke
+     */
     public TaskList(Duke d) {
         this.duke = d;
         arrlist = new ArrayList<>();
+        idBitSet = getIdBitSet();
+        if (idBitSet == null) {
+            idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
+        }
+
+
+    }
+
+    /**
+     * Saves the current bitset to file. For assignment of task IDs.
+     */
+    public void writeIdBitSet() {
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
+            oos.writeObject(idBitSet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Loads the current bitset saved on file and returns it.
+     * @return
+     */
+    public BitSet getIdBitSet() {
+        BitSet b = null;
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
+            b = (BitSet) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+
+    /**
+     * Draft function for adding tasks to ComPAL. Currently not in use.
+     */
+    public void addTaskTest(int currentStage, String value) {
+
+        Scanner sc1 = new Scanner(value);
+        String s = sc1.next(); //get the command string
+        String taskType = sc1.next(); //get the taskType
+        String dateString = sc1.next(); //get the date
+        String timeString = sc1.next(); //get the time
+        String name = sc1.next(); //get the name
+        String description = sc1.nextLine(); //get the description
+        int taskID = -1;
+        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
+            if (!idBitSet.get(i)) {
+                taskID = i;
+                System.out.println("Task assigned id of " + taskID);
+                writeIdBitSet();
+                break;
+            }
+        }
+
     }
 
 
     /**
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
-     *
      * @param cmd to tell the function what command is to be executed
      * @Function
      * @calls dateParse(String when)
      * @UsedIn: parser.processCommands
      */
     public void addTask(String cmd) {
-        System.out.println("Got it. I've added this task:");
+        duke.ui.printg("Got it. I've added this task:");
         Scanner sc1 = new Scanner(cmd);
         String s = sc1.next(); //get the command string
         String cs = sc1.nextLine(); //get the description string
@@ -90,7 +160,7 @@ public class TaskList {
     public void taskDone(String cmd) {
         Scanner sc1 = new Scanner(cmd);
         sc1.next(); //skip over the 'done'
-        System.out.println("Nice! I've marked this task as done:");
+        duke.ui.printg("Nice! I've marked this task as done:");
         Task t = arrlist.get(sc1.nextInt() - 1);
         t.markAsDone();
 
@@ -100,7 +170,7 @@ public class TaskList {
 
 
     /**
-     * This function handles the deletion of tasks.
+     * This function handles the searching of tasks.
      *
      * @param cmd used to find the keyword given
      * @Function
@@ -115,7 +185,7 @@ public class TaskList {
         int count = 1;
 
         for (Task t : arrlist) {
-            if (t.description.contains(pattern)) {
+            if (t.getDescription().contains(pattern)) {
                 System.out.print(count++ + ".");
                 duke.ui.showTask(t);
             }
