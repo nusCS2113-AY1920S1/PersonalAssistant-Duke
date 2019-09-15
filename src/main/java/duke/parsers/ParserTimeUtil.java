@@ -14,7 +14,7 @@ import java.time.temporal.TemporalAdjusters;
 /**
  * Parser for Time related operations.
  */
-class ParserTime {
+class ParserTimeUtil {
     /**
      * Parses a String into a LocalDateTime object.
      *

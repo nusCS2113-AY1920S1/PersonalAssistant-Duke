@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.tasks.Task;
+import duke.tasks.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -50,9 +51,11 @@ public class Ui {
     /**
      * Prints the list of duke.tasks.
      */
-    public void showList(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+    public void showList(UniqueTaskList tasks) {
+        int i = 1;
+        for (Task t : tasks) {
+            System.out.println(i + ". " + t);
+            i += 1;
         }
     }
 
@@ -78,8 +81,7 @@ public class Ui {
     }
 
     /**
-     * Scans the next line from standard input, returning a String containing the user input
-     * with leading and trailing whitespaces removed.
+     * Scans the next line from standard input.
      *
      * @return The String corresponding to the user input.
      */

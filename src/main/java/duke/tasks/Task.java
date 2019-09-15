@@ -4,9 +4,9 @@ package duke.tasks;
  * A generic task, which can be marked as done.
  */
 public class Task {
-    protected String description;
+    private String description;
 
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Initializes a task not yet done with the given description.
@@ -41,6 +41,18 @@ public class Task {
      */
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    /**
+     * Returns true if both tasks are the same.
+     */
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDescription().equals(getDescription());
     }
 
     /**

@@ -1,9 +1,10 @@
 package duke.storage;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
-import duke.parsers.ParserStorage;
+import duke.commons.MessageUtil;
+import duke.parsers.ParserStorageUtil;
 import duke.tasks.Task;
+import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,12 +20,11 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private ArrayList<Task> tasks;
+    private UniqueTaskList tasks;
     private Ui ui;
 
     /**
      * Constructs a Storage object that contains duke.tasks and duke.storage related operations.
-     * Mainly save duke.tasks and get duke.tasks.
      *
      * @param filePath The filepath to the txt file.
      * @param ui The user interface displaying events on the task list.
@@ -31,6 +32,7 @@ public class Storage {
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;
+        tasks = new UniqueTaskList();
         read();
     }
 
@@ -38,20 +40,24 @@ public class Storage {
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
     private void read() {
-        ArrayList<Task> newTasks = new ArrayList<>();
+        List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                newTasks.add(ParserStorage.createTaskFromStorage(s.nextLine()));
+                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
             s.close();
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         } catch (FileNotFoundException e) {
-            ui.showError(Message.FILE_NOT_FOUND);
+            ui.showError(MessageUtil.FILE_NOT_FOUND);
         }
-        tasks = newTasks;
+        try {
+            tasks.setTasks(newTasks);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
@@ -61,17 +67,17 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {
-                writer.write(ParserStorage.toStorageString(task) + "\n");
+                writer.write(ParserStorageUtil.toStorageString(task) + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            ui.showError(Message.FILE_NOT_SAVE);
+            ui.showError(MessageUtil.FILE_NOT_SAVE);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
     }
 
-    public ArrayList<Task> getTasks() {
+    public UniqueTaskList getTasks() {
         return tasks;
     }
 }

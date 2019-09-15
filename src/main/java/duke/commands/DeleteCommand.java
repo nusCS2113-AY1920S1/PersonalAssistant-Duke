@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
+import duke.commons.MessageUtil;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
             Task task = storage.getTasks().remove(index);
             ui.showDelete(task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Message.OUT_OF_BOUNDS);
+            throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
         }
         storage.write();
     }

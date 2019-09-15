@@ -1,10 +1,10 @@
 package duke.commands;
 
+import duke.commons.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
+import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Class representing a command to find a task by keyword.
@@ -28,9 +28,9 @@ public class FindCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) {
-        ArrayList<Task> tasks = storage.getTasks();
-        ArrayList<Task> result = new ArrayList<>();
+    public void execute(Ui ui, Storage storage) throws DukeException {
+        UniqueTaskList tasks = storage.getTasks();
+        UniqueTaskList result = new UniqueTaskList();
         for (Task task: tasks) {
             if (task.toString().contains(keyword)) {
                 result.add(task);
