@@ -3,16 +3,20 @@ package compal.inputs;
 import compal.main.Duke;
 import compal.tasks.Task;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,8 +30,10 @@ public class Ui {
     private String username;
 
     //JavaFX testing
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
+    private ScrollPane primaryScrollPane;
+    private ScrollPane secondaryScrollPane;
+    private VBox mainDisplay;
+    private VBox secondaryDisplay;
     private TextField userInput;
     private Button sendButton;
 
@@ -59,15 +65,39 @@ public class Ui {
      */
     public void start(Stage stage) {
 
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+
         //make GUI components
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        primaryScrollPane = new ScrollPane();
+        secondaryScrollPane = new ScrollPane();
+        mainDisplay= new VBox();
+        secondaryDisplay = new VBox();
+        primaryScrollPane.setContent(mainDisplay);
+        secondaryScrollPane.setContent(secondaryDisplay);
         userInput = new TextField();
         sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.getChildren().addAll(primaryScrollPane, userInput, sendButton,secondaryDisplay);
+
+
+        //SETTING COLORS --------------------------------------------------------------------->
+
+        mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
+                CornerRadii.EMPTY, Insets.EMPTY)));
+
+        secondaryScrollPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
+                CornerRadii.EMPTY, Insets.EMPTY)));
+
+        mainDisplay.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
+                CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+
+        // --------------------------------------------------------------------------->
+
+
 
         final Scene scene = new Scene(mainLayout);
         System.out.println("Displaying GUI!");
@@ -76,26 +106,36 @@ public class Ui {
 
         //Setting dimensions of components/stage
         stage.setResizable(true);
-        stage.setMinHeight(400);
-        stage.setMinWidth(400);
-        mainLayout.setPrefSize(400, 400);
+        stage.setMinHeight(700);
+        stage.setMinWidth(1000);
+        mainLayout.setPrefSize(700, 500);
 
-        scrollPane.setPrefSize(385, 385);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
+        primaryScrollPane.setPrefSize(400, 500);
+        primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        primaryScrollPane.setVvalue(1.0);
+        primaryScrollPane.setFitToWidth(true);
 
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        secondaryScrollPane.setPrefSize(250, 500);
+        secondaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        secondaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        secondaryScrollPane.setVvalue(1.0);
+        secondaryScrollPane.setFitToWidth(true);
 
-        userInput.setPrefWidth(325);
+        mainDisplay.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        secondaryDisplay.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+
+        userInput.setPrefWidth(600);
         sendButton.setPrefWidth(55);
 
         //set the constraints of the 3 UI elements to the parent (AnchorPane)
-        AnchorPane.setTopAnchor(scrollPane, userInput.getHeight() + 30.0);
+        AnchorPane.setTopAnchor(primaryScrollPane, userInput.getHeight() + 30.0);
+        AnchorPane.setTopAnchor(secondaryDisplay, userInput.getHeight() + 30.0);
         AnchorPane.setTopAnchor(userInput, 1.0);
         AnchorPane.setTopAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(userInput, 20.0);
+        AnchorPane.setRightAnchor(userInput, 0.0);
+        AnchorPane.setRightAnchor(secondaryDisplay, 20.0);
 
 
         //on clicking the send button
@@ -109,8 +149,10 @@ public class Ui {
         //on user pressing enter while focus is on textfield
         userInput.setOnAction(actionEvent -> handleUserInput());
 
-        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
+        mainDisplay.heightProperty().addListener(observable -> primaryScrollPane.setVvalue(1.0));
+        secondaryDisplay.heightProperty().addListener(observable -> secondaryScrollPane.setVvalue(1.0));
 
+        scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
 
@@ -121,21 +163,18 @@ public class Ui {
      * This function converts the object into string form using toString() and prints it onto the GUI.
      *
      * @param text input object received to be print on gui
-     * @Function
      */
     public void printg(Object text) {
-        dialogContainer.getChildren().addAll(getDialogLabel(text.toString()));
+        mainDisplay.getChildren().addAll(getDialogLabel(text.toString()));
     }
 
 
     /**
      * Creates 2 dialog boxes, 1 echoing user input and the other containing a processed reply
      * from COMPal.Duke. Clears userinput box after processing.
-     *
-     * @Function
      * @UsedIn: sendButton.setOnMouseClicked
      */
-    private void handleUserInput() {
+    public void handleUserInput() {
         String cmd = userInput.getText();
 
         if (isNewUser) {
@@ -157,30 +196,21 @@ public class Ui {
      */
     private Label getDialogLabel(String text) {
         Label label = new Label(text);
+        label.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         label.setWrapText(true);
 
         return label;
     }
 
 
-    /**
-     * Simply prints the welcome message for COMPal.Duke
-     */
-    public void showWelcome() {
-        checkInit();
-
-
-    }
-
 
     /**
      * Checks if user is a new user.
      * No Params, No Return Value
-     *
      * @UsedIn:
      */
     public void checkInit() {
-        File tmpDir = new File("./duke.txt");
+        File tmpDir = new File("./prefs.txt");
         boolean saveFileExists = tmpDir.exists();
         if (!saveFileExists) {
             isNewUser = true;
@@ -216,7 +246,7 @@ public class Ui {
             if (value.matches("(y|Y).*")) {
                 printg("Hello " + username + "! What a lovely name!");
                 isNewUser = false;
-                duke.storage.saveString(username); //save the user's name
+                duke.storage.storeUserName(username); //save the user's name
                 break;
             } else {
                 printg("Okay, what is your name then?");
@@ -248,7 +278,7 @@ public class Ui {
      * @UsedIn: tasklist.taskDone, tasklist.deleteTask
      */
     public void showTask(Task t) {
-        duke.ui.printg("[" + t.getSymbol() + "]" + "[" + t.getStatusIcon() + "] " + t.description);
+        duke.ui.printg("[" + t.getSymbol() + "]" + "[" + t.getStatusIcon() + "] " + t.getDescription());
     }
 
 

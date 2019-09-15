@@ -1,9 +1,13 @@
 package compal.tasks;
 
 public abstract class Task {
-    public String description;
+
     public boolean isDone;
-    public String symbol;
+    protected String symbol;
+    private int id;
+    private String dateTime;
+    private String taskTypeString;
+    private String description;
 
     public Task(String description) {
         this.description = description;
@@ -21,6 +25,12 @@ public abstract class Task {
     public String getSymbol() {
         return symbol;
     }
+
+    public String getDescription(){
+        return description;
+    }
+
+
 
 
 }
