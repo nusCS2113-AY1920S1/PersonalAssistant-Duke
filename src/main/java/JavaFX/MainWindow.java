@@ -1,3 +1,6 @@
+package JavaFX;
+
+import Main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,11 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import myTasks.*;
+import myTasks.Task;
+import myTasks.TaskList;
+
 import java.util.ArrayList;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for JavaFX.MainWindow. Provides the layout for the other controls.
  *
  * @author Lee Zhen Yu
  * @version %I%
@@ -58,7 +63,7 @@ public class MainWindow extends AnchorPane {
 
         String welcome = "Hello from\n" +
                 logo + "\n" +
-                "Hello! I'm Duke\n" +
+                "Hello! I'm JavaFX.Main.Duke\n" +
                 "What can I do for you?\n\n";
 
         dialogContainer.getChildren().addAll(
@@ -75,7 +80,7 @@ public class MainWindow extends AnchorPane {
 
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing JavaFX.Main.Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

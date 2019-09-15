@@ -1,8 +1,12 @@
+package Parser;
+
+import Storage.Storage;
+import myTasks.*;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import myTasks.*;
 
 /**
  * Class to process user input and perform according to user input.
@@ -41,7 +45,7 @@ public class Parser {
      *
      * @param myList The task list to be used for duke.
      */
-    //Currently, Parser will take in the entire raw input and taskList
+    //Currently, Parser.Parser will take in the entire raw input and taskList
     public void setTaskList(TaskList myList) {
         this.myList = myList;
     }
