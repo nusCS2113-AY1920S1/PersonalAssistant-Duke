@@ -114,6 +114,8 @@ public class Parser {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
         } else if (hasWithinPeriod) {
             tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
+        } else if (hasFixedDuration) {
+            tempTask = new FixedDurationTask(finalTaskDetail, finalTaskReq);
         }
         else {
             tempTask = new ToDo(input);
