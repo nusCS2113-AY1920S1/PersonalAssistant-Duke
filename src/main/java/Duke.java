@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 public class Duke {
     static String lineSeparation = "____________________________________________________________\n";
+
+    /**
+     * main Duke method
+     */
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser();
         Scanner reader = new Scanner(System.in);
@@ -20,9 +24,9 @@ public class Duke {
 
         String userInput = reader.nextLine();
         while (!userInput.equals("bye")) {
-           Command currCommand = parser.parseInput(userInput);
-           currCommand.execute(tasks, ui, storage);
-           userInput = reader.nextLine();
+            Command currCommand = parser.parseInput(userInput);
+            currCommand.execute(tasks, ui, storage);
+            userInput = reader.nextLine();
         }
 
         ui.bye();

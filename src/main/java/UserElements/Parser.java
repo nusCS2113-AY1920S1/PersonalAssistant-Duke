@@ -8,17 +8,19 @@ public class Parser {
     /**
      * Creates new Model_Class.Parser object.
      */
-    public Parser(){}
+    public Parser() {
+    }
 
     /**
      * Parses user input to extract command.
+     *
      * @param userInput String containing user input
      * @return Model_Class.Command object after parsing input
      */
-    public Command parseInput(String userInput){
+    public Command parseInput(String userInput) {
         String command;
         String continuation;
-        if (userInput.contains(" ")){
+        if (userInput.contains(" ")) {
             int indexOfSpace = userInput.indexOf(' ');
             command = userInput.substring(0, indexOfSpace);
             continuation = userInput.substring(indexOfSpace + 1);

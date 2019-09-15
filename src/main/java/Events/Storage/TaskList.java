@@ -20,11 +20,12 @@ public class TaskList {
 
     /**
      * Creates new Model_Class.TaskList object.
+     *
      * @param inputList list of strings containing all information extracted from save file
      */
     public TaskList(ArrayList<String> inputList) {
         taskArrayList = new ArrayList<Task>();
-        for (String currLine : inputList){
+        for (String currLine : inputList) {
             boolean isDone = (currLine.charAt(4) == '\u2713');
             if (currLine.charAt(1) == 'T') {
                 taskArrayList.add(new ToDo(currLine.substring(7), isDone));
@@ -40,14 +41,16 @@ public class TaskList {
 
     /**
      * Adds a new task to the list
+     *
      * @param task Model_Class.Task object to be added
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         this.taskArrayList.add(task);
     }
 
     /**
      * Deletes a task from the list.
+     *
      * @param taskNo Index of task to be deleted
      */
     public void deleteTask(int taskNo) {
@@ -56,31 +59,35 @@ public class TaskList {
 
     /**
      * Gets list of Model_Class.Task objects stored
-     * @return Array<Model_Class.Task> containing all tasks.
+     *
+     * @return Array of TaskLists containing all tasks.
      */
-    public ArrayList<Task> getTaskArrayList(){
+    public ArrayList<Task> getTaskArrayList() {
         return this.taskArrayList;
     }
 
     /**
      * Gets number of tasks stored.
+     *
      * @return number of tasks stored
      */
-    public int getNumTasks(){
+    public int getNumTasks() {
         return taskArrayList.size();
     }
 
     /**
      * Gets a specific task using indexing.
+     *
      * @param index Index of task to be extracted
      * @return Model_Class.Task object of specified task
      */
-    public Task getTask(int index){
+    public Task getTask(int index) {
         return taskArrayList.get(index);
     }
 
     /**
      * Gets the entire list of tasks stored in String format
+     *
      * @return String containing all tasks, separated by a newline.
      */
     public String listOfTasks_String() {
