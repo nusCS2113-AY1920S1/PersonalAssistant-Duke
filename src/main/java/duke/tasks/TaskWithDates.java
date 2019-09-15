@@ -20,7 +20,7 @@ class TaskWithDates extends Task {
         super(description[0]);
     }
 
-    LocalDateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 }
