@@ -4,34 +4,35 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 // https://stackoverflow.com/questions/1647907/junit-how-to-simulate-system-in-testing
-public class TestExtender {
+public class SystemIO implements AfterEachCallback, BeforeEachCallback {
 
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
 
     private ByteArrayOutputStream testOut;
 
-    @BeforeEach
-    public void setUpOutput() {
+    @Override
+    public void beforeEach(ExtensionContext context) throws Exception {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
     }
 
-    protected void provideInput(String data) {
+    public void provideInput(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
         System.setIn(testIn);
     }
 
-    protected String getOutput() {
+    public String getOutput() {
         return testOut.toString();
     }
 
-    @AfterEach
-    public void restoreSystemInputOutput() {
+    @Override
+    public void  afterEach(ExtensionContext context)  {
         System.setIn(systemIn);
         System.setOut(systemOut);
     }

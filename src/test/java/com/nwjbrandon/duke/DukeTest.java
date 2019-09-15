@@ -1,18 +1,22 @@
 package com.nwjbrandon.duke;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DukeTest extends TestExtender {
+class DukeTest {
+
+    @RegisterExtension
+    SystemIO io = new SystemIO();
 
     @Test
     void testMainMethod() throws IOException {
-        provideInput("bye");
+        io.provideInput("bye");
         Duke.main(new String[0]);
-        String output = getOutput();
+        String output = io.getOutput();
         String expected = "\t____________________________________________________________\n"
                         + "\t Hello! I'm Duke\n"
                         + "\t What can I do for you?\n"
