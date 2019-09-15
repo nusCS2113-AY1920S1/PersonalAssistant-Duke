@@ -23,6 +23,11 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    // https://mvnrepository.com/artifact/com.joestelmach/natty
+    compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+}
+
 application {
     // Change this to your main class.
     mainClassName = "duke.src.main.java.duke.Duke"
