@@ -6,7 +6,7 @@ Imagine yourself as a director of a play. First you provision the props that you
 
 ![Hierarchy of Objects in JavaFX](assets/JavaFxHierarchy.png)
 
-A JavaFX application is like a play you are directing. Instead of creating props, you create `Nodes` (`Nodes` are the fundamental building blocks of a JavaFX application), and place them onto a `Scene` (a scene is a graph of `Node`s). Then, you set your `Scene` on a `Stage` provided by JavaFX. When you call `Stage#show()` method, JavaFX renders a window with your `Stage` on it.
+A JavaFX application is like a play you are directing. Instead of creating props, you create `Nodes` (`Nodes` are the fundamental building blocks of a JavaFX application), and place them onto a `Scene` (a scene is a graph of `Node`s). Then, you set your `Scene` on a `Stage` provided from JavaFX. When you call `Stage#show()` method, JavaFX renders a window with your `Stage` on it.
 
 ## Setting up Java FX
 

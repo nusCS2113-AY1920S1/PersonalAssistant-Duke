@@ -8,7 +8,10 @@ import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.task.*;
+import duke.command.*;
 import duke.dukeexception.DukeException;
+
+import java.util.ArrayList;
 
 /**
  * Represents a parser that breaks down user input into commands.
@@ -104,8 +107,7 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        }
-        else if (arr.length > 0 && arr[0].equals("doafter")) {
+        } else if (arr.length > 0 && arr[0].equals("doafter")) {
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
             for (int i = 1; i < arr.length; i++) {
@@ -127,15 +129,60 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! The description of Task for "
                         + arr[0] + " cannot be empty.");
             } else {
-                    String currentTasks = items.getList();
-                    if (currentTasks.contains(afterTaskDesc)) {
-                        Task taskObj;
-                        taskObj = new DoAfter(taskDesc, afterTaskDesc);
-                        return new AddCommand(taskObj);
+                String currentTasks = items.getList();
+                if (currentTasks.contains(afterTaskDesc)) {
+                    Task taskObj;
+                    taskObj = new DoAfter(taskDesc, afterTaskDesc);
+                    return new AddCommand(taskObj);
+                } else {
+                    throw new DukeException("(>_<) OOPS!!! You cant set a do after task for a task that is not in the list!");
+                }
+            }
+        } else if (arr.length > 0 && arr[0].equals("repeat")) {
+            //repeat <task> /from <date time> /for 3 <day/week/month>
+            for (int i = 1; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
+                    taskDesc += arr[i] + " ";
+                } else {
+                    if (!getDate) { //detect "/"
+                        getDate = true;
                     } else {
-                        throw new DukeException("(>_<) OOPS!!! You cant set a do after task for a task that is not in the list!");
+                        dateDesc += arr[i] + " ";
                     }
                 }
+            }
+            taskDesc = taskDesc.trim();
+            dateDesc = dateDesc.trim();
+
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+            } else if (dateDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
+                        + arr[0] + " cannot be empty.");
+            } else {
+                String repeatSettings;
+                int repeatTimes;
+                String repeatPeriod;
+                try {
+                    repeatSettings = dateDesc.split("/for ")[1];
+                    repeatTimes = Integer.parseInt(repeatSettings.replaceAll("[\\D]", ""));
+                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[1];
+
+                } catch (Exception e) {
+                    throw new DukeException("Format is in: repeat <task> /from <date time> " +
+                            "/for <repeat times> <days/weeks>");
+                }
+
+                ArrayList<Task> repeatList = new ArrayList<>();
+                String timeDesc = dateDesc.split(" ", 3)[1];
+                for (int i = 0; i < repeatTimes; i++) {
+                    Task taskObj;
+                    taskObj = new Repeat(taskDesc, dateDesc);
+                    dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
+                    repeatList.add(taskObj);
+                }
+                return new AddMultipleCommand(repeatList);
+            }
         }
         else if (sentence.equals("bye")) {
             return new ExitCommand();

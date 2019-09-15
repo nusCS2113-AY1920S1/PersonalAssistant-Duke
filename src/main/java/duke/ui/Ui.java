@@ -188,7 +188,7 @@ public class Ui {
     }
 
     /**
-     * Outputs the tasks that are matched by the keyword to the user.
+     * Outputs the tasks that are matched from the keyword to the user.
      *
      * @param items The task list that contains a list of tasks.
      * @param keyword The task that is deleted.
@@ -208,7 +208,7 @@ public class Ui {
     }
 
     /**
-     * Outputs the tasks that are matched by the keyword to the user (GUI).
+     * Outputs the tasks that are matched from the keyword to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param keyword The task that is deleted.

@@ -1,21 +1,13 @@
 package duke.parser;
 
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.Command;
-import duke.command.ListCommand;
+import duke.command.*;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
     Ui ui = new Ui();
@@ -30,7 +22,7 @@ class ParserTest {
 
         Command cmd = Parser.parse("todo Work", items);
         assertTrue(cmd instanceof AddCommand);
-        cmd = Parser.parse("deadline basketball /by 19/04/2019 1900", items);
+        cmd = Parser.parse("deadline basketball /from 19/04/2019 1900", items);
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("event watch movies /at 20/07/2018 1240", items);
         assertTrue(cmd instanceof AddCommand);
@@ -42,6 +34,8 @@ class ParserTest {
         assertTrue(cmd instanceof ListCommand);
         cmd = Parser.parse("delete 1", items);
         assertTrue(cmd instanceof DeleteCommand);
+        cmd = Parser.parse("repeat this /from 10/05/2019 1234 /for 3 days", items);
+        assertTrue(cmd instanceof AddMultipleCommand);
     }
 
     @Test

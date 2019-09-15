@@ -9,6 +9,6 @@ class DeadlineTest {
     @Test
     void deadlineTest() throws ParseException {
         Task task = new Deadline("homework", "08/04/2019 1000");
-        assertEquals("[D][✗] homework (by: 8th of April 2019, 10AM)", task.toString());
+        assertEquals("[D][✗] homework (from: 8th of April 2019, 10AM)", task.toString());
     }
 }

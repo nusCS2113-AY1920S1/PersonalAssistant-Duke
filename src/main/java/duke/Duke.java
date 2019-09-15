@@ -47,7 +47,7 @@ public class Duke {
     }
 
     /**
-     * Retrieves a command by interpreting the user input (GUI).
+     * Retrieves a command from interpreting the user input (GUI).
      *
      * @param sentence The user input.
      * @return Command to be executed thereafter.
