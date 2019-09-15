@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.core.DukeException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,6 +90,8 @@ public abstract class Task {
         return description;
     }
 
+
+
     /**
      * Returns a string that representing the data and time for the task
      * in a predefined date time format.
@@ -120,13 +124,12 @@ public abstract class Task {
      * update the <code>LocalDateTime</> constructor to save the date and time
      * @param time the time retrieved from user input.
      */
-    public void updateLocalDateTime(String time)
-    {
+    public void updateLocalDateTime(String time){
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
             ld = LocalDateTime.parse(time, parser);
         } catch (DateTimeParseException error) {
-            System.out.println(error.getMessage());
+            System.out.println("Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
         }
     }
     /**

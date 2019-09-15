@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.core.DukeException;
+
 /**
  * Represents a task with a deadline. It is
  * extended from the Task class.

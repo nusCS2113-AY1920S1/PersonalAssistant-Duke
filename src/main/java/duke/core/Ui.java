@@ -68,6 +68,15 @@ public class Ui {
     }
 
     /**
+     * Shows that a Task has been rescheduled to a new date and time.
+     *
+     * @param t The Task that is rescheduled in the list.
+     */
+    public void taskRescheduled(Task t) {
+        System.out.println("Noted. I've rescheduled this task: \n  " + t.toString());
+    }
+
+    /**
      * Find and display a specific task stored in the list.
      *
      * @param a    TaskList used to store tasks.
@@ -84,6 +93,8 @@ public class Ui {
         }
     }
 
+
+
     /**
      * Print out the tasks in the task list which is reaching
      * the deadline.
@@ -91,7 +102,7 @@ public class Ui {
      */
     public void taskReminder(ArrayList<Task> a) {
         System.out.println("The following tasks are reaching your deadline:");
-        System.out.println("Mark it as done to stop the reminder");
+        System.out.println("Mark it as done or reschedule them to stop the reminder");
         int count = 1;
         for (Task x : a) {
             System.out.println(count + "." + x.toString());
