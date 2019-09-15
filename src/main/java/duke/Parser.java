@@ -1,13 +1,11 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.AddCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
-import duke.tasks.*;
+import duke.commands.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.DoAfterTask;
 
 import java.util.ArrayList;
 
@@ -25,6 +23,10 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
+        } else if (input.equals("reminder")) {
+            return new ReminderCommand();
+        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
+            return new FreeTimeCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
             return new FindCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
@@ -130,7 +132,9 @@ public class Parser {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-    public static String runDeadline(ArrayList<Task> data, String input, int state) {
+
+
+    public static String runDeadline(ArrayList<Task> data, String input, int state) throws DukeException {
         input = input.substring(9);
         int startOfBy = input.indexOf("/");
         String tt1 = input.substring(0, startOfBy - 1);
@@ -150,7 +154,11 @@ public class Parser {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-    public static String runEvent(ArrayList<Task> data, String input, int state) {
+
+
+    public static String runEvent(ArrayList<Task> data, String input, int state) throws DukeException {
+        StringBuilder stringBuilder = new StringBuilder();
+
         input = input.substring(6);
         int startOfAt = input.indexOf("/");
         String tt1 = input.substring(0, startOfAt - 1);

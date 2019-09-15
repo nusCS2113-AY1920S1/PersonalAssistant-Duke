@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.Date;
+
 public class ToDo extends Task {
 
     /**
@@ -9,6 +11,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+        taskType = TaskType.TODO;
     }
 
     /**
@@ -40,7 +43,7 @@ public class ToDo extends Task {
      * @return Null String
      */
     @Override
-    public String getDateTime() {
+    public Date getDateTime() {
         return null;
     }
 }
