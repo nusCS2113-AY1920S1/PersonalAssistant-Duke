@@ -1,5 +1,7 @@
 package ui;
 
+import wrapper.TimeInterval;
+
 import java.util.Scanner;
 
 /**
@@ -172,6 +174,17 @@ public class Ui {
             System.out.println(space + "Now you have " + num + " tasks in the list.");
         } else {
             System.out.println(space + "Now you have " + num + " task in the list.");
+        }
+        System.out.println(line);
+    }
+
+    public static void showFreeTime(int num ,TimeInterval freeslot ) {
+        System.out.println(line + "\n" + space + "You have your free time that is at least " + Integer.toString(num)+ " hours at these interval");
+
+        if(freeslot.getStartDate().equals(freeslot.getEndDate())){
+            System.out.println(space+ freeslot.getStartDate() + " onwards");
+        }else{
+            System.out.println(space + freeslot.getStartDate() + " to " + freeslot.getEndDate());
         }
         System.out.println(line);
     }
