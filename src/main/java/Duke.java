@@ -21,6 +21,10 @@ public class Duke {
         }
     }
 
+    /**
+     * This program runs the main duke program
+     *
+     */
     public static void main(String[] args) throws DukeException {
         run();
     }

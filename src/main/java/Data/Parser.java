@@ -2,9 +2,18 @@ package Data;
 
 import Task.*;
 
+/**
+ * Parser is the controller for the string inputs received by the standard input
+ */
 public class Parser {
 
 
+    /**
+     * This function takes the standard input defined by the user and
+     * parses it into instructions for the Storage to read
+     *
+     * @param io
+     */
     public void parseInput(String io) {
         int index = 1;
         String input = io;
