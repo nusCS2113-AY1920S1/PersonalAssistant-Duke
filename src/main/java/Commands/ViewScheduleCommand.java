@@ -2,10 +2,7 @@ package Commands;
 
 import ControlPanel.Storage;
 import ControlPanel.Ui;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.TaskList;
+import Tasks.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +42,12 @@ public class ViewScheduleCommand extends Command {
             }else if (t instanceof Events){
                 Date startDate = ((Events) t).getStartDateAt();
                 Date endDate = ((Events) t).getEndDateAt();
+                isToday = (startDate.after(startDay) && startDate.before(endDay)) ||
+                        (endDate.after(startDay) && endDate.before(endDay)) ||
+                        (startDay.after(startDate) && endDay.before(endDate));
+            }else if(t instanceof Periods){
+                Date startDate = ((Periods) t).getDateFrom();
+                Date endDate = ((Periods) t).getDateTo();
                 isToday = (startDate.after(startDay) && startDate.before(endDay)) ||
                         (endDate.after(startDay) && endDate.before(endDay)) ||
                         (startDay.after(startDate) && endDay.before(endDate));

@@ -54,15 +54,17 @@ public class TaskTest {
     public void testRemindersUpcoming()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt");
+        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
         Command RemCmdUpcoming =  new RemindersCommand("upcoming");
         RemCmdUpcoming.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Your Upcoming Deadlines and Events: \n" + System.getProperty("line.separator")
-                + " 1.[D][?] send keegs off (by: 19/9/2019 2300)\n" + System.getProperty("line.separator")
+        assertEquals(" Got it. Your Upcoming Reminders: \n" + System.getProperty("line.separator")
+                + " 1.[D][?] Duke Documentation (by: 17/9/2019 2359)\n" + System.getProperty("line.separator")
+                + " 2.[T][?] some stuff\n" + System.getProperty("line.separator")
+                + " 3.[P][?] IPPT (from: 18/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
                 ,outContent.toString());
         System.setOut(originalOut);
     }
@@ -71,15 +73,16 @@ public class TaskTest {
     public void testRemindersPast()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt");
+        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
         Command RemCmdPast =  new RemindersCommand("past");
         RemCmdPast.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Your Past Deadlines and Events: \n" + System.getProperty("line.separator")
-                        + " 1.[D][?] do assignments (by: 3/2/2019 1300)\n" + System.getProperty("line.separator")
+        assertEquals(" Got it. Your Past Reminders: \n" + System.getProperty("line.separator")
+                        + " 1.[E][?] code jam (at: 6/6/2011 1100 to 7/7/2011 1400)\n" + System.getProperty("line.separator")
+                        + " 2.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
                 ,outContent.toString());
         System.setOut(originalOut);
     }
@@ -88,15 +91,15 @@ public class TaskTest {
     public void testRemindersToday()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt");
+        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
         Command RemCmdToday =  new RemindersCommand("today");
         RemCmdToday.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Today's Deadlines and Events: \n" + System.getProperty("line.separator")
-                        + " 1.[E][?] marquee (at: 12/9/2019 1400 to 14/9/2019 1600)\n" + System.getProperty("line.separator")
+        assertEquals(" Got it. Today's Reminders: \n" + System.getProperty("line.separator")
+                        + " 1.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
                 ,outContent.toString());
         System.setOut(originalOut);
     }
@@ -105,7 +108,7 @@ public class TaskTest {
     public void testViewSchedule()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks.txt");
+        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
@@ -113,7 +116,8 @@ public class TaskTest {
         viewSchedule.execute(tasks, ui, storage);
         //System.out.println("hello");
         assertEquals(" Got it. Your schedule for 14/09/2019: \n" + System.getProperty("line.separator")
-                        + " 1.[E][?] marquee (at: 12/9/2019 1400 to 14/9/2019 1600)\n" + System.getProperty("line.separator")
+                        + " 1.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
+                        + " 2.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
                 ,outContent.toString());
         System.setOut(originalOut);
     }
