@@ -1,4 +1,4 @@
-package Model_Class;
+package UserElements;
 
 /**
  * Contains method to parse the user input and interpret it for Model_Class.Command class

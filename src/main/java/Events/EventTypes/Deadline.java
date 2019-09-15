@@ -1,14 +1,16 @@
-package Model_Class;
+package Events.EventTypes;
+
+import Events.Formatting.DateObj;
 
 /**
  * Model_Class.Deadline object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     /**
      * Contains the date & time in a DateObj.
      */
-    protected DateObj dateobj;
+    protected DateObj dateObj;
 
     /**
      * Creates deadline
@@ -17,7 +19,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String date){
         super(description);
-        this.dateobj = new DateObj(date);
+        this.dateObj = new DateObj(date);
     }
 
     /**
@@ -28,7 +30,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String date, boolean isDone) {
         super(description, isDone);
-        this.dateobj = new DateObj(date);
+        this.dateObj = new DateObj(date);
     }
 
     /**
@@ -37,6 +39,6 @@ public class Deadline extends Task{
      */
     @Override
 	public String toString(){
-    	 return "[D]" + super.toString() + "(by: " + dateobj.toOutputString() + ")";
+    	 return "[D]" + super.toString() + "(by: " + dateObj.toOutputString() + ")";
     }
 }

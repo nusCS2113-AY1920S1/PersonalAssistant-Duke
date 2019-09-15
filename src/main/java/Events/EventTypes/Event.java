@@ -1,4 +1,6 @@
-package Model_Class;
+package Events.EventTypes;
+
+import Events.Formatting.DateObj;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
@@ -9,7 +11,7 @@ public class Event extends Task {
     /**
     * Contains the date & time in a DateObj.
     */
-    protected DateObj dateobj;
+    protected DateObj dateObj;
 
     /**
      * Creates event
@@ -18,7 +20,7 @@ public class Event extends Task {
      */
     public Event(String description, String date){
         super(description);
-        this.dateobj = new DateObj(date);
+        this.dateObj = new DateObj(date);
     }
 
     /**
@@ -29,7 +31,7 @@ public class Event extends Task {
      */
     public Event(String description, String date, boolean isDone){
     	super(description, isDone);	
-    	this.dateobj = new DateObj(date);	 	
+    	this.dateObj = new DateObj(date);
     }
 
     /**
@@ -38,6 +40,6 @@ public class Event extends Task {
      */
     @Override
     public String toString(){
-    	 return "[E]" + super.toString() + "(at: " + dateobj.toOutputString() + ")";
+    	 return "[E]" + super.toString() + "(at: " + dateObj.toOutputString() + ")";
     }
 }
