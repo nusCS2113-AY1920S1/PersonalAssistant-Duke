@@ -17,7 +17,7 @@ image::https://avatars1.githubusercontent.com/u/1023494?s=400&v=4[width="150", a
 Role: Project Advisor
 
 === Sai Ganesh Suresh
-image::doc/images/E0310898.png[width="150" , align="left"]
+image::docs/images/E0310898.png[width="150" , align="left"]
 {empty}[https://github.com/E0310898[github]] [<<Sai Ganesh Suresh#, portfolio>>]
 
 Role: Team Member
@@ -26,7 +26,7 @@ Responsibilities:
 '''
 
 === Hans Kurnia
-image::doc/images/hanskw4267.jpg[width="150", align="left"]
+image::docs/images/hanskw4267.jpg[width="150", align="left"]
 {empty}[https://github.com/hanskw4267[github]] [<<Hans Kurnia#, portfolio>>]
 
 Role: Team Member
@@ -35,7 +35,7 @@ Responsibilities:
 '''
 
 === Fauzan
-image::doc/images/fauzt.jpg[width="150", align="left"]
+image::docs/images/fauzt.jpg[width="150", align="left"]
 {empty}[https://github.com/fauzt[github]] [<<Fauzan#, portfolio>>]
 
 Role: Team Member
@@ -44,7 +44,7 @@ Responsibilities:
 '''
 
 === Varun
-image::doc/images/assman.jpg[width="150", align="left"]
+image::docs/images/assman.jpg[width="150", align="left"]
 {empty}[https://github.com/assman[github]] [<<Varun#, portfolio>>]
 
 Role: Team Member
@@ -53,7 +53,7 @@ Responsibilities:
 '''
 
 === Tan Yi Xiang
-//image::doc/images/TanYiXiang.jpg[width="150", align="left"]
+//image::docs/images/TanYiXiang.jpg[width="150", align="left"]
 {empty}[https://github.com/TanYiXiang[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Member
