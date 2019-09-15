@@ -14,7 +14,7 @@ image::https://avatars1.githubusercontent.com/u/1023494?s=400&v=4[width="150", a
 //PLEASE PUT YOUR IMAGE HERE ^ following the format doc/images/githbub_username_in_lower_case.png
 {empty}[https://github.com/okkhoy[github]] [<<Akshay Narayan#, portfolio>>]
 
-Role: Project Advisor
+Role: Lecturer
 
 === Sai Ganesh Suresh
 image::E0310898.jpg[width="150" , align="left"]
