@@ -12,36 +12,36 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Matthew Ng 
-+image::damithc.jpg[width="150", align="left"]+
-+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]+
+//-image::damithc.jpg[width="150", align="left"]
+//-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
-Role: +Project Advisor+
+Role: //-Project Advisor
 
 '''
 
 === Gerald Lim
-+image::lejolly.jpg[width="150", align="left"]+
-+{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]+
+//-image::lejolly.jpg[width="150", align="left"]
+//-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: +Team Lead +
-Responsibilities: + UI +
+Role: //-Team Lead 
+Responsibilities: //-UI 
 
 '''
 
 === Annette
-+image::yijinl.jpg[width="150", align="left"]+
-+{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]+
+//-image::yijinl.jpg[width="150", align="left"]
+//-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: +Developer +
-Responsibilities: +Data+
+Role: //-Developer 
+Responsibilities: //-Data
 
 '''
 
 === Kiang Yang
-+image::m133225.jpg[width="150", align="left"]+
-+{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]+
+//-image::m133225.jpg[width="150", align="left"]
+//-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
-Role: + Developer +
-Responsibilities: + Dev Ops + Threading+
+Role: //- Developer 
+Responsibilities: //-Dev Ops + Threading
 
 '''
