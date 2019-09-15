@@ -1,20 +1,15 @@
 package Model_Class;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;;
-
 /**
  * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
 public class Event extends Task {
+	
     /**
-    * Contains the date & time in a String.
+    * Contains the date & time in a DateObj.
     */
-    protected Date dateobj;
-    protected String date;
-    protected int format;
+    protected DateObj dateobj;
 
     /**
      * Creates event
@@ -23,7 +18,7 @@ public class Event extends Task {
      */
     public Event(String description, String date){
         super(description);
-        setDate(date); 
+        this.dateobj = new DateObj(date);
     }
 
     /**
@@ -34,27 +29,7 @@ public class Event extends Task {
      */
     public Event(String description, String date, boolean isDone){
     	super(description, isDone);	
-    	setDate(date); 	 	
-    }
-    
-    public void setDate(String date) {
-    	try {
-    	    SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    	    inputformat.setLenient(false);
-    	    Date dateobj = inputformat.parse(date);
-    	    this.dateobj = dateobj;
-    	    format = 1; // date and time
-    	} catch (ParseException pe) {
-    		try {
-	    		SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy");
-	    	    inputformat.setLenient(false);
-	    	    Date dateobj = inputformat.parse(date);
-	    	    this.dateobj = dateobj;
-	    	    format = 2; // only date
-    		} catch (ParseException pe2) {
-        	    format = 3; // other types; store as string
-    		}
-    	}
+    	this.dateobj = new DateObj(date);	 	
     }
 
     /**
@@ -63,16 +38,6 @@ public class Event extends Task {
      */
     @Override
     public String toString(){
-    	if (format == 1) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy, hh:mm aa");
-    	 	String out = outputformat.format(dateobj);
-    	 	return "[E]" + super.toString() + "(at: " + out + ")";
-    	} else if (format == 2) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy");
-    	 	String out = outputformat.format(dateobj);
-    	 	return "[E]" + super.toString() + "(at: " + out + ")";
-    	} else {
-    		return "[E]" + super.toString() + "(at: " + date + ")";
-    	}
+    	 return "[E]" + super.toString() + "(at: " + dateobj.toOutputString() + ")";
     }
 }

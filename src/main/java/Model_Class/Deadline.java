@@ -1,20 +1,14 @@
 package Model_Class;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Model_Class.Deadline object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
 public class Deadline extends Task{
     /**
-     * Contains the date & time in a String.
+     * Contains the date & time in a DateObj.
      */
-	protected Date dateobj;
-    protected String date;
-    protected int format;
+    protected DateObj dateobj;
 
     /**
      * Creates deadline
@@ -23,7 +17,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String date){
         super(description);
-        setDate(date);
+        this.dateobj = new DateObj(date);
     }
 
     /**
@@ -33,28 +27,8 @@ public class Deadline extends Task{
      * @param isDone Boolean defining if the task is completed or not.
      */
     public Deadline(String description, String date, boolean isDone) {
-    	super(description, isDone);
-    	setDate(date);
-    }
-    
-    public void setDate(String date) {
-    	try {
-    	    SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    	    inputformat.setLenient(false);
-    	    Date dateobj = inputformat.parse(date);
-    	    this.dateobj = dateobj;
-    	    format = 1; // date and time
-    	} catch (ParseException pe) {
-    		try {
-	    		SimpleDateFormat inputformat = new SimpleDateFormat("dd/MM/yyyy");
-	    	    inputformat.setLenient(false);
-	    	    Date dateobj = inputformat.parse(date);
-	    	    this.dateobj = dateobj;
-	    	    format = 2; // only date
-    		} catch (ParseException pe2) {
-        	    format = 3; // other types; store as string
-    		}
-    	}
+        super(description, isDone);
+        this.dateobj = new DateObj(date);
     }
 
     /**
@@ -63,16 +37,6 @@ public class Deadline extends Task{
      */
     @Override
 	public String toString(){
-    	if (format == 1) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy, hh:mm aa");
-    	 	String out = outputformat.format(dateobj);
-    	 	return "[D]" + super.toString() + "(by: " + out + ")";
-    	} else if (format == 2) {
-    		SimpleDateFormat outputformat = new SimpleDateFormat("dd MMM yyyy");
-    	 	String out = outputformat.format(dateobj);
-    	 	return "[D]" + super.toString() + "(by: " + out + ")";
-    	} else {
-    		return "[D]" + super.toString() + "(by: " + date + ")";
-    	}
+    	 return "[D]" + super.toString() + "(by: " + dateobj.toOutputString() + ")";
     }
 }
