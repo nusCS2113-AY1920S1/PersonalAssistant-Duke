@@ -1,135 +1,60 @@
-import duke.command.FileManager;
-import duke.command.Parser;
-import duke.command.Ui;
-import duke.exceptions.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.exceptions.DukeException;
+import storage.Storage;
+import ui.Ui;
+import task.TaskList;
+import exception.DukeException;
+import command.Command;
+import parser.Parser;
 
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * Represents our Duke and contains the main program of Duke.
+ */
 public class Duke {
-    private static List<Task> taskList = new ArrayList<>();
 
-    public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-         */
-        Ui.print_line();
-        taskList = new FileManager().LoadFile();
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
-        Ui.print_line();
-        run();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    /**
+     * Constructs the Duke with the filePath of storage.txt
+     *
+     * @param filePath The filePath of storage.txt
+     */
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e);
+            tasks = new TaskList();
+        }
     }
 
-    public static void run() {
-        Boolean isExit = false;
-        while (!isExit)
+    /**
+     * Runs the Duke.
+     */
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
             try {
-                Parser line = new Parser();
-                String command = line.getCommand();
-                switch (command) {
-                    case "done":
-                        int listNum = line.getIndex();
-                        if (listNum >= 0 && listNum < taskList.size()) {
-                            taskList.get(listNum).markDone();
-                            Task currTask = taskList.get(listNum);
-                            Ui.printMarkDone(currTask);
-                            new FileManager().saveFile(taskList);
-                        } else {
-                            throw new DukeException("", DukeException.ExceptionType.OUT_OF_RANGE);
-                        }
-                        break;
-                    case "delete":
-                        listNum = line.getIndex();
-                        if (listNum >= 0 && listNum < taskList.size()) {
-                            Task currTask = taskList.get(listNum);
-                            Ui.printDeleted(currTask, taskList);
-                            taskList.remove(listNum);
-                            new FileManager().saveFile(taskList);
-                        } else {
-                            throw new DukeException("", DukeException.ExceptionType.OUT_OF_RANGE);
-                        }
-                        break;
-                    case "bye":
-                        Ui.printBye();
-                        new FileManager().saveFile(taskList);
-                        isExit = true;
-                        System.exit(0);
-                        break;
-                    case "list":
-                        Ui.printList(taskList);
-                        break;
-                    case "find":
-                        String argument = line.getArgument().toLowerCase();
-                        if (argument.isEmpty())
-                            throw new DukeException("", DukeException.ExceptionType.INVALID_ARGUMENT);
-                        else {
-                            List<Task> foundList = taskList.stream()
-                                    .filter(x -> x.description.toLowerCase().contains(argument)).collect(Collectors.toList());
-                            Ui.printList(foundList);
-                        }
-                        break;
-                    case "todo":
-                        String description = line.buildTodo();
-                        if (description.isEmpty()) {
-                            throw new DukeException("", DukeException.ExceptionType.INVALID_TODO);
-                        }
-                        Todo todo = new Todo(description);
-                        Ui.printTodo(todo, taskList);
-                        taskList.add(todo);
-                        new FileManager().saveFile(taskList);
-                        break;
-                    case "deadline":
-                        line.buildDeadline();
-                        description = line.description;
-                        String by = line.additional;
-                        if (description.isEmpty()) {
-                            throw new DukeException("", DukeException.ExceptionType.INVALID_DEADLINE);
-                        }
-                        if (by.isEmpty()) {
-                            throw new DukeException("", DukeException.ExceptionType.DEADLINE_TIME);
-                        }
-                        LocalDateTime localDateTime = new DukeDateTime().getLocalDateTime(by);
-                        Deadline deadline = new Deadline(description, localDateTime);
-                        taskList.add(deadline);
-                        Ui.printDeadline(deadline, taskList);
-                        new FileManager().saveFile(taskList);
-                        break;
-                    case "event":
-                        line.buildEvent();
-                        description = line.description;
-                        String at = line.additional;
-                        if (description.isEmpty()) {
-                            throw new DukeException("", DukeException.ExceptionType.INVALID_EVENT);
-                        }
-
-                        if (at.isEmpty()) {
-                            throw new DukeException("", DukeException.ExceptionType.EVENT_TIME);
-                        }
-                        Event event = new Event(description, at);
-                        Ui.printEvent(event, taskList);
-                        taskList.add(event);
-                        new FileManager().saveFile(taskList);
-                        break;
-                    default:
-                        throw new DukeException("", DukeException.ExceptionType.INVALID_COMMAND);
-                }
+                Command packagedCommand = Parser.parse(fullCommand);
+                packagedCommand.execute(tasks, ui, storage);
+                isExit = packagedCommand.isExit();
             } catch (DukeException e) {
-                e.PrintExceptionMessage();
+                ui.showError(e);
             }
+        }
+    }
+
+    /**
+     * Runs the main program of the Duke.
+     *
+     * @param args necessary arguments demanded by the main method.
+     */
+    public static void main(String[] args) {
+        new Duke(System.getProperty("user.dir") + "/data/TaskListStorage.txt").run();
     }
 
 }
-
