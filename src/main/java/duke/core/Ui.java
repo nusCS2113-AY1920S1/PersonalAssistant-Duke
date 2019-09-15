@@ -102,7 +102,7 @@ public class Ui {
      */
     public void taskReminder(ArrayList<Task> a) {
         System.out.println("The following tasks are reaching your deadline:");
-        System.out.println("Mark it as done to stop the reminder");
+        System.out.println("Mark it as done or reschedule them to stop the reminder");
         int count = 1;
         for (Task x : a) {
             System.out.println(count + "." + x.toString());
