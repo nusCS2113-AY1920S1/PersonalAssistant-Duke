@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Cheng Weixuan
-image::docs/images/xuanface.jpg[width="150", align="left"]
+image::xuanface.JPG[width="150", align="left"]
 {empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
