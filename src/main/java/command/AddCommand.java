@@ -2,10 +2,7 @@ package command;
 import process.*;
 
 import process.DukeException;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
+import task.*;
 
 /**
  * Represents a command that adds an item to tasks
@@ -14,6 +11,7 @@ public class AddCommand extends Command {
     private String description;
     private String tasktype;
     private String datetime;
+    private int durationHour, durationMinute;
     /**
      * Creates a new AddCommand object with the given type of task and description
      * @param tasktype The task type
@@ -34,6 +32,13 @@ public class AddCommand extends Command {
         this.tasktype = tasktype;
         this.datetime = datetime;
     }
+
+    public AddCommand(String description, int durationHour, int durationMinute ){
+        this.tasktype = "task";
+        this.description = description;
+        this.durationHour = durationHour;
+        this.durationMinute = durationMinute;
+    }
     /**
      * Executes the AddCommand and saves changes to storage
      * @param tasks the task list
@@ -45,6 +50,7 @@ public class AddCommand extends Command {
         if (tasktype.equals("todo")) tasks.add(new Todo(description, false));
         else if (tasktype.equals("deadline")) tasks.add(new Deadline(description, datetime, false));
         else if (tasktype.equals("event")) tasks.add(new Event(description, datetime, false));
+        else if (tasktype.equals("task")) tasks.add(new FixedTask(description, false, durationHour, durationMinute));
         else throw new DukeException("add error");
         storage.save(tasks);
         return ui.showTaskAdded(tasks.get(tasks.size()-1).toString(), tasks.size());
