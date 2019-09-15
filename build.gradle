@@ -9,7 +9,6 @@ plugins {
 checkstyle {
     toolVersion = '8.23'
 }
-
 group 'seedu.duke'
 version '0.1.0'
 
@@ -18,7 +17,7 @@ repositories {
 }
 
 application {
-    mainClassName = "compal.main.Duke"
+    mainClassName = "compal.main.Launcher"
 }
 
 run {
