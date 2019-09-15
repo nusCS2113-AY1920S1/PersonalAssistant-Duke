@@ -1,0 +1,5 @@
+language: java
+jdk: oraclejdk11
+
+before install:
+  - chmod +x gradlew
