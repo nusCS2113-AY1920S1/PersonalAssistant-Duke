@@ -55,6 +55,8 @@ public class DukeTest {
         //Test for within period task
         new WithinPeriodTask().test("todo completing my work within my house /within 1 sep to 2 dec");
 
+        //Test for viewschedule
+        new ViewSchedulesTest().test();
     }
 
     public void dummyTest() {
