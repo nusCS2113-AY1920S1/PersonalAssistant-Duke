@@ -1,12 +1,14 @@
 package task;
+
 import java.io.Serializable;
+
 /**
  * This extension of the task class will allow the user to add a task of event type.
  *
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Event extends Task implements Serializable{
+public class Event extends Task implements Serializable {
 
     private String date;
 

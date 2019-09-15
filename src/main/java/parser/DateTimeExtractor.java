@@ -1,10 +1,8 @@
 package parser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class DateTimeExtractor {
-
     private static SimpleDateFormat DATE_FORMATTER_EVENT = new SimpleDateFormat("dd/MM/yyyy HHmm-HHmm");
     private static SimpleDateFormat DATE_FORMATTER_DEADLINE = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private static String dateEvent;

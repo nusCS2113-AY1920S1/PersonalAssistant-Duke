@@ -1,4 +1,5 @@
 package task;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +9,9 @@ import java.io.Serializable;
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Task implements Serializable{
+public class Task implements Serializable {
 
-    public String description; // basically similar to describing features of the class
+    public String description;
     protected boolean isDone;
 
     /**
@@ -18,7 +19,7 @@ public class Task implements Serializable{
      *
      * @param description This string holds the description provided by the user.
      */
-    public Task(String description) { // constructor
+    public Task(String description) { 
         this.description = description;
         this.isDone = false;
     }
@@ -28,7 +29,7 @@ public class Task implements Serializable{
      *
      * @return This function returns either a tick or a cross.
      */
-    public String getStatusIcon() { // return tick or X symbols
+    public String getStatusIcon() { 
         return (isDone ? "\u2713" : "\u2718");
     }
 
