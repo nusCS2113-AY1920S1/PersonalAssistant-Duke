@@ -6,6 +6,14 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7' //javaFx for rendering
 }
 
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
 checkstyle {
     toolVersion = '8.23'
 }

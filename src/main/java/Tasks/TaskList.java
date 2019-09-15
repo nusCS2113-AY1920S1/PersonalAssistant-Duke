@@ -2,7 +2,7 @@ package Tasks;
 
 import java.util.ArrayList;
 
-public class TaskList implements AnomalyDetector {
+public class TaskList {
     private static ArrayList<Task> checkList;
 
     //constructors
@@ -29,9 +29,7 @@ public class TaskList implements AnomalyDetector {
         checkList.remove(index);
     }
 
-    public int lengthOfList(){
-        return checkList.size();
-    }
+    public int lengthOfList(){ return checkList.size(); }
 
     public void markDoneATask(int index){
         checkList.get(index).markAsDone();

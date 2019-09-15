@@ -32,8 +32,9 @@ public class Task {
 
     public String getType() { return type; }
 
-//    public String getTaskType(){
-//        return type;
-//    }
+    public void chooseDate(int index) {
+       // System.out.println("");
+    }
+
 }
 

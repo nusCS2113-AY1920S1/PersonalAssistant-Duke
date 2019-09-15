@@ -2,9 +2,11 @@ package Commands;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import Tasks.*;
 import ControlPanel.*;
+import javafx.util.Pair;
 
 public class AddCommand extends Command {
 
@@ -72,10 +74,30 @@ public class AddCommand extends Command {
             }
             case "duration": {
                 if (inputString.equals("duration")) {
-                    throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                    throw new DukeException("OOPS!!! The description of a duration cannot be empty.");
                 }
                 String[] getDuration = inputString.split("/needs ");
                 Task t = new FixedDuration(getDuration[0].replaceFirst("duration ", ""), getDuration[1]);
+                tasks.addTask(t);
+                break;
+            }
+
+            case "multiEvent": {
+                if (inputString.equals("multiEvent")) {
+                    throw new DukeException("OOPS!!! The description of a multiple event cannot be empty.");
+                }
+                String[] getDate = inputString.split("/at");
+                String description = getDate[0].replaceFirst("multiEvent ", "");
+                String[] dateStr = getDate[1].split("/or");
+                ArrayList<Pair<Date, Date>> dates = new ArrayList<>();
+                for (String choices : dateStr) {
+                    String[] startendDate = choices.split("to ");
+                    Date startDate = simpleDateFormat.parse(startendDate[0]);
+                    Date endDate = simpleDateFormat.parse(startendDate[1]);
+                    Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
+                    dates.add(tempDate);
+                }
+                Task t = new MultipleEvent(description, dates);
                 tasks.addTask(t);
                 break;
             }
