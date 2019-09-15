@@ -21,6 +21,8 @@ public class Parser {
             return new ListCommand();
         } else if (input.equals("reminder")) {
             return new ReminderCommand();
+        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
+            return new ViewScheduleCommand(input);
         } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
             return new FreeTimeCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {

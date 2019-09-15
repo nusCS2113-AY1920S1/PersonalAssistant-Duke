@@ -39,35 +39,53 @@ public class FreeTimeCommand extends Command {
             int currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
             ui.showMessage("Current Date: " + currDate.toString());
 
+            if (currTime + diff >= upperTimeBound) {
+                calendar.set(Calendar.DAY_OF_MONTH, currDay + 1);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                currDate = calendar.getTime();
+            }
+
             ArrayList<Task> eventList = new ArrayList<>();
             for (Task task : tasks.getData()) {
                 if (task.getTaskType() == Task.TaskType.EVENT) {
                     eventList.add(task);
                 }
             }
+            ViewScheduleCommand.sortTasksByDate(eventList);
 
             for (Task task : eventList) {
                 Date compDate = task.getDateTime();
                 if (compDate == null) {
                     continue;
                 }
+
+                //ui.showMessage("task: " + compDate.toString());
+
                 calendar.setTime(compDate);
                 int compInt = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);
-                if (compInt - diff >= lowerTimeBound && currTime <= compInt) {
+                //ONLY HAPPENS if freetime AFTER lowerBound AND got freetime btw currTime and {time of task}
+                if (currTime >= lowerTimeBound && compInt - diff >= currTime) {
                     //ui.showMessage("A");
-                    calendar.set(Calendar.HOUR_OF_DAY, (compInt - diff) / 100);
-                    calendar.set(Calendar.MINUTE, (compInt - diff) % 100);
+                    break;
                 } else if (compInt + diff <= upperTimeBound && currTime + diff <= upperTimeBound) {
+                    //This happens if can find freetime AFTER event, and btw currTime and upperBound
                     //ui.showMessage("B");
-                    calendar.set(Calendar.HOUR_OF_DAY, (compInt + diff) / 100);
-                    calendar.set(Calendar.MINUTE, (compInt + diff) % 100);
+                    calendar.set(Calendar.HOUR_OF_DAY, Math.max(compInt, currTime) / 100);
+                    calendar.set(Calendar.MINUTE, Math.max(compInt, currTime) % 100);
+                    currDate = calendar.getTime();
+                    currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
+                    //ui.showMessage("curr set to: " + currDate.toString());
                 } else {
+                    //This happens if can find freetime AFTER event, currTime and upperBound
                     //ui.showMessage("C");
                     currDay++;
                     currTime = 800;
                     calendar.set(Calendar.DAY_OF_MONTH, currDay);
                     calendar.set(Calendar.HOUR_OF_DAY, currTime / 100);
-                    calendar.set(Calendar.MINUTE, currTime % 100);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
                     currDate = calendar.getTime();
                 }
             }
