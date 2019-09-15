@@ -5,6 +5,9 @@ import process.DukeException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a parser to make sense of user input and translate it to commands for Duke
  */
@@ -16,7 +19,7 @@ public class Parser {
      * @throws DukeException if Duke cannot make sense of the input
      */
     public static Command parse(String input) throws DukeException { //input validation
-        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule"));
+        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule","task"));
         String operation;
         String date;
         int index =-1;
@@ -62,6 +65,14 @@ public class Parser {
                 date = input.substring(at_index + 5).trim();
                 if (date.isBlank()) throw new DukeException("datetime");
                 return new AddCommand("event", arg1, date);
+            } else if (operation.equals("task")) {
+                int delimiterIndex = input.indexOf(" /need ");
+                if (delimiterIndex == -1) throw new DukeException("Missing task delimiter. (/need)");
+                arg1 = input.substring(4, delimiterIndex).trim();
+                if (arg1.isBlank()) throw new DukeException("Missing task description.");
+                Matcher m = Pattern.compile("^(\\d+) (\\d+)$").matcher(input.substring(delimiterIndex + 7).trim());
+                if (!m.find()) throw new DukeException("Invalid task argument need.\ntask <description> /need <hour(s)> <minute(s)>");
+                return new AddCommand(arg1, Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)));
             } else if (operation.equals("bye")) {
                 return new ExitCommand();
             } else if (operation.equals("list")) {
