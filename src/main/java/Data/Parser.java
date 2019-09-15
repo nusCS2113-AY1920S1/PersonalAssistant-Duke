@@ -64,6 +64,23 @@ public class Parser {
                 }
                 break;
 
+            /**
+             * Command should be in the form: aftertask return book /after exam
+             * It will be stored as type [A].
+             */
+            case "aftertask":
+                try {
+                    index = input.indexOf("/after");
+                    String info = input.substring(10, index);
+                    String endDate = TaskList.dateConvert(input.substring(index + 7));
+                    After after = new After(info, false, endDate);
+                    TaskList.addTask(after, "A");
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
+                }
+                break;
+
             case "delete":
                 index = Integer.parseInt(input.substring(7)) - 1;
                 TaskList.deleteTask(index);
