@@ -2,16 +2,30 @@ package compal.inputs;
 
 import compal.main.Duke;
 
-import java.util.Scanner;
-
 public class Parser {
     Duke duke;
-    Scanner sc;
 
+    /**
+     * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
+     * know where to redirect the input command.
+     * Can be an enum e.g State.INIT, State.NORMAL, State.TIMETABLE
+     */
+    public String status = "normal";
 
+    /**
+     * stage tells the parser which stage of the current prompt sequence ComPAL is on.
+     * e.g if stage == 1 and status == "init", then ComPAL is currently expecting the user to
+     * confirm his/her name (YES or NO)
+     * Note: stage is always reset to 0 upon a status change. This is done in the function below called setStatus()
+     */
+    public int stage = 0;
+
+    /**
+     * Constructor for the parser. Called in Duke when initializing
+     * @param d Duke
+     */
     public Parser(Duke d) {
         this.duke = d;
-        sc = new Scanner(System.in);
     }
 
     /**
@@ -30,13 +44,16 @@ public class Parser {
             duke.ui.listTasks();
         } else if (cmd.matches("done ([0-9]+)")) {
             duke.tasklist.taskDone(cmd);
-
         } else if (cmd.matches("delete ([0-9]+)")) {
             duke.tasklist.deleteTask(cmd);
         } else if (cmd.matches("(todo|event|deadline) .+")) {
             duke.tasklist.addTask(cmd);
+        } else if (cmd.matches("[T|t]ask .+")) { //draft task adding for ComPAL
+            duke.tasklist.addTask(cmd);
         } else if (cmd.matches("find (.*)")) {
             duke.tasklist.findTask(cmd);
+        } else if (status.equals("init")) {
+            duke.ui.firstTimeInit(cmd, stage++);
         } else if (cmd.matches("(todo|event|deadline)")) {
             try {
                 throw new Duke.DukeException("☹ OOPS!!! The description of a " + cmd + " cannot be empty.");
@@ -51,6 +68,13 @@ public class Parser {
             }
         }
 
+
+    }
+
+
+    public void setStatus(String status) {
+        this.status = status;
+        stage = 0; //reset stage everytime status is changed
     }
 
 
