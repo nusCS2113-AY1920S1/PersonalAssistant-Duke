@@ -1,9 +1,16 @@
 package duke.tasks;
 
 
+import java.util.Date;
+
 public abstract class Task {
     String description;
     private boolean isDone;
+    protected TaskType taskType;
+
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     /**
      * Initialises description of task and sets it to !isDone.
@@ -42,7 +49,11 @@ public abstract class Task {
         this.isDone = true;
     }
 
-    public abstract String getDateTime();
+    public abstract Date getDateTime();
 
     public abstract String getExtra();
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
 }

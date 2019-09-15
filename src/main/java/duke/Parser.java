@@ -1,12 +1,6 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.AddCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
+import duke.commands.*;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -28,6 +22,8 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
+        } else if (input.equals("reminder")) {
+            return new ReminderCommand();
         } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
             return new FindCommand(input);
         } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
@@ -88,7 +84,7 @@ public class Parser {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-    public static String runDeadline(ArrayList<Task> data, String input, int state) {
+    public static String runDeadline(ArrayList<Task> data, String input, int state) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
         input = input.substring(9);
         int startOfBy = input.indexOf("/");

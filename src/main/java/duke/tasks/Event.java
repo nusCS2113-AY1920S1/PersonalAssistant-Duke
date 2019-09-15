@@ -17,7 +17,7 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-
+        taskType = TaskType.EVENT;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         sdf.setLenient(false);
         try {
@@ -42,8 +42,8 @@ public class Event extends Task {
      * @return String containing the date of Task
      */
     @Override
-    public String getDateTime() {
-        return dateNow.toString();
+    public Date getDateTime() {
+        return dateNow;
     }
 
     @Override
