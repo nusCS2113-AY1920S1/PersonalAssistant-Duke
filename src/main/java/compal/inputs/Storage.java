@@ -38,7 +38,7 @@ public class Storage {
             File f = new File(saveFilePath);
             PrintWriter pw = new PrintWriter(f);
             for (Task t : tasks) {
-                pw.printf("%s %s %s\n",t.getSymbol(),t.isDone,t.getDescription());
+                pw.printf("%s %s %s\n", t.getSymbol(), t.isDone, t.getDescription());
             }
             pw.close();
 
@@ -75,32 +75,32 @@ public class Storage {
             Scanner strScanner = new Scanner(cmds);
             while (strScanner.hasNext()) {
                 switch (strScanner.next()) {
-                case "E":
-                    String done = strScanner.next().trim();
-                    Task t = new Event(strScanner.nextLine().strip());
-                    if (done.equals("true")) {
-                        t.isDone = true;
-                    }
-                    tasks.add(t);
-                    break;
-                case "D":
-                    String done1 = strScanner.next().trim();
-                    Task t1 = new Deadline(strScanner.nextLine().strip());
-                    if (done1.equals("true")) {
-                        t1.isDone = true;
-                    }
-                    tasks.add(t1);
-                    break;
-                case "T":
-                    String done2 = strScanner.next().trim();
-                    Task t2 = new Todo(strScanner.nextLine().strip());
-                    if (done2.equals("true")) {
-                        t2.isDone = true;
-                    }
-                    tasks.add(t2);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + strScanner.next());
+                    case "E":
+                        String done = strScanner.next().trim();
+                        Task t = new Event(strScanner.nextLine().strip());
+                        if (done.equals("true")) {
+                            t.isDone = true;
+                        }
+                        tasks.add(t);
+                        break;
+                    case "D":
+                        String done1 = strScanner.next().trim();
+                        Task t1 = new Deadline(strScanner.nextLine().strip());
+                        if (done1.equals("true")) {
+                            t1.isDone = true;
+                        }
+                        tasks.add(t1);
+                        break;
+                    case "T":
+                        String done2 = strScanner.next().trim();
+                        Task t2 = new Todo(strScanner.nextLine().strip());
+                        if (done2.equals("true")) {
+                            t2.isDone = true;
+                        }
+                        tasks.add(t2);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + strScanner.next());
                 }
 
 
@@ -134,9 +134,10 @@ public class Storage {
 
     /**
      * Saves the string toSave to the saveFilePath just as it is.
+     *
      * @param toSave String
      */
-    public void saveString(String toSave,String filePath) {
+    public void saveString(String toSave, String filePath) {
         try {
             File f = new File(filePath);
             PrintWriter pw = new PrintWriter(f);
@@ -150,6 +151,7 @@ public class Storage {
 
     /**
      * Returns the user's name as a String.
+     *
      * @return
      */
     public String getUserName() {
@@ -166,10 +168,11 @@ public class Storage {
 
     /**
      * Returns the user's name as a String.
+     *
      * @return
      */
     public void storeUserName(String name) {
-        saveString(name,userPreferencesFilePath);
+        saveString(name, userPreferencesFilePath);
     }
 
 

@@ -16,17 +16,18 @@ public class TaskList {
     public TaskList(Duke d) {
         this.duke = d;
         arrlist = new ArrayList<>();
-        idBitSet=getIDBitSet();
-        if(idBitSet==null){
+        idBitSet = getIDBitSet();
+        if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
 
 
     }
 
-
-
-    public void writeIDBitSet(){
+    /**
+     * Saves the current bitset to file. For assignment of task IDs
+     */
+    public void writeIDBitSet() {
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
@@ -37,27 +38,24 @@ public class TaskList {
 
     }
 
-    public BitSet getIDBitSet(){
+    /**
+     * Loads the current bitset saved on file and returns it
+     * @return
+     */
+    public BitSet getIDBitSet() {
         BitSet b = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
-            b = (BitSet)ois.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            b = (BitSet) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return b;
     }
 
 
-
-
-
-
-
     /**
-     * Draft function for adding tasks to ComPAL
+     * Draft function for adding tasks to ComPAL. Currently not in use.
      */
     public void addTaskTest(int currentStage, String value) {
 
@@ -68,11 +66,11 @@ public class TaskList {
         String timeString = sc1.next(); //get the time
         String name = sc1.next(); //get the name
         String description = sc1.nextLine(); //get the description
-        int taskID=-1;
-        for(int i=0;i<1000000;i++){ //search for an unused task ID
-            if (!idBitSet.get(i)){
-                taskID=i;
-                System.out.println("Task assigned id of "+taskID);
+        int taskID = -1;
+        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
+            if (!idBitSet.get(i)) {
+                taskID = i;
+                System.out.println("Task assigned id of " + taskID);
                 writeIDBitSet();
                 break;
             }
@@ -81,11 +79,9 @@ public class TaskList {
     }
 
 
-
     /**
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
-     *
      * @param cmd to tell the function what command is to be executed
      * @Function
      * @calls dateParse(String when)
@@ -125,7 +121,6 @@ public class TaskList {
         duke.storage.saveDuke(arrlist);
         duke.ui.showSize();
     }
-
 
 
     /**

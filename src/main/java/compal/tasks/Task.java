@@ -26,11 +26,9 @@ public abstract class Task {
         return symbol;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
-
-
 
 
 }
