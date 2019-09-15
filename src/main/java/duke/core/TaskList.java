@@ -21,6 +21,10 @@ public class TaskList {
         this.taskList = task;
     }
 
+    public TaskList() {
+        taskList = new ArrayList<>();
+    }
+
     /**
      * Retrieve the entire task list stored inside the ArrayList.
      */
@@ -69,10 +73,6 @@ public class TaskList {
      */
     public int getSize() {
         return taskList.size();
-    }
-
-    public TaskList() {
-        taskList = new ArrayList<Task>();
     }
 
 }

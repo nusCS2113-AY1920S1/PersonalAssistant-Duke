@@ -64,6 +64,13 @@ public class Parser {
                 }
             case "find":
                 return new FindCommand(command[1]);
+            case "reschedule":
+                try {
+                    String[] tempCommand = command[1].split(" ", 2);
+                    return new RescheduleCommand(Integer.parseInt(tempCommand[0]), tempCommand[1]);
+                } catch (Exception e) {
+                    throw new DukeException("Fail to reschedule task. Please enter command in the format of 'reschedule <task number> <dd/MM/yyyy HHmm>'.");
+                }
             case "bye":
                 return new ExitCommand();
             default:

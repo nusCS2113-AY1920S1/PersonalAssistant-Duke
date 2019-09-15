@@ -68,6 +68,15 @@ public class Ui {
     }
 
     /**
+     * Shows that a Task has been rescheduled to a new date and time.
+     *
+     * @param t The Task that is rescheduled in the list.
+     */
+    public void taskRescheduled(Task t) {
+        System.out.println("Noted. I've rescheduled this task: \n  " + t.toString());
+    }
+
+    /**
      * Find and display a specific task stored in the list.
      *
      * @param a    TaskList used to store tasks.
@@ -83,6 +92,8 @@ public class Ui {
             }
         }
     }
+
+
 
     /**
      * Print out the tasks in the task list which is reaching
