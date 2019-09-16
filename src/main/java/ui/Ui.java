@@ -1,8 +1,13 @@
 package ui;
 
+import wrapper.Pair;
+import task.Event;
+import task.Tasks;
 import wrapper.TimeInterval;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 /**
  * This class handles user's input and do the required appropriate actions.
@@ -186,6 +191,26 @@ public class Ui {
         }else{
             System.out.println(space + freeslot.getStartDate() + " to " + freeslot.getEndDate());
         }
+        System.out.println(line);
+    }
+
+    public static void showConflicts(ArrayList<Pair> conflicts) {
+
+        System.out.println(line + "\n");
+
+        if(conflicts.size() == 0){
+            System.out.println(space + "Nice! you do not have any conflicts!!");
+        }else{
+            System.out.println(space + "Oh No!! you have the following conflicts!!");
+            int i =1;
+            for(Pair e : conflicts){
+                Tasks t1 = e.getTask1();
+                Tasks t2 = e.getTask2();
+                System.out.println(space + (i++) + ". "+ t1.getDescription() + " & " + t2.getDescription());
+
+            }
+        }
+
         System.out.println(line);
     }
 }

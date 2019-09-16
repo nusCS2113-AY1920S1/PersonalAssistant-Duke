@@ -2,6 +2,8 @@ package task;
 
 import exceptions.DukeException;
 import parser.TimeParser;
+import ui.Ui;
+import wrapper.Pair;
 import wrapper.TimeInterval;
 
 import java.util.*;
@@ -70,6 +72,24 @@ public class TaskList {
         }
 
         return new TimeInterval(now , now);
+
+    }
+
+    public static void getConflicts(){
+
+        ArrayList<wrapper.Pair> conflicts =new ArrayList<>();
+
+        for(Map.Entry<Date , Tasks> entry1 : E.entrySet()){
+            for(Map.Entry<Date , Tasks> entry2 : E.entrySet()){
+                if(TimeParser.isConflicted(entry1.getValue() , entry2.getValue())){
+                    conflicts.add(new Pair(entry1.getValue() ,entry2.getValue()));
+
+                }
+            }
+        }
+
+        Ui.showConflicts(conflicts);
+
 
     }
 
