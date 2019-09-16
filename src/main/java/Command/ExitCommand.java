@@ -13,7 +13,7 @@ import Exception.DukeException;
  * @since 09/19
  */
 public class ExitCommand extends Command {
-    ExitCommand(){
+    public ExitCommand(){
         this.exit = true;
     }
     /**

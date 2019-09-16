@@ -30,5 +30,5 @@ public abstract class Command{
      * checks if the command is an ExitCommand
      * @return boolean if the system should exit or not
      */
-    boolean isExit(){return this.exit;}
+    public boolean isExit(){return this.exit;}
 }

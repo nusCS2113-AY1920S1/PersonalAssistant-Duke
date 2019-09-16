@@ -13,7 +13,7 @@ import Exception.DukeException;
  * @since 09/19
  */
 public class PrintCommand extends Command {
-    PrintCommand() {    }
+    protected PrintCommand() {    }
 
     /**
      * overwrites default execute to print task in tasks
@@ -23,7 +23,6 @@ public class PrintCommand extends Command {
      * @throws DukeException DukeException thrown when unable to execute
      */
     public void execute(TaskList tasks, UI ui, Storage storage) {
-
-        //tasks.print();
+        tasks.print();
     }
 }

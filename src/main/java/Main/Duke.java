@@ -1,12 +1,16 @@
 package Main;
 
-import java.util.ArrayList;
+import Command.Command;
+import Exception.DukeException;
+import Parser.Parser;
+import Storage.Storage;
+import UI.UI;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import myTasks.TaskList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import myTasks.*;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -22,7 +26,7 @@ import myTasks.*;
 public class Duke extends Application {
 
     private TaskList myList;
-    private Storage save;
+    private Storage storage;
     private UI ui;
     private Parser parse;
 
@@ -36,43 +40,52 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath) {
+    public Duke(String filePath) throws DukeException {
 
         ui = new UI(); //initialize ui class that handles input from user
-
-
-        ArrayList<Task> myTasks = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
-        myList = new TaskList(myTasks); //Initialise tasklist
-        save = new Storage(filePath); //initialize the storage class
-        parse = new Parser();
-        parse.setSave(save); //set location of save file
-        parse.setTaskList(myList); //set the list that will be updated
-
-
-        ui.welcomeMessage(); //Output welcome message
-
-        save.readSaveQuietly(myList); //Save file detection
-
-
-        /*
-        String myString = ui.inputCommand(); //get raw input from user
-
-        while (!myString.equals("bye")) {
-            parse.parseInput(myString);
-            myString = ui.inputCommand();
+        this.ui = new UI();
+        this.storage = new Storage(filePath);
+        try {
+            myList = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            myList = new TaskList();
         }
-
-        ui.byeMessage();
-        */
-
-
     }
 
     /**
      * Method to run the JavaFX.Main.Duke program.
+     * @return
      */
     //method output initial reading of save file
-    private void run() {
+    public String run(String line) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(output);
+        // IMPORTANT: Save the old System.out!
+        PrintStream old = System.out;
+        // Tell Java to use your special stream
+        System.setOut(ps);
+        //ui.showWelcome();
+        boolean isExit = false;
+        //while(!isExit) {
+            try {
+                //String line = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(line);
+                isExit = c.isExit();
+                c.execute(this.myList, this.ui, this.storage);
+            } catch (DukeException | NullPointerException e) {
+                ui.showError(e.getLocalizedMessage());
+            } finally {
+                ui.showLine();
+                // Put things back
+                System.out.flush();
+                System.setOut(old);
+                // Show what happened
+                System.out.println(output.toString());
+                return output.toString();
+            }
+        //}
 
     }
 
@@ -85,7 +98,7 @@ public class Duke extends Application {
      * @return The save data as a string to be output to the GUI.
      */
 
-    public String getSave(TaskList myList) {
+/*    public String getSave(TaskList myList) {
         // Create a stream to hold the output
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
@@ -95,7 +108,7 @@ public class Duke extends Application {
         System.setOut(ps);
 
         //Java will read whatever is output to the console, and relay it to the chatbox
-        save.readSave(myList); //initial reading of save file during startup
+        storage.readSave(myList); //initial reading of save file during startup
 
         // Put things back
         System.out.flush();
@@ -104,7 +117,7 @@ public class Duke extends Application {
         System.out.println(output.toString());
 
         return output.toString();
-    }
+    }*/
 
     /**
      * Method to run the duke program with the file path of the save file.
@@ -114,7 +127,7 @@ public class Duke extends Application {
      */
     private static void main(String[] args) {
 
-        new Duke("save.txt").run();
+        //new Duke("save.txt").run();
 
     }
 
@@ -142,7 +155,7 @@ public class Duke extends Application {
      * @return The string to be written by JavaFX.Main.Duke in the GUI.
      *
      */
-
+/*
     public String getResponse(String myString) {
         // Create a stream to hold the output
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -163,7 +176,7 @@ public class Duke extends Application {
 
         return output.toString();
     }
-
+*/
 }
 
 
