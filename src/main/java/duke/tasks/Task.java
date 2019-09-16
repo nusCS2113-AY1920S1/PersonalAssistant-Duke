@@ -63,6 +63,14 @@ public class Task {
     }
 
     /**
+     * This is a getter for the type
+     * @return type of the task
+     */
+    public Calendar getDate() {
+        return this.datetime;
+    }
+
+    /**
      * This function overrides the toString() function in the object class
      * @return the status icon and the description of the task
      */

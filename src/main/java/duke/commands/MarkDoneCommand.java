@@ -1,4 +1,5 @@
 package duke.commands;
+import duke.tasks.Schedule;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
@@ -28,7 +29,7 @@ public class MarkDoneCommand extends Command{
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
         ArrayList<Task> currentTasks = tasks.getTasks();
         Task currentTask = currentTasks.get(index - 1);
         currentTask.markAsDone();

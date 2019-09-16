@@ -66,11 +66,12 @@ public class Parser {
         } else if (command.equals("delete")) {
             int index = Integer.parseInt(description);
             return new DeleteCommand(index);
-        } else {
+        } else if (command.equals("remindme")) {
+            int index = Integer.parseInt(description);
+            return new RemindCommand(index);
+        } else{
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
-
 
 }
