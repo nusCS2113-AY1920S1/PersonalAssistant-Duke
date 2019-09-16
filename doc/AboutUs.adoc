@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Scott
-image::sfloydzy.jpg[width="150", align="left"]
+image::sfloydzy.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/sfloydzy[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Danish
-image::danisheddie.jpg[width="150", align="left"]
+image::danisheddie.png[width="150", align="left"]
 {empty}[http://github.com/danisheddie[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Jing Sen
-image::eujingsen.jpg[width="150", align="left"]
+image::eujingsen.png[width="150", align="left"]
 {empty}[http://github.com/eujingsen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Edmund
-image::nottherealedmund.jpg[width="150", align="left"]
+image::nottherealedmund.png[width="150", align="left"]
 {empty}[http://github.com/nottherealedmund[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
