@@ -14,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Rusdi Haizim
 
-<img width="150" src="https://github.com/RusdiHaizim/main/blob/master/docs/images/rusdihaizim.png?raw=true" />
-
+image::rusdihaizim.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 {empty}[http://github.com/rusdihaizim[github]]
 
 Role: Team Lead +
