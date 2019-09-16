@@ -34,7 +34,6 @@ class Parser {
                 return new FindCommand(arguments);
             case "delete":
                 return new DeleteCommand(arguments);
-
             case "done":
                 return new DoneCommand(arguments);
             case "todo":
