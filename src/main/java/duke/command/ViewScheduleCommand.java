@@ -28,17 +28,16 @@ public class ViewScheduleCommand extends Command {
      *
      * @param string User input.
      * @return Date
-     * @throws DukeException
+     * @throws DukeException Exception thrown for invalid or missing datetime
      */
-    private Date inputStringDate_returnDateDate(String string) throws DukeException {
+    public Date inputStringDate_returnDateDate(String string) throws DukeException {
         try {
             String dateString = words.get(words.indexOf(string) + 1)
                     + " "
                     + words.get(words.indexOf(string) + 2);
             formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
-            Date date = formatter.parse(dateString);
-            return date;
+            return formatter.parse(dateString);
         } catch (ParseException e) {
             throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
         } catch (IndexOutOfBoundsException e) {
@@ -46,20 +45,24 @@ public class ViewScheduleCommand extends Command {
         }
     }
 
+    private Boolean isWithinSchedule(Date d1, Date d2) {
+        return d1.compareTo(start) >= 0 && d2.compareTo(end) <= 0;
+    }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Ui.showScheduledTask(formatter.format(start), formatter.format(end));
         int counter = 1;
         for (Task task : taskList.getTasks()) {
-            Date tempDate = new Date();
-            if (task instanceof Deadline) tempDate = ((Deadline) task).deadline;
-            if (task instanceof Event) tempDate = ((Event) task).start;
-            if (tempDate.equals(start)
-                    || (tempDate.after(start) && tempDate.before(end))
-                    || tempDate.equals(end)) {
+            Boolean isWithinSchedule = false;
+            if (task instanceof Deadline)
+                isWithinSchedule = isWithinSchedule(((Deadline) task).deadline, ((Deadline) task).deadline);
+            if (task instanceof Event) isWithinSchedule = isWithinSchedule(((Event) task).start, ((Event) task).end);
+            if (isWithinSchedule) {
                 Ui.printIndented(counter + ". " + task.toString());
                 counter++;
             }
         }
+        if (counter == 1) Ui.printIndented("\tThere are no tasks within the given time frame.");
     }
 }
