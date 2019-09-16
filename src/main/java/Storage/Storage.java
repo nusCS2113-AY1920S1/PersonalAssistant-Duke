@@ -18,9 +18,9 @@ public class Storage {
     public Storage(String filePath){
         //URL path = Duke.class.getResource(filePath);
         //forDuke working directory affects!!!!
-        String file = "./data/" + filePath;
+        //String file = "./data/" + filePath;
         //for runTest
-        //String file = "../data/" + filePath;
+        String file = "../data/" + filePath;
         this.f = new File(file);
         /*encoding is ANSI */
     }
@@ -49,7 +49,7 @@ public class Storage {
      * This method overwrites the file.
      * It overwrites using the data stored in TaskList currently
      */
-    void store(TaskList list) throws DukeException {
+    public void store(TaskList list) throws DukeException {
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.f))) {
             for(int i = 0; i< list.size(); i++) {
                 String fileContent = list.get(i).getType() + " | " +
