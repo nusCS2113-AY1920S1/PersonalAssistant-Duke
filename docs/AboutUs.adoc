@@ -20,7 +20,7 @@ Responsibilities: UI
 '''
 
 === Nicholas Cheong
-image::lejolly.jpg[width="150", align="left"]
+image::nic.jpg[width="150", align="left"]
 {empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: Dev Ops + Data
 '''
 
 === Chen Chao
-image::yijinl.jpg[width="150", align="left"]
+image::chao.jpg[width="150", align="left"]
 {empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Chen Tong
-image::m133225.jpg[width="150", align="left"]
+image::Chen Tong.jpg[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Data + UI
 '''
 
 === Aw Chian Hao
-image::yl_coder.jpg[width="150", align="left"]
+image::haohao.jpg[width="150", align="left"]
 {empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
