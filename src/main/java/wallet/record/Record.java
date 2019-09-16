@@ -6,6 +6,11 @@ public abstract class Record {
     private String description;
     private Date createdDate;
 
+    public Record(String description, Date createdDate) {
+        this.description = description;
+        this.createdDate = createdDate;
+    }
+
     public String getDescription() {
         return description;
     }

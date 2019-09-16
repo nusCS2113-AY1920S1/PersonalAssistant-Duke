@@ -1,6 +1,10 @@
 package wallet.command;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import wallet.record.Expense;
+import wallet.record.ExpenseList;
 import wallet.storage.Storage;
 import wallet.task.*;
 
@@ -13,7 +17,7 @@ public class Command {
      * @param fileIO The class object that handles file IO
      * @return true if the command given is bye
      */
-    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList){
+    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList, ExpenseList expenseList){
         boolean isExit = false;
 
         String[] command = fullCommand.split(" ",2);
@@ -22,6 +26,12 @@ public class Command {
             System.out.println("Here are the tasks in your list:");
             for (Task t : taskList.getTaskList()){
                 System.out.println(count + "." + t.toString());
+                count++;
+            }
+            count = 1;
+            System.out.println("Here are the expenses in your list:");
+            for (Expense e : expenseList.getExpenseList()){
+                System.out.println(count + "." + e.toString());
                 count++;
             }
         } else if (command[0].equals("find")) {
@@ -120,8 +130,7 @@ public class Command {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if (command[0].equals("delete")) {
+        } else if (command[0].equals("delete")) {
             try {
                 int index = Integer.parseInt(command[1]) - 1;
                 Task task = taskList.getTask(index);
@@ -163,7 +172,6 @@ public class Command {
                     Tentative notSet = (Tentative) task;
                     Task newEvent = taskList.updateTentative(notSet);
                     if(newEvent != null){
-
                         taskList.addTask(newEvent);
                         taskList.deleteTask(num);
                         fileIO.removeTask(taskList.getTaskList(), num);
@@ -172,19 +180,35 @@ public class Command {
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
                         fileIO.writeFile(newEvent, "event");
                         fileIO.removeTask(taskList.getTaskList(), num);
-
                     }
-
-                }
-                else{
-
+                } else{
                     System.out.println("☹ OOPS!!! I'm sorry, but this task is not a tentative schedule");
                 }
             } catch (IndexOutOfBoundsException e){
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
+        } else if (command[0].equals("expense")){
+            try {
+                String[] getRec = command[1].split("/r");
+                String freq = getRec[1].trim();
+                String[] getCat = getRec[0].split("/cat");
+                String cat = getCat[1].trim();
+                String[] getDate = getCat[0].split("/on");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = sdf.parse(getDate[1].trim());
+                String[] getDesc = getDate[0].split("\\$");
+
+                Expense expense = new Expense(getDesc[0].trim(), date, Double.parseDouble(getDesc[1].trim()), cat, true, freq);
+                expenseList.addExpense(expense);
+                System.out.println("Got it. I've added this expense:");
+                System.out.println(expense.toString());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! The format of adding expense is \"expense lunch $5 /on 01/01/2019 /cat Food /r day\"");
+            } catch (ParseException e) {
+                System.out.println("☹ OOPS!!! The format of date is wrong.");
+            }
         } else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         return isExit;
