@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Deadline extends Task implements Snoozeable {
     private String description;
-    public Date deadline;
+    private Date deadline;
     private SimpleDateFormat formatter;
 
     /**
@@ -52,5 +52,9 @@ public class Deadline extends Task implements Snoozeable {
     @Override
     public String toString() {
         return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
+    }
+
+    public Date getDeadline() {
+        return this.deadline;
     }
 }
