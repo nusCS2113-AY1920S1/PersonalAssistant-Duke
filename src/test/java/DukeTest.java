@@ -1,27 +1,17 @@
+import Storage.Storage;
+import Tasks.Task;
 import UI.Ui;
+import commands.DeadlineCommand;
 import org.junit.jupiter.api.Test;
-
-<<<<<<< HEAD
 import java.io.IOException;
-<<<<<<< HEAD
 import java.text.ParseException;
 import java.util.ArrayList;
-=======
-<<<<<<< HEAD
-
+import Exception.DukeException;
 import java.io.IOException;
-=======
->>>>>>> Jason
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
->>>>>>> f549e283c42c289d7c7324cee3f0e138922257cc
-=======
->>>>>>> f7938ba1adc707a6bdf34ebdb286314c7a8a91d1
->>>>>>> Jason
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DukeTest {
@@ -48,6 +38,18 @@ public class DukeTest {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (DukeException e) {
             assertEquals(e.getMessage(),e.getMessage());
+        } catch (NullPointerException e){
+            assertEquals(e.getMessage(),e.getMessage());
+        }
+   }
+    @Test
+    public void testUpcomingTasks() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        Ui ui = new Ui();
+        try {
+            ui.UpcomingTask(tasks);
+        } catch (ParseException e) {
+            assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (NullPointerException e){
             assertEquals(e.getMessage(),e.getMessage());
         }
