@@ -70,10 +70,10 @@ public class AddEventCommand extends Command {
                             Event event = (Event) t;
                             Date currEventStartTime = format.parse(event.getStartTiming());
                             Date currEventEndTime = format.parse(event.getEndTiming());
-                            if ((newEventStartTime.compareTo(currEventStartTime) >= 0 &&
-                                    newEventStartTime.compareTo(currEventEndTime) < 0) ||
-                                    (newEventEndTime.compareTo(currEventStartTime) > 0 &&
-                                            newEventEndTime.compareTo(currEventEndTime) <= 0)) {
+                            if ((newEventStartTime.compareTo(currEventStartTime) >= 0
+                                    && newEventStartTime.compareTo(currEventEndTime) < 0)
+                                    || (newEventEndTime.compareTo(currEventStartTime) > 0
+                                    && newEventEndTime.compareTo(currEventEndTime) <= 0)) {
                                 eventClashes.add(event);
                             }
                         }
