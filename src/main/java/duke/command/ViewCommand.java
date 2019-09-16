@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -39,8 +38,10 @@ public class ViewCommand extends Command {
 
         String dateRegex = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
         if (!date.trim().matches(dateRegex)) {
-            throw new DukeException("The date format is wrong, please try in DD/MM/YYYY format");
+            throw new DukeException("The date format is wrong/invalid, please try in DD/MM/YYYY format");
         }
+
+        checkValidDate(date, "d/M/yyyy"); //check for invalid date
 
         try {
             String[] formatDate = date.trim().split("/");
@@ -50,18 +51,38 @@ public class ViewCommand extends Command {
             this.date = LocalDate.of(year, month, day);
 
             //format for printing
-            Date ddate = inputFormatter.parse(date);
-            this.input = displayFormatter.format(ddate);
+            Date tempDate = inputFormatter.parse(date);
+            this.input = displayFormatter.format(tempDate);
         } catch (DateTimeParseException | ParseException e) {
-            throw new DukeException("Time must be in the format DD/MM/YYYY format");
+            throw new DukeException("Date must be in the format DD/MM/YYYY format");
         }
+    }
+
+    /**
+     * Checks for invalid date input.
+     *
+     * @param validateDate is the date input from user
+     * @param dateFormat   proper date format
+     * @return returns true if date is valid
+     * @throws DukeException throws an exception when date is invalid
+     */
+    public boolean checkValidDate(String validateDate, String dateFormat) throws DukeException {
+        SimpleDateFormat checkDate = new SimpleDateFormat(dateFormat);
+        checkDate.setLenient(false);
+
+        try {
+            checkDate.parse(validateDate);
+        } catch (ParseException e) {
+            throw new DukeException("Date is invalid!");
+        }
+        return true;
     }
 
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param tasks The task list.
-     * @param ui The user interface displaying events on the task list.
+     * @param tasks   The task list.
+     * @param ui      The user interface displaying events on the task list.
      * @param storage The place where tasks will be stored.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
