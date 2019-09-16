@@ -16,13 +16,14 @@ public enum Tsk {
     },
     EVENT("E") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getDataFormatter());
-            return new EventTask(taskArr[2], datetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            return new EventTask(taskArr[2], datetime, endDatetime);
         }
     },
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getDataFormatter());
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
             return new DeadlineTask(taskArr[2], datetime);
         }
     };

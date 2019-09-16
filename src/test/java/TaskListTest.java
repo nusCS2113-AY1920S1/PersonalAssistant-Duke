@@ -24,7 +24,7 @@ public class TaskListTest {
     public void taskList_addTasksSuccess() {
         taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
-        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter());
+        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
         EventTask event = new EventTask("tutorial", t);
         DeadlineTask deadline = new DeadlineTask("submission", t);
 
