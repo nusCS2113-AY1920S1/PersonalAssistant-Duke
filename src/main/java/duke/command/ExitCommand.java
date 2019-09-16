@@ -3,14 +3,16 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+
 /**
  * Represents a <code>Command</code> to terminate <code>Duke</code>.
  */
-public class exitCommand extends Command {
+public class ExitCommand extends Command {
+
     /**
-     * Constructor for <code>exitCommand</code>.
+     * Constructor for <code>ExitCommand</code>.
      */
-    public exitCommand() {
+    public ExitCommand() {
         super();
     }
 
@@ -24,8 +26,9 @@ public class exitCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) {
         ui.sayBye();
     }
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
      * @return true.
      */

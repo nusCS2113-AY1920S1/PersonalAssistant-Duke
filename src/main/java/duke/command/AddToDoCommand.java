@@ -14,6 +14,7 @@ import duke.task.Todo;
 public class AddToDoCommand extends Command {
 
     String line;
+
     /**
      * Constructor for <code>AddTodoCommand</code>.
      * @param line Command inputted by user.
@@ -25,7 +26,7 @@ public class AddToDoCommand extends Command {
 
     /**
      * Performs a series of three main tasks.
-     * Processes the command inputted by user.
+     * Processes the Command inputted by user.
      * Adds the <code>Todo</code> object to <code>TaskList</code>
      * Stores the object in harddisk by calling <code>Storage</code> before printing the object added.
      * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
@@ -37,15 +38,16 @@ public class AddToDoCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
         line = line.trim();
         if (line.length() == 0) {
-            throw new DukeException("\u2639 OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
         Task task = new Todo(line);
         arr.addTask(task);
         storage.writeToFile(arr);
         ui.addTaskMessage(task, arr.getSize());
     }
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
      * @return false.
      */

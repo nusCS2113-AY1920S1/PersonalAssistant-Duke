@@ -9,6 +9,7 @@ import duke.Ui;
  * in the <code>TaskList</code>.
  */
 public class ListCommand extends Command {
+
     /**
      * Constructor for <code>ListCommand</code>.
      */
@@ -31,8 +32,9 @@ public class ListCommand extends Command {
         }
         ui.showLine();
     }
+
     /**
-     * Checks if <code>exitCommand</code> is called for <code>Duke</code>
+     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
      * to terminate.
      * @return false.
      */
