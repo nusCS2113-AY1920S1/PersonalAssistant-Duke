@@ -27,6 +27,8 @@ public class Parser {
             return new FindTaskCommand(false, input);
         } else if (input.startsWith("delete ")) {
             return new DeleteTaskCommand(false, input);
+        } else if (input.startsWith("fixed " )) {
+            return new AddFixedDurationCommand(false, input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {
