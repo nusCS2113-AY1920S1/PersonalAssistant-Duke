@@ -33,7 +33,7 @@ public class Parser {
             description = splitCommand[1];
         }
         if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline")) {
-            if (description.equals("")) {
+            if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
@@ -42,11 +42,20 @@ public class Parser {
         } else if (command.equals("todo")) {
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
-            String SplitString[] = description.split(" /by ", 2);
-            return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+            try {
+                String SplitString[] = description.split(" /by ");
+                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
+            }
         } else if (command.equals("event")) {
-            String SplitString[] = description.split(" /at ", 2);
-            return new AddCommand(new Event(SplitString[0], SplitString[1]));
+            String SplitString[];
+            try {
+                SplitString = description.split(" /at ");
+                return new AddCommand(new Event(SplitString[0], SplitString[1]));
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
+            }
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("done")) {
@@ -57,11 +66,12 @@ public class Parser {
         } else if (command.equals("delete")) {
             int index = Integer.parseInt(description);
             return new DeleteCommand(index);
-        } else {
+        } else if (command.equals("remindme")) {
+            int index = Integer.parseInt(description);
+            return new RemindCommand(index);
+        } else{
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
-
 
 }
