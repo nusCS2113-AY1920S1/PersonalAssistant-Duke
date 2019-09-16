@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -167,4 +168,26 @@ public class TaskList {
         }
         return output;
     }
+
+    /**
+     * Views task and schedule based on a specific date
+     * @param date Date to be searched for in the form of DD/MM/YYYY
+     * @return An ArrayList of strings representing the list of tasks based on date provided
+     */
+    public ArrayList<Task> vfilter(LocalDate date) {
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDate().equals(date)) {
+                if(!task.isDone()) { //display undone tasks on top of list
+                    output.add(0, task);
+                }
+                else {
+                    output.add(task);
+                }
+            }
+        }
+
+        return output;
+    }
+
 }

@@ -3,7 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import java.time.LocalDate;
 import duke.exception.DukeException;
 
 /**
@@ -134,5 +134,17 @@ public class Deadline extends Task {
     public String export() {
         return "D | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.by.format(inputFormatter).length() + " | " + this.by.format(inputFormatter);
+    }
+
+    /**
+     * Returns date-only of this Deadline
+     *
+     * @return the date of Deadline
+     */
+    @Override
+    public LocalDate getDate() {
+        LocalDate date = by.toLocalDate();
+        return date;
+
     }
 }

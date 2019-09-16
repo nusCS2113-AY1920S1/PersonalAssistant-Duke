@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -134,5 +135,17 @@ public class Event extends Task {
     public String export() {
         return "E | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
+    }
+
+    /**
+     * Gets date-only of this Deadline
+     *
+     * @return the date of Deadline
+     */
+    @Override
+    public LocalDate getDate() {
+        LocalDate date = at.toLocalDate();
+        return date;
+
     }
 }

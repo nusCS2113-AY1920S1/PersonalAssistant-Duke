@@ -1,4 +1,5 @@
 package duke.task;
+import java.time.LocalDate;
 
 /**
  * A generic task, which can be marked as done and has basic functions.
@@ -6,6 +7,7 @@ package duke.task;
 public class Task {
     private final String description;
     boolean done;
+    private final LocalDate date;
 
     /**
      * Initializes a task not yet done with the given description.
@@ -15,6 +17,7 @@ public class Task {
     Task(String description) {
         this.description = description;
         this.done = false;
+        this.date = LocalDate.now();
     }
 
     /**
@@ -71,5 +74,14 @@ public class Task {
      */
     public String export() {
         return (done ? "1 | " : "0 | ");
+    }
+
+    /**
+     * Gets date of Deadline & Event
+     *
+     * @return date only of DeadLine and Event
+     */
+    public LocalDate getDate() {
+        return date;
     }
 }
