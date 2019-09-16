@@ -1,7 +1,8 @@
 package compal.tasks;
 
-public class Todo extends Task {
+import java.io.Serializable;
 
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
