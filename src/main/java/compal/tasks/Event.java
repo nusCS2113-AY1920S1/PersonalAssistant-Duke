@@ -1,13 +1,11 @@
 package compal.tasks;
 
-import java.util.Date;
-
 public class Event extends Task {
 
-    public Event(String description, Date date) {
+
+    public Event(String description) {
         super(description);
         super.symbol = "E";
-        super.setDateTime(date);
     }
 
 

@@ -2,8 +2,6 @@ package compal.inputs;
 
 import compal.main.Duke;
 
-import java.text.ParseException;
-
 public class Parser {
     Duke duke;
 
@@ -38,7 +36,7 @@ public class Parser {
      * @Function
      * @UsedIn: COMPal.Duke.handleUserInput()
      */
-    public void processCommands(String cmd) throws ParseException {
+    public void processCommands(String cmd) {
 
         if (cmd.equals("bye")) {
             duke.exitDuke();

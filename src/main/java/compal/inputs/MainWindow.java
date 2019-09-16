@@ -10,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.text.ParseException;
-
 /**
  * JavaFXML Controller class for handling GUI.
  */
@@ -41,7 +39,7 @@ public class MainWindow extends AnchorPane {
      * Basically the eyes of the program
      */
     @FXML
-    private void handleUserInput() throws ParseException {
+    private void handleUserInput() {
         String cmd = userInput.getText();
         //send to parser to parse
         duke.parser.processCommands(cmd);

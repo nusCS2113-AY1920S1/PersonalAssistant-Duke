@@ -74,7 +74,6 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due soon! I've sorted it in order of importance :)");
-            duke.tasklist.taskReminder();
             //todo: Implement displaying of tasks, sorted according to priority
         }
     }
