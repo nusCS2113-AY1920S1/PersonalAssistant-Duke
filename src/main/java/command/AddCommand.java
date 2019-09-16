@@ -9,6 +9,8 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
+import java.util.ArrayList;
+
 /**
  * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
  *
@@ -49,9 +51,15 @@ public class AddCommand extends Command {
             task = new Todo(taskFeatures);
             break;
         case "deadline":
+            if (tasks.isClash(tasks, formattedDateTime, command)) {
+                throw new DukeException(DukeException.TaskClash());
+            }
             task = new Deadline(taskFeatures, formattedDateTime);
             break;
         case "event":
+            if (tasks.isClash(tasks, formattedDateTime, command)) {
+                throw new DukeException(DukeException.TaskClash());
+            }
             task = new Event(taskFeatures, formattedDateTime);
             break;
         default:

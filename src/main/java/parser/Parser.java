@@ -29,7 +29,7 @@ public class Parser {
         String taskFeatures;
         String checkType;
         String description;
-        int indexOfTask;
+        Integer indexOfTask;
 
         switch (command) {
             case "todo":
@@ -45,7 +45,7 @@ public class Parser {
                     return new AddCommand(command, taskFeatures, null);
                 }
             case "deadline":
-                //fall through
+                //fall through to avoid rewriting the same code multiple times!
             case "event":
                 try {
                     taskFeatures = userInput.split("\\s+", 2)[1].trim();
@@ -56,26 +56,27 @@ public class Parser {
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                 } else {
-                    if (command == "deadline") {
-                        checkType = "/at";
+                    if (command.contains("deadline")) {
+                        checkType = "/by";
                     }
                     else {
-                        checkType = "/by";
+                        checkType = "/at";
                     }
                     String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
                     if (taskDescription.isEmpty()) {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                     }
-                    String formattedDateTime;
+                    String dateTimeFromUser;
                     try {
-                        String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                        formattedDateTime = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                        dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+                        // This is used to check if there is an error in the user input! - (throws ParseExp if wrong)
+                        DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new DukeException(DukeException.EMPTY_DATE_OR_TIME());
                     } catch (ParseException e) {
                         throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
                     }
-                    return new AddCommand(command, taskDescription, formattedDateTime);
+                    return new AddCommand(command, taskDescription, dateTimeFromUser);
                 }
             case "find":
                 String findKeyWord = userInput.split(command, 2)[1].trim();

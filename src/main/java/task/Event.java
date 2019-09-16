@@ -1,5 +1,10 @@
 package task;
+import exception.DukeException;
+import parser.DateTimeExtractor;
+
 import java.io.Serializable;
+import java.text.ParseException;
+
 /**
  * This extension of the task class will allow the user to add a task of event type.
  *
@@ -23,6 +28,17 @@ public class Event extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + date + ")";
+        String dateToPrint = "ERROR NO DATE";
+        try {
+            dateToPrint = DateTimeExtractor.extractDateTime(date, "event");
+        } catch (ParseException e) {
+            DukeException.EMPTY_DATE_OR_TIME();
+        }
+        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + dateToPrint + ")";
+    }
+
+    @Override
+    public String toStringForCheck() {
+        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + date;
     }
 }

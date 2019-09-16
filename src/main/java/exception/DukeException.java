@@ -31,6 +31,12 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! The date or time of this add type command is not of the correct format. See the manual above!";
     }
 
+    public static String TaskClash() {
+        Ui.printDash();
+        return "☹ OOPS!!! There is already a task scheduled at the same time, use view command to check your schedule "
+                + "for the day";
+    }
+
     public static String EMPTY_USER_DESCRIPTION() {
         Ui.printManual();
         Ui.printDash();

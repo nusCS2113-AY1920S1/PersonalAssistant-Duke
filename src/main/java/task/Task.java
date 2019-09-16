@@ -48,4 +48,9 @@ public class Task implements Serializable{
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String toStringForCheck() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
 }
