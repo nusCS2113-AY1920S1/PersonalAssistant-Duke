@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -41,6 +42,12 @@ public class Parser {
             TaskList.getConflicts();
 
 
+        }else if(s.contains("change date")){
+            try{
+                changeDate(s);
+            }catch (DukeException e) {
+                Ui.showError(e.getError());
+            }
         }else {
             try {
                 switch (firstWord) {
@@ -103,6 +110,45 @@ public class Parser {
 
     }
 
+    private static void changeDate(String s) throws DukeException {
+
+        int num = -1;
+        try {
+            String[] tokens = s.split(" ");
+            num = Integer.parseInt(tokens[2]);
+
+            Tasks temp = TaskList.getList().get(num-1);
+
+            Scanner scan = new Scanner(System.in);
+
+           if(temp.getType().equals("E")){
+               Ui.showMsg("Enter new start and end date");
+               String inputStr = scan.nextLine().trim();
+               String[] startendtime = inputStr.split("to");
+               ((Event)temp).setTime(startendtime[0] , startendtime[1]);
+               Ui.updateTime(temp);
+
+
+           } else if(temp.getType().equals("D")){
+               Ui.showMsg("Enter new deadline");
+               String inputStr = scan.nextLine().trim();
+               ((Deadline)temp).setTime(inputStr);
+                Ui.updateTime(temp);
+
+           } else{
+               Ui.showError("You cannot change the date of a Todo task!");
+           }
+
+            Storage.saveTask(TaskList.getList());
+
+
+        } catch (NumberFormatException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        } catch (IndexOutOfBoundsException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        }
+    }
+
     /**
      * Creates a new doAfter task with users' input.
      * Then, prints a confirmation message by calling showdoAfterMessage function under Ui class.
@@ -137,7 +183,21 @@ public class Parser {
         Ui.showListIntroMessage();
         List<Tasks> userToDoList = TaskList.getList();
         for (int i = 0; i < userToDoList.size(); i++) {
-            String message = userToDoList.get(i).getDescription();
+            String message;
+            switch(userToDoList.get(i).getType()){
+                case "E":
+                    message = ((Event)userToDoList.get(i)).toMessage();
+                    break;
+                case "D":
+                    message = ((Deadline)userToDoList.get(i)).toMessage();
+                    break;
+                case "T":
+                    message = ((ToDo)userToDoList.get(i)).toMessage();
+                    break;
+                default:
+                    message = (userToDoList.get(i)).getDescription();
+                    break;
+            }
             int j = i + 1;
             Ui.showListTask(userToDoList.get(i).getType(), userToDoList.get(i).getStatusIcon(),
                 message, j);
@@ -328,8 +388,8 @@ public class Parser {
             //==============================================
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
-            Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
-            TaskList.addTask(newToDo2);
+//            Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
+            TaskList.addTask(task);
             Ui.showDeadlineMessage(TaskList.getStatus(todolistNumber), newtodoTask, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());
         } catch (StringIndexOutOfBoundsException e) {

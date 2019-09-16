@@ -8,7 +8,7 @@ public class ToDo extends Tasks {
     }
 
     public String toMessage() {
-        return "[T]" + "[" + getStatusIcon() + "] " + description;
+        return description;
     }
 }
 

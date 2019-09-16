@@ -27,9 +27,9 @@ public class Deadline extends Tasks {
         return date;
     }
 
-    //public void setDeadline(String deadline) {
-    // this.deadline = deadline;
-    // }
+    public void setTime(String time) {
+        this.date = new MyDate(time);
+    }
 
     public String toMessage() {
         return description + "(by: " + date.toString() + ")";

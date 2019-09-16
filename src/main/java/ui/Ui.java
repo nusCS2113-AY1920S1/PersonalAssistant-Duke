@@ -1,5 +1,6 @@
 package ui;
 
+import task.Deadline;
 import wrapper.Pair;
 import task.Event;
 import task.Tasks;
@@ -107,6 +108,10 @@ public class Ui {
         System.out.println(line + "\n" + space + message + "\n" + line);
     }
 
+    public static void showMsg(String message) {
+        System.out.println(line + "\n" + space + message + "\n" + line);
+    }
+
     /**
      * Prints a message once a To-Do task has been successfully added into database.
      */
@@ -207,6 +212,19 @@ public class Ui {
             System.out.println(space+ freeslot.getStartDate() + " onwards");
         }else{
             System.out.println(space + freeslot.getStartDate() + " to " + freeslot.getEndDate());
+        }
+        System.out.println(line);
+    }
+
+    public static void updateTime(Tasks temp) {
+        System.out.println(line + "\n" + space + "Great you have updated the time for the following task!");
+
+        if(temp.getType().equals("E")){
+            System.out.println(space + ((Event)temp).toMessage());
+
+
+        } else if(temp.getType().equals("D")){
+            System.out.println(space + ((Deadline)temp).toMessage());
         }
         System.out.println(line);
     }

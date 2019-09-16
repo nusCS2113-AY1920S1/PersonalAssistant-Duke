@@ -53,6 +53,7 @@ public class Storage {
                 String type = arr[0].strip();
                 String done = arr[1].strip();
                 String taskMessage = arr[2].strip();
+
                 Tasks tasks;
                 if (type.equals("T")) {
                     tasks = new ToDo(taskMessage, "T");

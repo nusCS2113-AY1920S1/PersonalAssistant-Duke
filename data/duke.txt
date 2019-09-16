@@ -1,4 +1,4 @@
-E | ✘ | eat dinner (at: 20th of August 2018, 06:00 PM to 21st of August 2018, 12:00 AM) | 20th of August 2018, 06:00 PM | 21st of August 2018, 12:00 AM
-E | ✘ | eat dinner (at: 21st of December 2019, 05:00 PM to 21st of December 2019, 07:00 PM) | 21st of December 2019, 05:00 PM | 21st of December 2019, 07:00 PM
-E | ✘ | eat supper (at: 20th of August 2019, 07:00 PM to 22nd of August 2019, 10:00 PM) | 20th of August 2019, 07:00 PM | 22nd of August 2019, 10:00 PM
-A | ✘ | play soccer (after: exams are over) | exams are over
+E | ✘ | go home | 16th of September 2019, 12:21 PM | 17th of September 2019, 12:00 AM
+T | ✓ | gohomerf
+D | ✘ | wejfn | 12th of December 2019, 08:19 PM
+E | ✘ | ringer ienre | 12th of December 2019, 08:19 PM | 13th of December 2019, 12:00 PM
