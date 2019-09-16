@@ -7,9 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class TaskList {
 
@@ -94,13 +94,14 @@ public class TaskList {
      * @calls dateParse(String when)
      * @UsedIn: parser.processCommands
      */
-    public void addTask(String cmd) {
+    public void addTask(String cmd) throws ParseException {
         duke.ui.printg("Got it. I've added this task:");
         Scanner sc1 = new Scanner(cmd);
         String s = sc1.next(); //get the command string
         String cs = sc1.nextLine(); //get the description string
         String token;
         String description;
+        Date date;
         char notDone = '\u2718';
 
         switch (s) {
@@ -111,13 +112,15 @@ public class TaskList {
         case "event":
             token = "/at";
             description = getDescription(cs, token);
-            arrlist.add(new Event(description));
+            date = getDate(cs, token);
+            arrlist.add(new Event(description, date));
             duke.ui.printg("[E][ " + notDone + "] " + description);
             break;
         case "deadline":
             token = "/by";
             description = getDescription(cs, token);
-            arrlist.add(new Deadline(description));
+            date = getDate(cs, token);
+            arrlist.add(new Deadline(description, date));
             duke.ui.printg("[D][ " + notDone + "] " + description);
             break;
         default:
@@ -216,5 +219,54 @@ public class TaskList {
         token = token.replace("/", "");
         String what = cs.substring(0, splitPoint).trim();
         return what + " (" + token + ": " + when + ")";
+    }
+
+    /**
+     * This function gets the date and time from the description string according to the token (/at or /by etc).
+     *
+     * @param cs    description string
+     * @param token the separator word of the description
+     * @return date and time
+     * @Function
+     * @UsedIn: : addTask
+     */
+    public Date getDate(String cs, String token) throws ParseException {
+        int splitPoint = cs.indexOf(token);
+        String when = cs.substring(splitPoint + token.length() + 1);
+
+        //call the date parser to parse and return a date string
+        String check = Duke.dateParse(when);
+        if (!check.equals("false")) {
+            when = check;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy hh:mma");
+        Date date = formatter.parse(when);
+        return date;
+    }
+
+    /**
+     * This function displays the tasks due in the next week.
+     *
+     * @UsedIn: Ui.checkInit
+     */
+    public void taskReminder() {
+        ArrayList<Task> reminder = new ArrayList<Task>();
+        //ArrayList<Task> sortedReminder = new ArrayList<Task>();
+        Date currentDate = java.util.Calendar.getInstance().getTime();
+        Calendar c = Calendar.getInstance();
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 7);
+        Date dateOneWeekAfter = c.getTime();
+        for (Task t: arrlist) {
+            Date deadline = t.getDateTime();
+            if(deadline.before(dateOneWeekAfter) || t.isHasReminder()) {
+                reminder.add(t);
+            }
+        }
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
+        Collections.sort(reminder, compareByDateTime);
+        for (Task t: reminder) {
+            duke.ui.printg(t.getDescription());
+        }
     }
 }
