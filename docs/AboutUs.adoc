@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Chen Tong
-image::Chen Tong.jpg[width="150", align="left"]
+image::Chen Tong (340 453).jpg.jpg[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
