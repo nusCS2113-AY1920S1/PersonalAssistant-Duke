@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Main extends Application {
@@ -22,7 +23,7 @@ public class Main extends Application {
 
     /**
      * Initializes and sets up the GUI for ComPAL.
-     * Pulls from file MainWindow.fxml
+     * Pulls layout from file MainWindow.fxml
      * @param primaryStage the stage for GUI
      * @throws Exception GUI problems
      */
@@ -45,12 +46,17 @@ public class Main extends Application {
 
             //Show the current user system time --------------------------------------------------------------->
             Label date = (Label) ap.getChildren().get(6);
-            Date d = java.util.Calendar.getInstance().getTime();
-            date.setText("System Date:" + d.toString());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+            Date d = new Date();
+
+            date.setText("Today's Date:" + formatter.format(d));
             //------------------------------------------------------------------------------------------------->
 
 
+            //just passes the initialized Duke object to the controller class to link them up
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+
             primaryStage.show();
             System.out.println("Primary Stage Initialized. Setting Scene and Initializing Duke.");
 

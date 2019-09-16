@@ -2,6 +2,12 @@ package compal.inputs;
 
 import compal.main.Duke;
 
+
+/**
+ * @DEVNOTE: Parser is the key processing class of the entire application. It is the brain of the program; it helps
+ * to make sense of what the user is typing and coordinates GUI input and output and also
+ * receives and disseminates information to the other classes where and when needed
+ */
 public class Parser {
     Duke duke;
 
@@ -53,6 +59,10 @@ public class Parser {
         } else if (cmd.matches("find (.*)")) {
             duke.tasklist.findTask(cmd);
         } else if (status.equals("init")) {
+
+            //parser only increments the stage number each time, as it only moves forward
+            //to move backwards in terms of logic, directly set the stage number of Parser from wherever
+            //the processing is taking place
             duke.ui.firstTimeInit(cmd, stage++);
         } else if (cmd.matches("(todo|event|deadline)")) {
             try {
@@ -71,7 +81,12 @@ public class Parser {
 
     }
 
-
+    /**
+     * Sets the parser's parsing logic flow to that of 'status'
+     * Changing status will help parser know where to send the received user input to and
+     * what ComPAL is doing now
+     * @param status parser status
+     */
     public void setStatus(String status) {
         this.status = status;
         stage = 0; //reset stage everytime status is changed
