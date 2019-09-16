@@ -124,7 +124,7 @@ public class Ui {
      *  @param start Start time of schedule
      * @param end End time of schedule*/
     public static void showScheduledTask(String start, String end) {
-        printIndented("Here are the tasks from " + start + " to " + end + " :");
+        printIndented("Here are the tasks during " + start + " to " + end + " :");
     }
 
     /**
