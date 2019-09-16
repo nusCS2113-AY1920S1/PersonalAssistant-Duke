@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.ui.Ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.time.YearMonth;
+import java.util.Scanner;
+
 /**
  * Schedule is a public class that stores tasks in the same month in chronological order
  * @author Foo Chi Hen
@@ -83,7 +86,7 @@ public class Schedule {
         return result;
     }
 
-    public boolean detectAnomalies(ArrayList<Task> activity){
+    private boolean detectAnomalies(ArrayList<Task> activity){
         for (int i = 0; i < activity.size(); i += 1) {
             if (activity.get(i).getType().equals("E")) {
                 return true;
@@ -134,6 +137,35 @@ public class Schedule {
             nowDay.plusDays(1);
             flag = true;
             System.out.println("_____________");
+        }
+    }
+
+    public void snooze(int day, int hour, Ui ui){
+        Scanner temp = new Scanner(System.in);
+        ArrayList<Task> selectedHome = this.schedule[day - 1][hour];
+        ui.showList(selectedHome);
+        System.out.println("What would you like to select");
+        int index = Integer.parseInt(temp.nextLine());
+        Task selected = selectedHome.get(index - 1);
+        System.out.println("Which date would you like to choose");
+        String input = temp.nextLine();
+        int newDay = Integer.parseInt(input.split(" ")[0]);
+        int newHour = Integer.parseInt(input.split(" ")[1]);
+        ArrayList<Task> newHome = this.schedule[newDay - 1][newHour];
+        if (selected.getType().equals("E")){
+            if (detectAnomalies(newHome)){
+                System.out.println("There is already an event task");
+            }
+            else {
+                selected.getDate().set(Calendar.DAY_OF_MONTH, newDay);
+                selected.getDate().set(Calendar.HOUR_OF_DAY, newHour);
+                this.schedule[newDay - 1][newHour].add(selected);
+                this.schedule[day - 1][hour].remove(index - 1);
+            }
+        }
+        else {
+            this.schedule[newDay - 1][newHour].add(selected);
+            this.schedule[day - 1][hour].remove(index - 1);
         }
     }
 }
