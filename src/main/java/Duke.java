@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Leow Yong Heng
  */
 
-public class Duke{
+public class Duke {
     private static Ui ui;
     private static TaskList tasklist;
     private static Storage storage;
@@ -22,7 +22,7 @@ public class Duke{
      * Creates a Duke instance and initialises the required attributes.
      * @param filepath Filepath to the storage.
      */
-    private Duke(String filepath){
+    private Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         ArrayList<Task> arraylist = storage.load();
@@ -32,12 +32,12 @@ public class Duke{
     /**
      * Method to run the Duke instance and take in the inputs of the user.
      */
-    private void run(){
-        ui.StartMessage();
+    private void run() {
+        ui.startMessage();
 
         boolean isExit = false;
-        while(!isExit){
-            String input = ui.readinput();
+        while (!isExit) {
+            String input = ui.readInput();
             isExit = Parser.parse(input, tasklist, ui, storage);
         }
     }
@@ -46,7 +46,7 @@ public class Duke{
      * The main method of the Duke program, which instantiates a duke instance with the filepath to the storage.
      * @param args Unused.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
 }
