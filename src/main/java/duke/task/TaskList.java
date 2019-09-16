@@ -174,7 +174,7 @@ public class TaskList {
      * @param date Date to be searched for in the form of DD/MM/YYYY
      * @return An ArrayList of strings representing the list of tasks based on date provided
      */
-    public ArrayList<Task> vfilter(LocalDate date) {
+    public ArrayList<Task> viewFilterByDate(LocalDate date) {
         ArrayList<Task> output = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDate().equals(date)) {

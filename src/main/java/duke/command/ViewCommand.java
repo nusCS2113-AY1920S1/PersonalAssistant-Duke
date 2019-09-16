@@ -65,7 +65,7 @@ public class ViewCommand extends Command {
      * @param storage The place where tasks will be stored.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> result = tasks.vfilter(date);
+        ArrayList<Task> result = tasks.viewFilterByDate(date);
         if (result.size() == 0) {
             ui.printError("There are no tasks for " + input);
         } else {
