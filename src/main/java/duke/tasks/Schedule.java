@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
-
+import java.time.YearMonth;
 /**
  * Schedule is a public class that stores tasks in the same month in chronological order
  * @author Foo Chi Hen
@@ -72,4 +72,46 @@ public class Schedule {
         return result;
     }
 
+    public void findFreeTime(int hour) {
+        LocalDate nowDay = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+        int currentDay = nowDay.getDayOfMonth();
+        int currentHour = nowTime.getHour();
+        int currentYear = nowDay.getDayOfMonth();
+        int currentMonth = nowDay.getMonthValue();
+        YearMonth yearMonthObject = YearMonth.of(currentYear , currentMonth);
+        int daysInMonth = yearMonthObject.lengthOfMonth(); //28
+        boolean flag = false;
+        boolean freeFlag = false;
+        boolean dayFreeFlag = false;
+        for (int i = currentDay; i <= daysInMonth; i += 1) {
+            System.out.println(nowDay.toString());
+            System.out.println("_____________");
+            for (int j = ((flag)? 0 : currentHour); j < 24; j += 1){
+                if (this.schedule[i-1][j].size() == 0) {
+                    for (int k = 0; k < hour; k += 1) {
+                        if (i + (j + k) / 24 > daysInMonth) {
+                            break;
+                        }
+                        if (this.schedule[i - 1 + (j+k)/24][(j+k)%24].size() != 0){
+                            break;
+                        }
+                        if (k == hour - 1){
+                            freeFlag = true;
+                        }
+                    }
+                }
+                if (freeFlag == true) {
+                    LocalTime formatter = LocalTime.of(j,0);
+                    System.out.println(formatter.toString());
+                    dayFreeFlag = true;
+                }
+                freeFlag = false;
+            }
+            if (dayFreeFlag == false){
+                System.out.println("You are not free on " + nowDay.toString());
+            }
+            nowDay.plusDays(1);
+        }
+    }
 }
