@@ -5,11 +5,13 @@
  */
 package task;
 
+import java.util.Date;
 import java.io.Serializable;
 
 public class Task implements Serializable{
 	protected String description;
 	protected boolean isDone;
+	protected Date date;
 
 	/**
 	 * Default constructor.
@@ -21,12 +23,24 @@ public class Task implements Serializable{
 
 	/**
 	 * Constructor with one argument.
-	 * Sets isDone to false by default.
+	 * Calls another constructor with additional argument date=null.
 	 *
 	 * @param description the description of the task.
 	 */
 	public Task(String description) {
+		this(description, null);
+	}
+
+	/**
+	 * Consturctor with two arguments.
+	 * Sets isDone to false by default.
+	 *
+	 * @param description
+	 * @param date
+	 */
+	public Task(String description, Date date) {
 		this.description = description;
+		this.date = date;
 		this.isDone = false;
 	}
 
@@ -35,8 +49,12 @@ public class Task implements Serializable{
 	 *
 	 * @return the String printout of the task
 	 */
-	public String[] getTask() {
-		return new String[] {description};
+	public String getDescription() {
+		return description;
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	/**

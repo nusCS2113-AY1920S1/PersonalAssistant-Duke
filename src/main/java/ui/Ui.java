@@ -8,6 +8,7 @@ package ui;
 import task.TaskList;
 import task.Task;
 import java.util.Scanner;
+import util.Parser;
 
 public class Ui {
 	private Scanner in = new Scanner(System.in);
@@ -94,6 +95,14 @@ public class Ui {
 		System.out.println(finished);
 	}
 
+	public void showReminder(TaskList list) {
+		System.out.println("Here are the deadline/event within 10 days:");
+		for(int i = 0; i < list.size(); i++) {
+			Task task = list.get(i);
+			System.out.println(task.getDescription() + " due in " + Parser.parseDateToString(task.getDate()));
+		}
+	}
+
 	/**
 	 * Prints the message of a task being removed.
 	 *
@@ -118,9 +127,9 @@ public class Ui {
 	/**
 	 * Prints the error message of loading error.
 	 */
-	public void showLoadingError() {
+	public void showLoadingError(String path) {
 		showLine();
-		System.out.println("OOPS!!! IO error encountered when reading from D:\\codes\\java\\duke\\data\\duke.txt");
+		System.out.println(Message.IO_ERROR + path);
 	}
 
 	/**
