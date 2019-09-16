@@ -44,8 +44,31 @@ public class TaskList {
      *
      * @param task Model_Class.Task object to be added
      */
-    public void addTask(Task task) {
-        this.taskArrayList.add(task);
+    public boolean addTask(Task task) {
+        boolean succeeded;
+        if (task instanceof ToDo) {
+            this.taskArrayList.add(task);
+            return true;
+        }
+        else {
+            Task clashTask = clashTask(task);
+            if (clashTask == null) {
+                this.taskArrayList.add(task);
+                return true;
+            } else return false;
+        }
+    }
+
+    private Task clashTask(Task task) {
+        for (Task currTask : taskArrayList) {
+            try {
+                if (currTask.getDate().equals(task.getDate())) {
+                    return currTask;
+                }
+            } catch (Exception e){
+            }
+        }
+        return null;
     }
 
     /**

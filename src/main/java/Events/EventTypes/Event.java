@@ -44,4 +44,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(at: " + dateObj.toOutputString() + ")";
     }
+
+    public String getDate() {
+        return dateObj.toOutputString();
+    }
 }

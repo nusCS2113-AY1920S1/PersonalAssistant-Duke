@@ -4,7 +4,7 @@ package Events.EventTypes;
  * Represents a task that can be created, deleted and completed within the Duke program.
  * Is to be the parent class for all types of tasks available for Duke program.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -64,4 +64,5 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public abstract String getDate();
 }

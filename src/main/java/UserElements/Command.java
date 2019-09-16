@@ -111,7 +111,6 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
-                tasks.addTask(new ToDo(continuation));
                 ui.taskAdded(new ToDo(continuation), tasks.getNumTasks());
                 break;
 
@@ -121,11 +120,15 @@ public class Command {
                     break;
                 }
                 try {
-                    int slashPos = continuation.indexOf("/by");
+                    int slashPos = continuation.indexOf("/by"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    tasks.addTask(new Deadline(description, date));
-                    ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Deadline(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
+                    } else {
+                        ui.scheduleClash(new Deadline(description, date));
+                    }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.deadlineFormatWrong();
@@ -138,11 +141,15 @@ public class Command {
                     break;
                 }
                 try {
-                    int slashPos = continuation.indexOf("/at");
+                    int slashPos = continuation.indexOf("/at"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    tasks.addTask(new Event(description, date));
-                    ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Event(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                    } else {
+                        ui.scheduleClash(new Event(description, date));
+                    }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.eventFormatWrong();
