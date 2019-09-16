@@ -1,9 +1,6 @@
 package wallet.storage;
 
-import wallet.task.Deadline;
-import wallet.task.Event;
-import wallet.task.Task;
-import wallet.task.Todo;
+import wallet.task.*;
 
 import java.io.*;
 import java.text.ParseException;
@@ -62,7 +59,25 @@ public class Storage {
                         event.markAsDone();
                     }
                     taskList.add(event);
+                }else if (strArr[0].trim().equals("?")) {
+                    //B-TentativeScheduling: Retrieve Tentative Records
+                    String dateList = strArr[3];
+                    String[] dateArr = dateList.split("\\|");
+                    ArrayList<Date> possibleDates = new ArrayList<Date>();
+                    SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yyyy h:mma");
+                    for(String d : dateArr){
+                        Date entry = sdf.parse(d);
+                        possibleDates.add(entry);
+                    }
+
+                    Tentative tentative = new Tentative(strArr[2].trim(), possibleDates);
+                    if (strArr[1].trim().equals("1")) {
+                        tentative.markAsDone();
+                    }
+                    taskList.add(tentative);
+
                 }
+
             }
             raf.close();
         } catch (FileNotFoundException e){
@@ -89,6 +104,8 @@ public class Storage {
             if (type.equals("todo")) { type = "T"; }
             else if (type.equals("event")) { type = "E"; }
             else if (type.equals("deadline")) { type = "D";}
+            //B-TentativeScheduling: Write Entry
+            else if (type.equals("tentative")) { type = "*E"; }
             if (raf.getFilePointer() != 0) {
                 raf.writeBytes("\r\n");
             }
