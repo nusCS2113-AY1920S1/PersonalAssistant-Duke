@@ -11,9 +11,17 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "ui.Duke"
+    mainClassName = 'wallet.Main'
 }
 
 run {
     standardInput = System.in
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
 }
