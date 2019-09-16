@@ -9,12 +9,12 @@
 5. YUE JUN YI
 
 # Changelog V1.1
--viewing of tasks on a specific date
+- viewing of tasks on a specific date
   * command: view <dd/mm/yyyy> 
--reminders
+- reminders
   * ComPAL shows reminders of tasks due within a week, or with reminders set
   * setting reminders is not yet implemented
--new task type added: doaftertasks
+- new task type added: doaftertasks
   * usage: doaftertask <descriptive name> /after <dd/mm/yyyy hhmm>
 
 
