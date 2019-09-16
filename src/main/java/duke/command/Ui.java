@@ -2,11 +2,15 @@ package duke.command;
 
 import duke.task.Snoozeable;
 import duke.task.Task;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    /** Reference to Scanner. */
+    /**
+     * Reference to Scanner.
+     */
     private Scanner sc;
 
     /**
@@ -60,7 +64,7 @@ public class Ui {
      * Prints the task that was added.
      *
      * @param tasks List of all tasks
-     * @param task Added task
+     * @param task  Added task
      */
     public void showTaskAdded(List<Task> tasks, Task task) {
         printIndented("Got it . I've added this task:");
@@ -116,6 +120,14 @@ public class Ui {
     }
 
     /**
+     * Prints message to inform user of schedule duration.
+     *  @param start Start time of schedule
+     * @param end End time of schedule*/
+    public static void showScheduledTask(String start, String end) {
+        printIndented("Here are the tasks from " + start + " to " + end + " :");
+    }
+
+    /**
      * Gets next line from user inputs.
      *
      * @return String containing user input
@@ -129,7 +141,7 @@ public class Ui {
      *
      * @param line String containing description to be indented
      */
-    private void printIndented(String line) {
+    public static void printIndented(String line) {
         System.out.println("    " + line);
     }
 
