@@ -1,9 +1,6 @@
 package duke.core;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +52,7 @@ public class Storage {
                     }
                     tasks.add(x);
                 }
-                if (newTask[0].equals("D")) {
+                else if (newTask[0].equals("D")) {
                     Task t = new Deadline(newTask[2], newTask[3]);
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
@@ -65,13 +62,21 @@ public class Storage {
                     }
                     tasks.add(t);
                 }
-                if (newTask[0].equals("E")) {
+                else if (newTask[0].equals("E")) {
                     Task t = new Event(newTask[2], newTask[3]);
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
                     if (newTask[4].equals("true")) {
                         t.makeTaskRecurring();
+                    }
+                    tasks.add(t);
+                }
+
+                else if (newTask[0].equals("P")) {
+                    Task t = new PeriodTask(newTask[2], newTask[3], newTask[4]);
+                    if (newTask[1].equals("1")) {
+                        t.markAsDone();
                     }
                     tasks.add(t);
                 }

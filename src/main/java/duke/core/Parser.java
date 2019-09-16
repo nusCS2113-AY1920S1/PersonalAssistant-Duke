@@ -2,6 +2,7 @@ package duke.core;
 
 import duke.command.*;
 import duke.task.Deadline;
+import duke.task.PeriodTask;
 import duke.task.Event;
 import duke.task.Todo;
 
@@ -53,18 +54,28 @@ public class Parser {
             case "deadline":
                 try {
                     String[] temp = command[1].split(" /by ");
-                    Deadline d = new Deadline(temp[0], temp[1]);
-                    return new AddCommand(d);
+                    Deadline deadline = new Deadline(temp[0], temp[1]);
+                    return new AddCommand(deadline);
                 } catch (Exception e) {
                     throw new DukeException(e.getMessage());
                 }
             case "event":
                 try {
                     String[] temp1 = command[1].split(" /at ");
-                    Event z = new Event(temp1[0], temp1[1]);
-                    return new AddCommand(z);
+                    Event event = new Event(temp1[0], temp1[1]);
+                    return new AddCommand(event);
                 } catch (Exception e) {
                     throw new DukeException(e.getMessage());
+                }
+            case "period":
+                try {
+                    String[] strArray = command[1].split(" /from ", 2);
+                    String[] strArray2 = strArray[1].split(" /to ",2);
+                    PeriodTask periodTask = new PeriodTask(strArray[0], strArray2[0], strArray2[1]);
+                    return new AddCommand(periodTask);
+                }catch (Exception e) {
+                    throw new DukeException("Fail to create a period task. Please enter command in the format of 'period <description> /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm'.");
+
                 }
             case "find":
                 return new FindCommand(command[1]);
