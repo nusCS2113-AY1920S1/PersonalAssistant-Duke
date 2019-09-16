@@ -3,7 +3,6 @@ package duke.command;
 import duke.task.Snoozeable;
 import duke.task.Task;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,6 +86,11 @@ public class Ui {
         showTasks(tasks);
     }
 
+    public void showSearchResult(List<Task> tasks, String start, String end) {
+        printIndented("Here are the tasks from " + start + " to " + end + ":");
+        showTasks(tasks);
+    }
+
     /**
      * Shows the task that was just snoozed.
      *
@@ -120,14 +124,6 @@ public class Ui {
     }
 
     /**
-     * Prints message to inform user of schedule duration.
-     *  @param start Start time of schedule
-     * @param end End time of schedule*/
-    public static void showScheduledTask(String start, String end) {
-        printIndented("Here are the tasks during " + start + " to " + end + " :");
-    }
-
-    /**
      * Gets next line from user inputs.
      *
      * @return String containing user input
@@ -141,7 +137,7 @@ public class Ui {
      *
      * @param line String containing description to be indented
      */
-    public static void printIndented(String line) {
+    private void printIndented(String line) {
         System.out.println("    " + line);
     }
 
