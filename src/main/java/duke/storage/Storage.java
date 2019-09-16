@@ -5,6 +5,8 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.Repeat;
+import duke.task.DoAfter;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
@@ -47,17 +49,23 @@ public class Storage {
         String st;
         String taskDesc;
         String dateDesc;
+        String afterDesc;
         while ((st = br.readLine()) != null) {
             String[] commandList = st.split("\\|");
             try {
                 //clear previous dates/desc
                 taskDesc = "";
                 dateDesc = "";
+                afterDesc = "";
                 for (int i = 0; i < commandList.length; i++) {
                     if (i == 2) {
                         taskDesc = commandList[i];
                     } else if (i == 3) {
-                        dateDesc = commandList[i];
+                        if (commandList[0].equals("A")) {
+                            afterDesc = commandList[i];
+                        } else {
+                            dateDesc = commandList[i];
+                        }
                     }
                 }
                 Boolean checked = false;
@@ -93,8 +101,25 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
+                } else if (commandList[0].equals("R")) {
+                    if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
+                        throw new DukeException("Error reading description or date/time, skipping to next line");
+                    } else {
+                        t = new Repeat(taskDesc, dateDesc);
+                        t.setStatusIcon(checked);
+                        items.add(t);
+                    }
+                } else if (commandList[0].equals("A")) {
+                    if (taskDesc.isEmpty() || afterDesc.isEmpty()) {
+                        throw new DukeException("Error reading description or do after description,"
+                                + " skipping to next line");
+                    } else {
+                        t = new DoAfter(taskDesc, afterDesc);
+                        t.setStatusIcon(checked);
+                        items.add(t);
+                    }
                 } else if (!commandList[0].isEmpty()) {
-                    throw new DukeException("Error reading whether if its T, D, or E, skipping to next line");
+                    throw new DukeException("Error reading whether if its T, D, E, R, or A, skipping to next line");
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");

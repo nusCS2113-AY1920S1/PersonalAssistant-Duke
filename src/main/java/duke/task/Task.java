@@ -27,6 +27,15 @@ public class Task {
     }
 
     /**
+     * Returns a boolean of the task being done or not.
+     *
+     * @return Boolean of isDone.
+     */
+    public boolean getisDone() {
+        return isDone;
+    }
+
+    /**
      * Returns the status icon of a task.
      *
      * @return String of the status icon.
@@ -86,4 +95,14 @@ public class Task {
         }
         return  numStr + description;
     }
+
+    /**
+     * Retrieves the date of the task as a String format.
+     *
+     * @return String of Date (Only in Deadline and Event)
+     */
+    public String getDateString() {
+        return null;
+    }
+
 }

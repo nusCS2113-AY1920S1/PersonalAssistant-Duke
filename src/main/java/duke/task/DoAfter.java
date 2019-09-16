@@ -13,7 +13,7 @@ public class DoAfter extends Task {
      * @param description Description of the Task.
      * @param after Prerequisite task that is to be done beforehand.
      */
-    public DoAfter (String description, String after) {
+    public DoAfter(String description, String after) {
         super(description);
         this.after = after;
     }
@@ -26,5 +26,15 @@ public class DoAfter extends Task {
     @Override
     public String toString() {
         return "[A]" + super.toString() + " (Do after: " + after + ")";
+    }
+
+    /**
+     * Extracting a task content into string that is suitable for text file.
+     *
+     * @return String to be written into text file.
+     */
+    @Override
+    public String toFile() {
+        return "A|" + super.toFile() + "|" + after;
     }
 }

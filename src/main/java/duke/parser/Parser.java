@@ -7,8 +7,14 @@ import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
-import duke.task.*;
-import duke.command.*;
+import duke.command.AddMultipleCommand;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.DoAfter;
+import duke.task.Repeat;
+import duke.task.Todo;
 import duke.dukeexception.DukeException;
 
 import java.util.ArrayList;
@@ -44,12 +50,12 @@ public class Parser {
                     if (arr[0].equals("done")) {
                         if (items.get(tasknum).toString().contains("[A]")) {
                             String tempString = items.get(tasknum).toString();
-                            tempString = tempString.split( ": ", 2)[1];
+                            tempString = tempString.split(": ", 2)[1];
                             tempString = tempString.split("\\)")[0];
 
                             if (!items.getTaskStatus(tempString)) {
-                                throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!" +
-                                        " please complete task [" + tempString + "] before marking this as done!");
+                                throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
+                                       + " please complete task [" + tempString + "] before marking this as done!");
                             }
                         }
                         return new DoneCommand(tasknum);
@@ -105,6 +111,14 @@ public class Parser {
                 } else {
                     taskObj = new Event(taskDesc, dateDesc);
                 }
+
+                for (int i = 0; i < items.size(); i++) {
+                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).getisDone()) {
+                        throw new DukeException("     (>_<) OOPS!!! The date/time for "
+                                + arr[0] + " clashes with " + items.get(i).toString()
+                                + "\n     Please choose another date/time! Or mark the above task as Done first!");
+                    }
+                }
                 return new AddCommand(taskObj);
             }
         } else if (arr.length > 0 && arr[0].equals("doafter")) {
@@ -135,7 +149,8 @@ public class Parser {
                     taskObj = new DoAfter(taskDesc, afterTaskDesc);
                     return new AddCommand(taskObj);
                 } else {
-                    throw new DukeException("(>_<) OOPS!!! You cant set a do after task for a task that is not in the list!");
+                    throw new DukeException("(>_<) OOPS!!! You cant set a "
+                            + arr[0] + " task for a task that is not in the list!");
                 }
             }
         } else if (arr.length > 0 && arr[0].equals("repeat")) {
@@ -169,8 +184,8 @@ public class Parser {
                     repeatPeriod = repeatSettings.split(repeatTimes + " ")[1];
 
                 } catch (Exception e) {
-                    throw new DukeException("Format is in: repeat <task> /from <date time> " +
-                            "/for <repeat times> <days/weeks>");
+                    throw new DukeException("Format is in: repeat <task> /from <date time> "
+                            + "/for <repeat times> <days/weeks>");
                 }
 
                 ArrayList<Task> repeatList = new ArrayList<>();
@@ -180,11 +195,18 @@ public class Parser {
                     taskObj = new Repeat(taskDesc, dateDesc);
                     dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
                     repeatList.add(taskObj);
+
+                    for (int j = 0; j < items.size(); j++) {
+                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).getisDone()) {
+                            throw new DukeException("     (>_<) OOPS!!! The date/time for "
+                                    + arr[0] + " clashes with " + items.get(j).toString()
+                                    + "\n     Please choose another date/time! Or mark the above task as Done first!");
+                        }
+                    }
                 }
                 return new AddMultipleCommand(repeatList);
             }
-        }
-        else if (sentence.equals("bye")) {
+        } else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");

@@ -65,4 +65,25 @@ public class Repeat extends Task {
         return "[R]" + super.toString() + " (Last day of schedule: " + displayDT + ")";
     }
 
+    /**
+     * Retrieves the date of the task as a String format.
+     *
+     * @return String of Date.
+     */
+    @Override
+    public String getDateString() {
+        String datetimeStr = datetimeFormat.format(from);
+        return datetimeStr;
+    }
+
+    /**
+     * Extracting a task content into string that is suitable for text file.
+     *
+     * @return String to be written into text file.
+     */
+    @Override
+    public String toFile() {
+        String datetimeStr = datetimeFormat.format(from);
+        return "R|" + super.toFile() + "|" + datetimeStr;
+    }
 }

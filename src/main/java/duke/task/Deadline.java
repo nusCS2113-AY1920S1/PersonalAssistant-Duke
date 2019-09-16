@@ -109,4 +109,15 @@ public class Deadline extends Task {
         String datetimeStr = datetimeFormat.format(by);
         return "D|" + super.toFile() + "|" + datetimeStr;
     }
+
+    /**
+     * Retrieves the date of the task as a String format.
+     *
+     * @return String of Date.
+     */
+    @Override
+    public String getDateString() {
+        String datetimeStr = datetimeFormat.format(by);
+        return datetimeStr;
+    }
 }
