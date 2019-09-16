@@ -1,3 +1,5 @@
+package task;
+
 import java.io.Serializable;
 
 /**

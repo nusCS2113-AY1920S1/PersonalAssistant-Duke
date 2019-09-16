@@ -1,3 +1,5 @@
+package common;
+
 /**
  * A class for exceptions specific to Duke.
  */
