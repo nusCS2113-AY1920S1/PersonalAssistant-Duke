@@ -9,7 +9,7 @@ public class Event extends Task {
      * meetings and what not.
      *
      * @param description Description of the event to be stored
-     * @param date of the event to be stored
+     * @param date        of the event to be stored
      */
     public Event(String description, Date date) {
         super(description);

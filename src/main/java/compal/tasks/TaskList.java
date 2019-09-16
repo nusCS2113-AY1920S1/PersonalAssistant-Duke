@@ -278,4 +278,36 @@ public class TaskList {
             duke.ui.printg(t.getDescription());
         }
     }
+
+    /**
+     * This function will store a temp ArrayList for looking at that specific date. (Sholihin)
+     * e.g. view 01/18/2019
+     *
+     * @param cmd the command input by used
+     * @return the temp array list of the task on that day
+     */
+    public ArrayList<Task> viewDate(String cmd) {
+        ArrayList<Task> viewDay = new ArrayList<Task>();
+        Scanner sc1 = new Scanner(cmd);
+        sc1.next(); //skip over the 'find'
+        String unformattedDate = sc1.next(); //date 12/12/2018
+        //duke.ui.printg("Viewing all task on " + unformattedDate);
+        unformattedDate += " 0000"; //fake timing so that we can still use dateParse function
+        String formattedDate = Duke.dateParse(unformattedDate);
+        formattedDate = formattedDate.substring(0, formattedDate.length() - 8); // depending on the length remove timing
+
+
+        for (Task t : arrlist) {
+            if (t.getDescription().contains(formattedDate)) {
+                viewDay.add(t);
+            }
+        }
+
+        if (viewDay.isEmpty()) {
+            duke.ui.printg("No tasks found on " + formattedDate + "!");
+            //return null;
+        }
+
+        return viewDay;
+    }
 }
