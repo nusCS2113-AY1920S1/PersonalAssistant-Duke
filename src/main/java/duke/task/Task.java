@@ -115,7 +115,6 @@ public abstract class Task {
             output = ld.format(rdFormatter);
         } else {
             output = ld.format(thFormatter);
-            ;
         }
         return output;
     }
