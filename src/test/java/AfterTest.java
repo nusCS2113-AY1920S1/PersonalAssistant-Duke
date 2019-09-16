@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AfterTest {
     @Test
     public void afterTest() {
-        String cross = "\u2718";
+        String cross = "✗";
         System.out.println("Start afterTest");
 
         /**
