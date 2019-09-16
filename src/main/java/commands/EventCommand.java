@@ -1,14 +1,8 @@
-<<<<<<< HEAD:src/main/java/EventCommand.java
-
-import UI.Ui;
-import Storage.Storage;
-=======
 package commands;
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import Exception.DukeException;
->>>>>>> efbdafcf5b660fc8e346a56460c10dcdbcf6a342:src/main/java/commands/EventCommand.java
 import java.io.IOException;
 import Tasks.*;
 import java.text.ParseException;
