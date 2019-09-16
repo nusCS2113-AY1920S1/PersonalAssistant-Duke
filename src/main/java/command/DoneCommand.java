@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -11,17 +12,15 @@ import exception.DukeException;
  * Responses with the result.
  */
 public class DoneCommand extends Command {
-    private int index;
 
     /**
      * Constructs a <code>DoneCommand</code> object
      * given the index of the task to be marked as done.
      *
-     * @param index The index of the task to be marked as done.
+     * @param commandParams parameters used to invoke the command.
      */
-    public DoneCommand(int index) {
-        super("done");
-        this.index = index;
+    public DoneCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**
@@ -36,15 +35,23 @@ public class DoneCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (commandParams.getMainParam() == null) {
+            throw new DukeException("☹ OOPS!!! I don't know which task to set as done!");
+        }
+        String taskInfo;
         try {
+            int index = Integer.parseInt(commandParams.getMainParam());
             tasks.done(index);
+            taskInfo = tasks.getTaskInfo(index);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("☹ OOPS!!! The index should be in range.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("☹ OOPS!!! The index be a number.");
         }
         storage.update(tasks.toStorageStrings());
 
         ui.println("Nice! I've marked this task as done:");
-        ui.println(tasks.getTaskInfo(index));
+        ui.println(taskInfo);
     }
 
 }

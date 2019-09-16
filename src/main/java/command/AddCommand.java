@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -12,24 +13,15 @@ import exception.DukeException;
  * Responses with the result.
  */
 public class AddCommand extends Command {
-    private String description;
-    private String ddl;
-    private String timePiece;
 
     /**
      * Constructs an <code>AddCommand</code> object
      * with all components of the added task.
      *
-     * @param commandType The commandType of the added task.
-     * @param description The description of the added task.
-     * @param ddl The due of the added task(if applicable).
-     * @param timePiece The time period of the added task.
+     * @param commandParams parameters used to invoke the command.
      */
-    public AddCommand(String commandType, String description, String ddl, String timePiece) {
-        super(commandType);
-        this.description = description;
-        this.ddl = ddl;
-        this.timePiece = timePiece;
+    public AddCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**
@@ -43,16 +35,21 @@ public class AddCommand extends Command {
      * @throws DukeException If exceptions occur when adding tasks or updating storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
-        switch (super.commandType) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (commandParams.getMainParam() == null) {
+            throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
+        }
+        switch (commandParams.getCommandType()) {
             case "todo":
-                tasks.addToDo(description);
+                tasks.addToDo(commandParams.getMainParam());
                 break;
             case "deadline":
-                tasks.addDeadline(description, ddl);
+                tasks.addDeadline(commandParams.getMainParam(), commandParams.getParam("by"));
                 break;
             case "event":
-                tasks.addEvent(description, timePiece);
+                tasks.addEvent(commandParams.getMainParam(),
+                        commandParams.getParam("start"),
+                        commandParams.getParam("end"));
                 break;
         }
         storage.update(tasks.toStorageStrings());

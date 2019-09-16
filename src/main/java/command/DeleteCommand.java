@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -11,17 +12,15 @@ import exception.DukeException;
  * Responses with the result.
  */
 public class DeleteCommand extends Command {
-    private int index;
 
     /**
      * Constructs a <code>DeleteCommand</code> object
      * given the index of the task to be deleted.
      *
-     * @param index The index of the task to be deleted.
+     * @param commandParams parameters used to invoke the command.
      */
-    public DeleteCommand(int index) {
-        super("delete");
-        this.index = index;
+    public DeleteCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**
@@ -36,16 +35,22 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String str;
+        if (commandParams.getMainParam() == null) {
+            throw new DukeException("☹ OOPS!!! I don't know which task to delete!");
+        }
+        String taskInfo;
         try {
-            str = tasks.getTaskInfo(index);
+            int index = Integer.parseInt(commandParams.getMainParam());
+            taskInfo = tasks.getTaskInfo(index);
             tasks.delete(index);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("☹ OOPS!!! The index should be in range.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("☹ OOPS!!! The index be a number.");
         }
         storage.update(tasks.toStorageStrings());
         ui.println("Noted. I've removed this task:");
-        ui.println(str);
+        ui.println(taskInfo);
         ui.println("Now you have " + tasks.getSize() + " tasks in the list.");
     }
 }
