@@ -24,3 +24,4 @@ T,0,return stuff,
 T,0,buy bread,
 T,0,return stuff,
 T,0,return things,
+A,0,buy bread ,exam is over
