@@ -15,13 +15,13 @@ public class Event implements ITask, Serializable {
      * Constructor of Event data model.
      *
      * @param description : Description of the Event
-     * @param timing : Timing at which the Event is held
+     * @param eventDate : Timing at which the Event is held
      */
-    public Event(String description, String timing) {
+    public Event(String description, String eventDate) {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
-        this.timing = timing;
+        this.timing = eventDate;
     }
 
     @Override
@@ -42,5 +42,10 @@ public class Event implements ITask, Serializable {
     @Override
     public String getInitials() {
         return this.initials;
+    }
+
+    @Override
+    public String getDateTime() {
+        return this.timing;
     }
 }

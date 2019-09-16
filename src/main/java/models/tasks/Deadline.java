@@ -43,4 +43,9 @@ public class Deadline implements ITask, Serializable {
     public String getInitials() {
         return this.initials;
     }
+
+    @Override
+    public String getDateTime() {
+        return this.dueDate;
+    }
 }
