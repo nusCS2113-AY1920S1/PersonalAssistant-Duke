@@ -8,11 +8,12 @@ import duke.task.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ViewScheduleCommand extends Command {
+public class ViewScheduleCommand<d1> extends Command {
     private List<String> words;
     private Date start;
     private Date end;
@@ -48,23 +49,37 @@ public class ViewScheduleCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        List<Task> scheduleTasks =
+        List<Task> eventTasks =
                 taskList.getTasks().stream()
                         .filter(task -> {
-                            if (task instanceof Deadline) {
-                                return (((Deadline) task).getDeadline()).compareTo(start) >= 0
-                                        && (((Deadline) task).getDeadline()).compareTo(end) <= 0;
-                            } else if (task instanceof Event) {
+                            if (task instanceof Event) {
                                 return (((Event) task).getStart()).compareTo(start) >= 0
                                         && (((Event) task).getEnd()).compareTo(end) <= 0;
                             }
                             return false;
                         })
+                        .sorted(Comparator.comparing((Task t) -> ((Event) t).getStart()))
                         .collect(Collectors.toList());
-        if (scheduleTasks.size() > 0) {
-            ui.showSearchResult(scheduleTasks, formatter.format(start), formatter.format(end));
+        List<Task> deadlineTasks =
+                taskList.getTasks().stream()
+                        .filter(task -> {
+                            if (task instanceof Deadline) {
+                                return (((Deadline) task).getDeadline()).compareTo(start) >= 0
+                                        && (((Deadline) task).getDeadline()).compareTo(end) <= 0;
+                            }
+                            return false;
+                        })
+                        .sorted(Comparator.comparing((Task t) -> ((Deadline) t).getDeadline()))
+                        .collect(Collectors.toList());
+        if (eventTasks.size() > 0) {
+            ui.showSearchResult(eventTasks, "events", formatter.format(start), formatter.format(end));
         } else {
-            throw new DukeException("There are no matching tasks.");
+            throw new DukeException("There were no events found.");
+        }
+        if (deadlineTasks.size() > 0) {
+            ui.showSearchResult(deadlineTasks, "deadlines", formatter.format(start), formatter.format(end));
+        } else {
+            throw new DukeException("There were no deadlines found.");
         }
     }
 }
