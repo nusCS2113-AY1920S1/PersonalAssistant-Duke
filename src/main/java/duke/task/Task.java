@@ -5,6 +5,7 @@ import duke.core.DukeException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,10 @@ public abstract class Task {
      * a localDateTime constructor to save the date and time
      */
     protected LocalDateTime ld;
+    /**
+     * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
+     */
+    protected boolean isRecurring = false;
 
     /**
      * Initialises the minimum fields required to setup a Task.
@@ -69,6 +74,38 @@ public abstract class Task {
      */
     public void markAsDone() {
         isDone = true;
+    }
+
+    /**
+     * Marks the task as recurring.
+     */
+    public void makeTaskRecurring() { isRecurring = true; }
+
+    /**
+     * Returns boolean stating whether task is recurring.
+     */
+    public boolean isTaskRecurring() { return isRecurring; }
+
+    /**
+     * When a task is recurring, method compares current time to listed date.
+     * If the task's date is outdated, then it will update to be for the next day.
+     */
+    public void recurringTaskTimeUpdate() {
+        if ((ld != null) && this.isRecurring) {
+            try {
+                LocalDateTime currentTime = LocalDateTime.now();
+                if (this.ld.isBefore(currentTime)) {
+                    Duration dayDifference = Duration.between(currentTime, this.ld);
+                    if (Math.abs(dayDifference.toDays()) > 0 ) {
+                        this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
+
+                        if (!this.isDone) { this.isDone = false; }
+                    }
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("I couldn't update your recurring events' times.");
+            }
+        }
     }
 
     /**
@@ -131,6 +168,7 @@ public abstract class Task {
             System.out.println("Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
         }
     }
+
     /**
      * Returns the data and time information stored in the task without a certain format.
      *
@@ -138,6 +176,11 @@ public abstract class Task {
      */
     public LocalDateTime getDateTime()
     {
+        if (this.isTaskRecurring()) { this.recurringTaskTimeUpdate(); }
         return ld;
+    }
+
+    public LocalDate getDate() {
+        return ld.toLocalDate();
     }
 }

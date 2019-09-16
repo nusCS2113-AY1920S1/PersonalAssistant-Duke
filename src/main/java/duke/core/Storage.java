@@ -47,6 +47,9 @@ public class Storage {
                     if (newTask[1].equals("1")) {
                         x.markAsDone();
                     }
+                    if (newTask[3].equals("true")) {
+                        x.makeTaskRecurring();
+                    }
                     tasks.add(x);
                 }
                 else if (newTask[0].equals("D")) {
@@ -54,12 +57,18 @@ public class Storage {
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
+                    if (newTask[4].equals("true")) {
+                        t.makeTaskRecurring();
+                    }
                     tasks.add(t);
                 }
                 else if (newTask[0].equals("E")) {
                     Task t = new Event(newTask[2], newTask[3]);
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
+                    }
+                    if (newTask[4].equals("true")) {
+                        t.makeTaskRecurring();
                     }
                     tasks.add(t);
                 }
