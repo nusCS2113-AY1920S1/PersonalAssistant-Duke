@@ -111,4 +111,15 @@ public class Event extends Task {
         String datetimeStr = datetimeFormat.format(at);
         return "E|" + super.toFile() + "|" + datetimeStr;
     }
+
+    /**
+     * Retrieves the date of the task as a String format.
+     *
+     * @return String of Date.
+     */
+    @Override
+    public String getDateString() {
+        String datetimeStr = datetimeFormat.format(at);
+        return datetimeStr;
+    }
 }

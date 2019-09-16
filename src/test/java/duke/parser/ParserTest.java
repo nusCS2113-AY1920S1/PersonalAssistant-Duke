@@ -1,13 +1,21 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListCommand;
+import duke.command.AddMultipleCommand;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserTest {
     Ui ui = new Ui();

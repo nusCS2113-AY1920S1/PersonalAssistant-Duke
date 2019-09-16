@@ -14,8 +14,8 @@ class TaskListTest {
         items.add(task);
         items.add(task2);
         items.add(task3);
-        assertEquals("     1.[T][✗] Hello\n"
-                + "     2.[T][✗] world\n"
-                + "     3.[T][✗] !\n", items.getList());
+        assertEquals("     1.[T][X] Hello\n"
+                + "     2.[T][X] world\n"
+                + "     3.[T][X] !\n", items.getList());
     }
 }
