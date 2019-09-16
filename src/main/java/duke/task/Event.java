@@ -68,10 +68,10 @@ public class Event extends Task implements Snoozeable {
     }
 
     public Date getEnd() {
-        return this.end;
+        return end;
     }
 
     public Date getStart() {
-        return this.start;
+        return start;
     }
 }
