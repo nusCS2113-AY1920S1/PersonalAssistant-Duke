@@ -8,16 +8,17 @@ import duke.command.Ui;
  */
 public class DukeFatalException extends DukeException {
 
-   /**
-    * Generates a DukeFatalException with the specified message and an additional hint that Duke is being exited from.
-    * @param msg Custom message explaining the problem which makes Duke unusable and suggesting actions to rectify it.
-    */
-   public DukeFatalException(String msg) {
-       super(msg + " Exiting Duke now..."); 
-   }
+    /**
+     * Generates a DukeFatalException with the specified message and an additional hint that Duke is being exited from.
+     *
+     * @param msg Custom message explaining the problem which makes Duke unusable and suggesting actions to rectify it.
+     */
+    public DukeFatalException(String msg) {
+        super(msg + " Exiting Duke now...");
+    }
 
-   public void killProgram(Ui ui) {
-      ui.print(getMessage());
-      System.exit(0);
-   }
+    public void killProgram(Ui ui) {
+        ui.print(getMessage());
+        System.exit(0);
+    }
 }

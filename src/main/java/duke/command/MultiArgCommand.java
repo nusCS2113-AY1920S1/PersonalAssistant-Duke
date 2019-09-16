@@ -12,7 +12,8 @@ public abstract class MultiArgCommand extends ArgCommand {
     String invalidArgMsg;
 
     /**
-     * Splits the input string into the argv array based on the common delimiter delim
+     * Splits the input string into the argv array based on the common delimiter delim.
+     *
      * @throws DukeException If, after being split the number of arguments is less than argc, the required number.
      */
     public void parse(String inputStr) throws DukeException {

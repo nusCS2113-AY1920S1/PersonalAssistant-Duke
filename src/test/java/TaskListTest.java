@@ -1,17 +1,25 @@
 import duke.exception.DukeException;
-import duke.task.*;
-import org.junit.jupiter.api.AfterEach;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.TaskList;
+import duke.task.TimedTask;
+import duke.task.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
-
     private TaskList taskList;
 
+    /**
+     * Adds tasks to an empty TaskList. This is executed before each JUnit test.
+     */
     @BeforeEach
     public void addTasks_validTasks_successMessageReturned() {
         taskList = new TaskList();

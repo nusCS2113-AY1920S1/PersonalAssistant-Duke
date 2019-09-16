@@ -12,7 +12,7 @@
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
 
-<module name = "Checker">
+<module name="Checker">
     <property name="charset" value="UTF-8"/>
 
     <property name="severity" value="error"/>
@@ -38,11 +38,11 @@
             <property name="message"
                       value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
         </module>
-        <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowEscapesForControlCharacters" value="true"/>
-            <property name="allowByTailComment" value="true"/>
-            <property name="allowNonPrintableEscapes" value="true"/>
-        </module>
+        <!--        <module name="AvoidEscapedUnicodeCharacters">-->
+        <!--            <property name="allowEscapesForControlCharacters" value="true"/>-->
+        <!--            <property name="allowByTailComment" value="true"/>-->
+        <!--            <property name="allowNonPrintableEscapes" value="true"/>-->
+        <!--        </module>-->
         <module name="LineLength">
             <property name="max" value="120"/>
             <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>

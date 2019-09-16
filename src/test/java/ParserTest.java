@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
+    // TODO test failure modes
     // this is going to take a lot of typing
 
     private Parser uut = new Parser();

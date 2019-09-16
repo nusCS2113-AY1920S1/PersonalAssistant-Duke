@@ -13,14 +13,15 @@ public class Ui {
     private final PrintStream stdout;
 
     /**
-     * Constructs a new Ui object, with a new Parser, constructs a Scanner for the input stream, and specifies output
+     * Constructs a new Ui object, with a new Parser, constructs a Scanner for the input stream, and specifies output.
      * stream
+     *
      * @see Parser
      */
-    public Ui(InputStream _stdin, PrintStream _stdout) {
+    public Ui(InputStream stdin, PrintStream stdout) {
         parser = new Parser();
-        stdout = _stdout;
-        scanIn = new Scanner(_stdin);
+        this.stdout = stdout;
+        this.scanIn = new Scanner(stdin);
     }
 
     /**
@@ -46,6 +47,7 @@ public class Ui {
 
     /**
      * Gets the next line of input from the user.
+     *
      * @return The next line of input from the user.
      */
     public String readLine() {
@@ -55,9 +57,10 @@ public class Ui {
     /**
      * Sanitises input and use the Parse to extract the requested command, which will be loaded with parameters
      * extracted from the user's arguments.
+     *
      * @return The command specified by the user, with arguments parsed.
      * @throws DukeException If Parser fails to find a matching command or the arguments do not meet the command's
-     * requirements.
+     *                       requirements.
      */
     public Command parseCommand() throws DukeException {
         String inputStr = readLine();
@@ -68,6 +71,7 @@ public class Ui {
     /**
      * Prints a message, indented and bracketed between two lines. Newlines in the message will have indents added
      * after them.
+     *
      * @param msg Message to be printed.
      */
     public void print(String msg) {
@@ -88,8 +92,10 @@ public class Ui {
     }
 
     //Leaving this here for future expansion (red text, etc.)
+
     /**
      * Prints the error message from an exception.
+     *
      * @param excp Exception whose message we want to print.
      */
     public void printError(DukeException excp) {

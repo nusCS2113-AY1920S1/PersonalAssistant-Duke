@@ -6,7 +6,7 @@ package duke.command;
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
  * user input.
  */
-public enum CMD {
+public enum Cmd {
     LIST("list") {
         public Command getCommand() {
             return new ListCommand();
@@ -51,11 +51,12 @@ public enum CMD {
     private final String cmdStr;
 
     /**
-     * Creates the CMD enum instance and associates the specified keyword with it.
-     * @param _cmdStr The keyword to be associated with the specified task type.
+     * Creates the Cmd enum instance and associates the specified keyword with it.
+     *
+     * @param cmdStr The keyword to be associated with the specified task type.
      */
-    CMD (final String _cmdStr) {
-        cmdStr = _cmdStr;
+    Cmd(final String cmdStr) {
+        this.cmdStr = cmdStr;
     }
 
     @Override
@@ -66,6 +67,7 @@ public enum CMD {
     /**
      * Creates an empty (all parameters null) new Command of the specified type, to be loaded with data using its
      * parse method.
+     *
      * @return A new Command of the specified type.
      */
     public abstract Command getCommand();
