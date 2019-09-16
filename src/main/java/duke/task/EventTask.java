@@ -4,9 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class EventTask extends TimedTask {
-
-    public EventTask(String _name, LocalDateTime _at) {
-        super(_name, _at);
+    public EventTask(String name, LocalDateTime at) {
+        super(name, at);
         type = 'E';
     }
 

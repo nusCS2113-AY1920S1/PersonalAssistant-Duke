@@ -4,9 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends TimedTask {
-
-    public DeadlineTask(String _name, LocalDateTime _by) {
-        super(_name, _by);
+    public DeadlineTask(String name, LocalDateTime by) {
+        super(name, by);
         type = 'D';
     }
 

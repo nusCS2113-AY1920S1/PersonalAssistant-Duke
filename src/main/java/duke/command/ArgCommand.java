@@ -8,6 +8,12 @@ public abstract class ArgCommand extends Command {
     String arg;
     String emptyArgMsg;
 
+    /**
+     * Parse the input string entered by the user.
+     *
+     * @param inputStr The input provided by the user for this command, without the command keyword and stripped.
+     * @throws DukeException If the input string entered is empty.
+     */
     public void parse(String inputStr) throws DukeException {
         arg = inputStr.strip();
         if (arg.length() == 0) {

@@ -4,8 +4,13 @@ import duke.DukeContext;
 import duke.exception.DukeException;
 import duke.task.EventTask;
 
+/**
+ * Class responsible for executing Command to create a new Event task.
+ */
 public class NewEventCommand extends NewTimedTaskCommand {
-
+    /**
+     * Creates a new Command object that can be executed to create a new Event task.
+     */
     public NewEventCommand() {
         argc = 2;
         delim = "/at";

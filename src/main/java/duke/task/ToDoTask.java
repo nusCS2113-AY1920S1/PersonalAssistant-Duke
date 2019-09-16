@@ -1,9 +1,8 @@
 package duke.task;
 
 public class ToDoTask extends Task {
-
-    public ToDoTask(String _name) {
-        super(_name);
+    public ToDoTask(String name) {
+        super(name);
         type = 'T';
     }
 

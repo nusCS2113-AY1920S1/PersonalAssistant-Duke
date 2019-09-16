@@ -8,11 +8,11 @@ import java.time.format.DateTimeParseException;
  * Maintains the associations between task type characters and tasks (e.g. "T" -> ToDoTask). For use in parsing data
  * files.
  */
-public enum TSK {
+public enum Tsk {
     TODO("T") {
-       public Task getTask(String[] taskArr) throws IndexOutOfBoundsException {
-           return new ToDoTask(taskArr[2]);
-       }
+        public Task getTask(String[] taskArr) throws IndexOutOfBoundsException {
+            return new ToDoTask(taskArr[2]);
+        }
     },
     EVENT("E") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
@@ -30,11 +30,12 @@ public enum TSK {
     private final String taskChar;
 
     /**
-     * Creates the TSK enum instance and associates the specified character with it.
-     * @param _taskChar The character to be associated with the specified task type.
+     * Creates the Tsk enum instance and associates the specified character with it.
+     *
+     * @param taskChar The character to be associated with the specified task type.
      */
-    TSK (final String _taskChar) {
-        taskChar = _taskChar;
+    Tsk(final String taskChar) {
+        this.taskChar = taskChar;
     }
 
     @Override
@@ -45,6 +46,7 @@ public enum TSK {
     /**
      * Creates and sets up a new task from an array containing the data it is to have. The parameters for the task
      * constructor are extracted by this method.
+     *
      * @param taskArr An array containing the data for the task, format specific to each task type.
      * @return A task loaded with the data from taskArr.
      */

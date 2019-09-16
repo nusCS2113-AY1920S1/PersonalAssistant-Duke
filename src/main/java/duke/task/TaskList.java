@@ -7,13 +7,13 @@ import duke.exception.DukeResetException;
 import java.util.ArrayList;
 
 public class TaskList {
-
     // TSV files will have one entry per line, tabs disallowed in input
 
     private ArrayList<Task> taskArrList;
 
     /**
      * Creates a new TaskList, loading data from the Storage object provided.
+     *
      * @param storage The Storage object pointing to the TSV file containing the data to load.
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
@@ -26,12 +26,13 @@ public class TaskList {
      * Creates a new, empty TaskList.
      */
     public TaskList() {
-        taskArrList = new ArrayList<Task>();
+        taskArrList = new ArrayList<>();
     }
 
     /**
      * Concatenates the string representation of each task, numbering them from first added to last, and returns this
      * list as a String.
+     *
      * @return String representation of all tasks, numbered chronologically.
      * @throws DukeException If there are no tasks yet.
      */
@@ -50,6 +51,7 @@ public class TaskList {
 
     /**
      * Concatenates the data representation of each task, for writing to the data file.
+     *
      * @return Concatenated data representations of all tasks.
      */
     public String getFileStr() {
@@ -62,6 +64,7 @@ public class TaskList {
 
     /**
      * Marks a task as in the list as done.
+     *
      * @param idxStr The argument given by the user to identify the task to be marked done.
      * @return A success message with the String representation of the newly completed task.
      * @throws DukeException If idxStr cannot be resolved to a valid task index.
@@ -75,9 +78,10 @@ public class TaskList {
 
     /**
      * Adds a new task to the list.
+     *
      * @param newTask The task to be added.
      * @return A success message, with the String representation of the newly added task, and a message
-     * reporting the number of tasks in the list.
+     *         reporting the number of tasks in the list.
      */
     public String addTask(Task newTask) {
         String addStr = "Got it, I've added this task:" + System.lineSeparator()
@@ -85,11 +89,13 @@ public class TaskList {
         taskArrList.add(newTask);
         return addStr + getTaskCountStr();
     }
+
     /**
      * Deletes a task from the list.
+     *
      * @param idxStr The argument given by the user to identify the task to be deleted.
      * @return A success message with the String representation of the newly deleted task, and a message reporting the
-     * number of tasks in the list.
+     *         number of tasks in the list.
      * @throws DukeException If idxStr cannot be resolved to a valid task index.
      */
     public String deleteTask(String idxStr) throws DukeException {
@@ -102,6 +108,7 @@ public class TaskList {
 
     /**
      * Concatenates the descriptions of all tasks whose names contain the searchTerm.
+     *
      * @param searchTerm String to search through the tasks for.
      * @return Concatenated descriptions of matching tasks.
      */
@@ -124,7 +131,8 @@ public class TaskList {
     }
 
     /**
-     * Parses a String to extract an integer, and checks if this integer is a valid index for the list
+     * Parses a String to extract an integer, and checks if this integer is a valid index for the list.
+     *
      * @param idxStr A String representing an integer, without leading/trailing spaces
      * @return An integer that is a valid index for an entry on the list
      * @throws DukeException If idxStr cannot be parsed, or the integer is not a valid index
@@ -144,9 +152,10 @@ public class TaskList {
 
     /**
      * Reports the number of tasks currently in the list.
+     *
      * @return A String reporting the current number of tasks.
      */
-   private String getTaskCountStr() {
+    private String getTaskCountStr() {
         int taskCount = taskArrList.size();
         String taskCountStr = taskCount + ((taskCount == 1) ? " task" : " tasks");
         return "Now you have " + taskCountStr + " in the list.";

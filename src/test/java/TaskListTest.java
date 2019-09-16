@@ -1,17 +1,25 @@
 import duke.exception.DukeException;
-import duke.task.*;
-import org.junit.jupiter.api.AfterEach;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.TaskList;
+import duke.task.TimedTask;
+import duke.task.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
-
     private TaskList taskList;
 
+    /**
+     * Adds tasks to an empty TaskList. This is executed before each JUnit test.
+     */
     @BeforeEach
     public void taskList_addTasksSuccess() {
         taskList = new TaskList();
@@ -42,16 +50,16 @@ public class TaskListTest {
 
     @Test
     public void taskList_deleteTasksSuccess() {
-       try {
-           taskList.deleteTask("1");
-           taskList.deleteTask("2");
-           assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
-                   taskList.listTasks());
-       } catch (DukeException excp) {
-           fail("Unable to find added tasks!");
-       } catch (AssertionError excp) {
-           fail("Tasks not deleted correctly!");
-       }
+        try {
+            taskList.deleteTask("1");
+            taskList.deleteTask("2");
+            assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
+                    taskList.listTasks());
+        } catch (DukeException excp) {
+            fail("Unable to find added tasks!");
+        } catch (AssertionError excp) {
+            fail("Tasks not deleted correctly!");
+        }
     }
 
     @Test
