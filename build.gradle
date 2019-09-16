@@ -5,6 +5,9 @@ plugins {
     id 'checkstyle'
 }
 
+group 'seedu.duke'
+version '0.1.0'
+
 checkstyle {
     toolVersion = '8.23'
 }
@@ -24,8 +27,6 @@ test {
     useJUnitPlatform()
 }
 
-group 'seedu.duke'
-version '0.1.0'
 
 repositories {
     mavenCentral()
