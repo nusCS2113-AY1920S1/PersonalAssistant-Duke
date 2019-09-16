@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Represents an Event. An Event is a task with begin time and end time.
  */
-public class Event extends Task {
+public class Event extends Task implements Comparable<Task> {
 
     protected Date from;
     protected Date to;
@@ -50,5 +50,10 @@ public class Event extends Task {
         } else {
             return String.format("  %s  ", TimeParser.convertDateToString(from));
         }
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.from.compareTo(((Event) o).from);
     }
 }

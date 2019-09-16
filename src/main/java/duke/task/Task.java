@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 }
 )
 //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public abstract class Task implements java.io.Serializable {
+public abstract class Task {
 
     protected String description;
     protected boolean done;
