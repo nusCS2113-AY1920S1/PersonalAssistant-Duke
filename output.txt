@@ -1,8 +1,11 @@
-[T][✘] borrow book
-[D][✘] dothat (by: 2019-11-11T11:11:00)
-[D][✘] finish (by: 2019-11-11T11:11:00)
-[T][✘] borrow another book
-[E][✘] project meeting(at: 2019-11-11T11:11:00)
-[D][✘] doanother (by: 2019-11-11T12:34:00)
-[T][✘] testing
-[D][✘] testing (by: 2019-11-11T11:11:00)
+[T][?] borrow book
+[D][?] dothat (by: 2019-11-11 11:11:00)
+[D][?] finish (by: 2019-11-11 11:11:00)
+[T][?] borrow another book
+[D][?] doanother (by: 2019-11-11 12:34:00)
+[T][?] testing
+[D][?] testing (by: 2019-11-11 11:11:00)
+[E][?] dinner (from: 11-11-2019 11:11 to: 12-11-2019 11:12)
+[E][?] dinner (from: 11-11-2019 12:11 to: 12-11-2019 12:00)
+[E][?] dinner (from: 11-11-2019 12:11 to: 12-11-2019 12:00)
+[E][?] dinner (from: 11-11-2019 12:11 to: 12-11-2019 12:00)

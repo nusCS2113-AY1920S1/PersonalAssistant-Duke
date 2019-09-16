@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
 
-    String line;
+    private String line;
 
     /**
      * Constructor for <code>FindCommand</code>.
