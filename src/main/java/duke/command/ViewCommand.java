@@ -27,7 +27,8 @@ public class ViewCommand extends Command {
     private final String input;
 
     /**
-     * Creates a new viewCommand
+     * Creates a new ViewCommand.
+     *
      * @param date tasks to be viewed on this date
      * @throws DukeException when invalid date input format of DD/MM/YYYY
      */
@@ -42,10 +43,10 @@ public class ViewCommand extends Command {
         }
 
         try {
-            String[] format_date = date.trim().split("/");
-            int day = Integer.parseInt(format_date[0]);
-            int month = Integer.parseInt(format_date[1]);
-            int year = Integer.parseInt(format_date[2]);
+            String[] formatDate = date.trim().split("/");
+            int day = Integer.parseInt(formatDate[0]);
+            int month = Integer.parseInt(formatDate[1]);
+            int year = Integer.parseInt(formatDate[2]);
             this.date = LocalDate.of(year, month, day);
 
             //format for printing
