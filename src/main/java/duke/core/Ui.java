@@ -136,8 +136,8 @@ public class Ui {
     }
 
     public void makeRecurring(Task t) {
-        System.out.println("Okay. This task has been marked as 'recurring' and will have a daily reminder:"
-                            + t.getDescription());
+        System.out.println("Okay. This task has been marked as recurring:\n"
+                            + t.toString());
 
     }
 

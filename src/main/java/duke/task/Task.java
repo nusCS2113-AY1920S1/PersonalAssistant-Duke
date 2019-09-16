@@ -92,14 +92,15 @@ public abstract class Task {
      */
     public void recurringTaskTimeUpdate() {
         if ((ld != null) && this.isRecurring) {
-            DateTimeFormatter taskTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try {
-                LocalDateTime taskDate = LocalDateTime.parse(ld.toString(), taskTimeFormatter);
-                LocalDateTime currentDate = LocalDateTime.parse(LocalDateTime.now().toString(), taskTimeFormatter);
+                LocalDateTime currentTime = LocalDateTime.now();
+                if (this.ld.isBefore(currentTime)) {
+                    Duration dayDifference = Duration.between(currentTime, this.ld);
+                    if (Math.abs(dayDifference.toDays()) > 0 ) {
+                        this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
 
-                if (taskDate.isBefore(currentDate)) {
-                    Duration dayDifference = Duration.between(currentDate, taskDate);
-                    this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
+                        if (!this.isDone) { this.isDone = false; }
+                    }
                 }
             } catch (DateTimeParseException e) {
                 System.out.println("I couldn't update your recurring events' times.");
@@ -176,6 +177,7 @@ public abstract class Task {
      */
     public LocalDateTime getDateTime()
     {
+        if (this.isTaskRecurring()) { this.recurringTaskTimeUpdate(); }
         return ld;
     }
 }

@@ -1,6 +1,9 @@
-D | 1 | ssss | 16/09/2019 0200
-D | 1 | tttt | 16/09/2019 0300
-D | 1 | tttt | 16/09/2019 0400
-D | 1 | tttt | 16/09/2019 0500
-E | 1 | tasktest | 16/09/2019 1000
-D | 0 | tasktest2 | 16/09/2019 1200
+D | 1 | ssss | 16/09/2019 0200 | true
+D | 1 | tttt | 16/09/2019 0300 | true
+D | 1 | tttt | 16/09/2019 0400 | false
+D | 1 | tttt | 16/09/2019 0500 | false
+E | 1 | tasktest | 16/09/2019 1000 | true
+D | 0 | tasktest2 | 16/09/2019 1200 | false
+T | 0 | sleep | false
+E | 1 | eat food | 09/09/2019 0909 | true
+T | 0 | jog marathon | false
