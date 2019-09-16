@@ -4,8 +4,13 @@ import duke.DukeContext;
 import duke.exception.DukeException;
 import duke.task.DeadlineTask;
 
+/**
+ * Class responsible for executing Command to create a new Deadline task.
+ */
 public class NewDeadlineCommand extends NewTimedTaskCommand {
-
+    /**
+     * Creates a new Command object that can be executed to create a new Deadline task.
+     */
     public NewDeadlineCommand() {
         argc = 2;
         delim = "/by";
@@ -17,7 +22,7 @@ public class NewDeadlineCommand extends NewTimedTaskCommand {
     public void parse(String inputStr) throws DukeException {
         super.parse(inputStr);
         if (argv[0].length() == 0) {
-           throw new DukeException("Task description cannot be empty!");
+            throw new DukeException("Task description cannot be empty!");
         }
     }
 

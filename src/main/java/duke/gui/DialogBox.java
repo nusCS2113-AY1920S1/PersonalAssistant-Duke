@@ -24,6 +24,9 @@ public class DialogBox extends HBox {
     @FXML
     private Text dialog;
 
+    /**
+     * Creates a new DialogBox object to be displayed in the chat window of the GUI.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/DialogBox.fxml"));
@@ -39,12 +42,18 @@ public class DialogBox extends HBox {
         displayPicture.setFill(new ImagePattern(img));
     }
 
+    /**
+     * Creates a dialog box for the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 
+    /**
+     * Creates a new dialog box for Duke's response.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

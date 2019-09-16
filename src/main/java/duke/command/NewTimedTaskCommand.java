@@ -16,6 +16,7 @@ public abstract class NewTimedTaskCommand extends MultiArgCommand {
     /**
      * Split the input string into the elements of the argv array using MultiArgCommand's parse, then load the task
      * with argv[0] as the description and argv[1] as the date and time in the TimedTask data format.
+     *
      * @throws DukeException If task description is empty, or if date and time are invalid.
      * @see MultiArgCommand
      */
