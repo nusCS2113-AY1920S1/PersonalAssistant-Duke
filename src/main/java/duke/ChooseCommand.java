@@ -1,14 +1,15 @@
 package duke;
 
 import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.CompleteCommand;
-import duke.command.AddToDoCommand;
-import duke.command.AddEventCommand;
-import duke.command.DeleteCommand;
 import duke.command.FindCommand;
+import duke.command.DeleteCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.CompleteCommand;
+import duke.command.ListCommand;
+import duke.command.ExitCommand;
 import duke.command.AddDeadlineCommand;
+import duke.command.SnoozeCommand;
 import duke.exception.DukeException;
 
 /**
@@ -19,17 +20,22 @@ public class ChooseCommand {
      * Main method of the <code>ChooseCommand</code> class.
      * Parses the input given by user and calls specific <code>Commands</code>
      * after checking the validity of the input.
+     *
      * @param line Command inputted by user.
      * @return <code>Command</code> based on the user input.
      * @throws DukeException Catches invalid commands given by user.
      */
-    static Command choose(String line) throws DukeException {
+    public static Command choose(String line) throws DukeException {
         if (line.equals("bye")) {
             return new ExitCommand();
         } else if (line.equals("list")) {
             return new ListCommand();
         } else if (line.startsWith("done")) {
-            int num = Integer.parseInt(line.split(" ")[1]) - 1;
+            String[] arr = line.split(" ");
+            if (arr.length == 1) {
+                throw new DukeException("OOPS!!! Please enter a number!");
+            }
+            String num = arr[1];
             return new CompleteCommand(num);
         } else if (line.startsWith("todo")) {
             line = line.replaceFirst("todo", "");
@@ -45,8 +51,15 @@ public class ChooseCommand {
             return new DeleteCommand(num);
         } else if (line.startsWith("find")) {
             return new FindCommand(line);
+        } else if (line.startsWith("snooze")) {
+            String[] arr = line.split(" ");
+            if (arr.length == 1) {
+                throw new DukeException("OOPS!!! Please enter a number!");
+            }
+            String num = arr[1];
+            return new SnoozeCommand(num);
         } else {
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

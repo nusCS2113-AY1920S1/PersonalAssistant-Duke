@@ -103,9 +103,38 @@ public class Storage {
      * @return true if the <code>Task</code> object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        if (line.charAt(4) == '\u2713') {
+        if (line.charAt(4) == '\u2713') { //u2713 is a tick emoticon
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks if a <code>Task</code> has a <code>Timestamp</code>.
+     * @param index Index of the <code>Task</code> in the <code>TaskList</code>.
+     * @return True if <code>Task</code> has a <code>Timestamp</code>, false otherwise.
+     */
+    public String taskHasTimestamp(int index) {
+        try {
+            String filename = "output.txt";
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            int counter = 0;
+            while ((line = reader.readLine()) != null) {
+                boolean checker = false;
+                if ((counter == index) && (line.startsWith("[D]"))) {
+                    reader.close();
+                    return "deadline";
+                } else if ((counter == index) && (line.startsWith("[E]"))) {
+                    return "event";
+                }
+                counter += 1;
+            }
+            reader.close();
+            return "none";
+        } catch (Exception e) {
+            System.out.println("Something went wrong while checking if the task has a timestamp!");
+            return "none";
+        }
     }
 }

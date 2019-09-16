@@ -60,6 +60,15 @@ public class TaskList {
     }
 
     /**
+     * Adds a <code>Task</code> object to a specific index in the <code>TaskList</code>.
+     * @param index Index to be inserted.
+     * @param task <code>Task</code> to be added.
+     */
+    public void addTaskToIndex(int index, Task task) {
+        arr.add(index, task);
+    }
+
+    /**
      * Deletes a <code>Task</code> object from the <code>TaskList</code>.
      * @param index Index of <code>Task</code> object, specified by the user
      */
