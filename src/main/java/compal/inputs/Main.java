@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +23,7 @@ public class Main extends Application {
     /**
      * Initializes and sets up the GUI for ComPAL.
      * Pulls from file MainWindow.fxml
+     *
      * @param primaryStage the stage for GUI
      * @throws Exception GUI problems
      */

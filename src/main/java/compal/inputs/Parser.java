@@ -5,15 +5,12 @@ import compal.main.Duke;
 import java.text.ParseException;
 
 public class Parser {
-    Duke duke;
-
     /**
      * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
      * know where to redirect the input command.
      * Can be an enum e.g State.INIT, State.NORMAL, State.TIMETABLE
      */
     public String status = "normal";
-
     /**
      * stage tells the parser which stage of the current prompt sequence ComPAL is on.
      * e.g if stage == 1 and status == "init", then ComPAL is currently expecting the user to
@@ -21,9 +18,11 @@ public class Parser {
      * Note: stage is always reset to 0 upon a status change. This is done in the function below called setStatus()
      */
     public int stage = 0;
+    Duke duke;
 
     /**
      * Constructor for the parser. Called in Duke when initializing
+     *
      * @param d Duke
      */
     public Parser(Duke d) {

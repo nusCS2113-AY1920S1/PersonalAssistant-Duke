@@ -4,20 +4,20 @@ import compal.main.Duke;
 import compal.tasks.Task;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Ui {
 
+    public ScrollPane sp;
     private ArrayList<Task> arrlist;
     private Duke duke;
     private String username;
-    public ScrollPane sp;
 
     /**
      * Set up the Ui parameter.
@@ -34,6 +34,7 @@ public class Ui {
     /**
      * This function converts the object into string form using toString()
      * and prints it onto the GUI's primary display box.
+     *
      * @param text input object received to be print on gui
      */
     public void printg(Object text) {
@@ -44,6 +45,7 @@ public class Ui {
 
     /**
      * Returns a label (node) with the text as text.
+     *
      * @param text Dialog text label received
      * @return Label (node) with the text as text
      */
@@ -83,6 +85,7 @@ public class Ui {
     /**
      * Performs first time initialization for new users.
      * Consists of 2 steps(stages).Parser holds the current stage number.
+     *
      * @param stage int
      * @param value String
      */
