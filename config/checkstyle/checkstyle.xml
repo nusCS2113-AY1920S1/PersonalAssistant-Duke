@@ -182,6 +182,7 @@
         <module name="Indentation">
             <property name="basicOffset" value="4"/>
             <property name="braceAdjustment" value="0"/>
+            <!-- change IDE settings to match 2113T requirements -->
             <property name="caseIndent" value="0"/>
             <property name="throwsIndent" value="4"/>
             <property name="lineWrappingIndentation" value="4"/>
