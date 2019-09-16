@@ -36,6 +36,8 @@ public class Parser {
             return new AddCommand(ParserUtil.createDeadline(userInput));
         case "event":
             return new AddCommand(ParserUtil.createEvent(userInput));
+        case "within":
+            return new AddCommand(ParserUtil.createWithin(userInput));
         case "list":
             return new ListCommand();
         case "done":

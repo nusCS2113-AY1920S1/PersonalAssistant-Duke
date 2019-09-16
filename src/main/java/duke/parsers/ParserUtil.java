@@ -4,6 +4,7 @@ import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.Todo;
 
@@ -68,6 +69,17 @@ public class ParserUtil {
         }
     }
 
+    protected static DoWithin createWithin(String userInput) throws DukeException {
+        String[] withinDetails = userInput.substring("after".length()).strip().split("between|and");
+        if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (withinDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        return new DoWithin(withinDetails[0].strip() , ParserTimeUtil.parseStringToDate(withinDetails[1].strip()) , ParserTimeUtil.parseStringToDate(withinDetails[2].strip()));
+    }
+
     /**
      * Parses the userInput and return an index extracted from it.
      *
@@ -82,4 +94,6 @@ public class ParserUtil {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
     }
+
+
 }
