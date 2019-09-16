@@ -5,11 +5,11 @@ import compal.inputs.Storage;
 import compal.inputs.Ui;
 import compal.tasks.TaskList;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static java.lang.System.exit;
@@ -34,11 +34,17 @@ public class Duke extends Application {
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        ui = new Ui(this, tasklist.arrlist);
-
         storage = new Storage();
 
-        storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
+
+        if (storage.loadCompal() == null) {
+            tasklist.arrlist = new ArrayList<>();
+        } else {
+            tasklist.arrlist = storage.loadCompal();
+            //load from the file into the arraylist, if any thing to load at all
+        }
+
+        ui = new Ui(this, tasklist.arrlist);
 
         //start parsing commands
         parser = new Parser(this);

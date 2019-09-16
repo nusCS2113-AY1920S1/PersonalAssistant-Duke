@@ -1,18 +1,18 @@
 package compal.inputs;
 
-import compal.tasks.Deadline;
-import compal.tasks.Event;
 import compal.tasks.Task;
-import compal.tasks.Todo;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Storage {
 
@@ -26,90 +26,42 @@ public class Storage {
 
 
     /**
-     * This function saves the arraylist of tasks to a file called duke.txt in the current directory.
-     * It writes all the properties of Tasks.Task t (which are strings) to the file using PrintWriter.
+     * use to preload the arraylist as a binary stream if there is anything to load at all.
      *
-     * @Function
-     * @UsedIn: tasklist.addTask, tasklist.taskDone
+     * @return list2 the arraylist of stored item found in file.
      */
-    public void saveDuke(ArrayList<Task> tasks) {
-
+    public ArrayList<Task> loadCompal() {
+        ArrayList<Task> list2 = null;
         try {
-            File f = new File(saveFilePath);
-            PrintWriter pw = new PrintWriter(f);
-            for (Task t : tasks) {
-                pw.printf("%s %s %s\n", t.getSymbol(), t.isDone, t.getDescription());
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("binary"));
+            list2 = (ArrayList<Task>) ois.readObject();
+            for (Task t : list2) {
+                System.out.println("LoadCompal:");
+                System.out.println(t.getDescription());
             }
-            pw.close();
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Save-file not found. Will generate new one.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
+        return list2;
     }
 
 
     /**
-     * This function loads from the textfile the list of tasks into the arraylist on startup.
-     * It creates new Tasks.Task objects based on the symbol read i.e if E,
-     * then Tasks.Task t = new Tasks.Event(description);and then we add the task to the arraylist
+     * Used to save the arraylist of task into the file.
      *
-     * @Function
-     * @UsedIn: COMPal.Duke Constructor
+     * @param tasks ArrayList of task stored
      */
-    public void loadDuke(ArrayList<Task> tasks) {
+    public void saveCompal(ArrayList<Task> tasks) {
 
         try {
-            File f = new File(saveFilePath);
-            FileReader fr = new FileReader(f);
-
-            //read into a char array
-            StringBuilder sb = new StringBuilder();
-            int c;
-            while ((c = fr.read()) != -1) {
-                sb.append((char) c);
-            }
-
-            //Set up a scanner to read and parse the strings
-            String cmds = sb.toString();
-            Scanner strScanner = new Scanner(cmds);
-            while (strScanner.hasNext()) {
-                switch (strScanner.next()) {
-                case "E":
-                    String done = strScanner.next().trim();
-                    Task t = new Event(strScanner.nextLine().strip());
-                    if (done.equals("true")) {
-                        t.isDone = true;
-                    }
-                    tasks.add(t);
-                    break;
-                case "D":
-                    String done1 = strScanner.next().trim();
-                    Task t1 = new Deadline(strScanner.nextLine().strip());
-                    if (done1.equals("true")) {
-                        t1.isDone = true;
-                    }
-                    tasks.add(t1);
-                    break;
-                case "T":
-                    String done2 = strScanner.next().trim();
-                    Task t2 = new Todo(strScanner.nextLine().strip());
-                    if (done2.equals("true")) {
-                        t2.isDone = true;
-                    }
-                    tasks.add(t2);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + strScanner.next());
-                }
-
-
-            }
-
-
+            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("binary"));
+            ois.writeObject(tasks);
+            ois.close();
         } catch (IOException e) {
-            System.out.println("Save File not found. Will create new save file.");
+            e.printStackTrace();
         }
+
     }
 
 
