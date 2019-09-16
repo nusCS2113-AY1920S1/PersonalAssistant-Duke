@@ -49,6 +49,7 @@ public class Ui {
                 + size + " tasks in the list.");
     }
 
+
     /**
      * Shows that a Task has been marked as done.
      *
@@ -93,6 +94,21 @@ public class Ui {
                 count++;
             }
         }
+    }
+
+    public String showClashWarning (ArrayList<Task> tasklist, Task task) {
+        System.out.println("Here are the tasks that fall on the same day:");
+        int count = 1;
+        for (Task t : tasklist) {
+            if (t.getDate().equals(task.getDate()) && !t.isDone()) {
+                System.out.println(count + ": " + t);
+                count++;
+            }
+        }
+        showLine();
+        System.out.println("Do you still want to add your task anyway? Y/N");
+        String userAnswer = scanner.nextLine();
+        return userAnswer;
     }
 
 

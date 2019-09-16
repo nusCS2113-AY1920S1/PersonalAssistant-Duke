@@ -7,6 +7,9 @@ import duke.core.TaskList;
 import duke.core.Ui;
 import duke.task.Task;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 /**
  * Represents a command class to add a task. The AddCommand class
  * extends from the Command class to represent user instruction
@@ -18,6 +21,7 @@ public class AddCommand extends Command {
      * A new task to be added
      */
     private Task task;
+    private Boolean isClash = false;
 
     /**
      * Constructs a AddCommand object.
@@ -50,9 +54,30 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            tasks.addTask(task);
-            ui.taskAdded(task, tasks.getSize());
-            storage.save(tasks.fullTaskList());
+            ArrayList<Task> taskList = tasks.fullTaskList();
+            String userAnswer;
+
+            for (Task t : taskList) {
+                if (t.getDate().equals(task.getDate()) && !t.isDone()) {
+                    isClash = true;
+                }
+            }
+
+            if (isClash) {
+                userAnswer = ui.showClashWarning(taskList, task);
+                if (userAnswer.equals("Y") || userAnswer.equals("y") ) {
+                    tasks.addTask(task);
+                    ui.taskAdded(task, tasks.getSize());
+                    storage.save(tasks.fullTaskList());
+                } else {
+                    System.out.println("Alright , I have aborted the task.");
+                }
+            } else {
+                tasks.addTask(task);
+                ui.taskAdded(task, tasks.getSize());
+                storage.save(tasks.fullTaskList());
+            }
+
         } catch (DukeException e) {
             throw new DukeException("Fails to add task. " + e.getMessage());
         }
