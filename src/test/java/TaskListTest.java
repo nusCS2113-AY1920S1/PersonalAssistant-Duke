@@ -21,7 +21,7 @@ public class TaskListTest {
      * Adds tasks to an empty TaskList. This is executed before each JUnit test.
      */
     @BeforeEach
-    public void taskList_addTasksSuccess() {
+    public void addTasks_validTasks_successMessageReturned() {
         taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
         LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter());
@@ -49,7 +49,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void taskList_deleteTasksSuccess() {
+    public void deleteTasks_validIdx_successMessageReturned() {
         try {
             taskList.deleteTask("1");
             taskList.deleteTask("2");
@@ -62,8 +62,8 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    public void taskList_deleteTasksFailure() { //also tests for failure of other "getIdx" tasks
+    @Test //also tests for failure of other "getIdx" tasks
+    public void deleteTasks_invalidIdx_exceptionThrownAndListNotChanged() {
         assertThrows(DukeException.class, () -> {
             taskList.deleteTask("100");
         });
@@ -80,7 +80,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void taskList_findTasksSuccess() {
+    public void findTasks_matchingTasks_matchingTasksReturned() {
         String expectedSearchResult = "Here are the tasks that contain 'u':"
                 + System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "2.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
@@ -88,13 +88,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void taskList_findTasksFailure() {
+    public void findTasks_noMatchingTasks_errorMessageReturned() {
         String expectedSearchResult = "Can't find any matching tasks!";
         assertEquals(expectedSearchResult, taskList.find("CS2113"));
     }
 
     @Test
-    public void taskList_markDoneSuccess() {
+    public void markDone_validIdx_tasksMarkedDone() {
         try {
             taskList.markDone("1");
             taskList.markDone("2");
