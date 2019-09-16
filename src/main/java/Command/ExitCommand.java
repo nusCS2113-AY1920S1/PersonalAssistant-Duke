@@ -25,8 +25,8 @@ public class ExitCommand extends Command {
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         boolean isClose = true;
-        /*try {
-            //storage.store(tasks);
+        try {
+            storage.store(tasks);
         }
         catch (DukeException e)
         {
@@ -40,6 +40,6 @@ public class ExitCommand extends Command {
             else
                 ui.closeFailure();
             ui.close();
-        }*/
+        }
     }
 }

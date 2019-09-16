@@ -40,7 +40,7 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath) throws DukeException {
+    public Duke(String filePath) {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.ui = new UI();
@@ -89,6 +89,25 @@ public class Duke extends Application {
 
     }
 
+    private void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while(!isExit) {
+            try {
+                String line = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(line);
+                isExit = c.isExit();
+                c.execute(this.myList, this.ui, this.storage);
+            } catch (DukeException | NullPointerException e) {
+                ui.showError(e.getLocalizedMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+        return;
+    }
+
     /**
      * This method is run when the GUI is started up.
      * It reads in data from a list, that is taken from the save file, and outputs it to the terminal.
@@ -125,10 +144,10 @@ public class Duke extends Application {
      *
      * @param args A duke program.
      */
-    private static void main(String[] args) {
+    public static void main(String[] args) {
 
-        //new Duke("save.txt").run();
-
+        new Duke("save.txt").run();
+        System.exit(0);
     }
 
 
