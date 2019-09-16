@@ -61,6 +61,9 @@ public class AddCommand extends Command {
                 Date endDate = simpleDateFormat.parse(startendDate[1]);
                 Task t = new Events(getDate[0].replaceFirst("event ", ""),
                         startDate, endDate);
+                if (ScheduleClashes(tasks, (Events) t)) {
+                    throw new DukeException("OOPS! There seems to be a clash in your schedule.");
+                }
                 tasks.addTask(t);
                 break;
             }
@@ -109,5 +112,15 @@ public class AddCommand extends Command {
 
     }
 
+    public Boolean ScheduleClashes(TaskList tasks, Events e){
+        for (Task t : tasks.getCheckList()) {
+            if (t instanceof Events) {
+                if (((Events) t).getStartAt().equals(e.getStartAt())) {
+                    return true;
+                };
+            }
+        }
+        return false;
+    }
 
 }

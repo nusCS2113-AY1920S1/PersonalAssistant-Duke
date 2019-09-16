@@ -12,7 +12,6 @@ public class Duke{
 
     private Ui ui;
     private TaskList tasks;
-    private EventsList schedule;
     private Storage storage;
 
     /**
@@ -23,8 +22,7 @@ public class Duke{
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            schedule = new EventsList();
-            tasks = new TaskList(storage.load(schedule));
+            tasks = new TaskList(storage.load());
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -62,9 +60,6 @@ public class Duke{
         new Duke("C:\\Users\\User\\Documents\\GitHub\\main\\data\\tasks.txt").run();
     }
 
-    public static interface Intervals {
-        public Date getInterval() {}
-    }
 }//duke class
 
 
