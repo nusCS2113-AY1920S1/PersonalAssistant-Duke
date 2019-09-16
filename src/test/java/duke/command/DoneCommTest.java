@@ -16,9 +16,9 @@ class DoneCommTest {
         Task task = new Todo("walk");
         Command cmd = new AddCommand(task);
         cmd.execute(items, ui);
-        assertEquals("[✗]", items.get(items.size() - 1).getStatusIcon());
+        assertEquals("[X]", items.get(items.size() - 1).getStatusIcon());
         cmd = new DoneCommand(0);
         cmd.execute(items,ui);
-        assertEquals("[✓]", items.get(items.size() - 1).getStatusIcon());
+        assertEquals("[/]", items.get(items.size() - 1).getStatusIcon());
     }
 }

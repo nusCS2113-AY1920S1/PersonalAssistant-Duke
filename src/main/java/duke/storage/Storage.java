@@ -22,7 +22,8 @@ import java.util.ArrayList;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected String filePath = "./";
+    //protected String filePath = "";
+    protected String filePath = "C:/repos/main/"; //for jar file
 
     /**
      * Creates a storage with a specified filePath.

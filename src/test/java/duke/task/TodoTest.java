@@ -8,6 +8,6 @@ class TodoTest {
     @Test
     void todoTest() {
         Task task = new Todo("store items");
-        assertEquals("[T][✗] store items", task.toString());
+        assertEquals("[T][X] store items", task.toString());
     }
 }

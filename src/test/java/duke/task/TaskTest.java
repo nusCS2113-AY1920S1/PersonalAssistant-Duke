@@ -9,9 +9,9 @@ class TaskTest {
     void taskTest() {
         Task task = new Todo("Hey");
         assertEquals("Hey", task.getDescription());
-        assertEquals("[✗]", task.getStatusIcon());
-        assertEquals("[T][✗] Hey", task.toString());
+        assertEquals("[X]", task.getStatusIcon());
+        assertEquals("[T][X] Hey", task.toString());
         task.setStatusIcon(true);
-        assertEquals("[T][✓] Hey", task.toString());
+        assertEquals("[T][/] Hey", task.toString());
     }
 }

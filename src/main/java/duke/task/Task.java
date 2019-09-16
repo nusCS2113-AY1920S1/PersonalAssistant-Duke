@@ -41,7 +41,7 @@ public class Task {
      * @return String of the status icon.
      */
     public String getStatusIcon() {
-        return (isDone ? "[✓]" : "[✗]"); //return [✓] : [✗] symbols
+        return (isDone ? "[/]" : "[X]"); //return [✓] : [✗] symbols; [/][X] for jar
     }
 
     /**
