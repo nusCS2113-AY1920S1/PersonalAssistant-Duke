@@ -27,10 +27,14 @@ public abstract class Task implements Serializable {
     //----------------------------------------------------------------------------------------------------------------->
 
 
+    /**
+     * Constructor.
+     * @param description the task's description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        hasReminder=false;
+        hasReminder = false;
     }
 
     //----------------------->

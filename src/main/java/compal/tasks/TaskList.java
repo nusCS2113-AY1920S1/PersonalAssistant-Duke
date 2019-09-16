@@ -42,9 +42,11 @@ public class TaskList {
     public TaskList(Duke d) {
         this.duke = d;
         //idBitSet = getIdBitSet();
-        if (idBitSet == null) {
+        /*if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
+        */
+
 
 
     }
@@ -82,34 +84,34 @@ public class TaskList {
         char notDone = '\u2718';
 
         switch (s) {
-            case "todo":
-                arrlist.add(new Todo(cs.trim()));
-                duke.ui.printg("[T][ " + notDone + "] " + cs);
-                break;
-            case "event":
-                token = "/at";
-                description = getDescription(cs, token);
-                date = getDate(cs, token);
-                arrlist.add(new Event(description, date));
-                duke.ui.printg("[E][ " + notDone + "] " + description);
-                break;
-            case "deadline":
-                token = "/by";
-                description = getDescription(cs, token);
-                date = getDate(cs, token);
-                arrlist.add(new Deadline(description, date));
-                duke.ui.printg("[D][ " + notDone + "] " + description);
-                break;
-            case "doaftertask":
-                token = "/after";
-                description = getDescription(cs, token);
-                date = getDate(cs, token);
-                arrlist.add(new DoAfterTasks(description,date));
-                duke.ui.printg("[DAT][ " + notDone + "] " + description);
-                break;
+        case "todo":
+            arrlist.add(new Todo(cs.trim()));
+            duke.ui.printg("[T][ " + notDone + "] " + cs);
+            break;
+        case "event":
+            token = "/at";
+            description = getDescription(cs, token);
+            date = getDate(cs, token);
+            arrlist.add(new Event(description, date));
+            duke.ui.printg("[E][ " + notDone + "] " + description);
+            break;
+        case "deadline":
+            token = "/by";
+            description = getDescription(cs, token);
+            date = getDate(cs, token);
+            arrlist.add(new Deadline(description, date));
+            duke.ui.printg("[D][ " + notDone + "] " + description);
+            break;
+        case "doaftertask":
+            token = "/after";
+            description = getDescription(cs, token);
+            date = getDate(cs, token);
+            arrlist.add(new DoAfterTasks(description,date));
+            duke.ui.printg("[DAT][ " + notDone + "] " + description);
+            break;
 
-            default:
-                throw new IllegalStateException("Unexpected value: " + s);
+        default:
+            throw new IllegalStateException("Unexpected value: " + s);
         }
 
         //at this point, an update is made to the task list, so save to file
@@ -320,16 +322,16 @@ public class TaskList {
         Date dateOneWeekAfter = c.getTime();
         for (Task t : arrlist) {
             Date deadline = t.getDateTime();
-            if ((deadline!=null && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
+            if ((deadline != null && !t.isDone && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
                 reminder.add(t);
             }
         }
         Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
         Collections.sort(reminder, compareByDateTime);
 
-        if(reminder.isEmpty()){
+        if (reminder.isEmpty()) {
             duke.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
-        }else{
+        } else {
             for (Task t : reminder) {
                 duke.ui.printg(t.getDescription());
             }

@@ -173,23 +173,23 @@ public class Ui {
      */
     public void firstTimeInit(String value, int stage) {
         switch (stage) {
-            case 0:
-                printg(value + "? Did I say it correctly? [Yes or No]");
-                username = value;
+        case 0:
+            printg(value + "? Did I say it correctly? [Yes or No]");
+            username = value;
+            break;
+        case 1:
+            if (value.matches("(y|Y).*")) {
+                printg("Hello " + username + "! Great to meet you!");
+                duke.parser.setStatus("normal");
+                duke.storage.storeUserName(username); //save the user's name
                 break;
-            case 1:
-                if (value.matches("(y|Y).*")) {
-                    printg("Hello " + username + "! Great to meet you!");
-                    duke.parser.setStatus("normal");
-                    duke.storage.storeUserName(username); //save the user's name
-                    break;
-                } else {
-                    printg("Okay, what is your name then?");
-                    duke.parser.setStatus("init");
-                    break;
-                }
-            default:
-                System.out.println("Unknown init stage");
+            } else {
+                printg("Okay, what is your name then?");
+                duke.parser.setStatus("init");
+                break;
+            }
+        default:
+            System.out.println("Unknown init stage");
 
         }
 
