@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Rusdi Haizim
 
-image::rusdihaizim.jpg[width="150", align="left"]
+image::rusdihaizim.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 {empty}[http://github.com/rusdihaizim[github]]
 
