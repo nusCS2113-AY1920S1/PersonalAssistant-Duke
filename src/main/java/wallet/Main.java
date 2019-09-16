@@ -1,5 +1,5 @@
 package wallet;
-
+import wallet.task.ScheduleList;
 import wallet.command.Command;
 import wallet.storage.Storage;
 import wallet.task.Task;
@@ -9,7 +9,8 @@ import wallet.ui.Ui;
 
 import java.util.ArrayList;
 
-public class Duke {
+
+public class Main {
     /**
      * The Ui object that handles input and output of the application
      */
@@ -22,6 +23,7 @@ public class Duke {
      * The TaskList object that handles the list of task added by the user.
      */
     private TaskList taskList;
+    private ScheduleList scheduleList;
 
     /**
      * The Reminder object that handles the reminder of undone tasks
@@ -32,7 +34,7 @@ public class Duke {
      * Constructs a new ui.Duke object.
      * @param path The path of the save file in the local computer.
      */
-    public Duke(String path){
+    public Main(String path){
         ui = new Ui();
         storage = new Storage(path);
         taskList = new TaskList((ArrayList<Task>) storage.loadFile());
@@ -41,7 +43,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(".\\duke.txt").run();
+        new Main(".\\duke.txt").run();
     }
 
     /**
@@ -54,7 +56,7 @@ public class Duke {
         while (!isExit){
             String cmd = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage);
+            isExit = Command.parse(cmd, taskList, storage, scheduleList);
             ui.printLine();
         }
         ui.byeMsg();

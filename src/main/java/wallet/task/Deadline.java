@@ -20,6 +20,15 @@ public class Deadline extends Task{
     }
 
     /**
+     *
+     * @return date of deadline task
+     */
+
+    public Date getDate(){
+        return by;
+    }
+
+    /**
      * Outputs the string with the correct format for printing to UI
      * @return The string formatted for printing to UI
      */
