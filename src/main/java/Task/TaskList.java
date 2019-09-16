@@ -1,24 +1,28 @@
 package Task;
 
 import Data.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 /**
- * TaskList handles all the operations Duke uses
+ * TaskList handles all the operations Duke uses.
  */
 public class TaskList {
     private static ArrayList<item> list = new ArrayList<>();
 
     /**
-     * This method loads all the ArrayList items from the previous load file into the current ArrayList
+     * This method loads all the ArrayList items from the previous load file into the current ArrayList.
      */
     public static void addAllList () {
         try {
             list.addAll(Objects.requireNonNull(Storage.loadFile()));
         }
         catch (NullPointerException e) {
-            System.out.println("No previous list");
+            System.out.println("No previous list loaded");
         }
     }
 
@@ -37,7 +41,7 @@ public class TaskList {
     }
 
     /**
-     * This function prints out the complete list of tasks in the ArrayList
+     * This function prints out the complete list of tasks in the ArrayList.
      */
     public static void getList() {
         int count = 1;
@@ -47,7 +51,7 @@ public class TaskList {
     }
 
     /**
-     * This function changes the status of a task from incomplete to complete
+     * This function changes the status of a task from incomplete to complete.
      *
      * @param index This is the index location of the task to be changed in the ArrayList
      */
@@ -99,14 +103,14 @@ public class TaskList {
     }
 
     /**
-     * This function takes in an integer number adds its correct number ordinal to the number
+     * This function takes in an integer number adds its correct number ordinal to the number.
      *
      * @param num This parameter is the number taken
      * @return String of the input number with the ordinal attached to the end of the number
      */
     public static String numOrdinal (int num) {
         String[] suffix = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
-        switch (num % 100) {
+        switch (num) {
             case 11:
             case 12:
             case 13:
@@ -117,20 +121,22 @@ public class TaskList {
     }
 
     /**
-     * This function takes specific date format dd/mm/yyyy hhmm and turns it into a string phrase
+     * This function takes specific date format dd/mm/yyyy hhmm and turns it into a string phrase.
      *
      * @param date The date taken in by the function
      * @return The date that has been converted into a string phrase, if in incorrect format return original date
      * @throws StringIndexOutOfBoundsException e
      * @throws ArrayIndexOutOfBoundsException e
+     * @throws ParseException thrown when date input is in incorrect format
      */
-    public static String dateConvert (String date) {
-        String[] months = {"January", "February", "March",
-                "April", "May", "June", "July",
-                "August", "September","October",
-                "November", "December"};
-
+    public static Date dateConvert (String date) {
         try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            Date formatDate = simpleDateFormat.parse(date);
+
+
+
+            /*
             String[] words = date.split("[/| ]"); // split based on space and /
             System.out.println(words[3]);
             int hour = Integer.parseInt(words[3].substring(0,2));
@@ -141,9 +147,17 @@ public class TaskList {
                     words[2] + ", " + (hour % 12) + ((min == 0) ? "": ("."+ wordMin)) + mm;
             //2nd of December 2019, 6pm
             return d1;
+
+             */
+            return formatDate;
         }
         catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-            return date;
+            System.out.println("Please enter a valid date format");
+            return null;
+        }
+        catch (ParseException pe) {
+            System.out.println("Date error");
+            return null;
         }
     }
 

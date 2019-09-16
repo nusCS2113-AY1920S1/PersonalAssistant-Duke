@@ -1,14 +1,13 @@
 package Task;
 
 /**
- * This is the main superclass that contains all the attributes of the tasks
+ * This is the main superclass that contains all the attributes of the tasks.
  */
 public class item {
 
     private Boolean status;
     private String info;
     private String type;
-    private String date = "";
 
 
     public item (String info, Boolean status) {
@@ -17,7 +16,7 @@ public class item {
     }
 
     /**
-     * This function changes the status of the task to true
+     * This function changes the status of the task to true.
      * @return true
      */
     public Boolean changeStatus () {
@@ -26,7 +25,7 @@ public class item {
     }
 
     /**
-     * Function sets the type of the item
+     * Function sets the type of the item.
      *
      * @param t The string type of the item
      * @return the newly set type of the item
@@ -37,7 +36,7 @@ public class item {
     }
 
     /**
-     * Gets the type of the item
+     * Gets the type of the item.
      *
      * @return String type of the item
      */
@@ -45,25 +44,14 @@ public class item {
         return type;
     }
 
-    /**
-     * Sets the date of the item as defined by the standard input
-     *
-     * @param date The date defined by the user
-     * @return newly defined date
-     */
-    public String setDate (String date) {
-
-        this.date = date;
-        return this.date;
-    }
 
     /**
-     * Gets the date of the item
+     * Gets the date of the item.
      *
      * @return String date of the item
      */
     public String getDate () {
-        return date;
+        return "";
     }
 
     /**
@@ -85,7 +73,7 @@ public class item {
     }
 
     /**
-     * Function will give a tick or cross depending if the status of the item is true or false
+     * Function will give a tick or cross depending if the status of the item is true or false.
      *
      * @return tick or cross
      */
@@ -94,7 +82,7 @@ public class item {
     }
 
     /**
-     * This function prints out the string of the status icon as a tick or cross and the info of the item
+     * This function prints out the string of the status icon as a tick or cross and the info of the item.
      *
      * @return String phrase of all item details
      */

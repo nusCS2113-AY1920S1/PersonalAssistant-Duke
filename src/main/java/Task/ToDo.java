@@ -7,7 +7,7 @@ package Task;
 public class ToDo extends item {
 
     /**
-     * This method is the constructor used to create the todo class
+     * This method is the constructor used to create the todo class.
      * @param info This is the information about the task being added
      * @param status This determines if whether the item added is completed or uncompleted
      */
