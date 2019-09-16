@@ -23,7 +23,6 @@ public class TaskList {
      */
     public TaskList(Duke d) {
         this.duke = d;
-        arrlist = new ArrayList<>();
         idBitSet = getIdBitSet();
         if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
@@ -126,7 +125,8 @@ public class TaskList {
         }
 
         //at this point, an update is made to the task list, so save to file
-        duke.storage.saveDuke(arrlist);
+        System.out.println("Done processing adding of task");
+        duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
 
@@ -145,7 +145,7 @@ public class TaskList {
         Task t = arrlist.remove(sc1.nextInt() - 1);
         t.markAsDone();
         duke.ui.showTask(t);
-        duke.storage.saveDuke(arrlist);
+        duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
 
@@ -165,7 +165,7 @@ public class TaskList {
         t.markAsDone();
 
         duke.ui.showTask(t);
-        duke.storage.saveDuke(arrlist);
+        duke.storage.saveCompal(arrlist);
     }
 
 
