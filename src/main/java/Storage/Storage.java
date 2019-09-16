@@ -58,6 +58,10 @@ public class Storage {
                 {
                     fileContent += " | " + list.get(i).getDueDate();
                 }
+                else if(list.get(i).getType().matches("R"))
+                {
+                    fileContent += " | " + list.get(i).getFrequency();
+                }
                 bufferedWriter.write(fileContent);
                 bufferedWriter.newLine();
             }

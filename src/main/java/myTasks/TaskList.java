@@ -40,6 +40,9 @@ public class TaskList {
                     case "E":
                         list.add(new Event(split[1], split[2], split[3]));
                         break;
+                    case "R":
+                        list.add(new Recurring(split[1], split[2], split[3]));
+                        break;
                     default:
                         throw new DukeException((i+1) + "has incorrect task format.");
                 }
@@ -53,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Fetches current size of Arraylist
+     * Fetches current size of ArrayList
      * @return long size of ArrayList
      */
     public long size(){
@@ -157,6 +160,9 @@ public class TaskList {
                     break;
                 case "event":
                     temp = new Event(input);
+                    break;
+                case "recurring":
+                    temp = new Recurring(input);
                     break;
                 default:
                     throw new DukeException("What the Hell happened here?\n"+

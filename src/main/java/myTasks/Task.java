@@ -37,6 +37,14 @@ public class Task {
     }
 
     /**
+     * Get frequency of the task.
+     * To be overwritten by the recurrence class
+     */
+    public String getFrequency() {
+        return "";
+    }
+
+    /**
      * Attempts to parse date and input it as Date type
      * @param date String which is in Date format
      * @throws DukeException DukeException thrown when dateFormatter parsing fails
@@ -57,7 +65,7 @@ public class Task {
      * @return String which is a status icon in unicode format
      */
     String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "Y" : "N"); //return Y or N
     }
 
     /**

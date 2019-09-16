@@ -1,0 +1,4 @@
+T | 0 | Send Help
+T | 1 | Send more Help
+T | 0 | Send even more Help
+R | 0 | Deliver Help | Day
