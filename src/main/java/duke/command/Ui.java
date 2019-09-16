@@ -86,8 +86,8 @@ public class Ui {
         showTasks(tasks);
     }
 
-    public void showSearchResult(List<Task> tasks, String start, String end) {
-        printIndented("Here are the tasks from " + start + " to " + end + ":");
+    public void showSearchResult(List<Task> tasks, String task, String start, String end) {
+        printIndented("Here are the " + task + " from " + start + " to " + end + ":");
         showTasks(tasks);
     }
 
