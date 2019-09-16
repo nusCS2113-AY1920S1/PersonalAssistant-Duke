@@ -141,4 +141,8 @@ public abstract class Task {
     {
         return ld;
     }
+
+    public LocalDate getDate() {
+        return ld.toLocalDate();
+    }
 }
