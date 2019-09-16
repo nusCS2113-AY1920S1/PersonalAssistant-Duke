@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="32e0d890-2356-4679-ad97-55a0f7900531" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/DialogBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/DialogBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/MainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/JavaFX.DialogBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/JavaFX.DialogBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/JavaFX.MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/JavaFX.MainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/text-ui-test/runtest.bat" beforeDir="false" afterPath="$PROJECT_DIR$/text-ui-test/runtest.bat" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,8 +47,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Launcher" />
+    <configuration name="JavaFX.Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="JavaFX.Launcher" />
       <module name="duke.main" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -56,7 +56,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.JavaFX.Launcher" />
       </list>
     </recent_temporary>
   </component>

@@ -1,3 +1,5 @@
+package JavaFX;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -73,12 +75,12 @@ public class DialogBox extends HBox {
 
     /**
      * Method to get and display text and image in a dialog box.
-     * This is used for responses from Duke.
+     * This is used for responses from JavaFX.Main.Duke.
      * It will be flipped to differentiate itself from a user dialog box.
      *
-     * @param text Duke's response to user input.
-     * @param img An image of Duke.
-     * @return A flipped dialog box containing Duke's response and his image
+     * @param text JavaFX.Main.Duke's response to user input.
+     * @param img An image of JavaFX.Main.Duke.
+     * @return A flipped dialog box containing JavaFX.Main.Duke's response and his image
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);

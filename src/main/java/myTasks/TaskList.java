@@ -1,107 +1,213 @@
 package myTasks;
 
-import myTasks.Task;
+import Exception.DukeException;
+import Parser.Parser;
 
 import java.util.ArrayList;
 
 /**
- * Method to store and manage multiple tasks at once.
- *
- * @author Lee Zhen Yu
- * @version %I%
- * @since 1.0
+ * Tasklist stores an arraylist of tasks and performs actions on tasks
+ * Actions: Modify/Remove/Add Tasks
+ * @author Kane Quah
+ * @version 1.0
+ * @since 08/19
  */
 public class TaskList {
-
-    protected ArrayList<Task> myList;
-
-    /**
-     * Constructor that converts a given arrayList into a taskList.
-     *
-     * @param myList The array list to be converted into a taskList.
-     */
-    public TaskList (ArrayList<Task> myList) {
-        this.myList = myList;
-    }
+    private ArrayList<Task> list = new ArrayList<>();
+    public TaskList(){}
 
     /**
-     * Method to display the tasks in the taskList in a format friendly to the user.
+     * Overloaded Initializer which accepts a String Parameter with data
+     * @param input String with data separated by newline characters
+     * @throws DukeException DukeException Thrown when input is empty or data format is wrong
      */
-    //Method to get the tasks in a list
-    public void getList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < myList.size(); i++) { //Standard for-each loop: for (String element: myList)
-            System.out.println((i + 1) + "." + myList.get(i).getStatusIcon());
+    public TaskList(String input) throws DukeException {
+        if(input.isBlank())
+        {
+            throw new DukeException("File was blank");
+        }
+        String[] splitTasks = input.split(Parser.newLine);
+        try {
+            for (int i = 0; i < splitTasks.length; i++) {
+                String[] split = splitTasks[i].split(Parser.taskSeparator);
+                switch(split[0]) {
+                    case "T":
+                        list.add(new Todo(split[1], split[2]));
+                        break;
+                    case "D":
+                        list.add(new Deadline(split[1], split[2], split[3]));
+                        break;
+                    case "E":
+                        list.add(new Event(split[1], split[2], split[3]));
+                        break;
+                    default:
+                        throw new DukeException((i+1) + "has incorrect task format.");
+                }
+            }
+        }
+        catch(DukeException e)
+        {
+            list.clear();
+            throw new DukeException("Issues encountered when creating tasks, initializing empty list.");
         }
     }
 
     /**
-     * Method to add a new task to the taskList.
-     * It will output a message acknowledging that a task has been added successfully.
-     *
-     * @param taskData The task to be added to the taskList.
+     * Fetches current size of Arraylist
+     * @return long size of ArrayList
      */
-    //Method to add a task to a list and output the size of list
-    public void addToList(Task taskData) {
-        myList.add(taskData);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskData.getStatusIcon());
-        System.out.println("Now you have " + myList.size() + " task(s) in the list.");
+    public long size(){
+        return list.size();
     }
 
     /**
-     * Method to add a new task to the taskList.
-     * This method will not output any messages regarding the addition of the task.
-     * Its more for background additions without spamming the user with texts.
-     *
-     * @param taskData The task to be added to the taskList.
+     * Out of Bounds checker
+     * @param request int The index to be checked if it exists
+     * @return boolean true if within range, false if not
      */
-    //Adds to list from save data without spamming "got it..."
-    public void addToListQuietly(Task taskData) {
-        myList.add(taskData);
+    private boolean isOutOfRange(int request){
+        return ((request < 0) || (request >= this.size()));
     }
 
     /**
-     * Method to remove a task corresponding to the task number from the taskList.
-     * The parser class has accounted for and updated this taskNumber to fit computing standards.
-     *
-     * @param taskNumber The number of the task to be removed from the taskList.
+     * Mark a Task as Done
+     * @param input String which should be an Int type
+     * @throws DukeException DukeException thrown when An incorrect type input is given
+     *                          or the requested index is out of range
      */
-    //method to remove task from list
-    public void removeFromList(int taskNumber) {
-        myList.remove(taskNumber);
+    public void markDone(String input) throws DukeException {
+        try {
+            int request = Integer.parseInt(input);
+            request-=1;
+            if(isOutOfRange(request)){
+                throw new DukeException("The index was not found within range");
+            }
+            else {
+                this.list.get(request).markDone();
+                System.out.println("Nice! I've marked this task as done:\n" +
+                        "  " + this.list.get(request).toList());
+            }
+        }
+        catch(DukeException e)
+        {
+            throw new DukeException(e.getLocalizedMessage());
+        }
+        catch (NumberFormatException e) {
+            throw new DukeException("That is NOT a valid integer");
+        }
     }
 
     /**
-     * Method to update the status of a task in the taskList.
-     * The parser class has accounted for and updated this taskNumber to fit computing standards.
-     *
-     * @param taskNumber The number of the task to be updated.
+     * Sends a Task to the Shadow Realm
+     * @param input String which should be an Int type
+     * @throws DukeException DukeException thrown when An incorrect type input is given
+     *                          or the requested index is out of range
      */
-    //method to update the status of a task
-    public void updateTask(int taskNumber) {
-        myList.get(taskNumber).markAsDone();
+    public void banishDelete(String input) throws DukeException {
+        try {
+            int request = Integer.parseInt(input);
+            request-=1;
+            if(isOutOfRange(request)){
+                throw new DukeException("The index was not found within range");
+            }
+            else {
+                System.out.println("Noted. I've removed this task:\n" +
+                        "  " + list.get(request).toList());
+                this.list.remove(request);
+                System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+            }
+        }
+        catch(DukeException e)
+        {
+            throw new DukeException(e.getLocalizedMessage());
+        }
+        catch (NumberFormatException e) {
+            throw new DukeException("That is NOT a valid integer");
+        }
     }
 
     /**
-     * Method to return and display the data of a task corresponding to the task number.
-     *
-     * @param taskNumber The number of the task to be displayed
-     * @return The entire data of the task as a task type.
+     * Fetches a Task from the ArrayList, given an index
+     * @param index int index of Task within ArrayList
+     * @return Task Task within ArrayList
+     * @throws DukeException DukeException thrown when Task is not found within list
      */
-    //Method to display task description and stats as a task
-    public Task getTask(int taskNumber) {
-        return myList.get(taskNumber);
+    public Task get(int index) throws DukeException {
+        if(!this.isOutOfRange(index))
+            return this.list.get(index);
+        else
+            throw new DukeException("Requested Task not found within list");
     }
 
     /**
-     * Method to return the number of tasks in the taskList as an integer.
-     * For tracking the number of tasks in the taskList.
-     *
-     * @return The size of the taskList.
+     * Adds another task to the list, given the inputs;
+     * @param type String indicating what type of Task should be added
+     * @param input raw secondary input to be processed by the method
+     * @throws DukeException
      */
-    //method to return size of list
-    public int getSize() {
-        return myList.size();
+    public void add(String type, String input) throws DukeException {
+        Task temp;
+        try {
+            switch (type) {
+                case "todo":
+                    temp = new Todo(input);
+                    break;
+                case "deadline":
+                    temp = new Deadline(input);
+                    break;
+                case "event":
+                    temp = new Event(input);
+                    break;
+                default:
+                    throw new DukeException("What the Hell happened here?\n"+
+                            "Command passed successfully to tasklist.add, not found in any case");
+            }
+            this.list.add(temp);
+            System.out.println("Got it. I've added this task:\n  " +
+                    temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
+        }
+        catch (DukeException e) {
+            throw new DukeException(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Finds a Task if any part of its description/date matches the input
+     * @param input String to be matches to description/date
+     * @throws DukeException DukeException to be thrown when errors occur somehow
+     */
+    public void find(String input) throws DukeException {
+        ArrayList<Integer> FoundIndex = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getDescription().contains(input) || this.get(i).getDueDate().contains(input)) {
+
+                FoundIndex.add(i);
+            }
+        }
+        if(FoundIndex.isEmpty())
+            System.out.println("There are no matching tasks in the list");
+        else
+        {
+            System.out.println("Here are the matching tasks in your list:");
+            for (Integer foundIndex : FoundIndex) {
+                System.out.println((foundIndex + 1) + ". " + this.get(foundIndex).toList());
+            }
+        }
+    }
+
+    /**
+     * Prints out all tasks in list
+     * If list is empty, prints out message stating that it is empty
+     */
+    public void print() {
+        if (this.size() == 0) {
+            System.out.println("Whoops, there doesn't seem to be anything here at the moment");
+        } else {
+            int counter = 1;
+            for (Task task : list) {
+                System.out.println(counter++ + ". " + task.toList());
+            }
+        }
     }
 }
