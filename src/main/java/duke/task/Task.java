@@ -5,6 +5,7 @@ import duke.core.DukeException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -86,6 +87,27 @@ public abstract class Task {
     public boolean isTaskRecurring() { return isRecurring; }
 
     /**
+     * When a task is recurring, method compares current time to listed date.
+     * If the task's date is outdated, then it will update to be for the next day.
+     */
+    public void recurringTaskTimeUpdate() {
+        if ((ld != null) && this.isRecurring) {
+            DateTimeFormatter taskTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try {
+                LocalDateTime taskDate = LocalDateTime.parse(ld.toString(), taskTimeFormatter);
+                LocalDateTime currentDate = LocalDateTime.parse(LocalDateTime.now().toString(), taskTimeFormatter);
+
+                if (taskDate.isBefore(currentDate)) {
+                    Duration dayDifference = Duration.between(currentDate, taskDate);
+                    this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("I couldn't update your recurring events' times.");
+            }
+        }
+    }
+
+    /**
      * Returns a string with the status icon and the description of the task.
      *
      * @return A string in a specific format with the status and description of the task.
@@ -146,6 +168,7 @@ public abstract class Task {
             System.out.println("Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
         }
     }
+
     /**
      * Returns the data and time information stored in the task without a certain format.
      *
