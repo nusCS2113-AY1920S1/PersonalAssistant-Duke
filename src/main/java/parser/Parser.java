@@ -262,7 +262,7 @@ public class Parser {
         try {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
-            String[] startendtime = time1.split("to");
+            String[] diffDates = time1.split("or");
             //Date timetemp1 = TimeParser.convertStringToDate(time1);
             //time1 = TimeParser.convertDateToLine(timetemp1);
             if (todoTask1.isEmpty()) {
@@ -277,13 +277,24 @@ public class Parser {
             if (time1.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_EVENT;
             }
-            Event task1 = new Event(todoTask1, "E", startendtime[0], startendtime[1]);
-            String newtodoTask1 = task1.toMessage();
-            Tasks newToDo1 = new Event(newtodoTask1, "E", startendtime[0], startendtime[1]);
-            int todolistNumber = TaskList.getTotalTasksNumber();
-            TaskList.addTask(newToDo1);
-            Ui.showEventMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
-            Storage.saveTask(TaskList.getList());
+            for (int i = 0; i < diffDates.length; i += 1) {
+                String[] startendtime = diffDates[i].split("to");
+                Tasks newToDo1;
+                String newtodoTask1;
+                if (i == 1) {
+                    Event task1 = new Event(todoTask1, "E", startendtime[0], startendtime[1]);
+                    newtodoTask1 = task1.toMessage();
+                    newToDo1 = new Event(newtodoTask1, "E", startendtime[0], startendtime[1]);
+                } else {
+                    Event task1 = new Event(todoTask1, "E[?]", startendtime[0], startendtime[1]);
+                    newtodoTask1 = task1.toMessage();
+                    newToDo1 = new Event(newtodoTask1, "E[?]", startendtime[0], startendtime[1]);
+                }
+                int todolistNumber = TaskList.getTotalTasksNumber();
+                TaskList.addTask(newToDo1);
+                Ui.showEventMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
+                Storage.saveTask(TaskList.getList());
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_EVENT;
         }
