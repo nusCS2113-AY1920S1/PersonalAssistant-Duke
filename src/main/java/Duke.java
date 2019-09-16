@@ -1,4 +1,6 @@
 import java.text.ParseException;
+import java.util.Date;
+
 import Commands.*;
 import ControlPanel.*;
 import Tasks.*;
@@ -55,7 +57,7 @@ public class Duke{
      * @throws DukeException if any exception is caught
      */
     public static void main(String[] args) throws DukeException {
-        new Duke("/Users/chengweixuanmacbook/Desktop/School/CS2113/main/data/tasks.txt").run();
+        new Duke("C:\\Users\\User\\Documents\\GitHub\\main\\data\\tasks.txt").run();
     }
 
 }//duke class

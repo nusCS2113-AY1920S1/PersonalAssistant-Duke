@@ -59,8 +59,14 @@ public class AddCommand extends Command {
                 //System.out.println(startendDate[1]);
                 Date startDate = simpleDateFormat.parse(startendDate[0]);
                 Date endDate = simpleDateFormat.parse(startendDate[1]);
+                if (InvalidDuration(startDate, endDate)) {
+                    throw new DukeException("OOPS!!! The period of this event is invalid.");
+                }
                 Task t = new Events(getDate[0].replaceFirst("event ", ""),
                         startDate, endDate);
+                if (ScheduleClashes(tasks, (Events) t)) {
+                    throw new DukeException("OOPS! There seems to be a clash in your schedule.");
+                }
                 tasks.addTask(t);
                 break;
             }
@@ -109,5 +115,19 @@ public class AddCommand extends Command {
 
     }
 
+    public Boolean ScheduleClashes(TaskList tasks, Events e){
+        for (Task t : tasks.getCheckList()) {
+            if (t instanceof Events) {
+                if (((Events) t).getStartDateAt().compareTo(e.getEndDateAt()) <= 0
+                && ((Events) t).getEndDateAt().compareTo(e.getEndDateAt()) >= 0) {
+                    return true;
+                };
+            }
+        }
+        return false;
+    }
 
+    public Boolean InvalidDuration (Date from, Date to) {
+        return (from.compareTo(to) > 0);
+    }
 }

@@ -1,6 +1,6 @@
 package Tasks;
 
-public class Task{
+public class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
@@ -30,12 +30,11 @@ public class Task{
         return isDone;
     }
 
+    public String getType() { return type; }
+
     public void chooseDate(int index) {
        // System.out.println("");
     }
 
-//    public String getTaskType(){
-//        return type;
-//    }
 }
 
