@@ -58,6 +58,10 @@ public class Storage {
                 {
                     fileContent += " | " + list.get(i).getDueDate();
                 }
+                else if(list.get(i).getType().matches("R|A|W|F"))
+                {
+                    fileContent += " | " + list.get(i).getAfter();
+                }
                 bufferedWriter.write(fileContent);
                 bufferedWriter.newLine();
             }

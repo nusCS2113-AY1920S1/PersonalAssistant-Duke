@@ -14,6 +14,10 @@ import java.util.Scanner;
 public class Parser {
     public static String deadline = "\\s*/by\\s*";
     public static String event = "\\s*/at\\s*";
+    public static String recurring = "\\s*/every\\s*";
+    public static String after = "\\s*/after\\s*";
+    public static String within = "\\s*/between\\s*";
+    public static String fixed = "\\s*/need\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String newLine = "\n";
     private Storage save;
@@ -47,7 +51,7 @@ public class Parser {
                 }
             }
         }
-        else if (command.matches("todo|deadline|event|done|delete|find")) {
+        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after|within|fixed")) {
             if(!temp.hasNextLine())
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             String input = temp.nextLine();
@@ -59,14 +63,17 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }
             else {
-                if(command.matches("todo|deadline|event"))
+                //add new tasks
+                if(command.matches("todo|deadline|event|recurring|after|within|fixed"))
                 {
                     return new AddCommand(command, input);
                 }
+                //editing current task
                 else if(command.matches("done|delete"))
                 {
                     return new ModCommand(command, input);
                 }
+                //reading task list
                 else if (command.matches("find"))
                 {
                     return new SearchCommand(command, input);
