@@ -124,10 +124,12 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     public FilteredList<Task> getFilteredList() {
-        return new FilteredList<>(internalList, (Task t) -> (t instanceof TaskWithDates) && (((TaskWithDates) t).getStartDate() != null));
+        return new FilteredList<>(internalList, (Task t) -> (t instanceof TaskWithDates)
+                && (((TaskWithDates) t).getStartDate() != null));
     }
 
     public SortedList<Task> getChronoList() {
-        return new SortedList<Task>(getFilteredList(), Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
+        return new SortedList<Task>(getFilteredList(),
+                Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
     }
 }
