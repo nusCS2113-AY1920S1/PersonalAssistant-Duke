@@ -2,6 +2,8 @@ package compal.inputs;
 
 import compal.main.Duke;
 
+import java.text.ParseException;
+
 
 /**
  * @DEVNOTE: Parser is the key processing class of the entire application. It is the brain of the program; it helps
@@ -9,6 +11,8 @@ import compal.main.Duke;
  * receives and disseminates information to the other classes where and when needed
  */
 public class Parser {
+
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
     Duke duke;
 
     /**
@@ -26,13 +30,33 @@ public class Parser {
      */
     public int stage = 0;
 
+
+    //----------------------->
+
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+
     /**
-     * Constructor for the parser. Called in Duke when initializing
+     * Constructor for the parser. Called in Duke constructor.
      * @param d Duke
      */
     public Parser(Duke d) {
         this.duke = d;
     }
+
+
+    //----------------------->
+
+
+
+    //***COMMAND PROCESSING***------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
     /**
      * This function handles the main CLI parsing. Just pass in the cmd string and it will work its magic.
@@ -52,10 +76,18 @@ public class Parser {
             duke.tasklist.taskDone(cmd);
         } else if (cmd.matches("delete ([0-9]+)")) {
             duke.tasklist.deleteTask(cmd);
-        } else if (cmd.matches("(todo|event|deadline) .+")) {
-            duke.tasklist.addTask(cmd);
+        } else if (cmd.matches("(todo|event|deadline|doaftertask) .+")) {
+            try {
+                duke.tasklist.addTask(cmd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else if (cmd.matches("[T|t]ask .+")) { //draft task adding for ComPAL
-            duke.tasklist.addTask(cmd);
+            try {
+                duke.tasklist.addTask(cmd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else if (cmd.matches("find (.*)")) {
             duke.tasklist.findTask(cmd);
         } else if (status.equals("init")) {
@@ -81,6 +113,17 @@ public class Parser {
 
     }
 
+
+    //----------------------->
+
+
+
+
+
+    //***PARSER LOGIC CONTROL***----------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
     /**
      * Sets the parser's parsing logic flow to that of 'status'
      * Changing status will help parser know where to send the received user input to and
@@ -91,6 +134,8 @@ public class Parser {
         this.status = status;
         stage = 0; //reset stage everytime status is changed
     }
+
+    //----------------------->
 
 
 }

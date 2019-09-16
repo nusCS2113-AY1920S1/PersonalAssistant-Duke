@@ -12,12 +12,16 @@ import java.text.ParseException;
  * JavaFXML Controller class for handling GUI.
  */
 public class MainWindow extends AnchorPane {
+
+
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
     @FXML
     private TextField userInput;
     @FXML
     private Label date;
-
     private Duke duke;
+    //----------------------->
+
 
 
     @FXML

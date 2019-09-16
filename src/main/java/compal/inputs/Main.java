@@ -18,7 +18,10 @@ import java.util.Date;
 
 public class Main extends Application {
 
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private Duke duke = new Duke();
+
+    //----------------------->
 
 
     /**
@@ -44,7 +47,7 @@ public class Main extends Application {
             //----------------------------------------------------------------------------------------------->
 
 
-            //Show the current user system time --------------------------------------------------------------->
+            //Get and show the current user system time ------------------------------------------------------->
             Label date = (Label) ap.getChildren().get(6);
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
@@ -60,8 +63,8 @@ public class Main extends Application {
             primaryStage.show();
             System.out.println("Primary Stage Initialized. Setting Scene and Initializing Duke.");
 
-            //run duke's initialization code
-            duke.start(primaryStage);
+            //run ui's initialization code
+            duke.ui.checkInit();
         } catch (IOException e) {
             e.printStackTrace();
         }
