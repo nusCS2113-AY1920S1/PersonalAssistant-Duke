@@ -20,10 +20,10 @@ public class ViewScheduleCommand extends Command {
     private SimpleDateFormat formatter;
 
     /**
-     * Constructor for class
+     * Constructor for class.
      *
      * @param words User input with start and end date time
-     * @throws DukeException
+     * @throws DukeException Exception thrown for invalid or missing date time
      */
     public ViewScheduleCommand(List<String> words) throws DukeException {
         this.words = words;
@@ -36,7 +36,7 @@ public class ViewScheduleCommand extends Command {
      *
      * @param string User input.
      * @return Date
-     * @throws DukeException Exception thrown for invalid or missing datetime
+     * @throws DukeException Exception thrown for invalid or missing date time
      */
     private Date returnDate(String string) throws DukeException {
         try {
