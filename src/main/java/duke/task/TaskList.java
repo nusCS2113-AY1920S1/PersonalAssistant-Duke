@@ -171,6 +171,7 @@ public class TaskList {
 
     /**
      * Views task and schedule based on a specific date.
+     *
      * @param date Date to be searched for in the form of DD/MM/YYYY
      * @return An ArrayList of strings representing the list of tasks based on date provided
      */
