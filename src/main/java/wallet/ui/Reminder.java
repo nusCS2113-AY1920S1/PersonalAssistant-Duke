@@ -17,7 +17,7 @@ public class Reminder {
         ui = new Ui();
         this.taskList = taskList;
         number = 1;
-        autoRemind = true;
+        autoRemind = false;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
     }
 
