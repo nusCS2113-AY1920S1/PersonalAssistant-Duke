@@ -2,14 +2,20 @@ package compal.tasks;
 
 import compal.main.Duke;
 
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Scanner;
 
 public class TaskList {
 
@@ -19,6 +25,7 @@ public class TaskList {
 
     /**
      * Constructor for class.
+     *
      * @param d Duke
      */
     public TaskList(Duke d) {
@@ -47,6 +54,7 @@ public class TaskList {
 
     /**
      * Loads the current bitset saved on file and returns it.
+     *
      * @return
      */
     public BitSet getIdBitSet() {
@@ -89,6 +97,7 @@ public class TaskList {
     /**
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
+     *
      * @param cmd to tell the function what command is to be executed
      * @Function
      * @calls dateParse(String when)
@@ -257,15 +266,15 @@ public class TaskList {
         c.setTime(currentDate);
         c.add(Calendar.DATE, 7);
         Date dateOneWeekAfter = c.getTime();
-        for (Task t: arrlist) {
+        for (Task t : arrlist) {
             Date deadline = t.getDateTime();
-            if(deadline.before(dateOneWeekAfter) || t.isHasReminder()) {
+            if (deadline.before(dateOneWeekAfter) || t.isHasReminder()) {
                 reminder.add(t);
             }
         }
         Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
         Collections.sort(reminder, compareByDateTime);
-        for (Task t: reminder) {
+        for (Task t : reminder) {
             duke.ui.printg(t.getDescription());
         }
     }

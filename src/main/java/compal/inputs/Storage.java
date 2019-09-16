@@ -1,13 +1,18 @@
 package compal.inputs;
 
-import compal.tasks.Deadline;
-import compal.tasks.Event;
 import compal.tasks.Task;
-import compal.tasks.Todo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Storage {
     
@@ -18,12 +23,17 @@ public class Storage {
     }
 
 
-    public ArrayList<Task> loadCompal(){
-        ArrayList<Task> list2=null;
+    /**
+     * use to preload the arraylist as a binary stream if there is anything to load at all.
+     *
+     * @return list2 the arraylist of stored item found in file.
+     */
+    public ArrayList<Task> loadCompal() {
+        ArrayList<Task> list2 = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("binary"));
             list2 = (ArrayList<Task>) ois.readObject();
-            for(Task t:list2){
+            for (Task t : list2) {
                 System.out.println("LoadCompal:");
                 System.out.println(t.getDescription());
             }
@@ -35,8 +45,12 @@ public class Storage {
     }
 
 
-
-    public void saveCompal(ArrayList<Task> tasks){
+    /**
+     * Used to save the arraylist of task into the file.
+     *
+     * @param tasks ArrayList of task stored
+     */
+    public void saveCompal(ArrayList<Task> tasks) {
 
         try {
             ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("binary"));
@@ -45,7 +59,6 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
