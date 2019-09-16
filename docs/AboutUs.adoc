@@ -1,0 +1,24 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+'''
+
+=== Rusdi Haizim
+
+<img width="150" src="https://github.com/RusdiHaizim/main/blob/master/docs/images/rusdihaizim.png?raw=true" />
+
+{empty}[http://github.com/rusdihaizim[github]]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
