@@ -39,6 +39,9 @@ public class Storage {
         else if (task_string[0].equals("D")) {
           list.add(new Deadline(task_string[2], task_string[3]));
         }
+	else if (task_string[0].equals("A")) {
+	  list.add(new DoAfter(task_string[2], task_string[3]));
+	}
         else {
           list.add(new Event(task_string[2], task_string[3]));
         }

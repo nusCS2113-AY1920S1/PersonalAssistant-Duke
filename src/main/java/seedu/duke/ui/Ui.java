@@ -47,7 +47,7 @@ public class Ui {
    */
   public void correct_command_error() {
     System.out.println("\t_____________________________________");
-    System.out.println("\tPlease enter a valid command: todo, deadline, event, list, bye, find, delete.");
+    System.out.println("\tPlease enter a valid command: todo, deadline, event, doafter, list, bye, find, delete.");
     System.out.println("\t_____________________________________\n\n");
   }
 
@@ -56,7 +56,7 @@ public class Ui {
    */
   public void wrong_description_error() {
     System.out.println("\t_____________________________________");
-    System.out.println("\tDescription needs a '/' before by/at");
+    System.out.println("\tDescription needs a '/' before by/at/after");
     System.out.println("\t_____________________________________\n\n");
   }
 

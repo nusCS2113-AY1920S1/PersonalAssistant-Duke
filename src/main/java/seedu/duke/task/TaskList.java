@@ -69,6 +69,34 @@ public class TaskList {
           return;
         }
       }
+      else if (task_type.equals("doafter")) {
+        try {
+	  String task_description = task_description_full.split("/", 2)[0];
+	  String after = task_description_full.split("/", 2)[1].substring(6);
+	  boolean taskFound = false;
+	  for (Task j: list) {
+		if (j.description.equals(after)) {
+	  		list.add(new DoAfter(task_description, after));
+			taskFound = true;
+			break;
+		}
+	  }
+	  if (!taskFound) {
+		System.out.println();
+		System.out.println("        _____________________________________");
+		System.out.println("        Task: '" + after + "' not found!");
+		System.out.println("        _____________________________________");
+		System.out.println();
+		System.out.println();
+		return;
+          }
+	}
+	// if /after is not included in doafter command
+	catch (ArrayIndexOutOfBoundsException e) {
+	  ui.wrong_description_error();
+	  return;
+	}
+      }
       // Extract task time and task description and initialize as event
       else if (task_type.equals("event")) {
         try {
@@ -112,7 +140,7 @@ public class TaskList {
    * @param i index of the task to mark as done.
    * @throws IndexOutOfBoundsException if an out of bounds index is requested.
    */
-  public void doTask(int i) {
+  public void doTask(int i, TaskList list) {
     try {
       list.get(i).markAsDone();
       System.out.println("\t_____________________________________");

@@ -67,13 +67,13 @@ public class Parser {
       }
       else {
         int task_id = Integer.parseInt(user_input[1]) - 1;
-        list.doTask(task_id);
+        list.doTask(task_id, list);
       }
     }
 
     else {
       // add task to list
-      if (user_input[0].equals("todo") || user_input[0].equals("deadline") || user_input[0].equals("event")) {
+      if (user_input[0].equals("todo") || user_input[0].equals("deadline") || user_input[0].equals("event") || user_input[0].equals("doafter")) {
         if (user_input.length == 1) {
           ui.empty_description_error();
         }
