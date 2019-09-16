@@ -113,7 +113,12 @@ public class Ui {
         System.out.println(message);
         System.out.print(line);
     }
-    public Scanner getIn(){
+
+    /**
+     * Returns the scanned input.
+     * @return Scanned input.
+     */
+    public Scanner getIn() {
         return this.in;
     }
 }
