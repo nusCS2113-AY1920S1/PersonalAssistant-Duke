@@ -1,13 +1,15 @@
 package JavaFX;
 
-import Main.Duke;
-import java.io.IOException;
+import Exception.DukeException;
 
+import Main.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * A GUI for JavaFX.Main.Duke using FXML.
@@ -19,6 +21,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke = new Duke("save.txt");
+
+    public Main() throws DukeException {
+    }
 
     /**
      * Constructor to initialize the main window of the GUI.

@@ -15,7 +15,7 @@ import Exception.DukeException;
 public class SearchCommand extends Command {
     private String command;
     private String arguments;
-    SearchCommand(String command, String input){
+    public SearchCommand(String command, String input){
         this.command = command;
         this.arguments = input;
     }
@@ -28,7 +28,7 @@ public class SearchCommand extends Command {
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         if(this.command.matches("find")){
-            //tasks.find(this.arguments);
+            tasks.find(this.arguments);
         }
     }
 }

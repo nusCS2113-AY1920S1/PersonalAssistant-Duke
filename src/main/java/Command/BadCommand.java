@@ -13,7 +13,7 @@ import Exception.DukeException;
  * @since 09/19
  */
 public class BadCommand extends Command {
-    BadCommand(String command, String arguments){
+    public BadCommand(String command, String arguments){
     }
 
     /**

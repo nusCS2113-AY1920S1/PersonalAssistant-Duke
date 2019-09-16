@@ -1,100 +1,112 @@
 package myTasks;
 
+import Exception.DukeException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * The task superclass.
- * It contains the description and task status.
- * The task number is specific handled by the task list.
- * It does not contain any dates or times; These are specific only to deadline and event tasks.
- *
- * @author Lee Zhen Yu
- * @version %I%
- * @since 1.0
+ * Task class
+ * Base class which determines what kind of data a Task should hold
+ * @author Kane Quah
+ * @version 1.0
+ * @since 08/2019
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    String description;
+    boolean isDone;
+    //protected String dueDate;
+    private Date dueDate = null;
+    protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
 
     /**
-     * Constructor of the task object.
-     * It only takes in the description of the task.
-     * The status of the task defaults to not completed.
-     *
-     * @param description The description of the task.
+     * Task initialization with string as input
+     * @param description String containing description information
      */
-    public Task(String description) { //initialization
+    Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * Method to get the status of the object.
-     * Overwritten be the same method in the deadline and even tasks.
-     *
-     * @return Y if the task is done. N if the task is not done.
+     * Empty Task
      */
-    public String getStatus() {
-
-        return "[" + (isDone ? "Y" : "N") + "]"; //return tick or X symbols in a bracket
-    }
-
-
-    /**
-     * Method to get the status of the task as a single digit and string.
-     * Primarily used for easier storage of the task in the save file.
-     *
-     * @return 1 if the task is done. 0 if the task is not done.
-     */
-    //Return status icon as int, for easier reading when saving
-    public String getStatusInt() {
-        return isDone ? "1" : "0";
+    Task(){
     }
 
     /**
-     * Method to update the status of the task from not done to done.
+     * Attempts to parse date and input it as Date type
+     * @param date String which is in Date format
+     * @throws DukeException DukeException thrown when dateFormatter parsing fails
      */
-    public void markAsDone() { //marks a task as done
-
-        this.isDone = true;
+    void readDate(String date) throws DukeException {
+        try {
+            this.dueDate = dateFormatter.parse(date);
+        }
+        catch(ParseException e)
+        {
+            throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
+            //throw new DukeException("Please use DDD format for date");
+        }
     }
 
     /**
-     * Method to return the type of task.
-     * Overwritten by its children classes deadline, event and todoo.
-     *
-     * @return The type of task, in this case it defaults to Task.
+     * Returns status icon
+     * @return String which is a status icon in unicode format
      */
-    public String getType() { //returns type of task, to be overwritten
-        return "Task";
+    String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
     /**
-     * Method to return the date of the task.
-     * Overwritten by its children classes deadline and event.
-     *
-     * @return The word date a string by default. It is overwritten.
+     * Marks Task as Done, if Task is already done, throw exception
+     * @throws DukeException DukeException warns the use that the Task has already been done
      */
-    public String getBy() { //returns deadline or event date, to be overwritten
-        return "Date";
+    void markDone() throws DukeException {
+        if(this.isDone){
+            throw new DukeException("But good sir, this task is already done!");
+        }
+        else
+            this.isDone = true;
     }
 
     /**
-     * Method to return the full task data, including its status and date.
-     * This is overwritten in its children classes.
-     *
-     * @return The word Full_description as a string.
+     * Returns true/false type based on whether Task has been marked done
+     * @return boolean describing if Task is Done
      */
-    public String getStatusIcon() {
-        return "Full_description"; //returns the full task data, to be overwritten
-    }
+    public boolean checkCompletion() {return this.isDone;}
 
     /**
-     * Method to return the task description.
-     *
-     * @return The task's description as a string.
+     * Returns description
+     * @return String description
      */
     public String getDescription() {
-
         return this.description;
     }
 
+    /**
+     * Returns converted Date type into String
+     * @return String Date as per Date format
+     */
+    public String getDueDate() {
+        if(this.dueDate != null)
+            return dateFormatter.format(this.dueDate);
+        else
+            return ""; }
+
+    /**
+     * Returns Task in print friendly format
+     * @return String which contains Task Type icon, status and Description and DueDate if any
+     */
+    public String toList(){
+        return "[?][" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    /**
+     * Returns type of Task
+     * @return String consisting of a single Letter (for now)
+     */
+    public String getType(){ return "G";}
 }

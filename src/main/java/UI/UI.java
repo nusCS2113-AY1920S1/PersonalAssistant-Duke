@@ -1,62 +1,91 @@
 package UI;
 
+import Exception.DukeException;
+
 import java.util.Scanner;
 
 /**
- * Method to handle the UI.UI.
- * Unlike the mainwindow and dialogbox classes, this one handles UI.UI elements of the terminal.
- * Mostly obsolete in favor of the abovementioned two classes.
- *
- * @author Lee Zhen Yu
- * @version %I%
- * @since 1.0
+ * UI class, displays system messages
+ * Collects User input;
+ * @author Kane Quah
+ * @version 1.0
+ * @since 08/19
  */
 public class UI {
+    private Scanner sc;
+    private String loadingError = "Formatting Issues Encountered. New Task List initialized";
+    private String line = "____________________________________________________________";
+    private String goodBye = "Bye. Hope to see you again soon!";
+    private String closeSuccess = "File successfully saved!";
+    private String closeFail = "File failed to save";
+    private String welcomeMessage = "Hello! I'm Duke\n" +
+            "What can I do for you?\n";
+    public UI(){}
 
     /**
-     * Constructor to for an UI.UI object of duke.
+     * Displays Welcome message
      */
-    public UI() { //initialization
+    public void showWelcome(){
+        this.sc = new Scanner(System.in);
+        System.out.println("Hello! I'm Duke\n" +
+                "What can I do for you?\n");
+    }
+
+    /**
+     * Reads the next line, to be parsed by Parser
+     * @return String next line
+     * @throws DukeException DukeException thrown if forced to read when there is nothing
+     */
+    public String readCommand() throws DukeException {
+        if(sc.hasNextLine())
+            return sc.nextLine();
+        else throw new DukeException("There are no more lines to be read");
 
     }
 
     /**
-     * Method to read in user input in the terminal and return the input to be parsed.
-     * Does not take in inputs from the GUI.
-     *
-     * @return The user input as a string.
+     * Prints out a line of dashes
      */
-    public static String inputCommand() { //read input and returns that input to be processed in main
-        Scanner input = new Scanner(System.in);
-
-        return input.nextLine();
+    public String showLine(){
+        System.out.println(this.line);
+        return this.line;
     }
 
     /**
-     * Method to return a bye message when the word bye is entered.
-     * This signifies the end of the duke program.
+     * Prints out error
+     * @param error String message from error
      */
-    public static void byeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public void showError(String error){
+        System.out.println(error);
     }
 
     /**
-     * Method to display a welcome message on startup of duke.
-     * This signifies the start of the duke program.
-     * Still has uses for the GUI and terminal.
+     * Prints default loading error message
      */
-    public void welcomeMessage() {
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm JavaFX.Main.Duke"); //introduction
-        System.out.println("What can I do for you?");
-
+    public void showLoadingError(){
+        System.out.println(this.loadingError);
     }
 
+    /**
+     * Prints out program termination line
+     */
+    public void hastaLaVista(){System.out.println(this.goodBye);}
+
+    /**
+     * Closes the scanner
+     */
+    public void close(){
+        this.sc.close();
+    }
+
+    /**
+     * Informs user if files were stored successfully
+     */
+    public void closeSuccess() {System.out.println(this.closeSuccess);}
+
+    /**
+     * Informs user that files failed to store
+     */
+    public void closeFailure() {System.out.println(this.closeFail);
+    }
 }

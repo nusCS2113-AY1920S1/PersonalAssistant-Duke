@@ -1,47 +1,40 @@
 package myTasks;
 
-import myTasks.Task;
-
-/**
- * Class that inherits many of its methods from its superclass Task.
- * Unlike the deadline and event task classes, this class does not parse date inputs.
- *
- * @author Lee Zhen Yu
- * @version %I%
- * @since 1.0
- */
 public class Todo extends Task {
-
-
-    protected String by;
+    protected String type = "T";
 
     /**
-     * Constructor that takes in the task description.
-     *
-     * @param description The description of this toodo class.
+     * Task initialization with string as input
+     * @param description String containing description information
      */
-    public Todo(String description) {
+    public Todo(String description){
         super(description);
     }
 
     /**
-     * Method to return the type of task.
-     *
-     * @return Since this is a todoo class, return [T}
+     * Overloaded constructor which reads in a task from file
+     * @param bool String which should be 1 or 0, describing if the Task is done or not
+     * @param description String which contains description of Task
      */
-    public String getType() {
-        return "[T]";
+    public Todo(String bool, String description){
+        super(description);
+        this.isDone = (1 == Integer.parseInt(bool));
     }
 
     /**
-     * Method that overrides the same method in the parent class.
-     * It returns the full data of this toddo task in a format readable to the user.
-     *
-     * @return The full data of the task class as a string.
+     * Returns Task in print friendly format
+     * @return String which contains Task Type icon, status and Description and DueDate if any
      */
-    //Override by using the same name of function from parent
-    public String getStatusIcon() {
-        return "[T]" + "[" + (isDone ? "Y" : "N") + "] " + this.description;
+    @Override
+    public String toList(){
+        return "[T][" + this.getStatusIcon() + "] " + this.getDescription();
     }
+
+    /**
+     * Returns type of Task
+     * @return String consisting of a single Letter (for now)
+     */
+    @Override
+    public String getType(){ return "T";}
 }
 

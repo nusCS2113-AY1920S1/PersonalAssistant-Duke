@@ -15,7 +15,7 @@ import Exception.DukeException;
 public class AddCommand extends Command {
     private String arguments;
     private String command;
-    AddCommand(String command, String arguments){
+    public AddCommand(String command, String arguments){
         this.command = command;
         this.arguments = arguments;
     }
@@ -28,7 +28,7 @@ public class AddCommand extends Command {
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        //tasks.add(this.command, this.arguments);
+        tasks.add(this.command, this.arguments);
     }
 
 }
