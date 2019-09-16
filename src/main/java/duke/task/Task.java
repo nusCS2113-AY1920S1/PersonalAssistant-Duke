@@ -28,6 +28,10 @@ public abstract class Task {
      * a localDateTime constructor to save the date and time
      */
     protected LocalDateTime ld;
+    /**
+     * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
+     */
+    protected boolean isRecurring = false;
 
     /**
      * Initialises the minimum fields required to setup a Task.
@@ -70,6 +74,16 @@ public abstract class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    /**
+     * Marks the task as recurring.
+     */
+    public void makeTaskRecurring() { isRecurring = true; }
+
+    /**
+     * Returns boolean stating whether task is recurring.
+     */
+    public boolean isTaskRecurring() { return isRecurring; }
 
     /**
      * Returns a string with the status icon and the description of the task.

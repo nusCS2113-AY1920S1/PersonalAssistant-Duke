@@ -85,6 +85,13 @@ public class Parser {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+            case "recurring":
+                try {
+                    int index = Integer.parseInt(command[1]);
+                    return new RecurringCommand(index);
+                } catch (Exception e) {
+                    throw new DukeException("Failed to make your task recurring." + e.getMessage());
+                }
             case "bye":
                 return new ExitCommand();
             default:

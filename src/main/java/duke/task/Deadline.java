@@ -45,7 +45,14 @@ public class Deadline extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.by;
+        return "D | "
+                + (this.isDone ? "1" : "0")
+                + " | "
+                + this.description
+                + " | "
+                + this.by
+                + " | "
+                + this.isRecurring;
     }
 
 }
