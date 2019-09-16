@@ -13,12 +13,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ViewScheduleCommand<d1> extends Command {
+public class ViewScheduleCommand extends Command {
     private List<String> words;
     private Date start;
     private Date end;
     private SimpleDateFormat formatter;
 
+    /**
+     * @param words User input with start and end date time
+     * @throws DukeException
+     */
     public ViewScheduleCommand(List<String> words) throws DukeException {
         this.words = words;
         this.start = returnDate("/from");
