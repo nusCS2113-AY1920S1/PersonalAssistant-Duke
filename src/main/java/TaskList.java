@@ -3,21 +3,21 @@ import java.util.ArrayList;
 /**
  * TaskList class to handle methods related to the tasklist of the user.
  */
-public class TaskList{
+public class TaskList {
     private ArrayList<Task> tasklist;
 
     /**
      * Copies an existing ArrayList containing the Task object into a newly instantiated TaskList.
      * @param tasklist Tasklist to be copied.
      */
-    public TaskList(ArrayList<Task> tasklist){
+    public TaskList(ArrayList<Task> tasklist) {
         this.tasklist = tasklist;
     }
 
     /**
      * Creates a new TaskList with an empty ArrayList.
      */
-    public TaskList(){
+    public TaskList() {
         this.tasklist = new ArrayList<>();
     }
 
@@ -25,7 +25,7 @@ public class TaskList{
      * Adds a new Task to the TaskList.
      * @param task Task to be added.
      */
-    public void AddTask(Task task){
+    public void addTask(Task task) {
         tasklist.add(task);
     }
 
@@ -33,7 +33,7 @@ public class TaskList{
      * Deletes a Task from the TaskList.
      * @param numdelete Index of the Task in the TaskList to delete.
      */
-    public void DeleteTask(int numdelete){
+    public void deleteTask(int numdelete) {
         tasklist.remove(numdelete);
     }
 
@@ -42,7 +42,7 @@ public class TaskList{
      * @param number Index of the Task in the TaskList.
      * @return The Task of the index given.
      */
-    public Task get(int number){
+    public Task get(int number) {
         return tasklist.get(number);
     }
 
@@ -58,7 +58,7 @@ public class TaskList{
      * Converts the TaskList into an ArrayList containing the Task object.
      * @return ArrayList containing the Task object.
      */
-    public ArrayList<Task> ReturnArrayList(){
+    public ArrayList<Task> returnArrayList() {
         return tasklist;
     }
 }

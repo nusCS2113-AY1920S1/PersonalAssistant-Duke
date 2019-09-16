@@ -11,7 +11,7 @@ public class Task implements Serializable {
      * Creates a Task instance and initialises the required attributes.
      * @param description Description of the Task.
      */
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -20,7 +20,7 @@ public class Task implements Serializable {
      * Formats the representation of the Task to be printed.
      * @return The task's status icon, description and deadline.
      */
-    public String GiveTask(){
+    public String giveTask() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
@@ -35,7 +35,7 @@ public class Task implements Serializable {
     /**
      * Sets as done the isDone attribute.
      */
-    public void SetDone(){
+    public void setDone() {
         this.isDone = true;
     }
 }

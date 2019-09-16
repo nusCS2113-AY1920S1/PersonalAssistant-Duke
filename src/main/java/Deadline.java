@@ -22,7 +22,7 @@ public class Deadline extends Task implements Serializable {
      * @return The task's status icon, description and deadline.
      */
     @Override
-    public String GiveTask() {
-        return "[D]" + super.GiveTask() + "(by: " + by + ")";
+    public String giveTask() {
+        return "[D]" + super.giveTask() + "(by: " + by + ")";
     }
 }
