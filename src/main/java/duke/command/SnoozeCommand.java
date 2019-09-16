@@ -45,7 +45,7 @@ public class SnoozeCommand extends Command {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {
-                throw new DukeException("\u2639 OOPS!!! Invalid number!");
+                throw new DukeException("\u2639 OOPS!!! Invalid number!"); //u2639 is a sad face emoticon
             } else if (storage.taskHasTimestamp(num) == "deadline" || storage.taskHasTimestamp(num) == "event") {
                 Task task = arr.getTask(num);
                 String description = task.getLine();
@@ -65,10 +65,10 @@ public class SnoozeCommand extends Command {
                     ui.snoozeMessage(newtask);
                 }
             } else {
-                throw new DukeException("\u2639 OOPS!!! Task does not have a timestamp!");
+                throw new DukeException("OOPS!!! Task does not have a timestamp!");
             }
         } catch (Exception e) {
-            System.out.println("\u2639 OOPS!!! Invalid number!");
+            System.out.println("OOPS!!! Invalid number!");
         }
     }
 

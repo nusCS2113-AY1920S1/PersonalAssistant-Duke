@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
         if (index >= arr.getSize() || index < 0) {
-            throw new DukeException("\u2639 OOPS!!! Invalid number!");
+            throw new DukeException("OOPS!!! Invalid number!");
         } else {
             Task task = arr.getTask(index);
             arr.deleteTask(index);

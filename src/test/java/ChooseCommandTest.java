@@ -1,56 +1,61 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.CompleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.nio.ReadOnlyBufferException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ChooseCommandTest {
+
     @Test
     public void testBye() throws DukeException {
-        assertEquals(new ExitCommand(), ChooseCommand.choose("bye"));
+        assertTrue(ChooseCommand.choose("bye") instanceof ExitCommand);
     }
+
     @Test
     public void testList() throws DukeException {
-        assertEquals(new ListCommand(), ChooseCommand.choose("list"));
+        assertTrue(ChooseCommand.choose("list") instanceof ListCommand);
     }
+
     @Test
     public void testDone() throws DukeException {
-        assertEquals(new CompleteCommand("2"), ChooseCommand.choose("done 2"));
+        assertTrue(ChooseCommand.choose("done 2") instanceof CompleteCommand);
     }
+
     @Test
     public void testTodo() throws DukeException {
-        assertEquals(new AddToDoCommand("borrow book"), ChooseCommand.choose("todo borrow book"));
+        assertTrue(ChooseCommand.choose("todo borrow book") instanceof AddToDoCommand);
     }
+
     @Test
     public void testDeadline() throws DukeException {
-        assertEquals(new AddDeadlineCommand("homework /by 11-11-2019 11:11"),
-                ChooseCommand.choose("deadline homework /by 11-11-2019 11:11"));
+        assertTrue(ChooseCommand.choose("deadline homework /by 11-11-2019 11:11") instanceof AddDeadlineCommand);
     }
-    @Test
-    public void testInvalidDeadline() throws DukeException {
-        try {
-            ChooseCommand.choose("deadline testing /by");
-            fail();
-        }
-        catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of a deadline needs a due date.", e.getMessage());
-        }
-    }
+
     @Test
     public void testEvent() throws DukeException {
-        assertEquals(new AddEventCommand("testing /at 11-11-2019 11:11"), ChooseCommand.choose("event testing /at 11-11-2019 11:11"));
+        assertTrue(ChooseCommand.choose("event testing /at 11-11-2019 11:11") instanceof AddEventCommand);
     }
+
     @Test
     public void testInvalid() throws DukeException {
         try {
             ChooseCommand.choose("abcd");
             fail();
-        }
-        catch (DukeException e) {
-            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+        } catch (DukeException e) {
+            assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
 }

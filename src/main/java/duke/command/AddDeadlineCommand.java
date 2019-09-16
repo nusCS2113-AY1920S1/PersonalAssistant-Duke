@@ -40,12 +40,12 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
         String[] linesplit = line.split("/by");
         if (linesplit.length == 1) {
-            throw new DukeException("\u2639 OOPS!!! The description of a deadline needs a due date.");
+            throw new DukeException("OOPS!!! The description of a deadline needs a due date.");
         }
         String description = linesplit[0].trim();
         String date = linesplit[1].trim();
         if (date.length() == 0) {
-            throw new DukeException("\u2639 OOPS!!! The datetime of a deadline cannot be empty.");
+            throw new DukeException("OOPS!!! The datetime of a deadline cannot be empty.");
         } else {
             date = parseTimeStamp(date);
             if (date != "failed") {

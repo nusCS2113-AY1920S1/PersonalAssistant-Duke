@@ -35,14 +35,14 @@ public class CompleteCommand extends Command {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {
-                throw new DukeException("\u2639 OOPS!!! Invalid number!");
+                throw new DukeException("OOPS!!! Invalid number!");
             } else {
                 Task task = arr.getTask(num);
                 task.setStatus();
                 ui.completeMessage(task);
             }
         } catch (Exception e) {
-            System.out.println("\u2639 OOPS!!! Invalid number!");
+            System.out.println("OOPS!!! Invalid number!");
         }
     }
 

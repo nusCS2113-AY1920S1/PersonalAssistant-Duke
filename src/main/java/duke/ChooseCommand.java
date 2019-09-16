@@ -20,6 +20,7 @@ public class ChooseCommand {
      * Main method of the <code>ChooseCommand</code> class.
      * Parses the input given by user and calls specific <code>Commands</code>
      * after checking the validity of the input.
+     *
      * @param line Command inputted by user.
      * @return <code>Command</code> based on the user input.
      * @throws DukeException Catches invalid commands given by user.
@@ -32,7 +33,7 @@ public class ChooseCommand {
         } else if (line.startsWith("done")) {
             String[] arr = line.split(" ");
             if (arr.length == 1) {
-                throw new DukeException("\u2639 OOPS!!! Please enter a number!");
+                throw new DukeException("OOPS!!! Please enter a number!");
             }
             String num = arr[1];
             return new CompleteCommand(num);
@@ -53,12 +54,12 @@ public class ChooseCommand {
         } else if (line.startsWith("snooze")) {
             String[] arr = line.split(" ");
             if (arr.length == 1) {
-                throw new DukeException("\u2639 OOPS!!! Please enter a number!");
+                throw new DukeException("OOPS!!! Please enter a number!");
             }
             String num = arr[1];
             return new SnoozeCommand(num);
         } else {
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

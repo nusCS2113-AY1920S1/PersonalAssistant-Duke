@@ -40,12 +40,12 @@ public class AddEventCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
         String[] linesplit = line.split("/at");
         if (linesplit.length == 1) {
-            throw new DukeException("\u2639 OOPS!!! The description of an event needs a date.");
+            throw new DukeException("OOPS!!! The description of an event needs a date.");
         }
         String description = linesplit[0].trim();
         String date = linesplit[1].trim();
         if (date.length() == 0) {
-            throw new DukeException("\u2639 OOPS!!! The datetime of an event cannot be empty.");
+            throw new DukeException("OOPS!!! The datetime of an event cannot be empty.");
         } else {
             date = parseTimeStamp(date);
             if (date != "failed") {

@@ -103,7 +103,7 @@ public class Storage {
      * @return true if the <code>Task</code> object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        if (line.charAt(4) == '\u2713') {
+        if (line.charAt(4) == '\u2713') { //u2713 is a tick emoticon
             return true;
         }
         return false;

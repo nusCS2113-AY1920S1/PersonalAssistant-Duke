@@ -37,7 +37,7 @@ public class FindCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
         String[] linesplit = line.split(" ");
         if (linesplit.length == 1) {
-            throw new DukeException("\u2639 OOPS!!! The description of a find cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a find cannot be empty.");
         }
         String item = linesplit[1].trim();
         ArrayList<Task> foundarr = new ArrayList<>();
