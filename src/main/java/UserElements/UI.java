@@ -169,4 +169,11 @@ public class UI {
         System.out.println("Please enter the name of the event and its date/time, separated by /at");
         System.out.print(lineSeparation);
     }
+
+    public void scheduleClash(Task task) {
+        System.out.print(lineSeparation);
+        System.out.println("That event clashes with another in the schedule! " +
+                "Please resolve the conflict and try again!");
+        System.out.print(lineSeparation);
+    }
 }
