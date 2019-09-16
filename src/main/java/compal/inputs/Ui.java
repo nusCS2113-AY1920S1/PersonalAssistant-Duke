@@ -97,6 +97,17 @@ public class Ui {
     }
 
 
+    /**
+     * Used to print temp array!.
+     */
+    public void printTemp(ArrayList<Task> viewDay) {
+        int count = 1;
+
+        for (Task t : viewDay) {
+            printg(count++ + ".");
+            showTask(t);
+        }
+    }
 
     //----------------------->
 
