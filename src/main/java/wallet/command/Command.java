@@ -56,8 +56,9 @@ public class Command {
             } catch (IndexOutOfBoundsException e){
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
-        } else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")) {
+        } else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event") || command[0].equals("dowithin")) {
             try {
+                System.out.println("command[1]: " + command[1]);
                 Task task = taskList.createTask(command[0], command[1]);
                 if (task != null){
                     taskList.addTask(task);
@@ -100,7 +101,7 @@ public class Command {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
             }
 
-        }else if(command[0].equals("schedule")) {
+        } else if(command[0].equals("schedule")) {
             //B-Tentative Scheduling: Choose date
             try {
                 int num = Integer.parseInt(command[1]) - 1;
@@ -132,7 +133,7 @@ public class Command {
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
 
-        }else {
+        } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 

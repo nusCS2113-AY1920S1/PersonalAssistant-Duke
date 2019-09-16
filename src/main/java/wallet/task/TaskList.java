@@ -12,14 +12,14 @@ public class TaskList {
     /**
      * Stores the current list of task of the user
      */
-    private List<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
      * Constructs a new taskList object.
      *
      * @param taskList The list of task to be added.
      */
-    public TaskList(List<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
@@ -106,7 +106,19 @@ public class TaskList {
                 info = description.split("/at");
                 Date date = sdf.parse(info[1].trim());
                 return new Event(info[0].trim(), date);
+            }else if(type.equals("dowithin")){
+                info = description.split("/from");
+                String temp = info[0];
+                System.out.println("Inside TaskList class: info[0] = " + info[0]);
+                System.out.println("Inside TaskList class: info[1] = " + info[1]);
+                info = info[1].split("/to");
+                System.out.println("Inside TaskList class: info[0] = " + info[0]);
+                System.out.println("Inside TaskList class: info[1] = " + info[1]);
+                Date dateStart = sdf.parse(info[0].trim());
+                Date dateEnd = sdf.parse(info[1].trim());
+                return new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
             }
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The date/time of a " + type + " cannot be empty");
         } catch (ParseException e) {
@@ -152,13 +164,10 @@ public class TaskList {
         if (possibleDates.size() > 0) {
             return new Tentative(description, possibleDates);
         }
-
         return null;
-
     }
 
     public Task updateTentative(Tentative t) {
-
         System.out.println("Select which date you want for this event: ");
         ArrayList<Date> possibleDates = t.getPossibleDates();
         for(Date d: possibleDates){
@@ -174,9 +183,8 @@ public class TaskList {
             return newEvent;
 
         } catch (IndexOutOfBoundsException e){
-        System.out.println("☹ OOPS!!! Wrong Index!");
+            System.out.println("☹ OOPS!!! Wrong Index!");
         }
-
         return null;
     }
 }

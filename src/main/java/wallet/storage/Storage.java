@@ -59,7 +59,7 @@ public class Storage {
                         event.markAsDone();
                     }
                     taskList.add(event);
-                }else if (strArr[0].trim().equals("?")) {
+                } else if (strArr[0].trim().equals("?")) {
                     //B-TentativeScheduling: Retrieve Tentative Records
                     String dateList = strArr[3];
                     String[] dateArr = dateList.split("\\|");
@@ -76,8 +76,15 @@ public class Storage {
                     }
                     taskList.add(tentative);
 
+                } else if (strArr[0].trim().equals("DW")) {
+                    Date dateStart = sdf.parse(strArr[3].trim());
+                    Date dateEnd = sdf.parse(strArr[4].trim());
+                    DoWithinPeriod dowithin = new DoWithinPeriod(strArr[2].trim(), dateStart, dateEnd);
+                    if (strArr[1].trim().equals("1")) {
+                        dowithin.markAsDone();
+                    }
+                    taskList.add(dowithin);
                 }
-
             }
             raf.close();
         } catch (FileNotFoundException e){
