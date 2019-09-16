@@ -1,6 +1,11 @@
 package ui;
 
+import task.Tasks;
+
+import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * This class handles user's input and do the required appropriate actions.
@@ -87,7 +92,7 @@ public class Ui {
     /**
      * Prints a message once a To-Do task has been successfully added into database.
      */
-    public static void showToDoSucess(String type, String status, String message, int todolistNumber) {
+    public static void showToDoSuccess(String type, String status, String message, int todolistNumber) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:"
             + "\n" + space + " [" + type
             + "][" + status
@@ -174,5 +179,9 @@ public class Ui {
             System.out.println(space + "Now you have " + num + " task in the list.");
         }
         System.out.println(line);
+    }
+
+    public static void printReminder(Map.Entry<Date, Tasks> log, int count){
+        System.out.println(space + count + ". " + log.getValue().getDescription());
     }
 }

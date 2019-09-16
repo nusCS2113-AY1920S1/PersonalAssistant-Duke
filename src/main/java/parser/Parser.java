@@ -1,6 +1,7 @@
 package parser;
 
 import exceptions.DukeException;
+import javafx.concurrent.Task;
 import storage.Storage;
 import task.ToDo;
 import task.Event;
@@ -11,6 +12,7 @@ import ui.Ui;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -18,7 +20,7 @@ import java.util.List;
 public class Parser {
 
     /**
-     * Takes in users' input and call the aprropriate functions to execute the right action.
+     * Takes in users' input and call the appropriate functions to execute the right action.
      */
     public static int handleCommand(String firstWord, String s) {
         int check = 0;
@@ -52,6 +54,9 @@ public class Parser {
                     //================================================
                     case "event":
                         eventCommand(s);
+                        break;
+                    case "reminder":
+                        reminderCommand();
                         break;
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
@@ -123,7 +128,7 @@ public class Parser {
             }
             Tasks newToDo = new ToDo(joinTokens, "T");
             TaskList.addTask(newToDo);
-            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+            Ui.showToDoSuccess(TaskList.getType(todolistNumber - 1),
                 TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
                 TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
@@ -258,6 +263,21 @@ public class Parser {
         }
     }
 
-
+    private static void reminderCommand() {
+        if (TaskList.getTreeMap().isEmpty()){
+            System.out.println("u have no upcoming tasks :o");
+        } else {
+            System.out.println("here is a reminder for your next 3 upcoming tasks :o");
+            int count = 1;
+            for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+                if (count > 3) {
+                    break;
+                }
+                Ui.printReminder(log, count);
+                count++;
+            }
+            Ui.printLine();
+        }
+    }
 }
 

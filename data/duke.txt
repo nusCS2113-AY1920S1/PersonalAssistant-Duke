@@ -1,1 +1,4 @@
 E | ✓ | read book (at: 12th of December 2019, 02:30 PM to 15th of December 2019, 04:30 PM) | 12th of December 2019, 02:30 PM | 15th of December 2019, 04:30 PM
+E | ✘ | go home (at: 11th of December 2019, 01:12 PM to 14th of December 0219, 03:15 PM) | 11th of December 2019, 01:12 PM | 14th of December 0219, 03:15 PM
+E | ✘ | go school (at: 01st of January 2019, 11:11 AM to 03rd of March 2019, 10:22 PM) | 01st of January 2019, 11:11 AM | 03rd of March 2019, 10:22 PM
+D | ✘ | test (by: 11th of November 2019, 12:34 PM) | 11th of November 2019, 12:34 PM

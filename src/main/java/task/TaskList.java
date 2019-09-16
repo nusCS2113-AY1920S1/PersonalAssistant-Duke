@@ -120,4 +120,8 @@ public class TaskList {
     public static void markTaskAsUndone(int num) {
         tasks.get(num).setDone(false);
     }
+
+    public static TreeMap<Date, Tasks> getTreeMap() {
+        return DE;
+    }
 }
