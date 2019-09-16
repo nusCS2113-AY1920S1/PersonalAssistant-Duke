@@ -24,18 +24,19 @@ class FindCommTest {
         cmd = new AddCommand(task3);
         cmd.execute(items, ui);
 
+        Task taskdummy = new Todo("dummy");
         cmd = new FindCommand("wal");
         cmd.execute(items,ui);
         assertEquals("     Here are the matching tasks in your list:\n"
-               + "     1.[T][✗] walk\n"
-               + "     2.[T][✗] wale\n", cmd.executeGui(items,ui));
+                + "     1.[T]" + taskdummy.getStatusIconGui() + " walk\n"
+                + "     2.[T]" + taskdummy.getStatusIconGui() + " wale\n", cmd.executeGui(items,ui));
 
         cmd = new FindCommand("a");
         cmd.execute(items,ui);
         assertEquals("     Here are the matching tasks in your list:\n"
-               + "     1.[T][✗] walk\n"
-               + "     2.[T][✗] wale\n"
-               + "     3.[T][✗] cake\n", cmd.executeGui(items,ui));
+                + "     1.[T]" + taskdummy.getStatusIconGui() + " walk\n"
+                + "     2.[T]" + taskdummy.getStatusIconGui() + " wale\n"
+                + "     3.[T]" + taskdummy.getStatusIconGui() + " cake\n", cmd.executeGui(items,ui));
 
     }
 }

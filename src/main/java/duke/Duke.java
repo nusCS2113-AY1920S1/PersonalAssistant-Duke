@@ -51,6 +51,7 @@ public class Duke {
      *
      * @param sentence The user input.
      * @return Command to be executed thereafter.
+     * @throws Exception  If there is an error reading the command.
      */
     public Command getCommand(String sentence) throws Exception {
         Command cmd = Parser.parse(sentence, items);
@@ -61,7 +62,7 @@ public class Duke {
      * Executes a command to overwrite exiting storage with an updated task list (GUI).
      *
      * @param cmd Command to be executed.
-     * @throws Exception  If there is an error writing the text file.
+     * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
         cmd.executeStorage(items,ui,storage);

@@ -1,3 +1,4 @@
 T|1|reading notes
 D|0|do homework|08/08/2016 1700
 T|0|new things
+T|0|hi
