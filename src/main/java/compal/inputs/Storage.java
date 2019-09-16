@@ -17,35 +17,82 @@ import java.util.ArrayList;
 
 public class Storage {
 
-
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./duke.txt";
+    private static final String binarySaveFilePath = "binary";
     private static final String userPreferencesFilePath = "./prefs.txt";
+
+    //----------------------->
+
+
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
     public Storage() {
         System.out.println("Storage Initialized!");
     }
 
+    //----------------------->
+
+
+
+
+    //***LOADING FUNCTIONS***-------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
     /**
-     * use to preload the arraylist as a binary stream if there is anything to load at all.
+     * Use to preload the arraylist as a binary stream if there is anything to load at all.
      *
      * @return list2 the arraylist of stored item found in file.
      */
     public ArrayList<Task> loadCompal() {
         ArrayList<Task> list2 = null;
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("binary"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(binarySaveFilePath));
+            //noinspection unchecked
             list2 = (ArrayList<Task>) ois.readObject();
-            for (Task t : list2) {
-                System.out.println("LoadCompal:");
-                System.out.println(t.getDescription());
-            }
+
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return list2;
     }
+
+
+
+    /**
+     * Loads and returns the user's name as a String.
+     *
+     * @return String username
+     */
+    public String getUserName() {
+        File f = new File(userPreferencesFilePath);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            return br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Unknown User";
+    }
+
+
+    //----------------------->
+
+
+
+
+
+    //***SAVING FUNCTIONS***--------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
 
     /**
@@ -56,7 +103,7 @@ public class Storage {
     public void saveCompal(ArrayList<Task> tasks) {
 
         try {
-            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("binary"));
+            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(binarySaveFilePath));
             ois.writeObject(tasks);
             ois.close();
         } catch (IOException e) {
@@ -64,6 +111,45 @@ public class Storage {
         }
 
     }
+
+
+
+    /**
+     * Saves the string toSave to the saveFilePath just as it is.
+     *
+     * @param toSave String
+     */
+    public void saveString(String toSave, String filePath) {
+        try {
+            File f = new File(filePath);
+            PrintWriter pw = new PrintWriter(f);
+            pw.printf("%s\n", toSave);
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Save-file not found. Will generate new one.");
+        }
+    }
+
+
+
+    /**
+     * Stores username in prefs.txt.
+     *
+     */
+    public void storeUserName(String name) {
+        saveString(name, userPreferencesFilePath);
+    }
+
+    //----------------------->
+
+
+
+
+    //***STORAGE PARSING FUNCTIONS***-----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
 
     /**
@@ -85,48 +171,12 @@ public class Storage {
     }
 
 
-    /**
-     * Saves the string toSave to the saveFilePath just as it is.
-     *
-     * @param toSave String
-     */
-    public void saveString(String toSave, String filePath) {
-        try {
-            File f = new File(filePath);
-            PrintWriter pw = new PrintWriter(f);
-            pw.printf("%s\n", toSave);
-            pw.close();
+    //----------------------->
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Save-file not found. Will generate new one.");
-        }
-    }
 
-    /**
-     * Returns the user's name as a String.
-     *
-     * @return
-     */
-    public String getUserName() {
-        File f = new File(userPreferencesFilePath);
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            return br.readLine();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Unknown User";
-    }
 
-    /**
-     * Returns the user's name as a String.
-     *
-     * @return
-     */
-    public void storeUserName(String name) {
-        saveString(name, userPreferencesFilePath);
-    }
+
 
 
 }

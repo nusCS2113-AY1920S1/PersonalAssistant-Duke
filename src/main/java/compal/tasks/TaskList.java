@@ -19,79 +19,51 @@ import java.util.Scanner;
 
 public class TaskList {
 
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
+
     public ArrayList<Task> arrlist;
     public Duke duke;
     private BitSet idBitSet;
 
+    //----------------------->
+
+
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
     /**
-     * Constructor for class.
+     * Constructor 1.
      *
      * @param d Duke
      */
     public TaskList(Duke d) {
         this.duke = d;
-        idBitSet = getIdBitSet();
-        if (idBitSet == null) {
+        //idBitSet = getIdBitSet();
+        /*if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
+        */
 
 
-    }
-
-    /**
-     * Saves the current bitset to file. For assignment of task IDs.
-     */
-    public void writeIdBitSet() {
-
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
-            oos.writeObject(idBitSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
-    /**
-     * Loads the current bitset saved on file and returns it.
-     *
-     * @return
-     */
-    public BitSet getIdBitSet() {
-        BitSet b = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
-            b = (BitSet) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return b;
-    }
+
+    //----------------------->
 
 
-    /**
-     * Draft function for adding tasks to ComPAL. Currently not in use.
-     */
-    public void addTaskTest(int currentStage, String value) {
 
-        Scanner sc1 = new Scanner(value);
-        String s = sc1.next(); //get the command string
-        String taskType = sc1.next(); //get the taskType
-        String dateString = sc1.next(); //get the date
-        String timeString = sc1.next(); //get the time
-        String name = sc1.next(); //get the name
-        String description = sc1.nextLine(); //get the description
-        int taskID = -1;
-        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
-            if (!idBitSet.get(i)) {
-                taskID = i;
-                System.out.println("Task assigned id of " + taskID);
-                writeIdBitSet();
-                break;
-            }
-        }
 
-    }
+
+
+
+    //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
 
     /**
@@ -99,15 +71,13 @@ public class TaskList {
      * It tests for the event type, then parses it according to the correct syntax
      *
      * @param cmd to tell the function what command is to be executed
-     * @Function
-     * @calls dateParse(String when)
      * @UsedIn: parser.processCommands
      */
     public void addTask(String cmd) throws ParseException {
         duke.ui.printg("Got it. I've added this task:");
         Scanner sc1 = new Scanner(cmd);
-        String s = sc1.next(); //get the command string
-        String cs = sc1.nextLine(); //get the description string
+        String s = sc1.next(); //get the command string (event/deadline/doafter/todo)
+        String cs = sc1.nextLine(); //get the description string (what follows after the command string)
         String token;
         String description;
         Date date;
@@ -132,6 +102,14 @@ public class TaskList {
             arrlist.add(new Deadline(description, date));
             duke.ui.printg("[D][ " + notDone + "] " + description);
             break;
+        case "doaftertask":
+            token = "/after";
+            description = getDescription(cs, token);
+            date = getDate(cs, token);
+            arrlist.add(new DoAfterTasks(description,date));
+            duke.ui.printg("[DAT][ " + notDone + "] " + description);
+            break;
+
         default:
             throw new IllegalStateException("Unexpected value: " + s);
         }
@@ -141,6 +119,41 @@ public class TaskList {
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
+
+
+
+
+    //----------------------->
+
+
+
+
+
+
+    //***FUNCTIONS FOR EDITING TASKS***---------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+
+
+    /**
+     * This function handles the completion of tasks by marking them as done.
+     *
+     * @param cmd Mark the numbered task to be completed.
+     * @Function
+     * @UsedIn: parser.processCommands
+     */
+    public void taskDone(String cmd) {
+        Scanner sc1 = new Scanner(cmd);
+        sc1.next(); //skip over the 'done'
+        duke.ui.printg("Nice! I've marked this task as done:");
+        Task t = arrlist.get(sc1.nextInt() - 1);
+        t.markAsDone();
+
+        duke.ui.showTask(t);
+        duke.storage.saveCompal(arrlist);
+    }
+
 
 
     /**
@@ -162,23 +175,109 @@ public class TaskList {
     }
 
 
-    /**
-     * This function handles the completion of tasks by marking them as done.
-     *
-     * @param cmd Mark the numbered task to be completed.
-     * @Function
-     * @UsedIn: parser.processCommands
-     */
-    public void taskDone(String cmd) {
-        Scanner sc1 = new Scanner(cmd);
-        sc1.next(); //skip over the 'done'
-        duke.ui.printg("Nice! I've marked this task as done:");
-        Task t = arrlist.get(sc1.nextInt() - 1);
-        t.markAsDone();
+    //----------------------->
 
-        duke.ui.showTask(t);
-        duke.storage.saveCompal(arrlist);
+
+
+
+
+
+    //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+
+
+    /**
+     * This function builds a description from the description string according to the token (/at or /by etc).
+     * Description string is the string before the token.
+     *
+     * @param cs    description string
+     * @param token the separator word of the description
+     * @return description
+     * @UsedIn: : addTask
+     */
+    public String getDescription(String cs, String token) {
+        int splitPoint = cs.indexOf(token);
+        String when = cs.substring(splitPoint + token.length() + 1);
+
+        //call the date parser to parse and return a date string
+        String check = dateParse(when);
+        if (!check.equals("false")) {
+            when = check;
+        }
+
+        token = token.replace("/", "");
+        String what = cs.substring(0, splitPoint).trim();
+        return what + " (" + token + ": " + when + ")";
     }
+
+
+    /**
+     * This function gets the date and time from the description string according to the token (/at or /by etc).
+     * Date/time string is the string after the token.
+     *
+     * @param cs    description string
+     * @param token the separator word of the description
+     * @return date and time
+     * @Function
+     * @UsedIn: : addTask
+     */
+    public Date getDate(String cs, String token) throws ParseException {
+        int splitPoint = cs.indexOf(token);
+        String when = cs.substring(splitPoint + token.length() + 1);
+
+        //call the date parser to parse and return a date string
+        String check = dateParse(when);
+        if (!check.equals("false")) {
+            when = check;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy hh:mma");
+        Date date = formatter.parse(when);
+        return date;
+    }
+
+
+
+
+    /**
+     * This function parses the date in the format dd/MM/yyyy HHmm and returns a date in the format
+     * dd MMMM yyyy hh:mma .
+     *
+     * @param when date input to be formatted
+     * @return dateString format the date of input when
+     * @UsedIn: ui.getDescription
+     */
+    public static String dateParse(String when) {
+        //parse date
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date date = null;
+        try {
+            date = format.parse(when);
+        } catch (ParseException e) {
+            return "false";
+        }
+        format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
+        when = format.format(date);
+        return when;
+    }
+
+
+
+
+
+    //----------------------->
+
+
+
+
+
+
+
+
+    //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
 
     /**
@@ -206,60 +305,15 @@ public class TaskList {
     }
 
 
-    /**
-     * This function builds a description from the description string according to the token (/at or /by etc).
-     *
-     * @param cs    description string
-     * @param token the separator word of the description
-     * @return description
-     * @Function
-     * @UsedIn: : addTask
-     */
-    public String getDescription(String cs, String token) {
-        int splitPoint = cs.indexOf(token);
-        String when = cs.substring(splitPoint + token.length() + 1);
 
-        //call the date parser to parse and return a date string
-        String check = Duke.dateParse(when);
-        if (!check.equals("false")) {
-            when = check;
-        }
-
-        token = token.replace("/", "");
-        String what = cs.substring(0, splitPoint).trim();
-        return what + " (" + token + ": " + when + ")";
-    }
 
     /**
-     * This function gets the date and time from the description string according to the token (/at or /by etc).
-     *
-     * @param cs    description string
-     * @param token the separator word of the description
-     * @return date and time
-     * @Function
-     * @UsedIn: : addTask
-     */
-    public Date getDate(String cs, String token) throws ParseException {
-        int splitPoint = cs.indexOf(token);
-        String when = cs.substring(splitPoint + token.length() + 1);
-
-        //call the date parser to parse and return a date string
-        String check = Duke.dateParse(when);
-        if (!check.equals("false")) {
-            when = check;
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy hh:mma");
-        Date date = formatter.parse(when);
-        return date;
-    }
-
-    /**
-     * This function displays the tasks due in the next week.
+     * Displays reminders for tasks due in the next week when app starts up.
      *
      * @UsedIn: Ui.checkInit
      */
     public void taskReminder() {
-        ArrayList<Task> reminder = new ArrayList<Task>();
+        ArrayList<Task> reminder = new ArrayList<>();
         //ArrayList<Task> sortedReminder = new ArrayList<Task>();
         Date currentDate = java.util.Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
@@ -268,16 +322,23 @@ public class TaskList {
         Date dateOneWeekAfter = c.getTime();
         for (Task t : arrlist) {
             Date deadline = t.getDateTime();
-            if (deadline.before(dateOneWeekAfter) || t.isHasReminder()) {
+            if ((deadline != null && !t.isDone && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
                 reminder.add(t);
             }
         }
         Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
         Collections.sort(reminder, compareByDateTime);
-        for (Task t : reminder) {
-            duke.ui.printg(t.getDescription());
+
+        if (reminder.isEmpty()) {
+            duke.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
+        } else {
+            for (Task t : reminder) {
+                duke.ui.printg(t.getDescription());
+            }
         }
+
     }
+
 
     /**
      * This function will store a temp ArrayList for looking at that specific date. (Sholihin)
@@ -293,7 +354,7 @@ public class TaskList {
         String unformattedDate = sc1.next(); //date 12/12/2018
         //duke.ui.printg("Viewing all task on " + unformattedDate);
         unformattedDate += " 0000"; //fake timing so that we can still use dateParse function
-        String formattedDate = Duke.dateParse(unformattedDate);
+        String formattedDate = dateParse(unformattedDate);
         formattedDate = formattedDate.substring(0, formattedDate.length() - 8); // depending on the length remove timing
 
 
@@ -310,4 +371,77 @@ public class TaskList {
 
         return viewDay;
     }
+
+
+
+
+    /**
+     * Saves the current bitset to file. For assignment of task IDs.
+
+    public void writeIdBitSet() {
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
+            oos.writeObject(idBitSet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * Loads the current bitset saved on file and returns it.
+     *
+     * @return BitSet
+
+    public BitSet getIdBitSet() {
+        BitSet b = null;
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
+            b = (BitSet) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
+     */
+
+
+
+    /**
+     * Draft function for adding tasks to ComPAL. Currently not in use.
+     */
+    public void addTaskTest(int currentStage, String value) {
+
+        Scanner sc1 = new Scanner(value);
+        String s = sc1.next(); //get the command string
+        String taskType = sc1.next(); //get the taskType
+        String dateString = sc1.next(); //get the date
+        String timeString = sc1.next(); //get the time
+        String name = sc1.next(); //get the name
+        String description = sc1.nextLine(); //get the description
+        int taskID = -1;
+        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
+            if (!idBitSet.get(i)) {
+                taskID = i;
+                System.out.println("Task assigned id of " + taskID);
+                //writeIdBitSet();
+                break;
+            }
+        }
+
+    }
+
+
+
+    //----------------------->
+
+
+
+
+
+
+
+
 }
