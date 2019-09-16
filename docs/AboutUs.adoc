@@ -10,10 +10,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Hashir Zahir
 image::hashirzahir.png[width="150", align="left"]
-{empty}[https://www.straitstimes.com/singapore/fire-bikers-response-time-to-emergencies-shaved-thanks-to-app-by-full-time-national[homepage]] [https://github.com/HashirZahir[github]]
+{empty}[https://github.com/HashirZahir[github]]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Project development
 
 '''
 
@@ -22,16 +22,16 @@ image::Fractalisk.png[width="150", align="left"]
 {empty}[https://github.com/Fractalisk[github]]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Project development
 
 '''
 
 === Ivan Andika
-image::garystu.png[width="150", align="left"]
+image::GaryStu.png[width="150", align="left"]
 {empty}[http://github.com/garystu[github]]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Project development
 
 '''
 
@@ -40,7 +40,7 @@ image::koushireo.png[width="150", align="left"]
 {empty}[http://github.com/m133225[github]]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Project development
 
 '''
 
