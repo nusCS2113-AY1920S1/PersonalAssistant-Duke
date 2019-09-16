@@ -1,8 +1,10 @@
+package Tasks;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
-    protected Date by ;
+    public Date by ;
 
     public Deadline(String description, Date by) {
         super(description);
@@ -18,4 +20,5 @@ public class Deadline extends Task {
     public String listformat(){
         return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
     }
+
 }

@@ -1,14 +1,21 @@
+<<<<<<< HEAD:src/main/java/FindCommand.java
 import UI.Ui;
 import Storage.Storage;
 import Task.
+=======
+package commands;
+import Tasks.Task;
+import UI.Ui;
+import Storage.Storage;
+import Exception.DukeException;
+>>>>>>> efbdafcf5b660fc8e346a56460c10dcdbcf6a342:src/main/java/commands/FindCommand.java
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FindCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException , NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         if(ui.FullCommand.length() == 5){
             throw new DukeException("OOPS!!! The description of a search cannot be empty.");
         }

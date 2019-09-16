@@ -1,14 +1,23 @@
+<<<<<<< HEAD:src/main/java/EventCommand.java
 
 import UI.Ui;
 import Storage.Storage;
+=======
+package commands;
+import Tasks.Task;
+import UI.Ui;
+import Storage.Storage;
+import Exception.DukeException;
+>>>>>>> efbdafcf5b660fc8e346a56460c10dcdbcf6a342:src/main/java/commands/EventCommand.java
 import java.io.IOException;
+import Tasks.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.ArrayList;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(List<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException  {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         if(ui.FullCommand.length() == 5) {
             throw new DukeException("OOPS!!! The description of an event cannot be empty.");
@@ -24,10 +33,10 @@ public class EventCommand extends Command {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getClass().getName().equals("Deadline")) {
+            if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Event")){
+            else if(list.get(i).getClass().getName().equals("Tasks.Event")){
                 sb.append(list.get(i).toString()+"\n");
             }
             else{

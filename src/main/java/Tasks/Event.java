@@ -1,7 +1,11 @@
+package Tasks;
+
+import Tasks.Task;
+
 import java.util.Date;
 
 public class Event extends Task {
-    protected Date at ;
+    public Date at ;
 
     public Event(String description, Date at) {
         super(description);

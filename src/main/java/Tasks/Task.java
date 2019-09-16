@@ -1,6 +1,10 @@
+package Tasks;
+
+import java.util.Date;
+
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -11,7 +15,7 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-     public String listformat(){
+    public String listformat(){
         return "";
     }
 }
