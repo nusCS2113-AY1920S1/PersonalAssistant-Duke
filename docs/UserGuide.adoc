@@ -1,0 +1,34 @@
+= JavaCake - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3
+
+## Features 
+
+### Feature 1 
+Description of feature.
+
+## Usage
+
+### `Keyword` - Describe action
+
+Describe action and its outcome.
+
+Example of usage: 
+
+`keyword (optional arguments)`
+
+Expected outcome:
+
+`outcome`
