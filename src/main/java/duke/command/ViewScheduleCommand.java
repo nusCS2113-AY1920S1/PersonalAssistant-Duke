@@ -20,6 +20,8 @@ public class ViewScheduleCommand extends Command {
     private SimpleDateFormat formatter;
 
     /**
+     * Constructor for class
+     *
      * @param words User input with start and end date time
      * @throws DukeException
      */
