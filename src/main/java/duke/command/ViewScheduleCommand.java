@@ -17,6 +17,12 @@ public class ViewScheduleCommand extends Command {
     private Date end;
     private SimpleDateFormat formatter;
 
+    /**
+     * Creates an instance of ViewScheduleCommand
+     *
+     * @param words User input
+     * @throws DukeException
+     */
     public ViewScheduleCommand(List<String> words) throws DukeException {
         this.words = words;
         this.start = inputStringDate_returnDateDate("/from");
@@ -55,9 +61,11 @@ public class ViewScheduleCommand extends Command {
         int counter = 1;
         for (Task task : taskList.getTasks()) {
             Boolean isWithinSchedule = false;
-            if (task instanceof Deadline)
+            if (task instanceof Deadline) {
                 isWithinSchedule = isWithinSchedule(((Deadline) task).deadline, ((Deadline) task).deadline);
-            if (task instanceof Event) isWithinSchedule = isWithinSchedule(((Event) task).start, ((Event) task).end);
+            } else if (task instanceof Event) {
+                isWithinSchedule = isWithinSchedule(((Event) task).start, ((Event) task).end);
+            }
             if (isWithinSchedule) {
                 Ui.printIndented(counter + ". " + task.toString());
                 counter++;
