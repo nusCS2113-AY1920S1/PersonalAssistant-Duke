@@ -1,6 +1,4 @@
 delete 1
-todo eat lunch
-todo finish report
 find
 done
 done 0

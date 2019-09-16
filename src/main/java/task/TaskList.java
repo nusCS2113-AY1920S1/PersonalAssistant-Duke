@@ -13,10 +13,13 @@ public class TaskList {
     private static TreeMap<Date, Tasks> DE;
     private static TreeMap<Date, Tasks> E;
 
-    public TaskList(List<Tasks> tasks ) {
+    /**
+     * Constructor for class.
+     * @param tasks
+     */
+    public TaskList(List<Tasks> tasks) {
         DE = new TreeMap<>();
         E = new TreeMap<>();
-
 
         for(Tasks a: tasks){
             if(a.getType().equals("E")){
@@ -30,7 +33,6 @@ public class TaskList {
         this.tasks = tasks;
     }
     public TaskList() {
-
         tasks = new ArrayList<>();
     }
 
@@ -96,6 +98,7 @@ public class TaskList {
     public static Tasks getTask(int num) {
         return tasks.get(num);
     }
+
 
     public static void addTask(Tasks task)  {
         tasks.add(task);

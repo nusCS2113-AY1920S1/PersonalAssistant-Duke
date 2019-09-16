@@ -6,10 +6,11 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 
 /**
- * Date wrapper class for having a date object and string date
+ * Date wrapper class for having a date object and string date.
  */
 public class MyDate {
 
@@ -20,7 +21,7 @@ public class MyDate {
     private String enddateStr;
 
     /**
-     * Constructor for class
+     * Constructor for class.
      * @throws ParseException
      */
     public MyDate(String s) {
@@ -33,16 +34,19 @@ public class MyDate {
         this.enddate = TimeParser.convertStringToDate(s);
 
 
-        if(this.startdate != null){
+        if (this.startdate != null) {
             this.startdateStr = TimeParser.convertDateToLine(this.startdate);
         }
-        if(this.enddate != null){
+        if (this.enddate != null) {
             this.enddateStr = TimeParser.convertDateToLine(this.enddate);
         }
 
     }
 
-    public MyDate(String startDate ,  String endDate) {
+    /**
+     * Constructor for class.
+     */
+    public MyDate(String startDate,  String endDate) {
 
 
         hasEndDate = true;
@@ -54,48 +58,49 @@ public class MyDate {
         this.enddate = TimeParser.convertStringToDate(endDate);
 
 
-        if(this.startdate != null){
+        if (this.startdate != null) {
             this.startdateStr = TimeParser.convertDateToLine(this.startdate);
         }
 
-        if(this.enddate != null){
+        if (this.enddate != null) {
             this.enddateStr = TimeParser.convertDateToLine(this.enddate);
         }
 
     }
 
+
     /**
-     * Returns the start date object
+     * Returns the start date object.
      * @return Date object of the Task
      */
-    public Date getStartDate(){
+    public Date getStartDate() {
         return this.startdate;
 
     }
 
     /**
-     * Returns the end date object
+     * Returns the end date object.
      * @return Date object of the Task
      */
-    public Date getEndDate(){
+    public Date getEndDate() {
         return this.enddate;
 
     }
 
     /**
-     * Returns the start date string
+     * Returns the start date string.
      * @return Date string of the Task
      */
-    public String getStartDateStr(){
+    public String getStartDateStr() {
         return this.startdateStr;
 
     }
 
     /**
-     * Returns the end date string
+     * Returns the end date string.
      * @return Date string of the Task
      */
-    public String getEndDateStr(){
+    public String getEndDateStr() {
         return this.enddateStr;
 
     }

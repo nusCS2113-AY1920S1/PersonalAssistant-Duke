@@ -29,6 +29,22 @@ public class Ui {
     }
 
     /**
+     * Prints the confirmation message when a doAfter task had been saved into the database.
+     */
+    public static void showDoAfterMessage(String status, String newtodoTask1, int i) {
+        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [A]["
+            + status
+            + "] " + newtodoTask1);
+        if (i > 1) {
+            System.out.println(space + "Now you have " + i + " tasks in the list.");
+        } else {
+            System.out.println(space + "Now you have " + i + " task in the list.");
+        }
+        System.out.println(line);
+
+    }
+
+    /**
      * Prints the welcome message at the start when user opens the duke application.
      */
     public void showWelcome() {
@@ -181,6 +197,7 @@ public class Ui {
             System.out.println(space + "Now you have " + num + " task in the list.");
         }
         System.out.println(line);
+
     }
 
     public static void showFreeTime(int num ,TimeInterval freeslot ) {

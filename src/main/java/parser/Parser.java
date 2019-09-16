@@ -2,11 +2,12 @@ package parser;
 
 import exceptions.DukeException;
 import storage.Storage;
-import task.ToDo;
-import task.Event;
+import task.DoAfter;
+import task.TaskList;
 import task.Deadline;
 import task.Tasks;
-import task.TaskList;
+import task.Event;
+import task.ToDo;
 import ui.Ui;
 import wrapper.TimeInterval;
 
@@ -43,34 +44,36 @@ public class Parser {
         }else {
             try {
                 switch (firstWord) {
-                    case "list":
-                        listCommand();
-                        break;
-                    case "done":
-                        doneCommand(s);
-                        break;
-                    //================================================
-                    case "delete":
-                        deleteCommand(s);
-                        break;
-                    //================================================
-                    case "find":
-                        findCommand(s);
-                        break;
-                    case "todo":
-                        todoCommand(s);
-                        break;
-                    //================================================
-                    case "deadline":
-                        deadlineCommand(s);
-                        break;
-                    //================================================
-                    case "event":
-                        eventCommand(s);
-                        break;
-                    default:
-                        throw DukeException.UNKNOWN_COMMAND;
-
+                case "list":
+                    listCommand();
+                    break;
+                case "done":
+                    doneCommand(s);
+                    break;
+                //================================================
+                case "delete":
+                    deleteCommand(s);
+                    break;
+                //================================================
+                case "find":
+                    findCommand(s);
+                    break;
+                case "todo":
+                    todoCommand(s);
+                    break;
+                //================================================
+                case "deadline":
+                    deadlineCommand(s);
+                    break;
+                //================================================
+                case "event":
+                    eventCommand(s);
+                    break;
+                case "do":
+                    doAfterCommand(s);
+                    break;
+                default:
+                    throw DukeException.UNKNOWN_COMMAND;
                 }
             } catch (DukeException e) {
                 Ui.showError(e.getError());
@@ -98,6 +101,33 @@ public class Parser {
             Ui.showFreeTime(num , freeslot);
         }
 
+    }
+
+    /**
+     * Creates a new doAfter task with users' input.
+     * Then, prints a confirmation message by calling showdoAfterMessage function under Ui class.
+     * Finally, adds the task into database.
+     */
+    private static void doAfterCommand(String s) throws DukeException {
+        try {
+            String doAfterTask = s.substring(3, s.indexOf("/after"));
+            String time1 = s.substring(s.indexOf("/after") + 7);
+            if ((doAfterTask.isEmpty()) || (doAfterTask.equals(" "))) {
+                throw DukeException.EMPTY_TASK_IN_DOAFTER;
+            }
+            if ((time1.isEmpty()) || (time1.equals(" "))) {
+                throw DukeException.EMPTY_TIME_IN_DOAFTER;
+            }
+            DoAfter task1 = new DoAfter(doAfterTask, "A", time1);
+            String newtodoTask1 = task1.toMessage();
+            Tasks newToDo1 = new DoAfter(newtodoTask1, "A", time1);
+            int todolistNumber = TaskList.getTotalTasksNumber();
+            TaskList.addTask(newToDo1);
+            Ui.showDoAfterMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
+            Storage.saveTask(TaskList.getList());
+        } catch (StringIndexOutOfBoundsException e) {
+            throw DukeException.INVALID_FORMAT_IN_DOAFTER;
+        }
     }
 
     /**
@@ -233,8 +263,8 @@ public class Parser {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
             String[] startendtime = time1.split("to");
-//            Date timetemp1 = TimeParser.convertStringToDate(time1);
-//            time1 = TimeParser.convertDateToLine(timetemp1);
+            //Date timetemp1 = TimeParser.convertStringToDate(time1);
+            //time1 = TimeParser.convertDateToLine(timetemp1);
             if (todoTask1.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_EVENT;
             }
@@ -247,9 +277,9 @@ public class Parser {
             if (time1.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_EVENT;
             }
-            Event task1 = new Event(todoTask1, "E", startendtime[0] ,startendtime[1]);
+            Event task1 = new Event(todoTask1, "E", startendtime[0], startendtime[1]);
             String newtodoTask1 = task1.toMessage();
-            Tasks newToDo1 = new Event(newtodoTask1, "E", startendtime[0] ,startendtime[1]);
+            Tasks newToDo1 = new Event(newtodoTask1, "E", startendtime[0], startendtime[1]);
             int todolistNumber = TaskList.getTotalTasksNumber();
             TaskList.addTask(newToDo1);
             Ui.showEventMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
@@ -269,8 +299,8 @@ public class Parser {
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
-//            TimeParser timeParser = new TimeParser();
-//            time = timeParser.convertStringToDate(time);
+            //TimeParser timeParser = new TimeParser();
+            // time = timeParser.convertStringToDate(time);
             //==============================================
             if (todoTask.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_DEADLINE;

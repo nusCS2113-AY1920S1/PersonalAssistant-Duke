@@ -37,7 +37,7 @@ Responsibilities: Deliverables and deadlines + UI
 '''
 
 === Mohamed Riyas
-image::m133225.jpg[width="150", align="left"]
+image::riyas97.jpg[width="150", align="left"]
 {empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
