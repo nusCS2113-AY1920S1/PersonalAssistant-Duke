@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-
-
-    private static final String saveFilePath = "./duke.txt";
+    
     private static final String userPreferencesFilePath = "./prefs.txt";
 
     public Storage() {
