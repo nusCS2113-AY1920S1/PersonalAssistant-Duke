@@ -23,6 +23,7 @@ public class Main extends Application {
     /**
      * Initializes and sets up the GUI for ComPAL.
      * Pulls from file MainWindow.fxml
+     *
      * @param primaryStage the stage for GUI
      * @throws Exception GUI problems
      */

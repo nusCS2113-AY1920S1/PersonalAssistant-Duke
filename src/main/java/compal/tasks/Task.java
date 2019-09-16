@@ -1,13 +1,17 @@
 package compal.tasks;
 
-public abstract class Task {
+import java.io.Serializable;
+import java.util.Date;
+
+public abstract class Task implements Serializable {
 
     public boolean isDone;
     protected String symbol;
     private int id;
-    private String dateTime;
+    private Date dateTime;
     private String taskTypeString;
     private String description;
+    private boolean hasReminder;
 
     public Task(String description) {
         this.description = description;
@@ -30,5 +34,19 @@ public abstract class Task {
         return description;
     }
 
+    public Date getDateTime() {
+        return dateTime;
+    }
 
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public boolean isHasReminder() {
+        return hasReminder;
+    }
+
+    public void setHasReminder() {
+        this.hasReminder = true;
+    }
 }
