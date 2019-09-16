@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 group 'seedu.duke'
@@ -9,6 +10,13 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
+}
+
+shadowJar {
+    archiveBaseName = "mid-v1.1"
+    archiveVersion = "1.1"
+    archiveClassifier = null
+    archiveAppendix = null
 }
 
 checkstyle {
@@ -22,4 +30,12 @@ application {
 
 run {
     standardInput = System.in
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
 }
