@@ -45,15 +45,25 @@ JavaCake is for those who prefer to use a desktop app for managing events preced
 
 ===  Adding a generic task to the list: `todo <TASK_NAME/>`
 
-===  Adding a task with a period to do by: `deadline <TASK_NAME/> /by <TASK_PERIOD/>`
+===  Adding a task with a period to do by: `deadline`
 
-===  Adding a task that has an event to attend to: `event <TASK_NAME/> /at <TASK_PERIOD/>`
+Format: `deadline <TASK_NAME/> /by <TASK_PERIOD/>`
 
-===  Postponing a deadline or event: `snooze <TASK_NUM/> /to <NEW_TASK_PERIOD/>`
+===  Adding a task that has an event to attend to: `event`
 
-===  Changing the task from a list: `edit <TASK_NUM/> /to <NEW_TASK_NAME/>`
+Format: `event <TASK_NAME/> /at <TASK_PERIOD/>`
 
-===  Deleting a task from a list: `delete <TASK_NUM/>`
+===  Postponing a deadline or event: `snooze`
+
+Format: `snooze <TASK_NUM/> /to <NEW_TASK_PERIOD/>`
+
+===  Changing the task from a list: `edit`
+
+Format: `edit <TASK_NUM/> /to <NEW_TASK_NAME/>`
+
+===  Deleting a task from a list: `delete`
+
+Format: `delete <TASK_NUM/>`
 
 ===  Exiting the program: `exit`
 
