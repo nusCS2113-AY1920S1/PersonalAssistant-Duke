@@ -15,10 +15,39 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Rusdi Haizim
 
 image::rusdihaizim.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 {empty}[http://github.com/rusdihaizim[github]]
 
 Role: Team Lead +
+Responsibilities: Data
+
+'''
+
+=== Glen Wong
+
+image::rusdihaizim.png[width="150", align="left"]
+{empty}[http://github.com/rusdihaizim[github]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Kishore R
+
+image::rusdihaizim.png[width="150", align="left"]
+{empty}[http://github.com/rusdihaizim[github]]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Clair Smile
+
+image::rusdihaizim.png[width="150", align="left"]
+{empty}[http://github.com/rusdihaizim[github]]
+
+Role: Developer +
 Responsibilities: UI
 
 '''
