@@ -5,6 +5,12 @@
  */
 package command;
 
+import java.util.Date;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import ui.Ui;
 import util.Storage;
 import task.TaskList;
@@ -39,47 +45,41 @@ public class FreeTimeCommand implements Command{
 	public boolean isExit() {
 		return false;
 	}
-	/**
-	 * Returns true if the arguments for FreeTime command is valid, otherwise throws relevant duke exception.
-	 *
-	 * @param list the list of task.
-	 * @return true if command is valid.
-	 * @throws DukeException exception happens when hour number is empty or invalid.
-	 */
-	//todo: free time with hour number argument is not very useful, try others in new project
-	private boolean isValid() throws DukeException{
-		if (number == null) {
-			throw new DukeException(Message.EMPTY_HOUR_NUMBER);
-		}
-		try {
-			int hourNumber = Integer.parseInt(number);
-			if (hourNumber > 24 || hourNumber <= 0) {
-				throw new DukeException(Message.INVALID_HOUR_NUMBER);
-			}
-		} catch (NumberFormatException e) {
-			throw new DukeException(Message.INVALID_HOUR_NUMBER);
-		}
-		return true;
-	}
+
 
 	/**
-	 * Shows a list of task with the specified keyword in description or date.
+	 * Shows the next free day.
 	 *
 	 * @param tasks the list of tasks.
 	 * @param ui the user interface to output message.
 	 * @param storage storage of Duke.
 	 */
 	@Override
+	// for simplicity's sake, just show the next free day regardless of number of free hours
 	public void execute(TaskList tasks, Ui ui, Storage storage) {
-		ArrayList list = new ArrayList(tasks); // copy by value
-		Collections.sort(myList, new Comparator<Task>() {
+		// copy by value
+		ArrayList<Task> list = new ArrayList<>();
+		for(int i = 0; i < tasks.size(); i++) {
+			list.add(tasks.get(i));
+		}
+		Collections.sort(list, new Comparator<Task>() {
 		  public int compare(Task o1, Task o2) {
 		      if (o1.getDate() == null || o2.getDate() == null)
 		        return 0;
 		      return o1.getDate().compareTo(o2.getDate());
 		  }
 		});
-		for ()
-		ui.showFind(task);
+		Date today = new Date();
+		Calendar nextPossibleDay = Calendar.getInstance();
+		nextPossibleDay.setTime(today);
+		nextPossibleDay.add(Calendar.DATE, 1);
+		for(int i = 0; i < list.size(); i++) {
+			Task task = list.get(i);
+			Date date = task.getDate();
+			if (date != null && date.after(today) && date.compareTo(nextPossibleDay.getTime()) == 0) {
+				nextPossibleDay.add(Calendar.DATE, 1);
+			}
+		}
+		ui.showFreeDay(nextPossibleDay.getTime());
 	}
 }

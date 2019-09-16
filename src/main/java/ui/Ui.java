@@ -8,6 +8,7 @@ package ui;
 import task.TaskList;
 import task.Task;
 import java.util.Scanner;
+import java.util.Date;
 import util.Parser;
 
 public class Ui {
@@ -95,6 +96,11 @@ public class Ui {
 		System.out.println(finished);
 	}
 
+	/**
+	 * Prints the list of tasks due in 10 days.
+	 *
+	 * @param list the list of task stored in Duke.
+	 */
 	public void showReminder(TaskList list) {
 		System.out.println("Here are the deadline/event within 10 days:");
 		for(int i = 0; i < list.size(); i++) {
@@ -113,6 +119,16 @@ public class Ui {
 		System.out.println("Nice! I've removed this task:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
+	}
+
+	/**
+	 * Prints the message of a task being removed.
+	 *
+	 * @param removed the task being removed.
+	 * @param list the list of task stored in Duke.
+	 */
+	public void showFreeDay(Date date) {
+		System.out.println("Your next free day is: " + Parser.parseDateToString(date));
 	}
 
 	/**

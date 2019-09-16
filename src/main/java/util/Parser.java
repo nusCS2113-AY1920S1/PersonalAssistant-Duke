@@ -57,7 +57,7 @@ public class Parser {
 			case "find":
 				return new FindCommand(description);
 			case "freetime":
-				return new FreeTime(description);
+				return new FreeTimeCommand(description);
 			case "reminder":
 				return new ReminderCommand();
 			case "bye":
