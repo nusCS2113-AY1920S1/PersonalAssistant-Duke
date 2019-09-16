@@ -1,5 +1,6 @@
 package task;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * This Task class is extended by the other tasks and serves as a template for all tasks.
@@ -48,4 +49,8 @@ public class Task implements Serializable{
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+	public Date getDate() {
+		return null;
+	}
 }

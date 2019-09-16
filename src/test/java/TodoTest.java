@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import task.*;
-import ui.*;
 /**
  * This class implements the unit testing code for the To-do class.
  *

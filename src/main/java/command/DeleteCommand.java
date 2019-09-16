@@ -25,7 +25,7 @@ public class DeleteCommand extends Command{
         if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
             Task task = tasks.delete(indexOfTask);
             storage.saveFile(tasks.getTasks());
-            Ui.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
+            ui.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
                             + tasks.getSize() + " task(s) in the list.");
         }
         else

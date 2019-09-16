@@ -8,6 +8,7 @@ import task.Event;
 import task.TaskList;
 import task.Todo;
 import ui.Ui;
+import java.util.Date;
 
 /**
  * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
@@ -19,7 +20,7 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private String formattedDateTime;
+    private Date formattedDateTime;
 
     /**
      * This AddCommand function is used to assign the different parameters required when adding a task.
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
      * @param taskFeatures this string holds the description of the task provided by the user.
      * @param formattedDateTime this string contains the formatted user input that has the desired date time format.
      */
-    public AddCommand(String command, String taskFeatures, String formattedDateTime) {
+    public AddCommand(String command, String taskFeatures, Date formattedDateTime) {
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.formattedDateTime = formattedDateTime;
@@ -60,7 +61,7 @@ public class AddCommand extends Command {
 
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
-        Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() +"\nNow you have " +
+        ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() +"\nNow you have " +
                         tasks.getSize() + " task(s) in the list.");
     }
 }

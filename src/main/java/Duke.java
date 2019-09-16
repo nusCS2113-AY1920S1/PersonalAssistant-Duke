@@ -1,12 +1,12 @@
-import java.io.*;
-import java.util.ArrayList;
+import command.Command;
+import exception.DukeException;
+import parser.Parser;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 
-import command.*;
-import exception.*;//DukeException;
-import ui.*;
-import storage.*;//Storage;
-import task.*;//TaskList;
-import parser.*;//Parser;
+import java.io.File;
+import java.util.ArrayList;
 
 
 /**
@@ -38,7 +38,7 @@ public class Duke {
         ui = new Ui();
 
         try {
-            storage = new Storage(this.filePath, file);
+            storage = new Storage(file);
             tasks = new TaskList(storage.loadFile(file));
         }
         catch (DukeException e) {
@@ -63,7 +63,7 @@ public class Duke {
             }
             catch (DukeException e)
             {
-               Ui.printMessage(e.getMessage());
+              Ui.printMessage(e.getMessage());
             }
         } while (!isExit);
     }

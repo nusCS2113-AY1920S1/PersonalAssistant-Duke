@@ -1,28 +1,28 @@
 package parser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateTimeExtractor {
 
-    private static SimpleDateFormat DATE_FORMATTER_EVENT = new SimpleDateFormat("dd/MM/yyyy HHmm-HHmm");
-    private static SimpleDateFormat DATE_FORMATTER_DEADLINE = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    private static String dateEvent;
-    private static String dateDeadline;
+    private static SimpleDateFormat DateFormatterEvent = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat DateFormatterDeadline = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static Date dateEvent;
+    private static Date dateDeadline;
 
-    public static String extractDateTime(String dateTimeFromUser, String command) throws ParseException {
+    public static Date extractDateTime(String dateTimeFromUser, String command) throws ParseException {
 
         if(command.equals("event")) {
-            System.out.println(command);
-            dateEvent = (DATE_FORMATTER_EVENT.parse(dateTimeFromUser)).toString();
+            dateEvent = DateFormatterEvent.parse(dateTimeFromUser);
             return dateEvent;
         }
         else if(command.equals("deadline")) {
-            dateDeadline = (DATE_FORMATTER_DEADLINE.parse(dateTimeFromUser)).toString();
+            dateDeadline = DateFormatterDeadline.parse(dateTimeFromUser);
             return dateDeadline;
         }
 
-        String dateUnknown = "00/00/0000";
+        Date dateUnknown = new Date();
         return dateUnknown;
     }
 }

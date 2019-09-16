@@ -52,7 +52,7 @@ public class Ui {
      * @param userOutput This string will be used to print the message between to data.
      *
      */
-    public static void printOutput(String userOutput) {
+    public void printOutput(String userOutput) {
         System.out.println(userOutputDash);
         System.out.println(userOutput);
         System.out.println(userOutputDash);

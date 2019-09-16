@@ -16,6 +16,9 @@ bin/
 *.txt
 *.file
 ArrayList
+
+#Vscode specific
 .project
 .settings/
 .classpath
+launch.json

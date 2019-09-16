@@ -22,7 +22,7 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.getSize() == 0)
         {
-            Ui.printOutput("You have currently no tasks in your list.");
+            ui.printOutput("You have currently no tasks in your list.");
         }
         else
         {

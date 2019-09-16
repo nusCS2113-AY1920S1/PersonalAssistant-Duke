@@ -2,7 +2,7 @@ package parser;
 import command.*;
 import exception.DukeException;
 import ui.Ui;
-
+import java.util.Date;
 import java.text.ParseException;
 
 /**
@@ -66,7 +66,7 @@ public class Parser {
                     if (taskDescription.isEmpty()) {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                     }
-                    String formattedDateTime;
+                    Date formattedDateTime;
                     try {
                         String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
                         formattedDateTime = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
@@ -97,13 +97,14 @@ public class Parser {
                 if (description.isEmpty()) {
                     throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
                 }
-
                 indexOfTask = Integer.parseInt(description) - 1;
                 return new DoneCommand(indexOfTask);
             case "list":
                 return new ListCommand();
             case "bye":
                 return new ExitCommand();
+            case "search":
+                return new SearchCommand(Long.parseLong(userInput.split(command, 2)[1].trim()));
             default:
                 // Empty string or unknown command.
                 Ui.printUnknownInput();
