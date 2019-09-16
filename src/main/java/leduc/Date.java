@@ -1,19 +1,19 @@
 package leduc;
 
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a date and contains a GregorianCalendar type field.
  */
 public class Date {
-    private GregorianCalendar d;
+    private LocalDateTime d;
 
     /**
      * Constructor of leduc.Date.
      * @param d GregorianCalendar which is a date.
      */
-    public Date(GregorianCalendar d){
+    public Date(LocalDateTime d){
         this.d = d;
     }
 
@@ -23,9 +23,8 @@ public class Date {
      */
     @Override
     public String toString(){
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        fmt.setCalendar(this.d);
-        String dateFormatted = fmt.format(this.d.getTime());
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String dateFormatted = this.d.format(formatters);
         return  dateFormatted; //no need secondes and time zone
     }
 }

@@ -3,7 +3,9 @@ package leduc;
 import leduc.command.*;
 import leduc.exception.NonExistentDateException;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a leduc.Parser which deals with making sense of the user command.
@@ -97,7 +99,13 @@ public class Parser {
             default:
                 throw new NonExistentDateException(ui);
         }
-        GregorianCalendar d = new GregorianCalendar(year,month,day,hrs,min);
+        LocalDateTime d = null;
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+            d = LocalDateTime.parse(deadlineString, formatter);
+        }catch(Exception e){
+            throw new NonExistentDateException(ui);
+        }
         return new Date(d);
     }
 }

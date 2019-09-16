@@ -56,7 +56,7 @@ public class Duke {
             try {
                 String user = this.ui.readCommand();
                 Command c = parser.parse(user);
-                c.execute(tasks, ui, storage,parser); // parser is needed beacause stringToDate is in leduc.Parser class
+                c.execute(tasks, ui, storage,parser); // parser is needed because stringToDate is in leduc.Parser class
                 isExit = c.isExit();
             }
             catch (DukeException e){ // catch one of subclass of dukeException and print the right message
