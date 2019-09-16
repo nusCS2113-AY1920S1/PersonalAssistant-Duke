@@ -56,6 +56,8 @@ public class Parser {
 				return new HelpCommand();
 			case "find":
 				return new FindCommand(description);
+			case "freetime":
+				return new FreeTime(description);
 			case "bye":
 			case "exit":
 			case "quit":
