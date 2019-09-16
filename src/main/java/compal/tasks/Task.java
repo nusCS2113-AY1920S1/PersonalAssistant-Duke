@@ -1,6 +1,8 @@
 package compal.tasks;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
 
     public boolean isDone;
     protected String symbol;
