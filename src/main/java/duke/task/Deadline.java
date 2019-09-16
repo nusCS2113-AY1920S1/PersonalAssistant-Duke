@@ -55,6 +55,6 @@ public class Deadline extends Task implements Snoozeable {
     }
 
     public Date getDeadline() {
-        return this.deadline;
+        return deadline;
     }
 }
