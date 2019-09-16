@@ -62,5 +62,5 @@ public class Recurring extends Task {
      * @return String consisting of the user input
      */
     @Override
-    public String getFrequency() {return this.frequency;}
+    public String getAfter() {return this.frequency;}
 }

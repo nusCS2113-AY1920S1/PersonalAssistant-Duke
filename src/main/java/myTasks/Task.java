@@ -37,16 +37,8 @@ public class Task {
     }
 
     /**
-     * Get frequency of the task.
-     * To be overwritten by the recurrence class
-     */
-    public String getFrequency() {
-        return "";
-    }
-
-    /**
-     * Get the prerequisite of the task.
-     * To be overwritten by the after class
+     * Get the prerequisite of the task as defined by the user
+     * To be overwritten by the After, Recurring, Within and Duration class
      */
     public String getAfter() {
         return "";

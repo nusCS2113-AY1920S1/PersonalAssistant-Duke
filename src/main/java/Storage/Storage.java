@@ -58,11 +58,7 @@ public class Storage {
                 {
                     fileContent += " | " + list.get(i).getDueDate();
                 }
-                else if(list.get(i).getType().matches("R"))
-                {
-                    fileContent += " | " + list.get(i).getFrequency();
-                }
-                else if(list.get(i).getType().matches("A"))
+                else if(list.get(i).getType().matches("R|A|W"))
                 {
                     fileContent += " | " + list.get(i).getAfter();
                 }
