@@ -84,8 +84,10 @@ public class Command {
             }
         } else if (command[0].equals("bye")){
             isExit = true;
+        } else if (command[0].equals("expense")) {
+
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         return isExit;
