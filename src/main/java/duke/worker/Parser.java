@@ -1,6 +1,16 @@
 package duke.worker;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.CommandBlank;
+import duke.command.CommandNewTask;
+import duke.command.CommandType;
+import duke.command.CommandList;
+import duke.command.CommandMarkDone;
+import duke.command.CommandBye;
+import duke.command.CommandDelete;
+import duke.command.CommandError;
+import duke.command.CommandFind;
+
 import duke.task.Task;
 import duke.task.TaskType;
 

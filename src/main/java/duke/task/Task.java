@@ -1,6 +1,6 @@
 package duke.task;
-import duke.worker.Parser;
 
+import duke.worker.Parser;
 import java.util.HashMap;
 
 public class Task {
@@ -81,18 +81,21 @@ public class Task {
         return this.taskType.name().substring(0, 1);
     }
 
-    // Record Task Details
-    public void recordTaskDetails(String name) {
-        name = Parser.removeStr(this.taskType.name(), name);
-        this.taskName = name;
-        int indexBackslash = name.indexOf('/');
+    /**
+     * Records the details from the user input into this Task object.
+     * @param userInput The input taken from the user in CLI
+     */
+    public void recordTaskDetails(String userInput) {
+        userInput = Parser.removeStr(this.taskType.name(), userInput);
+        this.taskName = userInput;
+        int indexBackslash = userInput.indexOf('/');
         //Check if '/' exists
         if (indexBackslash >= 0) {
-            int indexMsg = name.indexOf(' ', indexBackslash);
+            int indexMsg = userInput.indexOf(' ', indexBackslash);
             if (indexMsg >= 0) {
-                this.detailDesc = name.substring(indexBackslash + 1, indexMsg);
+                this.detailDesc = userInput.substring(indexBackslash + 1, indexMsg);
             }
-            String[] splitDetails = name.split('/' + this.detailDesc, 2);
+            String[] splitDetails = userInput.split('/' + this.detailDesc, 2);
             this.taskName = splitDetails[0].trim();
             if (splitDetails.length > 1) {
                 this.taskDetails = splitDetails[1].trim();
