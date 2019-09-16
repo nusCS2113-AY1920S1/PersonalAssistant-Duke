@@ -34,11 +34,19 @@ public abstract class Task implements Serializable {
         return description;
     }
 
-    public Date getDateTime() { return dateTime; }
+    public Date getDateTime() {
+        return dateTime;
+    }
 
-    public void setDateTime(Date dateTime) { this.dateTime = dateTime; }
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
 
-    public boolean isHasReminder() { return hasReminder; }
+    public boolean isHasReminder() {
+        return hasReminder;
+    }
 
-    public void setHasReminder() { this.hasReminder = true; }
+    public void setHasReminder() {
+        this.hasReminder = true;
+    }
 }

@@ -5,7 +5,6 @@ import compal.inputs.Storage;
 import compal.inputs.Ui;
 import compal.tasks.TaskList;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
@@ -38,9 +37,9 @@ public class Duke extends Application {
         storage = new Storage();
 
 
-        if (storage.loadCompal() == null){
+        if (storage.loadCompal() == null) {
             tasklist.arrlist = new ArrayList<>();
-        }else{
+        } else {
             tasklist.arrlist = storage.loadCompal();
             //load from the file into the arraylist, if any thing to load at all
         }
