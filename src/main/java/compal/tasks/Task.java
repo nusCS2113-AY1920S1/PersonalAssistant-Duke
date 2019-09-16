@@ -1,11 +1,13 @@
 package compal.tasks;
 
+import java.util.Date;
+
 public abstract class Task {
 
     public boolean isDone;
     protected String symbol;
     private int id;
-    private String dateTime;
+    private Date dateTime;
     private String taskTypeString;
     private String description;
 

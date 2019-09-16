@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Date;
 import java.util.Scanner;
 
 public class TaskList {
@@ -16,6 +17,7 @@ public class TaskList {
     public ArrayList<Task> arrlist;
     public Duke duke;
     private BitSet idBitSet;
+    private Object Date;
 
     /**
      * Constructor for class.
@@ -127,12 +129,6 @@ public class TaskList {
             arrlist.add(new FixedDurationTask(description));
             duke.ui.printg("[F][ " + notDone + "] " + description);
             break;
-        case "meeting":
-            token = "/at";
-            description = getDescription(cs, token);
-            arrlist.add(new Meeting(description));
-            duke.ui.printg("[M][ " + notDone + "] " + description);
-            break;
         default:
             throw new IllegalStateException("Unexpected value: " + s);
         }
@@ -219,6 +215,7 @@ public class TaskList {
         int splitPoint = cs.indexOf(token);
         String when = cs.substring(splitPoint + token.length() + 1);
 
+        String duration = Duke.durationParse(when);
         //call the date parser to parse and return a date string
         String check = Duke.dateParse(when);
         if (!check.equals("false")) {
@@ -227,6 +224,6 @@ public class TaskList {
 
         token = token.replace("/", "");
         String what = cs.substring(0, splitPoint).trim();
-        return what + " (" + token + ": " + when + ")";
+        return what + " (" + token + ": " + when + duration + ")";
     }
 }

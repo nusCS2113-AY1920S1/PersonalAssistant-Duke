@@ -46,9 +46,7 @@ public class Parser {
             duke.tasklist.taskDone(cmd);
         } else if (cmd.matches("delete ([0-9]+)")) {
             duke.tasklist.deleteTask(cmd);
-        } else if (cmd.matches("(todo|event|deadline) .+")) {
-            duke.tasklist.addTask(cmd);
-        } else if (cmd.matches("(fixedDurationTask|meeting) .+")) {
+        } else if (cmd.matches("(todo|event|deadline|fixedDurationTask) .+")) {
             duke.tasklist.addTask(cmd);
         } else if (cmd.matches("[T|t]ask .+")) { //draft task adding for ComPAL
             duke.tasklist.addTask(cmd);

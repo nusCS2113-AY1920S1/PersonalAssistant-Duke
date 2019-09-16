@@ -3,7 +3,7 @@
 
 # Compal - Developer Guide
 
-Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
+Welcome to the **compal** Developer Guide! This Developer Guide is still being worked on for now!
 
 **Appendix A**
  - [User Stories](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#user-stories)
@@ -79,7 +79,7 @@ Use case 1: Store Academic Timetable
 
 1.  User enters command to store a schedule
     
-2.  COMPal prompts for the task type.
+2.  compal prompts for the task type.
     
 
 1.  Assignment(DEADLINE)
@@ -88,15 +88,15 @@ Use case 1: Store Academic Timetable
     
 4.  User enters task type.
     
-5.  COMPal prompts for description.
+5.  compal prompts for description.
     
 6.  User enters description.
     
-7.  COMPal ask for importance level of schedule
+7.  compal ask for importance level of schedule
     
 8.  User enter (Enum high,med,low)
     
-9.  If the task is of low priority, COMPal prompts user whether to allow task to increase in priority.
+9.  If the task is of low priority, compal prompts user whether to allow task to increase in priority.
     
 
   
@@ -107,15 +107,15 @@ Use case 1: Store Academic Timetable
 
 1.  User inputs command to edit task/schedule.
     
-2.  COMPal prompts for task ID.
+2.  compal prompts for task ID.
     
 3.  User enters task ID.
     
-4.  COMPal returns task
+4.  compal returns task
     
 5.  User edits task parameter.
     
-6.  COMPal displays edited task.
+6.  compal displays edited task.
     
 
   
@@ -126,7 +126,7 @@ Use case 1: Store Academic Timetable
 
 1.  User inputs command to edit academic schedule.
     
-2.  COMPal prompts for academic schedule name.
+2.  compal prompts for academic schedule name.
     
 
   
@@ -135,7 +135,7 @@ Use case 1: Store Academic Timetable
 
 1.  User enters command to change view
     
-2.  COMPal displays the selected view on GUI.
+2.  compal displays the selected view on GUI.
     
 
 **Use Case 6: Mark Task as Done**
@@ -144,7 +144,7 @@ Use case 1: Store Academic Timetable
 
 1.  User enters command to mark task as done
     
-2.  COMPal reflects task status changes
+2.  compal reflects task status changes
     
 
   
@@ -153,28 +153,28 @@ Use case 1: Store Academic Timetable
 
 1.  User enter search command
     
-2.  COMPal prompts for keyword
+2.  compal prompts for keyword
     
 3.  User input keyword
     
-4.  COMPal reflects search results
+4.  compal reflects search results
 
 # Non-Functional Requirements
 1.  ComPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
     
 2.  ComPal prompts for academic time table at the beginning of every semester.
     
-3.  COMPal can store up to 1,000,000 tasks in a clear text file.
+3.  compal can store up to 1,000,000 tasks in a clear text file.
     
-4.  COMPal must respond fast, within 2 seconds so that the user does not have to wait too long.
+4.  compal must respond fast, within 2 seconds so that the user does not have to wait too long.
     
-5.  COMPal system application does not take up much space on the local machine.
+5.  compal system application does not take up much space on the local machine.
     
 6.  ComPal’s GUI must be intuitive and pleasant to the eyes
     
-7.  COMPal consistently performs specified function without failure
+7.  compal consistently performs specified function without failure
     
-8.  The user’s OS must provide the correct time and date for COMPal.
+8.  The user’s OS must provide the correct time and date for compal.
 
 
 
