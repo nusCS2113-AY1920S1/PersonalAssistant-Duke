@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "/home/tessa/Documents/CS2113/duke/data/duke.txt";
+    private static String FILE_PATH = "/home/tessa/Documents/CS2113/main/data/duke.txt";
 
     Storage() {}
     Storage(String filePath) {
@@ -81,14 +81,12 @@ public class Storage {
             String oldContent = "";
             String line = br.readLine();
 
-
             while (line != null) {
                 oldContent = oldContent + line + System.lineSeparator();
                 line = br.readLine();
-
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
-            String newContent = oldContent.replace(oldString, "");
+            String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
             Storage writer = new Storage();
             writer.writeFile(newContent, false);
 
