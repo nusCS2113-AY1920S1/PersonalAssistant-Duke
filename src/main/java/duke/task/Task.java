@@ -1,4 +1,5 @@
 package duke.task;
+
 import java.time.LocalDate;
 
 /**
@@ -77,7 +78,7 @@ public class Task {
     }
 
     /**
-     * Gets date of Deadline & Event
+     * Gets date of Deadline & Event.
      *
      * @return date only of DeadLine and Event
      */

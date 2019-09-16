@@ -138,7 +138,7 @@ public class Event extends Task {
     }
 
     /**
-     * Gets date-only of this Deadline
+     * Gets date-only of this Deadline.
      *
      * @return the date of Deadline
      */

@@ -170,7 +170,7 @@ public class TaskList {
     }
 
     /**
-     * Views task and schedule based on a specific date
+     * Views task and schedule based on a specific date.
      * @param date Date to be searched for in the form of DD/MM/YYYY
      * @return An ArrayList of strings representing the list of tasks based on date provided
      */
@@ -178,10 +178,9 @@ public class TaskList {
         ArrayList<Task> output = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDate().equals(date)) {
-                if(!task.isDone()) { //display undone tasks on top of list
+                if (!task.isDone()) { //display undone tasks on top of list
                     output.add(0, task);
-                }
-                else {
+                } else {
                     output.add(task);
                 }
             }

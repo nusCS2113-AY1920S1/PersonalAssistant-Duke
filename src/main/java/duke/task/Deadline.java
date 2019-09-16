@@ -137,7 +137,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns date-only of this Deadline
+     * Returns date-only of this Deadline.
      *
      * @return the date of Deadline
      */

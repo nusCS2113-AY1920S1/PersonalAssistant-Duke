@@ -36,7 +36,7 @@ public class Parser {
 
     /**
      * Takes in user input line by line.
-     * 
+     *
      * @return The corresponding action done by {@link #parseActionMenu(String, String)}.
      * @throws DukeException thrown by {@link #parseActionMenu(String, String)}.
      */
@@ -103,26 +103,26 @@ public class Parser {
 
     private Command parseActionMenu(String action, String data) throws DukeException {
         switch (action) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "done":
-                return new DoneCommand(data);
-            case "delete":
-                return new DeleteCommand(data);
-            case "find":
-                return new FindCommand(data);
-            case "deadline":
-                return new AddCommand(Deadline.create(data));
-            case "event":
-                return new AddCommand(Event.create(data));
-            case "todo":
-                return new AddCommand(Todo.create(data));
-            case "view":
-                return new ViewCommand(data);
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "done":
+            return new DoneCommand(data);
+        case "delete":
+            return new DeleteCommand(data);
+        case "find":
+            return new FindCommand(data);
+        case "deadline":
+            return new AddCommand(Deadline.create(data));
+        case "event":
+            return new AddCommand(Event.create(data));
+        case "todo":
+            return new AddCommand(Todo.create(data));
+        case "view":
+            return new ViewCommand(data);
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 }
