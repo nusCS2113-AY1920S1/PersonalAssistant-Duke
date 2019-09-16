@@ -2,7 +2,7 @@ package parser;
 import command.*;
 import exception.DukeException;
 import ui.Ui;
-
+import java.util.Date;
 import java.text.ParseException;
 
 /**
@@ -42,7 +42,7 @@ public class Parser {
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                 } else {
-                    return new AddCommand(command, taskFeatures, null);
+                    return new AddCommand(command, taskFeatures, null, null, null);
                 }
             case "deadline":
                 //fall through to avoid rewriting the same code multiple times!
@@ -67,16 +67,30 @@ public class Parser {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                     }
                     String dateTimeFromUser;
+                    Date atDate = new Date();
+                    Date toDate = new Date();
+                    Date fromDate = new Date();
                     try {
                         dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                        // This is used to check if there is an error in the user input! - (throws ParseExp if wrong)
-                        DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                        if (checkType.contains("/by")){
+                            atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                        }
+                        else
+                        {
+                            fromDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                            String obtainEndDate = dateTimeFromUser.split("-",2)[1].trim();
+                            String removeStartDate = dateTimeFromUser.split("-",2)[0].trim();
+                            String addFinalString =  removeStartDate.split(" ",2)[0].trim();
+                            toDate = DateTimeExtractor.extractDateTime(addFinalString + " " +
+                                     obtainEndDate, "deadline");
+                        }
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new DukeException(DukeException.EMPTY_DATE_OR_TIME());
                     } catch (ParseException e) {
                         throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
                     }
-                    return new AddCommand(command, taskDescription, dateTimeFromUser);
+                    return new AddCommand(command, taskDescription, atDate, toDate, fromDate);
                 }
             case "find":
                 String findKeyWord = userInput.split(command, 2)[1].trim();

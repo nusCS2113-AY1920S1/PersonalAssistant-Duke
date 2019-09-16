@@ -1,8 +1,6 @@
 package task;
-import exception.DukeException;
-import parser.DateTimeExtractor;
 import java.io.Serializable;
-import java.text.ParseException;
+import java.util.Date;
 
 /**
  * This extension of the task class will allow the user to add a task of deadline type.
@@ -12,11 +10,9 @@ import java.text.ParseException;
  */
 public class Deadline extends Task implements Serializable{
 
-    private String date;
-
-    public Deadline(String description, String date){
+    public Deadline(String description, Date atDate){
         super(description);
-        this.date = date;
+        this.atDate = atDate;
     }
 
     /**
@@ -27,19 +23,8 @@ public class Deadline extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        String dateToPrint = "ERROR NO DATE";
-        try {
-            dateToPrint = DateTimeExtractor.extractDateTime(date, "deadline");
-        } catch (ParseException e) {
-            DukeException.EMPTY_DATE_OR_TIME();
-        }
-        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: " + dateToPrint+ ")";
-
+        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: " + this.atDate + ")";
     }
 
-    @Override
-    public String toStringForCheck() {
-        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: " + date;
-    }
 }
 

@@ -1,5 +1,6 @@
 package task;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * This Task class is extended by the other tasks and serves as a template for all tasks.
@@ -12,6 +13,10 @@ public class Task implements Serializable{
 
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
+
+    public Date fromDate;
+    public Date toDate;
+    public Date atDate;
 
     /**
      * This task constructor is used to obtain the parameters required by the task class.
@@ -46,10 +51,6 @@ public class Task implements Serializable{
      * @return This function returns a string of the required task in the desired output format of string type.
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
-    }
-
-    public String toStringForCheck() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
