@@ -8,7 +8,7 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * The duke.Duke program is a simple Personal Assistant Chatbot
+ * The Duke program is a simple Personal Assistant Chatbot
  * that helps a person to keep track of various things.
  *
  * @author  Jefferson111
