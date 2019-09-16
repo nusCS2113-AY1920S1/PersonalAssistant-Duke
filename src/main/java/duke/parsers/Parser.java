@@ -3,6 +3,7 @@ import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.FixedDuration;
 import duke.tasks.ToDo;
 
 /**
@@ -40,6 +41,14 @@ public class Parser {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
+            if (description.contains("/needs")) {
+                try {
+                    String SplitString[] = description.split(" /needs ", 2);
+                    return new AddCommand(new FixedDuration(SplitString[0], SplitString[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
+                }
+            }
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {

@@ -4,12 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
-import duke.tasks.Schedule;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-
+import duke.tasks.*;
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to
  * @author Ivan Andika Lie
@@ -72,6 +67,8 @@ public class Storage {
             loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
             loadEvent(tasks, description, timeFrame, isDone, schedule);
+        } else if (taskType.equals("FD")) {
+            loadFixedDuration(tasks, description, splitLine[3], isDone, schedule);
         }
 
     }
@@ -122,6 +119,14 @@ public class Storage {
         tasks.add(newEvent);
     }
 
+    private static void loadFixedDuration(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
+        FixedDuration newFixedDuration = new FixedDuration(description, duration);
+        if (isDone) {
+            newFixedDuration.markAsDone();
+        }
+        tasks.add(newFixedDuration);
+    }
+
     /**
      * This is a function that will update the input/output file from the current arraylisto of tasks
      * @param tasks the task arraylist that will store the tasks from the input file
@@ -152,6 +157,10 @@ public class Storage {
                 }
                 else if ((currentTask.getType()).equals("D")) {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
+                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+                else if ((currentTask.getType()).equals("FD")) {
+                    String timeFrame = (currentLine.split("needs: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }
             }
