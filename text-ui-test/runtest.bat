@@ -12,7 +12,7 @@ type nul > all.javas
 REM find all Java source files
 
 
-javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\Duke.java ..\src\main\java\exceptions\*.java ..\src\main\java\storage\*.java ..\src\main\java\task\*.java ..\src\main\java\parser\*.java ..\src\main\java\ui\*.java
+javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\Duke.java ..\src\main\java\exceptions\*.java ..\src\main\java\storage\*.java ..\src\main\java\task\*.java ..\src\main\java\parser\*.java ..\src\main\java\ui\*.java ..\src\main\java\wrapper\*.java
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
