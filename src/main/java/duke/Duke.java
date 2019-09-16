@@ -60,6 +60,7 @@ public class Duke implements Runnable{
                 globalUi.showLine();
             }
         }
+        System.exit(0);
     }
     /**
      * Starts the Duke thread and Reminder thread concurrently
@@ -68,9 +69,9 @@ public class Duke implements Runnable{
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        Duke n = new Duke("./data/duke.txt");
+        Duke d = new Duke("./data/duke.txt");
         Reminder r = new Reminder(globalTasks,globalUi);
-        Thread t1 = new Thread(n);
+        Thread t1 = new Thread(d);
         Thread t2 = new Thread(r);
         t1.start();
         t2.start();
