@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class ToDo extends Task {
 
-    private Calendar datetime2 = Calendar.getInstance();
     /**
      * This is the constructor of ToDo object
      * @param description the description of the todo object

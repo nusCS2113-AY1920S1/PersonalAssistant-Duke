@@ -5,10 +5,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * ToDoPeriod is a public class that extends from Task
+ */
 public class ToDoPeriod extends Task {
 
     Calendar datetime2 = Calendar.getInstance();
+
+    /**
+     * Constructor for ToDoPeriod
+     * @param description description of task
+     * @param start start date
+     * @param end end date
+     */
     public ToDoPeriod(String description, String start, String end) {
         super(description);
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -38,8 +47,9 @@ public class ToDoPeriod extends Task {
     }
 
     /**
-     * this function overrides the toString() function in Task to represents the full description of a Deadline object
-     * @return <code>"[D]" + super.toString() + " (by: " + by + ")"</code>
+     * this function overrides the toString() for ToDoPeriod object
+     * @return <code>"[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
+     *                 + " to " + dateFormat.format(datetime2.getTime()) + ")"</code>
      */
     @Override
     public String toString() {
