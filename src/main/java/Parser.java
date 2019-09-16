@@ -1,13 +1,4 @@
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.SnoozeCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +33,8 @@ class Parser {
                 return new AddEventCommand(arguments);
             case "snooze":
                 return new SnoozeCommand(arguments);
+            case "schedule":
+                return new ViewScheduleCommand(arguments);
             case "bye":
                 return new ByeCommand();
             default:
