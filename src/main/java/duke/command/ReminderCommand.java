@@ -22,13 +22,13 @@ public class ReminderCommand extends Command {
      * @param num The next number of day specify by the user for the program to search for task to be reminded.
      */
     public ReminderCommand(String num) throws DukeException {
-        num = num.trim();
+        String numTrim = num.trim();
         String pattern = "^[0-9]+$";
-        if (!num.matches(pattern)) {
+        if (!numTrim.matches(pattern)) {
             throw new DukeException("The task number should be numeric and cannot be blank");
         } else {
             try {
-                this.numOfDay = Integer.parseInt(num);
+                this.numOfDay = Integer.parseInt(numTrim);
             } catch (NumberFormatException exceptionMessage) {
                 throw new DukeException("The number cannot exceed 9 digits");
             }
