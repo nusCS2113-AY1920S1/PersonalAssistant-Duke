@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Scott
 image::sfloydzy.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/sfloydzy[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/sfloydzy[github]] [<<portfolio#, portfolio>>]
 
 Role: Project Advisor
 
@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Danish
 image::danisheddie.png[width="150", align="left"]
-{empty}[http://github.com/danisheddie[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/danisheddie[github]] [<<portfolio#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -30,7 +30,7 @@ Responsibilities: UI
 
 === Jing Sen
 image::eujingsen.png[width="150", align="left"]
-{empty}[http://github.com/eujingsen[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/eujingsen[github]] [<<portfolio#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -39,7 +39,7 @@ Responsibilities: Data
 
 === Edmund
 image::nottherealedmund.png[width="150", align="left"]
-{empty}[http://github.com/nottherealedmund[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/nottherealedmund[github]] [<<portfolio#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
