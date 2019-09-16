@@ -3,12 +3,12 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
-import ui.Ui;
-import util.Storage;
-import task.TaskList;
-import task.Task;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.task.TaskList;
+import cube.task.Task;
 
 public class FindCommand implements Command{
 	private String keyword;

@@ -3,15 +3,15 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
 import java.util.Date;
 
-import ui.*;
-import util.Storage;
-import task.TaskList;
-import task.Event;
-import exception.DukeException;
+import cube.ui.*;
+import cube.util.Storage;
+import cube.task.TaskList;
+import cube.task.Event;
+import cube.exception.DukeException;
 
 public class EventCommand implements Command{
 	private String description;

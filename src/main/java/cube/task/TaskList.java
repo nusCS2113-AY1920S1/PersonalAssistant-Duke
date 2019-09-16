@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package task;
+package cube.task;
 
 import java.util.ArrayList;
 

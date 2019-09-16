@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package util;
+package cube.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +14,9 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import exception.DukeLoadingException;
-import task.*;
-import exception.DukeException;
+import cube.exception.DukeLoadingException;
+import cube.task.*;
+import cube.exception.DukeException;
 
 public class Storage {
 	private String filePath;

@@ -1,14 +1,14 @@
-/**
+package cube; /**
  * This is the main entrance of Duke programme.
  *
  * @author tygq13
  */
-import exception.*;
-import task.TaskList;
-import ui.Ui;
-import util.Parser;
-import util.Storage;
-import command.Command;
+import cube.exception.*;
+import cube.task.TaskList;
+import cube.ui.Ui;
+import cube.util.Parser;
+import cube.util.Storage;
+import cube.command.Command;
 
 public class Duke {
 
@@ -59,6 +59,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         //todo: allow user to specify data path
-        new Duke("D:\\codes\\java\\duke\\data").run();
+        new Duke("data").run();
     }
 }

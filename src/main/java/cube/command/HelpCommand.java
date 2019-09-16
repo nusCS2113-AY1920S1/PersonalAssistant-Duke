@@ -3,11 +3,11 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
-import ui.Ui;
-import util.Storage;
-import task.TaskList;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.task.TaskList;
 
 public class HelpCommand implements Command{
 

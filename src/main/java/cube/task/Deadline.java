@@ -3,10 +3,10 @@
  *
  * @author tygq13
  */
-package task;
+package cube.task;
 
 import java.util.Date;
-import util.Parser;
+import cube.util.Parser;
 
 public class Deadline extends Task {
 	private Date by;

@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package util;
+package cube.util;
 
 import java.util.Hashtable;
 import java.util.Date;
@@ -12,9 +12,9 @@ import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-import command.*;
-import ui.Message;
-import exception.DukeException;
+import cube.command.*;
+import cube.ui.Message;
+import cube.exception.DukeException;
 
 public class Parser {
 	/**

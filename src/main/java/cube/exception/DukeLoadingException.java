@@ -3,9 +3,9 @@
  *
  * @author tygq13
  */
-package exception;
+package cube.exception;
 
-import ui.Message;
+import cube.ui.Message;
 
 public class DukeLoadingException extends DukeException
 {

@@ -3,10 +3,10 @@
  *
  * @author tygq13
  */
-package ui;
+package cube.ui;
 
-import task.TaskList;
-import task.Task;
+import cube.task.TaskList;
+import cube.task.Task;
 import java.util.Scanner;
 
 public class Ui {

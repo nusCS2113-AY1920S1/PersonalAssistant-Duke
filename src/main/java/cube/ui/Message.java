@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package ui;
+package cube.ui;
 
 //todo: could create relevant exception classes with the specific message
 public class Message {

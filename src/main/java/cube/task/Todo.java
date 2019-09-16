@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package task;
+package cube.task;
 
 public class Todo extends Task{
 

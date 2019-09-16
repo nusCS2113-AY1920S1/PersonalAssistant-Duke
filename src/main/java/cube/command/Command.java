@@ -3,12 +3,12 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
-import task.TaskList;
-import ui.Ui;
-import util.Storage;
-import exception.DukeException;
+import cube.task.TaskList;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.exception.DukeException;
 
 public interface Command {
 

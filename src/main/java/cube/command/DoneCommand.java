@@ -3,13 +3,13 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
-import ui.*;
-import util.Storage;
-import task.TaskList;
-import task.Task;
-import exception.DukeException;
+import cube.ui.*;
+import cube.util.Storage;
+import cube.task.TaskList;
+import cube.task.Task;
+import cube.exception.DukeException;
 
 
 public class DoneCommand implements Command{

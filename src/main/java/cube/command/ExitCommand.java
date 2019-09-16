@@ -3,12 +3,12 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
-import exception.DukeException;
-import ui.Ui;
-import util.Storage;
-import task.TaskList;;
+import cube.exception.DukeException;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.task.TaskList;;
 
 public class ExitCommand implements Command{
 

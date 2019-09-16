@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package exception;
+package cube.exception;
 
 public class DukeException extends Exception
 {
