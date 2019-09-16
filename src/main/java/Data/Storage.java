@@ -17,7 +17,7 @@ import java.util.Scanner;
  * Storage handles all the loading and saving of data from and into the duke.txt file respectively
  */
 public class Storage {
-    private static String path = "D:\\Documents\\NUS\\CS2113T\\duke\\src\\main\\java\\Data\\duke.txt";
+    private static String path = ".\\src\\main\\java\\Data\\duke.txt";
     private static Scanner fileInput;
     private static ArrayList<item> oldList = new ArrayList<>();
     private static File f = new File(path);
@@ -26,7 +26,7 @@ public class Storage {
 
 
     /**
-     * This function parses the info of the duke.txt into an ArrayList
+     * This function parses the info of the duke.txt into an ArrayList.
      *
      * @return ArrayList containing all the parsed data from the duke.txt file
      * @throws FileNotFoundException e
@@ -40,7 +40,7 @@ public class Storage {
                 String type, info;
                 Boolean stat;
                 String s1 = fileInput.nextLine();
-                String[] data = s1.split(",");
+                String[] data = s1.split("-");
                 type = data[0];
                 stat = (data[1].equals("1"));
 
@@ -58,6 +58,10 @@ public class Storage {
                     case "T":
                         item todo = new ToDo(data[2], stat);
                         oldList.add(todo);
+                        break;
+
+                    default:
+                        System.out.println("No data");
                         break;
                 }
             }
@@ -81,13 +85,13 @@ public class Storage {
         try {
             if (type.equals("T")) {
                 FileWriter fileWriter = new FileWriter(f, true);
-                fileWriter.write(type + "," + e.checkStatus() + "," + e.getInfo() + "\n");
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "\n");
                 fileWriter.close();
             }
             else  {
                 FileWriter fileWriter = new FileWriter(f, true);
 
-                fileWriter.write(type + "," + e.checkStatus() + "," + e.getInfo() + "," + e.getDate() + "\n");
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "-" + e.getDate() + "\n");
                 fileWriter.close();
             }
         }
@@ -116,7 +120,7 @@ public class Storage {
         for (item i: up) {
             try {
                 FileWriter fileWriter = new FileWriter(f,true);
-                fileWriter.write(i.getType() + "," + i.checkStatus() + "," + i.getInfo() + "," +i.getDate()+ "\n");
+                fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" +i.getDate()+ "\n");
                 fileWriter.close();
             }
             catch (IOException io) {

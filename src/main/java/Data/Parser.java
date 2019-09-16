@@ -3,14 +3,14 @@ package Data;
 import Task.*;
 
 /**
- * Parser is the controller for the string inputs received by the standard input
+ * Parser is the controller for the string inputs received by the standard input.
  */
 public class Parser {
 
 
     /**
      * This function takes the standard input defined by the user and
-     * parses it into instructions for the Storage to read
+     * parses it into instructions for the Storage to read.
      *
      * @param io
      */
@@ -51,7 +51,7 @@ public class Parser {
                 try {
                     index = input.indexOf("/by");
                     String info = input.substring(9, index);
-                    String endDate = TaskList.dateConvert(input.substring(index + 4));
+                    String endDate = input.substring(index + 4);
                     Deadline deadline = new Deadline(info, false, endDate);
                     TaskList.addTask(deadline, "D");
                 }
@@ -64,7 +64,7 @@ public class Parser {
                 try {
                     index = input.indexOf("/at");
                     String info = input.substring(6, index);
-                    String endDate = TaskList.dateConvert(input.substring(index + 4));
+                    String endDate = input.substring(index + 4);
                     Event event = new Event(info, false, endDate);
                     TaskList.addTask(event, "E");
                 }
@@ -81,7 +81,7 @@ public class Parser {
                 try {
                     index = input.indexOf("/after");
                     String info = input.substring(10, index);
-                    String endDate = TaskList.dateConvert(input.substring(index + 7));
+                    String endDate = input.substring(index + 7);
                     After after = new After(info, false, endDate);
                     TaskList.addTask(after, "A");
                 }
