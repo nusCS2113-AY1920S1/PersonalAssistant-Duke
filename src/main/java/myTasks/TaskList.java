@@ -43,6 +43,9 @@ public class TaskList {
                     case "R":
                         list.add(new Recurring(split[1], split[2], split[3]));
                         break;
+                    case "A":
+                        list.add(new After(split[1], split[2], split[3]));
+                        break;
                     default:
                         throw new DukeException((i+1) + "has incorrect task format.");
                 }
@@ -163,6 +166,9 @@ public class TaskList {
                     break;
                 case "recurring":
                     temp = new Recurring(input);
+                    break;
+                case "after":
+                    temp = new After(input);
                     break;
                 default:
                     throw new DukeException("What the Hell happened here?\n"+

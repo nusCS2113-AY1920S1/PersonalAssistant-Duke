@@ -16,6 +16,7 @@ public class Parser {
     public static String event = "\\s*/at\\s*";
     public static String recurring = "\\s*/every\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
+    public static String after = "\\s*/after\\s*";
     public static String newLine = "\n";
     private Storage save;
 
@@ -48,7 +49,7 @@ public class Parser {
                 }
             }
         }
-        else if (command.matches("todo|deadline|event|done|delete|find|recurring")) {
+        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after")) {
             if(!temp.hasNextLine())
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             String input = temp.nextLine();
@@ -61,7 +62,7 @@ public class Parser {
             }
             else {
                 //add new tasks
-                if(command.matches("todo|deadline|event|recurring"))
+                if(command.matches("todo|deadline|event|recurring|after"))
                 {
                     return new AddCommand(command, input);
                 }

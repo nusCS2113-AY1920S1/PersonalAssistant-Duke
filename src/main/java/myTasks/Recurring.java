@@ -57,6 +57,10 @@ public class Recurring extends Task {
     @Override
     public String getType(){ return "R";}
 
+    /**
+     * Return the frequency of this task
+     * @return String consisting of the user input
+     */
     @Override
     public String getFrequency() {return this.frequency;}
 }

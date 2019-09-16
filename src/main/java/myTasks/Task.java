@@ -45,6 +45,14 @@ public class Task {
     }
 
     /**
+     * Get the prerequisite of the task.
+     * To be overwritten by the after class
+     */
+    public String getAfter() {
+        return "";
+    }
+
+    /**
      * Attempts to parse date and input it as Date type
      * @param date String which is in Date format
      * @throws DukeException DukeException thrown when dateFormatter parsing fails

@@ -62,6 +62,10 @@ public class Storage {
                 {
                     fileContent += " | " + list.get(i).getFrequency();
                 }
+                else if(list.get(i).getType().matches("A"))
+                {
+                    fileContent += " | " + list.get(i).getAfter();
+                }
                 bufferedWriter.write(fileContent);
                 bufferedWriter.newLine();
             }
