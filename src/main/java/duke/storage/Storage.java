@@ -35,7 +35,7 @@ public class Storage {
      * Updates the task list from reading the contents of the text file.
      *
      * @return ArrayList to update the task list.
-     * @throws Exception  If there is an error reading the text file.
+     * @throws IOException  If there is an error reading the text file.
      */
     public ArrayList<Task> read() throws IOException {
         ArrayList<Task> items = new ArrayList<>();

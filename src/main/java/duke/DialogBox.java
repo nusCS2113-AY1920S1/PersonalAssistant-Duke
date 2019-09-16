@@ -55,6 +55,11 @@ public class DialogBox extends HBox {
 
     /**
      * Hi.
+     * Creates a dialog box with the image and the text of either the user or the bot.
+     *
+     * @param text THe text of the user or bot.
+     * @param img The image of the user or bot.
+     * @return DialogBox to display to the user.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);

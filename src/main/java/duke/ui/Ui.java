@@ -145,7 +145,7 @@ public class Ui {
      */
     public static String showAddGui(TaskList items) {
         String str = "     Got it. I've added this task:\n       "
-                + items.get(items.size() - 1).toString() + "\n     Now you have "
+                + items.get(items.size() - 1).toStringGui() + "\n     Now you have "
                 + items.size() + " tasks in the list.\n";
         return str;
     }
@@ -219,7 +219,7 @@ public class Ui {
         int numFound = 0;
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                str += "     " + (i + 1) + "." + items.get(i).toString() + "\n";
+                str += "     " + (i + 1) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }
         }

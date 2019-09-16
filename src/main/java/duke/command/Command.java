@@ -24,6 +24,7 @@ public abstract class Command {
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
+     * @return String to be outputted to the user.
      */
     public abstract String executeGui(TaskList items, Ui ui);
 
