@@ -1,10 +1,7 @@
 package Data;
 
 
-import Task.Deadline;
-import Task.Event;
-import Task.ToDo;
-import Task.item;
+import Task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -60,9 +57,17 @@ public class Storage {
                         oldList.add(todo);
                         break;
 
-                    default:
-                        System.out.println("No data");
+
+                   
+
+                    case "A":
+                        item after = new After(data[2], stat, data[3]);
+                        oldList.add(after);
+
                         break;
+                    
+                     default:
+                        System.out.println("No data");
                 }
             }
             fileInput.close();
