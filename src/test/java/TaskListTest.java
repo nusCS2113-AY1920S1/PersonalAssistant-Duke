@@ -50,16 +50,16 @@ public class TaskListTest {
 
     @Test
     public void deleteTasks_validIdx_successMessageReturned() {
-       try {
-           taskList.deleteTask("1");
-           taskList.deleteTask("2");
-           assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
-                   taskList.listTasks());
-       } catch (DukeException excp) {
-           fail("Unable to find added tasks!");
-       } catch (AssertionError excp) {
-           fail("Tasks not deleted correctly!");
-       }
+        try {
+            taskList.deleteTask("1");
+            taskList.deleteTask("2");
+            assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
+                    taskList.listTasks());
+        } catch (DukeException excp) {
+            fail("Unable to find added tasks!");
+        } catch (AssertionError excp) {
+            fail("Tasks not deleted correctly!");
+        }
     }
 
     @Test //also tests for failure of other "getIdx" tasks
