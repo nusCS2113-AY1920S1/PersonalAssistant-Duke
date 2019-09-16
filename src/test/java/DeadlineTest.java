@@ -53,7 +53,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void invalidSchedule_throwsDukeException() {
+    void viewScheduleCommand_invalidList_dukeExceptionThrown() {
         List<String> invalidSchedule = Arrays.asList("schedule", "/from", "16/9/2019");
         assertThrows(DukeException.class, () -> {
             new ViewScheduleCommand(invalidSchedule);
