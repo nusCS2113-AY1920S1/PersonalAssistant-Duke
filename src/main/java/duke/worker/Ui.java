@@ -43,8 +43,6 @@ public class Ui {
 
     /**
      * Obtains user input and executes commands.
-     *
-     * @return Command to be executed
      */
     public void interact(TaskList taskList) {
         // Declarations

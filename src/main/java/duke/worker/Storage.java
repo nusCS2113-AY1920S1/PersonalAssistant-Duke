@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-class Storage {
+public class Storage {
     protected String filePath;
 
     /**
