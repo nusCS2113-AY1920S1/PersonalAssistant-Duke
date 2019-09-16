@@ -1,5 +1,8 @@
 package parser;
 
+import task.Event;
+import task.Tasks;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -147,5 +150,18 @@ public class TimeParser {
 
         return diffHours;
     }
+
+    public static boolean isConflicted(Tasks t1 , Tasks t2){
+        if(t1 == t2 || ((Event)t1).getDate().getStartDate().after(((Event)t2).getDate().getStartDate())){
+            return false;
+        }else{
+            if(((Event)t2).getDate().getStartDate().before(((Event)t1).getDate().getEndDate())){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
 }
 
