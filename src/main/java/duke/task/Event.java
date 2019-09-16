@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Event extends Task implements Snoozeable {
     private String description;
-    public Date end;
-    public Date start;
+    private Date end;
+    private Date start;
     private SimpleDateFormat formatter;
 
     /**
@@ -39,7 +39,7 @@ public class Event extends Task implements Snoozeable {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         } catch (ParseException e) {
-            throw new DukeException("Inv7alid datetime. Correct format: dd/mm/yyyy hhmm");
+            throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
         }
     }
 
@@ -65,5 +65,13 @@ public class Event extends Task implements Snoozeable {
     public String toString() {
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                 formatter.format(this.start), formatter.format(this.end));
+    }
+
+    public Date getEnd() {
+        return this.end;
+    }
+
+    public Date getStart() {
+        return this.start;
     }
 }
