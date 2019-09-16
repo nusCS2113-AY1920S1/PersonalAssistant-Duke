@@ -26,7 +26,9 @@ public class Storage {
     public Storage(String fileLocation) throws DukeException {
         try {
             dukeFile = new File(fileLocation);
-            dukeFile.createNewFile();
+            if (dukeFile.getParentFile().mkdir()) {
+                dukeFile.createNewFile();
+            }
         } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }
