@@ -21,7 +21,7 @@ public class Tentative extends Task{
 
     @Override
     public String toString() {
-        String outputFormat = "[?]" + super.toString() + " (at: " + "<unscheduled>" + ")";
+        String outputFormat = "[*E]" + super.toString() + " (at: " + "<unscheduled>" + ")";
         return outputFormat;
     }
 
@@ -41,6 +41,6 @@ public class Tentative extends Task{
 
         }
 
-        return "?," + super.writeToFile() + "," + concatArray ;
+        return "*E," + super.writeToFile() + "," + concatArray ;
     }
 }
