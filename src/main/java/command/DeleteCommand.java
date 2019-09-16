@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * @param tasks The taskList of Duke.
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
-     * @throws DukeException If the index given is out of range.
+     * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
