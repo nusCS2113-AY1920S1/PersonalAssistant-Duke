@@ -11,7 +11,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = 'wallet.Duke'
+    mainClassName = 'wallet.Main'
 }
 
 run {

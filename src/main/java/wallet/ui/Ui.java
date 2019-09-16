@@ -19,15 +19,15 @@ public class Ui {
      * Prints the welcome message of the program.
      */
     public void welcomeMsg(){
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "__             __       _   _         \n"
+                     + "\\ \\    __     / /      | | | |        _\n"
+                     + " \\ \\  /  \\   / /___,__ | | | | ______| |_    \n"
+                     + "  \\ \\/ /\\  \\/ /  [] | || | | |  []_\\_  __|\n"
+                     + "   \\__/  \\___/ \\__,_|_||_| |_|\\___/  |_|\n";
         System.out.println("Hello from\n" + logo);
 
         printLine();
-        System.out.println("Hello! I'm ui.Duke");
+        System.out.println("Hello! Welcome to the WalletCLi Application!");
         System.out.println("What can I do for you?");
         printLine();
     }
