@@ -40,6 +40,11 @@ public class Task implements Serializable {
     public void setDone() {
         this.isDone = true;
     }
+
+    /**
+     * Gets the description of the Task.
+     * @return Task Description.
+     */
     public String getDescription() {
         return this.description;
     }
