@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public class Parser {
     private static String[] arr;
+    private static String[] arr1;
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.
@@ -109,6 +110,27 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
                             "For example: deadline return book /by 2/12/2019 1800");
+                }
+            }
+
+            else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+                try {
+                    String activity = fullCommand.trim().substring(6);
+                    arr = activity.split("/to");
+                    arr1 = arr[0].split(" ");
+                    int index = Integer.parseInt(arr1[1].trim()) - 1;
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The index of a snooze cannot be empty.");
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = formatter.parse(arr[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    return new SnoozeCommand(index, dateString);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter snooze as follows:\n" +
+                            "snooze index /to dd/MM/yyyy HHmm\n" +
+                            "For example: snooze 2 /to 2/12/2019 1800");
                 }
             }
 
