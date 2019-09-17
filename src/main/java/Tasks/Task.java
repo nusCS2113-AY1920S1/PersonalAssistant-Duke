@@ -5,6 +5,7 @@ package Tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     /**
      * Creates Task object.
@@ -13,6 +14,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.type = "";
+    }
+
+    public String getType() {
+        return type;
     }
 
     /**
