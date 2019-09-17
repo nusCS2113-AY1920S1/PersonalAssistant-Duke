@@ -15,8 +15,7 @@ class AddCommandTest {
     @Test
     void execute() throws DukeException {
         Ui ui = new Ui();
-        Parser parser = new Parser();
-        Storage storage = new Storage("tasks.txt", ui);
+        Storage storage = new Storage("data/tasks.txt", ui);
         Task task = new Todo("homework");
         AddCommand addCommand = new AddCommand(task);
         addCommand.execute(ui, storage);
