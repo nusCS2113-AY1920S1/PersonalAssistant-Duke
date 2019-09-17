@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.
  */
@@ -68,4 +70,8 @@ public abstract class Task {
       }
       return false;
     }
+
+    public abstract LocalDateTime getDateTime();
+    public abstract void setDateTime(LocalDateTime DateTime);
+    public abstract void setDateTime(String DateTime);
 }

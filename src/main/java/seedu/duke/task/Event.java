@@ -10,23 +10,21 @@ import java.util.Locale;
  * This task type inherits from Task. It specifies an event at a particular time.
  */
 public class Event extends Task {
-  
   protected String at;
-  // translated date version
   protected String date_at;
   private Ui ui = new Ui();
 
   public Event(String description, String at) {
     super(description);
     this.at = at;
-    this.to_date();
+    this.translate_date();
   }
 
   /**
    * Makes use of the DateTimeFormatter and LocalDateTime class to parse the user input date time and initializes the date_at member variable.
    */
-  public void to_date() {
-    // splitting date
+  public void translate_date() {
+    //  splitting date into individual components
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
     LocalDateTime parsedDate;
     try {
@@ -94,5 +92,24 @@ public class Event extends Task {
       return true; 
     }
     return false;
+  }
+
+  @Override
+  public LocalDateTime getDateTime() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    return LocalDateTime.parse(this.at, formatter);
+  }
+
+  @Override
+  public void setDateTime(LocalDateTime ldt) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    at = ldt.format(formatter);
+    this.translate_date();
+  }
+
+  @Override
+  public void setDateTime(String DateTime) {
+    at = DateTime;
+    this.translate_date();
   }
 }

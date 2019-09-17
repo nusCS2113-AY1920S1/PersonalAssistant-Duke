@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * A class that inherits from the abstract class Task. This task type is a simple todo that can be marked as done when done.
  */
@@ -26,4 +28,14 @@ public class ToDo extends Task {
     return "T|" + super.toSaveFormat(); 
   }
 
+  @Override
+  public LocalDateTime getDateTime() {
+    return null;
+  }
+
+  @Override
+  public void setDateTime(LocalDateTime DateTime) {}
+
+  @Override
+  public void setDateTime(String DateTime) {}
 }

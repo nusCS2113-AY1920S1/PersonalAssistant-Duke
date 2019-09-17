@@ -92,4 +92,23 @@ public class Deadline extends Task {
     }
     return false;
   }
+
+  @Override
+  public LocalDateTime getDateTime() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    return LocalDateTime.parse(this.by, formatter);
+  }
+
+  @Override
+  public void setDateTime(LocalDateTime ldt) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    by = ldt.format(formatter);
+    this.translate_date();
+  }
+
+  @Override
+  public void setDateTime(String DateTime) {
+    by = DateTime;
+    this.translate_date();
+  }
 }

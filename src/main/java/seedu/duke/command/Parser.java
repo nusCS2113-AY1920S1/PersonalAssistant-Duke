@@ -71,6 +71,17 @@ public class Parser {
       }
     }
 
+    // Snooze task.
+    else if (user_input[0].equals("snooze")) {
+      if (user_input.length == 1) {
+        ui.empty_description_error();
+      }
+      else {
+        int task_id = Integer.parseInt(user_input[1]) - 1;
+        list.snoozeTask(task_id);
+      }
+    }
+
     else {
       // add task to list
       if (user_input[0].equals("todo") || user_input[0].equals("deadline") || user_input[0].equals("event")) {
