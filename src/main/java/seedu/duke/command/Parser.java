@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.Reminders.Reminders;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
 
@@ -57,6 +58,11 @@ public class Parser {
     // list tasks
     else if (user_input[0].equals("list")) {
       list.displayList();
+    }
+    else if(user_input[0].equals("remind")){
+      Reminders reminders = new Reminders();
+      reminders.runAll();
+      reminders.displayReminder();
     }
 
     // Do task.

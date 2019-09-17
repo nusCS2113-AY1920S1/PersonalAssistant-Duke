@@ -2,6 +2,8 @@ package seedu.duke;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import seedu.duke.Reminders.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
 import seedu.duke.task.TaskList;
@@ -27,6 +29,9 @@ public class Duke {
    */
   public static void run() {
     ui.show_opening_string();
+    Reminders reminders = new Reminders();
+    reminders.runAll();
+    reminders.displayReminder();
 
     list = new TaskList(storage.load());
 
