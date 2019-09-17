@@ -79,7 +79,7 @@ public class Duke {
      * @UsedIn: parser.processCommands
      */
     public void exitDuke() {
-        System.out.println("Bye. Hope to see you again soon!");
+
         exit(0);
     }
 
