@@ -174,7 +174,7 @@ public class TaskList {
         Task t = arrlist.get(sc1.nextInt() - 1);
         t.markAsDone();
 
-        duke.ui.showTask(t);
+        duke.ui.printg(t);
         duke.storage.saveCompal(arrlist);
     }
 
@@ -190,10 +190,10 @@ public class TaskList {
     public void deleteTask(String cmd) {
         Scanner sc1 = new Scanner(cmd);
         sc1.next(); //skip over the 'delete'
-        System.out.println("Noted. I've removed this task:");
+        duke.ui.printg("Noted. I've removed this task:");
         Task t = arrlist.remove(sc1.nextInt() - 1);
         t.markAsDone();
-        duke.ui.showTask(t);
+        duke.ui.printg(t);
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
@@ -269,7 +269,6 @@ public class TaskList {
      * @param i     whether the system is asking for the hour or the minute
      * @return hour if i = 1
      *         minute if i = 2
-     * @Function
      * @UsedIn: : addTask
      */
     private int getDuration(String cs, int i) {
@@ -357,7 +356,6 @@ public class TaskList {
      * This function handles the searching of tasks.
      *
      * @param cmd used to find the keyword given
-     * @Function
      * @UsedIn: parser.processCommands
      */
     public void findTask(String cmd) {
@@ -371,7 +369,7 @@ public class TaskList {
         for (Task t : arrlist) {
             if (t.getDescription().contains(pattern)) {
                 System.out.print(count++ + ".");
-                duke.ui.showTask(t);
+                duke.ui.printg(t);
             }
         }
 

@@ -32,7 +32,7 @@ public class Storage {
     //----------------------------------------------------------------------------------------------------------------->
 
     public Storage() {
-        System.out.println("Storage Initialized!");
+        System.out.println("Storage:LOG: Storage Initialized!");
     }
 
     //----------------------->
@@ -59,7 +59,7 @@ public class Storage {
 
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Storage:WARNING: Binary save-file not found");
         }
         return list2;
     }
@@ -127,7 +127,7 @@ public class Storage {
             pw.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("Save-file not found. Will generate new one.");
+            System.out.println("Storage:WARNING: Save-file not found. Will generate new one.");
         }
     }
 

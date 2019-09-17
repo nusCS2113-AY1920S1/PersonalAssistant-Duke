@@ -42,7 +42,7 @@ public class Duke {
      *
      */
     public Duke() {
-        System.out.println("COMPal.Duke constructor");
+        System.out.println("Duke:LOG: In Duke Constructor");
         //Instantiate objects
         tasklist = new TaskList(this);
 
@@ -79,7 +79,7 @@ public class Duke {
      * @UsedIn: parser.processCommands
      */
     public void exitDuke() {
-        System.out.println("Bye. Hope to see you again soon!");
+
         exit(0);
     }
 
