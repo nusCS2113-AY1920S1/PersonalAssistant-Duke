@@ -45,6 +45,9 @@ public class DeadlinesTask extends Task {
      */
     public Date getDeadlines(){ return this.deadlines;}
 
+    /**
+     * Allows to snooze the deadline date
+     */
     public void snoozeDeadline(){
         this.deadlines.snoozeLocalDateTime();
     }

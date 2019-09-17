@@ -119,6 +119,14 @@ public class Storage {
         return text;
     }
 
+    /**
+     * Returns a String representing the data of the data file with the changement of the task which need to be snoozed.
+     * @param snoozedTask the deadline task to be snoozed
+     * @param index the position of the snoozed task.
+     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param tasksSize size of the tasks list after removed the task.
+     * @return a String representing the data of the data file with the changement of the task which need to be snoozed.
+     */
     public String getSnoozeTaskString(DeadlinesTask snoozedTask, int index , Ui ui, int tasksSize){
         String text="" , line ="", oldLine =(index+1)+"//"+snoozedTask.getTag();
         ReadFile readFile = new ReadFile(this.filePath,ui);// reader to read before change the data file

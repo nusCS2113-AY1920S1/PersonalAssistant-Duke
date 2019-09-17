@@ -17,6 +17,10 @@ public class Date {
         this.d = d;
     }
 
+    /**
+     * Allow to snooze the date
+     * Fixed to 30 minutes
+     */
     public void snoozeLocalDateTime(){
         this.d = this.d.plusMinutes(30);
     }
