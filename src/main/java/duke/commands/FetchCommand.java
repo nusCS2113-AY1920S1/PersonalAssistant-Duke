@@ -38,7 +38,8 @@ public class FetchCommand extends Command {
 
         for (Task task: tasks) {
             if (task instanceof TaskWithDates) {
-                if (((TaskWithDates) task).getStartDate().toString().substring(0, ((TaskWithDates) task).getStartDate().toString().indexOf("T"))
+                if (((TaskWithDates) task).getStartDate()
+                        .toString().substring(0, ((TaskWithDates) task).getStartDate().toString().indexOf("T"))
                         .equals(date.toString().substring(0, date.toString().indexOf("T")))) {
                     result.add(task);
                 }

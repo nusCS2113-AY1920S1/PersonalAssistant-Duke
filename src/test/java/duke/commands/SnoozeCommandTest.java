@@ -22,7 +22,7 @@ class SnoozeCommandTest {
         Ui ui = new Ui();
         LocalDateTime date = LocalDateTime.of(2019,9,9,9,9);
         LocalDateTime date1 = LocalDateTime.of(2018,9,9,9,9);
-        final String MESSAGE_UPDATE = "Alright! I've snoozed this task:\n  ";
+        final String message = "Alright! I've snoozed this task:\n  ";
         String filePath = "data/tasks.txt";
         Storage storage = new Storage(filePath, ui);
 
@@ -42,6 +42,6 @@ class SnoozeCommandTest {
         SnoozeCommand snoozeCommand = new SnoozeCommand(0, date);
         snoozeCommand.execute(ui, storage);
 
-        assertEquals(ui.getResponse(),MESSAGE_UPDATE + task);
+        assertEquals(ui.getResponse(),message + task);
     }
 }

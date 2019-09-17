@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 
 public class TaskWithDates extends Task {
-    private LocalDateTime startDate;
+    protected LocalDateTime startDate;
     Boolean hasDate = false;
 
 
@@ -17,7 +17,7 @@ public class TaskWithDates extends Task {
         this.hasDate = true;
     }
 
-    public void updateDate (LocalDateTime newDate) {
+    public void updateDate(LocalDateTime newDate) {
         this.startDate = newDate;
     }
 

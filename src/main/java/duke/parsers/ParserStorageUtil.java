@@ -74,8 +74,8 @@ public class ParserStorageUtil {
         } else if (task instanceof DoWithin) {
             return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
         } else if (task instanceof RecurringTask) {
-            return ("R | " + task.isDone() + " | " + task.getDescription() + " | " + ((RecurringTask) task).getDate()
-                    + " | " +  ((RecurringTask) task).getRepeatInterval());
+            return ("R | " + task.isDone() + " | " + task.getDescription() + " | "
+                    + ((RecurringTask) task).getStartDate() + " | " +  ((RecurringTask) task).getRepeatInterval());
         }
         throw new DukeException(MessageUtil.CORRUPTED_TASK);
     }

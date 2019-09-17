@@ -65,13 +65,4 @@ public abstract class Task {
     public String toString() {
         return (isDone ? "[✓] " : "[✘] ") + description;
     }
-
-//    public Boolean hasDate() {
-//        return hasDate;
-//    }
-//
-//    public LocalDateTime getDate() {
-//        return startDate;
-//    }
-
 }
