@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    protected Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     /**
      * Scans for a line of user input.
@@ -131,5 +131,29 @@ public class Ui {
         System.out.print("\tPlease enter the new date: ");
         String timestamp = scanLine();
         return timestamp;
+    }
+
+    /**
+     * Prints a continue prompt and waits for user input.
+     * @return true if user inputs "Y", false if user inputs "N"
+     */
+    public boolean continuePrompt() {
+        String input = "";
+        while (true) {
+            System.out.println("Continue anyway? (Y/N)");
+            input = scanLine();
+            if (input.equals("Y")) {
+                return true;
+            }  else if (input.equals("N")) {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Prints a warning regarding event clashes.
+     */
+    public void printClashWarning() {
+        System.out.println("Warning! Event being added clashes with the following events:");
     }
 }

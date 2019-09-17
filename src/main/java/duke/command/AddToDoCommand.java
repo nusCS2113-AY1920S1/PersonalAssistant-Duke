@@ -13,7 +13,7 @@ import duke.task.Todo;
  */
 public class AddToDoCommand extends Command {
 
-    String line;
+    private String line;
 
     /**
      * Constructor for <code>AddTodoCommand</code>.
