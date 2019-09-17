@@ -142,11 +142,13 @@ public class TaskList {
    */
   public void doTask(int i, TaskList list) {
     try {
-      list.get(i).markAsDone();
-      System.out.println("\t_____________________________________");
-      System.out.println("\tNice! I've marked this task as done:");
-      System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
-      System.out.println("\t_____________________________________\n\n");
+      list.get(i).markAsDone(list);
+      if (list.get(i).isDone){
+        System.out.println("\t_____________________________________");
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
+        System.out.println("\t_____________________________________\n\n");
+      }
     }
     // Catch exception if wrong task id is done
     catch (IndexOutOfBoundsException e) {

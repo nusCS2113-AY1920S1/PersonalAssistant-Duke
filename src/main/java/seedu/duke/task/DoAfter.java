@@ -30,6 +30,27 @@ public class DoAfter extends Task {
 		return "A|" + super.toSaveFormat() + "|" + this.after;
 	}
 
+        @Override
+        public void markAsDone(TaskList list) {
+                boolean cannotMarkAsDone = true;
+                for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).description.equals(this.after)) {
+                                if (list.get(i).isDone) {
+                                        cannotMarkAsDone = false;
+                                        break;
+                                }
+                        }
+                }
+                if (cannotMarkAsDone) {
+                        System.out.println("        ________________________________________________________________________");
+                        System.out.println("        Task cannot be marked as done! The pre-requisite task has not been done!");
+                        System.out.println("        ________________________________________________________________________");
+                        System.out.println();
+                } else {
+                        this.isDone = true;
+                }
+        }
+
 	public boolean equals(DoAfter temp) {
 	    if (this.description == temp.description && this.after == temp.after) {
 		return true;

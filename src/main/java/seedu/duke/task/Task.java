@@ -28,6 +28,10 @@ public abstract class Task {
       this.isDone = true;
     }
 
+    public void markAsDone(TaskList list) {
+      this.isDone = true;
+    }
+
     /**
      * Returns the description of the task.
      *
