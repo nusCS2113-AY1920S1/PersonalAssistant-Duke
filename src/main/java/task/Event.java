@@ -1,11 +1,8 @@
 package task;
-import exception.DukeException;
 import parser.DateTimeExtractor;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * This extension of the task class will allow the user to add a task of event type.
@@ -13,14 +10,20 @@ import java.util.Date;
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Event extends Task implements Serializable{
-
-    private String date;
+public class Event extends Task implements Serializable, Comparable<Event>{
 
     public Event(String description, LocalDateTime toDate, LocalDateTime fromDate) {
         super(description);
         this.toDate = toDate;
         this.fromDate = fromDate;
+    }
+    
+    /**
+     * custom comparator for sorting
+     */
+    @Override
+    public int compareTo(Event o) {
+      return this.fromDate.compareTo(o.fromDate);
     }
 
     /**

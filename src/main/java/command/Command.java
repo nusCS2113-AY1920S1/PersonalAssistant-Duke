@@ -3,7 +3,6 @@ package command;
 import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * The command abstract class is used to ensure that all the classes have implementations of the methods and have the
@@ -39,7 +38,7 @@ public abstract class Command {
      * @param storage The storage is passed to the user to allow the user to save the file after updating TaskList.
      * @throws DukeException The DukeException class has all the respective methods and messages.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Storage storage) throws DukeException;
 
     /**
      * This isExit function is called by a program to check the status of exit.

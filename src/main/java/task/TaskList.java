@@ -1,6 +1,4 @@
 package task;
-import exception.DukeException;
-import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,7 +43,6 @@ public class TaskList {
      */
     public ArrayList<Task> find(String keyWord) {
         ArrayList<Task> holdFoundTasks = new ArrayList<>();
-        boolean check = true;
         for (int i = 0; i < listOfTasks.size(); i++) {
             String find_match = listOfTasks.get(i).toString();
             if (find_match.contains(keyWord)) {

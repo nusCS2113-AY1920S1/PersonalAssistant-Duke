@@ -27,7 +27,7 @@ public class PostponeCommand extends  Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
             throw new DukeException(DukeException.TASK_DOES_NOT_EXIST());
         }

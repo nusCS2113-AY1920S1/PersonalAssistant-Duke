@@ -1,9 +1,8 @@
 package parser;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * This DateTimeExtractor class allows the identification of dates and is used to print out dates and times.
@@ -28,7 +27,6 @@ public class DateTimeExtractor {
      *
      */
     public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
-
         if(command.equals("event")){
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;

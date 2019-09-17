@@ -10,7 +10,6 @@ import task.Todo;
 import ui.Ui;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
@@ -51,7 +50,7 @@ public class AddCommand extends Command {
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      *
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         Task task;
         switch (command) {
         case "todo":

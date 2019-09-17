@@ -4,7 +4,6 @@ import exception.DukeException;
 import ui.Ui;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.text.ParseException;
 
 /**
@@ -112,7 +111,6 @@ public class Parser {
                 if (description.isEmpty()) {
                     throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
                 }
-
                 indexOfTask = Integer.parseInt(description) - 1;
                 return new DoneCommand(indexOfTask);
 
@@ -166,6 +164,8 @@ public class Parser {
                 return new ListCommand();
             case "bye":
                 return new ExitCommand();
+            case "search":
+                return new SearchCommand(Long.parseLong(userInput.split(command, 2)[1].trim()));
             default:
                 // Empty string or unknown command.
                 Ui.printUnknownInput();

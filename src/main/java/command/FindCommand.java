@@ -28,7 +28,7 @@ public class FindCommand extends Command{
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
         if (holdFoundTasks.isEmpty())
         {

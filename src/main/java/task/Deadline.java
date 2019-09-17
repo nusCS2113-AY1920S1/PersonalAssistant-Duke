@@ -16,7 +16,7 @@ public class Deadline extends Task implements Serializable{
         super(description);
         this.atDate = atDate;
     }
-
+    
     /**
      * This override of the toString function of the task class etches the different portions of the user input into a
      * single string.
