@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Class for Tasks with a date field.
  */
-class TaskWithDates extends Task {
+public class TaskWithDates extends Task {
     TaskWithDates(String description, LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
@@ -15,7 +15,7 @@ class TaskWithDates extends Task {
     /**
      * Constructor to work around Tasks that should contain dates but does not.
      */
-    TaskWithDates(String... description) {
+    public TaskWithDates(String... description) {
         super(description[0]);
     }
 
