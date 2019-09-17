@@ -10,7 +10,7 @@ import duke.exception.DukeException;
  * Class representing an event that will occur at or around a specified time.
  */
 public class Event extends Task {
-    private final LocalDateTime at;
+    private LocalDateTime at;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy hh:mm a");
 
@@ -134,5 +134,10 @@ public class Event extends Task {
     public String export() {
         return "E | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
+    }
+
+    @Override
+    public void reschedule (LocalDateTime rescheduledAt) {
+        this.at = rescheduledAt;
     }
 }

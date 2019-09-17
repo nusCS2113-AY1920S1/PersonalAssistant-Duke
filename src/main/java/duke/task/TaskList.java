@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
+
 /**
  * A class that holds a list of tasks that may be added to, removed or
  * marked as done. This list is indexed starting from 1.
@@ -166,5 +168,14 @@ public class TaskList {
             output.add(tasks.get(i - 1).export());
         }
         return output;
+    }
+
+    public void rescheduleTask(int taskNumber, LocalDateTime rescheduleDate) throws IndexOutOfBoundsException, DukeException {
+        char typeOfTask = tasks.get(taskNumber).toString().charAt(1);
+        if (typeOfTask == 'D' || typeOfTask == 'E') {
+            tasks.get(taskNumber).reschedule(rescheduleDate);
+        } else {
+            throw new DukeException("Task is not a deadline or event.");
+        }
     }
 }
