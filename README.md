@@ -8,6 +8,20 @@
 4. TAN KAI LI CATHERINE
 5. YUE JUN YI
 
+# Changelog V1.1
+- viewing of tasks on a specific date
+  * command: view <dd/mm/yyyy> 
+- reminders
+  * ComPAL shows reminders of tasks due within a week, or with reminders set
+  * setting reminders is not yet implemented
+- new task type added: doaftertasks
+  * usage: doaftertask <descriptive name> /after <dd/mm/yyyy hhmm>
+
+
+
+
+
+
 # Setting up
 
 **Prerequisites**
