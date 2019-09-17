@@ -5,9 +5,9 @@ import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
 
 import com.joestelmach.natty.Parser;
+
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class InputValidation {
 

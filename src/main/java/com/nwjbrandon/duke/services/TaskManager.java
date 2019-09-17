@@ -1,6 +1,7 @@
 package com.nwjbrandon.duke.services;
 
 import com.nwjbrandon.duke.constants.TaskCommands;
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.command.DeadlinesCommand;
@@ -60,7 +61,8 @@ public class TaskManager {
             String[] details = taskDetails.split("\\s\\|\\s");
             Task task = loadTask(details);
             tasksList.addTask(task);
-        } catch (DukeWrongCommandFormatException e) {
+        } catch (DukeWrongCommandFormatException
+                | DukeTaskCollisionException e) {
             e.showError();
         }
     }

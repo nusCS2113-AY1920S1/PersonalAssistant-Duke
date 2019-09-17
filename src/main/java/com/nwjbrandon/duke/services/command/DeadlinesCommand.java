@@ -1,6 +1,7 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.task.Deadlines;
 import com.nwjbrandon.duke.services.task.Task;
@@ -67,8 +68,11 @@ public class DeadlinesCommand extends Command {
     public void execute(TaskList taskList) {
         try {
             this.taskDescription = parseCommand(userInput, command);
+
             taskList.addTask(this.setTask());
-        } catch (DukeWrongCommandFormatException | DukeEmptyCommandException e) {
+        } catch (DukeWrongCommandFormatException
+                | DukeEmptyCommandException
+                | DukeTaskCollisionException e) {
             e.showError();
         }
     }
