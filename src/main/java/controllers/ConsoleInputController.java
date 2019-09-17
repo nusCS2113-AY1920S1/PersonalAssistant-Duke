@@ -7,10 +7,13 @@ import models.tasks.ITask;
 import models.tasks.TaskList;
 import views.CLIView;
 
-import java.io.*;
-import java.text.ParseException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
-//import java.io.*;
+import java.text.ParseException;
 
 public class ConsoleInputController implements IViewController {
 
