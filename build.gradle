@@ -5,6 +5,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 checkstyle {
     toolVersion = '8.23'
 }
@@ -38,4 +42,5 @@ application {
 
 run {
     standardInput = System.in
+    systemProperty "file.encoding", "utf-8"
 }
