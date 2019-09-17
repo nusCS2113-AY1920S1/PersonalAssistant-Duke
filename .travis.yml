@@ -4,9 +4,7 @@ script:
 
 matrix:
   include:
-    # linux build
-    - os: linux
-      jdk: openjdk8
+    - jdk: openjdk11
 
     # osx build
     - os: osx
