@@ -28,48 +28,47 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws DukeException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage){
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage) {
         try {
-            if (IsBye(input)) {
+            if (isBye(input)) {
                 //print bye message
-                ui.ByeMessage();
+                ui.byeMessage();
                 ui.getIn().close();
                 return true;
 
-            } else if (IsList(input)) {
+            } else if (isList(input)) {
                 //print out current list
-                ui.PrintList(tasklist, "list");
+                ui.printList(tasklist, "list");
 
-            } else if (IsDone(input)) {
-                ProcessDone(input, tasklist, ui);
+            } else if (isDone(input)) {
+                processDone(input, tasklist, ui);
 
-            } else if (IsDeadline(input)) {
-                ProcessDeadline(input, tasklist, ui);
-                storage.save(tasklist.ReturnArrayList());
+            } else if (isDeadline(input)) {
+                processDeadline(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
 
-            } else if (IsTodo(input)) {
-                ProcessTodo(input, tasklist, ui);
-                storage.save(tasklist.ReturnArrayList());
+            } else if (isTodo(input)) {
+                processTodo(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
 
-            } else if (IsEvent(input)) {
-                ProcessEvent(input, tasklist, ui);
-                storage.save(tasklist.ReturnArrayList());
+            } else if (isEvent(input)) {
+                processEvent(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
 
-            } else if (IsDelete(input)) {
-                ProcessDelete(input, tasklist, ui);
-                storage.save(tasklist.ReturnArrayList());
+            } else if (isDelete(input)) {
+                processDelete(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
 
-            } else if (IsFind(input)) {
-                ProcessFind(input, tasklist, ui);
+            } else if (isFind(input)) {
+                processFind(input, tasklist, ui);
 
             } else {
-                throw new DukeException("     \u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
             }
 
-        }
-        catch (DukeException e){
-            ui.ExceptionMessage(e.getMessage());
+        } catch (DukeException e) {
+            ui.exceptionMessage(e.getMessage());
             return true;
         }
 
@@ -82,19 +81,18 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessFind(String input, TaskList tasklist, Ui ui){
-        try{
+    private static void processFind(String input, TaskList tasklist, Ui ui) {
+        try {
             TaskList findlist = new TaskList();
             String[] splitspace = input.split(" ", 2);
-            for (Task tasks : tasklist.ReturnArrayList()){
-                if(tasks.getDescription().contains(splitspace[1])){
-                    findlist.AddTask(tasks);
+            for (Task tasks : tasklist.returnArrayList()) {
+                if (tasks.getDescription().contains(splitspace[1])) {
+                    findlist.addTask(tasks);
                 }
             }
-            ui.PrintList(findlist, "find");
-        }
-        catch(ArrayIndexOutOfBoundsException e) {
-            ui.ExceptionMessage("     \u2639 OOPS!!! The content to find cannot be empty.");
+            ui.printList(findlist, "find");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
 
@@ -104,16 +102,16 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessDelete(String input, TaskList tasklist, Ui ui){
-        try{
+    private static void processDelete(String input, TaskList tasklist, Ui ui) {
+        try {
             String[] arr = input.split(" ", 2);
             int numdelete = Integer.parseInt(arr[1]) - 1;
-            String task = tasklist.get(numdelete).GiveTask();
-            tasklist.DeleteTask(numdelete);
-            ui.PrintDeleteMessage(task, tasklist);
+            String task = tasklist.get(numdelete).giveTask();
+            tasklist.deleteTask(numdelete);
+            ui.printDeleteMessage(task, tasklist);
 
-        }catch(ArrayIndexOutOfBoundsException e){
-            ui.ExceptionMessage("     \u2639 OOPS!!! Please input the list number to delete.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to delete.");
         }
     }
 
@@ -123,15 +121,15 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessDone(String input, TaskList tasklist, Ui ui){
-        try{
+    private static void processDone(String input, TaskList tasklist, Ui ui) {
+        try {
             String[] arr = input.split(" ", 2);
             int numdone = Integer.parseInt(arr[1]) - 1;
-            tasklist.get(numdone).SetDone();
-            ui.PrintDoneMessage(numdone, tasklist);
+            tasklist.get(numdone).setDone();
+            ui.printDoneMessage(numdone, tasklist);
 
-        }catch(ArrayIndexOutOfBoundsException e){
-            ui.ExceptionMessage("     \u2639 OOPS!!! Please input the list number to indicate as done.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to indicate as done.");
         }
     }
 
@@ -141,7 +139,7 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessDeadline(String input, TaskList tasklist, Ui ui){
+    private static void processDeadline(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             String[] splitslash = splitspace[1].split("/", 2);
@@ -150,14 +148,12 @@ public class Parser {
             String taskTime = splittime[1];
             Date formattedtime = dataformat.parse(taskTime);
             Deadline deadline = new Deadline(taskDescription, dataformat.format(formattedtime));
-            tasklist.AddTask(deadline);
-            ui.PrintAddedMessage(deadline, tasklist);
-        }
-        catch (ArrayIndexOutOfBoundsException e){
-            ui.ExceptionMessage("     \u2639 OOPS!!! The description of a deadline cannot be empty.");
-        }
-        catch (ParseException e){
-            ui.ExceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
+            tasklist.addTask(deadline);
+            ui.printAddedMessage(deadline, tasklist);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -167,15 +163,14 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessTodo(String input, TaskList tasklist, Ui ui){
+    private static void processTodo(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             Todo todotoadd = new Todo(splitspace[1]);
-            tasklist.AddTask(todotoadd);
-            ui.PrintAddedMessage(todotoadd, tasklist);
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            ui.ExceptionMessage("     \u2639 OOPS!!! The description of a todo cannot be empty.");
+            tasklist.addTask(todotoadd);
+            ui.printAddedMessage(todotoadd, tasklist);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -185,7 +180,7 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessEvent(String input, TaskList tasklist, Ui ui){
+    private static void processEvent(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             String[] splitslash = splitspace[1].split("/", 2);
@@ -194,47 +189,45 @@ public class Parser {
             String taskTime = splittime[1];
             Date formattedtime = dataformat.parse(taskTime);
             Event event = new Event(taskDescription, dataformat.format(formattedtime));
-            tasklist.AddTask(event);
-            ui.PrintAddedMessage(event, tasklist);
-        }
-        catch(ArrayIndexOutOfBoundsException e) {
-            ui.ExceptionMessage("     \u2639 OOPS!!! The description of a event cannot be empty.");
-        }
-        catch (ParseException e){
-            ui.ExceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
+            tasklist.addTask(event);
+            ui.printAddedMessage(event, tasklist);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The description of a event cannot be empty.");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
         }
     }
 
 
-    private static boolean IsBye(String input){
+    private static boolean isBye(String input) {
         return input.equals("bye");
     }
 
-    private static boolean IsList(String input){
+    private static boolean isList(String input) {
         return input.equals("list");
     }
 
-    private static boolean IsDone(String input){
+    private static boolean isDone(String input) {
         return input.startsWith("done");
     }
 
-    private static boolean IsDeadline(String input){
+    private static boolean isDeadline(String input) {
         return input.startsWith("deadline");
     }
 
-    private static boolean IsTodo(String input){
+    private static boolean isTodo(String input) {
         return input.startsWith("todo");
     }
 
-    private static boolean IsEvent(String input){
+    private static boolean isEvent(String input) {
         return input.startsWith("event");
     }
 
-    private static boolean IsDelete(String input){
+    private static boolean isDelete(String input) {
         return input.startsWith("delete");
     }
 
-    private static boolean IsFind(String input){
+    private static boolean isFind(String input) {
         return input.startsWith("find");
     }
 }

@@ -23,8 +23,8 @@ public class Event extends Task implements Serializable {
      * @return The task's status icon, description and eventtime.
      */
     @Override
-    public String GiveTask() {
-        return "[E]" + super.GiveTask() + "(at: " + at + ")";
+    public String giveTask() {
+        return "[E]" + super.giveTask() + "(at: " + at + ")";
     }
 
 
