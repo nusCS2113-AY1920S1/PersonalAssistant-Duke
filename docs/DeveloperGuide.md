@@ -52,10 +52,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 System: NUSPal
 
 **Actors:** Student
+
 **Persons that can play this role** : undergraduate student, graduate student, a staff member doing a part-time course, exchange student
 
 
-Use case 1: Store Academic Timetable
+**Use case 1: Store Academic Timetable**
 
 1.  User enters command to store timetable
     
