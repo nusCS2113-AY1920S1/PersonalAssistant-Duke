@@ -1,9 +1,6 @@
 package leduc.task;
 
-import leduc.task.DeadlinesTask;
-import leduc.task.EventsTask;
-import leduc.task.Task;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,5 +70,9 @@ public class TaskList {
             result += "\n";
         }
         return result;
+    }
+
+    public ArrayList<Task> getList(){
+        return (ArrayList<Task>) this.tasks;
     }
 }

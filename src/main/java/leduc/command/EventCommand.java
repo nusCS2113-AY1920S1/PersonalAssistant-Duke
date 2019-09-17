@@ -1,11 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Parser;
-import leduc.exception.DateEventFormatException;
-import leduc.exception.EmptyEventDateException;
-import leduc.exception.EmptyEventException;
-import leduc.exception.NonExistentDateException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
@@ -34,14 +30,13 @@ public class EventCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
      * @throws DateEventFormatException Exception caught when the format of the period of the event task is not correct.
      * @throws NonExistentDateException Exception caught when one of the two date given does not exist.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)
-            throws EmptyEventDateException , EmptyEventException , DateEventFormatException, NonExistentDateException {
+    public void execute(TaskList tasks, Ui ui, Storage storage)
+            throws EmptyEventDateException, EmptyEventException, DateEventFormatException, NonExistentDateException, FileException {
         String[] taskDescription = user.substring(5).split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException(ui);
@@ -71,14 +66,7 @@ public class EventCommand extends Command {
             }
             EventsTask newTask = new EventsTask(description, new Date(d1) , new Date(d2));
             tasks.add(newTask);
-            try {
-                storage.getAppendWrite().write(tasks.size() + "//" + newTask.getTag() + "//" +
-                        newTask.getMark() + "//" + newTask.getTask() + "//"+
-                        " at:" + newTask.getDateFirst() + "//" + newTask.getDateSecond()+"\n");
-            }
-            catch (IOException e){
-                ui.display("\t IOException:\n\t\t error when writing a event to file");
-            }
+            storage.save(tasks.getList());
             ui.display("\t Got it. I've added this task:\n\t   "
                     + newTask.getTag() + newTask.getMark() + newTask.getTask() + " at:"
                     + newTask.getDateFirst() + " - " + newTask.getDateSecond() +

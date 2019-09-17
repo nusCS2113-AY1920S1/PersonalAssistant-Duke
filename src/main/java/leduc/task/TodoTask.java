@@ -33,4 +33,9 @@ public class TodoTask extends Task {
      * @return a String ([T]).
      */
     public String getTag(){ return this.tag;}
+
+    @Override
+    public boolean isTodo(){
+        return true;
+    }
 }

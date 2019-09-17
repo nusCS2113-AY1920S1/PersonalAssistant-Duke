@@ -1,6 +1,5 @@
 package leduc.command;
 
-import leduc.Parser;
 import leduc.exception.MeaninglessException;
 import leduc.storage.Storage;
 import leduc.Ui;
@@ -23,10 +22,9 @@ public class MeaninglessCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      * @throws MeaninglessException Exception caught when the input string could not be interpreted.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws MeaninglessException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MeaninglessException {
         throw new MeaninglessException(ui);
     }
 

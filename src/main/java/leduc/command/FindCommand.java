@@ -1,7 +1,5 @@
 package leduc.command;
 
-import leduc.Parser;
-import leduc.command.Command;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -32,9 +30,8 @@ public class FindCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser){
+    public void execute(TaskList tasks, Ui ui, Storage storage){
         String find = user.substring(5);
         String result = "";
         for ( int i = 0 ; i< tasks.size() ; i++){

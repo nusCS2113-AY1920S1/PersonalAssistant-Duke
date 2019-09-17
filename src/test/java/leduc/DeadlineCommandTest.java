@@ -1,13 +1,11 @@
 package leduc;
 
 import leduc.command.DeadlineCommand;
-import leduc.command.DeleteCommand;
 import leduc.exception.DateFormatException;
 import leduc.exception.DukeException;
 import leduc.exception.EmptyDeadlineDateException;
 import leduc.exception.EmptyDeadlineException;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand1 = new DeadlineCommand("deadline ok");
         try{
-            deadlineCommand1.execute(tasks,ui,storage,parser);
+            deadlineCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof EmptyDeadlineDateException);
@@ -51,7 +49,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand2 = new DeadlineCommand("deadline /by 12/12/2000 22:22");
         try{
-            deadlineCommand2.execute(tasks,ui,storage,parser);
+            deadlineCommand2.execute(tasks,ui,storage);
         }
         catch(DukeException e ){
             assertTrue(e instanceof EmptyDeadlineException);
@@ -62,7 +60,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand3 = new DeadlineCommand("deadline d1 /by 12-12-2000 22:22");
         try{
-            deadlineCommand3.execute(tasks,ui,storage,parser);
+            deadlineCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e){
             assertTrue( e instanceof DateFormatException);

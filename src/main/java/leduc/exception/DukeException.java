@@ -17,6 +17,9 @@ public abstract class DukeException extends Exception{
         this.ui = ui;
     }
 
+    public DukeException(){
+        super();
+    }
     /**
      * Display a message which explain the Exception which is catch.
      */

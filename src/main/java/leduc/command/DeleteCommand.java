@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Parser;
+import leduc.exception.FileException;
 import leduc.exception.NonExistentTaskException;
 import leduc.storage.Storage;
 import leduc.Ui;
@@ -24,19 +24,16 @@ public class DeleteCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)throws NonExistentTaskException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
         int index = Integer.parseInt(user.substring(7)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException(ui);
         }
         else { // the tasks exist
             Task removedTask = tasks.remove(index);
-            String text = storage.getDeleteTaskString(removedTask,index,ui,tasks.size());
-            //rewriter of file by replacing the whole file
-            storage.rewriteFile(text,ui);
+            storage.save(tasks.getList());
             ui.display("\t Noted. I've removed this task: \n" +
                     "\t\t "+removedTask.getTag() + removedTask.getMark() + " " + removedTask.getTask()+
                     "\n\t Now you have "+ tasks.size() +" tasks in the list");

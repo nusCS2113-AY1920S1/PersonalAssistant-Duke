@@ -54,4 +54,16 @@ public abstract class Task {
      * @return a String which allows to know if it is a todo, deadline or event task.
      */
     public abstract String getTag();
+
+    public boolean isTodo(){
+        return false;
+    }
+
+    public boolean isDeadline(){
+        return false;
+    }
+
+    public boolean isEvent(){
+        return false;
+    }
 }

@@ -55,5 +55,10 @@ public class EventsTask extends Task {
      * @return the end date of the task.
      */
     public Date getDateSecond(){ return this.dateSecond; }
+
+    @Override
+    public boolean isEvent(){
+        return true;
+    }
 }
 
