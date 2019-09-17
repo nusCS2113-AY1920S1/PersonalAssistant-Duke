@@ -128,4 +128,13 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    /**
+     * Returns true/false depending if the task is done
+     *
+     * @return True or false
+     */
+    public boolean isDone(int index) {
+        return tasks.get(index).isDone;
+    }
 }
