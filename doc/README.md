@@ -1,4 +1,8 @@
+= README
+:site-section: ReadMe
+:relfileprefix: team/
 :imagesDir: images
+:stylesDir: stylesheets
 
 # University Life Planner - User Guide
 By: `W13-1`   Since: `16 September 2019`
