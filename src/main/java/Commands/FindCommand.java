@@ -21,7 +21,7 @@ public class FindCommand extends Command {
      * @param list The TaskList object used to find a task with the given keyword
      * @param ui The Ui object to display the find message
      * @param storage The Storage object to access file to load or save the tasks
-     * @return
+     * @return This returns the method in the Ui object which returns the string to display find message
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {

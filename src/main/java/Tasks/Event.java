@@ -7,6 +7,11 @@ public class Event extends Task {
 
     protected String by;
 
+    @Override
+    public String getType() {
+        return "[E]";
+    }
+
     /**
      * Creates an Event object.
      * @param description Description of a task
@@ -15,8 +20,6 @@ public class Event extends Task {
     public Event(String description, String by) {
         super(description);
         this.by = by;
-        this.date = by;
-
     }
 
     /**
@@ -28,4 +31,8 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + by + ")";
     }
 
+    @Override
+    public String getDateTime() {
+        return by;
+    }
 }
