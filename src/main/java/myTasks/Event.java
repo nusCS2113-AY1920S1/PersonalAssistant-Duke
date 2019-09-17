@@ -1,116 +1,58 @@
 package myTasks;
 
-import myTasks.Task;
+import Exception.DukeException;
+import Parser.Parser;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-
-/**
- * This is a class that inherits from the Task class.
- * In addition to its parent's methods, it also has the ability to parse the input date.
- * Very similar to the myTasks.Deadline class.
- *
- * @author Lee Zhen Yu
- * @version %I%
- * @since 1.0
- */
 public class Event extends Task {
-
-    protected String at;
-
-    /**
-     * Constructor of the event class requires a description and a date for when the evebt is happening
-     * These are specific to every event object
-     *
-     * @param description The description of the task.
-     * @param at When the event is happening. This is in the format "dd-MM-yyyy HHmm".
-     */
-    public Event(String description, String at) {
-        super(description);
-        this.at = at;
-    }
+    private String type = "E";
 
     /**
-     * A method to return the date and time of an event task.
-     * It reads in the date as dd-MM-yyyy HHmm and is converted into a gregorian calender object.
-     * From this gregorian calender object we can easily extract the exact date and time of the deadline.
-     * This raw date and time requires minor adjustments to be readable to the average user
-     *
-     * @return The date and time of an event in a format familiar to the user
+     * Event initialization from String containing description and Date
+     * @param description String which contains description and date
+     * @throws DukeException DukeException thrown when invalid number of arguments are passed
      */
-    //Format of deadline dd-MM-yyyy HHmm
-    //Method to display deadline nicely when list is called
-    //The deadline in save.txt remains in the format above
-    public String getDeadline() {
-        String[] month = { "January", "February", "March", "April",
-                "May", "June", "July", "August",
-                "September", "October", "November", "December" };
-
-        String[] amPm = { "AM", "PM" };
-        String niceDate = "";
-        int hour;
-        try {
-            //This provides the pattern of the date input
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
-            //This reads the date input in the format given
-            Date newDate = dateFormatter.parse(this.at);
-            //Creates a gregorian calender
-            GregorianCalendar gcal = new GregorianCalendar();
-            //Converts the date to a gregorian calender for easy usage
-            gcal.setTime(newDate);
-
-            //Calender HOUR method will return 0 if its 12, have to manually change
-            if (gcal.get(Calendar.HOUR) == 0) {
-                hour = 12;
-            }
-            else {
-                hour = gcal.get(Calendar.HOUR);
-            }
-
-
-            niceDate = String.format("%d %s %d, %02d:%02d %s",
-                    gcal.get(Calendar.DATE),
-                    month[gcal.get(Calendar.MONTH)],
-                    gcal.get(Calendar.YEAR),
-                    hour,
-                    gcal.get(Calendar.MINUTE),
-                    amPm[gcal.get(Calendar.AM_PM)]);
+    public Event(String description) throws DukeException {
+        String[] split = description.split(Parser.event);
+        if (split.length < 2) {
+            System.out.println("I threw exception");
+            throw new DukeException("Please use /at to indicate date");
         }
-
-        catch (ParseException e) {
-            System.out.println("Error. Please enter date in the format DD-MM-YYYY 2359.");
+        else if (split.length > 2) {
+            throw new DukeException("Too many /at in String");
         }
-        return niceDate;
+        else {
+            this.description = split[0];
+            this.readDate(split[1]);
+            this.isDone = false;
+        }
     }
 
     /**
-     * A method to return the type of task of this object.
-     *
-     * @return This will return [E] to show that this task is an event task.
+     * Overloaded constructor which reads in a task from file
+     * @param bool String should be 1 or 0, describes if the Task is done or not
+     * @param description String contains description of Task
+     * @param dueDate String contains the date in correct format
      */
-    public String getType() {
-        return "[E]";
+    public Event(String bool, String description, String dueDate) throws DukeException {
+        this.description = description;
+        this.readDate(dueDate);
+        this.isDone = (1 == Integer.parseInt(bool));
     }
 
     /**
-     * A method to return the date of an event as given in the user input.
-     *
-     * @return A string containing the user input of the date of event.
+     * Returns Task in print friendly format
+     * @return String which contains Task Type icon, status and Description and DueDate if any
      */
-    public String getBy() {
-        return this.at;
+    @Override
+    public String toList(){
+        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() +
+                " (by: " + this.getDueDate() + ")";
     }
 
     /**
-     * A method to return the entire task status, including its status, task type, event date and description
-     *
-     * @return It returns everything about a task in a formatted string that is easily understood by the user
+     * Returns type of Task
+     * @return String consisting of a single Letter (for now)
      */
-    public String getStatusIcon() {
-        return "[E]" + "[" + (isDone ? "Y" : "N") + "] " + this.description + " (at: " + this.getDeadline() + ")";
-    }
+    @Override
+    public String getType(){ return "E";}
 }
