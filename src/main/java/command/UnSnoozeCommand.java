@@ -1,6 +1,12 @@
 package command;
 
-import ...
+import dukeException.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
+import java.io.*;
+
 
 public class UnSnoozeCommand extends Command{
     private int n;
@@ -23,9 +29,10 @@ public class UnSnoozeCommand extends Command{
         if (this.n < 1 || this.n > tasks.size()) throw new DukeException("☹ OOPS!!! That task is not in your list");
         //ui.showString("Got it. I've deactivated this task:\n" +
         //      tasks.get(this.n - 1).toString());
-        tasks.get(this.n - 1).markAsUnSnooze;
+        tasks.get(this.n - 1).markAsUnSnooze();
         //tasks.remove(this.n -1);
         storage.saveToFile(tasks);
-        ui.showString("Now you have " + tasks.size() + 1 + " active task(s) in the list.");
+        int activeTasks = tasks.size() + 1;
+        ui.showString("Now you have " + activeTasks + " active task(s) in the list.");
     }
 }
