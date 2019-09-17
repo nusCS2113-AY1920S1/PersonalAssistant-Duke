@@ -1,12 +1,24 @@
 package task;
 
+import exception.DukeException;
+
+import java.util.List;
+import java.util.Date;
+import java.util.stream.Collectors;
+
 /**
  * Represents a simple task with description and status.
  * Works as a parent class of more specified task classes in the package.
  */
 public class Task {
+    // Mandatory fields
     protected String description;
     protected boolean isDone;
+    protected boolean isDeleted;
+
+    // Optional fields
+    protected Date doAfterDate;
+    protected List<Task> doAfterTasks;
 
     protected Task(String description) {
         this.description = description;
@@ -17,7 +29,30 @@ public class Task {
      * Marks the status of the task to "done".
      */
     protected void markAsDone() {
-        isDone = true;
+
+        if (doAfterDate != null && doAfterDate.after(new Date())) {
+            throw new DukeException("☹ OOPS!!! This task has to be done after " + doAfterDate);
+
+        } else if (doAfterTasks != null) {
+
+            List<Task> undoneTasks = doAfterTasks.stream()
+                    .filter(task -> (!task.isDone && !task.isDeleted))
+                    .collect(Collectors.toList());
+
+            if (!undoneTasks.isEmpty()) {
+                StringBuilder exceptionMessageBuilder = new StringBuilder("☹ OOPS!!! This task has to be done after\n  ");
+                for (int i = 0; i < undoneTasks.size(); i++) {
+                    exceptionMessageBuilder
+                            .append(i + 1)
+                            .append(". ")
+                            .append(undoneTasks.get(i));
+                }
+                throw new DukeException(exceptionMessageBuilder.toString());
+            }
+
+        } else {
+            isDone = true;
+        }
     }
 
     /**
