@@ -1,3 +1,5 @@
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -57,7 +59,11 @@ public class Duke{
      * @throws DukeException if any exception is caught
      */
     public static void main(String[] args) throws DukeException {
-        new Duke("C:\\Users\\User\\Documents\\GitHub\\main\\data\\tasks.txt").run();
+        Path currentDir = Paths.get("data/tasks.txt");
+        //System.out.println(currentDir.toAbsolutePath());
+        String file = currentDir.toAbsolutePath().toString();
+        //System.out.println(file);
+        new Duke(file).run();
     }
 
 }//duke class
