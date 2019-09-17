@@ -28,7 +28,6 @@ public class DeadlineCommandTest {
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
         Storage storage = new Storage("testFile/DeadlineCommandTest.txt");
-        Parser parser = new Parser();
         List<Task> tasksList = new ArrayList<>();
         TaskList tasks = new TaskList( tasksList);
         assertTrue(tasks.size()==0);
