@@ -12,6 +12,7 @@ import java.util.Date;
 public class ToDo extends Task {
 
     protected Calendar End = Calendar.getInstance();
+    protected String duration = "";
 
     /**
      * Primary constructor of ToDo object
@@ -56,6 +57,17 @@ public class ToDo extends Task {
         super.type = "T";
         subtypes += "P ";
     }
+    /**
+     * Tertiary constructor of ToDo object with fixedDuration
+     * @param description description embedded in object
+     * @param duration duration of task
+     */
+    public ToDo(String description, String duration) {
+        super(description);
+        this.duration = duration;
+        super.type ="T";
+        subtypes += "F ";
+    }
 
     /**
      * this function overrides the toString() function in Task to represents the full description of a ToDo object
@@ -72,6 +84,9 @@ public class ToDo extends Task {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
                     + " to " + dateFormat.format(End.getTime()) + ")";
+        }
+        else if (subtypes.contains("F")){
+            return "[T]" + super.toString() + " (needs: " + this.duration + ")";
         }
         return null;
     }
