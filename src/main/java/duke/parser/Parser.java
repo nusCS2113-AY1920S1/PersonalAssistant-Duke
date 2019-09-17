@@ -14,6 +14,7 @@ import static duke.common.Messages.COMMAND_FIND;
 import static duke.common.Messages.COMMAND_LIST;
 import static duke.common.Messages.COMMAND_TODO;
 import static duke.common.Messages.COMMAND_DURATION;
+import static duke.common.Messages.COMMAND_REMIND;
 
 /**
  * Making sense of the user input command.
@@ -70,7 +71,14 @@ public class Parser {
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        } else{
+
+        } else if (userInputCommand.contains(COMMAND_REMIND)) {
+            if (userInputCommand.trim().substring(0, 9).equals(COMMAND_REMIND)) {
+                return new RemindCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }
