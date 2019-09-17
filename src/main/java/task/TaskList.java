@@ -1,4 +1,8 @@
 package task;
+import exception.DukeException;
+import ui.Ui;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 /**
  * The TaskList class handles all operations performed on the TaskList as well as stores the TaskList.
@@ -98,6 +102,19 @@ public class TaskList {
         task.markAsDone();
         return task;
     }
+
+    public void updateDate(Task taskToBeChanged, String command,LocalDateTime atDate, LocalDateTime fromDate, LocalDateTime toDate){
+
+        if("event".equals(command)){
+            taskToBeChanged.fromDate = fromDate;
+            taskToBeChanged.toDate = toDate;
+        }
+        else {
+            taskToBeChanged.atDate = atDate;
+        }
+
+    }
+
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;

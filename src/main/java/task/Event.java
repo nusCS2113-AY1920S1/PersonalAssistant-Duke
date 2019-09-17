@@ -33,8 +33,8 @@ public class Event extends Task implements Serializable{
     public String toString() {
 
         return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: "
-                + this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
-                this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                + this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
+                this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
 }
