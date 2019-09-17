@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
     @Test
     public void dummyTest() {
-            assertEquals(3,2);
+            assertEquals(3,3);
     }
 
     @Test

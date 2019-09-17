@@ -1,4 +1,5 @@
 package duke.commands;
+import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -16,7 +17,7 @@ public abstract class Command {
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException;
 
     public boolean isExit() {
         return false;

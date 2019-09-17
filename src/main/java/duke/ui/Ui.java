@@ -47,6 +47,16 @@ public class Ui {
         }
     }
 
+    public void showRemind(ArrayList<Task> tasks) {
+        showPadding();
+        System.out.println("Here are the upcoming tasks: ");
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task currentTask = tasks.get(i - 1);
+            showPadding();
+            System.out.println(i + ". " + currentTask);
+        }
+    }
+
     public void showDone(Task currentTask) {
         showPadding();
         System.out.println("Nice! I've marked this task as done:");
