@@ -11,7 +11,7 @@ public class Date {
 
     /**
      * Constructor of leduc.Date.
-     * @param d GregorianCalendar which is a date.
+     * @param d LocatDateTime which is a date.
      */
     public Date(LocalDateTime d){
         this.d = d;
@@ -28,10 +28,10 @@ public class Date {
         return  dateFormatted; //no need secondes and time zone
     }
     /**
-     * Returns GregorianCalendar object.
-     * @return a GregorianCalendar object.
+     * Returns a DateTime object.
+     * @return a DateTime object.
      */
-    public GregorianCalendar getD() {
+    public LocalDateTime getD() {
         return d;
     }
 }

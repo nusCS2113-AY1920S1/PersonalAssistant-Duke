@@ -10,7 +10,8 @@ import leduc.task.EventsTask;
 import leduc.Date;
 import leduc.task.TodoTask;
 import leduc.task.DeadlinesTask;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
  * Represents a Remind Command.
@@ -64,7 +65,7 @@ public class RemindCommand extends Command {
      * Helper method which returns the date from any task Object.
      * @param Object task Task whos date field will get extracted.
      */
-    public static GregorianCalendar getDate(Object task){
+    public static LocalDateTime getDate(Object task){
         if (task instanceof DeadlinesTask) {
             DeadlinesTask deadline = (DeadlinesTask)task;
             return (deadline.getDeadlines()).getD();
@@ -104,10 +105,9 @@ public class RemindCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      */
 
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser){
+    public void execute(TaskList tasks, Ui ui , Storage storage){
 
         ArrayList<Task> filteredTasklist = new ArrayList<Task>(filterTasks(tasks));
         ArrayList<Task> extractedTodo = new ArrayList<Task>(extractTodo(tasks));

@@ -29,7 +29,7 @@ public class Duke {
             file = filePath[0];
         }
         else{ // no test file
-            file = System.getProperty("user.dir")+ "/data/dukeTest2.txt";
+            file = System.getProperty("user.dir")+ "/data/duke.txt";
         }
         this.storage = new Storage(file);
         try{
@@ -41,7 +41,7 @@ public class Duke {
     }
 
     /**
-     * Method which run the duke program.
+     * Method from which to run the duke program.
      */
     public void run() {
         this.ui.showWelcome();
