@@ -9,13 +9,11 @@ import java.time.DateTimeException;
 import java.util.Date;
 
 /**
- * Represents a <code>Reminder</code> class to remind
- * user on upcoming deadlines.
+ * Represents a <code>Reminder</code> class to remind user on upcoming deadlines.
  */
 public class Reminder {
     /**
-     * Checks <code>Task</code> objects dates and compares
-     * it to current time to determine if it's due soon
+     * Checks <code>Task</code> objects dates to determine if it is due soon.
      * @param taskList <code>TaskList</code> that contains <code>Task</code> objects.
      * @param ui <code>Ui</code> that is responsible for visual feedback.
      */
