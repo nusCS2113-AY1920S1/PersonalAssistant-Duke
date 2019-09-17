@@ -114,7 +114,7 @@ public abstract class Task implements Serializable {
      * @return String task-string
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription();
     }
 

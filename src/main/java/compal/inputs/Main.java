@@ -37,7 +37,7 @@ public class Main extends Application {
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             duke.ui.mainWindow = (ScrollPane) ap.getChildren().get(2); //gets a reference to the main display viewport
-            duke.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //gets a reference to the secondary display viewport
+            duke.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
             Scene s1 = new Scene(ap);
 
             //Set up some primary stage stuff --------------------------------------------------------------->
