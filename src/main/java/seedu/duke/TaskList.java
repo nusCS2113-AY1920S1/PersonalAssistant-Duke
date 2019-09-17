@@ -90,4 +90,20 @@ public class TaskList extends ArrayList<Task> {
         msg += "Now you have " + this.size() + " tasks in the list.";
         return msg;
     }
+
+    /**
+     * Finds all the tasks that are considered as near.
+     *
+     * @param dayLimit the maximum number of days from now for a task to be considered as near
+     * @return whether the task is near
+     */
+    public TaskList findNear(int dayLimit) {
+        TaskList nearTasks = new TaskList();
+        for (Task t : this) {
+            if (t.isNear(dayLimit)) {
+                nearTasks.add(t);
+            }
+        }
+        return nearTasks;
+    }
 }

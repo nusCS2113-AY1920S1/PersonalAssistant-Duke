@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.duke.command.Command;
+import seedu.duke.command.ReminderCommand;
 import seedu.duke.task.Task;
 
 import java.io.File;
@@ -22,13 +23,14 @@ public class Storage {
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
             dir = ".." + File.separator + "data" + File.separator + "duke.txt";
-        } else if(workingDir.endsWith(File.separator + "main")) {
+        } else if (workingDir.endsWith(File.separator + "main")) {
             dir = "." + File.separator + "data" + File.separator + "duke.txt";
         } else {
             dir = "." + File.separator + "duke.txt";
         }
         return dir;
     }
+
     /**
      * This function clears the content of the file and write all the information of the tasks in the task
      * list
@@ -99,6 +101,7 @@ public class Storage {
             }
             Duke.getUI().showMessage("Save file successfully loaded...");
             in.close();
+            new ReminderCommand(taskList).execute();
         } catch (FileNotFoundException e) {
             return taskList; //it is acceptable if there is no save file
         } catch (IOException e) {
