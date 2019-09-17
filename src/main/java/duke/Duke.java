@@ -24,14 +24,14 @@ public class Duke {
     /**
      * Entry point.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke();
     }
 
     /**
      * Creates duke.Duke instance.
      */
-    Duke() {
+    Duke() throws DukeException {
         /*
         Ui ui = new Ui();
         Parser parser = new Parser();

@@ -30,6 +30,9 @@ public class AddCommand extends Command {
     @Override
     public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
         storage.getTasks().add(task);
+        if (task.hasDate()) {
+            storage.getTasksWithDate().add(task);
+        }
         parser.setParserResponse(ui.getTaskDesc(task));
         storage.write();
     }

@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private UniqueTaskList tasks;
+    private UniqueTaskList tasksWithDate;
     private Ui ui;
 
     /**
@@ -29,17 +30,18 @@ public class Storage {
      * @param filePath The filepath to the txt file.
      * @param ui The user interface displaying events on the task list.
      */
-    public Storage(String filePath, Ui ui) {
+    public Storage(String filePath, Ui ui) throws DukeException {
         this.filePath = filePath;
         this.ui = ui;
         tasks = new UniqueTaskList();
+        tasksWithDate = new UniqueTaskList();
         read();
     }
 
     /**
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
-    private void read() {
+    private void read() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
@@ -57,6 +59,17 @@ public class Storage {
             tasks.setTasks(newTasks);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+        }
+
+        try {
+            for (Task task : newTasks) {
+                if (task.hasDate()) {
+                    tasksWithDate.add(task);
+                }
+            }
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+
         }
     }
 
@@ -79,5 +92,9 @@ public class Storage {
 
     public UniqueTaskList getTasks() {
         return tasks;
+    }
+
+    public UniqueTaskList getTasksWithDate() {
+        return tasksWithDate;
     }
 }

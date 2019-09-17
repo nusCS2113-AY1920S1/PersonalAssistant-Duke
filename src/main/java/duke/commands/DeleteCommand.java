@@ -32,6 +32,17 @@ public class DeleteCommand extends Command {
     public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
         try {
             Task task = storage.getTasks().remove(index);
+            if (task.hasDate()) {
+                int indexDate = 0;
+                for (Task tasksWithDate: storage.getTasksWithDate()) {
+                    if (task == tasksWithDate) {
+                        storage.getTasksWithDate().remove(indexDate);
+                        break;
+                    } else {
+                        indexDate++;
+                    }
+                }
+            }
             parser.setParserResponse(ui.getDelete(task));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.OUT_OF_BOUNDS);

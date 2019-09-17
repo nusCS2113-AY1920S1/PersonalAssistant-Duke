@@ -1,14 +1,17 @@
 package duke.parsers;
 
-import duke.commands.DeleteCommand;
-import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
+import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FetchCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
+
+import java.time.LocalDateTime;
 
 /**
  * Parser for duke.commands entered by the duke.Duke user. It reads from standard input and
@@ -27,7 +30,6 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String commandWord = getCommandWord(userInput);
         switch (commandWord) {
-
         case "bye":
             return new ExitCommand();
         case "todo":
@@ -44,6 +46,9 @@ public class Parser {
             return new DeleteCommand(ParserUtil.getIndex(userInput));
         case "find":
             return new FindCommand(getWord(userInput));
+        case "fetch":
+            String[] deadlineDetails = userInput.split(" ", 2);
+            return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
