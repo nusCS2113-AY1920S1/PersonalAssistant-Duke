@@ -48,7 +48,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String saveFile = "/Users/rebecca/Documents/NUS/CS2113T/Project/duke/data/saved_tasks.txt";
-        new Duke(saveFile).run();
+
+        String currentDir = System.getProperty("user.dir");
+        String filePath = currentDir + "/data/saved_tasks.txt";
+        new Duke(filePath).run();
     }
 }
