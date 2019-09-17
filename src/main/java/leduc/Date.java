@@ -18,6 +18,30 @@ public class Date {
     }
 
     /**
+     * Allow to snooze the date
+     * Fixed to 30 minutes
+     */
+    public void snoozeLocalDateTime(){
+        this.d = this.d.plusMinutes(30);
+    }
+
+    /**
+     * Setter of the LocalDateTime d
+     * @param d the new value of date
+     */
+    public void setD( LocalDateTime d){
+        this.d = d;
+    }
+
+    /**
+     * Getter of the LocalDateTime d
+     * @return d the LocalDateTime d
+     */
+    public LocalDateTime getD(){
+        return this.d;
+    }
+
+    /**
      * Returns a String representing a date.
      * @return a String representation of date.
      */
@@ -27,4 +51,6 @@ public class Date {
         String dateFormatted = this.d.format(formatters);
         return  dateFormatted; //no need secondes and time zone
     }
+
+
 }

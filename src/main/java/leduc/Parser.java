@@ -33,6 +33,12 @@ public class Parser {
         else if (user.matches("done \\d+")) {// if it is done and a number of task
             c = new DoneCommand(user);
         }
+        else if (user.matches("snooze \\d+")){ // if it is snooze and a number of task
+            c = new SnoozeCommand(user);
+        }
+        else if (user.matches("postpone \\d+ (.*)")){ //example: postpone 1 /by 12/12/2012 22:22
+            c = new PostponeCommand(user);
+        }
         else if (user.matches("delete \\d+")) {// if it is done and a number of task
             c = new DeleteCommand(user);
         }
@@ -44,6 +50,9 @@ public class Parser {
         }
         else if (user.matches("event (.*)")) {
             c = new EventCommand(user);
+        }
+        else if (user.matches("reschedule \\d+ (.*)")) {
+            c = new RescheduleCommand(user);
         }
         else if (user.matches(("bye"))){
             c = new ByeCommand(user);
