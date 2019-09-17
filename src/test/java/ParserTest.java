@@ -17,7 +17,6 @@ public class ParserTest {
     public ParserTest() {
         parser = new Parser();
     }
-
     /**
      * Tests the Parser by feeding it a String input to create a Deadline, and comparing it
      * against the ArrayList of String commands that we should obtain.
