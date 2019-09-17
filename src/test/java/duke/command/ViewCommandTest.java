@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ViewCommandTest {
     private ArrayList<String> viewTasks = new ArrayList<>();
-    String input;
-    LocalDate date;
+    private String input;
+    private LocalDate date;
 
     /**
      * Test for the correct exception thrown when empty date is provided.
@@ -56,7 +56,7 @@ public class ViewCommandTest {
         TaskList tasks = new TaskList(viewTasks);
         date = LocalDate.of(2019, 10, 1);
         ArrayList<Task> checks = tasks.viewFilterByDate(date);
-        assertEquals(checks.size(),0);
+        assertEquals(checks.size(), 0);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ViewCommandTest {
         TaskList tasks = new TaskList(viewTasks);
         date = LocalDate.of(2019, 9, 22);
         ArrayList<Task> checks = tasks.viewFilterByDate(date);
-        assertEquals(checks.size(),1);
+        assertEquals(checks.size(), 1);
     }
 
     /**
@@ -85,13 +85,12 @@ public class ViewCommandTest {
         TaskList tasks = new TaskList(viewTasks);
         date = LocalDate.of(2019, 9, 22);
         ArrayList<Task> checks = tasks.viewFilterByDate(date);
-        assertEquals(checks.size(),2);
+        assertEquals(checks.size(), 2);
 
     }
 
     /**
      * Test for correct number of tasks return on specific date
-     *
      */
     @Test
     void viewCommand_viewSchedulesOnDate_expectMultipleTasks() {
@@ -105,7 +104,7 @@ public class ViewCommandTest {
         TaskList tasks = new TaskList(viewTasks);
         date = LocalDate.of(2019, 9, 21);
         ArrayList<Task> checks = tasks.viewFilterByDate(date);
-        assertEquals(checks.size(),5);
+        assertEquals(checks.size(), 5);
 
     }
 
