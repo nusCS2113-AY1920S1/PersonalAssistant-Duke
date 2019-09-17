@@ -19,6 +19,8 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+    protected String day;
+    protected String time;
 
     /**
      * Constructor for a new basic Task.
@@ -76,6 +78,14 @@ public class Task {
      */
     public boolean getDoneStatus() {
         return isDone;
+    }
+
+    public String getDayString() {
+        return day;
+    }
+
+    public String getTimeString() {
+        return time;
     }
 
     /**

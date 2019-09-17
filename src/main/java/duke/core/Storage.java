@@ -22,7 +22,7 @@ public class Storage {
      * readFromFile() to convert the text representation of tasks into an actual array of Tasks.
      * @param filename the file path where the text version of tasks are stored.
      */
-    public Storage(String filename) throws FileNotFoundException, ParseException {
+    public Storage(String filename) throws DukeException, FileNotFoundException, ParseException {
         file = new File(filename);
         readFromFile();
     }
@@ -33,7 +33,7 @@ public class Storage {
      * @throws FileNotFoundException if file path does not exist
      * @throws ParseException if any saved data is un-parsable
      */
-    public void readFromFile() throws FileNotFoundException, ParseException {
+    public void readFromFile() throws DukeException, FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(file);
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split("`");
@@ -49,6 +49,10 @@ public class Storage {
             else if (line[0].equals("E")) {
                 Event newEvent = new Event(line[1], line[3], isDone);
                 items.add(newEvent);
+            }
+            else if (line[0].equals("R")) {
+                Recurring newRecurring = new Recurring(line[1], line[3], line[4], isDone);
+                items.add(newRecurring);
             }
         }
     }
@@ -69,6 +73,12 @@ public class Storage {
             if (thisTask.getType() == 'D' || thisTask.getType() == 'E') {
                 line += "`";
                 line += thisTask.getDateToSave();
+            }
+            else if (thisTask.getType() == 'R') {
+                line += '`';
+                line += thisTask.getDayString();
+                line += '`';
+                line += thisTask.getTimeString();
             }
             fileWriter.write(line);
             fileWriter.newLine();
