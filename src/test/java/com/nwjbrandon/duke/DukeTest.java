@@ -1,15 +1,20 @@
 package com.nwjbrandon.duke;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DukeTest extends TestExtender {
+class DukeTest {
+
+    @RegisterExtension
+    SystemIO io = new SystemIO();
 
     @Test
     void testMainMethod() throws IOException {
+
         provideInput("reminder\nbye");
         Duke.main(new String[0]);
         String output = getOutput();
@@ -69,6 +74,7 @@ class DukeTest extends TestExtender {
                 "\t____________________________________________________________\n" +
                 "\t Bye. Hope to see you again soon!\n" +
                 "\t____________________________________________________________\n";
+
         assertEquals(expected, output);
     }
 

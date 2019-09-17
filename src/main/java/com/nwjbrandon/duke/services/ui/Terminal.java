@@ -203,4 +203,14 @@ public class Terminal {
         Terminal.printDivider();
     }
 
+    /**
+     * Show any message.
+     * @param message message.
+     */
+    public static void showMessage(String message) {
+        Terminal.printDivider();
+        System.out.print("\t " + message + "\n");
+        Terminal.printDivider();
+    }
+
 }
