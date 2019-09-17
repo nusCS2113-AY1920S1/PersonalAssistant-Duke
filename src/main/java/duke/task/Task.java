@@ -4,10 +4,12 @@ import duke.command.*;
 import duke.core.*;
 import duke.exception.*;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents an instance of a Task. Contains a description, the type of Task (Event, Deadline or Todo)
@@ -127,7 +129,19 @@ public class Task {
      */
     public boolean isDueToday() {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date currentDate = new Date(); //Declaration of a new Date object has default value of today's date
-        return (format.format(date).equals(format.format(currentDate)));
+        String currentDate = format.format(Calendar.getInstance().getTime()); //Declaration of a new Date object has default value of today's date
+        return (format.format(date).equals(currentDate));
     }
+
+    public int isDueInDays(int givenDaysToDue) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = Calendar.getInstance().getTime(); //Declaration of a new Date object has default value of today's date
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((date.getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0)){
+            return -1; //Not due yet or overdue
+        } else { //daysLeftToDue <= givenDaysToDue
+            return daysLeftToDue;
+        }
+    }
+
 }

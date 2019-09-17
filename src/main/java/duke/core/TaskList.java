@@ -120,6 +120,25 @@ public class TaskList {
     }
 
     /**
+     * Searches items, specifically deadlines, that are due in a specified number of days.
+     * @param daysDue Maximum number of days left for a Task to be valid for reminder.
+     * @return an ArrayList of String-ified Tasks that are due in specified number of days.
+     */
+    public ArrayList<String> searchItemsDue(int daysDue) {
+        ArrayList<String> results = new ArrayList<String>();
+        for (int j = 0; j < items.size(); j++) {
+            Task thisTask = items.get(j);
+            if (thisTask instanceof Deadline) {
+                int actualDaysLeft = thisTask.isDueInDays(daysDue);
+                if (actualDaysLeft != -1) {
+                    results.add((j) + ". " + thisTask.toString() + " -- " + actualDaysLeft + " days left");
+                }
+            }
+        }
+        return results;
+    }
+
+    /**
      * Converts the TaskList to an array of String versions of the Tasks, to be printed.
      * @return an ArrayList of String-ified Tasks.
      */

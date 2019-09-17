@@ -41,7 +41,12 @@ public class Duke {
      * @throws IOException if there is an error in reading input or printing output
      */
     public void run() throws ParseException, IOException {
-        ui.printTaskArray("REMINDER--The following tasks below are due today:", tasks.searchItemsDue());
+        int daysDue = 4;
+        if ((tasks.searchItemsDue(daysDue).isEmpty())) {
+            ui.print("No tasks due today!");
+        } else {
+            ui.printTaskArray("REMINDER--The following deadlines below are due soon:", tasks.searchItemsDue(daysDue));
+        }
 
         Boolean toExit = false;
         while (!toExit) {
@@ -64,7 +69,7 @@ public class Duke {
      * @throws DukeException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, DukeException {
-        new Duke("data/duke1.txt").run();
+        new Duke("data/duke.txt").run();
     }
 
 }
