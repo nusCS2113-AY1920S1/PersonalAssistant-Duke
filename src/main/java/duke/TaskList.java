@@ -1,6 +1,11 @@
 package duke;
+
 import java.util.ArrayList;
-import duke.items.*;
+import duke.items.Task;
+import duke.items.Todo;
+import duke.items.Deadline;
+import duke.items.Event;
+
 /**
  * Manages the list of (different types of classes),
  * including all the methods to modify the list:
@@ -74,7 +79,7 @@ public class TaskList {
         }
 
         for (int i = 0; i < max; i++) { //Index starts from 0.
-            System.out.print(i+1 + ". "); //Add 1 to follow natural numbers.
+            System.out.print(i + 1 + ". "); //Add 1 to follow natural numbers.
             taskList.get(i).printTaskDetails();
         }
     }
@@ -84,8 +89,8 @@ public class TaskList {
      *
      * @param i the index of the task to be deleted.
      */
-    public void deleteTask(int i){
-        try{
+    public void deleteTask(int i) {
+        try {
             Task item = taskList.get(i);
             taskList.remove(i); //The original copy is gone.
 
@@ -99,7 +104,7 @@ public class TaskList {
             }
             listIndex--;
 
-        } catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             printTaskNonexistent();
         }
     }
@@ -137,16 +142,16 @@ public class TaskList {
         int max = taskList.size();
         boolean found = false;
 
-        for (int i = 0; i < max; i ++) {
+        for (int i = 0; i < max; i++) {
             if (taskList.get(i).getDescription().contains(search)) {
-                System.out.print(i+1 + ". " ); //Print the index of the task.
+                System.out.print(i + 1 + ". "); //Print the index of the task.
                 taskList.get(i).printTaskDetails();
                 found = true;
             }
         }
 
         if (!found) {
-            System.out.println("Sorry, I could not find any tasks containing the description \"" + search + "\"." );
+            System.out.println("Sorry, I could not find any tasks containing the description \"" + search + "\".");
             System.out.println("Please try a different search string.");
         }
     }

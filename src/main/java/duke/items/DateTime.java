@@ -16,6 +16,9 @@ public class DateTime {
     private int hour;
     private String minute;
 
+    /**
+     * DateTime constructor. Converts input string into attributes of the date and time.
+     */
     public DateTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
         String[] details = dateAndTime.split("[ /]");
@@ -62,43 +65,48 @@ public class DateTime {
         if (day > 31) {
             System.out.println("Day is invalid.");
             return null;
+        } else if (day > 10 && day < 14) {
+            return Integer.toString(day) + "th";
+        } else if (day % 10 == 1) {
+            return Integer.toString(day) + "st";
+        } else if (day % 10 == 2) {
+            return Integer.toString(day) + "nd";
+        } else if (day % 10 == 3) {
+            return Integer.toString(day) + "rd";
+        } else {
+            return Integer.toString(day) + "th";
         }
-        else if (day > 10 && day < 14) return Integer.toString(day) + "th";
-        else if (day%10 == 1) return Integer.toString(day) + "st";
-        else if (day%10 == 2) return Integer.toString(day) + "nd";
-        else if (day%10 == 3) return Integer.toString(day) + "rd";
-        else return Integer.toString(day) + "th";
     }
 
     private String getMonthString() {
         switch (month) {
-            case 1:
-                return "January";
-            case 2:
-                return "February";
-            case 3:
-                return "March";
-            case 4:
-                return "April";
-            case 5:
-                return "May";
-            case 6:
-                return "June";
-            case 7:
-                return "July";
-            case 8:
-                return "August";
-            case 9:
-                return "September";
-            case 10:
-                return "October";
-            case 11:
-                return "November";
-            case 12:
-                return "December";
-            default:
-                System.out.println("Month is invalid.");
-                return null;
+        case 1:
+            return "January";
+        case 2:
+            return "February";
+        case 3:
+            return "March";
+        case 4:
+            return "April";
+        case 5:
+            return "May";
+        case 6:
+            return "June";
+        case 7:
+            return "July";
+        case 8:
+            return "August";
+        case 9:
+            return "September";
+        case 10:
+            return "October";
+        case 11:
+            return "November";
+        case 12:
+            return "December";
+        default:
+            System.out.println("Month is invalid.");
+            return null;
         }
     }
 
@@ -115,6 +123,9 @@ public class DateTime {
         }
     }
 
+    /**
+     * Returns the date in a friendlier format.
+     */
     public String returnFormattedDate() {
         if (valid) {
             return getDayString() + " of " + getMonthString() + " " + year + ", " + getTimeString();
