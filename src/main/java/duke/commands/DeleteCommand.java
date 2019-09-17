@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
         try {
             Task task = storage.getTasks().remove(index);
             if (task.hasDate()) {
@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
                     }
                 }
             }
-            parser.setParserResponse(ui.getDelete(task));
+            ui.setResponse(ui.getDelete(task));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
         }

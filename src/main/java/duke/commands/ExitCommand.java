@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) {
-        parser.setParserResponse(ui.getByeMessage());
+    public void execute(Ui ui, Storage storage) {
+        ui.setResponse(ui.getByeMessage());
     }
 }

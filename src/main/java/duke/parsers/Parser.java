@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * returns Command objects.
  */
 public class Parser {
-    private String parserResponse = "";
 
     /**
      * Parses the userInput and return a Command object.
@@ -77,13 +76,5 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
-    }
-
-    public void setParserResponse(String response) {
-        parserResponse = response;
-    }
-
-    public String getResponse() {
-        return parserResponse;
     }
 }

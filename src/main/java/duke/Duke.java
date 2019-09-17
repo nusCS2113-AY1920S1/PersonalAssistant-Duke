@@ -18,7 +18,6 @@ public class Duke {
     private boolean exitFlag = false;
     private String dukeMessage = "";
     private Ui ui = new Ui();
-    private Parser parser = new Parser();
     private Storage storage = new Storage(FILE_PATH, ui);
 
     /**
@@ -33,6 +32,7 @@ public class Duke {
      */
     Duke() throws DukeException {
         /*
+        //enables terminal output
         Ui ui = new Ui();
         Parser parser = new Parser();
         ui.showWelcome();
@@ -65,14 +65,14 @@ public class Duke {
     public void parseRequest(String input) throws DukeException {
         try {
             Command command = Parser.parse(input);
-            command.execute(parser, ui, storage);
-            dukeMessage = parser.getResponse();
+            command.execute(ui, storage);
+            dukeMessage = ui.getResponse();
             if (command instanceof ExitCommand) {
                 exitFlag = true;
             }
         } catch (DukeException e) {
-            parser.setParserResponse(ui.getError(e.getMessage()));
-            dukeMessage = parser.getResponse();
+            ui.setResponse(ui.getError(e.getMessage()));
+            dukeMessage = ui.getResponse();
         }
     }
 

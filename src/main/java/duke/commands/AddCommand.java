@@ -28,12 +28,12 @@ public class AddCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
         storage.getTasks().add(task);
         if (task.hasDate()) {
             storage.getTasksWithDate().add(task);
         }
-        parser.setParserResponse(ui.getTaskDesc(task));
+        ui.setResponse(ui.getTaskDesc(task));
         storage.write();
     }
 

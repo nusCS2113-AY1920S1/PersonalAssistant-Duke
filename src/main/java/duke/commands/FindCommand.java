@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
         UniqueTaskList tasks = storage.getTasks();
         UniqueTaskList result = new UniqueTaskList();
         for (Task task: tasks) {
@@ -37,6 +37,6 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
-        parser.setParserResponse(ui.getList(result));
+        ui.setResponse(ui.getList(result));
     }
 }

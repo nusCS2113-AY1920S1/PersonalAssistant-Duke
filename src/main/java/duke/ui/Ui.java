@@ -21,9 +21,11 @@ public class Ui {
     private static final String MESSAGE_ADDITION = "Got it. I've added this task:\n  ";
     private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
     private Scanner scanner;
+    private String response;
 
     public Ui() {
         scanner = new Scanner(System.in);
+        response = "";
     }
 
     /**
@@ -132,5 +134,13 @@ public class Ui {
 
     public String getDelete(Task task) {
         return (MESSAGE_DELETE + task);
+    }
+
+    public void setResponse(String message) {
+        response = message;
+    }
+
+    public String getResponse() {
+        return response;
     }
 }
