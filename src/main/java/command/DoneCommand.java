@@ -1,6 +1,6 @@
 package command;
 
-import dukeException.DukeException;
+import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -13,6 +13,11 @@ import java.io.IOException;
 public class DoneCommand extends Command {
     private int num;
 
+    /**
+     * Marks task as done.
+     * @param splitStr tokenized user input
+     * @throws DukeException if format not followed
+     */
     public DoneCommand(String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("☹ OOPS!!! Please add the index of the task you have completed");

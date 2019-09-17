@@ -1,6 +1,6 @@
 package command;
 
-import dukeException.DukeException;
+import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -13,10 +13,16 @@ import java.io.IOException;
 public class FindCommand extends Command {
 
     /**
-     * User input text to search
+     * User input text to search.
      */
     private String textToFind;
 
+    /**
+     * Command to find a task.
+     * @param input from user
+     * @param splitStr tokenized user input
+     * @throws DukeException when format not followed
+     */
     public FindCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("☹ OOPS!!! Please input a string to search");

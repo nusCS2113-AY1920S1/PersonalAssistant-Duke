@@ -1,6 +1,6 @@
 package command;
 
-import dukeException.DukeException;
+import exception.DukeException;
 import storage.Storage;
 import task.Event;
 import task.TaskList;
@@ -14,6 +14,12 @@ import java.io.IOException;
 public class EventCommand extends Command {
     String[] splitD;
 
+    /**
+     * Create new Event object.
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException if description empty or format not followed
+     */
     public EventCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");

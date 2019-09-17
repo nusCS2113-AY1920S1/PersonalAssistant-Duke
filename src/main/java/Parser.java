@@ -1,10 +1,25 @@
-import command.*;
-import dukeException.DukeException;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.TodoCommand;
+import command.ViewScheduleCommand;
+import exception.DukeException;
 
 /**
  * Parse input and execute respective user command.
  */
 public class Parser {
+    /**
+     * Parses user commands.
+     * @param input from user
+     * @return Command to be executed
+     * @throws DukeException if user input is in wrong format
+     */
     public static Command parse(String input) throws DukeException {
         String[] splitStr = input.split(" ");
         switch (splitStr[0]) {
@@ -24,6 +39,8 @@ public class Parser {
             return new DeleteCommand(splitStr);
         case "find":
             return new FindCommand(input, splitStr);
+        case "viewschedule":
+            return new ViewScheduleCommand();
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

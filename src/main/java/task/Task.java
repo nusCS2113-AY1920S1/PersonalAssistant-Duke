@@ -2,11 +2,13 @@ package task;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Class from which task.Todo, task.Deadline and task.Event are extended from
  */
 public abstract class Task {
+    protected Date dateTime;
 
     /**
      * task.Task description
@@ -61,5 +63,9 @@ public abstract class Task {
      */
     public String toWriteFile() {
         return this.description;
+    }
+
+    public Date getDateTime() {
+        return this.dateTime;
     }
 }
