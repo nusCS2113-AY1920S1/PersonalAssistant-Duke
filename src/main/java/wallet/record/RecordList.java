@@ -1,4 +1,4 @@
-package wallet.task;
+package wallet.record;
 
 import wallet.ui.Ui;
 
@@ -8,75 +8,75 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TaskList {
+public class RecordList {
     /**
-     * Stores the current list of task of the user
+     * Stores the current list of records of the user
      */
-    private ArrayList<Task> taskList;
+    private ArrayList<Record> recordList;
 
     /**
-     * Constructs a new taskList object.
+     * Constructs a new recordList object.
      *
-     * @param taskList The list of task to be added.
+     * @param recordList The list of records to be added.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public RecordList(ArrayList<Record> recordList) {
+        this.recordList = recordList;
     }
 
     /**
-     * Returns the list of tasks in the task list.
+     * Returns the list of records in the recordList.
      *
-     * @return The list of tasks.
+     * @return The list of records.
      */
-    public ArrayList<Task> getTaskList() {
-        return taskList;
+    public ArrayList<Record> getRecordList() {
+        return recordList;
     }
 
     /**
-     * Add the given task into the task list.
+     * Add the given record into the recordList
      *
-     * @param task The task to be added.
+     * @param record The record to be added.
      */
-    public void addTask(Task task) {
-        taskList.add(task);
+    public void addRecord(Record record) {
+        recordList.add(record);
     }
 
     /**
-     * Retrieve the task at the given index of the task list.
+     * Retrieve the record at the given index of the recordList
      *
-     * @param index The index of the task in the list.
-     * @return The task at the given index.
+     * @param index The index of the record in the recordList.
+     * @return The record at the given index.
      */
-    public Task getTask(int index) {
-        return taskList.get(index);
+    public Record getRecord(int index) {
+        return recordList.get(index);
     }
 
     /**
-     * Modify the value of the task at the given index in the list.
+     * Modify the value of the record at the given index in the recordList
      *
-     * @param index The index of the task in the list
-     * @param task  The task with modified values
+     * @param index  The index of the record in the list
+     * @param record The record with modified values
      */
-    public void modifyTask(int index, Task task) {
-        taskList.set(index, task);
+    public void modifyRecord(int index, Record record) {
+        recordList.set(index, record);
     }
 
     /**
-     * Removes the task at the given index of the task list.
+     * Removes the record at the given index of the record list.
      *
-     * @param index The index of the task in the list
+     * @param index The index of the record in the list
      */
-    public void deleteTask(int index) {
-        taskList.remove(index);
+    public void deleteRecord(int index) {
+        recordList.remove(index);
     }
 
     /**
-     * Get the current number of tasks in the task list.
+     * Get the current number of records in the recordList.
      *
-     * @return The number of tasks in the list.
+     * @return The number of records in the list.
      */
-    public int getTaskListSize() {
-        return taskList.size();
+    public int getRecordListSize() {
+        return recordList.size();
     }
 
     /**
@@ -86,7 +86,7 @@ public class TaskList {
      * @param description The description of the task
      * @return The task object with its corresponding values
      */
-    public Task createTask(String type, String description) {
+    public Record createRecord(String type, String description) {
         String[] info;
 
         if (description.length() == 0) {
@@ -96,33 +96,19 @@ public class TaskList {
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            if (type.equals("todo")) {
-                return new Todo(description);
-            } else if (type.equals("deadline")) {
-                info = description.split("/by");
-                Date date = sdf.parse(info[1].trim());
-                return new Deadline(info[0].trim(), date);
-            } else if (type.equals("event")) {
-                info = description.split("/at");
-                Date date = sdf.parse(info[1].trim());
-                return new Event(info[0].trim(), date);
-            }else if(type.equals("dowithin")){
-                info = description.split("/from");
-                String temp = info[0];
-                info = info[1].split("/to");
-                Date dateStart = sdf.parse(info[0].trim());
-                Date dateEnd = sdf.parse(info[1].trim());
-                return new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
+
             }
 
-        } catch (ArrayIndexOutOfBoundsException e) {
+         catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The date/time of a " + type + " cannot be empty");
-        } catch (ParseException e) {
+        } /*catch (ParseException e) {
             System.out.println("☹ OOPS!!! The format of date/time is \"dd/mm/yyyy hhmm\"");
-        }
+        }*/
         return null;
     }
+}
 
+    /*
     //B-Tentative Scheduling: Create Tentative Event (does not extend Event class)
     public Task createTentativeEvent(String description) {
 
@@ -184,3 +170,4 @@ public class TaskList {
         return null;
     }
 }
+*/

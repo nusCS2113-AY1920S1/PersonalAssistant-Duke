@@ -1,5 +1,7 @@
 package wallet.record;
 
+import wallet.contact.Contact;
+
 public class Loan extends Record {
     private double amount;
     private Contact person;

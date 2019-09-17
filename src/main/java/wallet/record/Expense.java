@@ -6,6 +6,7 @@ public class Expense extends Record {
     private boolean isRecurring;
 
     public Expense(double amount, String category, boolean isRecurring){
+
         this.amount = amount;
         this.category = category;
         this.isRecurring = isRecurring;

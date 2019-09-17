@@ -7,6 +7,7 @@ public abstract class Record {
     private String description;
     private Date createdDate;
 
+
     public String getDescription() {
         return description;
     }

@@ -1,6 +1,10 @@
 package wallet.command;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import wallet.contact.Contact;
+import wallet.contact.ContactList;
+import wallet.record.RecordList;
 import wallet.storage.Storage;
 import wallet.task.*;
 
@@ -13,16 +17,26 @@ public class Command {
      * @param fileIO The class object that handles file IO
      * @return true if the command given is bye
      */
-    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList){
+    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList, ContactList contactList, RecordList recordList){
         boolean isExit = false;
 
         String[] command = fullCommand.split(" ",2);
         if (command[0].equals("list")){
-            int count = 1;
-            System.out.println("Here are the tasks in your list:");
-            for (Task t : taskList.getTaskList()){
-                System.out.println(count + "." + t.toString());
-                count++;
+            if(command[1].equals("task")) {
+                int count = 1;
+                System.out.println("Here are the tasks in your list:");
+                for (Task t : taskList.getTaskList()) {
+                    System.out.println(count + "." + t.toString());
+                    count++;
+                }
+            }
+            else if(command[1].equals("contact")){
+                int count = 1;
+                System.out.println("Here are the contacts in your list:");
+                for (Contact c : contactList.getContactList()) {
+                    System.out.println(count + "." + c.toString());
+                    count++;
+                }
             }
         } else if (command[0].equals("find")) {
             int count = 1;
@@ -136,6 +150,7 @@ public class Command {
                 System.out.println("☹ OOPS!!! Please use input the index of the task to delete");
             }
         } else if (command[0].equals("bye")){
+
             isExit = true;
         } else if(command[0].equals("tentative")){
             //B-Tentative Scheduling: Create Tentative Event Entry
@@ -183,7 +198,22 @@ public class Command {
             } catch (IndexOutOfBoundsException e){
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
-        } else {
+        } else if(command[0].equals("contact")){
+            try {
+                String info[] = command[1].split(" ", 3);
+                Contact contact = contactList.createContact(info[0], info[1], info[2]);
+                if (contact != null){
+                    contactList.addContact(contact);
+                    System.out.println("Got it. I've added this contact:");
+                    System.out.println(contact.toString());
+                    System.out.println("Now you have " + contactList.getContactListSize() + " contacts in your contact list.");
+                    //TODO: write the updated contactList into a file.
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
+            }
+        }
+        else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 

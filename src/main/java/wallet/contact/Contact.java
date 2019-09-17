@@ -1,4 +1,4 @@
-package wallet.record;
+package wallet.contact;
 
 public class Contact {
 
@@ -34,6 +34,11 @@ public class Contact {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + " " + this.detail + " " + this.phoneNum;
     }
 
 }
