@@ -26,6 +26,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs a <code>Deadline</code> object from the separated storage string.
+     *
+     * @param splitStorageStrings the separated storage string.
+     */
+    public Deadline(String[] splitStorageStrings) {
+        super(splitStorageStrings);
+        this.by = TimeParser.parse(splitStorageStrings[3]);
+    }
+
+    /**
      * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
      * and returns information of the task to be printed by UI.
      * e.g. "[D][✓] attend the party (by: 02/05/2019 1800)"

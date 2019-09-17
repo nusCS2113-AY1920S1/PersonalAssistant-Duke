@@ -16,6 +16,15 @@ public class ToDo extends Task {
     }
 
     /**
+     * Constructs a <code>ToDo</code> object from the separated storage string.
+     *
+     * @param splitStorageStrings the separated storage string.
+     */
+    public ToDo(String[] splitStorageStrings) {
+        super(splitStorageStrings);
+    }
+
+    /**
      * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
      * and returns information of the task to be printed by UI.
      * e.g. "[T][✓] attend the party"
