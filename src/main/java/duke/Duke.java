@@ -14,14 +14,9 @@ public class Duke {
 
     //Consider not using the listIndex anymore?
     private static int listIndex = 0; //Starts from 0 now lol.
-
     private static void setListIndex(int value) {
         listIndex = value;
     }
-
-    /*TODO Strip descriptions of leading/trailing spaces before submitting
-        Accept multiple space delimiter to take the first word...?
-    * */
 
     private Duke(String filePath) {
         ui = new Ui();
@@ -42,7 +37,6 @@ public class Duke {
             userInput = ui.read();
             command = parser.parse(userInput);
             command.execute(taskList, ui, storage);
-            //taskList.handleListInput(command); //Should only be passed good inputs.
         } while (command.getType() != Command.CommandType.BYE);
 
     }
