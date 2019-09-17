@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Calendar;
 public class Task {
     protected String description;
     protected String type = "";
+    protected String subtypes = " ";
     protected boolean isDone;
     protected Calendar datetime = Calendar.getInstance();
 
@@ -60,6 +62,13 @@ public class Task {
      */
     public String getType() {
         return this.type;
+    }
+    /**
+     * This is a getter for the subtype
+     * @return subtype of the task
+     */
+    public String getSubtype() {
+        return this.subtypes;
     }
 
     /**

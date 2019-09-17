@@ -17,4 +17,5 @@ D | 0 | homework | 14 September 2019 11.30 AM
 D | 0 | homework | 14 September 2019 11.30 PM
 E | 0 | go homec | 15 September 2019 01.00 AM
 E | 0 | go homed | 15 September 2019 01.00 AM
-FD | 0 | makan | 20 minutes
+E | 0 | go school | 16 September 2019 07.00 PM
+E | 0 | go school | 16 September 2019 07.00 PM

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
 import duke.tasks.*;
+
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to
  * @author Ivan Andika Lie
@@ -54,15 +55,21 @@ public class Storage {
     private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule) {
         String[] splitLine = line.split(" \\| ");
         String taskType = splitLine[0];
-        boolean isDone = splitLine[1].equals("1");
-        String description = splitLine[2];
+        String subtypes = splitLine[1];
+        boolean isDone = splitLine[2].equals("1");
+        String description = splitLine[3];
 
         String timeFrame = "";
         if (taskType.equals("D") || taskType.equals("E")) {
-            timeFrame = splitLine[3];
+            timeFrame = splitLine[4];
         }
         if (taskType.equals("T")) {
-            loadToDo(tasks, description, isDone);
+            if (subtypes.trim().length() == 0) {
+                loadToDo(tasks, isDone, subtypes, description);
+            }
+            if (subtypes.contains("P")) {
+                loadToDo(tasks, isDone, subtypes, description, splitLine[4], splitLine[5]);
+            }
         } else if (taskType.equals("D")) {
             loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
@@ -80,12 +87,21 @@ public class Storage {
      * @param isDone whether the todo task is done
      */
     //TODO: make such that the loadFile only need to call one function only
-    private static void loadToDo(ArrayList<Task> tasks, String description, boolean isDone) {
-        ToDo newToDo = new ToDo(description);
-        if (isDone) {
-            newToDo.markAsDone();
+    private static void loadToDo(ArrayList<Task> tasks, boolean isDone, String Subtypes, String...description) {
+        if (Subtypes.trim().length() == 0) {
+            ToDo newToDo = new ToDo(description[0]);
+            if (isDone) {
+                newToDo.markAsDone();
+            }
+            tasks.add(newToDo);
         }
-        tasks.add(newToDo);
+        if (Subtypes.contains("P")) {
+            ToDo newToDo = new ToDo(description[0], description[1], description[2]);
+            if (isDone) {
+                newToDo.markAsDone();
+            }
+            tasks.add(newToDo);
+        }
     }
 
     /** This function will load a deadline line and push it to the task arraylist
@@ -95,12 +111,15 @@ public class Storage {
      * @param isDone whether the deadline task is done
      */
     private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone, Schedule schedule) {
+        boolean toAdd;
         Deadline newDeadline = new Deadline(description, by);
         if (isDone) {
             newDeadline.markAsDone();
         }
-        schedule.update(newDeadline);
-        tasks.add(newDeadline);
+        toAdd = schedule.update(newDeadline);
+        if (toAdd) {
+            tasks.add(newDeadline);
+        }
     }
 
     /**
@@ -111,12 +130,15 @@ public class Storage {
      * @param isDone
      */
     private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
+        boolean toAdd;
         Event newEvent = new Event(description, duration);
         if (isDone) {
             newEvent.markAsDone();
         }
-        schedule.update(newEvent);
-        tasks.add(newEvent);
+        toAdd = schedule.update(newEvent);
+        if (toAdd) {
+            tasks.add(newEvent);
+        }
     }
 
     private static void loadFixedDuration(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
@@ -128,7 +150,7 @@ public class Storage {
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylisto of tasks
+     * This is a function that will update the input/output file from the current arraylist of tasks
      * @param tasks the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
@@ -150,7 +172,16 @@ public class Storage {
                 if (currentTask.getisDone()) {
                     status = "1";
                 }
-                bufferedWriter.write(currentTask.getType() + " | " + status + " | " + currentTask.getDescription());
+                String Subtypes = currentTask.getSubtype();
+                bufferedWriter.write(currentTask.getType() + " | " + Subtypes + " | "
+                        + status + " | " + currentTask.getDescription());
+                if ((currentTask.getType()).equals("T")) {
+                    if (Subtypes.contains("P")) {
+                        String data[] = currentLine.split("From: ", 2);
+                        String timeFrame[] = data[1].split(" to ", 2);
+                        bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0, timeFrame[1].length() - 1));
+                    }
+                }
                 if ((currentTask.getType()).equals("E")) {
                     String timeFrame = (currentLine.split("at: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
