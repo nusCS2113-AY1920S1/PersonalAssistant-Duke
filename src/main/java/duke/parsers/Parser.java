@@ -8,10 +8,9 @@ import duke.commands.FetchCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
+import duke.commands.ReminderCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
-
-import java.time.LocalDateTime;
 
 /**
  * Parser for duke.commands entered by the duke.Duke user. It reads from standard input and
@@ -50,6 +49,8 @@ public class Parser {
         case "fetch":
             String[] deadlineDetails = userInput.split(" ", 2);
             return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
+        case "reminder":
+            return new ReminderCommand();
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
