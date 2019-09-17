@@ -51,6 +51,8 @@ public class Parser {
             return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
         case "reminder":
             return new ReminderCommand();
+        case "repeat":
+            return new AddCommand(ParserUtil.createRecurringTask(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }

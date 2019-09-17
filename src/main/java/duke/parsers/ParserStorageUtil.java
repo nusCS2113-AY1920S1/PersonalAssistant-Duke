@@ -3,6 +3,7 @@ package duke.parsers;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.Event;
 import duke.tasks.Deadline;
@@ -44,6 +45,9 @@ public class ParserStorageUtil {
                 LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
                 LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
                 task = new DoWithin(description, start, end);
+            } else if ("R".equals(type)) {
+                task = new RecurringTask(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()),
+                        Integer.parseInt(taskParts[4].strip()));
             } else {
                 task = new Todo(description);
             }
@@ -69,6 +73,9 @@ public class ParserStorageUtil {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getEvent();
         } else if (task instanceof DoWithin) {
             return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
+        } else if (task instanceof RecurringTask) {
+            return ("R | " + task.isDone() + " | " + task.getDescription() + " | " + ((RecurringTask) task).getDate()
+                    + " | " +  ((RecurringTask) task).getRepeatInterval());
         }
         throw new DukeException(MessageUtil.CORRUPTED_TASK);
     }
