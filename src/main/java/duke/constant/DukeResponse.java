@@ -34,4 +34,8 @@ public class DukeResponse {
             + "Please try again. \n";
 
     public final String ADD = "Got it. I've added this task:\n";
+
+    public final String REMINDERS_FOUND = "Here are your reminders:\n";
+
+    public final String REMINDERS_NOT_FOUND = "☹ OOPS!!! You currently do not have deadlines.\n";
 }

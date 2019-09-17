@@ -5,14 +5,13 @@ import duke.DateFormatter;
 public class Deadline extends Task {
     private final String SYMBOL = "[D]";
     private String by;
-
     /**
      * Constructor for Deadline task.
      * @param description The deadline's task name
      * @param by The dateTime of the deadline
      */
     public Deadline(String description, String by) {
-        super(description.trim());
+        super(description.trim(), Task.TaskType.DEADLINE);
         this.by = by;
     }
 

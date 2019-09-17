@@ -8,7 +8,7 @@ public class Todo extends Task {
      * @param description The deadline's task name
      */
     public Todo(String description) {
-        super(description.trim());
+        super(description.trim(), Task.TaskType.TODO);
     }
 
     /**

@@ -2,18 +2,20 @@ package duke.task;
 
 import duke.DateFormatter;
 
+import java.time.LocalDate;
+
 public class Event extends Task {
     private final String SYMBOL = "[E]";
     private String at;
-
     /**
      * Constructor for Event task.
      * @param description The event name
      * @param date The dateTime of the event
      */
     public Event(String description, String date) {
-        super(description.trim());
+        super(description.trim(), Task.TaskType.EVENT);
         this.at = date;
+
     }
 
     /**
@@ -42,5 +44,10 @@ public class Event extends Task {
     @Override
     public String writeToFile() {
         return String.format("E | %d | %s | %s",  (isCompleted() ? 1 : 0), this.getDescription(), this.at);
+    }
+
+    private LocalDate getLocalDate() {
+        LocalDate t = new DateFormatter(this.at).convertToLocalDate(this.at);
+        return t;
     }
 }

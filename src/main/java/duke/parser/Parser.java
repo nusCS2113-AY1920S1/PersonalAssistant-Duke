@@ -1,12 +1,6 @@
 package duke.parser;
 
-import duke.commands.AddCommand;
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
+import duke.commands.*;
 import duke.exception.DukeException;
 
 public class Parser {
@@ -84,6 +78,8 @@ public class Parser {
                         return new ListCommand();
                     case "bye":
                         return new ByeCommand();
+                    case "reminders":
+                        return new RemindersCommand();
                     default:
                         throw new DukeException("Invalid Command\n");
                 }

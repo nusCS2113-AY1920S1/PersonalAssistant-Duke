@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class DateFormatter {
     private String date;
     private String time;
@@ -39,11 +42,11 @@ public class DateFormatter {
      * @return String of the day with its suffix
      */
     private String dayFormat(String day) {
-        if (day.equals("1") || day.equals("21") || day.equals("31")) {
+        if (day.equals("1") || day.equals("21") || day.equals("31") || day.equals("01")) {
             day = day + "st of ";
-        } else if (day.equals("2") || day.equals("22")) {
+        } else if (day.equals("2") || day.equals("22") || day.equals("02")) {
             return day + "nd of ";
-        } else if (day.equals("3") || day.equals("23")) {
+        } else if (day.equals("3") || day.equals("23") || day.equals("03")) {
             return day + "rd of ";
         } else if (Integer.parseInt(day) > 31) {
             return null;
@@ -166,5 +169,11 @@ public class DateFormatter {
      */
     public boolean isValidDateTime() {
         return date != null;
+    }
+
+    public LocalDate convertToLocalDate(String sDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        LocalDate parsedDate = LocalDate.parse(sDate, formatter);
+        return parsedDate;
     }
 }
