@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
-import duke.tasks.ToDoPeriod;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,7 +47,7 @@ public class Parser {
                 try {
                     String SplitString[] = description.split("/between", 2);
                     String SplitString2[] = SplitString[1].split(",", 2);
-                    return new AddCommand(new ToDoPeriod(SplitString[0], SplitString2[0], SplitString2[1]));
+                    return new AddCommand(new ToDo(SplitString[0], SplitString2[0], SplitString2[1]));
                 } catch (Exception e) {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
                 }

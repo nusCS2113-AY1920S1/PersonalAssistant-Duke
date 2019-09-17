@@ -4,15 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
-<<<<<<< HEAD
 import duke.tasks.Schedule;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-=======
 import duke.tasks.*;
->>>>>>> B-DoWithinPeriodTasks
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to
@@ -63,21 +56,25 @@ public class Storage {
     private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule) {
         String[] splitLine = line.split(" \\| ");
         String taskType = splitLine[0];
-        boolean isDone = splitLine[1].equals("1");
-        String description = splitLine[2];
+        String subtypes = splitLine[1];
+        boolean isDone = splitLine[2].equals("1");
+        String description = splitLine[3];
 
         String timeFrame = "";
         if (taskType.equals("D") || taskType.equals("E")) {
-            timeFrame = splitLine[3];
+            timeFrame = splitLine[4];
         }
         if (taskType.equals("T")) {
-            loadToDo(tasks, description, isDone);
+            if (subtypes.trim().length() == 0) {
+                loadToDo(tasks, isDone, subtypes, description);
+            }
+            if (subtypes.contains("P")) {
+                loadToDo(tasks, isDone, subtypes, description, splitLine[4], splitLine[5]);
+            }
         } else if (taskType.equals("D")) {
             loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
             loadEvent(tasks, description, timeFrame, isDone, schedule);
-        } else if (taskType.equals("P")) {
-            loadTodoPeriod(tasks, description, splitLine[3], splitLine[4], isDone);
         }
 
     }
@@ -89,12 +86,21 @@ public class Storage {
      * @param isDone whether the todo task is done
      */
     //TODO: make such that the loadFile only need to call one function only
-    private static void loadToDo(ArrayList<Task> tasks, String description, boolean isDone) {
-        ToDo newToDo = new ToDo(description);
-        if (isDone) {
-            newToDo.markAsDone();
+    private static void loadToDo(ArrayList<Task> tasks, boolean isDone, String Subtypes, String...description) {
+        if (Subtypes.trim().length() == 0) {
+            ToDo newToDo = new ToDo(description[0]);
+            if (isDone) {
+                newToDo.markAsDone();
+            }
+            tasks.add(newToDo);
         }
-        tasks.add(newToDo);
+        if (Subtypes.contains("P")) {
+            ToDo newToDo = new ToDo(description[0], description[1], description[2]);
+            if (isDone) {
+                newToDo.markAsDone();
+            }
+            tasks.add(newToDo);
+        }
     }
 
     /** This function will load a deadline line and push it to the task arraylist
@@ -127,16 +133,9 @@ public class Storage {
         schedule.update(newEvent);
         tasks.add(newEvent);
     }
-    private static void loadTodoPeriod(ArrayList<Task> tasks, String description, String start, String end, boolean isDone) {
-        ToDoPeriod newToDoPeriod = new ToDoPeriod(description, start, end);
-        if (isDone) {
-            newToDoPeriod.markAsDone();
-        }
-        tasks.add(newToDoPeriod);
-    }
 
     /**
-     * This is a function that will update the input/output file from the current arraylisto of tasks
+     * This is a function that will update the input/output file from the current arraylist of tasks
      * @param tasks the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
@@ -158,7 +157,16 @@ public class Storage {
                 if (currentTask.getisDone()) {
                     status = "1";
                 }
-                bufferedWriter.write(currentTask.getType() + " | " + status + " | " + currentTask.getDescription());
+                String Subtypes = currentTask.getSubtype();
+                bufferedWriter.write(currentTask.getType() + " | " + Subtypes + " | "
+                        + status + " | " + currentTask.getDescription());
+                if ((currentTask.getType()).equals("T")) {
+                    if (Subtypes.contains("P")) {
+                        String data[] = currentLine.split("From: ", 2);
+                        String timeFrame[] = data[1].split(" to ", 2);
+                        bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0, timeFrame[1].length() - 1));
+                    }
+                }
                 if ((currentTask.getType()).equals("E")) {
                     String timeFrame = (currentLine.split("at: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
@@ -167,11 +175,7 @@ public class Storage {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }
-                else if ((currentTask.getType()).equals("P")) {
-                    String data[] = currentLine.split("From: ", 2);
-                    String timeFrame[] = data[1].split(" to ", 2);
-                    bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0,timeFrame[1].length() - 1));
-                }
+
             }
             bufferedWriter.close();
         } catch (IOException e) {
