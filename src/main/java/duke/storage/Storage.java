@@ -4,6 +4,7 @@ import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.parsers.ParserStorageUtil;
 import duke.tasks.Task;
+import duke.tasks.TaskWithDates;
 import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
@@ -41,7 +42,7 @@ public class Storage {
     /**
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
-    private void read() throws DukeException {
+    public void read() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
@@ -63,7 +64,7 @@ public class Storage {
 
         try {
             for (Task task : newTasks) {
-                if (task.hasDate()) {
+                if (task instanceof TaskWithDates) {
                     tasksWithDate.add(task);
                 }
             }

@@ -137,7 +137,9 @@ public class Ui {
         return (MESSAGE_DELETE + task);
     }
 
-    public String getUpdateDate(Task task) { return (MESSAGE_UPDATE + task); }
+    public String getUpdateDate(Task task) {
+        return (MESSAGE_UPDATE + task);
+    }
 
     public void setResponse(String message) {
         response = message;

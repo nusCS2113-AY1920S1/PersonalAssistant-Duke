@@ -112,12 +112,12 @@ public class ParserUtil {
      * @return The index.
      */
     static int getIndexUpdate(String userInput) throws DukeException {
-            try {
-                int index =  Integer.parseInt(userInput.strip().split(" ")[1]);
-                return --index;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException(MessageUtil.INVALID_FORMAT);
-            }
+        try {
+            int index =  Integer.parseInt(userInput.strip().split(" ")[1]);
+            return --index;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
     }
 
     /**
@@ -128,7 +128,8 @@ public class ParserUtil {
      */
     public static LocalDateTime getDateUpdate(String userInput) throws DukeException {
         try {
-            return ParserTimeUtil.parseStringToDate(userInput.substring("snooze ".length() + 2).strip().split("/to")[1].strip());
+            return ParserTimeUtil.parseStringToDate(
+                    userInput.substring("snooze ".length() + 2).strip().split("/to")[1].strip());
         } catch (DukeDateTimeParseException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }

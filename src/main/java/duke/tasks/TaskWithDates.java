@@ -8,17 +8,17 @@ import java.time.LocalDateTime;
 
 public class TaskWithDates extends Task {
     private LocalDateTime startDate;
+    Boolean hasDate = false;
 
-    TaskWithDates(String description, LocalDateTime startDate) {
+
+    TaskWithDates(String description,LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
         this.hasDate = true;
     }
 
-    @Override
-    public TaskWithDates updateDate (LocalDateTime newDate){
+    public void updateDate (LocalDateTime newDate) {
         this.startDate = newDate;
-        return this;
     }
 
     /**

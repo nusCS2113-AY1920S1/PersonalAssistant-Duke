@@ -3,9 +3,9 @@ package duke.commands;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.storage.Storage;
+import duke.tasks.Task;
 import duke.tasks.TaskWithDates;
 import duke.ui.Ui;
-
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +20,7 @@ public class SnoozeCommand extends Command {
      *
      * @param index The index of the task.
      */
-    public SnoozeCommand(int index, LocalDateTime newDate){
+    public SnoozeCommand(int index, LocalDateTime newDate) {
         this.index = index;
         this.newDate = newDate;
     }
@@ -34,7 +34,12 @@ public class SnoozeCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException {
         try {
-            TaskWithDates task =  storage.getTasksWithDate().get(index).updateDate(newDate);
+            Task task =  storage.getTasks().get(index);
+            if (task instanceof TaskWithDates) {
+                ((TaskWithDates) task).updateDate(newDate);
+            } else {
+                throw new DukeException("Task does not contain date");
+            }
             ui.setResponse(ui.getUpdateDate(task));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
