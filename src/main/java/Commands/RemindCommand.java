@@ -18,6 +18,7 @@ public class RemindCommand extends Command {
      * Checks if date of tasks is within the current week.
      */
     public boolean withinWeek(Date date){
+        //Solution below adapted from https://stackoverflow.com/questions/23930216/how-to-check-if-the-date-belongs-to-current-week-or-not/23930578#23930578
         Calendar c = Calendar.getInstance();
         c.setFirstDayOfWeek(Calendar.SUNDAY);
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
