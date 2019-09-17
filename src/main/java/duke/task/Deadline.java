@@ -152,7 +152,6 @@ public class Deadline extends Task {
      *
      * @return The date and time of this Deadline.
      */
-    @Override
     public LocalDateTime getDateTime() {
         return this.by;
     }
