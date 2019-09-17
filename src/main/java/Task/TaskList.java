@@ -1,6 +1,7 @@
 package Task;
 
 import Data.*;
+import javafx.concurrent.Task;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -8,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.time.Month;
 
 /**
  * TaskList handles all the operations Duke uses.
@@ -100,6 +102,26 @@ public class TaskList {
 
         if (cnt == 1) {
             System.out.println("Sorry, there are no tasks matching your search");
+        }
+    }
+
+    public static void findDate(String word) {
+        int index = 1;
+        String[] temp = word.split("/");
+        String dd = TaskList.numOrdinal(Integer.parseInt(temp[0]));
+        Month mm = Month.of(Integer.parseInt(temp[1])); //
+        String yy = temp[2];
+        String check = dd + " of " + mm + " " + yy;
+        for (item i : list) {
+            String desc = i.toString();
+            if (desc.toLowerCase().contains(check.toLowerCase())) {
+                System.out.println("Here are the tasks on " + check);
+                System.out.println(index + ". " + desc);
+                index++;
+            }
+        }
+        if (index == 1) {
+            System.out.println("Sorry, there are no tasks on " + check);
         }
     }
 

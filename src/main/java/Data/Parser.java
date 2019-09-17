@@ -100,6 +100,11 @@ public class Parser {
                 TaskList.findTask(searchWord);
                 break;
 
+            case "date":
+                String searchDate = input.substring(5);
+                TaskList.findDate(searchDate);
+                break;
+
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
