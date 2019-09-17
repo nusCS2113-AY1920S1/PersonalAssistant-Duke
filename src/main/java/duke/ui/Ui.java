@@ -20,6 +20,7 @@ public class Ui {
     private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:\n  ";
     private static final String MESSAGE_ADDITION = "Got it. I've added this task:\n  ";
     private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
+    private static final String MESSAGE_UPDATE = "Alright! I've snoozed this task:\n  ";
     private Scanner scanner;
 
     public Ui() {
@@ -113,13 +114,13 @@ public class Ui {
      * @return message task list to print
      */
     public String getList(UniqueTaskList tasks) {
-        String result = "Here are the list of tasks:\n";
+        StringBuilder result = new StringBuilder("Here are the list of tasks:\n");
         int i = 1;
         for (Task t : tasks) {
-            result += (i + ". " + t + "\n");
+            result.append(i).append(". ").append(t).append("\n");
             i += 1;
         }
-        return result;
+        return result.toString();
     }
 
     public String getTaskDesc(Task task) {
@@ -133,4 +134,7 @@ public class Ui {
     public String getDelete(Task task) {
         return (MESSAGE_DELETE + task);
     }
+
+    public String getUpdateDate(Task task) { return (MESSAGE_UPDATE + task); }
+
 }

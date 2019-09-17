@@ -1,9 +1,11 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * A generic task, which can be marked as done.
  */
-public class Task {
+public abstract class Task {
     private String description;
 
     private boolean isDone;
@@ -64,4 +66,6 @@ public class Task {
     public String toString() {
         return (isDone ? "[✓] " : "[✘] ") + description;
     }
+
+    public abstract Task updateDate(LocalDateTime newDate);
 }

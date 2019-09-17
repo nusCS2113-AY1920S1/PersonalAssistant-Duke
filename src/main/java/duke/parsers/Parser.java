@@ -1,12 +1,6 @@
 package duke.parsers;
 
-import duke.commands.DeleteCommand;
-import duke.commands.FindCommand;
-import duke.commands.AddCommand;
-import duke.commands.Command;
-import duke.commands.ExitCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkDoneCommand;
+import duke.commands.*;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 
@@ -46,6 +40,8 @@ public class Parser {
             return new DeleteCommand(ParserUtil.getIndex(userInput));
         case "find":
             return new FindCommand(getWord(userInput));
+        case "snooze":
+            return new SnoozeCommand(ParserUtil.getIndexUpdate(userInput), ParserUtil.getDateUpdate(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }

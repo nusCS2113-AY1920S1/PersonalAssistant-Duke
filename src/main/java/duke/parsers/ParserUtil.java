@@ -105,5 +105,32 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the userInput and return an index to snooze.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The index.
+     */
+    static int getIndexUpdate(String userInput) throws DukeException {
+            try {
+                int index =  Integer.parseInt(userInput.strip().split(" ")[1]);
+                return --index;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(MessageUtil.INVALID_FORMAT);
+            }
+    }
 
+    /**
+     * Parses the userInput and return an date to snooze/delay to.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The index.
+     */
+    public static LocalDateTime getDateUpdate(String userInput) throws DukeException {
+        try {
+            return ParserTimeUtil.parseStringToDate(userInput.substring("snooze ".length() + 2).strip().split("/to")[1].strip());
+        } catch (DukeDateTimeParseException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
 }
