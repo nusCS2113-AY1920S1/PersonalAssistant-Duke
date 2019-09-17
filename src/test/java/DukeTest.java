@@ -42,6 +42,7 @@ public class DukeTest {
         //Test for event
         new EventTest().test("event test /at 0000");
         new EventTest().birthdayAt_myBday("event bday /at 06/06/2019");
+        new EventTest().clashEvent("event eventclash /at 06/06/2019");
 
         //Test for reminders
         new ReminderTest().test();
