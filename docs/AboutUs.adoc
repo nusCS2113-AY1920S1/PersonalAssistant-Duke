@@ -1,0 +1,55 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+ArchDuke was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Jerry
+image::Jerry.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Dillen
+image::Dillen.jpg[width="150", align="left"]
+{empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Abhishek
+image::Abhishek.jpg[width="150", align="left"]
+{empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Sean
+image::Sean.jpg[width="150", align="left"]
+{empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Cynthia
+image::Cynthia.jpg[width="150", align="left"]
+{empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
