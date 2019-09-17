@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class ToDo extends Task {
 
-    Calendar datetime2 = Calendar.getInstance();
+    protected Calendar End = Calendar.getInstance();
 
     /**
      * Primary constructor of ToDo object
@@ -36,22 +36,22 @@ public class ToDo extends Task {
             date = dateparser.parse(start);
             datetime.setTime(date);
             date = dateparser.parse(end);
-            datetime2.setTime(date);
+            End.setTime(date);
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
                 date = altparser.parse(start);
                 datetime.setTime(date);
                 date = altparser.parse(end);
-                datetime2.setTime(date);
+                End.setTime(date);
             } catch (ParseException f) {
                 datetime = null;
             }
         }
-        if (datetime.after(datetime2)) {
+        if (datetime.after(End)) {
             Calendar temp = datetime;
-            datetime = datetime2;
-            datetime2 = temp;
+            datetime = End;
+            End = temp;
         }
         super.type = "T";
         subtypes += "P ";
@@ -71,7 +71,7 @@ public class ToDo extends Task {
         else if (subtypes.contains("P")){
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
-                    + " to " + dateFormat.format(datetime2.getTime()) + ")";
+                    + " to " + dateFormat.format(End.getTime()) + ")";
         }
         return null;
     }
