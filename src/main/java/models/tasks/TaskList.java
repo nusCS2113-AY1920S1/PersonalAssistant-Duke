@@ -53,6 +53,27 @@ public class TaskList implements Serializable {
         return searchedTasks;
     }
 
+    /**
+     * Returns the schedule for the date.
+     * @param date : The date input by the user.
+     * @return : Returns an ArrayList of ITask which are in the schedule
+     */
+    public ArrayList<ITask> getSchedule(String date) {
+        searchedTasks = new ArrayList<>();
+        for (ITask task : listOfTasks) {
+            if (task.getDateTime().contains(date)) {
+                searchedTasks.add(task);
+            }
+        }
+        return searchedTasks;
+    }
+
+    /**
+     * Returns upcoming tasks.
+     * @param limit : limit
+     * @return : Upcoming tasks
+     * @throws ParseException : Parsing error
+     */
     public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy hh.mm a");
@@ -66,16 +87,16 @@ public class TaskList implements Serializable {
             c.setTime(currentDateTime);
             c.add(Calendar.DATE, DAYS_FROM_NOW);
             remindWithin = c.getTime();
-        }
-        else {
+        } else {
             SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             remindWithin = inputDateFormat.parse(limit);
         }
 
-        for (ITask task: this.listOfTasks){
+        for (ITask task: this.listOfTasks) {
             String taskInitial = task.getInitials();
-            if (taskInitial.equals("T")) continue;
-
+            if (taskInitial.equals("T")) {
+                continue;
+            }
             Date taskDate = dateFormat.parse(task.getDateTime());
             if (taskDate.compareTo(currentDateTime) >= 0 && taskDate.compareTo(remindWithin) <= 0) {
                 upcomingTasks.add(task);

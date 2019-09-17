@@ -1,18 +1,15 @@
 package views;
 
 import controllers.ConsoleInputController;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
-import models.tasks.Deadline;
-import models.tasks.Event;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class CLIView {
@@ -147,10 +144,11 @@ public class CLIView {
     /**
      * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
      * @param taskList Current list of tasks.
-     * @param input User command including time limit before which to find upcoming tasks. If left blank, it will be seven days from current date by default.
-     * @throws ParseException
+     * @param input User command including time limit before which to find upcoming tasks.
+     *              If left blank, it will be seven days from current date by default.
+     * @throws ParseException : Parsing error
      */
-    public void remindTask(TaskList taskList, String input) throws ParseException{
+    public void remindTask(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         System.out.println("\tHere are the upcoming tasks in your list:");
         String limit;
@@ -158,8 +156,7 @@ public class CLIView {
         String dummy = sc.next();
         if (sc.hasNext()) {
             limit = sc.nextLine();
-        }
-        else {
+        } else {
             limit = "";
         }
 
@@ -170,6 +167,37 @@ public class CLIView {
                 + "[" + results.get(i).getStatusIcon() + "] "
                 + results.get(i).getDescription()
             );
+        }
+        System.out.println(horiLine);
+    }
+
+    /**
+     * Prints out the schedule for the date input by the user.
+     *
+     * @param taskList : Current list of tasks.
+     * @param input : The date of the schedule
+     * @throws ParseException : Parsing error
+     */
+    public void listSchedule(TaskList taskList, String input) throws ParseException {
+        // Correct format as 2 December 2019 6 PM
+        String tempDate = input.substring(9);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = formatter.parse(tempDate);
+        String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);
+
+        System.out.println(horiLine);
+        ArrayList<ITask> results = taskList.getSchedule(formattedDate);
+        if (results.isEmpty()) {
+            System.out.println("\tYour schedule for " + formattedDate + " is empty.");
+        } else {
+            System.out.println("\tHere is your schedule for today:");
+            for (int i = 0; i < results.size(); i++) {
+                System.out.print("\t" + (i + 1));
+                System.out.println(".[" + results.get(i).getInitials() + "]"
+                        + "[" + results.get(i).getStatusIcon() + "] "
+                        + results.get(i).getDescription()
+                );
+            }
         }
         System.out.println(horiLine);
     }

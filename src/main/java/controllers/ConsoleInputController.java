@@ -1,7 +1,6 @@
 package controllers;
 
 import exceptions.DukeException;
-import java.text.ParseException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.tasks.ITask;
@@ -10,9 +9,11 @@ import views.CLIView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.text.ParseException;
 
 public class ConsoleInputController implements IViewController {
 
@@ -60,6 +61,12 @@ public class ConsoleInputController implements IViewController {
                 consoleView.remindTask(taskList, input);
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
+            }
+        } else if (input.length() == 17 && input.substring(0,8).equals("schedule")) {
+            try {
+                consoleView.listSchedule(taskList, input);
+            } catch (ParseException e) {
+                System.out.println("error in scheduling");
             }
         } else {
             try {
