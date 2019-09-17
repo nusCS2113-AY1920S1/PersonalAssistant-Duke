@@ -58,7 +58,7 @@ public class TaskList implements Serializable {
      *
      * @param limit The date and time limit given by the user.
      * @return The list of tasks from the current time until the time limit.
-     * @throws ParseException
+     * @throws ParseException If date and time are not entered in the stipulated format of dd/MM/yyyy HHmm"
      */
     public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = new ArrayList<>();
