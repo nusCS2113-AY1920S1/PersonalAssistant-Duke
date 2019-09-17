@@ -4,6 +4,7 @@ import duke.constant.DukeResponse;
 import duke.DateFormatter;
 import duke.exception.DukeInvalidDateException;
 import duke.Storage;
+import duke.exception.DukeTaskClashException;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -63,19 +64,19 @@ public class AddCommand extends Command {
                 case "event":
                     checkDateValidity(dateFormatter);
                     task = new Event(description, dateTime);
-                    tasks.add(task);
+                    tasks.addTask(task);
                     setResponse(ui, task.toString(), tasks.size());
                     break;
                 case "deadline":
                     checkDateValidity(dateFormatter);
                     task = new Deadline(description, dateTime);
-                    tasks.add(task);
+                    tasks.addTask(task);
                     setResponse(ui, task.toString(), tasks.size());
                     break;
                 default:
                     ui.setMessage("Invalid command");
             }
-        } catch (DukeInvalidDateException e) {
+        } catch (DukeInvalidDateException | DukeTaskClashException e) {
             ui.setMessage(e.getMessage());
         }
     }

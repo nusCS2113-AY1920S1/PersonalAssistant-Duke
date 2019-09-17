@@ -1,5 +1,6 @@
 package duke.calendarMap;
 
+import duke.exception.DukeTaskClashException;
 import duke.task.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ class DateMapTest {
     }
 
     @Test
-    void testAddTask() {
+    void testAddTask() throws DukeTaskClashException {
         actual.addTask("2/3/1997 1", new Event("test", "1"));
         actual.addTask("2/3/1997 2", new Event("test2", "2"));
         actual.addTask("2/3/1997 3", new Event("test3", "3"));
@@ -49,12 +50,13 @@ class DateMapTest {
         timeMap.put("2", new Event("test2", "2"));
         timeMap.put("3", new Event("test3", "3"));
         timeMap.put("4", new Event("test4", "4"));
-        timeMap.put("5", new Event("test5", "5"));
+        Event event = new Event("test5", "5");
+        timeMap.put("5", event);
 
         LocalDate key = LocalDate.of(1997, 3, 2);
 
         actual.put(key, timeMap);
-        actual.deleteTask("2/3/1997 5", new Event("test5", "5"));
+        actual.deleteTask("2/3/1997 5", event);
 
         assertEquals(4, timeMap.size());
         assertTrue(expected.keySet().containsAll(actual.keySet()));

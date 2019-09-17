@@ -43,4 +43,9 @@ public class Deadline extends Task {
     public String writeToFile() {
         return String.format("D | %d | %s | %s",  (isCompleted() ? 1 : 0), this.getDescription(), this.by);
     }
+
+    @Override
+    public String getDateTime() {
+        return this.by;
+    }
 }

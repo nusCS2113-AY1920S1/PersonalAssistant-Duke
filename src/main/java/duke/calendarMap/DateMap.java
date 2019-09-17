@@ -1,5 +1,6 @@
 package duke.calendarMap;
 
+import duke.exception.DukeTaskClashException;
 import duke.task.Task;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
         LocalDate key = LocalDate.of(yr, mth, day);
 
         switch(checkCondition(key, time, task)) {
-            case 4:
+            case 3:
                 TimeMap timeMap = this.get(key);
                 timeMap.remove(time, task);
                 this.replace(key, timeMap);
@@ -31,7 +32,7 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
         }
     }
 
-    public void addTask(String date, Task task) {
+    public void addTask(String date, Task task) throws DukeTaskClashException {
         String[] arrStr = date.trim().split(" ");
         String time = arrStr[1].trim();
 
@@ -54,8 +55,10 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
                 timeMap = this.get(key);
                 timeMap.put(time, task);
                 this.replace(key, timeMap);
-            default:
                 break;
+            default:
+                Task clashedTask = this.get(key).get(time);
+                throw new DukeTaskClashException(clashedTask);
         }
 
         if (this.isEmpty()) {
@@ -97,10 +100,10 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
             return 2;
         // TimeMap have specified key
         } else if (this.get(key).containsKey(time)) {
-            // TimeMap does not have specified Task
-            if(this.get(key).get(time).equals(task)) {
-                return 3;
             // TimeMap have specified Task
+            if (this.get(key).get(time).equals(task)) {
+                return 3;
+            // TimeMap does not have specified Task
             } else {
                 return 4;
             }

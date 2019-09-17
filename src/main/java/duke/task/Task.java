@@ -52,4 +52,6 @@ public abstract class Task {
     public abstract String getSymbol();
 
     public abstract String writeToFile();
+
+    public abstract String getDateTime();
 }

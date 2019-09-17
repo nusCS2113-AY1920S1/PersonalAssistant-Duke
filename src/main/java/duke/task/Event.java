@@ -43,4 +43,9 @@ public class Event extends Task {
     public String writeToFile() {
         return String.format("E | %d | %s | %s",  (isCompleted() ? 1 : 0), this.getDescription(), this.at);
     }
+
+    @Override
+    public String getDateTime() {
+        return this.at;
+    }
 }

@@ -1,6 +1,7 @@
 package duke;
 
 
+import duke.exception.DukeTaskClashException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -54,11 +55,11 @@ public class Storage {
                 String[] arrStr = message.split(" \\| ");
 
                 if (arrStr.length == 3) {
-                    tasks.add(new Todo(arrStr[2]));
+                    tasks.addTask(new Todo(arrStr[2]));
                 } else if (arrStr[0].equals("D")) {
-                    tasks.add(new Deadline(arrStr[2], arrStr[3]));
+                    tasks.addTask(new Deadline(arrStr[2], arrStr[3]));
                 } else {
-                    tasks.add(new Event(arrStr[2], arrStr[3]));
+                    tasks.addTask(new Event(arrStr[2], arrStr[3]));
                 }
 
                 if (arrStr[1].equals("1")) {
@@ -73,6 +74,8 @@ public class Storage {
 
         } catch (IOException e) {
             System.out.println("Unable to load file.\n");
+        } catch (DukeTaskClashException e) {
+            System.out.println(e.toString());
         }
 
         return tasks;
