@@ -36,11 +36,16 @@ public class RecurringTask extends TaskWithDates {
                 + " (every " + repeatInterval + " days)");
     }
 
+    /**
+     * Update the date if necessary.
+     */
     public void updateRecurringTask() {
         if (LocalDateTime.now().isAfter(this.startDate)) {
             this.startDate = this.startDate.plusDays(repeatInterval);
         }
     }
 
-    public int getRepeatInterval() { return repeatInterval; }
+    public int getRepeatInterval() {
+        return repeatInterval;
+    }
 }
