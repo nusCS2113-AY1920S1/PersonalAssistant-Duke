@@ -9,58 +9,34 @@ School Planner is an app designed for busy school students. The app is optimized
 ### Feature 1: Login 
 User is able to create student name and set a password for the first time, can logout after every session (automatically/manually), login to use specific features such as save features, else can use a general account(default) that users can use without logging into their own
 
-#### Commands: 
-Create User
-
-Login
-
-Logout
-
-Forget password [USER]
 
 ### Feature 2: Timetable 
 User is able to view his weekly timetable. Able to modify timetable and add modules based on the duration and frequency of classes they have each week. Able to include whether it is a tutorial/lecture/lab slot
 
-#### Commands:
-Add/Delete/ [MOD CODE]
-View [ACAD YEAR]
 
 ### Feature 3: Grades 
 User can plan activities outside of his normal schedule based on system recommendations/individual needs. User able to include his todo list
-
-#### Commands:
-Plan [module] [activity:project meeting/consultation] [duration forecast]
 
 
 ### Feature 4: Forcasted CAP 
 User is able to define his ideal CAP, and track it after every semester. Able to modify the goals after every semester
 
-#### Commands:
-Add goal [CAP]
-
-Set goal [CAP]
-
-View [CAP]
-
-CAP Grades Required
-
-
-
 ### Feature 5: Additional Features
 User is able to store his results, and pull it up for viewing anytime
-
-
 
 ## Usage
 
 ### `Keyword` - Describe action
 
-Describe action and its outcome.
-
-Create User
-
-Login
-
-Logout
-
-Forget password [USER]
+'Create User' - Define the user's profile name and password
+'Login'- enter app
+'Logout' - exit app
+'Forget password [USER]' - Answer security code to gain access to your account if you forget password
+'Add/Delete/Modify [MOD CODE]' - Control what modules are added to your schedule
+'View [ACAD YEAR]' - View grade by acad year and semester
+'Plan [module] [activity:project meeting/consultation] [duration forecast]'
+'Set goal [CAP]' - Set desired CAP
+'View [CAP]' - View current cap
+'CAP Grades Required' - See grades per mod in order to get desired cap
+'Save [module] [grade] [Year _ Sem _]' - Saved the grades obtained for the mod
+'Edit [module] [grade] [Year_Sem_]' - Edit the previous grades saved
