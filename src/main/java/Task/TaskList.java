@@ -2,6 +2,7 @@ package Task;
 
 import Data.*;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -133,22 +134,6 @@ public class TaskList {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date formatDate = simpleDateFormat.parse(date);
-
-
-
-            /*
-            String[] words = date.split("[/| ]"); // split based on space and /
-            System.out.println(words[3]);
-            int hour = Integer.parseInt(words[3].substring(0,2));
-            int min = Integer.parseInt(words[3].substring(2));
-            String mm = (hour > 12) ? "pm" : "am";
-            String wordMin = words[3].substring(2);
-            String d1 =  numOrdinal(Integer.parseInt(words[0])) + " of " + months[Integer.parseInt(words[1]) - 1] + " " +
-                    words[2] + ", " + (hour % 12) + ((min == 0) ? "": ("."+ wordMin)) + mm;
-            //2nd of December 2019, 6pm
-            return d1;
-
-             */
             return formatDate;
         }
         catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
@@ -158,6 +143,18 @@ public class TaskList {
         catch (ParseException pe) {
             System.out.println("Date error");
             return null;
+        }
+    }
+
+    public static String dateRevert (String date) {
+        try {
+            Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
+            String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
+            return oldDateFormat;
+        }
+        catch (ParseException pe) {
+            System.err.println("Error: Date in wrong format");
+            return date;
         }
     }
 

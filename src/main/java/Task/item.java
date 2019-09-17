@@ -1,5 +1,7 @@
 package Task;
 
+import java.util.Date;
+
 /**
  * This is the main superclass that contains all the attributes of the tasks.
  */
@@ -52,6 +54,10 @@ public class item {
      */
     public String getDate () {
         return "";
+    }
+
+    public Date getRawDate () {
+        return null;
     }
 
     /**
