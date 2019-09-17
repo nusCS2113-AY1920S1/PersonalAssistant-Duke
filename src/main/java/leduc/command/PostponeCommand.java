@@ -11,11 +11,31 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Represents Postpone command which postpone the deadline of a deadline task.
+ */
 public class PostponeCommand extends Command {
+    /**
+     * Constructor of PostponeCommand.
+     * @param user String which represent the input string of the user.
+     *
+     */
     public PostponeCommand(String user){
         super(user);
     }
 
+    /**
+     * Allows to postpone the deadline of a deadline task.
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @throws NonExistentTaskException Exception caught when the task does not exist
+     * @throws DeadlineTypeException Exception caught when the task is not a deadline task
+     * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
+     * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
+     * @throws NonExistentDateException Exception caught when the date given does not exist.
+     * @throws PostponeDeadlineException Exception caught when the new deadline is before the old deadline.
+     */
     public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException,
             DeadlineTypeException, FileException, EmptyDeadlineDateException, NonExistentDateException,
             PostponeDeadlineException {
@@ -54,6 +74,10 @@ public class PostponeCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean false as it is a PostponeCommand.
+     * @return a boolean false.
+     */
     public boolean isExit(){
         return false;
     }

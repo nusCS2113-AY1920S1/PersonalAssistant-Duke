@@ -25,10 +25,18 @@ public class Date {
         this.d = this.d.plusMinutes(30);
     }
 
+    /**
+     * Setter of the LocalDateTime d
+     * @param d the new value of date
+     */
     public void setD( LocalDateTime d){
         this.d = d;
     }
 
+    /**
+     * Getter of the LocalDateTime d
+     * @return d the LocalDateTime d
+     */
     public LocalDateTime getD(){
         return this.d;
     }

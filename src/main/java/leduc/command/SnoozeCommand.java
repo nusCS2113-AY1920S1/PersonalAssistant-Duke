@@ -25,8 +25,9 @@ public class SnoozeCommand extends Command{
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @throws NonExistentTaskException Exception caught when the task does not exist
-     * @throws DeadlineTypeException Exception caught when the task is not a deadline task
+     * @throws NonExistentTaskException Exception caught when the task does not exist.
+     * @throws DeadlineTypeException Exception caught when the task is not a deadline task.
+     * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException, DeadlineTypeException, FileException {
         int index = Integer.parseInt(user.substring(7)) - 1;

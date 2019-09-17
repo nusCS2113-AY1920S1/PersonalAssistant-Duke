@@ -72,6 +72,12 @@ public class DeadlinesTask extends Task {
         return super.toString() + " by: " + getDeadlines();
     }
 
+    /**
+     * Allow postpone the deadline of the deadline task.
+     * With verification that the new deadline should be after the old one.
+     * @param d LocalDateTime d : the new deadline
+     * @throws PostponeDeadlineException Exception caught when the new deadline is before the old one.
+     */
     public void postponeDeadline(LocalDateTime d) throws PostponeDeadlineException {
         if (d.isBefore(this.deadlines.getD())){
             throw new PostponeDeadlineException();
