@@ -20,6 +20,9 @@ public class Deadline extends Task {
         dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 
     @Override
     public String writingFile() {
