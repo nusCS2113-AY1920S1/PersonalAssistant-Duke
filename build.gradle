@@ -24,9 +24,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
 application {

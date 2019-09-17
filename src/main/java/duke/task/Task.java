@@ -1,14 +1,14 @@
 package duke.task;
 
 /**
- * Abstract class to represent task
+ * Abstract class to represent task.
  */
 public abstract class Task {
     protected String description; //User input
     protected boolean isDone; //To check if the task is completed
 
     /**
-     * Constructor for class Task
+     * Constructor for class Task.
      * @param description String containing the description of the task
      */
     public Task(String description) {
@@ -17,7 +17,7 @@ public abstract class Task {
     }
 
     /**
-     * Get the description of the different tasks
+     * Get the description of the different tasks.
      * @return String containing the description of the task
      */
     public String getDescription() {
@@ -25,18 +25,14 @@ public abstract class Task {
     }
 
     /**
-     * Set the task as done after completion
+     * Set the task as done after completion.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     } //marked as completed when done
 
-//    public String getStatusIcon() {
-//        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-//    }
-
     /**
-     * Get the current status of the task
+     * Get the current status of the task.
      * @return String containing plus symbol if completed and minus symbol otherwise
      */
     public String getStatusIcon() {
@@ -44,18 +40,18 @@ public abstract class Task {
     }
 
     /**
-     * Converts user input command to a standardized format to store in file
+     * Converts user input command to a standardized format to store in file.
      * @return String containing the standardized format
      */
-    public String toSaveString(){
+    public String toSaveString() {
         return " | " + getStatusIcon() + " | " + description;
     }
 
     /**
-     * Converts user input command to a standardized format in taskList
+     * Converts user input command to a standardized format in taskList.
      * @return String containing the standardized format
      */
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 }
