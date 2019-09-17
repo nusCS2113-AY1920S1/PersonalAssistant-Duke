@@ -10,10 +10,10 @@ Moreover, lessons take up most of the day and it makes us feel that there is not
 This usually stems from poor time management and this application aims to tackle the aforementioned problems.
 
 ## Aim
-To provide a platform that helps users 
-* better manage their school schedules.
-* remind users about upcoming tasks.
-* improve users’ work-life balance.
+To provide a platform to help users
+* Better manage their school schedules.
+* Remind users about upcoming tasks.
+* Improve users’ work-life balance.
 
 ## Features
 
