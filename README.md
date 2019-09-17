@@ -1,5 +1,5 @@
 # Duke 2.0
-
+![travis](https://travis-ci.com/AY1920S1-CS2113T-W13-4/main.svg?branch=master)
 ![GUI](docs/images/GUI.png)
 
 # Setting up
