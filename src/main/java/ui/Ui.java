@@ -1,4 +1,8 @@
 package ui;
+import task.Task;
+import task.TaskList;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * The Ui class is used to handle all inputs and outputs used to interact with the end-user
@@ -40,6 +44,16 @@ public class Ui {
 
     public static void printGreeting() {
         System.out.println(greeting);
+    }
+
+    public static void printReminder(TaskList tasks){
+        ArrayList<Task> taskList = tasks.getTasks();
+        System.out.println("You have these upcoming tasks:\n");
+        for (Task t: taskList) {
+            if(t.checkReminderTrigger()){
+                System.out.println(t.toString());
+            }
+        }
     }
 
     public static void printGoodbye() {

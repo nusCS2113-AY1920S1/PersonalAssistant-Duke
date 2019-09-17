@@ -74,7 +74,6 @@ public class Parser {
                     LocalDateTime fromDate = LocalDateTime.now();
                     try {
                         dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                        System.out.println(dateTimeFromUser);
                         if (checkType.contains("/by")){
                             atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
                         }
@@ -116,6 +115,16 @@ public class Parser {
 
                 indexOfTask = Integer.parseInt(description) - 1;
                 return new DoneCommand(indexOfTask);
+            case "remind":
+                description = userInput.split(command, 2)[1].trim();
+                if (description.isEmpty()) {
+                    throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
+                }
+
+                indexOfTask = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+                String d = description.split("in", 2)[1].trim();
+                int days = Integer.parseInt(d.split(" ",2)[0].trim());
+                return new RemindCommand(indexOfTask, days);
             case "list":
                 return new ListCommand();
             case "bye":
