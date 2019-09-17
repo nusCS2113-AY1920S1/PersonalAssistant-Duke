@@ -31,7 +31,8 @@ public class WithinPeriodTask {
     }
 
     @Test
-    public void test(String input) throws DukeException {
+    public void test() throws DukeException {
+        String input = "todo completing my work within my house /within 1 sep to 2 dec";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);

@@ -31,7 +31,8 @@ public class EventTest {
     }
 
     @Test
-    void test(String input) throws DukeException {
+    void test() throws DukeException {
+        String input = "event test /at 0000";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
@@ -42,13 +43,14 @@ public class EventTest {
     }
 
     @Test
-    public void birthdayAt_myBday(String input) throws DukeException {
+    public void birthdayAt_myBday() throws DukeException {
+        String input = "event bday /at 06/06/2019";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n"
-                + "[E][✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
+        String exp = "Got it. I've added this task: \n   [E]"
+                + "[✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }

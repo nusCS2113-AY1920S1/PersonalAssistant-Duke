@@ -33,7 +33,8 @@ public class TodoTest {
     }
 
     @Test
-    void test(String input) throws DukeException {
+    void eat() throws DukeException {
+        String input = "todo eat";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
@@ -44,7 +45,8 @@ public class TodoTest {
     }
 
     @Test
-    void jog(String input) throws DukeException {
+    void jog() throws DukeException {
+        String input = "todo jog";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
@@ -55,7 +57,8 @@ public class TodoTest {
     }
 
     @Test
-    void todo(String input) throws DukeException {
+    void todo() throws DukeException {
+        String input = "todo todo";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
