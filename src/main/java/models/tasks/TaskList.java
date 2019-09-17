@@ -52,10 +52,10 @@ public class TaskList implements Serializable {
      * @return : Returns an ArrayList of ITask that matches keyword
      */
     public ArrayList<ITask> getSearchedTasks(String input) {
-        String [] allinputs = input.split(" ");
+        String [] allInputs = input.split(" ");
         searchedTasks = new ArrayList<>();
         for (ITask task : listOfTasks) {
-            if (task.getDescription().contains(allinputs[1])) {
+            if (task.getDescription().contains(allInputs[1])) {
                 searchedTasks.add(task);
             }
         }
