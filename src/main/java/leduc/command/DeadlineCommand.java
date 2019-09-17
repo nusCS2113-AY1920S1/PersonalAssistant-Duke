@@ -12,6 +12,9 @@ import leduc.task.DeadlinesTask;
 import leduc.task.TaskList;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a deadline task Command.
@@ -42,26 +45,29 @@ public class DeadlineCommand extends Command {
         String[] taskDescription = user.substring(8).split("/by");
         if (taskDescription[0].isBlank()) {
             throw new EmptyDeadlineException(ui);
-        }
-        else if (taskDescription.length == 1) { // no /by in input
+        } else if (taskDescription.length == 1) { // no /by in input
             throw new EmptyDeadlineDateException(ui);
-        }
-        else {
+        } else {
             String description = taskDescription[0].trim();
             String deadlineString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm
-            String regex ="[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9]";
-            if (!deadlineString.matches(regex)) {
-                throw new DateFormatException(ui);
+            if (deadlineString.isBlank()) {
+                throw new EmptyDeadlineDateException(ui);
             }
             else {
-                Date deadline = parser.stringToDate(deadlineString,ui);
-                tasks.add(new DeadlinesTask(description, deadline));
-                DeadlinesTask newTask = (DeadlinesTask) tasks.get(tasks.size() - 1);
+                LocalDateTime d1 = null;
+                try{
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+                    d1 = LocalDateTime.parse(deadlineString.trim(), formatter);
+                }catch(Exception e){
+                    throw new NonExistentDateException(ui);
+                }
+                DeadlinesTask newTask = new DeadlinesTask(description, new Date(d1));
+                tasks.add(newTask);
                 try {
                     storage.getAppendWrite().write(tasks.size() + "//" + newTask.getTag() + "//" +
                             newTask.getMark() + "//" + newTask.getTask() + "//" + " by:"
-                            +newTask.getDeadlines() + "\n");
+                            + newTask.getDeadlines() + "\n");
                 } catch (IOException e) {
                     ui.display("\t IOException:\n\t\t error when writing a deadline to file");
                 }
