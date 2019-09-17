@@ -5,6 +5,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
+
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
  * And generate the appropriate command with their appropriate arguments
@@ -32,21 +33,47 @@ public class Parser {
         if (splitCommand.length >= 2) {
             description = splitCommand[1];
         }
-        if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline") || command.equals("remindme") || command.equals("snooze")) {
-            if (description.equals("")) {
+        if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline")) {
+            if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
+            if (description.contains("/needs")) {
+                try {
+                    String SplitString[] = description.split(" /needs ", 2);
+                    return new AddCommand(new ToDo(SplitString[0], SplitString[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
+                }
+            }
+            else if (description.contains("/between")) {
+                try {
+                    String SplitString[] = description.split("/between", 2);
+                    String SplitString2[] = SplitString[1].split(",", 2);
+                    return new AddCommand(new ToDo(SplitString[0], SplitString2[0], SplitString2[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
+                }
+            }
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
-            String SplitString[] = description.split(" /by ", 2);
-            return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+            try {
+                String SplitString[] = description.split(" /by ");
+                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
+            }
         } else if (command.equals("event")) {
-            String SplitString[] = description.split(" /at ", 2);
-            return new AddCommand(new Event(SplitString[0], SplitString[1]));
+            String SplitString[];
+            try {
+                SplitString = description.split(" /at ");
+                return new AddCommand(new Event(SplitString[0], SplitString[1]));
+            } catch (Exception e) {
+                throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
+            }
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("done")) {
