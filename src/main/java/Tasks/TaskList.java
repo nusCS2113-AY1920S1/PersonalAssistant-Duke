@@ -8,6 +8,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
     protected ArrayList<Task> list;
+    protected ArrayList<String> todoArrList = new ArrayList<String>();
+    protected ArrayList<String> deadlineArrList = new ArrayList<String>();
+    protected ArrayList<String> eventArrList = new ArrayList<String>();
 
     /**
      * Creates a TaskList object.
@@ -30,6 +33,7 @@ public class TaskList {
      */
     public void addTask(Task task){
         this.list.add(task);
+        //System.out.println("HERE IS THE LIST PRINTED" + this.list);
     }
 
     /**
@@ -90,7 +94,85 @@ public class TaskList {
     }
 
     /**
-     *This method snoozes the task in the ArrayList.
+     * This method sort the tasks according to their categories.
+     */
+    public void sortList() {
+        for (int i = 0; i < list.size(); i++) {
+            String description = list.get(i).toString();
+            if (list.get(i).getType().equals("[T]")) {
+                this.todoArrList.add(description);
+            }
+            else if (list.get(i).getType().equals("[D]")) {
+                this.deadlineArrList.add(description);
+            }
+            else if (list.get(i).getType().equals("[E]")){
+                this.eventArrList.add(description);
+            }
+        }
+    }
+
+    /**
+     * This method gets the schedule requested by user.
+     * @return This returns the String containing the schedule requested by user
+     */
+    public String schedule() {
+        sortList();
+        int sizeOfDeadlineArr = getDeadlineArrList().size();
+        int sizeOfEventArr = getEventArrList().size();
+        int sizeOfTodoArr = getTodoArrList().size();
+        String finalSchedule = "Here is your schedule!\n";
+        if (sizeOfDeadlineArr != 0) {
+            finalSchedule += "DEADLINE Task\n";
+            int num = 1;
+            for (int i = 0; i < sizeOfDeadlineArr; i++) {
+
+                finalSchedule = finalSchedule + num + "." + getDeadlineArrList().get(i) + "\n";
+                num++;
+            }
+        }
+        if (sizeOfEventArr != 0) {
+            finalSchedule += "EVENT Task\n";
+            int num = 1;
+
+            for (int i = 0; i < sizeOfEventArr; i++) {
+                finalSchedule = finalSchedule + num + "." + getEventArrList().get(i) + "\n";
+                num++;
+            }
+        }
+        if (sizeOfTodoArr != 0) {
+            finalSchedule += "TODO Task\n";
+            int num = 1;
+
+            for (int i = 0; i < sizeOfTodoArr; i++) {
+                finalSchedule = finalSchedule + num + "." + getTodoArrList().get(i) + "\n";
+                num++;
+            }
+        }
+        return finalSchedule;
+    }
+
+    /**
+     * @return the TodoArrayList
+     */
+    public ArrayList<String> getTodoArrList() {
+        return this.todoArrList;
+    }
+
+    /**
+     * @return the DeadlineArrayList
+     */
+    public ArrayList<String> getDeadlineArrList() {
+        return this.deadlineArrList;
+    }
+
+    /**
+     * @return the EventArrayList
+     */
+    public ArrayList<String> getEventArrList() {
+        return this.eventArrList;
+    }
+
+   /** This method snoozes the task in the ArrayList.
      * @param index Index in the ArrayList of the Task Object to snooze
      * @param dateString New date for the Task Object
      * @return This returns the ArrayList

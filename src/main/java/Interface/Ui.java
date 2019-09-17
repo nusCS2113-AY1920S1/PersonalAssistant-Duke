@@ -111,6 +111,11 @@ public class Ui {
         return e.getMessage() + "\n";
     }
 
+
+    public String showUserSchedule(String finalSchedule) {
+        return finalSchedule;
+    }
+
     /**
      * Displays the snooze message when a user wants to snooze a task.
      * @param index The index of the task the user wants to snooze

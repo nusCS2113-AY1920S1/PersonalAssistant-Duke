@@ -7,6 +7,11 @@ public class Event extends Task {
 
     protected String by;
 
+    @Override
+    public String getType() {
+        return "[E]";
+    }
+
     /**
      * Creates an Event object.
      * @param description Description of a task

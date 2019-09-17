@@ -3,6 +3,7 @@ import Commands.*;
 import Tasks.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 /**
@@ -59,6 +60,7 @@ public class Parser {
                 if (activity.isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                 } else {
+
                     return new AddCommand(new Todo(activity));
                 }
             }
@@ -115,6 +117,10 @@ public class Parser {
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
                             "For example: deadline return book /by 2/12/2019 1800");
                 }
+            }
+
+            else if (fullCommand.equals("show schedule")) {
+                return new ViewSchedulesCommand();
             }
 
             else if (fullCommand.trim().substring(0,6).equals("snooze")) {
