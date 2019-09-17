@@ -53,6 +53,16 @@ public class TaskList implements Serializable {
         return searchedTasks;
     }
 
+    public ArrayList<ITask> getSchedule(String date) {
+        searchedTasks = new ArrayList<>();
+        for (ITask task : listOfTasks) {
+            if (task.getDateTime().contains(date)) {
+                searchedTasks.add(task);
+            }
+        }
+        return searchedTasks;
+    }
+
     public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy hh.mm a");

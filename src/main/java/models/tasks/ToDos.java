@@ -43,6 +43,6 @@ public class ToDos implements ITask, Serializable {
 
     @Override
     public String getDateTime() {
-        return null;
+        return "";
     }
 }

@@ -1,18 +1,15 @@
 package views;
 
 import controllers.ConsoleInputController;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
-import models.tasks.Deadline;
-import models.tasks.Event;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class CLIView {
@@ -172,5 +169,30 @@ public class CLIView {
             );
         }
         System.out.println(horiLine);
+    }
+
+    public void listSchedule(TaskList taskList, String input) throws ParseException{
+        // Correct format as 2 December 2019 6 PM
+        String tempDate = input.substring(9);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = formatter.parse(tempDate);
+        String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);
+
+        System.out.println(horiLine);
+        ArrayList<ITask> results = taskList.getSchedule(formattedDate);
+        if (results.isEmpty()) {
+            System.out.println("\tYour schedule for "+formattedDate+" is empty.");
+        }
+        else {
+            System.out.println("\tHere is your schedule for today:");
+            for (int i = 0; i < results.size(); i++) {
+                System.out.print("\t" + (i + 1));
+                System.out.println(".[" + results.get(i).getInitials() + "]"
+                        + "[" + results.get(i).getStatusIcon() + "] "
+                        + results.get(i).getDescription()
+                );
+            }
+        }
+            System.out.println(horiLine);
     }
 }
