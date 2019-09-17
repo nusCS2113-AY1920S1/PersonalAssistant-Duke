@@ -1,0 +1,120 @@
+= OwlMoney - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:toclevels: 3
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
+
+By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+*OwlMoney* is an application designed to help undergraduates and fresh graduates track and manage their finances.
+
+*OwlMoney* is optimized for those who prefer using a Command Line Interface (CLI). The commands used to interact with
+*OwlMoney* are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with
+ease.
+
+*OwlMoney* also comes with a clean Graphical User Interface (GUI) that presents information in an organized manner.
+
+Interested in using *OwlMoney* to plan your finances easily?
+Jump to Section 3, <<Quick Start>> to get started!
+
+== Understanding This User Guide
+
+=== Basic Information
+This user guide provides a quick start guide for you to easily setup and install *OwlMoney*.
+
+You can find all the details of *OwlMoney*’s features, tips, frequently asked questions and a summary of the available
+commands.
+
+To navigate between the different sections easily, you can use the Table of Contents above.
+
+The following symbols are used throughout this user guide:
+[NOTE]
+====
+This symbol denotes information that you may want to take note of.
+====
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using our application.
+====
+[WARNING]
+====
+This symbol denotes a warning message which you need to be careful of when using our application.
+====
+
+Additionally, you may also encounter the following text styles:
+====
+* Commands, parameters and file paths will be in this `format`
+* Important messages will be *bold*
+====
+
+=== Navigating Around Our Application
+*OwlMoney* comes with a very clean and easy to use CLI and GUI, so don’t worry even if you are a new user!
+You can expect to navigate around our application with ease!
+
+[[GUI]]
+.OwlMoney's Graphical User Interface
+ifdef::env-github[]
+image::UiLabelled.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::UiLabelled.png[width="970"]
+endif::[]
+
+*OwlMoney* has two main sections that you will need to know before you get started!
+The two main sections are explained below.
+|====
+|*Section*| *Name* | *Description*
+| 1 | Command Box | This is where you can enter and run commands.
+| 2 | Result Box | This provides you with the information on whether a command is successful.
+|====
+
+== Quick Start
+. Ensure you have *Java Version 11* installed in your Computer.
+. Download the latest `OwlMoney.jar` link:{repoURL}/releases/latest[here].
+. Copy the `OwlMoney.jar` file to the folder you want to use as the home folder for *OwlMoney*.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
++
+.Successful start up of *OwlMoney*
+ifdef::env-github[]
+image::Ui.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::Ui.png[width="970"]
+endif::[]
++
+. As this is your first time starting up this program, you have to create a profile by
+typing *`create /profile`* and pressing kbd:[Enter]
+. You can now try entering commands in the *command box* and press kdb:[Enter] to execute it! +
+e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
+. Some example commands you can try:
+* **`add`**` /bankname DBB Multi-Currency Account /type savings /amount 8000 `: adds a new `DBB Multi-Currency Account`,
+which has an initial amount of `8000` dollars.
+* **`delete`** `/bankname POSBkids`: deletes POSBkids account
+* **`list`** `bank`: lists all bank accounts
+* **`bye`**: exits the app
+
+.  Refer to Section 4, <<Features>> for details of each command.
+
+[[Features]]
+== Features
+In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
+[NOTE]
+====
+Don't worry if you don't understand everything at once. +
+There are plentiful examples provided to aid your understanding of the commands' usage better.
+====
