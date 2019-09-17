@@ -58,14 +58,7 @@ public class ExpenseListTest {
     public void findExpenseIndex_validExpense_success() {
         Expense e = new Expense("Lunch", LocalDate.now(), 3, "Food", false, "NULL");
         expenseList.addExpense(e);
-        expenseList.findExpenseIndex(e);
-        for (Expense ex : expenseList.getExpenseList()) {
-            assertEquals("Lunch", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getCreatedDate());
-            assertEquals(3.0, ex.getAmount());
-            assertEquals("Food", ex.getCategory());
-            assertEquals(true, ex.isRecurring());
-            assertEquals("DAILY", ex.getRecFrequency());
-        }
+        int index = expenseList.findExpenseIndex(e);
+        assertEquals(0, index);
     }
 }
