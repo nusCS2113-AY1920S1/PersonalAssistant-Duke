@@ -78,6 +78,21 @@ public class TaskList {
                 }
                 tasks.add(event);
                 break;
+            case "R":
+                date = line.substring(startOfDescriptionIndex + descriptionLength, line.length());
+                dateSplit = date.split("\\|", -1);
+                dateLength = Integer.parseInt(dateSplit[1].trim());
+                dateLengthLength = dateSplit[1].length();
+                startOfDateIndex = 2 + dateLengthLength + 2;
+                dateString = date.substring(startOfDateIndex, date.length());
+                inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                at = LocalDateTime.parse(dateString, inputFormatter);
+                RecurringTask recurringTask = new RecurringTask(description, at);
+                if ("1".equals(taskStatus)) {
+                    recurringTask.markDone();
+                }
+                tasks.add(recurringTask);
+                break;
             default:
                 break;
             }
