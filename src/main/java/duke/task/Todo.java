@@ -37,7 +37,7 @@ public class Todo extends Task {
                 + " | "
                 + this.description
                 + " | "
-                + this.isRecurring;
+                + this.frequency;
     }
 
 }

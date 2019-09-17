@@ -14,10 +14,12 @@ public class RecurringCommand extends Command {
      * Used to identify the task being marked as recurring.
      */
     private int taskIndex;
+    protected Task.RecurringFrequency frequency;
 
-    public RecurringCommand(int taskIndex) {
+    public RecurringCommand(int taskIndex, Task.RecurringFrequency frequency) {
         super();
         this.taskIndex = taskIndex;
+        this.frequency = frequency;
     }
 
     /**
@@ -46,7 +48,7 @@ public class RecurringCommand extends Command {
             Task recurringTask = tasks.getTask(taskIndex);
             if (recurringTask.getDateTime() != null) {
                 if (!recurringTask.isTaskRecurring()) {
-                    recurringTask.makeTaskRecurring();
+                    recurringTask.makeTaskRecurring(this.frequency);
                     ui.makeRecurring(recurringTask);
                 }
                 recurringTask.recurringTaskTimeUpdate();

@@ -52,7 +52,7 @@ public class Deadline extends Task {
                 + " | "
                 + this.by
                 + " | "
-                + this.isRecurring;
+                + this.frequency;
     }
 
 }

@@ -17,22 +17,33 @@ import java.util.Date;
  * instantiated
  */
 public abstract class Task {
+
     /**
      * A String that represents the description of the task.
      */
     protected String description;
+
     /**
      * A boolean that represents the status of the task( 1 means done, 0 means not yet)
      */
     protected boolean isDone;
+
     /**
      * a localDateTime constructor to save the date and time
      */
     protected LocalDateTime ld;
+
     /**
      * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
      */
     protected boolean isRecurring = false;
+
+    /**
+     * Enumerators meant to specify how frequently a task should appear.
+     * Default enumerator is 'ONCE'.
+     */
+    public enum RecurringFrequency { DAILY, WEEKLY, MONTHLY, ONCE }
+    protected RecurringFrequency frequency = RecurringFrequency.ONCE;
 
     /**
      * Initialises the minimum fields required to setup a Task.
@@ -79,7 +90,10 @@ public abstract class Task {
     /**
      * Marks the task as recurring.
      */
-    public void makeTaskRecurring() { isRecurring = true; }
+    public void makeTaskRecurring(RecurringFrequency frequency) {
+        isRecurring = true;
+        this.frequency = frequency;
+    }
 
     /**
      * Returns boolean stating whether task is recurring.
@@ -95,11 +109,25 @@ public abstract class Task {
             try {
                 LocalDateTime currentTime = LocalDateTime.now();
                 if (this.ld.isBefore(currentTime)) {
-                    Duration dayDifference = Duration.between(currentTime, this.ld);
-                    if (Math.abs(dayDifference.toDays()) > 0 ) {
-                        this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
-
-                        if (!this.isDone) { this.isDone = false; }
+                    switch (this.frequency) {
+                        case DAILY:
+                            Duration dayDifference = Duration.between(currentTime, this.ld);
+                            if (Math.abs(dayDifference.toDays()) > 0 ) {
+                                this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
+                                if (this.isDone) { this.isDone = false; }
+                            }
+                        case WEEKLY:
+                            while (this.ld.isBefore(currentTime)) {
+                                this.ld = ld.plusWeeks(1);
+                            }
+                            if (this.isDone) { this.isDone = false; }
+                        case MONTHLY:
+                            while (this.ld.isBefore(currentTime)) {
+                                this.ld = ld.plusMonths(1);
+                            }
+                            if (this.isDone) { this.isDone = false; }
+                        default:
+                            System.out.println("I couldn't update your recurring events' times.");
                     }
                 }
             } catch (DateTimeParseException e) {

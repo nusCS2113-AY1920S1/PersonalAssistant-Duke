@@ -1,10 +1,7 @@
 package duke.core;
 
 import duke.command.*;
-import duke.task.Deadline;
-import duke.task.PeriodTask;
-import duke.task.Event;
-import duke.task.Todo;
+import duke.task.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -99,7 +96,11 @@ public class Parser {
             case "recurring":
                 try {
                     int index = Integer.parseInt(command[1]);
-                    return new RecurringCommand(index);
+                    if (ss.toLowerCase().contains("weekly")) { return new RecurringCommand(index, Task.RecurringFrequency.WEEKLY); }
+                    else if (ss.toLowerCase().contains("monthly")) { return new RecurringCommand(index, Task.RecurringFrequency.MONTHLY); }
+                    else if (ss.toLowerCase().contains("daily")) { return new RecurringCommand(index, Task.RecurringFrequency.DAILY);}
+                    else { return new RecurringCommand(index, Task.RecurringFrequency.DAILY);}
+
                 } catch (Exception e) {
                     throw new DukeException("Failed to make your task recurring." + e.getMessage());
                 }

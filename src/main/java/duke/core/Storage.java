@@ -47,8 +47,8 @@ public class Storage {
                     if (newTask[1].equals("1")) {
                         x.markAsDone();
                     }
-                    if (newTask[3].equals("true")) {
-                        x.makeTaskRecurring();
+                    if ((newTask[3] != null) && !(newTask[3].equals("ONCE"))) {
+                        x.makeTaskRecurring(giveFrequency(newTask[3]));
                     }
                     tasks.add(x);
                 }
@@ -57,8 +57,8 @@ public class Storage {
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
-                    if (newTask[4].equals("true")) {
-                        t.makeTaskRecurring();
+                    if ((newTask[4] != null) && !(newTask[4].equals("ONCE"))) {
+                        t.makeTaskRecurring(giveFrequency(newTask[4]));
                     }
                     tasks.add(t);
                 }
@@ -67,8 +67,8 @@ public class Storage {
                     if (newTask[1].equals("1")) {
                         t.markAsDone();
                     }
-                    if (newTask[4].equals("true")) {
-                        t.makeTaskRecurring();
+                    if ((newTask[4] != null) && !(newTask[4].equals("ONCE"))) {
+                        t.makeTaskRecurring(giveFrequency(newTask[4]));
                     }
                     tasks.add(t);
                 }
@@ -103,6 +103,19 @@ public class Storage {
             fileWriter.close();
         } catch (IOException e) {
             throw new DukeException("File writing process encounters an error " + e.getMessage());
+        }
+    }
+
+    private Task.RecurringFrequency giveFrequency(String string) {
+        switch (string) {
+            case "DAILY":
+                return Task.RecurringFrequency.DAILY;
+            case "WEEKLY":
+                return Task.RecurringFrequency.WEEKLY;
+            case "MONTHLY":
+                return Task.RecurringFrequency.MONTHLY;
+            default:
+                return Task.RecurringFrequency.ONCE;
         }
     }
 

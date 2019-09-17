@@ -48,6 +48,6 @@ public class Event extends Task {
                 + " | "
                 + this.at
                 + " | "
-                + this.isRecurring;
+                + this.frequency;
     }
 }
