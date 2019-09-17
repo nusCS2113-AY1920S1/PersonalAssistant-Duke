@@ -4,11 +4,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
+<<<<<<< HEAD
 import duke.tasks.Schedule;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
+=======
+import duke.tasks.*;
+>>>>>>> B-DoWithinPeriodTasks
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to
@@ -72,6 +76,8 @@ public class Storage {
             loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
             loadEvent(tasks, description, timeFrame, isDone, schedule);
+        } else if (taskType.equals("P")) {
+            loadTodoPeriod(tasks, description, splitLine[3], splitLine[4], isDone);
         }
 
     }
@@ -121,6 +127,13 @@ public class Storage {
         schedule.update(newEvent);
         tasks.add(newEvent);
     }
+    private static void loadTodoPeriod(ArrayList<Task> tasks, String description, String start, String end, boolean isDone) {
+        ToDoPeriod newToDoPeriod = new ToDoPeriod(description, start, end);
+        if (isDone) {
+            newToDoPeriod.markAsDone();
+        }
+        tasks.add(newToDoPeriod);
+    }
 
     /**
      * This is a function that will update the input/output file from the current arraylisto of tasks
@@ -153,6 +166,11 @@ public class Storage {
                 else if ((currentTask.getType()).equals("D")) {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+                else if ((currentTask.getType()).equals("P")) {
+                    String data[] = currentLine.split("From: ", 2);
+                    String timeFrame[] = data[1].split(" to ", 2);
+                    bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0,timeFrame[1].length() - 1));
                 }
             }
             bufferedWriter.close();

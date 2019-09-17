@@ -4,6 +4,10 @@ import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
+import duke.tasks.ToDoPeriod;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
@@ -40,6 +44,15 @@ public class Parser {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
+            if (description.contains("/between")) {
+                try {
+                    String SplitString[] = description.split("/between", 2);
+                    String SplitString2[] = SplitString[1].split(",", 2);
+                    return new AddCommand(new ToDoPeriod(SplitString[0], SplitString2[0], SplitString2[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
+                }
+            }
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {
