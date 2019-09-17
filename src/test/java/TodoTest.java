@@ -1,11 +1,12 @@
-import controllers.ConsoleInputController;
 import controllers.TaskFactory;
 import exceptions.DukeException;
 import models.tasks.ITask;
 import models.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TodoTest {
     TaskFactory taskFactory = new TaskFactory();
@@ -17,11 +18,11 @@ public class TodoTest {
 
     @Test
     public void creationValidToDo() {
-        String input = "todo borrow book";
+        String input = "todo borrow book /in 2";
         ITask expectedTask;
         try {
             expectedTask = taskFactory.createTask(input);
-            ITask dummyTask =  new ToDos("borrow book");
+            ITask dummyTask = new ToDos("borrow book","2");
             assertEquals(expectedTask.getDescription(), dummyTask.getDescription());
             assertEquals(expectedTask.getInitials(), dummyTask.getInitials());
             assertEquals(expectedTask.getStatusIcon(), dummyTask.getStatusIcon());

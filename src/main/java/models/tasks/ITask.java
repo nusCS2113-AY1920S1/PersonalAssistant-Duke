@@ -10,4 +10,6 @@ public interface ITask extends Serializable {
     String getDescription();
 
     String getInitials();
+
+    String getDateTime();
 }
