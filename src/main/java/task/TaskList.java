@@ -110,12 +110,47 @@ public class TaskList {
         }
     }
 
+    private static boolean isTheSameTask(Tasks A , Tasks B){
+        if(A.getType().equals(B.getType()) && A.getDescription().equals(B.getDescription())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * Removes a particular task from database.
      */
     public static void removeTask(int num) throws DukeException {
+
+
         try {
+            Tasks toBeRemoved = tasks.get(num);
+
+            Date tobeRemovedKeyE = null;
+
+            for(Map.Entry<Date , Tasks> entry : E.entrySet()){
+                if(isTheSameTask(entry.getValue() , toBeRemoved)){
+                    tobeRemovedKeyE =(entry.getKey());
+                }
+            }
+
+            Date tobeRemovedKeyDE = null;
+
+            for(Map.Entry<Date , Tasks> entry : DE.entrySet()){
+                if(isTheSameTask(entry.getValue() , toBeRemoved)){
+                    tobeRemovedKeyDE =(entry.getKey());
+                }
+            }
+            if(tobeRemovedKeyE !=  null){
+                E.remove(tobeRemovedKeyE);
+            }
+            if(tobeRemovedKeyDE != null){
+                DE.remove(tobeRemovedKeyDE);
+            }
+
             tasks.remove(num);
+
         } catch (ArrayIndexOutOfBoundsException e) {
             throw DukeException.TASK_NO_MISSING_DELETE;
         } catch (NumberFormatException e) {

@@ -374,6 +374,7 @@ public class Parser {
                 TaskList.getStatus(num - 1), TaskList.getMessage(num - 1),
                 TaskList.getTotalTasksNumber() - 1);
             TaskList.removeTask(num - 1);
+
             Storage.saveTask(TaskList.getList());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw DukeException.TASK_NO_MISSING_DELETE;
