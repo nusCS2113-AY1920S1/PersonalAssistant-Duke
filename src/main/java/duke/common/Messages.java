@@ -1,7 +1,7 @@
 package duke.common;
 
 /**
- * A class to store all the initialisation of the static error messages to String value
+ * A class to store all the initialisation of the static error messages to String value.
  */
 public class Messages {
 
