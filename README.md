@@ -1,4 +1,4 @@
-# Setting up
+# Setting up (test for CI)
 
 **Prerequisites**
 
