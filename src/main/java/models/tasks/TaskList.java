@@ -1,5 +1,7 @@
 package models.tasks;
 
+import views.CLIView;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,17 +10,26 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TaskList implements Serializable {
-
     private static final int DAYS_FROM_NOW = 7;
     private ArrayList<ITask> listOfTasks;
     private ArrayList<ITask> searchedTasks;
+    private ArrayList<ITask> schedule;
 
     public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
-    public void addToList(ITask newTask) {
-        this.listOfTasks.add(newTask);
+    /**
+     * Adds the task to the tasklist.
+     * @param newTask : A new task that is added by the user. Task is created by Factory.
+     * @return : Boolean value which gives status of anomaly detection.
+     */
+    public boolean addToList(ITask newTask) {
+        if (!detectAnomalies(newTask)) {
+            this.listOfTasks.add(newTask);
+            return false;
+        }
+        return true;
     }
 
     public void deleteFromList(ITask oldTask) {
@@ -59,13 +70,31 @@ public class TaskList implements Serializable {
      * @return : Returns an ArrayList of ITask which are in the schedule
      */
     public ArrayList<ITask> getSchedule(String date) {
-        searchedTasks = new ArrayList<>();
+        schedule = new ArrayList<>();
         for (ITask task : listOfTasks) {
             if (task.getDateTime().contains(date)) {
-                searchedTasks.add(task);
+                schedule.add(task);
             }
         }
-        return searchedTasks;
+        return schedule;
+    }
+
+    /**
+     * Checks for anomalies with the current schedule.
+     * @param newTask : A new task that is added by the user. Task is created by Factory.
+     * @return : Boolean value which gives status of anomaly detection.
+     */
+    private boolean detectAnomalies(ITask newTask) {
+        if (newTask.getDateTime().equals("")) {
+            return false;
+        }
+        schedule = getSchedule(newTask.getDateTime());
+        for (ITask task : schedule) {
+            if (task.getDateTime().equals(newTask.getDateTime())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -104,5 +133,4 @@ public class TaskList implements Serializable {
         }
         return upcomingTasks;
     }
-
 }

@@ -18,7 +18,7 @@ public class CLIView {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-    private final String horiLine = "\t____________________________________________________________";
+    public static final String horiLine = "\t____________________________________________________________";
 
     private ConsoleInputController consoleInputController;
 
@@ -56,8 +56,15 @@ public class CLIView {
      * Method to be called when user wishes to add a new Task.
      * @param newTask : A new task that is added by the user. Task is created by Factory.
      * @param taskList : List of tasks holding all the tasks.
+     * @param anomaly : Boolean value which gives status of anomaly detection.
      */
-    public void addMessage(ITask newTask, TaskList taskList) {
+    public void addMessage(ITask newTask, TaskList taskList, boolean anomaly) {
+        if (anomaly) {
+            System.out.println(CLIView.horiLine);
+            System.out.println("\tAnomalies with the schedule detected.");
+            System.out.println(CLIView.horiLine);
+            return;
+        }
         System.out.println(horiLine);
         System.out.println("\tGot it. I've added this task:");
         System.out.print("\t  ");
@@ -173,7 +180,7 @@ public class CLIView {
 
     /**
      * Prints out the schedule for the date input by the user.
-     *
+     * Format - schedule DD/MM/YYYY
      * @param taskList : Current list of tasks.
      * @param input : The date of the schedule
      * @throws ParseException : Parsing error
@@ -190,7 +197,7 @@ public class CLIView {
         if (results.isEmpty()) {
             System.out.println("\tYour schedule for " + formattedDate + " is empty.");
         } else {
-            System.out.println("\tHere is your schedule for today:");
+            System.out.println("\tHere is the schedule for the specified date:");
             for (int i = 0; i < results.size(); i++) {
                 System.out.print("\t" + (i + 1));
                 System.out.println(".[" + results.get(i).getInitials() + "]"
