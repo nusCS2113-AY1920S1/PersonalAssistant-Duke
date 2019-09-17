@@ -3,5 +3,7 @@ jdk: openjdk8
 os:
   - linux
   - osx
+# default osx image only has java 10, v9.3 has jdk8
+osx_image: xcode9.3
 script:
   - ./gradlew build --scan -s
