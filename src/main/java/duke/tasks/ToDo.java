@@ -7,15 +7,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Task is a public class that extends from Task
+ * Task is a public class that extends from Task.
  */
 public class ToDo extends Task {
 
-    protected Calendar End = Calendar.getInstance();
+    protected Calendar end = Calendar.getInstance();
     protected String duration = "";
 
     /**
-     * Primary constructor of ToDo object
+     * Primary constructor of ToDo object.
      * @param description the description of the todo object
      */
     public ToDo(String description) {
@@ -24,68 +24,67 @@ public class ToDo extends Task {
     }
 
     /**
-     * Secondary constructor of ToDo object with period
+     * Secondary constructor of ToDo object with period.
      * @param description description embedded in object
      * @param start start of period
-     * @param end end of period
+     * @param inputEnd end of period
      */
-    public ToDo(String description, String start, String end) {
+    public ToDo(String description, String start, String inputEnd) {
         super(description);
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date;
         try {
             date = dateparser.parse(start);
             datetime.setTime(date);
-            date = dateparser.parse(end);
-            End.setTime(date);
+            date = dateparser.parse(inputEnd);
+            end.setTime(date);
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
                 date = altparser.parse(start);
                 datetime.setTime(date);
-                date = altparser.parse(end);
-                End.setTime(date);
+                date = altparser.parse(inputEnd);
+                end.setTime(date);
             } catch (ParseException f) {
                 datetime = null;
             }
         }
-        if (datetime.after(End)) {
+        if (datetime.after(end)) {
             Calendar temp = datetime;
-            datetime = End;
-            End = temp;
+            datetime = end;
+            end = temp;
         }
         super.type = "T";
         subtypes += "P ";
     }
+
     /**
-     * Tertiary constructor of ToDo object with fixedDuration
+     * Tertiary constructor of ToDo object with fixedDuration.
      * @param description description embedded in object
      * @param duration duration of task
      */
     public ToDo(String description, String duration) {
         super(description);
         this.duration = duration;
-        super.type ="T";
+        super.type = "T";
         subtypes += "F ";
     }
 
     /**
-     * this function overrides the toString() function in Task to represents the full description of a ToDo object
+     * this function overrides the toString() function in Task to represents the full description of a ToDo object.
      * @return <code>"[T]" + super.toString()</code>
-     * @return <code>"[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
+     *         <code>"[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
      *               + " to " + dateFormat.format(datetime2.getTime()) + ")"</code>
      */
     @Override
     public String toString() {
         if (subtypes.trim().isEmpty()) {
             return "[T]" + super.toString();
-        }
-        else if (subtypes.contains("P")){
+        } else if (subtypes.contains("P")) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
-                    + " to " + dateFormat.format(End.getTime()) + ")";
-        }
-        else if (subtypes.contains("F")){
+                    + " to " + dateFormat.format(end.getTime()) + ")";
+        } else if (subtypes.contains("F")) {
             return "[T]" + super.toString() + " (needs: " + this.duration + ")";
         }
         return null;

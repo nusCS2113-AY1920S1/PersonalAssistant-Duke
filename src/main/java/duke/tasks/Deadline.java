@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Deadline is a public class that inherits from abstract class Task
+ * Deadline is a public class that inherits from abstract class Task.
  * A Deadline object encapsulates the String that express deadline date
  */
 public class Deadline extends Task {
@@ -16,7 +16,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * This is a constructor for Deadline object
+     * This is a constructor for Deadline object.
      * @param description the description of the task
      * @param by the string that represents the deadline date
      */
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * this function overrides the toString() function in Task to represents the full description of a Deadline object
+     * this function overrides the toString() function in Task to represents the full description of a Deadline object.
      * @return <code>"[D]" + super.toString() + " (by: " + by + ")"</code>
      */
     @Override

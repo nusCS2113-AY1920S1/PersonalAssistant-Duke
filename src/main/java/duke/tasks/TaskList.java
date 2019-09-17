@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * TaskList is a public class that represents the list of tasks under duke
+ * TaskList is a public class that represents the list of tasks under duke.
  * A TaskList object encapsulates the ArrayList of tasks
  */
 public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * This is the constructor of TaskList object
+     * This is the constructor of TaskList object.
      * @param tasks the array list of tasks to be assigned
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -21,10 +21,12 @@ public class TaskList {
     }
 
     /**
-     * This is the constructor of TaskList object if there is no argument
+     * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task
      */
-    public TaskList() {this.tasks = new ArrayList<Task>();}
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
 
     /*
     void add(Task newTask) { (this.tasks).add(newTask);}
@@ -40,10 +42,12 @@ public class TaskList {
      */
 
     /**
-     * This function is used to delete the task of a particular index
+     * This function is used to delete the task of a particular index.
      * @param index the index of task to be deleted
      */
-    public void delete(int index) { (this.tasks).remove(index - 1);}
+    public void delete(int index) {
+        this.tasks.remove(index - 1);
+    }
 
     public ArrayList<Task> getTasks() {
         return tasks;
