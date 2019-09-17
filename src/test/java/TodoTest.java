@@ -5,7 +5,9 @@ import models.tasks.ITask;
 import models.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TodoTest {
     TaskFactory taskFactory = new TaskFactory();
