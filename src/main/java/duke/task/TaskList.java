@@ -140,7 +140,7 @@ public class TaskList {
     private int getTaskIdx(String idxStr) throws DukeException {
         if (idxStr.matches("^\\d+$")) { //if second arg is an integer
             int idx = Integer.parseInt(idxStr) - 1;
-            if (idx < taskArrList.size()) {
+            if (idx >= 0 && idx < taskArrList.size()) {
                 return idx;
             } else {
                 throw new DukeException("I don't have that entry in the list!");
