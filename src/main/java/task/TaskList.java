@@ -12,7 +12,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs a taskList with default size 100/
+     * Constructs a taskList with default size 100.
      */
     public TaskList() {
         tasks = new ArrayList<Task>(100);
@@ -27,28 +27,30 @@ public class TaskList {
         tasks = new ArrayList<Task>(100);
         for (String line : taskStrings) {
             String[] tokens = line.split("\\Q|\\E");
-            for(int i = 0; i < tokens.length; i++) {
+            for (int i = 0; i < tokens.length; i++) {
                 tokens[i] = tokens[i].trim();
             }
             switch (tokens[0]) {
-                case "T":
-                    addToDo(tokens[2]);
-                    if(tokens[1].equals("1")) {
-                        done(tasks.size() - 1);
-                    }
-                    break;
-                case "D":
-                    addDeadline(tokens[2], tokens[3]);
-                    if(tokens[1].equals("1")) {
-                        done(tasks.size() - 1);
-                    }
-                    break;
-                case "E":
-                    addEvent(tokens[2], tokens[3], tokens[4]);
-                    if(tokens[1].equals("1")) {
-                        done(tasks.size() - 1);
-                    }
-                    break;
+            case "T":
+                addToDo(tokens[2]);
+                if (tokens[1].equals("1")) {
+                    done(tasks.size() - 1);
+                }
+                break;
+            case "D":
+                addDeadline(tokens[2], tokens[3]);
+                if (tokens[1].equals("1")) {
+                    done(tasks.size() - 1);
+                }
+                break;
+            case "E":
+                addEvent(tokens[2], tokens[3], tokens[4]);
+                if (tokens[1].equals("1")) {
+                    done(tasks.size() - 1);
+                }
+                break;
+            default:
+                throw new DukeException("Invalid task in storage!");
             }
         }
     }
@@ -66,23 +68,23 @@ public class TaskList {
      * Adds a task with description and due time into the taskList.
      *
      * @param description Description of the added task.
-     * @param ddl Due of the task.
+     * @param ddl         Due of the task.
      * @throws DukeException If an exception is thrown when constructing the new task.
      */
-    public void addDeadline(String description, String ddl) throws DukeException{
-            tasks.add(new Deadline(description, ddl));
+    public void addDeadline(String description, String ddl) throws DukeException {
+        tasks.add(new Deadline(description, ddl));
     }
 
     /**
      * Adds an event with description, start and end time into the taskList.
      *
      * @param description Description of the added event.
-     * @param start the start time of the event.
-     * @param end the end time of the event.
+     * @param start       the start time of the event.
+     * @param end         the end time of the event.
      * @throws DukeException If an exception is thrown when constructing the new event.
      */
     public void addEvent(String description, String start, String end) throws DukeException {
-            tasks.add(new Event(description, start, end));
+        tasks.add(new Event(description, start, end));
     }
 
     /**
@@ -111,7 +113,7 @@ public class TaskList {
      */
     public ArrayList<Integer> find(String s) {
         ArrayList<Integer> matchedList = new ArrayList<Integer>(100);
-        for (int i = 0 ; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).contains(s)) {
                 matchedList.add(i);
             }
@@ -142,7 +144,7 @@ public class TaskList {
      */
     public ArrayList<String> toStorageStrings() {
         ArrayList<String> taskStrings = new ArrayList<String>(100);
-        for(Task task : tasks) {
+        for (Task task : tasks) {
             taskStrings.add(task.toStorageString());
         }
         return taskStrings;
@@ -153,7 +155,7 @@ public class TaskList {
      *
      * @return The size of taskList.
      */
-    public int getSize(){
+    public int getSize() {
         return tasks.size();
     }
 }

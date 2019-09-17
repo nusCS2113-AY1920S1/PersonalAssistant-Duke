@@ -1,9 +1,9 @@
 package command;
 
 import parser.CommandParams;
+import storage.Storage;
 import task.TaskList;
 import ui.Ui;
-import storage.Storage;
 
 /**
  * Represents a specified command as ExitCommand by extending the <code>Command</code> class.
@@ -23,8 +23,8 @@ public class ExitCommand extends Command {
     /**
      * Shows bye to user.
      *
-     * @param tasks The taskList of Duke.
-     * @param ui The ui of Duke.
+     * @param tasks   The taskList of Duke.
+     * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
     @Override

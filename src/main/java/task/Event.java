@@ -36,6 +36,7 @@ public class Event extends Task {
      * @return Information of the event to be printed by UI.
      */
     @Override
+    @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toString() {
         return "[E]" + super.toString() + " (at: " + start + " - " + end + ")";
     }
@@ -47,6 +48,7 @@ public class Event extends Task {
      * @return Information of the event to be stored in storage.
      */
     @Override
+    @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toStorageString() {
         return "E | " + super.toStorageString() + " | " + start + " | " + end;
     }

@@ -2,11 +2,11 @@ package storage;
 
 import exception.DukeException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 /**
  * Represents the storage of Duke.
@@ -20,7 +20,7 @@ public class Storage {
      *
      * @param filePath The filePath of the storage text file.
      */
-    public Storage(String filePath){
+    public Storage(String filePath) {
         file = new File(filePath);
     }
 
@@ -61,7 +61,7 @@ public class Storage {
             file.delete();
             file.createNewFile();
             PrintWriter writer = new PrintWriter(file);
-            for(String line : taskStrings) {
+            for (String line : taskStrings) {
                 writer.println(line);
             }
             writer.close();

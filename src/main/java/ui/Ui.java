@@ -14,7 +14,7 @@ public class Ui {
     /**
      * Constructs an Ui object.
      */
-    public Ui(){
+    public Ui() {
         dukeIn = new Scanner(System.in);
     }
 

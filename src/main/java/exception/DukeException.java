@@ -10,7 +10,7 @@ public class DukeException extends RuntimeException {
     /**
      * Constructs an <code>DukeException</code> object with exception message.
      */
-    public DukeException(String message){
+    public DukeException(String message) {
         super(message);
     }
 }

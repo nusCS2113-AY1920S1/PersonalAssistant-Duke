@@ -1,7 +1,5 @@
 package task;
 
-import exception.DukeException;
-
 /**
  * Represents a simple task with description and status.
  * Works as a parent class of more specified task classes in the package.
@@ -27,8 +25,9 @@ public class Task {
      *
      * @return ✓ if done, and ✘ otherwise.
      */
+    @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     private String getStatusIcon() {
-        if(isDone) {
+        if (isDone) {
             return "\u2713";
         } else {
             return "\u2718";

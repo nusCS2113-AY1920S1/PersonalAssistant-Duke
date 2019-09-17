@@ -1,11 +1,10 @@
 package command;
 
+import exception.DukeException;
 import parser.CommandParams;
+import storage.Storage;
 import task.TaskList;
 import ui.Ui;
-import storage.Storage;
-
-import exception.DukeException;
 
 /**
  * Represents a specified command as AddCommand by extending the <code>Command</code> class.
@@ -29,8 +28,8 @@ public class AddCommand extends Command {
      * updates content of storage file according to new taskList.
      * Responses the result to user by using ui of Duke.
      *
-     * @param tasks The taskList of Duke.
-     * @param ui The ui of Duke.
+     * @param tasks   The taskList of Duke.
+     * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      * @throws DukeException If exceptions occur when adding tasks or updating storage.
      */
@@ -40,17 +39,19 @@ public class AddCommand extends Command {
             throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
         }
         switch (commandParams.getCommandType()) {
-            case "todo":
-                tasks.addToDo(commandParams.getMainParam());
-                break;
-            case "deadline":
-                tasks.addDeadline(commandParams.getMainParam(), commandParams.getParam("by"));
-                break;
-            case "event":
-                tasks.addEvent(commandParams.getMainParam(),
-                        commandParams.getParam("start"),
-                        commandParams.getParam("end"));
-                break;
+        case "todo":
+            tasks.addToDo(commandParams.getMainParam());
+            break;
+        case "deadline":
+            tasks.addDeadline(commandParams.getMainParam(), commandParams.getParam("by"));
+            break;
+        case "event":
+            tasks.addEvent(commandParams.getMainParam(),
+                    commandParams.getParam("start"),
+                    commandParams.getParam("end"));
+            break;
+        default:
+            throw new DukeException("\"☹ OOPS!!! Your command type is unknown!\"");
         }
         storage.update(tasks.toStorageStrings());
 

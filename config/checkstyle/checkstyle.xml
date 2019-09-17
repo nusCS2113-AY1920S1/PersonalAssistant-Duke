@@ -28,8 +28,11 @@
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
-
+	<!-- Filter out Checkstyle warnings that have been suppressed with the @SuppressWarnings annotation -->
+	<module name="SuppressWarningsFilter" />
     <module name="TreeWalker">
+	<!-- Make the @SuppressWarnings annotations available to Checkstyle -->
+    	<module name="SuppressWarningsHolder" />
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>

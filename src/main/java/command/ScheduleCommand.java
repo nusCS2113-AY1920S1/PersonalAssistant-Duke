@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ScheduleCommand extends Command{
+public class ScheduleCommand extends Command {
 
 
     /**
@@ -27,9 +27,9 @@ public class ScheduleCommand extends Command{
     }
 
     /**
-     *
-     * @param tasks The taskList of Duke.
-     * @param ui The ui of Duke.
+     * Iterates through current task list and finds tasks that are on the day.
+     * @param tasks   The taskList of Duke.
+     * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
     @Override
@@ -38,19 +38,19 @@ public class ScheduleCommand extends Command{
             throw new DukeException("☹ OOPS!!! I don't what to find.");
         }
         String dateString = commandParams.getMainParam();
-        Date dayStart =  TimeParser.parse( dateString+ " 0000");
-        Date dayEnd = TimeParser.parse(dateString + " 2359" );
+        Date dayStart = TimeParser.parse(dateString + " 0000");
+        Date dayEnd = TimeParser.parse(dateString + " 2359");
         List<Task> taskList = tasks.getTasks();
         List<Task> matchedList = new ArrayList<>();
-        for(Task task : taskList){
-            if(task instanceof Event){
-                if(((Event) task).getStart().after(dayStart) && ((Event) task).getStart().before(dayEnd)){
+        for (Task task : taskList) {
+            if (task instanceof Event) {
+                if (((Event) task).getStart().after(dayStart) && ((Event) task).getStart().before(dayEnd)) {
                     matchedList.add(task);
-                }else if(((Event) task).getEnd().after(dayStart) && ((Event) task).getEnd().before(dayEnd)){
+                } else if (((Event) task).getEnd().after(dayStart) && ((Event) task).getEnd().before(dayEnd)) {
                     matchedList.add(task);
                 }
-            }else if(task instanceof Deadline){
-                if(((Deadline) task).getBy().after(dayStart) && ((Deadline) task).getBy().before(dayEnd)){
+            } else if (task instanceof Deadline) {
+                if (((Deadline) task).getBy().after(dayStart) && ((Deadline) task).getBy().before(dayEnd)) {
                     matchedList.add(task);
                 }
             }
@@ -62,8 +62,8 @@ public class ScheduleCommand extends Command{
         ui.println("Here is your schedule for" + dateString);
         int count = 1;
         for (Task task : matchedList) {
-            ui.println(count + "." +task.toString());
-            count ++;
+            ui.println(count + "." + task.toString());
+            count++;
         }
     }
 }

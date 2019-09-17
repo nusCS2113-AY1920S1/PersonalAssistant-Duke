@@ -10,6 +10,7 @@ public class CommandParams {
     private String commandType;
     private String mainParam;
 
+    @SuppressWarnings({"chekstyle:SummaryJavadoc", "checkstyle:MissingJavadocMethod"})
     /**
      * Returns a <code>Map<String, String></code> containing all the parameters input by the user.
      *
@@ -50,6 +51,7 @@ public class CommandParams {
         }
     }
 
+    @SuppressWarnings("checkstyle:NonEmptyAtclauseDescription")
     /**
      * Returns the <code>commandType</code> parameter that was input by the user.
      *

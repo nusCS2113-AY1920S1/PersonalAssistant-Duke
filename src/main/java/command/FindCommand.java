@@ -48,7 +48,7 @@ public class FindCommand extends Command {
         int count = 1;
         for (int i : matchedList) {
             ui.println(count + "." + tasks.getTaskInfo(i));
-            count ++;
+            count++;
         }
     }
 }
