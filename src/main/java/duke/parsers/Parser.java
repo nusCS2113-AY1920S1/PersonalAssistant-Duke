@@ -90,6 +90,9 @@ public class Parser {
             int index1 = Integer.parseInt(description.split(" ",2)[0]);
             int index2 = Integer.parseInt(description.split(" ",2)[1]);
             return new SnoozeCommand(index1,index2);
+        } else if (command.equals("schedule")) {
+            Date date = DateParser.parseDateDDMMYYObj(description);
+            return new ScheduleCommand(date);
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
