@@ -60,7 +60,7 @@ public class ViewCommandTest {
     }
 
     /**
-     * Test for correct number of tasks return when there is one task on 22/09/2019
+     * Test for correct number of tasks return when there is one task on 22/09/2019.
      */
     @Test
     void viewCommand_viewSchedulesOnDate_expectOneTask() {
@@ -90,7 +90,7 @@ public class ViewCommandTest {
     }
 
     /**
-     * Test for correct number of tasks return on specific date
+     * Test for correct number of tasks return on specific date.
      */
     @Test
     void viewCommand_viewSchedulesOnDate_expectMultipleTasks() {
