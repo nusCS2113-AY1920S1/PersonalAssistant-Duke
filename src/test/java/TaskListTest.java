@@ -7,6 +7,7 @@ import duke.task.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -113,5 +114,32 @@ public class TaskListTest {
         } catch (AssertionError excp) {
             fail("Tasks not correctly marked as done!");
         }
+    }
+
+    /**
+     * Tests listSchedule() with an empty list. Expect an exception to be thrown.
+     */
+    @Test
+    public void listSchedule_emptyList_exceptionThrown() {
+        TaskList list = new TaskList();
+        assertThrows(DukeException.class, () -> list.listSchedule(LocalDate.now()));
+    }
+
+    /**
+     * Tests listSchedule() with a list of unscheduled and scheduled Tasks.
+     * Expect the uncompleted scheduled Tasks to be returned.
+     *
+     * @throws DukeException If there are no uncompleted scheduled Tasks present in the user's original Task list.
+     */
+    @Test
+    public void listSchedule_scheduledTasks_scheduledTasksReturned() throws DukeException {
+        LocalDate date = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter()).toLocalDate();
+        String expectedScheduleStr = System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "2.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
+        assertEquals(expectedScheduleStr, taskList.listSchedule(date));
+
+        taskList.markDone("3");
+        expectedScheduleStr = System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)";
+        assertEquals(expectedScheduleStr, taskList.listSchedule(date));
     }
 }
