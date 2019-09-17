@@ -19,10 +19,16 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
 
         LocalDate key = LocalDate.of(yr, mth, day);
 
-        TimeMap timeMap = this.get(key);
-        timeMap.remove(time, task);
-
-        this.replace(key, timeMap);
+        switch(checkCondition(key, time, task)) {
+            case 4:
+                TimeMap timeMap = this.get(key);
+                timeMap.remove(time, task);
+                this.replace(key, timeMap);
+                break;
+            // can throw error exception to show that task cannot be deleted
+            default:
+                break;
+        }
     }
 
     public void addTask(String date, Task task) {
@@ -36,6 +42,21 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
 
         LocalDate key = LocalDate.of(yr, mth, day);
         TimeMap timeMap;
+
+        switch(checkCondition(key, time, task)){
+            case 1:
+            case 2:
+                timeMap = new TimeMap();
+                timeMap.put(time, task);
+                this.put(key, timeMap);
+                break;
+            case 5:
+                timeMap = this.get(key);
+                timeMap.put(time, task);
+                this.replace(key, timeMap);
+            default:
+                break;
+        }
 
         if (this.isEmpty()) {
             timeMap = new TimeMap();
@@ -64,6 +85,28 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
             Task task = taskOfTheDay.getValue();
             message += counter + ". " + task.toString();
             counter++;
+        }
+    }
+
+    private int checkCondition(LocalDate key, String time, Task task) {
+        // DateMap is empty
+        if (this.isEmpty()) {
+            return 1;
+        // DateMap does not have specified key
+        } else if (!this.containsKey(key)) {
+            return 2;
+        // TimeMap have specified key
+        } else if (this.get(key).containsKey(time)) {
+            // TimeMap does not have specified Task
+            if(this.get(key).get(time).equals(task)) {
+                return 3;
+            // TimeMap have specified Task
+            } else {
+                return 4;
+            }
+        // TimeMap does not have specified key.
+        } else {
+            return 5;
         }
     }
 }
