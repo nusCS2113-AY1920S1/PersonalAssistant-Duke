@@ -13,9 +13,8 @@ public class Duke {
     }
 
     /**
-     * This is the main method which runs everything.
-     * @param args Takes in a string argument.
-     * @throws IOException Throws the exception for input/output.
+     * Main application starts running here.
+     * @param args - input of array of strings from console
      */
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser();
