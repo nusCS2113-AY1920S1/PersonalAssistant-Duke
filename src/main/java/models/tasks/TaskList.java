@@ -52,7 +52,14 @@ public class TaskList implements Serializable {
         }
         return searchedTasks;
     }
-
+    
+    /**
+     * Gets tasks within the next 7 days by default, or within a date and time given by the user.
+     *
+     * @param limit The date and time limit given by the user.
+     * @return The list of tasks from the current time until the time limit.
+     * @throws ParseException
+     */
     public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy hh.mm a");
@@ -66,15 +73,16 @@ public class TaskList implements Serializable {
             c.setTime(currentDateTime);
             c.add(Calendar.DATE, DAYS_FROM_NOW);
             remindWithin = c.getTime();
-        }
-        else {
+        } else {
             SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             remindWithin = inputDateFormat.parse(limit);
         }
 
-        for (ITask task: this.listOfTasks){
+        for (ITask task: this.listOfTasks) {
             String taskInitial = task.getInitials();
-            if (taskInitial.equals("T")) continue;
+            if (taskInitial.equals("T")) {
+                continue;
+            }
 
             Date taskDate = dateFormat.parse(task.getDateTime());
             if (taskDate.compareTo(currentDateTime) >= 0 && taskDate.compareTo(remindWithin) <= 0) {
