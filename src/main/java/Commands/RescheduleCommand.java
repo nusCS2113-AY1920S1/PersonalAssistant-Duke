@@ -52,7 +52,6 @@ public class RescheduleCommand extends Command {
             newAddCommand = newAddCommand + " " + words[i];
         }
 
-        System.out.println(newAddCommand);
         Command delete = Parser.parse(deleteCommand);
         delete.execute(tasks, ui, storage);
         Command add = Parser.parse(newAddCommand);
