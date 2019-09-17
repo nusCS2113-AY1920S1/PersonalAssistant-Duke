@@ -19,6 +19,7 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+    protected String after;
 
     /**
      * Constructor for a new basic Task.
@@ -27,6 +28,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.after = "";
     }
 
     /**
@@ -37,8 +39,19 @@ public class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.after = "";
     }
 
+    public Task (String description, String after){
+        this.description = description;
+        this.after = after;
+    }
+
+    public Task (String description, String after, boolean isDone){
+        this.description = description;
+        this.isDone = isDone;
+        this.after = after;
+    }
     /**
      * Returns the description of the Task.
      * @return the description of the Task.
@@ -105,11 +118,16 @@ public class Task {
      * Converts the stored Date of the Task to a readable String for output to the CLI.
      * @return a String version of the stored Date.
      */
-    @Override
-    public String toString() {
-        return "[" + getType() + "][" + getStatusIcon() + "] " + description;
-    }
 
+    @Override
+    public String toString(){
+        if (!this.after.equals("")){
+            return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription() + " (after "+ getAfter() + ")";
+        }
+        else{
+            return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription();
+        }
+    }
     /**
      * Converts the input String as typed by the user into a Date to be saved.
      * @param stringDate a String version of the date we want.
@@ -120,4 +138,10 @@ public class Task {
         Date dateValue = formatter.parse(stringDate);
         return dateValue;
     }
+
+    public String getAfter () {
+        return after;
+    }
+
+
 }

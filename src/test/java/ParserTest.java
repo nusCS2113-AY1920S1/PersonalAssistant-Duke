@@ -1,4 +1,8 @@
+import duke.core.Parser;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,6 +35,10 @@ public class ParserTest {
         } catch (DukeException e) {
             e.showError();
         }
+        catch (ParseException e){
+            // need to catch exception
+            // no such thing as a ParseException class
+        }
     }
 
     /**
@@ -47,6 +55,9 @@ public class ParserTest {
         } catch (DukeException e) {
             e.showError();
         }
+        catch (ParseException e){
+            // see above
+        }
     }
 
     /**
@@ -61,6 +72,9 @@ public class ParserTest {
             assertEquals(testOutput, parser.parseInput("todo cry"));
         } catch (DukeException e) {
             e.showError();
+        }
+        catch (ParseException e) {
+            // see above
         }
     }
 }
