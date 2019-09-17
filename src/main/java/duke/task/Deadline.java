@@ -18,6 +18,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getBy() {
+        return by;
+    }
+
     /**
      * Customises the <code>toString()</code> method to print
      * the <code>Deadline</code> object.

@@ -1,15 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.FindCommand;
-import duke.command.DeleteCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddToDoCommand;
-import duke.command.CompleteCommand;
-import duke.command.ListCommand;
-import duke.command.ExitCommand;
-import duke.command.AddDeadlineCommand;
-import duke.command.SnoozeCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -58,6 +49,10 @@ public class ChooseCommand {
             }
             String num = arr[1];
             return new SnoozeCommand(num);
+        } else if (line.startsWith("schedule")) {
+            // View Schedule
+            line = line.replaceFirst("schedule", "");
+            return new ScheduleCommand(line);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
