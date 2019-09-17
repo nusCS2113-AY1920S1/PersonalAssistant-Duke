@@ -1,17 +1,22 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
-import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
-import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
+import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
+import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
+import com.nwjbrandon.duke.services.task.Todos;
+import com.nwjbrandon.duke.services.ui.Terminal;
 import com.nwjbrandon.duke.services.validation.InputValidation;
 
-public class DoneCommand extends Command {
+import java.util.ArrayList;
+import java.util.Date;
+
+public class ViewSchedulesCommand extends Command {
 
     /**
-     * Index of task in string.
+     * Description of task.
      */
-    private String taskIndexString;
+    private String taskDescription;
 
     /**
      * Input by user.
@@ -29,24 +34,15 @@ public class DoneCommand extends Command {
     private int size;
 
     /**
-     * Create done command.
+     * Create add command.
      * @param userInput input by user.
      * @param command type of command.
      * @param size number of tasks.
      */
-    public DoneCommand(String userInput, String command, int size) {
+    public ViewSchedulesCommand(String userInput, String command, int size) {
         this.userInput = userInput;
         this.command = command;
         this.size = size;
-    }
-
-    /**
-     * Get task index.
-     * @return task index.
-     */
-    private int getTaskIndex() throws DukeTypeConversionException, DukeOutOfBoundException {
-        Integer taskIndex = InputValidation.checkStringToIntegerConversion(taskIndexString);
-        return InputValidation.checkIndex(taskIndex - 1, size);
     }
 
     /**
@@ -57,6 +53,7 @@ public class DoneCommand extends Command {
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
         return InputValidation.checkCommandInput(userInput, command);
+
     }
 
     /**
@@ -66,10 +63,11 @@ public class DoneCommand extends Command {
     @Override
     public void execute(TaskList taskList) {
         try {
-            this.taskIndexString = parseCommand(userInput, command);
-            int taskIndex = this.getTaskIndex();
-            taskList.markDone(taskIndex);
-        } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException e) {
+            this.taskDescription = parseCommand(userInput, command);
+            Date date = InputValidation.parseDateWithNatty(this.taskDescription);
+            ArrayList<Task> tasksInSchedule = taskList.viewSchedule(date);
+            Terminal.showSchedule(date, tasksInSchedule);
+        } catch (DukeEmptyCommandException e) {
             e.showError();
         }
     }
