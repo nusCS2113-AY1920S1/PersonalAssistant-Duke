@@ -1,7 +1,22 @@
 package duke;
 
-import duke.commands.*;
-import duke.tasks.*;
+import duke.commands.Command;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.ReminderCommand;
+import duke.commands.ViewScheduleCommand;
+import duke.commands.FreeTimeCommand;
+import duke.commands.FindCommand;
+import duke.commands.DoneCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.AddCommand;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.DoAfterTask;
+import duke.tasks.FixedDurationTask;
+import duke.tasks.WithinPeriodTask;
 
 import java.util.ArrayList;
 
@@ -61,8 +76,11 @@ public class Parser {
     private static StringBuilder computeTaskDetail(String task, StringBuilder stringBuilder) {
         String[] tokens = task.split(" ");
         for (String token : tokens) {
-            if (token.charAt(0) != '/') stringBuilder.append(token);
-            else break;
+            if (token.charAt(0) != '/') {
+                stringBuilder.append(token);
+            } else {
+                break;
+            }
         }
         return stringBuilder;
     }
@@ -100,15 +118,19 @@ public class Parser {
             } else if (token.charAt(0) == '/' && token.equals("/needs")) {
                 hasReq = true;
                 hasFixedDuration = true;
+            } else if (!hasReq) {
+                taskDetail.append(token + " ");
+            } else if (hasReq) {
+                taskReq.append(token + " ");
             }
-            else if (!hasReq) taskDetail.append(token + " ");
-            else if (hasReq) taskReq.append(token + " ");
         }
         String finalTaskDetail = taskDetail.toString();
         finalTaskDetail = finalTaskDetail.substring(0, finalTaskDetail.length() - 1);
         String finalTaskReq = taskReq.toString();
 
-        if (hasReq) finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        if (hasReq) {
+            finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        }
 
         if (hasDoAfter) {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
@@ -116,8 +138,7 @@ public class Parser {
             tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
         } else if (hasFixedDuration) {
             tempTask = new FixedDurationTask(finalTaskDetail, finalTaskReq);
-        }
-        else {
+        } else {
             tempTask = new ToDo(input);
         }
         return getString(data, state, tempTask);

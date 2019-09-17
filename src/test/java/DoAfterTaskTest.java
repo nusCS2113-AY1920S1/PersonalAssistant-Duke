@@ -36,7 +36,9 @@ public class DoAfterTaskTest {
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [T][✗] going after my work after lunch\nNow you have 1 tasks in the list.";
+        String exp = "Got it. I've added this task: \n"
+                + "[T][✗] going after my work after lunch\n"
+                + "Now you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }

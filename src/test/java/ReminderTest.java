@@ -43,7 +43,9 @@ public class ReminderTest {
         setUpStreams();
         c = Parser.parse("reminder");
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Here are the upcoming Deadlines:\n1.[D][✗] b (by: 0500 9/15/2019)\n2.[D][✗] a (by: 0600 9/15/2019)";
+        String exp = "Here are the upcoming Deadlines:\n"
+                + "1.[D][✗] b (by: 0500 9/15/2019)\n"
+                + "2.[D][✗] a (by: 0600 9/15/2019)";
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));
         restoreStreams();
     }

@@ -47,7 +47,8 @@ public class EventTest {
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [E][✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
+        String exp = "Got it. I've added this task: \n"
+                + "[E][✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }

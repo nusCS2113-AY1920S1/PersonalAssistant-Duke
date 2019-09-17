@@ -47,7 +47,9 @@ public class DeadlineTest {
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
         c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [D][✗] exam (by: 01/01/2019)\nNow you have 1 tasks in the list.";
+        String exp = "Got it. I've added this task: \n"
+                + "[D][✗] exam (by: 01/01/2019)\n"
+                + "Now you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }

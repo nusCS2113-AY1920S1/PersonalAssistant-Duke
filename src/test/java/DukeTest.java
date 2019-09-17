@@ -1,7 +1,7 @@
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 

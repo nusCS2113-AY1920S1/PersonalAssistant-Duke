@@ -1,6 +1,10 @@
-import duke.*;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Parser;
 import duke.commands.Command;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
