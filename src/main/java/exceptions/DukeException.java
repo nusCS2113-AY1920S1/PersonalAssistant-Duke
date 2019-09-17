@@ -24,15 +24,28 @@ public class DukeException extends Exception {
     public static final DukeException TASK_DOES_NOT_EXIST = new DukeException("☹ OOPS!!! "
         + "Task does not exist.");
     public static final DukeException TASK_NO_MISSING = new DukeException("☹ OOPS!!! Please "
-        + "provide a task number, e.g. done 1");
+        + "provide a task number.");
     public static final DukeException TASK_NO_MISSING_DELETE = new DukeException("☹ OOPS!!! Please "
         + "provide a task number, e.g. delete 1");
     public static final DukeException TASK_NO_MISSING_FIND = new DukeException("☹ OOPS!!! Please "
+<<<<<<< HEAD
             + "provide a keyword, e.g. find eat");
+=======
+        + "provide a keyword, e.g. find eat");
+    public static final DukeException EMPTY_TASK_IN_DOAFTER = new DukeException("☹ OOPS!!! The "
+        + "description of a 'do after' task cannot be empty, e.g. do return book /after Sunday");
+    public static final DukeException EMPTY_TIME_IN_DOAFTER = new DukeException("☹ OOPS!!! Please "
+        + "provide a valid time/task for the 'do after' task, e.g. do return book /after Sunday");
+    public static final DukeException INVALID_FORMAT_IN_DOAFTER = new DukeException("☹ OOPS!!! Invalid "
+        + "format. Please key in the 'do after' task in the correct format, e.g. do return book /after Sunday");
+>>>>>>> 29c893aa3eaff1fb2f275197b0fbf5076eeace72
 
     public static final DukeException FILE_NOT_FOUND = new DukeException("☹ OOPS!!! Unknown error "
         + "extracting tasks from database.");
     public static final DukeException INPUT_NOT_FOUND = new DukeException("☹ OOPS!!! No user input found");
+    public static final DukeException EMPTY_TASK_IN_EVENT_TENTATIVE = new DukeException("☹ OOPS!!! Please "
+        + "provide a valid time/task for the task");
+    public static final DukeException TASK_IS_NOT_TENTATIVE = new DukeException("☹ OOPS!!! Please select a tentative task.");
 
     private String message;
 

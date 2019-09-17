@@ -4,6 +4,9 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+import java.util.Date;
+import java.util.Map;
+
 /**
  * The duke program runs a to-do application.
  * The program will first extracts existing tasks, if any, from duke.txt.
@@ -39,6 +42,7 @@ public class Duke {
         System.out.flush();
         while (true) {
             try {
+
                 String command = ui.readInput();
                 String[] arr = command.split(" ", 2);
                 String firstWord = arr[0];

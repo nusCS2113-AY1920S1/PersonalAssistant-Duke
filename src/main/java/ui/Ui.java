@@ -1,13 +1,18 @@
 package ui;
 
 import parser.TimeParser;
+import task.Deadline;
 import task.TaskList;
+import wrapper.Pair;
+import task.Event;
 import task.Tasks;
+import wrapper.TimeInterval;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
+
 
 /**
  * This class handles user's input and do the required appropriate actions.
@@ -26,6 +31,21 @@ public class Ui {
 
     public Ui() {
         in = new Scanner(System.in);
+    }
+
+    /**
+     * Prints the confirmation message when a doAfter task had been saved into the database.
+     */
+    public static void showDoAfterMessage(String status, String newtodoTask1, int i) {
+        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [A]["
+            + status
+            + "] " + newtodoTask1);
+        if (i > 1) {
+            System.out.println(space + "Now you have " + i + " tasks in the list.");
+        } else {
+            System.out.println(space + "Now you have " + i + " task in the list.");
+        }
+        System.out.println(line);
     }
 
     /**
@@ -88,6 +108,10 @@ public class Ui {
     }
 
     public static void showError(String message) {
+        System.out.println(line + "\n" + space + message + "\n" + line);
+    }
+
+    public static void showMsg(String message) {
         System.out.println(line + "\n" + space + message + "\n" + line);
     }
 
@@ -154,11 +178,46 @@ public class Ui {
     }
 
     /**
+     * Prints a message to query users for dates when user want to add a tentative task.
+     */
+    public static void queryForDates() {
+        System.out.println(line + "\n" + space + "Please provide the tentative dates.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the opening message for tentative event schedule.
+     */
+    public static void showEventTentativeOpeningMessage() {
+        System.out.println(line + "\n" + space + "Got it. I've added the following tasks to be tentatively scheduled :");
+    }
+
+    /**
      * Prints a message once a event task has been successfully added into database.
      */
-    public static void showEventMessage(String status, String message, int num) {
-        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [E]["
-            + status
+    public static void showEventTentativeMessage(String type, String status, String message) {
+        System.out.println(space + "[" +
+            type + "][" + status + "] " + message);
+    }
+
+    /**
+     * Prints the closing message after user have added tentative event.
+     * @param num1 which is the total number of tasks.
+     * @param num2 which is the total number of tentative only tasks.
+     */
+    public static void showEventTentativeCloseMessage(int num1, int num2) {
+        System.out.println(line);
+        System.out.println(space + "Now you have " + num1 + " tasks in the list including " +
+                num2 + " tentative tasks");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message once a tentative event task has been successfully added into database.
+     */
+    public static void showEventMessage(String type, String status, String message, int num) {
+        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + "[" +
+            type + "][" + status
             + "] " + message);
         if (num > 1) {
             System.out.println(space + "Now you have " + num + " tasks in the list.");
@@ -180,6 +239,51 @@ public class Ui {
         } else {
             System.out.println(space + "Now you have " + num + " task in the list.");
         }
+        System.out.println(line);
+
+    }
+
+    public static void showFreeTime(int num ,TimeInterval freeslot ) {
+        System.out.println(line + "\n" + space + "You have your free time that is at least " + Integer.toString(num)+ " hours at these interval");
+
+        if(freeslot.getStartDate().equals(freeslot.getEndDate())){
+            System.out.println(space+ freeslot.getStartDate() + " onwards");
+        }else{
+            System.out.println(space + freeslot.getStartDate() + " to " + freeslot.getEndDate());
+        }
+        System.out.println(line);
+    }
+
+    public static void updateTime(Tasks temp) {
+        System.out.println(line + "\n" + space + "Great you have updated the time for the following task!");
+
+        if(temp.getType().equals("E")){
+            System.out.println(space + ((Event)temp).toMessage());
+
+
+        } else if(temp.getType().equals("D")){
+            System.out.println(space + ((Deadline)temp).toMessage());
+        }
+        System.out.println(line);
+    }
+
+    public static void showConflicts(ArrayList<Pair> conflicts) {
+
+        System.out.println(line + "\n");
+
+        if(conflicts.size() == 0){
+            System.out.println(space + "Nice! you do not have any conflicts!!");
+        }else{
+            System.out.println(space + "Oh No!! you have the following conflicts!!");
+            int i =1;
+            for(Pair e : conflicts){
+                Tasks t1 = e.getTask1();
+                Tasks t2 = e.getTask2();
+                System.out.println(space + (i++) + ". "+ t1.getDescription() + " & " + t2.getDescription());
+
+            }
+        }
+
         System.out.println(line);
     }
 
