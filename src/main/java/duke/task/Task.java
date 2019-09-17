@@ -21,12 +21,9 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
-<<<<<<< HEAD
     protected String after;
-=======
     protected String day;
     protected String time;
->>>>>>> branch-B-RecurringTasks
 
     /**
      * Constructor for a new basic Task.
