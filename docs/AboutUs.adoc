@@ -40,9 +40,9 @@ Responsibilities: Data
 
 '''
 
-=== Clair Smile
+=== Claire Chan
 
-image::rusdihaizim.png[width="150", align="left"]
+image::clairechan.png[width="150", align="left"]
 {empty}[http://github.com/rusdihaizim[github]]
 
 Role: Developer +
