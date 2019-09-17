@@ -28,4 +28,11 @@ public class Date {
         String dateFormatted = fmt.format(this.d.getTime());
         return  dateFormatted; //no need secondes and time zone
     }
+    /**
+     * Returns GregorianCalendar object.
+     * @return a GregorianCalendar object.
+     */
+    public GregorianCalendar getD() {
+        return d;
+    }
 }

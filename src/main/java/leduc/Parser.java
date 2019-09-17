@@ -46,6 +46,9 @@ public class Parser {
         else if (user.matches(("bye"))){
             c = new ByeCommand(user);
         }
+        else if (user.matches(("remind"))){
+            c = new RemindCommand(user);
+        }
         else {
             c = new MeaningLessCommand(user);
         }
