@@ -34,6 +34,9 @@ public class ReminderCommand extends Command {
         for (Task t : tasks) {
             LocalDate date = ((TaskWithDates) t).getStartDate().toLocalDate();
             LocalDate now = LocalDate.now();
+            if (t.isDone()) {
+                continue;
+            }
             if (date.compareTo(now) < 0) {
                 expiredTask.add(t);
             } else {
