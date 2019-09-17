@@ -3,6 +3,8 @@ package duke.task;
 import duke.core.DateTimeParser;
 import duke.core.DukeException;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline. It is
  * extended from the Task class.
@@ -39,7 +41,21 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.printStatus() + " (by: " + dateTimeEnglish + ")";
+
+        if (recurringTask != null) {
+            DateTimeFormatter newDateFormatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HHmm");
+            String newDate = recurringTask.recurringTaskTimeUpdate(this).format(newDateFormatter);
+            this.dateTime = newDate;
+            try {
+                this.dateTimeEnglish = DateTimeParser.convertToEnglishDateTime(dateTime);
+            } catch (DukeException e) {
+                System.out.println("I couldn't convert your given time. " + e);
+            }
+        }
+        return "[D]"
+                + super.printStatus()
+                + " (by: "
+                + dateTimeEnglish + ")";
     }
 
     /**
@@ -48,6 +64,10 @@ public class Deadline extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
+        String frequency = "ONCE";
+        if (isTaskRecurring()) {
+            frequency = recurringTask.getFrequency().toString();
+        }
         return "D | "
                 + (isDone() ? "1" : "0")
                 + " | "
@@ -55,7 +75,7 @@ public class Deadline extends Task {
                 + " | "
                 + dateTime
                 + " | "
-                + this.isRecurring;
+                + frequency;
     }
 
 }

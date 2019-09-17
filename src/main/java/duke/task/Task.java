@@ -18,22 +18,36 @@ import java.util.Date;
  * instantiated
  */
 public abstract class Task {
+
     /**
      * A String that represents the description of the task.
      */
     protected String description;
+
     /**
      * A boolean that represents the status of the task( 1 means done, 0 means not yet)
      */
     protected boolean isDone;
+
     /**
      * a localDateTime constructor to save the date and time
      */
     protected LocalDateTime ld = null;
+
     /**
      * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
      */
     protected boolean isRecurring = false;
+
+    /**
+     * An enumerator meant to specify the frequency of a recurring task.
+     */
+    public enum RecurringFrequency { DAILY, WEEKLY, MONTHLY, ONCE; }
+
+    /**
+     * An extended class that retains information about a recurring task.
+     */
+    protected RecurringTask recurringTask;
 
     /**
      * Initialises the minimum fields required to setup a Task.
@@ -80,34 +94,30 @@ public abstract class Task {
     /**
      * Marks the task as recurring.
      */
-    public void makeTaskRecurring() { isRecurring = true; }
+    public void makeTaskRecurring(RecurringFrequency frequency) {
+        isRecurring = true;
+        switch (frequency) {
+            case DAILY:
+                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
+                break;
+            case WEEKLY:
+                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.WEEKLY);
+                break;
+            case MONTHLY:
+                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.MONTHLY);
+                break;
+            case ONCE:
+                break;
+        }
+        if (this.recurringTask != null) {
+            this.recurringTask.recurringTaskTimeUpdate(this);
+        }
+    }
 
     /**
      * Returns boolean stating whether task is recurring.
      */
     public boolean isTaskRecurring() { return isRecurring; }
-
-    /**
-     * When a task is recurring, method compares current time to listed date.
-     * If the task's date is outdated, then it will update to be for the next day.
-     */
-    public void recurringTaskTimeUpdate() {
-        if ((ld != null) && this.isRecurring) {
-            try {
-                LocalDateTime currentTime = LocalDateTime.now();
-                if (this.ld.isBefore(currentTime)) {
-                    Duration dayDifference = Duration.between(currentTime, this.ld);
-                    if (Math.abs(dayDifference.toDays()) > 0 ) {
-                        this.ld = ld.plusDays(Math.abs(dayDifference.toDays()));
-
-                        if (!this.isDone) { this.isDone = false; }
-                    }
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("I couldn't update your recurring events' times.");
-            }
-        }
-    }
 
     /**
      * Returns a string with the status icon and the description of the task.
@@ -172,7 +182,9 @@ public abstract class Task {
      */
     public LocalDateTime getDateTime()
     {
-        if (this.isTaskRecurring()) { this.recurringTaskTimeUpdate(); }
+        if (recurringTask != null) {
+            this.ld = recurringTask.recurringTaskTimeUpdate(this);
+        }
         return ld;
     }
 

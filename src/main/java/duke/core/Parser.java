@@ -104,8 +104,20 @@ public class Parser {
                 }
             case "recurring":
                 try {
-                    int index = Integer.parseInt(command[1]);
-                    return new RecurringCommand(index);
+                    String[] parsedInput = command[1].split(" /");
+                    int index = Integer.parseInt(parsedInput[0]);
+                    if (parsedInput[1] != null) {
+                        parsedInput[1] = parsedInput[1].trim();
+                        if (parsedInput[1].toLowerCase().contains("weekly")) {
+                            return new RecurringCommand(index, Task.RecurringFrequency.WEEKLY);
+                        } else if (parsedInput[1].toLowerCase().contains("monthly")) {
+                            return new RecurringCommand(index, Task.RecurringFrequency.MONTHLY);
+                        } else if (parsedInput[1].toLowerCase().contains("daily")) {
+                            return new RecurringCommand(index, Task.RecurringFrequency.DAILY);
+                        } else {
+                            return new RecurringCommand(index, Task.RecurringFrequency.DAILY);
+                        }
+                    }
                 } catch (Exception e) {
                     throw new DukeException("Failed to make your task recurring." + e.getMessage());
                 }
