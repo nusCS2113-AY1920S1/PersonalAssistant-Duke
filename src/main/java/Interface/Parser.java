@@ -82,6 +82,10 @@ public class Parser {
                 }
             }
 
+            else if (fullCommand.trim().substring(0,6).equals("remind")){
+                return new RemindCommand();
+            }
+
             else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
                     arr = fullCommand.split(" ");
