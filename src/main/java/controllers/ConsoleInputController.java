@@ -71,8 +71,8 @@ public class ConsoleInputController implements IViewController {
         } else {
             try {
                 ITask newTask = taskFactory.createTask(input);
-                taskList.addToList(newTask);
-                consoleView.addMessage(newTask, taskList);
+                boolean anomaly = taskList.addToList(newTask);
+                consoleView.addMessage(newTask, taskList, anomaly);
                 saveData();
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
