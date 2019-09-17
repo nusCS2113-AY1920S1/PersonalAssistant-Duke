@@ -46,7 +46,7 @@ public class AddCommand extends Command {
             //out = "new date: " + task.getDate() + "\n" +  "old date: "+ list.getTask(3).getDate();
         }
         else{
-            out = "Sorry, you have similar events at the same time \n";
+            out = "Sorry, you have similar events at the same time and on the same day \n";
             for(int i =0; i < size;i++){
                 if (conflict[i]){
                     out += list.getTask(i).toString() + "\n";
