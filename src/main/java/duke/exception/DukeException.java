@@ -1,7 +1,7 @@
 package duke.exception;
-
+import duke.core.Ui;
+import duke.core.Ui.*;
 import duke.command.*;
-import duke.core.*;
 import duke.task.*;
 
 /**
@@ -25,8 +25,8 @@ public class DukeException extends Exception {
      * Prints the error message in the standard Duke format.
      */
     public void showError() {
-        System.out.println("\t_____________________________________");
+        System.out.println("\t" + Ui.line);
         System.out.println("\t" + oops + errorMsg);
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + Ui.line);
     }
 }
