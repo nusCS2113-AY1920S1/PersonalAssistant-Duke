@@ -76,7 +76,7 @@ public class TaskList {
     public void addTask(String cmd) throws ParseException {
         duke.ui.printg("Got it. I've added this task:");
         Scanner sc1 = new Scanner(cmd);
-        String s = sc1.next(); //get the command string (event/deadline/doafter/todo)
+        String s = sc1.next(); //get the command string (event/deadline/doafter/todo/recurtask)
         String cs = sc1.nextLine(); //get the description string (what follows after the command string)
         String token;
         String description;
@@ -119,10 +119,22 @@ public class TaskList {
             minute = getDuration(cs, 2);
             arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
                     + " minute(s)",date, hour, minute));
-            duke.ui.printg("[FDT][ " + notDone + "] " + description + "for " + hour + " hour(s) " + minute
+            duke.ui.printg("[FDT][" + notDone + "] " + description + "for " + hour + " hour(s) " + minute
                     + " minute(s)");
             break;
-
+        case "recurtask":
+            token = "/start";
+            description = getDescription(cs, token);
+            date = getDate(cs, token);
+            int numReps = getRep(cs); // number of repetitions
+            for (int count = 0; count < numReps; count++) {
+                duke.ui.printg(date);
+                RecurringTask recurTask = new RecurringTask(description, date);
+                arrlist.add(recurTask);
+                date = incrementDateByWeek(date);
+            }
+            duke.ui.printg("[RT][" + notDone + "] " + description);
+            break;
         default:
             throw new IllegalStateException("Unexpected value: " + s);
         }
@@ -295,7 +307,35 @@ public class TaskList {
         return when;
     }
 
+    /**
+     * This function returns the number of repetitions of the recurring task in an integer form.
+     *
+     * @param cs description string
+     * @return The number of repetitions of the recurring task.
+     * @UsedIn addTask
+     */
+    public static int getRep(String cs) {
+        String repToken = "/rep";
+        int splitPoint = cs.indexOf(repToken);
+        String repPart = cs.substring(splitPoint);
+        Scanner sc = new Scanner(repPart);
+        sc.next(); // skip /rep word
+        int repNum = sc.nextInt();
+        return repNum;
+    }
 
+    /**
+     * Increment the date by one week
+     *
+     * @param date The date to be incremented
+     * @return The final incremented date.
+     */
+    public static Date incrementDateByWeek(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 7);
+        return calendar.getTime();
+    }
 
 
 
