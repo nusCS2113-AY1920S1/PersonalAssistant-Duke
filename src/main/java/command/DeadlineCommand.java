@@ -1,6 +1,6 @@
 package command;
 
-import dukeException.DukeException;
+import exception.DukeException;
 import storage.Storage;
 import task.Deadline;
 import task.TaskList;
@@ -39,11 +39,11 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Execute command
+     * Execute command.
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
-     * @throws IOException
+     * @throws IOException for IO exception
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {

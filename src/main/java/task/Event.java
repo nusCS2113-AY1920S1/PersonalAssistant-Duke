@@ -10,7 +10,6 @@ import java.util.Date;
  * Events are tasks with a start and end time.
  */
 public class Event extends Task {
-    protected Date dateTime;
     protected String at;
 
     /**
@@ -32,8 +31,8 @@ public class Event extends Task {
     /**
      * task.Event Constructor from text file
      * @param i isDone status
-     * @param description
-     * @param at
+     * @param description of event
+     * @param at event date and time
      */
     public Event(String i, String description, String at) {
         super(description);

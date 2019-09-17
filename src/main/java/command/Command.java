@@ -1,6 +1,6 @@
 package command;
 
-import dukeException.DukeException;
+import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -23,7 +23,9 @@ public abstract class Command {
      * @throws DukeException if Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {}
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    }
+
     public boolean isExit() {
         return this.isExit;
     }

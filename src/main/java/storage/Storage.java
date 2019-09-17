@@ -26,8 +26,8 @@ public class Storage {
 
     /**
      * Convert contents of text file to task list.
-     * @return
-     * @throws FileNotFoundException
+     * @return Tasklist
+     * @throws FileNotFoundException if file not found
      */
     public ArrayList<String> load() throws FileNotFoundException {
         Scanner scanFile = new Scanner(fileToRead);
@@ -42,7 +42,7 @@ public class Storage {
     /**
      * Save task list to text file.
      * @param tasks task list
-     * @throws IOException
+     * @throws IOException for IO exception
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
