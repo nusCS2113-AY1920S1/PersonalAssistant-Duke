@@ -4,9 +4,7 @@ import duke.DukeContext;
 import duke.exception.DukeException;
 import duke.task.TimedTask;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -36,7 +34,6 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         if (firstSpaceIdx == -1) {
             throw new DukeException("You didn't tell me how frequently this task should recur!");
         }
-        System.out.println(argv[1].substring(0, firstSpaceIdx));
         switch(argv[1].substring(0, firstSpaceIdx)) { //extract period from frequency, use fallthrough to add synonyms
         case "daily":
             period = ChronoUnit.DAYS;
@@ -81,12 +78,16 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         }
 
         //I'm gonna do what's called a pro gamer move
+        StringBuilder addStrBuilder = new StringBuilder();
         for (long i = 0; i < count; ++i) {
-            refCommand.execute(ctx);
-            refCommand.datetime = refCommand.datetime.plus(1, period);
+            addStrBuilder.append(System.lineSeparator()).append("  ")
+                    .append(refCommand.silentExecute(ctx));
+            refCommand.taskDateTime = refCommand.taskDateTime.plus(1, period);
         }
+        ctx.ui.print(ctx.taskList.getAddReport(addStrBuilder.toString(), count));
 
-        //test cases: recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /count 13
+        //test cases:
+        //recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /count 13
         //recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /until 23/11/2019 1300
     }
 }

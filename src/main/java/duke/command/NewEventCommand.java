@@ -29,9 +29,13 @@ public class NewEventCommand extends NewTimedTaskCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new EventTask(argv[0], datetime));
-        addStr = "Got it, I've added this task:" + System.lineSeparator() + "  " + addStr + System.lineSeparator();
+        String addStr = ctx.taskList.addTask(new EventTask(argv[0], taskDateTime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(addStr);
+        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
+    }
+
+    @Override
+    public String silentExecute(DukeContext ctx) {
+        return ctx.taskList.addTask(new EventTask(argv[0], taskDateTime));
     }
 }

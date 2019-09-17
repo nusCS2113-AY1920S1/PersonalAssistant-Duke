@@ -11,8 +11,8 @@ public class DeleteCommand extends ArgCommand {
 
     @Override
     public void execute(DukeContext ctx) throws DukeException {
-        String taskStr = ctx.taskList.deleteTask(arg);
+        String delStr = ctx.taskList.deleteTask(arg);
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(taskStr);
+        ctx.ui.print(ctx.taskList.getDelReport(System.lineSeparator() + "  " + delStr, 1));
     }
 }

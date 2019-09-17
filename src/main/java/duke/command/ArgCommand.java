@@ -22,7 +22,7 @@ public abstract class ArgCommand extends Command {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
+    public void execute(DukeContext ctx) throws DukeException, DukeException {
         if (arg == null) {
             throw new DukeException("Command needs to parse argument first!");
         }
