@@ -6,6 +6,7 @@ import duke.tasks.*;
 import java.util.ArrayList;
 
 public class Parser {
+    public static boolean isTentative;
     /**
      * Allows the user input to be parsed before running 'execute'.
      * @param input String inputted by user, which needs to be parsed
@@ -15,6 +16,12 @@ public class Parser {
      * @throws DukeException Shows error when unknown command is inputted
      */
     public static Command parse(String input) throws DukeException {
+        isTentative = false;
+        if (input.indexOf("tentative") == 0) {
+            isTentative = true;
+            input = input.replace("tentative ", "");
+        }
+
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -166,5 +173,9 @@ public class Parser {
         String tt2 = input.substring(startOfAt + 4);
         Task tempTask = new Event(tt1, tt2);
         return getString(data, state, tempTask);
+    }
+
+    public static boolean isTentative () {
+        return isTentative;
     }
 }

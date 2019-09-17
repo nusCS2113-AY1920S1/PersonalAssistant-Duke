@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Storage {
-    private static ArrayList<Task> data = new ArrayList<>();
+    private ArrayList<Task> data = new ArrayList<>();
+    private String filepath;
 
     /**
      * Initialises the 'data' based on previous data
@@ -20,6 +21,7 @@ public class Storage {
      * @throws DukeException Exception when file is not found
      */
     public Storage(String filepath) throws DukeException {
+        this.filepath = filepath;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
@@ -117,7 +119,7 @@ public class Storage {
      */
     public void write(ArrayList<Task> tasks) throws DukeException {
         try {
-            PrintWriter out = new PrintWriter("./data/saved_data.txt");
+            PrintWriter out = new PrintWriter(filepath);
             for (Task task : tasks) {
                 String st1;
                 st1 = task.toString().substring(1, 2);
