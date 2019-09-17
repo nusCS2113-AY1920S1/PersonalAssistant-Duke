@@ -117,7 +117,6 @@ public class TaskList {
             int minute = 0;
             hour = getDuration(cs, 1);
             minute = getDuration(cs, 2);
-            duke.ui.printg("4 succeed");
             arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
                     + " minute(s)",date, hour, minute));
             duke.ui.printg("[FDT][ " + notDone + "] " + description + "for " + hour + " hour(s) " + minute
