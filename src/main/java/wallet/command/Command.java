@@ -1,10 +1,12 @@
 package wallet.command;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import wallet.record.Expense;
 import wallet.record.ExpenseList;
+import wallet.record.ExpenseParser;
 import wallet.storage.Storage;
 import wallet.task.*;
 
@@ -31,7 +33,7 @@ public class Command {
             count = 1;
             System.out.println("Here are the expenses in your list:");
             for (Expense e : expenseList.getExpenseList()){
-                System.out.println(count + "." + e.toString());
+                System.out.println(count + ". " + e.toString());
                 count++;
             }
         } else if (command[0].equals("find")) {
@@ -189,23 +191,23 @@ public class Command {
             }
         } else if (command[0].equals("expense")){
             try {
-                String[] getRec = command[1].split("/r");
-                String freq = getRec[1].trim();
-                String[] getCat = getRec[0].split("/cat");
-                String cat = getCat[1].trim();
-                String[] getDate = getCat[0].split("/on");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = sdf.parse(getDate[1].trim());
-                String[] getDesc = getDate[0].split("\\$");
-
-                Expense expense = new Expense(getDesc[0].trim(), date, Double.parseDouble(getDesc[1].trim()), cat, true, freq);
-                expenseList.addExpense(expense);
-                System.out.println("Got it. I've added this expense:");
-                System.out.println(expense.toString());
+                Expense expense = ExpenseParser.parseInput(command[1]);
+                if (expense != null) {
+                    expenseList.addExpense(expense);
+                    System.out.println("Got it. I've added this expense:");
+                    System.out.println(expense.toString());
+                    ExpenseParser.populateRecurringRecords(expenseList);
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! The format of adding expense is \"expense lunch $5 /on 01/01/2019 /cat Food /r day\"");
-            } catch (ParseException e) {
-                System.out.println("☹ OOPS!!! The format of date is wrong.");
+                System.out.println("☹ OOPS!!! The format of adding expense is \"expense lunch $5 /on 01/01/2019 /cat Food /r daily\"");
+            }
+        } else if (command[0].equals("recurring")) {
+            ArrayList<Expense> recList = ExpenseParser.getRecurringRecords(expenseList);
+            System.out.println("Here are your recurring records: ");
+            int index = 1;
+            for (Expense e : recList) {
+                System.out.println(index + "." + e.toString());
+                index++;
             }
         } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

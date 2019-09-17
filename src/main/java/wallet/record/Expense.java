@@ -1,7 +1,7 @@
 package wallet.record;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Expense extends Record {
     private double amount;
@@ -9,7 +9,7 @@ public class Expense extends Record {
     private boolean isRecurring;
     private String recFrequency;
 
-    public Expense(String description, Date createdDate, double amount, String category, boolean isRecurring, String recFrequency){
+    public Expense(String description, LocalDate createdDate, double amount, String category, boolean isRecurring, String recFrequency){
         super(description, createdDate);
         this.amount = amount;
         this.category = category;
@@ -52,9 +52,9 @@ public class Expense extends Record {
     @Override
     public String toString() {
         if (isRecurring){
-            return "[" + recFrequency + "] " + getDescription() + " Amount: $" + amount + " Date: " + new SimpleDateFormat("dd MMM yyyy").format(getCreatedDate()) + " Category: " + category;
+            return "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
         } else {
-            return getDescription() + " Amount: $" + amount + " Date: " + new SimpleDateFormat("dd MMM yyyy").format(getCreatedDate()) + "Category: " + category;
+            return getDescription() + " Amount:$" + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
         }
     }
 }

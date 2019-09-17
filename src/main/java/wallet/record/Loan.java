@@ -1,13 +1,13 @@
 package wallet.record;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Loan extends Record {
     private double amount;
     private Contact person;
     private boolean isLend;
 
-    public Loan(String description, Date createdDate, double amount, Contact person, boolean isLend, boolean isSettled) {
+    public Loan(String description, LocalDate createdDate, double amount, Contact person, boolean isLend, boolean isSettled) {
         super(description, createdDate);
         this.amount = amount;
         this.person = person;

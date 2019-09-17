@@ -32,4 +32,8 @@ public class ExpenseList {
     public void editExpense(int index, Expense e) {
         expenseList.set(index, e);
     }
+
+    public int findExpenseIndex(Expense e) {
+        return expenseList.indexOf(e);
+    }
 }
