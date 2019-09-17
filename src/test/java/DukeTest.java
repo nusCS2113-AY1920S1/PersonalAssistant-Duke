@@ -47,7 +47,7 @@ public class DukeTest {
         new ReminderTest().test();
 
         //Test for freetime
-        new FindFreeTimesTest().test();
+        new FindFreeTimesTest().testTaskDateBeforeCurrent();
 
         //Test for do after task
         new DoAfterTaskTest().test("todo going after my work /after lunch");
