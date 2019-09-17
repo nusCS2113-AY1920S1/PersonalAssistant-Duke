@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class DeleteCommand extends Command {
 
-    protected int index;
+    private int index;
 
     /**
      * Creates a DeleteCommand object.
