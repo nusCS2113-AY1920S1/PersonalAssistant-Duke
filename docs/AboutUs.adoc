@@ -5,7 +5,6 @@
 :stylesDir: stylesheets
 
 Dukepital - developed by the https://github.com/AY1920S1-CS2113-T13-2/main[CS2113-T13-2] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -48,7 +47,7 @@ Responsibilities: UI
 '''
 
 === WEI FENG
-image::qjie7.png[width="150", align="left"]
+image::WEIFENG-NUSCEG.png[width="150", align="left"]
 {empty}[https://github.com/WEIFENG-NUSCEG[github]] [<<WEIFENG#, portfolio>>]
 
 Role: Developer +
