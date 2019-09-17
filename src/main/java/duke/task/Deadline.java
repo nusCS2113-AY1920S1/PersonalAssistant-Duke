@@ -135,4 +135,14 @@ public class Deadline extends Task {
         return "D | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.by.format(inputFormatter).length() + " | " + this.by.format(inputFormatter);
     }
+
+    /**
+     * Returns a LocalDateTime of this Deadline.
+     *
+     * @return The date and time of this Deadline.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.by;
+    }
 }

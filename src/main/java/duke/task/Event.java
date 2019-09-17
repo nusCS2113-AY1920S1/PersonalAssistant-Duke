@@ -135,4 +135,14 @@ public class Event extends Task {
         return "E | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
     }
+
+    /**
+     * Returns a LocalDateTime of this event.
+     *
+     * @return The date and time of this event.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.at;
+    }
 }
