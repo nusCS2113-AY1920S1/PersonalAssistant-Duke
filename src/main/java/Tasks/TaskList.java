@@ -29,9 +29,7 @@ public class TaskList {
         checkList.remove(index);
     }
 
-    public int lengthOfList(){
-        return checkList.size();
-    }
+    public int lengthOfList(){ return checkList.size(); }
 
     public void markDoneATask(int index){
         checkList.get(index).markAsDone();

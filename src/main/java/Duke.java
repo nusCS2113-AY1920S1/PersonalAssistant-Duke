@@ -1,4 +1,8 @@
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.Date;
+
 import Commands.*;
 import ControlPanel.*;
 import Tasks.*;
@@ -55,7 +59,11 @@ public class Duke{
      * @throws DukeException if any exception is caught
      */
     public static void main(String[] args) throws DukeException {
-        new Duke("/Users/chengweixuanmacbook/Desktop/School/CS2113/main/data/tasks.txt").run();
+        Path currentDir = Paths.get("data/tasks.txt");
+        //System.out.println(currentDir.toAbsolutePath());
+        String file = currentDir.toAbsolutePath().toString();
+        //System.out.println(file);
+        new Duke(file).run();
     }
 
 }//duke class

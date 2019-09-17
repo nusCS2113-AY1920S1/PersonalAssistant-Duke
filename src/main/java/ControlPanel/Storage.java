@@ -18,7 +18,7 @@ public class Storage {
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load () {
         ArrayList<Task> checkList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileName);
