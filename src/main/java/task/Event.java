@@ -34,7 +34,7 @@ public class Event extends Task {
      * @param description of event
      * @param at event date and time
      */
-    public Event(String i, String description, String at) {
+    public Event (String i, String description, String at, String Snooze) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
@@ -44,6 +44,7 @@ public class Event extends Task {
         }
         this.at = at;
         this.isDone = i.equals("1");
+        this.isSnooze= Snooze.equals("1");
     }
 
     @Override
@@ -58,6 +59,7 @@ public class Event extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        return "E | " + boolToInt + " | " + this.description + " | " + this.at + "\n";
+        int snoozebooltoInt = this.isSnooze ? 1 : 0;
+        return "E | " + boolToInt + " | " + this.description + " | " + this.at + " | " + snoozebooltoInt + "\n";
     }
 }

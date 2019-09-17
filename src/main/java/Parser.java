@@ -41,6 +41,10 @@ public class Parser {
             return new FindCommand(input, splitStr);
         case "viewschedule":
             return new ViewScheduleCommand();
+        case "snooze":
+            return new SnoozeCommand(splitStr);
+        case "unsnooze":
+            return new UnSnoozeCommand(splitStr);    
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

@@ -18,9 +18,10 @@ public class Todo extends Task {
      * @param i isDone status
      * @param description task description
      */
-    public Todo(String i, String description) {
+    public Todo(String i, String description, String Snooze) {
         super(description);
         this.isDone = i.equals("1");
+        this.isSnooze= Snooze.equals("1");
     }
 
     @Override
@@ -35,6 +36,7 @@ public class Todo extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = this.isDone ? 1 : 0;
-        return "T | " + boolToInt + " | " + this.description + "\n";
+        int snoozebooltoInt = this.isSnooze ? 1 : 0;
+        return "T | " + boolToInt + " | " + this.description + " | " + snoozebooltoInt + "\n";
     }
 }
