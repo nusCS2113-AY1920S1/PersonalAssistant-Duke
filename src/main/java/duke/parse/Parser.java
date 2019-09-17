@@ -12,6 +12,7 @@ import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.RecurringTask;
 import duke.task.Todo;
 
 /**
@@ -118,6 +119,8 @@ public class Parser {
             return new AddCommand(Event.create(data));
         case "todo":
             return new AddCommand(Todo.create(data));
+        case "recurring":
+            return new AddCommand(RecurringTask.create(data));
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
