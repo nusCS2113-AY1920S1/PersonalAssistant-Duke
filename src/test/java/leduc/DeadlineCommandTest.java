@@ -70,23 +70,7 @@ public class DeadlineCommandTest {
         assertTrue(tasks.size()==0);
 
 
-        DeadlineCommand deadlineCommandOk = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
-        try{
-            deadlineCommandOk.execute(tasks,ui,storage,parser);
-        }
-        catch (DukeException e){
-            assertTrue(false); // Should not be the case
-        }
-        assertTrue(tasks.size()==1);
-        assertTrue(tasks.get(0) instanceof DeadlinesTask);
 
-        DeleteCommand deleteCommand = new DeleteCommand("delete 1");
-        try{
-            deleteCommand.execute(tasks,ui,storage,parser);
-        }
-        catch(DukeException e){
-            assertTrue(false);
-        }
 
     }
 
