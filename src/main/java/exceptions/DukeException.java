@@ -24,7 +24,7 @@ public class DukeException extends Exception {
     public static final DukeException TASK_DOES_NOT_EXIST = new DukeException("☹ OOPS!!! "
         + "Task does not exist.");
     public static final DukeException TASK_NO_MISSING = new DukeException("☹ OOPS!!! Please "
-        + "provide a task number, e.g. done 1");
+        + "provide a task number.");
     public static final DukeException TASK_NO_MISSING_DELETE = new DukeException("☹ OOPS!!! Please "
         + "provide a task number, e.g. delete 1");
     public static final DukeException TASK_NO_MISSING_FIND = new DukeException("☹ OOPS!!! Please "
@@ -39,6 +39,9 @@ public class DukeException extends Exception {
     public static final DukeException FILE_NOT_FOUND = new DukeException("☹ OOPS!!! Unknown error "
         + "extracting tasks from database.");
     public static final DukeException INPUT_NOT_FOUND = new DukeException("☹ OOPS!!! No user input found");
+    public static final DukeException EMPTY_TASK_IN_EVENT_TENTATIVE = new DukeException("☹ OOPS!!! Please "
+        + "provide a valid time/task for the task");
+    public static final DukeException TASK_IS_NOT_TENTATIVE = new DukeException("☹ OOPS!!! Please select a tentative task.");
 
     private String message;
 

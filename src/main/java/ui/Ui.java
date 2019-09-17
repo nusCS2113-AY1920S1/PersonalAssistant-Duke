@@ -175,11 +175,46 @@ public class Ui {
     }
 
     /**
+     * Prints a message to query users for dates when user want to add a tentative task.
+     */
+    public static void queryForDates() {
+        System.out.println(line + "\n" + space + "Please provide the tentative dates.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the opening message for tentative event schedule.
+     */
+    public static void showEventTentativeOpeningMessage() {
+        System.out.println(line + "\n" + space + "Got it. I've added the following tasks to be tentatively scheduled :");
+    }
+
+    /**
      * Prints a message once a event task has been successfully added into database.
      */
-    public static void showEventMessage(String status, String message, int num) {
-        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [E]["
-            + status
+    public static void showEventTentativeMessage(String type, String status, String message) {
+        System.out.println(space + "[" +
+            type + "][" + status + "] " + message);
+    }
+
+    /**
+     * Prints the closing message after user have added tentative event.
+     * @param num1 which is the total number of tasks.
+     * @param num2 which is the total number of tentative only tasks.
+     */
+    public static void showEventTentativeCloseMessage(int num1, int num2) {
+        System.out.println(line);
+        System.out.println(space + "Now you have " + num1 + " tasks in the list including " +
+                num2 + " tentative tasks");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message once a tentative event task has been successfully added into database.
+     */
+    public static void showEventMessage(String type, String status, String message, int num) {
+        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + "[" +
+            type + "][" + status
             + "] " + message);
         if (num > 1) {
             System.out.println(space + "Now you have " + num + " tasks in the list.");

@@ -44,7 +44,7 @@ public class TaskList {
             Date next = null;
             if(entry.getValue().getType().equals("D")){
                 next = ((Deadline)entry.getValue()).getDate().getStartDate();
-            }else{
+            }else if (entry.getValue().getType().equals("E")){
                 next = ((Event)entry.getValue()).getDate().getStartDate();
             }
 
@@ -55,14 +55,14 @@ public class TaskList {
                 }
                 if(entry.getValue().getType().equals("D")){
                     now = ((Deadline)entry.getValue()).getDate().getEndDate();
-                }else{
+                }else if (entry.getValue().getType().equals("E")){
                     now = ((Event)entry.getValue()).getDate().getEndDate();
                 }
             }else{
 
                 if(entry.getValue().getType().equals("D")){
                     next = ((Deadline)entry.getValue()).getDate().getEndDate();
-                }else{
+                }else if (entry.getValue().getType().equals("E")){
                     next = ((Event)entry.getValue()).getDate().getEndDate();
                 }
                 if(next.after(now)){
@@ -124,6 +124,7 @@ public class TaskList {
             throw DukeException.TASK_DOES_NOT_EXIST;
         }
     }
+
 
     /**
      * Extracts the type of a particular task from database.
@@ -187,5 +188,19 @@ public class TaskList {
 
     public static void markTaskAsUndone(int num) {
         tasks.get(num).setDone(false);
+    }
+
+    /**
+     * This function counts the total number of tentative scheduled tasks in database.
+     * @return num which contains total number of tentative scheduled tasks in database.
+     */
+    public static int getTentativeNumber() {
+        int num = 0;
+        for (int i = 0; i < tasks.size(); i += 1) {
+            if (tasks.get(i).getType().equals("?][E")) {
+                num += 1;
+            }
+        }
+        return num;
     }
 }

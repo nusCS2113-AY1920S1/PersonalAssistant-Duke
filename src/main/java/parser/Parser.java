@@ -12,10 +12,7 @@ import ui.Ui;
 import wrapper.TimeInterval;
 
 import javax.swing.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -25,68 +22,144 @@ public class Parser {
     /**
      * Takes in users' input and call the aprropriate functions to execute the right action.
      */
-    public static int handleCommand(String firstWord, String s){
+    public static int handleCommand(String firstWord, String s) {
         int check = 0;
         if (s.equals("bye")) {
             Ui.showByeMessage();
             check = 1;
-        }else if(s.contains("freetime")){
-            try{
+        } else if (s.contains("freetime")) {
+            try {
                 getFreeSlot(s);
-            }catch (DukeException e) {
+            } catch (DukeException e) {
                 Ui.showError(e.getError());
             }
 
-        }else if(s.contains("get conflicts")){
+        } else if (s.contains("get conflicts")) {
 
             TaskList.getConflicts();
 
 
-        }else if(s.contains("change date")){
-            try{
+        } else if (s.contains("change date")) {
+            try {
                 changeDate(s);
-            }catch (DukeException e) {
+            } catch (DukeException e) {
                 Ui.showError(e.getError());
             }
-        }else {
+        } else {
             try {
                 switch (firstWord) {
-                case "list":
-                    listCommand();
-                    break;
-                case "done":
-                    doneCommand(s);
-                    break;
-                //================================================
-                case "delete":
-                    deleteCommand(s);
-                    break;
-                //================================================
-                case "find":
-                    findCommand(s);
-                    break;
-                case "todo":
-                    todoCommand(s);
-                    break;
-                //================================================
-                case "deadline":
-                    deadlineCommand(s);
-                    break;
-                //================================================
-                case "event":
-                    eventCommand(s);
-                    break;
-                case "do":
-                    doAfterCommand(s);
-                    break;
-                default:
-                    throw DukeException.UNKNOWN_COMMAND;
+                    case "list":
+                        listCommand();
+                        break;
+                    case "done":
+                        doneCommand(s);
+                        break;
+                    //================================================
+                    case "delete":
+                        deleteCommand(s);
+                        break;
+                    //================================================
+                    case "find":
+                        findCommand(s);
+                        break;
+                    case "todo":
+                        todoCommand(s);
+                        break;
+                    //================================================
+                    case "deadline":
+                        deadlineCommand(s);
+                        break;
+                    //================================================
+                    case "event":
+                        eventCommand(s);
+                        break;
+                    case "do":
+                        doAfterCommand(s);
+                        break;
+                    case "fix":
+                        fixCommand(s);
+                        break;
+                    default:
+                        throw DukeException.UNKNOWN_COMMAND;
                 }
             } catch (DukeException e) {
                 Ui.showError(e.getError());
             }
         }
         return check;
+    }
+
+    /**
+     * This function deals when user wants to fix a tentative task.
+     * @param s the whole user command.
+     * @throws DukeException when user did not enter task number or select wrong task.
+     * */
+    private static void fixCommand(String s) throws DukeException{
+        try {
+            String[] tokens = s.split(" ");
+            int num = Integer.parseInt(tokens[1]);
+            String message = TaskList.getMessage(num - 1).substring(0,
+                TaskList.getMessage(num - 1).indexOf("(at:"));
+            String date = TaskList.getMessage(num - 1).substring(
+                TaskList.getMessage(num - 1).indexOf("(at:") + 5);
+            String[] time = date.split(" to ");
+            time[1] = time[1].substring(0, time[1].length() - 1);
+            //System.out.println(message + date);
+            String type = TaskList.getType(num - 1);
+            if (!(type.equals("?][E"))) {
+                throw DukeException.TASK_IS_NOT_TENTATIVE;
+            }
+            int upper = num - 1;
+            int lower = num - 1;
+            int start = 0;
+            int end = TaskList.getTotalTasksNumber() - 1;
+            while ((end >= 0) || (start <= TaskList.getTotalTasksNumber() - 1)) {
+                String checkMessage = new String();
+                String checkMessage2 = new String();
+                if (upper - 1>= 0) {
+                    checkMessage = TaskList.getMessage(upper - 1).substring(0,
+                        TaskList.getMessage(upper - 1).indexOf("(at:"));
+                }
+                if (lower + 1 <= TaskList.getTotalTasksNumber() - 1) {
+                    checkMessage2 = TaskList.getMessage(lower + 1).substring(0,
+                        TaskList.getMessage(lower + 1).indexOf("(at:"));
+                }
+                //System.out.println(upper + " " + lower);
+                if ((upper - 1 >= 0) && (checkMessage.equals(message)) &&
+                    (TaskList.getType(upper - 1).equals("?][E"))) {
+                    upper -= 1;
+                }
+                if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1) &&
+                    (checkMessage2.equals(message)) &&
+                    (TaskList.getType(lower + 1).equals("?][E"))) {
+                    //String[] checkMessage2 = TaskList.getMessage(lower).split("at:");
+                    lower += 1;
+                }
+                start += 1;
+                end -= 1;
+            }
+            //System.out.println(upper + " " + lower);
+            while (lower >= upper) {
+                TaskList.removeTask(upper);
+                lower -= 1;
+            }
+
+            Event task1 = new Event(message, "E", time[0], time[1]);
+            String newtodoTask1 = task1.toMessage();
+            Tasks newToDo1 = new Event(newtodoTask1, "E", time[0], time[1]);
+            int todolistNumber = TaskList.getTotalTasksNumber();
+            TaskList.addTask(newToDo1);
+            Ui.showEventMessage(TaskList.getType(todolistNumber), TaskList.getStatus(todolistNumber),
+                newtodoTask1, todolistNumber + 1);
+            Storage.saveTask(TaskList.getList());
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw DukeException.TASK_NO_MISSING;
+        } catch (NumberFormatException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        } catch (IndexOutOfBoundsException e) {
+            throw DukeException.TASK_DOES_NOT_EXIST;
+        }
     }
 
     private static void getFreeSlot(String s) throws DukeException {
@@ -101,11 +174,11 @@ public class Parser {
             throw DukeException.TASK_DOES_NOT_EXIST;
         }
 
-        if(num > 0){
+        if (num > 0) {
 
             TimeInterval freeslot = TaskList.getFreeSlot(num);
 
-            Ui.showFreeTime(num , freeslot);
+            Ui.showFreeTime(num, freeslot);
         }
 
     }
@@ -117,27 +190,27 @@ public class Parser {
             String[] tokens = s.split(" ");
             num = Integer.parseInt(tokens[2]);
 
-            Tasks temp = TaskList.getList().get(num-1);
+            Tasks temp = TaskList.getList().get(num - 1);
 
             Scanner scan = new Scanner(System.in);
 
-           if(temp.getType().equals("E")){
-               Ui.showMsg("Enter new start and end date");
-               String inputStr = scan.nextLine().trim();
-               String[] startendtime = inputStr.split("to");
-               ((Event)temp).setTime(startendtime[0] , startendtime[1]);
-               Ui.updateTime(temp);
-
-
-           } else if(temp.getType().equals("D")){
-               Ui.showMsg("Enter new deadline");
-               String inputStr = scan.nextLine().trim();
-               ((Deadline)temp).setTime(inputStr);
+            if (temp.getType().equals("E")) {
+                Ui.showMsg("Enter new start and end date");
+                String inputStr = scan.nextLine().trim();
+                String[] startendtime = inputStr.split("to");
+                ((Event) temp).setTime(startendtime[0], startendtime[1]);
                 Ui.updateTime(temp);
 
-           } else{
-               Ui.showError("You cannot change the date of a Todo task!");
-           }
+
+            } else if (temp.getType().equals("D")) {
+                Ui.showMsg("Enter new deadline");
+                String inputStr = scan.nextLine().trim();
+                ((Deadline) temp).setTime(inputStr);
+                Ui.updateTime(temp);
+
+            } else {
+                Ui.showError("You cannot change the date of the task!");
+            }
 
             Storage.saveTask(TaskList.getList());
 
@@ -184,15 +257,15 @@ public class Parser {
         List<Tasks> userToDoList = TaskList.getList();
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
-            switch(userToDoList.get(i).getType()){
+            switch (userToDoList.get(i).getType()) {
                 case "E":
-                    message = ((Event)userToDoList.get(i)).toMessage();
+                    message = ((Event) userToDoList.get(i)).getDescription();
                     break;
                 case "D":
-                    message = ((Deadline)userToDoList.get(i)).toMessage();
+                    message = ((Deadline) userToDoList.get(i)).toMessage();
                     break;
                 case "T":
-                    message = ((ToDo)userToDoList.get(i)).toMessage();
+                    message = ((ToDo) userToDoList.get(i)).toMessage();
                     break;
                 default:
                     message = (userToDoList.get(i)).getDescription();
@@ -312,7 +385,6 @@ public class Parser {
     }
 
 
-
     /**
      * Creates a new event task with users' input.
      * Then, prints a confirmation message by calling showEventMessage function under Ui class.
@@ -322,7 +394,6 @@ public class Parser {
         try {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
-            String[] startendtime = time1.split("to");
             //Date timetemp1 = TimeParser.convertStringToDate(time1);
             //time1 = TimeParser.convertDateToLine(timetemp1);
             if (todoTask1.isEmpty()) {
@@ -337,14 +408,22 @@ public class Parser {
             if (time1.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_EVENT;
             }
-            Event task1 = new Event(todoTask1, "E", startendtime[0], startendtime[1]);
-            String newtodoTask1 = task1.toMessage();
-//            Tasks newToDo1 = new Event(newtodoTask1, "E", startendtime[0] ,startendtime[1]);
-            int todolistNumber = TaskList.getTotalTasksNumber();
-            TaskList.addTask(task1);
-            Ui.showEventMessage(TaskList.getStatus(todolistNumber), newtodoTask1, todolistNumber + 1);
-            Storage.saveTask(TaskList.getList());
+            if (time1.equals("tentative")) {
+                eventTentativeCommand(todoTask1);
+            } else {
+                String[] startendtime = time1.split("to");
+                Event task1 = new Event(todoTask1, "E", startendtime[0], startendtime[1]);
+                String newtodoTask1 = task1.toMessage();
+                Tasks newToDo1 = new Event(newtodoTask1, "E", startendtime[0], startendtime[1]);
+                int todolistNumber = TaskList.getTotalTasksNumber();
+                TaskList.addTask(newToDo1);
+                Ui.showEventMessage(TaskList.getType(todolistNumber), TaskList.getStatus(todolistNumber),
+                    newtodoTask1, todolistNumber + 1);
+                Storage.saveTask(TaskList.getList());
+            }
         } catch (StringIndexOutOfBoundsException e) {
+            throw DukeException.INVALID_FORMAT_IN_EVENT;
+        } catch (ArrayIndexOutOfBoundsException e1) {
             throw DukeException.INVALID_FORMAT_IN_EVENT;
         }
     }
@@ -386,6 +465,47 @@ public class Parser {
         }
     }
 
+    /**
+     * This function deals when user wants to store tentative tasks.
+     * @param todoTask1 description of the task.
+     * @throws DukeException when user did not/wrongly input description of task and/or date.
+     */
+    private static void eventTentativeCommand(String todoTask1) throws DukeException {
+        Ui.queryForDates();
+        try {
+            Scanner scan = new Scanner(System.in);
+            String time1 = scan.nextLine().trim();
+            if (time1.isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
+            }
+            if (time1.equals(" ")) {
+                throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
+            }
+            String[] diffDates = time1.split("or");
+            for (int i = 0; i < diffDates.length; i += 1) {
+                String[] startendtime = diffDates[i].split("to");
+                Event task1 = new Event(todoTask1, "?][E", startendtime[0], startendtime[1]);
+                String newtodoTask1 = task1.toMessage();
+                Tasks newToDo1 = new Event(newtodoTask1, "?][E", startendtime[0], startendtime[1]);
+                int todolistNumber = TaskList.getTotalTasksNumber();
+                TaskList.addTask(newToDo1);
+                if (i == 0) {
+                    Ui.showEventTentativeOpeningMessage();
+                }
+                Ui.showEventTentativeMessage(TaskList.getType(todolistNumber), TaskList.getStatus(todolistNumber),
+                    newtodoTask1);
+            }
+            Ui.showEventTentativeCloseMessage(TaskList.getTotalTasksNumber(),
+                TaskList.getTentativeNumber());
+            Storage.saveTask(TaskList.getList());
 
+        } catch (NullPointerException e) {
+            throw DukeException.INPUT_NOT_FOUND;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
+        } catch (ArrayIndexOutOfBoundsException e1) {
+            throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
+        }
+    }
 }
 
