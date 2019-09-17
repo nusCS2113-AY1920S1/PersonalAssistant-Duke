@@ -26,7 +26,7 @@ public class Deadline extends Task implements Serializable{
     @Override
     public String toString() {
         return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: "
-                + this.atDate.format(DateTimeExtractor.DATE_FORMATTER);
+                + this.atDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
 }

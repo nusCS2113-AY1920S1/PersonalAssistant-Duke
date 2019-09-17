@@ -2,6 +2,9 @@ package task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * The TaskList class handles all operations performed on the TaskList as well as stores the TaskList.
  *
@@ -15,6 +18,34 @@ public class TaskList {
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
+
+    /**
+     * This custom comparator allows the sorting of both deadlines and events.
+     *
+     * @param task contains the task that needs to be added.
+     */
+    public static final Comparator<Task> DateComparator = (firstDate, secondDate) -> {
+        LocalDateTime localDateTime = LocalDateTime.of(1,1,1,1,1,
+                1,1);
+        if (firstDate.fromDate == localDateTime && secondDate.fromDate == localDateTime)
+        {
+            if (firstDate.atDate.isBefore(secondDate.atDate)){ return -1; }
+            else{ return 1; }
+        }
+        else if (firstDate.fromDate == localDateTime)
+        {
+            if (firstDate.atDate.isBefore(secondDate.fromDate)){ return -1; }
+            else{ return 1; }
+        }
+        else if (secondDate.fromDate == localDateTime) {
+            if (firstDate.fromDate.isBefore(secondDate.atDate)){ return -1; }
+            else{ return 1; }
+        }
+        else {
+            if (firstDate.fromDate.isBefore(secondDate.fromDate)){ return -1; }
+            else{ return 1; }
+        }
+    };
 
     /**
      * This function allows the use to delete a particular task.
@@ -52,10 +83,10 @@ public class TaskList {
         return holdFoundTasks;
     }
     /**
-     * Performs a check as to if the task being added has a clash with another event. (CONTAINS A STEP BY STEP GUIDE)
+     * Performs a check as to determine if the task being added has a clash with another task already scheduled.
      *
-     * @param taskToCheck the task being checked by the user.
-     * @param command contains the command to determine the action to perform.
+     * @param taskToCheck the task trying to be added by the user.
+     * @param command contains the command type of the task to determine the action to perform.
      * @return boolean true if there is a clash, false if there is not clash.
      */
     public boolean isClash(Task taskToCheck, String command) {
@@ -111,7 +142,22 @@ public class TaskList {
         }
 
     }
-
+    /**
+     * This function allows the user to obtain the tasks on a particular date.
+     *
+     * @param dayToFind is of String type which contains the desired date of schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     */
+    public ArrayList<Task> schedule(String dayToFind){
+        ArrayList<Task> sortedDateList = new ArrayList<Task>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            if(!(listOfTasks.get(i).getClass() == task.Todo.class) && listOfTasks.get(i).toString().contains(dayToFind)) {
+                sortedDateList.add(listOfTasks.get(i));
+            }
+        }
+        Collections.sort(sortedDateList,DateComparator);
+        return sortedDateList;
+    }
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;

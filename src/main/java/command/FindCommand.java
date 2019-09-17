@@ -21,13 +21,12 @@ public class FindCommand extends Command{
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and save to persistent storage.
+     * This execute function is used to find the tasks with a particular keyword.
      *
      * @param tasks this string holds command type determinant to decide how to process the user input.
-     * @param ui this string holds the description of the task provided by the user.
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      */
-    @Override
+
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
         if (holdFoundTasks.isEmpty())
@@ -40,8 +39,10 @@ public class FindCommand extends Command{
         }
 
         int i = 1;
+        Ui.printDash();
         for (Task task : holdFoundTasks) {
             Ui.printMessage(i++ + "." + task.toString());
         }
+        Ui.printDash();
     }
 }

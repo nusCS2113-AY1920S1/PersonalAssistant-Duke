@@ -16,6 +16,7 @@ public class DateTimeExtractor {
     private static LocalDateTime dateEvent;
     private static LocalDateTime dateDeadline;
     private static LocalDateTime datePostpone;
+    private static LocalDateTime dateView;
     private static final LocalDateTime dateError = LocalDateTime.now();
 
     /**
@@ -38,7 +39,12 @@ public class DateTimeExtractor {
         else if (command.equals("postpone")){
             datePostpone = LocalDateTime.parse(dateTimeFromUser,DATE_FORMATTER);
             return datePostpone;
-        }        // Allows the developer to know that a command other than deadline or event was passed to the function!
+        }
+        else if (command.equals("view")){
+            dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateView;
+        }
+        // Allows the developer to know that a command other than deadline or event was passed to the function!
         return dateError;
     }
 }
