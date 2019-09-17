@@ -1,12 +1,6 @@
 package duke.storage;
 
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Repeat;
-import duke.task.DoAfter;
+import duke.task.*;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
@@ -51,6 +45,7 @@ public class Storage {
         String taskDesc;
         String dateDesc;
         String afterDesc;
+        String durDesc;
         while ((st = br.readLine()) != null) {
             String[] commandList = st.split("\\|");
             try {
@@ -58,13 +53,17 @@ public class Storage {
                 taskDesc = "";
                 dateDesc = "";
                 afterDesc = "";
+                durDesc = "";
                 for (int i = 0; i < commandList.length; i++) {
                     if (i == 2) {
                         taskDesc = commandList[i];
                     } else if (i == 3) {
                         if (commandList[0].equals("A")) {
                             afterDesc = commandList[i];
-                        } else {
+                        } else if (commandList[0].equals("F")) {
+                            durDesc = commandList[i];
+                        }
+                        else {
                             dateDesc = commandList[i];
                         }
                     }
@@ -116,6 +115,17 @@ public class Storage {
                                 + " skipping to next line");
                     } else {
                         t = new DoAfter(taskDesc, afterDesc);
+                        t.setStatusIcon(checked);
+                        items.add(t);
+                    }
+                } else if (commandList[0].equals("F")) {
+                    System.out.println(taskDesc + dateDesc);
+                    if (taskDesc.isEmpty() || durDesc.isEmpty()) {
+                        throw new DukeException("Error reading description or do after description,"
+                                + " skipping to next line");
+                    } else {
+                        int duration = Integer.parseInt(durDesc.split(" ")[0]);
+                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[1]);
                         t.setStatusIcon(checked);
                         items.add(t);
                     }

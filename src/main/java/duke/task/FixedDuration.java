@@ -34,6 +34,6 @@ public class FixedDuration extends Task{
      */
     @Override
     public String toFile() {
-        return "F|" + super.toFile() + "|" + "needs " + duration + " " + unit;
+        return "F|" + super.toFile() + "|" + duration + " " + unit;
     }
 }

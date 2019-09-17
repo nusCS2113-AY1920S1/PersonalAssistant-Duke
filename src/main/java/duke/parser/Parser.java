@@ -8,13 +8,7 @@ import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.AddMultipleCommand;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.DoAfter;
-import duke.task.Repeat;
-import duke.task.Todo;
+import duke.task.*;
 import duke.dukeexception.DukeException;
 
 import java.util.ArrayList;
@@ -205,6 +199,37 @@ public class Parser {
                     }
                 }
                 return new AddMultipleCommand(repeatList);
+            }
+        } else if (arr.length > 0 && arr[0].equals("fixedduration")) {
+            //fixedduration <task> /for <duration> <unit>
+            String description = "";
+            String durDesc;
+            int duration;
+            String unit;
+            for (int i = 1; i < arr.length; i++) {
+                description += arr[i] + " ";
+            }
+            taskDesc = description.split(" /for ")[0].trim();
+            durDesc = description.split(" /for ")[1].trim();
+
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+            } else if (durDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of duration for "
+                        + arr[0] + " cannot be empty.");
+            } else {
+                try {
+                    duration = Integer.parseInt(durDesc.split(" ")[0].trim());
+                } catch (Exception e) {
+                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                }
+                unit = durDesc.split(" ")[1].trim();
+                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("hour"))) {
+                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                } else {
+                    FixedDuration fixedDuration = new FixedDuration(taskDesc, duration, unit);
+                    return new AddCommand(fixedDuration);
+                }
             }
         } else if (sentence.equals("bye")) {
             return new ExitCommand();
