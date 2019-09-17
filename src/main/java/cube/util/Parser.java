@@ -56,10 +56,11 @@ public class Parser {
 				return new HelpCommand();
 			case "find":
 				return new FindCommand(description);
+			case "view":
+				return new ViewCommand(date);
 			case "bye":
 			case "exit":
 			case "quit":
-			case "fuck":
 				return new ExitCommand();
 			default:
 				throw new DukeException(Message.INVALID_COMMAND);

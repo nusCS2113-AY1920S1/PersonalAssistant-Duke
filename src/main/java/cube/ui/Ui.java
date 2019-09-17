@@ -137,6 +137,7 @@ public class Ui {
 				+ "Show task list:\n"
 				+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
 				+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
+				+ String.format("%1$-50s", "  'View /at <dd/mm/yy>'") + "show the list of tasks that falls within specified date\n"
 				+ "Miscellanious:\n"
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
