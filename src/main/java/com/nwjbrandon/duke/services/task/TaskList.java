@@ -1,12 +1,10 @@
 package com.nwjbrandon.duke.services.task;
 
-import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +20,7 @@ public class TaskList {
     private ArrayList<Task> todayList;
     private ArrayList<Task> undefinedList;
     private ArrayList<Task> eventualList;
+
     /**
      * Create list of tasks.
      */
@@ -100,7 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Shows the reminders in sorted order
+     * Shows the reminders in sorted order.
      */
     public void showSortedReminders() {
         undefinedList.clear();
@@ -108,7 +107,7 @@ public class TaskList {
         eventualList.clear();
         overdueList.clear();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Date currDate = Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
+        Date currDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         for (Task i : tasksList) {
             Date currTaskDate = i.getDate();
             if (currTaskDate == null) {
@@ -126,17 +125,17 @@ public class TaskList {
                 }
             }
         }
-        Collections.sort(overdueList, new customSort());
-        Collections.sort(todayList, new customSort());
-        Collections.sort(eventualList, new customSort());
-        Collections.sort(undefinedList, new customSort());
+        Collections.sort(overdueList, new CustomSort());
+        Collections.sort(todayList, new CustomSort());
+        Collections.sort(eventualList, new CustomSort());
+        Collections.sort(undefinedList, new CustomSort());
         Terminal.showSortedRemindersList(overdueList, todayList, eventualList, undefinedList);
     }
 
     /**
      * Custom Comparator to sort the Tasks according to date.
      */
-    public class customSort implements Comparator<Task> {
+    public class CustomSort implements Comparator<Task> {
 
         public int compare(Task t1, Task t2) {
             return t1.getDate().compareTo(t2.getDate());
