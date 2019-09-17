@@ -3,10 +3,12 @@ package duke.tasks;
 import duke.DateTime;
 import duke.exceptions.DukeException;
 
+import java.util.Date;
+
 public class Deadline extends Task {
     private DateTime by;
 
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, Date by) throws DukeException {
         super(description);
         this.by = new DateTime(by);
     }
@@ -17,7 +19,7 @@ public class Deadline extends Task {
      * @param description the name or description of the deadline.
      * @param by the due date/time of the deadline.
      */
-    public Deadline(int done, String description, String by) throws DukeException {
+    public Deadline(int done, String description, Date by) throws DukeException {
         super(description);
         this.isDone = (done == 1);
         this.by = new DateTime(by);

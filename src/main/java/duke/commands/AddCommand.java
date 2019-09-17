@@ -11,6 +11,7 @@ import duke.tasks.Todo;
 import duke.Ui;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddCommand extends Command {
@@ -47,6 +48,8 @@ public class AddCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         List<String> formattedOutput = new ArrayList<>();
         Task added;
+        com.joestelmach.natty.Parser parser;
+        List dates;
 
         try {
             switch (this.type) {
@@ -57,24 +60,32 @@ public class AddCommand extends Command {
                 break;
 
             case "deadline":
+                parser = new com.joestelmach.natty.Parser();
+                dates = parser.parse(fullCommand.split("/by ")[1]).get(0).getDates();
+                Date by = (Date) dates.get(0);
                 added = taskList.addTask(new Deadline(fullCommand.substring(0, fullCommand.lastIndexOf(" /by"))
                         .replaceFirst("deadline ", ""),
-                        fullCommand.split("/by ")[1]));
+                        by));
                 formattedOutput.add("Got it. I've added this deadline:");
                 formattedOutput.add(added.toString());
                 break;
 
             default:
+                parser = new com.joestelmach.natty.Parser();
+                dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
+                Date start = (Date) dates.get(0);
+                Date end = (Date) dates.get(1);
                 added = taskList.addTask(new Event(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
                         .replaceFirst("event ", ""),
-                        fullCommand.split("/at ")[1]));
+                        start, end));
                 formattedOutput.add("Got it. I've added this event:");
                 formattedOutput.add(added.toString());
             }
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
-                    + "Duke.Tasks.Deadline: deadline <task name> /by <DD/MM/YYYY HHMM>\n"
-                    + "Duke.Tasks.Event: event <task name> /at <start as DD/MM/YYYY HHMM>_<end as DD/MM/YYYY HHMM>");
+                    + "Duke.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
+                    + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
+                    + "to <end as DD/MM/YYYY HH:MM>");
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));

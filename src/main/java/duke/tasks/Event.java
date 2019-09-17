@@ -1,7 +1,8 @@
 package duke.tasks;
 
 import duke.DateTime;
-import duke.exceptions.DukeException;
+
+import java.util.Date;
 
 public class Event extends Task {
     private DateTime start;
@@ -10,33 +11,33 @@ public class Event extends Task {
     /**
      * Constructor for Duke.Tasks.Event object.
      * @param description name of the event.
-     * @param at Will be broken into two dateTime objects.
-     * @throws DukeException thrown from Duke.DateTime object.
+     * @param start Date object for start DateTime.
+     * @param end Date object for end DateTime.
      */
-    public Event(String description, String at) throws DukeException {
+    public Event(String description, Date start, Date end) {
         super(description);
-        String[] duration = at.split("_");
-        this.start = new DateTime(duration[0]);
-        this.end = new DateTime(duration[1]);
+        this.start = new DateTime(start);
+        this.end = new DateTime(end);
     }
+
 
     /**
      * This constructor is used for recreation of Duke.Tasks.Deadline from storage.
-     * @param done 1 if task has been marked complete, 0 otherwise.
+     * @param done  1 if task has been marked complete, 0 otherwise.
      * @param description the name or description of the event.
-     * @param at the actual date/time/duration of the event.
+     * @param start Date object for start DateTime.
+     * @param end Date object for end DateTime.
      */
-    public Event(int done, String description, String at) throws DukeException {
+    public Event(int done, String description, Date start, Date end) {
         super(description);
         this.isDone = (done == 1);
-        String[] duration = at.split("_");
-        this.start = new DateTime(duration[0]);
-        this.end = new DateTime(duration[1]);
+        this.start = new DateTime(start);
+        this.end = new DateTime(end);
     }
 
     @Override
     public String storeString() {
-        return "E | " + super.storeString() + " | " + this.getStart() + "_" + this.getEnd();
+        return "E | " + super.storeString() + " | " + this.getStart() + " | " + this.getEnd();
     }
 
     @Override

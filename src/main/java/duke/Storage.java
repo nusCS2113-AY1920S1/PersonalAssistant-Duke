@@ -1,5 +1,6 @@
 package duke;
 
+import com.joestelmach.natty.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.tasks.Deadline;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -40,6 +42,7 @@ public class Storage {
      */
     public List<Task> loadData() throws DukeException {
         Vector<Task> tasks = new Vector<>();
+        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         try {
             BufferedReader inputStream = new BufferedReader(new FileReader(dukeFile));
             while (true) {
@@ -53,10 +56,13 @@ public class Storage {
                         tasks.addElement(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
                         break;
                     case "D":
-                        tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
+                        Date by = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], by));
                         break;
                     default:
-                        tasks.addElement(new Event(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
+                        Date start = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        Date end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        tasks.addElement(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
                     }
                 }
             }

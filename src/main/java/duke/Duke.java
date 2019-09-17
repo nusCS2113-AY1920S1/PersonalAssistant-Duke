@@ -41,7 +41,7 @@ public class Duke {
      * Entry point into this java program, for CLI version.
      */
     public static void main(String[] args) {
-        Duke dukeInstance = new Duke("data/duke.txt", true);
+        new Duke("data/duke.txt", true);
     }
 
     /**

@@ -37,6 +37,7 @@ application {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile group: 'com.joestelmach', name: 'natty', version: '0.6'
 }
 
 test {
