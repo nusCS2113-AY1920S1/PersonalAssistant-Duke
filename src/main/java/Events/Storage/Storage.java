@@ -1,4 +1,7 @@
-package Model_Class;
+package Events.Storage;
+
+import Events.EventTypes.Task;
+import UserElements.UI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,15 +20,17 @@ public class Storage {
 
     /**
      * Creates new Model_Class.Storage object
+     *
      * @param file The storage file
      */
-    public Storage(File file){
+    public Storage(File file) {
         this.file = file;
     }
 
     /**
      * Reads from the file whenever the program is run.
      * Stores all read information into an array of strings to be returned.
+     *
      * @param ui user interface
      * @return Array of strings containing all information from the read file
      */
@@ -66,10 +71,11 @@ public class Storage {
 
     /**
      * Saves current information to the storage file.
+     *
      * @param tasks Tasklist where information is extracted to be saved
-     * @param ui User interface
+     * @param ui    User interface
      */
-    public void saveToFile(TaskList tasks, UI ui){
+    public void saveToFile(TaskList tasks, UI ui) {
         String toWriteToFile = "";
         for (Task currTask : tasks.getTaskArrayList()) {
             toWriteToFile += currTask.toString() + "\n";
