@@ -49,7 +49,7 @@ public class Parser {
             c = new ByeCommand(user);
         }
         else {
-            c = new MeaningLessCommand(user);
+            c = new MeaninglessCommand(user);
         }
         return c ;
 
