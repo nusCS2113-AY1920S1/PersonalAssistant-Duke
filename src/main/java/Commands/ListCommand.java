@@ -11,7 +11,7 @@ public class ListCommand extends Command {
      * @param list The TaskList object to retrieve the contents from
      * @param ui The Ui object to display the list message
      * @param storage The Storage object to access file to load or save the tasks
-     * @return This returns the method in the Ui object which returns the string to display list message
+     * @return
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {

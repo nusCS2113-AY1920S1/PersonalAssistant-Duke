@@ -15,6 +15,8 @@ public class Event extends Task {
     public Event(String description, String by) {
         super(description);
         this.by = by;
+        this.date = by;
+
     }
 
     /**
@@ -25,4 +27,5 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + by + ")";
     }
+
 }

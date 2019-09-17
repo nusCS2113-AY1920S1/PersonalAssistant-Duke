@@ -73,6 +73,8 @@ public class Parser {
                     Date date = formatter.parse(arr[1].trim());
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
+
+
                     return new AddCommand(new Event(arr[0].trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +

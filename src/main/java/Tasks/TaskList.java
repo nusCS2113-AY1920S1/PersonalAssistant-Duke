@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * To keep track of the list of task input by user.
  */
 public class TaskList {
+
     protected ArrayList<Task> list;
 
     /**
@@ -47,6 +48,8 @@ public class TaskList {
         return this.list.get(index);
     }
 
+
+
     /**
      * This method converts a specific Task object from the ArrayList to a string.
      * @param index Index in the ArrayList to retrieve the Task object from
@@ -86,4 +89,5 @@ public class TaskList {
         }
         return temp;
     }
+
 }
