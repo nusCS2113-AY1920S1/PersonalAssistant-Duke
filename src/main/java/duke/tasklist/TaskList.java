@@ -1,11 +1,7 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.DoAfter;
+import duke.task.*;
 
 import java.util.ArrayList;
 
@@ -129,6 +125,22 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
+    /**
+     * Adds fixed duration task to taskList
+     * @param description String containing the description of the task
+     * @param need String containing time needed for the task
+     */
+    public void addDurationTask(String description, String need) {
+        taskList.add(new Duration(description, need));
+        int index = taskList.size();
+        if (index == 1) {
+            msg = " task in the list.";
+        } else {
+            msg = MESSAGE_ITEMS2;
+        }
+        System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+    }
+  
     /**
      * Adds todo task need to be done after a specific time or task.
      * @param description String containing the description of the task
