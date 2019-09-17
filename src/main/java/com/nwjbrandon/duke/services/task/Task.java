@@ -1,5 +1,6 @@
 package com.nwjbrandon.duke.services.task;
 
+import com.joestelmach.natty.Parser;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
@@ -28,6 +29,31 @@ public abstract class Task {
      * Task name and date.
      */
     private String taskDescription = "";
+
+    /**
+     * Converts a string to a Date object.
+     * @param dateString the string containing the date.
+     * @return The corresponding Date object if the dateString is valid.
+     * @throws ParseException if there is no date found in the dateString.
+     */
+    public static Date parseDate(String dateString) throws ParseException {
+        Parser dateParser = new Parser();
+        Date date = null;
+        try {
+            date = dateParser.parse(dateString).get(0).getDates().get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException("",0);
+        }
+        return date;
+
+    }
+  
+    /**
+     * If valid, date will be actual date.
+     * else it will be null.
+     */
+    private Date date = null;
+
 
     /**
      * Create task.
@@ -59,6 +85,14 @@ public abstract class Task {
      * @throws DukeWrongCommandFormatException command in wrong format.
      */
     public abstract String formatTaskName(String taskDescription) throws DukeWrongCommandFormatException;
+
+    /**
+     * Get date.
+     * @return the date in the Date Object form.
+     */
+    Date getDate() {
+        return this.date;
+    }
 
     /**
      * Get the task date.
@@ -134,7 +168,7 @@ public abstract class Task {
         String pattern = "dd/MM/yyyy hhmm";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = formatter.parse(originalDate);
-
+        this.date = date;
         pattern = "d";
         formatter = new SimpleDateFormat(pattern);
         final String a = formatter.format(date);
@@ -148,14 +182,15 @@ public abstract class Task {
         final String c = formatter.format(date).toLowerCase();
 
         String symbol = "";
-        switch (a) {
-        case "1":
+        char lastChar = a.charAt(a.length() - 1);
+        switch (lastChar) {
+        case '1':
             symbol = "st";
             break;
-        case "2":
+        case '2':
             symbol = "nd";
             break;
-        case "3":
+        case '3':
             symbol = "rd";
             break;
         default:
@@ -181,4 +216,6 @@ public abstract class Task {
     public void removeTaskString(int size) {
         Terminal.showTaskActionString("\t removed: ", this.getTaskDescription());
     }
+
+
 }

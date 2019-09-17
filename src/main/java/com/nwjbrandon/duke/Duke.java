@@ -13,13 +13,13 @@ public class Duke {
     }
 
     /**
-     * Main application starts running here.
-     * @param args - input of array of strings from console
+     * This is the main method which runs everything.
+     * @param args Takes in a string argument.
+     * @throws IOException Throws the exception for input/output.
      */
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser();
         List<Date> dates = parser.parse("Sep 15, 2019 20:00:00 +7:00").get(0).getDates();
-        Terminal.showMessage("Natty is setup on " + dates.get(0));
 
         Terminal.greetingMessage();
         String pwd = System.getProperty("user.dir");

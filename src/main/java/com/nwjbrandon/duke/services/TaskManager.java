@@ -10,6 +10,7 @@ import com.nwjbrandon.duke.services.command.DoneCommand;
 import com.nwjbrandon.duke.services.command.EventsCommand;
 import com.nwjbrandon.duke.services.command.InvalidCommand;
 import com.nwjbrandon.duke.services.command.ListCommand;
+import com.nwjbrandon.duke.services.command.RemindersCommand;
 import com.nwjbrandon.duke.services.command.SearchCommand;
 import com.nwjbrandon.duke.services.command.TodosCommand;
 import com.nwjbrandon.duke.services.task.Task;
@@ -170,9 +171,12 @@ public class TaskManager {
             return new DeleteCommand(userInput, TaskCommands.DELETE.toString(), size);
         } else if (userInput.startsWith(TaskCommands.FIND.toString())) {
             return new SearchCommand(userInput, TaskCommands.FIND.toString());
+        } else if (userInput.equals(TaskCommands.REMINDER.toString())) {
+            return new RemindersCommand(userInput, TaskCommands.DONE.toString(), size);
         } else if (userInput.equals(TaskCommands.BYE.toString())) {
             isRunning = false;
             return new InvalidCommand();
+
         } else {
             throw new DukeWrongCommandException();
         }
