@@ -156,7 +156,8 @@ public class Terminal {
      * @param eventualList the list of tasks which have a date, but isn't due yet.
      * @param undefinedList the list of tasks which do not have a date.
      */
-    public static void showSortedRemindersList(ArrayList<Task> overdueList,ArrayList<Task> todayList,ArrayList<Task> eventualList,ArrayList<Task> undefinedList) {
+    public static void showSortedRemindersList(ArrayList<Task> overdueList,ArrayList<Task> todayList,
+                                               ArrayList<Task> eventualList,ArrayList<Task> undefinedList) {
         Terminal.printDivider();
         System.out.println(printTaskList("\tHere are the overdue tasks:\n", overdueList));
         System.out.println(printTaskList("\tHere are the tasks you have today:\n", todayList));
@@ -166,7 +167,7 @@ public class Terminal {
     }
 
     /**
-     *
+     * Abcd.
      * @param s The string to be built upon.
      * @param list the list which is to be printed.
      * @return the string which is the concatenation of all the contents of the list.

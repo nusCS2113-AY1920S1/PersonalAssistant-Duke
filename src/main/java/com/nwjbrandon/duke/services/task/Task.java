@@ -87,11 +87,13 @@ public abstract class Task {
     public abstract String formatTaskName(String taskDescription) throws DukeWrongCommandFormatException;
 
     /**
+     * Get date.
      * @return the date in the Date Object form.
      */
     Date getDate() {
         return this.date;
     }
+
     /**
      * Get the task date.
      * @return task date.
