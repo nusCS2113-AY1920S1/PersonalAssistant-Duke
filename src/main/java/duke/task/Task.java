@@ -106,7 +106,7 @@ public abstract class Task {
                 this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
         }
         if (this.recurringTask != null) {
-            this.recurringTask.recurringTaskTimeUpdate();
+            this.recurringTask.recurringTaskTimeUpdate(this);
         }
     }
 
@@ -184,7 +184,7 @@ public abstract class Task {
     public LocalDateTime getDateTime()
     {
         if (recurringTask != null) {
-            this.ld = recurringTask.getUpdatedTime();
+            this.ld = recurringTask.recurringTaskTimeUpdate(this);
         }
         return ld;
     }
