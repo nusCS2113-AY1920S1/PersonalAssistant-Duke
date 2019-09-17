@@ -23,6 +23,10 @@ public class Event extends Task {
 		this.type = "[E]";
 	}
 
+	public Date getDatetime() {
+		return this.datetime;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + " (at: " + datetime + ")";
