@@ -27,4 +27,8 @@ public class Date {
         String dateFormatted = this.d.format(formatters);
         return  dateFormatted; //no need secondes and time zone
     }
+
+    public LocalDateTime getDate(){
+        return this.d;
+    }
 }

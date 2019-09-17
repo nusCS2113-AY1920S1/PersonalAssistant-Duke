@@ -5,11 +5,13 @@ import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
+import leduc.task.Task;
 import leduc.task.TaskList;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -36,7 +38,7 @@ public class EventCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException {
+            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException {
         String[] taskDescription = user.substring(5).split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
@@ -64,7 +66,13 @@ public class EventCommand extends Command {
             }catch(Exception e){
                 throw new NonExistentDateException();
             }
-            EventsTask newTask = new EventsTask(description, new Date(d1) , new Date(d2));
+            Date date1 = new Date(d1);
+            Date date2 = new Date(d2);
+            ArrayList<Task> conflictTasks = tasks.searchConflictDate(date1, date2);
+            if(!conflictTasks.isEmpty()){
+                throw new ConflictDateException(conflictTasks);
+            }
+            EventsTask newTask = new EventsTask(description, date1 , date2);
             tasks.add(newTask);
             storage.save(tasks.getList());
             ui.display("\t Got it. I've added this task:\n\t   "
