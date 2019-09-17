@@ -1,17 +1,16 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Parser;
-import leduc.exception.DateFormatException;
-import leduc.exception.EmptyDeadlineDateException;
-import leduc.exception.EmptyDeadlineException;
-import leduc.exception.NonExistentDateException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.DeadlinesTask;
 import leduc.task.TaskList;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a deadline task Command.
@@ -31,53 +30,41 @@ public class DeadlineCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
      * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
-     * @throws DateFormatException Exception caught when the date format is not correct.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
+     * @throws FileException Exception caught when the file can't be open or read or modify
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser)
-            throws EmptyDeadlineDateException, EmptyDeadlineException, DateFormatException, NonExistentDateException {
+    public void execute(TaskList tasks, Ui ui, Storage storage)
+            throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException, FileException {
         String[] taskDescription = user.substring(8).split("/by");
         if (taskDescription[0].isBlank()) {
-            throw new EmptyDeadlineException(ui);
-        }
-        else if (taskDescription.length == 1) { // no /by in input
-            throw new EmptyDeadlineDateException(ui);
-        }
-        else {
+            throw new EmptyDeadlineException();
+        } else if (taskDescription.length == 1) { // no /by in input
+            throw new EmptyDeadlineDateException();
+        } else {
             String description = taskDescription[0].trim();
             String deadlineString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm
-            String regex ="[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9]";
-            if (!deadlineString.matches(regex)) {
-                throw new DateFormatException(ui);
+            if (deadlineString.isBlank()) {
+                throw new EmptyDeadlineDateException();
             }
             else {
-                Date deadline = parser.stringToDate(deadlineString,ui);
-                tasks.add(new DeadlinesTask(description, deadline));
-                DeadlinesTask newTask = (DeadlinesTask) tasks.get(tasks.size() - 1);
-                try {
-                    storage.getAppendWrite().write(tasks.size() + "//" + newTask.getTag() + "//" +
-                            newTask.getMark() + "//" + newTask.getTask() + "//" + " by:"
-                            +newTask.getDeadlines() + "\n");
-                } catch (IOException e) {
-                    ui.display("\t IOException:\n\t\t error when writing a deadline to file");
+                LocalDateTime d1 = null;
+                try{
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+                    d1 = LocalDateTime.parse(deadlineString.trim(), formatter);
+                }catch(Exception e){
+                    throw new NonExistentDateException();
                 }
+                DeadlinesTask newTask = new DeadlinesTask(description, new Date(d1));
+                tasks.add(newTask);
+                storage.save(tasks.getList());
                 ui.display("\t Got it. I've added this task:\n\t   "
-                        + newTask.getTag() + newTask.getMark() + newTask.getTask() + " by:"
-                        + newTask.getDeadlines() +
+                        + newTask.toString() +
                         "\n\t Now you have " + tasks.size() + " tasks in the list.");
             }
         }
     }
 
-    /**
-     * Returns a boolean false as it is a deadline command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

@@ -7,18 +7,16 @@ import leduc.Ui;
  * Extends to Exception.
  */
 public abstract class DukeException extends Exception{
-    protected Ui ui;
 
     /**
      * Constructor of leduc.exception.DukeException
-     * @param ui leduc.Ui which deals with the interactions with the user.
      */
-    public DukeException(Ui ui){
-        this.ui = ui;
+    public DukeException(){
+        super();
     }
-
     /**
      * Display a message which explain the Exception which is catch.
+     * @return the error message
      */
-    public abstract void print();
+    public abstract String print();
 }
