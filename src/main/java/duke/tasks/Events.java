@@ -5,6 +5,7 @@ import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Events extends Task {
     private LocalDateTime dateTime;
@@ -13,23 +14,13 @@ public class Events extends Task {
      * Constructor for Events class, using String Varargs.
      * @param input Parsed user input containing task name and time.
      */
-    public Events(String... input) {
+    public Events(String... input) throws DukeInvalidTimeException {
         super(input[0]);
-        dateTime = null;
-        setDateAndTime(input[input.length - 1]);
+        dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }
 
-    /**
-     * Specific to events, the date data has to be stored
-     * into LocalDateTime object.
-     * @param dateAndTime String date and time associated with the task.
-     */
-    private void setDateAndTime(String dateAndTime) {
-        try {
-            dateTime = DateTimeParser.getStringToDate(dateAndTime);
-        } catch (DukeInvalidTimeException e) {
-            System.out.println(e.getMessage());
-        }
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
