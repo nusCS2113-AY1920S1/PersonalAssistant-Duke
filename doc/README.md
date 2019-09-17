@@ -26,8 +26,6 @@ User is able to store his results, and pull it up for viewing anytime
 
 ## Usage
 
-### `Keyword` - Describe action
-
 `Create User` - Define the user's profile name and password
 
 `Login`- enter app
