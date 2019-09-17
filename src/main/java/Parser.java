@@ -7,6 +7,7 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.ReminderCommand;
 import duke.command.SnoozeCommand;
 import duke.dukeexception.DukeException;
 import java.util.Arrays;
@@ -40,6 +41,8 @@ class Parser {
                 return new AddDeadlineCommand(arguments);
             case "event":
                 return new AddEventCommand(arguments);
+            case "reminder":
+                return new ReminderCommand();
             case "snooze":
                 return new SnoozeCommand(arguments);
             case "bye":
