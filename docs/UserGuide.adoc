@@ -1,0 +1,174 @@
+= Duke - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-4/main
+
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+*Insert product name here* is an application designed to help NUS students plan out their academic endeavours by
+providing a reliable and versatile platform for them to devise and formulate their academic schedules.
+
+*Insert product name here* utilizes a command line interface, and is compatible with most modern OSes
+(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+unfamiliar with the command line interface can use it with ease.
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+..  Open up your the command line interface(CLI) of your OS
+    (command prompt for Windows, Terminal for Macintosh)
+..  Type `java -version` and press kbd:[Enter]
+..  You should see something similar to the image below
++
+image::javademo.png[width=""]
++
+..  If your indicated version of java is an older version than 11.0.0,
+please download and install the newest version of java available
+on their website
+.  Using CLI, navigate to the root directory of *Insert product name here*
+.  type `gradlew -run` and press kbd:[Enter]
+.  *Insert product name here* should start running on your computer. You can now
+enter commands in the CLI and press kbd:[Enter] to execute them
+
+.  Some example commands you can try:
+
+* *`list`* : lists all contacts
+* **`todo`**`hello world /needs 3 hours` : adds a task named `hello world` that takes 3 hours to complete to the Tasklist.
+* **`delete`**`3` : deletes the 3rd task shown in the current list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in arrow brackets are required after an optional tag e.g `[/between]` `<datetime start, datetime end>` , but otherwise are not required if the prerequisite optional tag is not present
+* Items in quotations are required statements in the command, and are supposed to be appended as is to the command e.g `“/by”`
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Listing all current tasks: `list`
+
+Displays all the tasks present in the tasklist +
+Format: `list`
+
+=== Adding a todo task: `todo`
+
+Adds a todo task type to the tasklist. An optional tag of `[/between]` can be added to specify a timeframe for which
+the task is to be carried out. +
+Format: `todo DESCRIPTION [/between] <start>, <end>`
+
+Examples:
+
+* `todo hello world`
+* `todo hello world /between 17/9/2019 0800, 17/9/2019 1200`
+
+=== Adding a deadline task: `deadline`
+
+Adds a deadline task type to the tasklist.  +
+Format: `deadline DESCRIPTION "/by" TIME`
+
+Examples:
+
+* `deadline hello world /by 17/9/2019 0800`
+* `deadline hello world /by today`
+
+=== Adding a deadline task: `event`
+
+Adds a event task type to the tasklist.  +
+Format: `event DESCRIPTION "/at" TIME`
+
+Examples:
+
+* `event hello world /at 17/9/2019 0800`
+* `event hello world /at today`
+
+
+=== Recalling all tasks within X hours: `remindme`
+
+
+Finds all deadline and event tasks that are scheduled within NUMBER_OF_HOURS of the current system time. +
+Format: `remindme NUMBER_OF_HOURS`
+
+Examples:
+
+* `remindme 20` +
+Prints to the screen the list of events and deadlines that are scheduled for the next 20 hours, in chronological order
+
+=== Locating a task by keyword: `find`
+
+Finds tasks whose descriptions contain any of the given keywords. +
+Format: `find KEYWORD`
+
+****
+* The search is case sensitive. e.g `hans` will not match `Hans`
+* The order of the keywords does matter. e.g. `Hans Bo` will not match `Bo Hans`
+* Only the description is searched.
+* Substrings will be matched e.g. `Han` will match `Hans`
+****
+
+Examples:
+
+* `find hello` +
+Returns `hello world` and `helloworld`
+
+// tag::delete[]
+=== Deleting a task : `delete`
+
+Deletes the specified task from the tasklist. +
+Format: `delete INDEX`
+
+****
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tasklist.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd task in the tasklist.
+
+// end::delete[]
+
+=== Exiting the program : `bye`
+
+Exits the program. +
+Format: `bye`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
