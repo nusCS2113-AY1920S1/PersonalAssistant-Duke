@@ -5,7 +5,6 @@
 :stylesDir: stylesheets
 
 Duke Email Manager is developed by team F11-3 in CS2113T AY1920S1 +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -13,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ryan Lim
 image::limryan.png.jpg[width="150", align="left"]
-{empty}[https://github.com/limryan[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/limryan[github]] [<<limryan#, portfolio>>]
 
 Role: Developer +
 Responsiblities: UI/Navigation
@@ -22,7 +21,7 @@ Responsiblities: UI/Navigation
 
 === Vivian Lee
 image::lee761.jpg[width="150", align="left"]
-{empty}[http://github.com/lee761[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/lee761[github]] [<<lee761#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Regular Expression Matching
@@ -31,7 +30,7 @@ Responsibilities: Regular Expression Matching
 
 === Yan Zhiwen
 image::JokerYan.jpg[width="150", align="left"]
-{empty}[http://github.com/JokerYan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/JokerYan[github]] [<<JokerYan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Email Authentication and Manipulation
@@ -40,7 +39,7 @@ Responsibilities: Email Authentication and Manipulation
 
 === Yang Zi Yun
 image::ziyun99.jpg[width="150", align="left"]
-{empty}[http://github.com/ziyun99[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ziyun99[github]] [<<ziyun99#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Local Storage
