@@ -60,7 +60,13 @@ public class Parser {
             command = new FreeTimeCommand(words[4]+" "+words[5], duration);
         }
 
-
+        
+        } else if(cmd.startsWith("free-time")){
+            String[] words = cmd.split(" ");
+            int duration = Integer.parseInt(words[1]);
+            command = new FreeTimeCommand(words[4]+" "+words[5], duration);
+        }
+        
         else {
             String keyword = cmd.split(" ")[0];
             if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration") || keyword.equals("multiEvent"))){
