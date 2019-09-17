@@ -27,6 +27,13 @@ public class Task {
     }
 
     /**
+     * Marks the task as not done.
+     */
+    public void markUnDone() {
+        done = false;
+    }
+
+    /**
      * Gets a boolean equivalent of whether this task is done.
      *
      * @return true if this task is done and false when it is not done.

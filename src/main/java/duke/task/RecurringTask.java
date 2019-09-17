@@ -10,7 +10,7 @@ import duke.exception.DukeException;
  */
 
 public class RecurringTask extends Task{
-    private final LocalDateTime at;
+    private LocalDateTime at;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy hh:mm a");
     /**
@@ -120,8 +120,34 @@ public class RecurringTask extends Task{
      */
     @Override
     public String toString() {
+        checkRecurringTaskIsAfterCurrent();
         return "[R]" + super.toString()
                 + " (at: " + this.at.format(displayFormatter) + ")";
+    }
+
+    /**
+     * Updates the reccuring task date to the following week.
+     */
+    private void setDate(LocalDateTime newDate) {
+        this.at = newDate;
+    }
+
+    /**
+     * Checks if current recurring task date is before the current date time.
+     * If the date needs to be updated, the done status will also reset to undone.
+     */
+    public void checkRecurringTaskIsAfterCurrent() {
+        LocalDateTime storedDate = getDateTime();
+        LocalDateTime currentDate = LocalDateTime.now();
+        while(storedDate.isBefore(currentDate)) {
+            LocalDateTime newDate = storedDate.plusDays(7);
+            setDate(newDate);
+            if(isDone()) {
+                markUnDone();
+            }
+            storedDate = getDateTime();
+            currentDate = LocalDateTime.now();
+        }
     }
 
     /**
@@ -133,6 +159,17 @@ public class RecurringTask extends Task{
     public String export() {
         return "R | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
+    }
+
+    /**
+     * Returns a LocalDateTime of this recurring task.
+     *
+     * @return The date and time of this recurring task.
+     */
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.at;
     }
 
 }
