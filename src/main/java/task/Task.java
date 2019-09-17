@@ -20,7 +20,6 @@ public abstract class Task {
      */
     protected boolean isDone;
 
-
     /**
      * Whether task is active or snooze
      */
