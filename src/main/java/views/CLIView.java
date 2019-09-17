@@ -147,10 +147,11 @@ public class CLIView {
     /**
      * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
      * @param taskList Current list of tasks.
-     * @param input User command including time limit before which to find upcoming tasks. If left blank, it will be seven days from current date by default.
-     * @throws ParseException
+     * @param input User command including time limit before which to find upcoming tasks.
+     *              If left blank, it will be seven days from current date by default.
+     * @throws ParseException If the date and time is not entered in the stipulated format of dd/MM/yyyy HHmm
      */
-    public void remindTask(TaskList taskList, String input) throws ParseException{
+    public void remindTask(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         System.out.println("\tHere are the upcoming tasks in your list:");
         String limit;
@@ -158,8 +159,7 @@ public class CLIView {
         String dummy = sc.next();
         if (sc.hasNext()) {
             limit = sc.nextLine();
-        }
-        else {
+        } else {
             limit = "";
         }
 

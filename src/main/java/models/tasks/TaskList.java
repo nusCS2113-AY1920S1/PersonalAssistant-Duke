@@ -52,7 +52,7 @@ public class TaskList implements Serializable {
         }
         return searchedTasks;
     }
-    
+
     /**
      * Gets tasks within the next 7 days by default, or within a date and time given by the user.
      *
