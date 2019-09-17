@@ -11,6 +11,7 @@ shadowJar {
     archiveVersion = "0.1.3"
     archiveClassifier = null
     archiveAppendix = null
+
 }
 
 checkstyle {
