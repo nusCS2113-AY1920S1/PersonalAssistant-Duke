@@ -10,7 +10,7 @@ public class Parser {
     /**
      * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
      * know where to redirect the input command.
-     * Can be an enum e.g State.INIT, State.NORMAL, State.TIMETABLE
+     * Can be an enum e.g State.INIT, State.NORMAL, State.READTIMETABLE etc.
      */
     public String status = "normal";
     /**
