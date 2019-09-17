@@ -130,9 +130,9 @@ public class TaskList {
     }
 
     /**
-     * Returns true/false depending if the task is done
+     * Returns true or false depending if the task is done.
      *
-     * @return True or false
+     * @return True or false.
      */
     public boolean isDone(int index) {
         return tasks.get(index).isDone;
