@@ -110,4 +110,16 @@ public class Ui {
     public String showError(DukeException e){
         return e.getMessage() + "\n";
     }
+
+    /**
+     * Displays the snooze message when a user wants to snooze a task.
+     * @param index The index of the task the user wants to snooze
+     * @param listSize The size of the ArrayList
+     * @param list The ArrayList
+     * @return This returns the snooze message with the task and size of ArrayList after snoozing
+     */
+    public String showSnooze(int index, int listSize, TaskList list) {
+        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.getTask(listSize-1) + "\n" +
+                "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+    }
 }
