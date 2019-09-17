@@ -5,6 +5,8 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
+import java.util.Date;
+
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
