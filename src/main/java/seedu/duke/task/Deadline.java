@@ -1,5 +1,6 @@
 package seedu.duke.task;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,8 +23,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the Deadline to a human readable string containing important information about
-     * the Deadline, including the type and time of this Deadline.
+     * Converts the Deadline to a human readable string containing important information about the Deadline,
+     * including the type and time of this Deadline.
      *
      * @return a human readable string containing the important information
      */
@@ -33,8 +34,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Outputs a string with all the information of this Deadline to be stored in a file for
-     * future usage.
+     * Outputs a string with all the information of this Deadline to be stored in a file for future usage.
      *
      * @return a string containing all information of this Deadline
      */
@@ -45,12 +45,32 @@ public class Deadline extends Task {
     }
 
     /**
-     * Outputs a formatted string of the time of this Deadline. The format is the same as input
-     * format and is shared by all tasks.
+     * Outputs a formatted string of the time of this Deadline. The format is the same as input format and is
+     * shared by all tasks.
      *
      * @return a formatted string of the time of this Deadline
      */
     protected String formatDate() {
         return format.format(this.time);
+    }
+
+    /**
+     * Calculates whether the time set for the deadline is near enough.
+     *
+     * @param dayLimit maximum number of days from now for the deadline to be considered as near
+     * @return the flag whether the deadline is near enough
+     */
+    @Override
+    public boolean isNear(int dayLimit) {
+        Date now = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        if (this.time.compareTo(now) >= 0) {
+            c.add(Calendar.DATE, dayLimit);
+            if (this.time.compareTo(c.getTime()) <= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

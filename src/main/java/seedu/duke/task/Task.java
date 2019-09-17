@@ -81,9 +81,8 @@ public class Task {
     }
 
     /**
-     * Converts the task to a human readable string. This will return the same string as the
-     * get status function for a basic task, but is overridden by more advanced task class to add more
-     * information.
+     * Converts the task to a human readable string. This will return the same string as the get status
+     * function for a basic task, but is overridden by more advanced task class to add more information.
      *
      * @return a human readable string that contains all important information of a task.
      */
@@ -125,4 +124,14 @@ public class Task {
         return this.toString().contains(keyword);
     }
 
+    /**
+     * The default function determining whether the deadline or event is near enough. It will be overridden
+     * in deadline or event, but not todo.
+     *
+     * @param dayLimit the maximum number of days from now for a task to be considered as near
+     * @return whether the task is near enough
+     */
+    public boolean isNear(int dayLimit) {
+        return false;
+    }
 }
