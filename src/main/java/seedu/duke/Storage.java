@@ -17,6 +17,18 @@ import java.util.Scanner;
  * information.
  */
 public class Storage {
+    private static String getSaveFileDir() {
+        String dir = "";
+        String workingDir = System.getProperty("user.dir");
+        if (workingDir.endsWith(File.separator + "text-ui-test")) {
+            dir = ".." + File.separator + "data" + File.separator + "duke.txt";
+        } else if(workingDir.endsWith(File.separator + "main")) {
+            dir = "." + File.separator + "data" + File.separator + "duke.txt";
+        } else {
+            dir = "." + File.separator + "duke.txt";
+        }
+        return dir;
+    }
     /**
      * This function clears the content of the file and write all the information of the tasks in the task
      * list
@@ -26,14 +38,10 @@ public class Storage {
      * @param taskList the list of task that is to be written to the file
      */
     public static void saveTasks(TaskList taskList) {
-        String subDir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith("text-ui-test")) {
-            subDir = ".";
-        }
         FileOutputStream out;
         try {
-            File file = new File("." + subDir + "\\data\\duke.txt");
+            String dir = getSaveFileDir();
+            File file = new File(dir);
             file.createNewFile();
             out = new FileOutputStream(file, false);
             String content = "";
@@ -42,11 +50,8 @@ public class Storage {
             }
             out.write(content.getBytes());
             out.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Output file not found!");
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Write to output file IO exception!");
+            Duke.getUI().showError("Write to output file IO exception!");
         }
     }
 
@@ -59,13 +64,9 @@ public class Storage {
      */
     public static TaskList readTasks() {
         TaskList taskList = new TaskList();
-        String subDir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith("text-ui-test")) {
-            subDir = ".";
-        }
+        String dir = getSaveFileDir();
         FileInputStream in;
-        File file = new File("." + subDir + "\\data\\duke.txt");
+        File file = new File(dir);
         try {
             in = new FileInputStream(file);
             Scanner scanner = new Scanner(in);
