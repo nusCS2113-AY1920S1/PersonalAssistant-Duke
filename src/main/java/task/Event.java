@@ -4,6 +4,7 @@ import parser.DateTimeExtractor;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Event extends Task implements Serializable{
 
     private String date;
 
-    public Event(String description, Date toDate, Date fromDate) {
+    public Event(String description, LocalDateTime toDate, LocalDateTime fromDate) {
         super(description);
         this.toDate = toDate;
         this.fromDate = fromDate;
@@ -31,8 +32,9 @@ public class Event extends Task implements Serializable{
     @Override
     public String toString() {
 
-        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + this.toDate + "-" +
-                this.fromDate + ")";
+        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: "
+                + this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
+                this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
 }

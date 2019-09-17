@@ -2,6 +2,8 @@ package parser;
 import command.*;
 import exception.DukeException;
 import ui.Ui;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -67,22 +69,21 @@ public class Parser {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                     }
                     String dateTimeFromUser;
-                    Date atDate = new Date();
-                    Date toDate = new Date();
-                    Date fromDate = new Date();
+                    LocalDateTime atDate = LocalDateTime.now();
+                    LocalDateTime toDate = LocalDateTime.now();
+                    LocalDateTime fromDate = LocalDateTime.now();
                     try {
                         dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+                        System.out.println(dateTimeFromUser);
                         if (checkType.contains("/by")){
                             atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
                         }
                         else
                         {
-                            fromDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                            String obtainStartDate = dateTimeFromUser.split("-",2)[0].trim();
+                            fromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
                             String obtainEndDate = dateTimeFromUser.split("-",2)[1].trim();
-                            String removeStartDate = dateTimeFromUser.split("-",2)[0].trim();
-                            String addFinalString =  removeStartDate.split(" ",2)[0].trim();
-                            toDate = DateTimeExtractor.extractDateTime(addFinalString + " " +
-                                     obtainEndDate, "deadline");
+                            toDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
                         }
 
                     } catch (ArrayIndexOutOfBoundsException e) {

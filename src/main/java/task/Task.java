@@ -1,5 +1,8 @@
 package task;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Date;
 
 /**
@@ -14,9 +17,11 @@ public class Task implements Serializable{
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
 
-    public Date fromDate;
-    public Date toDate;
-    public Date atDate;
+    public LocalDateTime fromDate;
+    public LocalDateTime toDate;
+    public LocalDateTime atDate;
+    public Period eventPeriod;
+    public int remindInHowManyDays;
 
     /**
      * This task constructor is used to obtain the parameters required by the task class.
@@ -54,4 +59,11 @@ public class Task implements Serializable{
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public boolean checkReminderTrigger() {
+        if (atDate != null) {
+            LocalDateTime reminderDate = atDate.minusDays(remindInHowManyDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }
+        return false;
+    }
 }
