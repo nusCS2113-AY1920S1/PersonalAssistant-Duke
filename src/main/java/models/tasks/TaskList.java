@@ -96,10 +96,11 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Returns upcoming tasks.
-     * @param limit : limit
-     * @return : Upcoming tasks
-     * @throws ParseException : Parsing error
+     * Returns upcoming tasks within the next 7 days by default, or within a date and time given by the user.
+     *
+     * @param limit The date and time limit given by the user.
+     * @return The list of tasks from the current time until the time limit.
+     * @throws ParseException Parsing error (If date and time are not entered in dd/MM/yyyy HHmm)
      */
     public ArrayList<ITask> getUpcomingTasks(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = new ArrayList<>();
