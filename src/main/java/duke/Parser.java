@@ -10,6 +10,8 @@ import duke.commands.FindCommand;
 import duke.commands.DoneCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.AddCommand;
+import duke.commands.TentativeCommand;
+import duke.commands.ConfirmCommand;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
@@ -17,6 +19,7 @@ import duke.tasks.Event;
 import duke.tasks.DoAfterTask;
 import duke.tasks.FixedDurationTask;
 import duke.tasks.WithinPeriodTask;
+import duke.tasks.TentativeEvent;
 
 import java.util.ArrayList;
 
