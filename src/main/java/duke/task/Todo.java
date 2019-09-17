@@ -1,6 +1,8 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+
+import java.util.Date;
 import java.util.List;
 
 public class Todo extends Task {
@@ -22,6 +24,11 @@ public class Todo extends Task {
     @Override
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    @Override
+    public boolean isWithinTimeFrame(Date startDate, Date endDate) {
+        return false;
     }
 
     @Override
