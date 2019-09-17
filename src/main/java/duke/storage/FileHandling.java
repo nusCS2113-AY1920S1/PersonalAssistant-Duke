@@ -23,6 +23,32 @@ public class FileHandling {
         this.file = file;
     }
 
+    private void loadTask(List<String> columns,String input,
+                          ArrayList<Task> initialData) throws DukeException {
+        int k = 0;
+        switch (columns.get(0)) {
+        case "T":
+            initialData.add(new Todo(columns.get(2)));
+            break;
+        case "E":
+            initialData.add(new Event(columns.get(2), columns.get(3)));
+            break;
+        case "D":
+            initialData.add(new Deadline(columns.get(2), columns.get(3)));
+            break;
+        default:
+            System.out.println("\n     There is an invalid entry in the file. This entry will "
+                    + "not be copied to the list:");
+            System.out.println("     " + input);
+            k = 1;
+        }
+        if (k == 0) {
+            if (columns.get(1).equals("1")) {
+                initialData.get(initialData.size() - 1).markAsDone();
+            }
+        }
+    }
+
     /**
      * This function handles loading data from the file.
      * @return a list that stores the tasks loaded from the file.
@@ -35,31 +61,9 @@ public class FileHandling {
             BufferedReader read = new BufferedReader(readFile);
             ArrayList<Task> initialData = new ArrayList<>();
             String input;
-
             while ((input = read.readLine()) != null) {
-                int k = 0;
                 List<String> columns = Arrays.asList(input.split("\\|"));
-                switch (columns.get(0)) {
-                case "T":
-                    initialData.add(new Todo(columns.get(2)));
-                    break;
-                case "E":
-                    initialData.add(new Event(columns.get(2), columns.get(3)));
-                    break;
-                case "D":
-                    initialData.add(new Deadline(columns.get(2), columns.get(3)));
-                    break;
-                default:
-                    System.out.println("\n     There is an invalid entry in the file. This entry will "
-                            + "not be copied to the list:");
-                    System.out.println("     " + input);
-                    k = 1;
-                }
-                if (k == 0) {
-                    if (columns.get(1).equals("1")) {
-                        initialData.get(initialData.size() - 1).markAsDone();
-                    }
-                }
+                loadTask(columns,input,initialData);
             }
             return initialData;
         } catch (FileNotFoundException obj) {
