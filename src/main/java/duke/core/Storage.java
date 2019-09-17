@@ -39,8 +39,14 @@ public class Storage {
             String[] line = fileScanner.nextLine().split("`");
             boolean isDone = (Integer.parseInt(line[2]) == 1);
             if (line[0].equals("T")) {
-                Todo newTodo = new Todo(line[1], isDone);
-                items.add(newTodo);
+                if (line.length == 4){
+                    Todo newTodo = new Todo(line[1], line[3], isDone);
+                    items.add(newTodo);
+                }
+                else {
+                    Todo newTodo = new Todo(line[1], isDone);
+                    items.add(newTodo);
+                }
             }
             else if (line[0].equals("D")) {
                 Deadline newDeadline = new Deadline(line[1], line[3], isDone);
@@ -57,7 +63,7 @@ public class Storage {
      * Takes in the array of Tasks thus far, converts it to text format and saves it
      * in the provided file path.
      * @param tasks the tasks created thus far.
-     * @throws ParseException if any Task data is un-parsable
+     * @throws ParseException if any Task data is un-parseble
      * @throws IOException if there is an error in writing data to the file.
      */
     public void saveToFile(ArrayList<Task> tasks) throws ParseException, IOException {
@@ -69,6 +75,10 @@ public class Storage {
             if (thisTask.getType() == 'D' || thisTask.getType() == 'E') {
                 line += "`";
                 line += thisTask.getDateToSave();
+            }
+            if (!thisTask.getAfter().equals("")) {
+                line += "`";
+                line += thisTask.getAfter();
             }
             fileWriter.write(line);
             fileWriter.newLine();
