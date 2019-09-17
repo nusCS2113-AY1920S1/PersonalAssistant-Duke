@@ -41,6 +41,11 @@ public class Deadline extends Task implements Snoozeable {
     }
 
     @Override
+    public boolean isWithinTimeFrame(Date startDate, Date endDate) {
+        return deadline.compareTo(startDate) >= 0 && deadline.compareTo(endDate) <= 0;
+    }
+
+    @Override
     public void snooze() {
         Calendar date = Calendar.getInstance();
 
@@ -52,9 +57,5 @@ public class Deadline extends Task implements Snoozeable {
     @Override
     public String toString() {
         return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
-    }
-
-    public Date getDeadline() {
-        return deadline;
     }
 }
