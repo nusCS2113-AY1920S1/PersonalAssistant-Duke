@@ -1,4 +1,6 @@
 package Tasks;
+import Interface.DukeException;
+
 import java.util.ArrayList;
 
 /**
@@ -168,5 +170,31 @@ public class TaskList {
      */
     public ArrayList<String> getEventArrList() {
         return this.eventArrList;
+    }
+
+   /** This method snoozes the task in the ArrayList.
+     * @param index Index in the ArrayList of the Task Object to snooze
+     * @param dateString New date for the Task Object
+     * @return This returns the ArrayList
+     * @throws DukeException On invalid input or when wrong input format is entered
+     */
+    public ArrayList<Task> snoozeTask(int index, String dateString) throws DukeException {
+        try {
+            TaskList temp1 = new TaskList();
+            for (Task task : list) {
+                temp1.addTask(task);
+            }
+            Task temp = temp1.getTask(index);
+            if (temp.toString().startsWith("[D]")) {
+                this.list.add(new Deadline(temp.getDescription(), dateString));
+                this.list.remove(index);
+            } else {
+                this.list.add(new Event(temp.getDescription(), dateString));
+                this.list.remove(index);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(" OOPS!!! Please check that you only snoozed deadlines and events");
+        }
+        return this.list;
     }
 }
