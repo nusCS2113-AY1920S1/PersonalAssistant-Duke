@@ -96,19 +96,24 @@ public class Ui {
         }
     }
 
-    public String showClashWarning (ArrayList<Task> tasklist, Task task) {
+    /**
+     * Find and display a specific task stored in the list.
+     *
+     * @param clashTasksInTheList  TaskList used to store tasks.
+     * @param  newTask  the task to be added
+     * @return the user's answer to whether he want to add or about the task
+     */
+    public void showClashWarning (ArrayList<Task> clashTasksInTheList, Task newTask) {
         System.out.println("Here are the tasks that fall on the same day:");
         int count = 1;
-        for (Task t : tasklist) {
-            if (t.getDate().equals(task.getDate()) && !t.isDone()) {
-                System.out.println(count + ": " + t);
-                count++;
-            }
+        for (Task t : clashTasksInTheList) {
+            System.out.println(count + ": " + t);
+            count++;
         }
         showLine();
         System.out.println("Do you still want to add your task anyway? Y/N");
-        String userAnswer = scanner.nextLine();
-        return userAnswer;
+//        String userAnswer = scanner.nextLine();
+//        return userAnswer;
     }
 
 

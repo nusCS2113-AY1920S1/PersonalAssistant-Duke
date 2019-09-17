@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.core.DateTimeParser;
 import duke.core.DukeException;
 
 import java.text.DateFormat;
@@ -28,7 +29,7 @@ public abstract class Task {
     /**
      * a localDateTime constructor to save the date and time
      */
-    protected LocalDateTime ld;
+    protected LocalDateTime ld = null;
     /**
      * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
      */
@@ -129,44 +130,39 @@ public abstract class Task {
 
 
 
-    /**
-     * Returns a string that representing the data and time for the task
-     * in a predefined date time format.
-     * @param timeBeforeFormat a string that provides the data and time information.
-     * @return A string that represents the specific activity associated with
-     * the task.
-     */
-    public String timeFormatter(String timeBeforeFormat) {
-        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
-        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
-        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
-        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
-
-        String output;
-
-        if ((ld.getDayOfMonth() % 10) == 1) {
-            output = ld.format(stFormatter);
-        } else if ((ld.getDayOfMonth() % 10) == 2) {
-            output = ld.format(ndFormatter);
-        } else if ((ld.getDayOfMonth() % 10) == 3) {
-            output = ld.format(rdFormatter);
-        } else {
-            output = ld.format(thFormatter);
-        }
-        return output;
-    }
+//    /**
+//     * Returns a string that representing the data and time for the task
+//     * in a predefined date time format.
+//     * @param timeBeforeFormat a string that provides the data and time information.
+//     * @return A string that represents the specific activity associated with
+//     * the task.
+//     */
+//    public String timeFormatter(String timeBeforeFormat) {
+//        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
+//        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
+//        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
+//        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
+//
+//        String output;
+//
+//        if ((ld.getDayOfMonth() % 10) == 1) {
+//            output = ld.format(stFormatter);
+//        } else if ((ld.getDayOfMonth() % 10) == 2) {
+//            output = ld.format(ndFormatter);
+//        } else if ((ld.getDayOfMonth() % 10) == 3) {
+//            output = ld.format(rdFormatter);
+//        } else {
+//            output = ld.format(thFormatter);
+//        }
+//        return output;
+//    }
 
     /**
      * update the <code>LocalDateTime</> constructor to save the date and time
-     * @param time the time retrieved from user input.
+     * @param newDateTime the time retrieved from user input.
      */
-    public void updateLocalDateTime(String time){
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        try {
-            ld = LocalDateTime.parse(time, parser);
-        } catch (DateTimeParseException error) {
-            System.out.println("Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
-        }
+    public void updateLocalDateTime(String newDateTime) throws DukeException {
+        ld = DateTimeParser.convertToLocalDateTime(newDateTime);
     }
 
     /**

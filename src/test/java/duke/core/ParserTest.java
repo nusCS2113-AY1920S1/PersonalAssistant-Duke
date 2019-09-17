@@ -18,8 +18,8 @@ public class ParserTest {
         Command c4 = Parser.parse("list");
         Command c5 = Parser.parse("find MEETING");
         Command c6 = Parser.parse("todo abc");
-        Command c7 = Parser.parse("event Meeting /at 2PM");
-        Command c8 = Parser.parse("deadline event Homework ABC /by 1PM");
+        Command c7 = Parser.parse("event Meeting /at 27/07/2020 1630");
+        Command c8 = Parser.parse("deadline event Homework ABC /by 27/07/2020 1630");
         Command c9 = Parser.parse("view 16/09/2019");
 
 

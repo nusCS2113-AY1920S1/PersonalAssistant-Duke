@@ -1,12 +1,9 @@
-D | 1 | ssss | 16/09/2019 0200 | false
-D | 1 | tttt | 16/09/2019 0500 | false
-E | 1 | tasktest | 16/09/2019 1000 | false
-D | 1 | read book | 27/09/2019 1800 | false
-D | 1 | watch movie | 27/09/2019 1800 | false
-D | 1 | adding | 27/09/2019 1900 | false
-D | 1 | hello | 27/09/2019 2000 | false
-D | 1 | readbook | 27/09/2019 2300 | false
-D | 0 | watch tv | 27/09/2019 1700 | false
-D | 0 | hello | 27/09/2019 1800 | false
-P | 0 | abc | 27/07/1996 1530 | 27/07/2020 1530
-P | 0 | abc | 27/07/1996 1530 | 27/07/2020 1530
+E | 0 | fsahufias | 30/06/2020 0316 | false
+D | 0 | abc | 27/07/1996 2130 | false
+P | 0 | abc | 27/07/1996 2130 | 27/06/2029 1630
+D | 0 | abc | 27/07/1996 2130 | false
+T | 1 | abc | false
+D | 0 | abc | 17/09/2019 2130 | false
+E | 0 | werq | 17/09/2019 1500 | false
+T | 0 | homework | false
+E | 0 | abc | 06/06/2016 1530 | false

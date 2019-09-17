@@ -12,7 +12,7 @@ public class EventTest {
      * Test the Event.toString()
      */
     @Test
-    public void EventStringTest() {
+    public void EventStringTest() throws DukeException {
         assertEquals("[E][\u2718] eventTest (at: 2nd of December 1996, 12PM)", new Event("eventTest", "02/12/1996 1235").toString(), "toString result is not expected");
     }
 
@@ -20,15 +20,15 @@ public class EventTest {
      * Test the Event.writeTxt()
      */
     @Test
-    public void writeFormatTest() {
-        assertEquals( "E | 0 | test | 02/12/1996 1235",new Event("test", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
+    public void writeFormatTest() throws DukeException {
+        assertEquals( "E | 0 | test | 02/12/1996 1235 | false",new Event("test", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
     }
 
     /**
      * Test the Event.isDone() after a new Event object is being initialized
      */
     @Test
-    public void doneStatusTest() {
+    public void doneStatusTest() throws DukeException {
         assertFalse(new Event("test", "02/12/1996 1235").isDone(), "The newly created Deadline should not be done");
     }
 
@@ -48,12 +48,12 @@ public class EventTest {
         Event event = new Event("eventTest", "02/12/1996 1235");
         assertFalse(event.isDone(), "The newly created event should not be done");
         assertEquals( "[E][\u2718] eventTest (at: 2nd of December 1996, 12PM)",event.toString(), "The writeToFile format is not expected");
-        assertEquals( "E | 0 | eventTest | 02/12/1996 1235",event.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "E | 0 | eventTest | 02/12/1996 1235 | false",event.writeTxt(), "The writeToFile format is not expected");
 
         // Mark the event as done and check its toString() and writeTxt()
         event.markAsDone();
         assertTrue(event.isDone(), "The event should be marked as done");
         assertEquals("[E][\u2713] eventTest (at: 2nd of December 1996, 12PM)", event.toString(), "The event.toString() is not expected");
-        assertEquals( "E | 1 | eventTest | 02/12/1996 1235",event.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "E | 1 | eventTest | 02/12/1996 1235 | false",event.writeTxt(), "The writeToFile format is not expected");
     }
 }
