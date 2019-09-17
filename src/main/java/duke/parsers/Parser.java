@@ -9,6 +9,7 @@ import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.FreeTimeCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 
@@ -47,6 +48,8 @@ public class Parser {
             return new ReminderCommand();
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(userInput));
+        case "fetch":
+            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(userInput)));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
@@ -70,7 +73,7 @@ public class Parser {
      */
     private static String getWord(String userInput) throws DukeException {
         try {
-            return userInput.strip().split(" ")[1];
+            return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
