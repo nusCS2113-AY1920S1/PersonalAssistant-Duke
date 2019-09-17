@@ -3,7 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image::docs/images/ui.jpeg[width="600"]
 
-* RIM (Resource and Inventory Management) is a logistic management system designed to manage an organisation’s facilities and inventory.
+* RIMS (Resource and Inventory Management System) is a logistic management system designed to manage an organisation’s facilities and inventory.
 * It is a command-line Java application which takes in user commands to keep track of and organise assets, thus streamlining user inventory.
 
 == Site Map
