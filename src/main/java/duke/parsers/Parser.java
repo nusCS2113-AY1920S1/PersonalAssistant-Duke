@@ -82,17 +82,44 @@ public class Parser {
         } else if (command.equals("find")) {
             return new FindCommand(description);
         } else if (command.equals("delete")) {
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new DeleteCommand(index);
         } else if (command.equals("remindme")) {
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new RemindCommand(index);
         } else if (command.equals("findfreetime")){
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new FindFreeTimeCommand(index);
         } else if (command.equals("snooze")){
-            int index1 = Integer.parseInt(description.split(" ",2)[0]);
-            int index2 = Integer.parseInt(description.split(" ",2)[1]);
+            int index1, index2;
+            try {
+                index1 = Integer.parseInt(description.split(" ", 2)[0]);
+                index2 = Integer.parseInt(description.split(" ", 2)[1]);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
+            if (index1 < 1 && index2 > 31 || index2 < 0 || index2 > 23){
+                throw new DukeException("Improper day and hour assignment");
+            }
             return new SnoozeCommand(index1,index2);
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");

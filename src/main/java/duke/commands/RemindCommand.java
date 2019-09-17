@@ -1,4 +1,5 @@
 package duke.commands;
+import duke.exceptions.DukeException;
 import duke.tasks.Schedule;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -24,8 +25,14 @@ public class RemindCommand extends Command{
 
     public RemindCommand(int hour) { this.hour = hour;}
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
-        ArrayList<Task> currentTasks = schedule.remindMe(this.hour);
-        ui.showList(currentTasks);
+    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException {
+        ArrayList<Task> currentTasks;
+        try {
+            currentTasks = schedule.remindMe(this.hour);
+        }
+        catch (DukeException e){
+            throw new DukeException(e.getMessage());
+        }
+        ui.showRemind(currentTasks);
     }
 }

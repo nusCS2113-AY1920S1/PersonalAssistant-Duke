@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
 import duke.ui.Ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class Schedule {
      * @params task the task object to be inserted
      * @author Foo Chi Hen
      */
-    public boolean update(Task task){
+    public boolean update(Task task) {
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         LocalDate now = LocalDate.now();
         if (task.getType() == "D" || task.getType() == "E") {
@@ -61,7 +62,7 @@ public class Schedule {
      * @author Foo Chi Hen
      */
 
-    public ArrayList<Task> remindMe(int hour){
+    public ArrayList<Task> remindMe (int hour) throws DukeException {
         LocalDate nowDay = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         int currentDay = nowDay.getDayOfMonth();
@@ -83,6 +84,9 @@ public class Schedule {
                 }
             }
         }
+        if (result.size() == 0){
+            throw new DukeException("You have no upcoming tasks");
+        }
         return result;
     }
 
@@ -95,7 +99,7 @@ public class Schedule {
         return false;
     }
 
-    public void findFreeTime(int hour) {
+    public ArrayList<findFreeTime(int hour) {
         LocalDate nowDay = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         int currentDay = nowDay.getDayOfMonth();
@@ -140,7 +144,7 @@ public class Schedule {
         }
     }
 
-    public void snooze(int day, int hour, Ui ui){
+    public void snooze(int day, int hour, Ui ui) throws DukeException{
         Scanner temp = new Scanner(System.in);
         ArrayList<Task> selectedHome = this.schedule[day - 1][hour];
         ui.showList(selectedHome);
@@ -154,7 +158,7 @@ public class Schedule {
         ArrayList<Task> newHome = this.schedule[newDay - 1][newHour];
         if (selected.getType().equals("E")){
             if (detectAnomalies(newHome)){
-                System.out.println("There is already an event task");
+                throw new DukeException("There is already an event task");
             }
             else {
                 selected.getDate().set(Calendar.DAY_OF_MONTH, newDay);
