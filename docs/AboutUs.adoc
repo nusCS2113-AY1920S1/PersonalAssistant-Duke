@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ryan Lim
-image::limryan.png.jpg[width="150", align="left"]
+image::limryan.png[width="150", align="left"]
 {empty}[https://github.com/limryan[github]] [<<limryan#, portfolio>>]
 
 Role: Developer +
@@ -20,7 +20,7 @@ Responsiblities: UI/Navigation
 '''
 
 === Vivian Lee
-image::lee761.jpg[width="150", align="left"]
+image::lee761.png[width="150", align="left"]
 {empty}[http://github.com/lee761[github]] [<<lee761#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Regular Expression Matching
 '''
 
 === Yan Zhiwen
-image::JokerYan.jpg[width="150", align="left"]
+image::JokerYan.png[width="150", align="left"]
 {empty}[http://github.com/JokerYan[github]] [<<JokerYan#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Email Authentication and Manipulation
 '''
 
 === Yang Zi Yun
-image::ziyun99.jpg[width="150", align="left"]
+image::ziyun99.png[width="150", align="left"]
 {empty}[http://github.com/ziyun99[github]] [<<ziyun99#, portfolio>>]
 
 Role: Developer +
