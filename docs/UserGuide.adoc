@@ -28,7 +28,7 @@ ease.
 *OwlMoney* also comes with a clean Graphical User Interface (GUI) that presents information in an organized manner.
 
 Interested in using *OwlMoney* to plan your finances easily?
-Jump to Section 3, <<Quick Start>> to get started!
+Jump to, <<Quick Start>> to get started!
 
 == Understanding This User Guide
 
@@ -108,7 +108,7 @@ which has an initial amount of `8000` dollars.
 * **`list`** `bank`: lists all bank accounts
 * **`bye`**: exits the app
 
-.  Refer to Section 4, <<Features>> for details of each command.
+.  Refer to, <<Features>> for details of each command.
 
 [[Features]]
 == Features
