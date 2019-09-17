@@ -7,14 +7,14 @@ import java.util.Date;
 
 
 /**
- * Event is a public class that inherits form abstract class Task
+ * Event is a public class that inherits form abstract class Task.
  * A Event object encapsulates the String that expresses the duration of the event
  */
 public class Event extends Task {
     protected String at;
 
     /**
-     * This is a constructor for Event object
+     * This is a constructor for Event object.
      * @param description the description of the event
      * @param at the string that represents the duration of the event object
      */
@@ -39,7 +39,7 @@ public class Event extends Task {
     }
 
     /**
-     * this function overrides the toString() function in Task to represetns the full description of an Event object
+     * this function overrides the toString() function in Task to represetns the full description of an Event object.
      * @return <code>"[E]" + super.toString() + " (at: " + duration + ")"</code>
      */
     @Override

@@ -11,8 +11,8 @@ import duke.parsers.Parser;
 import java.util.Scanner;
 
 /**
- * Duke is a public class that contains the main function to drive the program
- * It encapsulates a Storage object, a TaskList object, an Ui object and a Schedule object
+ * Duke is a public class that contains the main function to drive the program.
+ * It encapsulates a Storage object, a TaskList object, an Ui object and a Schedule object.
  */
 public class Duke {
 
@@ -23,7 +23,7 @@ public class Duke {
     private Scanner in = new Scanner(System.in);
 
     /**
-     * This is a constructor of Duke to start the program
+     * This is a constructor of Duke to start the program.
      */
     public Duke() {
         ui = new Ui();
@@ -38,7 +38,7 @@ public class Duke {
     }
 
     /**
-     *  Run is a function that generate the flow of duke program from beginning until the end
+     *  Run is a function that generate the flow of duke program from beginning until the end.
      */
     public void run() {
         ui.showWelcome();
@@ -59,8 +59,8 @@ public class Duke {
     }
 
     /**
-     * This is the main function
-     * @param args
+     * This is the main function.
+     * @param args required parameter for main
      */
     public static void main(String[] args) {
         new Duke().run();

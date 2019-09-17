@@ -13,13 +13,16 @@ public class SnoozeCommand extends Command {
     private int day;
     private int hour;
 
-    public SnoozeCommand(int day, int hour) { this.day = day ; this.hour = hour;}
+    public SnoozeCommand(int day, int hour) {
+        this.day = day;
+        this.hour = hour;
+    }
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException {
         try {
             schedule.snooze(this.day, this.hour, ui);
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
     }

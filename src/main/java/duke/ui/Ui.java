@@ -14,8 +14,8 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
-
     public Scanner in = new Scanner(System.in);
+
     public void showWelcome() {
         System.out.println("Hello from\n" + logo);
         System.out.println(boundary);
@@ -69,6 +69,7 @@ public class Ui {
         System.out.println(padding + currentTask);
         System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
     }
+
     public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
         System.out.println(padding + "Noted. I've removed this task:");
         System.out.println(padding + currentTask);

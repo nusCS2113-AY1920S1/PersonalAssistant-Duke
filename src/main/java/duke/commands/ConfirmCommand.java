@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class ConfirmCommand extends Command {
     private Task task;
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException {
         task = schedule.confirm();

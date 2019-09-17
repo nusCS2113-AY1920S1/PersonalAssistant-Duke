@@ -14,14 +14,17 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- * Schedule is a public class that stores tasks in the same month in chronological order
+ * Schedule is a public class that stores tasks in the same month in chronological order.
  * @author Foo Chi Hen
  */
-
 public class Schedule {
     protected ArrayList[][] schedule = new ArrayList[31][24];
     protected ArrayList<Task> ponder = new ArrayList<Task>();
     protected ArrayList<ArrayList<Calendar>> ponderDate = new ArrayList<ArrayList<Calendar>>();
+
+    /**
+     * Default constructor for schedule
+     */
     public Schedule() {
         for (int i = 0; i < 31; i += 1) {
             for (int j = 0; j < 24; j += 1) {
@@ -31,7 +34,7 @@ public class Schedule {
     }
 
     /**
-     * update updates the task into the appropriate timeslot
+     * update updates the task into the appropriate timeslot.
      * @params task the task object to be inserted
      * @author Foo Chi Hen
      */
@@ -46,10 +49,10 @@ public class Schedule {
                         int taskHour = task.getDate().get(Calendar.HOUR_OF_DAY);
                         boolean checkForAnomaly = detectAnomalies(this.schedule[taskDate - 1][taskHour]);
                         if (checkForAnomaly) {
-                            System.out.println("There is already an event task at " + dateFormat.format(task.getDate().getTime()));
+                            System.out.println("There is already an event task at "
+                                    + dateFormat.format(task.getDate().getTime()));
                             return false;
-                        }
-                        else {
+                        } else {
                             this.schedule[taskDate - 1][taskHour].add(task);
                         }
                     }
@@ -60,12 +63,11 @@ public class Schedule {
     }
 
     /**
-     * remindMe outputs the tasks to be done with the user defined hour
+     * remindMe outputs the tasks to be done with the user defined hour.
      * @params hour number of hours with reference to current time
      * @author Foo Chi Hen
      */
-
-    public ArrayList<Task> remindMe (int hour) throws DukeException {
+    public ArrayList<Task> remindMe(int hour) throws DukeException {
         LocalDate nowDay = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         int currentDay = nowDay.getDayOfMonth();
@@ -74,7 +76,7 @@ public class Schedule {
         ArrayList<Task> current;
         int counter = 0;
         for (int i = 0; i < hour; i += 1) {
-            current = this.schedule[currentDay + counter - 1][(currentHour + i)%24];
+            current = this.schedule[currentDay + counter - 1][(currentHour + i) % 24];
             if (currentHour + i > (counter + 1) * 24 - 1){
                 counter += 1;
             }
@@ -87,13 +89,18 @@ public class Schedule {
                 }
             }
         }
-        if (result.size() == 0){
+        if (result.size() == 0) {
             throw new DukeException("You have no upcoming tasks");
         }
         return result;
     }
 
-    private boolean detectAnomalies(ArrayList<Task> activity){
+    /**
+     * function check whether there are conflicts.
+     * @param activity arraylist of tasks
+     * @return boolean value
+     */
+    private boolean detectAnomalies(ArrayList<Task> activity) {
         for (int i = 0; i < activity.size(); i += 1) {
             if (activity.get(i).getType().equals("E")) {
                 return true;
@@ -109,7 +116,7 @@ public class Schedule {
         int currentHour = nowTime.getHour();
         int currentYear = nowDay.getDayOfMonth();
         int currentMonth = nowDay.getMonthValue();
-        YearMonth yearMonthObject = YearMonth.of(currentYear , currentMonth);
+        YearMonth yearMonthObject = YearMonth.of(currentYear, currentMonth);
         int daysInMonth = yearMonthObject.lengthOfMonth(); //28
         boolean flag = false;
         boolean freeFlag = false;
@@ -117,16 +124,16 @@ public class Schedule {
         for (int i = currentDay; i <= daysInMonth; i += 1) {
             System.out.println(nowDay.toString());
             System.out.println("_____________");
-            for (int j = ((flag)? 0 : currentHour); j < 24; j += 1){
-                if (this.schedule[i-1][j].size() == 0) {
+            for (int j = ((flag) ? 0 : currentHour); j < 24; j += 1) {
+                if (this.schedule[i - 1][j].size() == 0) {
                     for (int k = 0; k < hour; k += 1) {
                         if (i + (j + k) / 24 > daysInMonth) {
                             break;
                         }
-                        if (this.schedule[i - 1 + (j+k)/24][(j+k)%24].size() != 0){
+                        if (this.schedule[i - 1 + (j + k) / 24][(j + k) % 24].size() != 0) {
                             break;
                         }
-                        if (k == hour - 1){
+                        if (k == hour - 1) {
                             freeFlag = true;
                         }
                     }
@@ -138,7 +145,7 @@ public class Schedule {
                 }
                 freeFlag = false;
             }
-            if (dayFreeFlag == false){
+            if (dayFreeFlag == false) {
                 System.out.println("You are not free on " + nowDay.toString());
             }
             nowDay.plusDays(1);
@@ -147,7 +154,7 @@ public class Schedule {
         }
     }
 
-    public void snooze(int day, int hour, Ui ui) throws DukeException{
+    public void snooze(int day, int hour, Ui ui) throws DukeException {
         Scanner temp = new Scanner(System.in);
         ArrayList<Task> selectedHome = this.schedule[day - 1][hour];
         ui.showList(selectedHome);
@@ -159,42 +166,39 @@ public class Schedule {
         int newDay = Integer.parseInt(input.split(" ")[0]);
         int newHour = Integer.parseInt(input.split(" ")[1]);
         ArrayList<Task> newHome = this.schedule[newDay - 1][newHour];
-        if (selected.getType().equals("E")){
-            if (detectAnomalies(newHome)){
+        if (selected.getType().equals("E")) {
+            if (detectAnomalies(newHome)) {
                 throw new DukeException("There is already an event task");
-            }
-            else {
+            } else {
                 selected.getDate().set(Calendar.DAY_OF_MONTH, newDay);
                 selected.getDate().set(Calendar.HOUR_OF_DAY, newHour);
                 this.schedule[newDay - 1][newHour].add(selected);
                 this.schedule[day - 1][hour].remove(index - 1);
             }
-        }
-        else {
+        } else {
             this.schedule[newDay - 1][newHour].add(selected);
             this.schedule[day - 1][hour].remove(index - 1);
         }
     }
 
-    public void tentative(){
+    public void tentative() {
         System.out.println("Please enter description");
         Scanner temp = new Scanner(System.in);
         String input = temp.nextLine();
         String type = input.split(" ",2)[0];
         String description = input.split(" ",2)[1];
         System.out.println(input);
-        if (type.equals("deadline")){
+        if (type.equals("deadline")) {
             //Deadline tentativeTask = new Deadline(description,null);
             this.ponder.add(new Deadline(description,"null"));
-        }
-        else if (type.equals("event")){
+        } else if (type.equals("event")) {
             //Event tentativeTask = new Event(description,null);
             this.ponder.add(new Event(description,"null"));
         }
         this.ponderDate.add(new ArrayList<Calendar>());
         input = temp.nextLine();
-        while (true){
-            if (input.equals("done")){
+        while (true) {
+            if (input.equals("done")) {
                 break;
             }
             System.out.println(input);
@@ -220,43 +224,41 @@ public class Schedule {
         }
     }
 
-    public Task confirm() throws DukeException{
+    public Task confirm() throws DukeException {
         System.out.println("These are the tentative task. Which would you like to select?");
         System.out.println("_____________");
-        for(int i = 0; i < this.ponder.size(); i += 1) {
-            System.out.print(Integer.toString(i+1) +". ");
+        for (int i = 0; i < this.ponder.size(); i += 1) {
+            System.out.print(Integer.toString(i + 1) + ". ");
             System.out.println(this.ponder.get(i).toString());
         }
         System.out.println("_____________");
         Scanner temp = new Scanner(System.in);
         String input = temp.nextLine();
         int taskIndex;
-        try{
+        try {
             taskIndex = Integer.parseInt(input);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new DukeException("Please enter a number");
         }
         System.out.println("These are the tentative dates. Which would you like to select?");
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         for (int i = 0; i < this.ponderDate.get(taskIndex - 1).size(); i += 1) {
-            System.out.print(Integer.toString(i+1) +". ");
+            System.out.print(Integer.toString(i + 1) +". ");
             System.out.println(dateFormat.format(this.ponderDate.get(taskIndex - 1).get(i).getTime()));
         }
         input = temp.nextLine();
         int dateIndex;
-        try{
+        try {
             dateIndex = Integer.parseInt(input);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new DukeException("Please enter a number");
         }
         Task confirmed = this.ponder.get(taskIndex - 1);
-        if (confirmed.getType().equals("E")){
+        if (confirmed.getType().equals("E")) {
             Calendar selectedDate = this.ponderDate.get(taskIndex - 1).get(dateIndex - 1);
             int selectedDay = selectedDate.get(Calendar.DAY_OF_MONTH);
             int selectedHour = selectedDate.get(Calendar.HOUR_OF_DAY);
-            if (detectAnomalies(this.schedule[selectedDay - 1][selectedHour])){
+            if (detectAnomalies(this.schedule[selectedDay - 1][selectedHour])) {
                 throw new DukeException("There is already an event task in this timeslot.");
             }
         }

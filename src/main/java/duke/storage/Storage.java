@@ -7,7 +7,7 @@ import duke.exceptions.DukeException;
 import duke.tasks.*;
 
 /**
- * Storage is a public class, a storage class encapsulates the filePath to read from and write to
+ * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
  * @author Ivan Andika Lie
  */
 public class Storage {
@@ -18,8 +18,7 @@ public class Storage {
 
 
     /**
-     * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     *     to be added in that TaskList
+     * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList.
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
@@ -34,12 +33,12 @@ public class Storage {
             throw new DukeException("Unable to access file");
         }
         try {
-            while((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
                 loadFile(line, tasks, schedule);
-        }
-        bufferedReader.close();
-        } catch(FileNotFoundException e) {
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
             throw new DukeException("Error reading file");
@@ -48,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * This function acts as a line by line parser from the text file which is used to load a particular type of task
+     * This function acts as a line by line parser from the text file which is used to load a particular type of task.
      * @param line the line input from the input file
      * @param tasks the task arraylist that will store the tasks from the input file
      */
@@ -82,13 +81,14 @@ public class Storage {
     }
 
     /**
-     * This function will load a todo line and push it to the task arraylist
+     * This function will load a todo line and push it to the task arraylist.
      * @param tasks the task arraylist that will store the tasks from the input file
      * @param description the task specified
      * @param isDone whether the todo task is done
      */
     //TODO: make such that the loadFile only need to call one function only
-    private static void loadToDo(ArrayList<Task> tasks, boolean isDone, String Subtypes, String...description) {
+    private static void loadToDo(ArrayList<Task> tasks, boolean isDone,
+                                 String Subtypes, String...description) {
         if (Subtypes.trim().length() == 0) {
             ToDo newToDo = new ToDo(description[0]);
             if (isDone) {
@@ -112,13 +112,14 @@ public class Storage {
         }
     }
 
-    /** This function will load a deadline line and push it to the task arraylist
+    /** This function will load a deadline line and push it to the task arraylist.
      * @param tasks the task arraylist that will store the tasks from the input file
      * @param description the task specified
      * @param by the deadline of the deadline task
      * @param isDone whether the deadline task is done
      */
-    private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone, Schedule schedule) {
+    private static void loadDeadline(ArrayList<Task> tasks, String description,
+                                     String by, boolean isDone, Schedule schedule) {
         boolean toAdd;
         Deadline newDeadline = new Deadline(description, by);
         if (isDone) {
@@ -131,7 +132,7 @@ public class Storage {
     }
 
     /**
-     * This function will load a event line and push it to the task arraylist
+     * This function will load a event line and push it to the task arraylist.
      * @param tasks the task arraylist that will store the tasks from the input file
      * @param description the event specified
      * @param duration the duration of the event
@@ -150,7 +151,7 @@ public class Storage {
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylist of tasks
+     * This is a function that will update the input/output file from the current arraylist of tasks.
      * @param tasks the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
@@ -179,7 +180,8 @@ public class Storage {
                     if (Subtypes.contains("P")) {
                         String data[] = currentLine.split("From: ", 2);
                         String timeFrame[] = data[1].split(" to ", 2);
-                        bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0, timeFrame[1].length() - 1));
+                        bufferedWriter.write(" | " + timeFrame[0] + " | "
+                                + timeFrame[1].substring(0, timeFrame[1].length() - 1));
                     }
                     if (Subtypes.contains("F")) {
                         String timeFrame = (currentLine.split("needs: ", 2))[1];
@@ -189,8 +191,7 @@ public class Storage {
                 if ((currentTask.getType()).equals("E")) {
                     String timeFrame = (currentLine.split("at: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
-                }
-                else if ((currentTask.getType()).equals("D")) {
+                } else if ((currentTask.getType()).equals("D")) {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }

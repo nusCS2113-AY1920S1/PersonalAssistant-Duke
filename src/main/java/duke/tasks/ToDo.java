@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Task is a public class that extends from Task
+ * Task is a public class that extends from Task.
  */
 public class ToDo extends Task {
 
@@ -15,7 +15,7 @@ public class ToDo extends Task {
     protected String duration = "";
 
     /**
-     * Primary constructor of ToDo object
+     * Primary constructor of ToDo object.
      * @param description the description of the todo object
      */
     public ToDo(String description) {
@@ -24,7 +24,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Secondary constructor of ToDo object with period
+     * Secondary constructor of ToDo object with period.
      * @param description description embedded in object
      * @param start start of period
      * @param end end of period
@@ -57,35 +57,34 @@ public class ToDo extends Task {
         super.type = "T";
         subtypes += "P ";
     }
+
     /**
-     * Tertiary constructor of ToDo object with fixedDuration
+     * Tertiary constructor of ToDo object with fixedDuration.
      * @param description description embedded in object
      * @param duration duration of task
      */
     public ToDo(String description, String duration) {
         super(description);
         this.duration = duration;
-        super.type ="T";
+        super.type = "T";
         subtypes += "F ";
     }
 
     /**
-     * this function overrides the toString() function in Task to represents the full description of a ToDo object
+     * this function overrides the toString() function in Task to represents the full description of a ToDo object.
      * @return <code>"[T]" + super.toString()</code>
-     * @return <code>"[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
+     *         <code>"[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
      *               + " to " + dateFormat.format(datetime2.getTime()) + ")"</code>
      */
     @Override
     public String toString() {
         if (subtypes.trim().isEmpty()) {
             return "[T]" + super.toString();
-        }
-        else if (subtypes.contains("P")){
+        } else if (subtypes.contains("P")) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
                     + " to " + dateFormat.format(End.getTime()) + ")";
-        }
-        else if (subtypes.contains("F")){
+        } else if (subtypes.contains("F")) {
             return "[T]" + super.toString() + " (needs: " + this.duration + ")";
         }
         return null;
