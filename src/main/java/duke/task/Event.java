@@ -48,7 +48,7 @@ public class Event extends Task {
     }
 
     public LocalDateTime getLocalDate() {
-        LocalDateTime t = new DateFormatter(this.at).convertToLocalDate(this.at);
+        LocalDateTime t = new DateFormatter(this.at).toLocalDateTime(this.at);
         return t;
     }
     @Override

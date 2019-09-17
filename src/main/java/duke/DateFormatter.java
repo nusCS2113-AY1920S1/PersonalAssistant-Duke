@@ -177,9 +177,20 @@ public class DateFormatter {
     }
 
     public LocalDateTime toLocalDateTime(String sDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat(sDate));
         LocalDateTime parsedDate = LocalDateTime.parse(sDate, formatter);
         return parsedDate;
+    }
+
+    /**
+     * Formats object of LocalDateTime class to return String that is commonly used i.e. dd/MM/yyyy HHmm
+     * @param time LocalDateTime object
+     * @return String that is formatted to dd/MM/yyyy HHmm
+     */
+    public String formatLocalDateTime(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        String formattedTime = time.format(formatter);
+        return formattedTime;
     }
 
     private String getFormat(String date) {
@@ -199,23 +210,6 @@ public class DateFormatter {
         return format;
     }
 
-    public LocalDateTime convertToLocalDate(String sDate) {
-        String format = getFormat(sDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        LocalDateTime parsedDate = LocalDateTime.parse(sDate, formatter);
-        return parsedDate;
-    }
-
-    /**
-     * Formats object of LocalDateTime class to return String that is commonly used i.e. dd/MM/yyyy HHmm
-     * @param time LocalDateTime object
-     * @return String that is formatted to dd/MM/yyyy HHmm
-     */
-    public String formatLocalDateTime(LocalDateTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        String formattedTime = time.format(formatter);
-        return formattedTime;
-    }
 
 
     public LocalDateTime changeDate(LocalDateTime currDate, int value, String units) throws DukeException {
