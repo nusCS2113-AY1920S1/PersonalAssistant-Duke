@@ -17,6 +17,6 @@ public class EventTest {
     public void dummyTest(){
        Event event = new Event("return stuff", false, "2/12/2019 1800");
         assertEquals("return stuff", event.getInfo());
-        assertEquals("2/12/2019 1800", event.getDate());
+        assertEquals("2nd of December 2019, 6PM", event.getDate());
     }
 }

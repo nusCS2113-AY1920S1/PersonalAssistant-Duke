@@ -1,6 +1,8 @@
 import Task.TaskList;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -16,9 +18,10 @@ public class TaskListTest {
     }
     @Test
     public void dateTest () {
-        String date = "2/12/2019 1800";
-        String output = taskList.dateConvert(date);
-        assertEquals("2nd of December 2019, 6pm", output);
+        String input = "02/12/2019 1800";
+        Date date = taskList.dateConvert(input);
+        String newDate = taskList.dateToStringFormat(date);
+        assertEquals("2nd of December 2019, 6pm", newDate);
     }
 
     @Test

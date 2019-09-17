@@ -1,8 +1,6 @@
 package Module;
-import Task.Deadline;
 import Task.TaskList;
 import Task.item;
-import javafx.scene.control.skin.SliderSkin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,16 +20,22 @@ public class Reminder {
 
     /**
      * Constructor for the Reminder class
-     * @param endDate specified deadline date-time
+     * @param endDate specified deadline in date-time format
      */
     public Reminder (Date endDate) {
         this.endDate = endDate;
         todayDate = new Date();
     }
 
-    public void getTodayDate () {
+
+
+    public Date getTodayDate () {
         System.out.println("Today's date " + todayDate);
         System.out.println("Saved date: " + endDate);
+        return todayDate;
+    }
+    public Date getEndDate () {
+        return endDate;
     }
 
     public void compareDates () {
@@ -54,8 +58,4 @@ public class Reminder {
             }
         }
     }
-
-
-
-
 }

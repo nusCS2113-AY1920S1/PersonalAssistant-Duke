@@ -158,6 +158,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Function converts the date object to the date format 2nd of December 2019, 6pm
+     *
+     * @param date the date to be converted
+     * @return String of new dat format
+     */
     public static String dateToStringFormat (Date date) {
         String hour =  new SimpleDateFormat("h").format(date);
         String min = new SimpleDateFormat("mm").format(date);
@@ -169,6 +175,14 @@ public class TaskList {
         return newDateFormat;
     }
 
+    /**
+     * Function checks to see which deadlines are between now and the specified end date
+     *
+     * @param todayDate the present time
+     * @param endDate the specified end date and time
+     * @return deadlineList if there are deadlines before end date they are returned as a list
+     * @return null if there are no deadlines
+     */
     public static ArrayList<item> getReminderList (Date todayDate, Date endDate) {
         ArrayList<item> deadlineList = new ArrayList<>();
         Boolean isNotEmpty = false;

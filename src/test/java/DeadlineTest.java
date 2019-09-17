@@ -18,6 +18,6 @@ public class DeadlineTest {
     public void dummyTest(){
         Deadline deadline = new Deadline("return stuff", false, "2/12/2019 1800");
         assertEquals("return stuff", deadline.getInfo());
-        assertEquals("2/12/2019 1800", deadline.getDate());
+        assertEquals("2nd of December 2019, 6PM", deadline.getDate());
     }
 }
