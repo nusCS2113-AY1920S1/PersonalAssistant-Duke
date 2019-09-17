@@ -1,7 +1,8 @@
 package duke.task;
 
 import duke.worker.Parser;
-import java.util.HashMap;
+
+import java.util.ArrayList;
 
 public class Task {
     public String taskName;
@@ -9,6 +10,7 @@ public class Task {
     public String detailDesc;
     public TaskType taskType;
     public Boolean isDone = false;
+    private ArrayList<Task> queuedTasks = null;
 
     /**
      * Constructor for the 'Task' Class.
@@ -101,5 +103,36 @@ public class Task {
                 this.taskDetails = splitDetails[1].trim();
             }
         }
+    }
+
+    // -- Boolean Checkers
+    /**
+     * Checks if the current task has any queued tasks.
+     * @return false if queuedTask property is null, true otherwise
+     */
+    public boolean isQueuedTasks() {
+        if (this.queuedTasks == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // -- Setters & Getters
+
+    /**
+     * Getter for queuedTask Property.
+     * @return ArrayList containing Task Objects
+     */
+    public ArrayList<Task> getQueuedTasks() {
+        return queuedTasks;
+    }
+
+    /**
+     * Setter for queued Task Property.
+     * @param queuedTasks ArrayList to be set
+     */
+    public void setQueuedTasks(ArrayList<Task> queuedTasks) {
+        this.queuedTasks = queuedTasks;
     }
 }

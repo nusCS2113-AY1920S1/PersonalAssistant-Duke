@@ -1,11 +1,14 @@
 package duke.command;
 
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.worker.Parser;
 import duke.worker.Ui;
 
+import java.util.ArrayList;
+
 public class CommandMarkDone extends Command {
-    protected String userInput;
+    private String userInput;
 
     // Constructor
     public CommandMarkDone(String userInput) {
@@ -15,16 +18,49 @@ public class CommandMarkDone extends Command {
     @Override
     public void execute(TaskList taskList) {
         try {
-            int index = Integer.valueOf(Parser.removeStr("done", this.userInput)) - 1;
+            int index = Integer.parseInt(Parser.removeStr("done", this.userInput)) - 1;
             taskList.getList().get(index).markDone();
-            Ui.dukeSays("Alrighty, I've marked task '"
-                    + String.valueOf(index + 1)
-                    + ") "
-                    + taskList.getList().get(index).taskName
-                    + "' as done!"
-            );
+            Ui.dukeSays(genMarkDoneReply(index, taskList));
         } catch (Exception e) {
             Ui.dukeSays("Invalid 'done' statement. Please indicate the index of the task you wish to mark done.");
         }
+    }
+
+    /**
+     * Called to release any tasks triggered by the completion of current task.
+     * @param task The Task that has been completed
+     * @param taskList The TaskList containing all tasks.
+     */
+    private void releaseQueuedTasks(Task task, TaskList taskList) {
+        if (task.isQueuedTasks()) {
+            generateQueuedTasks(task, taskList);
+        }
+    }
+
+    /**
+     * Transfers all queued tasks from the trigger Task to the TaskList.
+     * @param task The triggering Task
+     * @param taskList The TaskList containing all tasks
+     */
+    private void generateQueuedTasks(Task task, TaskList taskList) {
+        ArrayList<Task> newTasks = task.getQueuedTasks();
+        for (Task newTask : newTasks) {
+            taskList.addTask(newTask);
+        }
+        task.setQueuedTasks(null);
+    }
+
+    /**
+     * Generates the standard duke reply to inform user that the Task is marked done.
+     * @param index The index of the Task in the TaskList
+     * @param taskList The TaskList containing all tasks
+     * @return Standard duke reply for user
+     */
+    private String genMarkDoneReply(int index, TaskList taskList) {
+        return "Alrighty, I've marked task '"
+                + String.valueOf(index + 1)
+                + ") "
+                + taskList.getList().get(index).taskName
+                + "' as done!";
     }
 }
