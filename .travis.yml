@@ -1,7 +1,8 @@
-install: gradle wrapper --gradle-version 4.2
 
 language: java
 jdk: oraclejdk11
 
 before_install:
+  - export JAVA_HOME=$HOME/oraclejdk11
+  - $TRAVIS_BUILD_DIR/install-jdk.sh --install oraclejdk11 --target $JAVA_HOME
   - chmod +x gradlew
