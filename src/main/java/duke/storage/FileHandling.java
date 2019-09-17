@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
+import duke.tasks.DoAfter;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -35,6 +36,9 @@ public class FileHandling {
             break;
         case "D":
             initialData.add(new Deadline(columns.get(2), columns.get(3)));
+            break;
+        case "A":
+            initialData.add(new DoAfter(columns.get(2), columns.get(3)));
             break;
         default:
             System.out.println("\n     There is an invalid entry in the file. This entry will "
@@ -74,7 +78,7 @@ public class FileHandling {
                    + "with empty list");
         } catch (ArrayIndexOutOfBoundsException obj) {
             throw new DukeException(" Index out of bounds. Probably due to invalid format of storing"
-                    + "Todo/Deadline/Event data");
+                    + "the tasks");
         }
     }
 
