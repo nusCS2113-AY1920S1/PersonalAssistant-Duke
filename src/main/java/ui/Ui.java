@@ -1,5 +1,7 @@
 package ui;
 
+import parser.TimeParser;
+import task.TaskList;
 import task.Tasks;
 
 import java.util.Date;
@@ -181,7 +183,59 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints a message corresponding to the user request for reminder
+     */
+    public static void showReminderIntroMessage(int n, String date) {
+        if (TaskList.getTreeMap().isEmpty()) {
+            System.out.println(line + "\n" + space + "You have no upcoming tasks");
+        } else {
+            System.out.println(line + "\n" + space + "Here is a reminder for your next " + n + " upcoming tasks from " + date);
+        }
+    }
+
+    /**
+     * Prints a notice to tell the user when there is no upcoming tasks to be reminded of
+     */
+    public static void showEmptyReminderMessage(int count){
+        if (count == 1){
+            System.out.println(space + space + "*You have no upcoming tasks*");
+        }
+    }
+
+    /**
+     * Prints the task according to the reminder format
+     */
     public static void printReminder(Map.Entry<Date, Tasks> log, int count){
         System.out.println(space + count + ". " + log.getValue().getDescription());
+    }
+
+    /**
+     * Prints a message corresponding to the user request for schedule
+     */
+    public static void showScheduleIntroMessage(String s) {
+        System.out.println(line + "\n" + space + "Here is ur schedule for " + s + ":");
+    }
+
+    /**
+     * Prints the total number of tasks in the schedule
+     */
+    public static void showScheduleFinalMessage(int count) {
+        if (count == 2) {
+            System.out.println("\n" + space + space + "*there is a total of 1 task scheduled*");
+        } else {
+            System.out.println("\n" + space + space + "*there is a total of " + --count + " tasks scheduled*");
+        }
+    }
+
+    /**
+     * Prints the task according to the schedule format
+     */
+    public static void printScheduleTask(Map.Entry<Date, Tasks> task){
+        if (task.getValue().getType().equals("E")){
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tevent: " + task.getValue().parseDescription());
+        } else{
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
+        }
     }
 }

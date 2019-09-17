@@ -1,7 +1,6 @@
 package parser;
 
 import exceptions.DukeException;
-import javafx.concurrent.Task;
 import storage.Storage;
 import task.ToDo;
 import task.Event;
@@ -13,6 +12,7 @@ import ui.Ui;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -36,27 +36,26 @@ public class Parser {
                     case "done":
                         doneCommand(s);
                         break;
-                    //================================================
                     case "delete":
                         deleteCommand(s);
                         break;
-                    //================================================
                     case "find":
                         findCommand(s);
                         break;
                     case "todo":
                         todoCommand(s);
                         break;
-                    //================================================
                     case "deadline":
                         deadlineCommand(s);
                         break;
-                    //================================================
                     case "event":
                         eventCommand(s);
                         break;
                     case "reminder":
-                        reminderCommand();
+                        reminderCommand(s);
+                        break;
+                    case "schedule":
+                        scheduleCommand(s);
                         break;
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
@@ -200,8 +199,6 @@ public class Parser {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
             String[] startendtime = time1.split("to");
-//            Date timetemp1 = TimeParser.convertStringToDate(time1);
-//            time1 = TimeParser.convertDateToLine(timetemp1);
             if (todoTask1.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_EVENT;
             }
@@ -236,9 +233,6 @@ public class Parser {
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
-//            TimeParser timeParser = new TimeParser();
-//            time = timeParser.convertStringToDate(time);
-            //==============================================
             if (todoTask.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_DEADLINE;
             }
@@ -251,7 +245,6 @@ public class Parser {
             if (time.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_DEADLINE;
             }
-            //==============================================
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
             Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
@@ -263,21 +256,51 @@ public class Parser {
         }
     }
 
-    private static void reminderCommand() {
-        if (TaskList.getTreeMap().isEmpty()){
-            System.out.println("u have no upcoming tasks :o");
-        } else {
-            System.out.println("here is a reminder for your next 3 upcoming tasks :o");
-            int count = 1;
-            for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
-                if (count > 3) {
-                    break;
+    /**
+     * Check for any incomplete events/deadlines since the user specified date
+     * The number of reminders is also specified by the user
+     * The reminders is then printed out
+     * Command: reminder <no. of reminders> <date>
+     */
+    private static void reminderCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showReminderIntroMessage(Integer.valueOf(tokens[1]), tokens[2]);
+        int count = 1;
+        Date startDate = TimeParser.convertToDate(tokens[2]);
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            Date logDate = TimeParser.getDateOnly(log.getKey());
+            if (count > Integer.valueOf(tokens[1])) {
+                break;
+            }
+            if (logDate.equals(startDate) || logDate.after(startDate)){
+                if (!log.getValue().isDone()){
+                    Ui.printReminder(log, count);
+                    count++;
                 }
-                Ui.printReminder(log, count);
+            }
+        }
+        Ui.showEmptyReminderMessage(count);
+        Ui.printLine();
+    }
+
+    /**
+     * Find all the deadlines/events on the user specified date
+     * Then print them out for user
+     * Command: schedule <date>
+     */
+    private static void scheduleCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showScheduleIntroMessage(tokens[1]);
+        tokens[1] = tokens[1] + " 00000";
+        int count = 1;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            if (TimeParser.getDateOnly(log.getKey()).equals(TimeParser.convertStringToDate(tokens[1]))){
+                Ui.printScheduleTask(log);
                 count++;
             }
-            Ui.printLine();
         }
+        Ui.showScheduleFinalMessage(count);
+        Ui.printLine();
     }
 }
 

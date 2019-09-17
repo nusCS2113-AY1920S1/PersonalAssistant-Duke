@@ -93,7 +93,6 @@ public class TimeParser {
                                     }
 
                                 }
-//
 
                             }
 
@@ -128,5 +127,27 @@ public class TimeParser {
         }
     }
 
+    public static Date convertToDate(String s) {
+        try {
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("d/MM/yyyy");
+            return sourceFormat.parse(s);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    public static Date getDateOnly(Date date) {
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return targetFormat.parse(targetFormat.format(date));
+        } catch (ParseException e){
+            return null;
+        }
+    }
+
+    public static String getStringTime(Date date){
+        SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aaa");
+        return targetFormat.format(date);
+    }
 }
 

@@ -28,7 +28,7 @@ public class DukeException extends Exception {
     public static final DukeException TASK_NO_MISSING_DELETE = new DukeException("☹ OOPS!!! Please "
         + "provide a task number, e.g. delete 1");
     public static final DukeException TASK_NO_MISSING_FIND = new DukeException("☹ OOPS!!! Please "
-        + "provide a keyword, e.g. find eat");
+            + "provide a keyword, e.g. find eat");
 
     public static final DukeException FILE_NOT_FOUND = new DukeException("☹ OOPS!!! Unknown error "
         + "extracting tasks from database.");

@@ -12,23 +12,17 @@ public class TaskList {
     public TaskList(List<Tasks> tasks ) {
         DE = new TreeMap<>();
         E = new TreeMap<>();
-
-//        System.out.println("initialising");
-
         for(Tasks a: tasks){
             if(a.getType().equals("E")){
                 DE.put(((Event)a).getDate().getStartDate() , a);
                 E.put(((Event)a).getDate().getStartDate() , a);
-//                System.out.println("Added a new event");
             }else if(a.getType().equals("D")){
                 DE.put(((Deadline)a).getDate().getStartDate() , a);
-//                System.out.println("Added a new deadline");
             }
         }
-
-
         this.tasks = tasks;
     }
+
     public TaskList() {
 
         tasks = new ArrayList<>();
@@ -40,12 +34,25 @@ public class TaskList {
 
     public static void addTask(Tasks task)  {
         tasks.add(task);
+        if(task.getType().equals("E")){
+            DE.put(((Event)task).getDate().getStartDate() , task);
+            E.put(((Event)task).getDate().getStartDate() , task);
+        }else if(task.getType().equals("D")){
+            DE.put(((Deadline)task).getDate().getStartDate() , task);
+        }
     }
 
     /**
      * Removes a particular task from database.
      */
     public static void removeTask(int num) throws DukeException {
+        Tasks deleteTask = tasks.get(num);
+        if (deleteTask.getType().equals("E")){
+            DE.remove(((Event) deleteTask).getDate().getStartDate());
+            E.remove(((Event) deleteTask).getDate().getStartDate());
+        } else if (deleteTask.getType().equals("D")){
+            DE.remove(((Deadline) deleteTask).getDate().getStartDate());
+        }
         try {
             tasks.remove(num);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -115,6 +122,13 @@ public class TaskList {
 
     public static void markTaskAsDone(int num) {
         tasks.get(num).setDone(true);
+        Tasks doneTask = tasks.get(num);
+        if (doneTask.getType().equals("E")){
+            DE.put(((Event)doneTask).getDate().getStartDate(),doneTask);
+            E.put(((Event)doneTask).getDate().getStartDate(),doneTask);
+        } else if (doneTask.getType().equals("D")){
+            DE.put(((Deadline)doneTask).getDate().getStartDate(),doneTask);
+        }
     }
 
     public static void markTaskAsUndone(int num) {
