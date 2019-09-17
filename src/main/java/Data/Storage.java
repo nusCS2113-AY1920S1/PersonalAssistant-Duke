@@ -43,8 +43,6 @@ public class Storage {
                 type = data[0];
                 stat = (data[1].equals("1"));
 
-
-
                 switch (type) {
                     case "D":
                         item deadline = new Deadline(data[2], stat, TaskList.dateRevert(data[3]));
@@ -60,12 +58,10 @@ public class Storage {
                         item todo = new ToDo(data[2], stat);
                         oldList.add(todo);
                         break;
-                   
 
                     case "A":
                         item after = new After(data[2], stat, TaskList.dateRevert(data[3]));
                         oldList.add(after);
-
                         break;
                     
                      default:
