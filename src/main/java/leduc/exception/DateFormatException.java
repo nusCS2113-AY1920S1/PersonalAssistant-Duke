@@ -11,14 +11,14 @@ public class DateFormatException extends DukeException {
      * @param ui leduc.Ui which deals with the interactions with the user.
      */
     public DateFormatException(Ui ui){
-        super(ui);
+        super();
     }
 
     /**
      * Provide the date format of a deadline task to respect to the user.
      */
-    public void print(){
-        super.ui.display("\t dateFormatException:\n\t\t ☹ OOPS!!! Please respect the date format\n\t\t\t " +
-                "dd/MM/yyyy HH:mm");
+    public String print(){
+        return "\t dateFormatException:\n\t\t ☹ OOPS!!! Please respect the date format\n\t\t\t " +
+                "dd/MM/yyyy HH:mm";
     }
 }

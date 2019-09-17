@@ -66,4 +66,8 @@ public abstract class Task {
     public boolean isEvent(){
         return false;
     }
+
+    public String toString(){
+        return getTag() + getMark() + " " + getTask();
+    }
 }

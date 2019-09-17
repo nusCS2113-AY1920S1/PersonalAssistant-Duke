@@ -60,18 +60,10 @@ public class DeadlineCommand extends Command {
                 tasks.add(newTask);
                 storage.save(tasks.getList());
                 ui.display("\t Got it. I've added this task:\n\t   "
-                        + newTask.getTag() + newTask.getMark() + newTask.getTask() + " by:"
-                        + newTask.getDeadlines() +
+                        + newTask.toString() +
                         "\n\t Now you have " + tasks.size() + " tasks in the list.");
             }
         }
     }
 
-    /**
-     * Returns a boolean false as it is a deadline command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

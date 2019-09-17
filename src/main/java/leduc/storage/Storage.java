@@ -48,7 +48,7 @@ public class Storage {
             sc = new Scanner(this.file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            throw new FileException(ui);
+            throw new FileException();
         }
         ArrayList<Task> tasks = new ArrayList<>();
         while (sc.hasNext()) {

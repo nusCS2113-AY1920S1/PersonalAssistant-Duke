@@ -68,19 +68,8 @@ public class EventCommand extends Command {
             tasks.add(newTask);
             storage.save(tasks.getList());
             ui.display("\t Got it. I've added this task:\n\t   "
-                    + newTask.getTag() + newTask.getMark() + newTask.getTask() + " at:"
-                    + newTask.getDateFirst() + " - " + newTask.getDateSecond() +
+                    + newTask.toString() +
                     "\n\t Now you have " + tasks.size() + " tasks in the list.");
             }
         }
-
-
-
-    /**
-     * Returns a boolean false as it is a event command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

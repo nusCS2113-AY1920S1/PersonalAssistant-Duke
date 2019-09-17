@@ -16,15 +16,6 @@ public class FindCommand extends Command {
     public FindCommand(String user){
         super(user);
     }
-
-    /**
-     * Returns a boolean false as it is a find command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
-
     /**
      * Allow to find tasks from the task list.
      * @param tasks leduc.task.TaskList which is the list of task.

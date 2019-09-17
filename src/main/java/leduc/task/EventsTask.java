@@ -60,5 +60,9 @@ public class EventsTask extends Task {
     public boolean isEvent(){
         return true;
     }
+
+    public String toString(){
+        return super.toString() + " at: " + getDateFirst() + " - " + getDateSecond();
+    }
 }
 

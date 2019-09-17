@@ -34,16 +34,8 @@ public class DoneCommand extends Command {
             tasks.get(index).taskDone();
             //get the String with the index task marked done
             storage.save(tasks.getList());
-            ui.display("\t Nice! I've marked this task as done:\n\t " + tasks.get(index).getTag() +
-                    tasks.get(index).getMark() + " " + tasks.get(index).getTask());
+            ui.display("\t Nice! I've marked this task as done:\n\t " + tasks.get(index).toString());
         }
     }
 
-    /**
-     * Returns a boolean false as it is a done command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

@@ -38,4 +38,8 @@ public class TodoTask extends Task {
     public boolean isTodo(){
         return true;
     }
+
+    public String toString(){
+        return super.toString();
+    }
 }

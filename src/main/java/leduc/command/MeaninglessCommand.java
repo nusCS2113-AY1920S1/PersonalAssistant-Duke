@@ -28,11 +28,4 @@ public class MeaninglessCommand extends Command {
         throw new MeaninglessException(ui);
     }
 
-    /**
-     * Returns a boolean false as it is a Unmeaning command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

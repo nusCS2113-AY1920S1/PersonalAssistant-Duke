@@ -34,20 +34,13 @@ public class TodoCommand extends Command {
             throw new EmptyTodoException(ui);
         }
         else {
-            tasks.add(new TodoTask(user.substring(4).trim()));
-            TodoTask newTask = (TodoTask) tasks.get(tasks.size() - 1);
+            TodoTask newTask = new TodoTask(user.substring(4).trim());
+            tasks.add(newTask);
             storage.save(tasks.getList());
             ui.display("\t Got it. I've added this task:\n\t   "
-                    + newTask.getTag() + newTask.getMark() + newTask.getTask() +
+                    + newTask.toString() +
                     "\n\t Now you have " + tasks.size() + " tasks in the list.");
         }
     }
 
-    /**
-     * Returns a boolean false as it is a Todo command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

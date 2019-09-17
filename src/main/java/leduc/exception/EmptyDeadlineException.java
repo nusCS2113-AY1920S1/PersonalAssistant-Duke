@@ -12,13 +12,13 @@ public class EmptyDeadlineException extends DukeException {
      * @param ui leduc.Ui which deals with the interactions with the user.
      */
     public EmptyDeadlineException(Ui ui){
-        super(ui);
+        super();
     }
 
     /**
      * Ask for a description for the deadline task to the user.
      */
-    public void print(){
-        super.ui.display("\t emptyDeadlineException:\n\t\t ☹ OOPS!!! The description of a deadline task cannot be empty");
+    public String print(){
+        return "\t emptyDeadlineException:\n\t\t ☹ OOPS!!! The description of a deadline task cannot be empty";
     }
 }

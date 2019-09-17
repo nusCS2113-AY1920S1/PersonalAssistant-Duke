@@ -49,5 +49,9 @@ public class DeadlinesTask extends Task {
     public boolean isDeadline(){
         return true;
     }
+
+    public String toString(){
+        return super.toString() + " by: " + getDeadlines();
+    }
 }
 

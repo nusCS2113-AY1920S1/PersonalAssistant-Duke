@@ -24,7 +24,9 @@ public abstract class Command {
      * Abstract method which returns a boolean: True if the input string of the user is "bye", False if not.
      * @return a boolean: True if the input string of the user is "bye", False if not.
      */
-    public abstract boolean isExit();
+    public boolean isExit(){
+        return false;
+    }
 
     /**
      * Abstract method: the operation of the specified command will be implemented.

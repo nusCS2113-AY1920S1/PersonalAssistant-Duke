@@ -25,18 +25,11 @@ public class ListCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){
         if (tasks.size() != 0) {
-            ui.displayList(tasks);
+            ui.showList(tasks);
         }
         else {
             ui.display("\t There is any task yet ");
         }
     }
 
-    /**
-     * Returns a boolean false as it is a list command.
-     * @return a boolean false.
-     */
-    public boolean isExit(){
-        return false;
-    }
 }

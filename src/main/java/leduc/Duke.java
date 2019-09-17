@@ -36,7 +36,7 @@ public class Duke {
             this.tasks = new TaskList(storage.load(parser, ui)); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){
-            e.print();
+            ui.showError(e);
         }
     }
 
@@ -55,6 +55,7 @@ public class Duke {
             }
             catch (DukeException e){ // catch one of subclass of dukeException and print the right message
                 e.print();
+                ui.showError(e);
             }
         }
     }
