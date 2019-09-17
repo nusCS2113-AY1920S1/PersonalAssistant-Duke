@@ -127,9 +127,10 @@ public class RecurringTask extends Task {
     }
 
     /**
-     * Updates the reccuring task date to the following week.
+     * Updates the recurring task date to the following week.
      */
-    private void setDate(LocalDateTime newDate) {
+    @Override
+    void setDate(LocalDateTime newDate) {
         this.at = newDate;
     }
 
@@ -172,5 +173,4 @@ public class RecurringTask extends Task {
     public LocalDateTime getDateTime() {
         return this.at;
     }
-
 }

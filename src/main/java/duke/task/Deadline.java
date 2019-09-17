@@ -12,7 +12,7 @@ import duke.exception.DukeException;
  * Class representing a deadline, a task to be completed by a certain time specified.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy hh:mm a");
 
@@ -151,6 +151,16 @@ public class Deadline extends Task {
     public String export() {
         return "D | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.by.format(inputFormatter).length() + " | " + this.by.format(inputFormatter);
+    }
+
+    /**
+     * Change the date of the deadline.
+     *
+     * @param rescheduledBy Date to be rescheduled to.
+     */
+    @Override
+    void setDate(LocalDateTime rescheduledBy) {
+        this.by = rescheduledBy;
     }
 
     /**

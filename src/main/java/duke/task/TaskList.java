@@ -8,6 +8,9 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import duke.command.AddCommand;
+import duke.exception.DukeException;
+
 /**
  * A class that holds a list of tasks that may be added to, removed or
  * marked as done. This list is indexed starting from 1.
@@ -185,6 +188,46 @@ public class TaskList {
             output.add(tasks.get(i - 1).export());
         }
         return output;
+    }
+
+    /**
+     * Reschedules the date of the task given by the task index.
+     *
+     * @param taskNumber Task index in the task list.
+     * @param rescheduleDate Date to be rescheduled to.
+     * @throws IndexOutOfBoundsException If position is not in the list.
+     * @throws DukeException If task is not a deadline or event.
+     */
+    public void rescheduleTask(int taskNumber, LocalDateTime rescheduleDate)
+            throws IndexOutOfBoundsException, DukeException {
+        char typeOfTask = tasks.get(taskNumber).toString().charAt(1);
+        if (typeOfTask == 'D') {
+            try {
+                AddCommand.checkDuplicateDeadline(tasks.get(taskNumber).getDescription(),
+                        this, rescheduleDate);
+                Deadline.checkDeadlineIsAfterCurrent(rescheduleDate);
+                tasks.get(taskNumber).setDate(rescheduleDate);
+            } catch (DukeException errorMessage) {
+                throw new DukeException(errorMessage.toString());
+            }
+        } else if (typeOfTask == 'E') {
+            LocalDateTime tempDateTime = tasks.get(taskNumber).getDateTime();
+            try {
+                Event.checkEventIsAfterCurrent(rescheduleDate);
+                AddCommand.checkDuplicateEvent(tasks.get(taskNumber).getDescription(),
+                        this, rescheduleDate);
+                tasks.get(taskNumber).setDate(rescheduleDate);
+                AddCommand.checkEventDateIsUnique(this, tasks.get(taskNumber));
+            } catch (DukeException errorMessage) {
+                tasks.get(taskNumber).setDate(tempDateTime);
+                throw new DukeException(errorMessage.toString());
+            }
+        } else if (typeOfTask == 'R') {
+            tasks.get(taskNumber).setDate(rescheduleDate);
+            ((RecurringTask)tasks.get(taskNumber)).checkRecurringTaskIsAfterCurrent();
+        } else {
+            throw new DukeException("Task cannot be a Todo.");
+        }
     }
 
     /**

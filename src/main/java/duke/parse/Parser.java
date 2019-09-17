@@ -9,6 +9,7 @@ import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.RescheduleCommand;
 import duke.command.ViewCommand;
 import duke.command.ReminderCommand;
 import duke.exception.DukeException;
@@ -121,6 +122,8 @@ public class Parser {
             return new AddCommand(Event.create(data));
         case "todo":
             return new AddCommand(Todo.create(data));
+        case "reschedule":
+            return new RescheduleCommand(data);
         case "recurring":
             return new AddCommand(RecurringTask.create(data));
         case "view":

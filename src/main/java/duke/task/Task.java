@@ -87,6 +87,14 @@ public class Task {
     }
 
     /**
+     * Reschedules the date of the task.
+     *
+     * @param rescheduleTime Date to be rescheduled to.
+     */
+    void setDate(LocalDateTime rescheduleTime){
+    }
+
+    /**
      * Gets date of Deadline & Event.
      *
      * @return date only of DeadLine and Event
