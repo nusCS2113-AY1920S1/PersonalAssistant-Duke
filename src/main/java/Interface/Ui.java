@@ -5,14 +5,14 @@ import Tasks.*;
  * respond to the user based on the user's input.
  */
 public class Ui {
-    protected String logo = " ____        _        \n"
+    private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    protected String welcomeMessage = "Hello! I'm Duke\n"
+    private String welcomeMessage = "Hello! I'm Duke\n"
             + "What can I do for you?\n";
-    protected String byeMessage = "Bye. Hope to see you again soon!\n";
+    private String byeMessage = "Bye. Hope to see you again soon!\n";
     protected String line = "____________________________________________________________\n";
 
     /**

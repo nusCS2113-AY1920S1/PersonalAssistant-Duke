@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class AddCommand extends Command {
 
-    protected Task task;
+    private Task task;
 
     /**
      * Creates an AddCommand object.

@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class FindCommand extends Command {
 
-    protected String key;
+    private String key;
 
     /**
      * Creates a FindCommand object.
