@@ -1,3 +1,9 @@
+package duke.task;
+
+import duke.command.*;
+import duke.core.*;
+import duke.exception.*;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
