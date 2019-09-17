@@ -8,6 +8,7 @@ import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
+import duke.commands.FreeTimeCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 
@@ -44,6 +45,8 @@ public class Parser {
             return new FindCommand(getWord(userInput));
         case "reminder":
             return new ReminderCommand();
+        case "findtime":
+            return new FreeTimeCommand(ParserUtil.getIndex(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
