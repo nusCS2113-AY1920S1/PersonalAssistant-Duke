@@ -10,12 +10,20 @@ import java.time.LocalDateTime;
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Event extends Task implements Serializable{
+public class Event extends Task implements Serializable, Comparable<Event>{
 
     public Event(String description, LocalDateTime toDate, LocalDateTime fromDate) {
         super(description);
         this.toDate = toDate;
         this.fromDate = fromDate;
+    }
+    
+    /**
+     * custom comparator for sorting
+     */
+    @Override
+    public int compareTo(Event o) {
+      return this.fromDate.compareTo(o.fromDate);
     }
 
     /**
