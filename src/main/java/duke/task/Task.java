@@ -120,4 +120,14 @@ public class Task {
         Date dateValue = formatter.parse(stringDate);
         return dateValue;
     }
+
+    /**
+     * Checks if Task is due today.
+     * @return true if deadline is today's date.
+     */
+    public boolean isDueToday() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date(); //Declaration of a new Date object has default value of today's date
+        return (format.format(date).equals(format.format(currentDate)));
+    }
 }

@@ -41,6 +41,8 @@ public class Duke {
      * @throws IOException if there is an error in reading input or printing output
      */
     public void run() throws ParseException, IOException {
+        ui.printTaskArray("REMINDER--The following tasks below are due today:", tasks.searchItemsDue());
+
         Boolean toExit = false;
         while (!toExit) {
             try {
@@ -62,7 +64,7 @@ public class Duke {
      * @throws DukeException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, DukeException {
-        new Duke("data/duke.txt").run();
+        new Duke("data/duke1.txt").run();
     }
 
 }

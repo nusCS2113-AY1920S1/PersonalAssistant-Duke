@@ -104,6 +104,22 @@ public class TaskList {
     }
 
     /**
+     * Searches items, specifically deadlines, that are due today.
+     * @return an ArrayList of String-ified Tasks that are due today.
+     */
+    public ArrayList<String> searchItemsDue() {
+        ArrayList<String> results = new ArrayList<String>();
+        int index = 1;
+        for (Task thisTask : items) {
+            if ((thisTask instanceof Deadline) && (thisTask.isDueToday())) {
+                results.add((index) + ". " + thisTask.toString());
+                index++;
+            }
+        }
+        return results;
+    }
+
+    /**
      * Converts the TaskList to an array of String versions of the Tasks, to be printed.
      * @return an ArrayList of String-ified Tasks.
      */
@@ -115,4 +131,5 @@ public class TaskList {
         }
         return list;
     }
+
 }
