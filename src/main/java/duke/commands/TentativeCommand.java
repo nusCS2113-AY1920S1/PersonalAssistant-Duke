@@ -13,24 +13,42 @@ import java.util.List;
 
 public class TentativeCommand extends Command {
     private boolean isAdd;
-    public TentativeCommand (String str, boolean isAdd) {
+
+    /**
+     * a.
+     * @param str b
+     * @param isAdd c
+     */
+    public TentativeCommand(String str, boolean isAdd) {
         input = str;
         type = CmdType.TENTATIVE;
         this.isAdd = isAdd;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    /**
+     * a.
+     * @param tasks b
+     * @param ui c
+     * @param storage d
+     * @throws DukeException e
+     */
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (isAdd && TentativeEvent.dates.isEmpty()) {
             executeAdd(ui);
         } else if (isAdd) {
             ui.showMessage("You can only have one tentative event at a time.");
-        } else if (!TentativeEvent.dates.isEmpty()){
+        } else if (!TentativeEvent.dates.isEmpty()) {
             getString(ui, "This is your current tentative event:");
         } else {
             ui.showError("You don't have a tentative event.");
         }
     }
 
+    /**
+     * a.
+     * @param ui b.
+     * @throws DukeException c.
+     */
     private void executeAdd(Ui ui) throws DukeException {
         if (input.length() == 15) {
             throw new DukeException("     ☹ OOPS!!! The description of a event cannot be empty.");
@@ -64,7 +82,13 @@ public class TentativeCommand extends Command {
         }
     }
 
-    private Date parseDate(Ui ui) throws DukeException{
+    /**
+     * a.
+     * @param ui b.
+     * @return c.
+     * @throws DukeException e.
+     */
+    private Date parseDate(Ui ui) throws DukeException {
         String timing = ui.readCommand();
         try {
             Parser parser = new Parser();
@@ -75,6 +99,11 @@ public class TentativeCommand extends Command {
         }
     }
 
+    /**
+     * a.
+     * @param ui b.
+     * @param topMessage c.
+     */
     private void getString(Ui ui, String topMessage) {
         ui.showMessage(topMessage);
         ui.showMessage("    [E] " + TentativeEvent.description);

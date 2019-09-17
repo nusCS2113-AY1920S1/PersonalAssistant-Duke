@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Duke {
-    private static String savedDataPath = "./data/saved_data.txt";
+    private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasks;
@@ -20,15 +20,7 @@ public class Duke {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            new File("./data").mkdir();
-            File file1 = new File("./data/saved_data.txt");
-            try {
-                file1.createNewFile();
-                storage = new Storage(filePath);
-                tasks = new TaskList();
-            } catch (IOException error) {
-                ui.showLoadingError();
-            }
+            throw new DukeException("FAILED TO LOAD");
         }
     }
 

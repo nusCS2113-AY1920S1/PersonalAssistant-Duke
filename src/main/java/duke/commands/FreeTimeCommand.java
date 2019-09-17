@@ -65,10 +65,16 @@ public class FreeTimeCommand extends Command {
 
                 calendar.setTime(compDate);
                 int compInt = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);
-                //ONLY HAPPENS if freetime AFTER lowerBound AND got freetime btw currTime and {time of task}
-                if (currTime >= lowerTimeBound && compInt - diff >= currTime) {
+
+                if (currTime >= lowerTimeBound && compInt - diff >= currTime && currTime <= compInt) {
+                    //ONLY HAPPENS if freetime AFTER lowerBound AND got freetime btw currTime and {time of task}
+                    //so set to currTime
                     //ui.showMessage("A");
                     break;
+                } else if (compDate.before(currDate) && currTime - diff <= lowerTimeBound) {
+                    calendar.setTime(currDate);
+                    currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
+                    currDate = calendar.getTime();
                 } else if (compInt + diff <= upperTimeBound && currTime + diff <= upperTimeBound) {
                     //This happens if can find freetime AFTER event, and btw currTime and upperBound
                     //ui.showMessage("B");

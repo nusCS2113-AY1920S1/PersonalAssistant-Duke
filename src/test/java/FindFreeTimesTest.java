@@ -1,6 +1,9 @@
+import com.joestelmach.natty.DateGroup;
 import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +14,7 @@ import java.io.PrintStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,19 +38,25 @@ public class FindFreeTimesTest {
     }
 
     @Test
-    void test() throws DukeException {
+    void testTaskDateBeforeCurrent() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse("event a /at 15 sept 12pm");
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        String input = "event a /at 15 sept 12pm";
+        Command c = Parser.parse(input);
+        c.execute(taskList, ui, storage);
         restoreStreams();
         setUpStreams();
         c = Parser.parse("freetime 6");
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         Date currDate = new Date();
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(currDate);
-        if (calendar.get(Calendar.HOUR_OF_DAY) >= 11 & calendar.get(Calendar.MINUTE) > 0) {
+        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+        List<DateGroup> groups = parser.parse(input);
+        Date compDate = groups.get(0).getDates().get(0);
+        if (currDate.after(compDate) && calendar.get(Calendar.HOUR_OF_DAY) + 6 > 17) {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
             calendar.set(Calendar.HOUR_OF_DAY, 8);
             calendar.set(Calendar.MINUTE, 0);

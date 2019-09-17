@@ -3,10 +3,11 @@ package duke;
 import duke.tasks.Task;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -23,6 +24,16 @@ public class Storage {
     public Storage(String filepath) throws DukeException {
         this.filepath = filepath;
         try {
+            File file = new File(filepath);
+            try {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdir();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new DukeException("Failed to create new file");
+            }
+
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -96,8 +107,6 @@ public class Storage {
                 }
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            throw new DukeException("File not found!");
         } catch (IOException e) {
             throw new DukeException("Failed to close reader");
         }

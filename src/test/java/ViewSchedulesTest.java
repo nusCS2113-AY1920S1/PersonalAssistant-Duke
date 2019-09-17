@@ -1,6 +1,8 @@
 import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,14 +37,16 @@ public class ViewSchedulesTest {
 
     @Test
     void test() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse("deadline a /by 3pm 15 sept");
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         restoreStreams();
         setUpStreams();
         c = Parser.parse("viewschedule 15 sept");
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Here are your tasks for 15 Sep 2019\n"
                     + "1. [D][✗] a (by: 3pm 15 sept)";
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));

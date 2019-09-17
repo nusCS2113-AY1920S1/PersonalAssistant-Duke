@@ -1,6 +1,8 @@
-import duke.DukeException;
+import duke.Ui;
+import duke.Storage;
 import duke.Parser;
 import duke.TaskList;
+import duke.DukeException;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,23 +33,31 @@ public class DeadlineTest {
     }
 
     @Test
-    void test(String input) throws DukeException {
+    void test() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
+        String input = "deadline test /by 0000";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [D][✗] test (by: 0000)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
 
     @Test
-    void examBy_Date(String input) throws DukeException {
+    void examBy_Date() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
+        String input = "deadline exam /by 01/01/2019";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
-        String exp = "Got it. I've added this task: \n   [D][✗] exam (by: 01/01/2019)\nNow you have 1 tasks in the list.";
+        c.execute(taskList, ui, storage);
+        String exp = "Got it. I've added this task: \n   [D]"
+                + "[✗] exam (by: 01/01/2019)\n"
+                + "Now you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
