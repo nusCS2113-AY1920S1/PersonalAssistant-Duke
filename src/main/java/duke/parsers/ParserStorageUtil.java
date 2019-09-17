@@ -67,6 +67,8 @@ public class ParserStorageUtil {
             return  "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getEvent();
+        } else if (task instanceof DoWithin) {
+            return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
         }
         throw new DukeException(MessageUtil.CORRUPTED_TASK);
     }
