@@ -28,15 +28,26 @@ User is able to store his results, and pull it up for viewing anytime
 
 ### `Keyword` - Describe action
 
-'Create User' - Define the user's profile name and password
-'Login'- enter app
-'Logout' - exit app
-'Forget password [USER]' - Answer security code to gain access to your account if you forget password
-'Add/Delete/Modify [MOD CODE]' - Control what modules are added to your schedule
-'View [ACAD YEAR]' - View grade by acad year and semester
-'Plan [module] [activity:project meeting/consultation] [duration forecast]'
-'Set goal [CAP]' - Set desired CAP
-'View [CAP]' - View current cap
-'CAP Grades Required' - See grades per mod in order to get desired cap
-'Save [module] [grade] [Year _ Sem _]' - Saved the grades obtained for the mod
-'Edit [module] [grade] [Year_Sem_]' - Edit the previous grades saved
+`Create User` - Define the user's profile name and password
+
+`Login`- enter app
+
+`Logout` - exit app
+
+`Forget password [USER]` - Answer security code to gain access to your account if you forget password
+
+`Add/Delete/Modify [MOD CODE]` - Control what modules are added to your schedule
+
+`View [ACAD YEAR]` - View grade by acad year and semester
+
+`Plan [module] [activity:project meeting/consultation] [duration forecast]` - Create additional tasks in your schedule
+
+`Set goal [CAP]` - Set desired CAP
+
+`View [CAP]` - View current cap
+
+`CAP Grades Required` - See grades per mod in order to get desired cap
+
+`Save [module] [grade] [Year _ Sem _]` - Saved the grades obtained for the mod
+
+`Edit [module] [grade] [Year_Sem_]` - Edit the previous grades saved
