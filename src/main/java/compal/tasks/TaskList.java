@@ -109,6 +109,19 @@ public class TaskList {
             arrlist.add(new DoAfterTasks(description,date));
             duke.ui.printg("[DAT][ " + notDone + "] " + description);
             break;
+        case "fixeddurationtask":
+            token = "/on";
+            description = getDescription(cs.substring(0, cs.indexOf("/for")), token);
+            date = getDate(cs.substring(0, cs.indexOf("/for")), token);
+            int hour = 0;
+            int minute = 0;
+            hour = getDuration(cs, 1);
+            minute = getDuration(cs, 2);
+            arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
+                    + " minute(s)",date, hour, minute));
+            duke.ui.printg("[FDT][ " + notDone + "] " + description + "for " + hour + " hour(s) " + minute
+                    + " minute(s)");
+            break;
 
         default:
             throw new IllegalStateException("Unexpected value: " + s);
@@ -119,7 +132,6 @@ public class TaskList {
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
-
 
 
 
@@ -237,7 +249,28 @@ public class TaskList {
         return date;
     }
 
-
+    /**
+     * This function gets the duration hour and minute of the task.
+     * hour or minute is the number in the substring after "/for"
+     *
+     * @param cs    description string
+     * @param i     whether the system is asking for the hour or the minute
+     * @return hour if i = 1
+     *         minute if i = 2
+     * @Function
+     * @UsedIn: : addTask
+     */
+    private int getDuration(String cs, int i) {
+        cs = cs.substring(cs.indexOf("/for") + 4);
+        Scanner sc1 = new Scanner(cs);
+        int time = 0; //to represent hour/minute
+        while (i != 0) {
+            i--;
+            time = sc1.nextInt();
+            sc1.next();//ignore the string
+        }
+        return time;
+    }
 
 
     /**
