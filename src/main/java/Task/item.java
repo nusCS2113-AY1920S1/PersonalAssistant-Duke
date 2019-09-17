@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class item {
 
-    private Boolean status;
+    protected Boolean status;
     private String info;
     private String type;
 

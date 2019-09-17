@@ -20,14 +20,7 @@ public class After extends item {
      */
     @Override
     public String getDate () {
-        String hour =  new SimpleDateFormat("h").format(after);
-        String min = new SimpleDateFormat("mm").format(after);
-        String marker = new SimpleDateFormat("a").format(after);
-        String day = new SimpleDateFormat("d").format(after);
-        String monthYear = new SimpleDateFormat("MMMMM yyyy").format(after);
-        String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
-                hour + (min.equals("00") ? marker : ("." + min + marker));
-        return newDateFormat;
+        return TaskList.dateToStringFormat(after);
     }
 
     /**

@@ -31,14 +31,7 @@ public class Deadline extends item{
      */
     @Override
     public String getDate () {
-        String hour =  new SimpleDateFormat("h").format(by);
-        String min = new SimpleDateFormat("mm").format(by);
-        String marker = new SimpleDateFormat("a").format(by);
-        String day = new SimpleDateFormat("d").format(by);
-        String monthYear = new SimpleDateFormat("MMMMM yyyy").format(by);
-        String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
-                                hour + (min.equals("00") ? marker : ("." + min + marker));
-        return newDateFormat;
+        return TaskList.dateToStringFormat(by);
     }
 
 

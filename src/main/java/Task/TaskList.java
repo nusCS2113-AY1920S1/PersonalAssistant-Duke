@@ -158,4 +158,31 @@ public class TaskList {
         }
     }
 
+    public static String dateToStringFormat (Date date) {
+        String hour =  new SimpleDateFormat("h").format(date);
+        String min = new SimpleDateFormat("mm").format(date);
+        String marker = new SimpleDateFormat("a").format(date);
+        String day = new SimpleDateFormat("d").format(date);
+        String monthYear = new SimpleDateFormat("MMMMM yyyy").format(date);
+        String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
+                hour + (min.equals("00") ? marker : ("." + min + marker));
+        return newDateFormat;
+    }
+
+    public static ArrayList<item> getReminderList (Date todayDate, Date endDate) {
+        ArrayList<item> deadlineList = new ArrayList<>();
+        Boolean isNotEmpty = false;
+        for (item i: list) {
+            // check if deadline is before today's date,
+            if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.status) {
+                deadlineList.add(i);
+                isNotEmpty = true;
+            }
+        }
+        if (isNotEmpty)
+            return deadlineList;
+
+        return null;
+    }
+
 }

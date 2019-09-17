@@ -1,6 +1,8 @@
 package Data;
 
 import Task.*;
+import Module.Reminder;
+import java.util.Date;
 
 /**
  * Parser is the controller for the string inputs received by the standard input.
@@ -70,6 +72,21 @@ public class Parser {
                 }
                 catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The task needs a deadline");
+                }
+                break;
+            /**
+             * Command should be in the form: reminder deadlines before 18/09/2019 1900
+             * Push date before date into
+             */
+            case "reminder":
+                try{
+                    index = input.indexOf("before");
+                    Date date = TaskList.dateConvert(input.substring(index + 7));
+                    Reminder reminder = new Reminder(date);
+                    reminder.getReminders();
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.err.println("Incorrect format");
                 }
                 break;
 
