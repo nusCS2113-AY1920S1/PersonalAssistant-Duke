@@ -84,7 +84,11 @@ public class Parser {
         } else if (command.equals("findfreetime")){
             int index = Integer.parseInt(description);
             return new FindFreeTimeCommand(index);
-        } else{
+        } else if (command.equals("snooze")){
+            int index1 = Integer.parseInt(description.split(" ",2)[0]);
+            int index2 = Integer.parseInt(description.split(" ",2)[1]);
+            return new SnoozeCommand(index1,index2);
+        } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
