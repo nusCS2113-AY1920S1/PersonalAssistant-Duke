@@ -42,15 +42,17 @@ public class FindFreeTimesTest {
         restoreStreams();
         setUpStreams();
         c = Parser.parse("freetime 6");
+        c.execute(taskList, DukeTest.ui, DukeTest.storage);
         Date currDate = new Date();
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(currDate);
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 11 & calendar.get(Calendar.MINUTE) > 0) {
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+        }
         Date newDate = calendar.getTime();
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
         String exp = "Current Date: " + currDate.toString() + "\nNext Available: " + newDate.toString();
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));
         restoreStreams();

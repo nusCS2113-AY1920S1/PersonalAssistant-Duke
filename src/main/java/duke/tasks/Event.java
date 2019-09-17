@@ -32,6 +32,12 @@ public class Event extends Task {
         }
     }
 
+    public Event(String description, Date date) {
+        super(description);
+        this.at = date.toString();
+        this.dateNow = date;
+    }
+
     /**
      * Gets the task type in [] format and
      * its description.

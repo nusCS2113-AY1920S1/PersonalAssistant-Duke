@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Parser {
+
     /**
      * Allows the user input to be parsed before running 'execute'.
      * @param input String inputted by user, which needs to be parsed
@@ -38,6 +39,12 @@ public class Parser {
             return new AddCommand(Command.CmdType.EVENT, input);
         } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             return new AddCommand(Command.CmdType.DEADLINE, input);
+        } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
+            return new TentativeCommand(input, true);
+        } else if (input.equals("tentative list")) {
+            return new TentativeCommand(input, false);
+        } else if (input.length() >= 7 && input.substring(0,7).equals("confirm")) {
+            return new ConfirmCommand(input);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
         }
@@ -172,6 +179,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Checks if new event clash of with existing event
      * Clash only checked against task of EVENT type
@@ -189,4 +197,20 @@ public class Parser {
         return true;
     }
 
+    public static String runConfirm(ArrayList<Task> data, String input, int state) throws DukeException {
+        input = input.substring(8);
+        int num;
+        try {
+            num = Integer.parseInt(input);
+            if (num > TentativeEvent.dates.size()) {
+                throw new DukeException("No corresponding slot!");
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeException("Not a valid Slot Number!");
+        }
+
+        // construct new Event object to add to the list.
+        Task tempTask = new Event(TentativeEvent.description, TentativeEvent.dates.get(num - 1));
+        return getString(data, state, tempTask);
+    }
 }
