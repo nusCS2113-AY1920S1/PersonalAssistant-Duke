@@ -158,8 +158,8 @@ public class Command {
                 int num = Integer.parseInt(command[1]) - 1;
                 Task task = taskList.getTask(num);
                 String outputString = task.toString();
-                char type = outputString.charAt(1);
-                if(type == '?'){
+                String type =  outputString.substring(1, 3);
+                if(type.equals("*E")){
                     Tentative notSet = (Tentative) task;
                     Task newEvent = taskList.updateTentative(notSet);
                     if(newEvent != null){
