@@ -1,12 +1,13 @@
-E | 0 | fsahufias | 30/06/2020 0316 | false
-D | 0 | abc | 27/07/1996 2130 | false
+E | 0 | fsahufias | 30/06/2020 0316 | ONCE
+D | 0 | abc | 17/09/2019 0915 | DAILY
 P | 0 | abc | 27/07/1996 2130 | 27/06/2029 1630
-D | 0 | abc | 27/07/1996 2130 | false
-T | 1 | abc | false
-D | 0 | abc | 17/09/2019 2130 | false
-E | 0 | werq | 17/09/2019 1500 | false
-T | 0 | homework | false
-E | 0 | abc | 06/06/2016 1530 | false
+D | 0 | abc | 17/09/2019 1145 | DAILY
+T | 1 | abc | DAILY
+D | 0 | abc | 17/09/2019 2130 | ONCE
+E | 0 | werq | 17/09/2019 1500 | ONCE
+T | 0 | homework | ONCE
+E | 0 | abc | 17/09/2019 1530 | DAILY
 P | 0 | abc | 27/08/2019 1630 | 29/11/2020 1630
 P | 0 | abc | 27/08/2019 1630 | 29/11/2020 1630
 P | 0 | abc | 27/08/2019 1630 | 29/11/2020 1630
+E | 0 | dog | 17/09/2019 0001 | DAILY

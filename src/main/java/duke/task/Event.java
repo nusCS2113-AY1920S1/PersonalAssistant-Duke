@@ -3,6 +3,9 @@ package duke.task;
 import duke.core.DateTimeParser;
 import duke.core.DukeException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a event. It is
  * extended from the Task class.
@@ -37,7 +40,21 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.printStatus() + " (at: " + dateTimeEnglish + ")";
+
+        if (recurringTask != null) {
+            DateTimeFormatter newDateFormatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HHmm");
+            String newDate = recurringTask.recurringTaskTimeUpdate(this).format(newDateFormatter);
+            this.dateTime = newDate;
+            try {
+                this.dateTimeEnglish = DateTimeParser.convertToEnglishDateTime(dateTime);
+            } catch (DukeException e) {
+                System.out.println("I couldn't convert your given time. " + e);
+            }
+        }
+        return "[E]"
+                + super.printStatus()
+                + " (at: "
+                + dateTimeEnglish + ")";
     }
 
     /**
@@ -46,6 +63,10 @@ public class Event extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
+        String frequency = "ONCE";
+        if (isTaskRecurring()) {
+            frequency = recurringTask.writeTxt();
+        }
         return "E | "
                 + (isDone() ? "1" : "0")
                 + " | "
@@ -53,6 +74,6 @@ public class Event extends Task {
                 + " | "
                 + dateTime
                 + " | "
-                + this.isRecurring;
+                + frequency;
     }
 }
