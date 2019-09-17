@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 import duke.exception.DukeException;
 
@@ -18,7 +19,7 @@ public class Deadline extends Task {
      * Initializes a Deadline from its description and its time.
      *
      * @param description A description of the task which is under deadline.
-     * @param by The time by which this task must be done.
+     * @param by          The time by which this task must be done.
      */
     Deadline(String description, LocalDateTime by) {
         super(description);
@@ -29,10 +30,9 @@ public class Deadline extends Task {
      * Creates this instance of a Deadline object.
      *
      * @param data The raw data to be parsed by {@link #parseDeadlineDesc(String)}
-     *     and {@link #parseDeadlineTime(String)}.
-     *
+     *             and {@link #parseDeadlineTime(String)}.
      * @return a new Deadline task that has description and deadline time properly parsed
-     *     and sanitised.
+     *             and sanitised.
      * @throws DukeException when any of the parsing fails to conform with standards.
      */
     public static Deadline create(String data) throws DukeException {
@@ -137,11 +137,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns date-only of this Deadline.
+     *
+     * @return the date of Deadline
+     */
+    @Override
+    public LocalDate getDate() {
+        LocalDate date = by.toLocalDate();
+        return date;
+    }
+
+    /**
      * Returns a LocalDateTime of this Deadline.
      *
      * @return The date and time of this Deadline.
      */
-    @Override
     public LocalDateTime getDateTime() {
         return this.by;
     }
