@@ -25,8 +25,8 @@ class ParserTest {
             assertTrue(Parser.parse("remindme 4") instanceof RemindCommand);
             assertTrue(Parser.parse("findfreetime 4") instanceof FindFreeTimeCommand);
             assertTrue(Parser.parse("snooze 17 19") instanceof SnoozeCommand);
-        }
-        catch (DukeException e){
+        } catch (DukeException e) {
+            System.out.println("parse failure");
         }
     }
 }
