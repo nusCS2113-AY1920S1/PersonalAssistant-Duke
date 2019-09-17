@@ -12,7 +12,7 @@ public class DeadlineTest {
      * Test the Deadline.toString()
      */
     @Test
-    public void deadlineStringTest() {
+    public void deadlineStringTest() throws DukeException {
         assertEquals( "[D][\u2718] abc (by: 2nd of December 1996, 12PM)", new Deadline("abc", "02/12/1996 1235").toString(),"Deadline toString() is not expected");
     }
 
@@ -20,15 +20,15 @@ public class DeadlineTest {
      * Test the Deadline.writeTxt()
      */
     @Test
-    public void writeFormatTest() {
-        assertEquals( "D | 0 | deadlineTest | 02/12/1996 1235",new Deadline("deadlineTest", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
+    public void writeFormatTest() throws DukeException {
+        assertEquals( "D | 0 | deadlineTest | 02/12/1996 1235 | false",new Deadline("deadlineTest", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
     }
 
     /**
      * Test the Deadline.isDone() after a new Deadline object is being initialized
      */
     @Test
-    public void doneStatusTest() {
+    public void doneStatusTest() throws DukeException {
         assertFalse(new Deadline("abc", "02/12/1996 1235").isDone(), "The newly created Deadline should not be done");
     }
 
@@ -48,7 +48,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("deadlineTest", "02/12/1996 1235");
         assertFalse(deadline.isDone(), "The newly created deadline should not be done");
         assertEquals( "[D][\u2718] deadlineTest (by: 2nd of December 1996, 12PM)",deadline.toString(), "The writeToFile format is not expected");
-        assertEquals( "D | 0 | deadlineTest | 02/12/1996 1235",deadline.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "D | 0 | deadlineTest | 02/12/1996 1235 | false",deadline.writeTxt(), "The writeToFile format is not expected");
 
         // Mark the deadline as done and check its toString() and writeTxt()
         deadline.markAsDone();
