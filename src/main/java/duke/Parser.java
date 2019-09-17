@@ -1,27 +1,12 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.ConfirmCommand;
-import duke.commands.TentativeCommand;
-import duke.commands.AddCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.ReminderCommand;
-import duke.commands.FindCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.DoneCommand;
-import duke.commands.ListCommand;
-import duke.commands.ExitCommand;
-import duke.commands.ViewScheduleCommand;
-import duke.tasks.Task;
-import duke.tasks.WithinPeriodTask;
-import duke.tasks.FixedDurationTask;
-import duke.tasks.Deadline;
-import duke.tasks.ToDo;
-import duke.tasks.Event;
-import duke.tasks.TentativeEvent;
-import duke.tasks.DoAfterTask;
+import duke.commands.*;
+import duke.tasks.*;
+import com.joestelmach.natty.DateGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Parser {
 
@@ -51,6 +36,13 @@ public class Parser {
         } else if (input.length() > 6 && input.substring(0,6).equals("delete")) {
             return new DeleteCommand(input);
         } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
+            if (input.contains("/daily")) {
+                return new AddCommand(Command.CmdType.DAILY, input);
+            } else if (input.contains("/weekly")) {
+                return new AddCommand(Command.CmdType.WEEKLY, input);
+            } else if (input.contains("/monthly")) {
+                return new AddCommand(Command.CmdType.MONTHLY, input);
+            }
             return new AddCommand(Command.CmdType.TODO, input);
         } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
             return new AddCommand(Command.CmdType.EVENT, input);
@@ -86,11 +78,8 @@ public class Parser {
     private static StringBuilder computeTaskDetail(String task, StringBuilder stringBuilder) {
         String[] tokens = task.split(" ");
         for (String token : tokens) {
-            if (token.charAt(0) != '/') {
-                stringBuilder.append(token);
-            } else {
-                break;
-            }
+            if (token.charAt(0) != '/') stringBuilder.append(token);
+            else break;
         }
         return stringBuilder;
     }
@@ -128,19 +117,15 @@ public class Parser {
             } else if (token.charAt(0) == '/' && token.equals("/needs")) {
                 hasReq = true;
                 hasFixedDuration = true;
-            } else if (!hasReq) {
-                taskDetail.append(token + " ");
-            } else if (hasReq) {
-                taskReq.append(token + " ");
             }
+            else if (!hasReq) taskDetail.append(token + " ");
+            else if (hasReq) taskReq.append(token + " ");
         }
         String finalTaskDetail = taskDetail.toString();
         finalTaskDetail = finalTaskDetail.substring(0, finalTaskDetail.length() - 1);
         String finalTaskReq = taskReq.toString();
 
-        if (hasReq) {
-            finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
-        }
+        if (hasReq) finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
 
         if (hasDoAfter) {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
@@ -148,7 +133,8 @@ public class Parser {
             tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
         } else if (hasFixedDuration) {
             tempTask = new FixedDurationTask(finalTaskDetail, finalTaskReq);
-        } else {
+        }
+        else {
             tempTask = new ToDo(input);
         }
         return getString(data, state, tempTask);
@@ -200,7 +186,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Checks if new event clash of with existing event.
      * Clash only checked against task of EVENT type
@@ -219,7 +204,7 @@ public class Parser {
     }
 
     /**
-     * Confirm if there is conflict with tasks input.
+     * Confirm slot for tentative event, and add that event to the task list.
      * @param data ArrayList of Tasks that's currently being stored
      * @param input Command input by user
      * @param state The type of output needed:
@@ -246,5 +231,33 @@ public class Parser {
         return getString(data, state, tempTask);
     }
 
-}
+    public static String runRecurring(ArrayList<Task> data, String input, int state, String freq) throws DukeException {
+        input = input.substring(5).trim();
+        String tt1, tt2;
+        int token;
+        token = input.indexOf("/");
+        tt1 = input.substring(0, token - 1);
+        if (freq.equals("daily")) {
+            tt2 = input.substring(token + 7);
+        } else if (freq.equals("weekly")) {
+            tt2 = input.substring(token + 8);
+        } else {
+            tt2 = input.substring(token + 9);
+        }
 
+        // parse date here
+        Date startDate = parseDate(tt2);
+        Task tempTask = new RecurringTask(tt1, startDate, freq);
+        return getString(data, state, tempTask);
+    }
+
+    public static Date parseDate(String tt2) throws DukeException{
+        try {
+            com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+            List<DateGroup> groups = parser.parse(tt2);
+            return groups.get(0).getDates().get(0);
+        } catch (Exception e) {
+            throw new DukeException("   Date cannot be parsed: " + tt2);
+        }
+    }
+}

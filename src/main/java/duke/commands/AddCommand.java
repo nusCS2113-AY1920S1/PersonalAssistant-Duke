@@ -19,18 +19,16 @@ public class AddCommand extends Command {
             if (input.length() == 4) {
                 throw new DukeException("     ☹ OOPS!!! The description of a todo cannot be empty.");
             }
-            type = cmdType;
         } else if (cmdType == CmdType.EVENT) {
             if (input.length() == 5) {
                 throw new DukeException("     ☹ OOPS!!! The description of a event cannot be empty.");
             }
-            type = cmdType;
         } else if (cmdType == CmdType.DEADLINE) {
             if (input.length() == 8) {
                 throw new DukeException("     ☹ OOPS!!! The description of a deadline cannot be empty.");
             }
-            type = cmdType;
         }
+        type = cmdType;
     }
 
     /**
@@ -44,7 +42,7 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         switch (type) {
-        case TODO:
+         case TODO:
             ui.showMessage(Parser.runTodo(tasks.getData(), input, 0));
             storage.write(tasks.getData());
             break;
@@ -54,6 +52,18 @@ public class AddCommand extends Command {
             break;
         case EVENT:
             ui.showMessage(Parser.runEvent(tasks.getData(), input, 0));
+            storage.write(tasks.getData());
+            break;
+        case DAILY:
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "daily"));
+            storage.write(tasks.getData());
+            break;
+        case WEEKLY:
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "weekly"));
+            storage.write(tasks.getData());
+            break;
+        case MONTHLY:
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "monthly"));
             storage.write(tasks.getData());
             break;
         default:

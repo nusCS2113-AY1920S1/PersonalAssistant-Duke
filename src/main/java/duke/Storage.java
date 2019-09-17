@@ -60,6 +60,18 @@ public class Storage {
                             finalOutput = new StringBuilder("event ");
                             cmdState = 3;
                             break;
+                        case "d":
+                            finalOutput = new StringBuilder("todo ");
+                            cmdState = 4;
+                            break;
+                        case "w":
+                            finalOutput = new StringBuilder("todo ");
+                            cmdState = 5;
+                            break;
+                        case "m":
+                            finalOutput = new StringBuilder(("todo "));
+                            cmdState = 6;
+                            break;
                         default:
                         }
                     } else if (count == 2) {
@@ -76,6 +88,14 @@ public class Storage {
                         case 3:
                             finalOutput.append(" /at ").append(currStr);
                             break;
+                        case 4:
+                            finalOutput.append(" /daily ").append(currStr);
+                            break;
+                        case 5:
+                            finalOutput.append(" /weekly ").append(currStr);
+                            break;
+                        case 6:
+                            finalOutput.append(" /monthly ").append(currStr);
                         default:
                         }
                     }
@@ -101,6 +121,27 @@ public class Storage {
                         Parser.runEvent(data, finalOutput.toString(), 1);
                     } else {
                         Parser.runEvent(data, finalOutput.toString(), 2);
+                    }
+                    break;
+                case 4:
+                    if(!isChecked) {
+                        Parser.runRecurring(data, finalOutput.toString(), 1, "daily");
+                    } else {
+                        Parser.runRecurring(data, finalOutput.toString(), 2, "daily");
+                    }
+                    break;
+                case 5:
+                    if(!isChecked) {
+                        Parser.runRecurring(data, finalOutput.toString(), 1, "weekly");
+                    } else {
+                        Parser.runRecurring(data, finalOutput.toString(), 2, "weekly");
+                    }
+                    break;
+                case 6:
+                    if(!isChecked) {
+                        Parser.runRecurring(data, finalOutput.toString(), 1, "monthly");
+                    } else {
+                        Parser.runRecurring(data, finalOutput.toString(), 2, "monthly");
                     }
                     break;
                 default:
@@ -133,7 +174,7 @@ public class Storage {
                 String st1;
                 st1 = task.toString().substring(1, 2);
                 String st4 = null;
-                if (st1.equals("D") || st1.equals("E")) {
+                if (st1.equals("D") || st1.equals("E") || st1.equals("d") || st1.equals("m") || st1.equals("w")) {
                     st4 = task.getExtra();
                 }
                 String st2;

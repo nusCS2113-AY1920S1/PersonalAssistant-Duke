@@ -49,6 +49,10 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    protected void unmark() {
+        this.isDone = false;
+    }
+
     public abstract Date getDateTime();
 
     public abstract String getExtra();
