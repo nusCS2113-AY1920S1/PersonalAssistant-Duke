@@ -9,16 +9,17 @@ import leduc.exception.DukeException;
 public class NonExistentTaskException extends DukeException {
     /**
      * Constructor of leduc.exception.NonExistentTaskException.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     *
      */
-    public NonExistentTaskException(Ui ui){
-        super(ui);
+    public NonExistentTaskException(){
+        super();
     }
 
     /**
      * Tell the user that the tasks given does not exist.
+     * @return the error message
      */
-    public void print(){
-        super.ui.display("\t NonExistentTaskException:\n\t\t ☹ OOPS!!! The task doesn't exist");
+    public String print(){
+        return "\t NonExistentTaskException:\n\t\t ☹ OOPS!!! The task doesn't exist";
     }
 }
