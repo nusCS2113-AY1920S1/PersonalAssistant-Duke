@@ -53,7 +53,13 @@ public class Parser {
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }else{
+        } else if (userInputCommand.contains(COMMAND_DURATION)) {
+            if (userInputCommand.trim().substring(0, 5).equals(COMMAND_DURATION)) {
+                return new DurationCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else{
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }

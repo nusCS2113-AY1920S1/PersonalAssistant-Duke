@@ -31,6 +31,7 @@ public class Messages {
     public static final String ERROR_MESSAGE_LOADING = "     ☹ OOPS!!! Error loading file: ";
     public static final String ERROR_MESSAGE_NOTFOUND = "     ☹ OOPS!!! I'm sorry, but there is no matching tasks in your list.";
     public static final String ERROR_MESSAGE_RANDOM = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String ERROR_MESSAGE_DURATION = "       ☹ OOPS!!! Please specify the fix duration task details in this format: \n         fixed [task description] /need [task duration]";
 
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
@@ -40,5 +41,6 @@ public class Messages {
     public static final String COMMAND_FIND = "find";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DURATION = "fixed";
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

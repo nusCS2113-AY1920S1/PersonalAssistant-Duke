@@ -1,10 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.*;
 import duke.tasklist.TaskList;
 
 import java.io.*;
@@ -19,6 +16,7 @@ public class Storage {
 
     /**
      * Constructor for the class Storage
+     *
      * @param filePath String containing the directory in which the tasks are to be stored
      */
     public Storage(String filePath) {
@@ -27,23 +25,25 @@ public class Storage {
 
     /**
      * Writing to file to save the task to file
+     *
      * @param taskList contains the task list
      */
-    public void saveFile(TaskList taskList){
-        try{
+    public void saveFile(TaskList taskList) {
+        try {
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for(Task task: taskList.getTaskList()) {
+            for (Task task : taskList.getTaskList()) {
                 bufferedWriter.write(task.toSaveString() + "\n");
             }
             bufferedWriter.close();
-        } catch(Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace(); // If there was an error, print the info.
         }
     }
 
     /**
      * Load all the save tasks in the file
+     *
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
@@ -52,15 +52,15 @@ public class Storage {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
-            while((content = bufferedReader.readLine())!= null){
-                if(content.charAt(0) == 'T') {
+            while ((content = bufferedReader.readLine()) != null) {
+                if (content.charAt(0) == 'T') {
                     String details = content.substring(8);
                     Task task = new Todo(details);
                     if (content.charAt(4) == '+') {
                         task.markAsDone();
                     }
                     arrTaskList.add(task);
-                }else {
+                } else {
                     //need to escape character in string for "|" by adding "\\" in front of "|"
                     //if not the split will be on the wrong place
                     String[] split = content.substring(8).split(" \\| ", 2);
@@ -76,13 +76,19 @@ public class Storage {
                             task.markAsDone();
                         }
                         arrTaskList.add(task);
+                    } else if (content.charAt(0) == 'F') {
+                        Task task = new Duration(split[0], split[1]);
+                        if (content.charAt(4) == '+') {
+                            task.markAsDone();
+                        }
+                        arrTaskList.add(task);
                     }
                 }
             }
             fileReader.close();
-        } catch(FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("Error reading file '" + filePath + "'");
         }
         return arrTaskList;
