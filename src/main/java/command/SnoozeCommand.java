@@ -21,8 +21,7 @@ public class SnoozeCommand extends Command{
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
-     * @throws DukeException
-     * @throws IOException
+      * @throws IOException
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
