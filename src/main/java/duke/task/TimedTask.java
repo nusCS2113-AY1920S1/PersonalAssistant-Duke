@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class TimedTask extends Task {
+public abstract class TimedTask extends Task implements Comparable<TimedTask> {
     private static final DateTimeFormatter PAT_DATETIME = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter PAT_DATETIME_DISPLAY = DateTimeFormatter.ofPattern("eee, d MMM yyyy h:mm a");
 
@@ -30,6 +30,15 @@ public abstract class TimedTask extends Task {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    public LocalDateTime getDateTime() {
+        return time;
+    }
+
+    @Override
+    public int compareTo(TimedTask o) {
+        return getDateTime().compareTo(o.getDateTime());
     }
 
     // --Commented out by Inspection START (03/09/2019 11:57):

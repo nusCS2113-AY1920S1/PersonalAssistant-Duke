@@ -46,6 +46,11 @@ public enum Cmd {
         public Command getCommand() {
             return new FindCommand();
         }
+    },
+    VIEW("view") {
+        public Command getCommand() {
+            return new ViewCommand();
+        }
     };
 
     private final String cmdStr;

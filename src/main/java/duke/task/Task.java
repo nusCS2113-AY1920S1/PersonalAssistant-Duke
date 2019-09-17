@@ -35,6 +35,10 @@ abstract class Task {
         this.name = name;
     }
 
+    public Boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Formats the data about the task for display to the user.
      *
