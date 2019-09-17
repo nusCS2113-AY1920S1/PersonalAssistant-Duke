@@ -1,6 +1,9 @@
 package seedu.duke.task;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+
+import seedu.duke.data.Schedule;
 import seedu.duke.ui.Ui;
 
 /**
@@ -10,6 +13,7 @@ import seedu.duke.ui.Ui;
 public class TaskList {
   protected ArrayList<Task> list = new  ArrayList<Task>();
   protected Ui ui = new Ui();
+  protected Schedule schedule = new Schedule();
   
   public TaskList(ArrayList<Task> list) {
     this.list = list;
@@ -61,11 +65,17 @@ public class TaskList {
         try {
           String task_description = task_description_full.split("/", 2)[0];
           String task_time = task_description_full.split("/", 2)[1].substring(3);
+          String taskDateOnly = task_time.split(" ", 2)[0];
           list.add(new Deadline(task_description, task_time));
+          if (Schedule.isValidDate(taskDateOnly)) {
+            schedule.addToSchedule(task_description, schedule.convertStringToDate(taskDateOnly));
+          }
         }
         // if /by is not included in deadline command
         catch (ArrayIndexOutOfBoundsException e) {
           ui.wrong_description_error();
+          return;
+        } catch (ParseException e) {
           return;
         }
       }
@@ -74,11 +84,17 @@ public class TaskList {
         try {
           String task_description = task_description_full.split("/", 2)[0];
           String task_time = task_description_full.split("/", 2)[1].substring(3);
+          String taskDateOnly = task_time.split(" ", 2)[0];
           list.add(new Event(task_description, task_time));
+          if (Schedule.isValidDate(taskDateOnly)) {
+            schedule.addToSchedule(task_description, schedule.convertStringToDate(taskDateOnly));
+          }
         }
         // if /at is not included in event command
         catch (ArrayIndexOutOfBoundsException e) {
           ui.wrong_description_error();
+          return;
+        } catch (ParseException e) {
           return;
         }
       }
@@ -187,12 +203,6 @@ public class TaskList {
       System.out.println("\t  " + (id + 1) + "." + list.get(id).toString());
     }
     System.out.println("\t_____________________________________\n\n");
-  }
-
-  public void getSchedule(String date) {
-    for (Task task : list) {
-
-    }
   }
 
   /**

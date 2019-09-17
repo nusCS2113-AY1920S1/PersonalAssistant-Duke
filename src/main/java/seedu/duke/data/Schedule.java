@@ -28,16 +28,16 @@ public class Schedule {
         return formatDateTime;
     }
 
-    public static boolean isSameDate(String comparedDate) {
-        return getTodayDate().equals(comparedDate);
-    }
-
     public void addToSchedule(String description, Date date) throws ParseException {
         if (!schedulesInOrder.containsKey(date)) {
             schedulesInOrder.put(date, new ArrayList<>());
         }
         schedulesInOrder.get(date).add(description);
     }
+/*
+    public void removeFromSchedule(Task task) {
+
+    }*/
 
     public void print() {
         for (Map.Entry m:schedulesInOrder.entrySet()) {
@@ -51,14 +51,19 @@ public class Schedule {
     }
 
     public void printSchedule(Date date) {
+        System.out.println("\t_____________________________________");
+        String strDate = convertDateToString(date);
         if (schedulesInOrder.containsKey(date)) {
-            System.out.println("Here are the tasks on this date: (" + date + ")");
+            System.out.println("\tHere are the tasks on this date: (" + strDate + ")");
+            int i = 1;
             for (String description : schedulesInOrder.get(date)) {
-                System.out.println(description);
+                System.out.println("\t" + i + ". " + description);
+                i++;
             }
         } else {
-            System.out.println("There are no tasks in the given date: (" + date + ")");
+            System.out.println("\tThere are no tasks in the given date: (" + strDate + ")");
         }
+        System.out.println("\t_____________________________________");
     }
 
     public Date convertStringToDate(String dateStr) {
@@ -68,6 +73,20 @@ public class Schedule {
         } catch (ParseException e) {
             ui.dateFormatError();
             return null;
+        }
+    }
+
+    public String convertDateToString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMATTER_NO_TIME);
+        return dateFormat.format(date);
+    }
+
+    public static boolean isValidDate(String dateStr) {
+        try {
+            Date date = new SimpleDateFormat(DATE_FORMATTER_NO_TIME).parse(dateStr);
+            return true;
+        } catch (ParseException e) {
+            return false;
         }
     }
 
