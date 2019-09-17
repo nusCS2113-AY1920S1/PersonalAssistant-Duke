@@ -30,6 +30,16 @@ public class After extends item {
         return newDateFormat;
     }
 
+    /**
+     * Function gets the unformatted date of by
+     *
+     * @return by
+     */
+    @Override
+    public Date getRawDate() {
+        return this.after;
+    }
+
 
 
     @Override

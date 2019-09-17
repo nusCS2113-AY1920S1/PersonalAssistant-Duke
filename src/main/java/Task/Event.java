@@ -39,6 +39,16 @@ public class Event extends item{
     }
 
     /**
+     * Function gets the unformatted date of by
+     *
+     * @return by
+     */
+    @Override
+    public Date getRawDate() {
+        return this.at;
+    }
+
+    /**
      * This function gets the type, information, and date of the task
      * @return String phrase with the type, info and date
      */

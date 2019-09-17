@@ -2,12 +2,14 @@ package Data;
 
 
 import Task.*;
+import javafx.concurrent.Task;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -41,14 +43,16 @@ public class Storage {
                 type = data[0];
                 stat = (data[1].equals("1"));
 
+
+
                 switch (type) {
                     case "D":
-                        item deadline = new Deadline(data[2], stat, data[3]);
+                        item deadline = new Deadline(data[2], stat, TaskList.dateRevert(data[3]));
                         oldList.add(deadline);
                         break;
 
                     case "E":
-                        item event = new Event(data[2], stat, data[3]);
+                        item event = new Event(data[2], stat, TaskList.dateRevert(data[3]));
                         oldList.add(event);
                         break;
 
@@ -56,12 +60,10 @@ public class Storage {
                         item todo = new ToDo(data[2], stat);
                         oldList.add(todo);
                         break;
-
-
                    
 
                     case "A":
-                        item after = new After(data[2], stat, data[3]);
+                        item after = new After(data[2], stat, TaskList.dateRevert(data[3]));
                         oldList.add(after);
 
                         break;

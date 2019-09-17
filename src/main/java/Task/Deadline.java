@@ -41,6 +41,17 @@ public class Deadline extends item{
         return newDateFormat;
     }
 
+
+    /**
+     * Function gets the unformatted date of by
+     *
+     * @return by
+     */
+    @Override
+    public Date getRawDate() {
+        return this.by;
+    }
+
     /**
      * Gets all the info of the deadline
      *
