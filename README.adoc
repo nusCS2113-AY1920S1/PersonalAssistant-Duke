@@ -1,6 +1,15 @@
 = OwlMoney
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+ifdef::env-github[]
+image::docs/images/Ui.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="970"]
+endif::[]
+
+
 * OwlMoney is a finance tracker desktop application. It has a Graphical User Interface (GUI) but most of the user
 interaction happens in the Command Line Interface (CLI).
 
