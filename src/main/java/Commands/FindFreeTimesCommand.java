@@ -7,7 +7,7 @@ import Tasks.TaskList;
 import java.util.Date;
 
 public class FindFreeTimesCommand extends Command {
-    protected String duration;
+    private String duration;
 
     /**
      * Creates a FindFreeTimesCommand object.
