@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * Class from which task.Todo, task.Deadline and task.Event are extended from
  */
-abstract public class Task {
+public abstract class Task {
 
     /**
      * task.Task description
@@ -14,17 +14,17 @@ abstract public class Task {
     protected String description;
 
     /**
-     * Whether task has been completed
+     * Whether task has been completed.
      */
     protected boolean isDone;
 
-    public Task (String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     *
+     * Get status icon.
      * @return String status icon of task
      */
     public String getStatusIcon() {
@@ -32,7 +32,7 @@ abstract public class Task {
     }
 
     /**
-     * Mark task as done
+     * Mark task as done.
      */
     public void markAsDone() {
         this.isDone = true;
@@ -41,7 +41,7 @@ abstract public class Task {
     }
 
     /**
-     * check if task description contains a certain string
+     * check if task description contains a certain string.
      * @param s string to find
      * @return true if description contains string
      */
@@ -56,8 +56,8 @@ abstract public class Task {
     }
 
     /**
-     * Returns a string that is formatted for the text file
-     * @return String
+     * Returns a string that is formatted for the text file.
+     * @return String that will be stored in text file
      */
     public String toWriteFile() {
         return this.description;
