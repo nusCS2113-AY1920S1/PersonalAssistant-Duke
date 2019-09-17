@@ -1,8 +1,10 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 import duke.exception.DukeException;
 
@@ -18,7 +20,7 @@ public class Deadline extends Task {
      * Initializes a Deadline from its description and its time.
      *
      * @param description A description of the task which is under deadline.
-     * @param by The time by which this task must be done.
+     * @param by          The time by which this task must be done.
      */
     Deadline(String description, LocalDateTime by) {
         super(description);
@@ -29,15 +31,15 @@ public class Deadline extends Task {
      * Creates this instance of a Deadline object.
      *
      * @param data The raw data to be parsed by {@link #parseDeadlineDesc(String)}
-     *     and {@link #parseDeadlineTime(String)}.
-     *
+     *             and {@link #parseDeadlineTime(String)}.
      * @return a new Deadline task that has description and deadline time properly parsed
-     *     and sanitised.
+     *             and sanitised.
      * @throws DukeException when any of the parsing fails to conform with standards.
      */
     public static Deadline create(String data) throws DukeException {
         String description = parseDeadlineDesc(data);
         LocalDateTime by = parseDeadlineTime(data);
+        checkDeadlineIsAfterCurrent(by);
         return new Deadline(description, by);
     }
 
@@ -115,6 +117,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Checks if the entered date time is before current date time.
+     *
+     * @param date Deadline date entered by user.
+     * @return True if entered date time is after current date time.
+     * @throws DukeException If entered date is before current date time.
+     */
+    public static boolean checkDeadlineIsAfterCurrent(LocalDateTime date) throws DukeException {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (date.isBefore(currentDate)) {
+            throw new DukeException("Time must not be before current time");
+        }
+        return true;
+    }
+
+    /**
      * Returns a string representation of this Deadline.
      *
      * @return The desired string representation with more elaborated date formatting.
@@ -134,5 +151,25 @@ public class Deadline extends Task {
     public String export() {
         return "D | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.by.format(inputFormatter).length() + " | " + this.by.format(inputFormatter);
+    }
+
+    /**
+     * Returns date-only of this Deadline.
+     *
+     * @return the date of Deadline
+     */
+    @Override
+    public LocalDate getDate() {
+        LocalDate date = by.toLocalDate();
+        return date;
+    }
+
+    /**
+     * Returns a LocalDateTime of this Deadline.
+     *
+     * @return The date and time of this Deadline.
+     */
+    public LocalDateTime getDateTime() {
+        return this.by;
     }
 }

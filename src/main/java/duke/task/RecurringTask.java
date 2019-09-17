@@ -1,76 +1,75 @@
 package duke.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
-
 /**
- * Class representing an event that will occur at or around a specified time.
+ * Class representing a recurring task that will occur at the same time weekly.
  */
-public class Event extends Task {
-    private final LocalDateTime at;
+
+public class RecurringTask extends Task {
+    private LocalDateTime at;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy hh:mm a");
 
     /**
-     * Initializes an Event from its description and its time.
+     * Initializes a recurring task from its description and its time.
      *
-     * @param description A description of the event.
-     * @param at          The time at which this event happens.
+     * @param description A description of the recurring task.
+     * @param at The time at which this recurring task happens.
      */
-    Event(String description, LocalDateTime at) {
+    RecurringTask(String description, LocalDateTime at) {
         super(description);
         this.at = at;
     }
 
     /**
-     * Creates this instance of an Event object.
+     * Creates this instance of an Recurring Task object.
      *
-     * @param data The raw data to be parsed by {@link #parseEventDesc(String)}
-     *             and {@link #parseEventTime(String)}.
-     * @return a new Event task that has description and event time properly parsed
-     *             and sanitised.
+     * @param data The raw data to be parsed by {@link #parseRecurringTaskDesc(String)}
+     *     and {@link #parseRecurringTaskTime(String)}.
+     *
+     * @return a new Recurring Task that has description and time properly parsed
+     *     and sanitised.
      * @throws DukeException when any of the parsing fails to conform with standards.
      */
-    public static Event create(String data) throws DukeException {
-        String description = parseEventDesc(data);
-        LocalDateTime at = parseEventTime(data);
-        checkEventIsAfterCurrent(at);
-        return new Event(description, at);
+    public static RecurringTask create(String data) throws DukeException {
+        String description = parseRecurringTaskDesc(data);
+        LocalDateTime at = parseRecurringTaskTime(data);
+        return new RecurringTask(description, at);
     }
 
     /**
-     * Parses the given data and returns the description of the event.
+     * Parses the given data and returns the description of the recurring task.
      *
      * @param data The raw data, which should contain "/at".
      * @return description that has been sanitised.
      * @throws DukeException if date does not conform to standards.         s
      */
-    private static String parseEventDesc(String data) throws DukeException {
+    private static String parseRecurringTaskDesc(String data) throws DukeException {
         if (data.isEmpty() || data.isBlank()) {
             throw new DukeException("Description or date cannot be empty or blank spaces only");
         }
         if (!data.contains(" /at ")) {
-            throw new DukeException("Event must contain an end date using /at ");
+            throw new DukeException("Recurring task must contain an end date using /at ");
         }
-        if ("event".equals(data)) {
-            throw new DukeException("The description of an event cannot be empty.");
+        if ("recurring".equals(data)) {
+            throw new DukeException("The description of a recurring task cannot be empty.");
         }
         String[] splitInput = data.split(" /at ");
-        if (data.startsWith("event /at")) {
-            throw new DukeException("The description of an event cannot be empty.");
+        if (data.startsWith("recurring /at")) {
+            throw new DukeException("The description of a recurring task cannot be empty.");
         }
         if (splitInput.length == 1) {
-            throw new DukeException("The event requires an end date/time after specifying /at"
+            throw new DukeException("The recurring task requires an end date/time after specifying /at"
                     + ". Make sure to use <space>/at<space><date>");
         }
         int index = data.lastIndexOf(" /at ");
         String description = data.substring(0, index);
         if (description.isBlank()) {
-            throw new DukeException("The description of an event cannot be "
+            throw new DukeException("The description of a recurring task cannot be "
                     + "empty or space even when /at is correct");
         }
         description = description.trim();
@@ -78,14 +77,14 @@ public class Event extends Task {
     }
 
     /**
-     * Parses the given data and returns the time of the event in proper date format.
+     * Parses the given data and returns the time of the recurring task in proper date format.
      *
      * @param data The raw data, which should contain "/at" in its middle followed by
-     *             the event time specified in DD/MM/YYYY HHMM.
+     *             the recurring task time specified in DD/MM/YYYY HHMM.
      * @return date formatted in proper DD/MM/YYYY HHMM format.
      * @throws DukeException if date does not conform to standards.
      */
-    private static LocalDateTime parseEventTime(String data) throws DukeException {
+    private static LocalDateTime parseRecurringTaskTime(String data) throws DukeException {
         int index = data.lastIndexOf(" /at ");
         String date = data.substring(index + 5, data.length()); //+5 because of _/at_
         if (date.isBlank() || date.isEmpty()) {
@@ -116,60 +115,62 @@ public class Event extends Task {
     }
 
     /**
-     * Checks if the entered date time is before current date time.
-     *
-     * @param date Event date entered by user.
-     * @return True if entered date time is after current date time.
-     * @throws DukeException If entered date is before current date time.
-     */
-    public static boolean checkEventIsAfterCurrent(LocalDateTime date) throws DukeException {
-        LocalDateTime currentDate = LocalDateTime.now();
-        if (date.isBefore(currentDate)) {
-            throw new DukeException("Time must not be before current time");
-        }
-        return true;
-    }
-
-    /**
-     * Returns a string representation of this event.
+     * Returns a string representation of this recurring task.
      *
      * @return The desired string representation with more elaborated date formatting.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString()
+        checkRecurringTaskIsAfterCurrent();
+        return "[R]" + super.toString()
                 + " (at: " + this.at.format(displayFormatter) + ")";
     }
 
     /**
-     * Exports this event for saving to disk.
+     * Updates the reccuring task date to the following week.
+     */
+    private void setDate(LocalDateTime newDate) {
+        this.at = newDate;
+    }
+
+    /**
+     * Checks if current recurring task date is before the current date time.
+     * If the date needs to be updated, the done status will also reset to undone.
+     */
+    public void checkRecurringTaskIsAfterCurrent() {
+        LocalDateTime storedDate = getDateTime();
+        LocalDateTime currentDate = LocalDateTime.now();
+        while (storedDate.isBefore(currentDate)) {
+            LocalDateTime newDate = storedDate.plusDays(7);
+            setDate(newDate);
+            if (isDone()) {
+                markUnDone();
+            }
+            storedDate = getDateTime();
+            currentDate = LocalDateTime.now();
+        }
+    }
+
+    /**
+     * Exports this recurring task for saving to disk.
      *
-     * @return A string representation of this event containing the task type "E".
+     * @return A string representation of this recurring task containing the task type "E".
      */
     @Override
     public String export() {
-        return "E | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
+        return "R | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
     }
 
     /**
-     * Gets date-only of this Deadline.
+     * Returns a LocalDateTime of this recurring task.
      *
-     * @return the date of Deadline
+     * @return The date and time of this recurring task.
      */
-    @Override
-    public LocalDate getDate() {
-        LocalDate date = at.toLocalDate();
-        return date;
-    }
 
-    /**
-     * Returns a LocalDateTime of this event.
-     *
-     * @return The date and time of this event.
-     */
     @Override
     public LocalDateTime getDateTime() {
         return this.at;
     }
+
 }

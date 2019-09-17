@@ -1,6 +1,10 @@
 package duke.task;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -73,6 +77,21 @@ public class TaskList {
                     event.markDone();
                 }
                 tasks.add(event);
+                break;
+            case "R":
+                date = line.substring(startOfDescriptionIndex + descriptionLength, line.length());
+                dateSplit = date.split("\\|", -1);
+                dateLength = Integer.parseInt(dateSplit[1].trim());
+                dateLengthLength = dateSplit[1].length();
+                startOfDateIndex = 2 + dateLengthLength + 2;
+                dateString = date.substring(startOfDateIndex, date.length());
+                inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                at = LocalDateTime.parse(dateString, inputFormatter);
+                RecurringTask recurringTask = new RecurringTask(description, at);
+                if ("1".equals(taskStatus)) {
+                    recurringTask.markDone();
+                }
+                tasks.add(recurringTask);
                 break;
             default:
                 break;
@@ -166,5 +185,59 @@ public class TaskList {
             output.add(tasks.get(i - 1).export());
         }
         return output;
+    }
+
+    /**
+     * Views task and schedule based on a specific date.
+     *
+     * @param date Date to be searched for in the form of DD/MM/YYYY
+     * @return An ArrayList of strings representing the list of tasks based on date provided
+     */
+    public ArrayList<Task> viewFilterByDate(LocalDate date) {
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDate().equals(date)) {
+                if (!task.isDone()) { //display undone tasks on top of list
+                    output.add(0, task);
+                } else {
+                    output.add(task);
+                }
+            }
+        }
+
+        return output;
+    }
+
+    /**
+     * Searches this instance's list for those tasks that is due within the next few days specify by the user.
+     *
+     * @param reminderDay The integer that specify the next number of day to search for.
+     * @return A smaller or same-size ArrayList containing those tasks that is due within the next number of day.
+     */
+    public ArrayList<Task> checkReminder(int reminderDay) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            char typeOfTask = task.toString().charAt(1);
+            if (typeOfTask == 'D' || typeOfTask == 'E') {
+                LocalDate nowDate = LocalDate.now();
+                LocalDate currDate = task.getDateTime().toLocalDate();
+                LocalTime currTime = task.getDateTime().toLocalTime();
+                LocalTime nowTime = LocalTime.now();
+                Duration diff = Duration.between(nowTime, currTime);
+                long diffHours = diff.toHours();
+                long diffMinutes = diff.toMinutes();
+                Period period = Period.between(nowDate, currDate);
+                int diffMonth = period.getMonths();
+                int diffDay = period.getDays() + (diffMonth * 30); //calculate the difference in number of days from now
+                if (diffDay == 0 && diffHours > 0) {
+                    results.add(task);
+                } else if (diffDay == 0 && diffMinutes > 0) {
+                    results.add(task);
+                } else if (diffDay <= reminderDay && diffDay > 0) {
+                    results.add(task);
+                }
+            }
+        }
+        return results;
     }
 }

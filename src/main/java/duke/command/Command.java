@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -27,5 +28,5 @@ public abstract class Command {
      * @param ui The user interface displaying events on the task list.
      * @param storage The place where tasks will be stored.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }
