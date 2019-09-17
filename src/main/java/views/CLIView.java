@@ -153,7 +153,7 @@ public class CLIView {
      * @param taskList Current list of tasks.
      * @param input User command including time limit before which to find upcoming tasks.
      *              If left blank, it will be seven days from current date by default.
-     * @throws ParseException : Parsing error
+     * @throws ParseException : Parsing error (If the date and time is not entered in dd/MM/yyyy HHmm)
      */
     public void remindTask(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
