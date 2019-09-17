@@ -18,7 +18,7 @@ Responsibilities: Project development
 '''
 
 === Chua Zong Wei
-image::Fractalisk.png[width="150", align="left"]
+image::fractalisk.png[width="150", align="left"]
 {empty}[https://github.com/Fractalisk[github]]
 
 Role: Developer +
@@ -27,7 +27,7 @@ Responsibilities: Project development
 '''
 
 === Ivan Andika
-image::GaryStu.png[width="150", align="left"]
+image::garystu.png[width="150", align="left"]
 {empty}[http://github.com/garystu[github]]
 
 Role: Developer +
