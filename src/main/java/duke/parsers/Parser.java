@@ -50,6 +50,8 @@ public class Parser {
         case "fetch":
             String[] deadlineDetails = userInput.split(" ", 2);
             return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
+        case "repeat":
+            return new AddCommand(ParserUtil.createRecurringTask(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
