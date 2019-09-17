@@ -1,39 +1,54 @@
-# Setting up
+# University Life Planner - User Guide
+By: `W13-1`   Since: `16 September 2019`
 
-**Prerequisites**
+## Introduction
+School Planner is an app designed for busy school students. The app is optimized to track what tasks a student has to do during school. He can plan out his day, week and even month. The planner is able to keep track of his homework as well as activities such as CCAS. In addition, the planner helps the student to track his academic progress as the semesters pass by.
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+## User Interface
+![UI Example](https://github.com/Sfloydzy/main/blob/master/doc/images/UIMainMenu.png)
 
-**Importing the project into IntelliJ**
+## Features 
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
+### Feature 1: Login 
+User is able to create student name and set a password for the first time, can logout after every session (automatically/manually), login to use specific features such as save features, else can use a general account(default) that users can use without logging into their own
 
-# Tutorials 
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+### Feature 2: Timetable 
+User is able to view his weekly timetable. Able to modify timetable and add modules based on the duration and frequency of classes they have each week. Able to include whether it is a tutorial/lecture/lab slot
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
 
-# Feedback, Bug Reports
+### Feature 3: Grades 
+User can plan activities outside of his normal schedule based on system recommendations/individual needs. User able to include his todo list
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+
+### Feature 4: Forcasted CAP 
+User is able to define his ideal CAP, and track it after every semester. Able to modify the goals after every semester
+
+### Feature 5: Additional Features
+User is able to store his results, and pull it up for viewing anytime
+
+## Usage
+
+`Create User` - Define the user's profile name and password
+
+`Login`- enter app
+
+`Logout` - exit app
+
+`Forget password [USER]` - Answer security code to gain access to your account if you forget password
+
+`Add/Delete/Modify [MOD CODE]` - Control what modules are added to your schedule
+
+`View [ACAD YEAR]` - View grade by acad year and semester
+
+`Plan [module] [activity:project meeting/consultation] [duration forecast]` - Create additional tasks in your schedule
+
+`Set goal [CAP]` - Set desired CAP
+
+`View [CAP]` - View current cap
+
+`CAP Grades Required` - See grades per mod in order to get desired cap
+
+`Save [module] [grade] [Year _ Sem _]` - Saved the grades obtained for the mod
+
+`Edit [module] [grade] [Year_Sem_]` - Edit the previous grades saved
