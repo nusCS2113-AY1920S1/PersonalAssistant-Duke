@@ -17,6 +17,10 @@ public class Date {
         this.d = d;
     }
 
+    public void snoozeLocalDateTime(){
+        this.d = this.d.plusMinutes(30);
+    }
+
     /**
      * Returns a String representing a date.
      * @return a String representation of date.

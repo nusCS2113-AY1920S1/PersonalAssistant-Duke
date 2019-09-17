@@ -119,6 +119,31 @@ public class Storage {
         return text;
     }
 
+    public String getSnoozeTaskString(DeadlinesTask snoozedTask, int index , Ui ui, int tasksSize){
+        String text="" , line ="", oldLine =(index+1)+"//"+snoozedTask.getTag();
+        ReadFile readFile = new ReadFile(this.filePath,ui);// reader to read before change the data file
+        BufferedReader bufferedR = readFile.getBufferedReader();
+        try{
+            for (int i = 0 ; i< tasksSize ; i++){ // one task have been just removed
+                line = bufferedR.readLine();
+                if (!line.contains(oldLine)){
+                        text+= line +"\n";
+                }
+                else{
+                    line = line.replace( line, (index +1) + "//" + snoozedTask.getTag() + "//" +
+                            snoozedTask.getMark() + "//" + snoozedTask.getTask() + "//" + " by:"
+                            +snoozedTask.getDeadlines()) + "\n";
+                    text += line ;
+                }
+            }
+        }
+        catch(IOException e){
+            ui.display("\t IOException: \n\t\t error when reading the whole file");
+        }
+        readFile.freeBufferedReader(); //close the reader
+        return text;
+    }
+
     /**
      * Returns a String representing the data of the data file after mark done to the specific task.
      * @param tasks tasks list.

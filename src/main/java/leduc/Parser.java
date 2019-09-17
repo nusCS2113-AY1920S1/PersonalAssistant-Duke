@@ -33,6 +33,9 @@ public class Parser {
         else if (user.matches("done \\d+")) {// if it is done and a number of task
             c = new DoneCommand(user);
         }
+        else if (user.matches("snooze \\d+")){ // if it is snooze and a number of task
+            c = new SnoozeCommand(user);
+        }
         else if (user.matches("delete \\d+")) {// if it is done and a number of task
             c = new DeleteCommand(user);
         }
