@@ -1,5 +1,6 @@
 package duke.parsers;
 
+import duke.tasks.DoWithin;
 import org.junit.jupiter.api.Test;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -9,6 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserUtilTest {
+
+    @Test
+    void createWithin() throws Exception {
+        assertTrue(ParserUtil.createWithin("within jogging between 1200 and 1300") instanceof DoWithin);
+    }
 
     @Test
     void createTodo() throws Exception {

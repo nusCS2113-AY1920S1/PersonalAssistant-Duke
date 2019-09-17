@@ -4,9 +4,12 @@ import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
+
+import java.time.LocalDateTime;
 
 /**
  * Parser for Storage related operations.
@@ -37,6 +40,10 @@ public class ParserStorageUtil {
                 } catch (DukeDateTimeParseException e) {
                     task = new Event(description, taskParts[3].strip());
                 }
+            } else if ("W".equals(type)) {
+                LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
+                LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
+                task = new DoWithin(description, start, end);
             } else {
                 task = new Todo(description);
             }

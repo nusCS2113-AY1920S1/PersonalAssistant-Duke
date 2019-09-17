@@ -50,6 +50,8 @@ public class Parser {
             return new FreeTimeCommand(ParserUtil.getIndex(userInput));
         case "fetch":
             return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(userInput)));
+        case "within":
+            return new AddCommand(ParserUtil.createWithin(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
