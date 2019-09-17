@@ -1,5 +1,6 @@
 package com.nwjbrandon.duke.services.task;
 
+import com.joestelmach.natty.Parser;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
@@ -28,6 +29,24 @@ public abstract class Task {
      * Task name and date.
      */
     private String taskDescription = "";
+
+    /**
+     * Converts a string to a Date object
+     * @param dateString the string containing the date
+     * @return The corresponding Date object if the dateString is valid
+     * @throws ParseException if there is no date found in the dateString
+     */
+    public static Date parseDate (String dateString) throws ParseException {
+        Parser dateParser = new Parser();
+        Date date = null;
+        try {
+            date = dateParser.parse(dateString).get(0).getDates().get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException("",0);
+        }
+        return date;
+
+    }
 
     /**
      * Create task.
