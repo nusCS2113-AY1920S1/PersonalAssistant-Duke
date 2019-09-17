@@ -8,15 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * Tasks which have a deadline
- * Lists the task name and stores the deadline in Date format
+ * Tasks which have a deadline.
+ * Lists the task name and stores the deadline in Date format.
  */
 public class Deadline extends Task {
-    protected Date dateTime;
     protected String by;
 
     /**
-     * task.Deadline Constructor
+     * task.Deadline Constructor.
      * @param description task descriprtion
      * @param by task deadline
      */
@@ -32,12 +31,12 @@ public class Deadline extends Task {
     }
 
     /**
-     * task.Deadline Constructor from text file
+     * task.Deadline Constructor from text file.
      * @param i isDone status
-     * @param description
-     * @param by
+     * @param description of deadline
+     * @param by deadline date and time
      */
-    public Deadline(String i, String description, String by) {
+    public Deadline(String i, String description, String by, String Snooze) {
         super(description);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -48,6 +47,7 @@ public class Deadline extends Task {
         }
         this.by = by;
         this.isDone = i.equals("1");
+        this.isSnooze = Snooze.equals("1");
     }
 
     @Override
@@ -61,12 +61,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string that is formatted for the text file
-     * @return String
+     * Returns a string that is formatted for the text file.
+     * @return String formatted for text file
      */
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        return "D | " + boolToInt + " | " + this.description + " | " + this.by + "\n";
+        int snoozebooltoInt = this.isSnooze ? 1 : 0;
+        return "D | " + boolToInt + " | " + this.description + " | " + this.by + " | " + snoozebooltoInt + "\n";
     }
 }

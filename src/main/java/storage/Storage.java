@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles read and write to text file to contain task list
+ * Handles read and write to text file to contain task list.
  */
 public class Storage {
 
     /**
-     * Text file to read or write
+     * Text file to read or write.
      */
     private File fileToRead;
 
@@ -25,24 +25,24 @@ public class Storage {
     }
 
     /**
-     * Convert contents of text file to task list
-     * @return
-     * @throws FileNotFoundException
+     * Convert contents of text file to task list.
+     * @return Tasklist
+     * @throws FileNotFoundException if file not found
      */
     public ArrayList<String> load() throws FileNotFoundException {
-        Scanner scan_file = new Scanner(fileToRead);
+        Scanner scanFile = new Scanner(fileToRead);
         ArrayList<String> textLoaded = new ArrayList<>();
-        while (scan_file.hasNextLine()) {
-            String line = scan_file.nextLine();
+        while (scanFile.hasNextLine()) {
+            String line = scanFile.nextLine();
             textLoaded.add(line);
         }
         return textLoaded;
     }
 
     /**
-     * Save task list to text file
+     * Save task list to text file.
      * @param tasks task list
-     * @throws IOException
+     * @throws IOException for IO exception
      */
     public void saveToFile(TaskList tasks) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);

@@ -1,10 +1,19 @@
-import command.*;
-import dukeException.DukeException;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.TodoCommand;
+import command.ViewScheduleCommand;
+import exception.DukeException;
 
 import java.text.ParseException;
 
 /**
- * parse input and execute respective user command
+ * Parse input and execute respective user command.
  */
 public class Parser{
     public static Command parse(String input) throws DukeException, ParseException {
@@ -28,8 +37,15 @@ public class Parser{
                 return new FindCommand(input, splitStr);
             case "upcoming":
                 return new UpcomingCommand();
+            case "viewschedule":
+                return new ViewScheduleCommand();
+            case "snooze":
+                return new SnoozeCommand(splitStr);
+            case "unsnooze":
+                return new UnSnoozeCommand(splitStr);  
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
         }
     }
 }

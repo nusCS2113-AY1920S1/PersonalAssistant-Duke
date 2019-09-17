@@ -1,0 +1,55 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+DukeCalendar was developed by team AY1920S1-W12-3. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Alex Teo
+image::alex-teo.png[width="150", align="left"]
+{empty}[http://github.com/alex-teo[github]] [<<alex-teo#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Amir Azhar
+image::amirazhar.png[width="150", align="left"]
+{empty}[http://github.com/amirazhar[github]] [<<amirazhar#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Amos Chan
+image::amoschan97.png[width="150", align="left"]
+{empty} [https://github.com/AmosChan97[github]] [<<amoschan#, portfolio>>]
+
+Role: Developer +
+Responsibilites: Data
+
+'''
+
+=== Chang Zhong Kai
+image::zkchang97.png[width="150", align="left"]
+{empty}[http://github.com/zkchang97[github]] [<<zkchang97#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Cheng Wanyin
+image::wyinnnn.png[width="150", align="left"]
+{empty}[http://github.com/wyinnnn[github]] [<<wyinnnn#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
