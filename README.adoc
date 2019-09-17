@@ -25,4 +25,4 @@ are designed to be simple and intuitive, so even those who are unfamiliar with C
 * Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
 created by https://github.com/se-edu/[SE-EDU initiative]
 
-== Licence : link:https://github.com/AY1920S1-CS2113T-W17-3/main/LICENSE[MIT]
+== Licence : link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/LICENSE[MIT]
