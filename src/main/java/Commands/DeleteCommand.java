@@ -21,8 +21,8 @@ public class DeleteCommand extends Command {
      * @param list The TaskList object to delete the task from
      * @param ui The Ui object to display the delete task message
      * @param storage The Storage object to access file to load or save the tasks
+     * @return This returns the method in the Ui object which returns the string to display delete task message
      * @throws DukeException On ArrayList out of bound error
-     * @return
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {

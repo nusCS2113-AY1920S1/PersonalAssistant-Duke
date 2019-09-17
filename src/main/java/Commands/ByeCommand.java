@@ -13,8 +13,8 @@ public class ByeCommand extends Command {
      * @param list The TaskList object to update the file
      * @param ui The Ui object to display the goodbye message
      * @param storage The Storage object to access file to load or save the tasks
+     * @return This returns the method in the Ui object which returns the string to display goodbye message
      * @throws Exception On file not found error
-     * @return
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws Exception {

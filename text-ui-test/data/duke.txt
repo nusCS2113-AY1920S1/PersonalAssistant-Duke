@@ -1,4 +1,2 @@
 [D][✓] return book (by: Mon 02/12/2019 06:00 PM)
 [T][✘] read book
-[E][✘] e (at: Sat 02/02/2019 12:00 PM)
-[E][✘] e (at: Sat 02/02/2019 12:00 PM)

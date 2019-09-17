@@ -22,8 +22,8 @@ public class DoneCommand extends Command {
      * @param list The TaskList object used to mark a check on the task
      * @param ui The Ui object to display the done task message
      * @param storage The Storage object to access file to load or save the tasks
+     * @return This returns the method in the Ui object which returns the string to display done task message
      * @throws DukeException On ArrayList out of bound error
-     * @return
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {

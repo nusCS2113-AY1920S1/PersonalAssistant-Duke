@@ -1,7 +1,6 @@
 package Commands;
 import Tasks.*;
 import Interface.*;
-
 /**
  * Represents the command to add a Task object to a TaskList object.
  */
@@ -23,41 +22,11 @@ public class AddCommand extends Command {
      * @param list The TaskList object to add the task to
      * @param ui The Ui object to display the add task message
      * @param storage The Storage object to access file to load or save the tasks
-     * @return out
+     * @return This returns the method in the Ui object which returns the string to display add task message
      */
-
-
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
-
-        int size =list.taskListSize();
-        boolean[] conflict = new boolean[size];
-        int con = 0;
-        String out = "";
-        for(int i =0; i < size;i++){
-            if (list.getTask(i).date.equals(task.date)){
-                conflict[i] = true;
-                con++;
-            }
-        }
-        if (con == 0) {
-            list.addTask(this.task);
-            out = ui.showAdd(this.task, list.taskListSize());
-            //out = "new date: " + task.getDate() + "\n" +  "old date: "+ list.getTask(3).getDate();
-        }
-        else{
-            out = "Sorry, you have similar events at the same time \n";
-            for(int i =0; i < size;i++){
-                if (conflict[i]){
-                    out += list.getTask(i).toString() + "\n";
-                }
-            }
-        }
-        return  out;
+        list.addTask(this.task);
+        return ui.showAdd(this.task, list.taskListSize());
     }
-
-
-
-
 }
-

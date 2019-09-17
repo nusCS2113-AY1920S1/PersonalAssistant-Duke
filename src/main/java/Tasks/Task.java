@@ -1,14 +1,10 @@
 package Tasks;
-
-import static java.lang.CharSequence.compare;
-
 /**
  * Represents a task in the Duke program.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
-    public String date;
 
     /**
      * Creates Task object.
@@ -17,15 +13,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.date = "";
-
-    }
-    /**
-     * Returns Date and time of task if available
-     * @return This returns date and time of task if available
-     */
-    public String getDate() {
-        return date;
     }
 
     /**
@@ -61,9 +48,4 @@ public class Task {
         return "[" + getStatusIcon()
                 + "] " + getDescription();
     }
-
-
-
-
-
 }
