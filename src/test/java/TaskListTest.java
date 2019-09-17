@@ -1,6 +1,7 @@
 import duke.exception.DukeException;
 import duke.task.DeadlineTask;
 import duke.task.EventTask;
+import duke.task.Reminder;
 import duke.task.TaskList;
 import duke.task.TimedTask;
 import duke.task.ToDoTask;
@@ -112,6 +113,39 @@ public class TaskListTest {
             fail("Marking tasks as done somehow deleted all tasks in the list!");
         } catch (AssertionError excp) {
             fail("Tasks not correctly marked as done!");
+        }
+    }
+
+    /**
+     * Compares the output returned by setReminder() with the correct output.
+     * Expect them to be equal if validIdx is given.
+     */
+    @Test
+    public void setReminder_validIdx_successMessageReturned() {
+        try {
+            LocalDateTime datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getDataFormatter());
+            taskList.setReminder("1", new Reminder(datetime));
+            assertEquals(System.lineSeparator() + "1.[T][\u2718][R: Wed, 18 Sep 2019 2:00 AM] JUnit tests"
+                            + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                            + System.lineSeparator() + "3.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)",
+                    taskList.listTasks());
+
+            datetime = LocalDateTime.parse("18/09/2019 0300", TimedTask.getDataFormatter());
+            taskList.setReminder("1", new Reminder(datetime));
+            assertEquals(System.lineSeparator() + "1.[T][\u2718][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
+                            + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                            + System.lineSeparator() + "3.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)",
+                    taskList.listTasks());
+
+            taskList.setReminder("3", new Reminder(datetime));
+            assertEquals(System.lineSeparator() + "1.[T][\u2718][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
+                    + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "3.[D][\u2718][R: Wed, 18 Sep 2019 3:00 AM] "
+                    + "submission (by: Thu, 12 Sep 2019 2:00 PM)", taskList.listTasks());
+        } catch (DukeException excp) {
+            fail("Unable to find added tasks!");
+        } catch (AssertionError excp) {
+            fail("Reminder not set correctly!");
         }
     }
 }

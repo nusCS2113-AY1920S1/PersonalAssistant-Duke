@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 /**
  * Highest-level abstract class for Task objects.
  */
-abstract class Task {
+public abstract class Task {
     char type;
     private String name;
     private Boolean isDone;
@@ -17,13 +17,24 @@ abstract class Task {
         reminder = null;
     }
 
+    /**
+     * Creates a Task with Reminder.
+     *
+     * @param name     Description of the Task.
+     * @param reminder Reminder to be added to the Task.
+     */
     public Task(String name, Reminder reminder) {
         this.name = name;
         this.reminder = reminder;
         isDone = false;
     }
 
-    void markDone() throws DukeException {
+    /**
+     * Marks a Task as completed.
+     *
+     * @throws DukeException If Task has already been completed previously.
+     */
+    public void markDone() throws DukeException {
         if (isDone) {
             throw new DukeException("You already did that task!");
         } else {
@@ -77,6 +88,12 @@ abstract class Task {
         return reminder;
     }
 
+    /**
+     * Set Reminder for Task.
+     *
+     * @param reminder Reminder to be added to the Task.
+     * @throws DukeException If Task has already been completed.
+     */
     public void setReminder(Reminder reminder) throws DukeException {
         if (isDone) {
             throw new DukeException("This task has already been completed! I can't set a reminder for it.");
