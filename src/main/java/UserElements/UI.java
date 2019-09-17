@@ -2,6 +2,7 @@ package UserElements;
 
 import Events.Storage.TaskList;
 import Events.EventTypes.Task;
+import org.w3c.dom.ls.LSOutput;
 
 /**
  * User interface: contains all methods pertaining to user interaction.
@@ -172,8 +173,13 @@ public class UI {
 
     public void scheduleClash(Task task) {
         System.out.print(lineSeparation);
-        System.out.println("That event clashes with another in the schedule! " +
-                "Please resolve the conflict and try again!");
+        System.out.println("That event clashes with the following task: " + task.toString());
+        System.out.println("Please resolve the conflict and try again!");
+        System.out.println("Please type reschedule or delete followed by old or new" +
+                "separated by a space to reschedule or delete" +
+                "the newly added task or the old task accordingly.");
+        System.out.println("If rescheduling, also type the new date and time separated by a space.");
+        System.out.println("Type cancel to cancel this operation.");
         System.out.print(lineSeparation);
     }
 }

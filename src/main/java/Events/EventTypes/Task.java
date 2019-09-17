@@ -65,4 +65,6 @@ public abstract class Task {
     }
 
     public abstract String getDate();
+
+    public abstract void reschedule(String date);
 }

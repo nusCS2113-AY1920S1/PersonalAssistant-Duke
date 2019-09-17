@@ -45,7 +45,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + "(by: " + dateObj.toOutputString() + ")";
     }
 
+    @Override
     public String getDate() {
         return dateObj.toOutputString();
+    }
+
+    @Override
+    public void reschedule(String date) {
+        this.dateObj = new DateObj(date);
     }
 }

@@ -41,4 +41,8 @@ public class ToDo extends Task {
     public String getDate() {
         return null;
     }
+
+    public void reschedule(String date){
+
+    }
 }

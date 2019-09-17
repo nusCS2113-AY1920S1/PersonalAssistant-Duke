@@ -4,8 +4,11 @@ import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import Events.Formatting.DateObj;
+import UserElements.UI;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Allows for access to the list of tasks currently stored, and editing that list of tasks.
@@ -44,18 +47,18 @@ public class TaskList {
      *
      * @param task Model_Class.Task object to be added
      */
-    public boolean addTask(Task task) {
+    public Task addTask(Task task) {
         boolean succeeded;
         if (task instanceof ToDo) {
             this.taskArrayList.add(task);
-            return true;
+            return null;
         }
         else {
             Task clashTask = clashTask(task);
             if (clashTask == null) {
                 this.taskArrayList.add(task);
-                return true;
-            } else return false;
+                return null;
+            } else return clashTask;
         }
     }
 
@@ -71,6 +74,17 @@ public class TaskList {
         return null;
     }
 
+    private boolean checkForDateClash(String date) {
+        DateObj dateObj = new DateObj(date);
+        for (Task currTask : taskArrayList) {
+            if (currTask.getDate().equals(dateObj.toOutputString())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Deletes a task from the list.
      *
@@ -78,6 +92,10 @@ public class TaskList {
      */
     public void deleteTask(int taskNo) {
         this.taskArrayList.remove(taskNo);
+    }
+
+    public void deleteTask(Task taskToDelete) {
+        this.taskArrayList.remove(taskToDelete);
     }
 
     /**
@@ -121,5 +139,29 @@ public class TaskList {
             allTasks += j + ". " + this.getTask(i).toString() + "\n";
         }
         return allTasks;
+    }
+
+    public void handleClash(Task addedTask, Task clashTask, UI ui) {
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        int indexOfSpace = userInput.indexOf(" ");
+
+        String command = userInput.substring(0, indexOfSpace);
+        String continuation = userInput.substring(indexOfSpace + 1);
+
+        if (command.equals("reschedule")) {
+            String taskToReschedule = continuation.substring(0, continuation.indexOf(" "));
+            String newDate = continuation.substring(continuation.indexOf(" ") + 1);
+            boolean clashDetected = checkForDateClash(newDate);
+            while(clashDetected) {
+                ui.scheduleClash(clashTask);
+                userInput = scanner.nextLine();
+            }
+            if (taskToReschedule.equals("old")) {
+                clashTask.reschedule(newDate);
+            } else if (taskToReschedule.equals("new")) {
+                addedTask.reschedule(newDate);
+            }
+        }
     }
 }
