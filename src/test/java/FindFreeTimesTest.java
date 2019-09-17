@@ -2,6 +2,8 @@ import com.joestelmach.natty.DateGroup;
 import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,15 +39,17 @@ public class FindFreeTimesTest {
 
     @Test
     void testTaskDateBeforeCurrent() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         setUpStreams();
         TaskList taskList = new TaskList();
         String input = "event a /at 15 sept 12pm";
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         restoreStreams();
         setUpStreams();
         c = Parser.parse("freetime 6");
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         Date currDate = new Date();
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(currDate);

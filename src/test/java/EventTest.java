@@ -1,6 +1,8 @@
 import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,11 +34,13 @@ public class EventTest {
 
     @Test
     void test() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "event test /at 0000";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [E][✗] test (at: 0000)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
@@ -44,11 +48,13 @@ public class EventTest {
 
     @Test
     public void birthdayAt_myBday() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "event bday /at 06/06/2019";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [E]"
                 + "[✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());

@@ -1,6 +1,8 @@
 import duke.DukeException;
-import duke.TaskList;
 import duke.Parser;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,23 +36,28 @@ public class TodoTest {
 
     @Test
     void eat() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "todo eat";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [T][✗] eat\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
+
     }
 
     @Test
     void jog() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "todo jog";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [T][✗] jog\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
@@ -58,11 +65,13 @@ public class TodoTest {
 
     @Test
     void todo() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "todo todo";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   [T][✗] todo\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();

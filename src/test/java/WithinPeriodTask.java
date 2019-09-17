@@ -1,6 +1,8 @@
 import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
 import duke.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,11 +34,13 @@ public class WithinPeriodTask {
 
     @Test
     public void test() throws DukeException {
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/test_data.txt");
         String input = "todo completing my work within my house /within 1 sep to 2 dec";
         setUpStreams();
         TaskList taskList = new TaskList();
         Command c = Parser.parse(input);
-        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+        c.execute(taskList, ui, storage);
         String exp = "Got it. I've added this task: \n   "
                 + "[T][✗] completing my work within my house within 1 sep to 2 dec\n"
                 + "Now you have 1 tasks in the list.";
