@@ -51,6 +51,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean containsDate(String s) {
+        return this.by.contains(s);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.dateTime + ")";
     }

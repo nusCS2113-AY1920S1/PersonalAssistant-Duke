@@ -85,6 +85,8 @@ public abstract class Task {
         return this.description.contains(s);
     }
 
+    public boolean containsDate(String s) { return this.description.contains(s); }
+
 
     @Override
     public String toString() {
