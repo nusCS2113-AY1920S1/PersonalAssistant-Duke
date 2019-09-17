@@ -15,7 +15,7 @@ import java.time.temporal.TemporalUnit;
 public class NewRecurringTaskCommand extends MultiArgCommand {
     public NewRecurringTaskCommand() {
         argc = 2;
-        delim = "/repeat";
+        delim = "/repeats";
         emptyArgMsg = "You didn't tell me anything about the recurring tasks!";
         invalidArgMsg = "You didn't tell me how the task is supposed to recur!";
     }
@@ -36,6 +36,7 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         if (firstSpaceIdx == -1) {
             throw new DukeException("You didn't tell me how frequently this task should recur!");
         }
+        System.out.println(argv[1].substring(0, firstSpaceIdx));
         switch(argv[1].substring(0, firstSpaceIdx)) { //extract period from frequency, use fallthrough to add synonyms
         case "daily":
             period = ChronoUnit.DAYS;
@@ -84,5 +85,8 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
             refCommand.execute(ctx);
             refCommand.datetime = refCommand.datetime.plus(1, period);
         }
+
+        //test cases: recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /count 13
+        //recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /until 23/11/2019 1300
     }
 }
