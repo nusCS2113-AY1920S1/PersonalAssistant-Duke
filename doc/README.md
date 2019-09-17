@@ -7,19 +7,48 @@ School Planner is an app designed for busy school students. The app is optimized
 ## Features 
 
 ### Feature 1: Login 
-Description of feature.
+User is able to create student name and set a password for the first time, can logout after every session (automatically/manually), login to use specific features such as save features, else can use a general account(default) that users can use without logging into their own
+
+#### Commands: 
+Create User
+
+Login
+
+Logout
+
+Forget password [USER]
 
 ### Feature 2: Timetable 
-Description of feature.
+User is able to view his weekly timetable. Able to modify timetable and add modules based on the duration and frequency of classes they have each week. Able to include whether it is a tutorial/lecture/lab slot
+
+#### Commands:
+Add/Delete/ [MOD CODE]
+View [ACAD YEAR]
 
 ### Feature 3: Grades 
-Description of feature.
+User can plan activities outside of his normal schedule based on system recommendations/individual needs. User able to include his todo list
+
+#### Commands:
+Plan [module] [activity:project meeting/consultation] [duration forecast]
+
 
 ### Feature 4: Forcasted CAP 
-Description of feature.
+User is able to define his ideal CAP, and track it after every semester. Able to modify the goals after every semester
+
+#### Commands:
+Add goal [CAP]
+
+Set goal [CAP]
+
+View [CAP]
+
+CAP Grades Required
+
+
 
 ### Feature 5: Additional Features
-Description of feature.
+User is able to store his results, and pull it up for viewing anytime
+
 
 
 ## Usage
@@ -28,10 +57,10 @@ Description of feature.
 
 Describe action and its outcome.
 
-Example of usage: 
+Create User
 
-`keyword (optional arguments)`
+Login
 
-Expected outcome:
+Logout
 
-`outcome`
+Forget password [USER]
