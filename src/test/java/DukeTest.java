@@ -12,13 +12,6 @@ public class DukeTest {
     public static Storage storage;
 
     private void testSetup() throws DukeException {
-        new File("./data").mkdir();
-        File file = new File("./data/test_data.txt");
-        try {
-            file.createNewFile();
-        } catch (IOException error) {
-            System.out.println("ERROR, FAILED TO CREATE");
-        }
         ui = new Ui();
         storage = new Storage("./data/test_data.txt");
     }
