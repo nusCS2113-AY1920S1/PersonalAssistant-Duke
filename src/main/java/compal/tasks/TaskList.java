@@ -109,7 +109,7 @@ public class TaskList {
             arrlist.add(new DoAfterTasks(description,date));
             duke.ui.printg("[DAT][ " + notDone + "] " + description);
             break;
-            case "fixeddurationtask":
+        case "fixeddurationtask":
             token = "/on";
             description = getDescription(cs.substring(0, cs.indexOf("/for")), token);
             date = getDate(cs.substring(0, cs.indexOf("/for")), token);
