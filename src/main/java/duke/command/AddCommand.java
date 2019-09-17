@@ -17,7 +17,7 @@ import java.util.Scanner;
 /**
  * Represents a command class to add a task. The AddCommand class
  * extends from the Command class to represent user instruction
- * to add a new ToDo, Deadline or Event
+ * to add a new ToDo, FixedDurationTask, Deadline or Event
  * task to the TaskList.
  */
 public class AddCommand extends Command {
@@ -61,6 +61,7 @@ public class AddCommand extends Command {
             ArrayList<Task> tasksInTheList = tasks.fullTaskList();
             ArrayList<Task> clashTasksInTheList = new ArrayList<Task>();
             String userAnswer;
+
 
             for (Task t : tasksInTheList) {
                 if ((t instanceof Deadline || t instanceof Event) && (newTask instanceof Deadline || newTask instanceof Event) ){

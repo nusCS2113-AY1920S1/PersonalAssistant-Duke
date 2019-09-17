@@ -79,6 +79,15 @@ public class Storage {
                         t.markAsDone();
                     }
                     tasks.add(t);
+                }else if (newTask[0].equals("F")) {
+                    Task x = new FixedDurationTask(newTask[2], newTask[3]);
+                    if (newTask[1].equals("1")) {
+                        x.markAsDone();
+                    }
+                    if (newTask[4].equals("true")) {
+                        x.makeTaskRecurring();
+                    }
+                    tasks.add(x);
                 }
 
             }

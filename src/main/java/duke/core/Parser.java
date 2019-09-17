@@ -1,10 +1,7 @@
 package duke.core;
 
 import duke.command.*;
-import duke.task.Deadline;
-import duke.task.PeriodTask;
-import duke.task.Event;
-import duke.task.Todo;
+import duke.task.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,6 +48,15 @@ public class Parser {
                 } catch (Exception e) {
                     throw new DukeException(e.getMessage());
                 }
+            case "fixeddurationtask":
+                try {
+                    String[] temp = command[1].split(" /needs ");
+                    FixedDurationTask fixedDurationTask = new FixedDurationTask(temp[0], temp[1]);
+                    return new AddCommand(fixedDurationTask);
+                }
+                 catch (Exception e) {
+                    throw new DukeException(e.getMessage());
+                 }
             case "deadline":
                 try {
                     String[] temp = command[1].split(" /by ");
