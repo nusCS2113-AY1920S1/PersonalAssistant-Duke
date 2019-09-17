@@ -1,60 +1,51 @@
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-import org.junit.jupiter.api.*;
-import java.io.File;
-import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DukeTest {
-    public static Ui ui;
-    public static Storage storage;
+    //    public static Ui ui;
+    //    public static Storage storage;
 
-    private void testSetup() throws DukeException {
-        new File("./data").mkdir();
-        File file = new File("./data/test_data.txt");
-        try {
-            file.createNewFile();
-        } catch (IOException error) {
-            System.out.println("ERROR, FAILED TO CREATE");
-        }
-        ui = new Ui();
-        storage = new Storage("./data/test_data.txt");
-    }
+    //    private void testSetup() throws DukeException {
+    //        ui = new Ui();
+    //        storage = new Storage("./data/test_data.txt");
+    //    }
 
     @Test
     public void test() throws DukeException {
         dummyTest();
 
         //Setting up configurations
-        testSetup();
+        //testSetup();
 
         //Tests for todo
-        new TodoTest().test("todo eat");
-        new TodoTest().jog("todo jog");
-        new TodoTest().todo("todo todo");
+        new TodoTest().eat();
+        new TodoTest().jog();
+        new TodoTest().todo();
 
         //Test for deadline
-        new DeadlineTest().test("deadline test /by 0000");
-        new DeadlineTest().examBy_Date("deadline exam /by 01/01/2019");
+        new DeadlineTest().test();
+        new DeadlineTest().examBy_Date();
 
         //Test for event
-        new EventTest().test("event test /at 0000");
-        new EventTest().birthdayAt_myBday("event bday /at 06/06/2019");
-        new EventTest().clashEvent("event eventclash /at 06/06/2019");
+        new EventTest().test();
+        new EventTest().birthdayAt_myBday();
+        //new EventTest().clashEvent();
 
         //Test for reminders
         new ReminderTest().test();
 
         //Test for freetime
-        new FindFreeTimesTest().test();
+        new FindFreeTimesTest().testTaskDateBeforeCurrent();
 
         //Test for do after task
-        new DoAfterTaskTest().test("todo going after my work /after lunch");
+        new DoAfterTaskTest().test();
 
         //Test for within period task
-        new WithinPeriodTask().test("todo completing my work within my house /within 1 sep to 2 dec");
+        new WithinPeriodTask().test();
 
         //Test for viewschedule
         new ViewSchedulesTest().test();

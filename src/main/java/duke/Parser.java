@@ -1,10 +1,27 @@
 package duke;
 
-import duke.commands.*;
-import duke.tasks.*;
+import duke.commands.Command;
+import duke.commands.ConfirmCommand;
+import duke.commands.TentativeCommand;
+import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.ReminderCommand;
+import duke.commands.FindCommand;
+import duke.commands.FreeTimeCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ListCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ViewScheduleCommand;
+import duke.tasks.Task;
+import duke.tasks.WithinPeriodTask;
+import duke.tasks.FixedDurationTask;
+import duke.tasks.Deadline;
+import duke.tasks.ToDo;
+import duke.tasks.Event;
+import duke.tasks.TentativeEvent;
+import duke.tasks.DoAfterTask;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Parser {
 
@@ -69,8 +86,11 @@ public class Parser {
     private static StringBuilder computeTaskDetail(String task, StringBuilder stringBuilder) {
         String[] tokens = task.split(" ");
         for (String token : tokens) {
-            if (token.charAt(0) != '/') stringBuilder.append(token);
-            else break;
+            if (token.charAt(0) != '/') {
+                stringBuilder.append(token);
+            } else {
+                break;
+            }
         }
         return stringBuilder;
     }
@@ -108,15 +128,19 @@ public class Parser {
             } else if (token.charAt(0) == '/' && token.equals("/needs")) {
                 hasReq = true;
                 hasFixedDuration = true;
+            } else if (!hasReq) {
+                taskDetail.append(token + " ");
+            } else if (hasReq) {
+                taskReq.append(token + " ");
             }
-            else if (!hasReq) taskDetail.append(token + " ");
-            else if (hasReq) taskReq.append(token + " ");
         }
         String finalTaskDetail = taskDetail.toString();
         finalTaskDetail = finalTaskDetail.substring(0, finalTaskDetail.length() - 1);
         String finalTaskReq = taskReq.toString();
 
-        if (hasReq) finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        if (hasReq) {
+            finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        }
 
         if (hasDoAfter) {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
@@ -124,8 +148,7 @@ public class Parser {
             tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
         } else if (hasFixedDuration) {
             tempTask = new FixedDurationTask(finalTaskDetail, finalTaskReq);
-        }
-        else {
+        } else {
             tempTask = new ToDo(input);
         }
         return getString(data, state, tempTask);
@@ -164,8 +187,6 @@ public class Parser {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-
-
     public static String runEvent(ArrayList<Task> data, String input, int state) throws DukeException {
         input = input.substring(6);
         int startOfAt = input.indexOf("/");
@@ -181,15 +202,15 @@ public class Parser {
 
 
     /**
-     * Checks if new event clash of with existing event
+     * Checks if new event clash of with existing event.
      * Clash only checked against task of EVENT type
      * @param newTask new task that use wants to add
      * @return false if no clash is found
      */
-    public static boolean noClash (ArrayList<Task> data, Task newTask) throws DukeException {
-        for(Task task : data){
-            if(task instanceof Event){
-                if(task.getExtra().equals(newTask.getExtra().toString())){
+    public static boolean noClash(ArrayList<Task> data, Task newTask) throws DukeException {
+        for (Task task : data) {
+            if (task instanceof Event) {
+                if (task.getExtra().equals(newTask.getExtra().toString())) {
                     throw new DukeException("     ☹ OOPS!!! This new event clashes with\n " + task.getFullString());
                 }
             }
@@ -197,6 +218,17 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Confirm if there is conflict with tasks input.
+     * @param data ArrayList of Tasks that's currently being stored
+     * @param input Command input by user
+     * @param state The type of output needed:
+     *              0 : Needs to return a string
+     *              1 : Returns null string with unchecked task
+     *              2 : Returns null string with checked task
+     * @return String which highlights what Duke processed
+     * @throws DukeException Shows error when unknown slot or no valid slot
+     */
     public static String runConfirm(ArrayList<Task> data, String input, int state) throws DukeException {
         input = input.substring(8);
         int num;

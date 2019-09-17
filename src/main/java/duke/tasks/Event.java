@@ -32,6 +32,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Initialises the description of the task.
+     * @param description String containing description
+     *                    of the task inputted by user
+     * @param date The date of the task to be done
+     */
     public Event(String description, Date date) {
         super(description);
         this.at = date.toString();

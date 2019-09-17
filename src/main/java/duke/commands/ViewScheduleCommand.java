@@ -9,7 +9,11 @@ import duke.Ui;
 import duke.tasks.Task;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class ViewScheduleCommand extends Command {
     public ViewScheduleCommand(String str) {
