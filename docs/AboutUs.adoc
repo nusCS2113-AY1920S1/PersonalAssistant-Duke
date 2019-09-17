@@ -16,42 +16,32 @@ image::limryan.png.jpg[width="150", align="left"]
 {empty}[https://github.com/limryan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsiblities: UI
+Responsiblities: UI/Navigation
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Vivian Lee
+image::lee761.jpg[width="150", align="left"]
+{empty}[http://github.com/lee761[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Regular Expression Matching
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Yan Zhiwen
+image::JokerYan.jpg[width="150", align="left"]
+{empty}[http://github.com/JokerYan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Email Authentication and Manipulation
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Yang Zi Yun
+image::ziyun99.jpg[width="150", align="left"]
+{empty}[http://github.com/ziyun99[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
-
+Responsibilities: Local Storage
 '''
