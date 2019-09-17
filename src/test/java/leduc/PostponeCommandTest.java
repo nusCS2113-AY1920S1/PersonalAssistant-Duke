@@ -13,7 +13,14 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+/**
+ * Represents a JUnit test class for the PostponeCommand.
+ */
 public class PostponeCommandTest {
+    /**
+     * Represents a JUnit test method for the PostponeCommand.
+     * Test the command depending on the input String (user).
+     */
     @Test
     public void PostponeCommandTest() {
         Ui ui = new Ui();
