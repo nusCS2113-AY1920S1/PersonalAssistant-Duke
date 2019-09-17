@@ -26,8 +26,8 @@ public class Main extends Application {
     }
 
     /**
-     * stops the GUI.
-     * @throws Exception the exception thrown
+     * Stops the GUI.
+     * @throws Exception The exception thrown.
      */
     @Override
     public void stop() throws Exception {
