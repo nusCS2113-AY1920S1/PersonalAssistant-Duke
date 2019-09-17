@@ -28,8 +28,8 @@ public class Storage {
             ArrayList<Task> arr = tasklist.getTasks();
             String filename = "output.txt";
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            for (int i = 0; i < arr.size(); i++) {
-                out.write(arr.get(i) + "\n");
+            for (Task task : arr) {
+                out.write(task + "\n");
             }
             out.close();
         } catch (IOException e) {
@@ -42,7 +42,6 @@ public class Storage {
     /**
      * Reads <code>Task</code> objects that were previously saved to harddisk.
      * @return <code>TaskList</code> containing <code>Task</code> objects.
-     * @throws DukeException Exception if the file does not exist or cannot be read.
      */
     public ArrayList<Task> readFromFile() throws DukeException {
         try {
@@ -76,11 +75,11 @@ public class Storage {
                 } else if (line.startsWith("[E]")) {
                     checker = checkDone(line);
                     line = line.substring(7).trim();
-                    String[] linesplit = line.split("\\(at:");
-                    String start = linesplit[0].trim();
-                    String end = linesplit[1].trim();
-                    end = end.substring(0, end.length() - 1);
-                    Task task = new Event(start, end);
+                    String[] lineSplit = line.split(" \\(from: ");
+                    String description = lineSplit[0].trim();
+                    String[] dateSplit = lineSplit[1].split(" to: ");
+                    dateSplit[1] = dateSplit[1].substring(0, dateSplit[1].length() - 1);
+                    Task task = new Event(description, dateSplit[0], dateSplit[1]);
                     arr.add(task);
                     if (checker) {
                         arr.get(counter - 1).setStatus();
@@ -103,10 +102,7 @@ public class Storage {
      * @return true if the <code>Task</code> object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        if (line.charAt(4) == '\u2713') { //u2713 is a tick emoticon
-            return true;
-        }
-        return false;
+        return line.charAt(4) == '\u2713'; //u2713 is a tick emoticon
     }
 
     /**

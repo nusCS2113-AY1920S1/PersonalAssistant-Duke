@@ -11,7 +11,7 @@ import duke.task.Task;
  */
 public class CompleteCommand extends Command {
 
-    String index;
+    private String index;
 
     /**
      * Constructor for <code>CompleteCommand</code>.
@@ -29,9 +29,8 @@ public class CompleteCommand extends Command {
      * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
      * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
      *      *         objects to harddisk.
-     * @throws DukeException Catches invalid commands given by user.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {

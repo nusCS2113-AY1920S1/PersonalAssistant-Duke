@@ -13,7 +13,7 @@ import duke.task.Task;
  */
 public class AddDeadlineCommand extends Command {
 
-    String line;
+    private String line;
 
     /**
      * Constructor for <code>AddDeadlineCommand</code>.
@@ -48,7 +48,7 @@ public class AddDeadlineCommand extends Command {
             throw new DukeException("OOPS!!! The datetime of a deadline cannot be empty.");
         } else {
             date = parseTimeStamp(date);
-            if (date != "failed") {
+            if (!date.equals("failed")) {
                 Task task = new Deadline(description, date);
                 arr.addTask(task);
                 ui.addTaskMessage(task, arr.getSize());
