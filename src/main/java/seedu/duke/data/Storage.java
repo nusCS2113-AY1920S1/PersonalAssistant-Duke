@@ -1,7 +1,10 @@
 package seedu.duke.data;
 
 import seedu.duke.task.*;
+
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +17,7 @@ import java.io.FileWriter;
  */
 public class Storage {
   private String filePath;
-  
+
   public Storage(String filePath) {
     this.filePath = filePath;
   }
@@ -56,8 +59,27 @@ public class Storage {
     }
     return list;
   }
-  
-  /**
+
+  public Schedule updateSchedule() {
+    Schedule schedule = new Schedule();
+    try {
+      Scanner duke_txt = new Scanner(new File(this.filePath));
+      while (duke_txt.hasNextLine()) {
+        String task_string[] = duke_txt.nextLine().split("\\|");
+        if (task_string[0].equals("E") || task_string[0].equals("D")) {
+          String description = task_string[2];
+          String dateOnly = task_string[3].substring(0, 10);
+          Date date = schedule.convertStringToDate(dateOnly);
+          schedule.addToSchedule(description, date);
+        }
+      }
+    } catch (FileNotFoundException | ParseException e) {
+
+    }
+    return schedule;
+  }
+
+    /**
    * Saves the input task list to disc.
    *
    * @param input_list the list of tasks to save to disc.

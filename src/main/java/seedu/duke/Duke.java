@@ -1,7 +1,10 @@
 package seedu.duke;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
+
+import seedu.duke.data.Schedule;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
 import seedu.duke.task.TaskList;
@@ -18,6 +21,7 @@ public class Duke {
   protected static Storage storage = new Storage("data/duke.txt");
   protected static Ui ui = new Ui(new Scanner(System.in));
   protected static Parser parser = new Parser();
+  protected static Schedule schedule;
 
   /**
    * Runs Duke which commences the user to machine feedback loop until the user enters "bye".
@@ -25,10 +29,11 @@ public class Duke {
    * Saves the list to disk for next duke session inside data/duke.txt.
    * @see Storage, TaskList, Parser, Ui
    */
-  public static void run() {
+  public static void run() throws ParseException {
     ui.show_opening_string();
 
     list = new TaskList(storage.load());
+    schedule = storage.updateSchedule();
 
     System.out.println();
 
@@ -51,7 +56,9 @@ public class Duke {
     ui.show_bye_message();
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ParseException {
+
     Duke.run();
+
   }
 }

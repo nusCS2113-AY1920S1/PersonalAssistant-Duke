@@ -1,12 +1,18 @@
 package seedu.duke.command;
 
+import seedu.duke.data.Schedule;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Takes raw user input as string, makes sense out of the input using regex and then performs operations based on the input.
  */
 public class Parser {
+
+  private Schedule schedule = new Schedule();
   
   /**
    * Takes raw input and splits it into task type (eg. todo) and task description (eg. finish work). In cases like task type: list, bye,
@@ -29,7 +35,7 @@ public class Parser {
    * @return list after an operation has been performed
    * @see TaskList
    */
-  public TaskList parse (String raw_input, TaskList list) {
+  public TaskList parse (String raw_input, TaskList list) throws ParseException {
     Ui ui = new Ui();
     String[] user_input = this.split(raw_input); 
     /* return output; */
@@ -68,6 +74,19 @@ public class Parser {
       else {
         int task_id = Integer.parseInt(user_input[1]) - 1;
         list.doTask(task_id);
+      }
+    }
+
+    // Find schedule in given date
+    else if (user_input[0].equals("show")) {
+      if (user_input.length != 2) {
+        ui.showFormatError();
+      }
+      else {
+        Date date = schedule.convertStringToDate(user_input[1]);
+        if (date != (null)) {
+          schedule.printSchedule(date);
+        }
       }
     }
 

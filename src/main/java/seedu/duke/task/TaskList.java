@@ -188,7 +188,13 @@ public class TaskList {
     }
     System.out.println("\t_____________________________________\n\n");
   }
-  
+
+  public void getSchedule(String date) {
+    for (Task task : list) {
+
+    }
+  }
+
   /**
    * Checks whether two instaces of TaskList are equal.
    *
