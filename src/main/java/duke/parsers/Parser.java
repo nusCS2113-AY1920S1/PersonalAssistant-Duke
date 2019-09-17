@@ -8,6 +8,7 @@ import duke.commands.FetchCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
+import duke.commands.SnoozeCommand;
 import duke.commands.ReminderCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
@@ -46,6 +47,8 @@ public class Parser {
             return new DeleteCommand(ParserUtil.getIndex(userInput));
         case "find":
             return new FindCommand(getWord(userInput));
+        case "snooze":
+            return new SnoozeCommand(ParserUtil.getIndexUpdate(userInput), ParserUtil.getDateUpdate(userInput));
         case "fetch":
             String[] deadlineDetails = userInput.split(" ", 2);
             return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));

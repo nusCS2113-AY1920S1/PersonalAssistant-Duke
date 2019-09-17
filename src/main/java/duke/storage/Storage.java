@@ -8,6 +8,7 @@ import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
+import duke.tasks.TaskWithDates;
 import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
@@ -45,7 +46,7 @@ public class Storage {
     /**
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
-    private void read() throws DukeException {
+    public void read() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
@@ -71,6 +72,17 @@ public class Storage {
             tasks.setTasks(newTasks);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+        }
+
+        try {
+            for (Task task : newTasks) {
+                if (task instanceof TaskWithDates) {
+                    tasksWithDate.add(task);
+                }
+            }
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+
         }
     }
 

@@ -5,11 +5,19 @@ import java.time.LocalDateTime;
 /**
  * Class for Tasks with a date field.
  */
+
 public class TaskWithDates extends Task {
+    protected LocalDateTime startDate;
+    Boolean hasDate = false;
+
     TaskWithDates(String description, LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
         this.hasDate = true;
+    }
+
+    public void updateDate(LocalDateTime newDate) {
+        this.startDate = newDate;
     }
 
     /**

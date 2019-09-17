@@ -4,6 +4,7 @@ import duke.commons.DukeException;
 import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.tasks.Task;
+import duke.tasks.TaskWithDates;
 import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
@@ -36,8 +37,9 @@ public class FetchCommand extends Command {
         UniqueTaskList result = new UniqueTaskList();
 
         for (Task task: tasks) {
-            if (task.getDate() != null) {
-                if (task.getDate().toString().substring(0, task.getDate().toString().indexOf("T"))
+            if (task instanceof TaskWithDates) {
+                if (((TaskWithDates) task).getStartDate()
+                        .toString().substring(0, ((TaskWithDates) task).getStartDate().toString().indexOf("T"))
                         .equals(date.toString().substring(0, date.toString().indexOf("T")))) {
                     result.add(task);
                 }

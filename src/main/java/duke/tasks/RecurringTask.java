@@ -40,7 +40,7 @@ public class RecurringTask extends TaskWithDates {
      * Update the date if necessary.
      */
     public void updateRecurringTask() {
-        if (LocalDateTime.now().isAfter(this.startDate)) {
+        if (LocalDateTime.now().isAfter(this.getStartDate())) {
             this.startDate = this.startDate.plusDays(repeatInterval);
         }
     }
