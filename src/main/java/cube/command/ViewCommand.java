@@ -52,11 +52,9 @@ public class ViewCommand implements Command {
             TaskList tasksFoundAt = new TaskList();
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
-                for (String description : task.getTask()) {
-                    if (description.contains(Parser.parseDateToString(date))) {
-                        tasksFoundAt.add(task);
-                        break;
-                    }
+                Date task_date = Parser.parseStringToDate(task.getTask()[1]);
+                if (date.equals(task_date)) {
+                    tasksFoundAt.add(task);
                 }
             }
             ui.showFind(tasksFoundAt);
