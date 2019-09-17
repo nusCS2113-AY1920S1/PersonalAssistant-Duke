@@ -118,15 +118,15 @@ public class TaskList {
 
             Date date = new Date();
             String strCurrrent = dateFormat.format(date);
-            if(list.size() == 0) return (strCurrrent + " for " + duration + "hours.");
+            if (list.size() == 0) return (strCurrrent + " for " + duration + "hours.");
 
             Set<Date> dateTime = new HashSet<Date>();
             dateTime.add(date);
 
-            for(Task task: list) {
+            for (Task task : list) {
                 Date dateFromList = dateFormat.parse(task.getDateTime()); // string -> date
 
-                if(!task.getDateTime().equals("void") && (dateFromList.compareTo(date) > 0)) //check if date from list after current(getDateTime) date time
+                if (!task.getDateTime().equals("void") && (dateFromList.compareTo(date) > 0)) //check if date from list after current(getDateTime) date time
                     dateTime.add(dateFromList);
             }
             //sorts set
@@ -134,9 +134,9 @@ public class TaskList {
 
             Iterator i = sortedDateTime.iterator();
             i.next();
-            for (Date set1:  sortedDateTime){
-                if(i.hasNext()){
-                    Date set2 = (Date)(i.next());
+            for (Date set1 : sortedDateTime) {
+                if (i.hasNext()) {
+                    Date set2 = (Date) (i.next());
                     long diff = set2.getTime() - set1.getTime();
 
                     //long diffSeconds = diff / 1000 % 60;
@@ -144,13 +144,14 @@ public class TaskList {
                     long diffHours = diff / (60 * 60 * 1000) % 24;
                     long diffDays = diff / (24 * 60 * 60 * 1000);
 
-                    if(diffDays > 0 || diffHours >= (long)intDuration)
+                    if (diffDays > 0 || diffHours >= (long) intDuration)
                         return (dateFormat.format(set1) + " for " + duration + "hours.");
 
                 }
             }
             return (dateFormat.format(((TreeSet<Date>) sortedDateTime).last()) + " for " + duration + "hours.");
         }
+    }
 
         /* Method 2: Joda
         {
