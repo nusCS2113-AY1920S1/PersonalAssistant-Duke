@@ -53,7 +53,7 @@ public class Task {
      *
      * @return This task's description.
      */
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 

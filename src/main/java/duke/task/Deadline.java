@@ -1,9 +1,10 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+
 
 import duke.exception.DukeException;
 
@@ -38,6 +39,7 @@ public class Deadline extends Task {
     public static Deadline create(String data) throws DukeException {
         String description = parseDeadlineDesc(data);
         LocalDateTime by = parseDeadlineTime(data);
+        checkDeadlineIsAfterCurrent(by);
         return new Deadline(description, by);
     }
 
@@ -112,6 +114,21 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Time must be in the format DD/MM/YYYY HHMM format");
         }
+    }
+
+    /**
+     * Checks if the entered date time is before current date time.
+     *
+     * @param date Deadline date entered by user.
+     * @return True if entered date time is after current date time.
+     * @throws DukeException If entered date is before current date time.
+     */
+    public static boolean checkDeadlineIsAfterCurrent(LocalDateTime date) throws DukeException {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (date.isBefore(currentDate)) {
+            throw new DukeException("Time must not be before current time");
+        }
+        return true;
     }
 
     /**

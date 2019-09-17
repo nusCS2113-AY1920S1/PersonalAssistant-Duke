@@ -38,6 +38,7 @@ public class Event extends Task {
     public static Event create(String data) throws DukeException {
         String description = parseEventDesc(data);
         LocalDateTime at = parseEventTime(data);
+        checkEventIsAfterCurrent(at);
         return new Event(description, at);
     }
 
@@ -112,6 +113,21 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Time must be in the format DD/MM/YYYY HHMM format");
         }
+    }
+
+    /**
+     * Checks if the entered date time is before current date time.
+     *
+     * @param date Event date entered by user.
+     * @return True if entered date time is after current date time.
+     * @throws DukeException If entered date is before current date time.
+     */
+    public static boolean checkEventIsAfterCurrent(LocalDateTime date) throws DukeException {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (date.isBefore(currentDate)) {
+            throw new DukeException("Time must not be before current time");
+        }
+        return true;
     }
 
     /**
