@@ -30,4 +30,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + by + ")";
     }
+
+    @Override
+    public String getDateTime() {
+        return by;
+    }
 }

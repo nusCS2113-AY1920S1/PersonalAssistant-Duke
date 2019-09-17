@@ -81,6 +81,11 @@ public class Ui {
         }
     }
 
+    public String showFreeTimes(String message){
+
+        return ("You are available at: \n" + message);
+    }
+
     /**
      * Displays the reminder message when user asks for a reminder.
      */

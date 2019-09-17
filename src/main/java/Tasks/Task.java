@@ -54,4 +54,8 @@ public class Task {
         return "[" + getStatusIcon()
                 + "] " + getDescription();
     }
+
+    public String getDateTime(){
+        return "void";
+    }
 }
