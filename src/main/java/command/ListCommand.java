@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -12,9 +13,11 @@ import storage.Storage;
 public class ListCommand extends Command {
     /**
      * Constructs a <code>ListCommand</code> object.
+     *
+     * @param commandParams parameters used to invoke the command.
      */
-    public ListCommand() {
-        super("list");
+    public ListCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**

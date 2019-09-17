@@ -24,13 +24,13 @@ public class Parser {
      * Returns the packaged command.
      *
      * @param commandType The commandType of the command. e.g. list
-     * @param tokens Pieces of information of the command.
+     * @param commandParams Pieces of information of the command.
      * @return <code>Command</code> object.
      * @throws DukeException If user input is invalid.
      */
-    private static Command packageCommand(String commandType, String[] tokens) throws DukeException {
-        switch(commandType) {
-            case "todo":
+    private static Command packageCommand(String commandType, CommandParams commandParams) throws DukeException {
+        switch (commandType) {
+            case "todo": /*
                 if (tokens.length > 1) {
                     throw new DukeException("Please use other command to store time.");
                 } else if (tokens[0].equals("")) {
@@ -38,8 +38,9 @@ public class Parser {
                 }
                 description = tokens[0];
                 return new AddCommand(commandType, description,"","");
-
+                */
             case "deadline":
+                /*
                 if (tokens.length == 1 && !tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
                 } else if(tokens[0].equals("")) {
@@ -48,8 +49,9 @@ public class Parser {
                 description = tokens[0];
                 ddl = tokens[1];
                 return new AddCommand(commandType, description, ddl, "");
-
+                */
             case "event":
+                /*
                 if (tokens.length == 1 && !tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! The time of an event cannot be empty.");
                 } else if(tokens[0].equals("")) {
@@ -58,12 +60,18 @@ public class Parser {
                 description = tokens[0];
                 timePiece= tokens[1];
                 return new AddCommand(commandType, description, "", timePiece);
+                */
+                return new AddCommand(commandParams);
             case "list":
+                /*
                 if(!tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
                 return new ListCommand();
+                */
+                return new ListCommand(commandParams);
             case "done":
+                /*
                 if (tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! The index cannot be empty.");
                 }
@@ -73,7 +81,11 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The index should be numerical.");
                 }
                 return new DoneCommand(index-1); // 0-based
+
+                */
+                return new DoneCommand(commandParams);
             case "delete":
+                /*
                 if (tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! The index cannot be empty.");
                 }
@@ -83,17 +95,24 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The index should be numerical.");
                 }
                 return new DeleteCommand(index-1); // 0-based
+                */
+                return new DeleteCommand(commandParams);
             case "find":
+                /*
                 if(tokens[0].equals("") || tokens.length > 1) {
                     throw new DukeException("☹ OOPS!!! I don't what to find.");
                 }
                 return new FindCommand(tokens[0]);
-
+                */
+                return new FindCommand(commandParams);
             case "bye":
+                /*
                 if(!tokens[0].equals("")) {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
                 return new ExitCommand();
+                */
+                return new ExitCommand(commandParams);
             default:
                 throw new DukeException("Unknown error!");
         }
@@ -111,15 +130,10 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws DukeException {
         String regex = "todo|deadline|event|list|done|bye|delete|find";
-        m = Pattern.compile(regex).matcher(fullCommand); // AddCommmand
-        if(m.find()) {
+        m = Pattern.compile(regex).matcher(fullCommand);
+        if (m.find()) {
             commandType = m.group();
-            fullCommand = m.replaceFirst("").trim();
-            String[] tokens = fullCommand.split("/by|/at");
-            for(int i = 0; i < tokens.length; i++) {
-                tokens[i] = tokens[i].trim();
-            }
-            return packageCommand(commandType, tokens);
+            return packageCommand(commandType, new CommandParams(fullCommand));
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

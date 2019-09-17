@@ -1,5 +1,7 @@
 package task;
 
+import exception.DukeException;
+
 /**
  * Represents a simple task with description and status.
  * Works as a parent class of more specified task classes in the package.

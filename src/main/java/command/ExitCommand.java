@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -12,9 +13,11 @@ import storage.Storage;
 public class ExitCommand extends Command {
     /**
      * Constructs an <code>ExitCommand</code> object.
+     *
+     * @param commandParams parameters used to invoke the command.
      */
-    public ExitCommand() {
-        super("exit");
+    public ExitCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**

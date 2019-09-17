@@ -1,5 +1,7 @@
 package command;
 
+import exception.DukeException;
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -12,17 +14,15 @@ import java.util.ArrayList;
  * Responses with the result.
  */
 public class FindCommand extends Command {
-    private String target;
 
     /**
      * Constructs a <code>FindCommand</code> object
      * with given searched keyword.
      *
-     * @param target The searched keyword.
+     * @param commandParams parameters used to invoke the command.
      */
-    public FindCommand(String target) {
-        super("find");
-        this.target = target;
+    public FindCommand(CommandParams commandParams) {
+        super(commandParams);
     }
 
     /**
@@ -32,10 +32,14 @@ public class FindCommand extends Command {
      * @param tasks The taskList of Duke.
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
+     * @throws DukeException if a search string was not given.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Integer> matchedList = tasks.find(target);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (commandParams.getMainParam() == null) {
+            throw new DukeException("☹ OOPS!!! I don't what to find.");
+        }
+        ArrayList<Integer> matchedList = tasks.find(commandParams.getMainParam());
         if (matchedList.size() == 0) {
             ui.println("No results found.");
             return;

@@ -44,7 +44,7 @@ public class TaskList {
                     }
                     break;
                 case "E":
-                    addEvent(tokens[2], tokens[3]);
+                    addEvent(tokens[2], tokens[3], tokens[4]);
                     if(tokens[1].equals("1")) {
                         done(tasks.size() - 1);
                     }
@@ -77,11 +77,12 @@ public class TaskList {
      * Adds an event with description, start and end time into the taskList.
      *
      * @param description Description of the added event.
-     * @param timePiece Start and end time of the event.
+     * @param start the start time of the event.
+     * @param end the end time of the event.
      * @throws DukeException If an exception is thrown when constructing the new event.
      */
-    public void addEvent(String description, String timePiece) throws DukeException {
-            tasks.add(new Event(description, timePiece));
+    public void addEvent(String description, String start, String end) throws DukeException {
+            tasks.add(new Event(description, start, end));
     }
 
     /**

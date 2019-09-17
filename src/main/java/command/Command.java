@@ -1,5 +1,6 @@
 package command;
 
+import parser.CommandParams;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
@@ -9,15 +10,15 @@ import storage.Storage;
  * Works as a parent class of more specified command classes in the package.
  */
 public class Command {
-    protected String commandType;
+    protected CommandParams commandParams;
 
     /**
      * Constructs a <code>Command</code> object with commandType.
      *
-     * @param commandType CommandType of the constructed command.
+     * @param commandParams parameters used to invoke the command.
      */
-    protected Command(String commandType){
-        this.commandType = commandType;
+    protected Command(CommandParams commandParams){
+        this.commandParams = commandParams;
     }
 
     /**
@@ -39,7 +40,7 @@ public class Command {
      * @return The boolean indicating whether quit the loop in <code>main</code> method.
      */
     public boolean isExit() {
-        if (commandType.equals("exit")) {
+        if (commandParams.getCommandType().equals("exit")) {
             return true;
         } else {
             return false;

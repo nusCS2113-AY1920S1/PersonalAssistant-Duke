@@ -10,7 +10,8 @@ import java.util.Date;
  * with start and end <code>Date</code>.
  */
 public class Event extends Task {
-    private String timePiece;
+    private String startString;
+    private String endString;
     private Date start;
     private Date end;
 
@@ -19,19 +20,16 @@ public class Event extends Task {
      * The time period is then stored as <code>Date</code>.
      *
      * @param description Description of the task.
-     * @param timePiece String containing start and end time.
+     * @param startString String containing the start time.
+     * @param endString String containing the end time.
      * @throws DukeException If <code>timePiece</code> string has incorrect time format.
      */
-    public Event(String description, String timePiece) throws DukeException {
+    public Event(String description, String startString, String endString) throws DukeException {
         super(description);
-        this.timePiece = timePiece;
-        String[] tokens = timePiece.split("-");
-        if(tokens.length < 2) throw new DukeException("☹ OOPS!!! Cannot only show start or end time.");
-        for(int i = 0; i < tokens.length; i++) {
-            tokens[i] = tokens[i].trim();
-        }
-        start = TimeParser.parse(tokens[0]);
-        end = TimeParser.parse(tokens[1]);
+        this.startString = startString;
+        this.endString = endString;
+        this.start = TimeParser.parse(startString);
+        this.end = TimeParser.parse(endString);
     }
 
     /**
@@ -43,7 +41,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + timePiece + ")";
+        return "[E]" + super.toString() + " (at: " + startString + " - " + endString + ")";
     }
 
     /**
@@ -54,6 +52,6 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + timePiece;
+        return "E | " + super.toStorageString() + " | " + startString + " | " + endString;
     }
 }
