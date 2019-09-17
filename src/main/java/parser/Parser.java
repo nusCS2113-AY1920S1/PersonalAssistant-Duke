@@ -89,6 +89,11 @@ public class Parser {
         return check;
     }
 
+    /**
+     * This function deals when user wants to fix a tentative task.
+     * @param s the whole user command.
+     * @throws DukeException when user did not enter task number or select wrong task.
+     * */
     private static void fixCommand(String s) throws DukeException{
         try {
             String[] tokens = s.split(" ");
@@ -460,7 +465,11 @@ public class Parser {
         }
     }
 
-
+    /**
+     * This function deals when user wants to store tentative tasks.
+     * @param todoTask1 description of the task.
+     * @throws DukeException when user did not/wrongly input description of task and/or date.
+     */
     private static void eventTentativeCommand(String todoTask1) throws DukeException {
         Ui.queryForDates();
         try {
