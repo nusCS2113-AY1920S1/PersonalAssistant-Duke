@@ -15,9 +15,9 @@ class DukeTest {
     @Test
     void testMainMethod() throws IOException {
 
-        provideInput("reminder\nbye");
+        io.provideInput("reminder\nbye");
         Duke.main(new String[0]);
-        String output = getOutput();
+        String output = io.getOutput();
         String expected = "\t____________________________________________________________\n" +
                 "\t Hello! I'm Duke\n" +
                 "\t What can I do for you?\n" +
