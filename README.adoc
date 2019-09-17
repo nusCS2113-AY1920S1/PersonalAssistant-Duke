@@ -1,0 +1,20 @@
+= RIMS
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+image::docs/images/ui.jpeg[width="600"]
+
+* RIM (Resource and Inventory Management) is a logistic management system designed to manage an organisation’s facilities and inventory.
+* It is a command-line Java application which takes in user commands to keep track of and organise assets, thus streamlining user inventory.
+
+== Site Map
+
+* <<UserGuide#, User Guide>>
+* <<AboutUs#, About Us>>
+
+== Acknowledgements
+
+* Third party libraries used: https://github.com/junit-team/junit5[JUnit5]
+* NUS CS2113T Teaching Group: https://github.com/nusCS2113-AY1819S2/addressbook-level4[CS2113T]
+* Source Code Acknowledgements: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
+
+== Licence : link:LICENSE[MIT]
