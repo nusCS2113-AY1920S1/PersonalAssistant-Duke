@@ -7,6 +7,11 @@ public class Deadline extends Task {
 
     protected String by;
 
+    @Override
+    public String getType() {
+        return "[D]";
+    }
+
     /**
      * Creates a Deadline object.
      * @param description Description of a task
@@ -24,5 +29,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String getDateTime() {
+        return by;
     }
 }

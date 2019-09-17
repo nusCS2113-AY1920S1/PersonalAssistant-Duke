@@ -3,6 +3,7 @@ import Commands.*;
 import Tasks.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Date;
  */
 public class Parser {
     private static String[] arr;
+    private static String[] arr1;
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.
@@ -58,6 +60,7 @@ public class Parser {
                 if (activity.isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                 } else {
+
                     return new AddCommand(new Todo(activity));
                 }
             }
@@ -79,6 +82,10 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 1500");
                 }
+            }
+
+            else if (fullCommand.trim().substring(0,6).equals("remind")){
+                return new RemindCommand();
             }
 
             else if (fullCommand.trim().substring(0, 6).equals("delete")) {
@@ -109,6 +116,45 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
                             "For example: deadline return book /by 2/12/2019 1800");
+                }
+            }
+            else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
+                try {
+                    String duration = fullCommand;
+                    duration = duration.replaceFirst("when is the nearest day in which I have a ", "");
+                    duration = duration.replaceFirst(" hour free slot", "");
+                    //duration = duration.replaceAll("\\D", "");
+                    //duration = duration.replaceAll(".$", "");
+                    duration = duration.substring(0, duration.indexOf('?'));
+
+                    return new FindFreeTimesCommand(duration);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter find free time as follows:\n" +
+                            " when is the nearest day in which I have a X hour free slot?\n" +
+                            "For example:  when is the nearest day in which I have a 4.5 hour free slot?");
+                }
+            }
+            else if (fullCommand.equals("show schedule")) {
+                return new ViewSchedulesCommand();
+            }
+            else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+                try {
+                    String activity = fullCommand.trim().substring(6);
+                    arr = activity.split("/to");
+                    arr1 = arr[0].split(" ");
+                    int index = Integer.parseInt(arr1[1].trim()) - 1;
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The index of a snooze cannot be empty.");
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = formatter.parse(arr[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    return new SnoozeCommand(index, dateString);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter snooze as follows:\n" +
+                            "snooze index /to dd/MM/yyyy HHmm\n" +
+                            "For example: snooze 2 /to 2/12/2019 1800");
                 }
             }
 

@@ -17,7 +17,6 @@ public class Ui {
 
     /**
      * Displays the welcome message when Duke program starts.
-     * @return This returns a message to greet the user
      */
     public String showWelcome(){
         return "Hello from\n" + logo + welcomeMessage;
@@ -25,7 +24,6 @@ public class Ui {
 
     /**
      * Displays the exit message when Duke Program ends.
-     * @return This returns a message to say goodbye to the user
      */
     public String showBye(){
         return byeMessage;
@@ -33,8 +31,6 @@ public class Ui {
 
     /**
      * Displays the list message when user inputs list.
-     * @param list The TaskList object to display all the tasks
-     * @return This returns the list message and all contents in the TaskList object
      */
     public String showList(TaskList list){
         String listMessage = "Here are the tasks in your list:\n";
@@ -46,9 +42,6 @@ public class Ui {
 
     /**
      * Displays add task message when user wants to add a task.
-     * @param task The task to be added by the user
-     * @param listSize The size of the ArrayList after adding a task
-     * @return This returns the add task message with the current size of teh ArrayList
      */
     public String showAdd(Task task, int listSize){
         return "Got it. I've added this task:\n" + task.toString() + "\n"
@@ -57,8 +50,6 @@ public class Ui {
 
     /**
      * Displays done task message when user marks a task as done.
-     * @param task The task that user wants to mark done
-     * @return This returns the done message with the task that is marked done
      */
     public String showDone(Task task){
         return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
@@ -66,9 +57,6 @@ public class Ui {
 
     /**
      * Displays the delete task message when user wants to delete a task.
-     * @param task The task that user wants to delete
-     * @param listSize The size of the ArrayList after a task is deleted
-     * @return This returns the delete message with the task and size of ArrayList after deletion
      */
     public String showDelete(Task task, int listSize){
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
@@ -82,7 +70,7 @@ public class Ui {
      */
     public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
-            return "There are no matching tasks in your list\n";
+            return "There are no matching tasks in your list.\n";
         }
         else {
             String findMessage = "Here are the matching tasks in your list:\n";
@@ -93,10 +81,29 @@ public class Ui {
         }
     }
 
+    public String showFreeTimes(String message){
+
+        return ("You are available at: \n" + message);
+    }
+
+    /**
+     * Displays the reminder message when user asks for a reminder.
+     */
+    public String showReminder(TaskList list){
+        if(list.taskListSize() == 0) {
+            return "There are no upcoming tasks this week.\n";
+        }
+        else {
+            String remindMessage = "Here are your tasks for this week:\n";
+            for (int i = 1; i <= list.taskListSize(); i++) {
+                remindMessage = remindMessage + i + "." + list.taskToString(i - 1) + "\n";
+            }
+            return remindMessage;
+        }
+    }
+
     /**
      * Displays the error message if a file is not found.
-     * @param e Exception that was caught
-     * @return This returns the Exception error message
      */
     public String showLoadingError(Exception e){
         return "File not found" + e.getMessage() + "\n";
@@ -104,10 +111,25 @@ public class Ui {
 
     /**
      * Displays any of the DukeException error message caught throughout the program.
-     * @param e DukeException that was caught
-     * @return This returns the DukeException error message
      */
     public String showError(DukeException e){
         return e.getMessage() + "\n";
+    }
+
+
+    public String showUserSchedule(String finalSchedule) {
+        return finalSchedule;
+    }
+
+    /**
+     * Displays the snooze message when a user wants to snooze a task.
+     * @param index The index of the task the user wants to snooze
+     * @param listSize The size of the ArrayList
+     * @param list The ArrayList
+     * @return This returns the snooze message with the task and size of ArrayList after snoozing
+     */
+    public String showSnooze(int index, int listSize, TaskList list) {
+        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.getTask(listSize-1) + "\n" +
+                "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 }
