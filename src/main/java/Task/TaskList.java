@@ -109,7 +109,7 @@ public class TaskList {
         int index = 1;
         String[] temp = word.split("/");
         String dd = TaskList.numOrdinal(Integer.parseInt(temp[0]));
-        Month mm = Month.of(Integer.parseInt(temp[1])); //
+        Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
         for (item i : list) {
