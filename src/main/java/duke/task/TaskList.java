@@ -13,8 +13,7 @@ public class TaskList extends ArrayList<Task> {
      * @param index the index of task to be queried, index starts from 1
      * @return The task with index starting from 0
      */
-    private Task getTask(int index) {
-
+    public Task getTask(int index) {
         return this.get(index - 1);
     }
 
