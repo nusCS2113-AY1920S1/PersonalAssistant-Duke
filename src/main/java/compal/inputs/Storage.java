@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Storage {
-
+  
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./duke.txt";
     private static final String binarySaveFilePath = "binary";
