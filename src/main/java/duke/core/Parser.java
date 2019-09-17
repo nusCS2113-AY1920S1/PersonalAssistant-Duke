@@ -149,6 +149,38 @@ public class Parser {
             checkParsableDate(at);
             c = new EventCommand(description, at);
         }
+        else if (words[0].equals("recurring")) {
+            if (!(words.length > 1)) {
+                throw new DukeException("The description of a recurring task cannot be empty.");
+            }
+            input = input.replaceFirst("recurring ", "");
+            int daySplitIndex = input.indexOf("/every");
+            if (daySplitIndex == -1) {
+                throw new DukeException("Please specify the recurring task day using the '/every' command.");
+            }
+            else if (daySplitIndex == 0) {
+                throw new DukeException("The description of a task cannot be empty!");
+            }
+            String description = input.substring(0, daySplitIndex - 1);
+            if (description.isEmpty()) {
+                throw new DukeException("The description of a task cannot be empty.");
+            }
+            int timeSplitIndex = input.indexOf("/at");
+            if (timeSplitIndex == -1) {
+                throw new DukeException("Please specify the recurring task timing as well, using the '/at' command.");
+            }
+            String day = input.substring(daySplitIndex + 1, timeSplitIndex - 1);
+            day = day.replaceFirst("every ", "");
+            if (day.equals("every")) {
+                throw new DukeException("The recurring task day cannot be empty.");
+            }
+            String time = input.substring(timeSplitIndex + 1);
+            time = time.replaceFirst("at ", "");
+            if (time.equals("at")) {
+                throw new DukeException("The recurring task time cannot be empty.");
+            }
+            c = new RecurringCommand(description, day, time);
+        }
         else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

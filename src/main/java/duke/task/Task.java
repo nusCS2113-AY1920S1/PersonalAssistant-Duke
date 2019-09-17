@@ -21,7 +21,12 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+<<<<<<< HEAD
     protected String after;
+=======
+    protected String day;
+    protected String time;
+>>>>>>> branch-B-RecurringTasks
 
     /**
      * Constructor for a new basic Task.
@@ -91,6 +96,14 @@ public class Task {
      */
     public boolean getDoneStatus() {
         return isDone;
+    }
+
+    public String getDayString() {
+        return day;
+    }
+
+    public String getTimeString() {
+        return time;
     }
 
     /**
