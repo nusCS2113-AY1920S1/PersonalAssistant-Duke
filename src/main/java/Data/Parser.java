@@ -2,7 +2,11 @@ package Data;
 
 import Task.*;
 import Module.Reminder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Parser is the controller for the string inputs received by the standard input.
@@ -40,11 +44,14 @@ public class Parser {
 
             case "todo":
                 try {
-                    String info = input.substring(5);
-                    ToDo todo = new ToDo(info, false);
+                    String[] tempString = input.split(" ");
+                    List<String> listString = new ArrayList<String>(Arrays.asList(tempString));
+                    listString.remove(0);
+                    String info1 = String.join(" ", listString);
+                    String[] parseString = info1.split("/in");
+                    ToDo todo = new ToDo(parseString[0], false, parseString[1]);
                     TaskList.addTask(todo, "T");
-                }
-                catch(StringIndexOutOfBoundsException e) {
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
                 }
                 break;

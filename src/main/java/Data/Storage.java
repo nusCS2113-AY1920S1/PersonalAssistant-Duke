@@ -55,7 +55,7 @@ public class Storage {
                         break;
 
                     case "T":
-                        item todo = new ToDo(data[2], stat);
+                        item todo = new ToDo(data[2], stat, TaskList.dateRevert(data[3]));
                         oldList.add(todo);
                         break;
 
