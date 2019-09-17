@@ -5,8 +5,6 @@ import leduc.exception.DukeException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
-import java.io.IOException;
-
 /**
  * Represents the main program leduc.Duke.
  * Run the project from here.
@@ -31,17 +29,14 @@ public class Duke {
             file = filePath[0];
         }
         else{ // no test file
-            file = System.getProperty("user.dir")+ "/data/duke.txt";
+            file = System.getProperty("user.dir")+ "/data/dukeTest2.txt";
         }
         this.storage = new Storage(file);
         try{
-            this.tasks = new TaskList(storage.load(parser, ui)); // Use of ArrayList (A-Collections) to store tasks
+            this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){
-            e.print();
-        }
-        catch (IOException e){
-            this.ui.display("\t IOException: \n\t\t error when readFile for initialization of tasks list");
+            ui.showError(e);
         }
     }
 
@@ -50,20 +45,19 @@ public class Duke {
      */
     public void run() {
         this.ui.showWelcome();
-        this.storage.getNewAppendWrite(this.storage.getFilePath(),ui);
         boolean isExit = false;
         while (!isExit){
             try {
                 String user = this.ui.readCommand();
                 Command c = parser.parse(user);
-                c.execute(tasks, ui, storage,parser); // parser is needed because stringToDate is in leduc.Parser class
+                c.execute(tasks, ui, storage); // parser is needed because stringToDate is in leduc.Parser class
                 isExit = c.isExit();
             }
             catch (DukeException e){ // catch one of subclass of dukeException and print the right message
                 e.print();
+                ui.showError(e);
             }
         }
-        this.storage.getAppendWrite().freeBufferedWriter();  // close() bufferedwriter
     }
 
     /**

@@ -44,5 +44,22 @@ public class DeadlinesTask extends Task {
      * @return the deadline date of the task.
      */
     public Date getDeadlines(){ return this.deadlines;}
+
+    /**
+     * to know if whether is a deadline task of not
+     * @return true
+     */
+    @Override
+    public boolean isDeadline(){
+        return true;
+    }
+
+    /**
+     * visualize a deadline task
+     * @return the string format to see a deadline task
+     */
+    public String toString(){
+        return super.toString() + " by: " + getDeadlines();
+    }
 }
 

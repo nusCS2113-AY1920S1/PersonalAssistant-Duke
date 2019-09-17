@@ -9,16 +9,16 @@ import leduc.exception.DukeException;
 public class MeaninglessException extends DukeException {
     /**
      * Constructor of leduc.exception.MeaningLessException.
-     * @param ui leduc.Ui which deals with the interactions with the user.
      */
-    public MeaninglessException(Ui ui){
-        super(ui);
+    public MeaninglessException(){
+        super();
     }
 
     /**
-     * Tell the user that the input String is not understood.
+     * Tell the user that the input String is not known.
+     * @return the error message
      */
-    public void print(){
-        super.ui.display("\t MeaningLessException:\n\t\t OOPS!!! I'm sorry, but I don't know what that means :-(\"");
+    public String print(){
+        return "\t MeaningLessException:\n\t\t OOPS!!! I'm sorry, but I don't know what that means :-(\"";
     }
 }

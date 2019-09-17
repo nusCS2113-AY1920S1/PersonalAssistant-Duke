@@ -1,5 +1,6 @@
 package leduc;
 
+import leduc.exception.DukeException;
 import leduc.task.TaskList;
 
 import java.util.Scanner;
@@ -67,7 +68,7 @@ public class Ui {
      * Display the list of tasks.
      * @param tasks tasks list.
      */
-    public void displayList(TaskList tasks){
+    public void showList(TaskList tasks){
         System.out.println("\t---------------------------------------------------------------------------------");
         System.out.println("\t Here are the tasks in your list:");
         for (int i = 0 ;i< tasks.size() ; i++ ){
@@ -76,4 +77,11 @@ public class Ui {
         System.out.println("\t---------------------------------------------------------------------------------");
     }
 
+    /**
+     * Display the error message
+     * @param e the error that has been catch
+     */
+    public void showError(DukeException e){
+        System.out.println(e.print());
+    }
 }
