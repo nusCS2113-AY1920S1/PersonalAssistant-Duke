@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Sean Chan Hin
 image::hin1.jpg[width="150", align="left"]
-{empty}[https://github.com/hin1[github]] [<<hin1#>>]
+{empty}[https://github.com/hin1[github]]
 
 Role:Team Lead, testing +
 Component IC: command
@@ -19,7 +19,7 @@ Component IC: command
 
 === Daniel Chan 
 image::danielcyc.jpg[width="150", align="left"]
-{empty}[http://github.com/danielcyc[github]] [<<danielcyc#>>]
+{empty}[http://github.com/danielcyc[github]]  
 
 Role:Documentation, IJ expert +
 Component IC: task
@@ -27,7 +27,7 @@ Component IC: task
 
 === Cai Rong
 image::isbobby.jpg[width="150", align="left"]
-{empty}[http://github.com/isbobby[github]] [<<isbobby#>>]
+{empty}[http://github.com/isbobby[github]]  
 
 Role:Git Expert +
 Component IC: exception
@@ -35,14 +35,13 @@ Component IC: exception
 
 === Aarushi Singh
 image::aarushisingh1.jpg[width="150", align="left"]
-{empty}[http://github.com/aarushisingh1[github]] [<<aarushisingh1#>>]
-
+{empty}[http://github.com/aarushisingh1[github]]  
 Role:Scheduling and tracking +
 Component IC: task
 
 === Abhijit Ravichandran
 image::rabhijit.jpg[width="150", align="left"]
-{empty}[http://github.com/rabhijit[github]] [<<rabhijit#>>]
+{empty}[http://github.com/rabhijit[github]] 
 
 Role: Deliverables and Deadlines, code Quality +
 Component IC: task
