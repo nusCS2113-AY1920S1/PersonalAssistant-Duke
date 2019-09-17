@@ -16,10 +16,9 @@ import java.util.Comparator;
 public class Ui {
     public String FullCommand;
 
-    public String ReadCommand() throws IOException {
+    public void ReadCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         FullCommand = reader.readLine();
-        return FullCommand;
     }
 
     public String showWelcome() {

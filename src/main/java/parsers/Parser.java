@@ -26,6 +26,9 @@ public class Parser {
             case ("find"):
                 return new FindCommand();
 
+            case ("schedule"):
+                return new ScheduleCommand();
+
             case ("bye"):
                 return new ByeCommand();
 
