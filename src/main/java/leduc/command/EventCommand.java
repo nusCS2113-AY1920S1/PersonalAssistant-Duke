@@ -36,6 +36,7 @@ public class EventCommand extends Command {
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
      * @throws NonExistentDateException Exception caught when one of the two date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify
+     * @throws ConflictDateException Exception thrown when the new event is in conflict with others event
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException {
