@@ -7,11 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Events extends Task {
-    private LocalDateTime dateTime;
 
     public Events(String... input) {
         super(input[0]);
-        dateTime = null;
         setDateAndTime(input[input.length - 1]);
     }
 

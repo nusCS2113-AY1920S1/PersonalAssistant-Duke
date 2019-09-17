@@ -7,11 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDateTime dateTime;
 
     public Deadline(String... input) {
         super(input[0]);
-        dateTime = null;
         setDateAndTime(input[input.length - 1]);
     }
 
@@ -22,7 +20,7 @@ public class Deadline extends Task {
      */
     private void setDateAndTime(String dateAndTime) {
         try {
-            dateTime = DateTimeParser.getStringToDate(dateAndTime);
+            super.dateTime = DateTimeParser.getStringToDate(dateAndTime);
         } catch (DukeInvalidTimeException e) {
             System.out.println(e.getMessage() + " " + dateAndTime + getTask());
         }

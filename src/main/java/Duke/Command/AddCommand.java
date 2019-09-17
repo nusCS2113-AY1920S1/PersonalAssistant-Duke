@@ -1,5 +1,7 @@
 package Duke.Command;
 
+import Duke.Exceptions.DukeCommandException;
+import Duke.Exceptions.DukeException;
 import Duke.Tasks.Task;
 import Duke.Util.TaskList;
 import Duke.Util.Ui;
@@ -28,11 +30,17 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) {
-        tasks.add(task);
-        ui.addedTaskMsg();
-        ui.printTask(task);
-        ui.currentTaskListSizeMsg(tasks.getSize());
-        store.writeData(tasks.getTasks());
+        try {
+            tasks.add(task);
+            ui.addedTaskMsg();
+            ui.printTask(task);
+            ui.currentTaskListSizeMsg(tasks.getSize());
+            store.writeData(tasks.getTasks());
+        } catch (NullPointerException e) {
+            ui.showLine();
+            new DukeCommandException();
+            ui.showLine();
+        }
     }
 
     @Override
