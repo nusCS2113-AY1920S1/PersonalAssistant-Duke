@@ -1,5 +1,6 @@
 package com.nwjbrandon.duke.services.task;
 
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
 import java.text.SimpleDateFormat;
@@ -44,8 +45,14 @@ public class TaskList {
      * Add task.
      * @param task task.
      */
-    public void addTask(Task task) {
-        tasksList.add(task);
+    public void addTask(Task task) throws DukeTaskCollisionException {
+        if (!(task instanceof Todos)) {
+            if (!isTaskCollision(this.tasksList, task.getDate())) {
+                tasksList.add(task);
+            }
+        } else {
+            tasksList.add(task);
+        }
     }
 
     /**
@@ -158,5 +165,20 @@ public class TaskList {
             }
         }
         return tasksInScheudle;
+    }
+
+    /**
+     * Checks whether task falls on the same day.
+     * @param listOfTasks list of tasks.
+     * @param date date of task.
+     * @throws DukeTaskCollisionException throws exception if collided.
+     */
+    private static boolean isTaskCollision(ArrayList<Task> listOfTasks, Date date) throws DukeTaskCollisionException {
+        for (Task task: listOfTasks) {
+            if (task.isSameDay(date)) {
+                throw new DukeTaskCollisionException();
+            }
+        }
+        return false;
     }
 }
