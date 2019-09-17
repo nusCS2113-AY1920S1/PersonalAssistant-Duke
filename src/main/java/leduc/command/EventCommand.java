@@ -12,6 +12,9 @@ import leduc.task.EventsTask;
 import leduc.task.TaskList;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a event task Command.
@@ -43,39 +46,46 @@ public class EventCommand extends Command {
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException(ui);
         }
-        else if (taskDescription.length == 1) { // no /by in input
+        else if (taskDescription.length == 1) { // no /at in input
             throw new EmptyEventDateException(ui);
         }
         else {
             String description = taskDescription[0].trim();
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
-            String regex ="[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9] " +
-                    "- [0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9]";
-            if (!periodString.matches(regex)) {
-                throw new DateEventFormatException(ui);
+            String[] dateString = periodString.split(" - ");
+            if(dateString.length == 1){
+                throw new EmptyEventDateException(ui);
             }
-            else {
-                String[] dateString = periodString.split(" - ");
-                Date dateFirst = parser.stringToDate(dateString[0],ui);
-                Date dateSecond = parser.stringToDate(dateString[1],ui);
-                tasks.add(new EventsTask(description, dateFirst,dateSecond));
-                EventsTask newTask = (EventsTask) tasks.get(tasks.size() - 1);
-                try {
-                    storage.getAppendWrite().write(tasks.size() + "//" + newTask.getTag() + "//" +
-                            newTask.getMark() + "//" + newTask.getTask() + "//"+
-                            " at:" + newTask.getDateFirst() + "//" + newTask.getDateSecond()+"\n");
-                }
-                catch (IOException e){
-                    ui.display("\t IOException:\n\t\t error when writing a event to file");
-                }
-                ui.display("\t Got it. I've added this task:\n\t   "
-                        + newTask.getTag() + newTask.getMark() + newTask.getTask() + " at:"
-                        + newTask.getDateFirst() + " - " + newTask.getDateSecond() +
-                        "\n\t Now you have " + tasks.size() + " tasks in the list.");
+            else if(dateString[0].isBlank() || dateString[1].isBlank()){
+                throw new EmptyEventDateException(ui);
+            }
+            LocalDateTime d1 = null;
+            LocalDateTime d2 = null;
+            try{
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+                d1 = LocalDateTime.parse(dateString[0].trim(), formatter);
+                d2 = LocalDateTime.parse(dateString[1].trim(), formatter);
+            }catch(Exception e){
+                throw new NonExistentDateException(ui);
+            }
+            EventsTask newTask = new EventsTask(description, new Date(d1) , new Date(d2));
+            tasks.add(newTask);
+            try {
+                storage.getAppendWrite().write(tasks.size() + "//" + newTask.getTag() + "//" +
+                        newTask.getMark() + "//" + newTask.getTask() + "//"+
+                        " at:" + newTask.getDateFirst() + "//" + newTask.getDateSecond()+"\n");
+            }
+            catch (IOException e){
+                ui.display("\t IOException:\n\t\t error when writing a event to file");
+            }
+            ui.display("\t Got it. I've added this task:\n\t   "
+                    + newTask.getTag() + newTask.getMark() + newTask.getTask() + " at:"
+                    + newTask.getDateFirst() + " - " + newTask.getDateSecond() +
+                    "\n\t Now you have " + tasks.size() + " tasks in the list.");
             }
         }
-    }
+
 
 
     /**
