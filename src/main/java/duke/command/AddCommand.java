@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.extensions.AbnormalityChecker;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -39,7 +40,14 @@ public class AddCommand extends Command {
 				String[] eInfo = description.split(" /at ");
 				SimpleDateFormat eFormat = new SimpleDateFormat("ddMMyyyy HHmm");
 				Date at = eFormat.parse(eInfo[1]);
-				tasks.add(new Event(eInfo[0], at));
+				Event newEvent = new Event(eInfo[0], at);
+				AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
+				if (abnormalityChecker.checkEventClash(newEvent)) {
+					System.out.println("There is a clash with another event at the same time");
+				}
+				else {
+					tasks.add(newEvent);
+				}
 				break;
 		}
 	}
