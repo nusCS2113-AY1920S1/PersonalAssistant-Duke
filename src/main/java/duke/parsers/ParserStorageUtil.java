@@ -3,10 +3,13 @@ package duke.parsers;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
 import duke.tasks.Task;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
 import duke.tasks.Todo;
+import duke.tasks.DoWithin;
+
+import java.time.LocalDateTime;
 
 /**
  * Parser for Storage related operations.
@@ -37,6 +40,10 @@ public class ParserStorageUtil {
                 } catch (DukeDateTimeParseException e) {
                     task = new Event(description, taskParts[3].strip());
                 }
+            } else if ("W".equals(type)) {
+                LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
+                LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
+                task = new DoWithin(description, start, end);
             } else {
                 task = new Todo(description);
             }
@@ -60,6 +67,8 @@ public class ParserStorageUtil {
             return  "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getEvent();
+        } else if (task instanceof DoWithin) {
+            return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
         }
         throw new DukeException(MessageUtil.CORRUPTED_TASK);
     }
