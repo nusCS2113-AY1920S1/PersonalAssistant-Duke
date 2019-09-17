@@ -90,6 +90,5 @@ class MainTest {
         command = new DeleteCommand("1");
         command.execute(taskListTest, uiTest, storageTest);
         assertEquals(taskListTest.size(), 0);
-
     }
 }
