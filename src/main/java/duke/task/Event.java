@@ -1,14 +1,14 @@
 package duke.task;
 
 /**
- * Represent an event task and inherits all the fields and methods of Task parent class
+ * Represent an event task and inherits all the fields and methods of Task parent class.
  */
 public class Event extends Task {
 
     protected String at;
 
     /**
-     * Constructor for class Event
+     * Constructor for class Event.
      * @param description String containing the description of the task
      * @param at String containing the venue of the event
      */
@@ -18,7 +18,7 @@ public class Event extends Task {
     }
 
     /**
-     * Converts user input command to a standardized format to store in file
+     * Converts user input command to a standardized format to store in file.
      * @return String containing the standardized format
      */
     @Override
@@ -27,11 +27,11 @@ public class Event extends Task {
     }
 
     /**
-     * Converts user input command to a standardized format in taskList
+     * Converts user input command to a standardized format in taskList.
      * @return String containing the standardized format
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + "(at:" + at + ")";
     }
 }

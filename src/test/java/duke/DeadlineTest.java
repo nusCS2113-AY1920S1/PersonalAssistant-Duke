@@ -10,13 +10,15 @@ public class DeadlineTest {
     @Test
     public void shouldTestDeadlineToSaveString() {
         // assert statements
-        assertEquals("D | - | return book | 2/12/2019 1800", new Deadline("return book", "2/12/2019 1800").toSaveString());
+        assertEquals("D | - | return book | 2/12/2019 1800",
+                new Deadline("return book", "2/12/2019 1800").toSaveString());
     }
 
     @Test
     public void shouldTestDeadlineToString() {
         // assert statements
-        assertEquals("[D][-] return book (by: 2/12/2019 1800)", new Deadline("return book", "2/12/2019 1800").toString());
+        assertEquals("[D][-] return book (by: 2/12/2019 1800)",
+                new Deadline("return book", "2/12/2019 1800").toString());
     }
 
     @Test

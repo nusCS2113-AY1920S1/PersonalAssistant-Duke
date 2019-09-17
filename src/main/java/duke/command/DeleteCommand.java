@@ -5,16 +5,21 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EMPTY_LIST;
+import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.COMMAND_DELETE;
 
 /**
- * Handles the delete command and inherits all the fields and methods of Command parent class
+ * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
 public class DeleteCommand extends Command {
 
     /**
-     * Constructor for class DeleteCommand
+     * Constructor for class DeleteCommand.
      * @param userInputCommand String containing input command from user
      */
     public DeleteCommand(String userInputCommand) {
@@ -22,7 +27,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Validate that user inputs an integer value for the index
+     * Validates that user inputs an integer value for the index.
      * @param input String containing integer input from user for the index
      * @return true if the user inputs an integer and false otherwise
      */
@@ -36,7 +41,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Processes the delete command to delete task in the task list
+     * Processes the delete command to delete task in the task list.
      * @param taskList contains the task list
      * @param ui deals with interactions with the user
      * @param storage deals with loading tasks from the file and saving tasks in the file
@@ -44,12 +49,12 @@ public class DeleteCommand extends Command {
      *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (userInputCommand.trim().equals(COMMAND_DELETE)) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
-        }else if(userInputCommand.trim().charAt(6) == ' '){
+        } else if (userInputCommand.trim().charAt(6) == ' ') {
             String description = userInputCommand.trim().split("\\s",2)[1];
-            if(isParsable(description)) {
+            if (isParsable(description)) {
                 //converting string to integer
                 int index = Integer.parseInt(description);
                 if (index > taskList.getSize() || index <= 0) {
@@ -62,10 +67,10 @@ public class DeleteCommand extends Command {
                     taskList.deleteTask(index - 1);
                     storage.saveFile(taskList);
                 }
-            }else{
+            } else {
                 throw new DukeException(ERROR_MESSAGE_UNKNOWN_INDEX);
             }
-        }else{
+        } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }

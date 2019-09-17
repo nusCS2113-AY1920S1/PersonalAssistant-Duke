@@ -1,16 +1,17 @@
 package duke.task;
 
-/**
- * Represent a todo task and inherits all the fields and methods of Task parent class.
- */
-public class Todo extends Task {
+public class DoAfter extends Task {
+
+    protected String after;
 
     /**
-     * Constructor for class Event.
+     * Constructor for class DoAfter.
      * @param description String containing the description of the task
+     * @param after String containing the time or tasks to be met or done
      */
-    public Todo(String description) {
+    public DoAfter(String description, String after) {
         super(description);//super class constructor call to the Task(description) constructor
+        this.after = after;
     }
 
     /**
@@ -19,7 +20,7 @@ public class Todo extends Task {
      */
     @Override
     public String toSaveString() {
-        return "T" + super.toSaveString();
+        return "T" + super.toSaveString() + " | " + after;
     }
 
     /**
@@ -28,6 +29,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + "(after:" + after + ")";
     }
 }

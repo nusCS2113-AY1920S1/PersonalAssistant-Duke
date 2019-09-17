@@ -10,7 +10,7 @@ import duke.ui.Ui;
 import static duke.common.Messages.filePath;
 
 /**
- * Duke processes different commands
+ * Duke processes different commands.
  */
 public class Duke {
 
@@ -19,7 +19,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes
+     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
      * @param filePath String containing the directory in which the tasks are to be stored
      */
     public Duke(String filePath) {
@@ -34,7 +34,7 @@ public class Duke {
     }
 
     /**
-     * Method to start the program
+     * Method to start the program.
      */
     public void run() {
         ui.showWelcome();
@@ -55,7 +55,7 @@ public class Duke {
     }
 
     /**
-     * Starting the program
+     * Starting the program.
      * @param args the command line parameter
      */
     public static void main(String[] args) {
