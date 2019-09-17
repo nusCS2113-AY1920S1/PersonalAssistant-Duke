@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.core.DateTimeParser;
 import duke.core.DukeException;
 
 /**
@@ -10,7 +11,8 @@ public class Deadline extends Task {
     /**
      * A string that represents the deadline of the task.
      */
-    private String by;
+    private String dateTime;
+    private String dateTimeEnglish;
 
     /**
      * Constructs a Deadline object. Date and time are parsed and
@@ -19,13 +21,14 @@ public class Deadline extends Task {
      *
      * @param description A string that describes the specific
      *                    description of task.
-     * @param by          A string that specifies the deadline of the
+     * @param dateTime          A string that specifies the deadline of the
      *                    task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dateTime) throws DukeException {
         super(description);
-        this.by = by;
-        super.updateLocalDateTime(by);
+        super.updateLocalDateTime(dateTime);
+        this.dateTime = dateTime;
+        dateTimeEnglish = DateTimeParser.convertToEnglishDateTime(dateTime);
     }
 
     /**
@@ -36,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.printStatus() + " (by: " + super.timeFormatter(by) + ")";
+        return "[D]" + super.printStatus() + " (by: " + dateTimeEnglish + ")";
     }
 
     /**
@@ -46,11 +49,11 @@ public class Deadline extends Task {
      */
     public String writeTxt() {
         return "D | "
-                + (this.isDone ? "1" : "0")
+                + (isDone() ? "1" : "0")
                 + " | "
-                + this.description
+                + getDescription()
                 + " | "
-                + this.by
+                + dateTime
                 + " | "
                 + this.isRecurring;
     }

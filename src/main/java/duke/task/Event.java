@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.core.DateTimeParser;
+import duke.core.DukeException;
+
 /**
  * Represents a task with a event. It is
  * extended from the Task class.
@@ -8,7 +11,8 @@ public class Event extends Task {
     /**
      * A string that represents the time of the event.
      */
-    private String at;
+    private String dateTime;
+    private String dateTimeEnglish;
 
     /**
      * Constructs a Event object. Date and time are parsed and
@@ -16,12 +20,13 @@ public class Event extends Task {
      * format.
      *
      * @param description A string that saves the description of the task.
-     * @param at          A string that specifies the time of the event.
+     * @param dateTime          A string that specifies the time of the event.
      */
-    public Event(String description, String at) {
+    public Event(String description, String dateTime) throws DukeException {
         super(description);
-        this.at = at;
-        super.updateLocalDateTime(at);
+        super.updateLocalDateTime(dateTime);
+        this.dateTime = dateTime;
+        dateTimeEnglish = DateTimeParser.convertToEnglishDateTime(dateTime);
     }
 
     /**
@@ -32,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.printStatus() + " (at: " + super.timeFormatter(at) + ")";
+        return "[E]" + super.printStatus() + " (at: " + dateTimeEnglish + ")";
     }
 
     /**
@@ -42,11 +47,11 @@ public class Event extends Task {
      */
     public String writeTxt() {
         return "E | "
-                + (this.isDone ? "1" : "0")
+                + (isDone() ? "1" : "0")
                 + " | "
-                + this.description
+                + getDescription()
                 + " | "
-                + this.at
+                + dateTime
                 + " | "
                 + this.isRecurring;
     }
