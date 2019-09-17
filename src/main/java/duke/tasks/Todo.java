@@ -25,14 +25,4 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
-    /**
-     * Returns a null
-     *
-     * @return The desired string representation.
-     */
-    @Override
-    public Task updateDate(LocalDateTime newDate) {
-        return null;
-    }
-
 }

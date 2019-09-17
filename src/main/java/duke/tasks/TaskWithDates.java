@@ -5,15 +5,18 @@ import java.time.LocalDateTime;
 /**
  * Class for Tasks with a date field.
  */
+
 public class TaskWithDates extends Task {
     private LocalDateTime startDate;
 
     TaskWithDates(String description, LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
+        this.hasDate = true;
     }
 
-    public Task updateDate (LocalDateTime newDate){
+    @Override
+    public TaskWithDates updateDate (LocalDateTime newDate){
         this.startDate = newDate;
         return this;
     }

@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
  */
 public abstract class Task {
     private String description;
+    protected Boolean hasDate = false;
+    protected LocalDateTime startDate = null;
 
     private boolean isDone;
 
@@ -67,5 +69,17 @@ public abstract class Task {
         return (isDone ? "[✓] " : "[✘] ") + description;
     }
 
-    public abstract Task updateDate(LocalDateTime newDate);
+    public Boolean hasDate() {
+        return hasDate;
+    }
+
+    public LocalDateTime getDate() {
+        return startDate;
+    }
+
+    public TaskWithDates updateDate(LocalDateTime newDate) {
+        this.startDate = newDate;
+        return (TaskWithDates) this;
+    }
+
 }

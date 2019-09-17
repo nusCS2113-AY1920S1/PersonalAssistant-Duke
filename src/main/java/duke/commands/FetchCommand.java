@@ -7,19 +7,21 @@ import duke.tasks.Task;
 import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
- * Class representing a command to find a task by keyword.
+ * Class representing a command to fetch tasks by date.
  */
-public class FindCommand extends Command {
-    private String keyword;
+public class FetchCommand extends Command {
+    private LocalDateTime date;
 
     /**
      * Creates a new FindCommand with the given keyword.
      *
-     * @param keyword The keyword to find.
+     * @param date The date to find.
      */
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FetchCommand(LocalDateTime date) {
+        this.date = date;
     }
 
     /**
@@ -30,11 +32,15 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException {
-        UniqueTaskList tasks = storage.getTasks();
+        UniqueTaskList tasks = storage.getTasksWithDate();
         UniqueTaskList result = new UniqueTaskList();
+
         for (Task task: tasks) {
-            if (task.toString().contains(keyword)) {
-                result.add(task);
+            if (task.getDate() != null) {
+                if (task.getDate().toString().substring(0, task.getDate().toString().indexOf("T"))
+                        .equals(date.toString().substring(0, date.toString().indexOf("T")))) {
+                    result.add(task);
+                }
             }
         }
         ui.setResponse(ui.getList(result));

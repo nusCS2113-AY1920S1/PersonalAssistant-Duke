@@ -22,9 +22,11 @@ public class Ui {
     private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
     private static final String MESSAGE_UPDATE = "Alright! I've snoozed this task:\n  ";
     private Scanner scanner;
+    private String response;
 
     public Ui() {
         scanner = new Scanner(System.in);
+        response = "";
     }
 
     /**
@@ -136,5 +138,13 @@ public class Ui {
     }
 
     public String getUpdateDate(Task task) { return (MESSAGE_UPDATE + task); }
+
+    public void setResponse(String message) {
+        response = message;
+    }
+
+    public String getResponse() {
+        return response;
+    }
 
 }
