@@ -13,6 +13,7 @@ public class NewToDoCommand extends ArgCommand {
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
         String addStr = ctx.taskList.addTask(new ToDoTask(arg));
+        addStr = "Got it, I've added this task:" + System.lineSeparator() + "  " + addStr + System.lineSeparator();
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(addStr);
     }

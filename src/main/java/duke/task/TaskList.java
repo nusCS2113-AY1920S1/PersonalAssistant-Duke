@@ -72,8 +72,7 @@ public class TaskList {
     public String markDone(String idxStr) throws DukeException {
         Task currTask = taskArrList.get(getTaskIdx(idxStr));
         currTask.markDone();
-        return "Nice! I've marked this task as done:" + System.lineSeparator()
-                + "  " + currTask.toString();
+        return currTask.toString();
     }
 
     /**
@@ -84,10 +83,8 @@ public class TaskList {
      *         reporting the number of tasks in the list.
      */
     public String addTask(Task newTask) {
-        String addStr = "Got it, I've added this task:" + System.lineSeparator()
-                + "  " + newTask.toString() + System.lineSeparator();
         taskArrList.add(newTask);
-        return addStr + getTaskCountStr();
+        return newTask.toString();
     }
 
     /**
@@ -115,7 +112,6 @@ public class TaskList {
     public String find(String searchTerm) {
         int i = 1;
         StringBuilder searchBuilder = new StringBuilder();
-        searchBuilder.append("Here are the tasks that contain '").append(searchTerm).append("':");
         for (Task task : taskArrList) {
             if (task.getName().contains(searchTerm)) {
                 searchBuilder.append(System.lineSeparator()).append(i).append(".").append(task.toString());
@@ -151,6 +147,31 @@ public class TaskList {
     }
 
     /**
+     * Reports the addition of a number of tasks.
+     * @param addStr The descriptions of the tasks, formatted with two spaces behind each task and a trailing line
+     *               separator.
+     * @param isMultiTaskReport True if reporting the addition of multiple tasks, false otherwise.
+     * @return A String reporting the addition of one or more tasks.
+     */
+    public String getAddReport(String addStr, boolean isMultiTaskReport) {
+        addStr = ((isMultiTaskReport) ? "Got it, I've added these tasks:" + System.lineSeparator() + addStr :
+                "Got it, I've added this task:" + System.lineSeparator() + addStr);
+        return addStr + getTaskCountStr();
+    }
+    /**
+     * Reports the deletion of a number of tasks.
+     * @param delStr The descriptions of the tasks, formatted with two spaces behind each task and a trailing line
+     *               separator.
+     * @param isMultiTaskReport True if reporting the deletion of multiple tasks, false otherwise.
+     * @return A String reporting the deletion of one or more tasks.
+     */
+    public String getDelReport(String delStr, boolean isMultiTaskReport) {
+        delStr = ((isMultiTaskReport) ? "Noted. I've removed these tasks:" + System.lineSeparator() + delStr :
+                "Noted. I've removed this task:" + System.lineSeparator() + delStr);
+        return delStr + getTaskCountStr();
+    }
+
+    /**
      * Reports the number of tasks currently in the list.
      *
      * @return A String reporting the current number of tasks.
@@ -160,5 +181,6 @@ public class TaskList {
         String taskCountStr = taskCount + ((taskCount == 1) ? " task" : " tasks");
         return "Now you have " + taskCountStr + " in the list.";
     }
+
 
 }
