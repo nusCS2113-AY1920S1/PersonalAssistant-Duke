@@ -31,12 +31,12 @@ public abstract class Task {
     private String taskDescription = "";
 
     /**
-     * Converts a string to a Date object
-     * @param dateString the string containing the date
-     * @return The corresponding Date object if the dateString is valid
-     * @throws ParseException if there is no date found in the dateString
+     * Converts a string to a Date object.
+     * @param dateString the string containing the date.
+     * @return The corresponding Date object if the dateString is valid.
+     * @throws ParseException if there is no date found in the dateString.
      */
-    public static Date parseDate (String dateString) throws ParseException {
+    public static Date parseDate(String dateString) throws ParseException {
         Parser dateParser = new Parser();
         Date date = null;
         try {
