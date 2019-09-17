@@ -53,7 +53,7 @@ public class Reminder implements Runnable {
                     if (!(v.getDateTime() == null))
                     {
                         int seconds = (int) ChronoUnit.SECONDS.between(v.getDateTime(), LocalDateTime.now());
-                        if ((!v.isDone()) && seconds < SECONDS_IN_A_DAY) {
+                        if ((!v.isDone()) && Math.abs(seconds) < SECONDS_IN_A_DAY) {
                             tempTask.add(v);
                         }
                     }
