@@ -121,6 +121,10 @@ public class Parser {
                 throw new DukeException("Improper day and hour assignment");
             }
             return new SnoozeCommand(index1,index2);
+        } else if (command.equals("tentative")){
+            return new TentativeCommand();
+        } else if (command.equals("confirm")){
+            return new ConfirmCommand();
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

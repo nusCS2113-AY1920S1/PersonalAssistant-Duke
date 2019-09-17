@@ -17,6 +17,7 @@ public class ScheduleTest {
     void Schedule() {
         try {
             assertTrue(test.remindMe(4) instanceof ArrayList);
+            assertTrue(test.confirm() instanceof Task);
         }
         catch (DukeException e){
         }
