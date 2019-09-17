@@ -1,5 +1,6 @@
 package duke.parsers;
 
+
 import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
@@ -43,17 +44,16 @@ public class Parser {
         } else if (command.equals("todo")) {
             if (description.contains("/needs")) {
                 try {
-                    String SplitString[] = description.split(" /needs ", 2);
-                    return new AddCommand(new ToDo(SplitString[0], SplitString[1]));
+                    String[] splitString = description.split(" /needs ", 2);
+                    return new AddCommand(new ToDo(splitString[0], splitString[1]));
                 } catch (Exception e) {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
                 }
-            }
-            else if (description.contains("/between")) {
+            } else if (description.contains("/between")) {
                 try {
-                    String SplitString[] = description.split("/between", 2);
-                    String SplitString2[] = SplitString[1].split(",", 2);
-                    return new AddCommand(new ToDo(SplitString[0], SplitString2[0], SplitString2[1]));
+                    String[] splitString = description.split("/between", 2);
+                    String[] splitString2 = splitString[1].split(",", 2);
+                    return new AddCommand(new ToDo(splitString[0], splitString2[0], splitString2[1]));
                 } catch (Exception e) {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
                 }
@@ -61,16 +61,16 @@ public class Parser {
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {
-                String SplitString[] = description.split(" /by ");
-                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+                String[] splitString = description.split(" /by ");
+                return new AddCommand(new Deadline(splitString[0], splitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
             }
         } else if (command.equals("event")) {
-            String SplitString[];
+            String[] splitString;
             try {
-                SplitString = description.split(" /at ");
-                return new AddCommand(new Event(SplitString[0], SplitString[1]));
+                splitString = description.split(" /at ");
+                return new AddCommand(new Event(splitString[0], splitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
             }
@@ -85,7 +85,7 @@ public class Parser {
             int index = 0;
             try {
                 index = Integer.parseInt(description);
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a number");
             }
             return new DeleteCommand(index);
@@ -106,11 +106,12 @@ public class Parser {
             }
             return new FindFreeTimeCommand(index);
         } else if (command.equals("snooze")) {
-            int index1, index2;
+            int index1;
+            int index2;
             try {
                 index1 = Integer.parseInt(description.split(" ", 2)[0]);
                 index2 = Integer.parseInt(description.split(" ", 2)[1]);
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a number");
             }
             if (index1 < 1 && index2 > 31 || index2 < 0 || index2 > 23) {

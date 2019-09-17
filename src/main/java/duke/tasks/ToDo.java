@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class ToDo extends Task {
 
-    protected Calendar End = Calendar.getInstance();
+    protected Calendar end = Calendar.getInstance();
     protected String duration = "";
 
     /**
@@ -27,32 +27,32 @@ public class ToDo extends Task {
      * Secondary constructor of ToDo object with period.
      * @param description description embedded in object
      * @param start start of period
-     * @param end end of period
+     * @param inputEnd end of period
      */
-    public ToDo(String description, String start, String end) {
+    public ToDo(String description, String start, String inputEnd) {
         super(description);
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date;
         try {
             date = dateparser.parse(start);
             datetime.setTime(date);
-            date = dateparser.parse(end);
-            End.setTime(date);
+            date = dateparser.parse(inputEnd);
+            end.setTime(date);
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
                 date = altparser.parse(start);
                 datetime.setTime(date);
-                date = altparser.parse(end);
-                End.setTime(date);
+                date = altparser.parse(inputEnd);
+                end.setTime(date);
             } catch (ParseException f) {
                 datetime = null;
             }
         }
-        if (datetime.after(End)) {
+        if (datetime.after(end)) {
             Calendar temp = datetime;
-            datetime = End;
-            End = temp;
+            datetime = end;
+            end = temp;
         }
         super.type = "T";
         subtypes += "P ";
@@ -83,7 +83,7 @@ public class ToDo extends Task {
         } else if (subtypes.contains("P")) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
-                    + " to " + dateFormat.format(End.getTime()) + ")";
+                    + " to " + dateFormat.format(end.getTime()) + ")";
         } else if (subtypes.contains("F")) {
             return "[T]" + super.toString() + " (needs: " + this.duration + ")";
         }

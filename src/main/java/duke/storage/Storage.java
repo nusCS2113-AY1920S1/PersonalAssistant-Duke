@@ -88,22 +88,22 @@ public class Storage {
      */
     //TODO: make such that the loadFile only need to call one function only
     private static void loadToDo(ArrayList<Task> tasks, boolean isDone,
-                                 String Subtypes, String...description) {
-        if (Subtypes.trim().length() == 0) {
+                                 String subtypes, String...description) {
+        if (subtypes.trim().length() == 0) {
             ToDo newToDo = new ToDo(description[0]);
             if (isDone) {
                 newToDo.markAsDone();
             }
             tasks.add(newToDo);
         }
-        if (Subtypes.contains("P")) {
+        if (subtypes.contains("P")) {
             ToDo newToDo = new ToDo(description[0], description[1], description[2]);
             if (isDone) {
                 newToDo.markAsDone();
             }
             tasks.add(newToDo);
         }
-        if (Subtypes.contains("F")) {
+        if (subtypes.contains("F")) {
             ToDo newToDo = new ToDo(description[0], description[1]);
             if (isDone) {
                 newToDo.markAsDone();
@@ -136,9 +136,10 @@ public class Storage {
      * @param tasks the task arraylist that will store the tasks from the input file
      * @param description the event specified
      * @param duration the duration of the event
-     * @param isDone
+     * @param isDone whether the event is completed
      */
-    private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
+    private static void loadEvent(ArrayList<Task> tasks, String description,
+                                  String duration, boolean isDone, Schedule schedule) {
         boolean toAdd;
         Event newEvent = new Event(description, duration);
         if (isDone) {
@@ -173,17 +174,17 @@ public class Storage {
                 if (currentTask.getisDone()) {
                     status = "1";
                 }
-                String Subtypes = currentTask.getSubtype();
-                bufferedWriter.write(currentTask.getType() + " | " + Subtypes + " | "
+                String subtypes = currentTask.getSubtype();
+                bufferedWriter.write(currentTask.getType() + " | " + subtypes + " | "
                         + status + " | " + currentTask.getDescription());
                 if ((currentTask.getType()).equals("T")) {
-                    if (Subtypes.contains("P")) {
-                        String data[] = currentLine.split("From: ", 2);
-                        String timeFrame[] = data[1].split(" to ", 2);
+                    if (subtypes.contains("P")) {
+                        String[] data = currentLine.split("From: ", 2);
+                        String[] timeFrame = data[1].split(" to ", 2);
                         bufferedWriter.write(" | " + timeFrame[0] + " | "
                                 + timeFrame[1].substring(0, timeFrame[1].length() - 1));
                     }
-                    if (Subtypes.contains("F")) {
+                    if (subtypes.contains("F")) {
                         String timeFrame = (currentLine.split("needs: ", 2))[1];
                         bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                     }

@@ -23,7 +23,7 @@ public class Schedule {
     protected ArrayList<ArrayList<Calendar>> ponderDate = new ArrayList<ArrayList<Calendar>>();
 
     /**
-     * Default constructor for schedule
+     * Default constructor for schedule.
      */
     public Schedule() {
         for (int i = 0; i < 31; i += 1) {
@@ -77,14 +77,13 @@ public class Schedule {
         int counter = 0;
         for (int i = 0; i < hour; i += 1) {
             current = this.schedule[currentDay + counter - 1][(currentHour + i) % 24];
-            if (currentHour + i > (counter + 1) * 24 - 1){
+            if (currentHour + i > (counter + 1) * 24 - 1) {
                 counter += 1;
             }
             for (int j = 0; j < current.size(); j += 1) {
                 if (current.get(j).getType() == "D" && current.get(j).getisDone() == false) {
                     result.add(current.get(j));
-                }
-                else if (current.get(j).getType() == "E") {
+                } else if (current.get(j).getType() == "E") {
                     result.add(current.get(j));
                 }
             }
@@ -243,7 +242,7 @@ public class Schedule {
         System.out.println("These are the tentative dates. Which would you like to select?");
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         for (int i = 0; i < this.ponderDate.get(taskIndex - 1).size(); i += 1) {
-            System.out.print(Integer.toString(i + 1) +". ");
+            System.out.print(Integer.toString(i + 1) + ". ");
             System.out.println(dateFormat.format(this.ponderDate.get(taskIndex - 1).get(i).getTime()));
         }
         input = temp.nextLine();

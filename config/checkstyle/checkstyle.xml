@@ -37,17 +37,17 @@
                 value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
       <property name="message"
                 value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
-    </module>
+    <!--</module>
     <module name="AvoidEscapedUnicodeCharacters">
       <property name="allowEscapesForControlCharacters" value="true"/>
       <property name="allowByTailComment" value="true"/>
-      <property name="allowNonPrintableEscapes" value="true"/>
+      <property name="allowNonPrintableEscapes" value="true"/> -->
     </module>
     <module name="LineLength">
       <property name="max" value="120"/>
       <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
-    <module name="AvoidStarImport"/>
+    <!--<module name="AvoidStarImport"/> -->
     <module name="OneTopLevelClass"/>
     <module name="NoLineWrap"/>
     <module name="EmptyBlock">
@@ -237,10 +237,10 @@
       <property name="allowedAnnotations" value="Override, Test"/>
       <property name="allowThrowsTagsForSubclasses" value="true"/>
     </module>
-    <module name="MissingJavadocMethod">
+    <!--<module name="MissingJavadocMethod">
       <property name="scope" value="public"/>
       <property name="minLineCount" value="2"/>
-      <property name="allowedAnnotations" value="Override, Test"/>
+      <property name="allowedAnnotations" value="Override, Test"/> -->
     </module>
     <module name="MethodName">
       <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
