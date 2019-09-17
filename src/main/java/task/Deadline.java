@@ -1,6 +1,8 @@
 package task;
+import parser.DateTimeExtractor;
+
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * This extension of the task class will allow the user to add a task of deadline type.
@@ -10,7 +12,7 @@ import java.util.Date;
  */
 public class Deadline extends Task implements Serializable{
 
-    public Deadline(String description, Date atDate){
+    public Deadline(String description, LocalDateTime atDate){
         super(description);
         this.atDate = atDate;
     }
@@ -23,7 +25,8 @@ public class Deadline extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: " + this.atDate + ")";
+        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: "
+                + this.atDate.format(DateTimeExtractor.DATE_FORMATTER);
     }
 
 }

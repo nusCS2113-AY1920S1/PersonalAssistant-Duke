@@ -61,12 +61,12 @@ public class TaskList {
         if (command.contains("event")) {
             for (Task task : listOfTasks) {
                 if ((task.toString()).contains("[E]")) {
-                    if (task.fromDate.before(taskToCheck.toDate) && task.toDate.after(taskToCheck.fromDate)) {
+                    if (task.fromDate.isBefore(taskToCheck.toDate) && task.toDate.isAfter(taskToCheck.fromDate)) {
                         return true;
                     }
                 }
                 else if ((task.toString()).contains("[D]")){
-                    if (taskToCheck.fromDate.before(task.atDate) && taskToCheck.toDate.after(task.atDate)) {
+                    if (taskToCheck.fromDate.isBefore(task.atDate) && taskToCheck.toDate.isAfter(task.atDate)) {
                         return true;
                     }
                 }
@@ -75,7 +75,7 @@ public class TaskList {
         else{
             for (Task task : listOfTasks) {
                 if ((task.toString()).contains("[E]")) {
-                    if (task.fromDate.before(taskToCheck.atDate) && task.toDate.after(taskToCheck.atDate)) {
+                    if (task.fromDate.isBefore(taskToCheck.atDate) && task.toDate.isAfter(taskToCheck.atDate)) {
                         return true;
                     }
                 }
