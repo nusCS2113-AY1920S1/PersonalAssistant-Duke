@@ -21,9 +21,9 @@ public class Duke {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             new File("./data").mkdir();
-            File file = new File("./data/saved_data.txt");
+            File file1 = new File("./data/saved_data.txt");
             try {
-                file.createNewFile();
+                file1.createNewFile();
                 storage = new Storage(filePath);
                 tasks = new TaskList();
             } catch (IOException error) {
