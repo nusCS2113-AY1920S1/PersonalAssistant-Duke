@@ -4,8 +4,8 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github[]
 endif::[]
 
-*RIM (Resource and Inventory Management) is a logistic management system designed to manage an organisation’s facilities and inventory.
-*It is a command-line Java application which takes in user commands to keep track of and organise assets, thus streamlining user inventory.
+* RIM (Resource and Inventory Management) is a logistic management system designed to manage an organisation’s facilities and inventory.
+* It is a command-line Java application which takes in user commands to keep track of and organise assets, thus streamlining user inventory.
 
 == Site Map
 
