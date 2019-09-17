@@ -7,7 +7,7 @@ public class ScheduleList {
      * Data structure to hold list of schedules of the user
      * [TODO] FOR NOW: SCHEDULES REFER TO EXPENSES AND LOANS
      */
-    ArrayList<Task> scheduleList;
+    private ArrayList<Task> scheduleList;
 
     /**
      * Constructs a new ArrayList object

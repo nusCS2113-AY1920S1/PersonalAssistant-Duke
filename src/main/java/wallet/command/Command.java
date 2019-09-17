@@ -1,6 +1,12 @@
 package wallet.command;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import wallet.record.Expense;
+import wallet.record.ExpenseList;
+import wallet.record.ExpenseParser;
 import wallet.storage.Storage;
 import wallet.task.*;
 
@@ -13,7 +19,7 @@ public class Command {
      * @param fileIO The class object that handles file IO
      * @return true if the command given is bye
      */
-    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList){
+    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList, ExpenseList expenseList){
         boolean isExit = false;
 
         String[] command = fullCommand.split(" ",2);
@@ -22,6 +28,12 @@ public class Command {
             System.out.println("Here are the tasks in your list:");
             for (Task t : taskList.getTaskList()){
                 System.out.println(count + "." + t.toString());
+                count++;
+            }
+            count = 1;
+            System.out.println("Here are the expenses in your list:");
+            for (Expense e : expenseList.getExpenseList()){
+                System.out.println(count + ". " + e.toString());
                 count++;
             }
         } else if (command[0].equals("find")) {
@@ -120,8 +132,7 @@ public class Command {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if (command[0].equals("delete")) {
+        } else if (command[0].equals("delete")) {
             try {
                 int index = Integer.parseInt(command[1]) - 1;
                 Task task = taskList.getTask(index);
@@ -163,7 +174,6 @@ public class Command {
                     Tentative notSet = (Tentative) task;
                     Task newEvent = taskList.updateTentative(notSet);
                     if(newEvent != null){
-
                         taskList.addTask(newEvent);
                         taskList.deleteTask(num);
                         fileIO.removeTask(taskList.getTaskList(), num);
@@ -172,19 +182,35 @@ public class Command {
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
                         fileIO.writeFile(newEvent, "event");
                         fileIO.removeTask(taskList.getTaskList(), num);
-
                     }
-
-                }
-                else{
-
+                } else{
                     System.out.println("☹ OOPS!!! I'm sorry, but this task is not a tentative schedule");
                 }
             } catch (IndexOutOfBoundsException e){
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
+        } else if (command[0].equals("expense")){
+            try {
+                Expense expense = ExpenseParser.parseInput(command[1]);
+                if (expense != null) {
+                    expenseList.addExpense(expense);
+                    System.out.println("Got it. I've added this expense:");
+                    System.out.println(expense.toString());
+                    ExpenseParser.populateRecurringRecords(expenseList);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! The format of adding expense is \"expense lunch $5 /on 01/01/2019 /cat Food /r daily\"");
+            }
+        } else if (command[0].equals("recurring")) {
+            ArrayList<Expense> recList = ExpenseParser.getRecurringRecords(expenseList);
+            System.out.println("Here are your recurring records: ");
+            int index = 1;
+            for (Expense e : recList) {
+                System.out.println(index + "." + e.toString());
+                index++;
+            }
         } else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         return isExit;

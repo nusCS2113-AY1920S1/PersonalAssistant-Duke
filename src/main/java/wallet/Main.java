@@ -1,4 +1,5 @@
 package wallet;
+import wallet.record.ExpenseList;
 import wallet.task.ScheduleList;
 import wallet.command.Command;
 import wallet.storage.Storage;
@@ -24,7 +25,7 @@ public class Main {
      */
     private TaskList taskList;
     private ScheduleList scheduleList;
-
+    private ExpenseList expenseList;
     /**
      * The Reminder object that handles the reminder of undone tasks
      */
@@ -39,7 +40,7 @@ public class Main {
         storage = new Storage(path);
         taskList = new TaskList((ArrayList<Task>) storage.loadFile());
         reminder = new Reminder(taskList);
-
+        expenseList = new ExpenseList();
     }
 
     public static void main(String[] args) {
@@ -56,7 +57,7 @@ public class Main {
         while (!isExit){
             String cmd = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage, scheduleList);
+            isExit = Command.parse(cmd, taskList, storage, scheduleList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();
