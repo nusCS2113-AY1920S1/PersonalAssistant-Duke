@@ -81,6 +81,9 @@ public class Parser {
         } else if (command.equals("remindme")) {
             int index = Integer.parseInt(description);
             return new RemindCommand(index);
+        } else if (command.equals("findfreetime")){
+            int index = Integer.parseInt(description);
+            return new FindFreeTimeCommand(index);
         } else{
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
