@@ -1,9 +1,3 @@
-= README
-:site-section: ReadMe
-:relfileprefix: team/
-:imagesDir: images
-:stylesDir: stylesheets
-
 # University Life Planner - User Guide
 By: `W13-1`   Since: `16 September 2019`
 
@@ -11,7 +5,7 @@ By: `W13-1`   Since: `16 September 2019`
 School Planner is an app designed for busy school students. The app is optimized to track what tasks a student has to do during school. He can plan out his day, week and even month. The planner is able to keep track of his homework as well as activities such as CCAS. In addition, the planner helps the student to track his academic progress as the semesters pass by.
 
 ## User Interface
-image::UI.png[width="1", align="left"]
+![UI Example](https://github.com/Sfloydzy/main/blob/master/doc/images/UI.png)
 
 ## Features 
 
