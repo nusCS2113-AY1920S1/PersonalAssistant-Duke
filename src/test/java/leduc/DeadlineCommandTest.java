@@ -7,13 +7,12 @@ import leduc.exception.DukeException;
 import leduc.exception.EmptyDeadlineDateException;
 import leduc.exception.EmptyDeadlineException;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,11 +28,19 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage("testFile/DeadlineCommandTest.txt");
+        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt");
         storage.getNewAppendWrite(storage.getFilePath(),ui); // need to initialized
         Parser parser = new Parser();
-        List<Task> tasksList = new ArrayList<>();
-        TaskList tasks = new TaskList( tasksList);
+        TaskList tasks = new TaskList(new ArrayList<Task>());
+        try{
+            tasks = new TaskList(storage.load(parser, ui)); // Use of ArrayList (A-Collections) to store tasks
+        }
+        catch (DukeException e){
+            e.print();
+        }
+        catch (IOException e){
+            ui.display("\t IOException: \n\t\t error when readFile for initialization of tasks list");
+        }
         assertTrue(tasks.size()==0);
 
 
@@ -69,7 +76,23 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==0);
 
+        DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
+        try{
+            deadlineCommand4.execute(tasks,ui,storage,parser);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==1);
 
+        DeleteCommand delete = new DeleteCommand("delete 1");
+        try{
+            delete.execute(tasks,ui,storage,parser);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==0);
 
 
     }
