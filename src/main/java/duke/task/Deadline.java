@@ -27,7 +27,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-      /**
+    /**
      * Creates this instance of a Deadline object.
      *
      * @param data The raw data to be parsed by {@link #parseDeadlineDesc(String)}
@@ -118,9 +118,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns date from the object
+     * Returns Date from the object.
      *
-     * @return date from the object
+     * @return Date from the object.
      */
     public LocalDateTime getDate() {
         return by;
@@ -129,13 +129,13 @@ public class Deadline extends Task {
     /**
      * Checks if the entered date time is before current date time.
      *
-     * @param date
-     * @return true if entered date time is after current date time.
-     * @throws DukeException if entered date is before current date time.
+     * @param date Deadline date entered by user.
+     * @return True if entered date time is after current date time.
+     * @throws DukeException If entered date is before current date time.
      */
     public static boolean checkDeadlineIsAfterCurrent(LocalDateTime date) throws DukeException {
         LocalDateTime currentDate = LocalDateTime.now();
-        if(date.isBefore(currentDate)) {
+        if (date.isBefore(currentDate)) {
             throw new DukeException("Time must not be before current time");
         }
         return true;
