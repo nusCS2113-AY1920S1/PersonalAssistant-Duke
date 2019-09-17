@@ -64,7 +64,7 @@ public class ViewCommand extends Command {
      * @param validateDate is the date input from user
      * @param dateFormat   proper date format
      * @return returns true if date is valid
-     * @throws DukeException throws an exception when date is invalid
+     * @throws DukeException throws an exception when non-existent date is provided
      */
     public boolean checkValidDate(String validateDate, String dateFormat) throws DukeException {
         SimpleDateFormat checkDate = new SimpleDateFormat(dateFormat);
@@ -73,7 +73,7 @@ public class ViewCommand extends Command {
         try {
             checkDate.parse(validateDate);
         } catch (ParseException e) {
-            throw new DukeException("Date is invalid!");
+            throw new DukeException("This date doesn't exist in the calendar!");
         }
         return true;
     }
