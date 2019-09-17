@@ -98,7 +98,7 @@ public class Storage {
             else  {
                 FileWriter fileWriter = new FileWriter(f, true);
 
-                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "-" + e.getDate() + "\n");
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "-" + e.getRawDate() + "\n");
                 fileWriter.close();
             }
         }
@@ -127,7 +127,7 @@ public class Storage {
         for (item i: up) {
             try {
                 FileWriter fileWriter = new FileWriter(f,true);
-                fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" +i.getDate()+ "\n");
+                fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" +i.getRawDate()+ "\n");
                 fileWriter.close();
             }
             catch (IOException io) {
