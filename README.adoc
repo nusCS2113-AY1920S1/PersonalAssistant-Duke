@@ -1,4 +1,3 @@
-*   
 image::docs/images/organization logo.png[width="600", align="center"]
 image::docs/images/Ui.png[width="600", align="center"]
 
