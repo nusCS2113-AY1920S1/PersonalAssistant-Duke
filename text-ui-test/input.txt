@@ -1,0 +1,7 @@
+todo return things
+find stuff
+done 4
+delete 6
+list
+deadline here is the thing /by Monday
+bye
