@@ -4,6 +4,7 @@ import duke.commands.*;
 import duke.tasks.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Parser {
 
@@ -166,13 +167,34 @@ public class Parser {
 
 
     public static String runEvent(ArrayList<Task> data, String input, int state) throws DukeException {
-
         input = input.substring(6);
         int startOfAt = input.indexOf("/");
         String tt1 = input.substring(0, startOfAt - 1);
         String tt2 = input.substring(startOfAt + 4);
         Task tempTask = new Event(tt1, tt2);
-        return getString(data, state, tempTask);
+        if (noClash(data, tempTask)) {
+            return getString(data, state, tempTask);
+        } else {
+            throw new DukeException("Please change date of new event to be added or delete current event");
+        }
+    }
+
+
+    /**
+     * Checks if new event clash of with existing event
+     * Clash only checked against task of EVENT type
+     * @param newTask new task that use wants to add
+     * @return false if no clash is found
+     */
+    public static boolean noClash (ArrayList<Task> data, Task newTask) throws DukeException {
+        for(Task task : data){
+            if(task instanceof Event){
+                if(task.getExtra().equals(newTask.getExtra().toString())){
+                    throw new DukeException("     ☹ OOPS!!! This new event clashes with\n " + task.getFullString());
+                }
+            }
+        }
+        return true;
     }
 
     public static String runConfirm(ArrayList<Task> data, String input, int state) throws DukeException {
@@ -191,4 +213,5 @@ public class Parser {
         Task tempTask = new Event(TentativeEvent.description, TentativeEvent.dates.get(num - 1));
         return getString(data, state, tempTask);
     }
+
 }
