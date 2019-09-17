@@ -13,7 +13,7 @@ public abstract class Command {
      * Types of commands that are possible.
      */
     public enum CmdType {
-        EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, EVENT, REMIND, FREETIME, VIEWSCH
+        EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, EVENT, REMIND, FREETIME, VIEWSCH, TENTATIVE, CONFIRM
     }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;

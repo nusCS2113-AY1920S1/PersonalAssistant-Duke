@@ -1,0 +1,75 @@
+= JavaCake - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3
+
+== Introduction
+
+JavaCake is for those who prefer to use a desktop app for managing events preceding a wedding. More importantly, JavaCake is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, JavaCake can get your wedding planning tasks done faster than traditional GUI apps.
+
+== Getting Started
+
+. Install JDK 11
+. Download the latest jar and put it in a directory of your choice
+. Double click the jar file to run
+. Type help and click ‘Enter’ to get the list of available commands
+. Common commands:
+* *`list`*: List all the tasks that are available
+* **`todo <TASK_NAME/>`**: Adds a general task to the list (No duration/time listed)
+* **`delete <TASK_NUM/>`**: Deletes the task at corresponding index from the list
+* *`bye`*: Exits the app
+. Refer to Section 3, “Features” for more in-depth details for each command
+
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+====
+
+===  Getting the available commands : `help`
+
+===  Getting the available tasks: `list`
+
+===  Adding a generic task to the list: `todo <TASK_NAME/>`
+
+===  Adding a task with a period to do by: `deadline`
+
+Format: `deadline <TASK_NAME/> /by <TASK_PERIOD/>`
+
+===  Adding a task that has an event to attend to: `event`
+
+Format: `event <TASK_NAME/> /at <TASK_PERIOD/>`
+
+===  Postponing a deadline or event: `snooze`
+
+Format: `snooze <TASK_NUM/> /to <NEW_TASK_PERIOD/>`
+
+===  Changing the task from a list: `edit`
+
+Format: `edit <TASK_NUM/> /to <NEW_TASK_NAME/>`
+
+===  Deleting a task from a list: `delete`
+
+Format: `delete <TASK_NUM/>`
+
+===  Exiting the program: `exit`
+
+===  Saving the data: _Automatically saved after each command_
+
+
+== FAQ
+
+== Common Command Examples
