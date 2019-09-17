@@ -12,10 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ryan Lim
-image::limryan.png[width="150", align="left"]
-{empty}[https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::docs/images/limryan.png[width="150", align="left"]
+{empty}[https://github.com/limryan[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsiblities: UI
 
 '''
