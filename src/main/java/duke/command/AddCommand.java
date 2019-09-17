@@ -5,10 +5,14 @@ import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
+import duke.task.Todo;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a command class to add a task. The AddCommand class
@@ -20,17 +24,17 @@ public class AddCommand extends Command {
     /**
      * A new task to be added
      */
-    private Task task;
+    private Task newTask;
     private Boolean isClash = false;
 
     /**
      * Constructs a AddCommand object.
      *
-     * @param task Specifies the task to be added.
+     * @param newTask Specifies the task to be added.
      */
-    public AddCommand(Task task) {
+    public AddCommand(Task newTask) {
         super();
-        this.task = task;
+        this.newTask = newTask;
     }
 
     /**
@@ -54,30 +58,43 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            ArrayList<Task> taskList = tasks.fullTaskList();
+            ArrayList<Task> tasksInTheList = tasks.fullTaskList();
+            ArrayList<Task> clashTasksInTheList = new ArrayList<Task>();
             String userAnswer;
 
-            for (Task t : taskList) {
-                if (t.getDate().equals(task.getDate()) && !t.isDone()) {
-                    isClash = true;
+            for (Task t : tasksInTheList) {
+                if ((t instanceof Deadline || t instanceof Event) && (newTask instanceof Deadline || newTask instanceof Event) ){
+                    if (t.getDate().equals(newTask.getDate()) && !t.isDone()) {
+                        clashTasksInTheList.add(t);
+                        isClash = true;
+                    }
                 }
             }
-
             if (isClash) {
-                userAnswer = ui.showClashWarning(taskList, task);
-                if (userAnswer.equals("Y") || userAnswer.equals("y") ) {
-                    tasks.addTask(task);
-                    ui.taskAdded(task, tasks.getSize());
-                    storage.save(tasks.fullTaskList());
-                } else {
-                    System.out.println("Alright , I have aborted the task.");
+                ui.showClashWarning(clashTasksInTheList , newTask);
+                Scanner input = new Scanner(System.in);
+                boolean isValidUserInput = false ;
+
+                while (!isValidUserInput) {
+                    String userInput = input.nextLine();
+                    if (userInput.equals("Y") || userInput.equals("N") ) {
+                        isValidUserInput = true;
+                        if (userInput.equals("Y")) {
+                            tasks.addTask(newTask);
+                            ui.taskAdded(newTask, tasks.getSize());
+                            storage.save(tasks.fullTaskList());
+                        } else {
+                            System.out.println("Alright , I have aborted the task.");
+                        }
+                    } else {
+                        System.out.println("Please enter Y or N only ! (Cap Sensitive) ");
+                    }
                 }
-            } else {
-                tasks.addTask(task);
-                ui.taskAdded(task, tasks.getSize());
+            }else{
+                tasks.addTask(newTask);
+                ui.taskAdded(newTask, tasks.getSize());
                 storage.save(tasks.fullTaskList());
             }
-
         } catch (DukeException e) {
             throw new DukeException("Fails to add task. " + e.getMessage());
         }
