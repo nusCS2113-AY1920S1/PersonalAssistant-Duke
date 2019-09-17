@@ -147,5 +147,12 @@ public class Deadline extends Task {
         LocalDate date = by.toLocalDate();
         return date;
 
+    /**
+     * Returns a LocalDateTime of this Deadline.
+     *
+     * @return The date and time of this Deadline.
+     */
+    public LocalDateTime getDateTime() {
+        return this.by;
     }
 }

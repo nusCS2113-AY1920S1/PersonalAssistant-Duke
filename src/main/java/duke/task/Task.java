@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * A generic task, which can be marked as done and has basic functions.
@@ -84,5 +85,13 @@ public class Task {
      */
     public LocalDate getDate() {
         return date;
+        
+    /**
+     * Returns a LocalDateTime of this Task.
+     *
+     * @return The current date and time.
+     */
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.now();
     }
 }

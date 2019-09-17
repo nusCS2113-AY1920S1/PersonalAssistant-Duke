@@ -147,5 +147,13 @@ public class Event extends Task {
         LocalDate date = at.toLocalDate();
         return date;
 
+    /**
+     * Returns a LocalDateTime of this event.
+     *
+     * @return The date and time of this event.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.at;
     }
 }
