@@ -9,6 +9,7 @@ import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.SnoozeCommand;
+import duke.commands.ReminderCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 
@@ -51,6 +52,8 @@ public class Parser {
         case "fetch":
             String[] deadlineDetails = userInput.split(" ", 2);
             return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
+        case "reminder":
+            return new ReminderCommand();
         case "repeat":
             return new AddCommand(ParserUtil.createRecurringTask(userInput));
         default:

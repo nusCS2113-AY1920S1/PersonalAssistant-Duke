@@ -10,8 +10,7 @@ public class TaskWithDates extends Task {
     protected LocalDateTime startDate;
     Boolean hasDate = false;
 
-
-    TaskWithDates(String description,LocalDateTime startDate) {
+    TaskWithDates(String description, LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
         this.hasDate = true;
@@ -24,7 +23,7 @@ public class TaskWithDates extends Task {
     /**
      * Constructor to work around Tasks that should contain dates but does not.
      */
-    TaskWithDates(String... description) {
+    public TaskWithDates(String... description) {
         super(description[0]);
     }
 

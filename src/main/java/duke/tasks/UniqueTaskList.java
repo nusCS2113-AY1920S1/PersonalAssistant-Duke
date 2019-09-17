@@ -5,7 +5,11 @@ import duke.commons.DuplicateTaskException;
 import duke.commons.TaskNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,8 +41,27 @@ public class UniqueTaskList implements Iterable<Task> {
     public void add(Task toAdd) throws DukeException {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
+        } else if (isClash(toAdd)) {
+            throw new DukeException("Scheduling anomoly!");
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Checks if task clashes with other tasks.
+     */
+    private boolean isClash(Task toAdd) {
+        if (toAdd instanceof TaskWithDates) {
+            LocalDateTime dateTime = ((TaskWithDates) toAdd).getStartDate();
+            if (dateTime != null) {
+                for (Task t : getChronoList()) {
+                    if (((TaskWithDates) t).getStartDate().isEqual(dateTime)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -118,5 +141,15 @@ public class UniqueTaskList implements Iterable<Task> {
             }
         }
         return true;
+    }
+
+    public FilteredList<Task> getFilteredList() {
+        return new FilteredList<>(internalList, (Task t) -> (t instanceof TaskWithDates)
+                && (((TaskWithDates) t).getStartDate() != null));
+    }
+
+    public SortedList<Task> getChronoList() {
+        return new SortedList<Task>(getFilteredList(),
+                Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
     }
 }
