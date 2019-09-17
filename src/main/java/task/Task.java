@@ -18,9 +18,15 @@ abstract public class Task {
      */
     protected boolean isDone;
 
+    /**
+     * Whether task is active or snooze
+     */
+    protected boolean isSnooze;
+
     public Task (String description) {
         this.description = description;
         this.isDone = false;
+        this.isSnooze = false;
     }
 
     /**
@@ -32,6 +38,14 @@ abstract public class Task {
     }
 
     /**
+     *
+     * @return String snooze status icon of task
+     */
+    public String getActiveIcon() {
+        return (isSnooze ? "S" : "A"); //return tick or X symbols
+    }
+
+    /**
      * Mark task as done
      */
     public void markAsDone() {
@@ -39,6 +53,25 @@ abstract public class Task {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.toString());
     }
+
+    /**
+     * Mark task as snooze
+     */
+    public void markAsSnooze() {
+        this.isSnooze = true;
+        System.out.println("Nice! I've deactivated this task:");
+        System.out.println(this.toString());
+    }
+
+    /**
+     * Mark task as active
+     */
+    public void markAsUnSnooze() {
+        this.isSnooze = false;
+        System.out.println("Nice! I've activated this task:");
+        System.out.println(this.toString());
+    }
+
 
     /**
      * check if task description contains a certain string
@@ -52,7 +85,7 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + "[" + this.getActiveIcon() + "] " + this.description;
     }
 
     /**
