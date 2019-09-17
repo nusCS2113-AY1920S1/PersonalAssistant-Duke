@@ -9,7 +9,7 @@ import java.text.ParseException;
  * according to its type
  */
 public class Parser {
-    public Parser(){}
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * The constructor which runs the parser
@@ -19,6 +19,7 @@ public class Parser {
      */
     public static Command parse(String cmd) throws DukeException, ParseException {
         Command command = null;
+
         if (cmd.equals("bye")){
             command = new ExitCommand();
         }
@@ -58,16 +59,7 @@ public class Parser {
             String[] words = cmd.split(" ");
             int duration = Integer.parseInt(words[1]);
             command = new FreeTimeCommand(words[4]+" "+words[5], duration);
-        }
-
-        
-        } else if(cmd.startsWith("free-time")){
-            String[] words = cmd.split(" ");
-            int duration = Integer.parseInt(words[1]);
-            command = new FreeTimeCommand(words[4]+" "+words[5], duration);
-        }
-        
-        else {
+        } else {
             String keyword = cmd.split(" ")[0];
             if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration") || keyword.equals("multiEvent"))){
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
