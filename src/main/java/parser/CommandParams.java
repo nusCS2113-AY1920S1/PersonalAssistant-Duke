@@ -26,7 +26,7 @@ public class CommandParams {
         String[] tokens = fullCommand.split("(\\s+(\\/(?=[A-Za-z]+)))");
 
         // Get commandType and mainParam first
-        String[] typeAndMainParam = tokens[0].split("(\\s+)");
+        String[] typeAndMainParam = tokens[0].split("(\\s+)", 2);
         commandType = typeAndMainParam[0];
         if (typeAndMainParam.length == 2) { // has main param
             mainParam = typeAndMainParam[1];
