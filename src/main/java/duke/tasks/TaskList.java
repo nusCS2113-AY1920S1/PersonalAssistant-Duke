@@ -54,7 +54,7 @@ public class TaskList {
     }
 
     /**
-     * Returns list of tasks that happen on specified input date
+     * Returns list of tasks that happen on specified input date.
      * @param taskDate input date to check tasks against
      * @return list of tasks that happen on the same day as taskDate
      */

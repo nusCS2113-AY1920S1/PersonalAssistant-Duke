@@ -121,7 +121,7 @@ public class Parser {
             }
             return new SnoozeCommand(index1,index2);
         } else if (command.equals("schedule")) {
-            Date date = DateParser.parseDateDDMMYYObj(description);
+            Date date = DateParser.parseDate(description);
             return new ScheduleCommand(date);
         } else if (command.equals("tentative")) {
             return new TentativeCommand();

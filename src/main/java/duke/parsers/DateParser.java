@@ -17,21 +17,7 @@ public class DateParser {
      * @param dateTimeStr Date as a string following format shown in class constructor.
      * @return Java Date object of the input date string.
      */
-    public static Date parseDateDDMMYYHHMMObj(String dateTimeStr) {
-        Date date;
-        try {
-            date = dateFormatter.parse(dateTimeStr);
-        } catch (ParseException pe) {
-            // if there is error, save as current date. TODO: Better error resolution
-            System.out.println(pe);
-            date = new Date();
-        }
-
-        return date;
-    }
-
-
-    public static Date parseDateDDMMYYObj(String dateTimeStr) {
+    public static Date parseDate(String dateTimeStr) {
         Date date;
         SimpleDateFormat dateDayOnlyFormatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -47,8 +33,8 @@ public class DateParser {
 
     public static boolean isSameDayMonthYear(Date date1, Date date2) {
 
-        if (date1.getDay() == date2.getDay() && date1.getMonth() == date2.getMonth() &&
-                date1.getYear() == date2.getYear()) {
+        if (date1.getDay() == date2.getDay() && date1.getMonth() == date2.getMonth()
+                && date1.getYear() == date2.getYear()) {
             return true;
         }
 

@@ -16,7 +16,7 @@ import java.util.Date;
  * @author HashirZahir
  */
 
-public class ScheduleCommand extends Command{
+public class ScheduleCommand extends Command {
     private Date date;
 
     public ScheduleCommand(Date date) {
@@ -28,7 +28,7 @@ public class ScheduleCommand extends Command{
      * @param tasks the TaskList object in which the tasks will be checked against
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
-     * @param schedule
+     * @param schedule the storage object storing the time blocks
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
