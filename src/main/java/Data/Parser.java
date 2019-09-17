@@ -117,6 +117,14 @@ public class Parser {
                 TaskList.findTask(searchWord);
                 break;
 
+            case "date":
+                String searchDate = input.substring(5);
+                if (searchDate.length() < 10) {
+                    System.out.println("Please enter input in the form: date dd/MM/YYYY");
+                } else {
+                    TaskList.findDate(searchDate);
+                }
+                break;
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");

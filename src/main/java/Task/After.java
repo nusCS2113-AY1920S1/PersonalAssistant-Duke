@@ -13,7 +13,7 @@ public class After extends item {
     }
 
     /**
-     * This function takes the "by" data in the Event class and converts it into the string output format
+     * This function takes the "after" data in the After class and converts it into the string output format
      *  Format: 2nd of December 2019, 2pm.
      *
      * @return New string format
@@ -24,15 +24,14 @@ public class After extends item {
     }
 
     /**
-     * Function gets the unformatted date of by
+     * Function gets the unformatted date of after
      *
-     * @return by
+     * @return after
      */
     @Override
     public Date getRawDate() {
         return this.after;
     }
-
 
 
     @Override
