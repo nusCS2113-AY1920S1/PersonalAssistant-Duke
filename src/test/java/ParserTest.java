@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -18,7 +17,6 @@ public class ParserTest {
     public ParserTest() {
         parser = new Parser();
     }
-
     /**
      * Tests the Parser by feeding it a String input to create a Deadline, and comparing it
      * against the ArrayList of String commands that we should obtain.
@@ -30,8 +28,7 @@ public class ParserTest {
             testOutput.add("cry");
             testOutput.add("23/01/2019 1800");
             assertEquals(testOutput, parser.parseInput("deadline cry /by 23/01/2019 1800"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
         }
     }
@@ -47,8 +44,7 @@ public class ParserTest {
             testOutput.add("cry");
             testOutput.add("23/01/2019 1800");
             assertEquals(testOutput, parser.parseInput("event cry /at 23/01/2019 1800"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
         }
     }
@@ -63,8 +59,7 @@ public class ParserTest {
             testOutput.add("todo");
             testOutput.add("cry");
             assertEquals(testOutput, parser.parseInput("todo cry"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
         }
     }

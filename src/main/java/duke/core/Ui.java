@@ -16,6 +16,7 @@ import java.text.*;
 public class Ui {
     protected Scanner inputScanner;
     protected String input;
+    String line = "____________________________________________________________________________________________________________________________________________";
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,
@@ -40,11 +41,11 @@ public class Ui {
      * @param inputs an array of Strings to be printed.
      */
     public void printArray(ArrayList<String> inputs) {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
         for (int i = 0; i < inputs.size(); i++) {
             System.out.println("\t" + inputs.get(i));
         }
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
     }
 
     /**
@@ -53,12 +54,12 @@ public class Ui {
      * @param inputs the array of Tasks in String format.
      */
     public void printTaskArray(String command, ArrayList<String> inputs) {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
         System.out.println("\t" + command);
         for (int i = 0; i < inputs.size(); i++) {
             System.out.println("\t" + inputs.get(i));
         }
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
     }
 
     /**
@@ -84,11 +85,11 @@ public class Ui {
      * @param noTasks the number of Tasks that now exist.
      */
     public void printAddedTask(String input, int noTasks) {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + input);
         System.out.println("\tNow you have " + noTasks + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
     }
 
     /**
@@ -97,11 +98,11 @@ public class Ui {
      * @param noTasks the number of Tasks that now exist.
      */
     public void printRemovedTask(String input, int noTasks) {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + input);
         System.out.println("\tNow you have " + noTasks + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + line);
     }
 
     /**
@@ -115,7 +116,8 @@ public class Ui {
      * Prints a welcome message when Duke is started up.
      */
     public void welcome() {
-        printArray(new ArrayList<String>(Arrays.asList("Hello! I'm Duke", "What can I do for you?")));
+        printArray(new ArrayList<String>(Arrays.asList("Hello. I am RIM.", "Resource & Inventory Management",
+                "The facilities and logistics management system.", "What can I do for you?")));
     }
 
 }

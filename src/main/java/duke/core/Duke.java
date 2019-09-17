@@ -12,7 +12,6 @@ import java.text.*;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of Duke.
  */
-
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -62,6 +61,30 @@ public class Duke {
      * @throws DukeException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, DukeException {
+        String logo = "\n" +
+                "          _____                    _____                    _____          \n" +
+                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
+                "        /::\\    \\                /::\\    \\                /::\\____\\        \n" +
+                "       /::::\\    \\               \\:::\\    \\              /::::|   |        \n" +
+                "      /::::::\\    \\               \\:::\\    \\            /:::::|   |        \n" +
+                "     /:::/\\:::\\    \\               \\:::\\    \\          /::::::|   |        \n" +
+                "    /:::/__\\:::\\    \\               \\:::\\    \\        /:::/|::|   |        \n" +
+                "   /::::\\   \\:::\\    \\              /::::\\    \\      /:::/ |::|   |        \n" +
+                "  /::::::\\   \\:::\\    \\    ____    /::::::\\    \\    /:::/  |::|___|______  \n" +
+                " /:::/\\:::\\   \\:::\\____\\  /\\   \\  /:::/\\:::\\    \\  /:::/   |::::::::\\    \\ \n" +
+                "/:::/  \\:::\\   \\:::|    |/::\\   \\/:::/  \\:::\\____\\/:::/    |:::::::::\\____\\\n" +
+                "\\::/   |::::\\  /:::|____|\\:::\\  /:::/    \\::/    /\\::/    / ~~~~~/:::/    /\n" +
+                " \\/____|:::::\\/:::/    /  \\:::\\/:::/    / \\/____/  \\/____/      /:::/    / \n" +
+                "       |:::::::::/    /    \\::::::/    /                       /:::/    /  \n" +
+                "       |::|\\::::/    /      \\::::/____/                       /:::/    /   \n" +
+                "       |::| \\::/____/        \\:::\\    \\                      /:::/    /    \n" +
+                "       |::|  ~|               \\:::\\    \\                    /:::/    /     \n" +
+                "       |::|   |                \\:::\\    \\                  /:::/    /      \n" +
+                "       \\::|   |                 \\:::\\____\\                /:::/    /       \n" +
+                "        \\:|   |                  \\::/    /                \\::/    /        \n" +
+                "         \\|___|                   \\/____/                  \\/____/         \n" +
+                "                                                      ";
+        System.out.println(logo);
         new Duke("data/duke.txt").run();
     }
 
