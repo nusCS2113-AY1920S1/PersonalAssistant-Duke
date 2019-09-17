@@ -6,16 +6,27 @@ package duke.task;
  */
 public class Event extends Task {
 
-    protected String timing;
+    private String startTiming;
+    private String endTiming;
 
     /**
      * Constructor for <code>Event</code>.
      * @param description Details of the <code>Task</code>.
-     * @param timing Date and time of the <code>Event</code>.
+     * @param startTiming Starting date and time of the <code>Event</code>.
+     * @param endTiming Ending date and time of the Event.
      */
-    public Event(String description, String timing) {
+    public Event(String description, String startTiming, String endTiming) {
         super(description);
-        this.timing = timing;
+        this.startTiming = startTiming;
+        this.endTiming = endTiming;
+    }
+
+    public String getStartTiming() {
+        return startTiming;
+    }
+
+    public String getEndTiming() {
+        return endTiming;
     }
 
     /**
@@ -25,6 +36,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + timing + ")";
+        return "[E]" + super.toString() + " (from: " + startTiming + " to: " + endTiming + ")";
     }
 }
