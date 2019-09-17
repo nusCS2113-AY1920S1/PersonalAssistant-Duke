@@ -1,6 +1,6 @@
 # Duke Email Manager
 
-![GUI Mockup](./images/Ui.png)
+![GUI Mockup](./docs/images/Ui.png)
 
 Hi, welcome to Duke Email Manager! Do you receive too many emails and don't know what
 to do with them? Duke Email Manager can help to get your digital life back on track! 
