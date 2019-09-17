@@ -12,6 +12,7 @@ public class Duke {
     private Storage storage;
     private TaskList arr;
     private Ui ui;
+    private Reminder reminder;
 
     /**
      * Constructor for <code>Duke</code> for instantiation of other classes <code>Ui</code>
@@ -20,6 +21,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
+        reminder = new Reminder();
         try {
             arr = new TaskList(storage.readFromFile());
         } catch (DukeException exception) {
@@ -34,6 +36,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         ui.hello();
+        reminder.checkDeadline(arr, ui);
         boolean isExit = false;
         while (!isExit) {
             try {
