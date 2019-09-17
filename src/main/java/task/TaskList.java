@@ -41,7 +41,7 @@ public class TaskList {
      */
     public ArrayList<Task> find(String keyWord) {
         ArrayList<Task> holdFoundTasks = new ArrayList<>();
-
+        boolean check = true;
         for (int i = 0; i < listOfTasks.size(); i++) {
             String find_match = listOfTasks.get(i).toString();
             if (find_match.contains(keyWord)) {
@@ -50,7 +50,44 @@ public class TaskList {
         }
         return holdFoundTasks;
     }
-
+    /**
+     * Performs a check as to if the task being added has a clash with another event. (CONTAINS A STEP BY STEP GUIDE)
+     *
+     * @param taskToCheck the task being checked by the user.
+     * @param command contains the command to determine the action to perform.
+     * @return boolean true if there is a clash, false if there is not clash.
+     */
+    public boolean isClash(Task taskToCheck, String command) {
+        if (command.contains("event")) {
+            for (Task task : listOfTasks) {
+                if ((task.toString()).contains("[E]")) {
+                    if (task.fromDate.before(taskToCheck.toDate) && task.toDate.after(taskToCheck.fromDate)) {
+                        return true;
+                    }
+                }
+                else if ((task.toString()).contains("[D]")){
+                    if (taskToCheck.fromDate.before(task.atDate) && taskToCheck.toDate.after(task.atDate)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        else{
+            for (Task task : listOfTasks) {
+                if ((task.toString()).contains("[E]")) {
+                    if (task.fromDate.before(taskToCheck.atDate) && task.toDate.after(taskToCheck.atDate)) {
+                        return true;
+                    }
+                }
+                else if ((task.toString()).contains("[D]")){
+                    if (task.atDate == taskToCheck.atDate) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     /**
      * This function allows the user to mark a particular task as done.
      *

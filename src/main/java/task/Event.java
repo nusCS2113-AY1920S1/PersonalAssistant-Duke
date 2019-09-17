@@ -1,5 +1,11 @@
 package task;
+import exception.DukeException;
+import parser.DateTimeExtractor;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * This extension of the task class will allow the user to add a task of event type.
  *
@@ -10,9 +16,10 @@ public class Event extends Task implements Serializable{
 
     private String date;
 
-    public Event(String description, String date) {
+    public Event(String description, Date toDate, Date fromDate) {
         super(description);
-        this.date = date;
+        this.toDate = toDate;
+        this.fromDate = fromDate;
     }
 
     /**
@@ -23,6 +30,9 @@ public class Event extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + date + ")";
+
+        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + this.toDate + "-" +
+                this.fromDate + ")";
     }
+
 }
