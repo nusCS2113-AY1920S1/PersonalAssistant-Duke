@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class Task {
     private final String description;
-    boolean done;
+    private boolean done;
     private final LocalDate date;
 
     /**
@@ -26,8 +26,15 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markDone() {
+    void markDone() {
         done = true;
+    }
+
+    /**
+     * Marks the task as not done.
+     */
+    void markUnDone() {
+        done = false;
     }
 
     /**
@@ -84,7 +91,7 @@ public class Task {
      *
      * @param rescheduleTime Date to be rescheduled to.
      */
-    public void reschedule(LocalDateTime rescheduleTime){
+    void setDate(LocalDateTime rescheduleTime){
     }
 
     /**

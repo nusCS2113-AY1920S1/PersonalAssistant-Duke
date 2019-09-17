@@ -8,6 +8,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import duke.command.AddCommand;
 import duke.exception.DukeException;
 
 /**
@@ -79,6 +80,21 @@ public class TaskList {
                     event.markDone();
                 }
                 tasks.add(event);
+                break;
+            case "R":
+                date = line.substring(startOfDescriptionIndex + descriptionLength, line.length());
+                dateSplit = date.split("\\|", -1);
+                dateLength = Integer.parseInt(dateSplit[1].trim());
+                dateLengthLength = dateSplit[1].length();
+                startOfDateIndex = 2 + dateLengthLength + 2;
+                dateString = date.substring(startOfDateIndex, date.length());
+                inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                at = LocalDateTime.parse(dateString, inputFormatter);
+                RecurringTask recurringTask = new RecurringTask(description, at);
+                if ("1".equals(taskStatus)) {
+                    recurringTask.markDone();
+                }
+                tasks.add(recurringTask);
                 break;
             default:
                 break;
@@ -185,20 +201,30 @@ public class TaskList {
     public void rescheduleTask(int taskNumber, LocalDateTime rescheduleDate)
             throws IndexOutOfBoundsException, DukeException {
         char typeOfTask = tasks.get(taskNumber).toString().charAt(1);
-        if (typeOfTask == 'D' || typeOfTask == 'E') {
+        if (typeOfTask == 'D') {
             try {
+                AddCommand.checkDuplicateDeadline(tasks.get(taskNumber).getDescription(),
+                        this, rescheduleDate);
                 Deadline.checkDeadlineIsAfterCurrent(rescheduleDate);
-                tasks.get(taskNumber).reschedule(rescheduleDate);
-            } catch (DukeException errorMessage){
+                tasks.get(taskNumber).setDate(rescheduleDate);
+            } catch (DukeException errorMessage) {
                 throw new DukeException(errorMessage.toString());
             }
         } else if (typeOfTask == 'E') {
+            LocalDateTime tempDateTime = tasks.get(taskNumber).getDateTime();
             try {
                 Event.checkEventIsAfterCurrent(rescheduleDate);
-                tasks.get(taskNumber).reschedule(rescheduleDate);
-            } catch (DukeException errorMessage){
+                AddCommand.checkDuplicateEvent(tasks.get(taskNumber).getDescription(),
+                        this, rescheduleDate);
+                tasks.get(taskNumber).setDate(rescheduleDate);
+                AddCommand.checkEventDateIsUnique(this, tasks.get(taskNumber));
+            } catch (DukeException errorMessage) {
+                tasks.get(taskNumber).setDate(tempDateTime);
                 throw new DukeException(errorMessage.toString());
             }
+        } else if (typeOfTask == 'R') {
+            tasks.get(taskNumber).setDate(rescheduleDate);
+            ((RecurringTask)tasks.get(taskNumber)).checkRecurringTaskIsAfterCurrent();
         } else {
             throw new DukeException("Task cannot be a Todo.");
         }

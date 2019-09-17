@@ -159,7 +159,7 @@ public class Deadline extends Task {
      * @param rescheduledBy Date to be rescheduled to.
      */
     @Override
-    public void reschedule(LocalDateTime rescheduledBy) {
+    void setDate(LocalDateTime rescheduledBy) {
         this.by = rescheduledBy;
     }
 
