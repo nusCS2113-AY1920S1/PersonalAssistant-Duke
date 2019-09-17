@@ -1,14 +1,7 @@
 package parser;
 
 
-import command.AddCommand;
-import command.Command;
-import command.FindCommand;
-import command.ListCommand;
-import command.DeleteCommand;
-import command.ScheduleCommand;
-import command.DoneCommand;
-import command.ExitCommand;
+import command.*;
 import exception.DukeException;
 
 import java.util.regex.Matcher;
@@ -123,6 +116,8 @@ public class Parser {
             return new ExitCommand(commandParams);
         case "schedule":
             return new ScheduleCommand(commandParams);
+        case "remind":
+            return new RemindCommand(commandParams);
         default:
             throw new DukeException("Unknown error!");
         }
@@ -139,7 +134,7 @@ public class Parser {
      * @throws DukeException If user input is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {
-        String regex = "todo|deadline|event|list|done|bye|delete|find|schedule";
+        String regex = "todo|deadline|event|list|done|bye|delete|find|schedule|remind";
         m = Pattern.compile(regex).matcher(fullCommand);
         if (m.find()) {
             commandType = m.group();
