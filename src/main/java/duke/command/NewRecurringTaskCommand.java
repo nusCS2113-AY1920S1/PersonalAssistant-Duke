@@ -84,6 +84,7 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
                     .append(refCommand.silentExecute(ctx));
             refCommand.taskDateTime = refCommand.taskDateTime.plus(1, period);
         }
+        ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(ctx.taskList.getAddReport(addStrBuilder.toString(), count));
 
         //test cases:
