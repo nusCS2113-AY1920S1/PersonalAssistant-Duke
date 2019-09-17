@@ -17,3 +17,7 @@ D | 0 | homework | 14 September 2019 11.30 PM
 E | 0 | go school | 16 September 2019 07.00 PM
 E | 0 | go movie | 17 September 2019 04.00 PM
 E | 0 | go school | 17 September 2019 06.00 PM
+E | 0 | go school | 17 September 2019 08.00 PM
+E | 0 | go movie | 18 September 2019 04.00 PM
+E | 0 | go school | 18 September 2019 02.00 PM
+E | 0 | go school | 18 September 2019 03.00 PM
