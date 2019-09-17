@@ -1,10 +1,14 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * A generic task, which can be marked as done.
  */
 public class Task {
     private String description;
+    protected Boolean hasDate = false;
+    protected LocalDateTime startDate = null;
 
     private boolean isDone;
 
@@ -63,5 +67,13 @@ public class Task {
     @Override
     public String toString() {
         return (isDone ? "[✓] " : "[✘] ") + description;
+    }
+
+    public Boolean hasDate() {
+        return hasDate;
+    }
+
+    public LocalDateTime getDate() {
+        return startDate;
     }
 }
