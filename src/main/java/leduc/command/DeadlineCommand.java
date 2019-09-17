@@ -33,20 +33,21 @@ public class DeadlineCommand extends Command {
      * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
      * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
+     * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException, FileException {
         String[] taskDescription = user.substring(8).split("/by");
         if (taskDescription[0].isBlank()) {
-            throw new EmptyDeadlineException(ui);
+            throw new EmptyDeadlineException();
         } else if (taskDescription.length == 1) { // no /by in input
-            throw new EmptyDeadlineDateException(ui);
+            throw new EmptyDeadlineDateException();
         } else {
             String description = taskDescription[0].trim();
             String deadlineString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm
             if (deadlineString.isBlank()) {
-                throw new EmptyDeadlineDateException(ui);
+                throw new EmptyDeadlineDateException();
             }
             else {
                 LocalDateTime d1 = null;
@@ -54,7 +55,7 @@ public class DeadlineCommand extends Command {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
                     d1 = LocalDateTime.parse(deadlineString.trim(), formatter);
                 }catch(Exception e){
-                    throw new NonExistentDateException(ui);
+                    throw new NonExistentDateException();
                 }
                 DeadlinesTask newTask = new DeadlinesTask(description, new Date(d1));
                 tasks.add(newTask);

@@ -24,11 +24,12 @@ public class DoneCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task which is done does not exist.
+     * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
         int index = Integer.parseInt(user.substring(5)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
-            throw new NonExistentTaskException(ui);
+            throw new NonExistentTaskException();
         }
         else { // to change the mark, the whole file is rewritten ( probably a better way to do it)
             tasks.get(index).taskDone();

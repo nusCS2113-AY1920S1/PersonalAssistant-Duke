@@ -28,10 +28,11 @@ public class TodoCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyTodoException Exception caught when the description of the todo list is not given by the user.
+     * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTodoException, FileException {
         if (user.substring(4).isBlank()) {
-            throw new EmptyTodoException(ui);
+            throw new EmptyTodoException();
         }
         else {
             TodoTask newTask = new TodoTask(user.substring(4).trim());

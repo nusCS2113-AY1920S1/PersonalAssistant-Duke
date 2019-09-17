@@ -9,14 +9,14 @@ import leduc.exception.DukeException;
 public class EmptyEventException extends DukeException {
     /**
      * Constructor of leduc.exception.EmptyEventException.
-     * @param ui leduc.Ui which deals with the interactions with the user.
      */
-    public EmptyEventException(Ui ui){
+    public EmptyEventException(){
         super();
     }
 
     /**
      * Ask for a description for the event task to the user.
+     * @return the error message
      */
     public String print(){
         return "\t emptyEventException:\n\t\t ☹ OOPS!!! The description of a event task cannot be empty";

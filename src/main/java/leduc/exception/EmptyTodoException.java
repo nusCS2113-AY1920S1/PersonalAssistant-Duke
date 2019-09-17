@@ -9,14 +9,14 @@ import leduc.exception.DukeException;
 public class EmptyTodoException extends DukeException {
     /**
      * Constructor of leduc.exception.EmptyTodoException.
-     * @param ui leduc.Ui which deals with the interactions with the user.
      */
-    public EmptyTodoException(Ui ui){
+    public EmptyTodoException(){
         super();
     }
 
     /**
      * Ask for a description for the todo task to the user.
+     * @return the error message
      */
     public String print(){
         return "\t emptyTodoException:\n\t\t ☹ OOPS!!! The description of a todo cannot be empty.";

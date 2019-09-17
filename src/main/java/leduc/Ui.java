@@ -77,6 +77,10 @@ public class Ui {
         System.out.println("\t---------------------------------------------------------------------------------");
     }
 
+    /**
+     * Display the error message
+     * @param e the error that has been catch
+     */
     public void showError(DukeException e){
         System.out.println(e.print());
     }

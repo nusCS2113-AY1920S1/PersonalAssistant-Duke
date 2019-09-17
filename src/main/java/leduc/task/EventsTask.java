@@ -55,12 +55,18 @@ public class EventsTask extends Task {
      * @return the end date of the task.
      */
     public Date getDateSecond(){ return this.dateSecond; }
-
+    /**
+     * to know if whether is an event task of not
+     * @return true
+     */
     @Override
     public boolean isEvent(){
         return true;
     }
-
+    /**
+     * visualize a event task
+     * @return the string format to see a event task
+     */
     public String toString(){
         return super.toString() + " at: " + getDateFirst() + " - " + getDateSecond();
     }

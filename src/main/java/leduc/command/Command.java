@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     /**
-     * Abstract method which returns a boolean: True if the input string of the user is "bye", False if not.
+     * Method that return false except for the subclass ByeCommand
      * @return a boolean: True if the input string of the user is "bye", False if not.
      */
     public boolean isExit(){

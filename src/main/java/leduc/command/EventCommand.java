@@ -32,17 +32,17 @@ public class EventCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
-     * @throws DateEventFormatException Exception caught when the format of the period of the event task is not correct.
      * @throws NonExistentDateException Exception caught when one of the two date given does not exist.
+     * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyEventDateException, EmptyEventException, DateEventFormatException, NonExistentDateException, FileException {
+            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException {
         String[] taskDescription = user.substring(5).split("/at");
         if (taskDescription[0].isBlank()) {
-            throw new EmptyEventException(ui);
+            throw new EmptyEventException();
         }
         else if (taskDescription.length == 1) { // no /at in input
-            throw new EmptyEventDateException(ui);
+            throw new EmptyEventDateException();
         }
         else {
             String description = taskDescription[0].trim();
@@ -50,10 +50,10 @@ public class EventCommand extends Command {
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
             String[] dateString = periodString.split(" - ");
             if(dateString.length == 1){
-                throw new EmptyEventDateException(ui);
+                throw new EmptyEventDateException();
             }
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
-                throw new EmptyEventDateException(ui);
+                throw new EmptyEventDateException();
             }
             LocalDateTime d1 = null;
             LocalDateTime d2 = null;
@@ -62,7 +62,7 @@ public class EventCommand extends Command {
                 d1 = LocalDateTime.parse(dateString[0].trim(), formatter);
                 d2 = LocalDateTime.parse(dateString[1].trim(), formatter);
             }catch(Exception e){
-                throw new NonExistentDateException(ui);
+                throw new NonExistentDateException();
             }
             EventsTask newTask = new EventsTask(description, new Date(d1) , new Date(d2));
             tasks.add(newTask);

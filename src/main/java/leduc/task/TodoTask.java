@@ -33,12 +33,18 @@ public class TodoTask extends Task {
      * @return a String ([T]).
      */
     public String getTag(){ return this.tag;}
-
+    /**
+     * to know if whether is a todo task of not
+     * @return true
+     */
     @Override
     public boolean isTodo(){
         return true;
     }
-
+    /**
+     * visualize a event task
+     * @return the string format to see a event task
+     */
     public String toString(){
         return super.toString();
     }

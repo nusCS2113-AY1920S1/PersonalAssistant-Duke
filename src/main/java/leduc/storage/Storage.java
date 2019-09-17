@@ -35,14 +35,12 @@ public class Storage {
     }
 
     /**
-     * Returns the tasks list initialized with the data in the data file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     * @return the tasks list initialized with the date in the data file.
-     * @throws IOException Exception caught when the error occurred during the reading of the data file.
-     * @throws NonExistentDateException Exception caught when the date of an event or deadline task present in the data file does not exist.
+     * read the file and write all the task to an array of task.
+     * if the file is empty, the array is empty too
+     * @return an array of task
+     * @throws FileException thrown when there is a reading error of the file
      */
-    public List<Task> load(Parser parser, Ui ui) throws FileException { // load the initial data file
+    public List<Task> load() throws FileException { // load the initial data file
         Scanner sc = null;
         try {
             sc = new Scanner(this.file);
@@ -70,7 +68,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * write all task to the files
+     * @param tasks all the tasks that have to be written to the file
+     * @throws FileException thrown when there is writing problem to the files
+     */
     public void save(ArrayList<Task> tasks) throws FileException {
         FileWriter fileWriter = null;
         try {

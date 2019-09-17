@@ -55,18 +55,32 @@ public abstract class Task {
      */
     public abstract String getTag();
 
+    /**
+     * to know if whether is a todo task of not
+     * @return false
+     */
     public boolean isTodo(){
         return false;
     }
-
+    /**
+     * to know if whether is a deadline task of not
+     * @return false
+     */
     public boolean isDeadline(){
         return false;
     }
-
+    /**
+     * to know if whether is an event task of not
+     * @return false
+     */
     public boolean isEvent(){
         return false;
     }
 
+    /**
+     * visualize a task
+     * @return the string format to see a task
+     */
     public String toString(){
         return getTag() + getMark() + " " + getTask();
     }

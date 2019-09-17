@@ -33,7 +33,7 @@ public class Duke {
         }
         this.storage = new Storage(file);
         try{
-            this.tasks = new TaskList(storage.load(parser, ui)); // Use of ArrayList (A-Collections) to store tasks
+            this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){
             ui.showError(e);

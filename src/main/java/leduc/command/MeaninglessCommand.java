@@ -25,7 +25,7 @@ public class MeaninglessCommand extends Command {
      * @throws MeaninglessException Exception caught when the input string could not be interpreted.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MeaninglessException {
-        throw new MeaninglessException(ui);
+        throw new MeaninglessException();
     }
 
 }
