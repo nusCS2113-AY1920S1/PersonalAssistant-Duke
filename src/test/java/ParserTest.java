@@ -36,8 +36,7 @@ public class ParserTest {
             e.showError();
         }
         catch (ParseException e){
-            // need to catch exception
-            // no such thing as a ParseException class
+            e.getErrorOffset();
         }
     }
 
@@ -56,7 +55,7 @@ public class ParserTest {
             e.showError();
         }
         catch (ParseException e){
-            // see above
+           e.getErrorOffset();
         }
     }
 
@@ -74,7 +73,7 @@ public class ParserTest {
             e.showError();
         }
         catch (ParseException e) {
-            // see above
+            e.getErrorOffset();
         }
     }
 }
