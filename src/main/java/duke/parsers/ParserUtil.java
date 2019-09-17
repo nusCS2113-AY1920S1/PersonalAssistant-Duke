@@ -104,4 +104,38 @@ public class ParserUtil {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
     }
+
+    /**
+     * Parses the userInput and return an index extracted from it safely.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The index.
+     */
+    protected static int getSafeIndex(String userInput) throws DukeException {
+        try {
+            String index = userInput.split(" ")[1].strip();
+            return Integer.parseInt(index) - 1;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
+        } catch (NumberFormatException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
+
+    /**
+     * Parses the userInput and return an date to reschedule to.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The date.
+     */
+    protected static LocalDateTime getScheduleDate(String userInput) throws DukeException {
+        try {
+            return ParserTimeUtil.parseStringToDate(
+                    userInput.substring("reschedule".length()).strip().split("/to")[1].strip());
+        } catch (DukeDateTimeParseException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+    }
 }

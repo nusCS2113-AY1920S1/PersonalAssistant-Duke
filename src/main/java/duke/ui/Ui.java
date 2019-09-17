@@ -19,6 +19,7 @@ public class Ui {
     private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:\n  ";
     private static final String MESSAGE_ADDITION = "Got it. I've added this task:\n  ";
     private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
+    private static final String MESSAGE_UPDATE = "No problem! I've rescheduled this task:\n  ";
 
     private VBox dialogContainer;
 
@@ -75,6 +76,13 @@ public class Ui {
      */
     public void showMarkDone(Task task) {
         show(MESSAGE_MARK_DONE + task);
+    }
+
+    /**
+     * Prints the task as rescheduled.
+     */
+    public void showUpdateTask(Task task) {
+        show(MESSAGE_UPDATE + task);
     }
 
     /**

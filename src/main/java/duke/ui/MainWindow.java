@@ -57,13 +57,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-
+        userInput.clear();
         //Echo user input
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
 
         duke.getResponse(input);
-        userInput.clear();
     }
 }

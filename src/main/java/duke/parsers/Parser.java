@@ -9,6 +9,7 @@ import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.FreeTimeCommand;
+import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
@@ -52,6 +53,8 @@ public class Parser {
             return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(userInput)));
         case "within":
             return new AddCommand(ParserUtil.createWithin(userInput));
+        case "reschedule":
+            return new RescheduleCommand(ParserUtil.getSafeIndex(userInput), ParserUtil.getScheduleDate(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
