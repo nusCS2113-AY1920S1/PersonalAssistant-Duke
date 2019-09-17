@@ -1,7 +1,7 @@
-package UserElements;
+package main.java.UserElements;
 
-import Events.Storage.TaskList;
-import Events.EventTypes.Task;
+import main.java.Events.Storage.TaskList;
+import main.java.Events.EventTypes.Task;
 
 /**
  * User interface: contains all methods pertaining to user interaction.
@@ -170,10 +170,31 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    /**
+     * prints message when input format is wrong for adding recurring tasks
+     */
+    public void repeatFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter the number of the task and its repeat period and times, separated by blank space");
+        System.out.print(lineSeparation);
+    }
+
     public void scheduleClash(Task task) {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when recurring tasks are successfully added
+     *
+     * @param numTask Total number of tasks
+     */
+    public void recurringTaskAdded(int numTask) {
+        System.out.print(lineSeparation);
+        System.out.println("The tasks have been added successfully!");
+        System.out.println("Now you have " + numTask + " tasks.");
         System.out.print(lineSeparation);
     }
 }

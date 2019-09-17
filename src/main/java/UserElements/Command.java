@@ -1,11 +1,11 @@
-package UserElements;
+package main.java.UserElements;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import Events.Storage.Storage;
-import Events.Storage.TaskList;
-import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import main.java.Events.EventTypes.Task;
+import main.java.Events.Storage.Storage;
+import main.java.Events.Storage.TaskList;
 
 /**
  * Represents a command that is passed via user input.
@@ -105,6 +105,22 @@ public class Command {
                 ui.searchTasks(allTasksFound, tasksFound);
                 changesMade = false;
                 break;
+
+            case "repeat":
+                try {
+                    String[] setRepeatTaskString = continuation.split(" ");
+                    int taskNo = Integer.parseInt(setRepeatTaskString[0]);
+                    int period = Integer.parseInt(setRepeatTaskString[1]);
+                    int repeatTimes = Integer.parseInt(setRepeatTaskString[2]);
+                    boolean succeeded = tasks.addRecurringTask(tasks.getTask(taskNo-1), period, repeatTimes);
+                    if (succeeded) {
+                        ui.recurringTaskAdded(tasks.getNumTasks());
+                    }
+                    break;
+                } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                    ui.repeatFormatWrong();
+                    break;
+                }
 
             case "todo":
                 if (continuation.isEmpty()) {

@@ -1,8 +1,8 @@
-import Events.Storage.Storage;
-import Events.Storage.TaskList;
-import UserElements.Command;
-import UserElements.Parser;
-import UserElements.UI;
+import main.java.Events.Storage.Storage;
+import main.java.Events.Storage.TaskList;
+import main.java.UserElements.Command;
+import main.java.UserElements.Parser;
+import main.java.UserElements.UI;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package Events.EventTypes;
 
-import Events.EventTypes.Task;
+import main.java.Events.EventTypes.Task;
 
 /**
  * Subclass of Model_Class.Task class.

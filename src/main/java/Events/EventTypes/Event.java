@@ -1,6 +1,7 @@
 package Events.EventTypes;
 
-import Events.Formatting.DateObj;
+import main.java.Events.EventTypes.Task;
+import main.java.Events.Formatting.DateObj;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.

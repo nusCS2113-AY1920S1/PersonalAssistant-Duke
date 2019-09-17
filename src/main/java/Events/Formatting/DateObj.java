@@ -1,4 +1,4 @@
-package Events.Formatting;
+package main.java.Events.Formatting;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ public class DateObj {
      * if the input is in the format dd/mm/yyyy HHmm (24-hr clock) or
      * dd/mm/yyyy.
      */
-    protected Date javaDate;
+    public Date javaDate;
 
     /**
      * The java date variable stores the date and time as a string if the input is
@@ -26,7 +26,7 @@ public class DateObj {
     /**
      * Stores the format type of the date input.
      */
-    protected int format;
+    public int format;
 
     protected static int DATE_AND_TIME = 1;
     protected static int DATE = 2;
@@ -53,8 +53,25 @@ public class DateObj {
                 this.javaDate = newJavaDate;
                 format = DATE; // only date
             } catch (ParseException pe2) {
-                format = OTHER; // other types; store as string
-                this.date = inputDate;
+                try {
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
+                    inputFormat.setLenient(false);
+                    Date newJavaDate = inputFormat.parse(inputDate);
+                    this.javaDate = newJavaDate;
+                    format = DATE_AND_TIME; // date and time
+                } catch (ParseException e) {
+                    try {
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy");
+                        inputFormat.setLenient(false);
+                        Date newJavaDate = inputFormat.parse(inputDate);
+                        this.javaDate = newJavaDate;
+                        format = DATE; // only date
+                    } catch (ParseException ex) {
+                        format = OTHER; // other types; store as string
+                        this.date = inputDate;
+                    }
+                }
+
             }
         }
     }

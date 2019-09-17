@@ -1,11 +1,14 @@
-package Events.Storage;
+package main.java.Events.Storage;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import main.java.Events.EventTypes.Task;
+import main.java.Events.Formatting.DateObj;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Allows for access to the list of tasks currently stored, and editing that list of tasks.
@@ -57,6 +60,54 @@ public class TaskList {
                 return true;
             } else return false;
         }
+    }
+
+    /**
+     * Adds repeated tasks to the list
+     *
+     * @param task Task to be repeated
+     * @param period Period of the task to be repeated
+     * @param repeatTime Times of repeating
+     */
+    public boolean addRecurringTask(Task task, int period, int repeatTime) {
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateObj taskDate = new DateObj(task.getDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(taskDate.javaDate);
+        for (int addTaskCount = 1; addTaskCount <= repeatTime; addTaskCount++) {
+            calendar.add(Calendar.DATE, addTaskCount*period);
+            if (task instanceof Event) {
+                String timeString = null;
+                if (taskDate.format == 1) {
+                    timeString = format1.format(calendar.getTime());
+                }
+                else if (taskDate.format == 2) {
+                    timeString = format2.format(calendar.getTime());
+                }
+                Event repeatEvent = new Event(task.getDescription(), timeString);
+                Task clashTask = clashTask(repeatEvent);
+                if (clashTask == null) {
+                    this.taskArrayList.add(repeatEvent);
+                } else return false;
+//
+            }
+            else if (task instanceof Deadline) {
+                String timeString = null;
+                if (taskDate.format == 1) {
+                    timeString = format1.format(calendar.getTime());
+                }
+                else if (taskDate.format == 2) {
+                    timeString = format2.format(calendar.getTime());
+                }
+                Deadline repeatDeadline = new Deadline(task.getDescription(), timeString);
+                Task clashTask = clashTask(repeatDeadline);
+                if (clashTask == null) {
+                    this.taskArrayList.add(repeatDeadline);
+                } else return false;
+            }
+        }
+        return true;
     }
 
     private Task clashTask(Task task) {
