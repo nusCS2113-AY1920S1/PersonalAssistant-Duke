@@ -102,7 +102,7 @@ public class Schedule {
         return false;
     }
 
-    public void findFreeTime(int hour) {
+    public ArrayList<findFreeTime(int hour) {
         LocalDate nowDay = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         int currentDay = nowDay.getDayOfMonth();
