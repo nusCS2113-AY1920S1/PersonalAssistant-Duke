@@ -40,6 +40,13 @@ public class Duke {
      * @throws IOException if there is an error in reading input or printing output
      */
     public void run() throws ParseException, IOException {
+        int daysDue = 4;
+        if ((tasks.searchItemsDue(daysDue).isEmpty())) {
+            ui.print("No tasks due today!");
+        } else {
+            ui.printTaskArray("REMINDER--The following deadlines below are due soon:", tasks.searchItemsDue(daysDue));
+        }
+
         Boolean toExit = false;
         while (!toExit) {
             try {

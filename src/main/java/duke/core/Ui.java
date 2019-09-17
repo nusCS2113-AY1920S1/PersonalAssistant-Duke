@@ -16,7 +16,7 @@ import java.text.*;
 public class Ui {
     protected Scanner inputScanner;
     protected String input;
-    String line = "____________________________________________________________________________________________________________________________________________";
+    public static String line = "____________________________________________________________________________________________________________________________________________";
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,
