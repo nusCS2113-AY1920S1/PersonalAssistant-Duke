@@ -136,8 +136,13 @@ public class Event extends Task {
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
     }
 
+    /**
+     * Reschedules the event date.
+     *
+     * @param rescheduledAt Date to be rescheduled to.
+     */
     @Override
-    public void reschedule (LocalDateTime rescheduledAt) {
+    public void reschedule(LocalDateTime rescheduledAt) {
         this.at = rescheduledAt;
     }
 }

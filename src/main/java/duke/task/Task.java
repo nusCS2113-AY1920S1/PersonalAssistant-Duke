@@ -75,7 +75,11 @@ public class Task {
         return (done ? "1 | " : "0 | ");
     }
 
+    /**
+     * Reschedules the date of the task.
+     *
+     * @param rescheduleTime Date to be rescheduled to.
+     */
     public void reschedule(LocalDateTime rescheduleTime){
-
-    };
+    }
 }

@@ -136,8 +136,13 @@ public class Deadline extends Task {
                 + " | " + this.by.format(inputFormatter).length() + " | " + this.by.format(inputFormatter);
     }
 
+    /**
+     * Change the date of the deadline.
+     *
+     * @param rescheduledBy Date to be rescheduled to.
+     */
     @Override
-    public void reschedule (LocalDateTime rescheduledBy){
+    public void reschedule(LocalDateTime rescheduledBy) {
         this.by = rescheduledBy;
     }
 }

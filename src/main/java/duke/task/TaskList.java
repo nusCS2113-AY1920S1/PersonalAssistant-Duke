@@ -170,7 +170,16 @@ public class TaskList {
         return output;
     }
 
-    public void rescheduleTask(int taskNumber, LocalDateTime rescheduleDate) throws IndexOutOfBoundsException, DukeException {
+    /**
+     * Reschedules the date of the task given by the task index.
+     *
+     * @param taskNumber Task index in the task list.
+     * @param rescheduleDate Date to be rescheduled to.
+     * @throws IndexOutOfBoundsException If position is not in the list.
+     * @throws DukeException If task is not a deadline or event.
+     */
+    public void rescheduleTask(int taskNumber, LocalDateTime rescheduleDate)
+            throws IndexOutOfBoundsException, DukeException {
         char typeOfTask = tasks.get(taskNumber).toString().charAt(1);
         if (typeOfTask == 'D' || typeOfTask == 'E') {
             tasks.get(taskNumber).reschedule(rescheduleDate);
