@@ -1,7 +1,5 @@
 package models.tasks;
 
-import views.CLIView;
-
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
