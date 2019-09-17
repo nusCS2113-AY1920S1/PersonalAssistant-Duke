@@ -1,0 +1,14 @@
+language: java
+script:
+  - ./gradlew build --scan -s
+
+matrix:
+  include:
+    # linux build
+    - os: linux
+      jdk: openjdk8
+
+    # osx build
+    - os: osx
+      # default osx image only has java 10, osx 9.3 has jdk8 pre-installed
+      osx_image: xcode9.3
