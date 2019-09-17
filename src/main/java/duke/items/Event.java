@@ -11,6 +11,9 @@ public class Event extends Task {
     private String end; //For later.
     private DateTime eventTime;
 
+    /**
+     * Deadline object has a "at" string as well as a Date objects for start and end times.
+     */
     public Event(String description, String start, int taskIndex) {
         super(description, TaskType.EVENT); //Using the Task constructor. isDone is set to false.
         this.start = start;

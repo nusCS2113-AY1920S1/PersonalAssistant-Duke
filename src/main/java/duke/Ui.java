@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.Scanner;
 
 /**
@@ -14,6 +15,9 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
+    /**
+     * Prints duke introduction message.
+     */
     public void printIntro() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -25,10 +29,16 @@ public class Ui {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
     }
 
+    /**
+     * Prints the standard newline.
+     */
     public void printNewLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the duke exit message.
+     */
     public void printExitMessage() {
         printNewLine();
         System.out.println("Bye! Hope to see you again soon!");

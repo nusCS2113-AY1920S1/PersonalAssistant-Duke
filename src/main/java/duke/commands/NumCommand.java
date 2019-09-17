@@ -1,7 +1,9 @@
 package duke.commands;
+
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+
 /**
  * Command objects for marking tasks as done, or deleting them.
  * Requires the index of the task.
@@ -12,7 +14,7 @@ public class NumCommand extends Command {
 
     public NumCommand(CommandType type, int index) {
         super(type);
-        this.itemIndex = index-1; //Because of 0-indexing, user's request for item 1 means item 0.
+        this.itemIndex = index - 1; //Because of 0-indexing, user's request for item 1 means item 0.
     }
 
     public int getItemIndex() {

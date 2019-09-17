@@ -1,7 +1,12 @@
 package duke;
-import java.util.Scanner;
-import duke.commands.*;
-import duke.exceptions.*;
+
+import duke.commands.Command;
+import duke.commands.AddCommand;
+import duke.commands.FindCommand;
+import duke.commands.NumCommand;
+import duke.exceptions.InsufficientInfoException;
+import duke.exceptions.BadInputException;
+
 
 /**
  * Interprets command strings by the user.
@@ -17,7 +22,7 @@ public class Parser {
         }
     }
 
-    private String[] addDeadline(String input) throws InsufficientInfoException{
+    private String[] addDeadline(String input) throws InsufficientInfoException {
         String[] deadline = input.split("/by ");
 
         //Checks if either field is blank.
@@ -29,7 +34,7 @@ public class Parser {
             return deadline;
         }
     }
-    //functions for each type of thing!
+
     private String[] addEvent(String input) throws InsufficientInfoException {
         String[] event = input.split("/at ");
 
@@ -51,58 +56,59 @@ public class Parser {
      * @return an array where the first item is the command word and the second item is the rest of the text.
      * @throws BadInputException If the first word is not one of the recognised commands.
      */
-    private Command handleListInput(String listInput) throws BadInputException, InsufficientInfoException, NumberFormatException {
+    private Command handleListInput(String listInput) throws BadInputException,
+            InsufficientInfoException, NumberFormatException {
 
         String[] keyword = listInput.split(" ", 2);
         Command command;
 
         switch (keyword[0]) {
-            //Commands which are single words.
-            case "list":
-                command = new Command(Command.CommandType.LIST);
-                break;
-            case "bye":
-                command = new Command(Command.CommandType.BYE);
-                break;
+        //Commands which are single words.
+        case "list":
+            command = new Command(Command.CommandType.LIST);
+            break;
+        case "bye":
+            command = new Command(Command.CommandType.BYE);
+            break;
 
-            //Commands which require numerical input.
-            case "done":
-                command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
+        //Commands which require numerical input.
+        case "done":
+            command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
 
-                break;
-            case "delete": {
-                command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
-                break;
-            }
+            break;
+        case "delete": {
+            command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
+            break;
+        }
 
-            //Commands which require string input.
-            case "todo":
-                command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
-                break;
-            case "deadline": {
-                String[] temp = addDeadline(keyword[1]);
-                command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
-                break;
+        //Commands which require string input.
+        case "todo":
+            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
+            break;
+        case "deadline": {
+            String[] temp = addDeadline(keyword[1]);
+            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
+            break;
+        }
+        case "event": {
+            String[] temp = addEvent(keyword[1]);
+            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
+            break;
+        }
+        case "find": {
+            String description = keyword[1].trim(); //Might need to catch empty string exceptions?
+            if (!description.isBlank()) {
+                command = new FindCommand(Command.CommandType.FIND, description);
+            } else {
+                command = new Command();
+                System.out.println("Please enter the search description.");
             }
-            case "event": {
-                String[] temp = addEvent(keyword[1]);
-                command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
-                break;
-            }
-            case "find": {
-                String description = keyword[1].trim(); //Might need to catch empty string exceptions?
-                if (!description.isBlank()) {
-                    command = new FindCommand(Command.CommandType.FIND, description);
-                } else {
-                    command = new Command();
-                    System.out.println("Please enter the search description.");
-                }
-                break;
-            }
+            break;
+        }
 
-            default:
-                command = new Command(); //Bad Command
-                throw new BadInputException("Sorry, I don't recognise that input keyword!");
+        default:
+            command = new Command(); //Bad Command
+            throw new BadInputException("Sorry, I don't recognise that input keyword!");
         }
         return command;
     }
