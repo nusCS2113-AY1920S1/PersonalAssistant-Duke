@@ -45,6 +45,10 @@ public class Deadline extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
+        String frequency = "ONCE";
+        if (isTaskRecurring()) {
+            frequency = recurringTask.writeTxt();
+        }
         return "D | "
                 + (this.isDone ? "1" : "0")
                 + " | "
@@ -52,7 +56,7 @@ public class Deadline extends Task {
                 + " | "
                 + this.by
                 + " | "
-                + this.frequency;
+                + frequency;
     }
 
 }

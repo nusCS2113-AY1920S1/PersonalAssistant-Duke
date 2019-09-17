@@ -108,14 +108,12 @@ public class Storage {
 
     private Task.RecurringFrequency giveFrequency(String string) {
         switch (string) {
-            case "DAILY":
-                return Task.RecurringFrequency.DAILY;
             case "WEEKLY":
                 return Task.RecurringFrequency.WEEKLY;
             case "MONTHLY":
                 return Task.RecurringFrequency.MONTHLY;
             default:
-                return Task.RecurringFrequency.ONCE;
+                return Task.RecurringFrequency.DAILY;
         }
     }
 

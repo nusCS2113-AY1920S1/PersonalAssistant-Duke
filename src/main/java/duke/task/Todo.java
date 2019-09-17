@@ -32,12 +32,16 @@ public class Todo extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
+        String frequency = "ONCE";
+        if (isTaskRecurring()) {
+            frequency = recurringTask.writeTxt();
+        }
         return "T | "
                 + (this.isDone() ? "1" : "0")
                 + " | "
                 + this.description
                 + " | "
-                + this.frequency;
+                + frequency;
     }
 
 }

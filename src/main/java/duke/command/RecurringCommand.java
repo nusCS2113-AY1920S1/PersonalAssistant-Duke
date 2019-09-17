@@ -45,16 +45,15 @@ public class RecurringCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            Task recurringTask = tasks.getTask(taskIndex);
-            if (recurringTask.getDateTime() != null) {
-                if (!recurringTask.isTaskRecurring()) {
-                    recurringTask.makeTaskRecurring(this.frequency);
-                    ui.makeRecurring(recurringTask);
+            Task task = tasks.getTask(taskIndex);
+            if (task.getDateTime() != null) {
+                if (!task.isTaskRecurring()) {
+                    task.makeTaskRecurring(this.frequency);
+                    ui.makeRecurring(task);
+                } else {
+                    System.out.println("This task is already marked as recurring!");
                 }
-                recurringTask.recurringTaskTimeUpdate();
                 storage.save(tasks.fullTaskList());
-            } else {
-                recurringTask.updateLocalDateTime(LocalDateTime.now().toString());
             }
         } catch (DukeException e) {
             throw new DukeException("I couldn't make the task recurring. " + e);

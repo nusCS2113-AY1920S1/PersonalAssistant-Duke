@@ -41,6 +41,10 @@ public class Event extends Task {
      * @return A string in a specific format to be stored in a local file.
      */
     public String writeTxt() {
+        String frequency = "ONCE";
+        if (isTaskRecurring()) {
+            frequency = recurringTask.writeTxt();
+        }
         return "E | "
                 + (this.isDone ? "1" : "0")
                 + " | "
@@ -48,6 +52,6 @@ public class Event extends Task {
                 + " | "
                 + this.at
                 + " | "
-                + this.frequency;
+                + frequency;
     }
 }
