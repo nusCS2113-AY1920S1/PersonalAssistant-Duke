@@ -1,6 +1,10 @@
 package duke.task;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -166,5 +170,38 @@ public class TaskList {
             output.add(tasks.get(i - 1).export());
         }
         return output;
+    }
+
+    /**
+     * Searches this instance's list for those tasks that is due within the next few days specify by the user.
+     *
+     * @param reminderDay The integer that specify the next number of day to search for.
+     * @return A smaller or same-size ArrayList containing those tasks that is due within the next number of day.
+     */
+    public ArrayList<Task> checkReminder(int reminderDay) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            char typeOfTask = task.toString().charAt(1);
+            if (typeOfTask == 'D' || typeOfTask == 'E') {
+                LocalDate nowDate = LocalDate.now();
+                LocalDate currDate = task.getDateTime().toLocalDate();
+                LocalTime currTime = task.getDateTime().toLocalTime();
+                LocalTime nowTime = LocalTime.now();
+                Duration diff = Duration.between(nowTime, currTime);
+                long diffHours = diff.toHours();
+                long diffMinutes = diff.toMinutes();
+                Period period = Period.between(nowDate, currDate);
+                int diffMonth = period.getMonths();
+                int diffDay = period.getDays() + (diffMonth * 30); //calculate the difference in number of days from now
+                if (diffDay == 0 && diffHours > 0) {
+                    results.add(task);
+                } else if (diffDay == 0 && diffMinutes > 0) {
+                    results.add(task);
+                } else if (diffDay <= reminderDay && diffDay > 0) {
+                    results.add(task);
+                }
+            }
+        }
+        return results;
     }
 }
