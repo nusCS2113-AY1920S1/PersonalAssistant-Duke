@@ -35,7 +35,9 @@ public class Event extends Task implements Snoozeable {
             String strEnd = String.join(" ", input.subList(separatorIndex + 4, separatorIndex + 6));
             this.start = formatter.parse(strStart);
             this.end = formatter.parse(strEnd);
-
+            if (end.before(start)) {
+                throw new DukeException("Start datetime cannot be after end datetime.");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         } catch (ParseException e) {
@@ -46,6 +48,11 @@ public class Event extends Task implements Snoozeable {
     @Override
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    @Override
+    public boolean isWithinTimeFrame(Date startDate, Date endDate) {
+        return start.compareTo(startDate) >= 0 && end.compareTo(endDate) <= 0;
     }
 
     @Override
@@ -65,13 +72,5 @@ public class Event extends Task implements Snoozeable {
     public String toString() {
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                 formatter.format(this.start), formatter.format(this.end));
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public Date getStart() {
-        return start;
     }
 }
