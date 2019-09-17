@@ -20,3 +20,6 @@ Duke will help you to sort, filter and clear you inbox.
 1. Enjoy using Duke!
 1. Additional info can be found in our user guide.
 
+**Site Map**
+
+[About Us]: <docs/AboutUs.adoc>
