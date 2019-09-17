@@ -9,6 +9,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exceptions.DukeCommandException;
 import duke.exceptions.DukeEmptyCommandException;
+import duke.exceptions.DukeInvalidTimeException;
 import duke.tasks.Deadline;
 import duke.tasks.Events;
 import duke.tasks.Task;
@@ -63,6 +64,22 @@ public class Parser {
         return res;
     }
 
+    private static String[] testRegex(String inputs, String keyword) throws DukeEmptyCommandException {
+        if (keyword.equals("todo") && inputs.equals("todo")) {
+            throw new DukeEmptyCommandException();
+        } else if (keyword.equals("deadline") && inputs.startsWith("deadline ") && !inputs.contains("/by")) {
+            throw new DukeEmptyCommandException();
+        } else if (keyword.equals("event") && inputs.startsWith("event ") && !inputs.contains("/at")) {
+            throw new DukeEmptyCommandException();
+        } else {
+            String[] res = inputs.split("/", 2);
+            if (res.length == 0) {
+                throw new DukeEmptyCommandException();
+            }
+            return res;
+        }
+    }
+
     /**
      * Checks user input for deletion command,
      * and returns deletion command with the intended index.
@@ -95,6 +112,23 @@ public class Parser {
         return new FindCommand(split[split.length - 1]);
     }
 
+    private static String[] parseAdding(String input, String keyword)
+            throws DukeEmptyCommandException {
+        String[] split = testRegex(input, keyword);
+        if (!split[0].equals("")) {
+            throw new DukeEmptyCommandException();
+        }
+        split[split.length - 1] = split[split.length - 1].trim();
+        if (keyword.equals("deadline")) {
+            split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
+        } else if (keyword.equals("event")) {
+            split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
+        }
+        return split;
+    }
+
+
+
     /**
      * Main parser for user commands, checking for any invalid input
      * placed and empty command placed. Returns the specified command
@@ -104,7 +138,8 @@ public class Parser {
      * @throws DukeCommandException when the user inputs an invalid command.
      * @throws DukeEmptyCommandException when the user inputs and empty command.
      */
-    public static Command parse(String input) throws DukeCommandException, DukeEmptyCommandException {
+    public static Command parse(String input)
+            throws DukeCommandException, DukeEmptyCommandException, DukeInvalidTimeException {
         //Checks every input for keyword command
         if (input.startsWith("todo ")) {
             String[] temp = input.split("todo ");
@@ -115,7 +150,7 @@ public class Parser {
             Task hold = new Todo(split);
             return new AddCommand(hold);
         } else if (input.startsWith("event ")) {
-            String[] temp = input.split("event ");
+            String[] temp = input.split("event");
             String [] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();
@@ -125,7 +160,7 @@ public class Parser {
             Task hold = new Events(split);
             return new AddCommand(hold);
         } else if (input.startsWith("deadline ")) {
-            String[] temp = input.split("deadline ");
+            String[] temp = input.split("deadline");
             String [] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();

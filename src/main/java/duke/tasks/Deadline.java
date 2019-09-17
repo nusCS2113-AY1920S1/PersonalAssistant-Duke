@@ -5,6 +5,7 @@ import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Deadline extends Task {
     private LocalDateTime dateTime;
@@ -14,24 +15,11 @@ public class Deadline extends Task {
      * @param input Parsed user string input, first input being name,
      *              second input being the date.
      */
-    public Deadline(String... input) {
+    public Deadline(String... input) throws DukeInvalidTimeException {
         super(input[0]);
-        dateTime = null;
-        setDateAndTime(input[input.length - 1]);
+        dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }
 
-    /**
-     * Specific to deadline, the date data has to be stored
-     * into LocalDateTime object.
-     * @param dateAndTime String date and time associated with the task.
-     */
-    private void setDateAndTime(String dateAndTime) {
-        try {
-            dateTime = DateTimeParser.getStringToDate(dateAndTime);
-        } catch (DukeInvalidTimeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     @Override
     public String writingFile() {
