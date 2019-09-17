@@ -18,7 +18,7 @@ public class ParserTest {
     @Test
     public void commandCreatedTest(){
         Parser parser = new Parser();
-        assertTrue(parser.parse("ok") instanceof MeaningLessCommand);
+        assertTrue(parser.parse("ok") instanceof MeaninglessCommand);
         assertTrue(parser.parse("list") instanceof ListCommand);
         assertFalse(parser.parse("listlist") instanceof ListCommand);
         assertTrue(parser.parse("find eizae") instanceof FindCommand);
