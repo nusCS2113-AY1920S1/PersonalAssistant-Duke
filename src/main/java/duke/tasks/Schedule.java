@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,7 +28,8 @@ public class Schedule {
      * @params task the task object to be inserted
      * @author Foo Chi Hen
      */
-    public void update(Task task){
+    public boolean update(Task task){
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         LocalDate now = LocalDate.now();
         if (task.getType() == "D" || task.getType() == "E") {
             if (task.getDate() != null) {
@@ -34,11 +37,19 @@ public class Schedule {
                     if (now.getMonthValue() == task.getDate().get(Calendar.MONTH) + 1) {
                         int taskDate = task.getDate().get(Calendar.DAY_OF_MONTH);
                         int taskHour = task.getDate().get(Calendar.HOUR_OF_DAY);
-                        this.schedule[taskDate - 1][taskHour].add(task);
+                        boolean checkForAnomaly = detectAnomalies(this.schedule[taskDate - 1][taskHour]);
+                        if (checkForAnomaly) {
+                            System.out.println("There is already an event task at " + dateFormat.format(task.getDate().getTime()));
+                            return false;
+                        }
+                        else {
+                            this.schedule[taskDate - 1][taskHour].add(task);
+                        }
                     }
                 }
             }
         }
+        return true;
     }
 
     /**
@@ -70,6 +81,15 @@ public class Schedule {
             }
         }
         return result;
+    }
+
+    public boolean detectAnomalies(ArrayList<Task> activity){
+        for (int i = 0; i < activity.size(); i += 1) {
+            if (activity.get(i).getType().equals("E")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void findFreeTime(int hour) {
@@ -112,6 +132,8 @@ public class Schedule {
                 System.out.println("You are not free on " + nowDay.toString());
             }
             nowDay.plusDays(1);
+            flag = true;
+            System.out.println("_____________");
         }
     }
 }

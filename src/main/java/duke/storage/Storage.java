@@ -110,12 +110,15 @@ public class Storage {
      * @param isDone whether the deadline task is done
      */
     private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone, Schedule schedule) {
+        boolean toAdd;
         Deadline newDeadline = new Deadline(description, by);
         if (isDone) {
             newDeadline.markAsDone();
         }
-        schedule.update(newDeadline);
-        tasks.add(newDeadline);
+        toAdd = schedule.update(newDeadline);
+        if (toAdd) {
+            tasks.add(newDeadline);
+        }
     }
 
     /**
@@ -126,12 +129,15 @@ public class Storage {
      * @param isDone
      */
     private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone, Schedule schedule) {
+        boolean toAdd;
         Event newEvent = new Event(description, duration);
         if (isDone) {
             newEvent.markAsDone();
         }
-        schedule.update(newEvent);
-        tasks.add(newEvent);
+        toAdd = schedule.update(newEvent);
+        if (toAdd) {
+            tasks.add(newEvent);
+        }
     }
 
     /**
