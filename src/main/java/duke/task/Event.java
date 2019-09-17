@@ -145,4 +145,14 @@ public class Event extends Task {
     public void reschedule(LocalDateTime rescheduledAt) {
         this.at = rescheduledAt;
     }
+
+    /**
+     * Returns a LocalDateTime of this event.
+     *
+     * @return The date and time of this event.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.at;
+    }
 }

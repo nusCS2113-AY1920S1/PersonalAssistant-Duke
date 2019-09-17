@@ -145,4 +145,14 @@ public class Deadline extends Task {
     public void reschedule(LocalDateTime rescheduledBy) {
         this.by = rescheduledBy;
     }
+
+    /**
+     * Returns a LocalDateTime of this Deadline.
+     *
+     * @return The date and time of this Deadline.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.by;
+    }
 }

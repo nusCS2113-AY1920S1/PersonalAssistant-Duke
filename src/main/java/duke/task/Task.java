@@ -82,4 +82,13 @@ public class Task {
      */
     public void reschedule(LocalDateTime rescheduleTime){
     }
+
+    /**
+     * Returns a LocalDateTime of this Task.
+     *
+     * @return The current date and time.
+     */
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.now();
+    }
 }
