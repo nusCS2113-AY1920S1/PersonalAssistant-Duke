@@ -119,6 +119,10 @@ public class TaskList {
         return matchedList;
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     /**
      * Returns the information of the task with given index to be printed by UI.
      *

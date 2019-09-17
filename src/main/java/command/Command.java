@@ -5,6 +5,8 @@ import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 
+import java.text.ParseException;
+
 /**
  * Represents a command packaged by class <code>Parser</code>.
  * Works as a parent class of more specified command classes in the package.
@@ -29,7 +31,7 @@ public class Command {
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException {
         // to be overridden
     }
 

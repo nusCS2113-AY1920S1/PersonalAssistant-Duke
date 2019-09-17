@@ -113,6 +113,8 @@ public class Parser {
                 return new ExitCommand();
                 */
                 return new ExitCommand(commandParams);
+            case "schedule":
+                return new ScheduleCommand(commandParams);
             default:
                 throw new DukeException("Unknown error!");
         }
@@ -129,7 +131,7 @@ public class Parser {
      * @throws DukeException If user input is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {
-        String regex = "todo|deadline|event|list|done|bye|delete|find";
+        String regex = "todo|deadline|event|list|done|bye|delete|find|schedule";
         m = Pattern.compile(regex).matcher(fullCommand);
         if (m.find()) {
             commandType = m.group();

@@ -10,8 +10,6 @@ import java.util.Date;
  * with start and end <code>Date</code>.
  */
 public class Event extends Task {
-    private String startString;
-    private String endString;
     private Date start;
     private Date end;
 
@@ -26,8 +24,6 @@ public class Event extends Task {
      */
     public Event(String description, String startString, String endString) throws DukeException {
         super(description);
-        this.startString = startString;
-        this.endString = endString;
         this.start = TimeParser.parse(startString);
         this.end = TimeParser.parse(endString);
     }
@@ -41,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + startString + " - " + endString + ")";
+        return "[E]" + super.toString() + " (at: " + start + " - " + end + ")";
     }
 
     /**
@@ -52,6 +48,14 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + startString + " | " + endString;
+        return "E | " + super.toStorageString() + " | " + start + " | " + end;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
     }
 }

@@ -10,7 +10,6 @@ import java.util.Date;
  * with due <code>Date</code>.
  */
 public class Deadline extends Task {
-    private String ddl;
     private Date by;
 
     /**
@@ -23,8 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String ddl) throws DukeException {
         super(description);
-        this.ddl = ddl;
-        by = TimeParser.parse(ddl);
+        this.by = TimeParser.parse(ddl);
     }
 
     /**
@@ -36,7 +34,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + ddl + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
     /**
@@ -47,6 +45,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return "D | " + super.toStorageString() + " | " + ddl;
+        return "D | " + super.toStorageString() + " | " + by;
+    }
+
+    public Date getBy() {
+        return by;
     }
 }

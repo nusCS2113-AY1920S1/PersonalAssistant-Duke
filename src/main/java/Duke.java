@@ -5,6 +5,8 @@ import exception.DukeException;
 import command.Command;
 import parser.Parser;
 
+import java.text.ParseException;
+
 /**
  * Represents our Duke and contains the main program of Duke.
  */
@@ -42,8 +44,8 @@ public class Duke {
                 Command packagedCommand = Parser.parse(fullCommand);
                 packagedCommand.execute(tasks, ui, storage);
                 isExit = packagedCommand.isExit();
-            } catch (DukeException e) {
-                ui.showError(e);
+            } catch (DukeException | ParseException e) {
+                ui.showError((DukeException) e);
             }
         }
     }
