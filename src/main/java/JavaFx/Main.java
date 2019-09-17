@@ -29,7 +29,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
-            stage.setTitle("Duke");
+            stage.setTitle("BetterDuke");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
