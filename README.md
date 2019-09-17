@@ -36,25 +36,3 @@ We are helping IT savvy private home chef to manage all the bookings!
 
 * Will notice the chef if remaining food in not enough for the latest booking
 * Automatically update after completing booking
-
-
- Welcome to T12-4 project! 
- We are helping IT savvy private home chef to manage all the bookings!
- 
- To start, key in the list you want to take a look at: (Booking/Recipe/Inventory?)
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
