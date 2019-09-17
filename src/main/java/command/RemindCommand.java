@@ -33,16 +33,17 @@ public class RemindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int count = 0;
         ArrayList<String> toPrint = new ArrayList<>();
-        for(int i = 0; i < tasks.getSize(); i++) {
-            if(!tasks.isDone(i)) {
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (!tasks.isDone(i)) {
                 toPrint.add((++count) + "." + tasks.getTaskInfo(i));
             }
         }
-        if(count == 0) {
+
+        if (count == 0) {
             ui.println("Congrats, you have no upcoming uncompleted tasks!");
         } else {
             ui.println("[Reminder] You have " + count + " uncompleted tasks due:");
-            for(String i: toPrint) {
+            for (String i: toPrint) {
                 ui.println(i);
             }
         }
