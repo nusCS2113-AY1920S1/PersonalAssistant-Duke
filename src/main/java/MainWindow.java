@@ -1,4 +1,4 @@
-//import duke.commands.Command;
+//import duke.commands.command;
 //import duke.exception.DukeException;
 //import duke.parser.parser;
 //import javafx.fxml.FXML;
@@ -33,12 +33,12 @@
 //    @FXML
 //    private void handleUserInput(){
 //        try {
-//            Command c = parser.parse(userInput.getText());
+//            command c = parser.parse(userInput.getText());
 //            c.execute(duke.tasks, duke.ui, duke.storage);
 //        } catch (DukeException e) {
 //            duke.ui.setMessage(e.getMessage());
 //        } catch (NumberFormatException e) {
-//            duke.ui.setMessage("     Invalid Command\n");
+//            duke.ui.setMessage("     Invalid command\n");
 //        }
 //        Label input = new Label(userInput.getText());
 //        Label response = new Label(duke.ui.showLine());

@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
 
     /**
      * Marks the task specified by user as done. Sets message of Ui
-     * to show if Command is successfully carried out.
+     * to show if command is successfully carried out.
      * @param tasks The list of task stored by duke
      * @param ui The user interface that handles messages
      * @param storage The database to read files and write txt files

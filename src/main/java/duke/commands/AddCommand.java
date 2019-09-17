@@ -73,7 +73,7 @@ public class AddCommand extends Command {
                     setResponse(ui, task.toString(), tasks.size());
                     break;
                 default:
-                    ui.setMessage("Invalid Command");
+                    ui.setMessage("Invalid command");
             }
         } catch (DukeInvalidDateException e) {
             ui.setMessage(e.getMessage());
