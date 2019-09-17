@@ -109,19 +109,19 @@ public class TaskList {
             arrlist.add(new DoAfterTasks(description,date));
             duke.ui.printg("[DAT][ " + notDone + "] " + description);
             break;
-        case "fixeddurationtask":
-            int hour = 0;
-            int minute = 0;
+            case "fixeddurationtask":
             token = "/on";
             description = getDescription(cs.substring(0, cs.indexOf("/for")), token);
             date = getDate(cs.substring(0, cs.indexOf("/for")), token);
+            int hour = 0;
+            int minute = 0;
             hour = getDuration(cs, 1);
             minute = getDuration(cs, 2);
             duke.ui.printg("4 succeed");
-            arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute +
-                    " minute(s)",date, hour, minute));
-            duke.ui.printg("[FDT][ " + notDone + "] " + description + "for " + hour + " hour(s) " + minute +
-                    " minute(s)");
+            arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
+                    + " minute(s)",date, hour, minute));
+            duke.ui.printg("[FDT][ " + notDone + "] " + description + "for " + hour + " hour(s) " + minute
+                    + " minute(s)");
             break;
 
         default:
@@ -265,7 +265,7 @@ public class TaskList {
         cs = cs.substring(cs.indexOf("/for") + 4);
         Scanner sc1 = new Scanner(cs);
         int time = 0; //to represent hour/minute
-        while(i != 0) {
+        while (i != 0) {
             i--;
             time = sc1.nextInt();
             sc1.next();//ignore the string
