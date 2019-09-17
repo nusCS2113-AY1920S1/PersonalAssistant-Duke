@@ -7,10 +7,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Parser {
+
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
+
     /**
      * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
      * know where to redirect the input command.
-     * Can be an enum e.g State.INIT, State.NORMAL, State.TIMETABLE
+     * Can be an enum e.g State.INIT, State.NORMAL, State.READTIMETABLE etc.
      */
     public String status = "normal";
     /**
@@ -22,6 +25,16 @@ public class Parser {
     public int stage = 0;
     Duke duke;
 
+    //----------------------->
+
+
+
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
     /**
      * Constructor for the parser. Called in Duke when initializing
      *
@@ -30,6 +43,16 @@ public class Parser {
     public Parser(Duke d) {
         this.duke = d;
     }
+
+
+    //----------------------->
+
+
+
+    //***COMMAND PROCESSING***------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
     /**
      * This function handles the main CLI parsing. Just pass in the cmd string and it will work its magic.
@@ -45,6 +68,8 @@ public class Parser {
             duke.exitDuke();
         } else if (cmd.equals("list")) {
             duke.ui.listTasks();
+        } else if (cmd.matches("clear")) {
+            duke.ui.clearPrimary();
         } else if (cmd.matches("done ([0-9]+)")) {
             duke.tasklist.taskDone(cmd);
         } else if (cmd.matches("delete ([0-9]+)")) {
@@ -88,10 +113,24 @@ public class Parser {
     }
 
 
+
+    //----------------------->
+
+
+
+
+    //***CONTROL PARSING LOGIC***---------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+
     public void setStatus(String status) {
         this.status = status;
         stage = 0; //reset stage everytime status is changed
     }
+
+
+    //----------------------->
 
 
 }

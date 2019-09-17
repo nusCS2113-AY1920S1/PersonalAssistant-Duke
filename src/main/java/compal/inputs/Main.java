@@ -36,7 +36,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            duke.ui.sp = (ScrollPane) ap.getChildren().get(2);
+            duke.ui.mainWindow = (ScrollPane) ap.getChildren().get(2); //gets a reference to the main display viewport
+            duke.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
             Scene s1 = new Scene(ap);
 
             //Set up some primary stage stuff --------------------------------------------------------------->
@@ -61,7 +62,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
 
             primaryStage.show();
-            System.out.println("Primary Stage Initialized. Setting Scene and Initializing Duke.");
+            System.out.println("Main:LOG: Primary Stage Initialized. Setting Scene and running initialization code.");
 
             //run ui's initialization code
             duke.ui.checkInit();

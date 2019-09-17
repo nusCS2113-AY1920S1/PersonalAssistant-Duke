@@ -109,6 +109,14 @@ public abstract class Task implements Serializable {
     //----------------------->
 
 
+    /**
+     * Prints out the task as a nice string.
+     * @return String task-string
+     */
+    @Override
+    public String toString() {
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+    }
 
 
 
