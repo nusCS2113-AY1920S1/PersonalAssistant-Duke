@@ -1,4 +1,4 @@
-E | ✘ | go home | 16th of September 2019, 12:21 PM | 17th of September 2019, 12:00 AM
-T | ✓ | gohomerf
-D | ✘ | wejfn | 12th of December 2019, 08:19 PM
-E | ✘ | ringer ienre | 12th of December 2019, 08:19 PM | 13th of December 2019, 12:00 PM
+E | ✓ | add (at: 01st of January 2011, 08:11 PM to 01st of January 2011, 08:20 PM) | 01st of January 2011, 08:11 PM | 01st of January 2011, 08:20 PM
+E | ✘ | me (at: 12th of September 2019, 12:00 PM to 12th of October 2019, 10:00 PM) | 12th of September 2019, 12:00 PM | 12th of October 2019, 10:00 PM
+E | ✓ | attend lecture (at: 28th of December 2019, 12:00 PM to 28th of December 2019, 11:00 PM) | 28th of December 2019, 12:00 PM | 28th of December 2019, 11:00 PM
+E | ✘ | soup (at: 01st of January 2020, 08:20 PM to 31st of December 2020, 08:20 PM) | 01st of January 2020, 08:20 PM | 31st of December 2020, 08:20 PM
