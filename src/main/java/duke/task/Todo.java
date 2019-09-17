@@ -34,7 +34,7 @@ public class Todo extends Task {
     public String writeTxt() {
         String frequency = "ONCE";
         if (isTaskRecurring()) {
-            frequency = recurringTask.writeTxt();
+            frequency = recurringTask.getFrequency().toString();
         }
         return "T | "
                 + (this.isDone() ? "1" : "0")

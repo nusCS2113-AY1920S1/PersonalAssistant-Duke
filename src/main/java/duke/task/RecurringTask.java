@@ -38,24 +38,18 @@ public class RecurringTask {
 
                     switch (this.frequency) {
                         case DAILY:
-                            Duration dayDifference = Duration.between(currentTime, lastRecordedTime);
-                            int totalDaysDifference = (int) Math.abs(dayDifference.toDays());
-                            if ((totalDaysDifference > 0 ) || task.isDone()) {
-                                lastRecordedTime = lastRecordedTime.plusDays(totalDaysDifference);
-                                if (task.isDone) { task.isDone = false; }
+                            while (lastRecordedTime.isBefore(currentTime) || task.isDone()) {
+                                lastRecordedTime = lastRecordedTime.plusDays(1);
+                                if (task.isDone()) { task.isDone = false; }
                             }
                         case WEEKLY:
-                            Duration weekDifference = Duration.between(currentTime, lastRecordedTime);
-                            int totalWeeksDifference = (int) Math.abs(weekDifference.toDays()/7);
-                            if ((totalWeeksDifference > 0) || task.isDone()) {
-                                lastRecordedTime = lastRecordedTime.plusWeeks(totalWeeksDifference);
+                            while (lastRecordedTime.isBefore(currentTime) || task.isDone()) {
+                                lastRecordedTime = lastRecordedTime.plusWeeks(1);
                                 if (task.isDone) { task.isDone = false; }
                             }
                         case MONTHLY:
-                            Duration monthDifference = Duration.between(currentTime, lastRecordedTime);
-                            long totalMonthsDifference = (int) Math.abs(monthDifference.toDays()/30);
-                            if ((totalMonthsDifference > 0) || task.isDone()) {
-                                lastRecordedTime = lastRecordedTime.plusMonths(totalMonthsDifference);
+                            while (lastRecordedTime.isBefore(currentTime) || task.isDone()) {
+                                lastRecordedTime = lastRecordedTime.plusMonths(1);
                                 if (task.isDone) { task.isDone = false; }
                             }
                     }
@@ -65,17 +59,5 @@ public class RecurringTask {
             }
         }
         return lastRecordedTime;
-    }
-
-    public String writeTxt() {
-        switch (frequency) {
-            case DAILY:
-                return "DAILY";
-            case WEEKLY:
-                return "WEEKLY";
-            case MONTHLY:
-                return "MONTHLY";
-        }
-        return "ONCE";
     }
 }

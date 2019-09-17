@@ -66,7 +66,7 @@ public class Deadline extends Task {
     public String writeTxt() {
         String frequency = "ONCE";
         if (isTaskRecurring()) {
-            frequency = recurringTask.writeTxt();
+            frequency = recurringTask.getFrequency().toString();
         }
         return "D | "
                 + (isDone() ? "1" : "0")

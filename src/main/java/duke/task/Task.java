@@ -42,7 +42,7 @@ public abstract class Task {
     /**
      * An enumerator meant to specify the frequency of a recurring task.
      */
-    public enum RecurringFrequency { DAILY, WEEKLY, MONTHLY; }
+    public enum RecurringFrequency { DAILY, WEEKLY, MONTHLY, ONCE; }
 
     /**
      * An extended class that retains information about a recurring task.
@@ -99,12 +99,15 @@ public abstract class Task {
         switch (frequency) {
             case DAILY:
                 this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
+                break;
             case WEEKLY:
                 this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.WEEKLY);
+                break;
             case MONTHLY:
                 this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.MONTHLY);
-            default:
-                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
+                break;
+            case ONCE:
+                break;
         }
         if (this.recurringTask != null) {
             this.recurringTask.recurringTaskTimeUpdate(this);

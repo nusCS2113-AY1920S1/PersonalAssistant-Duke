@@ -65,7 +65,7 @@ public class Event extends Task {
     public String writeTxt() {
         String frequency = "ONCE";
         if (isTaskRecurring()) {
-            frequency = recurringTask.writeTxt();
+            frequency = recurringTask.getFrequency().toString();
         }
         return "E | "
                 + (isDone() ? "1" : "0")
