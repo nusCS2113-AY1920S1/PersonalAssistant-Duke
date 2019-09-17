@@ -79,6 +79,8 @@ public class Task {
         return this.datetime;
     }
 
+    public void setDate(Calendar datetime) { this.datetime = datetime; }
+
     /**
      * This function overrides the toString() function in the object class
      * @return the status icon and the description of the task

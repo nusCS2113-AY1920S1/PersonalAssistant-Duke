@@ -1,13 +1,16 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
 import duke.ui.Ui;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.time.YearMonth;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -17,7 +20,8 @@ import java.util.Scanner;
 
 public class Schedule {
     protected ArrayList[][] schedule = new ArrayList[31][24];
-
+    protected ArrayList<Task> ponder = new ArrayList<Task>();
+    protected ArrayList<ArrayList<Calendar>> ponderDate = new ArrayList<ArrayList<Calendar>>();
     public Schedule() {
         for (int i = 0; i < 31; i += 1) {
             for (int j = 0; j < 24; j += 1) {
@@ -31,7 +35,7 @@ public class Schedule {
      * @params task the task object to be inserted
      * @author Foo Chi Hen
      */
-    public boolean update(Task task){
+    public boolean update(Task task) {
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         LocalDate now = LocalDate.now();
         if (task.getType() == "D" || task.getType() == "E") {
@@ -61,7 +65,7 @@ public class Schedule {
      * @author Foo Chi Hen
      */
 
-    public ArrayList<Task> remindMe(int hour){
+    public ArrayList<Task> remindMe (int hour) throws DukeException {
         LocalDate nowDay = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         int currentDay = nowDay.getDayOfMonth();
@@ -82,6 +86,9 @@ public class Schedule {
                     result.add(current.get(j));
                 }
             }
+        }
+        if (result.size() == 0){
+            throw new DukeException("You have no upcoming tasks");
         }
         return result;
     }
@@ -140,7 +147,7 @@ public class Schedule {
         }
     }
 
-    public void snooze(int day, int hour, Ui ui){
+    public void snooze(int day, int hour, Ui ui) throws DukeException{
         Scanner temp = new Scanner(System.in);
         ArrayList<Task> selectedHome = this.schedule[day - 1][hour];
         ui.showList(selectedHome);
@@ -154,7 +161,7 @@ public class Schedule {
         ArrayList<Task> newHome = this.schedule[newDay - 1][newHour];
         if (selected.getType().equals("E")){
             if (detectAnomalies(newHome)){
-                System.out.println("There is already an event task");
+                throw new DukeException("There is already an event task");
             }
             else {
                 selected.getDate().set(Calendar.DAY_OF_MONTH, newDay);
@@ -167,5 +174,95 @@ public class Schedule {
             this.schedule[newDay - 1][newHour].add(selected);
             this.schedule[day - 1][hour].remove(index - 1);
         }
+    }
+
+    public void tentative(){
+        System.out.println("Please enter description");
+        Scanner temp = new Scanner(System.in);
+        String input = temp.nextLine();
+        String type = input.split(" ",2)[0];
+        String description = input.split(" ",2)[1];
+        System.out.println(input);
+        if (type.equals("deadline")){
+            //Deadline tentativeTask = new Deadline(description,null);
+            this.ponder.add(new Deadline(description,"null"));
+        }
+        else if (type.equals("event")){
+            //Event tentativeTask = new Event(description,null);
+            this.ponder.add(new Event(description,"null"));
+        }
+        this.ponderDate.add(new ArrayList<Calendar>());
+        input = temp.nextLine();
+        while (true){
+            if (input.equals("done")){
+                break;
+            }
+            System.out.println(input);
+            Calendar dateTime = Calendar.getInstance();
+            SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            Date date;
+            try {
+                date = dateparser.parse(input);
+                dateTime.setTime(date);
+                System.out.println("Added. Enter done to stop.");
+            } catch (ParseException e) {
+                SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
+                try {
+                    date = altparser.parse(input);
+                    dateTime.setTime(date);
+                    System.out.println("Added. Enter done to stop.");
+                } catch (ParseException f) {
+                    System.out.println("Wrong date format");
+                }
+            }
+            this.ponderDate.get(this.ponderDate.size() - 1).add(dateTime);
+            input = temp.nextLine();
+        }
+    }
+
+    public Task confirm() throws DukeException{
+        System.out.println("These are the tentative task. Which would you like to select?");
+        System.out.println("_____________");
+        for(int i = 0; i < this.ponder.size(); i += 1) {
+            System.out.print(Integer.toString(i+1) +". ");
+            System.out.println(this.ponder.get(i).toString());
+        }
+        System.out.println("_____________");
+        Scanner temp = new Scanner(System.in);
+        String input = temp.nextLine();
+        int taskIndex;
+        try{
+            taskIndex = Integer.parseInt(input);
+        }
+        catch (NumberFormatException e){
+            throw new DukeException("Please enter a number");
+        }
+        System.out.println("These are the tentative dates. Which would you like to select?");
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
+        for (int i = 0; i < this.ponderDate.get(taskIndex - 1).size(); i += 1) {
+            System.out.print(Integer.toString(i+1) +". ");
+            System.out.println(dateFormat.format(this.ponderDate.get(taskIndex - 1).get(i).getTime()));
+        }
+        input = temp.nextLine();
+        int dateIndex;
+        try{
+            dateIndex = Integer.parseInt(input);
+        }
+        catch (NumberFormatException e){
+            throw new DukeException("Please enter a number");
+        }
+        Task confirmed = this.ponder.get(taskIndex - 1);
+        if (confirmed.getType().equals("E")){
+            Calendar selectedDate = this.ponderDate.get(taskIndex - 1).get(dateIndex - 1);
+            int selectedDay = selectedDate.get(Calendar.DAY_OF_MONTH);
+            int selectedHour = selectedDate.get(Calendar.HOUR_OF_DAY);
+            if (detectAnomalies(this.schedule[selectedDay - 1][selectedHour])){
+                throw new DukeException("There is already an event task in this timeslot.");
+            }
+        }
+        confirmed.setDate(this.ponderDate.get(taskIndex - 1).get(dateIndex - 1));
+        this.ponder.remove(taskIndex - 1);
+        this.ponderDate.remove(taskIndex - 1);
+        return confirmed;
     }
 }

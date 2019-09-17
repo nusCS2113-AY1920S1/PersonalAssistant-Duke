@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
-import duke.tasks.Schedule;
 import duke.tasks.*;
 
 /**
@@ -71,6 +70,9 @@ public class Storage {
             if (subtypes.contains("P")) {
                 loadToDo(tasks, isDone, subtypes, description, splitLine[4], splitLine[5]);
             }
+            if (subtypes.contains("F")) {
+                loadToDo(tasks, isDone, subtypes, description, splitLine[4]);
+            }
         } else if (taskType.equals("D")) {
             loadDeadline(tasks, description, timeFrame, isDone, schedule);
         } else if (taskType.equals("E")) {
@@ -96,6 +98,13 @@ public class Storage {
         }
         if (Subtypes.contains("P")) {
             ToDo newToDo = new ToDo(description[0], description[1], description[2]);
+            if (isDone) {
+                newToDo.markAsDone();
+            }
+            tasks.add(newToDo);
+        }
+        if (Subtypes.contains("F")) {
+            ToDo newToDo = new ToDo(description[0], description[1]);
             if (isDone) {
                 newToDo.markAsDone();
             }
@@ -172,6 +181,10 @@ public class Storage {
                         String timeFrame[] = data[1].split(" to ", 2);
                         bufferedWriter.write(" | " + timeFrame[0] + " | " + timeFrame[1].substring(0, timeFrame[1].length() - 1));
                     }
+                    if (Subtypes.contains("F")) {
+                        String timeFrame = (currentLine.split("needs: ", 2))[1];
+                        bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                    }
                 }
                 if ((currentTask.getType()).equals("E")) {
                     String timeFrame = (currentLine.split("at: ", 2))[1];
@@ -181,7 +194,6 @@ public class Storage {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }
-
             }
             bufferedWriter.close();
         } catch (IOException e) {

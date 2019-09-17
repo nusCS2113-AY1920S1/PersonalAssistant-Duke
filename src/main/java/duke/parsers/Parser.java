@@ -5,8 +5,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
@@ -43,8 +41,15 @@ public class Parser {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
-            System.out.println(description);
-            if (description.contains("/between")) {
+            if (description.contains("/needs")) {
+                try {
+                    String SplitString[] = description.split(" /needs ", 2);
+                    return new AddCommand(new ToDo(SplitString[0], SplitString[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
+                }
+            }
+            else if (description.contains("/between")) {
                 try {
                     String SplitString[] = description.split("/between", 2);
                     String SplitString2[] = SplitString[1].split(",", 2);
@@ -53,7 +58,6 @@ public class Parser {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
                 }
             }
-            System.out.println(description);
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {
@@ -78,21 +82,52 @@ public class Parser {
         } else if (command.equals("find")) {
             return new FindCommand(description);
         } else if (command.equals("delete")) {
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new DeleteCommand(index);
         } else if (command.equals("remindme")) {
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new RemindCommand(index);
         } else if (command.equals("findfreetime")){
-            int index = Integer.parseInt(description);
+            int index = 0;
+            try {
+                index = Integer.parseInt(description);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
             return new FindFreeTimeCommand(index);
         } else if (command.equals("snooze")){
-            int index1 = Integer.parseInt(description.split(" ",2)[0]);
-            int index2 = Integer.parseInt(description.split(" ",2)[1]);
+            int index1, index2;
+            try {
+                index1 = Integer.parseInt(description.split(" ", 2)[0]);
+                index2 = Integer.parseInt(description.split(" ", 2)[1]);
+            }
+            catch (NumberFormatException e){
+                throw new DukeException("Please enter a number");
+            }
+            if (index1 < 1 && index2 > 31 || index2 < 0 || index2 > 23){
+                throw new DukeException("Improper day and hour assignment");
+            }
             return new SnoozeCommand(index1,index2);
-        } else if (command.equals("schedule")) {
+        } else if (command.equals("schedule")){
             Date date = DateParser.parseDateDDMMYYObj(description);
             return new ScheduleCommand(date);
+        } else if (command.equals("tentative")){
+            return new TentativeCommand();
+        } else if (command.equals("confirm")){
+            return new ConfirmCommand();
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

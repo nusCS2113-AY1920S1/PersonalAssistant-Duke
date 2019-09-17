@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images
+:imagesDir: Images
 :stylesDir: stylesheets
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
@@ -18,7 +18,7 @@ Responsibilities: Project development
 '''
 
 === Chua Zong Wei
-image::Fractalisk.png[width="150", align="left"]
+image::fractalisk.png[width="150", align="left"]
 {empty}[https://github.com/Fractalisk[github]]
 
 Role: Developer +
@@ -27,7 +27,7 @@ Responsibilities: Project development
 '''
 
 === Ivan Andika
-image::GaryStu.png[width="150", align="left"]
+image::garystu.png[width="150", align="left"]
 {empty}[http://github.com/garystu[github]]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: Project development
 
 === Foo Chi Hen
 image::koushireo.png[width="150", align="left"]
-{empty}[http://github.com/m133225[github]]
+{empty}[http://github.com/koushireo[github]]
 
 Role: Developer +
 Responsibilities: Project development
