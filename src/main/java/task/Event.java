@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Events are tasks with a start and end time
+ * Events are tasks with a start and end time.
  */
 public class Event extends Task {
     protected Date dateTime;
@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param description task description
      * @param at task time period
      */
-    public Event (String description, String at) {
+    public Event(String description, String at) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
@@ -35,7 +35,7 @@ public class Event extends Task {
      * @param description
      * @param at
      */
-    public Event (String i, String description, String at) {
+    public Event(String i, String description, String at) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
@@ -53,7 +53,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string that is formatted for the text file
+     * Returns a string that is formatted for the text file.
      * @return String
      */
     @Override

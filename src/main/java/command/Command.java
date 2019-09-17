@@ -10,28 +10,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Abstract class from which all Commands are the extended from
+ * Abstract class from which all Commands are the extended from.
  */
-abstract public class Command {
+public abstract class Command {
     protected boolean isExit;
 
     /**
-     *
+     * Execute command logic.
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
-     * @throws DukeException
-     * @throws IOException
+     * @throws DukeException if Duke specific exception found
+     * @throws IOException if IO exception found
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {};
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {}
     public boolean isExit() {
         return this.isExit;
     }
 
     /**
-     *
-     * @param dateTime
-     * @return
+     * Check if date-time input is in valid format.
+     * @param dateTime date and time for some tasks
+     * @return true is input is valid
      */
     protected static boolean isValidDateTime(String dateTime) {
         SimpleDateFormat dateTimeFormat =  new SimpleDateFormat("d/M/yyyy HHmm");
