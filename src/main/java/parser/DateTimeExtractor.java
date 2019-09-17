@@ -1,6 +1,8 @@
 package parser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -11,10 +13,10 @@ import java.util.Date;
  */
 public class DateTimeExtractor {
 
-    private static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    private static Date dateEvent;
-    private static Date dateDeadline;
-    private static final Date dateError = new Date();
+    public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static LocalDateTime dateEvent;
+    private static LocalDateTime dateDeadline;
+    private static final LocalDateTime dateError = LocalDateTime.now();
 
     /**
      * This function appends the end time of an event to provide a standardised output of date and time.
@@ -24,14 +26,14 @@ public class DateTimeExtractor {
      * @throws ParseException The ParseException is called if the date or time format provided by the user is incorrect!
      *
      */
-    public static Date extractDateTime(String dateTimeFromUser, String command) throws ParseException {
+    public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
 
         if(command.equals("event")) {
-            dateEvent = (DATE_FORMATTER.parse(dateTimeFromUser));
+            dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
         }
         else if(command.equals("deadline")) {
-            dateDeadline = (DATE_FORMATTER.parse(dateTimeFromUser));
+            dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateDeadline;
         }
         // Allows the developer to know that a command other than deadline or event was passed to the function!

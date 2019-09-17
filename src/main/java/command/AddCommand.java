@@ -8,6 +8,8 @@ import task.Event;
 import task.TaskList;
 import task.Todo;
 import ui.Ui;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -20,9 +22,9 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private Date formattedToDate;
-    private Date formattedAtDate;
-    private Date formattedFromDate;
+    private LocalDateTime formattedToDate;
+    private LocalDateTime formattedAtDate;
+    private LocalDateTime formattedFromDate;
     /**
      * This AddCommand function is used to assign the different parameters required when adding a task.
      *
@@ -32,7 +34,8 @@ public class AddCommand extends Command {
      * @param toDate string contains the formatted user input that has the desired date time format.
      * @param fromDate string contains the formatted user input that has the desired date time format.
      */
-    public AddCommand(String command, String taskFeatures, Date atDate, Date toDate, Date fromDate) {
+    public AddCommand(String command, String taskFeatures,
+                       LocalDateTime atDate, LocalDateTime toDate, LocalDateTime fromDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.formattedFromDate = fromDate;
