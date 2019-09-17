@@ -11,8 +11,9 @@ public class Duke {
     }
 
     /**
-     * Main application starts running here.
-     * @param args - input of array of strings from console
+     * This is the main method which runs everything.
+     * @param args Takes in a string argument.
+     * @throws IOException Throws the exception for input/output.
      */
     public static void main(String[] args) throws IOException {
         Terminal.greetingMessage();

@@ -123,7 +123,9 @@ public class Terminal {
     }
 
     /**
-     * Show the list of tasks by keywords.
+     * Shows the search task according to the tasklist.
+     * @param tasksList The Tasklist which contains the tasks.
+     * @param keyword The word being searched.
      */
     public static void showSearchTask(TaskList tasksList, String keyword) {
         StringBuilder output = new StringBuilder("\t Here are the matching tasks in your list:\n");
