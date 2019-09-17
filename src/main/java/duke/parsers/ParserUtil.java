@@ -8,6 +8,8 @@ import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.Todo;
 
+import java.time.LocalDateTime;
+
 /**
  * Parser for utility functions.
  */
@@ -69,15 +71,23 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the userInput and return a new DoWithin constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new DoWithin object.
+     */
     protected static DoWithin createWithin(String userInput) throws DukeException {
-        String[] withinDetails = userInput.substring("after".length()).strip().split("between|and");
+        String[] withinDetails = userInput.substring("within".length()).strip().split("between|and");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
         if (withinDetails[0].strip().isEmpty()) {
             throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
-        return new DoWithin(withinDetails[0].strip() , ParserTimeUtil.parseStringToDate(withinDetails[1].strip()) , ParserTimeUtil.parseStringToDate(withinDetails[2].strip()));
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
+        return new DoWithin(withinDetails[0].strip(), start, end);
     }
 
     /**
