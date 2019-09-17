@@ -33,11 +33,11 @@ public class AddCommand extends Command {
                 String[] getDate2 = getDate1[1].split("/to ");
                 Date date1 = simpleDateFormat.parse(getDate2[0]);
                 Date date2 = simpleDateFormat.parse(getDate2[1]);
-                String formattedDate1 = simpleDateFormat.format(date1);
-                String formattedDate2 = simpleDateFormat.format(date2);
                 if (InvalidDuration(date1, date2)) {
                     throw new DukeException("OOPS!!! The period of this event is invalid.");
                 }
+                String formattedDate1 = simpleDateFormat.format(date1);
+                String formattedDate2 = simpleDateFormat.format(date2);
                 Task t = new Periods(getDate1[0].replaceFirst("period ", ""),
                         formattedDate1, formattedDate2);
                 tasks.addTask(t);
@@ -104,7 +104,7 @@ public class AddCommand extends Command {
                     Date startDate = simpleDateFormat.parse(startendDate[0]);
                     Date endDate = simpleDateFormat.parse(startendDate[1]);
                     if (InvalidDuration(startDate, endDate)) {
-                        throw new DukeException("OOPS!!! The period(s) of " + description + " is/are invalid.");
+                        throw new DukeException("OOPS!!! The period of this event is invalid.");
                     }
                     Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
                     dates.add(tempDate);
