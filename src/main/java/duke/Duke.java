@@ -6,26 +6,25 @@ import java.io.File;
 import java.io.IOException;
 
 public class Duke {
-    private static String savedDataPath1 = "./data/saved_data.txt";
-    private static String savedDataPath2 = "./data/tentative.txt";
+    private static String savedDataPath = "./data/saved_data.txt";
     private static Ui ui;
-    private static Storage storage1;
+    private static Storage storage;
     private static TaskList tasks;
 
     /**
      * Constructor for main class to initialise the settings.
      */
-    private Duke(String filePath1, String filePath2) throws DukeException {
+    private Duke(String filePath) throws DukeException {
         ui = new Ui();
         try {
-            storage1 = new Storage(filePath1);
-            tasks = new TaskList(storage1.load());
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             new File("./data").mkdir();
             File file1 = new File("./data/saved_data.txt");
             try {
                 file1.createNewFile();
-                storage1 = new Storage(filePath1);
+                storage = new Storage(filePath);
                 tasks = new TaskList();
             } catch (IOException error) {
                 ui.showLoadingError();
@@ -44,7 +43,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage1);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -58,7 +57,7 @@ public class Duke {
      * Program Start.
      */
     public static void main(String[] args) throws DukeException {
-        new Duke(savedDataPath1, savedDataPath2).run();
+        new Duke(savedDataPath).run();
     }
 
 }
