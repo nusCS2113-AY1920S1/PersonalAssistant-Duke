@@ -51,4 +51,15 @@ public class Todo extends Task {
     public String export() {
         return "T | " + super.export() + super.getDescription().length() + " | " + super.getDescription();
     }
+
+    public static void checkDuplicateTodo(String currentDesc, TaskList tasks) throws DukeException{
+        for (int i = 1; i <= tasks.size(); i++) {
+            if (tasks.get(i) instanceof Todo) {
+                String tasksDesc = tasks.get(i).getDescription();
+                if (tasksDesc.equals(currentDesc)) {
+                    throw new DukeException("Todo task conflict!");
+                }
+            }
+        }
+    }
 }

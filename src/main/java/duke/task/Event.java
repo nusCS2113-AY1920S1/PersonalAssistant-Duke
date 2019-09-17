@@ -172,4 +172,38 @@ public class Event extends Task {
     public LocalDateTime getDateTime() {
         return this.at;
     }
+
+    public static void checkDuplicateEvent(String currentDesc,
+            TaskList tasks, LocalDateTime currentTaskDate) throws DukeException {
+        for (int i = 1; i <= tasks.size(); i++) {
+            if (tasks.get(i) instanceof Event) {
+                String tasksDesc = tasks.get(i).getDescription();
+                LocalDateTime tasksDate = ((Event) tasks.get(i)).getDateTime();
+                if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
+                    throw new DukeException("Event task conflict!");
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if entered event date is unique.
+     *
+     * @param tasks The task list.
+     * @return True if event date is unique.
+     * @throws DukeException If event date is not unique.
+     */
+    public static void checkEventDateIsUnique(TaskList tasks, Task task) throws DukeException {
+        if (task instanceof Event) {
+            LocalDateTime currentDate = ((Event) task).getDateTime();
+            for (int i = 1; i <= tasks.size(); i++) {
+                if (tasks.get(i) instanceof Event) {
+                    LocalDateTime taskListDate = ((Event) tasks.get(i)).getDateTime();
+                    if (currentDate.isEqual(taskListDate)) {
+                        throw new DukeException("Event scheduling conflict!");
+                    }
+                }
+            }
+        }
+    }
 }

@@ -27,27 +27,7 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    /**
-     * Checks if entered event date is unique.
-     *
-     * @param tasks The task list.
-     * @return True if event date is unique.
-     * @throws DukeException If event date is not unique.
-     */
-    public boolean checkEventDateIsUnique(TaskList tasks) throws DukeException {
-        if (task instanceof Event) {
-            LocalDateTime currentDate = ((Event) task).getDateTime();
-            for (int i = 1; i <= tasks.size(); i++) {
-                if (tasks.get(i) instanceof Event) {
-                    LocalDateTime taskListDate = ((Event) tasks.get(i)).getDateTime();
-                    if (currentDate.isEqual(taskListDate)) {
-                        throw new DukeException("Event scheduling conflict!");
-                    }
-                }
-            }
-        }
-        return true;
-    }
+
 
     /**
      * Checks if task is duplicate and already exist in TaskList.
@@ -56,47 +36,17 @@ public class AddCommand extends Command {
      * @return True if task is not a duplicate.
      * @throws DukeException If task is duplicate and already exist in TaskList.
      */
-    public boolean checkDuplicateTask(TaskList tasks) throws DukeException {
+    public void checkDuplicateTask(TaskList tasks) throws DukeException {
         String currentDesc = task.getDescription();
         if (task instanceof Todo) {
-            for (int i = 1; i <= tasks.size(); i++) {
-                if (tasks.get(i) instanceof Todo) {
-                    String tasksDesc = tasks.get(i).getDescription();
-                    if (tasksDesc.equals(currentDesc)) {
-                        throw new DukeException("Todo task conflict!");
-                    }
-                }
-            }
-
+            Todo.checkDuplicateTodo(currentDesc, tasks);
         } else if (task instanceof Deadline) {
             LocalDateTime currentTaskDate = ((Deadline) task).getDateTime();
-            if (task instanceof Deadline) {
-                for (int i = 1; i <= tasks.size(); i++) {
-                    if (tasks.get(i) instanceof Deadline) {
-                        String tasksDesc = tasks.get(i).getDescription();
-                        LocalDateTime tasksDate = ((Deadline) tasks.get(i)).getDateTime();
-                        if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
-                            throw new DukeException("Deadline task conflict!");
-                        }
-                    }
-                }
-            }
-
+            Deadline.checkDuplicateDeadline(currentDesc, tasks, currentTaskDate);
         } else if (task instanceof Event) {
             LocalDateTime currentTaskDate = ((Event) task).getDateTime();
-            if (task instanceof Event) {
-                for (int i = 1; i <= tasks.size(); i++) {
-                    if (tasks.get(i) instanceof Event) {
-                        String tasksDesc = tasks.get(i).getDescription();
-                        LocalDateTime tasksDate = ((Event) tasks.get(i)).getDateTime();
-                        if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
-                            throw new DukeException("Event task conflict!");
-                        }
-                    }
-                }
-            }
+            Event.checkDuplicateEvent(currentDesc, tasks, currentTaskDate);
         }
-        return true;
     }
 
     /**
@@ -108,7 +58,7 @@ public class AddCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         checkDuplicateTask(tasks);
-        checkEventDateIsUnique(tasks);
+        Event.checkEventDateIsUnique(tasks, task);
         tasks.add(task);
         ui.printMessage("Got it. I've added this task:");
         ui.printMessage(task.toString());

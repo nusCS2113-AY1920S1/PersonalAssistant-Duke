@@ -172,4 +172,17 @@ public class Deadline extends Task {
     public LocalDateTime getDateTime() {
         return this.by;
     }
+
+    public static void checkDuplicateDeadline(String currentDesc,
+            TaskList tasks, LocalDateTime currentTaskDate) throws DukeException{
+        for (int i = 1; i <= tasks.size(); i++) {
+            if (tasks.get(i) instanceof Deadline) {
+                String tasksDesc = tasks.get(i).getDescription();
+                LocalDateTime tasksDate = ((Deadline) tasks.get(i)).getDateTime();
+                if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
+                    throw new DukeException("Deadline task conflict!");
+                }
+            }
+        }
+    }
 }
