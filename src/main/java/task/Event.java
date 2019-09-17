@@ -21,11 +21,11 @@ public class Event extends Task implements Serializable{
      * 
      * @return the date
      */
-
     @Override
     public Date getDate() {
       return date;
     }
+    
     /**
      * This override of the toString function of the task class etches the different portions of the user input into a
      * single string.

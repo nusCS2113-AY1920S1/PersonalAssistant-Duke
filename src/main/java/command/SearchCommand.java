@@ -28,7 +28,7 @@ public class SearchCommand extends Command {
     ArrayList<Date> dateList = new ArrayList<Date>();
     boolean found = false;
     for (Task item : tasks.getTasks()) {
-      if(item.getClass() == task.Event.class || item.getClass() == task.Deadline.class) {
+      if(item.getClass() == task.Event.class) {
         dateList.add(item.getDate());
       }
     }
