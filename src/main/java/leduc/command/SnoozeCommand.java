@@ -1,6 +1,5 @@
 package leduc.command;
 
-import leduc.Parser;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -26,25 +25,22 @@ public class SnoozeCommand extends Command{
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
      * @throws NonExistentTaskException Exception caught when the task does not exist
-     * @throws SnoozeTypeException Exception caught when the task is not a deadline task
+     * @throws DeadlineTypeException Exception caught when the task is not a deadline task
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage, Parser parser) throws NonExistentTaskException, SnoozeTypeException {
+    public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException, DeadlineTypeException, FileException {
         int index = Integer.parseInt(user.substring(7)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
-            throw new NonExistentTaskException(ui);
+            throw new NonExistentTaskException();
         }
         else { // the tasks exist
             Task snoozeTask = tasks.get(index);
             if (!(snoozeTask instanceof DeadlinesTask)){
-                throw new SnoozeTypeException(ui);
+                throw new DeadlineTypeException();
             }
             DeadlinesTask snoozeDeadlineTask = (DeadlinesTask) snoozeTask;
             snoozeDeadlineTask.snoozeDeadline();
-            String text = storage.getSnoozeTaskString(snoozeDeadlineTask,index,ui,tasks.size());
-            //rewriter of file by replacing the whole file
-            storage.rewriteFile(text,ui);
+            storage.save(tasks.getList());
             ui.display("\t Noted. I've snoozed this task: \n" +
                     "\t\t "+snoozeDeadlineTask.getTag() + snoozeDeadlineTask.getMark() + " " + snoozeDeadlineTask.getTask()+
                     " by:" + snoozeDeadlineTask.getDeadlines() + "\n");

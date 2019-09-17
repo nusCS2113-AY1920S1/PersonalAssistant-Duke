@@ -48,8 +48,25 @@ public class DeadlinesTask extends Task {
     /**
      * Allows to snooze the deadline date
      */
-    public void snoozeDeadline(){
+    public void snoozeDeadline() {
         this.deadlines.snoozeLocalDateTime();
+    }
+
+     /**
+     * to know if whether is a deadline task of not
+     * @return true
+     */
+    @Override
+    public boolean isDeadline(){
+        return true;
+    }
+
+    /**
+     * visualize a deadline task
+     * @return the string format to see a deadline task
+     */
+    public String toString(){
+        return super.toString() + " by: " + getDeadlines();
     }
 }
 

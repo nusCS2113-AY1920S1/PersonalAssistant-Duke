@@ -1,198 +1,100 @@
 package leduc.storage;
 
+import leduc.Date;
 import leduc.Parser;
 import leduc.Ui;
+import leduc.exception.FileException;
 import leduc.exception.NonExistentDateException;
 import leduc.task.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 /**
  * Represents a leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    private String filePath;
-    private WriteFile appendWrite;
+    private File file;
 
     /**
      * Constructor of leduc.storage.Storage
-     * @param filePath String representing the path of the file
+     * @param file String representing the path of the file
      */
-    public Storage(String filePath){
-        this.filePath = filePath;
+    public Storage(String file){
+        this.file = new File(file);
+        try {
+            this.file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Returns the tasks list initialized with the data in the data file.
-     * @param parser leduc.Parser which deals with making sense of the user command.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     * @return the tasks list initialized with the date in the data file.
-     * @throws IOException Exception caught when the error occurred during the reading of the data file.
-     * @throws NonExistentDateException Exception caught when the date of an event or deadline task present in the data file does not exist.
+     * read the file and write all the task to an array of task.
+     * if the file is empty, the array is empty too
+     * @return an array of task
+     * @throws FileException thrown when there is a reading error of the file
      */
-    public List<Task> load(Parser parser, Ui ui) throws IOException, NonExistentDateException { // load the initial data file
-        ReadFile rFile = new ReadFile(this.filePath,ui);// reader for initialization of tasks list
-        BufferedReader bufferedReader = rFile.getBufferedReader();
-        List<Task> tasks = new ArrayList<>();
-        String readLine = bufferedReader.readLine();
-        String[] line;
-        String mark = "";
-        while (readLine != null && !readLine.isBlank()) {
-            line = readLine.split("//");
-            mark = line[2];
-            switch (line[1]) {
-                case "[T]":
-                    tasks.add(new TodoTask(line[3], mark));
-                    break;
-                case "[D]":
-                    tasks.add(new DeadlinesTask(line[3], mark, parser.stringToDate(line[4].substring(4).trim(),ui)));
-                    break;
-                case "[E]":
-                    tasks.add(
-                            new EventsTask(line[3], mark, parser.stringToDate(line[4].substring(4),ui), parser.stringToDate(line[5],ui)));
-            }
-            readLine = bufferedReader.readLine();
+    public List<Task> load() throws FileException { // load the initial data file
+        Scanner sc = null;
+        try {
+            sc = new Scanner(this.file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new FileException();
         }
-        rFile.freeBufferedReader();
+        ArrayList<Task> tasks = new ArrayList<>();
+        while (sc.hasNext()) {
+            String line = sc.nextLine();
+            String[] tokens = line.split("//");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+            switch (tokens[0]){
+                case "T" :
+                    tasks.add(new TodoTask(tokens[2], tokens[1].trim()));
+                    break;
+                case "D" :
+                    tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
+                    break;
+                case "E":
+                    tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter))));
+                    break;
+            }
+        }
         return tasks;
     }
 
     /**
-     * Getter of the path of the file.
-     * @return String representing the path of the file.
+     * write all task to the files
+     * @param tasks all the tasks that have to be written to the file
+     * @throws FileException thrown when there is writing problem to the files
      */
-    public String getFilePath() {
-        return filePath;
-    }
+    public void save(ArrayList<Task> tasks) throws FileException {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(this.file);
+            try {
 
-    /**
-     * Getter with returns the writer of file.
-     * @return the writer of file.
-     */
-    public WriteFile getAppendWrite() {
-        return appendWrite;
-    }
-
-    /**
-     * Create a new writer of file for the fields of leduc.storage.Storage class.
-     * @param file String representing the path of the file.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     */
-    public void getNewAppendWrite(String file, Ui ui){
-        this.appendWrite = new WriteFile(file,true,ui);
-    }
-
-    /**
-     * Returns a String representing the data of the data file without the task which need to be removed.
-     * @param removedTask task to remove from the tasks list and data file.
-     * @param index the position of the removed task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     * @param tasksSize size of the tasks list after removed the task.
-     * @return a String representing the data of the data file without the task which need to be removed.
-     */
-    public String getDeleteTaskString(Task removedTask, int index , Ui ui, int tasksSize){
-        String text="" , line ="", oldLine =(index+1)+"//"+removedTask.getTag() ,
-                newLine ="";
-        ReadFile readFile = new ReadFile(this.filePath,ui);// reader to read before change the data file
-        BufferedReader bufferedR = readFile.getBufferedReader();
-        try{
-            for (int i = 0 ; i< tasksSize+1 ; i++){ // one task have been just removed
-                line = bufferedR.readLine();
-                if (!line.contains(oldLine)){
-                    if (i > index ) { // we should minus 1 to each line after the line removed
-                        line = line.replace( (i+1) +"//", (i)+"//"  ) + "\n";
-                        text += line ;
-                    }
-                    else{
-                        text+= line +"\n";
+                for (Task task : tasks){
+                    if (task.isTodo()) {
+                        fileWriter.write("T//"+ task.getMark() +"//" + task.getTask() + "\n");
+                    } else if (task.isDeadline()) {
+                        fileWriter.write("D//"+ task.getMark() +"//" + task.getTask() + "//" + ((DeadlinesTask) task).getDeadlines().toString()+ "\n");
+                    } else if (task.isEvent()) {
+                        fileWriter.write("E//"+ task.getMark() +"//" + task.getTask() + "//" + ((EventsTask) task).getDateFirst().toString() + "//" + ((EventsTask) task).getDateSecond().toString() + "\n");
                     }
                 }
+            } finally {
+                fileWriter.close();
             }
         }
         catch(IOException e){
-            ui.display("\t IOException: \n\t\t error when reading the whole file");
+            e.printStackTrace();
+            throw new FileException();
         }
-        readFile.freeBufferedReader(); //close the reader
-        return text;
-    }
-
-    /**
-     * Returns a String representing the data of the data file with the changement of the task which need to be snoozed.
-     * @param snoozedTask the deadline task to be snoozed
-     * @param index the position of the snoozed task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     * @param tasksSize size of the tasks list after removed the task.
-     * @return a String representing the data of the data file with the changement of the task which need to be snoozed.
-     */
-    public String getSnoozeTaskString(DeadlinesTask snoozedTask, int index , Ui ui, int tasksSize){
-        String text="" , line ="", oldLine =(index+1)+"//"+snoozedTask.getTag();
-        ReadFile readFile = new ReadFile(this.filePath,ui);// reader to read before change the data file
-        BufferedReader bufferedR = readFile.getBufferedReader();
-        try{
-            for (int i = 0 ; i< tasksSize ; i++){ // one task have been just removed
-                line = bufferedR.readLine();
-                if (!line.contains(oldLine)){
-                        text+= line +"\n";
-                }
-                else{
-                    line = line.replace( line, (index +1) + "//" + snoozedTask.getTag() + "//" +
-                            snoozedTask.getMark() + "//" + snoozedTask.getTask() + "//" + " by:"
-                            +snoozedTask.getDeadlines()) + "\n";
-                    text += line ;
-                }
-            }
-        }
-        catch(IOException e){
-            ui.display("\t IOException: \n\t\t error when reading the whole file");
-        }
-        readFile.freeBufferedReader(); //close the reader
-        return text;
-    }
-
-    /**
-     * Returns a String representing the data of the data file after mark done to the specific task.
-     * @param tasks tasks list.
-     * @param index the position of the removed task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     * @return a String representing the data of the data file after mark done to the specific task.
-     */
-    public String getDoneString(TaskList tasks , int index, Ui ui){ //returns String by replacing the done task
-        Task task = tasks.get(index);
-        String text="" , line, oldLine =(index+1)+"//"+task.getTag()+"//"+"[✗]" ,
-                newLine =(index+1)+"//"+task.getTag()+"//"+task.getMark();
-        ReadFile readFile = new ReadFile(this.filePath,ui);// reader to read before change the data file
-        BufferedReader bufferedR = readFile.getBufferedReader();
-        try{
-            while ((line = bufferedR.readLine()) != null) {
-                if (line.contains(oldLine)){
-                    line = line.replace(oldLine,newLine);
-                }
-                text += line + "\n";
-            }
-        }
-        catch(IOException e){
-            ui.display("\t IOException: \n\t\t error when reading the whole file");
-        }
-        readFile.freeBufferedReader(); //close the reader
-        return text;
-    }
-
-    /**
-     * Allows to rewrite the whole file ( write the String text to the file).
-     * @param text String representing the text to write on the file.
-     * @param ui leduc.Ui which deals with the interactions with the user.
-     */
-    public void rewriteFile(String text, Ui ui){
-        WriteFile rwFile = new WriteFile(this.filePath,false,ui);
-        try{
-            rwFile.write(text);
-        }
-        catch (IOException e){
-            ui.display("\t IOException: \n\t\t error when writing the whole file");
-        }
-        rwFile.freeBufferedWriter();//free the writer
     }
 }

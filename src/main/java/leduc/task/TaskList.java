@@ -1,9 +1,6 @@
 package leduc.task;
 
-import leduc.task.DeadlinesTask;
-import leduc.task.EventsTask;
-import leduc.task.Task;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,17 +58,11 @@ public class TaskList {
      */
     public String displayOneElementList(int index){
         Task t = this.tasks.get(index);
-        String result = "\t "+ (index+1) + ". " + t.getTag() +t.getMark() + " " +t.getTask();
-        if (t instanceof DeadlinesTask){
-            result +=  " by:" + ((DeadlinesTask) t).getDeadlines() + "\n";
-        }
-        else if ( t instanceof EventsTask){
-            result +=  " at:" +
-                    ((EventsTask) t).getDateFirst() + " - " + ((EventsTask) t).getDateSecond() + "\n";
-        }
-        else {
-            result += "\n";
-        }
+        String result = "\t "+ (index+1) + ". " + t.toString() + "\n";
         return result;
+    }
+
+    public ArrayList<Task> getList(){
+        return (ArrayList<Task>) this.tasks;
     }
 }
