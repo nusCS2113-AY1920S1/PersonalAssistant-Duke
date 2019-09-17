@@ -14,8 +14,13 @@
 
 ## Site Map
 
+User Guide
+
+Developer Guide
 
 [About Us](https://github.com/AY1920S1-CS2113T-W12-3/main/blob/master/docs/AboutUs.adoc)
+
+Contact Us
 
 
 ## Acknowledgements
