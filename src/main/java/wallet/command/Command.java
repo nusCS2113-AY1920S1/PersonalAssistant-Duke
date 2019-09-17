@@ -183,9 +183,8 @@ public class Command {
             } catch (IndexOutOfBoundsException e){
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
             }
-
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         return isExit;
