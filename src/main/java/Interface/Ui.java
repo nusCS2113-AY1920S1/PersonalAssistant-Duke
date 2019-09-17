@@ -93,6 +93,11 @@ public class Ui {
         }
     }
 
+    public String showFreeTimes(String message){
+
+        return ("You are available at: \n" + message);
+    }
+
     /**
      * Displays the error message if a file is not found.
      * @param e Exception that was caught

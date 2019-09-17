@@ -1,4 +1,5 @@
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
+import Tasks.Event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

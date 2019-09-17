@@ -1,5 +1,14 @@
 package Tasks;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.time.*;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Seconds;
 
 /**
  * To keep track of the list of task input by user.
@@ -85,5 +94,59 @@ public class TaskList {
             }
         }
         return temp;
+    }
+
+    /**
+     * This method retrieves the earliest possible block period
+     * @param duration The period indicated by the user
+     * @return This returns a string in the format "datetime until datetime"
+     * @throws ParseException
+     */
+    public String findFreeTimes(String duration) throws ParseException {
+        int intDuration = Integer.parseInt(duration);
+
+        //Date pattern formats
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+
+        Date date = new Date();
+        DateTime current= new DateTime(date);
+        DateTime currentPlusDuration = current.plusHours(intDuration);
+        String strCurrent = dateFormat.format(date);
+        String strCurrentPlusDuration = dateFormat.format(currentPlusDuration.toDate());
+
+        if(list.size() == 0) return (strCurrent + " until " + strCurrentPlusDuration);
+        //removes duplicated values
+        Set<Date> dateTime = new HashSet<Date>();
+        dateTime.add(date);
+
+        for (Task task: list){
+            Date dateFromList = dateFormat.parse(task.getDateTime()); // string -> date
+
+            if(!task.getDateTime().equals("void") && dateFromList.compareTo(date) > 0) //check if date from list after current(getDateTime) date time
+            dateTime.add(dateFromList);
+        }
+        //sorts set
+        Set<Date> sortedDateTime = new TreeSet<Date>(dateTime);
+
+        Iterator i = sortedDateTime.iterator();
+        i.next();
+        for(Date set: sortedDateTime){
+            if(i.hasNext()) {
+                DateTime dt1 = new DateTime((Date) i.next());
+                DateTime dt2 = new DateTime(set);
+                long diffHours = Hours.hoursBetween(dt2, dt1).getHours();
+
+                if (diffHours >= (long)intDuration){
+                    DateTime dt3 = dt2.plusHours(intDuration);
+                    return dateFormat.format(set) + " until " + dateFormat.format(dt3);
+                }
+            }
+        }
+        DateTime dt2 = new DateTime(((TreeSet<Date>) sortedDateTime).last());
+        DateTime dt3 = dt2.plusHours(intDuration);
+
+        return dateFormat.format(dt2.toDate()) + " until " + timeFormat.format(dt3.toDate());
     }
 }
