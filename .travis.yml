@@ -1,6 +1,4 @@
 language: java
-script:
-  - ./gradlew build --scan -s
 
 matrix:
   include:
