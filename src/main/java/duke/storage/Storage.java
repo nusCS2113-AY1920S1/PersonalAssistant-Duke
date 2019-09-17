@@ -3,6 +3,10 @@ package duke.storage;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.parsers.ParserStorageUtil;
+import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
+import duke.tasks.Event;
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.TaskWithDates;
 import duke.tasks.UniqueTaskList;
@@ -48,7 +52,15 @@ public class Storage {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
+                Task newTask = ParserStorageUtil.createTaskFromStorage(s.nextLine());
+                if (newTask instanceof RecurringTask) {
+                    ((RecurringTask) newTask).updateRecurringTask();
+                }
+                if (newTask instanceof Deadline || newTask instanceof DoWithin || newTask instanceof Event
+                        || newTask instanceof RecurringTask) {
+                    tasksWithDate.add(newTask);
+                }
+                newTasks.add(newTask);
             }
             s.close();
         } catch (DukeException e) {
