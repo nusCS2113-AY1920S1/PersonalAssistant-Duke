@@ -43,7 +43,7 @@ public abstract class AddCommand extends Command{
     public boolean splitDescTime() {
         String[] data = taskDescription.split(dateTrigger + " "); // data[0] os description, data[1] is the time
         try {
-            time = Time.readTime(data[1]);
+            time = Time.readDateTime(data[1]);
             taskDescription = data[0];
             return true;
         } catch(ArrayIndexOutOfBoundsException e) {
@@ -52,9 +52,7 @@ public abstract class AddCommand extends Command{
             Ui.printMsg(msg);
             return false;
         }  catch(DateTimeParseException e) {
-            ArrayList<String> msg = new ArrayList<String>();
-            msg.add("Please use the format 'DD/MM/YYYY HHmm'!" );
-            Ui.printMsg(msg);
+            Ui.printDateTimeFormatError();
             return false;
         }
     }

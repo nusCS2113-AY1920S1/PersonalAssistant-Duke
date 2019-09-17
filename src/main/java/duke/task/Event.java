@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
-    protected LocalDateTime at;
-
     /**
      * Creates an instance with specified task description and due date.
      * @param description String of what the task entails.
@@ -17,7 +15,7 @@ public class Event extends Task {
     public Event(String description, LocalDateTime date) {
         super(description);
         type = 'E';
-        this.at = date;
+        this.date = date;
     }
 
     /**
@@ -26,8 +24,8 @@ public class Event extends Task {
      * @return string of when the task is due in the format '(at 11/11/1111 0000)'.
      */
     @Override
-    public String getDate() {
-        String atStr = timeToString(at);
+    public String getDateStr() {
+        String atStr = timeToString(date);
         return "(at: " + atStr + ")";
     }
 
@@ -38,7 +36,7 @@ public class Event extends Task {
      */
     @Override
     public String formatDateSave() {
-        String atStr = timeToString(at);
+        String atStr = timeToString(date);
         return " | " + atStr;
     }
 }

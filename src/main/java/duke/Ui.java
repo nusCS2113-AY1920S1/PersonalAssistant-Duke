@@ -57,4 +57,16 @@ public class Ui {
     public static void showLine() {
         System.out.println("    ____________________________________________________________");
     }
+
+    public static void printDateTimeFormatError() {
+        ArrayList<String> msg = new ArrayList<String>();
+        msg.add("Please use the format 'DD/MM/YYYY HHmm'!" );
+        Ui.printMsg(msg);
+    }
+
+    public static void printDateFormatError() {
+        ArrayList<String> msg = new ArrayList<String>();
+        msg.add("Please use the format 'DD/MM/YYYY'!" );
+        Ui.printMsg(msg);
+    }
 }
