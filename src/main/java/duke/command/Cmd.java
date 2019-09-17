@@ -37,6 +37,11 @@ public enum Cmd {
             return new NewDeadlineCommand();
         }
     },
+    RECUR("recurring") {
+        public Command getCommand() {
+            return new NewRecurringTaskCommand();
+        }
+    },
     DEL("delete") {
         public Command getCommand() {
             return new DeleteCommand();

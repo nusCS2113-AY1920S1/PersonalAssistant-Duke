@@ -5,8 +5,8 @@ import duke.exception.DukeException;
 
 // Commands that take only one argument
 public abstract class ArgCommand extends Command {
-    String arg;
-    String emptyArgMsg;
+    String arg; //argument supplied to the command
+    String emptyArgMsg; //error message if the argument is empty
 
     /**
      * Parse the input string entered by the user.
