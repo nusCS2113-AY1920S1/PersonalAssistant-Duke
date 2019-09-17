@@ -3,4 +3,4 @@ T|1|new things
 R|1|meet Christian|10/05/2019 1234
 R|0|meet Christian|11/05/2019 1234
 R|1|meet Christian|12/05/2019 1234
-A|1|uhh|new things
+A|0|swim|new things
