@@ -1,6 +1,9 @@
 package leduc.task;
 
 import leduc.Date;
+import leduc.exception.PostponeDeadlineException;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a deadline Task.
@@ -67,6 +70,15 @@ public class DeadlinesTask extends Task {
      */
     public String toString(){
         return super.toString() + " by: " + getDeadlines();
+    }
+
+    public void postponeDeadline(LocalDateTime d) throws PostponeDeadlineException {
+        if (d.isBefore(this.deadlines.getD())){
+            throw new PostponeDeadlineException();
+        }
+        else{
+            this.deadlines.setD(d);
+        }
     }
 }
 

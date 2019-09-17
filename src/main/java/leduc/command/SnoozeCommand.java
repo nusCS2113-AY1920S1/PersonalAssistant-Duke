@@ -35,7 +35,7 @@ public class SnoozeCommand extends Command{
         }
         else { // the tasks exist
             Task snoozeTask = tasks.get(index);
-            if (!(snoozeTask instanceof DeadlinesTask)){
+            if (!snoozeTask.isDeadline()){
                 throw new DeadlineTypeException();
             }
             DeadlinesTask snoozeDeadlineTask = (DeadlinesTask) snoozeTask;

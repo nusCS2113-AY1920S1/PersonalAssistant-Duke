@@ -25,6 +25,14 @@ public class Date {
         this.d = this.d.plusMinutes(30);
     }
 
+    public void setD( LocalDateTime d){
+        this.d = d;
+    }
+
+    public LocalDateTime getD(){
+        return this.d;
+    }
+
     /**
      * Returns a String representing a date.
      * @return a String representation of date.
@@ -35,4 +43,6 @@ public class Date {
         String dateFormatted = this.d.format(formatters);
         return  dateFormatted; //no need secondes and time zone
     }
+
+
 }
