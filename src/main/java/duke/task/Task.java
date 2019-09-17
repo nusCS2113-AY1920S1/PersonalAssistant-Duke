@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class Task {
     private final String description;
-    boolean done;
+    private boolean done;
     private final LocalDate date;
 
     /**
@@ -26,14 +26,14 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markDone() {
+    void markDone() {
         done = true;
     }
 
     /**
      * Marks the task as not done.
      */
-    public void markUnDone() {
+    void markUnDone() {
         done = false;
     }
 
