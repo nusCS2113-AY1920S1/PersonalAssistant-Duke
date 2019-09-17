@@ -16,7 +16,7 @@ public class FixedDurationTask extends Task {
         super(description);
         super.symbol = "FDT";
         super.setDateTime(date);
-        super.setHour(hour);
-        super.setMinute(minute);
+        super.setDurationHour(hour);
+        super.setDurationMinute(minute);
     }
 }

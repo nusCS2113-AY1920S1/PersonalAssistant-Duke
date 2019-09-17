@@ -16,8 +16,8 @@ public abstract class Task implements Serializable {
     private Date dateTime;
     private String taskType;
     private String description;
-    private int hour;
-    private int minute;
+    private int durationHour;
+    private int durationMinute;
     private boolean hasReminder;
 
     //----------------------->
@@ -62,9 +62,9 @@ public abstract class Task implements Serializable {
         return dateTime;
     }
 
-    public int getHour() { return hour; }
+    public int getDurationHour() { return durationHour; }
 
-    public int getMinute() { return minute; }
+    public int getDurationMinute() { return durationMinute; }
 
     public boolean isHasReminder() {
         return hasReminder;
@@ -90,9 +90,9 @@ public abstract class Task implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public void setHour(int hour) { this.hour = hour; }
+    public void setDurationHour(int durationHour) { this.durationHour = durationHour; }
 
-    public void setMinute(int minute) { this.minute = minute; }
+    public void setDurationMinute(int durationMinute) { this.durationMinute = durationMinute; }
 
     public void setHasReminder() {
         this.hasReminder = true;
