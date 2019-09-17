@@ -5,7 +5,10 @@ import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
+import duke.task.Todo;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Represents a command class to add a task. The AddCommand class
  * extends from the Command class to represent user instruction
- * to add a new ToDo, Deadline or Event
+ * to add a new ToDo, FixedDurationTask, Deadline or Event
  * task to the TaskList.
  */
 public class AddCommand extends Command {
@@ -58,8 +61,11 @@ public class AddCommand extends Command {
             String userAnswer;
 
             for (Task t : taskList) {
-                if (t.getDate().equals(task.getDate()) && !t.isDone()) {
-                    isClash = true;
+                if (t instanceof Deadline || t instanceof Event)
+                {
+                    if (t.getDateTime().equals(task.getDateTime()) && !t.isDone()) {
+                        isClash = true;
+                    }
                 }
             }
 
