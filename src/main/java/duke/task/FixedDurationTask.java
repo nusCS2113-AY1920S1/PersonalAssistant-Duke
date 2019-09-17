@@ -39,6 +39,8 @@ public class FixedDurationTask extends Task {
                 + " | "
                 + this.description
                 + " | "
+                + this.duration
+                + " | "
                 + this.isRecurring;
     }
 }
