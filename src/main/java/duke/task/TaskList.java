@@ -186,9 +186,21 @@ public class TaskList {
             throws IndexOutOfBoundsException, DukeException {
         char typeOfTask = tasks.get(taskNumber).toString().charAt(1);
         if (typeOfTask == 'D' || typeOfTask == 'E') {
-            tasks.get(taskNumber).reschedule(rescheduleDate);
+            try {
+                Deadline.checkDeadlineIsAfterCurrent(rescheduleDate);
+                tasks.get(taskNumber).reschedule(rescheduleDate);
+            } catch (DukeException errorMessage){
+                throw new DukeException(errorMessage.toString());
+            }
+        } else if (typeOfTask == 'E') {
+            try {
+                Event.checkEventIsAfterCurrent(rescheduleDate);
+                tasks.get(taskNumber).reschedule(rescheduleDate);
+            } catch (DukeException errorMessage){
+                throw new DukeException(errorMessage.toString());
+            }
         } else {
-            throw new DukeException("Task is not a deadline or event.");
+            throw new DukeException("Task cannot be a Todo.");
         }
     }
 
