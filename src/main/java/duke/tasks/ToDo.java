@@ -65,7 +65,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        if (subtypes.isEmpty()) {
+        if (subtypes.trim().isEmpty()) {
             return "[T]" + super.toString();
         }
         else if (subtypes.contains("P")){

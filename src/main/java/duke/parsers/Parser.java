@@ -43,6 +43,7 @@ public class Parser {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
+            System.out.println(description);
             if (description.contains("/between")) {
                 try {
                     String SplitString[] = description.split("/between", 2);
@@ -52,6 +53,7 @@ public class Parser {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
                 }
             }
+            System.out.println(description);
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {
