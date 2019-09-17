@@ -50,6 +50,7 @@ public class Duke {
 
     public void run(){
         Ui.printGreeting();
+        Ui.printReminder(tasks);
 
         do {
             String userInput = Ui.readInput();

@@ -14,6 +14,7 @@ public class DateTimeExtractor {
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static LocalDateTime dateEvent;
     private static LocalDateTime dateDeadline;
+    private static LocalDateTime datePostpone;
     private static final LocalDateTime dateError = LocalDateTime.now();
 
     /**
@@ -25,8 +26,7 @@ public class DateTimeExtractor {
      *
      */
     public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
-
-        if(command.equals("event")) {
+        if(command.equals("event")){
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
         }
@@ -34,7 +34,10 @@ public class DateTimeExtractor {
             dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateDeadline;
         }
-        // Allows the developer to know that a command other than deadline or event was passed to the function!
+        else if (command.equals("postpone")){
+            datePostpone = LocalDateTime.parse(dateTimeFromUser,DATE_FORMATTER);
+            return datePostpone;
+        }        // Allows the developer to know that a command other than deadline or event was passed to the function!
         return dateError;
     }
 }
