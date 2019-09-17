@@ -46,6 +46,9 @@ public enum Cmd {
         public Command getCommand() {
             return new FindCommand();
         }
+    },
+    SNOOZE("snooze"){
+        public Command getCommand() { return new SnoozeCommand();}
     };
 
     private final String cmdStr;

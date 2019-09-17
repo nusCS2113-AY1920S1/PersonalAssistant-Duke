@@ -2,9 +2,12 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.time.LocalDateTime;
+
 /**
  * Highest-level abstract class for Task objects.
  */
+
 abstract class Task {
     char type;
     private String name;
@@ -53,4 +56,15 @@ abstract class Task {
     public String toData() {
         return type + "\t" + (isDone ? "1" : "0") + "\t" + name;
     }
+
+
+    /**
+     *
+     * @throws DukeException if the user tries to snooze a task that is not timed
+     */
+    public void changeTime(LocalDateTime datetime) throws DukeException {
+        throw new DukeException("Only timed tasks can be snoozed");
+    }    // might be better to just define changeTime in TimedTask instead but I could not get it to work?
+
+
 }
