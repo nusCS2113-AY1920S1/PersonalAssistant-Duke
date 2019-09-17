@@ -1,6 +1,9 @@
 package duke.tasks;
 
+import duke.parsers.DateParser;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * TaskList is a public class that represents the list of tasks under duke
@@ -44,6 +47,34 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Returns list of tasks that happen on specified input date
+     * @param taskDate input date to check tasks against
+     * @return list of tasks that happen on the same day as taskDate
+     */
+    public ArrayList<Task> getSameDayTasks(Date taskDate) {
+        ArrayList<Task> sameDayTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (DateParser.isSameDayMonthYear(taskDate, task.getDate().getTime())) {
+                sameDayTasks.add(task);
+            }
+        }
+
+        return sameDayTasks;
+    }
+
+    public String toString() {
+        if (tasks.size() == 0) {
+            return "No tasks available";
+        }
+
+        String outStr = "";
+        for (Task task : tasks) {
+            outStr += task.toString() + "\n";
+        }
+        return outStr;
     }
 
 }

@@ -1,9 +1,4 @@
 package duke.parsers;
-
-import duke.commands.AddCommand;
-import duke.commands.ExitCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkDoneCommand;
 import duke.commands.*;
 import duke.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
@@ -22,11 +17,12 @@ class ParserTest {
             assertTrue(Parser.parse("event exam /at classroom") instanceof AddCommand);
             assertTrue(Parser.parse("list") instanceof ListCommand);
             assertTrue(Parser.parse("done 1") instanceof MarkDoneCommand);
+            assertTrue(Parser.parse("schedule 12/12/2012 1212") instanceof ScheduleCommand);
             assertTrue(Parser.parse("remindme 4") instanceof RemindCommand);
             assertTrue(Parser.parse("findfreetime 4") instanceof FindFreeTimeCommand);
             assertTrue(Parser.parse("snooze 17 19") instanceof SnoozeCommand);
-        }
-        catch (DukeException e){
+        } catch (DukeException e) {
+            System.out.println("Something is wrong with the parser");
         }
     }
 }
