@@ -28,14 +28,7 @@ public class Event extends item {
      */
     @Override
     public String getDate () {
-        String hour =  new SimpleDateFormat("h").format(at);
-        String min = new SimpleDateFormat("mm").format(at);
-        String marker = new SimpleDateFormat("a").format(at);
-        String day = new SimpleDateFormat("d").format(at);
-        String monthYear = new SimpleDateFormat("MMMMM yyyy").format(at);
-        String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
-                hour + (min.equals("00") ? marker : ("." + min + marker));
-        return newDateFormat;
+        return TaskList.dateToStringFormat(at);
     }
 
     /**
