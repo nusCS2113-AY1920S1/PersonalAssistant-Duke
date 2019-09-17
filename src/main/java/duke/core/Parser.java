@@ -77,6 +77,15 @@ public class Parser {
             query = query.toLowerCase();
             c = new FindCommand(query);
         }
+
+        else if (words[0].equals("schedule")) {
+            if (words.length == 1) {
+                throw new DukeException("Tell me what you want me to find.");
+            }
+            String dateEntered = words[1];
+            c = new ViewScheduleCommand(dateEntered);
+        }
+
         else if (words[0].equals("todo")) {
             if (!(words.length > 1)) {
                 throw new DukeException("The description of a todo cannot be empty.");

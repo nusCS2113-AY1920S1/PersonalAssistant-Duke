@@ -60,6 +60,15 @@ public class Ui {
         }
         System.out.println("\t____________________________________________________________");
     }
+    public void printScheduleArray(String command, ArrayList<String> inputs) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + command);
+        for (int i = 0; i < inputs.size(); i++) {
+            System.out.println("\t" + inputs.get(i));
+        }
+        System.out.println("\t____________________________________________________________");
+    }
+
 
     /**
      * Prints a single String in the required Duke format.

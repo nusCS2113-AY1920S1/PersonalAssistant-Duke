@@ -1,4 +1,8 @@
+import duke.core.Parser;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +28,7 @@ public class ParserTest {
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testDeadline() {
+    public void testDeadline() throws ParseException {
         try {
             testOutput.add("deadline");
             testOutput.add("cry");
@@ -41,7 +45,7 @@ public class ParserTest {
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testEvent() {
+    public void testEvent() throws ParseException{
         try {
             testOutput.add("event");
             testOutput.add("cry");
@@ -58,7 +62,7 @@ public class ParserTest {
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testTodo() {
+    public void testTodo() throws ParseException{
         try {
             testOutput.add("todo");
             testOutput.add("cry");

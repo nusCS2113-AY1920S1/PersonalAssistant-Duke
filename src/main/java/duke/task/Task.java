@@ -19,6 +19,7 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+    protected String stringDate;
 
     /**
      * Constructor for a new basic Task.
@@ -77,6 +78,8 @@ public class Task {
     public boolean getDoneStatus() {
         return isDone;
     }
+
+    public String getDateAsString(){ return stringDate; }
 
     /**
      * Converts the saved Date of the Task to a String format, and returns it.
