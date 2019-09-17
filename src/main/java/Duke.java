@@ -1,3 +1,4 @@
+import command.UpcomingCommand;
 import command.Command;
 import dukeException.DukeException;
 import storage.Storage;
@@ -5,6 +6,7 @@ import task.TaskList;
 import ui.Ui;
 
 import java.io.*;
+import java.text.ParseException;
 
 /**
  * Main Duke class
@@ -12,6 +14,7 @@ import java.io.*;
  */
 public class Duke {
     private Storage storage;
+    private UpcomingCommand upcomingCommand;
     private TaskList tasks;
     private Ui ui;
     private boolean isExit;
@@ -42,13 +45,14 @@ public class Duke {
      *  Main Duke logic run here
      */
     public void run() {
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException | IOException e) {
+            } catch (DukeException | IOException | ParseException e) {
                 ui.showError(e.getMessage());
             }
         }

@@ -23,7 +23,7 @@ abstract public class Command {
      * @throws DukeException
      * @throws IOException
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {};
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, ParseException {};
     public boolean isExit() {
         return this.isExit;
     }

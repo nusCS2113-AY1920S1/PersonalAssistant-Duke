@@ -6,6 +6,7 @@ import task.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * command.Command to exit Duke programme
@@ -21,7 +22,7 @@ public class ByeCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException, ParseException {
         super.execute(tasks, ui, storage);
         ui.showBye();
         this.isExit = true;

@@ -1,11 +1,13 @@
 import command.*;
 import dukeException.DukeException;
 
+import java.text.ParseException;
+
 /**
  * parse input and execute respective user command
  */
 public class Parser{
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws DukeException, ParseException {
         String[] splitStr = input.split(" ");
         switch (splitStr[0]) {
             case "list":
@@ -24,6 +26,8 @@ public class Parser{
                 return new DeleteCommand(splitStr);
             case "find":
                 return new FindCommand(input, splitStr);
+            case "upcoming":
+                return new UpcomingCommand();
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
