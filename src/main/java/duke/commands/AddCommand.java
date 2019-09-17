@@ -31,11 +31,14 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
+        boolean toAdd;
         ArrayList<Task> currentTasks = tasks.getTasks();
-        currentTasks.add(task);
-        schedule.update(task);
-        ui.showAdded(task, currentTasks);
-        storage.updateFile(currentTasks);
+        toAdd = schedule.update(task);
+        if (toAdd) {
+            currentTasks.add(task);
+            ui.showAdded(task, currentTasks);
+            storage.updateFile(currentTasks);
+        }
     }
 
 }

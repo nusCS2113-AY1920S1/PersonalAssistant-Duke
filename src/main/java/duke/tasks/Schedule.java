@@ -1,9 +1,14 @@
 package duke.tasks;
 
+import duke.ui.Ui;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.time.YearMonth;
+import java.util.Scanner;
 
 /**
  * Schedule is a public class that stores tasks in the same month in chronological order
@@ -26,7 +31,8 @@ public class Schedule {
      * @params task the task object to be inserted
      * @author Foo Chi Hen
      */
-    public void update(Task task){
+    public boolean update(Task task){
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         LocalDate now = LocalDate.now();
         if (task.getType() == "D" || task.getType() == "E") {
             if (task.getDate() != null) {
@@ -34,11 +40,19 @@ public class Schedule {
                     if (now.getMonthValue() == task.getDate().get(Calendar.MONTH) + 1) {
                         int taskDate = task.getDate().get(Calendar.DAY_OF_MONTH);
                         int taskHour = task.getDate().get(Calendar.HOUR_OF_DAY);
-                        this.schedule[taskDate - 1][taskHour].add(task);
+                        boolean checkForAnomaly = detectAnomalies(this.schedule[taskDate - 1][taskHour]);
+                        if (checkForAnomaly) {
+                            System.out.println("There is already an event task at " + dateFormat.format(task.getDate().getTime()));
+                            return false;
+                        }
+                        else {
+                            this.schedule[taskDate - 1][taskHour].add(task);
+                        }
                     }
                 }
             }
         }
+        return true;
     }
 
     /**
@@ -72,4 +86,86 @@ public class Schedule {
         return result;
     }
 
+    private boolean detectAnomalies(ArrayList<Task> activity){
+        for (int i = 0; i < activity.size(); i += 1) {
+            if (activity.get(i).getType().equals("E")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void findFreeTime(int hour) {
+        LocalDate nowDay = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+        int currentDay = nowDay.getDayOfMonth();
+        int currentHour = nowTime.getHour();
+        int currentYear = nowDay.getDayOfMonth();
+        int currentMonth = nowDay.getMonthValue();
+        YearMonth yearMonthObject = YearMonth.of(currentYear , currentMonth);
+        int daysInMonth = yearMonthObject.lengthOfMonth(); //28
+        boolean flag = false;
+        boolean freeFlag = false;
+        boolean dayFreeFlag = false;
+        for (int i = currentDay; i <= daysInMonth; i += 1) {
+            System.out.println(nowDay.toString());
+            System.out.println("_____________");
+            for (int j = ((flag)? 0 : currentHour); j < 24; j += 1){
+                if (this.schedule[i-1][j].size() == 0) {
+                    for (int k = 0; k < hour; k += 1) {
+                        if (i + (j + k) / 24 > daysInMonth) {
+                            break;
+                        }
+                        if (this.schedule[i - 1 + (j+k)/24][(j+k)%24].size() != 0){
+                            break;
+                        }
+                        if (k == hour - 1){
+                            freeFlag = true;
+                        }
+                    }
+                }
+                if (freeFlag == true) {
+                    LocalTime formatter = LocalTime.of(j,0);
+                    System.out.println(formatter.toString());
+                    dayFreeFlag = true;
+                }
+                freeFlag = false;
+            }
+            if (dayFreeFlag == false){
+                System.out.println("You are not free on " + nowDay.toString());
+            }
+            nowDay.plusDays(1);
+            flag = true;
+            System.out.println("_____________");
+        }
+    }
+
+    public void snooze(int day, int hour, Ui ui){
+        Scanner temp = new Scanner(System.in);
+        ArrayList<Task> selectedHome = this.schedule[day - 1][hour];
+        ui.showList(selectedHome);
+        System.out.println("What would you like to select");
+        int index = Integer.parseInt(temp.nextLine());
+        Task selected = selectedHome.get(index - 1);
+        System.out.println("Which date would you like to choose");
+        String input = temp.nextLine();
+        int newDay = Integer.parseInt(input.split(" ")[0]);
+        int newHour = Integer.parseInt(input.split(" ")[1]);
+        ArrayList<Task> newHome = this.schedule[newDay - 1][newHour];
+        if (selected.getType().equals("E")){
+            if (detectAnomalies(newHome)){
+                System.out.println("There is already an event task");
+            }
+            else {
+                selected.getDate().set(Calendar.DAY_OF_MONTH, newDay);
+                selected.getDate().set(Calendar.HOUR_OF_DAY, newHour);
+                this.schedule[newDay - 1][newHour].add(selected);
+                this.schedule[day - 1][hour].remove(index - 1);
+            }
+        }
+        else {
+            this.schedule[newDay - 1][newHour].add(selected);
+            this.schedule[day - 1][hour].remove(index - 1);
+        }
+    }
 }
