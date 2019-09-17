@@ -9,10 +9,11 @@ import duke.exception.DukeException;
  * Class representing a recurring task that will occur at the same time weekly.
  */
 
-public class RecurringTask extends Task{
+public class RecurringTask extends Task {
     private LocalDateTime at;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy hh:mm a");
+
     /**
      * Initializes a recurring task from its description and its time.
      *
@@ -139,10 +140,10 @@ public class RecurringTask extends Task{
     public void checkRecurringTaskIsAfterCurrent() {
         LocalDateTime storedDate = getDateTime();
         LocalDateTime currentDate = LocalDateTime.now();
-        while(storedDate.isBefore(currentDate)) {
+        while (storedDate.isBefore(currentDate)) {
             LocalDateTime newDate = storedDate.plusDays(7);
             setDate(newDate);
-            if(isDone()) {
+            if (isDone()) {
                 markUnDone();
             }
             storedDate = getDateTime();

@@ -92,6 +92,7 @@ public class TaskList {
                     recurringTask.markDone();
                 }
                 tasks.add(recurringTask);
+                break;
             default:
                 break;
             }
