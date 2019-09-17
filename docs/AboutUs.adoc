@@ -13,36 +13,36 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::hin1.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/hin1[github]] [<<hin1#, portfolio>>]
 
-=Role:Team Lead, testing
-=Comopnent IC: command
+Role:Team Lead, testing
+Comopnent IC: command
 
 
 === Daniel Chan 
 image::danielcyc.jpg[width="150", align="left"]
 {empty}[http://github.com/danielcyc[github]] [<<danielcyc#, portfolio>>]
 
-=Role:Documentation, IJ expert
-=Comopnent IC: task
+Role:Documentation, IJ expert
+Comopnent IC: task
 
 
 === Cai Rong
 image::isbobby.jpg[width="150", align="left"]
 {empty}[http://github.com/isbobby[github]] [<<isbobby#, portfolio>>]
 
-=Role:Git Expert
-=Comopnent IC: exception
+*Role:Git Expert
+*Comopnent IC: exception
 
 
 === Aarushi Singh
 image::aarushisingh1.jpg[width="150", align="left"]
 {empty}[http://github.com/aarushisingh1[github]] [<<aarushisingh1#, portfolio>>]
 
-=Role:Scheduling and tracking 
-=Comopnent IC: task
+*Role:Scheduling and tracking 
+*Comopnent IC: task
 
 === Abhijit Ravhichandran
 image::rabhijit.jpg[width="150", align="left"]
 {empty}[http://github.com/rabhijit[github]] [<<rabhijit#, portfolio>>]
 
-=Role: Deliverables and Deadlines, code Quality
-=Comopnent IC: task
+*Role: Deliverables and Deadlines, code Quality
+*Comopnent IC: task
