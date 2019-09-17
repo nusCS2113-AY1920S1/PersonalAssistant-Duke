@@ -3,9 +3,6 @@ package compal.tasks;
 import java.util.Date;
 
 public class FixedDurationTask extends Task {
-    int durationHour;
-    int durationMinute;
-
     /**
      * Store the event type task. Event refers object with deadline such as,
      * meetings and what not.
@@ -19,15 +16,7 @@ public class FixedDurationTask extends Task {
         super(description);
         super.symbol = "FDT";
         super.setDateTime(date);
-        this.durationHour = hour;
-        this.durationMinute = minute;
-    }
-
-    public int getDurationHour() {
-        return durationHour;
-    }
-
-    public int getDurationMinute() {
-        return durationMinute;
+        super.setHour(hour);
+        super.setMinute(minute);
     }
 }
