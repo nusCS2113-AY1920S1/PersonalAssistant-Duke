@@ -3,7 +3,7 @@ package ui;
 import java.util.Scanner;
 
 /**
- * To deal with user interactions
+ * To deal with user interactions.
  */
 public class Ui {
     private Scanner scanner;
@@ -28,6 +28,9 @@ public class Ui {
         System.out.println(string);
     }
 
+    /**
+     * Show Welcome message on programme start.
+     */
     public void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,8 +39,8 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         //System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\n" +
-                "What can I do for you?");
+        System.out.println("Hello! I'm Duke\n"
+                + "What can I do for you?");
     }
 
     public void showLine() {

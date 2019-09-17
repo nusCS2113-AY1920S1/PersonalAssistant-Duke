@@ -7,14 +7,14 @@ public class Todo extends Task {
 
     /**
      * task.Todo Constructor
-     * @param description
+     * @param description task description
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Constructor from text file
+     * Constructor from text file.
      * @param i isDone status
      * @param description task description
      */
@@ -30,7 +30,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string that is formatted for the text file
+     * Returns a string that is formatted for the text file.
      * @return String
      */
     @Override
