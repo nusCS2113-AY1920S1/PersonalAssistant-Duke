@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::hin1.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/hin1[github]] [<<hin1#, portfolio>>]
 
-Role:Team Lead, testing
+Role:Team Lead, testing +
 Comopnent IC: command
 
 
