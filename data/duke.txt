@@ -1,0 +1,5 @@
+D | 0 | submit | 22/09/2019 1300
+E | 0 | buy bbtea | 14/09/2019 1800
+D | 0 | get rekted | 01/09/2019 2359
+T | 0 | eat mochi
+D | 0 | shave beard | 14/09/2019 2000

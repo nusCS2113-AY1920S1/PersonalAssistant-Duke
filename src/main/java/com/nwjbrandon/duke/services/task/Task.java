@@ -30,6 +30,12 @@ public abstract class Task {
     private String taskDescription = "";
 
     /**
+     * If valid, date will be actual date.
+     * else it will be null.
+     */
+    private Date date = null;
+
+    /**
      * Create task.
      * @param taskDescription description of task.
      * @param numberOfTasks number of tasks.
@@ -60,6 +66,12 @@ public abstract class Task {
      */
     public abstract String formatTaskName(String taskDescription) throws DukeWrongCommandFormatException;
 
+    /**
+     * @return the date in the Date Object form.
+     */
+    Date getDate() {
+        return this.date;
+    }
     /**
      * Get the task date.
      * @return task date.
@@ -134,7 +146,7 @@ public abstract class Task {
         String pattern = "dd/MM/yyyy hhmm";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = formatter.parse(originalDate);
-
+        this.date = date;
         pattern = "d";
         formatter = new SimpleDateFormat(pattern);
         final String a = formatter.format(date);
@@ -148,14 +160,15 @@ public abstract class Task {
         final String c = formatter.format(date).toLowerCase();
 
         String symbol = "";
-        switch (a) {
-        case "1":
+        char lastChar = a.charAt(a.length() - 1);
+        switch (lastChar) {
+        case '1':
             symbol = "st";
             break;
-        case "2":
+        case '2':
             symbol = "nd";
             break;
-        case "3":
+        case '3':
             symbol = "rd";
             break;
         default:
@@ -181,4 +194,6 @@ public abstract class Task {
     public void removeTaskString(int size) {
         Terminal.showTaskActionString("\t removed: ", this.getTaskDescription());
     }
+
+
 }
