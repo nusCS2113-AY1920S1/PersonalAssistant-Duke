@@ -1,9 +1,7 @@
 package parser;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * This DateTimeExtractor class allows the identification of dates and is used to print out dates and times.

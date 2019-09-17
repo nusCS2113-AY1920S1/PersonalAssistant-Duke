@@ -21,7 +21,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
             Task task = tasks.delete(indexOfTask);
             storage.saveFile(tasks.getTasks());

@@ -19,7 +19,7 @@ public class ListCommand extends Command {
      * @param ui this string holds the description of the task provided by the user.
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         if (tasks.getSize() == 0)
         {
             Ui.printOutput("You have currently no tasks in your list.");

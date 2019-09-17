@@ -22,7 +22,6 @@ public class Duke {
     private String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/ArrayList";
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     private File file = new File(filePath);
     private boolean isExit = false;
 
@@ -35,10 +34,8 @@ public class Duke {
      */
 
     public Duke(){
-        ui = new Ui();
-
         try {
-            storage = new Storage(this.filePath, file);
+            storage = new Storage(file);
             tasks = new TaskList(storage.loadFile(file));
         }
         catch (DukeException e) {
@@ -58,7 +55,7 @@ public class Duke {
             String userInput = Ui.readInput();
             try {
                 Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
+                command.execute(tasks, storage);
                 isExit = command.isExit();
             }
             catch (DukeException e)

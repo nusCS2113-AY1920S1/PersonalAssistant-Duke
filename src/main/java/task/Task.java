@@ -1,9 +1,7 @@
 package task;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Date;
 
 /**
  * This Task class is extended by the other tasks and serves as a template for all tasks.
