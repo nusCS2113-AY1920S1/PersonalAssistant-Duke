@@ -1,13 +1,4 @@
-import command.ByeCommand;
-import command.Command;
-import command.DeadlineCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.EventCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.TodoCommand;
-import command.ViewScheduleCommand;
+import command.*;
 import exception.DukeException;
 
 import java.text.ParseException;
