@@ -16,8 +16,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * Converts the task to a human readable string containing important information about the
-     * ToDo, including the type of this task.
+     * Converts the task to a human readable string containing important information about the ToDo, including
+     * the type of this task.
      *
      * @return a human readable string containing the important information
      */
@@ -27,8 +27,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Outputs a string with all the information of this ToDo to be stored in a file for future
-     * usage.
+     * Outputs a string with all the information of this ToDo to be stored in a file for future usage.
      *
      * @return a string containing all information of this ToDo
      */

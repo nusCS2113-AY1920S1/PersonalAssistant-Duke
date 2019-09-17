@@ -8,6 +8,7 @@ import seedu.duke.command.ExitCommand;
 import seedu.duke.command.FindCommand;
 import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
+import seedu.duke.command.ReminderCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -67,6 +68,20 @@ public class Parser {
             } else {
                 String keyword = input.split(" ", 2)[1];
                 return new FindCommand(taskList, keyword);
+            }
+        } else if (input.startsWith("reminder")) {
+            int dayLimit = -1;
+            if (input.length() > 9 && input.charAt(8) == ' ') {
+                try {
+                    dayLimit = Integer.parseInt(input.substring(9));
+                } catch (NumberFormatException e) {
+                    ui.showError("Reminder day limit in wrong format. Default is used.");
+                }
+            }
+            if (dayLimit < 0) {
+                return new ReminderCommand(taskList);
+            } else {
+                return new ReminderCommand(taskList, dayLimit);
             }
         } else {
             try {
