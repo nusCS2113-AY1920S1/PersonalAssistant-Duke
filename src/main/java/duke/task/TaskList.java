@@ -188,6 +188,27 @@ public class TaskList {
     }
 
     /**
+     * Views task and schedule based on a specific date.
+     *
+     * @param date Date to be searched for in the form of DD/MM/YYYY
+     * @return An ArrayList of strings representing the list of tasks based on date provided
+     */
+    public ArrayList<Task> viewFilterByDate(LocalDate date) {
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDate().equals(date)) {
+                if (!task.isDone()) { //display undone tasks on top of list
+                    output.add(0, task);
+                } else {
+                    output.add(task);
+                }
+            }
+        }
+
+        return output;
+    }
+
+    /**
      * Searches this instance's list for those tasks that is due within the next few days specify by the user.
      *
      * @param reminderDay The integer that specify the next number of day to search for.
