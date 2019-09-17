@@ -9,6 +9,7 @@ import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.ViewCommand;
 import duke.command.ReminderCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
@@ -36,7 +37,7 @@ public class Parser {
 
     /**
      * Takes in user input line by line.
-     * 
+     *
      * @return The corresponding action done by {@link #parseActionMenu(String, String)}.
      * @throws DukeException thrown by {@link #parseActionMenu(String, String)}.
      */
@@ -119,6 +120,8 @@ public class Parser {
             return new AddCommand(Event.create(data));
         case "todo":
             return new AddCommand(Todo.create(data));
+        case "view":
+            return new ViewCommand(data);
         case "reminder":
             return new ReminderCommand(data);
         default:

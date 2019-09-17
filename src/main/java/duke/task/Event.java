@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,7 +19,7 @@ public class Event extends Task {
      * Initializes an Event from its description and its time.
      *
      * @param description A description of the event.
-     * @param at The time at which this event happens.
+     * @param at          The time at which this event happens.
      */
     Event(String description, LocalDateTime at) {
         super(description);
@@ -29,10 +30,9 @@ public class Event extends Task {
      * Creates this instance of an Event object.
      *
      * @param data The raw data to be parsed by {@link #parseEventDesc(String)}
-     *     and {@link #parseEventTime(String)}.
-     *
+     *             and {@link #parseEventTime(String)}.
      * @return a new Event task that has description and event time properly parsed
-     *     and sanitised.
+     *             and sanitised.
      * @throws DukeException when any of the parsing fails to conform with standards.
      */
     public static Event create(String data) throws DukeException {
@@ -116,15 +116,6 @@ public class Event extends Task {
     }
 
     /**
-     * Returns date from the object.
-     *
-     * @return date from the object.
-     */
-    public LocalDateTime getDate() {
-        return at;
-    }
-
-    /**
      * Checks if the entered date time is before current date time.
      *
      * @param date Event date entered by user.
@@ -159,6 +150,17 @@ public class Event extends Task {
     public String export() {
         return "E | " + super.export() + super.getDescription().length() + " | " + super.getDescription()
                 + " | " + this.at.format(inputFormatter).length() + " | " + this.at.format(inputFormatter);
+    }
+
+    /**
+     * Gets date-only of this Deadline.
+     *
+     * @return the date of Deadline
+     */
+    @Override
+    public LocalDate getDate() {
+        LocalDate date = at.toLocalDate();
+        return date;
     }
 
     /**

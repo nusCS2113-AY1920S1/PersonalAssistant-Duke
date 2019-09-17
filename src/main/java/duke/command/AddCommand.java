@@ -36,10 +36,10 @@ public class AddCommand extends Command {
      */
     public boolean checkEventDateIsUnique(TaskList tasks) throws DukeException {
         if (task instanceof Event) {
-            LocalDateTime currentDate = ((Event) task).getDate();
+            LocalDateTime currentDate = ((Event) task).getDateTime();
             for (int i = 1; i <= tasks.size(); i++) {
                 if (tasks.get(i) instanceof Event) {
-                    LocalDateTime taskListDate = ((Event) tasks.get(i)).getDate();
+                    LocalDateTime taskListDate = ((Event) tasks.get(i)).getDateTime();
                     if (currentDate.isEqual(taskListDate)) {
                         throw new DukeException("Event scheduling conflict!");
                     }
@@ -69,12 +69,12 @@ public class AddCommand extends Command {
             }
 
         } else if (task instanceof Deadline) {
-            LocalDateTime currentTaskDate = ((Deadline) task).getDate();
+            LocalDateTime currentTaskDate = ((Deadline) task).getDateTime();
             if (task instanceof Deadline) {
                 for (int i = 1; i <= tasks.size(); i++) {
                     if (tasks.get(i) instanceof Deadline) {
                         String tasksDesc = tasks.get(i).getDescription();
-                        LocalDateTime tasksDate = ((Deadline) tasks.get(i)).getDate();
+                        LocalDateTime tasksDate = ((Deadline) tasks.get(i)).getDateTime();
                         if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
                             throw new DukeException("Deadline task conflict!");
                         }
@@ -83,12 +83,12 @@ public class AddCommand extends Command {
             }
 
         } else if (task instanceof Event) {
-            LocalDateTime currentTaskDate = ((Event) task).getDate();
+            LocalDateTime currentTaskDate = ((Event) task).getDateTime();
             if (task instanceof Event) {
                 for (int i = 1; i <= tasks.size(); i++) {
                     if (tasks.get(i) instanceof Event) {
                         String tasksDesc = tasks.get(i).getDescription();
-                        LocalDateTime tasksDate = ((Event) tasks.get(i)).getDate();
+                        LocalDateTime tasksDate = ((Event) tasks.get(i)).getDateTime();
                         if (tasksDesc.equals(currentDesc) && tasksDate.isEqual(currentTaskDate)) {
                             throw new DukeException("Event task conflict!");
                         }
