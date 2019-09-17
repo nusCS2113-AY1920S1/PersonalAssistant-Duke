@@ -2,8 +2,6 @@ import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import org.junit.jupiter.api.Test;
-import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,6 +33,7 @@ public class DukeTest {
         //Test for event
         new EventTest().test();
         new EventTest().birthdayAt_myBday();
+        //new EventTest().clashEvent();
 
         //Test for reminders
         new ReminderTest().test();

@@ -54,4 +54,20 @@ public class EventTest {
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
+
+    //    @Test
+    //    public void clashEvent() throws DukeException {
+    //        String input = "event bday /at 06/06/2019";
+    //        setUpStreams();
+    //        TaskList taskList = new TaskList();
+    //        Command c = Parser.parse(input);
+    //        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+    //        restoreStreams();
+    //        setUpStreams();
+    //        c.execute(taskList, DukeTest.ui, DukeTest.storage);
+    //        String exp = "     ☹ OOPS!!! This new event clashes with\n"
+    //                + " [E][✗] bday (at: 06/06/2019)";
+    //        assertEquals(exp, errContent.toString().trim().replace("\r", ""));
+    //        restoreStreams();
+    //    }
 }
