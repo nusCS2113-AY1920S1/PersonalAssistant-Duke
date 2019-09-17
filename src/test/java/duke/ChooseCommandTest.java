@@ -1,12 +1,14 @@
 package duke;
 
-import duke.command.*;
+import duke.command.CompleteCommand;
+import duke.command.ExitCommand;
 import duke.command.ListCommand;
+import duke.command.AddToDoCommand;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.ScheduleCommand;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
-
-import java.nio.ReadOnlyBufferException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
