@@ -3,7 +3,7 @@ package Tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Events extends Task{
+public class Events extends Task {
 
     protected Date startAt;
     protected Date endAt;
