@@ -1,11 +1,13 @@
 import command.Command;
 import dukeException.DukeException;
+import storage.Constants;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
 import java.io.*;
 
+// JavaDoc should be written like user stories
 /**
  * Main Duke class
  * Duke is a chatbot that manage tasks for the user

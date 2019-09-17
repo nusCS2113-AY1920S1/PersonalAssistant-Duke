@@ -1,3 +1,5 @@
+package storage;
+
 /**
  * Contains project-wide contants
  */
