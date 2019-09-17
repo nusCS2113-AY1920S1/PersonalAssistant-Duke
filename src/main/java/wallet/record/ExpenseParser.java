@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ExpenseParser {
-    public static Expense parseInput(String input){
+    public static Expense parseInput(String input) {
         Expense expense = null;
         try {
             String[] getRec = input.split("/r");
@@ -23,6 +23,8 @@ public class ExpenseParser {
                 System.out.println("☹ OOPS!!! The options for recurrence (/r) are \"daily, weekly or monthly\"");
             }
         } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
         return expense;

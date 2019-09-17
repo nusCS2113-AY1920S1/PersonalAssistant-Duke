@@ -36,4 +36,8 @@ public class ExpenseList {
     public int findExpenseIndex(Expense e) {
         return expenseList.indexOf(e);
     }
+
+    public int getSize() {
+        return expenseList.size();
+    }
 }
