@@ -3,7 +3,6 @@ package com.nwjbrandon.duke.services;
 import com.nwjbrandon.duke.constants.TaskCommands;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
-import com.nwjbrandon.duke.services.command.Command;
 import com.nwjbrandon.duke.services.command.DeadlinesCommand;
 import com.nwjbrandon.duke.services.command.DeleteCommand;
 import com.nwjbrandon.duke.services.command.DoneCommand;
@@ -13,6 +12,8 @@ import com.nwjbrandon.duke.services.command.ListCommand;
 import com.nwjbrandon.duke.services.command.RemindersCommand;
 import com.nwjbrandon.duke.services.command.SearchCommand;
 import com.nwjbrandon.duke.services.command.TodosCommand;
+import com.nwjbrandon.duke.services.command.ViewSchedulesCommand;
+import com.nwjbrandon.duke.services.command.Command;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.task.Deadlines;
@@ -171,12 +172,13 @@ public class TaskManager {
             return new DeleteCommand(userInput, TaskCommands.DELETE.toString(), size);
         } else if (userInput.startsWith(TaskCommands.FIND.toString())) {
             return new SearchCommand(userInput, TaskCommands.FIND.toString());
+        } else if (userInput.startsWith(TaskCommands.VIEW_SCHEDULE.toString())) {
+            return new ViewSchedulesCommand(userInput, TaskCommands.VIEW_SCHEDULE.toString(), size);
         } else if (userInput.equals(TaskCommands.REMINDER.toString())) {
-            return new RemindersCommand(userInput, TaskCommands.DONE.toString(), size);
+            return new RemindersCommand(userInput, TaskCommands.REMINDER.toString(), size);
         } else if (userInput.equals(TaskCommands.BYE.toString())) {
             isRunning = false;
             return new InvalidCommand();
-
         } else {
             throw new DukeWrongCommandException();
         }

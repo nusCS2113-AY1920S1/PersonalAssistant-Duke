@@ -3,6 +3,7 @@ package com.nwjbrandon.duke.services.task;
 import com.joestelmach.natty.Parser;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
+import com.nwjbrandon.duke.services.utilities.DateUtilties;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,24 +31,6 @@ public abstract class Task {
      */
     private String taskDescription = "";
 
-    /**
-     * Converts a string to a Date object.
-     * @param dateString the string containing the date.
-     * @return The corresponding Date object if the dateString is valid.
-     * @throws ParseException if there is no date found in the dateString.
-     */
-    public static Date parseDate(String dateString) throws ParseException {
-        Parser dateParser = new Parser();
-        Date date = null;
-        try {
-            date = dateParser.parse(dateString).get(0).getDates().get(0);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException("",0);
-        }
-        return date;
-
-    }
-  
     /**
      * If valid, date will be actual date.
      * else it will be null.
@@ -217,5 +200,13 @@ public abstract class Task {
         Terminal.showTaskActionString("\t removed: ", this.getTaskDescription());
     }
 
+    /**
+     * Check if task falls on the same day.
+     * @param date date to compare with.
+     * @return true if tasks falls on the same day.
+     */
+    boolean isSameDay(Date date) {
+        return DateUtilties.isSameDay(this.date, date);
+    }
 
 }

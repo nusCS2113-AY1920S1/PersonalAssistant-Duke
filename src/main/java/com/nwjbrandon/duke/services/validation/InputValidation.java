@@ -4,7 +4,12 @@ import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
 
-public class Parser {
+import com.joestelmach.natty.Parser;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+public class InputValidation {
 
     /**
      * Check whether string can convert to integer.
@@ -71,6 +76,17 @@ public class Parser {
      */
     public static String checkCommandInput(String userInput, String command) throws DukeEmptyCommandException {
         return checkBlanksInUserInput(checkLengthOfCommandInput(userInput, command), command);
+    }
+
+    /**
+     * Uses NLP to parse date.
+     * @param inputDateString date from input by user.
+     * @return formatted date.
+     */
+    public static Date parseDateWithNatty(String inputDateString) {
+        Parser parser = new Parser();
+        List<Date> dates = parser.parse(inputDateString).get(0).getDates();
+        return dates.get(0);
     }
 
 }

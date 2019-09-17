@@ -4,7 +4,7 @@ import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.validation.Parser;
+import com.nwjbrandon.duke.services.validation.InputValidation;
 
 public class DeleteCommand extends Command {
 
@@ -46,8 +46,8 @@ public class DeleteCommand extends Command {
      * @return task index.
      */
     private int getTaskIndex() throws DukeTypeConversionException, DukeOutOfBoundException {
-        Integer taskIndex = Parser.checkStringToIntegerConversion(taskIndexString);
-        return Parser.checkIndex(taskIndex - 1, size);
+        Integer taskIndex = InputValidation.checkStringToIntegerConversion(taskIndexString);
+        return InputValidation.checkIndex(taskIndex - 1, size);
 
     }
 
@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
      * @return instruction in input.
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
-        return Parser.checkCommandInput(userInput, command);
+        return InputValidation.checkCommandInput(userInput, command);
     }
 
     /**

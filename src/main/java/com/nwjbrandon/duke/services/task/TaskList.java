@@ -142,4 +142,21 @@ public class TaskList {
         }
 
     }
+
+    /**
+     * Return arrays of tasks that falls on the same day.
+     * @param date date for the tasks.
+     * @return arrays of tasks on the same day.
+     */
+    public ArrayList<Task> viewSchedule(Date date) {
+        ArrayList<Task> tasksInScheudle = new ArrayList<Task>();
+        for (Task task: this.tasksList) {
+            if (task instanceof Events || task instanceof Deadlines) {
+                if (task.isSameDay(date)) {
+                    tasksInScheudle.add(task);
+                }
+            }
+        }
+        return tasksInScheudle;
+    }
 }
