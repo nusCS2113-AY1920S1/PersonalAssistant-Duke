@@ -118,8 +118,8 @@ public class Parser {
                             "For example: deadline return book /by 2/12/2019 1800");
                 }
             }
-            else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")){
-                try{
+            else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
+                try {
                     String duration = fullCommand;
                     duration = duration.replaceFirst("when is the nearest day in which I have a ", "");
                     duration = duration.replaceFirst(" hour free slot", "");
@@ -128,15 +128,15 @@ public class Parser {
                     duration = duration.substring(0, duration.indexOf('?'));
 
                     return new FindFreeTimesCommand(duration);
-                } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter find free time as follows:\n" +
                             " when is the nearest day in which I have a X hour free slot?\n" +
                             "For example:  when is the nearest day in which I have a 4.5 hour free slot?");
+                }
             }
             else if (fullCommand.equals("show schedule")) {
                 return new ViewSchedulesCommand();
             }
-
             else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
