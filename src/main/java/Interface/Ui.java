@@ -110,4 +110,8 @@ public class Ui {
     public String showError(DukeException e){
         return e.getMessage() + "\n";
     }
+
+    public String showUserSchedule(String finalSchedule) {
+        return finalSchedule;
+    }
 }
