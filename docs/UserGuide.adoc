@@ -67,9 +67,6 @@ enter commands in the CLI and press kbd:[Enter] to execute them
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
 
 === Listing all current tasks: `list`
 
@@ -97,7 +94,7 @@ Examples:
 * `deadline hello world /by 17/9/2019 0800`
 * `deadline hello world /by today`
 
-=== Adding a deadline task: `event`
+=== Adding an event task: `event`
 
 Adds a event task type to the tasklist.  +
 Format: `event DESCRIPTION "/at" TIME`
