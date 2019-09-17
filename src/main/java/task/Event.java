@@ -48,6 +48,9 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean containsDate(String s) { return this.at.contains(s); }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + dateTime + ")";
     }
