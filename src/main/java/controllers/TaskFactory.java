@@ -78,8 +78,7 @@ public class TaskFactory {
                 return new Event(parsedStrings[0], parsedStrings[1]);
             }
             return new Event(parsedStrings[0], formattedDate);
-
-            default:
+        default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

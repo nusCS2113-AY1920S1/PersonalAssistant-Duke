@@ -144,10 +144,11 @@ public class CLIView {
     /**
      * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
      * @param taskList Current list of tasks.
-     * @param input User command including time limit before which to find upcoming tasks. If left blank, it will be seven days from current date by default.
-     * @throws ParseException
+     * @param input User command including time limit before which to find upcoming tasks.
+     *              If left blank, it will be seven days from current date by default.
+     * @throws ParseException : Parsing error
      */
-    public void remindTask(TaskList taskList, String input) throws ParseException{
+    public void remindTask(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         System.out.println("\tHere are the upcoming tasks in your list:");
         String limit;
@@ -155,8 +156,7 @@ public class CLIView {
         String dummy = sc.next();
         if (sc.hasNext()) {
             limit = sc.nextLine();
-        }
-        else {
+        } else {
             limit = "";
         }
 
@@ -171,7 +171,14 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
-    public void listSchedule(TaskList taskList, String input) throws ParseException{
+    /**
+     * Prints out the schedule for the date input by the user.
+     *
+     * @param taskList : Current list of tasks.
+     * @param input : The date of the schedule
+     * @throws ParseException : Parsing error
+     */
+    public void listSchedule(TaskList taskList, String input) throws ParseException {
         // Correct format as 2 December 2019 6 PM
         String tempDate = input.substring(9);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -181,9 +188,8 @@ public class CLIView {
         System.out.println(horiLine);
         ArrayList<ITask> results = taskList.getSchedule(formattedDate);
         if (results.isEmpty()) {
-            System.out.println("\tYour schedule for "+formattedDate+" is empty.");
-        }
-        else {
+            System.out.println("\tYour schedule for " + formattedDate + " is empty.");
+        } else {
             System.out.println("\tHere is your schedule for today:");
             for (int i = 0; i < results.size(); i++) {
                 System.out.print("\t" + (i + 1));
@@ -193,6 +199,6 @@ public class CLIView {
                 );
             }
         }
-            System.out.println(horiLine);
+        System.out.println(horiLine);
     }
 }
