@@ -27,8 +27,6 @@ public class Terminal {
     public Terminal() {
     }
 
-
-
     /**
      * Read input.
      * @return input.

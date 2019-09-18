@@ -55,6 +55,12 @@ public abstract class Task {
      */
     private Date date = null;
 
+    /**
+     * Specifies if the task is a recurring task or not.
+     * A value of none denotes that it is not recurring
+     * Other possible values are "daily" or "weekly"
+     */
+    private String recurFrequency = "none";
 
     /**
      * Create task.
@@ -99,13 +105,17 @@ public abstract class Task {
      * Sets the Date, taskDescription to the date specified.
      * @param currDate sets the Date object of the task to this.
      */
-    public void setDate(Date currDate) throws ParseException {
+    public void setDate(Date currDate) {
         this.date = currDate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String dateStr = formatter.format(currDate);
-        this.by = dateStr;
-        this.taskDescription = this.taskName + " (by: " + this.dateFormatter(dateStr) + ")";
-        this.showSetSnoozedStatus();
+        this.by = formatter.format(currDate);
+        this.taskDescription = this.taskName + " (by: " + date.toString() + ")";
+
+    }
+
+    public void snooze(Date date) {
+        setDate(date);
+        showSetSnoozedStatus();
     }
 
     /**
@@ -186,9 +196,11 @@ public abstract class Task {
      * @throws ParseException incorrect format of date.
      */
     String dateFormatter(String originalDate) throws ParseException {
+
         String pattern = "dd/MM/yyyy hhmm";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = formatter.parse(originalDate);
+
         this.date = date;
         pattern = "d";
         formatter = new SimpleDateFormat(pattern);
@@ -244,7 +256,16 @@ public abstract class Task {
      * @return true if tasks falls on the same day.
      */
     boolean isSameDay(Date date) {
+        if (this.date == null || date == null) return false;
         return DateUtilties.isSameDay(this.date, date);
     }
 
+
+    public String getRecurFrequency() {
+        return recurFrequency;
+    }
+
+    public void setRecurFrequency(String recurFrequency) {
+        this.recurFrequency = recurFrequency;
+    }
 }

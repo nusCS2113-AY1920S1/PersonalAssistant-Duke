@@ -5,18 +5,7 @@ import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 
-import com.nwjbrandon.duke.services.command.Command;
-import com.nwjbrandon.duke.services.command.DeadlinesCommand;
-import com.nwjbrandon.duke.services.command.DeleteCommand;
-import com.nwjbrandon.duke.services.command.DoneCommand;
-import com.nwjbrandon.duke.services.command.EventsCommand;
-import com.nwjbrandon.duke.services.command.InvalidCommand;
-import com.nwjbrandon.duke.services.command.ListCommand;
-import com.nwjbrandon.duke.services.command.RemindersCommand;
-import com.nwjbrandon.duke.services.command.SearchCommand;
-import com.nwjbrandon.duke.services.command.SnoozeCommand;
-import com.nwjbrandon.duke.services.command.TodosCommand;
-import com.nwjbrandon.duke.services.command.ViewSchedulesCommand;
+import com.nwjbrandon.duke.services.command.*;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.task.Deadlines;
@@ -185,6 +174,8 @@ public class TaskManager {
             return new InvalidCommand();
         } else if (userInput.startsWith(TaskCommands.SNOOZE.toString())) {
             return new SnoozeCommand(userInput, TaskCommands.SNOOZE.toString(), size);
+        } else if (userInput.startsWith(TaskCommands.RECURRING.toString())) {
+            return new RecurringCommand(userInput,TaskCommands.RECURRING.toString(),size);
         } else {
             throw new DukeWrongCommandException();
         }
