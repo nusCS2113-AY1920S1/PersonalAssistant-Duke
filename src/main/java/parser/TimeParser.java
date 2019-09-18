@@ -168,5 +168,24 @@ public class TimeParser {
         }
     }
 
+    /**
+     * Get time portion of Date object only and convert it to String
+     */
+    public static String getStringTime(Date date){
+        SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aaa");
+        return targetFormat.format(date);
+    }
+
+    /**
+     * Convert Date object to contain date only (no time)
+     */
+    public static Date getDateOnly(Date date) {
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return targetFormat.parse(targetFormat.format(date));
+        } catch (ParseException e){
+            return null;
+        }
+    }
 }
 

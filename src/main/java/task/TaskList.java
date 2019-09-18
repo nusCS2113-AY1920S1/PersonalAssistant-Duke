@@ -114,6 +114,9 @@ public class TaskList {
         return tasks.get(num);
     }
 
+    public static TreeMap<Date, Tasks> getTreeMap() {
+        return DE;
+    }
 
     /**
      * This function adds tasks into tree map.
