@@ -56,4 +56,13 @@ public class Event extends Task implements Comparable<Task> {
     public int compareTo(Task o) {
         return this.from.compareTo(((Event) o).from);
     }
+
+    public void setTime(Date from) {
+        this.from = from;
+    }
+
+    public void setTime(Date from, Date to) {
+        this.from = from;
+        this.to = to;
+    }
 }

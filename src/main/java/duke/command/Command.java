@@ -15,7 +15,7 @@ public abstract class Command {
      *
      * @param tasks   A TaskList containing all tasks.
      * @param storage A Storage object which specifies the location of the data.
-     * @param ui A Ui object capble of controlling GUI.
+     * @param ui A Ui object capable of controlling GUI.
      * @throws DukeException If the execution fails.
      */
     abstract public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException;

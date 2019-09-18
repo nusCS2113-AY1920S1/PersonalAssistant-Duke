@@ -7,8 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="605.0" prefWidth="413.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="duke.ui.MainWindow">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" prefHeight="605.0" prefWidth="413.0"
+            xmlns="http://javafx.com/javafx" fx:controller="duke.ui.MainWindow">
     <children>
         <JFXTextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0"
                       prefWidth="338.0" promptText="Enter any duke.command to start" AnchorPane.bottomAnchor="10.0"
