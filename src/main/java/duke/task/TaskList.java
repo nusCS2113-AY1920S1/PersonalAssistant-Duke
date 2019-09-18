@@ -139,7 +139,7 @@ public class TaskList {
      * @return An integer that is a valid index for an entry on the list
      * @throws DukeException If idxStr cannot be parsed, or the integer is not a valid index
      */
-    private int getTaskIdx(String idxStr) throws DukeException {
+    public int getTaskIdx(String idxStr) throws DukeException {
         if (idxStr.matches("^\\d+$")) { //if second arg is an integer
             int idx = Integer.parseInt(idxStr) - 1;
             if (idx >= 0 && idx < taskArrList.size()) {
@@ -192,6 +192,7 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Reports the schedule of the user on a specified date.
      *
      * @param date The specified date.
@@ -231,6 +232,18 @@ public class TaskList {
     }
 
     /**
+     * Returns a string that indicates if snooze was successful.
+     * @param index the tasks to be snoozed index in the list of all tasks
+     * @param datetime the new time that the task will be snoozed to
+     * @return message to user that states that the snooze was successful
+     * @throws DukeException in the event of a invalid snooze input
+     */
+    public String snooze(int index, LocalDateTime datetime) throws DukeException {
+        taskArrList.get(index).changeTime(datetime);
+        return "The task have been snoozed;\n\t" + taskArrList.get(index);
+    }
+
+    /**
      * Sets a reminder for a task in the list.
      *
      * @param idxStr   The argument given by the user to identify the task.
@@ -241,8 +254,7 @@ public class TaskList {
     public String setReminder(String idxStr, Reminder reminder) throws DukeException {
         Task currTask = taskArrList.get(getTaskIdx(idxStr));
         currTask.setReminder(reminder);
-        return "Roger! I've set a reminder for this task." + System.lineSeparator()
-                + "  " + currTask.toString();
+        return currTask.toString();
     }
 
     /**
@@ -258,7 +270,7 @@ public class TaskList {
             Reminder currReminder = currTask.getReminder();
 
             if (currReminder != null) {
-                if (currReminder.getDatetime().isBefore(LocalDateTime.now())) {
+                if (currReminder.getDateTime().isBefore(LocalDateTime.now())) {
                     reminderCount = reminderCount + 1;
                     reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
                             .append(currTask.toString());

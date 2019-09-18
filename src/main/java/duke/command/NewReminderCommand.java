@@ -17,7 +17,8 @@ public class NewReminderCommand extends MultiArgCommand {
     private LocalDateTime reminderDateTime;
 
     /**
-     * Creates a new Command object that can be executed to set a Reminder for a Task.
+     * Creates a new Command object that can be executed to set a Reminder for a Task, updating its inherited
+     * parameters.
      */
     public NewReminderCommand() {
         argc = 2;
@@ -45,7 +46,8 @@ public class NewReminderCommand extends MultiArgCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String remindStr = ctx.taskList.setReminder(argv[0], new Reminder(reminderDateTime));
+        String remindStr = "Roger! I've set a reminder for this task." + System.lineSeparator()
+                + "  " + ctx.taskList.setReminder(argv[0], new Reminder(reminderDateTime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(remindStr);
     }

@@ -57,6 +57,11 @@ public enum Cmd {
             return new ViewCommand();
         }
     },
+    SNOOZE("snooze") {
+        public Command getCommand() {
+            return new SnoozeCommand();
+        }
+    },
     REMIND("remind") {
         public Command getCommand() {
             return new NewReminderCommand();

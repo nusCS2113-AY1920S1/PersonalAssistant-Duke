@@ -43,16 +43,7 @@ public class TaskListTest {
                     + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
             String listStr = taskList.listTasks();
-            for (int i = 0; i < expectedTaskListStr.length(); ++i) {
-                if (i >= listStr.length()) {
-                    break;
-                }
-                char achar = listStr.charAt(i);
-                char echar = expectedTaskListStr.charAt(i);
-                if (achar != echar) {
-                    System.out.println("Found " + achar + ", expected " + echar);
-                }
-            }
+
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
             fail("No tasks in the list after adding!");
@@ -168,7 +159,6 @@ public class TaskListTest {
         try {
             LocalDateTime datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getDataFormatter());
             taskList.setReminder("1", new Reminder(datetime));
-            System.out.println(taskList.listTasks());
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 2:00 AM] JUnit tests"
                             + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                             + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)",
@@ -176,14 +166,12 @@ public class TaskListTest {
 
             datetime = LocalDateTime.parse("18/09/2019 0300", TimedTask.getDataFormatter());
             taskList.setReminder("1", new Reminder(datetime));
-            System.out.println(taskList.listTasks());
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
                             + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                             + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)",
                     taskList.listTasks());
 
             taskList.setReminder("3", new Reminder(datetime));
-            System.out.println(taskList.listTasks());
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
                     + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][N][R: Wed, 18 Sep 2019 3:00 AM] "
@@ -194,4 +182,16 @@ public class TaskListTest {
             fail("Reminder not set correctly!");
         }
     }
+
+    //code for debugging test outputs
+    /*for (int i = 0; i < <expected>.length(); ++i) {
+        if (i >= <actual>.length()) {
+            break;
+        }
+        char achar = <actual>.charAt(i);
+        char echar = <expected>.charAt(i);
+        if (achar != echar) {
+            System.out.println("Found " + achar + ", expected " + echar);
+        }
+    }*/
 }

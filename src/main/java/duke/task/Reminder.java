@@ -48,7 +48,7 @@ public class Reminder {
      *
      * @return A LocalDateTime object representing the reminder's date and time.
      */
-    public LocalDateTime getDatetime() {
+    public LocalDateTime getDateTime() {
         return datetime;
     }
 }
