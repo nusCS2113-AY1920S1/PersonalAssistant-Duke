@@ -6,13 +6,14 @@ import duke.exception.DukeException;
  * Abstract class for commands with multiple arguments split by a common delimiter.
  */
 public abstract class MultiArgCommand extends ArgCommand {
-    String[] argv;
-    int argc;
-    String delim;
-    String invalidArgMsg;
+    //TODO: figure out the proper Javadoc for these parameters
+    String[] argv; //array to store multiple arguments
+    int argc; //minimum number of arguments expected
+    String delim; //delimiter to split arguments by, may be a regex
+    String invalidArgMsg; //message to display if insufficient arguments are supplied
 
     /**
-     * Splits the input string into the argv array based on the common delimiter delim.
+     * Splits the input string into the argv array based on the common delimiter delim, stripping the strings in argv.
      *
      * @throws DukeException If, after being split the number of arguments is less than argc, the required number.
      */

@@ -9,6 +9,11 @@ public class EventTask extends TimedTask {
         type = 'E';
     }
 
+    public EventTask(String name, LocalDateTime time, Reminder reminder) {
+        super(name, time, reminder);
+        type = 'E';
+    }
+
     @Override
     public String toString() throws DateTimeException {
         return "[" + type + "]" + super.toString() + " (at: " + getTime() + ")";

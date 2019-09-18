@@ -9,7 +9,7 @@ import duke.task.EventTask;
  */
 public class NewEventCommand extends NewTimedTaskCommand {
     /**
-     * Creates a new Command object that can be executed to create a new Event task.
+     * Creates a new NewEventCommand, setting the parameters for its inherited methods.
      */
     public NewEventCommand() {
         argc = 2;
@@ -29,8 +29,13 @@ public class NewEventCommand extends NewTimedTaskCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new EventTask(argv[0], datetime));
+        String addStr = ctx.taskList.addTask(new EventTask(argv[0], taskDateTime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(addStr);
+        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
+    }
+
+    @Override
+    public String silentExecute(DukeContext ctx) {
+        return ctx.taskList.addTask(new EventTask(argv[0], taskDateTime));
     }
 }

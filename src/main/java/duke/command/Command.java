@@ -25,4 +25,17 @@ public abstract class Command {
      * @see DukeContext
      */
     public abstract void execute(DukeContext ctx) throws DukeException;
+
+    /**
+     * Runs the command using the parameters loaded with Command's parse method, but without any changes to storage and
+     * returning output that would ordinarily be printed, although not necessarily in the same format.
+     *
+     * @param ctx The DukeContext object for this command to operate on.
+     * @return String containing output would be printed during ordinary execution.
+     * @throws DukeException If command fails to execute.
+     * @see DukeContext
+     */
+    public String silentExecute(DukeContext ctx) throws DukeException {
+        return null;
+    }
 }
