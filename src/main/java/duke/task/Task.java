@@ -103,14 +103,12 @@ public abstract class Task {
         this.reminder = reminder;
     }
 
-
     /**
-     *
-     * @throws DukeException if the user tries to snooze a task that is not timed
+     * Sets the time that the task should be snoozed until.
+     * @param newDateTime The new LocalDateTime to be assigned to the task.
+     * @throws DukeException If the user tries to snooze a task that is not timed.
      */
-    public void changeTime(LocalDateTime datetime) throws DukeException {
+    public void changeTime(LocalDateTime newDateTime) throws DukeException {
         throw new DukeException("Only timed tasks can be snoozed");
     }    // might be better to just define changeTime in TimedTask instead but I could not get it to work?
-
-
 }

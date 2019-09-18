@@ -41,7 +41,7 @@ public abstract class TimedTask extends Task {
     }
 
     @Override
-    public void changeTime(LocalDateTime newTime){
+    public void changeTime(LocalDateTime newTime) {
         time = newTime;
     }
 
