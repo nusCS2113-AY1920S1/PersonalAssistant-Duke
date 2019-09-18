@@ -22,6 +22,7 @@ public class ToDo extends Task {
      */
     public ToDo(String[] splitStorageStrings) {
         super(splitStorageStrings);
+        this.recurringType = splitStorageStrings[3];
     }
 
     /**
@@ -33,7 +34,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString()
+                + "(" + recurringType + ")";
     }
 
     /**
@@ -44,6 +46,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageString() {
-        return "T | " + super.toStorageString();
+        return "T | " + super.toStorageString()
+                + " | " + recurringType;
     }
 }

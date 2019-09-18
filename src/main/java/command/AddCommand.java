@@ -65,6 +65,14 @@ public class AddCommand extends Command {
             taskToAdd.setDoAfterDate(commandParams.getParam("after"));
         }
 
+        if(commandParams.containsParam("recurring")) {
+            String recurringType = commandParams.getParam("recurring");
+            taskToAdd.setRecurringType(commandParams.getParam("recurring"));
+        } else {
+            taskToAdd.setRecurringType("NONE");
+        }
+
+
         tasks.addTask(taskToAdd);
 
         storage.update(tasks.toStorageStrings());
