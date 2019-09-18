@@ -2,29 +2,28 @@ package duke.command;
 
 import duke.DukeContext;
 import duke.exception.DukeException;
-import duke.task.EventTask;
+import duke.task.DoWithinPeriodTask;
 import duke.task.TimedTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class responsible for executing Command to create a new Event task.
+ * Class responsible for executing Command to create a new DoWithinPeriod task.
  */
-public class NewEventCommand extends NewTimedTaskCommand {
+public class NewDoWithinPeriodCommand extends NewTimedTaskCommand {
 
     LocalDateTime endDatetime;
-
     /**
-     * Creates a new Command object that can be executed to create a new Event task.
+     * Creates a new Command object that can be executed to create a new DoWithinPeriod task.
      * argc will throw an error if the number of arguments is less than 3.
-     * Creates a new NewEventCommand, setting the parameters for its inherited methods.
      */
-    public NewEventCommand() {
+
+    public NewDoWithinPeriodCommand() {
         argc = 3;
-        delim = "(/at|/to)";
-        invalidArgMsg = "Invalid event! I need to know the date and time that it is /at.";
-        emptyArgMsg = "You didn't tell me anything about the event!";
+        delim = "(/between|/and)";
+        invalidArgMsg = "Invalid period! I need to know the date and time that it is /between.";
+        emptyArgMsg = "You didn't tell me anything about the task!";
     }
 
     /**
@@ -54,13 +53,8 @@ public class NewEventCommand extends NewTimedTaskCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
+        String addStr = ctx.taskList.addTask(new DoWithinPeriodTask(argv[0], taskDateTime, endDatetime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
-    }
-
-    @Override
-    public String silentExecute(DukeContext ctx) {
-        return ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
+        ctx.ui.print(addStr);
     }
 }

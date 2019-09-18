@@ -19,9 +19,12 @@ public abstract class TimedTask extends Task {
         super(name, reminder);
         this.time = time;
     }
-
-    public static DateTimeFormatter getDataFormatter() {
+    public static DateTimeFormatter getPatDatetime() {
         return PAT_DATETIME;
+    }
+
+    public static DateTimeFormatter getPatDatetimeDisplay() {
+        return PAT_DATETIME_DISPLAY;
     }
 
     @Override

@@ -36,10 +36,10 @@ public class NewReminderCommand extends MultiArgCommand {
         }
 
         try {
-            reminderDateTime = LocalDateTime.parse(argv[1], TimedTask.getDataFormatter());
+            reminderDateTime = LocalDateTime.parse(argv[1], TimedTask.getPatDatetime());
         } catch (DateTimeParseException excp) {
             throw new DukeException("Date and time must be given as e.g. "
-                    + LocalDateTime.now().format(TimedTask.getDataFormatter()) + ".");
+                    + LocalDateTime.now().format(TimedTask.getPatDatetime()) + ".");
         }
     }
 

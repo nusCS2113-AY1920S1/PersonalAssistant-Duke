@@ -61,6 +61,17 @@ public enum Cmd {
         public Command getCommand() {
             return new NewReminderCommand();
         }
+    },
+    FORP("fixedduration") {
+        public Command getCommand() {
+            return new NewFixedDurationCommand();
+        }
+    },
+    BETWN("doin") {
+        @Override
+        public Command getCommand() {
+            return new NewDoWithinPeriodCommand();
+        }
     };
 
     private final String cmdStr;
