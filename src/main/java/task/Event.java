@@ -51,6 +51,7 @@ public class Event extends Task {
         super(splitStorageStrings);
         this.start = TimeParser.parse(splitStorageStrings[4]);
         this.end = TimeParser.parse(splitStorageStrings[5]);
+        this.recurringType = splitStorageStrings[6];
     }
 
     /**
@@ -63,7 +64,9 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + TimeParser.format(start) + " - " + TimeParser.format(end) + ")";
+        return "[E]" + super.toString() + " (at: "
+                + TimeParser.format(start) + " - " + TimeParser.format(end) + ")"
+                + "(" + recurringType + ")";
     }
 
     /**
@@ -75,7 +78,9 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + TimeParser.format(start) + " | " + TimeParser.format(end);
+        return "E | " + super.toStorageString() 
+                + " | " + TimeParser.format(start) + " | " + TimeParser.format(end)
+                + " | " + recurringType;
     }
 
     public Date getStart() {
