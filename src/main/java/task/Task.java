@@ -1,6 +1,7 @@
 package task;
 
 import exception.DukeException;
+import parser.TimeParser;
 
 import java.util.List;
 import java.util.Date;
@@ -14,11 +15,10 @@ public class Task {
     // Mandatory fields
     protected String description;
     protected boolean isDone;
-    protected boolean isDeleted;
 
     // Optional fields
     protected Date doAfterDate;
-    protected List<Task> doAfterTasks;
+    protected List<Task> doAfterTasks; // todo: implement doAfterTasks
 
     protected Task(String description) {
         this.description = description;
@@ -28,6 +28,7 @@ public class Task {
     protected Task(String[] splitStorageStrings) {
         this.description = splitStorageStrings[2];
         this.isDone = splitStorageStrings[1].equals("1");
+        this.doAfterDate = TimeParser.parse(splitStorageStrings[3]);
     }
 
     /**
@@ -41,11 +42,13 @@ public class Task {
         } else if (doAfterTasks != null) {
 
             List<Task> undoneTasks = doAfterTasks.stream()
-                    .filter(task -> (!task.isDone && !task.isDeleted))
+                    .filter(task -> (!task.isDone))
                     .collect(Collectors.toList());
 
             if (!undoneTasks.isEmpty()) {
-                StringBuilder exceptionMessageBuilder = new StringBuilder("☹ OOPS!!! This task has to be done after\n  ");
+                StringBuilder exceptionMessageBuilder
+                        = new StringBuilder("☹ OOPS!!! This task has to be done after:\n  ");
+
                 for (int i = 0; i < undoneTasks.size(); i++) {
                     exceptionMessageBuilder
                             .append(i + 1)
@@ -74,6 +77,10 @@ public class Task {
         }
     }
 
+    public void setDoAfterDate(String dateString) throws DukeException {
+        doAfterDate = TimeParser.parse(dateString);
+    }
+
     /**
      * Overrides the <code>toString()</code> method in parent class <code>Object</code>,
      * and returns information of the task to be printed by UI.
@@ -83,7 +90,14 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        if (doAfterDate == null) {
+            return "[" + getStatusIcon() + "] "
+                    + description;
+        } else {
+            return "[" + getStatusIcon() + "] "
+                    + description
+                    + " (after: " + TimeParser.format(doAfterDate) + ")";
+        }
     }
 
     /**
@@ -99,7 +113,7 @@ public class Task {
         } else {
             storageString = "0";
         }
-        storageString += " | " + description;
+        storageString += " | " + description + " | " + TimeParser.format(doAfterDate);
         return storageString;
     }
 

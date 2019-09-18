@@ -27,11 +27,7 @@ public class TaskList {
         tasks = new ArrayList<Task>(100);
         for (String storageString : storageStrings) {
             String[] splitStorageString = storageString.split("\\s+\\Q|\\E\\s+");
-            for (int i = 1; i < splitStorageString.length; i++) {
-                if (splitStorageString[i].equals("")) {
-                    splitStorageString[i] = null;
-                }
-            }
+
             switch (splitStorageString[0]) {
             case "T":
                 tasks.add(new ToDo(splitStorageString));
