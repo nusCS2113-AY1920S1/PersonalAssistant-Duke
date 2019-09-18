@@ -6,6 +6,7 @@ import duke.command.DoneCommand;
 import duke.command.AddDeadlineCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddTodoCommand;
+import duke.command.ReminderCommand;
 import duke.command.SnoozeCommand;
 import duke.command.ViewScheduleCommand;
 import duke.command.ByeCommand;
@@ -42,6 +43,8 @@ class Parser {
                 return new AddDeadlineCommand(arguments);
             case "event":
                 return new AddEventCommand(arguments);
+            case "reminder":
+                return new ReminderCommand();
             case "snooze":
                 return new SnoozeCommand(arguments);
             case "schedule":

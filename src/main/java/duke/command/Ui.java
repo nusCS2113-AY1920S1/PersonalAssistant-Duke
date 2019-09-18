@@ -71,6 +71,11 @@ public class Ui {
         showNumTasks(tasks);
     }
 
+    /**
+     * Displays Task objects in list given.
+     *
+     * @param tasks List of Task objects
+     */
     public void showTaskList(List<Task> tasks) {
         printIndented("Here are the tasks in your list:");
         showTasks(tasks);
@@ -208,11 +213,28 @@ public class Ui {
      *
      * @param tasks List containing user tasks
      */
-    private void showTasks(List<Task> tasks) {
+    public void showTasks(List<Task> tasks) {
         int counter = 1;
         for (Task task : tasks) {
             printIndented(counter++ + ". " + task);
         }
+    }
+
+    /**
+     * Shows no deadlines present.
+     */
+    public void showNoDeadlines() {
+        printIndented("You have no pending deadlines.");
+    }
+
+    /**
+     * Displays the list of deadlines present in user list.
+     *
+     * @param tasks List of all tasks
+     */
+    public void showDeadlines(List<Task> tasks) {
+        printIndented("You currently have these deadlines.");
+        showTasks(tasks);
     }
 
     /**
