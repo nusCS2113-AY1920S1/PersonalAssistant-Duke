@@ -33,6 +33,10 @@ public class DukeException extends Exception {
         + "description of a 'do after' task cannot be empty, e.g. do return book /after Sunday");
     public static final DukeException EMPTY_TIME_IN_DOAFTER = new DukeException("☹ OOPS!!! Please "
         + "provide a valid time/task for the 'do after' task, e.g. do return book /after Sunday");
+    public static final DukeException EMPTY_TIME_IN_RECUR = new DukeException("☹ OOPS!!! Please "
+            + "provide a valid duration for the 'recur' task, e.g. recur return book /frequency Weekly");
+    public static final DukeException EMPTY_TIME_IN_FIXED = new DukeException("☹ OOPS!!! Please "
+            + "provide a valid duration for the 'fixed' task, e.g. fixed return book /duration 2 hours");
     public static final DukeException INVALID_FORMAT_IN_DOAFTER = new DukeException("☹ OOPS!!! Invalid "
         + "format. Please key in the 'do after' task in the correct format, e.g. do return book /after Sunday");
 
@@ -46,7 +50,7 @@ public class DukeException extends Exception {
     public static final DukeException EMPTY_TASK_IN_RECUR = new DukeException("☹ OOPS!!! Please provide a valid "
         + "frequency.");
     private String message;
-
+    public static final DukeException EMPTY_TASK_IN_FIXED = new DukeException("☹ OOPS!!! Please provide a valid task.");
     private DukeException(String message) {
         this.message = message;
     }
