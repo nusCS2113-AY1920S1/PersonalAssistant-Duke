@@ -27,15 +27,15 @@ public enum Tsk {
         }
     };
 
-    private final String taskChar;
+    private final String taskTypeStr;
 
     /**
      * Creates the Tsk enum instance and associates the specified character with it.
      *
-     * @param taskChar The character to be associated with the specified task type.
+     * @param taskTypeStr The string to be associated with the specified task type.
      */
-    Tsk(final String taskChar) {
-        this.taskChar = taskChar;
+    Tsk(final String taskTypeStr) {
+        this.taskTypeStr = taskTypeStr;
     }
 
     private static Reminder getReminder(String remind) {
@@ -51,7 +51,7 @@ public enum Tsk {
 
     @Override
     public String toString() {
-        return taskChar;
+        return taskTypeStr;
     }
 
     /**

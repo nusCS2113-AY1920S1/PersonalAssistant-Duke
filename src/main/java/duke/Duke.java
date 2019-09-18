@@ -6,6 +6,8 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.task.Storage;
 
+import java.io.File;
+
 public class Duke {
     private DukeContext ctx; //holds the tasklist, ui and storage classes
 
@@ -31,10 +33,6 @@ public class Duke {
         }
     }
 
-    public static void main(String[] argv) {
-        new Duke("data/tasks.tsv").run();
-    }
-
     /**
      * Continually extracts and executes commands from user input.
      */
@@ -47,5 +45,16 @@ public class Duke {
                 ctx.ui.printError(excp);
             }
         }
+    }
+
+    /**
+     * Setup directory for Duke.
+     */
+    public static void main(String[] argv) {
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
+        new Duke("data" + File.separator + "tasks.tsv").run();
     }
 }

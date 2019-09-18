@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
  * @author Pang Jia Jun Vernon
  */
 public class NewReminderCommand extends MultiArgCommand {
-    private LocalDateTime datetime;
+    private LocalDateTime reminderDateTime;
 
     /**
      * Creates a new Command object that can be executed to set a Reminder for a Task.
@@ -35,7 +35,7 @@ public class NewReminderCommand extends MultiArgCommand {
         }
 
         try {
-            datetime = LocalDateTime.parse(argv[1], TimedTask.getDataFormatter());
+            reminderDateTime = LocalDateTime.parse(argv[1], TimedTask.getDataFormatter());
         } catch (DateTimeParseException excp) {
             throw new DukeException("Date and time must be given as e.g. "
                     + LocalDateTime.now().format(TimedTask.getDataFormatter()) + ".");
@@ -45,7 +45,7 @@ public class NewReminderCommand extends MultiArgCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String remindStr = ctx.taskList.setReminder(argv[0], new Reminder(datetime));
+        String remindStr = ctx.taskList.setReminder(argv[0], new Reminder(reminderDateTime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(remindStr);
     }

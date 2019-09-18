@@ -62,12 +62,11 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String remind = "";
+        String remind = " ";
         if (reminder != null) {
-            remind = reminder.toString();
+            remind = reminder.toString() + remind;
         }
-
-        return "[" + (isDone ? "\u2713" : "\u2718") + "]" + remind + " " + name; //ternary operator returns tick or X
+        return "[" + (isDone ? "Y" : "N") + "]" + remind + name;
     }
 
     /**
