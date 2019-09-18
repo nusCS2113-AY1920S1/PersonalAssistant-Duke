@@ -100,6 +100,7 @@ Use case ends.
 +
 Use case resumes at step 5.
 
+[discrete]
 === Use case: Check progress
 
 *MSS*
@@ -112,7 +113,33 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. User can request to show progress again `marks pl0x`
+* 2a. User types invalid input
++
+[none]
+** 2a1. Cake shows error message
+Use case resumes at step 2.
+
+[none]
+* 2b. User types wrong answer
++
+Cake shows "Wrong Answer" and proceeds to next question.
+
+[discrete]
+=== Use case: Do quiz from sub-topic
+
+*MSS*
+
+1. _User requests for sub-topic list_
+2. User selects quiz by typing `quiz` or types in the index of the quiz in the list e.g. `7`
+3. Cake launches quiz
+4. User answers the questions
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. User types in answer via the quiz options listed e.g. `1. A`, `2. A` etc.
 +
 Use case ends
 
