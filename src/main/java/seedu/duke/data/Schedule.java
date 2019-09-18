@@ -2,13 +2,15 @@ package seedu.duke.data;
 
 import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * This class stores the
+ */
 public class Schedule {
 
     private static final String DATE_FORMATTER_NO_TIME = "dd/MM/yyyy";

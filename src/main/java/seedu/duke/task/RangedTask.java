@@ -9,17 +9,32 @@ import java.util.Locale;
 /**
  * This task type inherits from Task. It specifies an event at a particular time.
  */
-public class Event extends Task {
+public class RangedTask extends Task {
+    
+    /**
+     * Unchanged time range from user input.
+     */
+    protected String time;
 
     /**
-     * String that denotes when the event is going to happen.
+     * String that denotes by when the task should be completed.
      */
-    protected String at;
+    protected String by;
 
     /**
-     * String that denotes a date time parsed at variable.
+     * String that denotes from when the task should be completed.
      */
-    protected String dateAt;
+    protected String from;
+
+    /**
+     * String that denotes a date time parsed by variable.
+     */
+    protected String dateBy;
+
+    /**
+     * String that denotes a date time parsed from variable.
+     */
+    protected String dateFrom;
 
     /**
      * Object of the Ui class that that is used to
@@ -29,27 +44,43 @@ public class Event extends Task {
 
     /**
      * Initializes description and at variable.
+     * 
+     * @param time input string of time that includes from and by.
      */
-    public Event(String description, String at) {
+    public RangedTask(String description, String time) {
         super(description);
-        this.at = at;
-        this.to_date();
+        this.time = time;
+        this.parser(time);
+        this.dateBy = this.to_date(this.by);
+        this.dateFrom = this.to_date(this.from);
+    }
+
+    /**
+     * Splits the description into from and by.
+     *
+     * @param time input time string that includes from and by.
+     */
+    public void parser(String time) {
+        this.from = time.split(" and ")[0];
+        this.by = time.split(" and ")[1];
     }
 
     /**
      * Makes use of the DateTimeFormatter and LocalDateTime class to parse
-     * the user input date time and initializes the date_at member variable.
+     * the timeStrig to date time.
+     *
+     * @param timeString input string that needs to be parsed.
+     * @return date/time parsed string
      */
-    public void to_date() {
+    public String to_date(String timeString) {
         // splitting date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
         LocalDateTime parsedDate;
         try {
-            parsedDate = LocalDateTime.parse(this.at, formatter);
+            parsedDate = LocalDateTime.parse(timeString, formatter);
         } catch (DateTimeParseException e) {
             ui.date_time_error();
-            this.dateAt = this.at;
-            return;
+            return timeString;
         }
 
         String suffix;
@@ -75,7 +106,9 @@ public class Event extends Task {
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d'"
             + suffix + "' 'of' MMMM uuuu',' h:mma", Locale.ENGLISH);
 
-        this.dateAt = parsedDate.format(printFormat);
+        String result = parsedDate.format(printFormat);
+
+        return result;
     }
 
     /**
@@ -84,7 +117,8 @@ public class Event extends Task {
      * @return a string with the target info.
      */
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + this.dateAt + ")";
+        return "[R]" + super.toString() + " (from: " + this.dateFrom
+            + ", by: " + this.dateBy + ")";
     }
 
 
@@ -94,7 +128,7 @@ public class Event extends Task {
      * @return a string with pipe separated info.
      */
     public String toSaveFormat() {
-        return "E|" + super.toSaveFormat() + "|" + this.at;
+        return "R|" + super.toSaveFormat() + "|" + this.time;
     }
 
     /**
@@ -103,9 +137,9 @@ public class Event extends Task {
      * @param temp the instance to compare against.
      * @return true or false to the comparison.
      */
-    public boolean equals(Event temp) {
-        if (this.description == temp.description && this.at == temp.at
-                && this.dateAt == temp.dateAt) {
+    public boolean equals(RangedTask temp) {
+        if (this.description == temp.description && this.by == temp.by
+            && this.from == temp.from) {
             return true;
         }
         return false;

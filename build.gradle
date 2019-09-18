@@ -1,6 +1,12 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+}
+
+checkstyle {
+    toolVersion = '8.23'
 }
 
 group 'seedu.duke'
@@ -25,4 +31,11 @@ dependencies {
 
 test {
   useJUnitPlatform()
+}
+
+shadowJar {
+    archiveBaseName = "duke"
+    archiveVersion = "mid-v1.1"
+    archiveClassifier = null
+    archiveAppendix = null
 }
