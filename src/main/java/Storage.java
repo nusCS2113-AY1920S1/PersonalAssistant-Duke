@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "/home/tessa/Documents/CS2113/main/data/duke.txt";
+    private static String FILE_PATH = "C:\\Users\\Jian Wei\\Desktop\\main\\data\\duke.txt";
 
     Storage() {}
     Storage(String filePath) {
