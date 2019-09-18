@@ -35,7 +35,7 @@ public class SnoozeCommand extends MultiArgCommand {
         String newDateTimeStr = arg.substring(argv[0].length() + 1); // +1 to exclude the task number from DateTime
         LocalDateTime newDateTime;
         try {
-            newDateTime = LocalDateTime.parse(newDateTimeStr, TimedTask.getDataFormatter());
+            newDateTime = LocalDateTime.parse(newDateTimeStr, TimedTask.getPatDatetime());
         } catch (DateTimeParseException excp) {
             throw new DukeException(invalidArgMsg);
         }

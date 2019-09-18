@@ -1,6 +1,7 @@
 package duke.task;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -16,13 +17,27 @@ public enum Tsk {
     },
     EVENT("E") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getDataFormatter());
-            return new EventTask(taskArr[3], datetime, getReminder(taskArr[2]));
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[5], TimedTask.getPatDatetime());
+            return new EventTask(taskArr[3], datetime, endDatetime, getReminder(taskArr[2]));
+        }
+    },
+    FORP("F") {
+        public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
+            Duration period = Duration.parse(taskArr[3]);
+            return new FixedDurationTask(taskArr[2], period);
+        }
+    },
+    BETWN("B") {
+        public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[5], TimedTask.getPatDatetime());
+            return new EventTask(taskArr[3], datetime, endDatetime, getReminder(taskArr[2]));
         }
     },
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getDataFormatter());
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
             return new DeadlineTask(taskArr[3], datetime, getReminder(taskArr[2]));
         }
     };
@@ -41,7 +56,7 @@ public enum Tsk {
     private static Reminder getReminder(String remind) {
         Reminder reminder;
         try {
-            reminder = new Reminder(LocalDateTime.parse(remind, TimedTask.getDataFormatter()));
+            reminder = new Reminder(LocalDateTime.parse(remind, TimedTask.getPatDatetime()));
         } catch (DateTimeParseException e) {
             reminder = null;
         }

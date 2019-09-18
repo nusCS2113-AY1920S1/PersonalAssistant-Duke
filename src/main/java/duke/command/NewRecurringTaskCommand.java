@@ -61,14 +61,14 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         DukeException invalidRecurrenceExcp = new DukeException("You need to tell me how many times you want that "
                 + "task to recur!" + System.lineSeparator() + "Either tell me to repeat it with e.g. '/count 5' or"
                 + "with e.g. '/until " + LocalDateTime.now().plus(3, period)
-                .format(TimedTask.getDataFormatter()) + "'.");
+                .format(TimedTask.getPatDatetime()) + "'.");
         if (argv[1].matches("^" + countDelim + "\\s+\\d+$")) {
             count = Long.parseLong(argv[1].substring(countDelim.length()).strip()); //regex checks to ensure validity
         } else if (argv[1].matches("^" + untilDelim + "\\s+[A-Za-z 0-9/]+$")) {
             LocalDateTime until = null;
             try {
                 until = LocalDateTime.parse(argv[1].substring(untilDelim.length()).strip(),
-                        TimedTask.getDataFormatter());
+                        TimedTask.getPatDatetime());
             } catch (DateTimeParseException excp) {
                 throw invalidRecurrenceExcp;
             }
