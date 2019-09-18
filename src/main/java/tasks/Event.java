@@ -31,6 +31,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public Date getTime()   {
+        return at;
+    }
+
+    @Override
     /**
      * @Override toString() in Task
      * a method to format the output of the task list
@@ -49,7 +54,7 @@ public class Event extends Task {
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.at);
+        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.at);
     }
 
     /**

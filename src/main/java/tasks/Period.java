@@ -26,7 +26,6 @@ public class Period extends Task{
      */
     public Period(){}
 
-
     /**
      * another constructor of Period
      * @param description
@@ -49,6 +48,14 @@ public class Period extends Task{
      */
     public void setStart(Date start){
         this.start = start;
+    }
+
+    public Date getStart(){
+        return this.start;
+    }
+
+    public Date getEnd(){
+        return this.end;
     }
 
     /**

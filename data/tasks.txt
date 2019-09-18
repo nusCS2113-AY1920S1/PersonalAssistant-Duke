@@ -1,7 +1,6 @@
-T | 1 | make notes for OOP
-E | 0 | OOP lectrure4 | 06/09/2019 0400
-D | 1 | OOP project assignment in week 4 | 04/09/0019 1159
-T | 0 | reading
-L | 0 | read book | 2hrs
-P | 0 | review | 23/12/2020 1234 | 24/12/2020 1234
-T | 1 | preview
+T | 1 | make notes for OOP | 0
+E | 1 | OOP lectrure4 | 0 | 06/09/2019 0400
+D | 1 | OOP project assignment in week 4 | 0 | 04/09/0019 1159
+T | 0 | reading | 0
+L | 0 | read book | 0 | 2hrs
+P | 0 | review | 0 | 23/12/2020 1234 | 24/12/2020 1234

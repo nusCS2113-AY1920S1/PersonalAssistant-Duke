@@ -10,9 +10,8 @@ import java.util.Date;
 
 public class Deadline extends Task {
 
-    /**
-     * a Date variable specifies the ddl of this task
-     */
+    public Date getTime() { return this.by; }
+
     protected Date by;
 
 
@@ -58,6 +57,6 @@ public class Deadline extends Task {
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.by);
+        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.by);
     }
 }
