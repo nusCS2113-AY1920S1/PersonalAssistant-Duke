@@ -1,5 +1,4 @@
 T | 0 | return book
 T | 1 | return book
 T | 0 | return
-E | 0 | bday | 02/10/1998 1900
-E | 0 | boi | 02/10/1998 1900
+D | 0 | bye | 13/2/1997 1300

@@ -8,13 +8,13 @@ public class Parser {
     /**
      * Parse the date and return AddCommand class for Event task type.
      * @param taskType The type of task
-     * @param command Command to be parse to description and dateTime
+     * @param command command to be parse to description and dateTime
      * @return AddCommand for Event task type
      */
     private static Command parseEvent(String taskType, String command) throws DukeException {
         String[] splitStr = command.split("/at ", 2);
         if (splitStr.length == 1) {
-            throw new DukeException("Invalid Command\n");
+            throw new DukeException("Invalid command\n");
         }
 
 
@@ -25,13 +25,13 @@ public class Parser {
     /**
      * Parse the date and return AddCommand class for Deadline task type.
      * @param taskType The type of task
-     * @param command Command to be parse to description and dateTime
+     * @param command command to be parse to description and dateTime
      * @return AddCommand for Deadline task type
      */
     private static Command parseDeadline(String taskType, String command) throws DukeException {
         String[] splitStr = command.split("/by ", 2);
         if (splitStr.length == 1) {
-            throw new DukeException("Invalid Command\n");
+            throw new DukeException("Invalid command\n");
         }
 
         return new AddCommand(taskType, splitStr[0], splitStr[1]);
@@ -75,8 +75,8 @@ public class Parser {
 
     /**
      * Return the correct command given by user, Class method.
-     * @param fullCommand Command input by user to be parse
-     * @return The correct Command class as defined by first word
+     * @param fullCommand command input by user to be parse
+     * @return The correct command class as defined by first word
      * @throws NumberFormatException if command has characters.
      * @throws DukeException if the command is invalid or there are missing parameters.
      */
@@ -93,7 +93,7 @@ public class Parser {
                     case "reminders":
                         return new RemindersCommand();
                     default:
-                        throw new DukeException("Invalid Command\n");
+                        throw new DukeException("Invalid command\n");
                 }
             case 2:
                 if (!splitStr[1].isEmpty()) {
@@ -114,13 +114,13 @@ public class Parser {
                         case "snooze":
                             return parseSnooze(splitStr[1]);
                         default:
-                            throw new DukeException("Invalid Command\n");
+                            throw new DukeException("Invalid command\n");
                     }
                 } else {
-                    throw new DukeException("Invalid Command\n");
+                    throw new DukeException("Invalid command\n");
                 }
             default:
-                throw new DukeException("Invalid Command\n");
+                throw new DukeException("Invalid command\n");
         }
     }
 }

@@ -50,4 +50,8 @@ public class Event extends Task {
         LocalDate t = new DateFormatter(this.at).convertToLocalDate(this.at);
         return t;
     }
+    @Override
+    public String getDateTime() {
+        return this.at;
+    }
 }

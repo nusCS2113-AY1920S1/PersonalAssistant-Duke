@@ -1,8 +1,12 @@
 package duke.task;
 
+import duke.calendarMap.DateMap;
+import duke.exception.DukeTaskClashException;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
+    private DateMap dateMap = new DateMap();
 
     /**
      * Get the task for index based on 1.
@@ -10,6 +14,7 @@ public class TaskList extends ArrayList<Task> {
      * @return The task with index starting from 0
      */
     private Task getTask(int index) {
+
         return this.get(index - 1);
     }
 
@@ -19,7 +24,7 @@ public class TaskList extends ArrayList<Task> {
      * @return The task that is deleted
      */
     public Task deleteTask(int index) {
-
+        deleteFromMap(this.getTask(index));
         return this.remove(index - 1);
     }
 
@@ -61,5 +66,20 @@ public class TaskList extends ArrayList<Task> {
         return foundTask;
     }
 
+    public boolean addTask(Task task) throws DukeTaskClashException {
+        addToMap(task);
+        return super.add(task);
+    }
 
+    private void addToMap(Task task) throws DukeTaskClashException {
+        if (task.getSymbol().equals("[E]") || task.getSymbol().equals("[D]")) {
+            dateMap.addTask(task.getDateTime(), task);
+        }
+    }
+
+    private void deleteFromMap(Task task) {
+        if (task.getSymbol().equals("[E]") || task.getSymbol().equals("[D]")) {
+            dateMap.deleteTask(task.getDateTime(), task);
+        }
+    }
 }

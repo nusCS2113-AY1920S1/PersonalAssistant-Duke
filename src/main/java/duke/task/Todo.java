@@ -38,4 +38,8 @@ public class Todo extends Task {
     public String writeToFile() {
         return String.format("T | %d | %s",  (isCompleted() ? 1 : 0), this.getDescription());
     }
+
+    public String getDateTime() {
+        return null;
+    }
 }
