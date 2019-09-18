@@ -56,18 +56,18 @@ public class Deadline extends Task {
 
         String suffix;
         switch (parsedDate.getDayOfMonth() % 10) {
-         case 1:
-             suffix = "st";
-             break;
-         case 2:
-             suffix = "nd";
-             break;
-         case 3:
-             suffix = "rd";
+        case 1:
+            suffix = "st";
             break;
-         default:
-             suffix = "th";
-             break;
+        case 2:
+            suffix = "nd";
+            break;
+        case 3:
+            suffix = "rd";
+            break;
+        default:
+            suffix = "th";
+            break;
         }
 
         if (parsedDate.getDayOfMonth() > 3 && parsedDate.getDayOfMonth() < 21) {
