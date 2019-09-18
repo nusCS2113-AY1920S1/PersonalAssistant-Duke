@@ -1,4 +1,4 @@
-package main.java.Events.Formatting;
+package Events.Formatting;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

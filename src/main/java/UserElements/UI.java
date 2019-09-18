@@ -1,7 +1,7 @@
-package main.java.UserElements;
+package UserElements;
 
 import Events.Storage.TaskList;
-import main.java.Events.EventTypes.Task;
+import Events.EventTypes.Task;
 
 /**
  * User interface: contains all methods pertaining to user interaction.

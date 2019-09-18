@@ -2,9 +2,9 @@ package Events.Storage;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import main.java.Events.EventTypes.Task;
+import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
-import main.java.Events.Formatting.DateObj;
+import Events.Formatting.DateObj;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class TaskList {
      */
     private ArrayList<Task> taskArrayList;
 
-    protected int ONE_SEMESTER_DAYS = 120;
+    protected int ONE_SEMESTER_DAYS = 16*7;
 
     /**
      * Creates new Model_Class.TaskList object.

@@ -1,8 +1,8 @@
-package main.java.Events.Storage;
+package Events.Storage;
 
 import Events.Storage.TaskList;
-import main.java.Events.EventTypes.Task;
-import main.java.UserElements.UI;
+import Events.EventTypes.Task;
+import UserElements.UI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
