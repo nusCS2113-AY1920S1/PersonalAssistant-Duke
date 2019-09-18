@@ -60,7 +60,6 @@ public class Storage {
                         FD.isDone = false;
                     }
                     tlist.add(FD);
-<<<<<<< HEAD
                 } else if(details[0].equals("DA")) {
                     DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                     if(details[1].equals("\u2713")) {
@@ -70,9 +69,6 @@ public class Storage {
                         DA.isDone = false;
                 }
                 else {
-=======
-                } else {
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){
                         e.isDone = true;

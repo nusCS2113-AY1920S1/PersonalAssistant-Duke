@@ -1,8 +1,5 @@
 import Storage.Storage;
-<<<<<<< HEAD
 import Tasks.DoAfter;
-=======
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
 import Tasks.Task;
 import UI.Ui;
 import commands.DeadlineCommand;
@@ -57,7 +54,6 @@ public class DukeTest {
         } catch (NullPointerException e){
             assertEquals(e.getMessage(),e.getMessage());
         }
-<<<<<<< HEAD
     }
 
 
@@ -65,7 +61,8 @@ public class DukeTest {
     @Test
     void testDoAfter() {
         assertEquals("DA|\u2718| return book|/after read book", testdoAfter.toString());
-=======
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
+
     }
+
+
 }

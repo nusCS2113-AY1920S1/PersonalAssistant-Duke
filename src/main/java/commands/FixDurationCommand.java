@@ -12,10 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FixDurationCommand extends Command {
-<<<<<<< HEAD
 
-=======
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
@@ -41,22 +38,16 @@ public class FixDurationCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-<<<<<<< HEAD
             else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-=======
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
             else{
                 sb.append(list.get(i).toString()+"\n");
             }
         }
         storage.Storages(sb.toString());
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
     @Override
     public boolean isExit() {
         return false;

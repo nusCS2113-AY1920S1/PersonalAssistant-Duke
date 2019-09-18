@@ -4,13 +4,8 @@ plugins {
     id 'checkstyle'
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-<<<<<<< HEAD
-    id 'checkstyle'
 }
 
-=======
-}
->>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
 checkstyle {
     toolVersion = '8.23'
 }
