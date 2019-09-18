@@ -1,14 +1,6 @@
 package seedu.duke;
 
-import seedu.duke.command.AddCommand;
-import seedu.duke.command.Command;
-import seedu.duke.command.DeleteCommand;
-import seedu.duke.command.DoneCommand;
-import seedu.duke.command.ExitCommand;
-import seedu.duke.command.FindCommand;
-import seedu.duke.command.InvalidCommand;
-import seedu.duke.command.ListCommand;
-import seedu.duke.command.ReminderCommand;
+import seedu.duke.command.*;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -82,6 +74,20 @@ public class Parser {
                 return new ReminderCommand(taskList);
             } else {
                 return new ReminderCommand(taskList, dayLimit);
+            }
+        } else if (input.startsWith("doafter")) {
+            if (input.length() < 8) {
+                ui.showError("Please enter item number");
+            } else if (input.length() < 11) {
+                ui.showError("Please enter description for do-after task");
+            } else {
+                String[] splitInput = input.split(" /");
+                try {
+                    int itemNumber = Integer.parseInt(splitInput[1].trim());
+                    return new DoAfterCommand(taskList, itemNumber, splitInput[2]);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    ui.showError(e.toString());
+                }
             }
         } else {
             try {

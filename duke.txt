@@ -1,0 +1,3 @@
+0 deadline homework /by 28/10/2019 1300
+1 event lecture /at 18/09/2019 1400
+0 event tut /at 18/09/2019 1000

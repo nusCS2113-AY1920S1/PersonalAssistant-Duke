@@ -23,6 +23,8 @@ public class Task {
      */
     protected TaskType taskType;
 
+    protected String doAfterDescription;
+
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
@@ -45,6 +47,7 @@ public class Task {
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.doAfterDescription = null;
     }
 
     /**
@@ -133,5 +136,9 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
+    }
+
+    public void setDoAfterDescription(String description) {
+        this.doAfterDescription = description;
     }
 }

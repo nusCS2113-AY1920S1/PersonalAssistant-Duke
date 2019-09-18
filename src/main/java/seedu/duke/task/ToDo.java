@@ -23,7 +23,11 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + this.getStatus();
+        if (doAfterDescription == null) {
+            return "[T]" + this.getStatus();
+        } else {
+            return "[T]" + this.getStatus() + "\n   After which: " + doAfterDescription;
+        }
     }
 
     /**
