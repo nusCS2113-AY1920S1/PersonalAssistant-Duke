@@ -37,6 +37,6 @@ public class ToDo extends Task {
      *              a string which will show in data file that store the task list
      */
     public String dataString() {
-        return "T | " + (this.isDone ? 1 : 0) + " | " + this.description;
+        return "T | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + this.getPrecondition();
     }
 }

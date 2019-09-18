@@ -42,6 +42,7 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<Task>();
+        Task.tasks = tasks;
         try {
             is = new FileInputStream(dataFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));

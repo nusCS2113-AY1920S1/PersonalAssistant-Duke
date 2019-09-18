@@ -1,8 +1,10 @@
 package utils;
 
 import commands.*;
+import core.Ui;
 import tasks.*;
-import javafx.css.converter.DurationConverter;
+
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,22 +47,29 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             throw new ParseException("Invalid number format for the second column of Duke data line.", -1);
+        } catch (DukeException e) {
+            Ui.print(e.getMessage());
         }
         temp.setDescription(splites[2]);
+        try {
+            temp.addPrecondition(splites[3]);
+        } catch (DukeException e) {
+            throw new ParseException(e.getMessage(), -1);
+        }
         if (splites[0].equals("E") || splites[0].equals("D")) {
             SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
             try {
-                temp.setTime(ft.parse(splites[3]));
+                temp.setTime(ft.parse(splites[4]));
             } catch (ParseException e) {
                 throw e;
             }
         }else if (splites[0].equals("L")){
-            temp.setDuration(splites[3]);
+            temp.setDuration(splites[4]);
         }else if (splites[0].equals("P")){
             SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
             try{
-                temp.setStart(ft.parse(splites[3]));
-                temp.setEnd(ft.parse(splites[4]));
+                temp.setStart(ft.parse(splites[4]));
+                temp.setEnd(ft.parse(splites[5]));
             }catch (ParseException e){
                 throw e;
             }
@@ -75,7 +84,7 @@ public class Parser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
-        String[] splites = line.trim().split("\\s+", 2);
+        String[] splites = line.trim().split("\\s+", 3);
         splites[0] = splites[0].trim().toUpperCase();
         Command temp = null;
         if (splites[0].equals("ADD")) {
@@ -90,6 +99,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("RECURRING")) {
+            temp = new RecurringCommand(splites[1], splites[2]);
         } else if (splites[0].equals("SNOOZE")) {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
