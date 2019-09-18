@@ -1,6 +1,6 @@
 import main.java.Events.Storage.Storage;
-import main.java.Events.Storage.TaskList;
-import main.java.UserElements.Command;
+import Events.Storage.TaskList;
+import UserElements.Command;
 import main.java.UserElements.Parser;
 import main.java.UserElements.UI;
 

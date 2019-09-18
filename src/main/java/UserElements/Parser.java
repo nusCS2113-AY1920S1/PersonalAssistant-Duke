@@ -1,5 +1,7 @@
 package main.java.UserElements;
 
+import UserElements.Command;
+
 /**
  * Contains method to parse the user input and interpret it for Model_Class.Command class
  */

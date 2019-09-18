@@ -1,6 +1,6 @@
 package main.java.UserElements;
 
-import main.java.Events.Storage.TaskList;
+import Events.Storage.TaskList;
 import main.java.Events.EventTypes.Task;
 
 /**

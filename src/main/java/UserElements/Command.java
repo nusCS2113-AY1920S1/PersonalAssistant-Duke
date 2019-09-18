@@ -1,11 +1,12 @@
-package main.java.UserElements;
+package UserElements;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.ToDo;
+import Events.Storage.TaskList;
 import main.java.Events.EventTypes.Task;
 import main.java.Events.Storage.Storage;
-import main.java.Events.Storage.TaskList;
+import main.java.UserElements.UI;
 
 /**
  * Represents a command that is passed via user input.

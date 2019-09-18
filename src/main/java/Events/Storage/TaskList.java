@@ -1,9 +1,9 @@
-package main.java.Events.Storage;
+package Events.Storage;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import Events.EventTypes.ToDo;
 import main.java.Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 import main.java.Events.Formatting.DateObj;
 
 import java.text.SimpleDateFormat;
