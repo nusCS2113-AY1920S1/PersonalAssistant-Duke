@@ -10,11 +10,13 @@ import java.util.Date;
 public class TaskList implements Serializable {
     private static final int DAYS_FROM_NOW = 7;
     private ArrayList<ITask> listOfTasks;
+    private ArrayList<IRecurring> listOfRecurringTasks;
     private ArrayList<ITask> searchedTasks;
     private ArrayList<ITask> schedule;
 
     public TaskList() {
         listOfTasks = new ArrayList<>();
+        listOfRecurringTasks = new ArrayList<>();
     }
 
     /**
@@ -30,12 +32,35 @@ public class TaskList implements Serializable {
         return true;
     }
 
+    /**
+     * Adds a Task to Recurring List.
+     *
+     * @param newRecurringTask : A new Recurring Task
+     * @param newTask : The same recurring Task but its polymorphic ITask
+     * @return : Returns a boolean for detection of anomalies
+     */
+    public boolean addToRecurringList(IRecurring newRecurringTask, ITask newTask) {
+        if (!detectAnomalies(newTask)) {
+            this.listOfRecurringTasks.add(newRecurringTask);
+            return false;
+        }
+        return true;
+    }
+
     public void deleteFromList(ITask oldTask) {
         listOfTasks.remove(oldTask);
     }
 
+    public void deleteFromRecurring(IRecurring oldTask) {
+        listOfRecurringTasks.remove(oldTask);
+    }
+
     public ArrayList<ITask> getAllTasks() {
         return this.listOfTasks;
+    }
+
+    public ArrayList<IRecurring> getAllRecurringTasks() {
+        return this.listOfRecurringTasks;
     }
 
     public ITask getTask(int index) {
@@ -82,7 +107,7 @@ public class TaskList implements Serializable {
      * @param newTask : A new task that is added by the user. Task is created by Factory.
      * @return : Boolean value which gives status of anomaly detection.
      */
-    private boolean detectAnomalies(ITask newTask) {
+    public boolean detectAnomalies(ITask newTask) {
         if (newTask instanceof ToDos) {
             return false;
         } else if (newTask.getDateTime().equals("")) {
