@@ -1,5 +1,7 @@
 package task;
 
+import java.util.regex.Pattern;
+
 public abstract class Tasks {
     protected String description;
     protected String type;
@@ -44,6 +46,15 @@ public abstract class Tasks {
         return (done ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-
-
+    public String parseDescription(){
+        if (type.equals("E")){
+            String[] tokens = description.split(Pattern.quote("(at: "));
+            return tokens[0];
+        } else if (type.equals("D")){
+            String[] tokens = description.split(Pattern.quote("(by: "));
+            return tokens[0];
+        } else{
+            return description;
+        }
+    }
 }

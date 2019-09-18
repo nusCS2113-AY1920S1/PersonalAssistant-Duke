@@ -25,14 +25,10 @@ public class MyDate {
      * @throws ParseException when fail to parse a String that is ought to have a special format.
      */
     public MyDate(String s) {
-
-
         this.startdateStr = s;
         this.enddateStr = s;
-
         this.startdate = TimeParser.convertStringToDate(s);
         this.enddate = TimeParser.convertStringToDate(s);
-
 
         if (this.startdate != null) {
             this.startdateStr = TimeParser.convertDateToLine(this.startdate);
@@ -40,34 +36,25 @@ public class MyDate {
         if (this.enddate != null) {
             this.enddateStr = TimeParser.convertDateToLine(this.enddate);
         }
-
     }
 
     /**
      * Constructor for class.
      */
     public MyDate(String startDate,  String endDate) {
-
-
         hasEndDate = true;
-
         this.startdateStr = startDate;
         this.enddateStr = endDate;
-
         this.startdate = TimeParser.convertStringToDate(startDate);
         this.enddate = TimeParser.convertStringToDate(endDate);
-
 
         if (this.startdate != null) {
             this.startdateStr = TimeParser.convertDateToLine(this.startdate);
         }
-
         if (this.enddate != null) {
             this.enddateStr = TimeParser.convertDateToLine(this.enddate);
         }
-
     }
-
 
     /**
      * Returns the start date object.
@@ -75,7 +62,6 @@ public class MyDate {
      */
     public Date getStartDate() {
         return this.startdate;
-
     }
 
     /**
@@ -84,7 +70,6 @@ public class MyDate {
      */
     public Date getEndDate() {
         return this.enddate;
-
     }
 
     /**
@@ -93,7 +78,6 @@ public class MyDate {
      */
     public String getStartDateStr() {
         return this.startdateStr;
-
     }
 
     /**
@@ -102,7 +86,6 @@ public class MyDate {
      */
     public String getEndDateStr() {
         return this.enddateStr;
-
     }
 
     @Override
@@ -110,6 +93,4 @@ public class MyDate {
         String returnStr = hasEndDate ? startdateStr + " to " + enddateStr : startdateStr;
         return returnStr;
     }
-
-
 }

@@ -4,7 +4,11 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
+<<<<<<< HEAD
+Entertainment Pro - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+=======
 Entertainment Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+>>>>>>> 29c893aa3eaff1fb2f275197b0fbf5076eeace72
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -20,7 +24,11 @@ Responsibilities: Documentation + Code Quality
 
 === Marc
 image::lejolly.jpg[width="150", align="left"]
+<<<<<<< HEAD
+{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=======
 {empty}[http://github.com/Hotspur1997[github]] [<<johndoe#, portfolio>>]
+>>>>>>> 29c893aa3eaff1fb2f275197b0fbf5076eeace72
 
 Role: Developer +
 Responsibilities: Integration + Storage
@@ -29,7 +37,11 @@ Responsibilities: Integration + Storage
 
 === Wen Hui
 image::yijinl.jpg[width="150", align="left"]
+<<<<<<< HEAD
+{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=======
 {empty}[http://github.com/nwenhui[github]] [<<johndoe#, portfolio>>]
+>>>>>>> 29c893aa3eaff1fb2f275197b0fbf5076eeace72
 
 Role: Developer +
 Responsibilities: Deliverables and deadlines + UI
@@ -37,7 +49,11 @@ Responsibilities: Deliverables and deadlines + UI
 '''
 
 === Mohamed Riyas
+<<<<<<< HEAD
+image::m133225.jpg[width="150", align="left"]
+=======
 image::riyas97.png[width="150", align="left"]
+>>>>>>> 29c893aa3eaff1fb2f275197b0fbf5076eeace72
 {empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

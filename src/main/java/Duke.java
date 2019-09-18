@@ -35,7 +35,7 @@ public class Duke {
 
     /**
      * The function first prints welcome message.
-     * After which, it takes in user's input and pass it to Parser class to excecute the approriate commands.
+     * After which, it takes in user's input and pass it to Parser class to execute the appropriate commands.
      */
     public void run() throws DukeException {
         ui.showWelcome();

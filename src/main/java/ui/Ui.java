@@ -1,12 +1,16 @@
 package ui;
 
+import parser.TimeParser;
 import task.Deadline;
+import task.TaskList;
 import wrapper.Pair;
 import task.Event;
 import task.Tasks;
 import wrapper.TimeInterval;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -44,7 +48,6 @@ public class Ui {
             System.out.println(space + "Now you have " + i + " task in the list.");
         }
         System.out.println(line);
-
     }
 
 
@@ -130,8 +133,7 @@ public class Ui {
     /**
      * Prints a message once a To-Do task has been successfully added into database.
      */
-
-    public static void showToDoSucess(String type, String status, String message, int todolistNumber) {
+    public static void showToDoSuccess(String type, String status, String message, int todolistNumber) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:"
             + "\n" + space + " [" + type
             + "][" + status
@@ -331,5 +333,61 @@ public class Ui {
         }
 
         System.out.println(line);
+    }
+
+    /**
+     * Prints a message corresponding to the user request for reminder
+     */
+    public static void showReminderIntroMessage(int n, String date) {
+        if (TaskList.getTreeMap().isEmpty()) {
+            System.out.println(line + "\n" + space + "You have no upcoming tasks");
+        } else {
+            System.out.println(line + "\n" + space + "Here is a reminder for your next " + n + " upcoming tasks from " + date);
+        }
+    }
+
+    /**
+     * Prints a notice to tell the user when there is no upcoming tasks to be reminded of
+     */
+    public static void showEmptyReminderMessage(int count){
+        if (count == 1){
+            System.out.println(space + space + "*You have no upcoming tasks*");
+        }
+    }
+
+    /**
+     * Prints the task according to the reminder format
+     */
+    public static void printReminder(Map.Entry<Date, Tasks> log, int count){
+        System.out.println(space + count + ". " + log.getValue().getDescription());
+    }
+
+    /**
+     * Prints a message corresponding to the user request for schedule
+     */
+    public static void showScheduleIntroMessage(String s) {
+        System.out.println(line + "\n" + space + "Here is ur schedule for " + s + ":");
+    }
+
+    /**
+     * Prints the total number of tasks in the schedule
+     */
+    public static void showScheduleFinalMessage(int count) {
+        if (count == 2) {
+            System.out.println("\n" + space + space + "*there is a total of 1 task scheduled*");
+        } else {
+            System.out.println("\n" + space + space + "*there is a total of " + --count + " tasks scheduled*");
+        }
+    }
+
+    /**
+     * Prints the task according to the schedule format
+     */
+    public static void printScheduleTask(Map.Entry<Date, Tasks> task){
+        if (task.getValue().getType().equals("E")){
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tevent: " + task.getValue().parseDescription());
+        } else{
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
+        }
     }
 }
