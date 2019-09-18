@@ -44,7 +44,7 @@ Examples:
 * `deadline homework /by 8/8/2019 2359`
 * `event team meeting /at 20/8/2019 1500`
 * `doafter return book /after read book`
-* `range attend workshop /by 21/09/2019 1600 and 21/09/2019 1800`
+* `range attend workshop /at 21/09/2019 1600 and 21/09/2019 1800`
 
 === 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
@@ -143,8 +143,8 @@ There is no need to save manually.
 
 == 5. Command Summary
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK`  `range DESCRIPTION /by d/M/uuuu HHmm and d/M/uuuu HHmm` +
-  e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` 
+* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK`  `range DESCRIPTION /at d/M/uuuu HHmm and d/M/uuuu HHmm` +
+  e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` `doafter return book /after read book` `range workshop /at 22/09/2019 1900 and 22/09/2019 2100`
 * *Delete*: `delete INDEX`  +  
   e.g. `delete 3`
 * *Find*: `find KEYWORD` +
