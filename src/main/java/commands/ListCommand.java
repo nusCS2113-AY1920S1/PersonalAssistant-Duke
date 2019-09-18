@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ListCommand extends Command {
-
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Here are the tasks in your list:");
@@ -16,7 +15,6 @@ public class ListCommand extends Command {
             System.out.println(i + 1 + "." + list.get(i).listformat());
         }
     }
-
     @Override
     public boolean isExit() {
         return false;

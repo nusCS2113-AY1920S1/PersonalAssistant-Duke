@@ -1,4 +1,3 @@
-
 package commands;
 import Tasks.Task;
 import UI.Ui;
@@ -27,7 +26,6 @@ public class FindCommand extends Command {
             }
         }
     }
-
     @Override
     public boolean isExit() {
         return false;
