@@ -47,6 +47,15 @@ public class Parser {
         }
     }
 
+    private int processDoAfter(String input) {
+        String shortStr;
+        String[] splitStr;
+        shortStr = input.substring(input.indexOf("/after"));
+        splitStr = shortStr.split(" ", 3);
+
+        splitStr[1] //check if this is an int 
+    }
+
     /**
      * Checks if the command keyword (first word is valid).
      * Determines what to do with the remaining string depending on the command.
@@ -58,6 +67,16 @@ public class Parser {
      */
     private Command handleListInput(String listInput) throws BadInputException,
             InsufficientInfoException, NumberFormatException {
+
+        /*TODO: Update parser to handle Task requests separately to process optional commands better
+            eg. doAfter or repeating tasks
+        */
+
+        int afterIndex;
+        afterIndex = -1;
+        if (listInput.contains("/after")) {
+            afterIndex = processDoAfter(listInput);
+        }
 
         String[] keyword = listInput.split(" ", 2);
         Command command;
