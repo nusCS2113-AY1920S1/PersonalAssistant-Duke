@@ -1,5 +1,7 @@
 package leduc.task;
 
+import leduc.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +64,35 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * get the list
+     * @return the task list
+     */
     public ArrayList<Task> getList(){
         return (ArrayList<Task>) this.tasks;
+    }
+
+    /**
+     * Search the event that are in conflict with the date
+     * @param date1 the start date
+     * @param date2 the end date
+     * @return the list of all the event task that are in conflict with these two dates
+     */
+    public ArrayList<Task> searchConflictDate(Date date1, Date date2){
+        ArrayList<Task> conflictTasks = new ArrayList<>();
+        for (Task t : tasks){
+            if(t.isEvent()){
+                if(date1.getD().isAfter(((EventsTask)t).getDateFirst().getD()) && date1.getD().isBefore(((EventsTask)t).getDateSecond().getD())){
+                    conflictTasks.add(t);
+                }
+                else if(date2.getD().isAfter(((EventsTask)t).getDateFirst().getD()) && date2.getD().isBefore(((EventsTask)t).getDateSecond().getD())){
+                    conflictTasks.add(t);
+                }
+                else if(date1.getD().isBefore(((EventsTask)t).getDateFirst().getD()) && date2.getD().isAfter(((EventsTask)t).getDateSecond().getD())){
+                    conflictTasks.add(t);
+                }
+            }
+        }
+        return conflictTasks;
     }
 }
