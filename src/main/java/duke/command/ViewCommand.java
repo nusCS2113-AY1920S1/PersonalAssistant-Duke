@@ -27,7 +27,6 @@ public class ViewCommand extends Command {
         int i = 1;
         try {
             for (Task task : taskList.getAllTasks()) {
-                //task.setNewDate();
                 if ((task.getCurrentDate()).equals(toView)) {
                     //needs work on this part. comparing of time use Date always takes into account time 0000
                     sb.append("\t ").append(i++).append(".").append(task.toString());
