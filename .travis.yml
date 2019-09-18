@@ -1,5 +1,4 @@
 language: java
-install: true
 
 os: linux
 dist: bionic
@@ -7,6 +6,8 @@ jdk: openjdk11
 
 before_install:
   - chmod +x gradlew
+
+install: gradle wrapper --gradle-version 5.2
 
 script:
   - "./gradlew check"
