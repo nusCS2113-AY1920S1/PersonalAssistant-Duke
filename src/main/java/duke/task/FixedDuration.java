@@ -1,6 +1,6 @@
 package duke.task;
 
-public class FixedDuration extends Task{
+public class FixedDuration extends Task {
 
     protected int duration;
     protected String unit;

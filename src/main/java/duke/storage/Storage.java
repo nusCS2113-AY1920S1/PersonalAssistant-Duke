@@ -1,6 +1,13 @@
 package duke.storage;
 
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Repeat;
+import duke.task.DoAfter;
+import duke.task.FixedDuration;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
@@ -62,8 +69,7 @@ public class Storage {
                             afterDesc = commandList[i];
                         } else if (commandList[0].equals("F")) {
                             durDesc = commandList[i];
-                        }
-                        else {
+                        } else {
                             dateDesc = commandList[i];
                         }
                     }
