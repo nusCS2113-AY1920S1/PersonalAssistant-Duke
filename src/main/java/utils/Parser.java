@@ -54,7 +54,7 @@ public class Parser {
         try {
             temp.addPrecondition(splites[3]);
         } catch (DukeException e) {
-            throw new ParseException(e.getMessage(), -1);
+            throw new ParseException(e.getMessage()+  "CHECK THIS", -1);
         }
         if (splites[0].equals("E") || splites[0].equals("D")) {
             SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
