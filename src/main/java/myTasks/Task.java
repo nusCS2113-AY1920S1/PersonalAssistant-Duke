@@ -81,6 +81,14 @@ public class Task {
     }
 
     /**
+     * empty method for overriding of child
+     * @param snoozeDetails
+     * @throws DukeException
+     */
+    void snooze(String snoozeDetails) throws DukeException{
+    }
+
+    /**
      * Returns true/false type based on whether Task has been marked done
      * @return boolean describing if Task is Done
      */
