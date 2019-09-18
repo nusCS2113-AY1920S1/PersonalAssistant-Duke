@@ -1,5 +1,4 @@
 package commands;
-
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
@@ -52,4 +51,5 @@ public class EventCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

@@ -1,7 +1,8 @@
 package Tasks;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 
 public class Deadline extends Task {
     public Date by ;
@@ -14,10 +15,10 @@ public class Deadline extends Task {
     public String toString() {
         return "D"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by;
     }
-
     @Override
     public String listformat(){
         return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
     }
+
 
 }

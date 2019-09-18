@@ -1,5 +1,4 @@
 package commands;
-
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
@@ -59,4 +58,5 @@ public class DoneCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

@@ -1,5 +1,4 @@
 package commands;
-
 import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -56,4 +55,5 @@ public class ScheduleCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }
