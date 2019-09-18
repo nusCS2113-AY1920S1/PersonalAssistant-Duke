@@ -37,6 +37,11 @@ public class Schedule {
         return time;
     }
 
+    /**
+     * Change Date to String.
+     *
+     * @return string containing time of task
+     */
     public String getStartString() {
         SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
         formatter.setLenient(false);
