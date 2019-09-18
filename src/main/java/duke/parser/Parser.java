@@ -7,6 +7,13 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 /**
  * Represents a parser used to parse the input String from the user into a Duke understandable {@link Command}
  */
@@ -63,8 +70,66 @@ public class Parser {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
+            case "snooze":
+                if ((splitted.length == 1) || splitted[1].isBlank())
+                    throw new DukeException("The description of a snooze cannot be empty.");
+                String[] getUntil = splitted[1].split("/until ", 2);
+                if (getUntil.length < 2)
+                    throw new DukeException("The description of a snooze must contain /until date!");
+                return new Snooze(getUntil[0], getUntil[1]);
+
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Returns the suffix to be used after the days in the Date, usefull for printing the Date in the desired format
+     * @param n indication the Day of the month
+     * @return the suffix accordingly to the day of the month needed
+     */
+    public static String getDaySuffix(int n) {
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
+
+    /**
+     * Returns a {@link Date} instance representation of a String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy"
+     * @param date String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy", used to extract a {@link Date} instance from
+     * @return the {@link Date} instance created from the argument string
+     */
+    public static Date getDate(String date) {
+        DateFormat dateFormat = (date.length() > 11) ? new SimpleDateFormat("dd/MM/yyyy hhmm") : new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateFormat.parse(date);
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            //case the date was not valid!
+        }
+        return null;
+    }
+    /**
+     * Returns the {@link Date } instance as a String to be printed in the file
+     * @param date deadline {@link Date} for finishing the task
+     * @return String the date for the deadline
+     */
+    public static String getDateString(Date date, String dateString) {
+        if (date == null)
+            return dateString;
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String pattern = dateString.length() > 11 ? "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(date);
     }
 }
