@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ViewScheduleCommandTest {
 
+    @Test
     void getStartString_returnsCorrectly() throws ParseException {
         String dateString = "12/12/2019 1400";
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -22,13 +23,14 @@ public class ViewScheduleCommandTest {
         assertEquals("1400", new Schedule(time, toString).getStartString());
     }
 
+    @Test
     void getTask_returnsCorrectly() throws ParseException {
         String dateString = "12/12/2019 1400";
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date time = formatter.parse(dateString);
         String toString = "[D][✘] test";
-        assertEquals("[D][✘] test", new Schedule(time, toString).toString());
-        }
+        assertEquals("[D][✘] test", new Schedule(time, toString).getTask());
+    }
 
     @Test
     void viewScheduleCommand_emptySchedule_dukeExceptionThrown() {
