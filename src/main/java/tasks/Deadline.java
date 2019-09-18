@@ -9,6 +9,8 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Date getTime() { return this.by; }
+
     protected Date by;
 
     /**
