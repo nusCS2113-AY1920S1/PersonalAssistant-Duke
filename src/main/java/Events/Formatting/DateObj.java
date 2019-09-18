@@ -15,7 +15,7 @@ public class DateObj {
      * if the input is in the format dd/mm/yyyy HHmm (24-hr clock) or
      * dd/mm/yyyy.
      */
-    public Date javaDate;
+    protected Date javaDate;
 
     /**
      * The java date variable stores the date and time as a string if the input is
@@ -26,7 +26,7 @@ public class DateObj {
     /**
      * Stores the format type of the date input.
      */
-    public int format;
+    protected int format;
 
     protected static int DATE_AND_TIME = 1;
     protected static int DATE = 2;
@@ -92,5 +92,13 @@ public class DateObj {
         } else {
             return date;
         }
+    }
+
+    public Date getJavaDate() {
+        return javaDate;
+    }
+
+    public int getFormat() {
+        return format;
     }
 }

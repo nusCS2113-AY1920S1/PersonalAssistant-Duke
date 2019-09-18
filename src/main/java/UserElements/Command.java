@@ -106,22 +106,6 @@ public class Command {
                 changesMade = false;
                 break;
 
-            case "repeat":
-                try {
-                    String[] setRepeatTaskString = continuation.split(" ");
-                    int taskNo = Integer.parseInt(setRepeatTaskString[0]);
-                    int period = Integer.parseInt(setRepeatTaskString[1]);
-                    int repeatTimes = Integer.parseInt(setRepeatTaskString[2]);
-                    boolean succeeded = tasks.addRecurringTask(tasks.getTask(taskNo-1), period, repeatTimes);
-                    if (succeeded) {
-                        ui.recurringTaskAdded(tasks.getNumTasks());
-                    }
-                    break;
-                } catch (StringIndexOutOfBoundsException outOfBoundsE) {
-                    ui.repeatFormatWrong();
-                    break;
-                }
-
             case "todo":
                 if (continuation.isEmpty()) {
                     ui.taskDescriptionEmpty();
@@ -155,6 +139,25 @@ public class Command {
                 if (continuation.isEmpty()) {
                     ui.taskDescriptionEmpty();
                     break;
+                }
+                if (continuation.contains("/every")) {
+                    try {
+                        int datePos = continuation.indexOf("/at"); //to find index of position and date
+                        int periodPos = continuation.indexOf("/every"); //to find index of position and period
+                        String description = continuation.substring(0, datePos);
+                        String date = continuation.substring(datePos + 4, periodPos);
+                        int period = Integer.parseInt(continuation.substring(periodPos + 7));
+                        boolean succeeded = tasks.addRecurringEvent(new Event(description, date), period);
+                        if (succeeded) {
+                            ui.recurringTaskAdded(new Event(description, date), tasks.getNumTasks(), period);
+                        } else {
+                            ui.scheduleClash(new Event(description, date));
+                        }
+                        break;
+                    } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                        ui.recursionFormatWrong();
+                        break;
+                    }
                 }
                 try {
                     int slashPos = continuation.indexOf("/at"); //to find index of position and date

@@ -21,6 +21,8 @@ public class TaskList {
      */
     private ArrayList<Task> taskArrayList;
 
+    protected int ONE_SEMESTER_DAYS = 120;
+
     /**
      * Creates new Model_Class.TaskList object.
      *
@@ -63,49 +65,27 @@ public class TaskList {
     }
 
     /**
-     * Adds repeated tasks to the list
+     * Adds recurring events to the list.
      *
-     * @param task Task to be repeated
-     * @param period Period of the task to be repeated
-     * @param repeatTime Times of repeating
+     * @param event Event to be added as recursion.
+     * @param period Period of the recursion.
      */
-    public boolean addRecurringTask(Task task, int period, int repeatTime) {
+    public boolean addRecurringEvent(Event event, int period) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
         SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj taskDate = new DateObj(task.getDate());
+        DateObj taskDate = new DateObj(event.getDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(taskDate.javaDate);
-        for (int addTaskCount = 1; addTaskCount <= repeatTime; addTaskCount++) {
-            calendar.add(Calendar.DATE, addTaskCount*period);
-            if (task instanceof Event) {
-                String timeString = null;
-                if (taskDate.format == 1) {
-                    timeString = format1.format(calendar.getTime());
-                }
-                else if (taskDate.format == 2) {
-                    timeString = format2.format(calendar.getTime());
-                }
-                Event repeatEvent = new Event(task.getDescription(), timeString);
-                Task clashTask = clashTask(repeatEvent);
-                if (clashTask == null) {
-                    this.taskArrayList.add(repeatEvent);
-                } else return false;
-//
+        calendar.setTime(taskDate.getJavaDate());
+        for (int addTaskCount = 0; addTaskCount*period <= ONE_SEMESTER_DAYS; addTaskCount++) {
+            String timeString = null;
+            if (taskDate.getFormat() == 1) {
+                timeString = format1.format(calendar.getTime());
             }
-            else if (task instanceof Deadline) {
-                String timeString = null;
-                if (taskDate.format == 1) {
-                    timeString = format1.format(calendar.getTime());
-                }
-                else if (taskDate.format == 2) {
-                    timeString = format2.format(calendar.getTime());
-                }
-                Deadline repeatDeadline = new Deadline(task.getDescription(), timeString);
-                Task clashTask = clashTask(repeatDeadline);
-                if (clashTask == null) {
-                    this.taskArrayList.add(repeatDeadline);
-                } else return false;
+            else if (taskDate.getFormat() == 2) {
+                timeString = format2.format(calendar.getTime());
             }
+            this.taskArrayList.add(new Event(event.getDescription(), timeString));
+            calendar.add(Calendar.DATE, period);
         }
         return true;
     }

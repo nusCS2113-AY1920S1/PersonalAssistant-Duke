@@ -170,15 +170,6 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    /**
-     * prints message when input format is wrong for adding recurring tasks
-     */
-    public void repeatFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Please enter the number of the task and its repeat period and times, separated by blank space");
-        System.out.print(lineSeparation);
-    }
-
     public void scheduleClash(Task task) {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
@@ -187,14 +178,21 @@ public class UI {
     }
 
     /**
-     * prints message when recurring tasks are successfully added
-     *
-     * @param numTask Total number of tasks
+     * prints message when recurring tasks are added to the list successfully
      */
-    public void recurringTaskAdded(int numTask) {
+    public void recurringTaskAdded(Task taskAdded, int numTasks, int period) {
+        System.out.println(lineSeparation + "Got it. I've added these recurring tasks:");
+        System.out.println(taskAdded.toString() + " (every " + period + " days)");
+        System.out.println("Now you have " + numTasks + " tasks in the list.");
         System.out.print(lineSeparation);
-        System.out.println("The tasks have been added successfully!");
-        System.out.println("Now you have " + numTask + " tasks.");
+    }
+
+    /**
+     * prints message when format of input is wrong for adding new recurring events
+     */
+    public void recursionFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter the period of the recurring event (in days) after /every.");
         System.out.print(lineSeparation);
     }
 }
