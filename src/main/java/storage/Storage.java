@@ -65,7 +65,7 @@ public class Storage {
                     tasks = new Event(taskMessage, "E", arr[3].strip(), arr[4].strip());
                 } else if (type.equals("?][E")) {
                     tasks = new Event(taskMessage, "?][E", arr[3].strip(), arr[4].strip());
-                } else if (type.equals("A")){
+                } else if (type.equals("A")) {
                     tasks = new DoAfter(taskMessage, "A", arr[3].strip());
                 } else if (type.equals("R")){
                     tasks = new Recurring(taskMessage, "R", arr[3].strip());
@@ -109,7 +109,7 @@ public class Storage {
                     + " | " + ((Event) task).getDate().getEndDateStr();
                 } else if (taskType == "R") {
                     line = "R | " + task.getStatusIcon() + " | "
-                        + task.getDescription() + " | " + ((Recurring) task).getRecur();
+                            + task.getDescription() + " | " + ((Recurring) task).getRecur();
                 } else if (taskType == "A") {
                     line = "A | " + task.getStatusIcon() + " | "
                             + task.getDescription() + " | " + ((DoAfter) task).getAfter();

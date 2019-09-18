@@ -13,8 +13,13 @@ import task.FixedDuration;
 import ui.Ui;
 import wrapper.TimeInterval;
 
-import javax.swing.*;
-import java.util.*;
+import java.util.Scanner;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -50,45 +55,47 @@ public class Parser {
         } else {
             try {
                 switch (firstWord) {
-                    case "list":
-                        listCommand();
-                        break;
-                    case "done":
-                        doneCommand(s);
-                        break;
-                    //================================================
-                    case "delete":
-                        deleteCommand(s);
-                        break;
-                    //================================================
-                    case "find":
-                        findCommand(s);
-                        break;
-                    case "todo":
-                        todoCommand(s);
-                        break;
-                    //================================================
-                    case "deadline":
-                        deadlineCommand(s);
-                        break;
-                    //================================================
-                    case "event":
-                        eventCommand(s);
-                        break;
-                    case "do":
-                        doAfterCommand(s);
-                        break;
-                    case "fix":
-                        fixCommand(s);
-                        break;
-                    case "recur":
-                        recurCommand(s);
-                        break;
-                    case "fixed":
-                        fixedCommand(s);
-                        break;
-                    default:
-                        throw DukeException.UNKNOWN_COMMAND;
+                case "list":
+                    listCommand();
+                    break;
+                case "done":
+                    doneCommand(s);
+                    break;
+                case "delete":
+                    deleteCommand(s);
+                    break;
+                case "find":
+                    findCommand(s);
+                    break;
+                case "todo":
+                    todoCommand(s);
+                    break;
+                case "deadline":
+                    deadlineCommand(s);
+                    break;
+                case "event":
+                    eventCommand(s);
+                    break;
+                case "do":
+                    doAfterCommand(s);
+                    break;
+                case "fix":
+                    fixCommand(s);
+                    break;
+                case "recur":
+                    recurCommand(s);
+                    break;
+                case "fixed":
+                    fixedCommand(s);
+                    break;
+//              case "reminder":
+//                   reminderCommand(s);
+//                   break;
+                case "schedule":
+                    scheduleCommand(s);
+                    break;
+                default:
+                    throw DukeException.UNKNOWN_COMMAND;
                 }
             } catch (DukeException e) {
                 Ui.showError(e.getError());
@@ -102,7 +109,7 @@ public class Parser {
      * @param s the whole user command.
      * @throws DukeException when user did not enter task number or select wrong task.
      * */
-    private static void fixCommand(String s) throws DukeException{
+    private static void fixCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
             int num = Integer.parseInt(tokens[1]);
@@ -124,7 +131,7 @@ public class Parser {
             while ((end >= 0) || (start <= TaskList.getTotalTasksNumber() - 1)) {
                 String checkMessage = new String();
                 String checkMessage2 = new String();
-                if (upper - 1>= 0) {
+                if (upper - 1 >= 0) {
                     checkMessage = TaskList.getMessage(upper - 1).substring(0,
                         TaskList.getMessage(upper - 1).indexOf("(at:"));
                 }
@@ -133,13 +140,13 @@ public class Parser {
                         TaskList.getMessage(lower + 1).indexOf("(at:"));
                 }
                 //System.out.println(upper + " " + lower);
-                if ((upper - 1 >= 0) && (checkMessage.equals(message)) &&
-                    (TaskList.getType(upper - 1).equals("?][E"))) {
+                if ((upper - 1 >= 0) && (checkMessage.equals(message))
+                    && (TaskList.getType(upper - 1).equals("?][E"))) {
                     upper -= 1;
                 }
-                if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1) &&
-                    (checkMessage2.equals(message)) &&
-                    (TaskList.getType(lower + 1).equals("?][E"))) {
+                if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1)
+                    && (checkMessage2.equals(message))
+                    && (TaskList.getType(lower + 1).equals("?][E"))) {
                     //String[] checkMessage2 = TaskList.getMessage(lower).split("at:");
                     lower += 1;
                 }
@@ -346,7 +353,7 @@ public class Parser {
     }
 
     /**
-     * Creates a new Recurring Task with users input
+     * Creates a new Recurring Task with users input.
      */
     private static void recurCommand(String command) throws DukeException {
         int todolistNumber = TaskList.getTotalTasksNumber() + 1;
@@ -517,7 +524,7 @@ public class Parser {
             //==============================================
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
-//            Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
+            //Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
             TaskList.addTask(task);
             Ui.showDeadlineMessage(TaskList.getStatus(todolistNumber), newtodoTask, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());
@@ -567,6 +574,26 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e1) {
             throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
         }
+    }
+
+    /**
+     * Find all the deadlines/events on the user specified date
+     * Then print them out for user
+     * Command: schedule <date>
+     */
+    private static void scheduleCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showScheduleIntroMessage(tokens[1]);
+        tokens[1] = tokens[1] + " 00000";
+        int count = 1;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            if (TimeParser.getDateOnly(log.getKey()).equals(TimeParser.convertStringToDate(tokens[1]))) {
+                Ui.printScheduleTask(log);
+                count++;
+            }
+        }
+        Ui.showScheduleFinalMessage(count);
+        Ui.printLine();
     }
 }
 
