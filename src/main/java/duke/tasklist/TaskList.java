@@ -159,6 +159,23 @@ public class TaskList {
         }
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
+
+    /**
+     * Adds fixed duration task to taskList
+     * @param description String containing the description of the task
+     * @param startDate String containing the start date of the period to complete the task.
+     * @param endDate String containing the end date of the period to complete the task.
+     */
+    public void addPeriodTask(String description, String startDate, String endDate) {
+        taskList.add(new Period(description, startDate, endDate));
+        int index = taskList.size();
+        if (index == 1) {
+            msg = " task in the list.";
+        } else {
+            msg = MESSAGE_ITEMS2;
+        }
+        System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+    }
   
     /**
      * Adds todo task need to be done after a specific time or task.

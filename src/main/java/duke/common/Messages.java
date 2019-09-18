@@ -7,7 +7,7 @@ public class Messages {
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String filePath = "C:\\Users\\Wen Jian\\Desktop\\duke\\src\\main\\data\\duke.txt";
+    public static final String filePath = "/Users/jiawei/Desktop/main/src/main/data/duke.txt";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
     public static final String MESSAGE_BYE = "     Bye. Hope to see you again soon!";
@@ -48,6 +48,10 @@ public class Messages {
     public static final String ERROR_MESSAGE_DURATION = "       "
             + "☹ OOPS!!! Please specify the fix duration task details in this format: \n         "
             + "fixed [task description] /need [task duration]";
+    public static final String ERROR_MESSAGE_PERIOD = "     Please include the time period for this task.\n"
+            + "     Tasks to be completed within a time period should be entered in this format:\n"
+            + "     period [task description] /between [start date] /and [end date]";
+    public static final String ERROR_MESSAGE_PERIOD2 = "     Please provide both the start and end date for the task.";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_DELETE = "delete";
@@ -57,6 +61,8 @@ public class Messages {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DURATION = "fixed";
+    public static final String COMMAND_PERIOD = "period";
     public static final String COMMAND_REMIND = "reminders";
+
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

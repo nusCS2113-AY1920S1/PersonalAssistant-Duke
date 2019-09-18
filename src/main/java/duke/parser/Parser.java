@@ -14,17 +14,9 @@ import duke.command.TodoCommand;
 
 import duke.exception.DukeException;
 
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.Messages.COMMAND_BYE;
-import static duke.common.Messages.COMMAND_DEADLINE;
-import static duke.common.Messages.COMMAND_DELETE;
-import static duke.common.Messages.COMMAND_DONE;
-import static duke.common.Messages.COMMAND_EVENT;
-import static duke.common.Messages.COMMAND_FIND;
-import static duke.common.Messages.COMMAND_LIST;
-import static duke.common.Messages.COMMAND_TODO;
-import static duke.common.Messages.COMMAND_DURATION;
-import static duke.common.Messages.COMMAND_REMIND;
+
+import static duke.common.Messages.*;
+
 
 /**
  * Making sense of the user input command.
@@ -82,6 +74,13 @@ public class Parser {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
 
+        } else if (userInputCommand.contains(COMMAND_PERIOD)) {
+            if (userInputCommand.trim().substring(0, 6).equals(COMMAND_PERIOD)) {
+                return new PeriodCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+          
         } else if (userInputCommand.contains(COMMAND_REMIND)) {
             if (userInputCommand.trim().substring(0, 9).equals(COMMAND_REMIND)) {
                 return new RemindCommand(userInputCommand);
@@ -89,6 +88,7 @@ public class Parser {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
         } else {
+
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }
