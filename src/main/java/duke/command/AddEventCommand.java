@@ -1,9 +1,9 @@
 package duke.command;
 
 import duke.dukeexception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
 import duke.task.Event;
+import duke.task.TaskList;
+
 import java.util.List;
 
 public class AddEventCommand extends Command {
@@ -15,7 +15,10 @@ public class AddEventCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        Task task = new Event(words.subList(0, words.size()));
+        Event task = new Event(words.subList(0, words.size()));
+        if (taskList.isClashing(task)) {
+            throw new DukeException("Unable to add event - clash found.");
+        }
         taskList.add(task);
         ui.showTaskAdded(taskList.getTasks(), task);
         storage.save(taskList);
