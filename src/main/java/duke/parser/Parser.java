@@ -4,6 +4,7 @@ import duke.Duke;
 import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Deadline;
+import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
 import duke.task.Todo;
 
@@ -44,18 +45,18 @@ public class Parser {
                     return new DoneCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
             case "todo":
-                if ((splitted.length == 1) || splitted[1].isBlank())
+                if ((splitted.length == 1) || splitted[1].isEmpty())
                     throw new DukeException("The description of a todo cannot be empty.");
                 return new AddCommand(new Todo(splitted[1]));
             case "deadline":
-                if ((splitted.length == 1) || splitted[1].isBlank())
+                if ((splitted.length == 1) || splitted[1].isEmpty())
                     throw new DukeException("The description of a deadline cannot be empty.");
                 String[] getBy = splitted[1].split("/by ", 2);
                 if (getBy.length < 2)
                     throw new DukeException("The description of a deadline must contain /by date!");
                 return new AddCommand(new Deadline(getBy[0], getBy[1]));
             case "event":
-                if ((splitted.length == 1) || splitted[1].isBlank())
+                if ((splitted.length == 1) || splitted[1].isEmpty())
                     throw new DukeException("The description of an event cannot be empty, and it must contain /at");
                 String[] getAt = splitted[1].split("/at ", 2);
                 if (getAt.length < 2)
@@ -70,6 +71,7 @@ public class Parser {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
+
             case "snooze":
                 if ((splitted.length == 1) || splitted[1].isBlank())
                     throw new DukeException("The description of a snooze cannot be empty.");
@@ -77,6 +79,23 @@ public class Parser {
                 if (getUntil.length < 2)
                     throw new DukeException("The description of a snooze must contain /until date!");
                 return new Snooze(getUntil[0], getUntil[1]);
+
+
+            case "period":
+                if ((splitted.length == 1) || splitted[1].isEmpty())
+                    throw new DukeException("The description of a period cannot be empty.");
+                String[] getPart = splitted[1].split("/from ", 2);
+                if (getPart.length < 2)
+                    throw new DukeException("The description of a period must contain /from date!");
+                String[] part = getPart[1].split("/to ", 2);
+                if (part.length < 2)
+                    throw new DukeException("NO");
+                try {
+                    return new AddCommand(new DoWithinPeriodTasks(getPart[0], part[0], part[1]));
+                }
+                catch(Exception e){
+                    throw new DukeException("NO");
+                }
 
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
