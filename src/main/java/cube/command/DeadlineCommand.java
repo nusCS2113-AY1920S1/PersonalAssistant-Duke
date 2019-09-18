@@ -74,12 +74,9 @@ public class DeadlineCommand implements Command{
 	private boolean isAnomaly(TaskList tasks, Date date) throws DukeException {
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task = tasks.get(i);
-			String[] task_components = task.getTask();
-			if (task_components.length > 1) {
-				Date task_date = Parser.parseStringToDate(task_components[1]);
-				if (date.equals(task_date)) {
-					throw new DukeException(Message.EXISTING_DATE);
-				}
+			Date task_date = task.getDate();
+			if (date.equals(task_date)) {
+				throw new DukeException(Message.EXISTING_DATE);
 			}
 		}
 		return false;

@@ -55,8 +55,7 @@ public class TodoCommand implements Command{
 	private boolean isAnomaly(TaskList tasks, String description) throws DukeException {
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task = tasks.get(i);
-			String[] task_components = task.getTask();
-			if (task_components.length == 1 && description.equals(task_components[0])) {
+			if (description.equals(task.getDescription())) {
 				throw new DukeException(Message.EXISTING_DESCRIPTION);
 			}
 		}
