@@ -8,9 +8,9 @@ This user guide aims to help you learn your way around our app, making the learn
 == 2. Quick Start  
 
   1. Ensure you have Java `11` or above and Gradle installed in your Computer.
-  2. Open up your command prompt(for Windows) or terminal(for Mac). 
+  2. Open up your command prompt (for Windows) or terminal (for Mac). 
   3. Clone from the main into your Computer.
-  4. Run command ./gradlew run(for Windows) or gradlew run(for Mac).
+  4. Run command ./gradlew run (for Windows) or gradlew run (for Mac).
   5. Some example commands you can try:
 
 * *`list`* : lists all tasks
@@ -24,21 +24,24 @@ This user guide aims to help you learn your way around our app, making the learn
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-=== 3.1 Adding a task : `todo/deadline/event`
-Adds a todo/deadline/event to the tasklist.
+=== 3.1 Adding a task : `todo/deadline/event/doafter`
+Adds a todo/deadline/event/doafter to the tasklist.
 
 Format: `todo DESCRIPTION`  
         `deadline DESCRIPTION /by dd/mm/yyyy hhmm`  
         `event DESCRIPTION /at dd/mm/yyyy hhmm`  
+        `doafter DESCRIPTION /after TASK`
         
   - `DESCRIPTION` is the description of the task.
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
+  - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be done after an existing task has been done.
   
 Examples:
 
 * `todo read book`
 * `deadline homework /by 8/8/2019 2359`
 * `event team meeting /at 20/8/2019 1500`
+* `doafter return book /after read book`
 
 === 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
@@ -74,7 +77,7 @@ Examples:
 
 === 3.4 Marking a task as done : `done`
 
-Marks a task in the task list as done. +
+Marks a task in the task list as done. DoAfter tasks can only be marked as done when the task before it has been marked as done. +
 Format: `done INDEX`
 
 ****
@@ -137,7 +140,7 @@ There is no need to save manually.
 
 == 5. Command Summary
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` +
+* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK` +
   e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` 
 * *Delete*: `delete INDEX`  +  
   e.g. `delete 3`
