@@ -76,4 +76,5 @@ public abstract class Task {
     public String toString() {
         return "%1$s " + getStatusIcon() + " " + description;
     }
+
 }

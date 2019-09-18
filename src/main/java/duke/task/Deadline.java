@@ -35,4 +35,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format(" by %s ", TimeParser.convertDateToString(by));
     }
+
+    public void setTime(Date by) {
+        this.by = by;
+    }
+
 }
