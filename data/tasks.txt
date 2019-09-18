@@ -1,25 +1,2 @@
-T | 1 | make notes for OOP
-E | 1 | OOP lectrure4 | 06/09/2019 0400
-D | 1 | OOP project assignment in week 4 | 04/09/0019 1159
-T | 0 | reading
-L | 0 | read book | 2hrs
-T | 1 | preview
-T | 0 | reading 08/09/2020 2344
-E | 0 | reading | 08/09/2020 1234
-P | 0 | reading | 12/09/2019 1222 | 12/09/2019 1234
-T | 0 | reading
-E | 0 | 12/09/2019 1223
-T | 1 | make notes for OOP
-E | 1 | OOP lectrure4 | 06/09/2019 0400
-D | 1 | OOP project assignment in week 4 | 04/09/0019 1159
-T | 0 | reading
-L | 0 | read book | 2hrs
-T | 1 | preview
-T | 0 | reading 08/09/2020 2344
-E | 0 | reading | 08/09/2020 1234
-P | 0 | reading | 12/09/2019 1222 | 12/09/2019 1234
 T | 0 | this stupid assignment | 0
 D | 0 | this project | 0 | 18/09/2019 1159
-T | 0 | jump | 0
-E | 0 | jump | 0 | 11/03/2020 1159
-E | 0 | jump | 0 | 11/03/2020 1159
