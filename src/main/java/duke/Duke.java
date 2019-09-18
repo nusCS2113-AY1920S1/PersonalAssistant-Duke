@@ -14,13 +14,13 @@ public class Duke {
     /**
      * Constructor for main class to initialise the settings.
      */
-    private Duke(String filePath) throws DukeException {
+    private Duke(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            throw new DukeException("FAILED TO LOAD");
+            ui.showLoadingError();
         }
     }
 
@@ -48,7 +48,7 @@ public class Duke {
     /**
      * Program Start.
      */
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         new Duke(savedDataPath).run();
     }
 
