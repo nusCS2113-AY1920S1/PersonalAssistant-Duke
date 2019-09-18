@@ -39,7 +39,12 @@ public abstract class Task {
     /**
      * default constructor of Task
      */
-    public Task(){}
+    public Task(){
+        this.isDone = false;
+        this.isRecurring = false;
+        this.recurringWeeks = 0;
+        this.precondition = new ArrayList<Task>();
+    }
 
     /**
      * another constructor of Task
