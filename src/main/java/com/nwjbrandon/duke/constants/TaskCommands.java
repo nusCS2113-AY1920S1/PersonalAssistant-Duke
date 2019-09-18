@@ -12,6 +12,7 @@ public enum TaskCommands {
     BYE("bye"),
     REMINDER("reminder"),
     VIEW_SCHEDULE("view schedule"),
+    RECURRING("recurring"),
     SNOOZE("snooze");
 
     /**

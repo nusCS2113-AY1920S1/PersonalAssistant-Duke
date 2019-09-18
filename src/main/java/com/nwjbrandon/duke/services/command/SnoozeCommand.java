@@ -1,13 +1,11 @@
 package com.nwjbrandon.duke.services.command;
 
-import com.nwjbrandon.duke.constants.TaskCommands;
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.validation.InputValidation;
-import com.nwjbrandon.duke.exceptions.DukeNullDateException;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -92,12 +90,10 @@ public class SnoozeCommand extends Command {
                 System.out.println("☹ OOPS!!! I'm sorry, but there is no date to be snoozed");
             } else {
                 Date snoozedDate = snoozeTime(taskList.getTask(taskIndex));
-                taskList.modifyDate(taskIndex, snoozedDate);
+                taskList.snoozeTask(taskIndex, snoozedDate);
             }
         } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException e) {
             e.showError();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
     }
 }

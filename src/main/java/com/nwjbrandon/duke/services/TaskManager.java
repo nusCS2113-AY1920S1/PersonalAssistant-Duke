@@ -12,6 +12,7 @@ import com.nwjbrandon.duke.services.command.DoneCommand;
 import com.nwjbrandon.duke.services.command.EventsCommand;
 import com.nwjbrandon.duke.services.command.InvalidCommand;
 import com.nwjbrandon.duke.services.command.ListCommand;
+import com.nwjbrandon.duke.services.command.RecurringCommand;
 import com.nwjbrandon.duke.services.command.RemindersCommand;
 import com.nwjbrandon.duke.services.command.SearchCommand;
 import com.nwjbrandon.duke.services.command.SnoozeCommand;
@@ -185,6 +186,8 @@ public class TaskManager {
             return new InvalidCommand();
         } else if (userInput.startsWith(TaskCommands.SNOOZE.toString())) {
             return new SnoozeCommand(userInput, TaskCommands.SNOOZE.toString(), size);
+        } else if (userInput.startsWith(TaskCommands.RECURRING.toString())) {
+            return new RecurringCommand(userInput,TaskCommands.RECURRING.toString(),size);
         } else {
             throw new DukeWrongCommandException();
         }

@@ -58,7 +58,6 @@ public class TodosCommand extends Command {
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
         return InputValidation.checkCommandInput(userInput, command);
-
     }
 
     /**
