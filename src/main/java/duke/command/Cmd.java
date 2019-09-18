@@ -37,6 +37,11 @@ public enum Cmd {
             return new NewDeadlineCommand();
         }
     },
+    RECUR("recurring") {
+        public Command getCommand() {
+            return new NewRecurringTaskCommand();
+        }
+    },
     DEL("delete") {
         public Command getCommand() {
             return new DeleteCommand();
@@ -45,6 +50,16 @@ public enum Cmd {
     FIND("find") {
         public Command getCommand() {
             return new FindCommand();
+        }
+    },
+    SNOOZE("snooze"){
+        public Command getCommand() {
+          return new SnoozeCommand();
+        }
+    },                           
+    REMIND("remind") {
+        public Command getCommand() {
+            return new NewReminderCommand();
         }
     };
 

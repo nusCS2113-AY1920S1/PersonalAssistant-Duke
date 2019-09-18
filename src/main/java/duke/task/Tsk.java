@@ -12,14 +12,14 @@ import java.time.format.DateTimeParseException;
 public enum Tsk {
     TODO("T") {
         public Task getTask(String[] taskArr) throws IndexOutOfBoundsException {
-            return new ToDoTask(taskArr[2]);
+            return new ToDoTask(taskArr[3], getReminder(taskArr[2]));
         }
     },
     EVENT("E") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
-            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
-            return new EventTask(taskArr[2], datetime, endDatetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[5], TimedTask.getPatDatetime());
+            return new EventTask(taskArr[3], datetime, endDatetime, getReminder(taskArr[2]));
         }
     },
     FORP("F") {
@@ -30,32 +30,43 @@ public enum Tsk {
     },
     BETWN("B") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
-            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
-            return new DoWithinPeriodTask(taskArr[2], datetime, endDatetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[5], TimedTask.getPatDatetime());
+            return new EventTask(taskArr[3], datetime, endDatetime, getReminder(taskArr[2]));
         }
     },
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
-            return new DeadlineTask(taskArr[2], datetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            return new DeadlineTask(taskArr[3], datetime, getReminder(taskArr[2]));
         }
     };
 
-    private final String taskChar;
+    private final String taskTypeStr;
 
     /**
      * Creates the Tsk enum instance and associates the specified character with it.
      *
-     * @param taskChar The character to be associated with the specified task type.
+     * @param taskTypeStr The string to be associated with the specified task type.
      */
-    Tsk(final String taskChar) {
-        this.taskChar = taskChar;
+    Tsk(final String taskTypeStr) {
+        this.taskTypeStr = taskTypeStr;
+    }
+
+    private static Reminder getReminder(String remind) {
+        Reminder reminder;
+        try {
+            reminder = new Reminder(LocalDateTime.parse(remind, TimedTask.getPatDatetime()));
+        } catch (DateTimeParseException e) {
+            reminder = null;
+        }
+
+        return reminder;
     }
 
     @Override
     public String toString() {
-        return taskChar;
+        return taskTypeStr;
     }
 
     /**

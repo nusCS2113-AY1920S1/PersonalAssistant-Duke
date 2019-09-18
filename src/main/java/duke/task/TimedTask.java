@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class TimedTask extends Task {
-    private static final DateTimeFormatter PAT_DATETIME = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter PAT_DATETIME = DateTimeFormatter.ofPattern("d/M/y HHmm");
     private static final DateTimeFormatter PAT_DATETIME_DISPLAY = DateTimeFormatter.ofPattern("eee, d MMM yyyy h:mm a");
 
     private LocalDateTime time;
@@ -15,6 +15,10 @@ public abstract class TimedTask extends Task {
         this.time = time;
     }
 
+    TimedTask(String name, LocalDateTime time, Reminder reminder) {
+        super(name, reminder);
+        this.time = time;
+    }
     public static DateTimeFormatter getPatDatetime() {
         return PAT_DATETIME;
     }
@@ -34,6 +38,11 @@ public abstract class TimedTask extends Task {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    @Override
+    public void changeTime(LocalDateTime newTime){
+        time = newTime;
     }
 
     // --Commented out by Inspection START (03/09/2019 11:57):

@@ -42,7 +42,7 @@ public class NewDoWithinPeriodCommand extends NewTimedTaskCommand {
         }
 
         try {
-            datetime = LocalDateTime.parse(argv[1], TimedTask.getPatDatetime());
+            taskDateTime = LocalDateTime.parse(argv[1], TimedTask.getPatDatetime());
             endDatetime = LocalDateTime.parse(argv[2], TimedTask.getPatDatetime());
         } catch (DateTimeParseException excp) {
             throw new DukeException("Date and time must be given as e.g. "
@@ -53,7 +53,7 @@ public class NewDoWithinPeriodCommand extends NewTimedTaskCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new DoWithinPeriodTask(argv[0], datetime, endDatetime));
+        String addStr = ctx.taskList.addTask(new DoWithinPeriodTask(argv[0], taskDateTime, endDatetime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(addStr);
     }

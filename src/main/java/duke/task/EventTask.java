@@ -7,6 +7,12 @@ public class EventTask extends TimedTask {
 
     private LocalDateTime endTime;
 
+    public EventTask(String name, LocalDateTime time, LocalDateTime endTime, Reminder reminder) {
+        super(name, time, reminder);
+        this.endTime = endTime;
+        type = 'E';
+    }
+
     public EventTask(String name, LocalDateTime at, LocalDateTime endTime) {
         super(name, at);
         this.endTime = endTime;

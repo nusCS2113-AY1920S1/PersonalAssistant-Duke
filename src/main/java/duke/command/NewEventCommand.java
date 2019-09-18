@@ -18,6 +18,7 @@ public class NewEventCommand extends NewTimedTaskCommand {
     /**
      * Creates a new Command object that can be executed to create a new Event task.
      * argc will throw an error if the number of arguments is less than 3.
+     * Creates a new NewEventCommand, setting the parameters for its inherited methods.
      */
     public NewEventCommand() {
         argc = 3;
@@ -42,7 +43,7 @@ public class NewEventCommand extends NewTimedTaskCommand {
         }
 
         try {
-            datetime = LocalDateTime.parse(argv[1], TimedTask.getPatDatetime());
+            taskDateTime = LocalDateTime.parse(argv[1], TimedTask.getPatDatetime());
             endDatetime = LocalDateTime.parse(argv[2], TimedTask.getPatDatetime());
         } catch (DateTimeParseException excp) {
             throw new DukeException("Date and time must be given as e.g. "
@@ -53,8 +54,13 @@ public class NewEventCommand extends NewTimedTaskCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new EventTask(argv[0], datetime, endDatetime));
+        String addStr = ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(addStr);
+        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
+    }
+
+    @Override
+    public String silentExecute(DukeContext ctx) {
+        return ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
     }
 }

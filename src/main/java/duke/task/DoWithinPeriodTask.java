@@ -10,6 +10,11 @@ public class DoWithinPeriodTask extends EventTask {
         type = 'B';
     }
 
+    public DoWithinPeriodTask(String name, LocalDateTime at, LocalDateTime endTime, Reminder reminder) {
+        super(name, at, endTime, reminder);
+        type = 'B';
+    }
+
     @Override
     public String toString() throws DateTimeException {
         return super.toString() + " (between: " + getTime() + " and " + getEndTime() + ")";
