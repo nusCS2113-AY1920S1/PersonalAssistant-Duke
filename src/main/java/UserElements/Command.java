@@ -1,4 +1,11 @@
-package Model_Class;
+package UserElements;
+
+import Events.EventTypes.Deadline;
+import Events.EventTypes.Event;
+import Events.Storage.Storage;
+import Events.Storage.TaskList;
+import Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 
 /**
  * Represents a command that is passed via user input.
@@ -19,10 +26,11 @@ public class Command {
 
     /**
      * Creates a new command with the command type and specific instructions
-     * @param command The Model_Class.Command type
+     *
+     * @param command      The Model_Class.Command type
      * @param continuation The Model_Class.Command specific instructions
      */
-    public Command(String command, String continuation){
+    public Command(String command, String continuation) {
         this.command = command;
         this.continuation = continuation;
     }
@@ -30,23 +38,25 @@ public class Command {
     /**
      * Creates a new command where only command param is passed.
      * Specific instructions not necessary for these types of commands.
+     *
      * @param command The Model_Class.Command type
      */
-    public Command(String command){
+    public Command(String command) {
         this.command = command;
         this.continuation = "";
     }
 
     /**
      * Executes the command stored.
-     * @param tasks Class containing the list of tasks and all relevant methods.
-     * @param ui Class containing all relevant user interface instructions.
+     *
+     * @param tasks   Class containing the list of tasks and all relevant methods.
+     * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage){
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         boolean changesMade = true;
         switch (command) {
-            case "list" :
+            case "list":
                 ui.printListOfTasks(tasks);
                 changesMade = false;
                 break;
@@ -101,7 +111,6 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
-                tasks.addTask(new ToDo(continuation));
                 ui.taskAdded(new ToDo(continuation), tasks.getNumTasks());
                 break;
 
@@ -111,11 +120,15 @@ public class Command {
                     break;
                 }
                 try {
-                    int slashPos = continuation.indexOf("/by");
+                    int slashPos = continuation.indexOf("/by"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    tasks.addTask(new Deadline(description, date));
-                    ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Deadline(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
+                    } else {
+                        ui.scheduleClash(new Deadline(description, date));
+                    }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.deadlineFormatWrong();
@@ -128,11 +141,15 @@ public class Command {
                     break;
                 }
                 try {
-                    int slashPos = continuation.indexOf("/at");
+                    int slashPos = continuation.indexOf("/at"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    tasks.addTask(new Event(description, date));
-                    ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Event(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                    } else {
+                        ui.scheduleClash(new Event(description, date));
+                    }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.eventFormatWrong();
@@ -143,6 +160,8 @@ public class Command {
                 ui.printInvalidCommand();
                 break;
         }
-        if (changesMade) storage.saveToFile(tasks, ui);
+        if (changesMade) {
+            storage.saveToFile(tasks, ui);
+        }
     }
 }
