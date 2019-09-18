@@ -12,6 +12,15 @@ public class RescheduleCommand extends Command {
         super(commandParams);
     }
 
+    /**
+     * Reschedules a command in the task list.
+     *
+     * @param tasks The taskList of Duke.
+     * @param ui The ui of Duke.
+     * @param storage The storage of Duke.
+     * @throws DukeException if the task cannot be found, or does not contain
+     */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to reschedule!");
@@ -20,9 +29,11 @@ public class RescheduleCommand extends Command {
             int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0 - based
             if (commandParams.containsParam("by")) {
                 tasks.reschedule(index, commandParams.getParam("by"));
-            } else {
+            } else if (commandParams.containsParam("start") && commandParams.containsParam("end")) {
                 tasks.reschedule(index, commandParams.getParam("start"),
                         commandParams.getParam("end"));
+            } else {
+                throw new DukeException("☹ OOPS!!! You can't reschedule that!");
             }
         } catch (NumberFormatException e) {
             throw new DukeException("☹ OOPS!!! The index be a number.");
