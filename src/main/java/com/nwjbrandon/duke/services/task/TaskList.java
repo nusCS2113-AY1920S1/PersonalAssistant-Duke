@@ -48,7 +48,7 @@ public class TaskList {
      * @param task task.
      */
     public void addTask(Task task) throws DukeTaskCollisionException {
-        if (!(task instanceof Todos)) {
+        if (!(task instanceof Todos) && !(task instanceof FixedDuration)) {
             if (!isTaskCollision(this.tasksList, task.getDate())) {
                 tasksList.add(task);
             }
@@ -201,8 +201,10 @@ public class TaskList {
      */
     private static boolean isTaskCollision(ArrayList<Task> listOfTasks, Date date) throws DukeTaskCollisionException {
         for (Task task: listOfTasks) {
-            if (date != null && task.isSameDay(date)) {
-                throw new DukeTaskCollisionException();
+            if (task.isSameDay(date)) {
+                if (date != null && task.isSameDay(date)) {
+                    throw new DukeTaskCollisionException();
+                }
             }
         }
         return false;
