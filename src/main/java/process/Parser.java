@@ -19,7 +19,7 @@ public class Parser {
      * @throws DukeException if Duke cannot make sense of the input
      */
     public static Command parse(String input) throws DukeException { //input validation
-        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule", "task", "daily", "weekly"));
+        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule", "task", "daily", "weekly", "reminder"));
         String operation;
         String date;
         int index =-1;
@@ -32,7 +32,7 @@ public class Parser {
         if (command_status > -1) { //keyword 1 is accepted
             String[] operation_list = input.split(" ");
             operation = operation_list[0];
-            if ((operation.equals("delete") || operation.equals("done"))) {
+            if ((operation.equals("delete") || operation.equals("done") || operation.equals("reminder") )) {
                 if (operation_list.length != 2) throw new DukeException("index error" + input.length());
                 try {
                     index = Integer.parseInt(operation_list[1]) -1;
@@ -41,6 +41,7 @@ public class Parser {
                     throw new DukeException("index error");
                 }
                 if (operation.equals("delete")) return new DeleteCommand(index);
+                else if(operation.equals("reminder")) return new ReminderCommand(index);
                 else return new DoneCommand(index); //done
             } else if (operation.equals("find") || operation.equals("todo")) {
                 if (operation_list.length == 1) throw new DukeException("arg1 error "+ operation);

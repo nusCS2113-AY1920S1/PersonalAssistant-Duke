@@ -60,6 +60,7 @@ public class TaskList extends ArrayList<Task>{
         }
         return output;
     }
+
     /**
      * Deletes the task at given index
      * @param index of the task to be deleted
