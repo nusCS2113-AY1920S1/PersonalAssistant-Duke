@@ -2,11 +2,12 @@ package seedu.duke;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import seedu.duke.reminders.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
 import seedu.duke.task.TaskList;
 import seedu.duke.command.Parser;
-import seedu.duke.Reminders.Reminders;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -50,11 +51,9 @@ public class Duke {
      */
     public static void run() {
         ui.show_opening_string();
-
         Reminders reminders = new Reminders();
-        reminders.runAll();
+        reminders.oneDay();
         reminders.displayReminder();
-
         list = new TaskList(storage.load());
 
         System.out.println();
