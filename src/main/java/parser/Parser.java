@@ -49,7 +49,7 @@ public class Parser {
                     String taskDetails[] = taskFeatures.split(checkType, 2);
                     if (taskDetails.length == 1)
                     {
-                        return new AddCommand(command, taskDetails[0], null, null, null);
+                        return new AddCommand(command, taskDetails[0], nullDate, nullDate, nullDate);
                     }
                     else {
                         String dateTimeFromUser = taskDetails[1];
@@ -70,7 +70,7 @@ public class Parser {
                         } catch (ParseException e) {
                             throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
                         }
-                        return new AddCommand(command, taskDescription, null, to, from);
+                        return new AddCommand(command, taskDescription, nullDate, to, from);
                     }
                 }
             case "deadline":
