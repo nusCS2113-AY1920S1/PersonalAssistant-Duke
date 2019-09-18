@@ -1,10 +1,27 @@
 package duke.tasks;
 
+
+/**
+ * @author Suther David Samuel (A0182488N)
+ * A class inheriting from duke.tasks.Task used to represent tasks that have both a description and
+ * repeat over a period of time. Recurring tasks can repeat daily, weekly, monthly or yearly.
+ */
 public class RecurringTask extends Task{
     private String date;
     private String time ="";
     private String frequency;
     private String oldDate;
+
+    /**
+     * Constructor for a duke.tasks.RecurringTask task, which consists of the description, time, date
+     * and how often to repeat itself.
+     *
+     * @param description refers to the description of the task
+     * @param date refers to the date on which the task has to be performed
+     * @param time refers to the time at which the task has to be performed
+     * @param frequency refers to how often the task recurs. This task can only recur
+     *                  either daily, weekly, monthly or yearly.
+     */
     public RecurringTask(String description, String date, String time, String frequency){
         super(description);
         this.date = date;
@@ -12,6 +29,12 @@ public class RecurringTask extends Task{
         this.frequency = frequency;
     }
 
+    /**
+     * Returns a String representation of the duke.tasks.RecurringTask object, displaying its type (duke.tasks.RecurringTask),
+     * description and the attributes associated with it.
+     *
+     * @return a string representation of the duke.tasks.RecurringTask object
+     */
     @Override
     public String toString(){
         String msg =  "[R]" + super.toString() + " (" + frequency + " on: " + date;
@@ -22,6 +45,12 @@ public class RecurringTask extends Task{
         return msg;
     }
 
+    /**
+     * Returns a String representation of the duke.tasks.RecurringTask object, displaying its type (duke.tasks.RecurringTask),
+     * description and the old(previous date) attributes associated with it.
+     *
+     * @return a string representation of the duke.tasks.RecurringTask object
+     */
     public String toOldString(){
         String msg =  "[R][v]" + super.toString().substring(3) + " (" + frequency + " on: " + this.oldDate;
         if(!this.time.equals("")){
@@ -31,6 +60,13 @@ public class RecurringTask extends Task{
         return msg;
     }
 
+    /**
+     * When a RecurringTask is set as done, the next date for the task is generated
+     * based on the pre-defined frequency and the task date auto-updates itself.
+     * Since this is a recurring task, it can never be marked as done as once the task
+     * is done for one date, the task for the next date automatically replaces the previous
+     * one.
+     */
     @Override
     public void setDone(){
         this.oldDate = this.date;
@@ -128,6 +164,14 @@ public class RecurringTask extends Task{
         return false;
     }
 
+    /**
+     * Checks if a date is a valid calendar date
+     *
+     * @param d calendar day of the month
+     * @param m calendar month of the year (1-12)
+     * @param y calendar year
+     * @return a boolean indicating whether the date input is valid or not
+     */
     public static boolean isDateVaid(int d, int m, int y){
         if(d < 1 || d > 31 || m < 1 || m > 12 || y < 0){
             return false;
