@@ -7,6 +7,7 @@ import commands.ListCommand;
 import commands.ByeCommand;
 import commands.DeleteCommand;
 import commands.FindCommand;
+import commands.SnoozeCommand;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -80,6 +81,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("SNOOZE")) {
+            temp = new SnoozeCommand(splites[1]);
         } else {
             throw new DukeException("command not found");
         }
