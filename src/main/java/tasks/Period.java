@@ -25,8 +25,7 @@ public class Period extends Task{
      * default constructor of Period
      */
     public Period(){}
-
-
+    
     /**
      * another constructor of Period
      * @param description
