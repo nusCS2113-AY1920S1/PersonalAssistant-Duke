@@ -9,16 +9,18 @@ import views.CLIView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.text.ParseException;
 
 public class ConsoleInputController implements IViewController {
 
     private CLIView consoleView;
     private TaskFactory taskFactory;
     private TaskList taskList;
-    private String filePath = "D:\\For Git\\CS2113_Duke\\src\\main\\java\\saves\\TaskLists.txt";
+    private String filePath = "src/main/saves/savefile.txt";
 
     /**
      * Constructor.
@@ -54,11 +56,23 @@ public class ConsoleInputController implements IViewController {
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
+        } else if (input.contains("remind")) {
+            try {
+                consoleView.remindTask(taskList, input);
+            } catch (ParseException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+        } else if (input.length() == 17 && input.substring(0,8).equals("schedule")) {
+            try {
+                consoleView.listSchedule(taskList, input);
+            } catch (ParseException e) {
+                System.out.println("error in scheduling");
+            }
         } else {
             try {
                 ITask newTask = taskFactory.createTask(input);
-                taskList.addToList(newTask);
-                consoleView.addMessage(newTask, taskList);
+                boolean anomaly = taskList.addToList(newTask);
+                consoleView.addMessage(newTask, taskList, anomaly);
                 saveData();
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);

@@ -1,6 +1,9 @@
 import exceptions.DukeException;
 import views.CLIView;
 
+/**
+ * Main class.
+ */
 public class Duke {
     /**
      * Main class.

@@ -9,16 +9,18 @@ public class ToDos implements ITask, Serializable {
     private String description;
     private boolean isDone;
     private String initials;
+    private String taskDuration;
 
     /**
      * Constructor of ToDos data model.
      *
      * @param description : Description of new task
      */
-    public ToDos(String description) {
+    public ToDos(String description, String taskDuration) {
         this.description = description;
         this.isDone = false;
         this.initials = "T";
+        this.taskDuration = taskDuration;
     }
 
     @Override
@@ -33,11 +35,16 @@ public class ToDos implements ITask, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description;
+        return this.description + " (needs " + taskDuration + " hours)";
     }
 
     @Override
     public String getInitials() {
         return this.initials;
+    }
+
+    @Override
+    public String getDateTime() {
+        return taskDuration;
     }
 }
