@@ -33,6 +33,7 @@ public class Deadline extends Task {
     public Deadline(String[] splitStorageStrings) {
         super(splitStorageStrings);
         this.by = TimeParser.parse(splitStorageStrings[4]);
+        this.recurringType = splitStorageStrings[5];
     }
 
     /**
@@ -44,7 +45,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + TimeParser.format(by) + ")";
+        return "[D]" + super.toString() + " (by: " + TimeParser.format(by) + ")"
+                + "(" + recurringType + ")";
     }
 
     /**
@@ -55,7 +57,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return "D | " + super.toStorageString() + " | " + TimeParser.format(by);
+        return "D | " + super.toStorageString() + " | " + TimeParser.format(by) + " | " + recurringType;
     }
 
     public Date getBy() {

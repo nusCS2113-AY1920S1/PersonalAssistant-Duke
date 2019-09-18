@@ -19,10 +19,12 @@ public class Task {
     // Optional fields
     protected Date doAfterDate;
     protected List<Task> doAfterTasks; // todo: implement doAfterTasks
+    protected String recurringType; // DAILY, WEEKLY, MONTHLY, YEARLY, NONE;
 
     protected Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.recurringType = "NONE";
     }
 
     protected Task(String[] splitStorageStrings) {
@@ -61,6 +63,23 @@ public class Task {
         } else {
             isDone = true;
         }
+    }
+
+    /**
+     * Sets the task's type of Recurring.
+     *
+     * @param recurringType The type of recurring.
+     */
+    public void setRecurringType(String recurringType) {
+        this.recurringType = recurringType;
+    }
+
+    /**
+     *
+     * @return The recurringType in <code>String</code> format.
+     */
+    public String getRecurringType() {
+        return recurringType;
     }
 
     /**

@@ -25,6 +25,7 @@ public class ToDo extends Task {
      */
     public ToDo(String[] splitStorageStrings) {
         super(splitStorageStrings);
+        this.recurringType = splitStorageStrings[5];
         timeTaken = Long.parseLong(splitStorageStrings[4]);
     }
 
@@ -41,7 +42,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")";
+        return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")"
+                + "(" + recurringType + ")";
     }
 
     /**
@@ -52,6 +54,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageString() {
-        return "T | " + super.toStorageString() + " | " + timeTaken;
+        return "T | " + super.toStorageString() + " | " + timeTaken
+                + " | " + recurringType;
     }
 }
