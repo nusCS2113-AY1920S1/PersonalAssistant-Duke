@@ -29,7 +29,9 @@ public class Todo extends Task implements Serializable {
     @Override
     public String toString() {
         if(this.fromDate != nullDate && this.toDate != nullDate){
-            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " + this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " + this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
+                    this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
+                    this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         }
         else {
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;

@@ -21,9 +21,10 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private LocalDateTime formattedToDate;
-    private LocalDateTime formattedAtDate;
-    private LocalDateTime formattedFromDate;
+    private final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    private LocalDateTime formattedToDate = nullDate;
+    private LocalDateTime formattedAtDate = nullDate;
+    private LocalDateTime formattedFromDate = nullDate;
     /**
      * This AddCommand function is used to assign the different parameters required when adding a task.
      *
