@@ -40,7 +40,7 @@ public class Command {
      * @return The boolean indicating whether quit the loop in <code>main</code> method.
      */
     public boolean isExit() {
-        if (commandParams.getCommandType().equals("exit")) {
+        if (commandParams.getCommandType().equals("bye")) {
             return true;
         } else {
             return false;

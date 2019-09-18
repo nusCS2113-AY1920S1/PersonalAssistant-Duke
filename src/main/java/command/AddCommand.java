@@ -51,7 +51,7 @@ public class AddCommand extends Command {
                     commandParams.getParam("end"));
             break;
         default:
-            throw new DukeException("\"☹ OOPS!!! Your command type is unknown!\"");
+            throw new DukeException("☹ OOPS!!! Your command type is unknown!");
         }
         storage.update(tasks.toStorageStrings());
 

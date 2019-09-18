@@ -17,7 +17,7 @@ public class DeadlineTest {
     @Test
 
     public void testStorageStringConversion() {
-        assertEquals("D | 0 | do the homework | Thu May 02 18:00:00 SGT 2019",
+        assertEquals("D | 0 | do the homework | 02/05/2019 1800",
                 new Deadline("do the homework", "02/05/2019 1800").toStorageString());
     }
 

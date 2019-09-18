@@ -1,3 +1,2 @@
-T | 1 | eat
-T | 0 | cook
-D | 0 | help | Tue Oct 22 16:00:00 SGT 2019
+D | 0 | return the book | 09/09/2019 1800
+E | 0 | attend the party | 02/02/2019 1800 | 02/02/2019 2000

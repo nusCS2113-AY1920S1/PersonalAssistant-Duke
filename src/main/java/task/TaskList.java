@@ -106,6 +106,35 @@ public class TaskList {
     }
 
     /**
+     * Reschedules the deadline with the given index in taskList.
+     *
+     * @param index The index of the deadline to be scheduled
+     * @param ddl The new due <code>Date</code>.
+     */
+    public void reschedule(int index, String ddl) throws DukeException {
+        try {
+            ((Deadline) tasks.get(index)).reschedule(ddl);
+        } catch (ClassCastException e) {
+            throw new DukeException("☹ OOPS!!! Use /start and /end instead.");
+        }
+    }
+
+    /**
+     * Reschedules the event with the given index in taskList.
+     *
+     * @param index The index of the event to be scheduled.
+     * @param start The new start <code>Date</code>.
+     * @param end The new end <code>Date</code>.
+     */
+    public void reschedule(int index, String start, String end) throws DukeException  {
+        try {
+            ((Event) tasks.get(index)).reschedule(start, end);
+        } catch (ClassCastException e) {
+            throw new DukeException("☹ OOPS!!! Use /by instead.");
+        }
+    }
+
+    /**
      * Returns the collection of index of all tasks found relevant to the searched keyword.
      *
      * @param s The searched keyword.
@@ -131,7 +160,7 @@ public class TaskList {
      * @param index Index of a task in taskList.
      * @return Information of a task to be printed by UI.
      */
-    public String getTaskInfo(int index) {
+    public String getTaskInfo(int index){
         return tasks.get(index).toString();
     }
 
