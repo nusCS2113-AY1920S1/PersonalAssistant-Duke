@@ -11,7 +11,8 @@ public enum TaskCommands {
     FIND("find"),
     BYE("bye"),
     REMINDER("reminder"),
-    VIEW_SCHEDULE("view schedule");
+    VIEW_SCHEDULE("view schedule"),
+    SNOOZE("snooze");
 
     /**
      * Name of the tasks commands.
