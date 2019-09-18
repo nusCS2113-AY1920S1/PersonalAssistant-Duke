@@ -1,15 +1,21 @@
 # User Guide
-![alt text](https://github.com/limsiying/main/blob/B-ViewSchedules/docs/images/Ui.PNG)
+![alt text](https://github.com/AY1920S1-CS2113T-T09-2/main/tree/master/docs/images/Ui.PNG)
 
 Duchess is a calendar application tailor-made for NUS students. It provides an interface for students to manage both their school timetable and commitments schedule while providing useful contextual information and features.
 
 ## Features 
 
-### Add different task types to todo list.
+### Add different task types to todo list
 Students can manage their own todo list and add tasks to it. They can tag the tasks with three different types: todo, event or deadline. The status of every tasks will be tracked as done or undone. New tasks will be set to an undone status, which can be changed to done.
 
-### View the task list as a schedule.
-Students can view time-specific tasks in the form of a timetable.
+### Organise and retrieve task list
+Students will be able to:
+* view the task list
+* view the schedule for a paticular date
+* search if a task exists
+* delete tasks
+* mark a task as done
+* get reminders for tasks with deadlines
 
 ## Usage
 
@@ -130,4 +136,19 @@ Here is your schedule:
 -----------------------------------------------------
 Here are your ongoing tasks:
 1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)
+```
+
+### `reminder` - Display all tasks with deadlines
+
+Display all tasks with deadlines.
+
+Example of usage: 
+
+`reminder`
+
+Expected outcome:
+
+```
+You currently have these deadlines.
+1. [D][✘] health and wellness transcript (by: 19/09/2019 0800)
 ```
