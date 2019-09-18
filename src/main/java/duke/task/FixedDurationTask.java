@@ -19,6 +19,7 @@ public class FixedDurationTask extends Task {
         this.duration = duration;
     }
 
+
     @Override
     public String toString() {
         return "  " + duration + " minutes  ";
