@@ -35,7 +35,7 @@ public class ScheduleCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
-            throw new DukeException("☹ OOPS!!! I don't what to find.");
+            throw new DukeException("☹ OOPS!!! I don't which day's schedule to display.");
         }
         String dateString = commandParams.getMainParam();
         Date dayStart = TimeParser.parse(dateString + " 0000");

@@ -29,11 +29,9 @@ public class RescheduleCommand extends Command {
             int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0 - based
             if (commandParams.containsParam("by")) {
                 tasks.reschedule(index, commandParams.getParam("by"));
-            } else if (commandParams.containsParam("start") && commandParams.containsParam("end")) {
+            } else {
                 tasks.reschedule(index, commandParams.getParam("start"),
                         commandParams.getParam("end"));
-            } else {
-                throw new DukeException("☹ OOPS!!! You can't reschedule that!");
             }
         } catch (NumberFormatException e) {
             throw new DukeException("☹ OOPS!!! The index be a number.");
