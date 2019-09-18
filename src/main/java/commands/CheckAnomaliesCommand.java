@@ -8,80 +8,81 @@ import utils.Storage;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CheckAnomaliesCommand extends Command{
+public class CheckAnomaliesCommand extends Command {
 
-    public CheckAnomaliesCommand(){}
+    public CheckAnomaliesCommand() {
+    }
 
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException{
+    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
 
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         String msg = "Here is your time crash\n";
         String output = "";
 
 
-            ArrayList<Task> temp = (ArrayList<Task>)tasks.clone();
-            temp = removeNoTimeTask(temp);
+        ArrayList<Task> temp = (ArrayList<Task>) tasks.clone();
+        temp = removeNoTimeTask(temp);
 
-            scheTasks = sortByDate(temp);
+        scheTasks = sortByDate(temp);
 
-        for (int i = 0 ; i < scheTasks.size()-1; i++) {
-            if (scheTasks.get(i) instanceof Period && scheTasks.get(i+1) instanceof Period){
+        for (int i = 0; i < scheTasks.size() - 1; i++) {
+            if (scheTasks.get(i) instanceof Period && scheTasks.get(i + 1) instanceof Period) {
                 Period p1 = (Period) scheTasks.get(i);
-                Period p2 = (Period) scheTasks.get(i+1);
-                if (p1.getEnd().compareTo(p2.getStart()) > 0 ){
+                Period p2 = (Period) scheTasks.get(i + 1);
+                if (p1.getEnd().compareTo(p2.getStart()) > 0) {
                     output += "crash between: " + p1.toString() + " & " + p2.toString() + "\n";
                 }
-            }else if (scheTasks.get(i) instanceof Period && scheTasks.get(i+1)instanceof Event){
+            } else if (scheTasks.get(i) instanceof Period && scheTasks.get(i + 1) instanceof Event) {
                 Period p1 = (Period) scheTasks.get(i);
-                Event e2 = (Event) scheTasks.get(i+1);
-                if (p1.getStart().compareTo(e2.getTime())==0 || p1.getEnd().compareTo(e2.getTime()) > 0){
+                Event e2 = (Event) scheTasks.get(i + 1);
+                if (p1.getStart().compareTo(e2.getTime()) == 0 || p1.getEnd().compareTo(e2.getTime()) > 0) {
                     output += "crash between: " + p1.toString() + " & " + e2.toString() + "\n";
                 }
-            }else if (scheTasks.get(i) instanceof Event && scheTasks.get(i+1)instanceof Period){
+            } else if (scheTasks.get(i) instanceof Event && scheTasks.get(i + 1) instanceof Period) {
                 Event e1 = (Event) scheTasks.get(i);
-                Period p2 = (Period) scheTasks.get(i+1);
-                if (p2.getStart().compareTo(e1.getTime())==0){
+                Period p2 = (Period) scheTasks.get(i + 1);
+                if (p2.getStart().compareTo(e1.getTime()) == 0) {
                     output += "crash between: " + e1.toString() + " & " + p2.toString() + "\n";
                 }
-            }else if (scheTasks.get(i) instanceof Event && scheTasks.get(i+1)instanceof Event){
+            } else if (scheTasks.get(i) instanceof Event && scheTasks.get(i + 1) instanceof Event) {
                 Event e1 = (Event) scheTasks.get(i);
-                Event e2 = (Event) scheTasks.get(i+1);
-                if (e1.getTime().compareTo(e2.getTime())==0){
+                Event e2 = (Event) scheTasks.get(i + 1);
+                if (e1.getTime().compareTo(e2.getTime()) == 0) {
                     output += "crash between: " + e1.toString() + " & " + e2.toString() + "\n";
                 }
             }
         }
-        if (!output.equals("")){
+        if (!output.equals("")) {
             Ui.print(msg + output);
-        }else {
+        } else {
             Ui.print("no time crash");
         }
 
 
     }
 
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 
-    private ArrayList<Task> removeNoTimeTask(ArrayList<Task> toFilter)    {
+    private ArrayList<Task> removeNoTimeTask(ArrayList<Task> toFilter) {
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
 
         //remove all without dates (ToDos and Lasts)
         for (int i = 0; i < toFilter.size(); i++) {
-            if (toFilter.get(i).getClass().equals(ToDo.class))    {
+            if (toFilter.get(i).getClass().equals(ToDo.class)) {
                 toDelete.add(i);
             }
-            if (toFilter.get(i).getClass().equals(Last.class))    {
+            if (toFilter.get(i).getClass().equals(Last.class)) {
                 toDelete.add(i);
             }
-            if (toFilter.get(i).getClass().equals(Deadline.class))    {
+            if (toFilter.get(i).getClass().equals(Deadline.class)) {
                 toDelete.add(i);
             }
         }
 
-        for (int i = toDelete.size() - 1; i >= 0;)  {
-            toFilter.remove((int)toDelete.get(i));
+        for (int i = toDelete.size() - 1; i >= 0; ) {
+            toFilter.remove((int) toDelete.get(i));
             i--;
         }
         return toFilter;
@@ -93,7 +94,7 @@ public class CheckAnomaliesCommand extends Command{
         toSort = removeNoTimeTask(toSort);
 
         int size = toSort.size();
-        for (int i = 0; i < size; i++)  {
+        for (int i = 0; i < size; i++) {
             Date earliest = new Date(Long.MAX_VALUE);
             int earliestIndex = -1;
             for (int j = 0; j < toSort.size(); j++) {
@@ -104,10 +105,9 @@ public class CheckAnomaliesCommand extends Command{
                         earliest = temp.getTime();
                         earliestIndex = j;
                     }
-                }
-                else if (toSort.get(j).getClass().equals(Period.class)){
+                } else if (toSort.get(j).getClass().equals(Period.class)) {
                     Period temp = (Period) toSort.get(j);
-                    if (temp.getStart().before(earliest)){
+                    if (temp.getStart().before(earliest)) {
                         earliest = temp.getStart();
                         earliestIndex = j;
                     }
