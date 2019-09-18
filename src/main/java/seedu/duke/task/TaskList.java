@@ -152,8 +152,9 @@ public class TaskList {
     }
 
     /**
-     * Snooze task at index
-     * @param i index at which task is snoozed
+     * Snoozes task at index.
+     *
+     * @param i index at which task is snoozed.
      * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void snoozeTask(int i) {
@@ -167,18 +168,17 @@ public class TaskList {
             System.out.println("\t_____________________________________");
 
             Scanner scanner = new Scanner(System.in);
-            String raw_input = scanner.nextLine();
-            String[] user_input = raw_input.split(" ");
+            String rawInput = scanner.nextLine();
+            String[] userInput = rawInput.split(" ");
             boolean failSnooze = false;
 
-            if (user_input[0].contains("/")) {
-                list.get(i).setDateTime(raw_input);
-            }
-            else {
-                int num = Integer.parseInt(user_input[0]);
+            if (userInput[0].contains("/")) {
+                list.get(i).setDateTime(rawInput);
+            } else {
+                int num = Integer.parseInt(userInput[0]);
                 LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (user_input[1]) {
+                switch (userInput[1]) {
                 case "min":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
@@ -206,8 +206,7 @@ public class TaskList {
                 System.out.println("\t" + list.get(i).toString());
                 System.out.println("\t_____________________________________");
             }
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
     }

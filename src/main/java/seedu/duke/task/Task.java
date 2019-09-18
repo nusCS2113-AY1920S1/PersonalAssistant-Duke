@@ -82,7 +82,22 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Declares a method to obtain date and time of the task in sub-classes.
+     */
     public abstract LocalDateTime getDateTime();
-    public abstract void setDateTime(LocalDateTime DateTime);
-    public abstract void setDateTime(String DateTime);
+
+    /**
+     * Declares a method to set date and time of the task in sub-classes.
+     *
+     * @param dateTime the date and time of the task of type LocalDateTime.
+     */
+    public abstract void setDateTime(LocalDateTime dateTime);
+
+    /**
+     * Declares a method to set date and time of the task in sub-classes.
+     *
+     * @param dateTime string of the date and time of the task.
+     */
+    public abstract void setDateTime(String dateTime);
 }
