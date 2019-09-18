@@ -4,6 +4,7 @@ import duke.Duke;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,5 +73,8 @@ public class TaskList {
         return taskList.remove(taskNb);
     }
 
+    public void changeTaskDate(int taskNb, String date){
+        taskList.get(taskNb).setNewDate(date);
+    }
 
 }
