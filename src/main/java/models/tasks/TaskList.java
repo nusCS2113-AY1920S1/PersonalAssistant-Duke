@@ -144,7 +144,7 @@ public class TaskList implements Serializable {
      * @return
      * @throws ParseException
      */
-    public ArrayList<String> freeTimeSlots(String limit) throws ParseException {
+    public ArrayList<String> findFreeSlots(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = getUpcomingTasks(limit);
         Collections.sort(upcomingTasks, new Comparator<ITask>() {
             @Override
