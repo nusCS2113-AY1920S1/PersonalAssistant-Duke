@@ -77,6 +77,17 @@ public class DukeException extends Exception {
                 message = "Invalid index! Please try again.";
                 break;
             }
+            case "between": {
+                message = "Invalid input for a between task. Please follow this format: between <task_description> /between <start> and <end>";
+                break;
+            }
+            case "recur":{
+                message = "Invalid input for a recurring task. Please follow this format: recur <frequency> <description> /on <date> /at <time>\n";
+                message += "<frequency> could only be one of: daily, weekly, monthly or yearly\n";
+                message += "<date> has to follow the specific format of: dd/mm/yy\n";
+                message += "/at <time> is optional.";
+                break;
+            }
             default: {
                 message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
             }
