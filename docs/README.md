@@ -30,7 +30,7 @@ Examples:
 Deletes the specified task from the task list.
 
 Format: `delete INDEX`
-  - Deletes the task at the spcified `INDEX`.
+  - Deletes the task at the specified `INDEX`.
   - The index refers to the index shown in the displayed task list.
   - The index must be a positive integer 1, 2, 3, ...
   
@@ -64,7 +64,7 @@ Examples:
   Marks the 1st task in the task list as done.
 
 ### 3.5 Listing all the tasks : `list`
-Shows a list of all the task in the task list.
+Shows a list of all the tasks in the task list.
 
 Format: `list`
 
@@ -87,13 +87,17 @@ Examples:
     `9/9/2019 1200`  
     Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
-  
-### 3.7 Exiting the program : `bye`
+### 3.7 Reminders : `remind`
+Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. 
+
+Format: `remind`
+
+### 3.8 Exiting the program : `bye`
 Exits the program.
 
 Format: `bye`
 
-### 3.8 Saving the data
+### 3.9 Saving the data
 Save the tasks in the hard disk automatically whenever the task list changes.
 There is no need to save manually.
 
