@@ -34,7 +34,7 @@ public class Parser {
     /**
      * Takes raw user input and the current list of tasks and based on
      * the user input performs operations like find, delete, done, list,
-     * add and bye.
+     * add, show and bye.
      * Outputs a task list back after performing the operation.
      *
      * @param rawInput users single line string input
@@ -73,8 +73,7 @@ public class Parser {
         } else if (userInput[0].equals("show")) {
             if (userInput.length != 2) {
                 ui.showFormatError();
-            }
-            else {
+            } else {
                 Date date = schedule.convertStringToDate(userInput[1]);
                 if (date != (null)) {
                     schedule.printSchedule(date);

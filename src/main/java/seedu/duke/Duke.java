@@ -41,13 +41,15 @@ public class Duke {
      * Runs Duke which commences the user to machine
      * feedback loop until the user enters "bye".
      * Loads existing tasklist and performs operations
-     * like list, find, delete and add on the tasklist.
+     * like list, find, delete and add on the tasklist. Adds
+     * the Tasks in the TreeMap.
      * Saves the list to disk for next duke session inside
      * data/duke.txt.
      * @see Storage
      * @see TaskList
      * @see Parser
      * @see Ui
+     * @see Schedule
      */
     public static void run() {
         ui.show_opening_string();
