@@ -1,16 +1,13 @@
 import exceptions.DukeException;
 import views.CLIView;
 
-/**
- * Main class.
- */
 public class Duke {
     /**
      * Main class.
      *
      * @param args Refers to CLI arguments
      */
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         CLIView cliView = new CLIView();
 
         cliView.start();
