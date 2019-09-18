@@ -11,7 +11,7 @@ public class Event extends Task implements Serializable {
     /**
      * Creates an Event instance and initialises the required attributes.
      * @param description Description of the event.
-     * @param at Time of the event.
+     * @param at Time of the event in format "dd/MM/yyyy HHmm".
      */
     public Event(String description, String at) {
         super(description);
