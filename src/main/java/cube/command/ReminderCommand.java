@@ -3,14 +3,14 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
 import java.util.Date;
 import java.util.Calendar;
-import ui.Ui;
-import util.Storage;
-import task.TaskList;
-import task.Task;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.task.TaskList;
+import cube.task.Task;
 
 public class ReminderCommand implements Command{
 

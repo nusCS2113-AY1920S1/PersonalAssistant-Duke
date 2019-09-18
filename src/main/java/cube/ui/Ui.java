@@ -7,9 +7,10 @@ package cube.ui;
 
 import cube.task.TaskList;
 import cube.task.Task;
+import cube.util.Parser;
 import java.util.Scanner;
 import java.util.Date;
-import util.Parser;
+
 
 public class Ui {
 	private Scanner in = new Scanner(System.in);

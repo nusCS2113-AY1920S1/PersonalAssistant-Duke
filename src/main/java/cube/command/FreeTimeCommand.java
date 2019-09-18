@@ -3,7 +3,7 @@
  *
  * @author tygq13
  */
-package command;
+package cube.command;
 
 import java.util.Date;
 import java.util.Calendar;
@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import ui.Ui;
-import util.Storage;
-import task.TaskList;
-import task.Task;
+import cube.ui.Ui;
+import cube.util.Storage;
+import cube.task.TaskList;
+import cube.task.Task;
 
 public class FreeTimeCommand implements Command{
 	private String number;
 
 	/**
-	 * Defualt constructor.
+	 * Default constructor.
 	 * Calls another constructor with (null) as argument.
 	 */
 	public FreeTimeCommand() {
