@@ -61,6 +61,11 @@ public class Command {
                 ui.printListOfTasks(tasks);
                 changesMade = false;
                 break;
+                
+            case "reminder":
+            	ui.printReminder(tasks);
+                changesMade = false;
+                break;
 
             case "done":
                 try {

@@ -20,7 +20,7 @@ public class Duke {
         UI ui = new UI();
         Storage storage = new Storage(new File("D:/DukePersonalRepo/data/Duke.txt"));
         TaskList tasks = new TaskList(storage.readFromFile(ui));
-        ui.welcome();
+        ui.welcome(tasks);
 
         String userInput = reader.nextLine();
         while (!userInput.equals("bye")) {
