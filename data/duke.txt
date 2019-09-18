@@ -1,4 +1,4 @@
-D | 1 | submit | 29/09/2019 1300
+D | 0 | submit | 29/09/2019 1300
 E | 0 | buy bbtea | 14/09/2019 1800
-D | 1 | get rekted | 08/09/2019 2359
+D | 0 | get rekted | 08/09/2019 2359
 T | 0 | eat mochi
