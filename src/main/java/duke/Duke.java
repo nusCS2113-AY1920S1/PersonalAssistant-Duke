@@ -64,11 +64,17 @@ public class Duke {
         new Duke(filePath).run();
     }
 
+    /**
+     * Gets response from Duke.
+     * @param input String input from user
+     * @return String output
+     * @throws DukeException if not able to find any matching items
+     */
     public String getResponse(String input) throws DukeException {
         String output = "";
         if (input.contains("list")) {
             output =  "Duke heard: " + tasks.listTask();
-        }else{
+        } else {
             output = "Duke heard: " + tasks.findTask(input.trim().split("\\s", 2)[1]);
         }
         return output;
