@@ -27,9 +27,9 @@ public class Task {
      */
     public String getStatusIcon() {
         if (this.isDone) {
-            return "✓"; // / u2713
+            return "\u2713"; // / u2713
         } else {
-            return "✘"; // / u2718
+            return "\u2718"; // / u2718
         }
     }
 

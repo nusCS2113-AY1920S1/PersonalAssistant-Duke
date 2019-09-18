@@ -1,15 +1,6 @@
 package duke.worker;
 
-import duke.command.Command;
-import duke.command.CommandBlank;
-import duke.command.CommandNewTask;
-import duke.command.CommandType;
-import duke.command.CommandList;
-import duke.command.CommandMarkDone;
-import duke.command.CommandBye;
-import duke.command.CommandDelete;
-import duke.command.CommandError;
-import duke.command.CommandFind;
+import duke.command.*;
 
 import duke.task.Task;
 import duke.task.TaskType;
@@ -65,6 +56,10 @@ public class Parser {
             c = new CommandMarkDone(userInput);
             break;
 
+        case REMINDER:
+            c = new CommandReminder();
+            break;
+
         default:
             c = new CommandError();
             break;
@@ -101,11 +96,13 @@ public class Parser {
      * @return CommandType enum that identifies the Command requested
      */
     public static CommandType parseCommandType(String userInput) {
+        //user enter an empty command ( like a blank )
         if (userInput.trim() == "") {
             return CommandType.BLANK;
         }
         String commandStr = parseForEnum(userInput, CommandType.getNames());
         // Default
+        // type of command not as specified inside the enum types
         if (commandStr == "") {
             return CommandType.TASK;
         }
