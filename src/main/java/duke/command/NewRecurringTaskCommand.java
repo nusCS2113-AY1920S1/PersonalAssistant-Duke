@@ -86,9 +86,5 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         }
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
         ctx.ui.print(ctx.taskList.getAddReport(addStrBuilder.toString(), count));
-
-        //test cases:
-        //recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /count 13
-        //recurring deadline tutorial /by 19/09/2019 1400 /repeats weekly /until 23/11/2019 1300
     }
 }

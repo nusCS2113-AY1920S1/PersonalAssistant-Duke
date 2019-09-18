@@ -42,7 +42,7 @@ abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (isDone ? "\u2713" : "\u2718") + "] " + name; //ternary operator returns tick or X
+        return "[" + (isDone ? "Y" : "N") + "] " + name;
     }
 
     /**
