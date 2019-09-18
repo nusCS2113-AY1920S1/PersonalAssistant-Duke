@@ -110,15 +110,24 @@ There is no need to save manually.
      https://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 ## 5. Command Summary
-- Add `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm`  
+- Add: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm`  
   e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500`
   
-- Delete  
-- Find  
-- Done  
+- Delete: `delete INDEX`  
+  e.g. `delete 3`
+  
+- Find: `find KEYWORD`  
+  e.g. `find book`
+  
+- Done: `done INDEX`  
+  e.g. `done 2`
+  
 - List: `list`
-- Snooze
+
+- Snooze: `snooze`
+
 - Remind: `remind`
+
 - Bye: `bye`
 
 ## Usage
