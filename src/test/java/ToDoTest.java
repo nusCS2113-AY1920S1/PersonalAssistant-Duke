@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ToDoTest {
 
     @Test
-    void removeStr() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+    void initialize() {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
         ToDo test = new ToDo("TodoSomething");
         assertEquals("Something", test.taskName, "taskName interpretation error");
 
