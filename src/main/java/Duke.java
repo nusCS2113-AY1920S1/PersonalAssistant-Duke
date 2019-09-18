@@ -3,11 +3,9 @@ import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
+import utils.Reminder;
 import core.Ui;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -44,6 +42,7 @@ public class Duke {
      */
     public void run() {
         Ui.welcome();
+        Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
