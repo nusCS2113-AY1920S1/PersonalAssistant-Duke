@@ -1,6 +1,10 @@
 package leduc.task;
 
 import leduc.Date;
+import leduc.exception.DateComparisonEventException;
+import leduc.exception.PostponeDeadlineException;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a Event Task.
@@ -69,6 +73,23 @@ public class EventsTask extends Task {
      */
     public String toString(){
         return super.toString() + " at: " + getDateFirst() + " - " + getDateSecond();
+    }
+
+    /**
+     * Allow reschedule the period of the event task.
+     * With verification that the second date should be after the first one.
+     * @param d1 the first date.
+     * @param d2 the second date.
+     * @throws DateComparisonEventException Exception caught when the second date is before the first one.
+     */
+    public void reschedule(LocalDateTime d1, LocalDateTime d2) throws DateComparisonEventException {
+        if (d2.isBefore(d1)){
+            throw new DateComparisonEventException();
+        }
+        else{
+            this.dateFirst.setD(d1);
+            this.dateSecond.setD(d2);
+        }
     }
 }
 

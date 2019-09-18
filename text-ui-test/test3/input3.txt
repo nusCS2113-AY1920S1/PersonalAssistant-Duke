@@ -10,7 +10,6 @@ deadline aeze
 event eaze
 event /at 22/12/2222 12:22 - 22/12/2223 12:33
 todo
-deadline d1 /by 29/02/2021 12:22
 done 333
 delete 333
 bye

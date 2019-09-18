@@ -1,17 +1,17 @@
 package leduc;
 
 import leduc.command.DeadlineCommand;
-import leduc.exception.DateFormatException;
+import leduc.command.DeleteCommand;
 import leduc.exception.DukeException;
 import leduc.exception.EmptyDeadlineDateException;
 import leduc.exception.EmptyDeadlineException;
+import leduc.exception.NonExistentDateException;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,10 +27,14 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage("testFile/DeadlineCommandTest.txt");
-        Parser parser = new Parser();
-        List<Task> tasksList = new ArrayList<>();
-        TaskList tasks = new TaskList( tasksList);
+        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt");
+        TaskList tasks = new TaskList(new ArrayList<Task>());
+        try{
+            tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
+        }
+        catch (DukeException e){
+            e.print();
+        }
         assertTrue(tasks.size()==0);
 
 
@@ -62,11 +66,27 @@ public class DeadlineCommandTest {
             deadlineCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e){
-            assertTrue( e instanceof DateFormatException);
+            assertTrue( e instanceof NonExistentDateException);
         }
         assertTrue(tasks.size()==0);
 
+        DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
+        try{
+            deadlineCommand4.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==1);
 
+        DeleteCommand delete = new DeleteCommand("delete 1");
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==0);
 
 
     }

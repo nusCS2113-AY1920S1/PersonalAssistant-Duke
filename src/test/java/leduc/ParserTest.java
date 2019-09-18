@@ -1,7 +1,6 @@
 package leduc;
 
 import leduc.command.*;
-import leduc.exception.NonExistentDateException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
