@@ -84,13 +84,18 @@ public class TaskListTest {
         String expectedSearchResult = "Here are the tasks that contain 'u':"
                 + System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "2.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
-        assertEquals(expectedSearchResult, taskList.find("u"));
+        try {
+            assertEquals(expectedSearchResult, taskList.find("u"));
+        } catch (DukeException excp) {
+            fail("Failed to find tasks!");
+        }
     }
 
     @Test
-    public void findTasks_noMatchingTasks_errorMessageReturned() {
-        String expectedSearchResult = "Can't find any matching tasks!";
-        assertEquals(expectedSearchResult, taskList.find("CS2113"));
+    public void findTasks_noMatchingTasks_exceptionThrown() {
+        assertThrows(DukeException.class, () -> {
+            taskList.find("CS2113");
+        });
     }
 
     @Test
