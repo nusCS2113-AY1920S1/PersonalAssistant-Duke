@@ -2,5 +2,3 @@ D | 1 | submit | 29/09/2019 1300
 E | 0 | buy bbtea | 14/09/2019 1800
 D | 1 | get rekted | 08/09/2019 2359
 T | 0 | eat mochi
-D | 0 | a | 12/11/1111 1111
-D | 0 | a /by b /by b /by b /by b | b
