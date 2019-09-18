@@ -41,7 +41,9 @@ public class DeadlineCommand extends Command
             else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else{
+            else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
+                sb.append(list.get(i).toString() + "\n");
+            } else{
                 sb.append(list.get(i).toString()+"\n");
             }
         }

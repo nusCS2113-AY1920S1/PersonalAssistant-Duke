@@ -25,8 +25,8 @@ public class Parser {
         else if(command.contains("todo")) {
             return new TodoCommand();
         }
-        else if(command.contains("bye")) {
-            return new ByeCommand();
+        else if(command.contains("/between")) {
+            return new TimeboundCommand();
         }
         else if(command.contains("/require")) {
             return new FixDurationCommand();
@@ -37,8 +37,13 @@ public class Parser {
         else if(command.contains("schedule")) {
             return new ScheduleCommand();
         }
+
+        else if(command.contains("bye")) {
+            return new ByeCommand();
+        }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+
         }
     }
 }

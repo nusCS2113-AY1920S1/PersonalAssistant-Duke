@@ -36,7 +36,9 @@ public class DoneCommand extends Command {
             if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Tasks.Event")){
+
+            else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
+
                 sb.append(list.get(i).toString()+"\n");
             }
             else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
@@ -45,7 +47,9 @@ public class DoneCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else{
+            else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
+                sb.append(list.get(i).toString() + "\n");
+            } else{
                 sb.append(list.get(i).toString()+"\n");
             }
         }
