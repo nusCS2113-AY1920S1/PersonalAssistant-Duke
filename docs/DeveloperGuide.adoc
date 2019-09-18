@@ -81,7 +81,7 @@ _{More to be added}_
 
 *MSS*
 
-1. New Actor launches program
+1. New user launches program
 2. Cake asks user to identify the background (New or Exp?)
 3. User types in Name.
 4. Cake displays current user's progress
@@ -97,6 +97,24 @@ Use case ends.
 ** 3a1. Cake shows error message
 +
 Use case resumes at step 3.
+
+=== Use case: Find topics
+
+*MSS*
+
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 
++
+[none]
+** 
++
+Use case resumes at step 
 
 _{More to be added}_
 
