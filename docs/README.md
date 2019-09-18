@@ -128,6 +128,6 @@ Here is your schedule:
 -----------------------------------------------------
 |   1400    |       [E][Γ✘] student life fair       |
 -----------------------------------------------------
-Here are your ongoing tasks:<br />
+Here are your ongoing tasks:
 1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)
 ```
