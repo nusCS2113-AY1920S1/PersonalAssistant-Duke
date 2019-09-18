@@ -77,12 +77,37 @@ public class Parser {
             query = query.toLowerCase();
             c = new FindCommand(query);
         }
+
+        else if (words[0].equals("schedule")) {
+            if (words.length == 1) {
+                throw new DukeException("Tell me what you want me to find.");
+            }
+            String dateEntered = words[1];
+            c = new ViewScheduleCommand(dateEntered);
+        }
+
         else if (words[0].equals("todo")) {
             if (!(words.length > 1)) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
             input = input.replaceFirst("todo ", "");
-            c = new TodoCommand(input);
+            if(input.contains("/after")){
+                int splitIndex = input.indexOf("/after");
+                if (splitIndex == 0){
+                    throw new DukeException( "The description of a todo cannot be empty.");
+                }
+                String description =  input.substring(0, splitIndex-1);
+                String after = input.substring(splitIndex);
+                after = after.replaceFirst("/after", "");
+                if (after.equals("") || after.equals(" ")){
+                    throw new DukeException("The the after time cannot be empty.");
+                }
+
+                c = new TodoCommand(description, after);
+            }
+            else {
+                c = new TodoCommand(input);
+            }
         }
         else if (words[0].equals("deadline")) {
             if (!(words.length > 1)) {
@@ -100,6 +125,7 @@ public class Parser {
             if (description.isEmpty()) {
                 throw new DukeException("The description of a deadline cannot be empty.");
             }
+            // why got double error?
             String by = input.substring(splitIndex + 1);
             by = by.replaceFirst("by ", "");
             if (by.equals("by")) {
@@ -131,6 +157,38 @@ public class Parser {
             }
             checkParsableDate(at);
             c = new EventCommand(description, at);
+        }
+        else if (words[0].equals("recurring")) {
+            if (!(words.length > 1)) {
+                throw new DukeException("The description of a recurring task cannot be empty.");
+            }
+            input = input.replaceFirst("recurring ", "");
+            int daySplitIndex = input.indexOf("/every");
+            if (daySplitIndex == -1) {
+                throw new DukeException("Please specify the recurring task day using the '/every' command.");
+            }
+            else if (daySplitIndex == 0) {
+                throw new DukeException("The description of a task cannot be empty!");
+            }
+            String description = input.substring(0, daySplitIndex - 1);
+            if (description.isEmpty()) {
+                throw new DukeException("The description of a task cannot be empty.");
+            }
+            int timeSplitIndex = input.indexOf("/at");
+            if (timeSplitIndex == -1) {
+                throw new DukeException("Please specify the recurring task timing as well, using the '/at' command.");
+            }
+            String day = input.substring(daySplitIndex + 1, timeSplitIndex - 1);
+            day = day.replaceFirst("every ", "");
+            if (day.equals("every")) {
+                throw new DukeException("The recurring task day cannot be empty.");
+            }
+            String time = input.substring(timeSplitIndex + 1);
+            time = time.replaceFirst("at ", "");
+            if (time.equals("at")) {
+                throw new DukeException("The recurring task time cannot be empty.");
+            }
+            c = new RecurringCommand(description, day, time);
         }
         else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
