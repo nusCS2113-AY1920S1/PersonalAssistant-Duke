@@ -6,36 +6,35 @@ import duke.exceptions.DukeException;
 import java.util.Date;
 
 public class Deadline extends Task {
-    private DateTime by;
 
-    public Deadline(String description, Date by) throws DukeException {
+    public Deadline(String description, Date startDate) {
         super(description);
-        this.by = new DateTime(by);
+        this.startDate = new DateTime(startDate);
     }
 
     /**
      * This constructor is used for recreation of Duke.Tasks.Deadline from storage.
      * @param done 1 if task has been marked complete, 0 otherwise.
      * @param description the name or description of the deadline.
-     * @param by the due date/time of the deadline.
+     * @param startDate the due date/time of the deadline.
      */
-    public Deadline(int done, String description, Date by) throws DukeException {
+    public Deadline(int done, String description, Date startDate) {
         super(description);
         this.isDone = (done == 1);
-        this.by = new DateTime(by);
+        this.startDate = new DateTime(startDate);
     }
 
     @Override
     public String storeString() {
-        return "D | " + super.storeString() + " | " + this.getBy();
+        return "D | " + super.storeString() + " | " + this.getByString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.startDate + ")";
     }
 
-    private String getBy() {
-        return this.by.toString();
+    private String getByString() {
+        return this.startDate.toString();
     }
 }

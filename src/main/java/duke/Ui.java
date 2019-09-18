@@ -46,7 +46,11 @@ public class Ui {
         for (String outputItem : output) {
             formattedOutput = formattedOutput.concat(outputItem + "\n");
         }
-        return showFormatted(formattedOutput.substring(0, formattedOutput.length() - 1));
+        if (formattedOutput.length() > 0) {
+            return showFormatted(formattedOutput.substring(0, formattedOutput.length() - 1));
+        } else {
+            return showFormatted("");
+        }
     }
 
     public void print(String input) {

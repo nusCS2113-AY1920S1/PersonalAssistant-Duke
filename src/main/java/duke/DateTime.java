@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
     private Date dateTime;
 
     /**
@@ -15,14 +15,23 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
+    public Date getDateTime() {
+        return dateTime;
+    }
+
     /**
      * Converts the Date object back to the string version in the format of dd/MM/yyyy HHmm
      * This can be reused to create an identical dateTime object.
      * @return String equivalent of Date object.
      */
     public String toString() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String dateString = dateFormat.format(dateTime);
         return dateString;
+    }
+
+    @Override
+    public int compareTo(DateTime dateTimeTwo) {
+        return this.getDateTime().compareTo(dateTimeTwo.getDateTime());
     }
 }
