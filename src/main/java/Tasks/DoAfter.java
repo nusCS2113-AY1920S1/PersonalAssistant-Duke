@@ -16,4 +16,5 @@ public class DoAfter extends Task {
     public String listformat(){
         return "[DA]" + "[" + super.getStatusIcon() + "]" + after + "(/after:" + before + ")";
     }
+
 }

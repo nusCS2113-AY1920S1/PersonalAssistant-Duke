@@ -52,4 +52,5 @@ public class FixDurationCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }
