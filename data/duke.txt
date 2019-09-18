@@ -1,2 +1,3 @@
-T | 0 | be happpy
-T | 0 | wow
+D | 0 | homework | 24th of September 2019, 6.30pm
+E | 0 | BBQ party | 24th of September 2019, 11.00pm
+

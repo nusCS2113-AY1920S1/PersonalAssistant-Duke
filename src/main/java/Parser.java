@@ -1,6 +1,7 @@
 import command.*;
 import exception.DukeException;
 import task.Deadline;
+import task.Recurring;
 import task.Todo;
 import task.Event;
 
@@ -59,7 +60,24 @@ public class Parser {
                     //create event object
                     Event t = new Event(dateInfo[0], dateInfo[1]);
                     return new AddCommand(t);
-                } else {
+                } else if (taskInfo[0].equals("recurring")) {
+                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
+                    }
+                    String[] dateInfo = parseDate("recurring", taskInfo);
+                    if ((Arrays.toString(dateInfo).equals("[null]") || (dateInfo.length < 2))) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
+                    }
+                    Date d = new Date();
+                    dateInfo[1] = d.convertDate(dateInfo[1]);
+                    if (!dateInfo[1].equals("null")) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
+                    }
+                    //create event object
+                    Recurring t = new Recurring(dateInfo[0], dateInfo[1]);
+                    return new AddCommand(t);
+                }
+                else {
                     try {
                         throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
                     } catch (DukeException e){
@@ -82,6 +100,9 @@ public class Parser {
             //tell AddCommand to go add itself
         } else if (type.equals("event")) {
             dateInfo = taskInfo[1].split("/at ");
+            //tell AddCommand to go add itself
+        } else if (type.equals("recurring")) {
+            dateInfo = taskInfo[1].split("/every ");
             //tell AddCommand to go add itself
         }
         return dateInfo;

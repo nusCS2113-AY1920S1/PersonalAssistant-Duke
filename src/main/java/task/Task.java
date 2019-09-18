@@ -89,6 +89,4 @@ public class Task {
     public String toData() {
         return getType() + " | " + getStatus() + " | " + getDescription();
     }
-
-
 }

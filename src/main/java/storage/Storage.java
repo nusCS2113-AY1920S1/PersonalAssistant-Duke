@@ -1,9 +1,6 @@
 package storage;
 
-import task.Deadline;
-import task.Task;
-import task.Todo;
-import task.Event;
+import task.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,6 +34,9 @@ public class Storage {
                     listContent.add(t);
                 } else if (data[0].equals("E ")) {
                     Event t = new Event(data[2], data[3], data[1].contains("1"));
+                    listContent.add(t);
+                } else if (data[0].equals("R ")) {
+                    Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
                 }
                 line = br.readLine();
@@ -88,11 +88,9 @@ public class Storage {
             String oldContent = "";
             String line = br.readLine();
 
-
             while (line != null) {
                 oldContent = oldContent + line + System.lineSeparator();
                 line = br.readLine();
-
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString + System.lineSeparator(), "");

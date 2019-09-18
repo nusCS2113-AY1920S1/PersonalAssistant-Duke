@@ -116,5 +116,4 @@ public class Date {
         return hour + "." + minutes + indicator;
     }
 
-
 }
