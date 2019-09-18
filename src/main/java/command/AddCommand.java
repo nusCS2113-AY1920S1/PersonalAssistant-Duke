@@ -48,6 +48,9 @@ public class AddCommand extends Command {
         switch (commandParams.getCommandType()) {
         case "todo":
             taskToAdd = new ToDo(commandParams.getMainParam());
+            if (commandParams.containsParam("needs")) {
+                ((ToDo) taskToAdd).setTimeTaken(commandParams.getParam("needs"));
+            }
             break;
         case "deadline":
             taskToAdd = new Deadline(commandParams.getMainParam(), commandParams.getParam("by"));

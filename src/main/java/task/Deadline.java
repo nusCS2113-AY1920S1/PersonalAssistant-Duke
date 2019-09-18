@@ -11,7 +11,6 @@ import java.util.Date;
  */
 public class Deadline extends Task {
     private Date by;
-    private String ddl;
 
     /**
      * Constructs the <code>Deadline</code> object with description and due time.
@@ -24,7 +23,6 @@ public class Deadline extends Task {
     public Deadline(String description, String ddl) throws DukeException {
         super(description);
         this.by = TimeParser.parse(ddl);
-        this.ddl = ddl;
     }
 
     /**
@@ -57,7 +55,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return "D | " + super.toStorageString() + " | " + ddl;
+        return "D | " + super.toStorageString() + " | " + TimeParser.format(by);
     }
 
     public Date getBy() {
