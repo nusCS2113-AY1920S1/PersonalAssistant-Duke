@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
      * Returns the DialogBox for inputs by the user
      * @param text Text given by the user
      * @param img Image by the User
-     * @return DialogBox object that holds Upser information
+     * @return DialogBox object that holds User information
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
