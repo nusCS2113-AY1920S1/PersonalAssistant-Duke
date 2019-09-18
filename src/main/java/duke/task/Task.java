@@ -83,14 +83,15 @@ public abstract class Task {
      * @param date String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy", used to extract a {@link Date} instance from
      * @return the {@link Date} instance created from the argument string
      */
-    static Date getDate(String date) {
+    protected Date getDate(String date) {
         DateFormat dateFormat = (date.length() > 11) ? new SimpleDateFormat("dd/MM/yyyy hhmm") : new SimpleDateFormat("dd/MM/yyyy");
         try {
-             dateFormat.parse(date);
+            //dateFormat.parse(date);
             return dateFormat.parse(date);
         } catch (ParseException e) {
             //case the date was not valid!
+            return new Date();
         }
-        return null;
+        //return null;
     }
 }

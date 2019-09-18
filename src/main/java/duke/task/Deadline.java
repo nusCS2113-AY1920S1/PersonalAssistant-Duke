@@ -15,21 +15,23 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.date = getDate(by);
+        this.date = super.getDate(by);
     }
 
     @Override
     public String toString() {
-        return (getDate(by) == null) ? "[D]" + super.toString() + "(by: " + by + ")" : "[D]" + super.toString() + "(by: " + getDateString(date) + ")";
+        return (super.getDate(by) == null) ? "[D]" + super.toString() + "(by: " + by + ")" : "[D]" + super.toString() + "(by: " + getDateString(date) + ")";
     }
 
     /**
      * Returns the data by which the deadline must be met
      * @return date the final {@link Date } for finishing the Deadline
      */
+    /*
     public Date getDate() {
         return date;
     }
+    */
 
     /**
      * Returns the {@link Date } instance as a String to be printed in the file

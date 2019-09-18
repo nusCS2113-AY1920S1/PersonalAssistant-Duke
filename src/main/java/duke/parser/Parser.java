@@ -4,6 +4,7 @@ import duke.Duke;
 import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Deadline;
+import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
 import duke.task.Todo;
 
@@ -63,6 +64,21 @@ public class Parser {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
+            case "period":
+                if ((splitted.length == 1) || splitted[1].isEmpty())
+                    throw new DukeException("The description of a period cannot be empty.");
+                String[] getPart = splitted[1].split("/from ", 2);
+                if (getPart.length < 2)
+                    throw new DukeException("The description of a period must contain /from date!");
+                String[] part = getPart[1].split("/to ", 2);
+                if (part.length < 2)
+                    throw new DukeException("NO");
+                try {
+                    return new AddCommand(new DoWithinPeriodTasks(getPart[0], part[0], part[1]));
+                }
+                catch(Exception e){
+                    throw new DukeException("NO");
+                }
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
