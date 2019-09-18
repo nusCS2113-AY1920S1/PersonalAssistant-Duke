@@ -1,15 +1,6 @@
 package duke.parser;
 
-import duke.commands.AddCommand;
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
-import duke.commands.RemindersCommand;
-import duke.commands.SnoozeCommand;
-import duke.commands.ViewCommand;
+import duke.commands.*;
 import duke.exception.DukeException;
 
 public class Parser {
@@ -124,6 +115,8 @@ public class Parser {
                             return parseSnooze(splitStr[1]);
                         case "view":
                             return new ViewCommand(splitStr[1]);
+                        case  "doafter":
+                            return new DoAfterCommand(splitStr[1]);
                         default:
                             throw new DukeException("Invalid command\n");
                     }

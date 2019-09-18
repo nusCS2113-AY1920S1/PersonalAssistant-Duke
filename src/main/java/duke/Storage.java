@@ -7,6 +7,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
+import duke.task.DoAfter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,6 +59,9 @@ public class Storage {
                     tasks.addTask(new Todo(arrStr[2]));
                 } else if (arrStr[0].equals("D")) {
                     tasks.addTask(new Deadline(arrStr[2], arrStr[3]));
+                } else if (arrStr[0].equals("T")) { // "done after" task
+                    String[] dummy = arrStr[3].split(":");
+                    tasks.addTask(new DoAfter(arrStr[2], dummy[1].trim()));
                 } else {
                     tasks.addTask(new Event(arrStr[2], arrStr[3]));
                 }
