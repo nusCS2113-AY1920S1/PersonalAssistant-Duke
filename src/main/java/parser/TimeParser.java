@@ -176,6 +176,11 @@ public class TimeParser {
         return targetFormat.format(date);
     }
 
+    public static String getStringDate(Date date){
+        SimpleDateFormat targetFormat = new SimpleDateFormat("d/MM/yyy");
+        return targetFormat.format(date);
+    }
+
     /**
      * Convert Date object to contain date only (no time)
      */
@@ -184,6 +189,18 @@ public class TimeParser {
         try {
             return targetFormat.parse(targetFormat.format(date));
         } catch (ParseException e){
+            return null;
+        }
+    }
+
+    /**
+     * Convert string of date only to Date object
+     */
+    public static Date convertToDate(String s) {
+        try {
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("d/MM/yyyy");
+            return sourceFormat.parse(s);
+        } catch (ParseException e) {
             return null;
         }
     }
