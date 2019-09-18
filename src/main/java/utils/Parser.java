@@ -14,6 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * deals with making sense of the user command
+ */
 public class Parser {
     /**
      * <p>parse a line in the data text to an object.</p>
@@ -28,18 +31,18 @@ public class Parser {
         }
         Task temp;
         if (splites[0].equals("T")) {
-            temp = new ToDo("");
+            temp = new ToDo();
         } else if (splites[0].equals("E")) {
-            temp = new Event("");
+            temp = new Event();
         } else if (splites[0].equals("D")) {
-            temp = new Deadline("");
+            temp = new Deadline();
         } else if (splites[0].equals("L")){
             temp = new Last();
         } else if (splites[0].equals("P")){
             temp = new Period();
         }else {
             throw new ParseException(
-                    "Invalid data line input: the first character is not T, E or D,"
+                    "Invalid data line input: the first character is not T, E, D, L or P,"
                             + " which cannot represent any task type Duke support.",-1);
         }
         try {

@@ -2,15 +2,29 @@ package tasks;
 
 import java.util.Date;
 
+/**
+ * a general Task class, to be extended
+ */
+
 public abstract class Task {
 
+    /**
+     * description of the task
+     */
     protected String description;
+
+    /**
+     * status of the task
+     */
     protected boolean isDone;
 
+    /**
+     * default constructor of Task
+     */
     public Task(){}
 
     /**
-     * The Task object is an abstraction of task.
+     * another constructor of Task
      * @param description the description, or the content of a task
      */
     public Task(String description) {
@@ -18,11 +32,18 @@ public abstract class Task {
         this.isDone = false;
     }
 
-
+    /**
+     * get task's description
+     * @return task's description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * set the description of task
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -37,12 +58,27 @@ public abstract class Task {
         //for polymorphism use
     }
 
+    /**
+     * set start time of Period task
+     * @param start
+     *              start time
+     */
     public void setStart(Date start){
     }
 
+    /**
+     * set end time of Period task
+     * @param end
+     *          end time
+     */
     public void setEnd(Date end){
     }
 
+    /**
+     * set duration for Last task
+     * @param duration
+     *              duration time
+     */
     public void setDuration(String duration){
     }
 
@@ -63,7 +99,11 @@ public abstract class Task {
     }
 
 
-    @Override
+    /**
+     * how the task looks like in console
+     * @return
+     *          a string about how the task looks like
+     */
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }

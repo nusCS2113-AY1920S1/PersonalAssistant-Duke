@@ -7,6 +7,9 @@ import core.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "delete" command
+ */
 public class DeleteCommand extends Command {
 
     private String line;
