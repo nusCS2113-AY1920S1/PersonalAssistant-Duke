@@ -102,7 +102,6 @@ public class TimeParser {
                                                 }
 
 
-
                                             }
 
 
@@ -144,20 +143,20 @@ public class TimeParser {
         }
     }
 
-    public static long getDiffHours(Date date1 , Date date2){
+    public static long getDiffHours(Date date1, Date date2) {
         long diff = Math.abs(date1.getTime() - date2.getTime());
         long diffHours = diff / (60 * 60 * 1000);
 
         return diffHours;
     }
 
-    public static boolean isConflicted(Tasks t1 , Tasks t2){
-        if(t1 == t2 || ((Event)t1).getDate().getStartDate().after(((Event)t2).getDate().getStartDate())){
+    public static boolean isConflicted(Tasks t1, Tasks t2) {
+        if (t1 == t2 || ((Event) t1).getDate().getStartDate().after(((Event) t2).getDate().getStartDate())) {
             return false;
-        }else{
-            if(((Event)t2).getDate().getStartDate().before(((Event)t1).getDate().getEndDate())){
+        } else {
+            if (((Event) t2).getDate().getStartDate().before(((Event) t1).getDate().getEndDate())) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }

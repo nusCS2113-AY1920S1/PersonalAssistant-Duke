@@ -6,8 +6,12 @@ import ui.Ui;
 import wrapper.Pair;
 import wrapper.TimeInterval;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
-import java.util.*;
 
 public class TaskList {
     private static List<Tasks> tasks;
@@ -16,57 +20,59 @@ public class TaskList {
 
     /**
      * Constructor for class.
-     * @param tasks
+     *
+     * @param tasks which is the tasks in the database.
      */
     public TaskList(List<Tasks> tasks) {
         DE = new TreeMap<>();
         E = new TreeMap<>();
 
-        for(Tasks a: tasks){
-            if(a.getType().equals("E")){
-                DE.put(((Event)a).getDate().getStartDate() , a);
-                E.put(((Event)a).getDate().getStartDate() , a);
-            }else if(a.getType().equals("D")){
-                DE.put(((Deadline)a).getDate().getStartDate() , a);
+        for (Tasks a : tasks) {
+            if (a.getType().equals("E")) {
+                DE.put(((Event) a).getDate().getStartDate(), a);
+                E.put(((Event) a).getDate().getStartDate(), a);
+            } else if (a.getType().equals("D")) {
+                DE.put(((Deadline) a).getDate().getStartDate(), a);
             }
         }
 
         this.tasks = tasks;
     }
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    public static TimeInterval getFreeSlot(int hours){
+    public static TimeInterval getFreeSlot(int hours) {
 
         Date now = new Date();
 
-        for(Map.Entry<Date , Tasks> entry : DE.entrySet()){
+        for (Map.Entry<Date, Tasks> entry : DE.entrySet()) {
             Date next = null;
-            if(entry.getValue().getType().equals("D")){
-                next = ((Deadline)entry.getValue()).getDate().getStartDate();
-            }else if (entry.getValue().getType().equals("E")){
-                next = ((Event)entry.getValue()).getDate().getStartDate();
+            if (entry.getValue().getType().equals("D")) {
+                next = ((Deadline) entry.getValue()).getDate().getStartDate();
+            } else if (entry.getValue().getType().equals("E")) {
+                next = ((Event) entry.getValue()).getDate().getStartDate();
             }
 
-            if(next.after(now)){
-                long diffHour = TimeParser.getDiffHours(now , next);
-                if(diffHour >= hours){
-                    return new TimeInterval(now , next);
+            if (next.after(now)) {
+                long diffHour = TimeParser.getDiffHours(now, next);
+                if (diffHour >= hours) {
+                    return new TimeInterval(now, next);
                 }
-                if(entry.getValue().getType().equals("D")){
-                    now = ((Deadline)entry.getValue()).getDate().getEndDate();
-                }else if (entry.getValue().getType().equals("E")){
-                    now = ((Event)entry.getValue()).getDate().getEndDate();
+                if (entry.getValue().getType().equals("D")) {
+                    now = ((Deadline) entry.getValue()).getDate().getEndDate();
+                } else if (entry.getValue().getType().equals("E")) {
+                    now = ((Event) entry.getValue()).getDate().getEndDate();
                 }
-            }else{
+            } else {
 
-                if(entry.getValue().getType().equals("D")){
-                    next = ((Deadline)entry.getValue()).getDate().getEndDate();
-                }else if (entry.getValue().getType().equals("E")){
-                    next = ((Event)entry.getValue()).getDate().getEndDate();
+                if (entry.getValue().getType().equals("D")) {
+                    next = ((Deadline) entry.getValue()).getDate().getEndDate();
+                } else if (entry.getValue().getType().equals("E")) {
+                    next = ((Event) entry.getValue()).getDate().getEndDate();
                 }
-                if(next.after(now)){
+                if (next.after(now)) {
                     now = next;
                 }
 
@@ -74,18 +80,18 @@ public class TaskList {
 
         }
 
-        return new TimeInterval(now , now);
+        return new TimeInterval(now, now);
 
     }
 
-    public static void getConflicts(){
+    public static void getConflicts() {
 
-        ArrayList<wrapper.Pair> conflicts =new ArrayList<>();
+        ArrayList<Pair> conflicts = new ArrayList<>();
 
-        for(Map.Entry<Date , Tasks> entry1 : E.entrySet()){
-            for(Map.Entry<Date , Tasks> entry2 : E.entrySet()){
-                if(TimeParser.isConflicted(entry1.getValue() , entry2.getValue())){
-                    conflicts.add(new Pair(entry1.getValue() ,entry2.getValue()));
+        for (Map.Entry<Date, Tasks> entry1 : E.entrySet()) {
+            for (Map.Entry<Date, Tasks> entry2 : E.entrySet()) {
+                if (TimeParser.isConflicted(entry1.getValue(), entry2.getValue())) {
+                    conflicts.add(new Pair(entry1.getValue(), entry2.getValue()));
 
                 }
             }
@@ -101,20 +107,20 @@ public class TaskList {
     }
 
 
-    public static void addTask(Tasks task)  {
+    public static void addTask(Tasks task) {
         tasks.add(task);
-        if(task.getType().equals("E")){
-            DE.put(((Event)task).getDate().getStartDate() , task);
-            E.put(((Event)task).getDate().getStartDate() , task);
-        }else if(task.getType().equals("D")){
-            DE.put(((Deadline)task).getDate().getStartDate() , task);
+        if (task.getType().equals("E")) {
+            DE.put(((Event) task).getDate().getStartDate(), task);
+            E.put(((Event) task).getDate().getStartDate(), task);
+        } else if (task.getType().equals("D")) {
+            DE.put(((Deadline) task).getDate().getStartDate(), task);
         }
     }
 
-    private static boolean isTheSameTask(Tasks A , Tasks B){
-        if(A.getType().equals(B.getType()) && A.getDescription().equals(B.getDescription())){
+    private static boolean isTheSameTask(Tasks A, Tasks B) {
+        if (A.getType().equals(B.getType()) && A.getDescription().equals(B.getDescription())) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -130,23 +136,23 @@ public class TaskList {
 
             Date tobeRemovedKeyE = null;
 
-            for(Map.Entry<Date , Tasks> entry : E.entrySet()){
-                if(isTheSameTask(entry.getValue() , toBeRemoved)){
-                    tobeRemovedKeyE =(entry.getKey());
+            for (Map.Entry<Date, Tasks> entry : E.entrySet()) {
+                if (isTheSameTask(entry.getValue(), toBeRemoved)) {
+                    tobeRemovedKeyE = (entry.getKey());
                 }
             }
 
             Date tobeRemovedKeyDE = null;
 
-            for(Map.Entry<Date , Tasks> entry : DE.entrySet()){
-                if(isTheSameTask(entry.getValue() , toBeRemoved)){
-                    tobeRemovedKeyDE =(entry.getKey());
+            for (Map.Entry<Date, Tasks> entry : DE.entrySet()) {
+                if (isTheSameTask(entry.getValue(), toBeRemoved)) {
+                    tobeRemovedKeyDE = (entry.getKey());
                 }
             }
-            if(tobeRemovedKeyE !=  null){
+            if (tobeRemovedKeyE != null) {
                 E.remove(tobeRemovedKeyE);
             }
-            if(tobeRemovedKeyDE != null){
+            if (tobeRemovedKeyDE != null) {
                 DE.remove(tobeRemovedKeyDE);
             }
 
@@ -228,6 +234,7 @@ public class TaskList {
 
     /**
      * This function counts the total number of tentative scheduled tasks in database.
+     *
      * @return num which contains total number of tentative scheduled tasks in database.
      */
     public static int getTentativeNumber() {
