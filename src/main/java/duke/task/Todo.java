@@ -1,6 +1,9 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.command.Schedule;
+
+import java.util.Date;
 import java.util.List;
 
 public class Todo extends Task {
@@ -27,5 +30,10 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return String.format("[T]%s %s", super.toString(), this.description);
+    }
+
+    @Override
+    public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
+        return null;
     }
 }

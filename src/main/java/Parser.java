@@ -9,7 +9,9 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.ReminderCommand;
 import duke.command.SnoozeCommand;
+import duke.command.ViewScheduleCommand;
 import duke.dukeexception.DukeException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +47,8 @@ class Parser {
                 return new ReminderCommand();
             case "snooze":
                 return new SnoozeCommand(arguments);
+            case "schedule":
+                return new ViewScheduleCommand(arguments);
             case "bye":
                 return new ByeCommand();
             default:

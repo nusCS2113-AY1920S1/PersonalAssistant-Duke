@@ -31,7 +31,7 @@ public class DeadlineTest {
     @Test
     void toString_formatted_correctly() throws DukeException {
         List<String> list = getList("do something /by 20/12/2019 1243");
-        assertEquals("[D][✘] do something (by: 20/12/2019 1243)",new Deadline(list).toString());
+        assertEquals("[D][✘] do something (by: 20/12/2019 1243)", new Deadline(list).toString());
     }
 
     @Test

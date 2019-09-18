@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.command.Schedule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ public class Event extends Task implements Snoozeable {
     public Event(List<String> input) throws DukeException {
         int separatorIndex = input.indexOf("/at");
         if (input.size() == 0 || separatorIndex <= 0) {
-            throw new DukeException("Format for event: event <event> /at <start datetime> to <end> datetime");
+            throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         }
 
         formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -35,7 +36,9 @@ public class Event extends Task implements Snoozeable {
             String strEnd = String.join(" ", input.subList(separatorIndex + 4, separatorIndex + 6));
             this.start = formatter.parse(strStart);
             this.end = formatter.parse(strEnd);
-
+            if (end.before(start)) {
+                throw new DukeException("Start datetime cannot be after end datetime.");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         } catch (ParseException e) {
@@ -92,5 +95,16 @@ public class Event extends Task implements Snoozeable {
     public String toString() {
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                 formatter.format(this.start), formatter.format(this.end));
+    }
+
+    @Override
+    public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
+        if (start.compareTo(startDate) < 0 && end.compareTo(startDate) >= 0) { // starts before ends after that date
+            return new Schedule(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
+                    formatter.format(this.start), formatter.format(this.end)),true);
+        } else if (start.compareTo(startDate) >= 0 && start.compareTo(endDate) <= 0) { // starts during date
+            return new Schedule(start, String.format("[E]%s %s", super.toString(), this.description));
+        }
+        return null;
     }
 }

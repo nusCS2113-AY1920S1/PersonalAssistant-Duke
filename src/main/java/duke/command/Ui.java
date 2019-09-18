@@ -2,11 +2,14 @@ package duke.command;
 
 import duke.task.Snoozeable;
 import duke.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    /** Reference to Scanner. */
+    /**
+     * Reference to Scanner.
+     */
     private Scanner sc;
 
     /**
@@ -60,7 +63,7 @@ public class Ui {
      * Prints the task that was added.
      *
      * @param tasks List of all tasks
-     * @param task Added task
+     * @param task  Added task
      */
     public void showTaskAdded(List<Task> tasks, Task task) {
         printIndented("Got it . I've added this task:");
@@ -86,6 +89,61 @@ public class Ui {
     public void showSearchResult(List<Task> tasks) {
         printIndented("Here are the matching tasks in your list:");
         showTasks(tasks);
+    }
+
+    private String taskPadding(String task) { // total 58 spaces
+        if (task.length() > 30) {
+            task = task.substring(0, 30);
+            task += "...";
+        }
+        int taskLength = task.length();
+        StringBuilder taskBuilder = new StringBuilder();
+        for (int i = 0; i < Math.ceil((39 - taskLength) / (double) 2); i++) {
+            taskBuilder.append(" ");
+        }
+        taskBuilder.append(task);
+        for (int i = 0; i < Math.floorDiv(39 - taskLength, 2); i++) {
+            taskBuilder.append(" ");
+        }
+        taskBuilder.append("|");
+        return taskBuilder.toString();
+    }
+
+    /**
+     * Displays schedule of a single day to user.
+     * Informs user if there are ongoing events.
+     *
+     * @param schedules Schedule list with start and task details
+     * @param date      Date of choice
+     */
+    public void showScheduleResult(List<Schedule> schedules, String date) {
+        boolean hasOngoing = false;
+        printIndented("Here is your schedule:");
+        printScheduleRow("|\t\t\t" + date + "\t\t\t|"); // 4 tab + 2 spaces including date
+        printScheduleRow("|\tTime\t|\t\t   Task   \t\t|");
+        for (Schedule s : schedules) {
+            if (!s.getOngoing()) {
+                printScheduleRow("|\t" + s.getStartString() + "\t|" + taskPadding(s.getTask()));
+            } else {
+                hasOngoing = true;
+            }
+        }
+        printIndented("-----------------------------------------------------");
+        if (hasOngoing) {
+            printIndented("Here are your ongoing tasks:");
+        }
+        int counter = 1;
+        for (Schedule s : schedules) {
+            if (s.getOngoing()) {
+                printIndented(counter + ". " + s.getTask());
+                counter++;
+            }
+        }
+    }
+
+    private void printScheduleRow(String string) {
+        printIndented("-----------------------------------------------------");
+        printIndented(string);
     }
 
     /**
@@ -183,6 +241,6 @@ public class Ui {
      * Prints a straight line.
      */
     private void printHR() {
-        printIndented("____________________________________________________________");
+        printIndented("_______________________________________________________________");
     }
 }
