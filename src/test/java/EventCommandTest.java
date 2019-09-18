@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class EventCommandTest {
     //creating a stream to hold the output
     private ByteArrayOutputStream output = new ByteArrayOutputStream();

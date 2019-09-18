@@ -1,7 +1,6 @@
 package Tasks;
 
 import java.util.Date;
-
 public class Task {
     public String description;
     public boolean isDone;

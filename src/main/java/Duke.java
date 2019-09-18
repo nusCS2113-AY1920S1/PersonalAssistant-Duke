@@ -7,6 +7,8 @@ import Exception.DukeException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Duke {
@@ -17,8 +19,7 @@ public class Duke {
      * @return Void.
      * @throws DukeException | ParseException | IOException | NullPointerException
      */
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
         ArrayList<Task> list;
         Storage store = new Storage();
         boolean isExit = false;
