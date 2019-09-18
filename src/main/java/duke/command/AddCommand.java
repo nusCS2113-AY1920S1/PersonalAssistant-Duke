@@ -60,9 +60,11 @@ public class AddCommand extends Command {
         try {
             ArrayList<Task> tasksInTheList = tasks.fullTaskList();
             ArrayList<Task> clashTasksInTheList = new ArrayList<Task>();
-            String userAnswer;
 
-
+            /**
+             * Check whether the tasks in the list are clashed , if yes then store the clashed tasks into
+             * a new array list
+             */
             for (Task t : tasksInTheList) {
                 if ((t instanceof Deadline || t instanceof Event) && (newTask instanceof Deadline || newTask instanceof Event) ){
                     if (t.getDate().equals(newTask.getDate()) && !t.isDone()) {
@@ -71,11 +73,16 @@ public class AddCommand extends Command {
                     }
                 }
             }
+
+
             if (isClash) {
                 ui.showClashWarning(clashTasksInTheList , newTask);
                 Scanner input = new Scanner(System.in);
                 boolean isValidUserInput = false ;
-
+                /**
+                 * Check if the user have enter the correct input , this check will continue
+                 * until the user has enter the correct input
+                 */
                 while (!isValidUserInput) {
                     String userInput = input.nextLine();
                     if (userInput.equals("Y") || userInput.equals("N") ) {
