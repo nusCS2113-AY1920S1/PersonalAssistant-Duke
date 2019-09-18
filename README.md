@@ -1,5 +1,5 @@
 # User Guide
-![alt text](https://github.com/AY1920S1-CS2113T-T09-2/main/tree/master/docs/images/Ui.PNG)
+![alt text](https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/images/Ui.PNG)
 
 Duchess is a calendar application tailor-made for NUS students. It provides an interface for students to manage both their school timetable and commitments schedule while providing useful contextual information and features.
 
