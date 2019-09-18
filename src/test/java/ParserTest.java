@@ -27,7 +27,8 @@ public class ParserTest {
         try {
             assertEquals(uut.parse("list").getClass(), ListCommand.class);
             assertEquals(uut.parse("todo JUnit tests").getClass(), NewToDoCommand.class);
-            assertEquals(uut.parse("event tutorial /at 12/09/2019 1400").getClass(), NewEventCommand.class);
+            assertEquals(uut.parse("event tutorial /at 12/09/2019 1400 /to 12/10/2019 1200").getClass(),
+                        NewEventCommand.class);
             assertEquals(uut.parse("deadline submission /by 12/09/2019 1400").getClass(),
                     NewDeadlineCommand.class);
             assertEquals(uut.parse("done 1").getClass(), DoneCommand.class);

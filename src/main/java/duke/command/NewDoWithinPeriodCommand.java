@@ -55,6 +55,6 @@ public class NewDoWithinPeriodCommand extends NewTimedTaskCommand {
         super.execute(ctx);
         String addStr = ctx.taskList.addTask(new DoWithinPeriodTask(argv[0], taskDateTime, endDatetime));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(addStr);
+        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
     }
 }
