@@ -1,0 +1,39 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Ting Wei
+
+Role: Project Coder
+
+'''
+
+=== Rui Huan
+
+Role: Project Coder 
+
+'''
+
+=== Yu Xuan
+
+Role: Project Coder
+
+'''
+
+=== Gervaise Ang
+
+Role: Project Coder
+
+'''
+
+=== Mao Kang
+
+Role: Project Coder
+
+'''

@@ -1,20 +1,14 @@
 package duke.parser;
 
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.AddMultipleCommand;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Task;
+import duke.command.*;
 import duke.task.TaskList;
-import duke.task.DoAfter;
-import duke.task.Repeat;
 import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Repeat;
+import duke.task.DoAfter;
+import duke.task.FixedDuration;
 import duke.dukeexception.DukeException;
 
 import java.util.ArrayList;
@@ -206,7 +200,55 @@ public class Parser {
                 }
                 return new AddMultipleCommand(repeatList);
             }
-        } else if (sentence.equals("bye")) {
+        } else if (arr.length > 0 && arr[0].equals("fixedduration")) {
+            //fixedduration <task> /for <duration> <unit>
+            String description = "";
+            String durDesc;
+            int duration;
+            String unit;
+            for (int i = 1; i < arr.length; i++) {
+                description += arr[i] + " ";
+            }
+            taskDesc = description.split(" /for ")[0].trim();
+            durDesc = description.split(" /for ")[1].trim();
+
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+            } else if (durDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of duration for "
+                        + arr[0] + " cannot be empty.");
+            } else {
+                try {
+                    duration = Integer.parseInt(durDesc.split(" ")[0].trim());
+                } catch (Exception e) {
+                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                }
+                unit = durDesc.split(" ")[1].trim();
+                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("hour"))) {
+                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                } else {
+                    FixedDuration fixedDuration = new FixedDuration(taskDesc, duration, unit);
+                    return new AddCommand(fixedDuration);
+                }
+            }
+        }
+        else if (arr.length > 0 && arr[0].equals("remind")) {
+            String description;
+            String durDesc;
+            int indexOfTask;
+            description = sentence.split(taskDesc, 2)[1].trim();
+//          taskDesc = description.split(" /for ")[0].trim();
+            if (description.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a remind cannot be empty.");
+            } else {
+                //Task taskObj = new Todo(description);
+                indexOfTask = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+                String d = description.split("in", 2)[1].trim();
+                int days = Integer.parseInt(d.split(" ",2)[0].trim());
+                return new RemindCommand(indexOfTask, days);
+            }
+        }
+        else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");

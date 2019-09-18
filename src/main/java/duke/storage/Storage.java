@@ -7,15 +7,11 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Repeat;
 import duke.task.DoAfter;
+import duke.task.FixedDuration;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +47,7 @@ public class Storage {
         String taskDesc;
         String dateDesc;
         String afterDesc;
+        String durDesc;
         while ((st = br.readLine()) != null) {
             String[] commandList = st.split("\\|");
             try {
@@ -58,12 +55,15 @@ public class Storage {
                 taskDesc = "";
                 dateDesc = "";
                 afterDesc = "";
+                durDesc = "";
                 for (int i = 0; i < commandList.length; i++) {
                     if (i == 2) {
                         taskDesc = commandList[i];
                     } else if (i == 3) {
                         if (commandList[0].equals("A")) {
                             afterDesc = commandList[i];
+                        } else if (commandList[0].equals("F")) {
+                            durDesc = commandList[i];
                         } else {
                             dateDesc = commandList[i];
                         }
@@ -119,6 +119,17 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
+                } else if (commandList[0].equals("F")) {
+                    System.out.println(taskDesc + dateDesc);
+                    if (taskDesc.isEmpty() || durDesc.isEmpty()) {
+                        throw new DukeException("Error reading description or do after description,"
+                                + " skipping to next line");
+                    } else {
+                        int duration = Integer.parseInt(durDesc.split(" ")[0]);
+                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[1]);
+                        t.setStatusIcon(checked);
+                        items.add(t);
+                    }
                 } else if (!commandList[0].isEmpty()) {
                     throw new DukeException("Error reading whether if its T, D, E, R, or A, skipping to next line");
                 }
@@ -146,5 +157,18 @@ public class Storage {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(fileContent);
         writer.close();
+    }
+
+    public void saveFile(ArrayList<Task> listOfTasks){
+        try {
+            FileOutputStream fw = new FileOutputStream(filePath);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
+            objectOutputStream.writeObject(listOfTasks);
+            objectOutputStream.close(); //always close
+            fw.flush();
+            fw.close();
+        } catch (IOException IOE) {
+            System.out.println("Something went wrong " + IOE.getMessage());
+        }
     }
 }

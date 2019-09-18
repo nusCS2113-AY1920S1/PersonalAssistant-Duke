@@ -1,0 +1,76 @@
+= DUKE Manager - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+== Introduction
+
+DUKE Manager  is for those who prefers an electronic handbook as compared to a hard copy one. It is also optimised for those who prefer to input notes as a text messenger style, or something similar to a coding format. Just type in some command, and the description, and DUKE Manager will sort it out for you neatly. 
+
+[[Features]]
+== Features
+Task management capabilities
+- Create and catagoriseTasks
+- Sort and prioritise Tasks
+- View and modify existing tasks
+
+=== Listing all persons : `list`
+
+Shows a list of all the tasks in Duke Manager +
+Command: `list`
+
+=== Creating a new "To-Do" task : `todo`
+
+Creates a new task called "To-do" in Duke Manager +
+Command: `todo <task description>`
+
+=== Creating a new "Event" task : `event`
+
+Creates a new task called "Event" in Duke Manager +
+Command: `event <Event Description> /at <Event time>`
+
+=== Creating a new "Deadline" task : `deadline`
+
+Creates a new task called "Deadline" in Duke Manager +
+Command: `deadline <Deadline Description> /by <Due date>`
+
+=== Finding a particular task : `find`
+
+finds the task inside the tasklist, and returns the list of tasks found +
+Command: `find <Keyword>`
+
+=== Finding a particular task : `done`
+
+Labels a task with the specified index as done +
+Command: `done <index of task to be marked>`
+
+== Additional Features (v2.0) 
+
+=== Catagorising a task `cata`
+
+Catagorises a task with the specific tag
+Command: `cata <Index of task> <tag>`
+
+=== Removing the catagory of a task `rcata`
+
+Removes the tag on a specific index 
+Command: `rcata <Index of task>`
+
+=== Sorting of tasks `sort`
+
+Sorts the tasks according to the specified sort
+Command: `sort <type of sort>`
+
+Types of sort available: `deadline`,`catagory`,`undone`
+
+==== More features coming soon!

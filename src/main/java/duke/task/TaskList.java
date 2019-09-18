@@ -43,10 +43,20 @@ public class TaskList {
     }
 
     /**
+     * The items in the ArrayList
+     *
+     * @return tasks that represents the items
+     */
+    public ArrayList<Task> getTasks() {
+        return items;
+    }
+
+    /**
      * The size of the task list.
      *
      * @return int that represents the task list size.
      */
+
     public int size() {
         return items.size();
     }

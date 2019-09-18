@@ -1,8 +1,11 @@
 package duke.ui;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintStream;
+
+import duke.task.Task;
 import duke.task.TaskList;
 
 /**
@@ -57,6 +60,20 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Outputs all the reminders of the user.
+     *
+     * @param tasks The task list that contains all reminders.
+     */
+    public static void showReminder(TaskList tasks){
+        ArrayList<Task> taskList = tasks.getTasks();
+        System.out.println("You currently have these upcoming tasks:\n");
+        for (Task t: taskList) {
+            if(t.triggerReminder()){
+                System.out.println(t.toString());
+            }
+        }
+    }
     /**
      * Outputs all the tasks of the task list to the user.
      *

@@ -84,6 +84,7 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
+        ui.showReminder(items);
         String sentence;
 
         while (true) {
