@@ -55,11 +55,18 @@ public class AddCommand extends Command {
         default:
             return false;
         }
+        TaskList clashTasks = taskList.findClash(task);
+        String clashMsg = "";
+        if (clashTasks.size() > 0) {
+            clashMsg = "\n\nWarning: New task added clashes with other task(s) in the list.\n";
+            clashMsg += clashTasks.toString();
+        }
         taskList.add(task);
         if (!silent) {
             String msg = "Got it. I've added this task: \n";
             msg += "  " + task.toString() + "\n";
             msg += "Now you have " + taskList.size() + " task(s) in the list. ";
+            msg += clashMsg;
             Duke.getUI().showResponse(msg);
         }
         return true;
