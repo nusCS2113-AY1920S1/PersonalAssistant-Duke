@@ -41,7 +41,7 @@ public class Duke {
     }
 
     /**
-     * Method from which to run the duke program.
+     * Method which run the duke program.
      */
     public void run() {
         this.ui.showWelcome();
