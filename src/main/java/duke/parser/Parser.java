@@ -28,6 +28,7 @@ public class Parser {
     private static final String COMMAND_SEARCH = "find";
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
+    private static final String COMMAND_UPDATE = "update";
 
     /**
      * Parse user input.
@@ -63,8 +64,9 @@ public class Parser {
                 return parseUndo(line);
             case COMMAND_REDO:
                 return parseRedo(line);
+            case COMMAND_UPDATE:
+                return parseUpdate(line);
         }
-
         throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
 
@@ -210,4 +212,24 @@ public class Parser {
     private static Command parseRedo(String line) throws DukeException {
         return new RedoCommand();
     }
+
+    private static Command parseUpdate(String line) throws DukeException {
+        Dictionary<String, String> args = parseCommandAndParams(line);
+        try {
+            int index = Integer.parseInt(args.get("primary"));
+            if (args.get("by") != null) {
+                return new UpdateCommand(index, TimeParser.convertStringToDate(args.get("by")));
+            } else if (args.get("at") != null) {
+                return new UpdateCommand(index, TimeParser.convertStringToDate(args.get("at")));
+            } else if (args.get("from") != null) {
+                return new UpdateCommand(index, TimeParser.convertStringToDate(args.get("from")),
+                        TimeParser.convertStringToDate(args.get("to")));
+            } else {
+                throw new DukeException("Please enter a valid date, with cmd like -by -at -from -to");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a valid index number");
+        }
+    }
 }
+

@@ -8,7 +8,7 @@ import duke.ui.Ui;
 
 
 /**
- * Represents a duke.command that serach for tasks in TaskList.
+ * Represents a duke.command that search for tasks in TaskList.
  */
 public class FindCommand extends Command {
     private String keyWord;
