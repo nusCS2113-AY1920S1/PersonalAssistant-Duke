@@ -14,9 +14,10 @@ import java.util.ArrayList;
 public class PostponeCommand extends  Command {
 
     private int indexOfTask;
-    private LocalDateTime atDate;
-    private LocalDateTime toDate;
-    private LocalDateTime fromDate;
+    private final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    private LocalDateTime atDate = nullDate;
+    private LocalDateTime toDate = nullDate;
+    private LocalDateTime fromDate = nullDate;
 
 
     public PostponeCommand(int indexOfTask, LocalDateTime atDate, LocalDateTime fromDate, LocalDateTime toDate){
