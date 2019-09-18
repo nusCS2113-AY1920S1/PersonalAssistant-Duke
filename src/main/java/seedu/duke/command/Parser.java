@@ -1,6 +1,7 @@
 package seedu.duke.command;
 
-import seedu.duke.Reminders.Reminders;
+import seedu.duke.reminders.Reminders;
+import seedu.duke.task.DetectAnomalies;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
 
@@ -58,7 +59,7 @@ public class Parser {
         } else if (userInput[0].equals("list")) {
             list.displayList();
 
-        } else if(userInput[0].equals("remind")){
+        } else if (userInput[0].equals("remind")) {
             Reminders reminders = new Reminders();
             reminders.runAll();
             reminders.displayReminder();
@@ -73,6 +74,7 @@ public class Parser {
             // add task to list
             if (userInput[0].equals("todo") || userInput[0].equals("deadline")
                 || userInput[0].equals("event")) {
+
                 if (userInput.length == 1) {
                     ui.empty_description_error();
                 } else {
