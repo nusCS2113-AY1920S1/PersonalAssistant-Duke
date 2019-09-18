@@ -3,6 +3,8 @@ package Storage;
 import java.io.File;
 import Tasks.Task;
 import Tasks.*;
+import commands.FixDurationCommand;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -49,6 +51,7 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
+
                 } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {
@@ -58,6 +61,16 @@ public class Storage {
                         tb.isDone = false;
                     }
                     tlist.add(tb);
+
+                } else if (details[0].equals("FD")) {
+                    FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                    if(details[1].equals("\u2713")) {
+                        FD.isDone = true;
+                    }
+                    else {
+                        FD.isDone = false;
+                    }
+                    tlist.add(FD);
                 } else {
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){

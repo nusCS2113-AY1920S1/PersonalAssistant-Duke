@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
                     sb.append(list.get(i).toString()+"\n");
                 }
                 else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
+
                     sb.append(list.get(i).toString()+"\n");
                 }
                 else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {

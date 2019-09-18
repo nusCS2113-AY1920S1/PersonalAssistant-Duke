@@ -9,12 +9,12 @@ public class Timebound extends Task {
     }
     @Override
     public String toString() {
-        return "P"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + period;
+        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + period;
     }
 
     @Override
     public String listformat(){
-        return "[P]" + "[" + super.getStatusIcon() + "]" + super.description + "(between:" + period + ")" ;
+        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + " (between: " + period + ")" ;
     }
 
 }
