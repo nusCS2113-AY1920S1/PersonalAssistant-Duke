@@ -7,6 +7,10 @@ This user guide aims to help you learn your way around our app, making the learn
 
 ## Features 
 
+Command Format
+- Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
+  `DESCRIPTION` is a parameter which can be used as `todo read book`.
+
 ### 3.1 Adding a task : `todo/deadline/event`
 Adds a todo/deadline/event to the tasklist.
 
