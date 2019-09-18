@@ -48,4 +48,18 @@ public class Event extends Task {
     public String getDate() {
         return dateObj.toOutputString();
     }
+    
+    @Override
+    public String getType() {
+    	return "Event";
+    }
+    
+    /**
+     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
+     * @return the DateObj stored in the Event object.
+     */
+    @Override
+    public DateObj getDateObj() {
+    	return this.dateObj;
+    }
 }

@@ -4,6 +4,7 @@ import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import Events.Formatting.Predicate;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,12 @@ public class TaskList {
      * list of Model_Class.Task objects currently stored.
      */
     private ArrayList<Task> taskArrayList;
+    
+    /**
+	 * Filter type codes
+	 */
+    static final int DATE = 0;
+    static final int TYPE = 1;
 
     /**
      * Creates new Model_Class.TaskList object.
@@ -121,5 +128,34 @@ public class TaskList {
             allTasks += j + ". " + this.getTask(i).toString() + "\n";
         }
         return allTasks;
+    }
+    
+    /**
+     * Gets a filtered list of tasks based on a predicate.
+     * @return String containing the filtered list of tasks, separated by a newline.
+     */
+    public String filteredlist(Predicate<Object> pred, int filtercode) {
+        String fltredTasks = "";
+        int j = 1;
+        for (int i = 0; i < taskArrayList.size(); ++i) {
+            if (taskArrayList.get(i) == null) {
+            	continue;
+            } else if (filtercode == DATE) { 
+                if (taskArrayList.get(i) instanceof Event || taskArrayList.get(i) instanceof Deadline) {
+                	if (!pred.check(taskArrayList.get(i).getDateObj())) {
+                		continue;
+                	} 
+                } else {
+                	continue;
+                }
+            } else if (filtercode == TYPE) { 
+                if (!pred.check(taskArrayList.get(i).getType())) {
+                	continue;
+                }
+            } 
+            fltredTasks += j + ". " + this.getTask(i).toString() + "\n";
+            j++;
+        }
+        return fltredTasks;
     }
 }
