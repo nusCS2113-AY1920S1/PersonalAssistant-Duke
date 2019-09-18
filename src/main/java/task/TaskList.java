@@ -20,7 +20,6 @@ public class TaskList {
 
     /**
      * Constructor for class.
-     *
      * @param tasks which is the tasks in the database.
      */
     public TaskList(List<Tasks> tasks) {

@@ -85,6 +85,12 @@ public class Parser {
                 case "recur":
                     recurCommand(s);
                     break;
+               case "reminder":
+                   reminderCommand(s);
+                   break;
+                case "schedule":
+                    scheduleCommand(s);
+                    break;
                 default:
                     throw DukeException.UNKNOWN_COMMAND;
                 }
