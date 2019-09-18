@@ -16,6 +16,7 @@ public class DateTimeExtractor {
     private static LocalDateTime dateEvent;
     private static LocalDateTime dateDeadline;
     private static LocalDateTime datePostpone;
+    private static LocalDateTime dateTodo;
     private static final LocalDateTime dateError = LocalDateTime.now();
 
     /**
@@ -30,6 +31,10 @@ public class DateTimeExtractor {
         if(command.equals("event")){
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
+        }
+        else if(command.equals("todo")) {
+            dateTodo = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateTodo;
         }
         else if(command.equals("deadline")) {
             dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);

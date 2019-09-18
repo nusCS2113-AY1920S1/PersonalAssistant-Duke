@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            task = new Todo(taskFeatures);
+            task = new Todo(taskFeatures, formattedFromDate, formattedToDate);
             break;
         case "deadline":
             task = new Deadline(taskFeatures, formattedAtDate);

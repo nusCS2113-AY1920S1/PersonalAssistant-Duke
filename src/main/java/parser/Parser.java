@@ -42,9 +42,40 @@ public class Parser {
                 }
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                } else {
-                    return new AddCommand(command, taskFeatures, null, null, null);
+                } 
+                else {
+                    checkType = "/between";
+                    String dateTimeFromUser;
+                    String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
+                    try {
+                        dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+                    }catch (ArrayIndexOutOfBoundsException e)
+                    {
+                        return new AddCommand(command, taskDescription, null, null, null);
+                    }
+                    String fromDate = dateTimeFromUser.split("-", 2)[0].trim();
+                    String toDate = dateTimeFromUser.split("-", 2)[1].trim();
+                    LocalDateTime to;
+                    LocalDateTime from;
+                    try {
+                        to = DateTimeExtractor.extractDateTime(toDate, command);
+                        from = DateTimeExtractor.extractDateTime(fromDate, command);
+                    } catch (ParseException e) {
+                        throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
+                    }
+                    return new AddCommand(command, taskDescription, null, to, from);
                 }
+                // try {
+                //     taskFeatures = userInput.split("\\s+", 2)[1].trim();
+                // }catch (ArrayIndexOutOfBoundsException e)
+                // {
+                //     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
+                // }
+                // if (taskFeatures.isEmpty()) {
+                //     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
+                // } else {
+                //     return new AddCommand(command, taskFeatures, null, null, null);
+                // }
             case "deadline":
                 //fall through to avoid rewriting the same code multiple times!
             case "event":
