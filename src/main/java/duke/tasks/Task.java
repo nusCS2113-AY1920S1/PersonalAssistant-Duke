@@ -1,11 +1,12 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * A generic task, which can be marked as done.
  */
-public class Task {
+public abstract class Task {
     private String description;
-
     private boolean isDone;
 
     /**

@@ -1,11 +1,13 @@
 package duke.parsers;
 
+import duke.Duke;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Event;
+import duke.tasks.RecurringTask;
 import duke.tasks.Todo;
 
 import java.time.LocalDateTime;
@@ -71,6 +73,26 @@ public class ParserUtil {
         }
     }
 
+    protected static RecurringTask createRecurringTask(String userInput) throws DukeException {
+        String[] eventDetails = userInput.substring("repeat".length()).strip().split("/at");
+        String[] dateDetails = eventDetails[1].split("/every");
+        if (dateDetails.length != 2 || dateDetails[1] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (eventDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        try {
+            return new RecurringTask(eventDetails[0].strip(), ParserTimeUtil.parseStringToDate(dateDetails[0].strip()),
+                    Integer.parseInt(dateDetails[1].strip()));
+        } catch (DukeDateTimeParseException e) {
+            return new RecurringTask(eventDetails[0].strip(), dateDetails[0].strip(),
+                    Integer.parseInt(dateDetails[1].strip()));
+        }
+
+
+    }
+
     /**
      * Parses the userInput and return a new DoWithin constructed from it.
      *
@@ -105,5 +127,33 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the userInput and return an index to snooze.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The index.
+     */
+    static int getIndexUpdate(String userInput) throws DukeException {
+        try {
+            int index =  Integer.parseInt(userInput.strip().split(" ")[1]);
+            return --index;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
 
+    /**
+     * Parses the userInput and return an date to snooze/delay to.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The index.
+     */
+    public static LocalDateTime getDateUpdate(String userInput) throws DukeException {
+        try {
+            return ParserTimeUtil.parseStringToDate(
+                    userInput.substring("snooze ".length() + 2).strip().split("/to")[1].strip());
+        } catch (DukeDateTimeParseException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
 }

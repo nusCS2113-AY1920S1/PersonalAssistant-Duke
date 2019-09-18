@@ -3,7 +3,12 @@ package duke.storage;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.parsers.ParserStorageUtil;
+import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
+import duke.tasks.Event;
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
+import duke.tasks.TaskWithDates;
 import duke.tasks.UniqueTaskList;
 import duke.ui.Ui;
 
@@ -21,6 +26,7 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private UniqueTaskList tasks;
+    private UniqueTaskList tasksWithDate;
     private Ui ui;
 
     /**
@@ -29,23 +35,32 @@ public class Storage {
      * @param filePath The filepath to the txt file.
      * @param ui The user interface displaying events on the task list.
      */
-    public Storage(String filePath, Ui ui) {
+    public Storage(String filePath, Ui ui) throws DukeException {
         this.filePath = filePath;
         this.ui = ui;
         tasks = new UniqueTaskList();
+        tasksWithDate = new UniqueTaskList();
         read();
     }
 
     /**
      * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
      */
-    private void read() {
+    public void read() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
+                Task newTask = ParserStorageUtil.createTaskFromStorage(s.nextLine());
+                if (newTask instanceof RecurringTask) {
+                    ((RecurringTask) newTask).updateRecurringTask();
+                }
+                if (newTask instanceof Deadline || newTask instanceof DoWithin || newTask instanceof Event
+                        || newTask instanceof RecurringTask) {
+                    tasksWithDate.add(newTask);
+                }
+                newTasks.add(newTask);
             }
             s.close();
         } catch (DukeException e) {
@@ -57,6 +72,17 @@ public class Storage {
             tasks.setTasks(newTasks);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+        }
+
+        try {
+            for (Task task : newTasks) {
+                if (task instanceof TaskWithDates) {
+                    tasksWithDate.add(task);
+                }
+            }
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+
         }
     }
 
@@ -79,5 +105,9 @@ public class Storage {
 
     public UniqueTaskList getTasks() {
         return tasks;
+    }
+
+    public UniqueTaskList getTasksWithDate() {
+        return tasksWithDate;
     }
 }

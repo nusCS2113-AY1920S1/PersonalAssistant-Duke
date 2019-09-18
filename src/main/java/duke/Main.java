@@ -1,5 +1,6 @@
 package duke;
 
+import duke.commons.DukeException;
 import duke.javafx.MainWindow;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class Main extends Application {
     private Duke duke = new Duke();
 
-    public Main() throws FileNotFoundException {
+    public Main() throws FileNotFoundException, DukeException {
     }
 
     /**
@@ -34,7 +35,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

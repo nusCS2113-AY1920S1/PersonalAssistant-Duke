@@ -1,12 +1,15 @@
 package duke.parsers;
 
-import duke.commands.DeleteCommand;
-import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
+import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FetchCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
+import duke.commands.SnoozeCommand;
+import duke.commands.ReminderCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 
@@ -15,7 +18,6 @@ import duke.commons.MessageUtil;
  * returns Command objects.
  */
 public class Parser {
-    private String parserResponse = "";
 
     /**
      * Parses the userInput and return a Command object.
@@ -27,7 +29,6 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String commandWord = getCommandWord(userInput);
         switch (commandWord) {
-
         case "bye":
             return new ExitCommand();
         case "todo":
@@ -46,6 +47,15 @@ public class Parser {
             return new DeleteCommand(ParserUtil.getIndex(userInput));
         case "find":
             return new FindCommand(getWord(userInput));
+        case "snooze":
+            return new SnoozeCommand(ParserUtil.getIndexUpdate(userInput), ParserUtil.getDateUpdate(userInput));
+        case "fetch":
+            String[] deadlineDetails = userInput.split(" ", 2);
+            return new FetchCommand(ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
+        case "reminder":
+            return new ReminderCommand();
+        case "repeat":
+            return new AddCommand(ParserUtil.createRecurringTask(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
@@ -74,13 +84,5 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
-    }
-
-    public void setParserResponse(String response) {
-        parserResponse = response;
-    }
-
-    public String getResponse() {
-        return parserResponse;
     }
 }

@@ -3,7 +3,9 @@ package duke.commands;
 import duke.commons.DukeException;
 import duke.parsers.Parser;
 import duke.storage.Storage;
+import duke.tasks.Deadline;
 import duke.tasks.Task;
+import duke.tasks.TaskWithDates;
 import duke.ui.Ui;
 
 /**
@@ -28,9 +30,12 @@ public class AddCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Parser parser, Ui ui, Storage storage) throws DukeException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
         storage.getTasks().add(task);
-        parser.setParserResponse(ui.getTaskDesc(task));
+        if (task instanceof TaskWithDates) {
+            storage.getTasksWithDate().add(task);
+        }
+        ui.setResponse(ui.getTaskDesc(task));
         storage.write();
     }
 
