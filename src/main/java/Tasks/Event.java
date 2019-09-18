@@ -5,7 +5,7 @@ package Tasks;
  */
 public class Event extends Task {
 
-    protected String by;
+    private String by;
 
     @Override
     public String getType() {

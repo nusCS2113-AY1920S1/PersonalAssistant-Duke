@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class DoneCommand extends Command {
 
-    protected int index;
+    private int index;
     protected Task task;
 
     /**

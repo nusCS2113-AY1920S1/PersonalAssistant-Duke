@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class AddCommand extends Command {
 
-    protected Task task;
+    private Task task;
 
     /**
      * Creates an AddCommand object.
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
         int con = 0;
         String out = "";
         for(int i =0; i < size;i++){
-            if (list.getTask(i).date.equals(task.date)){
+            if (list.getTask(i).getDateTime().equals(task.getDateTime())){
                 conflict[i] = true;
                 con++;
             }

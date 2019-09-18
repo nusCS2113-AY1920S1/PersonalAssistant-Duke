@@ -16,10 +16,10 @@ import java.util.ArrayList;
  * To keep track of the list of task input by user.
  */
 public class TaskList {
-    protected ArrayList<Task> list;
-    protected ArrayList<String> todoArrList = new ArrayList<String>();
-    protected ArrayList<String> deadlineArrList = new ArrayList<String>();
-    protected ArrayList<String> eventArrList = new ArrayList<String>();
+    private ArrayList<Task> list;
+    private ArrayList<String> todoArrList = new ArrayList<>();
+    private ArrayList<String> deadlineArrList = new ArrayList<>();
+    private ArrayList<String> eventArrList = new ArrayList<>();
 
     /**
      * Creates a TaskList object.
@@ -117,10 +117,10 @@ public class TaskList {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
             Date date = new Date();
-            String strCurrrent = dateFormat.format(date);
-            if (list.size() == 0) return (strCurrrent + " for " + duration + "hours.");
+            String strCurrent = dateFormat.format(date);
+            if (list.size() == 0) return (strCurrent + " for " + duration + "hours.");
 
-            Set<Date> dateTime = new HashSet<Date>();
+            Set<Date> dateTime = new HashSet<>();
             dateTime.add(date);
 
             for (Task task : list) {
@@ -130,7 +130,7 @@ public class TaskList {
                     dateTime.add(dateFromList);
             }
             //sorts set
-            Set<Date> sortedDateTime = new TreeSet<Date>(dateTime);
+            Set<Date> sortedDateTime = new TreeSet<>(dateTime);
 
             Iterator i = sortedDateTime.iterator();
             i.next();
@@ -255,6 +255,9 @@ public class TaskList {
                 num++;
             }
         }
+        todoArrList.clear();
+        deadlineArrList.clear();
+        eventArrList.clear();
         return finalSchedule;
     }
 
