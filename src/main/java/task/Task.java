@@ -62,11 +62,11 @@ public class Task implements Serializable{
     }
 
     public boolean checkReminderTrigger() {
-        if (atDate != null) {
+        if (!atDate.isEqual(nullDate)) {
             LocalDateTime reminderDate = atDate.minusDays(remindInHowManyDays);
             return LocalDateTime.now().isAfter(reminderDate);
         }
-        if (fromDate != null) {
+        if (!fromDate.isEqual(nullDate)) {
             LocalDateTime reminderDate = fromDate.minusDays(remindInHowManyDays);
             return LocalDateTime.now().isAfter(reminderDate);
         }
