@@ -5,10 +5,8 @@ import seedu.duke.ui.Ui;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.time.LocalDateTime;
 import java.text.SimpleDateFormat;
 
 public class Schedule {
@@ -16,39 +14,21 @@ public class Schedule {
     private static final String DATE_FORMATTER_NO_TIME = "dd/MM/yyyy";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER_NO_TIME);
     private static TreeMap<Date, ArrayList<Task>> schedulesInOrder = new TreeMap<Date, ArrayList<Task>>();
-    private Ui ui = new Ui();
+    private Ui ui;
 
 
     public Schedule() {
+        ui = new Ui();
     }
 
-    public static String getTodayDate() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String formatDateTime = localDateTime.format(formatter);
-        return formatDateTime;
-    }
 
-    public void addToSchedule(Task task, Date date) throws ParseException {
+    public ArrayList<Task> addToSchedule(Task task, Date date) throws ParseException {
         if (!schedulesInOrder.containsKey(date)) {
             schedulesInOrder.put(date, new ArrayList<>());
         }
         schedulesInOrder.get(date).add(task);
+        return schedulesInOrder.get(date);
     }
-/*
-    public void removeFromSchedule(Task task) {
-
-    }*/
-/*
-    public void print() {
-        for (Map.Entry m:schedulesInOrder.entrySet()) {
-            String dateStr = new SimpleDateFormat(DATE_FORMATTER_NO_TIME).format(m.getKey());
-            System.out.println("Date: " + dateStr);
-            for (Task task : schedulesInOrder.get(m.getKey())) {
-                System.out.println(task.toString());
-            }
-            System.out.println();
-        }
-    }*/
 
     public void printSchedule(Date date) {
         System.out.println("\t_____________________________________");
@@ -88,6 +68,10 @@ public class Schedule {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    public ArrayList<Task> getDatedList(Date date) {
+        return schedulesInOrder.get(date);
     }
 
 }

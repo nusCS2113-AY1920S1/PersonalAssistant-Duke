@@ -21,7 +21,6 @@ public class Duke {
   protected static Storage storage = new Storage("data/duke.txt");
   protected static Ui ui = new Ui(new Scanner(System.in));
   protected static Parser parser = new Parser();
-  protected static Schedule schedule;
 
   /**
    * Runs Duke which commences the user to machine feedback loop until the user enters "bye".
