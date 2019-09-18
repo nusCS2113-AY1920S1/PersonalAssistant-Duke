@@ -14,6 +14,7 @@ public class DukeException extends Exception {
         FORMAT_DEADLINE,
         FORMAT_EVENT,
         FORMAT_FIXED,
+        FORMAT_VIEW,
     }
 
     DukeException(ErrorType e) {
@@ -33,6 +34,7 @@ public class DukeException extends Exception {
             case FORMAT_DEADLINE: System.out.println("     ☹ OOPS: Expected format: \"deadline [description of task] /by\n             DD/MM/YYYY HHMM\""); break;
             case FORMAT_EVENT: System.out.println("     ☹ OOPS: Expected format: \"event [description of event] /at\n            DD/MM/YYYY HHMM"); break;
             case FORMAT_FIXED: System.out.println("     ☹ OOPS: Expected format: \"fixed [description of task] /take\n            HHMM"); break;
+            case FORMAT_VIEW: System.out.println("     ☹ OOPS: Expected format: \"view DD/MM/YYYY"); break;
         }
     }
 }

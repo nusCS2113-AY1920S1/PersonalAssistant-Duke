@@ -31,11 +31,11 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            if (index > tasks.getSize() || tasks.getList().isEmpty()) {
+            if (index >= tasks.getSize() || tasks.getList().isEmpty()) {
                 throw new DukeException(DukeException.ErrorType.INDEX_EXCEEDED);
             }
             ui.showDeleted(tasks.getTaskItem(index));
-            storage.deleteItemFromFile(tasks.getItemData(index) + "\n");
+            storage.deleteItemFromFile(tasks.getItemData(index));
             tasks.deleteItem(index);
         } catch (DukeException e) {
             e.showError();
