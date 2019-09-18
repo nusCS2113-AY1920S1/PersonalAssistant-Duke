@@ -134,4 +134,7 @@ public class Task {
     public boolean isNear(int dayLimit) {
         return false;
     }
+
+    public void snooze() {
+    }
 }
