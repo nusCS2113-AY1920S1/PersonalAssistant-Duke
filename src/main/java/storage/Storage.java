@@ -1,12 +1,16 @@
+package storage;
+
+import task.*;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "C:\\Users\\Jian Wei\\Desktop\\main\\data\\duke.txt";
+    private static String FILE_PATH = "src/main/data/duke.txt";
 
-    Storage() {}
-    Storage(String filePath) {
+    public Storage() {}
+    public Storage(String filePath) {
         FILE_PATH = filePath;
     }
 
@@ -31,8 +35,8 @@ public class Storage {
                 } else if (data[0].equals("E ")) {
                     Event t = new Event(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
-                } else if (data[0].equals("F ")) {
-                    FixedDuration t = new FixedDuration(data[2], data[3], data[1].contains("1"));
+                } else if (data[0].equals("R ")) {
+                    Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
                 }
                 line = br.readLine();
@@ -90,7 +94,6 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
-
             Storage writer = new Storage();
             writer.writeFile(newContent, false);
 

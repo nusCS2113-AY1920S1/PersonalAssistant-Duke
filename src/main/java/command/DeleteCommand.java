@@ -1,3 +1,10 @@
+package command;
+
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * Represents a command from user to delete a task.
  * Inherits from Command class.
@@ -14,7 +21,7 @@ public class DeleteCommand extends Command {
      * Assigns the index to take on the value of input number-1 from user.
      * @param num the index of the task specified by the user
      */
-    DeleteCommand(int num) {
+    public DeleteCommand(int num) {
         index = num-1;
     }
 

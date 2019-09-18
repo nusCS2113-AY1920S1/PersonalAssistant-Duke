@@ -115,25 +115,5 @@ public class Date {
         }
         return hour + "." + minutes + indicator;
     }
-    /**
-     * Converts the numbers to time duration
-     * @param time time segment from user input
-     * @return formatted duration e.g. 2hr45min
-     */
-    public String getDuration(String time) {
-
-        int hour = 0;
-        int minutes = 0;
-        int number;
-        try {
-             number = Integer.parseInt(time);
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-        if ( number % 100 >= 60) {   return null;        }
-        minutes = number % 100;
-        hour = number / 100;
-        return hour + "hr" + minutes + "min";
-    }
 
 }

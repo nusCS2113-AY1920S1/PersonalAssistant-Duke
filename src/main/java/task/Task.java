@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Represents a task object containing task details.
  * @author Zhang Yue Han
@@ -87,8 +89,4 @@ public class Task {
     public String toData() {
         return getType() + " | " + getStatus() + " | " + getDescription();
     }
-    public void modifyDate(String date){
-        this.date = date;
-    }
-
 }

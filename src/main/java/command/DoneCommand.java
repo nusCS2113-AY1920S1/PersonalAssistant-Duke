@@ -1,8 +1,16 @@
+package command;
+
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * Represents a command from user to mark a task as done.
  * Inherits from Command class.
  * @author Zhang Yue Han
  */
+
 public class DoneCommand extends Command {
 
     /**
@@ -14,7 +22,7 @@ public class DoneCommand extends Command {
      * Assigns the index to take on the value of input number-1 from user.
      * @param num the index of the task specified by the user
      */
-    DoneCommand(int num) {
+    public DoneCommand(int num) {
         index = num-1;
     }
 

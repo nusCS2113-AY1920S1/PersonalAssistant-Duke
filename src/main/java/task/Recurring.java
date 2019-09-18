@@ -1,21 +1,22 @@
-public class Deadline extends Task {
+package task;
 
-    public Deadline(String description, String date) {
+public class Recurring extends Task{
+    public Recurring(String description, String date) {
         super(description);
-        this.type = "D";
+        this.type = "R";
         this.date = date;
     }
 
-    public Deadline(String description, String date, boolean state) {
+    public Recurring(String description, String date, boolean state) {
         super(description);
-        this.type = "D";
+        this.type = "R";
         this.date = date;
         this.isDone = state;
     }
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + super.getDate() + ")";
+        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + " (every: " + super.getDate() + ")";
     }
 
     @Override

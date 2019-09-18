@@ -1,3 +1,8 @@
+package ui;
+
+import task.Task;
+import task.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,14 +70,5 @@ public class Ui {
             System.out.println("     " + count + "." + task.toString());
         }
     }
-    public void showSnooze(Task t){
-        System.out.println("     Nice! I've change the date:");
-        System.out.println("       " + t.toString());
-    }
-
-    public void noSnooze(Task t){
-        System.out.println("     Not a deadline/event, no hurry no worry :)");
-    }
-
 }
 
