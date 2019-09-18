@@ -11,6 +11,9 @@ import core.Ui;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "add" command
+ */
 public class AddCommand extends Command {
     private String content;
 

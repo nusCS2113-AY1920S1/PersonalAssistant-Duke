@@ -2,6 +2,9 @@ package core;
 
 import java.util.Scanner;
 
+/**
+ * deals with interactions with the user
+ */
 public class Ui {
     private static final String horizontalLine = "\t____________________________________________________________";
 

@@ -6,6 +6,9 @@ import utils.Storage;
 
 import java.util.ArrayList;
 
+/**
+ * a general class for Command, to be extended
+ */
 public abstract class Command {
     /**
      * The method to execute the corresponding command.
