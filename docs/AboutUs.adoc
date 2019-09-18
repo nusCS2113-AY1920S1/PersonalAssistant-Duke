@@ -4,51 +4,51 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+Duke was developed by the https://github.com/AY1920S1-CS2113-T14-4 team. +
 _{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Lim Jia Ying
 image::damithc.jpg[width="150", align="left"]
-{empty}[https://github.com/AugGust[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/AugGust[github]]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Chan Wei Qiang Jason
 image::lejolly.jpg[width="150", align="left"]
-{empty}[https://github.com/jasonchanwq[github][github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jasonchanwq[github]]
 
 Role: Team Lead +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== Chen Yu Heng
 image::yijinl.jpg[width="150", align="left"]
-{empty}[https://github.com/chenyuheng[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chenyuheng[github]]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Justin Chia
 image::m133225.jpg[width="150", align="left"]
-{empty}[https://github.com/JustinChia1997[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JustinChia1997[github]]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
+=== Lin Yu Yang
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[https://github.com/yuyanglin28[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yuyanglin28[github]]
 
 Role: Developer +
 Responsibilities: UI
