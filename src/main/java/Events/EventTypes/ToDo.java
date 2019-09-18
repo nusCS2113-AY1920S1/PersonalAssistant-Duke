@@ -1,7 +1,5 @@
 package Events.EventTypes;
 
-import Events.EventTypes.Task;
-
 /**
  * Subclass of Model_Class.Task class.
  * Type of class available for use within Duke program, not time-specific.

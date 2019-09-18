@@ -39,39 +39,43 @@ public class DateObj {
      * @param inputDate the input keyed in for the date.
      */
     public DateObj(String inputDate) {
-        try {
-            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            inputFormat.setLenient(false);
-            Date newJavaDate = inputFormat.parse(inputDate);
-            this.javaDate = newJavaDate;
-            format = DATE_AND_TIME; // date and time
-        } catch (ParseException pe) {
+        if (inputDate.contains("/")) {
             try {
-                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 inputFormat.setLenient(false);
                 Date newJavaDate = inputFormat.parse(inputDate);
                 this.javaDate = newJavaDate;
-                format = DATE; // only date
-            } catch (ParseException pe2) {
+                format = DATE_AND_TIME; // date and time
+            } catch (ParseException pe) {
                 try {
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
                     inputFormat.setLenient(false);
                     Date newJavaDate = inputFormat.parse(inputDate);
                     this.javaDate = newJavaDate;
-                    format = DATE_AND_TIME; // date and time
-                } catch (ParseException e) {
-                    try {
-                        SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy");
-                        inputFormat.setLenient(false);
-                        Date newJavaDate = inputFormat.parse(inputDate);
-                        this.javaDate = newJavaDate;
-                        format = DATE; // only date
-                    } catch (ParseException ex) {
-                        format = OTHER; // other types; store as string
-                        this.date = inputDate;
-                    }
+                    format = DATE; // only date
+                } catch (ParseException pe2) {
+                    format = OTHER; // other types; store as string
+                    this.date = inputDate;
                 }
-
+            }
+        } else {
+            try {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
+                inputFormat.setLenient(false);
+                Date newJavaDate = inputFormat.parse(inputDate);
+                this.javaDate = newJavaDate;
+                format = DATE_AND_TIME; // date and time
+            } catch (ParseException pe) {
+                try {
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy");
+                    inputFormat.setLenient(false);
+                    Date newJavaDate = inputFormat.parse(inputDate);
+                    this.javaDate = newJavaDate;
+                    format = DATE; // only date
+                } catch (ParseException pe2) {
+                    format = OTHER; // other types; store as string
+                    this.date = inputDate;
+                }
             }
         }
     }

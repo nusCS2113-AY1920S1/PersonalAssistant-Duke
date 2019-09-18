@@ -2,11 +2,10 @@ package UserElements;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import Events.EventTypes.ToDo;
-import Events.Storage.TaskList;
 import Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 import Events.Storage.Storage;
-import UserElements.UI;
+import Events.Storage.TaskList;
 
 /**
  * Represents a command that is passed via user input.
