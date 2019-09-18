@@ -12,7 +12,8 @@ public enum TaskCommands {
     BYE("bye"),
     REMINDER("reminder"),
     VIEW_SCHEDULE("view schedule"),
-    SNOOZE("snooze");
+    SNOOZE("snooze"),
+    FIXED_DURATION("fixed duration");
 
     /**
      * Name of the tasks commands.
