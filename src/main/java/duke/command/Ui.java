@@ -114,7 +114,7 @@ public class Ui {
      * Informs user if there are ongoing events.
      *
      * @param schedules Schedule list with start and task details
-     * @param date Date of choice
+     * @param date      Date of choice
      */
     public void showScheduleResult(List<Schedule> schedules, String date) {
         boolean hasOngoing = false;
@@ -131,12 +131,12 @@ public class Ui {
         printIndented("-----------------------------------------------------");
         if (hasOngoing) {
             printIndented("Here are your ongoing tasks:");
-            int counter = 1;
-            for (Schedule s : schedules) {
-                if (s.getOngoing()) {
-                    printIndented(counter + ". " + s.getTask());
-                    counter++;
-                }
+        }
+        int counter = 1;
+        for (Schedule s : schedules) {
+            if (s.getOngoing()) {
+                printIndented(counter + ". " + s.getTask());
+                counter++;
             }
         }
     }
