@@ -137,4 +137,8 @@ public class Task {
 
     public void snooze() {
     }
+
+    public boolean isClash(Task task) {
+        return false;
+    }
 }
