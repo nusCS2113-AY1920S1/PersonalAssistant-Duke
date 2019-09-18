@@ -23,9 +23,9 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:
-<br/>  [T][✘] go buy running shoes
-<br/>Now you have 1 task in the list.`
+`Got it. I've added this task:__
+  [T][✘] go buy running shoes__
+Now you have 1 task in the list.`
 
 ### `event <event> /at <start datetime> to <end datetime> ` - Add an event
 
