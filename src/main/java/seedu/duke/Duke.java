@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 import seedu.duke.data.Schedule;
+import seedu.duke.task.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
 import seedu.duke.task.TaskList;
@@ -53,7 +54,9 @@ public class Duke {
      */
     public static void run() {
         ui.show_opening_string();
-
+        Reminders reminders = new Reminders();
+        reminders.oneDay();
+        reminders.displayReminder();
         list = new TaskList(storage.load());
 
         System.out.println();
