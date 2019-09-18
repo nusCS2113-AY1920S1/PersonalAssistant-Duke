@@ -12,7 +12,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class ReminderTest {
+public class RemindCommandTest {
 
     ArrayList<Task> list = new ArrayList<>();
     File file = new File(System.getProperty("user.dir") + "/src/test/ArrayList");

@@ -15,6 +15,7 @@ public class Deadline extends Task implements Serializable{
     public Deadline(String description, LocalDateTime atDate){
         super(description);
         this.atDate = atDate;
+        this.remindInHowManyDays = 3;
     }
     
     /**
