@@ -193,6 +193,9 @@ public class TaskList {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2069539b8d2ee6e0df9ce4a8d43de00f86b21bbd
      * Reports the schedule of the user on a specified date.
      *
      * @param date The specified date.
