@@ -54,3 +54,23 @@ Command: `find <Keyword>`
 Labels a task with the specified index as done +
 Command: `done <index of task to be marked>`
 
+== Additional Features (v2.0) 
+
+=== Catagorising a task `cata`
+
+Catagorises a task with the specific tag
+Command: `cata <Index of task> <tag>`
+
+=== Removing the catagory of a task `rcata`
+
+Removes the tag on a specific index 
+Command: `rcata <Index of task>`
+
+=== Sorting of tasks `sort`
+
+Sorts the tasks according to the specified sort
+Command: `sort <type of sort>`
+
+Types of sort available: `deadline`,`catagory`,`undone`
+
+==== More features coming soon!
