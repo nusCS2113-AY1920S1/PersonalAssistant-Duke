@@ -12,7 +12,7 @@ import java.util.Date;
 public abstract class Task {
 
     public static ArrayList<Task> tasks;
-  
+
     /**
      * description of the task
      */
@@ -27,20 +27,20 @@ public abstract class Task {
     /**
      * @author Justin Chia
      * Flag for recurring status
-     * */
+     */
     protected boolean isRecurring;
 
     /**
      * @author Justin Chia
      * Number of weeks for recurrence
-     * */
+     */
     protected int recurringWeeks;
 
 
     /**
      * default constructor of Task
      */
-    public Task(){
+    public Task() {
         this.isDone = false;
         this.isRecurring = false;
         this.recurringWeeks = 0;
@@ -49,8 +49,9 @@ public abstract class Task {
 
     /**
      * another constructor of Task
+     *
      * @param description the description, or the content of a task
-     * params isDone and recurring are auto set to false
+     *                    params isDone and recurring are auto set to false
      */
     public Task(String description) {
         this.description = description;
@@ -62,6 +63,7 @@ public abstract class Task {
 
     /**
      * get task's description
+     *
      * @return task's description
      */
     public String getDescription() {
@@ -70,6 +72,7 @@ public abstract class Task {
 
     /**
      * set the description of task
+     *
      * @param description
      */
     public void setDescription(String description) {
@@ -80,6 +83,7 @@ public abstract class Task {
     /**
      * Set the time of task to a certain date.
      * For TODO task, this method is unneeded.
+     *
      * @param data data to set
      */
     public void setTime(Date data) {
@@ -88,40 +92,40 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size()==0) ? "" : ( " (Precondition: " + this.getPrecondition() + ")"));
+        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size() == 0) ? "" : (" (Precondition: " + this.getPrecondition() + ")"));
     }
-  
-  /**
+
+    /**
      * set start time of Period task
-     * @param start
-     *              start time
+     *
+     * @param start start time
      */
-    public void setStart(Date start){
+    public void setStart(Date start) {
     }
 
 
     /**
      * set end time of Period task
-     * @param end
-     *          end time
+     *
+     * @param end end time
      */
-    public void setEnd(Date end){
+    public void setEnd(Date end) {
     }
 
 
     /**
      * set duration for Last task
-     * @param duration
-     *              duration time
+     *
+     * @param duration duration time
      */
-    public void setDuration(String duration){
+    public void setDuration(String duration) {
     }
 
 
     /**
      * This method mark the task status as DONE.
      */
-    public void markAsDone() throws DukeException{
+    public void markAsDone() throws DukeException {
         boolean preconditionDone = true;
         String notDonePrecondition = "";
         for (int i = 0; i < precondition.size(); i++) {
@@ -138,7 +142,8 @@ public abstract class Task {
 
     /**
      * Return the status icon.
-     * @return  the status icon ("V" for done and "x" for todo) of the task
+     *
+     * @return the status icon ("V" for done and "x" for todo) of the task
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
@@ -147,42 +152,44 @@ public abstract class Task {
     /**
      * @author Justin Chia
      * Toggle the recurrence flag
-     * */
-    public void setRecurring(int numWeeks){
+     */
+    public void setRecurring(int numWeeks) {
         this.isRecurring = true;
         this.recurringWeeks = numWeeks;
     }
 
     /**
      * This abstract method return the String for saving the task object in txt file.
+     *
      * @return String for saving the task object in txt file
      */
     public abstract String dataString();
 
     /**
      * This method add prerequisite task to the precondition list
+     *
      * @param precondition the prerequisite task to be added
      */
     public void addPrecondition(Task precondition) {
         this.precondition.add(precondition);
     }
 
-    public void addPrecondition(String preconditionString) throws DukeException{
+    public void addPrecondition(String preconditionString) throws DukeException {
         preconditionString = preconditionString.trim();
-        if(preconditionString.equals("0")){
+        if (preconditionString.equals("0")) {
             return;
         }
-        if (preconditionString.trim().length() != 0){
+        if (preconditionString.trim().length() != 0) {
             String[] indexString = preconditionString.split(" ");
             int[] preconditionIndex = new int[indexString.length];
             for (int i = 0; i < preconditionIndex.length; i++) {
-                try{
+                try {
                     preconditionIndex[i] = Integer.parseInt(indexString[i].trim());
                 } catch (NumberFormatException e) {
                     throw new DukeException("Prerequisite task sequence number format error, should be integer.");
                 }
             }
-            for ( int i = 0; i < preconditionIndex.length; i++) {
+            for (int i = 0; i < preconditionIndex.length; i++) {
                 if (preconditionIndex[i] <= 0 || preconditionIndex[i] > tasks.size()) {
                     throw new DukeException("Prerequisite task sequence number out of range.");
                 }
@@ -192,11 +199,11 @@ public abstract class Task {
     }
 
     public String getPrecondition() {
-        if(precondition.size() == 0) {
+        if (precondition.size() == 0) {
             return "0";
         }
         String preconditionString = "";
-        for(int i = 0; i < precondition.size(); i++) {
+        for (int i = 0; i < precondition.size(); i++) {
             preconditionString += tasks.indexOf(precondition.get(i)) + 1 + " ";
         }
         return preconditionString;
