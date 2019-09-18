@@ -40,7 +40,7 @@ Responsibilities: Back-end developer
 
 === Liu Chao Jie
 image::chaojieliu666.png[width="150", align="left"]
-{empty}[http://github.com/Jefferson111[github]] [<<jefferson#, portfolio>>]
+{empty}[https://github.com/ChaojieLiu666[github]] [<<jefferson#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation + testing
