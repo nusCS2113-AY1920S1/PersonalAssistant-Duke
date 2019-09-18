@@ -1,13 +1,14 @@
 package models.tasks;
 
 import exceptions.InvalidDateTimeException;
+import models.commands.IDateSettable;
 import java.io.Serializable;
 import java.net.PasswordAuthentication;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Event implements ITask, Serializable {
+public class Event implements ITask, IDateSettable, Serializable {
     /**
      * Class representing the Event class model.
      */
@@ -66,4 +67,7 @@ public class Event implements ITask, Serializable {
         return this.eventDateTime;
     }
 
+    public void setDateTime(String newDateTime) {
+        this.eventDate = newDateTime;
+    }
 }

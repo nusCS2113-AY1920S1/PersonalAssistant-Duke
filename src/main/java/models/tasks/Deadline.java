@@ -1,12 +1,13 @@
 package models.tasks;
 
 import exceptions.InvalidDateTimeException;
+import models.commands.IDateSettable;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Deadline implements ITask, Serializable {
+public class Deadline implements ITask, IDateSettable, Serializable {
     /**
      * Class representing the Deadline data model.
      */
@@ -65,4 +66,7 @@ public class Deadline implements ITask, Serializable {
         return this.dueDateTime;
     }
 
+    public void setDateTime(String newDueDate) {
+        this.dueDate = newDueDate;
+    }
 }
