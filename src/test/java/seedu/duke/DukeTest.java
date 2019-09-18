@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *  Test class for Duke.
  */
 public class DukeTest {
- 
+
     @Test
     /**
     * Dummy test function.

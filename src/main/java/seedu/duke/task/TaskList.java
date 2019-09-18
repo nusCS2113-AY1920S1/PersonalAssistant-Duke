@@ -1,6 +1,8 @@
 package seedu.duke.task;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import seedu.duke.data.Schedule;
 import seedu.duke.ui.Ui;
 
 /**
@@ -18,6 +20,8 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
+    private Schedule schedule = new Schedule();
+
 
     /**
      * Initializes list.
@@ -72,19 +76,29 @@ public class TaskList {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Deadline(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
+                } catch (ParseException ignore) {
                 }
             } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Event(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
+                } catch (ParseException ignore) {
                 }
             } else if (taskType.equals("range")) {
                 try {
@@ -95,7 +109,7 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            } 
+            }
         }
 
         String output = "\t  " + list.get(list.size() - 1).toString();
@@ -196,6 +210,10 @@ public class TaskList {
         System.out.println("\t_____________________________________\n\n");
     }
 
+    public Task getLastTask() {
+        return this.list.get(list.size() - 1);
+    }
+
     /**
      * Checks whether two instaces of TaskList are equal.
      *
@@ -206,7 +224,7 @@ public class TaskList {
 
         if (this.size() != temp.size()) {
             System.out.println("Length not equal");
-            return false;  
+            return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
