@@ -44,4 +44,4 @@ Duke Increment | Tutorial
 * [User Guide]
 * [Develper Guide]
 * [Learning Outcomes]
-* [About us] <docs/AboutUs.adoc>
+* [About us]: <docs/AboutUs.adoc>
