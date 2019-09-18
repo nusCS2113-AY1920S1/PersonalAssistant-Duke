@@ -6,6 +6,7 @@ import com.nwjbrandon.duke.services.task.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Terminal {
@@ -213,6 +214,22 @@ public class Terminal {
     public static void showMessage(String message) {
         Terminal.printDivider();
         System.out.print("\t " + message + "\n");
+        Terminal.printDivider();
+    }
+
+    /**
+     * Print the schedule of tasks that falls on the same day.
+     * @param date day input by user.
+     * @param tasks tasks on the day user query.
+     */
+    public static void showSchedule(Date date, ArrayList<Task> tasks) {
+        StringBuilder output = new StringBuilder("\t Searching tasks on: " + date + "\n");
+        for (Task task: tasks) {
+            output.append("\t ").append(task.toTaskDescriptionString()).append("\n");
+        }
+
+        Terminal.printDivider();
+        System.out.print(output);
         Terminal.printDivider();
     }
 

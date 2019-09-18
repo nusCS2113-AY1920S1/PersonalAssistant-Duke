@@ -1,14 +1,17 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
-import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
-import com.nwjbrandon.duke.services.task.Events;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
+import com.nwjbrandon.duke.services.task.Todos;
+import com.nwjbrandon.duke.services.ui.Terminal;
 import com.nwjbrandon.duke.services.validation.InputValidation;
 
-public class EventsCommand extends Command {
+import java.util.ArrayList;
+import java.util.Date;
+
+public class ViewSchedulesCommand extends Command {
 
     /**
      * Description of task.
@@ -36,18 +39,10 @@ public class EventsCommand extends Command {
      * @param command type of command.
      * @param size number of tasks.
      */
-    public EventsCommand(String userInput, String command, int size) {
+    public ViewSchedulesCommand(String userInput, String command, int size) {
         this.userInput = userInput;
         this.command = command;
         this.size = size;
-    }
-
-    /**
-     * Create specific task.
-     * @return specific task.
-     */
-    private Task setTask() throws DukeWrongCommandFormatException {
-        return new Events(taskDescription, size);
     }
 
     /**
@@ -58,6 +53,7 @@ public class EventsCommand extends Command {
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
         return InputValidation.checkCommandInput(userInput, command);
+
     }
 
     /**
@@ -68,12 +64,11 @@ public class EventsCommand extends Command {
     public void execute(TaskList taskList) {
         try {
             this.taskDescription = parseCommand(userInput, command);
-            taskList.addTask(this.setTask());
-        } catch (DukeWrongCommandFormatException
-                | DukeEmptyCommandException
-                | DukeTaskCollisionException e) {
+            Date date = InputValidation.parseDateWithNatty(this.taskDescription);
+            ArrayList<Task> tasksInSchedule = taskList.viewSchedule(date);
+            Terminal.showSchedule(date, tasksInSchedule);
+        } catch (DukeEmptyCommandException e) {
             e.showError();
         }
     }
-
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class TaskManagerTest extends SystemIO {
+class TaskManagerTest {
 
     @RegisterExtension
     SystemIO io = new SystemIO();
@@ -30,7 +30,7 @@ class TaskManagerTest extends SystemIO {
     @Test
     void testBye() {
         final String testString = "bye";
-        provideInput(testString);
+        io.provideInput(testString);
         TaskManager taskManager = new TaskManager();
         boolean status = taskManager.run();
         assertFalse(status);

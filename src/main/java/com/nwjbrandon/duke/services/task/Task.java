@@ -3,6 +3,7 @@ package com.nwjbrandon.duke.services.task;
 import com.joestelmach.natty.Parser;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
+import com.nwjbrandon.duke.services.utilities.DateUtilties;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -217,5 +218,13 @@ public abstract class Task {
         Terminal.showTaskActionString("\t removed: ", this.getTaskDescription());
     }
 
+    /**
+     * Check if task falls on the same day.
+     * @param date date to compare with.
+     * @return true if tasks falls on the same day.
+     */
+    boolean isSameDay(Date date) {
+        return DateUtilties.isSameDay(this.date, date);
+    }
 
 }
