@@ -1,6 +1,8 @@
 package ui;
 
 import exception.DukeException;
+import task.Task;
+import task.TaskList;
 
 import java.util.Scanner;
 
@@ -56,5 +58,20 @@ public class Ui {
      */
     public void showError(DukeException e) {
         System.out.println(e.getMessage());
+    }
+
+    /**
+     * Prints the <code>TaskList</code> given.
+     *
+     * @param taskList <code>TaskList</code> that we want to be printed
+     */
+    public void printTaskList(TaskList taskList) {
+        if (taskList.getSize() > 0) {
+            int count = 1;
+            for (Task task : taskList.getTasks()) {
+                println(task.toString());
+                count++;
+            }
+        }
     }
 }

@@ -1,7 +1,18 @@
 package parser;
 
 
-import command.*;
+import command.AddCommand;
+import command.Command;
+import command.ConflictCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.FreeCommand;
+import command.ListCommand;
+import command.RemindCommand;
+import command.RescheduleCommand;
+import command.ScheduleCommand;
 import exception.DukeException;
 
 /**
@@ -53,6 +64,9 @@ public class Parser {
 
         case "free":
             return new FreeCommand(commandParams);
+
+        case "conflict":
+            return new ConflictCommand(commandParams);
 
         default:
             throw new DukeException("☹ OOPS!!! I don't know what that means :-(");
