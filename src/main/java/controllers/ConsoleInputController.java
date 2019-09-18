@@ -1,7 +1,6 @@
 package controllers;
 
 import exceptions.DukeException;
-import java.text.ParseException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.commands.RescheduleCommand;
@@ -11,9 +10,11 @@ import views.CLIView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.text.ParseException;
 
 public class ConsoleInputController implements IViewController {
 
@@ -62,18 +63,17 @@ public class ConsoleInputController implements IViewController {
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.contains("reschedule")) {
+        } else if (input.length() == 17 && input.substring(0,8).equals("schedule")) {
             try {
-                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
-                consoleView.rescheduleTask(taskList, rescheduleCommand);
-            } catch (ArrayIndexOutOfBoundsException newException) {
-                consoleView.invalidCommandMessage(newException);
+                consoleView.listSchedule(taskList, input);
+            } catch (ParseException e) {
+                System.out.println("error in scheduling");
             }
         } else {
             try {
                 ITask newTask = taskFactory.createTask(input);
-                taskList.addToList(newTask);
-                consoleView.addMessage(newTask, taskList);
+                boolean anomaly = taskList.addToList(newTask);
+                consoleView.addMessage(newTask, taskList, anomaly);
                 saveData();
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);

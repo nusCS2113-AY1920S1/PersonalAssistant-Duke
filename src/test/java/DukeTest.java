@@ -12,8 +12,8 @@ public class DukeTest {
     @Test
     void testTodoCreation() {
         try {
-            assertEquals(new ToDos("write book").getDescription(),
-                    new TaskFactory().createTask("todo write book").getDescription());
+            assertEquals(new ToDos("write book","2").getDescription(),
+                new TaskFactory().createTask("todo write book /in 2").getDescription());
         } catch (DukeException e) {
             e.printStackTrace();
         }
@@ -22,7 +22,7 @@ public class DukeTest {
     @Test
     void testDeadlineCreation() throws DukeException {
         assertEquals(new Deadline("return book", "Sunday").getDescription(),
-                new TaskFactory().createTask("deadline return book /by Sunday").getDescription());
+            new TaskFactory().createTask("deadline return book /by Sunday").getDescription());
     }
 
     @Test
