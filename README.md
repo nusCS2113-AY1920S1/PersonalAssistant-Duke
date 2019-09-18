@@ -1,10 +1,8 @@
-# Links
+Production Title
+================
+introduction of our product
 
-**Team Google Drive link**
-*https://drive.google.com/drive/folders/1D1Tr99E0DBlkt2JiG13V1_xfWj_jowNs?usp=sharing
-
-# Setting up
-
+# Install
 **Prerequisites**
 
 * JDK 11
@@ -25,20 +23,27 @@
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
+# Usage
+Please see the user guide: 
+*link
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+# Versions
+v1.0
+-----
+* describe what is done for v1.0
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+# Contributing 
+PRs accepted 
 
-# Feedback, Bug Reports
+Contributors
+------------
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+# Links
+
+**Team Google Drive link**
+*https://drive.google.com/drive/folders/1D1Tr99E0DBlkt2JiG13V1_xfWj_jowNs?usp=sharing
+
+**User Guide**
+*link
+
+# License
