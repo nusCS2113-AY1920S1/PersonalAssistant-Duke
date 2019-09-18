@@ -4,6 +4,8 @@ import commands.*;
 import core.Ui;
 import tasks.*;
 
+
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,7 +84,7 @@ public class Parser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
-        String[] splites = line.trim().split("\\s+", 2);
+        String[] splites = line.trim().split("\\s+", 3);
         splites[0] = splites[0].trim().toUpperCase();
         Command temp = null;
         if (splites[0].equals("ADD")) {
@@ -97,6 +99,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("RECURRING")) {
+            temp = new RecurringCommand(splites[1], splites[2]);
         } else if (splites[0].equals("SNOOZE")) {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {

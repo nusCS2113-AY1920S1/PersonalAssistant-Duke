@@ -25,6 +25,18 @@ public abstract class Task {
     protected ArrayList<Task> precondition;
 
     /**
+     * @author Justin Chia
+     * Flag for recurring status
+     * */
+    protected boolean isRecurring;
+
+    /**
+     * @author Justin Chia
+     * Number of weeks for recurrence
+     * */
+    protected int recurringWeeks;
+
+    /**
      * default constructor of Task
      */
     public Task(){}
@@ -32,10 +44,13 @@ public abstract class Task {
     /**
      * another constructor of Task
      * @param description the description, or the content of a task
+     * params isDone and recurring are auto set to false
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.isRecurring = false;
+        this.recurringWeeks = 0;
         this.precondition = new ArrayList<Task>();
     }
 
@@ -119,6 +134,15 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    }
+
+    /**
+     * @author Justin Chia
+     * Toggle the recurrence flag
+     * */
+    public void setRecurring(int numWeeks){
+        this.isRecurring = true;
+        this.recurringWeeks = numWeeks;
     }
 
     /**
