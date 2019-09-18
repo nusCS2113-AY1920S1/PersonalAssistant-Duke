@@ -4,4 +4,3 @@ D | 1 | OOP project assignment in week 4 | 0 | 04/09/0019 1159
 T | 0 | reading | 0
 L | 0 | read book | 0 | 2hrs
 P | 0 | review | 0 | 23/12/2020 1234 | 24/12/2020 1234
-T | 1 | preview
