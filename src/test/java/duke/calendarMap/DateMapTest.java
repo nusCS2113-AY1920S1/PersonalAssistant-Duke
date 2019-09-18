@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DateMapTest {
-    DateMap actual = new DateMap();
-    DateMap expected = new DateMap();
+    private DateMap actual = new DateMap();
+    private DateMap expected = new DateMap();
 
     @BeforeEach
     void initialize() {
@@ -61,8 +61,23 @@ class DateMapTest {
         assertEquals(4, timeMap.size());
         assertTrue(expected.keySet().containsAll(actual.keySet()));
     }
-//
-//    @Test
-//    void testViewSchedule() {
-//    }
+
+    @Test
+    void testViewSchedule() {
+        Event event1 = new Event("test", "1");
+        Event event2 = new Event("test2", "2");
+        Event event3 = new Event("test3", "3");
+        Event event4 = new Event("test4", "4");
+
+        String expected = "Here are your tasks for 2/3/1997: \n"
+                + "1. " + event1.toString()
+                + "2. " + event2.toString()
+                + "3. " + event3.toString()
+                + "4. " + event4.toString();
+
+        assertEquals(expected, this.expected.viewSchedule("2/3/1997"));
+        expected = "☹ OOPS!!! There isn't any task for this date.\n"
+                + "Please try again. \n";
+        assertEquals(expected, this.actual.viewSchedule("2/3/1997"));
+    }
 }

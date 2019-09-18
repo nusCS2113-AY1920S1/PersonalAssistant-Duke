@@ -82,4 +82,8 @@ public class TaskList extends ArrayList<Task> {
             dateMap.deleteTask(task.getDateTime(), task);
         }
     }
+
+    public String viewSchedule(String date) {
+        return dateMap.viewSchedule(date);
+    }
 }
