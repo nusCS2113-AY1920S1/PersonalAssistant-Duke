@@ -1,5 +1,4 @@
 package commands;
-
 import Storage.Storage;
 import Tasks.DoAfter;
 import Tasks.Task;
@@ -45,4 +44,5 @@ public class DoAfterCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }
