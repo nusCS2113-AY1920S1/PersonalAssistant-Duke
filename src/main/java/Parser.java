@@ -62,6 +62,30 @@ public class Parser {
                     if (dateInfo[1].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_SNOOZE); }
 
                     return new SnoozeCommand(dateInfo[0], dateInfo[1]);
+                } else if (taskInfo[0].equals("fixed")) {
+                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    String[] dateInfo = parseDate("fixed", taskInfo);
+                    if ((Arrays.toString(dateInfo).equals("[null]") || (dateInfo.length < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    Date d = new Date();
+                    dateInfo[1] = d.getDuration(dateInfo[1]);
+                    if (dateInfo[1] == null) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    //create event object
+                    FixedDuration t = new FixedDuration(dateInfo[0], dateInfo[1]);
+                    return new AddCommand(t);
+                }
+                /**View by date for Extension B - View Schedule
+                 * @author Ng Jian Wei
+                 */
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                   String lookUpDate = dateInfo;
+                   //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                   return new ViewDates(lookUpDate);
                 }
                 else {
                     try {
@@ -86,6 +110,9 @@ public class Parser {
             //tell AddCommand to go add itself
         } else if (type.equals("event")) {
             dateInfo = taskInfo[1].split("/at ");
+            //tell AddCommand to go add itself
+        } else if (type.equals("fixed")) {
+            dateInfo = taskInfo[1].split("/take ");
             //tell AddCommand to go add itself
         }
         else{

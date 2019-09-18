@@ -96,8 +96,20 @@ public class TaskList {
         }
         return foundItems;
     }
+
     public void snoozeItem(int index){
         tasks.get(index).getDate();
     }
 
+    public ArrayList<Task> findAllDates(String lookUpDate) {
+        ArrayList<Task> foundItems = new ArrayList<>();
+        for (Task t : tasks) {
+            String words = t.getDate();
+            if (words != null) {
+                String[] words2 = words.split(",");
+                if (words2[0].equals(lookUpDate)) foundItems.add(t);
+            }
+        }
+        return foundItems;
+    }
 }
