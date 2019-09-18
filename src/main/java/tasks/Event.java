@@ -38,7 +38,7 @@ public class Event extends Task {
     @Override
     /**
      * @Override toString() in Task
-     * a method to format the output of the task list
+     * Format the output of the task list
      * @return string
      *              how task list will print out in console
      */
