@@ -9,6 +9,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
+    protected Task doAfter; //Can extend to a list of tasks that have to be done before.
 
     protected enum TaskType {
         TODO, DEADLINE, EVENT
@@ -40,6 +41,10 @@ public class Task {
         return isDone;
     }
 
+    public void setDoAfter(Task doAfter) {
+        this.doAfter = doAfter;
+    }
+
     public void printTaskDetails() {
         System.out.println(toString());
     }
@@ -68,13 +73,14 @@ public class Task {
     }
 
 
+    /**
+     * toString method overridden to return the a description string.
+     * This string presents the task information in a readable format.
+     * @return the task details.
+     */
     @Override
     public String toString() {
-        /**
-         * toString method overridden to return the a description string.
-         * This string presents the task information in a readable format.
-         * @return the task details.
-         */
+
         return getStatusIcon() + " " + description; //eg. [✓] read book
     }
 }
