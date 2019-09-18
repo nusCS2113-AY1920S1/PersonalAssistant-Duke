@@ -1,1 +1,9 @@
 language: java
+install: true
+
+os: linux
+dist: bionic
+jdk: openjdk11
+
+script:
+  - ./gradlew build --scan -s
