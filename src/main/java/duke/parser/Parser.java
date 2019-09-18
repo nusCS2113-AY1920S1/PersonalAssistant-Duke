@@ -72,6 +72,7 @@ public class Parser {
 
         return new SnoozeCommand(index);
     }
+
     /**
      * Return the correct command given by user, Class method.
      * @param fullCommand Command input by user to be parse
