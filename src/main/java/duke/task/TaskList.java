@@ -5,6 +5,7 @@ import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +49,8 @@ public class TaskList {
         StringBuilder taskListBuilder = new StringBuilder();
         for (int i = 0; i < taskCount; ++i) {
             Task currTask = taskArrList.get(i);
-            taskListBuilder.append(System.lineSeparator()).append(i + 1).append(".").append(currTask.toString());
+            taskListBuilder.append(System.lineSeparator()).append(i + 1).append(".")
+                    .append(currTask.toString());
         }
         return taskListBuilder.toString();
     }
@@ -76,8 +78,7 @@ public class TaskList {
     public String markDone(String idxStr) throws DukeException {
         Task currTask = taskArrList.get(getTaskIdx(idxStr));
         currTask.markDone();
-        return "Nice! I've marked this task as done:" + System.lineSeparator()
-                + "  " + currTask.toString();
+        return currTask.toString();
     }
 
     /**
@@ -88,10 +89,8 @@ public class TaskList {
      *         reporting the number of tasks in the list.
      */
     public String addTask(Task newTask) {
-        String addStr = "Got it, I've added this task:" + System.lineSeparator()
-                + "  " + newTask.toString() + System.lineSeparator();
         taskArrList.add(newTask);
-        return addStr + getTaskCountStr();
+        return newTask.toString();
     }
 
     /**
@@ -104,10 +103,9 @@ public class TaskList {
      */
     public String deleteTask(String idxStr) throws DukeException {
         int idx = getTaskIdx(idxStr);
-        String delString = "Noted. I've removed this task:" + System.lineSeparator()
-                + "  " + taskArrList.get(idx).toString();
+        String delStr = taskArrList.get(idx).toString();
         taskArrList.remove(idx);
-        return delString + System.lineSeparator() + getTaskCountStr();
+        return delStr;
     }
 
     /**
@@ -116,19 +114,19 @@ public class TaskList {
      * @param searchTerm String to search through the tasks for.
      * @return Concatenated descriptions of matching tasks.
      */
-    public String find(String searchTerm) {
+    public String find(String searchTerm) throws DukeException {
         int i = 1;
         StringBuilder searchBuilder = new StringBuilder();
-        searchBuilder.append("Here are the tasks that contain '").append(searchTerm).append("':");
         for (Task task : taskArrList) {
             if (task.getName().contains(searchTerm)) {
-                searchBuilder.append(System.lineSeparator()).append(i).append(".").append(task.toString());
+                searchBuilder.append(System.lineSeparator()).append(i).append(".")
+                        .append(task.toString());
                 ++i;
             }
         }
 
         if (i == 1) {
-            return "Can't find any matching tasks!";
+            throw new DukeException("Can't find any matching tasks!");
         } else {
             return searchBuilder.toString();
         }
@@ -152,6 +150,34 @@ public class TaskList {
         } else {
             throw new DukeException("You need to tell me what the number of the entry is!");
         }
+    }
+
+    /**
+     * Reports the addition of a number of tasks.
+     *
+     * @param addStr    The descriptions of the tasks, formatted with two spaces behind each task and a leading line
+     *                  separator.
+     * @param taskCount Number of tasks added.
+     * @return A String reporting the addition of one or more tasks.
+     */
+    public String getAddReport(String addStr, long taskCount) {
+        addStr = ((taskCount == 1) ? "Got it, I've added this task:" + addStr :
+                "Got it, I've added these " + taskCount + " tasks:" + addStr);
+        return addStr + System.lineSeparator() + getTaskCountStr();
+    }
+
+    /**
+     * Reports the deletion of a number of tasks.
+     *
+     * @param delStr    The descriptions of the tasks, formatted with two spaces behind each task and a leading line
+     *                  separator.
+     * @param taskCount Number of tasks added.
+     * @return A String reporting the deletion of one or more tasks.
+     */
+    public String getDelReport(String delStr, long taskCount) {
+        delStr = ((taskCount == 1) ? "Noted. I've removed this task:" + delStr :
+                "Noted. I've removed these " + taskCount + " tasks:" + delStr);
+        return delStr + System.lineSeparator() + getTaskCountStr();
     }
 
     /**
@@ -202,5 +228,48 @@ public class TaskList {
         }
 
         return scheduleBuilder.toString();
+    }
+
+    /**
+     * Sets a reminder for a task in the list.
+     *
+     * @param idxStr   The argument given by the user to identify the task.
+     * @param reminder The reminder to set for the task.
+     * @return A success message with the String representation of the newly added reminder.
+     * @throws DukeException If idxStr cannot be resolved to a valid task index.
+     */
+    public String setReminder(String idxStr, Reminder reminder) throws DukeException {
+        Task currTask = taskArrList.get(getTaskIdx(idxStr));
+        currTask.setReminder(reminder);
+        return "Roger! I've set a reminder for this task." + System.lineSeparator()
+                + "  " + currTask.toString();
+    }
+
+    /**
+     * Concatenates the string representation of each reminder, and returns this list as a String.
+     *
+     * @return String representation of all reminders, numbered chronologically.
+     */
+    public String listReminders() throws DukeException {
+        StringBuilder reminderListBuilder = new StringBuilder();
+
+        int reminderCount = 0;
+        for (Task currTask : taskArrList) {
+            Reminder currReminder = currTask.getReminder();
+
+            if (currReminder != null) {
+                if (currReminder.getDatetime().isBefore(LocalDateTime.now())) {
+                    reminderCount = reminderCount + 1;
+                    reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
+                            .append(currTask.toString());
+                }
+            }
+        }
+
+        if (reminderCount == 0) {
+            throw new DukeException("You have no reminders.");
+        }
+
+        return reminderListBuilder.toString();
     }
 }

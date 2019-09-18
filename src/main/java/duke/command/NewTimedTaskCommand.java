@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class NewTimedTaskCommand extends MultiArgCommand {
 
-    LocalDateTime datetime;
+    LocalDateTime taskDateTime;
 
     /**
      * Split the input string into the elements of the argv array using MultiArgCommand's parse, then load the task
@@ -29,7 +29,7 @@ public abstract class NewTimedTaskCommand extends MultiArgCommand {
         }
 
         try {
-            datetime = LocalDateTime.parse(argv[1], TimedTask.getDataFormatter());
+            taskDateTime = LocalDateTime.parse(argv[1], TimedTask.getDataFormatter());
         } catch (DateTimeParseException excp) {
             throw new DukeException("Date and time must be given as e.g. "
                     + LocalDateTime.now().format(TimedTask.getDataFormatter()) + ".");

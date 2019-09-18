@@ -37,6 +37,11 @@ public enum Cmd {
             return new NewDeadlineCommand();
         }
     },
+    RECUR("recurring") {
+        public Command getCommand() {
+            return new NewRecurringTaskCommand();
+        }
+    },
     DEL("delete") {
         public Command getCommand() {
             return new DeleteCommand();
@@ -50,6 +55,11 @@ public enum Cmd {
     VIEW("view") {
         public Command getCommand() {
             return new ViewCommand();
+        }
+    },
+    REMIND("remind") {
+        public Command getCommand() {
+            return new NewReminderCommand();
         }
     };
 
