@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
-    @Override
-    public void setTime(Date by) {
-        this.by = by;
-    }
 
     protected Date by;
 
@@ -23,6 +19,11 @@ public class Deadline extends Task {
 
     public Deadline(String description) {
         super(description);
+    }
+
+    @Override
+    public void setTime(Date by) {
+        this.by = by;
     }
 
     @Override

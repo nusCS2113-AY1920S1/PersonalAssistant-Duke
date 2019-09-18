@@ -3,16 +3,11 @@ package tasks;
 import java.util.Date;
 
 public abstract class Task {
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     protected String description;
     protected boolean isDone;
+
+    public Task(){}
 
     /**
      * The Task object is an abstraction of task.
@@ -23,13 +18,15 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**
-     * Return the status icon.
-     * @return  the status icon ("V" for done and "x" for todo) of the task
-     */
-    public String getStatusIcon() {
-        return (isDone ?  "V" : "x"); //return tick or X symbols
+
+    public String getDescription() {
+        return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
     /**
      * Set the time of task to a certain date.
@@ -40,10 +37,15 @@ public abstract class Task {
         //for polymorphism use
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public void setStart(Date start){
     }
+
+    public void setEnd(Date end){
+    }
+
+    public void setDuration(String duration){
+    }
+
 
     /**
      * This method mark the task status as DONE.
@@ -51,6 +53,21 @@ public abstract class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    /**
+     * Return the status icon.
+     * @return  the status icon ("V" for done and "x" for todo) of the task
+     */
+    public String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    }
+
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
 
     /**
      * This abstract method return the String for saving the task object in txt file.
