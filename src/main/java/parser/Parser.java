@@ -45,25 +45,32 @@ public class Parser {
                 } 
                 else {
                     checkType = "/between";
-                    String dateTimeFromUser;
-                    String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
-                    try {
-                        dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                    }catch (ArrayIndexOutOfBoundsException e)
+                    String taskDetails[] = taskFeatures.split(checkType, 2);
+                    if (taskDetails.length == 1)
                     {
-                        return new AddCommand(command, taskDescription, null, null, null);
+                        return new AddCommand(command, taskDetails[0], null, null, null);
                     }
-                    String fromDate = dateTimeFromUser.split("-", 2)[0].trim();
-                    String toDate = dateTimeFromUser.split("-", 2)[1].trim();
-                    LocalDateTime to;
-                    LocalDateTime from;
-                    try {
-                        to = DateTimeExtractor.extractDateTime(toDate, command);
-                        from = DateTimeExtractor.extractDateTime(fromDate, command);
-                    } catch (ParseException e) {
-                        throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
+                    else {
+                        String dateTimeFromUser = taskDetails[1];
+                        String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
+                        String fromDate;
+                        String toDate;
+                        try {
+                            fromDate = dateTimeFromUser.split("-", 2)[0].trim();
+                            toDate = dateTimeFromUser.split("-", 2)[1].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new DukeException(DukeException.EMPTY_DATE_OR_TIME());
+                        }
+                        LocalDateTime to;
+                        LocalDateTime from;
+                        try {
+                            to = DateTimeExtractor.extractDateTime(toDate, command);
+                            from = DateTimeExtractor.extractDateTime(fromDate, command);
+                        } catch (ParseException e) {
+                            throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
+                        }
+                        return new AddCommand(command, taskDescription, null, to, from);
                     }
-                    return new AddCommand(command, taskDescription, null, to, from);
                 }
             case "deadline":
                 //fall through to avoid rewriting the same code multiple times!
