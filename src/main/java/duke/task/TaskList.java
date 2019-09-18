@@ -196,8 +196,7 @@ public class TaskList {
     public String setReminder(String idxStr, Reminder reminder) throws DukeException {
         Task currTask = taskArrList.get(getTaskIdx(idxStr));
         currTask.setReminder(reminder);
-        return "Roger! I've set a reminder for this task." + System.lineSeparator()
-                + "  " + currTask.toString();
+        return currTask.toString();
     }
 
     /**
@@ -213,7 +212,7 @@ public class TaskList {
             Reminder currReminder = currTask.getReminder();
 
             if (currReminder != null) {
-                if (currReminder.getDatetime().isBefore(LocalDateTime.now())) {
+                if (currReminder.getDateTime().isBefore(LocalDateTime.now())) {
                     reminderCount = reminderCount + 1;
                     reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
                             .append(currTask.toString());

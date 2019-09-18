@@ -15,8 +15,8 @@ class ReminderTest {
     private static final DateTimeFormatter PAT_DATETIME = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter PAT_DATETIME_DISPLAY = DateTimeFormatter.ofPattern("eee, d MMM yyyy h:mm a");
 
-    private LocalDateTime datetime = LocalDateTime.now();
-    private Reminder reminder = new Reminder(datetime);
+    private LocalDateTime reminderDateTime = LocalDateTime.now();
+    private Reminder reminder = new Reminder(reminderDateTime);
 
     /**
      * Compares the LocalDateTime object returned by getDatetime() called by the Reminder object with the LocalDateTime
@@ -24,7 +24,7 @@ class ReminderTest {
      */
     @Test
     void testGetDatetime_datetimeNow_correctDatetime() {
-        assertEquals(reminder.getDatetime(), datetime);
+        assertEquals(reminder.getDateTime(), reminderDateTime);
     }
 
     /**
@@ -33,7 +33,7 @@ class ReminderTest {
      */
     @Test
     void testToString_datetimeNow_correctOutput() {
-        assertEquals(reminder.toString(), "[R: " + datetime.format(PAT_DATETIME_DISPLAY) + "]");
+        assertEquals(reminder.toString(), "[R: " + reminderDateTime.format(PAT_DATETIME_DISPLAY) + "]");
     }
 
     /**
@@ -42,6 +42,6 @@ class ReminderTest {
      */
     @Test
     void testToData_datetimeNow_correctOutput() {
-        assertEquals(reminder.toData(), datetime.format(PAT_DATETIME));
+        assertEquals(reminder.toData(), reminderDateTime.format(PAT_DATETIME));
     }
 }
