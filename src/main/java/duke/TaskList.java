@@ -14,7 +14,6 @@ import duke.items.Event;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private int listIndex;
 
     public TaskList(ArrayList<Task> savedFile) {
         taskList = savedFile;
@@ -40,7 +39,7 @@ public class TaskList {
      * @param todoitem the description of the task.
      */
     public void addTodoItem(String todoitem) {
-        taskList.add(new Todo(todoitem, listIndex)); //Use the constructor to create a new Task.
+        taskList.add(new Todo(todoitem)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
     }
 
@@ -50,7 +49,7 @@ public class TaskList {
      * @param deadline the command with the description and deadline of the task.
      */
     public void addDeadlineItem(String description, String deadline) {
-        taskList.add(new Deadline(description, deadline, listIndex)); //Use the constructor to create a new Task.
+        taskList.add(new Deadline(description, deadline)); //Use the constructor to create a new Task.
         System.out.println("Deadline item added: " + description);
         System.out.println("Deadline is: " + deadline);
     }
@@ -63,7 +62,7 @@ public class TaskList {
      */
     public void addEventItem(String event, String at) {
 
-        taskList.add(new Event(event, at, listIndex)); //Use the constructor to create a new Task.
+        taskList.add(new Event(event, at)); //Use the constructor to create a new Task.
         System.out.println("Event item added: " + event);
         System.out.println("Event happens at: " + at);
     }
@@ -102,7 +101,6 @@ public class TaskList {
             } else {
                 System.out.println("The task was not completed.");
             }
-            listIndex--;
 
         } catch (IndexOutOfBoundsException e) {
             printTaskNonexistent();

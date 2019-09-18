@@ -27,7 +27,6 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> savedList = new ArrayList<>();
 
-        int i = 0;
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -38,15 +37,15 @@ public class Storage {
 
                 switch (item[0]) {
                 case "T":
-                    savedList.add(new Todo(item[2], i));
+                    savedList.add(new Todo(item[2]));
 
                     break;
                 case "D":
-                    savedList.add(new Deadline(item[2], item[3], i));
+                    savedList.add(new Deadline(item[2], item[3]));
 
                     break;
                 case "E":
-                    savedList.add(new Event(item[2], item[3], i));
+                    savedList.add(new Event(item[2], item[3]));
 
                     break;
                 default:
@@ -56,10 +55,8 @@ public class Storage {
                 }
 
                 if (item[1].equals("1")) {
-                    savedList.get(i).markAsDone();  //ArrayList indexing starts from 0.
+                    savedList.get(savedList.size() - 1).markAsDone();  //Refers to the last added item.
                 }
-
-                i++;
             }
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
