@@ -21,9 +21,12 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+
+    protected String stringDate;
     protected String after;
     protected String day;
     protected String time;
+
 
     /**
      * Constructor for a new basic Task.
@@ -95,6 +98,9 @@ public class Task {
         return isDone;
     }
 
+
+    public String getDateAsString(){ return stringDate; }
+  
     public String getDayString() {
         return day;
     }
@@ -102,6 +108,7 @@ public class Task {
     public String getTimeString() {
         return time;
     }
+
 
     /**
      * Converts the saved Date of the Task to a String format, and returns it.

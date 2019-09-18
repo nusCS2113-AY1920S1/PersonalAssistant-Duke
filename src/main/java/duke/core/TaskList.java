@@ -151,4 +151,15 @@ public class TaskList {
         return list;
     }
 
+    public ArrayList<String> generateListByDate(String dateEntered) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < items.size(); i++) {
+            Task thisTask = items.get(i);
+            if(thisTask.getDateAsString().contains(dateEntered)){
+                list.add((i+1) + ". " + thisTask.toString());
+            }
+        }
+        return list;
+    }
+
 }
