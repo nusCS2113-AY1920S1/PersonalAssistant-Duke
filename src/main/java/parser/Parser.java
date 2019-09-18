@@ -61,7 +61,6 @@ public class Parser {
                 case "done":
                     doneCommand(s);
                     break;
-                    //================================================
                 case "delete":
                     deleteCommand(s);
                     break;
@@ -88,6 +87,9 @@ public class Parser {
                     break;
                 case "reminder":
                     reminderCommand(s);
+                    break;
+                case "fixed":
+                    fixedCommand(s);
                     break;
                 case "schedule":
                     scheduleCommand(s);
@@ -271,24 +273,24 @@ public class Parser {
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
             switch (userToDoList.get(i).getType()) {
-              case "E":
-                  message = ((Event) userToDoList.get(i)).getDescription();
-                  break;
-              case "D":
-                  message = ((Deadline) userToDoList.get(i)).toMessage();
-                  break;
-              case "T":
-                  message = ((ToDo) userToDoList.get(i)).toMessage();
-                  break;
-              case "R":
-                message = ((Recurring)userToDoList.get(i)).toMessage();
-                break;
-              case "F":
-                message = ((FixedDuration)userToDoList.get(i)).toMessage();
-                break;
-              default:
-                message = (userToDoList.get(i)).getDescription();
-                break;
+                case "E":
+                    message = ((Event) userToDoList.get(i)).getDescription();
+                    break;
+                case "D":
+                    message = ((Deadline) userToDoList.get(i)).toMessage();
+                    break;
+                case "T":
+                    message = ((ToDo) userToDoList.get(i)).toMessage();
+                    break;
+                case "R":
+                    message = ((Recurring)userToDoList.get(i)).toMessage();
+                    break;
+                case "F":
+                    message = ((FixedDuration)userToDoList.get(i)).toMessage();
+                    break;
+                default:
+                    message = (userToDoList.get(i)).getDescription();
+                    break;
             }
             int j = i + 1;
             Ui.showListTask(userToDoList.get(i).getType(), userToDoList.get(i).getStatusIcon(),
