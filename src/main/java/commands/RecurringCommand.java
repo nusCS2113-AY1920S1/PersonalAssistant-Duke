@@ -19,11 +19,12 @@ public class RecurringCommand extends Command {
 
     /**
      * @author Justin Chia
-     * @param index is the task in which to convert to recurring, while numWeeks describe num of weeks to recur
+     * @param line is the task in which to convert to recurring, while numWeeks describe num of weeks to recur
      */
-    public RecurringCommand(String index, String numWeeks){
-    this.index = Integer.parseInt(index);
-    this.numWeeks = Integer.parseInt(numWeeks) - 1;
+    public RecurringCommand(String line){
+    String[] splites = line.trim().split("\\s+", 2);
+    this.index = Integer.parseInt(splites[0]);
+    this.numWeeks = Integer.parseInt(splites[1]) - 1;
     }
 
 
@@ -41,12 +42,11 @@ public class RecurringCommand extends Command {
                 newEvent.setRecurring(numWeeks);
                 tasks.add(newEvent);
             }
-
             tasks.get(index - 1).setRecurring(numWeeks);
             storage.store(tasks);
             Ui.print("The task " + tasks.get(index-1).getDescription() + " has been converted to recur for " + numWeeks + " weeks");
         } catch (Exception e) {
-            throw new DukeException("Not a valid recurrence command");
+            throw new DukeException("Not a valid recurrence command, recurrence can only be used on events");
         }
     }
 
