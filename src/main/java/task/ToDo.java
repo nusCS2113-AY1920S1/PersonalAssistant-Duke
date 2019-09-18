@@ -5,6 +5,7 @@ package task;
  * without adding any extra information.
  */
 public class ToDo extends Task {
+    private
 
     /**
      * Constructs the task with description.
