@@ -11,7 +11,6 @@ This user guide aims to help you learn your way around our app, making the learn
   2. Open up your command prompt(for Windows) or terminal(for Mac). 
   3. Clone from the main into your Computer.
   3. Run command ./gradlew run(for Windows) or gradlew run(for Mac).
-  4. Some examples you can try: 
   Some example commands you can try:
 
 * *`list`* : lists all tasks
