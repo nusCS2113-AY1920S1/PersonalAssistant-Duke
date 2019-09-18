@@ -1,4 +1,6 @@
-# Setting up
+# Duke Pro
+
+## Set up
 
 **Prerequisites**
 
@@ -20,7 +22,12 @@
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
+## User Interface
+
+![UI image]
+(docs/images/Ui.png)
+
+## Duke Increment
 
 Duke Increment | Tutorial
 ---------------|---------------
@@ -33,7 +40,8 @@ Duke Increment | Tutorial
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
 
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+## Site Map
+* [User Guide]
+* [Develper Guide]
+* [Learning Outcomes]
+* [About us] (docs/AboutUs.adoc)
