@@ -38,7 +38,7 @@ public class Event extends Task {
      *              how task list will print out in console
      */
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + at + ")" + (isRecurring?" recurring: " + this.recurringWeeks + " weeks" : "");
     }
 
     /**
@@ -51,4 +51,13 @@ public class Event extends Task {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
         return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.at);
     }
+
+    /**
+     * @author Justin Chia
+     * Getter for date object
+     * */
+    public Date getAt(){
+        return this.at;
+    }
+
 }

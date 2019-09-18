@@ -1,13 +1,7 @@
 package utils;
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DoneCommand;
-import commands.ListCommand;
-import commands.ByeCommand;
-import commands.DeleteCommand;
-import commands.FindCommand;
-import javafx.css.converter.DurationConverter;
+import commands.*;
+//import javafx.css.converter.DurationConverter;
 import tasks.*;
 
 import java.text.ParseException;
@@ -81,7 +75,7 @@ public class Parser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
-        String[] splites = line.trim().split("\\s+", 2);
+        String[] splites = line.trim().split("\\s+", 3);
         splites[0] = splites[0].trim().toUpperCase();
         Command temp = null;
         if (splites[0].equals("ADD")) {
@@ -96,6 +90,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("RECURRING")) {
+            temp = new RecurringCommand(splites[1], splites[2]);
         } else {
             throw new DukeException("command not found");
         }
