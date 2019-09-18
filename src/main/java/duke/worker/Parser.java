@@ -14,10 +14,12 @@ import duke.command.CommandFind;
 import duke.task.Task;
 import duke.task.TaskType;
 
+import java.util.ArrayList;
+
 public class Parser {
 
-    public static final String PARSE_MARKER_IS_DONE = "@|@";
-    public static final String PARSE_MARKER_TASK = "@@|@@";
+    public static final String PARSE_MARKER_IS_DONE = "####";
+    public static final String PARSE_MARKER_TASK = "-->>";
 
     /**
      * Constructor for 'Parser' Class.
@@ -161,6 +163,7 @@ public class Parser {
     public static String[] parseStoredTaskDetails(String taskString) {
         String[] returnArray = new String[3];
         String[] holder = taskString.split(PARSE_MARKER_IS_DONE, 2);
+
         returnArray[0] = String.valueOf(parseTaskType(holder[0]));
         returnArray[1] = holder[0].replace(returnArray[0], "").trim();
         returnArray[2] = holder[1].replace(PARSE_MARKER_IS_DONE.substring(1), "").trim();
@@ -173,7 +176,15 @@ public class Parser {
      * @param task Task Object
      * @return String to be stored/saved
      */
-    public static String encodeTask(Task task) {
+    static String encodeTask(Task task) {
+        StringBuilder strSave = new StringBuilder();
+        strSave.append(encodeMainTask(task));
+        strSave.append(encodeQueuedTasks(task));
+        strSave.append("\n");
+        return strSave.toString();
+    }
+
+    private static String encodeMainTask(Task task) {
         String strSave = "";
         strSave += task.taskType.name()
                 + " "
@@ -188,7 +199,19 @@ public class Parser {
         if (task.taskDetails != null) {
             strSave += task.taskDetails;
         }
-        strSave += PARSE_MARKER_IS_DONE + task.isDone.toString() + "\n";
+        strSave += PARSE_MARKER_IS_DONE + task.isDone.toString();
         return strSave;
+    }
+
+    private static String encodeQueuedTasks(Task task) {
+        if (!task.isQueuedTasks()) {
+            return "";
+        }
+        StringBuilder queuedTaskString = new StringBuilder();
+        for (Task queuedTask : task.getQueuedTasks()) {
+            queuedTaskString.append(PARSE_MARKER_TASK);
+            queuedTaskString.append(encodeTask(queuedTask));
+        }
+        return queuedTaskString.toString();
     }
 }

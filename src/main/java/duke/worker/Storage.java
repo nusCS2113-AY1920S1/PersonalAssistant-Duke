@@ -70,7 +70,7 @@ public class Storage {
      * @param loadedInput The saved String to be converted
      * @return Task Object from String
      */
-    private Task loadTaskFromStorageString(String loadedInput) {
+    public static Task loadTaskFromStorageString(String loadedInput) {
         ArrayList<Task> queuedTasks = new ArrayList<>();
         Task newTask = null;
         Task queuedTask = null;

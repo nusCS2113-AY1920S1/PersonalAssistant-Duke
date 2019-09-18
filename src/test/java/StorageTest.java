@@ -1,3 +1,4 @@
+import duke.command.CommandNewTask;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
@@ -5,15 +6,17 @@ import duke.worker.Parser;
 import duke.worker.Storage;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
 
     @Test
-    void everything() {
-        Storage storage = new Storage("testData.txt");
+    void loadData() {
+        Storage storage = new Storage("testDataLoad.txt");
         TaskList taskListResult = storage.loadData();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
         //TODO yoda things/ tmrw at last@|@false
@@ -55,7 +58,29 @@ public class StorageTest {
         assertEquals(false, taskResult.isDone,
                 "Loaded wrong isDone");
         /** TODO: Make Task Class Abstract
-        assertEquals("19/09/2019 1015", taskResult.getDatetime(),
-                "Loaded wrong taskDetails"); */
+         assertEquals("19/09/2019 1015", taskResult.getDatetime(),
+         "Loaded wrong taskDetails"); */
+    }
+
+    @Test
+    void saveData() {
+        // testDataLoad is the test Data
+        // Follow the Storage Format when inputting new test cases
+        Storage storageExpected = new Storage("testDataLoad.txt");
+        Storage storageSaved = new Storage("testDataSave.txt");
+        TaskList taskList = storageExpected.loadData();
+
+        storageSaved.saveData(taskList);
+        File fileExpected = new File("testDataLoad.txt");
+        File fileSaved = new File("testDataSave.txt");
+        try {
+            Scanner scannerExpected = new Scanner(fileExpected);
+            Scanner scannerSaved = new Scanner(fileSaved);
+            while (scannerExpected.hasNextLine()) {
+                assertEquals(scannerExpected.nextLine(), scannerSaved.nextLine());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

@@ -1,3 +1,0 @@
-TODO yoda things/ tmrw at last@|@false
-EVENT something/by somewhen@|@true
-DEADLINE this/by 19/09/2019 1015@|@false
