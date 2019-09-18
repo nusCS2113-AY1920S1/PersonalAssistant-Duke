@@ -62,7 +62,7 @@ public class ConsoleInputController implements IViewController {
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() == 17 && input.substring(0,8).equals("schedule")) {
+        } else if (input.contains("schedule")) {
             try {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {

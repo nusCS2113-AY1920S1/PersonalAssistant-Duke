@@ -187,7 +187,9 @@ public class CLIView {
      */
     public void listSchedule(TaskList taskList, String input) throws ParseException {
         // Correct format as 2 December 2019 6 PM
-        String tempDate = input.substring(9);
+        Scanner sc = new Scanner(input);
+        String dummy = sc.next();
+        String tempDate = sc.nextLine();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = formatter.parse(tempDate);
         String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);

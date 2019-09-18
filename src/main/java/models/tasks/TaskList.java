@@ -1,10 +1,14 @@
 package models.tasks;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class TaskList implements Serializable {
@@ -132,4 +136,42 @@ public class TaskList implements Serializable {
         }
         return upcomingTasks;
     }
+
+
+    /**
+     * Returns a list of tasks in sorted order, with the amount of free time in between tasks.
+     * @param limit
+     * @return
+     * @throws ParseException
+     */
+    public ArrayList<String> freeTimeSlots(String limit) throws ParseException {
+        ArrayList<ITask> upcomingTasks = getUpcomingTasks(limit);
+        Collections.sort(upcomingTasks, new Comparator<ITask>() {
+            @Override
+            public int compare(ITask o1, ITask o2) {
+                return o1.getDateTimeObject().compareTo(o2.getDateTimeObject());
+            }
+        });
+
+        ArrayList<String> tasksAndFreeSlots = new ArrayList<>();
+
+        Date currentDateTime = new Date(System.currentTimeMillis());
+        long diff;
+        for (int i = 0; i < upcomingTasks.size(); i++) {
+            ITask nextTaskInList = upcomingTasks.get(i);
+            diff = currentDateTime.getTime() - nextTaskInList.getDateTimeObject().getTime();
+            long diffInHours = diff / (60 * 60 * 1000);
+            long diffInDays = diffInHours / 24;
+            long remainingHours = diffInHours % 24;
+            String timeRemaining = "Free time: " + diffInDays + " days " + remainingHours + "hours";
+            tasksAndFreeSlots.add(timeRemaining);
+            String fullTaskDescription = "[" + nextTaskInList.getInitials() + "][" + nextTaskInList.getStatusIcon() + "]"
+                + nextTaskInList.getDescription();
+            tasksAndFreeSlots.add(fullTaskDescription);
+            currentDateTime = upcomingTasks.get(i).getDateTimeObject();
+        }
+        return tasksAndFreeSlots;
+    }
+
+
 }

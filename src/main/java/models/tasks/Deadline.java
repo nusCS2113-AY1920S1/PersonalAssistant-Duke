@@ -1,6 +1,10 @@
 package models.tasks;
 
 import java.io.Serializable;
+import java.net.PasswordAuthentication;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Deadline implements ITask, Serializable {
     /**
@@ -10,6 +14,7 @@ public class Deadline implements ITask, Serializable {
     private boolean isDone;
     private String initials;
     private String dueDate;
+    private Date dueDateTime;
 
     /**\
      * Constructor of Deadline data model.
@@ -17,11 +22,13 @@ public class Deadline implements ITask, Serializable {
      * @param description : Description of new task
      * @param dueDate : Due date of deadline
      */
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, String dueDate) throws ParseException {
         this.description = description;
         this.isDone = false;
         this.initials = "D";
         this.dueDate = dueDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMMM yyyy HH.mm a");
+        this.dueDateTime = format.parse(dueDate);
     }
 
     @Override
@@ -48,4 +55,10 @@ public class Deadline implements ITask, Serializable {
     public String getDateTime() {
         return this.dueDate;
     }
+
+    @Override
+    public Date getDateTimeObject() {
+        return this.dueDateTime;
+    }
+
 }

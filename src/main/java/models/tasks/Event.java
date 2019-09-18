@@ -1,6 +1,10 @@
 package models.tasks;
 
 import java.io.Serializable;
+import java.net.PasswordAuthentication;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Event implements ITask, Serializable {
     /**
@@ -9,19 +13,21 @@ public class Event implements ITask, Serializable {
     private String description;
     private boolean isDone;
     private String initials;
-    private String timing;
-
+    private String eventDate;
+    private Date eventDateTime;
     /**
      * Constructor of Event data model.
      *
      * @param description : Description of the Event
      * @param eventDate : Timing at which the Event is held
      */
-    public Event(String description, String eventDate) {
+    public Event(String description, String eventDate) throws ParseException {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
-        this.timing = eventDate;
+        this.eventDate = eventDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMMM yyyy HH.mm a");
+        this.eventDateTime = format.parse(eventDate);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class Event implements ITask, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (at: " + this.timing + ")";
+        return this.description + " (at: " + this.eventDate + ")";
     }
 
     @Override
@@ -46,6 +52,12 @@ public class Event implements ITask, Serializable {
 
     @Override
     public String getDateTime() {
-        return this.timing;
+        return this.eventDate;
     }
+
+    @Override
+    public Date getDateTimeObject() {
+        return this.eventDateTime;
+    }
+
 }
