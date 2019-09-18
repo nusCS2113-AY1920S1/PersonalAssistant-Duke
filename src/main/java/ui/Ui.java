@@ -8,6 +8,7 @@ package ui;
 import task.TaskList;
 import task.Task;
 import java.util.Scanner;
+import java.util.Date;
 import util.Parser;
 
 public class Ui {
@@ -95,6 +96,11 @@ public class Ui {
 		System.out.println(finished);
 	}
 
+	/**
+	 * Prints the list of tasks due in 10 days.
+	 *
+	 * @param list the list of task stored in Duke.
+	 */
 	public void showReminder(TaskList list) {
 		System.out.println("Here are the deadline/event within 10 days:");
 		for(int i = 0; i < list.size(); i++) {
@@ -113,6 +119,16 @@ public class Ui {
 		System.out.println("Nice! I've removed this task:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
+	}
+
+	/**
+	 * Prints the message of a task being removed.
+	 *
+	 * @param removed the task being removed.
+	 * @param list the list of task stored in Duke.
+	 */
+	public void showFreeDay(Date date) {
+		System.out.println("Your next free day is: " + Parser.parseDateToString(date));
 	}
 
 	/**
@@ -136,7 +152,7 @@ public class Ui {
 	 * Prints the list of available command and their usage.
 	 */
 	public void showHelp() {
-		String help = "Currently we support the following commands:\n"
+		String help = "Currently we support the following commands: (all command ignore cases)\n"
 				+ "Manipulate tasks:\n"
 				+ String.format("%1$-50s", "  'Todo <description>'") + "add a Todo task with description\n"
 				+ String.format("%1$-50s", "  'Deadline <description> /by <dd/mm/yy>'") + "add a Deadline task with description and time\n"
@@ -146,6 +162,8 @@ public class Ui {
 				+ "Show task list:\n"
 				+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
 				+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
+				+ String.format("%1$-50s", "  'Reminder'") + "show the list of tasks due in 10 days\n"				
+				+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"				
 				+ "Miscellanious:\n"
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
