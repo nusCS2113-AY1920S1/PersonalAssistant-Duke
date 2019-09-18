@@ -62,11 +62,11 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String remind = "";
+        String remind = " ";
         if (reminder != null) {
-            remind = reminder.toString();
+            remind = reminder.toString() + remind;
         }
-        return "[" + (isDone ? "Y" : "N") + "] " + name;
+        return "[" + (isDone ? "Y" : "N") + "]" + remind + name;
     }
 
     /**

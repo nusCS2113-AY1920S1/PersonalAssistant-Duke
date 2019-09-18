@@ -14,14 +14,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class RecurringTaskTest {
     private static DukeContext ctx;
-    private static ByteArrayOutputStream testOut = new ByteArrayOutputStream();
-    private static PrintStream testPrint = new PrintStream(testOut);
+    private static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
+    private static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
     private static String successStr;
 
+    /**
+     * Create data directory if necessary and use a test task file to create test DukeContext, with output directed to
+     * testOut.
+     */
     @BeforeAll
     public static void setupCtx() {
         File dataDir = new File("data");
@@ -54,6 +60,9 @@ public class RecurringTaskTest {
         //NOTE: something might not be right here, dates generated the other time were off by 1 day
     }
 
+    /**
+     * Reset taskList and testOut, and flush the testPrint stream after each test is done with them.
+     */
     @AfterEach
     public void clearTaskList() {
         ctx.taskList = new TaskList();
@@ -78,8 +87,8 @@ public class RecurringTaskTest {
         NewRecurringTaskCommand uut = new NewRecurringTaskCommand();
 
         try {
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/until 23/11/2019 1300");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/until 23/11/2019 1300");
             uut.execute(ctx);
         } catch (DukeException excp) {
             fail("Exception thrown on valid recurring task!");
@@ -97,28 +106,28 @@ public class RecurringTaskTest {
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/until 23/11/2019 1300 /count 100");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/until 23/11/2019 1300 /count 100");
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/until 231119 1300");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/until 231119 1300");
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/count -100");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/count -100");
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/until 23/11/2019 1300 /until 23/11/2019 1500");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/until 23/11/2019 1300 /until 23/11/2019 1500");
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
-            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly " +
-                    "/count 100 /count 10");
+            uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
+                    + "/count 100 /count 10");
             assertThrows(DukeException.class, () -> {
                 uut.execute(ctx);
             });
@@ -129,12 +138,14 @@ public class RecurringTaskTest {
         }
     }
 
+    /**
+     * Deletes testing data after test is completed.
+     */
     @AfterAll
     public static void clearCtx() {
-        try {
-            ctx.storage.writeTaskFile("");
-        } catch (DukeFatalException excp) {
-            fail("Something happened to data file while cleaning up after testing!");
+        File testData = new File("data" + File.separator + "test.tsv");
+        if (!testData.delete()) {
+            fail("Unable to delete test data file!");
         }
     }
 }
