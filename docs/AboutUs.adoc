@@ -15,7 +15,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::damithc.jpg[width="150", align="left"]
 {empty}[https://github.com/AugGust[github]]
 
-Role: Project Advisor
+Role: Team Lead
+Responsibilities: UI
 
 '''
 
@@ -23,7 +24,7 @@ Role: Project Advisor
 image::lejolly.jpg[width="150", align="left"]
 {empty}[https://github.com/jasonchanwq[github]]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: UI
 
 '''
