@@ -1,8 +1,10 @@
 package models.tasks;
 
+import models.commands.IDateSettable;
+
 import java.io.Serializable;
 
-public class Event implements ITask, Serializable {
+public class Event implements ITask, IDateSettable, Serializable {
     /**
      * Class representing the Event class model.
      */
@@ -47,5 +49,9 @@ public class Event implements ITask, Serializable {
     @Override
     public String getDateTime() {
         return this.timing;
+    }
+
+    public void setDateTime(String newDateTime) {
+        this.timing = newDateTime;
     }
 }

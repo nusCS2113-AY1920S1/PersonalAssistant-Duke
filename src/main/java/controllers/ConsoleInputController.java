@@ -4,6 +4,7 @@ import exceptions.DukeException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.tasks.IRecurring;
+import models.commands.RescheduleCommand;
 import models.tasks.ITask;
 import models.tasks.Recurring;
 import models.tasks.TaskList;
@@ -130,6 +131,14 @@ public class ConsoleInputController implements IViewController {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {
                 System.out.println("error in scheduling");
+            }
+        } else if (input.contains("reschedule")) {
+            try {
+                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
+                consoleView.rescheduleTask(taskList, rescheduleCommand);
+                saveData();
+            } catch (ArrayIndexOutOfBoundsException newException) {
+                consoleView.invalidCommandMessage(newException);
             }
         } else if (input.substring(0, 9).equals("recurring")) {
             try {

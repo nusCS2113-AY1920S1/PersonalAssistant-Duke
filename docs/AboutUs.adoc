@@ -18,8 +18,8 @@ Responsibilities: UI
 
 '''
 
-=== Dillen
-image::Dillen.jpg[width="150", align="left"]
+=== Kee Hui (Dillen)
+image::KeeHui.jpg[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
 Role: Developer +
