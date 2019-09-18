@@ -34,7 +34,7 @@ Format: `todo DESCRIPTION`
         
   - `DESCRIPTION` is the description of the task.
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
-  - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be done after an existing task has been done.
+  - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be added after an existing task before it has been defined.
   
 Examples:
 
