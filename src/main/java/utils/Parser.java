@@ -1,17 +1,7 @@
 package utils;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-import commands.AddCommand;
-import commands.Command;
-import commands.DoneCommand;
-import commands.ListCommand;
-import commands.ByeCommand;
-import commands.DeleteCommand;
-import commands.FindCommand;
-import commands.SnoozeCommand;
+import commands.*;
+import tasks.*;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
