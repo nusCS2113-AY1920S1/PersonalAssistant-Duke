@@ -1,5 +1,5 @@
 T | 1 | make notes for OOP
-E | 0 | OOP lectrure4 | 06/09/2019 0400
+E | 1 | OOP lectrure4 | 06/09/2019 0400
 D | 1 | OOP project assignment in week 4 | 04/09/0019 1159
 T | 0 | reading
 L | 0 | read book | 2hrs

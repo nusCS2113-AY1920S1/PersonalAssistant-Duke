@@ -31,6 +31,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public Date getTime()   {
+        return at;
+    }
+
+    @Override
     /**
      * @Override toString() in Task
      * a method to format the output of the task list

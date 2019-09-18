@@ -10,9 +10,8 @@ import java.util.Date;
 
 public class Deadline extends Task {
 
-    /**
-     * a Date variable specifies the ddl of this task
-     */
+    public Date getTime() { return this.by; }
+
     protected Date by;
 
 

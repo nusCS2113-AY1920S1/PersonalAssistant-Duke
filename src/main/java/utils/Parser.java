@@ -1,5 +1,9 @@
 package utils;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 import commands.AddCommand;
 import commands.Command;
 import commands.DoneCommand;
@@ -8,7 +12,6 @@ import commands.ByeCommand;
 import commands.DeleteCommand;
 import commands.FindCommand;
 import javafx.css.converter.DurationConverter;
-import tasks.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,6 +99,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals(("SCHEDULE"))) {
+            temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else {
             throw new DukeException("command not found");
         }
@@ -108,6 +113,16 @@ public class Parser {
      * @return the corresponding Task.Task object
      * @throws DukeException if the format of command cannot be parsed
      */
+
+    public static Date parseDate(String line) throws DukeException   {
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date temp = ft.parse(line);
+            return temp;
+        } catch (ParseException e) {
+            throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy");
+        }
+    }
     public static Task addCommand(String line) throws DukeException {
         String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].toUpperCase();
