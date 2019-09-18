@@ -42,5 +42,4 @@ public class Event extends Task {
     public String printInFile() {
         return this.isDone() ? "E|1|" + getDescription() + "|" + at : "E|0|" + this.getDescription() + "|" + at;
     }
-
 }

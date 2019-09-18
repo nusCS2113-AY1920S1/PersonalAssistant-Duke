@@ -55,7 +55,11 @@ public class Ui {
     public void showMarkDone(String doneTask) {
         System.out.println("\t Nice! I've marked this task as done:");
         System.out.println("\t " + doneTask);
+    }
 
+    public void  showChangedDate(String date, String changedTask){
+        System.out.println("\t Nice! I've snoozed this task as until "+ date+":");
+        System.out.println("\t " + changedTask);
     }
 
     public void showAddCommand(String command, int size) {
