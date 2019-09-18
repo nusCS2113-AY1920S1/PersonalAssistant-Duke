@@ -70,6 +70,20 @@ public class TaskList {
     }
 
     /**
+     * Searches for deadline type task in taskList.
+     * @return list of deadlines
+     */
+    public ArrayList<String> remindDeadlineTask() {
+        ArrayList<String> arrRemind = new ArrayList<>();
+        for(int i = 0; i < getSize(); i++) {
+            if (taskList.get(i).getTaskType() == Task.TaskType.DEADLINE) {
+                arrRemind.add(taskList.get(i).toString());
+            }
+        }
+        return arrRemind;
+    }
+
+    /**
      * Get number of tasks in taskList.
      * @return Integer corresponding to the number of tasks in taskList
      */
