@@ -17,7 +17,9 @@ public class DateTimeExtractor {
     private static LocalDateTime dateDeadline;
     private static LocalDateTime datePostpone;
     private static LocalDateTime dateTodo;
-    private static final LocalDateTime dateError = LocalDateTime.now();
+    private static LocalDateTime dateView;
+    private static final LocalDateTime dateError = LocalDateTime.of(1,1,1,1,1,
+                         1,1);
 
     /**
      * This function appends the end time of an event to provide a standardised output of date and time.
@@ -43,7 +45,12 @@ public class DateTimeExtractor {
         else if (command.equals("postpone")){
             datePostpone = LocalDateTime.parse(dateTimeFromUser,DATE_FORMATTER);
             return datePostpone;
-        }        // Allows the developer to know that a command other than deadline or event was passed to the function!
+        }
+        else if (command.equals("view")){
+            dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateView;
+        }
+        // Allows the developer to know that a command other than deadline or event was passed to the function!
         return dateError;
     }
 }

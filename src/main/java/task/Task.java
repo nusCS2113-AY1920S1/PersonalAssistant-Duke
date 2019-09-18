@@ -14,10 +14,10 @@ public class Task implements Serializable{
 
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
-
-    public LocalDateTime fromDate;
-    public LocalDateTime toDate;
-    public LocalDateTime atDate;
+    public LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    public LocalDateTime fromDate = nullDate;
+    public LocalDateTime toDate = nullDate;
+    public LocalDateTime atDate = nullDate;
     public Period eventPeriod;
     public int remindInHowManyDays = 0;
 
