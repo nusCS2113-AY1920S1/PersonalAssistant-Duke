@@ -1,6 +1,7 @@
 package duke.task;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -21,6 +22,13 @@ public enum Tsk {
             return new EventTask(taskArr[2], datetime, endDatetime);
         }
     },
+    FORP("F") {
+        public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
+            Duration period = Duration.parse(taskArr[3]);
+            return new FixedDurationTask(taskArr[2], period);
+        }
+    },
+
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
             LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
