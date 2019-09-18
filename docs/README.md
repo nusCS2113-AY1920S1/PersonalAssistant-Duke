@@ -19,7 +19,7 @@ Format: `todo DESCRIPTION`
         `event DESCRIPTION /at dd/mm/yyyy hhmm`  
         
   - `DESCRIPTION` is the description of the task.
-  - `dd/mm/yyyy hhmm` is the day/month/year and time (24hrs) of the task e.g. `9/9/2019 1200`
+  - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
   
 Examples:
   - `todo read book`
@@ -72,15 +72,20 @@ Format: `list`
 Provides a way to easily snooze/postpone/reschedule a task.
 
 Format: `snooze INDEX`  
-        `NUMBER min/hour/day/week/month`
+        `NUMBER min/hour/day/week/month` OR `dd/mm/yyyy hhmm`
   - Snoozes the task as done at the specified `INDEX`
   - The index refers to the index shown in the displayed task list.
   - `NUMBER` refers to the quantity of the `min/hour/day/week/month`
+  - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
   
 Examples:  
   - `snooze 1`  
     `1 week`  
     Snoozes the 1st task in the task list by 1 week.
+    
+  - `snooze 2`  
+    `9/9/2019 1200`  
+    Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
   
 ### 3.7 Exiting the program : `bye`
