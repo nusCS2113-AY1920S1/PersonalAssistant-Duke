@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
-
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         if(ui.FullCommand.length() == 6) {
@@ -30,6 +29,12 @@ public class DeleteCommand extends Command {
 
                     sb.append(list.get(i).toString()+"\n");
                 }
+                else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
+                    sb.append(list.get(i).toString()+"\n");
+                }
+                else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
+                    sb.append(list.get(i).toString()+"\n");
+                }
                 else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
                     sb.append(list.get(i).toString() + "\n");
                 } else{
@@ -40,7 +45,6 @@ public class DeleteCommand extends Command {
         }
 
     }
-
     @Override
     public boolean isExit() {
         return false;

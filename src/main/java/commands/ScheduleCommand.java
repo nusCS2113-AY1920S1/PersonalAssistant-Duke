@@ -52,7 +52,6 @@ public class ScheduleCommand extends Command {
             }
         }
     }
-
     @Override
     public boolean isExit() {
         return false;

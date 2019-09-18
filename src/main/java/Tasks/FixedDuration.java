@@ -2,7 +2,6 @@ package Tasks;
 
 public class FixedDuration extends Task {
     public String duration;
-
     public FixedDuration(String description, String duration) {
         super(description);
         this.duration = duration;
@@ -17,6 +16,4 @@ public class FixedDuration extends Task {
     public String listformat(){
         return "[FD]" + "[" + super.getStatusIcon() + "]" + super.description + "(requires:" + duration + ")";
     }
-
-
 }

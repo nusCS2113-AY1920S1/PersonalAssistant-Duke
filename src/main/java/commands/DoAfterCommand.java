@@ -1,25 +1,22 @@
 package commands;
+
+import Storage.Storage;
+import Tasks.DoAfter;
 import Tasks.Task;
 import UI.Ui;
-import Tasks.*;
-import Storage.Storage;
-import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class TodoCommand extends Command {
-
+public class DoAfterCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-        String description = "";
-        if(ui.FullCommand.length() <= 4) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        }
-        else{
-            description = ui.FullCommand.substring(5);
-        }
-        Todo to = new Todo(description);
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws  ParseException, IOException, NullPointerException{
+        String before = "";
+        String after = "";
+        String[] splitstring = ui.FullCommand.split("/after");
+        before = splitstring[1];
+        after = splitstring[0];
+        DoAfter to = new DoAfter(before, before, after);
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listformat());
@@ -38,9 +35,7 @@ public class TodoCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                sb.append(list.get(i).toString() + "\n");
-            } else{
+            else{
                 sb.append(list.get(i).toString()+"\n");
             }
         }

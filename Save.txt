@@ -1,5 +1,6 @@
 
-T|?| as
+E|?| eat|at: Mon Dec 02 12:02:12 SGT 2019
+E|?| sleep|at: Mon Dec 02 12:02:12 SGT 2019
 D|?| ask question|by: Mon Dec 02 12:02:12 SGT 2019
 D|?| walk dog|by: Sun Dec 01 12:22:02 SGT 2019
 D|?| go school|by: Tue Nov 12 12:12:12 SGT 2019
