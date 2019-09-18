@@ -35,9 +35,10 @@ Format: `todo DESCRIPTION`
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
   
 Examples:
-  `todo read book`
-   `deadline homework /by 8/8/2019 2359`
-   `event team meeting /at 20/8/2019 1500`
+
+* `todo read book`
+* `deadline homework /by 8/8/2019 2359`
+* `event team meeting /at 20/8/2019 1500`
 
 === 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
