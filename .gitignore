@@ -13,3 +13,8 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#docs Files
+/docs/AboutUs.adoc
+/docs/DeveloperGuide.adoc
+/docs/UserGuide.adoc
