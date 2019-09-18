@@ -96,7 +96,5 @@ public class Storage {
             e.printStackTrace();
             throw new FileException();
         }
-
-
     }
 }

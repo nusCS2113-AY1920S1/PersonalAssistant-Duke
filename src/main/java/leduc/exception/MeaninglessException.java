@@ -1,8 +1,5 @@
 package leduc.exception;
 
-import leduc.Ui;
-import leduc.exception.DukeException;
-
 /**
  * Represent a exception when input string of the user is not understood.
  */

@@ -1,8 +1,5 @@
 package leduc.exception;
 
-import leduc.Ui;
-import leduc.exception.DukeException;
-
 /**
  * Represent a exception when the task to mark done or to delete does not exist.
  */

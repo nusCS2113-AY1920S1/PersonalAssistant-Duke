@@ -8,69 +8,35 @@
 	 Hello I'm Duke
 	 What can I do for you ?
 	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 dateFormatException:
-		 ☹ OOPS!!! Please respect the date format
-			 dd/MM/yyyy HH:mm
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 dateEventFormatException:
-		 ☹ OOPS!!! Please respect the date format for an event
-			 dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 emptyDeadlineException:
-		 ☹ OOPS!!! The description of a deadline task cannot be empty
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 emptyDeadlineDateException:
-		 ☹ OOPS!!! Please enter a deadline for the task
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 emptyEventDateException:
-		 ☹ OOPS!!! Please enter a period for the event task
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 emptyEventException:
-		 ☹ OOPS!!! The description of a event task cannot be empty
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
-	 emptyTodoException:
-		 ☹ OOPS!!! The description of a todo cannot be empty.
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 NonExistentDateException:
 		 ☹ OOPS!!! 
 			 The date doesn't exist
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
+	 emptyEventDateException:
+		 ☹ OOPS!!! Please enter a period for the event task
+	 emptyDeadlineException:
+		 ☹ OOPS!!! The description of a deadline task cannot be empty
+	 emptyDeadlineDateException:
+		 ☹ OOPS!!! Please enter a deadline for the task
+	 emptyEventDateException:
+		 ☹ OOPS!!! Please enter a period for the event task
+	 emptyEventException:
+		 ☹ OOPS!!! The description of a event task cannot be empty
+	 emptyTodoException:
+		 ☹ OOPS!!! The description of a todo cannot be empty.
 	 NonExistentTaskException:
 		 ☹ OOPS!!! The task doesn't exist
-	---------------------------------------------------------------------------------
-	---------------------------------------------------------------------------------
 	 NonExistentTaskException:
 		 ☹ OOPS!!! The task doesn't exist
-	---------------------------------------------------------------------------------
 	---------------------------------------------------------------------------------
 	 Bye. Hope to see you again soon!
 	---------------------------------------------------------------------------------
