@@ -14,6 +14,12 @@ import wrapper.TimeInterval;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.Scanner;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -49,43 +55,38 @@ public class Parser {
         } else {
             try {
                 switch (firstWord) {
-                    case "list":
-                        listCommand();
-                        break;
-                    case "done":
-                        doneCommand(s);
-                        break;
-                    case "delete":
-                        deleteCommand(s);
-                        break;
-                    case "find":
-                        findCommand(s);
-                        break;
-                    case "todo":
-                        todoCommand(s);
-                        break;
-                    case "deadline":
-                        deadlineCommand(s);
-                        break;
-                    case "event":
-                        eventCommand(s);
-                        break;
-                    case "reminder":
-                        reminderCommand(s);
-                        break;
-                    case "schedule":
-                        scheduleCommand(s);
-                    case "do":
-                        doAfterCommand(s);
-                        break;
-                    case "fix":
-                        fixCommand(s);
-                        break;
-                    case "recur":
-                        recurCommand(s);
-                        break;
-                    default:
-                        throw DukeException.UNKNOWN_COMMAND;
+                case "list":
+                    listCommand();
+                    break;
+                case "done":
+                    doneCommand(s);
+                    break;
+                case "delete":
+                    deleteCommand(s);
+                    break;
+                case "find":
+                    findCommand(s);
+                    break;
+                case "todo":
+                    todoCommand(s);
+                    break;
+                case "deadline":
+                    deadlineCommand(s);
+                    break;
+                case "event":
+                    eventCommand(s);
+                    break;
+                case "do":
+                    doAfterCommand(s);
+                    break;
+                case "fix":
+                    fixCommand(s);
+                    break;
+                case "recur":
+                    recurCommand(s);
+                    break;
+                default:
+                    throw DukeException.UNKNOWN_COMMAND;
                 }
             } catch (DukeException e) {
                 Ui.showError(e.getError());
@@ -99,7 +100,7 @@ public class Parser {
      * @param s the whole user command.
      * @throws DukeException when user did not enter task number or select wrong task.
      * */
-    private static void fixCommand(String s) throws DukeException{
+    private static void fixCommand(String s) throws DukeException {
         try {
             String[] tokens = s.split(" ");
             int num = Integer.parseInt(tokens[1]);
@@ -121,7 +122,7 @@ public class Parser {
             while ((end >= 0) || (start <= TaskList.getTotalTasksNumber() - 1)) {
                 String checkMessage = new String();
                 String checkMessage2 = new String();
-                if (upper - 1>= 0) {
+                if (upper - 1 >= 0) {
                     checkMessage = TaskList.getMessage(upper - 1).substring(0,
                         TaskList.getMessage(upper - 1).indexOf("(at:"));
                 }
@@ -130,13 +131,13 @@ public class Parser {
                         TaskList.getMessage(lower + 1).indexOf("(at:"));
                 }
                 //System.out.println(upper + " " + lower);
-                if ((upper - 1 >= 0) && (checkMessage.equals(message)) &&
-                    (TaskList.getType(upper - 1).equals("?][E"))) {
+                if ((upper - 1 >= 0) && (checkMessage.equals(message))
+                    && (TaskList.getType(upper - 1).equals("?][E"))) {
                     upper -= 1;
                 }
-                if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1) &&
-                    (checkMessage2.equals(message)) &&
-                    (TaskList.getType(lower + 1).equals("?][E"))) {
+                if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1)
+                    && (checkMessage2.equals(message))
+                    && (TaskList.getType(lower + 1).equals("?][E"))) {
                     //String[] checkMessage2 = TaskList.getMessage(lower).split("at:");
                     lower += 1;
                 }
@@ -247,21 +248,21 @@ public class Parser {
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
             switch (userToDoList.get(i).getType()) {
-                case "E":
-                    message = ((Event) userToDoList.get(i)).getDescription();
-                    break;
-                case "D":
-                    message = ((Deadline) userToDoList.get(i)).toMessage();
-                    break;
-                case "T":
-                    message = ((ToDo) userToDoList.get(i)).toMessage();
-                    break;
-                case "R":
-                    message = ((Recurring)userToDoList.get(i)).toMessage();
-                    break;
-                default:
-                    message = (userToDoList.get(i)).getDescription();
-                    break;
+            case "E":
+                message = ((Event) userToDoList.get(i)).getDescription();
+                break;
+            case "D":
+                message = ((Deadline) userToDoList.get(i)).toMessage();
+                break;
+            case "T":
+                message = ((ToDo) userToDoList.get(i)).toMessage();
+                break;
+            case "R":
+                message = ((Recurring)userToDoList.get(i)).toMessage();
+                break;
+            default:
+                message = (userToDoList.get(i)).getDescription();
+                break;
             }
             int j = i + 1;
             Ui.showListTask(userToDoList.get(i).getType(), userToDoList.get(i).getStatusIcon(),
@@ -324,7 +325,7 @@ public class Parser {
     }
 
     /**
-     * Creates a new Recurring Task with users input
+     * Creates a new Recurring Task with users input.
      */
     private static void recurCommand(String command) throws DukeException {
         int todolistNumber = TaskList.getTotalTasksNumber() + 1;
@@ -337,7 +338,7 @@ public class Parser {
                 throw DukeException.EMPTY_TASK_IN_RECUR;
             }
             TaskList.addTask(new Recurring(token[0].strip(), "R", token[1].strip()));
-            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+            Ui.showToDoSuccess(TaskList.getType(todolistNumber - 1),
                     TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
                     TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
@@ -466,7 +467,7 @@ public class Parser {
             }
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
-//            Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
+            //Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
             TaskList.addTask(task);
             Ui.showDeadlineMessage(TaskList.getStatus(todolistNumber), newtodoTask, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());

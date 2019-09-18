@@ -45,8 +45,10 @@ public class DukeException extends Exception {
     public static final DukeException INPUT_NOT_FOUND = new DukeException("☹ OOPS!!! No user input found");
     public static final DukeException EMPTY_TASK_IN_EVENT_TENTATIVE = new DukeException("☹ OOPS!!! Please "
         + "provide a valid time/task for the task");
-    public static final DukeException TASK_IS_NOT_TENTATIVE = new DukeException("☹ OOPS!!! Please select a tentative task.");
-    public static final DukeException EMPTY_TASK_IN_RECUR = new DukeException("☹ OOPS!!! Please provide a valid frequency.");
+    public static final DukeException TASK_IS_NOT_TENTATIVE = new DukeException("☹ OOPS!!! Please select a "
+        + "tentative task.");
+    public static final DukeException EMPTY_TASK_IN_RECUR = new DukeException("☹ OOPS!!! Please provide a valid "
+        + "frequency.");
     private String message;
 
     private DukeException(String message) {

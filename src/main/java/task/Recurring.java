@@ -1,6 +1,6 @@
 package task;
 
-public class Recurring extends Tasks{
+public class Recurring extends Tasks {
     private String recur;
 
     public Recurring(String description, String type, String recur) {

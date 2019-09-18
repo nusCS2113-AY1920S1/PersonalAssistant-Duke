@@ -8,9 +8,10 @@ public class Deadline extends Tasks {
 
     /**
      * Constructor for class.
-     * @param description
-     * @param type
-     * @param deadline
+     *
+     * @param description which is the description of the task.
+     * @param type        which is the type of the task.
+     * @param deadline    which is the time by which teh task needs to completed.
      */
     public Deadline(String description, String type, String deadline) {
         super(description, type);

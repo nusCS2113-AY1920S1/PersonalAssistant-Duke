@@ -22,7 +22,7 @@ public class MyDate {
 
     /**
      * Constructor for class.
-     * @throws ParseException
+     * @throws ParseException when fail to parse a String that is ought to have a special format.
      */
     public MyDate(String s) {
         this.startdateStr = s;
