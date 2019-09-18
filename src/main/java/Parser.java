@@ -89,8 +89,7 @@ public class Parser {
         if (type.equals("deadline")) {
             dateInfo = taskInfo[1].split("/by ");
             //tell AddCommand to go add itself
-        }
-        if (type.equals("event")) {
+        } else if (type.equals("event")) {
             dateInfo = taskInfo[1].split("/at ");
             //tell AddCommand to go add itself
         }
