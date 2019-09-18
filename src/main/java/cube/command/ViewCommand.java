@@ -7,7 +7,6 @@ import cube.task.Task;
 import cube.task.TaskList;
 import cube.ui.Message;
 import cube.ui.Ui;
-import cube.util.Parser;
 import cube.util.Storage;
 
 public class ViewCommand implements Command {
@@ -52,12 +51,9 @@ public class ViewCommand implements Command {
             TaskList tasksFoundAt = new TaskList();
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
-                String[] task_components = task.getTask();
-                if (task_components.length > 1) {
-                    Date task_date = Parser.parseStringToDate(task.getTask()[1]);
-                    if (date.equals(task_date)) {
-                        tasksFoundAt.add(task);
-                    }
+                Date task_date = task.getDate();
+                if (date.equals(task_date)) {
+                    tasksFoundAt.add(task);
                 }
             }
             ui.showFind(tasksFoundAt);

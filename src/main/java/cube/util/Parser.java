@@ -56,7 +56,11 @@ public class Parser {
 				return new HelpCommand();
 			case "find":
 				return new FindCommand(description);
-			case "view":
+			case "freetime":
+				return new FreeTimeCommand(description);
+			case "reminder":
+				return new ReminderCommand();
+			case "viewschedule":
 				return new ViewCommand(date);
 			case "bye":
 			case "exit":
@@ -128,6 +132,9 @@ public class Parser {
 	 * @return the string of date.
 	 */
 	public static String parseDateToString(Date date) {
+		if (date == null) {
+			return "";
+		}
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		return formatter.format(date);
