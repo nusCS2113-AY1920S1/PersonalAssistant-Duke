@@ -37,15 +37,13 @@ public class FixedDuration extends Task {
     @Override
     public String formatTaskName(String taskName) throws DukeWrongCommandFormatException {
         String[] parts = taskName.split("needs ");
+        parts[0] = parts[0].substring(0, parts[0].length() - 2);
+        parts[1] = parts[1].substring(0, parts[1].length() - 1);
         try {
-            this.taskName = parts[0].substring(0, parts[0].length() - 2);
-            this.by = parts[1].substring(0, parts[1].length() - 1);
-            return parts[0].substring(0, parts[0].length() - 2) + " (needs: " + parts[1].substring(0, parts[1].length() - 1) + ")";
-        } ///catch (ParseException e) {
-            //this.taskName = taskName;
-            //this.by = parts[1];
-            //return parts[0] + " (by: " + parts[1] + ")";}
-        catch (ArrayIndexOutOfBoundsException e) {
+            this.taskName = parts[0];
+            this.by = parts[1];
+            return parts[0] + " (needs: " + parts[1] + ")";
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeWrongCommandFormatException(TaskCommands.FIXED_DURATION.toString());
         }
     }
