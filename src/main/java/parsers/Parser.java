@@ -43,6 +43,15 @@ public class Parser {
         else if(command.contains("bye")) {
             return new ByeCommand();
         }
+        else if(command.contains("snooze")){
+            return new SnoozeCommand();
+        }
+        else if(command.contains("tentative")){
+            return new TentativeEventCommand();
+        }
+        else if(command.contains("confirm")){
+            return new ConfirmTentativeCommand();
+        }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
