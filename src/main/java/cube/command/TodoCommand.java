@@ -5,7 +5,9 @@
  */
 package cube.command;
 
+import cube.task.Task;
 import cube.ui.*;
+import cube.util.Parser;
 import cube.util.Storage;
 import cube.task.TaskList;
 import cube.task.Todo;
@@ -45,6 +47,23 @@ public class TodoCommand implements Command{
 	}
 
 	/**
+	 * Checks if the description or date already exists in tasklist.
+	 * @param tasks the list of tasks.
+	 * @param description the description of task to check with.
+	 * @return false if there are no clashes of the description or date.
+	 * @throws DukeException
+	 */
+	private boolean isAnomaly(TaskList tasks, String description) throws DukeException {
+		for (int i = 0; i < tasks.size(); i++) {
+			Task task = tasks.get(i);
+			if (description.equals(task.getTask()[0])) {
+				throw new DukeException(Message.EXISTING_DESCRIPTION);
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Always returns false since this is not an exit command.
 	 *
 	 * @return false.
@@ -66,7 +85,7 @@ public class TodoCommand implements Command{
 	 */
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-		if (isValid()) {
+		if (isValid() && !isAnomaly(tasks, description)) {
 			Todo t = new Todo(description);
 			tasks.add(t);
 			storage.append(t);

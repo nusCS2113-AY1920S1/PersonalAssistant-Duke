@@ -7,7 +7,9 @@ package cube.command;
 
 import java.util.Date;
 
+import cube.task.Task;
 import cube.ui.*;
+import cube.util.Parser;
 import cube.util.Storage;
 import cube.task.TaskList;
 import cube.task.Event;
@@ -63,6 +65,27 @@ public class EventCommand implements Command{
 	}
 
 	/**
+	 * Checks if the description or date already exists in tasklist.
+	 * @param tasks the list of tasks.
+	 * @param date the date of task to check with.
+	 * @return false if there are no clashes of the description or date.
+	 * @throws DukeException
+	 */
+	private boolean isAnomaly(TaskList tasks, Date date) throws DukeException {
+		for (int i = 0; i < tasks.size(); i++) {
+			Task task = tasks.get(i);
+			String[] task_components = task.getTask();
+			if (task_components.length > 1) {
+				Date task_date = Parser.parseStringToDate(task_components[1]);
+				if (date.equals(task_date)) {
+					throw new DukeException(Message.EXISTING_DATE);
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Always returns false since this is not an exit command.
 	 *
 	 * @return false.
@@ -84,7 +107,7 @@ public class EventCommand implements Command{
 	 */
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
-		if (isValid()) {
+		if (isValid() && !isAnomaly(tasks, date)) {
 			Event e = new Event(description, date);
 			tasks.add(e);
 			storage.append(e);
