@@ -17,7 +17,8 @@ public class NewReminderCommand extends MultiArgCommand {
     private LocalDateTime reminderDateTime;
 
     /**
-     * Creates a new Command object that can be executed to set a Reminder for a Task.
+     * Creates a new Command object that can be executed to set a Reminder for a Task, updating its inherited
+     * parameters.
      */
     public NewReminderCommand() {
         argc = 2;

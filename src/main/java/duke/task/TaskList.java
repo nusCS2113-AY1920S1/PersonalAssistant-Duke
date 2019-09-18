@@ -186,7 +186,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string that indicates if snooze was successful
+     * Returns a string that indicates if snooze was successful.
      * @param index the tasks to be snoozed index in the list of all tasks
      * @param datetime the new time that the task will be snoozed to
      * @return message to user that states that the snooze was successful
