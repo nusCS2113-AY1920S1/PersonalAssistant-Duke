@@ -1,8 +1,10 @@
 package views;
 
 import controllers.ConsoleInputController;
+import exceptions.DukeException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
+import models.commands.RescheduleCommand;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
@@ -177,6 +179,7 @@ public class CLIView {
         }
         System.out.println(horiLine);
     }
+
     /**
      * Prints out the schedule for the date input by the user.
      * Format - schedule DD/MM/YYYY
@@ -205,6 +208,21 @@ public class CLIView {
                 );
             }
         }
+        System.out.println(horiLine);
+    }
+
+
+    /**
+     * Method that is called when user wishes to reschedule a task.
+     * This method is responsible for handling printing of horizontal lines.
+     * However, certain printing has been abstracted to RescheduleCommand
+     * @param taskList : Current list of tasks.
+     * @param rescheduleCommand : Command that holds the logic for rescheduling tasks and
+*                                 printing certain reschedule messages.
+     */
+    public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
+        System.out.println(horiLine);
+        rescheduleCommand.execute(taskList);
         System.out.println(horiLine);
     }
 }

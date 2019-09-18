@@ -69,6 +69,14 @@ public class ConsoleInputController implements IViewController {
             } catch (ParseException e) {
                 System.out.println("error in scheduling");
             }
+        } else if (input.contains("reschedule")) {
+            try {
+                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
+                consoleView.rescheduleTask(taskList, rescheduleCommand);
+                saveData();
+            } catch (ArrayIndexOutOfBoundsException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
         } else {
             try {
                 ITask newTask = taskFactory.createTask(input);
