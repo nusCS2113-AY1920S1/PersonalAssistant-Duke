@@ -21,11 +21,7 @@ import java.util.regex.Pattern;
  */
 public class Parser {
     private static String commandType;
-    private static String description;
-    private static String ddl;
-    private static String timePiece;
     private static Matcher m;
-    private static int index;
 
     /**
      * Packages the <code>Command</code> object with commandType and

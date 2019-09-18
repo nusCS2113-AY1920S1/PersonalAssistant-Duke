@@ -1,12 +1,24 @@
 package task;
 
+import exception.DukeException;
+import parser.TimeParser;
+
+import java.util.List;
+import java.util.Date;
+import java.util.stream.Collectors;
+
 /**
  * Represents a simple task with description and status.
  * Works as a parent class of more specified task classes in the package.
  */
 public class Task {
+    // Mandatory fields
     protected String description;
     protected boolean isDone;
+
+    // Optional fields
+    protected Date doAfterDate;
+    protected List<Task> doAfterTasks; // todo: implement doAfterTasks
 
     protected Task(String description) {
         this.description = description;
@@ -16,13 +28,39 @@ public class Task {
     protected Task(String[] splitStorageStrings) {
         this.description = splitStorageStrings[2];
         this.isDone = splitStorageStrings[1].equals("1");
+        this.doAfterDate = TimeParser.parse(splitStorageStrings[3]);
     }
 
     /**
      * Marks the status of the task to "done".
      */
     protected void markAsDone() {
-        isDone = true;
+
+        if (doAfterDate != null && doAfterDate.after(new Date())) {
+            throw new DukeException("☹ OOPS!!! This task has to be done after " + doAfterDate);
+
+        } else if (doAfterTasks != null) {
+
+            List<Task> undoneTasks = doAfterTasks.stream()
+                    .filter(task -> (!task.isDone))
+                    .collect(Collectors.toList());
+
+            if (!undoneTasks.isEmpty()) {
+                StringBuilder exceptionMessageBuilder
+                        = new StringBuilder("☹ OOPS!!! This task has to be done after:\n  ");
+
+                for (int i = 0; i < undoneTasks.size(); i++) {
+                    exceptionMessageBuilder
+                            .append(i + 1)
+                            .append(". ")
+                            .append(undoneTasks.get(i));
+                }
+                throw new DukeException(exceptionMessageBuilder.toString());
+            }
+
+        } else {
+            isDone = true;
+        }
     }
 
     /**
@@ -39,6 +77,10 @@ public class Task {
         }
     }
 
+    public void setDoAfterDate(String dateString) throws DukeException {
+        doAfterDate = TimeParser.parse(dateString);
+    }
+
     /**
      * Overrides the <code>toString()</code> method in parent class <code>Object</code>,
      * and returns information of the task to be printed by UI.
@@ -48,7 +90,14 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        if (doAfterDate == null) {
+            return "[" + getStatusIcon() + "] "
+                    + description;
+        } else {
+            return "[" + getStatusIcon() + "] "
+                    + description
+                    + " (after: " + TimeParser.format(doAfterDate) + ")";
+        }
     }
 
     /**
@@ -64,7 +113,7 @@ public class Task {
         } else {
             storageString = "0";
         }
-        storageString += " | " + description;
+        storageString += " | " + description + " | " + TimeParser.format(doAfterDate);
         return storageString;
     }
 

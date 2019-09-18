@@ -5,6 +5,7 @@ import parser.CommandParams;
 import storage.Storage;
 import task.Deadline;
 import task.Event;
+import task.Task;
 import task.TaskList;
 import task.ToDo;
 import ui.Ui;
@@ -41,21 +42,31 @@ public class AddCommand extends Command {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
         }
+
+        Task taskToAdd;
+
         switch (commandParams.getCommandType()) {
         case "todo":
-            tasks.addTask(new ToDo(commandParams.getMainParam()));
+            taskToAdd = new ToDo(commandParams.getMainParam());
             break;
         case "deadline":
-            tasks.addTask(new Deadline(commandParams.getMainParam(), commandParams.getParam("by")));
+            taskToAdd = new Deadline(commandParams.getMainParam(), commandParams.getParam("by"));
             break;
         case "event":
-            tasks.addTask(new Event(commandParams.getMainParam(),
+            taskToAdd = new Event(commandParams.getMainParam(),
                     commandParams.getParam("start"),
-                    commandParams.getParam("end")));
+                    commandParams.getParam("end"));
             break;
         default:
             throw new DukeException("\"☹ OOPS!!! Your command type is unknown!\"");
         }
+
+        if (commandParams.containsParam("after")) {
+            taskToAdd.setDoAfterDate(commandParams.getParam("after"));
+        }
+
+        tasks.addTask(taskToAdd);
+
         storage.update(tasks.toStorageStrings());
 
         ui.println("Got it. I've added this task:");

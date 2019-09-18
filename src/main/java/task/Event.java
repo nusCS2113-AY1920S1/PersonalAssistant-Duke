@@ -3,7 +3,6 @@ package task;
 import exception.DukeException;
 import parser.TimeParser;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -36,8 +35,8 @@ public class Event extends Task {
      */
     public Event(String[] splitStorageStrings) {
         super(splitStorageStrings);
-        this.start = TimeParser.parse(splitStorageStrings[3]);
-        this.end = TimeParser.parse(splitStorageStrings[4]);
+        this.start = TimeParser.parse(splitStorageStrings[4]);
+        this.end = TimeParser.parse(splitStorageStrings[5]);
     }
 
     /**
@@ -50,7 +49,7 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + start + " - " + end + ")";
+        return "[E]" + super.toString() + " (at: " + TimeParser.format(start) + " - " + TimeParser.format(end) + ")";
     }
 
     /**
@@ -62,7 +61,7 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + start + " | " + end;
+        return "E | " + super.toStorageString() + " | " + TimeParser.format(start) + " | " + TimeParser.format(end);
     }
 
     public Date getStart() {

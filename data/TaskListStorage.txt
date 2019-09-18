@@ -1,3 +1,4 @@
-T | 1 | eat
-T | 0 | cook
-D | 0 | help | Tue Oct 22 16:00:00 SGT 2019
+T | 0 | a | null
+T | 0 | a | null
+T | 0 | b | 12/12/2012 1212
+E | 0 | d | 12/12/2012 1212 | Thu Dec 13 13:13:00 SGT 2012 | Fri Dec 14 14:14:00 SGT 2012
