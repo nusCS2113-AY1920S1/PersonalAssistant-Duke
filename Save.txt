@@ -6,3 +6,5 @@ E|?| basketball finals|at: Wed Jan 22 12:12:12 SGT 2020
 E|?| golf finals|at: Mon Jan 13 12:12:12 SGT 2020
 E|?| hookok finals|at: Wed Jan 15 12:12:12 SGT 2020
 D|?| go work|by: Sun Nov 03 12:12:02 SGT 2019
+FD|?| drive school| 2hours
+T|?| jusssssss
