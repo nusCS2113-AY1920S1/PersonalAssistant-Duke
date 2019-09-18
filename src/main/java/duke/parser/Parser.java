@@ -29,6 +29,7 @@ public class Parser {
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_UPDATE = "update";
+    private static final String COMMAND_REMINDER = "reminder";
 
     /**
      * Parse user input.
@@ -66,6 +67,8 @@ public class Parser {
                 return parseRedo(line);
             case COMMAND_UPDATE:
                 return parseUpdate(line);
+            case COMMAND_REMINDER:
+                return parseReminder(line);
         }
         throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
@@ -212,7 +215,7 @@ public class Parser {
     private static Command parseRedo(String line) throws DukeException {
         return new RedoCommand();
     }
-
+  
     private static Command parseUpdate(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
         try {
@@ -230,6 +233,10 @@ public class Parser {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a valid index number");
         }
+    }
+  
+    private static Command parseReminder(String line) throws DukeException {
+        return new ReminderCommand();
     }
 }
 
