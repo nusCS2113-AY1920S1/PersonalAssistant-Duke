@@ -5,6 +5,7 @@ import duke.tasks.Deadline;
 import duke.tasks.DoAfter;
 import duke.tasks.Event;
 import duke.tasks.FixedDuration;
+import duke.tasks.Recurring;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
@@ -43,6 +44,9 @@ public class FileHandling {
             break;
         case "F":
             initialData.add(new FixedDuration(columns.get(2),columns.get(3)));
+            break;
+        case "R":
+            initialData.add(new Recurring(columns.get(2),columns.get(3)));
             break;
         default:
             System.out.println("\n     There is an invalid entry in the file. This entry will "
