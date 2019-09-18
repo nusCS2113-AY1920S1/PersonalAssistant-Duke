@@ -19,7 +19,9 @@ public class CommandMarkDone extends Command {
     public void execute(TaskList taskList) {
         try {
             int index = Integer.parseInt(Parser.removeStr("done", this.userInput)) - 1;
-            taskList.getList().get(index).markDone();
+            Task mainTask = taskList.getList().get(index);
+            mainTask.markDone();
+            loadQueuedTasks(taskList, mainTask);
             Ui.dukeSays(genMarkDoneReply(index, taskList));
         } catch (Exception e) {
             Ui.dukeSays("Invalid 'done' statement. Please indicate the index of the task you wish to mark done.");
@@ -62,5 +64,18 @@ public class CommandMarkDone extends Command {
                 + ") "
                 + taskList.getList().get(index).taskName
                 + "' as done!";
+    }
+
+    /**
+     * Loads all queued Tasks from the now-done Task to the main TaskList.
+     * @param taskList The Main TaskList for Tasks to be added to
+     * @param mainTask The Task that has been marked done
+     */
+    private void loadQueuedTasks(TaskList taskList, Task mainTask) {
+        TaskList queuedTasks = mainTask.getQueuedTasks();
+        for (Task newTask : queuedTasks.getList()) {
+            taskList.addTask(newTask);
+        }
+        mainTask.setQueuedTasks(null);
     }
 }

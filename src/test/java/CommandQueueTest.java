@@ -15,7 +15,6 @@ class CommandQueueTest {
         taskList.addTask(testTask);
         CommandQueue testCommand = new CommandQueue("Queue 1 EventIce Cream Party / Tomorrow");
         testCommand.execute(taskList);
-        System.out.println("DONE!");
 
         Task mainTask = taskList.getList().get(0);
         assertEquals(true, mainTask.isQueuedTasks());
