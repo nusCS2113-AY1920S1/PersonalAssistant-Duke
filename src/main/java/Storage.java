@@ -31,6 +31,9 @@ public class Storage {
                 } else if (data[0].equals("E ")) {
                     Event t = new Event(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
+                } else if (data[0].equals("F ")) {
+                    FixedDuration t = new FixedDuration(data[2], data[3], data[1].contains("1"));
+                    listContent.add(t);
                 }
                 line = br.readLine();
             }
