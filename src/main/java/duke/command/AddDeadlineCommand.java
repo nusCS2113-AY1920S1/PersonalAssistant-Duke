@@ -27,9 +27,7 @@ public class AddDeadlineCommand extends Command {
         for (i = 1; i < splitInput.size(); i++) {
             if (splitInput.get(i).equals("/by")) {
                 k = 1;
-                continue;
-            }
-            if (k == 0) {
+            } else if (k == 0) {
                 split1 += splitInput.get(i) + " ";
             } else {
                 split2 += splitInput.get(i) + " ";
