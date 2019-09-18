@@ -82,8 +82,6 @@ public class Parser {
             duke.tasklist.findTask(cmd);
         } else if (status.equals("init")) {
             duke.ui.firstTimeInit(cmd, stage++);
-        } else if (cmd.matches("(recurtask) .+")) { // recurring task
-            duke.tasklist.addTask(cmd);
         } else if (cmd.matches("(todo|event|deadline|fixeddurationtask|doaftertask|recurtask)")) {
             try {
                 throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + cmd + " cannot be empty.");
