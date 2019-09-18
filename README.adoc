@@ -22,7 +22,7 @@ endif::[]
 * https://docs.google.com/document/d/15969Buo0Dh4mI4GDn84tlGQ11MAjgxQQq0f9qB4-0z4/edit?usp=sharing[User Guide]
 * «DeveloperGuide#, Developer Guide»
 * «LearningOutcomes#, Learning Outcomes»About
-* «AboutUs ,#AboutUs,»
+* https://github.com/AY1920S1-CS2113-T13-2/main/blob/master/docs/AboutUs.adoc[About Us]
 * «ContactUs#, Contact Us»
 
 == Acknowledgements
