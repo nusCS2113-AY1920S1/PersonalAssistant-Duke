@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
         }
         String taskInfo;
         try {
-            int index = Integer.parseInt(commandParams.getMainParam());
+            int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0-based
             taskInfo = tasks.getTaskInfo(index);
             tasks.delete(index);
         } catch (IndexOutOfBoundsException e) {

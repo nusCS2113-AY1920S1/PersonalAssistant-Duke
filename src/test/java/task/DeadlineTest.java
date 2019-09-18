@@ -25,6 +25,10 @@ public class DeadlineTest {
 
     @Test
     public void testStorageStringConversion() {
+
+        assertEquals("D | 0 | do the homework | 02/05/2019 1800",
+                new Deadline("do the homework", "02/05/2019 1800").toStorageString());
+      
         Deadline testDeadline = new Deadline("do the homework", "02/05/2019 1800");
         assertEquals("D | 0 | do the homework | null | 02/05/2019 1800",
                 testDeadline.toStorageString());
@@ -36,6 +40,7 @@ public class DeadlineTest {
         testDeadline.markAsDone();
         assertEquals("D | 1 | do the homework | 01/05/2019 1800 | 02/05/2019 1800",
                 testDeadline.toStorageString());
+
     }
 
     @Test

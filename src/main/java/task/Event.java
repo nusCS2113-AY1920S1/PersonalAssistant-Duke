@@ -3,6 +3,7 @@ package task;
 import exception.DukeException;
 import parser.TimeParser;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -12,6 +13,8 @@ import java.util.Date;
 public class Event extends Task {
     private Date start;
     private Date end;
+    private String startString;
+    private String endString;
 
     /**
      * Constructs an Event object with description and time period in string.
@@ -26,6 +29,8 @@ public class Event extends Task {
         super(description);
         this.start = TimeParser.parse(startString);
         this.end = TimeParser.parse(endString);
+        this.startString = startString;
+        this.endString = endString;
     }
 
     /**
@@ -61,7 +66,7 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + TimeParser.format(start) + " | " + TimeParser.format(end);
+        return "E | " + super.toStorageString() + " | " + startString + " | " + endString;
     }
 
     public Date getStart() {
@@ -71,4 +76,16 @@ public class Event extends Task {
     public Date getEnd() {
         return end;
     }
+
+    /**
+     * Reschedules the start and end dates of the event.
+     *
+     * @param start The start <code>Date</code> of the event.
+     * @param end The end <code>Date</code> of the event.
+     */
+    public void reschedule(String start, String end) {
+        this.start = TimeParser.parse(start);
+        this.end = TimeParser.parse(end);
+    }
+
 }

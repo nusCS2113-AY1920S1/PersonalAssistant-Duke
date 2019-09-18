@@ -40,7 +40,7 @@ public class DoneCommand extends Command {
         }
         String taskInfo;
         try {
-            int index = Integer.parseInt(commandParams.getMainParam());
+            int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0-based
             tasks.done(index);
             taskInfo = tasks.getTaskInfo(index);
         } catch (IndexOutOfBoundsException e) {

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Deadline extends Task {
     private Date by;
-
+    private String ddl;
     /**
      * Constructs the <code>Deadline</code> object with description and due time.
      * The due time is stored as <code>Date</code>.
@@ -23,6 +23,7 @@ public class Deadline extends Task {
     public Deadline(String description, String ddl) throws DukeException {
         super(description);
         this.by = TimeParser.parse(ddl);
+        this.ddl = ddl;
     }
 
     /**
@@ -55,10 +56,19 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return "D | " + super.toStorageString() + " | " + TimeParser.format(by);
+        return "D | " + super.toStorageString() + " | " + ddl;
     }
 
     public Date getBy() {
         return by;
+    }
+
+    /**
+     * Reschedules the by date of the deadline.
+     *
+     * @param by The by <code>Date</code> of the event.
+     */
+    public void reschedule(String by) {
+        this.by = TimeParser.parse(by);
     }
 }

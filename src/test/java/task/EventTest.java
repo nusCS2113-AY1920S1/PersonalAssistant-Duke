@@ -32,6 +32,10 @@ public class EventTest {
     @Test
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public void testStorageStringConversion() {
+
+        assertEquals("E | 0 | do the homework | 02/05/2019 1800 | 02/05/2019 1900",
+                new Event("do the homework", "02/05/2019 1800", "02/05/2019 1900").toStorageString());
+
         Event testEvent = new Event("do the homework",
                 "02/05/2019 1800",
                 "02/05/2019 1900");
@@ -45,6 +49,7 @@ public class EventTest {
         testEvent.markAsDone();
         assertEquals("E | 1 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | 02/05/2019 1900",
                 testEvent.toStorageString());
+
     }
 
     @Test
