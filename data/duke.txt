@@ -1,1 +1,2 @@
-R | ✘ | borrow book | weekly
+R | ✓ | borrow book | weekly
+F | ✓ | check stock price | 2 hours
