@@ -1,11 +1,11 @@
-# User Guide
+= User Guide
 
-== Introduction
+== 1. Introduction
 Our project aims to develop a task tracking application that monitors and encourages productivity. The application will be easy to use, with intuitive ways of adding, finding and tracking tasks that have been added. This easy convenience is definitely helpful in our often busy lives, so give this app a chance to help you!
 
 This user guide aims to help you learn your way around our app, making the learning process smooth and effortless. So what are you waiting for? Let's go!
 
-== Quick Start  
+== 2. Quick Start  
 
   1. Ensure you have Java `11` or above and Gradle installed in your Computer.
   2. Open up your command prompt(for Windows) or terminal(for Mac). 
@@ -18,12 +18,12 @@ This user guide aims to help you learn your way around our app, making the learn
 * **`delete`**`1` : deletes the 1st task in the current list
 * *`bye`* : exits the app
  
-== Features 
+== 3. Features 
 Command Format
 - Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-=== Adding a task : `todo/deadline/event`
+=== 3.1 Adding a task : `todo/deadline/event`
 Adds a todo/deadline/event to the tasklist.
 
 Format: `todo DESCRIPTION`  
@@ -38,7 +38,7 @@ Examples:
     `deadline homework /by 8/8/2019 2359` +
     `event team meeting /at 20/8/2019 1500`
 
-=== Deleting a task : `delete`
+=== 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
 Format: `delete INDEX`
 
@@ -54,7 +54,7 @@ Examples:
     `delete 2` +
     Deletes the 2nd task in the task list.
   
-=== Finding tasks : `find`
+=== 3.3 Finding tasks : `find`
 Finds tasks whose description contains the given keyword. + 
 Format: `find KEYWORD`
 
@@ -69,7 +69,7 @@ Examples:
   * `find book` +  
   Returns any task with the descriptions containing the keyword.
 
-==== Marking a task as done : `done`
+==== 3.4 Marking a task as done : `done`
 Marks a task in the task list as done. +
 Format: `done INDEX`
 
@@ -83,11 +83,11 @@ Examples:
   * `done 1` +  
   Marks the 1st task in the task list as done.
 
-==== Listing all the tasks : `list`
+==== 3.5 Listing all the tasks : `list`
 Shows a list of all the tasks in the task list. + 
 Format: `list`
 
-==== Snoozing a task : `snooze`
+==== 3.6 Snoozing a task : `snooze`
 
 Provides a way to easily snooze/postpone/reschedule a task. +
 Format: `snooze INDEX` +
@@ -110,29 +110,29 @@ Examples:
     `9/9/2019 1200` +
     Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
-==== Reminders : `remind`
+==== 3.7 Reminders : `remind`
 
 Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
 Format: `remind`
 
-=== Exiting the program : `bye`
+=== 3.8 Exiting the program : `bye`
 
 Exits the program. +
 Format: `bye`
 
-=== Saving the data
+=== 3.9 Saving the data
 
 Save the tasks in the hard disk automatically whenever the task list changes.
 There is no need to save manually.
 
-== FAQ
+== 4. FAQ
 
 *Q*: Where do I install Java 11 from? +  
 *A*: Java 11 can be downloaded from the Oracle website. https://www.oracle.com/technetwork/java/javase/downloads/index.html
 
-== Command Summary
+== 5. Command Summary
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm`  
+* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` +
   e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` 
 * *Delete*: `delete INDEX`  +  
   e.g. `delete 3`
