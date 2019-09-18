@@ -60,6 +60,8 @@ public class Parser {
 				return new FreeTimeCommand(description);
 			case "reminder":
 				return new ReminderCommand();
+			case "viewschedule":
+				return new ViewCommand(date);
 			case "bye":
 			case "exit":
 			case "quit":
