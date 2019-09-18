@@ -112,8 +112,6 @@ public class Ui {
         }
         showLine();
         System.out.println("Do you still want to add your task anyway? Y/N");
-//        String userAnswer = scanner.nextLine();
-//        return userAnswer;
     }
 
 
