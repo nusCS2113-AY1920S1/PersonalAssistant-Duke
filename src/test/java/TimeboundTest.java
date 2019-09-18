@@ -2,7 +2,6 @@ import Tasks.Timebound;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class TimeboundTest {
     private Timebound timeboundTest = new Timebound("task to be done", "Jan 15th and Jan 25th");
 

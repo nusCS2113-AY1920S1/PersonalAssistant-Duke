@@ -25,6 +25,7 @@ public class Duke {
         ui.showWelcome();
 
         try {
+
             list = store.Readfile();
             ui.UpcomingTask(list);
             while(!isExit) {
