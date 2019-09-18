@@ -7,8 +7,17 @@ This user guide aims to help you learn your way around our app, making the learn
 
 ## Features 
 
-### Feature 1 
-Description of feature.
+### 3.1 Adding a task : todo/deadline/event
+
+### 3.2 Deleting a task : delete
+
+### 3.3 Finding tasks : find
+
+### 3.4 Marking a task as done : done
+
+### 3.5 Listing all the tasks : list
+
+### 3.6 Snoozing a task : snooze
 
 ## Usage
 
