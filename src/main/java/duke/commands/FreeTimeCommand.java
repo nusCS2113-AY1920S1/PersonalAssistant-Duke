@@ -35,17 +35,8 @@ public class FreeTimeCommand extends Command {
             Date currDate = new Date();
             Calendar calendar = GregorianCalendar.getInstance();
             calendar.setTime(currDate);
-            int currDay = calendar.get(Calendar.DAY_OF_MONTH);
             int currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
             ui.showMessage("Current Date: " + currDate.toString());
-
-            if (currTime + diff >= upperTimeBound) {
-                calendar.set(Calendar.DAY_OF_MONTH, currDay + 1);
-                calendar.set(Calendar.HOUR_OF_DAY, 8);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                currDate = calendar.getTime();
-            }
 
             ArrayList<Task> eventList = new ArrayList<>();
             for (Task task : tasks.getData()) {
@@ -60,44 +51,67 @@ public class FreeTimeCommand extends Command {
                 if (compDate == null) {
                     continue;
                 }
-
-                //ui.showMessage("task: " + compDate.toString());
-
+                //ui.showMessage("Task Date: " + compDate.toString());
                 calendar.setTime(compDate);
                 int compInt = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);
 
-                if (currTime >= lowerTimeBound && compInt - diff >= currTime && currTime <= compInt) {
-                    //ONLY HAPPENS if freetime AFTER lowerBound AND got freetime btw currTime and {time of task}
-                    //so set to currTime
-                    //ui.showMessage("A");
-                    break;
-                } else if (compDate.before(currDate) && currTime - diff <= lowerTimeBound) {
-                    calendar.setTime(currDate);
-                    currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
-                    currDate = calendar.getTime();
-                } else if (compInt + diff <= upperTimeBound && currTime + diff <= upperTimeBound) {
-                    //This happens if can find freetime AFTER event, and btw currTime and upperBound
-                    //ui.showMessage("B");
-                    calendar.set(Calendar.HOUR_OF_DAY, Math.max(compInt, currTime) / 100);
-                    calendar.set(Calendar.MINUTE, Math.max(compInt, currTime) % 100);
-                    currDate = calendar.getTime();
-                    currTime = calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE);;
-                    //ui.showMessage("curr set to: " + currDate.toString());
+                if (currTime < lowerTimeBound) {
+                    currTime = lowerTimeBound;
+                    currDate = getAndSetDate(currDate, currTime / 100, 0, 0, 0);
+                } else if (currTime > upperTimeBound) {
+                    currTime = lowerTimeBound;
+                    currDate = getAndSetDate(currDate, currTime / 100, 0, 0, 1);
+                    //ui.showMessage("Setting to Available: " + currDate.toString());
+                }
+
+                if (currDate.compareTo(compDate) <= 0) {
+                    if (currTime + diff > upperTimeBound || compInt - currTime < diff) {
+                        //case A: Push currDate to next Day, 8am
+                        currTime = lowerTimeBound;
+                        currDate = getAndSetDate(currDate, currTime / 100, 0, 0, 1);
+                        //ui.showMessage("A1");
+                    } else if (currTime + diff <= upperTimeBound && compInt - currTime >= diff) {
+                        //case B: Slot currTime to be as it is
+                        //ui.showMessage("B1");
+                    } else if (compInt + diff <= upperTimeBound){
+                        //case C: Set currTime to be compTime
+                        currTime = compInt;
+                        currDate = getAndSetDate(currDate, currTime / 100, calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 0);
+                        //ui.showMessage("C1");
+                    } else {
+                        //not supposed to be here
+                        //ui.showMessage("DX1");
+                    }
                 } else {
-                    //This happens if can find freetime AFTER event, currTime and upperBound
-                    //ui.showMessage("C");
-                    currDay++;
-                    currTime = 800;
-                    calendar.set(Calendar.DAY_OF_MONTH, currDay);
-                    calendar.set(Calendar.HOUR_OF_DAY, currTime / 100);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    currDate = calendar.getTime();
+                    //currDate after the compDate
+                    if (currTime + diff > upperTimeBound) {
+                        //case A: Push currDate to next Day, 8am
+                        currTime = lowerTimeBound;
+                        currDate = getAndSetDate(currDate, currTime / 100, 0, 0, 1);
+                        //ui.showMessage("A2");
+                    } else if (currTime + diff <= upperTimeBound) {
+                        //case B: Slot currTime to be as it is
+                        //ui.showMessage("B2");
+                    } else {
+                        //not supposed to be here
+                        //ui.showMessage("CX2");
+                    }
                 }
             }
             ui.showMessage("Next Available: " + currDate.toString());
         } catch (NumberFormatException e) {
             throw new DukeException("Not a valid hour!");
         }
+    }
+
+    private Date getAndSetDate(Date date, int hour, int min, int sec, int dayIncrement) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, sec);
+        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + dayIncrement);
+        date = cal.getTime();
+        return date;
     }
 }
