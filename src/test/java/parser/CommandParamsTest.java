@@ -6,16 +6,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class CommandParamsTest {
 
     @Test
     public void testCorrectParamValues() {
-        CommandParams testParams = new CommandParams("name desc /a is a /b is b /c is c");
+        CommandParams testParams = new CommandParams("name description goes here /a is a /b is b /c is c");
         assertEquals(testParams.getCommandType(), "name");
-        assertEquals(testParams.getMainParam(), "desc");
+        assertEquals(testParams.getMainParam(), "description goes here");
         assertEquals(testParams.getParam("a"), "is a");
         assertEquals(testParams.getParam("b"), "is b");
         assertEquals(testParams.getParam("c"), "is c");
@@ -33,14 +35,12 @@ public class CommandParamsTest {
         assertNotNull(testParams.getParam("d"));
     }
 
-    private void assertNull(String mainParam) {
-    }
-
     @Test
     public void testParamNotFoundException() {
         CommandParams testParams = new CommandParams("noParams");
         try {
             testParams.getParam("a");
+            fail();
         } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
         }
@@ -50,6 +50,7 @@ public class CommandParamsTest {
     public void testDuplicateParams() {
         try {
             CommandParams testParams = new CommandParams("sameParams /a first /a second");
+            fail();
         } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You specified a twice!", e.getMessage());
         }
