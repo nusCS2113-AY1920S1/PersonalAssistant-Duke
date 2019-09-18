@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 D | 0 | this | 18/9/2019 2359
 T | 0 | this
 F | 0 | this | 2hours
+=======
+D | 0 | submit | 22/09/2019 1300
+E | 0 | buy bbtea | 14/09/2019 1800
+D | 0 | get rekted | 01/09/2019 2359
+T | 0 | eat mochi
+>>>>>>> a96dd61efcff63934ed8d2ed71e180472048d2ab

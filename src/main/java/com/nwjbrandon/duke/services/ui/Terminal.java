@@ -27,8 +27,6 @@ public class Terminal {
     public Terminal() {
     }
 
-
-
     /**
      * Read input.
      * @return input.
@@ -244,6 +242,8 @@ public class Terminal {
         System.out.print(output);
         Terminal.printDivider();
     }
+
+
 
 
 }

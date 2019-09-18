@@ -1,5 +1,7 @@
 package com.nwjbrandon.duke.constants;
 
+import com.nwjbrandon.duke.services.task.FixedDuration;
+
 public enum TaskCommands {
 
     LIST("list"),
@@ -12,6 +14,7 @@ public enum TaskCommands {
     BYE("bye"),
     REMINDER("reminder"),
     VIEW_SCHEDULE("view schedule"),
+    RECURRING("recurring"),
     SNOOZE("snooze"),
     FIXED_DURATION("fixed duration");
 

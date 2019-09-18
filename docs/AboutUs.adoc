@@ -1,0 +1,55 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AlgoSenpai was developed by team AY1920S1-W12-3. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Brandon
+image::nwjbrandon.png[width="150", align="left"]
+{empty}[http://github.com/nwjbrandon[github]] [<<nwjbrandon#, portfolio>>]
+
+Role: ???
+Responsibilities: ???
+
+'''
+
+=== Matthew
+image::sevenmatt7.png[width="150", align="left"]
+{empty}[http://github.com/sevenmatt7[github]] [<<sevenmatt7#, portfolio>>]
+
+Role: ???
+Responsibilities: ???
+
+'''
+
+=== Shantanu
+image::modakshantanu.png[width="150", align="left"]
+{empty} [https://github.com/modakshantanu[github]] [<<modakshantanu#, portfolio>>]
+
+Role: ???
+Responsibilites: ???
+
+'''
+
+=== Yu Jie
+image::therealcs1010.png[width="150", align="left"]
+{empty}[http://github.com/therealcs1010[github]] [<<therealcs1010#, portfolio>>]
+
+Role: ???
+Responsibilities: ???
+
+'''
+
+=== Carrie
+image::carrieng0323852.png[width="150", align="left"]
+{empty}[http://github.com/carrieng0323852[github]] [<<carrieng0323852#, portfolio>>]
+
+Role: ???
+Responsibilities: ???
+
+'''
