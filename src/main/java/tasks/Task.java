@@ -36,6 +36,7 @@ public abstract class Task {
      * */
     protected int recurringWeeks;
 
+
     /**
      * default constructor of Task
      */
@@ -98,6 +99,7 @@ public abstract class Task {
     public void setStart(Date start){
     }
 
+
     /**
      * set end time of Period task
      * @param end
@@ -105,6 +107,7 @@ public abstract class Task {
      */
     public void setEnd(Date end){
     }
+
 
     /**
      * set duration for Last task

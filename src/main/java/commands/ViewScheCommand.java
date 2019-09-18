@@ -30,7 +30,7 @@ public class ViewScheCommand extends Command {
             Date date = Parser.parseDate(line);
             output += " on " + line;
             ArrayList<Task> temp = (ArrayList<Task>)tasks.clone();
-            temp = removeTodo(temp);
+            temp = removeNoTimeTask(temp);
             temp = filterByDate(temp, date);
             scheTasks = sortByDate(temp);
         } else  {
@@ -75,7 +75,7 @@ public class ViewScheCommand extends Command {
         return toFilter;
     }
 
-    private ArrayList<Task> removeTodo(ArrayList<Task> toFilter)    {
+    private ArrayList<Task> removeNoTimeTask(ArrayList<Task> toFilter)    {
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
 
         //remove all without dates (ToDos and Lasts)
@@ -98,7 +98,7 @@ public class ViewScheCommand extends Command {
     private ArrayList<Task> sortByDate(ArrayList<Task> toSort)    {
         ArrayList<Task> sorted = new ArrayList<>();
 
-        toSort = removeTodo(toSort);
+        toSort = removeNoTimeTask(toSort);
 
         int size = toSort.size();
         for (int i = 0; i < size; i++)  {
