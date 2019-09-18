@@ -76,15 +76,4 @@ public class TimeParser {
     private static boolean isOverlapping(Date start1, Date end1, Date start2, Date end2) throws NullPointerException {
         return !start1.after(end2) && !start2.after(end1);
     }
-
-
-
-
-
-
-
-
-
-
-
 }
