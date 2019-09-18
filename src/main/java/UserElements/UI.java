@@ -5,12 +5,6 @@ import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-
 
 /**
  * User interface: contains all methods pertaining to user interaction.
@@ -21,15 +15,15 @@ public class UI {
     /** 
      * Comparator function codes
      */
-	static final int EQUAL = 0;
-	static final int GREATER_THAN = 1;
-	static final int SMALLER_THAN = 2;
+	private static final int EQUAL = 0;
+	private static final int GREATER_THAN = 1;
+	private static final int SMALLER_THAN = 2;
 	
 	/**
 	 * Filter type codes
 	 */
-    static final int DATE = 0;
-    static final int TYPE = 1;
+    private static final int DATE = 0;
+    private static final int TYPE = 1;
     
     /**
      * prints welcome message and instructions for use.
@@ -67,7 +61,7 @@ public class UI {
     	DateObj limit = new DateObj();
     	limit.addDays(4);
     	limit.setMidnight();
-    	Predicate<Object> pred = new Predicate(limit, GREATER_THAN);
+    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
     	System.out.print("The time now is " + now.toOutputString() + ".\n");
     	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + limit.toOutputString() + "):\n");
