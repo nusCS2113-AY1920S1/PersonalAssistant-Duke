@@ -7,6 +7,7 @@ import models.tasks.Event;
 import models.tasks.ITask;
 import models.tasks.ToDos;
 
+import java.awt.image.ImagingOpException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +84,8 @@ public class TaskFactory {
                 //throw new InvalidDateTimeException();
                 // Invalid Date and Time, revert back to lazyTiming
                 return new Event(parsedStrings[0], parsedStrings[1]);
+            } catch (ImagingOpException e) {
+                throw new DukeException("OOPS! Please remember your /at flag!");
             }
             return new Event(parsedStrings[0], formattedDate);
         default:

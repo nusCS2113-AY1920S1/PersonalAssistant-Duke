@@ -48,7 +48,7 @@ public class ToDos implements ITask, Serializable {
 
     @Override
     public String getDescription() {
-        if (this.description.trim().isEmpty()) {
+        if (this.taskDuration == null) {
             return this.description;
         } else {
             return this.description + " (needs " + taskDuration + " hours)";
