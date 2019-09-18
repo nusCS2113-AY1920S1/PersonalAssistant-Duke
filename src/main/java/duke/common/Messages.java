@@ -45,8 +45,9 @@ public class Messages {
     public static final String ERROR_MESSAGE_NOTFOUND = "     "
             + "OOPS!!! I'm sorry, but there is no matching tasks in your list.";
     public static final String ERROR_MESSAGE_RANDOM = "     OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String ERROR_MESSAGE_DURATION = "       ☹ OOPS!!! Please specify the fix duration task details in this format: \n         fixed [task description] /need [task duration]";
-
+    public static final String ERROR_MESSAGE_DURATION = "       "
+            + "☹ OOPS!!! Please specify the fix duration task details in this format: \n         "
+            + "fixed [task description] /need [task duration]";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_DELETE = "delete";

@@ -1,7 +1,12 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.DoAfter;
+import duke.task.Duration;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.util.ArrayList;
 
@@ -75,7 +80,7 @@ public class TaskList {
      */
     public ArrayList<String> remindDeadlineTask() {
         ArrayList<String> arrRemind = new ArrayList<>();
-        for(int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize(); i++) {
             if (taskList.get(i).getTaskType() == Task.TaskType.DEADLINE) {
                 arrRemind.add(taskList.get(i).toString());
             }
@@ -140,7 +145,7 @@ public class TaskList {
     }
 
     /**
-     * Adds fixed duration task to taskList
+     * Adds fixed duration task to taskList.
      * @param description String containing the description of the task
      * @param need String containing time needed for the task
      */
