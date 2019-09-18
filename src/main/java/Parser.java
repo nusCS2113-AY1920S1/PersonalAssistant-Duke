@@ -33,7 +33,9 @@ public class Parser{
             case "snooze":
                 return new SnoozeCommand(splitStr);
             case "unsnooze":
-                return new UnSnoozeCommand(splitStr);  
+                return new UnSnoozeCommand(splitStr);
+            case "duration" :
+                return new FixedDurationCommand(input, splitStr);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
