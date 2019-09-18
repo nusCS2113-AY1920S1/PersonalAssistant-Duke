@@ -1,6 +1,4 @@
 package Tasks;
-
-
 public class DoAfter extends Task {
     public String before;
     public String after;
@@ -10,7 +8,6 @@ public class DoAfter extends Task {
         this.before = before;
         this.after = after;
     }
-
     @Override
     public String toString() {
         return "DA"+ "|" + super.getStatusIcon() + "| " + after + "|" + "/after "+before;

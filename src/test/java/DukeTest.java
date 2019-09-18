@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class DukeTest {
     @Test
     public void testUi() {
