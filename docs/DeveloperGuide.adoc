@@ -147,6 +147,30 @@ Use case resumes at step 2.
 +
 Use case ends
 
+[discrete]
+=== Use case: Set deadline for topics/sub-topics to read
+
+*MSS*
+
+1. User requests to list topics
+2. Cake shows topics
+3. User sets deadline for a topic `deadline 1 /by <DATE/>`
+4. Cake shows confirmation message (adds to appended topic header list)
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. If user decides to list topics again, deadline is appended to topic header
++
+Use case ends.
+* 4b. If user launches program again, the deadlines for each topic are shown in most recent deadline order.
++
+** 4b1. If user finishes the quiz for that topic, the deadline will be removed from Cake
++
+Use case ends.
+
 _{More to be added}_
 
 [appendix]
