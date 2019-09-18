@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_ITEMS2 = " tasks in the list.";
     public static final String MESSAGE_MARKED = "     Nice! I've marked this task as done:\n";
     public static final String MESSAGE_TASKED = "     Here are the tasks in your list:";
+    public static final String MESSAGE_REMIND = "     Here are your upcoming deadlines:";
 
     public static final String ERROR_MESSAGE_DEADLINE = "       "
             + "OOPS!!! Please specify the deadline in this format: \n       "
@@ -60,5 +61,7 @@ public class Messages {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DURATION = "fixed";
     public static final String COMMAND_PERIOD = "period";
+    public static final String COMMAND_REMIND = "reminders";
+
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }
