@@ -116,14 +116,16 @@ public class Ui {
             + "time parsing.");
         System.out.println("\t_____________________________________\n\n");
     }
+
     /**
-     * Prints an error message when the format of date is wrong when showing schedule
+     * Prints an error message when the format of date is wrong when showing schedule.
      */
     public void dateFormatError() {
         System.out.println("\t_____________________________________");
         System.out.println("\tFormat of date invalid. Please type it in in DD/MM/YYYY");
         System.out.println("\t_____________________________________");
     }
+
     /**
      * Prints an error message when the format of show command is wrong.
      */
@@ -132,6 +134,7 @@ public class Ui {
         System.out.println("\tShow command invalid. Please only type \"show <DD/MM/YYYY>\"");
         System.out.println("\t_____________________________________");
     }
+
     /**
      * A hello message when duke is ran.
      */

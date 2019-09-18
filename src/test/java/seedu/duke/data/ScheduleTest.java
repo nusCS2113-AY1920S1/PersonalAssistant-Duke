@@ -1,6 +1,9 @@
 package seedu.duke.data;
 
 import org.junit.jupiter.api.Test;
+import seedu.duke.task.Deadline;
+import seedu.duke.task.Task;
+
 import java.io.IOException;
 import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -8,11 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
 import java.util.Date;
-
-import seedu.duke.task.*;
 
 public class ScheduleTest {
 

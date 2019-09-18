@@ -34,7 +34,7 @@ public class Schedule {
      * Adds the Task into the TreeMap with proper Date storage.
      * @param task the task given
      * @param date the date of the task given (excludes time).
-     * @return the ArrayList<Task> that contains the task.
+     * @return the ArrayList that contains the task.
      * @throws ParseException if user inputs the wrong format of Date.
      */
     public ArrayList<Task> addToSchedule(Task task, Date date) throws ParseException {
@@ -108,7 +108,7 @@ public class Schedule {
     /**
      * Gets the ArrayList from the MapTree with the key of Date.
      * @param date the Date value that is the key of the TreeMap.
-     * @return the ArrayList<Task> of the key date.
+     * @return the ArrayList of the key date.
      */
     public ArrayList<Task> getDatedList(Date date) {
         return schedulesInOrder.get(date);

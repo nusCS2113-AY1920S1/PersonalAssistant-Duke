@@ -1,6 +1,5 @@
 package seedu.duke.data;
 
-import seedu.duke.task.*;
 import java.text.ParseException;
 import seedu.duke.task.Task;
 import seedu.duke.task.ToDo;
@@ -59,7 +58,7 @@ public class Storage {
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);
                     } catch (ParseException ignored) {
-
+                        return null;
                     }
                 } else if (taskString[0].equals("R")) {
                     list.add(new RangedTask(taskString[2], taskString[3]));
@@ -71,7 +70,7 @@ public class Storage {
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);
                     } catch (ParseException ignored) {
-
+                        return null;
                     }
                 }
 
@@ -85,6 +84,7 @@ public class Storage {
             System.out.println("\tNo list saved in database. Please "
                 + "create a list now.");
             System.out.println("\t_____________________________________\n\n");
+            return null;
         }
         return list;
     }
