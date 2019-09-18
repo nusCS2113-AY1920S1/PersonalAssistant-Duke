@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.schedule.Schedule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,11 +52,6 @@ public class Event extends Task implements Snoozeable {
     }
 
     @Override
-    public boolean isWithinTimeFrame(Date startDate, Date endDate) {
-        return start.compareTo(startDate) >= 0 && end.compareTo(endDate) <= 0;
-    }
-
-    @Override
     public void snooze() {
         Calendar date = Calendar.getInstance();
 
@@ -72,5 +68,17 @@ public class Event extends Task implements Snoozeable {
     public String toString() {
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                 formatter.format(this.start), formatter.format(this.end));
+    }
+
+    @Override
+    public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
+        if (start.compareTo(startDate) < 0 && end.compareTo(endDate) >= 0
+                || start.compareTo(startDate) >= 0 && end.compareTo(endDate) >= 0) { // startDate and endDate -> 24 hours of a day
+            return new Schedule(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
+                    formatter.format(this.start), formatter.format(this.end)) , true);
+        } else if (start.compareTo(startDate) >= 0 && end.compareTo(endDate) <= 0) {
+            return new Schedule(start, String.format("[E]%s %s", super.toString(), this.description));
+        }
+        return null;
     }
 }
