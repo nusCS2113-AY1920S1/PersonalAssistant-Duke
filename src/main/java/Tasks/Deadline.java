@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
-    public Date by ;
+    public static Date by ;
 
     public Deadline(String description, Date by) {
         super(description);
