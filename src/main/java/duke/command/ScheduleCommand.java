@@ -1,20 +1,20 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Exceptions.*;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Events;
-import Duke.Tasks.Task;
-import Duke.Util.DateTimeParser;
-import Duke.Util.Storage;
-import Duke.Util.TaskList;
-import Duke.Util.Ui;
+import duke.exceptions.DukeEmptyCommandException;
+import duke.exceptions.DukeEmptyListException;
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.util.DateTimeParser;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static java.lang.System.*;
 
 public class ScheduleCommand extends Command {
 
@@ -61,7 +61,7 @@ public class ScheduleCommand extends Command {
         if (isEmpty) {
             throw new DukeEmptyListException();
         } else {
-            out.println("Here is your schedule for today:");
+            System.out.println("Here is your schedule for today:");
             ui.printTaskList(printArray);
         }
     }
