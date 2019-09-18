@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Duke {
     /**
      * Returns void main function for duke.

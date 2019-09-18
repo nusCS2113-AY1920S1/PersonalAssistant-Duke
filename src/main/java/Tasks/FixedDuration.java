@@ -1,5 +1,6 @@
 package Tasks;
 
+
 public class FixedDuration extends Task {
     public String duration;
     public FixedDuration(String description, String duration) {
