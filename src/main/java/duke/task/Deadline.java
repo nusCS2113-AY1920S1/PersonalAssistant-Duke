@@ -51,6 +51,7 @@ public class Deadline extends Task {
      * @return String used to print the {@link Task } in the text file
      */
     public String printInFile() {
-        return this.isDone() ? "D|1|" + this.getDescription() + "|" + Parser.getDateString(date, by) : "D|0|" + this.getDescription() + "|" + Parser.getDateString(date, by);
+        //return this.isDone() ? "D|1|" + this.getDescription() + "|" + Parser.getDateString(date, by) : "D|0|" + this.getDescription() + "|" + Parser.getDateString(date, by);
+        return this.isDone() ? "D|1|" + this.getDescription() + "|" + by : "D|0|" + this.getDescription() + "|" + by;
     }
 }

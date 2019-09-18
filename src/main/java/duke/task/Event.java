@@ -35,12 +35,11 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(at: " + Parser.getDateString(date, at) + ")";
     }
-     /**
+    /**
      * Returns the String representation of the {@link Event} in format compatible to be easily read and written in a text file on the hard disc
      * @return String used to print the {@link Task } in the text file
      */
     public String printInFile() {
-        return this.isDone() ? "E|1|" + getDescription() + "|" + Parser.getDateString(date, at) : "E|0|" + this.getDescription() + "|" + Parser.getDateString(date, at);
+        return this.isDone() ? "E|1|" + getDescription() + "|" + at : "E|0|" + this.getDescription() + "|" + at;
     }
-
 }

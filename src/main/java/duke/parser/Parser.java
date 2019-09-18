@@ -71,16 +71,22 @@ public class Parser {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
-
             case "snooze":
                 if ((splitted.length == 1) || splitted[1].isBlank())
                     throw new DukeException("The description of a snooze cannot be empty.");
                 String[] getUntil = splitted[1].split("/until ", 2);
                 if (getUntil.length < 2)
                     throw new DukeException("The description of a snooze must contain /until date!");
+                //return new Snooze(getUntil[0], getUntil[1]);
+            case "view":
+                if ((splitted.length == 1) || splitted[1].isBlank()) {
+                    throw new DukeException("The description of a view must contain date!");
+                }
+                else{
+                    Date splittedDate = Parser.getDate(splitted[1]);
+                    return new ViewCommand(splittedDate);
+                }
                 return new Snooze(getUntil[0], getUntil[1]);
-
-
             case "period":
                 if ((splitted.length == 1) || splitted[1].isEmpty())
                     throw new DukeException("The description of a period cannot be empty.");
@@ -96,7 +102,6 @@ public class Parser {
                 catch(Exception e){
                     throw new DukeException("NO");
                 }
-
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

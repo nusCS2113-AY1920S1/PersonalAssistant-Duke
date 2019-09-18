@@ -37,6 +37,7 @@ public abstract class Task {
         return description;
     }
 
+
     /**
      * Used to mark the {@link Task} as finished
      */
