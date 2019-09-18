@@ -86,16 +86,22 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            } else {
-                ui.correct_command_error();
-                return;
-            }
+            } else if (taskType.equals("range")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    list.add(new RangedTask(taskDescription, taskTime));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                }
+            } 
         }
 
         String output = "\t  " + list.get(list.size() - 1).toString();
         System.out.println("\t_____________________________________");
         System.out.println("\tGot it. I've added this task:");
-        System.out.println(output);  
+        System.out.println(output);
         // Printing number of items in list
         System.out.println("\tNow you have " + list.size() + " tasks in the list.");
         System.out.println("\t_____________________________________\n\n");
