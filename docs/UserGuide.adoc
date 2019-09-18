@@ -24,17 +24,19 @@ This user guide aims to help you learn your way around our app, making the learn
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-=== 3.1 Adding a task : `todo/deadline/event/doafter`
-Adds a todo/deadline/event/doafter to the tasklist.
+=== 3.1 Adding a task : `todo/deadline/event/doafter/range`
+Adds a todo/deadline/event/doafter/range to the tasklist.
 
 Format: `todo DESCRIPTION`  
         `deadline DESCRIPTION /by dd/mm/yyyy hhmm`  
         `event DESCRIPTION /at dd/mm/yyyy hhmm`  
         `doafter DESCRIPTION /after TASK`
+        `range DESCRIPTION /at d/M/uuuu HHmm and d/M/uuuu HHmm`
         
   - `DESCRIPTION` is the description of the task.
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
   - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be added after an existing task before it has been defined.
+  - `d/M/uuuu HHmm` indicates the dates and times that a range task has to be done within.
   
 Examples:
 
@@ -42,6 +44,7 @@ Examples:
 * `deadline homework /by 8/8/2019 2359`
 * `event team meeting /at 20/8/2019 1500`
 * `doafter return book /after read book`
+* `range attend workshop /by 21/09/2019 1600 and 21/09/2019 1800`
 
 === 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
@@ -140,7 +143,7 @@ There is no need to save manually.
 
 == 5. Command Summary
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK` +
+* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK`  `range DESCRIPTION /by d/M/uuuu HHmm and d/M/uuuu HHmm` +
   e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` 
 * *Delete*: `delete INDEX`  +  
   e.g. `delete 3`
