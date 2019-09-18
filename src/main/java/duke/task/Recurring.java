@@ -12,9 +12,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Subclass of duke.task.Task
+ * Describes type of task which is recurring
+ */
 public class Recurring extends Task {
-
-
     enum RecurrencePeriod {DAILY, WEEKLY}
 
     private Ui ui;
@@ -26,6 +28,19 @@ public class Recurring extends Task {
     String taskType;
     LocalDate dateCreated;
 
+    /**
+     * Constructor for this class
+     * Takes in description and convert it to DAILY/WEEKLY based on when to schedule it
+     * Takes in ui, storage and tasks to run addCommand to add an instance of the task to
+     * schedule
+     * Stores the date created and adds a normal task every 24 hours or 7 days
+     *
+     * @param description description of the task
+     * @param taskType type of task to schedule
+     * @param tasks list of task needed for addCommand
+     * @param ui ui needed for addCommand
+     * @param storage storage needed for addCommand
+     */
     public Recurring(String description, String taskType, TaskList tasks, Ui ui, Storage storage) {
         super(description);
         this.taskType = taskType;
