@@ -72,11 +72,10 @@ public class Event extends Task implements Snoozeable {
 
     @Override
     public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
-        if (start.compareTo(startDate) < 0 && end.compareTo(endDate) >= 0
-                || start.compareTo(startDate) >= 0 && end.compareTo(endDate) >= 0) { // startDate and endDate -> 24 hours of a day
+        if (start.compareTo(startDate) < 0 && end.compareTo(startDate) >= 0) { // starts before ends after that date
             return new Schedule(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
-                    formatter.format(this.start), formatter.format(this.end)) , true);
-        } else if (start.compareTo(startDate) >= 0 && end.compareTo(endDate) <= 0) {
+                    formatter.format(this.start), formatter.format(this.end)),true);
+        } else if (start.compareTo(startDate) >= 0 && start.compareTo(endDate) <= 0) { // starts during date
             return new Schedule(start, String.format("[E]%s %s", super.toString(), this.description));
         }
         return null;

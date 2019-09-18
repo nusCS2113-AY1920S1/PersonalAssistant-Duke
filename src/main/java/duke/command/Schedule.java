@@ -8,12 +8,25 @@ public class Schedule {
     private String task;
     private boolean ongoing;
 
+    /**
+     * Constructor for schedule.
+     *
+     * @param time time to be shown in timetable
+     * @param toString task details
+     */
     public Schedule(Date time, String toString) {
         this.time = time;
         this.task = toString;
         this.ongoing = false;
     }
 
+    /**
+     * Constructor for schedule. Tracks ongoing events.
+     *
+     * @param time time to be shown in timetable
+     * @param toString task details
+     * @param ongoing event ongoing
+     */
     public Schedule(Date time, String toString, boolean ongoing) {
         this.time = time;
         this.task = toString;
