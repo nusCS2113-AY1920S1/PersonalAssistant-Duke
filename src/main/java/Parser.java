@@ -53,7 +53,22 @@ public class Parser {
                     //create event object
                     Event t = new Event(dateInfo[0], dateInfo[1]);
                     return new AddCommand(t);
-                } else {
+                }
+                /**View by date for Extension B - View Schedule
+                 * @author Ng Jian Wei
+                 */
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                   String lookUpDate = dateInfo;
+                   //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                   return new ViewDates(lookUpDate);
+                }
+                else {
                     try {
                         throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
                     } catch (DukeException e){

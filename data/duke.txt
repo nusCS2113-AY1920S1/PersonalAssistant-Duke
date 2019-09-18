@@ -1,3 +1,3 @@
-T | 0 | add something
-D | 0 | presentation | 18th of September 2019, 6.00pm
-D | 0 | test | 16th of September 2019, 1.00pm
+D | 0 | homework | 24th of September 2019, 6.30pm
+E | 0 | BBQ party | 24th of September 2019, 11.00pm
+
