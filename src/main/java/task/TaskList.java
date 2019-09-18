@@ -129,6 +129,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * This function returns true if two tasks are the same, else it will return false.
+     */
     private static boolean isTheSameTask(Tasks a, Tasks b) {
         if (a.getType().equals(b.getType()) && a.getDescription().equals(b.getDescription())) {
             return true;
