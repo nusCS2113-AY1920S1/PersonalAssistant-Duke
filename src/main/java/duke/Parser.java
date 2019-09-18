@@ -57,6 +57,8 @@ public class Parser {
             return command;
         } catch (NumberFormatException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InputException("Please provide an index. Eg. 'done 5' or 'delete 3'");
         }
     }
 }
