@@ -6,6 +6,8 @@ import duke.commons.Message;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.FixedDurationTask;
+import duke.task.RecurringTask;
+import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Dictionary;
@@ -75,7 +77,7 @@ public class Parser {
 
     private static Dictionary<String, String> parseCommandAndParams(String line) throws DukeException {
         Dictionary<String, String> params = new Hashtable<>();
-
+//Space
         Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^-]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
@@ -103,8 +105,6 @@ public class Parser {
             } else {
                 params.put(attrAndValueMatcher.group(1), attrAndValueMatcher.group(2));
             }
-
-
         }
 
         return params;
@@ -121,6 +121,17 @@ public class Parser {
         return new AddCommand(todo);
     }
 
+    private static Command addRecurringTask (Task task, int period) throws DukeException {
+        try {
+            RecurringTask recurringTask = new RecurringTask(task,
+                    period);
+            return new AddCommand(recurringTask);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Recurring period should be an integer");
+        }
+
+    }
+
     private static Command parseDeadline(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
         if (args.get("primary") == null) {
@@ -130,9 +141,28 @@ public class Parser {
             throw new DukeException("Please enter deadline date");
         }
 
+        //if (args.get("every") != null) {
+        //    try {
+        //        Deadline ddl = new Deadline(args.get("primary"), TimeParser.convertStringToDate(args.get(
+        //                "by")));
+        //        RecurringTask recurringTask = new RecurringTask(ddl,
+        //                Integer.parseInt(args.get("every")));
+        //        return new AddCommand(recurringTask);
+        //    } catch (NumberFormatException e) {
+        //        throw new DukeException("Recurring period should be an integer");
+        //    }
+        //}
+
         Deadline ddl = new Deadline(args.get("primary"), TimeParser.convertStringToDate(args.get("by")));
+
+        if (args.get("every") != null) {
+            return addRecurringTask(ddl, Integer.parseInt(args.get("every")));
+        }
+
         return new AddCommand(ddl);
     }
+
+
 
     private static Command parseEvent(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
@@ -155,7 +185,13 @@ public class Parser {
         }
 
         if (args.get("at") != null) {
+
             Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
+
+            if (args.get("every") != null) {
+                return addRecurringTask(evt, Integer.parseInt(args.get("every")));
+            }
+
             return new AddCommand(evt);
         } else if (args.get("from") != null) {
             Event evt = new Event(args.get("primary"),
@@ -170,6 +206,8 @@ public class Parser {
                 throw new DukeException("Duration should be an integer");
             }
         }
+
+
     }
 
     private static Command parseList(String line) {
