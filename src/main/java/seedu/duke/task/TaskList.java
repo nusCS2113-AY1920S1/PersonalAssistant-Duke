@@ -85,6 +85,7 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 } catch (ParseException ignore) {
+                    return;
                 }
             } else if (taskType.equals("event")) {
                 try {
@@ -99,6 +100,7 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 } catch (ParseException ignore) {
+                    return;
                 }
             } else if (taskType.equals("range")) {
                 try {
