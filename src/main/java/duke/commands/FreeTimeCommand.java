@@ -73,10 +73,11 @@ public class FreeTimeCommand extends Command {
                     } else if (currTime + diff <= upperTimeBound && compInt - currTime >= diff) {
                         //case B: Slot currTime to be as it is
                         //ui.showMessage("B1");
-                    } else if (compInt + diff <= upperTimeBound){
+                    } else if (compInt + diff <= upperTimeBound) {
                         //case C: Set currTime to be compTime
                         currTime = compInt;
-                        currDate = getAndSetDate(currDate, currTime / 100, calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 0);
+                        currDate = getAndSetDate(currDate, currTime / 100, calendar.get(Calendar.MINUTE),
+                                calendar.get(Calendar.SECOND), 0);
                         //ui.showMessage("C1");
                     } else {
                         //not supposed to be here
