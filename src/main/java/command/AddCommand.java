@@ -3,7 +3,10 @@ package command;
 import exception.DukeException;
 import parser.CommandParams;
 import storage.Storage;
+import task.Deadline;
+import task.Event;
 import task.TaskList;
+import task.ToDo;
 import ui.Ui;
 
 /**
@@ -40,15 +43,15 @@ public class AddCommand extends Command {
         }
         switch (commandParams.getCommandType()) {
         case "todo":
-            tasks.addToDo(commandParams.getMainParam());
+            tasks.addTask(new ToDo(commandParams.getMainParam()));
             break;
         case "deadline":
-            tasks.addDeadline(commandParams.getMainParam(), commandParams.getParam("by"));
+            tasks.addTask(new Deadline(commandParams.getMainParam(), commandParams.getParam("by")));
             break;
         case "event":
-            tasks.addEvent(commandParams.getMainParam(),
+            tasks.addTask(new Event(commandParams.getMainParam(),
                     commandParams.getParam("start"),
-                    commandParams.getParam("end"));
+                    commandParams.getParam("end")));
             break;
         default:
             throw new DukeException("\"☹ OOPS!!! Your command type is unknown!\"");

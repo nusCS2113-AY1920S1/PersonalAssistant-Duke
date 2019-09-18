@@ -3,6 +3,7 @@ package task;
 import exception.DukeException;
 import parser.TimeParser;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -26,6 +27,17 @@ public class Event extends Task {
         super(description);
         this.start = TimeParser.parse(startString);
         this.end = TimeParser.parse(endString);
+    }
+
+    /**
+     * Constructs a <code>Event</code> object from the separated storage string.
+     *
+     * @param splitStorageStrings the separated storage string.
+     */
+    public Event(String[] splitStorageStrings) {
+        super(splitStorageStrings);
+        this.start = TimeParser.parse(splitStorageStrings[3]);
+        this.end = TimeParser.parse(splitStorageStrings[4]);
     }
 
     /**

@@ -25,6 +25,11 @@ public class Task {
         this.isDone = false;
     }
 
+    protected Task(String[] splitStorageStrings) {
+        this.description = splitStorageStrings[2];
+        this.isDone = splitStorageStrings[1].equals("1");
+    }
+
     /**
      * Marks the status of the task to "done".
      */
