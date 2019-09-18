@@ -126,7 +126,7 @@ public class ConsoleInputController implements IViewController {
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() == 17 && input.substring(0,8).equals("schedule")) {
+        } else if (input.length() >= 9 && input.substring(0,9).equals("schedule ")) {
             try {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {
@@ -140,7 +140,7 @@ public class ConsoleInputController implements IViewController {
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.substring(0, 9).equals("recurring")) {
+        } else if (input.length() >= 10 && input.substring(0, 10).equals("recurring ")) {
             try {
                 Recurring newRecurringTask = recurringFactory.createTask(input);
                 boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
