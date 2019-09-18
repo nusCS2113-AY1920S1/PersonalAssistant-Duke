@@ -15,7 +15,7 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        this.date = getDate(at);
+        this.date = super.getDate(at);
     }
 
     @Override
@@ -39,7 +39,14 @@ public class Event extends Task {
         if (date == null)
             return at;
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String pattern = at.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+        //String pattern = at.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+        String pattern;
+        if(at.length() > 11){
+            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
+        }
+        else{
+            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+        }
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
     }
