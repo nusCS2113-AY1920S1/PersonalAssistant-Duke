@@ -21,7 +21,7 @@ public class TaskFactory {
      * @return : returns an models.tasks.ITask based on command typed into CLI
      * @throws DukeException : when command entered does not match existing Tasks
      */
-    public ITask createTask(String input) throws DukeException {
+    public ITask createTask(String input) throws DukeException, ParseException {
         String[] allArgs = input.split(" ");
         List<String> listArgs = new ArrayList<>(Arrays.asList(allArgs));
         String tempString;

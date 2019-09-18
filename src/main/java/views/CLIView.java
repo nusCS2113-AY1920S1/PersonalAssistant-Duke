@@ -214,10 +214,18 @@ public class CLIView {
     public void findFreeSlots(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         Scanner sc = new Scanner(input);
-        String dummy = sc.next();
-        String tempDate = sc.nextLine();
-        ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
+        String tempDate = sc.next();
+        if (sc.hasNext()) {
+            tempDate = sc.nextLine();
+        } else {
+            tempDate = "";
+        }
 
+        ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
+        System.out.println("Here are the free time slots you have between your tasks:\n");
+        for (int i = 0; i < freeTimeSlots.size(); i++) {
+            System.out.println(freeTimeSlots.get(i));
+        }
         System.out.println(horiLine);
     }
 }

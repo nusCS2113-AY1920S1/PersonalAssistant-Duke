@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Scanner;
 
 public class TaskList implements Serializable {
     private static final int DAYS_FROM_NOW = 7;
@@ -140,9 +141,9 @@ public class TaskList implements Serializable {
 
     /**
      * Returns a list of tasks in sorted order, with the amount of free time in between tasks.
-     * @param limit
-     * @return
-     * @throws ParseException
+     * @param limit The time given by the user.
+     * @return A list of tasks in sorted order, with the free time between each task.
+     * @throws ParseException if date and time does not adhere to given format of dd/MM/yyyy
      */
     public ArrayList<String> findFreeSlots(String limit) throws ParseException {
         ArrayList<ITask> upcomingTasks = getUpcomingTasks(limit);
@@ -159,19 +160,17 @@ public class TaskList implements Serializable {
         long diff;
         for (int i = 0; i < upcomingTasks.size(); i++) {
             ITask nextTaskInList = upcomingTasks.get(i);
-            diff = currentDateTime.getTime() - nextTaskInList.getDateTimeObject().getTime();
+            diff =  Math.abs(nextTaskInList.getDateTimeObject().getTime() - currentDateTime.getTime());
             long diffInHours = diff / (60 * 60 * 1000);
             long diffInDays = diffInHours / 24;
             long remainingHours = diffInHours % 24;
-            String timeRemaining = "Free time: " + diffInDays + " days " + remainingHours + "hours";
+            String timeRemaining = "    Free time before next task: " + diffInDays + " day(s) " + remainingHours + " hour(s)" + "\n";
             tasksAndFreeSlots.add(timeRemaining);
-            String fullTaskDescription = "[" + nextTaskInList.getInitials() + "][" + nextTaskInList.getStatusIcon() + "]"
+            String fullTaskDescription = "[" + nextTaskInList.getInitials() + "][" + nextTaskInList.getStatusIcon() + "] "
                 + nextTaskInList.getDescription();
             tasksAndFreeSlots.add(fullTaskDescription);
-            currentDateTime = upcomingTasks.get(i).getDateTimeObject();
+            currentDateTime = nextTaskInList.getDateTimeObject();
         }
         return tasksAndFreeSlots;
     }
-
-
 }

@@ -66,7 +66,13 @@ public class ConsoleInputController implements IViewController {
             try {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {
-                System.out.println("error in scheduling");
+                System.out.println("Error in scheduling");
+            }
+        } else if (input.contains("free")) {
+            try {
+                consoleView.findFreeSlots(taskList, input);
+            } catch (ParseException e) {
+                System.out.print("Wrong date time input format");
             }
         } else {
             try {
@@ -75,6 +81,8 @@ public class ConsoleInputController implements IViewController {
                 consoleView.addMessage(newTask, taskList, anomaly);
                 saveData();
             } catch (DukeException newException) {
+                consoleView.invalidCommandMessage(newException);
+            } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
         }
