@@ -25,7 +25,7 @@
 ## User Interface
 
 ![UI image]
-<docs/images/Ui.png>
+(docs/images/Ui.png)
 
 ## Duke Increment
 
@@ -44,4 +44,4 @@ Duke Increment | Tutorial
 * [User Guide]
 * [Develper Guide]
 * [Learning Outcomes]
-* [About us]: <docs/AboutUs.adoc>
+* [About us] (docs/AboutUs.adoc)
