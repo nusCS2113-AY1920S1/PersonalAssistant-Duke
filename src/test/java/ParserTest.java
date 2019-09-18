@@ -1,12 +1,4 @@
-import duke.command.ListCommand;
-import duke.command.NewEventCommand;
-import duke.command.NewToDoCommand;
-import duke.command.NewDeadlineCommand;
-import duke.command.DoneCommand;
-import duke.command.ByeCommand;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.Parser;
+import duke.command.*;
 
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
@@ -33,6 +25,8 @@ public class ParserTest {
             assertEquals(uut.parse("bye").getClass(), ByeCommand.class);
             assertEquals(uut.parse("delete 1").getClass(), DeleteCommand.class);
             assertEquals(uut.parse("find u").getClass(), FindCommand.class);
+            assertEquals(uut.parse("recurring deadline submission /by 18/09/2019 2359 /repeats weekly " +
+                    "/until 23/11/2019 1300").getClass(), NewRecurringTaskCommand.class);
         } catch (DukeException excp) {
             fail("Exception thrown while extracting commands!");
         }
