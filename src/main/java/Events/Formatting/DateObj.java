@@ -39,43 +39,36 @@ public class DateObj {
      * @param inputDate the input keyed in for the date.
      */
     public DateObj(String inputDate) {
-        if (inputDate.contains("/")) {
-            try {
-                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                inputFormat.setLenient(false);
-                Date newJavaDate = inputFormat.parse(inputDate);
-                this.javaDate = newJavaDate;
-                format = DATE_AND_TIME; // date and time
-            } catch (ParseException pe) {
-                try {
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    inputFormat.setLenient(false);
-                    Date newJavaDate = inputFormat.parse(inputDate);
-                    this.javaDate = newJavaDate;
-                    format = DATE; // only date
-                } catch (ParseException pe2) {
-                    format = OTHER; // other types; store as string
-                    this.date = inputDate;
-                }
+        try {
+            SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
+            inputFormat1.setLenient(false);
+            inputFormat2.setLenient(false);
+            Date newJavaDate;
+            if (inputDate.contains("/")) { //normal date input type from user
+                newJavaDate = inputFormat1.parse(inputDate);
+            } else { //date type from tasks by getDate()
+                newJavaDate = inputFormat2.parse(inputDate);
             }
-        } else {
+            this.javaDate = newJavaDate;
+            format = DATE_AND_TIME; // date and time
+        } catch (ParseException pe) {
             try {
-                SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
-                inputFormat.setLenient(false);
-                Date newJavaDate = inputFormat.parse(inputDate);
-                this.javaDate = newJavaDate;
-                format = DATE_AND_TIME; // date and time
-            } catch (ParseException pe) {
-                try {
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMMMM yyyy");
-                    inputFormat.setLenient(false);
-                    Date newJavaDate = inputFormat.parse(inputDate);
-                    this.javaDate = newJavaDate;
-                    format = DATE; // only date
-                } catch (ParseException pe2) {
-                    format = OTHER; // other types; store as string
-                    this.date = inputDate;
+                SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy");
+                inputFormat1.setLenient(false);
+                inputFormat2.setLenient(false);
+                Date newJavaDate;
+                if (inputDate.contains("/")) { //normal date input type from user
+                    newJavaDate = inputFormat1.parse(inputDate);
+                } else { //date type from tasks by getDate()
+                    newJavaDate = inputFormat2.parse(inputDate);
                 }
+                this.javaDate = newJavaDate;
+                format = DATE; // only date
+            } catch (ParseException pe2) {
+                format = OTHER; // other types; store as string
+                this.date = inputDate;
             }
         }
     }
