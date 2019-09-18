@@ -34,7 +34,7 @@ public class DateTimeParser {
                 .trim();
         List<String> dateFormatStrings = Arrays.asList("dd-MM-yyyy", "dd/MM/yyyy", "dd-MMM-yyyy", "dd/MMM/yyyy", "d/MM/yyyy", "d-MM-yyyy",
                 "dd MMM yyyy", "d MMM yyyy", "dd/M/yyyy", "dd-M-yyyy", "d-M-y", "d/M/y", "d/M", "d-M", "M/d", "M-d", "M/y", "M-y");
-        List<String> hourFormatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "H", "H:mm", "H:m", "HH:m");
+        List<String> hourFormatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "H", "HH", "H:mm", "H:m", "HH:m");
         LocalDateTime localDateTime = getLocalDateTime(dateFormatStrings, hourFormatStrings, dateAndTime);
         if (localDateTime == null) {
             localDateTime = getLocalDateTimeHourOnly(hourFormatStrings, dateAndTime);
