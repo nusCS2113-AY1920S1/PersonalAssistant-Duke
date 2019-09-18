@@ -77,6 +77,7 @@ public class Storage {
                 userToDoListTask.add(tasks); //convert the line to a task and add to the list
             }
         }
+
         return userToDoListTask;
     }
 
@@ -114,5 +115,6 @@ public class Storage {
             e.getMessage();
         }
     }
+
 }
 

@@ -12,8 +12,6 @@ import task.Recurring;
 import ui.Ui;
 import wrapper.TimeInterval;
 
-import java.util.*;
-import java.util.regex.Pattern;
 import java.util.Scanner;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +25,7 @@ import java.util.TreeMap;
 public class Parser {
 
     /**
-     * Takes in users' input and call the appropriate functions to execute the right action.
+     * Takes in users' input and call the aprropriate functions to execute the right action.
      */
     public static int handleCommand(String firstWord, String s) {
         int check = 0;
@@ -61,18 +59,22 @@ public class Parser {
                 case "done":
                     doneCommand(s);
                     break;
+                    //================================================
                 case "delete":
                     deleteCommand(s);
                     break;
+                    //================================================
                 case "find":
                     findCommand(s);
                     break;
                 case "todo":
                     todoCommand(s);
                     break;
+                    //================================================
                 case "deadline":
                     deadlineCommand(s);
                     break;
+                    //================================================
                 case "event":
                     eventCommand(s);
                     break;
@@ -164,6 +166,7 @@ public class Parser {
             Ui.showEventMessage(TaskList.getType(todolistNumber), TaskList.getStatus(todolistNumber),
                 newtodoTask1, todolistNumber + 1);
             Storage.saveTask(TaskList.getList());
+
         } catch (ArrayIndexOutOfBoundsException e) {
             throw DukeException.TASK_NO_MISSING;
         } catch (NumberFormatException e) {
@@ -174,6 +177,7 @@ public class Parser {
     }
 
     private static void getFreeSlot(String s) throws DukeException {
+
         int num = -1;
         try {
             String[] tokens = s.split(" ");
@@ -183,34 +187,48 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw DukeException.TASK_DOES_NOT_EXIST;
         }
+
         if (num > 0) {
+
             TimeInterval freeslot = TaskList.getFreeSlot(num);
+
             Ui.showFreeTime(num, freeslot);
         }
+
     }
 
     private static void changeDate(String s) throws DukeException {
+
         int num = -1;
         try {
             String[] tokens = s.split(" ");
             num = Integer.parseInt(tokens[2]);
+
             Tasks temp = TaskList.getList().get(num - 1);
+
             Scanner scan = new Scanner(System.in);
+
             if (temp.getType().equals("E")) {
                 Ui.showMsg("Enter new start and end date");
                 String inputStr = scan.nextLine().trim();
                 String[] startendtime = inputStr.split("to");
                 ((Event) temp).setTime(startendtime[0], startendtime[1]);
                 Ui.updateTime(temp);
+
+
             } else if (temp.getType().equals("D")) {
                 Ui.showMsg("Enter new deadline");
                 String inputStr = scan.nextLine().trim();
                 ((Deadline) temp).setTime(inputStr);
                 Ui.updateTime(temp);
+
             } else {
                 Ui.showError("You cannot change the date of the task!");
             }
+
             Storage.saveTask(TaskList.getList());
+
+
         } catch (NumberFormatException e) {
             throw DukeException.TASK_DOES_NOT_EXIST;
         } catch (IndexOutOfBoundsException e) {
@@ -321,7 +339,7 @@ public class Parser {
             }
             Tasks newToDo = new ToDo(joinTokens, "T");
             TaskList.addTask(newToDo);
-            Ui.showToDoSuccess(TaskList.getType(todolistNumber - 1),
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
                 TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
                 TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
@@ -344,7 +362,7 @@ public class Parser {
                 throw DukeException.EMPTY_TASK_IN_RECUR;
             }
             TaskList.addTask(new Recurring(token[0].strip(), "R", token[1].strip()));
-            Ui.showToDoSuccess(TaskList.getType(todolistNumber - 1),
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
                     TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
                     TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
@@ -407,6 +425,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Creates a new event task with users' input.
      * Then, prints a confirmation message by calling showEventMessage function under Ui class.
@@ -416,6 +435,8 @@ public class Parser {
         try {
             String todoTask1 = s.substring(6, s.indexOf("/at"));
             String time1 = s.substring(s.indexOf("/at") + 4);
+            //Date timetemp1 = TimeParser.convertStringToDate(time1);
+            //time1 = TimeParser.convertDateToLine(timetemp1);
             if (todoTask1.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_EVENT;
             }
@@ -458,7 +479,9 @@ public class Parser {
         try {
             String todoTask = s.substring(9, s.indexOf("/by"));
             String time = s.substring(s.indexOf("/by") + 4);
-
+            //TimeParser timeParser = new TimeParser();
+            // time = timeParser.convertStringToDate(time);
+            //==============================================
             if (todoTask.isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_DEADLINE;
             }
@@ -471,6 +494,7 @@ public class Parser {
             if (time.equals(" ")) {
                 throw DukeException.EMPTY_TIME_IN_DEADLINE;
             }
+            //==============================================
             Deadline task = new Deadline(todoTask, "D", time);
             String newtodoTask = task.toMessage();
             //Tasks newToDo2 = new Deadline(newtodoTask, "D", time);
@@ -480,53 +504,6 @@ public class Parser {
         } catch (StringIndexOutOfBoundsException e) {
             throw DukeException.INVALID_FORMAT_IN_DEADLINE;
         }
-    }
-
-    /**
-     * Check for any incomplete events/deadlines since the user specified date
-     * The number of reminders is also specified by the user
-     * The reminders is then printed out
-     * Command: reminder <no. of reminders> <date>
-     */
-    private static void reminderCommand(String s) {
-        String[] tokens = s.split(Pattern.quote(" "));
-        Ui.showReminderIntroMessage(Integer.valueOf(tokens[1]), tokens[2]);
-        int count = 1;
-        Date startDate = TimeParser.convertToDate(tokens[2]);
-        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
-            Date logDate = TimeParser.getDateOnly(log.getKey());
-            if (count > Integer.valueOf(tokens[1])) {
-                break;
-            }
-            if (logDate.equals(startDate) || logDate.after(startDate)){
-                if (!log.getValue().isDone()){
-                    Ui.printReminder(log, count);
-                    count++;
-                }
-            }
-        }
-        Ui.showEmptyReminderMessage(count);
-        Ui.printLine();
-    }
-
-    /**
-     * Find all the deadlines/events on the user specified date
-     * Then print them out for user
-     * Command: schedule <date>
-     */
-    private static void scheduleCommand(String s) {
-        String[] tokens = s.split(Pattern.quote(" "));
-        Ui.showScheduleIntroMessage(tokens[1]);
-        tokens[1] = tokens[1] + " 00000";
-        int count = 1;
-        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
-            if (TimeParser.getDateOnly(log.getKey()).equals(TimeParser.convertStringToDate(tokens[1]))) {
-                Ui.printScheduleTask(log);
-                count++;
-            }
-        }
-        Ui.showScheduleFinalMessage(count);
-        Ui.printLine();
     }
 
     /**

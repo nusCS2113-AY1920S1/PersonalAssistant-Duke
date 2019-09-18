@@ -26,7 +26,7 @@ public class TaskList {
         DE = new TreeMap<>();
         E = new TreeMap<>();
 
-        for(Tasks a: tasks) {
+        for (Tasks a : tasks) {
             if (a.getType().equals("E")) {
                 DE.put(((Event) a).getDate().getStartDate(), a);
                 E.put(((Event) a).getDate().getStartDate(), a);
@@ -68,6 +68,7 @@ public class TaskList {
                     now = ((Event) entry.getValue()).getDate().getEndDate();
                 }
             } else {
+
                 if (entry.getValue().getType().equals("D")) {
                     next = ((Deadline) entry.getValue()).getDate().getEndDate();
                 } else if (entry.getValue().getType().equals("E")) {
@@ -76,9 +77,13 @@ public class TaskList {
                 if (next.after(now)) {
                     now = next;
                 }
+
             }
+
         }
+
         return new TimeInterval(now, now);
+
     }
 
     /**
@@ -138,6 +143,8 @@ public class TaskList {
      * Removes a particular task from database.
      */
     public static void removeTask(int num) throws DukeException {
+
+
         try {
             Tasks toBeRemoved = tasks.get(num);
 
@@ -173,6 +180,7 @@ public class TaskList {
             throw DukeException.TASK_DOES_NOT_EXIST;
         }
     }
+
 
     /**
      * Extracts the type of a particular task from database.
@@ -232,21 +240,10 @@ public class TaskList {
 
     public static void markTaskAsDone(int num) {
         tasks.get(num).setDone(true);
-        Tasks doneTask = tasks.get(num);
-        if (doneTask.getType().equals("E")){
-            DE.put(((Event)doneTask).getDate().getStartDate(),doneTask);
-            E.put(((Event)doneTask).getDate().getStartDate(),doneTask);
-        } else if (doneTask.getType().equals("D")){
-            DE.put(((Deadline)doneTask).getDate().getStartDate(),doneTask);
-        }
     }
 
     public static void markTaskAsUndone(int num) {
         tasks.get(num).setDone(false);
-    }
-
-    public static TreeMap<Date, Tasks> getTreeMap() {
-        return DE;
     }
 
     /**
