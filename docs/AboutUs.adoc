@@ -19,7 +19,7 @@ Responsibilities: Documentation + Code Quality
 '''
 
 === Marc
-image::lejolly.jpg[width="150", align="left"]
+image::Hotspur1997.jpg[width="150", align="left"]
 {empty}[http://github.com/Hotspur1997[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
