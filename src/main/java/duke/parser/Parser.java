@@ -62,6 +62,17 @@ public class Parser {
     }
 
     /**
+     * Snooze the task indicated by user.
+     * @param command The taskNo to be converted to an integer.
+     * @return DeleteCommand with the index of item to be snoozed.
+     * @throws NumberFormatException if command has characters.
+     */
+    private static Command parseSnooze(String command) throws NumberFormatException {
+        int index = Integer.parseInt(command);
+
+        return new SnoozeCommand(index);
+    }
+    /**
      * Return the correct command given by user, Class method.
      * @param fullCommand Command input by user to be parse
      * @return The correct Command class as defined by first word
@@ -99,6 +110,8 @@ public class Parser {
                             return parseDone(splitStr[1]);
                         case "delete":
                             return parseDelete(splitStr[1]);
+                        case "snooze":
+                            return parseSnooze(splitStr[1]);
                         default:
                             throw new DukeException("Invalid Command\n");
                     }
