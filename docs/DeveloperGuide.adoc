@@ -100,23 +100,21 @@ Use case ends.
 +
 Use case resumes at step 5.
 
-=== Use case: X
+=== Use case: Check progress
 
 *MSS*
 
-
+1. _User finishes topic/quiz_
+2. Cake shows progress bar ( [# # # # _ _ _ _] )
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 
+* 2a. User can request to show progress again `marks pl0x`
 +
-[none]
-** 
-+
-Use case resumes at step 
+Use case ends
 
 _{More to be added}_
 
