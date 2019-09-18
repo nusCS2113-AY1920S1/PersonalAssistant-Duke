@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 /**
  *  Used to find the next free timeslot of a duration of
  * user's choosing
@@ -24,6 +25,21 @@ public class SearchCommand extends Command {
     this.durationToFind = duration;
   }
 
+  /**
+   * get the duration to find for
+   * 
+   * @return the durationToFind
+   */
+  public long getDurationToFind() {
+    return durationToFind;
+  }
+  
+  /**
+   * executes the search command
+   * 
+   * @param tasks the current loaded task list
+   * @param storage the current loaded storage configuration
+   */
   public void execute(TaskList tasks, Storage storage) {
     ArrayList<Event> dateList = new ArrayList<Event>();
     boolean found = false;
