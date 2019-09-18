@@ -87,7 +87,6 @@ public class Storage {
             System.out.println("\tNo list saved in database. Please "
                 + "create a list now.");
             System.out.println("\t_____________________________________\n\n");
-            return null;
         }
         return list;
     }
