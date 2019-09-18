@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lucas Foo
-image::Lucas.png[width="150", align="left"]
+image::lucasfoo.png[width="150", align="left"]
 {empty} [https://github.com/lucasfoo[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer + 
