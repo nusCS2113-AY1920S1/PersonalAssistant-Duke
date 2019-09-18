@@ -37,6 +37,7 @@
 - done command: `done [index of the task]`
 - find command: `find [keyword]`
 - list command: `list`
+- recurring command: `recurring [index of the task] [number of weeks]`
 - bye command: `bye`  
 
 
