@@ -1,11 +1,13 @@
 package task;
 
+import parser.TimeParser;
+
 /**
  * Represents a specified task by extending the <code>Task</code> class
  * without adding any extra information.
  */
 public class ToDo extends Task {
-    private
+    private long timeTaken;
 
     /**
      * Constructs the task with description.
@@ -23,6 +25,11 @@ public class ToDo extends Task {
      */
     public ToDo(String[] splitStorageStrings) {
         super(splitStorageStrings);
+        timeTaken = Long.parseLong(splitStorageStrings[4]);
+    }
+
+    public void setTimeTaken(String timeTaken) {
+        this.timeTaken = TimeParser.parseDuration(timeTaken);
     }
 
     /**
@@ -34,7 +41,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")";
     }
 
     /**
@@ -45,6 +52,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageString() {
-        return "T | " + super.toStorageString();
+        return "T | " + super.toStorageString() + " | " + timeTaken;
     }
 }
