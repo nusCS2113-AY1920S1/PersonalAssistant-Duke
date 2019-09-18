@@ -23,9 +23,9 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:
-  [T][✘] go buy running shoes
-Now you have 1 task in the list.`
+`Got it. I've added this task:`
+`  [T][✘] go buy running shoes`
+`Now you have 1 task in the list.`
 
 ### `event <event> /at <start datetime> to <end datetime> ` - Add an event
 
@@ -37,9 +37,9 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:
-  [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
-Now you have 1 task in your list.`
+`Got it. I've added this task:`
+`  [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)`
+`Now you have 1 task in your list.`
 
 ### `deadline <task> /by <deadline>` - Add a deadline
 
@@ -51,9 +51,9 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:
-  [D][✘] geh1049 essay (by: 20/9/2019 1800)
-Now you have 1 task in your list.`
+`Got it. I've added this task:`
+`  [D][✘] geh1049 essay (by: 20/9/2019 1800)`
+`Now you have 1 task in your list.`
 
 ### `list` - Displays task list
 
@@ -65,10 +65,10 @@ Example of usage:
 
 Expected outcome:
 
-`Here are the tasks in your list:
-1. [T][✘] go buy running shoes
-2. [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
-3. [D][✘] geh1049 essay (by: 20/9/2019 1800)`
+`Here are the tasks in your list:`
+`1. [T][✘] go buy running shoes`
+`2. [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)`
+`3. [D][✘] geh1049 essay (by: 20/9/2019 1800)`
 
 ### `done <task number>` - Mark task as done
 
@@ -80,8 +80,8 @@ Example of usage:
 
 Expected outcome:
 
-`Nice! I've marked this task as done:
-  [T][✓] go buy running shoes`
+`Nice! I've marked this task as done:`
+`  [T][✓] go buy running shoes`
 
 ### `delete <task number>` - Remove task from task list
 
@@ -93,9 +93,9 @@ Example of usage:
 
 Expected outcome:
 
-`Noted. I've removed this task:
-  [T][✓] go buy running shoes
-Now you have 2 tasks in the list.`
+`Noted. I've removed this task:`
+`  [T][✓] go buy running shoes`
+`Now you have 2 tasks in the list.`
 
 ### `schedule <date>` - Display schedule for a paticular date
 
@@ -107,13 +107,13 @@ Example of usage:
 
 Expected outcome:
 
-`Here is your schedule:
------------------------------------------------------
-|                   17/9/2019                       |
------------------------------------------------------
-|   Time    |                  Task                 |
------------------------------------------------------
-|   1400    |       [E][Γ✘] student life fair      |
------------------------------------------------------
-Here are your ongoing tasks:
-1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)`
+`Here is your schedule:`
+`-----------------------------------------------------`
+`|                   17/9/2019                       |`
+`-----------------------------------------------------`
+`|   Time    |                  Task                 |`
+`-----------------------------------------------------`
+`|   1400    |       [E][Γ✘] student life fair       |`
+`-----------------------------------------------------`
+`Here are your ongoing tasks:`
+`1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)`
