@@ -4,14 +4,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.duke.data.Storage;
-import seedu.duke.Reminders.Reminders;
 import seedu.duke.command.Parser;
-import seedu.duke.task.Task;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
-
+import seedu.duke.task.Reminders;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
