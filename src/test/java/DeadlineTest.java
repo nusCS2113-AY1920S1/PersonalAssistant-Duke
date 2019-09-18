@@ -1,10 +1,8 @@
-import duke.command.ViewScheduleCommand;
 import duke.dukeexception.DukeException;
 import duke.task.Deadline;
 import duke.task.Snoozeable;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,13 +48,5 @@ public class DeadlineTest {
         Snoozeable task = new Deadline(list);
         task.snooze();
         assertEquals(task.toString(), "[D][✘] do something (by: 03/01/2020 1212)");
-    }
-
-    @Test
-    void viewScheduleCommand_invalidList_dukeExceptionThrown() {
-        List<String> invalidSchedule = Arrays.asList("schedule", "/from", "16/9/2019");
-        assertThrows(DukeException.class, () -> {
-            new ViewScheduleCommand(invalidSchedule);
-        });
     }
 }
