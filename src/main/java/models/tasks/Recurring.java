@@ -64,4 +64,9 @@ public class Recurring implements ITask, IRecurring {
     public String getRecurringDescription() {
         return this.description;
     }
+
+    @Override
+    public void setDateTime(String newDateTime) {
+        this.dueDate = newDateTime;
+    }
 }
