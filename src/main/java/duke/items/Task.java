@@ -9,7 +9,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-    protected Task doAfter; //Can extend to a list of tasks that have to be done before.
+    protected int doAfter; //Can extend to a list of tasks that have to be done before.
 
     protected enum TaskType {
         TODO, DEADLINE, EVENT
@@ -23,7 +23,7 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(String description, TaskType type) {
+    public Task(String description, TaskType type, int doAfter) {
         this.description = description;
         this.isDone = false;
         this.type = type;
@@ -41,7 +41,7 @@ public class Task {
         return isDone;
     }
 
-    public void setDoAfter(Task doAfter) {
+    public void setDoAfter(int doAfter) {
         this.doAfter = doAfter;
     }
 

@@ -8,8 +8,8 @@ package duke.items;
 
 public class Todo extends Task {
 
-    public Todo(String description) {
-        super(description, TaskType.TODO); //Using the Task constructor. isDone is set to false.
+    public Todo(String description, int doAfter) {
+        super(description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
     }
 
     @Override

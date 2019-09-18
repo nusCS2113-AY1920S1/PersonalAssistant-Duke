@@ -3,6 +3,7 @@ package duke.commands;
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+import duke.exceptions.BadInputException;
 
 /**
  * This is an abstract class.
@@ -36,7 +37,7 @@ public class Command {
      * Prints the list or saves the list and sends exit message.
      * Might need to separate into bye and list commands.
      */
-    public void execute(TaskList list, Ui ui, Storage storage)  {
+    public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
         if (type == CommandType.LIST) {
             list.printList();
         } else if (type == CommandType.BYE) {

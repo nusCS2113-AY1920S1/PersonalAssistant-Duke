@@ -38,8 +38,8 @@ public class TaskList {
      *
      * @param todoitem the description of the task.
      */
-    public void addTodoItem(String todoitem) {
-        taskList.add(new Todo(todoitem)); //Use the constructor to create a new Task.
+    public void addTodoItem(String todoitem, int afterIndex) {
+        taskList.add(new Todo(todoitem, afterIndex)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
     }
 
@@ -48,8 +48,8 @@ public class TaskList {
      *
      * @param deadline the command with the description and deadline of the task.
      */
-    public void addDeadlineItem(String description, String deadline) {
-        taskList.add(new Deadline(description, deadline)); //Use the constructor to create a new Task.
+    public void addDeadlineItem(String description, String deadline, int afterIndex) {
+        taskList.add(new Deadline(description, deadline, afterIndex)); //Use the constructor to create a new Task.
         System.out.println("Deadline item added: " + description);
         System.out.println("Deadline is: " + deadline);
     }
@@ -60,9 +60,9 @@ public class TaskList {
      * @param event the description of the task.
      * @param at the time the event happens.
      */
-    public void addEventItem(String event, String at) {
+    public void addEventItem(String event, String at, int afterIndex) {
 
-        taskList.add(new Event(event, at)); //Use the constructor to create a new Task.
+        taskList.add(new Event(event, at, afterIndex)); //Use the constructor to create a new Task.
         System.out.println("Event item added: " + event);
         System.out.println("Event happens at: " + at);
     }

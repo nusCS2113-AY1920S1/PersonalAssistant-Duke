@@ -47,13 +47,19 @@ public class Parser {
         }
     }
 
-    private int processDoAfter(String input) {
+    private int processDoAfter(String input) throws BadInputException {
         String shortStr;
         String[] splitStr;
-        shortStr = input.substring(input.indexOf("/after"));
-        splitStr = shortStr.split(" ", 3);
+        int taskIndex;
 
-        splitStr[1] //check if this is an int 
+        shortStr = input.substring(input.indexOf("/after"));
+        try {
+            splitStr = shortStr.split(" ", 3); //splits into "/after" "x" and other stuff, where "x" is an int
+            taskIndex = Integer.parseInt(splitStr[1]); //check if this is an int
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new BadInputException("Please input the index number of the task that has to be done first.");
+        }
+        return taskIndex;
     }
 
     /**
@@ -102,16 +108,16 @@ public class Parser {
 
         //Commands which require string input.
         case "todo":
-            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
+            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null, afterIndex);
             break;
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1], afterIndex);
             break;
         }
         case "event": {
             String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1], afterIndex);
             break;
         }
         case "find": {
