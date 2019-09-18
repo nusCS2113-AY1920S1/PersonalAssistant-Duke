@@ -45,6 +45,11 @@ public abstract class TimedTask extends Task implements Comparable<TimedTask> {
     public int compareTo(TimedTask o) {
         return getDateTime().compareTo(o.getDateTime());
     }
+  
+    @Override
+    public void changeTime(LocalDateTime newTime) {
+        time = newTime;
+    }
 
     // --Commented out by Inspection START (03/09/2019 11:57):
     //    public static DateTimeFormatter getDisplayFormatter() {

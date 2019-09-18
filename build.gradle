@@ -38,7 +38,7 @@ javafx {
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "0.1.3"
+    archiveVersion = "mid-v1.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -46,3 +46,5 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
+
+

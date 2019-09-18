@@ -24,7 +24,9 @@ public class Duke {
         try {
             //construct tasklist from storage and ui
             ctx = new DukeContext(new Storage(filePath), ui);
-            ctx.ui.print("Here are your reminders:" + ctx.taskList.listReminders());
+            String reminderStr = ctx.taskList.listReminders().replace(System.lineSeparator(),
+                    System.lineSeparator() + "  ");
+            ctx.ui.print("Here are your reminders:" + reminderStr);
             ctx.ui.printHello();
         } catch (DukeFatalException excp) {
             excp.killProgram(ui); //standard exit on fatal exception
