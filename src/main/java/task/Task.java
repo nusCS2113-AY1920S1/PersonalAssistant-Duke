@@ -39,7 +39,7 @@ public class Task {
     protected void markAsDone() {
 
         if (doAfterDate != null && doAfterDate.after(new Date())) {
-            throw new DukeException("☹ OOPS!!! This task has to be done after " + doAfterDate);
+            throw new DukeException("☹ OOPS!!! This task has to be done after " + TimeParser.format(doAfterDate));
 
         } else if (doAfterTasks != null) {
 
