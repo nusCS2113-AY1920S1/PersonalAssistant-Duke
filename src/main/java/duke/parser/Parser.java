@@ -9,13 +9,24 @@ import duke.command.DoneCommand;
 import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.PeriodCommand;
 import duke.command.RemindCommand;
 import duke.command.TodoCommand;
 
 import duke.exception.DukeException;
 
-
-import static duke.common.Messages.*;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.COMMAND_BYE;
+import static duke.common.Messages.COMMAND_DEADLINE;
+import static duke.common.Messages.COMMAND_DELETE;
+import static duke.common.Messages.COMMAND_DURATION;
+import static duke.common.Messages.COMMAND_DONE;
+import static duke.common.Messages.COMMAND_EVENT;
+import static duke.common.Messages.COMMAND_FIND;
+import static duke.common.Messages.COMMAND_LIST;
+import static duke.common.Messages.COMMAND_PERIOD;
+import static duke.common.Messages.COMMAND_REMIND;
+import static duke.common.Messages.COMMAND_TODO;
 
 
 /**

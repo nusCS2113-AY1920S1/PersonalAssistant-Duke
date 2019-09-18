@@ -5,6 +5,7 @@ import duke.task.Deadline;
 import duke.task.DoAfter;
 import duke.task.Duration;
 import duke.task.Event;
+import duke.task.Period;
 import duke.task.Task;
 import duke.task.Todo;
 
@@ -161,7 +162,7 @@ public class TaskList {
     }
 
     /**
-     * Adds fixed duration task to taskList
+     * Adds fixed duration task to taskList.
      * @param description String containing the description of the task
      * @param startDate String containing the start date of the period to complete the task.
      * @param endDate String containing the end date of the period to complete the task.

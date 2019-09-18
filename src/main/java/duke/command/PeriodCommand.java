@@ -5,13 +5,17 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.COMMAND_PERIOD;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_PERIOD;
+import static duke.common.Messages.ERROR_MESSAGE_PERIOD2;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
 
 public class PeriodCommand extends Command {
 
     /**
-     * Constructor for class PeriodCommand
+     * Constructor for class PeriodCommand.
      * @param userInputCommand String containing input command from user
      */
     public PeriodCommand(String userInputCommand) {
@@ -20,11 +24,11 @@ public class PeriodCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if(userInputCommand.trim().equals(COMMAND_PERIOD)) {
+        if (userInputCommand.trim().equals(COMMAND_PERIOD)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-        } else if(userInputCommand.trim().charAt(6) == ' ') {
+        } else if (userInputCommand.trim().charAt(6) == ' ') {
             String description = userInputCommand.trim().split("\\s",2)[1];
-            if(description.contains("/between")) {
+            if (description.contains("/between")) {
                 String details = description.trim().split("/between", 2)[0];
                 String period = description.trim().split("/between", 2)[1];
                 if (!period.isEmpty()) {
@@ -41,7 +45,7 @@ public class PeriodCommand extends Command {
                         throw new DukeException(ERROR_MESSAGE_PERIOD2);
                     }
                 }
-                if(details.isEmpty() || period.isEmpty()) {
+                if (details.isEmpty() || period.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_PERIOD);
                 }
             } else {
