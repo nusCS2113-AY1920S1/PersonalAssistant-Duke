@@ -77,32 +77,30 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            } else if (task_type.equals("doafter")) {
+            } else if (taskType.equals("doafter")) {
                 try {
-	            String task_description = task_description_full.split("/", 2)[0];
-	            String after = task_description_full.split("/", 2)[1].substring(6);
-	            boolean taskFound = false;
-	            for (Task j: list) {
-	                    if (j.description.equals(after)) {
-	  		    list.add(new DoAfter(task_description, after));
-			    taskFound = true;
-			    break;
-		        }
-	            }
-	            if (!taskFound) {
-		        System.out.println();
-		        System.out.println("        _____________________________________");
-		        System.out.println("        Task: '" + after + "' not found!");
-		        System.out.println("        _____________________________________");
-		        System.out.println();
-		        System.out.println();
-		        return;
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String after = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    boolean taskFound = false;
+                    for (Task j: list) {
+                        if (j.description.equals(after)) {
+                            list.add(new DoAfter(taskDescription, after));
+                            taskFound = true;
+                            break;
+                        }
                     }
-	        }
-	        // if /after is not included in doafter command
-                catch (ArrayIndexOutOfBoundsException e) {
-	            ui.wrong_description_error();
-	            return;
+                    if (!taskFound) {
+                        System.out.println();
+                        System.out.println("        _____________________________________");
+                        System.out.println("        Task: '" + after + "' not found!");
+                        System.out.println("        _____________________________________");
+                        System.out.println();
+                        System.out.println();
+                        return;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
+                    ui.wrong_description_error();
+                    return;
                 }
             } else if (taskType.equals("event")) {
                 try {

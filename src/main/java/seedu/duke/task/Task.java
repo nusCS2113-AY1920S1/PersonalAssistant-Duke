@@ -39,7 +39,7 @@ public abstract class Task {
     }
 
     public void markAsDone(TaskList list) {
-      this.isDone = true;
+        this.isDone = true;
     }
 
     /**

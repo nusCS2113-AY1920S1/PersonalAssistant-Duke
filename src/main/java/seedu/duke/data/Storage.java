@@ -4,6 +4,7 @@ import seedu.duke.task.Task;
 import seedu.duke.task.ToDo;
 import seedu.duke.task.Event;
 import seedu.duke.task.Deadline;
+import seedu.duke.task.DoAfter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -48,7 +49,7 @@ public class Storage {
                 } else if (taskString[0].equals("D")) {
                     list.add(new Deadline(taskString[2], taskString[3]));
                 } else if (taskString[0].equals("A")) {
-                    list.add(new DoAfter(task_string[2], task_string[3]));
+                    //list.add(new DoAfter(taskString[2], taskString[3]));
                 } else {
                     list.add(new Event(taskString[2], taskString[3]));
                 }
@@ -79,7 +80,6 @@ public class Storage {
             (new File(this.filePath)).delete();
             return;
         }
-
         //if data folder doesnt exist create it
         File directory = new File(this.filePath.split("/")[0]);
         if (!directory.exists()) {
