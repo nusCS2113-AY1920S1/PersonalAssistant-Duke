@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
+import models.commands.RescheduleCommand;
 import models.tasks.Deadline;
 import models.tasks.Event;
 import models.tasks.ITask;
@@ -147,10 +148,11 @@ public class CLIView {
     /**
      * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
      * @param taskList Current list of tasks.
-     * @param input User command including time limit before which to find upcoming tasks. If left blank, it will be seven days from current date by default.
+     * @param input User command including time limit before which to find upcoming tasks. If left blank,
+     *             it will be seven days from current date by default.
      * @throws ParseException
      */
-    public void remindTask(TaskList taskList, String input) throws ParseException{
+    public void remindTask(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         System.out.println("\tHere are the upcoming tasks in your list:");
         String limit;
@@ -171,6 +173,12 @@ public class CLIView {
                 + results.get(i).getDescription()
             );
         }
+        System.out.println(horiLine);
+    }
+
+    public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
+        System.out.println(horiLine);
+        rescheduleCommand.execute(taskList);
         System.out.println(horiLine);
     }
 }

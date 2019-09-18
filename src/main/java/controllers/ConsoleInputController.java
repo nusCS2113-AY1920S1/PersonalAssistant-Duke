@@ -4,6 +4,7 @@ import exceptions.DukeException;
 import java.text.ParseException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
+import models.commands.RescheduleCommand;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 import views.CLIView;
@@ -59,6 +60,13 @@ public class ConsoleInputController implements IViewController {
             try {
                 consoleView.remindTask(taskList, input);
             } catch (ParseException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+        } else if (input.contains("reschedule")) {
+            try {
+                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
+                consoleView.rescheduleTask(taskList, rescheduleCommand);
+            } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
         } else {

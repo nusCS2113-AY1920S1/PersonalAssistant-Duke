@@ -1,8 +1,10 @@
 package models.tasks;
 
+import models.commands.IDateSettable;
+
 import java.io.Serializable;
 
-public class Deadline implements ITask, Serializable {
+public class Deadline implements ITask, IDateSettable, Serializable {
     /**
      * Class representing the Deadline data model.
      */
@@ -47,5 +49,10 @@ public class Deadline implements ITask, Serializable {
     @Override
     public String getDateTime() {
         return this.dueDate;
+    }
+
+    @Override
+    public void setDateTime(String newDueDate) {
+        this.dueDate = newDueDate;
     }
 }

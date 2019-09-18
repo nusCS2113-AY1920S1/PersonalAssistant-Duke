@@ -45,4 +45,8 @@ public class ToDos implements ITask, Serializable {
     public String getDateTime() {
         return null;
     }
+
+    @Override
+    public void setDateTime(String newDateTime) {
+    }
 }
