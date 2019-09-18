@@ -12,6 +12,7 @@ import java.util.Date;
 public class Deadline extends Task {
     private Date by;
     private String ddl;
+
     /**
      * Constructs the <code>Deadline</code> object with description and due time.
      * The due time is stored as <code>Date</code>.

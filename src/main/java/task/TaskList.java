@@ -126,7 +126,7 @@ public class TaskList {
      * @param index Index of a task in taskList.
      * @return Information of a task to be printed by UI.
      */
-    public String getTaskInfo(int index){
+    public String getTaskInfo(int index) {
         return tasks.get(index).toString();
     }
 
