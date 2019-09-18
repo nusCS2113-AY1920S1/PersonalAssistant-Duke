@@ -61,6 +61,10 @@ public class Recurring extends Task {
         recurringTaskScheduler();
     }
 
+    /**
+     * getter for recurrencePeriod
+     * @return recurrencePeriod
+     */
     public RecurrencePeriod getRecurrencePeriod() {
         return recurrencePeriod;
     }
