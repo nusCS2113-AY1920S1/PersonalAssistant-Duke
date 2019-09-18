@@ -37,7 +37,7 @@ public class RecurringTaskTest {
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
         }
-        successStr =    "    ________________________________________________________________________________"
+        successStr = "    ________________________________________________________________________________"
                 + System.lineSeparator() + "    Got it, I've added these 9 tasks:"
                 + System.lineSeparator() + "      [D][N] submission (by: Wed, 18 Sep 2019 11:59 PM)"
                 + System.lineSeparator() + "      [D][N] submission (by: Wed, 25 Sep 2019 11:59 PM)"

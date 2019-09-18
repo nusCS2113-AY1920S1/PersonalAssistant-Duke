@@ -46,7 +46,10 @@ public class Duke {
             }
         }
     }
-  
+
+    /**
+     * Setup directory for Duke.
+     */
     public static void main(String[] argv) {
         File dataDir = new File("data");
         if (!dataDir.exists()) {

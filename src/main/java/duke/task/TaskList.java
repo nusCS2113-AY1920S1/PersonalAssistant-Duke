@@ -160,6 +160,7 @@ public class TaskList {
                 "Got it, I've added these " + taskCount + " tasks:" + addStr);
         return addStr + System.lineSeparator() + getTaskCountStr();
     }
+
     /**
      * Reports the deletion of a number of tasks.
      * @param delStr The descriptions of the tasks, formatted with two spaces behind each task and a leading line
