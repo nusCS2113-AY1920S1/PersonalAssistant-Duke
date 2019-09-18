@@ -20,7 +20,6 @@ public class Ui {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         FullCommand = reader.readLine();
     }
-
     public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

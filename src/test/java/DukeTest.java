@@ -1,5 +1,6 @@
 import Storage.Storage;
 import Tasks.DoAfter;
+import Tasks.FixedDuration;
 import Tasks.Task;
 import UI.Ui;
 import commands.DeadlineCommand;
@@ -61,8 +62,12 @@ public class DukeTest {
     @Test
     void testDoAfter() {
         assertEquals("DA|\u2718| return book|/after read book", testdoAfter.toString());
-
     }
 
+    FixedDuration testFD = new FixedDuration("playing basketball", "4 hours");
+    @Test
+    void testFixedD() {
+        assertEquals("FD|\u2718| playing basketball|4 hours", testFD.toString());
+    }
 
 }

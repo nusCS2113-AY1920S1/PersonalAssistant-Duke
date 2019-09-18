@@ -16,11 +16,9 @@ public class Parser {
         else if(command.contains("deadline")) {
             return new DeadlineCommand();
         }
-
         else if(command.contains("/after")) {
             return new DoAfterCommand();
         }
-
         else if(command.contains("event")) {
             return new EventCommand();
         }

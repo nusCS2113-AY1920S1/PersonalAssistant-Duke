@@ -25,7 +25,6 @@ public class Duke {
         boolean isExit = false;
         Ui ui = new Ui();
         ui.showWelcome();
-
         try {
             list = store.Readfile();
             ui.UpcomingTask(list);

@@ -24,7 +24,6 @@ public class Storage {
         fileWriter.close();
 
     }
-
     public ArrayList<Task> Readfile() throws IOException, ParseException {
         ArrayList<Task> tlist = new ArrayList<Task>();
         SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");

@@ -1,4 +1,5 @@
 package Tasks;
+
 public class DoAfter extends Task {
     public String before;
     public String after;

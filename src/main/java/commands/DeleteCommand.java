@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
-
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         if(ui.FullCommand.length() == 6) {

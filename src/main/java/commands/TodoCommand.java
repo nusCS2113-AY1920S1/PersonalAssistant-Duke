@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class TodoCommand extends Command {
+
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
