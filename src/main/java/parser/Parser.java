@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -86,6 +87,12 @@ public class Parser {
                     break;
                 case "recur":
                     recurCommand(s);
+                    break;
+//               case "reminder":
+//                   reminderCommand(s);
+//                   break;
+                case "schedule":
+                    scheduleCommand(s);
                     break;
                 default:
                     throw DukeException.UNKNOWN_COMMAND;
@@ -541,6 +548,26 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e1) {
             throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
         }
+    }
+
+    /**
+     * Find all the deadlines/events on the user specified date
+     * Then print them out for user
+     * Command: schedule <date>
+     */
+    private static void scheduleCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showScheduleIntroMessage(tokens[1]);
+        tokens[1] = tokens[1] + " 00000";
+        int count = 1;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            if (TimeParser.getDateOnly(log.getKey()).equals(TimeParser.convertStringToDate(tokens[1]))) {
+                Ui.printScheduleTask(log);
+                count++;
+            }
+        }
+        Ui.showScheduleFinalMessage(count);
+        Ui.printLine();
     }
 }
 

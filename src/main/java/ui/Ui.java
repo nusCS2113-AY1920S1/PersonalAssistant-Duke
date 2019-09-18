@@ -1,5 +1,6 @@
 package ui;
 
+import parser.TimeParser;
 import task.Deadline;
 import wrapper.Pair;
 import task.Event;
@@ -7,6 +8,8 @@ import task.Tasks;
 import wrapper.TimeInterval;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -331,5 +334,34 @@ public class Ui {
         }
 
         System.out.println(line);
+    }
+
+    /**
+     * Prints a message corresponding to the user request for schedule
+     */
+    public static void showScheduleIntroMessage(String s) {
+        System.out.println(line + "\n" + space + "Here is ur schedule for " + s + ":");
+    }
+
+    /**
+     * Prints the total number of tasks in the schedule
+     */
+    public static void showScheduleFinalMessage(int count) {
+        if (count == 2) {
+            System.out.println("\n" + space + space + "*there is a total of 1 task scheduled*");
+        } else {
+            System.out.println("\n" + space + space + "*there is a total of " + --count + " tasks scheduled*");
+        }
+    }
+
+    /**
+     * Prints the task according to the schedule format
+     */
+    public static void printScheduleTask(Map.Entry<Date, Tasks> task){
+        if (task.getValue().getType().equals("E")){
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tevent: " + task.getValue().parseDescription());
+        } else{
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
+        }
     }
 }
