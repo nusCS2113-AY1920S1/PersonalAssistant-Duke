@@ -7,7 +7,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class TaskList {
 
@@ -79,7 +83,7 @@ public class TaskList {
         c.setTime(task.getDate());
         if (task.getRecurFrequency().equals("daily")) {
             c.add(Calendar.DATE,1);
-        } else if (task.getRecurFrequency().equals("weekly")){
+        } else if (task.getRecurFrequency().equals("weekly")) {
             c.add(Calendar.DATE,7);
         }
 
@@ -92,7 +96,7 @@ public class TaskList {
      * @param taskIndex index of task.
      * @param date date to be set in the task.
      */
-    public void snoozeTask(int taskIndex, Date date) throws ParseException {
+    public void snoozeTask(int taskIndex, Date date) {
         tasksList.get(taskIndex).snooze(date);
     }
 

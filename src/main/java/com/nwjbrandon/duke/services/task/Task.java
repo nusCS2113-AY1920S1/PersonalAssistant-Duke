@@ -256,7 +256,9 @@ public abstract class Task {
      * @return true if tasks falls on the same day.
      */
     boolean isSameDay(Date date) {
-        if (this.date == null || date == null) return false;
+        if (this.date == null || date == null) {
+            return false;
+        }
         return DateUtilties.isSameDay(this.date, date);
     }
 

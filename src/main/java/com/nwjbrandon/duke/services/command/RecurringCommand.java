@@ -25,6 +25,12 @@ public class RecurringCommand extends Command {
      */
     private int taskListSize;
 
+    /**
+     * There you go Travis.
+     * @param userInput the exact line of text input by the user.
+     * @param commandName The string name of the command.
+     * @param size current size of taskList.
+     */
     public RecurringCommand(String userInput, String commandName, int size) {
         this.userInput = userInput;
         this.commandName = commandName;
@@ -43,22 +49,22 @@ public class RecurringCommand extends Command {
             return;
         }
         //Check if token[1] is "daily" or "weekly" or invalid
-        switch(tokens[1].strip()) {
-            case "daily":
-                recurFrequency = "daily";
-                break;
-            case "weekly":
-                recurFrequency = "weekly";
-                break;
-            default:
-                new DukeWrongCommandFormatException("Recur Command2").showError();
-                return;
+        switch (tokens[1].strip()) {
+        case "daily":
+            recurFrequency = "daily";
+            break;
+        case "weekly":
+            recurFrequency = "weekly";
+            break;
+        default:
+            new DukeWrongCommandFormatException("Recur Command2").showError();
+            return;
         }
         int index;
 
         // find value of index to modify
         try {
-            index = Integer.parseInt(tokens[2])-1;
+            index = Integer.parseInt(tokens[2]) - 1;
             if (index < 0 || index >= this.taskListSize) {
                 throw new Exception();
             }
