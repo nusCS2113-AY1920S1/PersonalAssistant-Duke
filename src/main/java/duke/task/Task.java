@@ -1,11 +1,16 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
+    public int numberOfDays = 0;
+    public LocalDateTime currentDate;
+    public LocalDateTime dueDate;
 
     /**
      * Creates a task with the specified description.
@@ -62,6 +67,31 @@ public class Task {
         isDone = setDone;
     }
 
+    /**
+     * Set the remaining days of reminder
+     *
+     * @param remainingDays The number of days left of the reminded task.
+     */
+    public void setReminder(int remainingDays){
+        this.numberOfDays = remainingDays;
+    }
+
+    /**
+     * Set the remaining days of reminder
+     *
+     * @return boolean that triggers the reminder
+     */
+    public boolean triggerReminder(){
+        if (dueDate != null) {
+            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }
+        if (currentDate != null) {
+            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }
+        return false;
+    }
     /**
      * Extracting a task content into readable string.
      *

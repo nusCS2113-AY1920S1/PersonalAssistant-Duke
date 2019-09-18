@@ -1,13 +1,6 @@
 package duke.parser;
 
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.AddMultipleCommand;
+import duke.command.*;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -238,7 +231,24 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
-        } else if (sentence.equals("bye")) {
+        }
+        else if (arr.length > 0 && arr[0].equals("remind")) {
+            String description;
+            String durDesc;
+            int indexOfTask;
+            description = sentence.split(taskDesc, 2)[1].trim();
+//          taskDesc = description.split(" /for ")[0].trim();
+            if (description.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a remind cannot be empty.");
+            } else {
+                //Task taskObj = new Todo(description);
+                indexOfTask = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+                String d = description.split("in", 2)[1].trim();
+                int days = Integer.parseInt(d.split(" ",2)[0].trim());
+                return new RemindCommand(indexOfTask, days);
+            }
+        }
+        else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");
