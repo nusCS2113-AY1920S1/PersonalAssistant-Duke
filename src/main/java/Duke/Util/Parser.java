@@ -3,10 +3,7 @@ package Duke.Util;
 import Duke.Command.*;
 import Duke.Exceptions.DukeCommandException;
 import Duke.Exceptions.DukeEmptyCommandException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Events;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import Duke.Tasks.*;
 
 public class Parser {
 
@@ -128,7 +125,17 @@ public class Parser {
             split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
             Task hold = new Deadline(split);
             return new AddCommand(hold);
-        } else if (input.equals("bye")) {
+        } else if (input.startsWith("recurring ")) {
+            String[] temp = input.split("recurring ");
+            String [] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
+            Task hold = new RecurringTask(split);
+            return new AddCommand(hold);
+        }else if (input.equals("bye")) {
             return new ByeCommand();
         } else if (input.startsWith("done ")) {
             return checkValidDoneIndex(input);
