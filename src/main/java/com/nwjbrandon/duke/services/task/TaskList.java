@@ -3,6 +3,7 @@ package com.nwjbrandon.duke.services.task;
 import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -62,7 +63,6 @@ public class TaskList {
     public void removeTask(int taskIndex) {
         tasksList.get(taskIndex).removeTaskString(this.numberOfTasks());
         tasksList.remove(taskIndex);
-
     }
 
     /**
@@ -71,6 +71,15 @@ public class TaskList {
      */
     public void markDone(int taskIndex) {
         tasksList.get(taskIndex).setDoneStatus(true);
+    }
+
+    /**
+     * Modifies the date for the task.
+     * @param taskIndex index of task.
+     * @param date date to be set in the task.
+     */
+    public void modifyDate(int taskIndex, Date date) throws ParseException {
+        tasksList.get(taskIndex).setDate(date);
     }
 
     /**
@@ -156,15 +165,15 @@ public class TaskList {
      * @return arrays of tasks on the same day.
      */
     public ArrayList<Task> viewSchedule(Date date) {
-        ArrayList<Task> tasksInScheudle = new ArrayList<Task>();
+        ArrayList<Task> tasksInSchedule = new ArrayList<Task>();
         for (Task task: this.tasksList) {
             if (task instanceof Events || task instanceof Deadlines) {
                 if (task.isSameDay(date)) {
-                    tasksInScheudle.add(task);
+                    tasksInSchedule.add(task);
                 }
             }
         }
-        return tasksInScheudle;
+        return tasksInSchedule;
     }
 
     /**

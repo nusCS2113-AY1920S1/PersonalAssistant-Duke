@@ -233,4 +233,17 @@ public class Terminal {
         Terminal.printDivider();
     }
 
+    /**
+     * Show snoozed successful message.
+     * @param taskDescription description of task.
+     */
+    public static void showSetSnoozed(String taskDescription) {
+        String output = "\t Okay! I've snoozed this task:\n"
+                + "\t " + taskDescription + "\n";
+        Terminal.printDivider();
+        System.out.print(output);
+        Terminal.printDivider();
+    }
+
+
 }

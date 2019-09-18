@@ -91,8 +91,28 @@ public abstract class Task {
      * Get date.
      * @return the date in the Date Object form.
      */
-    Date getDate() {
+    public Date getDate() {
         return this.date;
+    }
+
+    /**
+     * Sets the Date, taskDescription to the date specified.
+     * @param currDate sets the Date object of the task to this.
+     */
+    public void setDate(Date currDate) throws ParseException {
+        this.date = currDate;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        String dateStr = formatter.format(currDate);
+        this.by = dateStr;
+        this.taskDescription = this.taskName + " (by: " + this.dateFormatter(dateStr) + ")";
+        this.showSetSnoozedStatus();
+    }
+
+    /**
+     * Show the set snoozed status message.
+     */
+    private void showSetSnoozedStatus() {
+        Terminal.showSetSnoozed(this.toTaskDescriptionString());
     }
 
     /**
@@ -107,7 +127,7 @@ public abstract class Task {
      * Get the task description.
      * @return task description.
      */
-    String getTaskDescription() {
+    public String getTaskDescription() {
         return this.taskDescription;
     }
 
