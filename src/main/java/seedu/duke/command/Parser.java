@@ -79,6 +79,13 @@ public class Parser {
                     schedule.printSchedule(date);
                 }
             }
+        } else if (userInput[0].equals("snooze")) {
+            if (userInput.length == 1) {
+                ui.empty_description_error();
+            } else {
+                int taskId = Integer.parseInt(userInput[1]) - 1;
+                list.snoozeTask(taskId);
+            }
         } else {
             // add task to list
             if (userInput[0].equals("todo") || userInput[0].equals("deadline")

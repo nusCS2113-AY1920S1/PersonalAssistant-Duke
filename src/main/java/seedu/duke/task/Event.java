@@ -110,4 +110,38 @@ public class Event extends Task {
         }
         return false;
     }
+
+    /**
+     * Overrides the getDateTime method in Task to obtain the event's date and time.
+     *
+     * @return date and time of event of type LocalDateTime.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+        return LocalDateTime.parse(this.at, formatter);
+    }
+
+    /**
+     * Overrides the setDateTime method in Task to set the event's date and time.
+     *
+     * @param dateTime the date and time of the event of type LocalDateTime.
+     */
+    @Override
+    public void setDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+        at = dateTime.format(formatter);
+        this.to_date();
+    }
+
+    /**
+     * Overrides the setDateTime method in Task to set the event's date and time.
+     *
+     * @param dateTime string of the date and time of the event.
+     */
+    @Override
+    public void setDateTime(String dateTime) {
+        at = dateTime;
+        this.to_date();
+    }
 }
