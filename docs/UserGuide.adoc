@@ -19,8 +19,9 @@ This user guide aims to help you learn your way around our app, making the learn
 * *`bye`* : exits the app
  
 == 3. Features 
-Command Format
-- Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
 === 3.1 Adding a task : `todo/deadline/event`
@@ -34,9 +35,9 @@ Format: `todo DESCRIPTION`
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
   
 Examples:
-  * `todo read book` +
-    `deadline homework /by 8/8/2019 2359` +
-    `event team meeting /at 20/8/2019 1500`
+  `todo read book`
+   `deadline homework /by 8/8/2019 2359`
+   `event team meeting /at 20/8/2019 1500`
 
 === 3.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
@@ -50,11 +51,12 @@ Format: `delete INDEX`
 
 Examples:
 
-  * `list` +
-    `delete 2` +
-    Deletes the 2nd task in the task list.
+ * `list` +
+   `delete 2` +
+   Deletes the 2nd task in the task list.
   
 === 3.3 Finding tasks : `find`
+
 Finds tasks whose description contains the given keyword. + 
 Format: `find KEYWORD`
 
@@ -66,10 +68,11 @@ Format: `find KEYWORD`
 
 Examples:
 
-  * `find book` +  
+* `find book` +  
   Returns any task with the descriptions containing the keyword.
 
-==== 3.4 Marking a task as done : `done`
+=== 3.4 Marking a task as done : `done`
+
 Marks a task in the task list as done. +
 Format: `done INDEX`
 
@@ -83,11 +86,12 @@ Examples:
   * `done 1` +  
   Marks the 1st task in the task list as done.
 
-==== 3.5 Listing all the tasks : `list`
+=== 3.5 Listing all the tasks : `list`
+
 Shows a list of all the tasks in the task list. + 
 Format: `list`
 
-==== 3.6 Snoozing a task : `snooze`
+=== 3.6 Snoozing a task : `snooze`
 
 Provides a way to easily snooze/postpone/reschedule a task. +
 Format: `snooze INDEX` +
@@ -110,7 +114,7 @@ Examples:
     `9/9/2019 1200` +
     Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
-==== 3.7 Reminders : `remind`
+=== 3.7 Reminders : `remind`
 
 Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
 Format: `remind`
