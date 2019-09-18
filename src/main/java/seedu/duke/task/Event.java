@@ -73,4 +73,12 @@ public class Event extends Task {
         }
         return false;
     }
+
+    @Override
+    public void snooze() {
+        Calendar date = Calendar.getInstance();
+        date.setTime(time);
+        date.add(Calendar.DAY_OF_MONTH, 3);
+        time.setTime(date.getTimeInMillis());
+    }
 }
