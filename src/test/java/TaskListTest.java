@@ -25,7 +25,7 @@ public class TaskListTest {
         taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
         LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
-        EventTask event = new EventTask("tutorial", t);
+        EventTask event = new EventTask("tutorial", t, t);
         DeadlineTask deadline = new DeadlineTask("submission", t);
 
         try {
@@ -38,7 +38,7 @@ public class TaskListTest {
 
         try {
             String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2718] JUnit tests"
-                    + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
@@ -53,7 +53,7 @@ public class TaskListTest {
         try {
             taskList.deleteTask("1");
             taskList.deleteTask("2");
-            assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
+            assertEquals(System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)",
                     taskList.listTasks());
         } catch (DukeException excp) {
             fail("Unable to find added tasks!");
@@ -68,7 +68,7 @@ public class TaskListTest {
             taskList.deleteTask("100");
         });
         String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2718] JUnit tests"
-                + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "2.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "3.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
         try {
             assertEquals(expectedTaskListStr, taskList.listTasks());
@@ -82,7 +82,7 @@ public class TaskListTest {
     @Test
     public void taskList_findTasksSuccess() {
         String expectedSearchResult = "Here are the tasks that contain 'u':"
-                + System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "2.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
         assertEquals(expectedSearchResult, taskList.find("u"));
     }
@@ -105,7 +105,7 @@ public class TaskListTest {
 
         try {
             String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2713] JUnit tests"
-                    + System.lineSeparator() + "2.[E][\u2713] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "2.[E][\u2713] tutorial (at: Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][\u2713] submission (by: Thu, 12 Sep 2019 2:00 PM)";
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
