@@ -37,6 +37,11 @@ public abstract class TimedTask extends Task {
         this.time = time;
     }
 
+    @Override
+    public void changeTime(LocalDateTime newTime){
+        time = newTime;
+    }
+
     // --Commented out by Inspection START (03/09/2019 11:57):
     //    public static DateTimeFormatter getDisplayFormatter() {
     //        return PAT_DATETIME_DISPLAY;

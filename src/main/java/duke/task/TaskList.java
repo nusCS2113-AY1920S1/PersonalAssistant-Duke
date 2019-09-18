@@ -135,7 +135,7 @@ public class TaskList {
      * @return An integer that is a valid index for an entry on the list
      * @throws DukeException If idxStr cannot be parsed, or the integer is not a valid index
      */
-    private int getTaskIdx(String idxStr) throws DukeException {
+    public int getTaskIdx(String idxStr) throws DukeException {
         if (idxStr.matches("^\\d+$")) { //if second arg is an integer
             int idx = Integer.parseInt(idxStr) - 1;
             if (idx >= 0 && idx < taskArrList.size()) {
@@ -185,6 +185,18 @@ public class TaskList {
         return "Now you have " + taskCountStr + " in the list.";
     }
 
+    /**
+     * Returns a string that indicates if snooze was successful
+     * @param index the tasks to be snoozed index in the list of all tasks
+     * @param datetime the new time that the task will be snoozed to
+     * @return message to user that states that the snooze was successful
+     * @throws DukeException in the event of a invalid snooze input
+     */
+    public String snooze(int index, LocalDateTime datetime) throws DukeException {
+        taskArrList.get(index).changeTime(datetime);
+        return "The task have been snoozed;\n\t" + taskArrList.get(index);
+    }
+    
     /**
      * Sets a reminder for a task in the list.
      *
