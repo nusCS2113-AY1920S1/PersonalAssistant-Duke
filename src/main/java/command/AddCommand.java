@@ -55,7 +55,8 @@ public class AddCommand extends Command {
         case "event":
             taskToAdd = new Event(commandParams.getMainParam(),
                     commandParams.getParam("start"),
-                    commandParams.getParam("end"));
+                    commandParams.getParam("end"),
+                    tasks);
             break;
         default:
             throw new DukeException("☹ OOPS!!! Your command type is unknown!");
