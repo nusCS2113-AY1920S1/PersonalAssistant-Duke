@@ -2,6 +2,7 @@ package com.nwjbrandon.duke.services.task;
 
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
+import com.nwjbrandon.duke.services.utilities.DateUtilties;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,13 @@ public abstract class Task {
      * Task name and date.
      */
     private String taskDescription = "";
+
+    /**
+     * If valid, date will be actual date.
+     * else it will be null.
+     */
+    private Date date = null;
+
 
     /**
      * Create task.
@@ -59,6 +67,14 @@ public abstract class Task {
      * @throws DukeWrongCommandFormatException command in wrong format.
      */
     public abstract String formatTaskName(String taskDescription) throws DukeWrongCommandFormatException;
+
+    /**
+     * Get date.
+     * @return the date in the Date Object form.
+     */
+    Date getDate() {
+        return this.date;
+    }
 
     /**
      * Get the task date.
@@ -134,7 +150,7 @@ public abstract class Task {
         String pattern = "dd/MM/yyyy hhmm";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = formatter.parse(originalDate);
-
+        this.date = date;
         pattern = "d";
         formatter = new SimpleDateFormat(pattern);
         final String a = formatter.format(date);
@@ -148,14 +164,15 @@ public abstract class Task {
         final String c = formatter.format(date).toLowerCase();
 
         String symbol = "";
-        switch (a) {
-        case "1":
+        char lastChar = a.charAt(a.length() - 1);
+        switch (lastChar) {
+        case '1':
             symbol = "st";
             break;
-        case "2":
+        case '2':
             symbol = "nd";
             break;
-        case "3":
+        case '3':
             symbol = "rd";
             break;
         default:
@@ -181,4 +198,14 @@ public abstract class Task {
     public void removeTaskString(int size) {
         Terminal.showTaskActionString("\t removed: ", this.getTaskDescription());
     }
+
+    /**
+     * Check if task falls on the same day.
+     * @param date date to compare with.
+     * @return true if tasks falls on the same day.
+     */
+    boolean isSameDay(Date date) {
+        return DateUtilties.isSameDay(this.date, date);
+    }
+
 }

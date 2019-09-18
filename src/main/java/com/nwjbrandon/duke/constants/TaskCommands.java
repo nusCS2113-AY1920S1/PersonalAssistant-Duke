@@ -10,6 +10,8 @@ public enum TaskCommands {
     DELETE("delete"),
     FIND("find"),
     BYE("bye"),
+    REMINDER("reminder"),
+    VIEW_SCHEDULE("view schedule"),
     SNOOZE("snooze");
 
     /**
