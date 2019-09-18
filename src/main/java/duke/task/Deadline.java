@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.parser.Parser;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,12 +17,24 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.date = getDate(by);
+        this.date = Parser.getDate(by);
     }
 
     @Override
+    public void setNewDate(String date) {
+        by=date;
+        this.date=Parser.getDate(by);
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return date;
+    }
+
+
+    @Override
     public String toString() {
-        return (getDate(by) == null) ? "[D]" + super.toString() + "(by: " + by + ")" : "[D]" + super.toString() + "(by: " + getDateString(date) + ")";
+        return (Parser.getDate(by) == null) ? "[D]" + super.toString() + "(by: " + by + ")" : "[D]" + super.toString() + "(by: " + Parser.getDateString(date,by) + ")";
     }
 
     /**
@@ -31,25 +45,13 @@ public class Deadline extends Task {
         return date;
     }
 
-    /**
-     * Returns the {@link Date } instance as a String to be printed in the file
-     * @param date deadline {@link Date} for finishing the task
-     * @return String the date for the deadline
-     */
-    private String getDateString(Date date) {
-        if (date == null)
-            return by;
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String pattern = by.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.format(date);
-    }
 
     /**
      * Returns the String representation of the {@link Deadline} in format compatible to be easily read and written in a text file on the hard disc
      * @return String used to print the {@link Task } in the text file
      */
     public String printInFile() {
-        return this.isDone() ? "D|1|" + this.getDescription() + "|" + this.getDateString(date) : "D|0|" + this.getDescription() + "|" + this.getDateString(date);
+        //return this.isDone() ? "D|1|" + this.getDescription() + "|" + Parser.getDateString(date, by) : "D|0|" + this.getDescription() + "|" + Parser.getDateString(date, by);
+        return this.isDone() ? "D|1|" + this.getDescription() + "|" + by : "D|0|" + this.getDescription() + "|" + by;
     }
 }
