@@ -107,13 +107,13 @@ Example of usage:
 
 Expected outcome:
 
-`Here is your schedule:`
+`Here is your schedule:`<br />
 `-----------------------------------------------------`<br />
 `|                   17/9/2019                       |`<br />
 `-----------------------------------------------------`<br />
 `|   Time    |                  Task                 |`<br />
 `-----------------------------------------------------`<br />
-`|   1400    |       [E][Γ✘] student life fair       |`<br />
+`|   1400    |       [E][Γ✘] student life fai        |`<br />
 `-----------------------------------------------------`<br />
 `Here are your ongoing tasks:`<br />
 `1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)`
