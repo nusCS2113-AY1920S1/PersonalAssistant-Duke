@@ -3,8 +3,9 @@ package Tasks;
  * Represents a task in the Duke program.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
+    private String type;
 
     /**
      * Creates Task object.
@@ -13,6 +14,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.type = "";
+    }
+
+    public String getType() {
+        return type;
     }
 
     /**
@@ -47,5 +53,9 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon()
                 + "] " + getDescription();
+    }
+
+    public String getDateTime(){
+        return "void";
     }
 }

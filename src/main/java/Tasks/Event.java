@@ -5,7 +5,12 @@ package Tasks;
  */
 public class Event extends Task {
 
-    protected String by;
+    private String by;
+
+    @Override
+    public String getType() {
+        return "[E]";
+    }
 
     /**
      * Creates an Event object.
@@ -24,5 +29,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + by + ")";
+    }
+
+    @Override
+    public String getDateTime() {
+        return by;
     }
 }

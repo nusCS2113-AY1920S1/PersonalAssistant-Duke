@@ -4,12 +4,19 @@ package Tasks;
  */
 public class Todo extends Task {
 
+
+    @Override
+    public String getType() {
+        return "[T]";
+    }
+
     /**
      * Creates a To-do object.
      * @param description Description of a task
      */
     public Todo(String description) {
         super(description);
+
     }
 
     /**

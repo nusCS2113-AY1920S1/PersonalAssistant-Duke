@@ -15,7 +15,7 @@ import java.util.Date;
  * Deals with loading or saving tasks to and from a file.
  */
 public class Storage {
-    protected String filePath;
+    private String filePath;
 
     /**
      * Creates Storage object.

@@ -1,39 +1,37 @@
-# Setting up
+# BetterDuke - A scheduler for students
+**A desktop application that will help you manage your time and work**
 
-**Prerequisites**
+![](docs/images/Ui.png)
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+## Motivation
 
-**Importing the project into IntelliJ**
+When too much time is being used for a particular work, the work duration snowballs and there is not enough time for other activities.
+Moreover, lessons take up most of the day and it makes us feel that there is not enough time to catch up and finish assignments.
+This usually stems from poor time management and this application aims to tackle the aforementioned problems.
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
+## Aim
+To provide a platform to help users
+* Better manage their school schedules.
+* Remind users about upcoming tasks.
+* Improve users’ work-life balance.
 
-# Tutorials 
+## Features
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+### Weekly tasking
+In-app view where users can view their weekly schedules and allow them to plan and prepare ahead for their schedule.
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+### Interactive commands
+A command input style for users to give instructions to the application for scheduling. Variations in response to users' input makes the application more interesting and engaging.
 
-# Feedback, Bug Reports
+### Reminder for upcoming tasks 
+A reminder to trigger forgetful users' memory about upcoming tasks so that they would remember complete their tasking or activity.
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+## Site map
+* [User Guide]()
+* [Developer Guide]()
+* [About Us](docs/AboutUs.md)
+
+## Acknowledgements
+This project was made possible with these libraries:
+* [JavaFx](https://openjfx.io/)
+* [JUnit](https://junit.org/junit5/)
