@@ -77,28 +77,30 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Cake` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Login
+=== Use case: Find topics
 
 *MSS*
 
-1. New user launches program
-2. Cake asks user to identify the background (New or Exp?)
-3. User types in Name.
-4. Cake displays current user's progress
+1. User requests to list topics
+2. Cake shows topics (in format 1. X\n 2. Y\n...)
+3. User types the topic number e.g. `1`
+4. Cake shows sub-topics within that topic (in format 1. X\n 2. Y\n...)
+5. User types the sub-topic number e.g. `1`
+6. Cake shows the content in the sub-topic
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. The username conflicts with the one inside database
+* 3a. If user types in `1.1`, user can immediately jump to sub-topic content
 +
 [none]
-** 3a1. Cake shows error message
+** 3a1. If no sub-topic present, Cake shows error message
 +
-Use case resumes at step 3.
+Use case resumes at step 5.
 
-=== Use case: Find topics
+=== Use case: X
 
 *MSS*
 
