@@ -12,3 +12,4 @@ D | ✓ | earliest test (by: 11th of November 2019, 09:00 AM) | 11th of November
 T | ✘ | vjenr verjkn
 D | ✘ | ejnrve ejrn  | 12th of December 2019, 12:00 AM
 E | ✘ | kjenvr ejrnv (at: 12th of January 2020, 12:00 AM to 14th of December 2022, 12:00 AM) | 12th of January 2020, 12:00 AM | 14th of December 2022, 12:00 AM
+R | ✘ | borrow book | weekly
