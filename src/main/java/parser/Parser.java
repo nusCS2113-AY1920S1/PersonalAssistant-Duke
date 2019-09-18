@@ -9,6 +9,7 @@ import task.Tasks;
 import task.Event;
 import task.ToDo;
 import task.Recurring;
+import task.FixedDuration;
 import ui.Ui;
 import wrapper.TimeInterval;
 
@@ -64,18 +65,15 @@ public class Parser {
                 case "delete":
                     deleteCommand(s);
                     break;
-                    //================================================
                 case "find":
                     findCommand(s);
                     break;
                 case "todo":
                     todoCommand(s);
                     break;
-                    //================================================
                 case "deadline":
                     deadlineCommand(s);
                     break;
-                    //================================================
                 case "event":
                     eventCommand(s);
                     break;
@@ -88,9 +86,9 @@ public class Parser {
                 case "recur":
                     recurCommand(s);
                     break;
-               case "reminder":
-                   reminderCommand(s);
-                   break;
+                case "reminder":
+                    reminderCommand(s);
+                    break;
                 case "schedule":
                     scheduleCommand(s);
                     break;
@@ -273,19 +271,22 @@ public class Parser {
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
             switch (userToDoList.get(i).getType()) {
-            case "E":
-                message = ((Event) userToDoList.get(i)).getDescription();
-                break;
-            case "D":
-                message = ((Deadline) userToDoList.get(i)).toMessage();
-                break;
-            case "T":
-                message = ((ToDo) userToDoList.get(i)).toMessage();
-                break;
-            case "R":
+              case "E":
+                  message = ((Event) userToDoList.get(i)).getDescription();
+                  break;
+              case "D":
+                  message = ((Deadline) userToDoList.get(i)).toMessage();
+                  break;
+              case "T":
+                  message = ((ToDo) userToDoList.get(i)).toMessage();
+                  break;
+              case "R":
                 message = ((Recurring)userToDoList.get(i)).toMessage();
                 break;
-            default:
+              case "F":
+                message = ((FixedDuration)userToDoList.get(i)).toMessage();
+                break;
+              default:
                 message = (userToDoList.get(i)).getDescription();
                 break;
             }
@@ -357,7 +358,7 @@ public class Parser {
         try {
             String[] token = command.substring("recur".length()).strip().split("/frequency");
             if (token.length != 2 || token[1] == null) {
-                throw DukeException.EMPTY_TASK_IN_RECUR;
+                throw DukeException.EMPTY_TIME_IN_RECUR;
             }
             if (token[0].strip().isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_RECUR;
@@ -368,7 +369,30 @@ public class Parser {
                     TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
         } catch  (DukeException e) {
-            throw DukeException.EMPTY_TASK_IN_RECUR;
+            throw e;
+        }
+    }
+
+    /**
+     * Prints tasks that have a fixed duration
+     */
+    private static void fixedCommand(String command) throws DukeException {
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
+        try {
+            String[] token = command.substring("fixed".length()).strip().split("/duration");
+            if (token.length != 2 || token[1] == null) {
+                throw DukeException.EMPTY_TIME_IN_FIXED;
+            }
+            if (token[0].strip().isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_FIXED;
+            }
+            TaskList.addTask(new FixedDuration(token[0].strip(), "F", token[1].strip()));
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                    TaskList.getTotalTasksNumber());
+            Storage.saveTask(TaskList.getList());
+        } catch  (DukeException e) {
+            throw e;
         }
     }
 

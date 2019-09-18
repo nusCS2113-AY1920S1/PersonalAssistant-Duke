@@ -1,5 +1,6 @@
-R | ✘ | borrow book | weekly
+R | ✓ | borrow book | weekly
 E | ✘ | weeee (at: 11th of November 2019, 12:00 AM to 13th of November 2019, 12:00 AM) | 11th of November 2019, 12:00 AM | 13th of November 2019, 12:00 AM
 D | ✘ | woooooo | 11th of November 2019, 10:33 PM
 E | ✘ | testerinOs (at: 11th of November 2019, 11:11 AM to 11th of December 2019, 10:22 PM) | 11th of November 2019, 11:11 AM | 11th of December 2019, 10:22 PM
-D | ✘ | poooOOo  | 10th of January 2020, 12:00 AM
+D | ✘ | poooOOo | 10th of January 2020, 12:00 AM
+F | ✓ | check stock price | 2 hours
