@@ -49,6 +49,9 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Checks if task clashes with other tasks.
+     */
     private boolean hasAnomaly(Task toAdd) {
         if (toAdd instanceof TaskWithDates) {
             LocalDateTime dateTime = ((TaskWithDates) toAdd).getStartDate();
