@@ -113,6 +113,8 @@ public class Parser {
                             return parseDelete(splitStr[1]);
                         case "snooze":
                             return parseSnooze(splitStr[1]);
+                        case "findfreetime":
+                            return parseFindFreeTime(splitStr[1]);
                         default:
                             throw new DukeException("Invalid command\n");
                     }
