@@ -1,7 +1,7 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
-import duke.schedule.Schedule;
+import duke.command.Schedule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
