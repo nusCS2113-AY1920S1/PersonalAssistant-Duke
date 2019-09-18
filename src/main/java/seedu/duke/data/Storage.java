@@ -3,6 +3,7 @@ package seedu.duke.data;
 import seedu.duke.task.Task;
 import seedu.duke.task.ToDo;
 import seedu.duke.task.Event;
+import seedu.duke.task.RangedTask;
 import seedu.duke.task.Deadline;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -47,6 +48,8 @@ public class Storage {
                     list.add(new ToDo(taskString[2]));
                 } else if (taskString[0].equals("D")) {
                     list.add(new Deadline(taskString[2], taskString[3]));
+                } else if (taskString[0].equals("R")) {
+                    list.add(new RangedTask(taskString[2], taskString[3]));
                 } else {
                     list.add(new Event(taskString[2], taskString[3]));
                 }
