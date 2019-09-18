@@ -21,37 +21,33 @@ public class ParserStorageUtil {
      * @param line The String description of a task.
      * @return The corresponding task object.
      */
-    public static Task createTaskFromStorage(String line) throws DukeException {
+    public static Task createTaskFromStorage(String line) throws DukeDateTimeParseException {
         String[] taskParts = line.split("\\|");
-        try {
-            String type = taskParts[0].strip();
-            String status = taskParts[1].strip();
-            String description = taskParts[2].strip();
-            Task task;
-            if ("D".equals(type)) {
-                try {
-                    task = new Deadline(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
-                } catch (DukeDateTimeParseException e) {
-                    task = new Deadline(description, taskParts[3].strip());
-                }
-            } else if ("E".equals(type)) {
-                try {
-                    task = new Event(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
-                } catch (DukeDateTimeParseException e) {
-                    task = new Event(description, taskParts[3].strip());
-                }
-            } else if ("W".equals(type)) {
-                LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
-                LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-                task = new DoWithin(description, start, end);
-            } else {
-                task = new Todo(description);
+        String type = taskParts[0].strip();
+        String status = taskParts[1].strip();
+        String description = taskParts[2].strip();
+        Task task;
+        if ("D".equals(type)) {
+            try {
+                task = new Deadline(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
+            } catch (DukeDateTimeParseException e) {
+                task = new Deadline(description, taskParts[3].strip());
             }
-            task.setDone("true".equals(status));
-            return task;
-        } catch (Exception e) {
-            throw new DukeException(MessageUtil.CORRUPTED_TASK);
+        } else if ("E".equals(type)) {
+            try {
+                task = new Event(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
+            } catch (DukeDateTimeParseException e) {
+                task = new Event(description, taskParts[3].strip());
+            }
+        } else if ("W".equals(type)) {
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
+            task = new DoWithin(description, start, end);
+        } else {
+            task = new Todo(description);
         }
+        task.setDone("true".equals(status));
+        return task;
     }
 
     /**

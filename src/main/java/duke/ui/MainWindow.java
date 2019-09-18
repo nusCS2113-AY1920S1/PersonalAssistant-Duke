@@ -51,8 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply.
      */
     @FXML
     private void handleUserInput() {
