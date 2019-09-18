@@ -65,17 +65,6 @@ public class Parser {
                     }
                     return new AddCommand(command, taskDescription, null, to, from);
                 }
-                // try {
-                //     taskFeatures = userInput.split("\\s+", 2)[1].trim();
-                // }catch (ArrayIndexOutOfBoundsException e)
-                // {
-                //     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                // }
-                // if (taskFeatures.isEmpty()) {
-                //     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                // } else {
-                //     return new AddCommand(command, taskFeatures, null, null, null);
-                // }
             case "deadline":
                 //fall through to avoid rewriting the same code multiple times!
             case "event":
