@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FixDurationCommand extends Command {
+
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
@@ -46,7 +47,6 @@ public class FixDurationCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-
     @Override
     public boolean isExit() {
         return false;

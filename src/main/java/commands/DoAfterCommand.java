@@ -17,7 +17,6 @@ public class DoAfterCommand extends Command {
         String[] splitstring = ui.FullCommand.split("/after");
         before = splitstring[1];
         after = splitstring[0];
-
         DoAfter to = new DoAfter(before, before, after);
         list.add(to);
         System.out.println("Got it. I've added this task:");
