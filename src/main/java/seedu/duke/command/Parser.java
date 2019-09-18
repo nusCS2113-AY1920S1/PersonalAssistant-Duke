@@ -1,6 +1,7 @@
 package seedu.duke.command;
 
 import seedu.duke.data.Schedule;
+import seedu.duke.task.Reminders;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
 
@@ -63,6 +64,10 @@ public class Parser {
             }
         } else if (userInput[0].equals("list")) {
             list.displayList();
+        } else if (userInput[0].equals("remind")) {
+            Reminders reminders = new Reminders();
+            reminders.oneDay();
+            reminders.displayReminder();
         } else if (userInput[0].equals("done")) {
             if (userInput.length == 1) {
                 ui.empty_description_error();

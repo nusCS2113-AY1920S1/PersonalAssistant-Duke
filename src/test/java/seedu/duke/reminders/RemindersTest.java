@@ -31,7 +31,7 @@ public class RemindersTest {
         Reminders reminders = new Reminders();
         reminders.oneDay();
         list = new TaskList(storage.load());
-        list = parser.parse("deadline assignment/by 19/9/2019", list);
+        list = parser.parse("deadline assignment/by 19/9/2019 1900", list);
 
         try {
             storage.save(list.return_list());
