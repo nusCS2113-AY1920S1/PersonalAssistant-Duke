@@ -1,12 +1,15 @@
 # User Guide
 
-## Introduction
+## 1. Introduction
 Our project aims to develop a task tracking application that monitors and encourages productivity. The application will be easy to use, with intuitive ways of adding, finding and tracking tasks that have been added. This easy convenience is definitely helpful in our often busy lives, so give this app a chance to help you!
 
 This user guide aims to help you learn your way around our app, making the learning process smooth and effortless. So what are you waiting for? Let's go!
 
-## Features 
+## 2. Quick Start  
 
+  1. Ensure you have Java `11` or above installed in your Computer.  
+ 
+## 3. Features 
 Command Format
 - Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
@@ -50,7 +53,6 @@ Format: `find KEYWORD`
 Examples:
   - `find book`  
   Returns any task with the descriptions containing the keyword.
-
 
 ### 3.4 Marking a task as done : `done`
 Marks a task in the task list as done.
@@ -100,6 +102,24 @@ Format: `bye`
 ### 3.9 Saving the data
 Save the tasks in the hard disk automatically whenever the task list changes.
 There is no need to save manually.
+
+## 4. FAQ
+  Q: Where do I install Java 11 from?  
+  
+  A: Java 11 can be downloaded from the Oracle website.  
+     https://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+## 5. Command Summary
+- Add `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm`  
+  e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500`
+  
+- Delete  
+- Find  
+- Done  
+- List: `list`
+- Snooze
+- Remind: `remind`
+- Bye: `bye`
 
 ## Usage
 
