@@ -1,6 +1,6 @@
 package duke.tasks;
 
-public class Task {
+public abstract class Task {
     private String taskName;
     Boolean isDone;
 
