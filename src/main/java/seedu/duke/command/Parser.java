@@ -82,7 +82,7 @@ public class Parser {
         } else {
             // add task to list
             if (userInput[0].equals("todo") || userInput[0].equals("deadline")
-                || userInput[0].equals("event") || userInput[0].equals("range")) {
+                || userInput[0].equals("event") || userInput[0].equals("range") || userInput[0].equals("doafter")) {
                 if (userInput.length == 1) {
                     ui.empty_description_error();
                 } else {

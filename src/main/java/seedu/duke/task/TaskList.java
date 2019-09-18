@@ -87,6 +87,31 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
+            } else if (taskType.equals("doafter")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String after = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    boolean taskFound = false;
+                    for (Task j: list) {
+                        if (j.description.equals(after)) {
+                            list.add(new DoAfter(taskDescription, after));
+                            taskFound = true;
+                            break;
+                        }
+                    }
+                    if (!taskFound) {
+                        System.out.println();
+                        System.out.println("        _____________________________________");
+                        System.out.println("        Task: '" + after + "' not found!");
+                        System.out.println("        _____________________________________");
+                        System.out.println();
+                        System.out.println();
+                        return;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
+                    ui.wrong_description_error();
+                    return;
+                }
             } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
@@ -141,10 +166,12 @@ public class TaskList {
     public void doTask(int i) {
         try {
             list.get(i).markAsDone();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
-            System.out.println("\t_____________________________________\n\n");
+            if (list.get(i).isDone) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
+                System.out.println("\t_____________________________________\n\n");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
