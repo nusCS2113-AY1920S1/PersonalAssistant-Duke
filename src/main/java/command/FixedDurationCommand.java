@@ -8,9 +8,19 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * command.Command to add fixed duration to task
+ */
+
 public class FixedDurationCommand extends Command {
     String[] splitD;
 
+    /**
+     * Create new To Do with fixed duration
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException if description empty or format not followed
+     */
     public FixedDurationCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("☹ OOPS!!! The description of todo with duration cannot be empty.");
