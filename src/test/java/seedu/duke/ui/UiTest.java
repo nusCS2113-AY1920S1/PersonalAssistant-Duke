@@ -3,10 +3,17 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for Ui class.
+ */
 public class UiTest {
- 
-  @Test
-  public void dummyTest() {
 
-  }
+    @Test
+    
+    /**
+     * Dummy test for Ui class.
+     */
+    public void dummyTest() {
+
+    }
 }
