@@ -25,7 +25,7 @@
 ## User Interface
 
 ![UI image]
-(docs/images/Ui.png)
+(docs/UI.png)
 
 ## How to use
 
