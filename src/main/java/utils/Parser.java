@@ -94,7 +94,10 @@ public class Parser {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
-        } else {
+        } else if (splites[0].equals("CHECK")){
+            temp = new CheckAnomaliesCommand();
+        }
+        else {
             throw new DukeException("command not found");
         }
         return temp;
