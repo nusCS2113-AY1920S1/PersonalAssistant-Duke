@@ -4,8 +4,10 @@ import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import Events.Formatting.DateObj;
 import Events.Storage.Storage;
 import Events.Storage.TaskList;
+
 
 /**
  * Represents a command that is passed via user input.
@@ -60,6 +62,11 @@ public class Command {
                 ui.printListOfTasks(tasks);
                 changesMade = false;
                 break;
+                
+            case "reminder":
+            	ui.printReminder(tasks);
+                changesMade = false;
+                break;
 
             case "done":
                 try {
@@ -93,12 +100,12 @@ public class Command {
             case "find":
                 String searchFor = continuation;
                 String allTasksFound = "";
+                int index = 1;
                 for (Task taskFound : tasks.getTaskArrayList()) {
-                    int index = 1;
                     if (taskFound.getDescription().contains(searchFor)) {
                         allTasksFound += index + ". " + taskFound.toString() + "\n";
                     }
-                    ++index;
+                    index++;
                 }
 
                 boolean tasksFound = !allTasksFound.isEmpty();
@@ -111,6 +118,7 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
+                tasks.addTask(new ToDo(continuation));
                 ui.taskAdded(new ToDo(continuation), tasks.getNumTasks());
                 break;
 
@@ -174,6 +182,26 @@ public class Command {
                     ui.eventFormatWrong();
                     break;
                 }
+
+            case "view":
+                if (continuation.isEmpty()) {
+                    ui.taskDescriptionEmpty();
+                    break;
+                }
+                String dateToView = continuation;
+                String foundTask = "";
+                int viewIndex = 1;
+                DateObj findDate = new DateObj(dateToView);
+                for (Task viewTask : tasks.getTaskArrayList()) {
+                    if (viewTask.toString().contains(findDate.toOutputString())) {
+                        foundTask += viewIndex + ". " + viewTask.toString() + "\n";
+                        viewIndex++;
+                    }
+                }
+                boolean isTasksFound = !foundTask.isEmpty();
+                ui.searchTasks(foundTask, isTasksFound);
+                changesMade = false;
+                break;
 
             default:
                 ui.printInvalidCommand();

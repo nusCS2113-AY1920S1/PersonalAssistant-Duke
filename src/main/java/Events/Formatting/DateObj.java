@@ -1,7 +1,9 @@
 package Events.Formatting;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -31,6 +33,20 @@ public class DateObj {
     protected static int DATE_AND_TIME = 1;
     protected static int DATE = 2;
     protected static int OTHER = 3;
+    
+    /**
+     * Creates a custom "date object".
+     * If no parameters are passed in, a DateObj with the current date and time is created.
+     * The output will include both the date and time.
+     *
+     * @param inputDate the input keyed in for the date.
+     */
+    
+    public DateObj() {
+    	Date now = new Date(); // obtain current date and time
+    	this.javaDate = now;
+    	this.format = DATE_AND_TIME;
+    }
 
     /**
      * Creates a custom "date object".
@@ -38,6 +54,8 @@ public class DateObj {
      *
      * @param inputDate the input keyed in for the date.
      */
+    
+    
     public DateObj(String inputDate) {
         try {
             SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -97,5 +115,58 @@ public class DateObj {
 
     public int getFormat() {
         return format;
+
+    /** Getter to obtain the stored built-in Java date object.
+     * @return the Java date object stored in the DateObj.
+     */
+
+    public Date getJavaDate() {
+    	return this.javaDate;
     }
-}
+    
+    /**
+     * Compares this dateObj with another input dateObj
+     * If this == other, return 0.
+     * If this < other, return -1.
+     * If this > other, return 1.
+     * If the two DateObjs cannot be compared as either one of
+     * them stores the date as a string, return 2. 
+     * @param other the input dateObj used for the comparison
+     * @return Output the result of the comparison according to the algorithm stated above. 
+     */
+    public int compare(DateObj other) {
+    	if (javaDate == null || other.getJavaDate() == null) {
+    		return 2;
+    	} else {
+    		Date otherDate = other.getJavaDate();
+    		if (javaDate.compareTo(otherDate) > 0) {
+    			return 1;
+    		} else if (javaDate.compareTo(otherDate) == 0) {
+    			return 0;
+    		} else if (javaDate.compareTo(otherDate) < 0) {
+    			return -1;
+    		}
+    	}
+    	return 2;
+    }
+    
+    public void addDays(int n) {
+    	if (javaDate != null) {
+    		Calendar c = Calendar.getInstance();
+        	c.setTime(javaDate);
+        	c.add(Calendar.DATE, n);
+        	javaDate = c.getTime();
+    	}
+    }
+    
+    public void setMidnight() {
+    	if (javaDate != null) {
+    		Calendar c = Calendar.getInstance();
+        	c.setTime(javaDate);
+        	c.set(Calendar.HOUR_OF_DAY, 0);
+        	c.set(Calendar.MINUTE, 0);
+        	c.set(Calendar.SECOND, 0);
+        	javaDate = c.getTime();
+      }
+    }
+  }
