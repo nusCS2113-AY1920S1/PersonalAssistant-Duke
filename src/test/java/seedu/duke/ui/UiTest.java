@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.ui;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
