@@ -16,7 +16,8 @@ import duke.task.TaskType;
 
 public class Parser {
 
-    public static final String parseMarker = "@|@";
+    public static final String PARSE_MARKER_IS_DONE = "@|@";
+    public static final String PARSE_MARKER_TASK = "@@|@@";
 
     /**
      * Constructor for 'Parser' Class.
@@ -140,36 +141,35 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for the task description given the Task Type
-     * @param taskType TaskType enumeration
-     * @param userInput User Input to parse
-     * @return String[3] that contains taskName, detailDesc and taskDetails.
     public String[] parseTask(TaskType taskType, String userInput) {
     // TODO: Currently in 'Task' RecordTaskDetails
     }
      */
 
     // -- Storage-Parsing
+    public static String[] parseStoredTask(String encodedTask) {
+        return encodedTask.split(PARSE_MARKER_TASK);
+    }
 
     /**
      * Parses through the Stored task to return the Task type, Task Description and Task isDone as a String Array.
      * ONLY FOR FORMATTED INPUT
      *
-     * @param userInput User Input to be parsed
+     * @param taskString User Input to be parsed
      * @return String Array containing task type, task description and task isDone
      */
-    public static String[] parseStoredTask(String userInput) {
+    public static String[] parseStoredTaskDetails(String taskString) {
         String[] returnArray = new String[3];
-        String[] holder = userInput.split(parseMarker, 2);
+        String[] holder = taskString.split(PARSE_MARKER_IS_DONE, 2);
         returnArray[0] = String.valueOf(parseTaskType(holder[0]));
         returnArray[1] = holder[0].replace(returnArray[0], "").trim();
-        returnArray[2] = holder[1].replace(parseMarker.substring(1), "").trim();
+        returnArray[2] = holder[1].replace(PARSE_MARKER_IS_DONE.substring(1), "").trim();
         return returnArray;
     }
 
     /**
      * Encodes the Task for Storage.
-     *
+     * FORMAT: (taskType) (taskName)/(detailDesc) (taskDetails)(PARSE_MARKER_TASK)(isDone)(PARSE_MARKER_TASK)(...)
      * @param task Task Object
      * @return String to be stored/saved
      */
@@ -188,7 +188,7 @@ public class Parser {
         if (task.taskDetails != null) {
             strSave += task.taskDetails;
         }
-        strSave += parseMarker + task.isDone.toString() + "\n";
+        strSave += PARSE_MARKER_IS_DONE + task.isDone.toString() + "\n";
         return strSave;
     }
 }

@@ -18,7 +18,7 @@ public class CommandNewTask extends Command {
 
     @Override
     public void execute(TaskList taskList) {
-        Task newTask = taskList.createTask(this.taskType, this.userInput);
+        Task newTask = TaskList.createTask(this.taskType, this.userInput);
         taskList.addTask(newTask);
         Ui.dukeSays("I've added "
                 + newTask.genTaskDesc()
