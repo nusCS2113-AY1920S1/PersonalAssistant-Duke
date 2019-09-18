@@ -1,2 +1,2 @@
 T | 0 | kick a ball
-G | 0 | kick a ball
+G | 1 | kick a ball
