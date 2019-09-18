@@ -27,16 +27,17 @@ public class Parser {
         else if(command.contains("todo")) {
             return new TodoCommand();
         }
-
+        else if(command.contains("bye")) {
+            return new ByeCommand();
+        }
         else if(command.contains("/require")) {
             return new FixDurationCommand();
         }
-
         else if(command.contains("find")) {
             return new FindCommand();
         }
-        else if(command.contains("bye")) {
-            return new ByeCommand();
+        else if(command.contains("schedule")) {
+            return new ScheduleCommand();
         }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");

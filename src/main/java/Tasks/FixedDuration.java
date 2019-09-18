@@ -17,4 +17,9 @@ public class FixedDuration extends Task {
     public String listformat(){
         return "[FD]" + "[" + super.getStatusIcon() + "]" + super.description + "(requires:" + duration + ")";
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5155d01a7f58709501c59f09260fe94a1cb5d081
 }

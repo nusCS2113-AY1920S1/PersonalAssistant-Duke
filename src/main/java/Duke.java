@@ -33,7 +33,7 @@ public class Duke {
                 ui.ReadCommand();
                 String command = ui.FullCommand;
                 Command c = Parser.parse(command);
-                c.execute(list,ui, store);
+                c.execute(list, ui, store);
                 isExit = c.isExit();
             }
         }
