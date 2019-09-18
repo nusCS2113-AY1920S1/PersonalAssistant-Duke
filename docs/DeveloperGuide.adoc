@@ -136,6 +136,7 @@ Use case ends.
 +
 [none]
 ** 4a1. Cake shows error message
++
 Use case resumes at step 2.
 
 [none]
