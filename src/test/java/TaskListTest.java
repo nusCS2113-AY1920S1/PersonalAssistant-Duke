@@ -5,6 +5,7 @@ import duke.task.Reminder;
 import duke.task.TaskList;
 import duke.task.TimedTask;
 import duke.task.ToDoTask;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +19,24 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TaskListTest {
     private TaskList taskList;
 
+
+
     /**
      * Adds tasks to an empty TaskList. This is executed before each JUnit test.
      */
     @BeforeEach
+    public void setupTaskList() {
+        taskList = new TaskList();
+        ToDoTask todo = new ToDoTask("JUnit tests");
+        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter());
+        EventTask event = new EventTask("tutorial", t);
+        DeadlineTask deadline = new DeadlineTask("submission", t);
+        taskList.addTask(todo);
+        taskList.addTask(event);
+        taskList.addTask(deadline);
+    }
+
+    @Test
     public void addTasks_validTasks_successMessageReturned() {
         taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
@@ -42,7 +57,7 @@ public class TaskListTest {
                     + System.lineSeparator() + "2.[E][N] tutorial (at: "
                     + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
-            String listStr = taskList.listTasks();
+          
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
             fail("No tasks in the list after adding!");
