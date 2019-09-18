@@ -22,7 +22,7 @@ public class CommandQueue extends Command {
         TaskList throwaway = new TaskList();
         String[] parsedInput = Parser.removeStr(this.commandType.toString(), this.userInput)
                 .split(" ", 2);
-        int mainTaskIndex = Integer.parseInt(parsedInput[0]);
+        int mainTaskIndex = Integer.parseInt(parsedInput[0]) - 1;
         Task mainTask = taskList.getList().get(mainTaskIndex);
         String taskString = parsedInput[1].trim();
         Command createNewTaskCommand = Parser.parse(taskString);

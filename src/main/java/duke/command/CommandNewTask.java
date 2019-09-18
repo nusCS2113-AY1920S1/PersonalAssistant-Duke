@@ -14,6 +14,7 @@ public class CommandNewTask extends Command {
     public CommandNewTask(String userInput) {
         this.taskType = Parser.parseTaskType(userInput);
         this.userInput = userInput;
+        this.commandType = CommandType.TASK;
     }
 
     @Override
