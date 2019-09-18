@@ -1,12 +1,8 @@
 package compal.tasks;
 
 import compal.main.Duke;
+import compal.tasks.AllRecurringTask.*;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -124,16 +120,14 @@ public class TaskList {
             break;
         case "recurtask":
             token = "/start";
-            description = getDescription(cs, token);
             date = getDate(cs, token);
-            int numReps = getRep(cs); // number of repetitions
-            for (int count = 0; count < numReps; count++) {
-                duke.ui.printg(date);
-                RecurringTask recurTask = new RecurringTask(description, date);
+            RecurTaskHandler handler = new RecurTaskHandler(duke);
+            ArrayList<RecurringTask> recurTaskList = handler.recurTaskPacker(cs, date);
+            for (RecurringTask recurTask : recurTaskList) {
                 arrlist.add(recurTask);
-                date = incrementDateByWeek(date);
             }
-            duke.ui.printg("[RT][" + notDone + "] " + description);
+            duke.ui.printg("The first iteration of this task is: ");
+            duke.ui.printg(recurTaskList.get(0).toString());
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + s);
@@ -304,36 +298,6 @@ public class TaskList {
         format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
         when = format.format(date);
         return when;
-    }
-
-    /**
-     * This function returns the number of repetitions of the recurring task in an integer form.
-     *
-     * @param cs description string
-     * @return The number of repetitions of the recurring task.
-     * @UsedIn addTask
-     */
-    public static int getRep(String cs) {
-        String repToken = "/rep";
-        int splitPoint = cs.indexOf(repToken);
-        String repPart = cs.substring(splitPoint);
-        Scanner sc = new Scanner(repPart);
-        sc.next(); // skip /rep word
-        int repNum = sc.nextInt();
-        return repNum;
-    }
-
-    /**
-     * Increment the date by one week
-     *
-     * @param date The date to be incremented
-     * @return The final incremented date.
-     */
-    public static Date incrementDateByWeek(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, 7);
-        return calendar.getTime();
     }
 
 
