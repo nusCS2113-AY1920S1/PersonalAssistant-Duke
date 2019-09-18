@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Duke - Developer Guide
 
 By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 
