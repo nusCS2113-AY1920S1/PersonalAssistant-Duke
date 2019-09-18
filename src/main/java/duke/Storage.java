@@ -3,6 +3,7 @@ package duke;
 import com.joestelmach.natty.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
+import duke.tasks.After;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Fixed;
@@ -62,6 +63,9 @@ public class Storage {
                         break;
                     case "F":
                         tasks.addElement(new Fixed(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
+                        break;
+                    case "A":
+                        tasks.addElement(new After(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
                         break;
                     default:
                         Date start = parser.parse(arguments[3]).get(0).getDates().get(0);

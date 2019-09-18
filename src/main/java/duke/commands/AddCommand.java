@@ -5,6 +5,7 @@ import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.tasks.After;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Fixed;
@@ -33,6 +34,8 @@ public class AddCommand extends Command {
             throw new InputException("☹ OOPS!!! The description of a task cannot be empty.");
         } else if (this.type.equals("deadline") && components[1].equals("/by")) {
             throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        } else if (this.type.equals("do-after") && components[1].equals("/after")) {
+            throw new InputException("☹ OOPS!!! The description of a do-after event or time cannot be empty.");
         } else if (this.type.equals("event") && components[1].equals("/by")) {
             throw new InputException("☹ OOPS!!! The description of an event cannot be empty.");
         } else if (this.type.equals("fixed") && components[1].equals("/needs")) {
@@ -54,6 +57,7 @@ public class AddCommand extends Command {
         com.joestelmach.natty.Parser parser;
         List dates;
         String fixedDuration;
+        String doAfter;
 
         try {
             switch (this.type) {
@@ -83,6 +87,15 @@ public class AddCommand extends Command {
                 formattedOutput.add(added.toString());
                 break;
 
+            case "do-after":
+                doAfter = fullCommand.split("/after ")[1];
+                added = taskList.addTask(new After(fullCommand.substring(0, fullCommand.lastIndexOf(" /after"))
+                        .replaceFirst("do-after ", ""),
+                        doAfter));
+                formattedOutput.add("Got it. I've added this do-after task:");
+                formattedOutput.add(added.toString());
+                break;
+
             default:
                 parser = new com.joestelmach.natty.Parser();
                 dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
@@ -97,6 +110,7 @@ public class AddCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "Duke.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
+                    + "Duke.Tasks.Do-After: do-after <task name> /needs <do-after event or time>\n"
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
                     + "to <end as DD/MM/YYYY HH:MM>\n"
                     + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>");
