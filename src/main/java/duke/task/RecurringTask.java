@@ -3,21 +3,29 @@ package duke.task;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RecurringTask extends Task {
-    public int period;
-    public String type;
+    private int period;
+   // private Deadline deadlineTask;
+   // private Event eventTask;
+    private Task task;
 
-    public RecurringTask(@JsonProperty("description") String description,
+    public RecurringTask(@JsonProperty("task") Task task,
             @JsonProperty("period") int period) {
-            super(description);
+            super(task.getDescription());
+            this.task = task;
             this.period = period;
     }
+    //
+    //public void setType(String type) {
+    //    this.type = type;
+    //}
 
-    public void setType(String type) {
-        this.type = type;
+
+    public Task getTask() {
+        return task;
     }
 
     @Override
     public String toString() {
-        return "  " + period + " days  ";
+            return String.format("  %s  \n  %s   ", task.toString(), "/ " + period + " days");
     }
 }
