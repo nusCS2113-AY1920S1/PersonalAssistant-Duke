@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.parser.Parser;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,39 +17,30 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        this.date = super.getDate(at);
+        this.date = Parser.getDate(at);
+    }
+
+    @Override
+    public void setNewDate(String date) {
+        at=date;
+        this.date=Parser.getDate(at);
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return date;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + getDateString(date) + ")";
+        return "[E]" + super.toString() + "(at: " + Parser.getDateString(date, at) + ")";
     }
      /**
      * Returns the String representation of the {@link Event} in format compatible to be easily read and written in a text file on the hard disc
      * @return String used to print the {@link Task } in the text file
      */
     public String printInFile() {
-        return this.isDone() ? "E|1|" + getDescription() + "|" + this.getDateString(date) : "E|0|" + this.getDescription() + "|" + getDateString(date);
+        return this.isDone() ? "E|1|" + getDescription() + "|" + Parser.getDateString(date, at) : "E|0|" + this.getDescription() + "|" + Parser.getDateString(date, at);
     }
 
-    /**
-     * Returns the {@link Date } instance as a String to be printed in the file
-     * @param date the {@link Date} at which the event is happening
-     * @return String the date for the event
-     */
-    private String getDateString(Date date) {
-        if (date == null)
-            return at;
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        //String pattern = at.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        String pattern;
-        if(at.length() > 11){
-            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
-        }
-        else{
-            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.format(date);
-    }
 }
