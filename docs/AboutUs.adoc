@@ -4,51 +4,54 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[Beastie bois] team. +
 _{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Mohammad Yousuf
+image::yzia2000.png[width="150", align="left"]
+{empty}[http://github.com/yzia2000[github]] [<<yzia2000#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Data + Merging
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Nigel Tan
+image::enriquekhai.png[width="150", align="left"]
+{empty}[[homepage]] [https://github.com/enriquekhai[github]] [<<enriquekhai#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Project Advisor
+Responsibilities: Model
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Nathan Yeo
+image::nystera.png[width="150", align="left"]
+{empty}[http://github.com/nystera[github]] [<<nystera#, portfolio>>]
+
+Role: Project Advisor +
+Responsibilities: Model
+
+'''
+
+
+
+=== Ng Jie Wu
+image::ngjiewu.png[width="150", align="left"]
+{empty}[http://github.com/ngjiewu[github]] [<<ngjiewu#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Ng Jing Kang
+image::jingkang97.png[width="150", align="left"]
+{empty}[http://github.com/jingkang97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
