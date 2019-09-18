@@ -4,11 +4,12 @@ import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Fixed;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.Ui;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,8 @@ public class AddCommand extends Command {
             throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
         } else if (this.type.equals("event") && components[1].equals("/by")) {
             throw new InputException("☹ OOPS!!! The description of an event cannot be empty.");
+        } else if (this.type.equals("fixed") && components[1].equals("/needs")) {
+            throw new InputException("☹ OOPS!!! The description of a fixed duration task cannot be empty.");
         }
     }
 
@@ -50,6 +53,7 @@ public class AddCommand extends Command {
         Task added;
         com.joestelmach.natty.Parser parser;
         List dates;
+        String fixedDuration;
 
         try {
             switch (this.type) {
@@ -70,6 +74,15 @@ public class AddCommand extends Command {
                 formattedOutput.add(added.toString());
                 break;
 
+            case "fixed":
+                fixedDuration = fullCommand.split("/needs ")[1];
+                added = taskList.addTask(new Fixed(fullCommand.substring(0, fullCommand.lastIndexOf(" /needs"))
+                        .replaceFirst("fixed ", ""),
+                        fixedDuration));
+                formattedOutput.add("Got it. I've added this fixed duration task:");
+                formattedOutput.add(added.toString());
+                break;
+
             default:
                 parser = new com.joestelmach.natty.Parser();
                 dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
@@ -85,7 +98,8 @@ public class AddCommand extends Command {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "Duke.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as DD/MM/YYYY HH:MM>");
+                    + "to <end as DD/MM/YYYY HH:MM>\n"
+                    + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>");
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));

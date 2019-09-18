@@ -43,6 +43,7 @@ public class Parser {
             case "todo":
             case "deadline":
             case "event":
+            case "fixed":
                 command = new AddCommand(components, input);
                 break;
 

@@ -5,6 +5,7 @@ import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Fixed;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
@@ -58,6 +59,9 @@ public class Storage {
                     case "D":
                         Date by = parser.parse(arguments[3]).get(0).getDates().get(0);
                         tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], by));
+                        break;
+                    case "F":
+                        tasks.addElement(new Fixed(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
                         break;
                     default:
                         Date start = parser.parse(arguments[3]).get(0).getDates().get(0);
