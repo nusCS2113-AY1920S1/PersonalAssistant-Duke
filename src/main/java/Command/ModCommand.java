@@ -34,6 +34,10 @@ public class ModCommand extends Command {
         {
             tasks.banishDelete(this.input);
         }
+        else if(this.command.matches("snooze"))
+        {
+            tasks.snoozeTask(this.input);
+        }
     }
 
 }

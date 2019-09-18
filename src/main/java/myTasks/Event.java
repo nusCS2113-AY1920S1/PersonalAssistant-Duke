@@ -50,6 +50,28 @@ public class Event extends Task {
     }
 
     /**
+     * sets a new date for the due date
+     * @param postponeDetails
+     * @throws DukeException
+     */
+    @Override
+    public void snooze(String postponeDetails) throws DukeException{
+        String[] split = postponeDetails.split(Parser.postpone);
+        if(split.length < 2)
+        {
+            throw new DukeException("Please use /to to indicate date");
+        }
+        else if(split.length > 2)
+        {
+            throw new DukeException("Too many /to in String");
+        }
+        else {
+            this.readDate(split[1]);
+        }
+    }
+
+
+    /**
      * Returns type of Task
      * @return String consisting of a single Letter (for now)
      */

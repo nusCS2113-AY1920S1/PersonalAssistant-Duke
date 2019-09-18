@@ -1,6 +1,7 @@
 package myTasks;
 
 import Exception.DukeException;
+import Main.Duke;
 import Parser.Parser;
 
 import java.util.ArrayList;
@@ -134,6 +135,41 @@ public class TaskList {
             throw new DukeException(e.getLocalizedMessage());
         }
         catch (NumberFormatException e) {
+            throw new DukeException("That is NOT a valid integer");
+        }
+    }
+
+    /**
+     * passes a new date into the event or deadline class
+     * @param input
+     * @throws DukeException
+     */
+    public void snoozeTask(String input) throws DukeException{
+        try{
+            String[] split = input.split(Parser.postpone);
+            int request = Integer.parseInt(split[0]);
+            request-=1;
+            if(split.length < 2){
+                throw new DukeException("Please use /to to indicate date");
+            }
+            else if(isOutOfRange(request)){
+                throw new DukeException("The index was not found withing range");
+            }
+            else if(!(list.get(request).getType().matches("E")|list.get(request).getType().matches("D"))){
+                throw new DukeException("Only Events and Deadlines can be snoozed");
+            }
+            else{
+                this.list.get(request).snooze(input);
+                System.out.println("Noted. I've snoozed this task:\n" +
+                    "  " + list.get(request).toList());
+
+            }
+        }
+        catch (DukeException e)
+        {
+            throw new DukeException(e.getLocalizedMessage());
+        }
+        catch (NumberFormatException e){
             throw new DukeException("That is NOT a valid integer");
         }
     }
