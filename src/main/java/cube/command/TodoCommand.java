@@ -7,7 +7,6 @@ package cube.command;
 
 import cube.task.Task;
 import cube.ui.*;
-import cube.util.Parser;
 import cube.util.Storage;
 import cube.task.TaskList;
 import cube.task.Todo;
@@ -56,7 +55,8 @@ public class TodoCommand implements Command{
 	private boolean isAnomaly(TaskList tasks, String description) throws DukeException {
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task = tasks.get(i);
-			if (description.equals(task.getTask()[0])) {
+			String[] task_components = task.getTask();
+			if (task_components.length == 1 && description.equals(task_components[0])) {
 				throw new DukeException(Message.EXISTING_DESCRIPTION);
 			}
 		}
