@@ -28,11 +28,12 @@ public class Reminders {
         getRemindersList(storage);
         //check list of reminders
         for (String[] reminderInfo : reminderList) {
-            System.out.println(reminderInfo[0]);
+            if (reminderInfo.length == 3) {
                 if (reminderInfo[2].equals(currentDateTime)) {
                     //time to remind
                     printReminder(reminderInfo);
                 }
+            }
         }
     }
 
