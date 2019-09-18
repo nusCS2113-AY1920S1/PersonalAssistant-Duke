@@ -1,15 +1,25 @@
 package utils;
 
-import commands.*;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+import commands.AddCommand;
+import commands.Command;
+import commands.DoneCommand;
+import commands.ListCommand;
+import commands.ByeCommand;
+import commands.DeleteCommand;
+import commands.FindCommand;
+import javafx.css.converter.DurationConverter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * deals with making sense of the user command
+ */
 public class Parser {
     /**
      * <p>parse a line in the data text to an object.</p>
@@ -24,14 +34,18 @@ public class Parser {
         }
         Task temp;
         if (splites[0].equals("T")) {
-            temp = new ToDo("");
+            temp = new ToDo();
         } else if (splites[0].equals("E")) {
-            temp = new Event("");
+            temp = new Event();
         } else if (splites[0].equals("D")) {
-            temp = new Deadline("");
-        } else {
+            temp = new Deadline();
+        } else if (splites[0].equals("L")){
+            temp = new Last();
+        } else if (splites[0].equals("P")){
+            temp = new Period();
+        }else {
             throw new ParseException(
-                    "Invalid data line input: the first character is not T, E or D,"
+                    "Invalid data line input: the first character is not T, E, D, L or P,"
                             + " which cannot represent any task type Duke support.",-1);
         }
         try {
@@ -49,6 +63,16 @@ public class Parser {
             } catch (ParseException e) {
                 throw e;
             }
+        }else if (splites[0].equals("L")){
+            temp.setDuration(splites[3]);
+        }else if (splites[0].equals("P")){
+            SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
+            try{
+                temp.setStart(ft.parse(splites[3]));
+                temp.setEnd(ft.parse(splites[4]));
+            }catch (ParseException e){
+                throw e;
+            }
         }
         return temp;
     }
@@ -60,7 +84,7 @@ public class Parser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
-        String[] splites = line.replaceAll("\\s{2,}", " ").split(" ",2);
+        String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].trim().toUpperCase();
         Command temp = null;
         if (splites[0].equals("ADD")) {
@@ -100,7 +124,7 @@ public class Parser {
         }
     }
     public static Task addCommand(String line) throws DukeException {
-        String[] splites = line.split(" ", 2);
+        String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].toUpperCase();
         Task temp = null;
         if (splites.length < 2) {
@@ -137,7 +161,42 @@ public class Parser {
             } catch (ParseException e) {
                 throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy hhmm");
             }
-        } else {
+        } else if (splites[0].equals("LAST")){
+            splites = splites[1].split("/last");
+            if (splites.length < 2){
+                throw new DukeException("No time keyword /last");
+            }
+            splites[0] = splites[0].trim();
+            splites[1] = splites[1].trim();
+            temp = new Last(splites[0], splites[1]);
+            return temp;
+        }else if (splites[0].equals("PERIOD")){
+            splites = splites[1].split("/from");
+            if (splites.length < 2){
+                throw new DukeException("No time keyword /from");
+            }
+            String description = splites[0].trim();
+            splites[1] = splites[1].trim();
+            splites = splites[1].split("/to");
+            if (splites.length < 2){
+                throw new DukeException("No time keyword /to");
+            }
+            splites[0] = splites[0].trim();
+            splites[1] = splites[1].trim();
+            SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
+            try {
+                Date start = ft.parse(splites[0]);
+                Date end = ft.parse(splites[1]);
+                if (start.compareTo(end) >0){
+                    throw new DukeException("Invalid time period, start time should before end time");
+                }
+                temp = new Period(description,start ,end);
+                return temp;
+            } catch (ParseException e) {
+                throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy hhmm");
+            }
+        }
+        else {
             throw new DukeException("Task.Task type " + splites[0] + " not recognized");
         }
     }

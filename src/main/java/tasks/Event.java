@@ -3,21 +3,27 @@ package tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * a task has exact happened time
+ * command is "add event [description] /at [time]"
+ */
+
 public class Event extends Task {
+
+    /**
+     * time of this event
+     */
     private Date at;
 
     /**
-     * This is a class for abstraction of a Event type task.
-     * @param description the description, or content of the event
-     * @param at the time when the event happen
+     * default constructor of Event
      */
+    public Event() {}
+
+
     public Event(String description, Date at) {
         super(description);
         this.at = at;
-    }
-
-    public Event(String description) {
-        super(description);
     }
 
     @Override
@@ -30,11 +36,22 @@ public class Event extends Task {
     }
 
     @Override
+    /**
+     * @Override toString() in Task
+     * a method to format the output of the task list
+     * @return string
+     *              how task list will print out in console
+     */
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
 
-    @Override
+    /**
+     * @Override dataString() in Task
+     * a method to format the data list data store in file
+     * @return string
+     *              a string which will show in data file that store the task list
+     */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
         return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.at);

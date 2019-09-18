@@ -6,6 +6,9 @@ import core.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "bye" command
+ */
 public class ByeCommand extends Command {
     /**
      * This is a class for command BYE, which exit the Duke assistant.

@@ -11,21 +11,36 @@ import java.io.OutputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * This is the main class to be executed for DUKE PRO application
+ *
+ * @author T14-4 team
+ */
 public class Duke {
-    static File duketxt;
-    static InputStream is;
-    static OutputStream os;
 
+    /**
+     * deals with loading tasks from the file and saving tasks in the file
+     */
     private Storage storage;
+
+    /**
+     * an array list contains all the tasks
+     */
     private ArrayList<Task> tasks;
 
+
+    /**
+     * A constructor which applies the file path to load previous data
+     * @param filePath
+     *                  the file path
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         tasks = storage.load();
     }
 
     /**
-     * <p>main running structure of Duke.</p>
+     * main running structure of Duke.
      */
     public void run() {
         Ui.welcome();
@@ -44,8 +59,9 @@ public class Duke {
     }
 
     /**
-     * <p>Main method of the entire project.</p>
-     * @param args command line arguments, not used here
+     * Main method of the entire project.
+     * @param args
+     *              command line arguments, not used here
      */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();

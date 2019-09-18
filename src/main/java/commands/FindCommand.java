@@ -7,6 +7,9 @@ import core.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "find" command
+ */
 public class FindCommand extends Command {
     private String line;
 
