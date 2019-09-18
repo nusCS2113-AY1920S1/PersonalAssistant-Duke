@@ -6,6 +6,11 @@ public class ToDoTask extends Task {
         type = 'T';
     }
 
+    public ToDoTask(String name, Reminder reminder) {
+        super(name, reminder);
+        type = 'T';
+    }
+
     @Override
     public String toString() {
         return "[" + type + "]" + super.toString();
