@@ -27,6 +27,9 @@
 ![UI image]
 (docs/images/Ui.png)
 
+## How to use
+
+
 ## Duke Increment
 
 Duke Increment | Tutorial
@@ -39,9 +42,3 @@ Duke Increment | Tutorial
 [fx2]: <tutorials/javaFxTutorialPart2.md>
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
-
-## Site Map
-* [User Guide]
-* [Develper Guide]
-* [Learning Outcomes]
-* [About us] (docs/AboutUs.adoc)
