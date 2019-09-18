@@ -15,7 +15,7 @@ public class Event extends Task {
      * String that denotes when the event is going to happen.
      */
     protected String at;
-gi
+
     /**
      * String that denotes a date time parsed at variable.
      */
@@ -69,7 +69,7 @@ gi
         }
 
         if (parsedDate.getDayOfMonth() > 3 && parsedDate.getDayOfMonth() < 21) {
-          suffix = "th";
+            suffix = "th";
         }
 
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d'"
