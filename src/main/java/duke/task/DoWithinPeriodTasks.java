@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.parser.Parser;
+
 import java.util.Date;
 
 public class DoWithinPeriodTasks extends Task{
@@ -10,12 +12,22 @@ public class DoWithinPeriodTasks extends Task{
     public DoWithinPeriodTasks(String d, String f, String t) {
         //CONSTRUCTOR
         super(d);
-        from = super.getDate(f);
-        to = super.getDate(t);
+        from = Parser.getDate(f);
+        to = Parser.getDate(t);
     }
 
     public String printInFile(){
         return this.toString();
+    }
+
+    @Override
+    public void setNewDate(String date) {
+
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return null;
     }
 
     @Override

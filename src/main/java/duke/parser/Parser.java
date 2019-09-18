@@ -71,6 +71,10 @@ public class Parser {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
                 } else throw new DukeException("Need a task number after done!");
+            case "remind":
+                if (splitted.length == 1) {
+                    return new RemindCommand();
+                }else throw new DukeException("no parameters after 'remind'");
 
             case "snooze":
                 if ((splitted.length == 1) || splitted[1].isBlank())
