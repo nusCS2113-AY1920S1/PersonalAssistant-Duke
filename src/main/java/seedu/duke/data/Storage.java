@@ -17,9 +17,11 @@ import java.io.FileWriter;
  */
 public class Storage {
   private String filePath;
+  private Schedule schedule;
 
   public Storage(String filePath) {
     this.filePath = filePath;
+    this.schedule = new Schedule();
   }
 
   /**
@@ -41,9 +43,25 @@ public class Storage {
         }
         else if (task_string[0].equals("D")) {
           list.add(new Deadline(task_string[2], task_string[3]));
+          try {
+            String dateOnly = task_string[3].split(" ")[0];
+            Date date = schedule.convertStringToDate(dateOnly);
+            Task lastTask = list.get(list.size() - 1);
+            schedule.addToSchedule(lastTask, date);
+          } catch (ParseException ignored) {
+
+          }
         }
         else {
           list.add(new Event(task_string[2], task_string[3]));
+          try {
+            String dateOnly = task_string[3].split(" ")[0];
+            Date date = schedule.convertStringToDate(dateOnly);
+            Task lastTask = list.get(list.size() - 1);
+            schedule.addToSchedule(lastTask, date);
+          } catch (ParseException ignored) {
+
+          }
         }
 
         if (task_string[1].equals("1")) {
@@ -59,9 +77,22 @@ public class Storage {
     }
     return list;
   }
-
-  public Schedule updateSchedule() {
+/*
+  public Schedule updateSchedule(ArrayList<Task> list) {
     Schedule schedule = new Schedule();
+
+    for (Task task : list) {
+      String commandType = task.toString().split(" ")[0];
+      String date = new String("");
+      if (commandType.equals("[D]")) {
+        date = task.toString().split("by: ")[1];
+      } else if (commandType.equals("[E]")) {
+        date = task.toString().split("at: ")[1];
+      }
+      date = date.substring(0, date.length() - 1);
+
+    }
+
     try {
       Scanner duke_txt = new Scanner(new File(this.filePath));
       while (duke_txt.hasNextLine()) {
@@ -77,7 +108,7 @@ public class Storage {
 
     }
     return schedule;
-  }
+  }*/
 
     /**
    * Saves the input task list to disc.

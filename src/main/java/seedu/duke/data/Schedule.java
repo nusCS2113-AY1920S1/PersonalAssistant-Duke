@@ -1,5 +1,6 @@
 package seedu.duke.data;
 
+import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
 
 import java.text.DateFormat;
@@ -14,12 +15,11 @@ public class Schedule {
 
     private static final String DATE_FORMATTER_NO_TIME = "dd/MM/yyyy";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER_NO_TIME);
-    private static TreeMap<Date, ArrayList<String>> schedulesInOrder;
+    private static TreeMap<Date, ArrayList<Task>> schedulesInOrder = new TreeMap<Date, ArrayList<Task>>();
     private Ui ui = new Ui();
 
 
     public Schedule() {
-        schedulesInOrder = new TreeMap<Date, ArrayList<String>>();
     }
 
     public static String getTodayDate() {
@@ -28,27 +28,27 @@ public class Schedule {
         return formatDateTime;
     }
 
-    public void addToSchedule(String description, Date date) throws ParseException {
+    public void addToSchedule(Task task, Date date) throws ParseException {
         if (!schedulesInOrder.containsKey(date)) {
             schedulesInOrder.put(date, new ArrayList<>());
         }
-        schedulesInOrder.get(date).add(description);
+        schedulesInOrder.get(date).add(task);
     }
 /*
     public void removeFromSchedule(Task task) {
 
     }*/
-
+/*
     public void print() {
         for (Map.Entry m:schedulesInOrder.entrySet()) {
             String dateStr = new SimpleDateFormat(DATE_FORMATTER_NO_TIME).format(m.getKey());
             System.out.println("Date: " + dateStr);
-            for (String description : schedulesInOrder.get(m.getKey())) {
-                System.out.println(description);
+            for (Task task : schedulesInOrder.get(m.getKey())) {
+                System.out.println(task.toString());
             }
             System.out.println();
         }
-    }
+    }*/
 
     public void printSchedule(Date date) {
         System.out.println("\t_____________________________________");
@@ -56,8 +56,8 @@ public class Schedule {
         if (schedulesInOrder.containsKey(date)) {
             System.out.println("\tHere are the tasks on this date: (" + strDate + ")");
             int i = 1;
-            for (String description : schedulesInOrder.get(date)) {
-                System.out.println("\t" + i + ". " + description);
+            for (Task task : schedulesInOrder.get(date)) {
+                System.out.println("\t" + i + ". " + task.toString());
                 i++;
             }
         } else {

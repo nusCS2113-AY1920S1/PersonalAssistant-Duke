@@ -33,7 +33,6 @@ public class Duke {
     ui.show_opening_string();
 
     list = new TaskList(storage.load());
-    schedule = storage.updateSchedule();
 
     System.out.println();
 

@@ -68,7 +68,7 @@ public class TaskList {
           String taskDateOnly = task_time.split(" ", 2)[0];
           list.add(new Deadline(task_description, task_time));
           if (Schedule.isValidDate(taskDateOnly)) {
-            schedule.addToSchedule(task_description, schedule.convertStringToDate(taskDateOnly));
+            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
           }
         }
         // if /by is not included in deadline command
@@ -87,7 +87,7 @@ public class TaskList {
           String taskDateOnly = task_time.split(" ", 2)[0];
           list.add(new Event(task_description, task_time));
           if (Schedule.isValidDate(taskDateOnly)) {
-            schedule.addToSchedule(task_description, schedule.convertStringToDate(taskDateOnly));
+            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
           }
         }
         // if /at is not included in event command
@@ -203,6 +203,10 @@ public class TaskList {
       System.out.println("\t  " + (id + 1) + "." + list.get(id).toString());
     }
     System.out.println("\t_____________________________________\n\n");
+  }
+
+  public Task getLastTask() {
+    return this.list.get(list.size() - 1);
   }
 
   /**
