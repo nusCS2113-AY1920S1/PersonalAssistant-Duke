@@ -11,12 +11,19 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
 
+/**
+ * main class of the Duke program
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
+     * Also loads the ArrayList of tasks from the data.txt file
+     */
     public Duke() {
         ui = new Ui();
         ui.startUp();
@@ -31,6 +38,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Deals with the operation flow of Duke.
+     */
     public void run() {
         boolean isExit = false;
         while (!isExit) {
@@ -46,8 +56,10 @@ public class Duke {
                     isExit = true;
                     try {
                         storage.writeFile(taskList.currentList());
+                        ui.showBye();
                     } catch (DukeException e) {
                         ui.showWriteError();
+                        ui.showBye();
                     }
                     break;
 

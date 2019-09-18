@@ -9,11 +9,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Performs storage operations such as writing and reading from a .txt file
+ */
 public class Storage {
     private Parser parser;
+
+    /**
+     * Constructor for the Storage class
+     */
     public Storage() {
     }
 
+    /**
+     * Returns an ArrayList of Tasks from a .txt file.
+     * Extracts the relevant information from the data.txt file in Duke to create the tasks.
+     * Populates an ArrayList with these created tasks.
+     * @return taskArrayList An ArrayList of Tasks that is created from the .txt file.
+     * @throws DukeException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
+     */
     public ArrayList<Task> loadFile() throws DukeException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
@@ -58,6 +72,14 @@ public class Storage {
         return (taskArrayList);
     }
 
+    /**
+     * Rewrites the data.txt file with a task list.
+     * Formats all task information into a style that the loadFile() method is able to understand
+     * Writes all the formatted information into a data.txt file for storage
+     * Will not write any information if the there are mistakes in the ArrayList information.
+     * @param list ArrayList of Tasks to be stored on data.txt
+     * @throws DukeException If there are parsing errors in the ArrayList.
+     */
     public void writeFile(ArrayList<Task> list) throws DukeException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt"));
