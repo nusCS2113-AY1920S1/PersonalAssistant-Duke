@@ -11,6 +11,10 @@ import java.time.temporal.TemporalUnit;
 
 //TODO This is complex enough that the generic Javadoc will not do
 public class NewRecurringTaskCommand extends MultiArgCommand {
+
+    /**
+     * Creates a new NewRecurringTaskCommand, setting the parameters for its inherited methods.
+     */
     public NewRecurringTaskCommand() {
         argc = 2;
         delim = "/repeats";
@@ -34,7 +38,7 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         if (firstSpaceIdx == -1) {
             throw new DukeException("You didn't tell me how frequently this task should recur!");
         }
-        switch(argv[1].substring(0, firstSpaceIdx)) { //extract period from frequency, use fallthrough to add synonyms
+        switch (argv[1].substring(0, firstSpaceIdx)) { //extract period from frequency, use fallthrough to add synonyms
         case "daily":
             period = ChronoUnit.DAYS;
             break;
@@ -74,7 +78,7 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         }
 
         if (count <= 0) {
-           throw new DukeException("This task will not recur!");
+            throw new DukeException("This task will not recur!");
         }
 
         //I'm gonna do what's called a pro gamer move

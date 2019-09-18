@@ -5,6 +5,9 @@ import duke.exception.DukeException;
 import duke.task.ToDoTask;
 
 public class NewToDoCommand extends ArgCommand {
+    /**
+     * Creates a new NewToDoCommand, setting the parameters for its inherited methods.
+     */
     public NewToDoCommand() {
         emptyArgMsg = "Task description cannot be empty!";
     }

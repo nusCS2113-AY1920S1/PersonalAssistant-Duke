@@ -38,9 +38,9 @@ public class TaskTest {
      */
     @Test
     public void testSetReminder_taskNotDone_success() throws DukeException {
-        assertEquals(todo.toString(), "[T][\u2718] JUnit tests");
+        assertEquals(todo.toString(), "[T][N] JUnit tests");
         todo.setReminder(new Reminder(datetime));
-        assertEquals(todo.toString(), "[T][\u2718][R: Wed, 18 Sep 2019 2:00 AM] JUnit tests");
+        assertEquals(todo.toString(), "[T][N][R: Wed, 18 Sep 2019 2:00 AM] JUnit tests");
     }
 
     /**

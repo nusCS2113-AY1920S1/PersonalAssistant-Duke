@@ -45,7 +45,7 @@ public class TaskList {
         StringBuilder taskListBuilder = new StringBuilder();
         for (int i = 0; i < taskCount; ++i) {
             Task currTask = taskArrList.get(i);
-            taskListBuilder.append(System.lineSeparator()).append("  ").append(i + 1).append(".")
+            taskListBuilder.append(System.lineSeparator()).append(i + 1).append(".")
                     .append(currTask.toString());
         }
         return taskListBuilder.toString();
@@ -115,7 +115,7 @@ public class TaskList {
         StringBuilder searchBuilder = new StringBuilder();
         for (Task task : taskArrList) {
             if (task.getName().contains(searchTerm)) {
-                searchBuilder.append(System.lineSeparator()).append("  ").append(i).append(".")
+                searchBuilder.append(System.lineSeparator()).append(i).append(".")
                         .append(task.toString());
                 ++i;
             }

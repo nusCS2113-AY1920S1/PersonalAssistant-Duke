@@ -30,8 +30,8 @@ public abstract class Command {
      * Runs the command using the parameters loaded with Command's parse method, but without any changes to storage and
      * returning output that would ordinarily be printed, although not necessarily in the same format.
      *
-     * @return String containing output would be printed during ordinary execution.
      * @param ctx The DukeContext object for this command to operate on.
+     * @return String containing output would be printed during ordinary execution.
      * @throws DukeException If command fails to execute.
      * @see DukeContext
      */

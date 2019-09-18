@@ -11,6 +11,8 @@ public class FindCommand extends ArgCommand {
     @Override
     public void execute(DukeContext ctx) throws DukeException {
         String findStr = "Here are the tasks that contain '" + arg + "':";
-        ctx.ui.print(findStr + ctx.taskList.find(arg));
+        findStr = findStr + ctx.taskList.find(arg).replace(System.lineSeparator(),
+                System.lineSeparator() + "  ");
+        ctx.ui.print(findStr);
     }
 }

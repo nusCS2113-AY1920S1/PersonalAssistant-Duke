@@ -9,7 +9,7 @@ import duke.task.DeadlineTask;
  */
 public class NewDeadlineCommand extends NewTimedTaskCommand {
     /**
-     * Creates a new Command object that can be executed to create a new Deadline task.
+     * Creates a new NewDeadlineCommand, setting the parameters for its inherited methods.
      */
     public NewDeadlineCommand() {
         argc = 2;
