@@ -12,6 +12,6 @@ public class ToDo extends Task {
 
     @Override
     public String dataString() {
-        return "T | " + (this.isDone ? 1 : 0) + " | " + this.description;
+        return "T | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + this.getPrecondition();
     }
 }

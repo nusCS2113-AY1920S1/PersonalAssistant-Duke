@@ -1,3 +1,5 @@
-T | 1 | make notes for OOP
-E | 0 | OOP lectrure4 | 06/09/2019 0400
-D | 1 | OOP project assignment in week 4 | 04/09/0019 1159
+T | 1 | one | 0
+T | 1 | todo two | 0
+T | 0 | todo three | 0
+T | 1 | five | 2 
+E | 0 | six | 0  | 12/12/2012 1200

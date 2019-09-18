@@ -27,12 +27,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() ;
     }
 
     @Override
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.at);
+        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.at);
     }
 }

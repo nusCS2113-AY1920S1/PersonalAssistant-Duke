@@ -25,6 +25,8 @@ public class DoneCommand extends Command {
             tasks.get(order - 1).markAsDone();
             storage.store(tasks);
             Ui.print("Nice! I've marked this task as done: \n" + tasks.get(order - 1));
+        } catch (DukeException e){
+            Ui.print(e.getMessage());
         } catch (Exception e) {
             throw new DukeException("Not a valid task number");
         }

@@ -7,6 +7,7 @@ import commands.ListCommand;
 import commands.ByeCommand;
 import commands.DeleteCommand;
 import commands.FindCommand;
+import core.Ui;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -45,12 +46,19 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             throw new ParseException("Invalid number format for the second column of Duke data line.", -1);
+        } catch (DukeException e) {
+            Ui.print(e.getMessage());
         }
         temp.setDescription(splites[2]);
+        try {
+            temp.addPrecondition(splites[3]);
+        } catch (DukeException e) {
+            throw new ParseException(e.getMessage(), -1);
+        }
         if (splites[0].equals("E") || splites[0].equals("D")) {
             SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
             try {
-                temp.setTime(ft.parse(splites[3]));
+                temp.setTime(ft.parse(splites[4]));
             } catch (ParseException e) {
                 throw e;
             }

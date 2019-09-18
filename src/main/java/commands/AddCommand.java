@@ -1,5 +1,6 @@
 package commands;
 
+import jdk.jshell.spi.SPIResolutionException;
 import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
@@ -7,6 +8,7 @@ import utils.Storage;
 import core.Ui;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
@@ -23,7 +25,13 @@ public class AddCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
         try {
-            tasks.add(Parser.addCommand(content));
+            Task temp = Parser.addCommand(content);
+            if (content.contains("/after")){
+                String preconditionString = content.split("/after", 2)[1].trim();
+                temp.setDescription(content.split("/after", 2)[0].trim().split(" ")[1]);
+                temp.addPrecondition(preconditionString);
+            }
+            tasks.add(temp);
             storage.store(tasks);
             Ui.print("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1)
                     + "\nNow you have " + tasks.size() + " tasks in the list.");
