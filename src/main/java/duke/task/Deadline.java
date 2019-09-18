@@ -2,7 +2,9 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 class Deadline extends Task {
@@ -15,6 +17,9 @@ class Deadline extends Task {
         this.recordTaskDetails(name);
         try {
             this.parseDateTime();
+            DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HHmm");
+            String strDate = dateFormat.format(getDatetime());
+            this.setDates(strDate);
         } catch  (DukeException invalidInput) {
             invalidInput.printStackTrace();
         }
@@ -47,4 +52,8 @@ class Deadline extends Task {
     public Date getDatetime() {
         return datetime;
     }
+
+
+
+
 }

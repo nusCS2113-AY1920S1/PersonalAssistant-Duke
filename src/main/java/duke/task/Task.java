@@ -11,6 +11,7 @@ public class Task {
     public TaskType taskType;
     public Boolean isDone = false;
     private TaskList queuedTasks = null;
+    private String dates = null;
 
     /**
      * Constructor for the 'Task' Class.
@@ -134,5 +135,13 @@ public class Task {
      */
     public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
+    }
+
+    public String getDates() {
+        return dates;
+    }
+
+    public void setDates(String dates) {
+        this.dates = dates;
     }
 }
