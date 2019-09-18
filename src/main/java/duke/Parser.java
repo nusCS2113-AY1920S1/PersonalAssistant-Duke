@@ -1,7 +1,26 @@
 package duke;
 
-import duke.commands.*;
-import duke.tasks.*;
+import duke.commands.Command;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.ReminderCommand;
+import duke.commands.ViewScheduleCommand;
+import duke.commands.FreeTimeCommand;
+import duke.commands.FindCommand;
+import duke.commands.DoneCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.AddCommand;
+import duke.commands.TentativeCommand;
+import duke.commands.ConfirmCommand;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TentativeEvent;
+import duke.tasks.RecurringTask;
+import duke.tasks.DoAfterTask;
+import duke.tasks.FixedDurationTask;
+import duke.tasks.WithinPeriodTask;
 import com.joestelmach.natty.DateGroup;
 
 import java.util.ArrayList;
@@ -78,8 +97,11 @@ public class Parser {
     private static StringBuilder computeTaskDetail(String task, StringBuilder stringBuilder) {
         String[] tokens = task.split(" ");
         for (String token : tokens) {
-            if (token.charAt(0) != '/') stringBuilder.append(token);
-            else break;
+            if (token.charAt(0) != '/') {
+                stringBuilder.append(token);
+            } else {
+                break;
+            }
         }
         return stringBuilder;
     }
@@ -117,15 +139,19 @@ public class Parser {
             } else if (token.charAt(0) == '/' && token.equals("/needs")) {
                 hasReq = true;
                 hasFixedDuration = true;
+            } else if (!hasReq) {
+                taskDetail.append(token + " ");
+            } else if (hasReq) {
+                taskReq.append(token + " ");
             }
-            else if (!hasReq) taskDetail.append(token + " ");
-            else if (hasReq) taskReq.append(token + " ");
         }
         String finalTaskDetail = taskDetail.toString();
         finalTaskDetail = finalTaskDetail.substring(0, finalTaskDetail.length() - 1);
         String finalTaskReq = taskReq.toString();
 
-        if (hasReq) finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        if (hasReq) {
+            finalTaskReq = finalTaskReq.substring(0, finalTaskReq.length() - 1);
+        }
 
         if (hasDoAfter) {
             tempTask = new DoAfterTask(finalTaskDetail, finalTaskReq);
@@ -133,8 +159,7 @@ public class Parser {
             tempTask = new WithinPeriodTask(finalTaskDetail, finalTaskReq);
         } else if (hasFixedDuration) {
             tempTask = new FixedDurationTask(finalTaskDetail, finalTaskReq);
-        }
-        else {
+        } else {
             tempTask = new ToDo(input);
         }
         return getString(data, state, tempTask);
@@ -231,9 +256,22 @@ public class Parser {
         return getString(data, state, tempTask);
     }
 
+    /**
+     * Method to run recurring tasks.
+     * @param data ArrayList of Tasks that's currently being stored
+     * @param input Command input by user
+     * @param state The type of output needed:
+     *              0 : Needs to return a string
+     *              1 : Returns null string with unchecked task
+     *              2 : Returns null string with checked task
+     * @param freq daily, weekly or monthly
+     * @return String which highlights what Duke processed
+     * @throws DukeException Shows error when cannot parse date
+     */
     public static String runRecurring(ArrayList<Task> data, String input, int state, String freq) throws DukeException {
         input = input.substring(5).trim();
-        String tt1, tt2;
+        String tt1;
+        String tt2;
         int token;
         token = input.indexOf("/");
         tt1 = input.substring(0, token - 1);
@@ -251,7 +289,13 @@ public class Parser {
         return getString(data, state, tempTask);
     }
 
-    public static Date parseDate(String tt2) throws DukeException{
+    /**
+     * Method to return parsed Date.
+     * @param tt2 String to be parsed into Date
+     * @return Date parsed from the string
+     * @throws DukeException If date cannot be parsed
+     */
+    public static Date parseDate(String tt2) throws DukeException {
         try {
             com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
             List<DateGroup> groups = parser.parse(tt2);

@@ -15,7 +15,7 @@ public class RecurringTaskTest {
         String input = "todo aaaaaa /daily 1600";
         try {
             System.out.println(Parser.runRecurring(tasks, input, 0, "daily"));
-        } catch (DukeException e){
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
