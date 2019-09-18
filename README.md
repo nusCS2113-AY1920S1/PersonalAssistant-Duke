@@ -1,39 +1,78 @@
-# Setting up
+# Eggventory Systems Ltd.
 
-**Prerequisites**
+**Introduction
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
 
-**Importing the project into IntelliJ**
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
 
-# Tutorials 
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+**Project scope
 
-# Feedback, Bug Reports
+An inventory management system specialised towards laboratory technicians in NUS Faculty of Engineering.
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+**Target Users
+
+Supervisors of labs
+Lab technician officers
+Professors and teachers
+Teaching assistants and educator assistants
+Students borrowing lab equipment items
+(in the future can extend to other groups like students)
+
+Value Proposition https://www.youtube.com/watch?v=VZ5rgVgn5qk
+Eggventory is a system to consolidate the management of inventories that stock electronic components. It is designed to facilitate the tracking of movement of inventory in an engineering laboratory in an easy to use interface. It can also be used to offer additional information specific to electronics, such as datasheets and links to similar components. 
+
+In particular, it is to be [deployed in situations like schools where items from the inventory are often loaned out] idk 
+
+
+**Use Cases
+
+/* ASK THE TA THIS: If we want to implement an alternative way to achieve a functionality (e.g. Delete an item through CLI or GUI), do we have to write two use cases for it or combine them in one use case? */
+
+Issue #25 
+System: Eggventory
+Actor: Lab Technician
+Use Case: View all items in inventory
+User types in command to list all
+System displays every item in inventory
+
+Issue #26
+System: Eggventory
+Actor: Lab Technician
+Use Case: Search and view item
+User inputs search command and the query term
+System retrieves all items matching the query and item identifier, then displays the items and count as a list on the display.
+
+Issue #46
+System: Eggventory
+Actor: Lab Technician
+Use Case: Delete an items
+User inputs delete command and item identifier 
+System identifies the item requested and deletes the item object (with all its information).
+
+
+**Non-Functional Requirements
+
+It must be responsive to many commands in succession
+It must be able to store at least 10,000 items
+The saved inventory data must be readable and editable manually.
+
+
+**Glossary
+
+Part/Component/Equipment/Item - The items that our inventory system is managing. 
+
+Item identifier - Item name, serial number of the part, or the index number of the item (within the system). The system will be able to identify the item based on any of these information. 
+
+Instance index - The index number automatically assigned
+
+Lab tech - technician in charge of keeping track of the inventory of the lab. The primary user of our system. 
+
+Professor - educator in charge of creating classes and lab activities. Usually the user who defines what items are required for a class. 
+
+TA - teaching assistant who helps students in their class or lab activities. May need to view and filter inventory lists, but unlikely to need to edit or create their own. 
+
+Student - participant in class or lab activities. May use the lab equipment in class, but may also need to loan out some for projects. Students may loan a fixed inventory list or be allowed to choose what they need for their project. 
+
+
