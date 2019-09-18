@@ -11,19 +11,19 @@ import java.time.format.DateTimeParseException;
 public enum Tsk {
     TODO("T") {
         public Task getTask(String[] taskArr) throws IndexOutOfBoundsException {
-            return new ToDoTask(taskArr[2]);
+            return new ToDoTask(taskArr[3], getReminder(taskArr[2]));
         }
     },
     EVENT("E") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getDataFormatter());
-            return new EventTask(taskArr[2], datetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getDataFormatter());
+            return new EventTask(taskArr[3], datetime, getReminder(taskArr[2]));
         }
     },
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
-            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getDataFormatter());
-            return new DeadlineTask(taskArr[2], datetime);
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[4], TimedTask.getDataFormatter());
+            return new DeadlineTask(taskArr[3], datetime, getReminder(taskArr[2]));
         }
     };
 
@@ -36,6 +36,17 @@ public enum Tsk {
      */
     Tsk(final String taskChar) {
         this.taskChar = taskChar;
+    }
+
+    private static Reminder getReminder(String remind) {
+        Reminder reminder;
+        try {
+            reminder = new Reminder(LocalDateTime.parse(remind, TimedTask.getDataFormatter()));
+        } catch (DateTimeParseException e) {
+            reminder = null;
+        }
+
+        return reminder;
     }
 
     @Override

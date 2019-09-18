@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -161,4 +162,46 @@ public class TaskList {
         return "Now you have " + taskCountStr + " in the list.";
     }
 
+    /**
+     * Sets a reminder for a task in the list.
+     *
+     * @param idxStr   The argument given by the user to identify the task.
+     * @param reminder The reminder to set for the task.
+     * @return A success message with the String representation of the newly added reminder.
+     * @throws DukeException If idxStr cannot be resolved to a valid task index.
+     */
+    public String setReminder(String idxStr, Reminder reminder) throws DukeException {
+        Task currTask = taskArrList.get(getTaskIdx(idxStr));
+        currTask.setReminder(reminder);
+        return "Roger! I've set a reminder for this task." + System.lineSeparator()
+                + "  " + currTask.toString();
+    }
+
+    /**
+     * Concatenates the string representation of each reminder, and returns this list as a String.
+     *
+     * @return String representation of all reminders, numbered chronologically.
+     */
+    public String listReminders() throws DukeException {
+        StringBuilder reminderListBuilder = new StringBuilder();
+
+        int reminderCount = 0;
+        for (Task currTask : taskArrList) {
+            Reminder currReminder = currTask.getReminder();
+
+            if (currReminder != null) {
+                if (currReminder.getDatetime().isBefore(LocalDateTime.now())) {
+                    reminderCount = reminderCount + 1;
+                    reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
+                            .append(currTask.toString());
+                }
+            }
+        }
+
+        if (reminderCount == 0) {
+            throw new DukeException("You have no reminders.");
+        }
+
+        return reminderListBuilder.toString();
+    }
 }

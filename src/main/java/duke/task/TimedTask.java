@@ -15,6 +15,11 @@ public abstract class TimedTask extends Task {
         this.time = time;
     }
 
+    TimedTask(String name, LocalDateTime time, Reminder reminder) {
+        super(name, reminder);
+        this.time = time;
+    }
+
     public static DateTimeFormatter getDataFormatter() {
         return PAT_DATETIME;
     }

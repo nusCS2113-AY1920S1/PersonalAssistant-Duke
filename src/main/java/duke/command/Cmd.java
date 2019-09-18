@@ -46,6 +46,11 @@ public enum Cmd {
         public Command getCommand() {
             return new FindCommand();
         }
+    },
+    REMIND("remind") {
+        public Command getCommand() {
+            return new NewReminderCommand();
+        }
     };
 
     private final String cmdStr;
