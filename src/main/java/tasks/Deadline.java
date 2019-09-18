@@ -57,6 +57,6 @@ public class Deadline extends Task {
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.by);
+        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.by);
     }
 }
