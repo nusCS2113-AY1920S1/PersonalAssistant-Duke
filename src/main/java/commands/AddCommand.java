@@ -1,13 +1,11 @@
 package commands;
 
+import core.Ui;
 import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
-import core.Ui;
 
-
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +16,7 @@ public class AddCommand extends Command {
 
     /**
      * This is a class for command of ADD, which add task to the task list.
+     *
      * @param content the command line String without the first ADD command
      */
     public AddCommand(String content) {
@@ -28,7 +27,7 @@ public class AddCommand extends Command {
     public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
         try {
             Task temp = Parser.addCommand(content);
-            if (content.contains("/after")){
+            if (content.contains("/after")) {
                 String preconditionString = content.split("/after", 2)[1].trim();
                 temp.setDescription(content.split("/after", 2)[0].trim().split(" ")[1]);
                 temp.addPrecondition(preconditionString);
