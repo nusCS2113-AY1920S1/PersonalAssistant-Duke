@@ -95,11 +95,11 @@ public class Date {
         String indicator = null;
 
         if ((time.charAt(0) == '0') || (Integer.parseInt(time.substring(0,2)) < 12)) {
-            if (time.charAt(1) == '0') {
+            if ((time.charAt(0) == '0') && (time.charAt(1) == '0')) {
                 hour = "12";
                 minutes = time.substring(2);
             } else {
-                hour = String.valueOf(time.charAt(1));
+                hour = String.valueOf(Integer.parseInt(time.substring(0,2)));
                 minutes = time.substring(2);
             }
             indicator = "am";

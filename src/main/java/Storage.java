@@ -49,12 +49,63 @@ public class Storage {
         }
     }
 
+    public ArrayList<String[]> loadReminderFile(String filePath) {
+        File file = new File(filePath);
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            ArrayList<String[]> listContent = new ArrayList<>();
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] data = line.split("\\| ");
+                listContent.add(data);
+                line = br.readLine();
+            }
+            return listContent;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void writeFile(String s, boolean append) {
         File file = new File(FILE_PATH);
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
             fw = new FileWriter(file, append);
+            bw = new BufferedWriter(fw);
+            bw.write(s);
+            bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void writeReminderFile(String s, String filePath) {
+        File file = new File(filePath);
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(file, true);
             bw = new BufferedWriter(fw);
             bw.write(s);
             bw.newLine();

@@ -1,14 +1,19 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Duke {
 
     public Ui ui;
     public Storage storage;
     public TaskList tasks;
+    public Reminders reminders;
 
 
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadFile());
+        reminders = new Reminders();
     }
 
     public void run() {
@@ -16,6 +21,14 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             try {
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        reminders.checkForReminders(storage);
+                    }
+                }, 0, 1000);
+
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 if (fullCommand.equals("")) { throw new DukeException(DukeException.ErrorType.COMMAND_EMPTY); }
