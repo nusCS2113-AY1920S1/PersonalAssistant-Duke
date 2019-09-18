@@ -44,4 +44,26 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + dateObj.toOutputString() + ")";
     }
+
+    public String getDate() {
+        return dateObj.toOutputString();
+    }
+    
+    /**
+     * Returns the type of Task.
+     * @return String representing the type of Task.
+     */
+    @Override
+    public String getType() {
+    	return "Deadline";
+    }
+    
+    /**
+     * Returns the DateObj stored in the Deadline object. This is to facilitate comparison of dates.
+     * @return the DateObj stored in the Deadline object.
+     */
+    @Override
+    public DateObj getDateObj() {
+    	return this.dateObj;
+    }
 }

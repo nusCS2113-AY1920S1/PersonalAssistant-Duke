@@ -1,10 +1,12 @@
 package Events.EventTypes;
 
+import Events.Formatting.DateObj;
+
 /**
  * Represents a task that can be created, deleted and completed within the Duke program.
  * Is to be the parent class for all types of tasks available for Duke program.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -64,4 +66,23 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public abstract String getDate();
+   
+    /**
+     * Returns the type of Task. May be overridden by subclasses.
+     * @return String representing the type of Task.
+     */
+    public String getType() {
+        return "Tasks";
+    }
+    
+    /**
+     * Returns the DateObj stored in the Task object. 
+     * This is overridden by the types of tasks that require the storage of dates.
+     * The purpose of this method is to facilitate comparison of dates.
+     * @return the DateObj stored in the Task object.
+     */
+    public DateObj getDateObj() {
+    	return null;
+    }
 }

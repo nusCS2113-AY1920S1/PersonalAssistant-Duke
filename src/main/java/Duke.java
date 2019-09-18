@@ -18,9 +18,9 @@ public class Duke {
         Parser parser = new Parser();
         Scanner reader = new Scanner(System.in);
         UI ui = new UI();
-        Storage storage = new Storage(new File("D:/duke/data/Duke.txt"));
+        Storage storage = new Storage(new File("data/Duke.txt"));
         TaskList tasks = new TaskList(storage.readFromFile(ui));
-        ui.welcome();
+        ui.welcome(tasks);
 
         String userInput = reader.nextLine();
         while (!userInput.equals("bye")) {
