@@ -1,7 +1,9 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.constants.TaskCommands;
-import com.nwjbrandon.duke.exceptions.*;
+import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
+import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
+import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.validation.InputValidation;
@@ -69,7 +71,7 @@ public class SnoozeCommand extends Command {
      * @param task the specified task to be snoozed.
      * @return the snoozed time.
      */
-    public Date snoozeTime (Task task) {
+    public Date snoozeTime(Task task) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(task.getDate()); // your date (java.util.Date)
         cal.add(Calendar.HOUR, 1); // You can -/+ x months here to go back in history or move forward.
