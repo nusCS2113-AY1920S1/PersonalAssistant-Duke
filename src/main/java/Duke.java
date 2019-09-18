@@ -31,7 +31,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("C:/Users/user/gitclones/main/data/duke.txt").run();
+
+        new Duke("/home/tessa/Documents/CS2113/main/data/duke.txt").run();
 
     }
 

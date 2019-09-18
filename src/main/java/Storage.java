@@ -56,10 +56,8 @@ public class Storage {
         try {
             fw = new FileWriter(file, append);
             bw = new BufferedWriter(fw);
-
             bw.write(s);
             bw.newLine();
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -92,7 +90,6 @@ public class Storage {
 
             Storage writer = new Storage();
             writer.writeFile(newContent, false);
-
 
         } catch (IOException e) {
             e.printStackTrace();

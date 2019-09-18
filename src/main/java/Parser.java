@@ -91,6 +91,7 @@ public class Parser {
         else{
             dateInfo = taskInfo[1].split("/to ");
         }
+
         return dateInfo;
     }
 }
