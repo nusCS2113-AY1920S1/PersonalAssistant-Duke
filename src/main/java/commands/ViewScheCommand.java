@@ -1,9 +1,6 @@
 package commands;
 
-import tasks.Task;
-import tasks.ToDo;
-import tasks.Deadline;
-import tasks.Event;
+import tasks.*;
 import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
@@ -58,10 +55,12 @@ public class ViewScheCommand extends Command {
             if (toFilter.get(i).getClass().equals(Deadline.class))    {
                 Deadline temp = (Deadline)toFilter.get(i);
                 calTest.setTime(temp.getTime());
-            }
-            else if ((toFilter.get(i).getClass().equals(Event.class)))  {
+            } else if (toFilter.get(i).getClass().equals(Event.class)){
                 Event temp = (Event)toFilter.get(i);
                 calTest.setTime(temp.getTime());
+            }else if (toFilter.get(i).getClass().equals(Period.class)){
+                Period temp = (Period)toFilter.get(i);
+                calTest.setTime(temp.getStart());
             }
             boolean sameDay = calAim.get(Calendar.DAY_OF_YEAR) == calTest.get(Calendar.DAY_OF_YEAR) &&
                     calAim.get(Calendar.YEAR) == calTest.get(Calendar.YEAR);
@@ -79,9 +78,12 @@ public class ViewScheCommand extends Command {
     private ArrayList<Task> removeTodo(ArrayList<Task> toFilter)    {
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
 
-        //remove all without dates (ToDos)
+        //remove all without dates (ToDos and Lasts)
         for (int i = 0; i < toFilter.size(); i++) {
             if (toFilter.get(i).getClass().equals(ToDo.class))    {
+                toDelete.add(i);
+            }
+            if (toFilter.get(i).getClass().equals(Last.class))    {
                 toDelete.add(i);
             }
         }
@@ -114,6 +116,13 @@ public class ViewScheCommand extends Command {
                     Event temp = (Event) toSort.get(j);
                     if (temp.getTime().before(earliest)) {
                         earliest = temp.getTime();
+                        earliestIndex = j;
+                    }
+                }
+                else if (toSort.get(j).getClass().equals(Period.class)){
+                    Period temp = (Period) toSort.get(j);
+                    if (temp.getStart().before(earliest)){
+                        earliest = temp.getStart();
                         earliestIndex = j;
                     }
                 }
