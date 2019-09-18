@@ -11,10 +11,11 @@ public class Event extends Tasks {
 
     /**
      * Constructor for class.
-     * @param description
-     * @param type
-     * @param starttime
-     * @param endtime
+     *
+     * @param description which is the description of the task.
+     * @param type        which is the type of the task.
+     * @param starttime   which is the start time of the task.
+     * @param endtime     which is the ebd time of the task.
      */
     public Event(String description, String type, String starttime, String endtime) {
         super(description, type);
@@ -30,14 +31,13 @@ public class Event extends Tasks {
         this.date = new MyDate(time1, time2);
     }
 
-    public MyDate getDate(){
+    public MyDate getDate() {
         return date;
     }
 
 
-
     public String toMessage() {
-        return description + "(at: " + date.toString()+ ")";
+        return description + "(at: " + date.toString() + ")";
     }
 
 }

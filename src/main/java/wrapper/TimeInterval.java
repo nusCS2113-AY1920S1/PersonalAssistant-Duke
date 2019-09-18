@@ -6,15 +6,16 @@ public class TimeInterval {
     private Date startDate;
     private Date endDate;
 
-    public TimeInterval(Date s , Date e){
+    public TimeInterval(Date s, Date e) {
         startDate = s;
         endDate = e;
     }
 
-    public Date getStartDate(){
+    public Date getStartDate() {
         return startDate;
     }
-    public Date getEndDate(){
+
+    public Date getEndDate() {
         return endDate;
     }
 }

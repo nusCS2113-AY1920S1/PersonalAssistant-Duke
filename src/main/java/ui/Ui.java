@@ -29,9 +29,11 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
+
     /**
      * Prints the confirmation message when a doAfter task had been saved into the database.
      */
+
     public static void showDoAfterMessage(String status, String newtodoTask1, int i) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + " [A]["
             + status
@@ -45,25 +47,31 @@ public class Ui {
 
     }
 
+
     /**
      * Prints the welcome message at the start when user opens the duke application.
      */
+
     public void showWelcome() {
         System.out.println(space + "Hello from\n" + logo + "\n" + space + "Hello I am " + "Duke.");
         System.out.println(space + "What can I do for you?");
         System.out.println(line);
     }
 
+
     /**
      * Prints a message before the application lists out each respective task in database.
      */
+
     public static void showListIntroMessage() {
         System.out.println(line + "\n" + space + "Here are the tasks in your list:");
     }
 
+
     /**
      * Prints a respective task when user enters list.
      */
+
     public static void showListTask(String type, String icon, String message, int num) {
         System.out.println(space + num + ".[" + type
             + "][" + icon
@@ -74,17 +82,21 @@ public class Ui {
         System.out.println(line);
     }
 
+
     /**
      * Prints a message once user enters bye.
      */
+
     public static void showByeMessage() {
         System.out.println(line + "\n" + space + "Bye. Hope to see you again soon!");
         System.out.println(line);
     }
 
+
     /**
      * Prints a message once a task has been done and updated into database.
      */
+
     public static void showMarkAsDone(String type, String status, String message) {
         System.out.println(line + "\n" + space + "Nice! I've marked this task as done:");
         System.out.println(space + " [" + type
@@ -93,9 +105,11 @@ public class Ui {
         System.out.println(line);
     }
 
+
     /**
      * Prints a message when a particular task has been marked as done by user.
      */
+
     public static void showMarkAsUnDone(String type, String status, String message) {
         System.out.println(line + "\n" + space + "Nice! I've unmarked this task as done:");
         System.out.println(space + " [" + type
@@ -112,9 +126,11 @@ public class Ui {
         System.out.println(line + "\n" + space + message + "\n" + line);
     }
 
+
     /**
      * Prints a message once a To-Do task has been successfully added into database.
      */
+
     public static void showToDoSucess(String type, String status, String message, int todolistNumber) {
         System.out.println(line + "\n" + space + "Got it. I've added this task:"
             + "\n" + space + " [" + type
@@ -134,9 +150,11 @@ public class Ui {
         System.out.println(line + "\n" + space + "Here are the matching tasks in your list:");
     }
 
+
     /**
      * Prints a message once a task has been deleted from database.
      */
+
     public static void showDeleteMessage(String type, String status, String message, int num) {
         System.out.println(line + "\n" + space + "Noted. I've removed this task:"
             + "\n" + space + " [" + type
@@ -146,75 +164,93 @@ public class Ui {
         System.out.println(line);
     }
 
+
     /**
      * Prints a respective task when user enter find.
      */
+
     public static void showFindTasks(String type, String status, String message, int num) {
         System.out.println(space + num + ".["
             + type + "][" + status
             + "] " + message);
     }
 
+
     /**
      * Prints a error message when database is empty.
      */
+
     public void showLoadingError() {
         System.out.println(line);
         System.out.println(space + "Existing database is empty!");
         System.out.println(line);
     }
 
+
     /**
      * Reads users' input.
      * Returns these input.
      */
+
     public String readInput() {
         String line = in.nextLine().trim();
         return line.trim();
 
     }
 
+
     /**
      * Prints a message to query users for dates when user want to add a tentative task.
      */
+
     public static void queryForDates() {
         System.out.println(line + "\n" + space + "Please provide the tentative dates.");
         System.out.println(line);
     }
 
+
     /**
      * Prints the opening message for tentative event schedule.
      */
+
     public static void showEventTentativeOpeningMessage() {
-        System.out.println(line + "\n" + space + "Got it. I've added the following tasks to be tentatively scheduled :");
+        System.out.println(line + "\n" + space
+            + "Got it. I've added the following tasks to be tentatively scheduled :");
     }
+
 
     /**
      * Prints a message once a event task has been successfully added into database.
      */
+
     public static void showEventTentativeMessage(String type, String status, String message) {
-        System.out.println(space + "[" +
-            type + "][" + status + "] " + message);
+        System.out.println(space + "["
+            + type + "][" + status + "] " + message);
     }
+
 
     /**
      * Prints the closing message after user have added tentative event.
+     *
      * @param num1 which is the total number of tasks.
      * @param num2 which is the total number of tentative only tasks.
      */
+
     public static void showEventTentativeCloseMessage(int num1, int num2) {
         System.out.println(line);
-        System.out.println(space + "Now you have " + num1 + " tasks in the list including " +
-                num2 + " tentative tasks");
+        System.out.println(space + "Now you have " + num1 + " tasks in the list including "
+            + num2 + " tentative tasks");
         System.out.println(line);
     }
+
 
     /**
      * Prints a message once a tentative event task has been successfully added into database.
      */
+
     public static void showEventMessage(String type, String status, String message, int num) {
-        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + "[" +
-            type + "][" + status
+        System.out.println(line + "\n" + space + "Got it. I've added this task:" + "\n" + space + "["
+            + type + "][" + status
             + "] " + message);
         if (num > 1) {
             System.out.println(space + "Now you have " + num + " tasks in the list.");
@@ -223,6 +259,7 @@ public class Ui {
         }
         System.out.println(line);
     }
+
 
     /**
      * Prints a message once a deadline task has been successfully added into database.
@@ -240,43 +277,55 @@ public class Ui {
 
     }
 
-    public static void showFreeTime(int num ,TimeInterval freeslot ) {
-        System.out.println(line + "\n" + space + "You have your free time that is at least " + Integer.toString(num)+ " hours at these interval");
 
-        if(freeslot.getStartDate().equals(freeslot.getEndDate())){
-            System.out.println(space+ freeslot.getStartDate() + " onwards");
-        }else{
+    /**
+     * This function prints a message for free time.
+     */
+
+    public static void showFreeTime(int num, TimeInterval freeslot) {
+        System.out.println(line + "\n" + space + "You have your free time that is at least "
+            + Integer.toString(num) + " hours at these interval");
+
+        if (freeslot.getStartDate().equals(freeslot.getEndDate())) {
+            System.out.println(space + freeslot.getStartDate() + " onwards");
+        } else {
             System.out.println(space + freeslot.getStartDate() + " to " + freeslot.getEndDate());
         }
         System.out.println(line);
     }
 
+    /**
+     * This function prints message for update time.
+     */
     public static void updateTime(Tasks temp) {
         System.out.println(line + "\n" + space + "Great you have updated the time for the following task!");
 
-        if(temp.getType().equals("E")){
-            System.out.println(space + ((Event)temp).toMessage());
+        if (temp.getType().equals("E")) {
+            System.out.println(space + ((Event) temp).toMessage());
 
 
-        } else if(temp.getType().equals("D")){
-            System.out.println(space + ((Deadline)temp).toMessage());
+        } else if (temp.getType().equals("D")) {
+            System.out.println(space + ((Deadline) temp).toMessage());
         }
         System.out.println(line);
     }
 
+    /**
+     * This message prints message for conflicts.
+     */
     public static void showConflicts(ArrayList<Pair> conflicts) {
 
         System.out.println(line + "\n");
 
-        if(conflicts.size() == 0){
+        if (conflicts.size() == 0) {
             System.out.println(space + "Nice! you do not have any conflicts!!");
-        }else{
+        } else {
             System.out.println(space + "Oh No!! you have the following conflicts!!");
-            int i =1;
-            for(Pair e : conflicts){
+            int i = 1;
+            for (Pair e : conflicts) {
                 Tasks t1 = e.getTask1();
                 Tasks t2 = e.getTask2();
-                System.out.println(space + (i++) + ". "+ t1.getDescription() + " & " + t2.getDescription());
+                System.out.println(space + (i++) + ". " + t1.getDescription() + " & " + t2.getDescription());
 
             }
         }
