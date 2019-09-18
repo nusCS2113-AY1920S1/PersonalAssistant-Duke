@@ -12,3 +12,13 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+*.class
+*.txt
+*.file
+ArrayList
+
+#Vscode specific
+.project
+.settings/
+.classpath
+launch.json
