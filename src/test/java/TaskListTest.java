@@ -150,12 +150,12 @@ public class TaskListTest {
     @Test
     public void listSchedule_scheduledTasks_scheduledTasksReturned() throws DukeException {
         LocalDate date = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter()).toLocalDate();
-        String expectedScheduleStr = System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
-                + System.lineSeparator() + "2.[D][\u2718] submission (by: Thu, 12 Sep 2019 2:00 PM)";
+        String expectedScheduleStr = System.lineSeparator() + "1.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "2.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
         assertEquals(expectedScheduleStr, taskList.listSchedule(date));
 
         taskList.markDone("3");
-        expectedScheduleStr = System.lineSeparator() + "1.[E][\u2718] tutorial (at: Thu, 12 Sep 2019 2:00 PM)";
+        expectedScheduleStr = System.lineSeparator() + "1.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)";
         assertEquals(expectedScheduleStr, taskList.listSchedule(date));
     }
 
