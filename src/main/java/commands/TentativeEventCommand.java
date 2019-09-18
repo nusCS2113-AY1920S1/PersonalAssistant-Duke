@@ -23,10 +23,14 @@ public class TentativeEventCommand extends Command{
             System.out.println("When you are done, key in '/'.");
             ArrayList<Date> tentativeoptions = new ArrayList<Date>();
             ArrayList<String> tentativetimes = new ArrayList<String>();
-            while (!ui.ReadCommand().equals("/")) {
+            ui.ReadCommand();
+//            System.out.println(ui.FullCommand);
+            while (!ui.FullCommand.equals("/")) {
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 tentativeoptions.add(fmt.parse(ui.FullCommand));
                 tentativetimes.add(ui.FullCommand);
+                ui.ReadCommand();
+//                System.out.println(ui.FullCommand);
             }
             TentativeEvent newtentative = new TentativeEvent(description, tentativeoptions,tentativetimes);
             System.out.println("Got it. I've added this tentative event:");
