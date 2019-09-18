@@ -46,7 +46,6 @@ public class Reminders {
                     int year = Integer.parseInt(date_string[2]);
                     int time = Integer.parseInt(date_string[3]);
                     if((currentYear - year == 0) && (currentMonth - month == 0) && (currentDay - day == 0) && (time - currentTime > 30 && time - currentTime <= 2359)){
-
                         LastDayList.add(new Deadline(task_string[2], task_string[3]));
                     }
                 }
@@ -106,6 +105,11 @@ public class Reminders {
         }
         return LastThirtyList;
     }
+    /**
+     * Creates a reminder list over overdue tasks/task
+     *
+     * @return an ArrayList of type Task
+     */
     public ArrayList<Task> OverDue(){
         try {
             Scanner duke_txt = new Scanner(new File(this.filePath));
@@ -118,7 +122,6 @@ public class Reminders {
                     int month = Integer.parseInt(date_string[1]);
                     int year = Integer.parseInt(date_string[2]);
                     int time = Integer.parseInt(date_string[3]);
-
                     if (year - currentYear < 0) {
                         OverdueList.add(new Deadline(task_string[2], task_string[3]));
                     }
@@ -138,7 +141,6 @@ public class Reminders {
                     int month = Integer.parseInt(date_string[1]);
                     int year = Integer.parseInt(date_string[2]);
                     int time = Integer.parseInt(date_string[3]);
-
                     if (year - currentYear < 0) {
                         OverdueList.add(new Event(task_string[2], task_string[3]));
                     }
@@ -154,11 +156,7 @@ public class Reminders {
                 }
             }
         }
-        catch (FileNotFoundException e) {
-//            System.out.println("\t_____________________________________");
-//            System.out.println("\tNo task/tasks required to finish in 24 hours!");
-//            System.out.println("\t_____________________________________\n\n");
-        }
+        catch (FileNotFoundException e) { }
         return OverdueList;
     }
 
