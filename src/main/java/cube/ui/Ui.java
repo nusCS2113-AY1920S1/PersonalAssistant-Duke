@@ -164,8 +164,9 @@ public class Ui {
 				+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
 				+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
 				+ String.format("%1$-50s", "  'Reminder'") + "show the list of tasks due in 10 days\n"				
-				+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"				
-				+ "Miscellanious:\n"
+				+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
+				+ String.format("%1$-50s", "  'ViewSchedule /at <dd/mm/yy>'") + "show the list of tasks that falls within specified date\n"
+				+ "Miscellaneous:\n"
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
 		System.out.print(help);
