@@ -31,8 +31,10 @@ public class DukeException extends Exception {
         + "provide a keyword, e.g. find eat");
     public static final DukeException EMPTY_TASK_IN_DOAFTER = new DukeException("☹ OOPS!!! The "
         + "description of a 'do after' task cannot be empty, e.g. do return book /after Sunday");
+    public static final DukeException EMPTY_TIME_IN_PERIOD = new DukeException("☹ OOPS!!! Please "
+        + "provide a valid time/task for the 'period' task, e.g. period return book between 20-05-1999 to 21-05-1999");
     public static final DukeException EMPTY_TIME_IN_DOAFTER = new DukeException("☹ OOPS!!! Please "
-        + "provide a valid time/task for the 'do after' task, e.g. do return book /after Sunday");
+            + "provide a valid duration for the 'rdo after' task, e.g. do return book /after Sunday");
     public static final DukeException EMPTY_TIME_IN_RECUR = new DukeException("☹ OOPS!!! Please "
             + "provide a valid duration for the 'recur' task, e.g. recur return book /frequency Weekly");
     public static final DukeException EMPTY_TIME_IN_FIXED = new DukeException("☹ OOPS!!! Please "
@@ -48,7 +50,9 @@ public class DukeException extends Exception {
     public static final DukeException TASK_IS_NOT_TENTATIVE = new DukeException("☹ OOPS!!! Please select a "
         + "tentative task.");
     public static final DukeException EMPTY_TASK_IN_RECUR = new DukeException("☹ OOPS!!! Please provide a valid "
-        + "frequency.");
+        + "task.");
+    public static final DukeException EMPTY_TASK_IN_PERIOD = new DukeException("☹ OOPS!!! Please provide a valid "
+            + "task.");
     private String message;
     public static final DukeException EMPTY_TASK_IN_FIXED = new DukeException("☹ OOPS!!! Please provide a valid task.");
     private DukeException(String message) {

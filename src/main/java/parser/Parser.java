@@ -10,6 +10,7 @@ import task.Event;
 import task.ToDo;
 import task.Recurring;
 import task.FixedDuration;
+import task.Period;
 import ui.Ui;
 import wrapper.TimeInterval;
 
@@ -93,6 +94,9 @@ public class Parser {
                     break;
                 case "schedule":
                     scheduleCommand(s);
+                    break;
+                case "period":
+                    periodCommand(s);
                     break;
                 default:
                     throw DukeException.UNKNOWN_COMMAND;
@@ -288,6 +292,9 @@ public class Parser {
                 case "F":
                     message = ((FixedDuration)userToDoList.get(i)).toMessage();
                     break;
+                case "P":
+                    message = ((Period)userToDoList.get(i)).toMessage();
+                    break;
                 default:
                     message = (userToDoList.get(i)).getDescription();
                     break;
@@ -374,6 +381,31 @@ public class Parser {
             throw e;
         }
     }
+
+    /**
+     * Prints tasks that have to be done within a certain period of time
+     */
+    private static void periodCommand(String command) throws DukeException {
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
+        try {
+            String[] token = command.substring("period".length()).strip().split("/duration");
+            String[] dates = token[1].strip().split("to");
+            if (token.length != 2 || token[1] == null) {
+                throw DukeException.EMPTY_TIME_IN_PERIOD;
+            }
+            if (token[0].strip().isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_PERIOD;
+            }
+            TaskList.addTask(new Period(token[0].strip(), "P", dates[0].strip(), dates[1].strip()));
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                    TaskList.getTotalTasksNumber());
+            Storage.saveTask(TaskList.getList());
+        } catch  (DukeException e) {
+            throw e;
+        }
+    }
+
 
     /**
      * Prints tasks that have a fixed duration
