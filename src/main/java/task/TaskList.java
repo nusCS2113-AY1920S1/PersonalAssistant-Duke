@@ -43,6 +43,9 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * This function returns time interval of free time.
+     */
     public static TimeInterval getFreeSlot(int hours) {
 
         Date now = new Date();
@@ -84,6 +87,9 @@ public class TaskList {
 
     }
 
+    /**
+     * This function checks whether is there any conflicts for tasks.
+     */
     public static void getConflicts() {
 
         ArrayList<Pair> conflicts = new ArrayList<>();
@@ -102,11 +108,17 @@ public class TaskList {
 
     }
 
+    /**
+     * This function returns tasks from the list.
+     */
     public static Tasks getTask(int num) {
         return tasks.get(num);
     }
 
 
+    /**
+     * This function adds tasks into tree map.
+     */
     public static void addTask(Tasks task) {
         tasks.add(task);
         if (task.getType().equals("E")) {
@@ -117,8 +129,8 @@ public class TaskList {
         }
     }
 
-    private static boolean isTheSameTask(Tasks A, Tasks B) {
-        if (A.getType().equals(B.getType()) && A.getDescription().equals(B.getDescription())) {
+    private static boolean isTheSameTask(Tasks a, Tasks b) {
+        if (a.getType().equals(b.getType()) && a.getDescription().equals(b.getDescription())) {
             return true;
         } else {
             return false;

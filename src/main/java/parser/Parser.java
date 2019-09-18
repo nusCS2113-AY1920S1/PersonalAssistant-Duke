@@ -53,42 +53,42 @@ public class Parser {
         } else {
             try {
                 switch (firstWord) {
-                    case "list":
+                case "list":
                     listCommand();
                     break;
-                    case "done":
+                case "done":
                     doneCommand(s);
                     break;
                     //================================================
-                    case "delete":
+                case "delete":
                     deleteCommand(s);
                     break;
                     //================================================
-                    case "find":
+                case "find":
                     findCommand(s);
                     break;
-                    case "todo":
+                case "todo":
                     todoCommand(s);
                     break;
                     //================================================
-                    case "deadline":
+                case "deadline":
                     deadlineCommand(s);
                     break;
                     //================================================
-                    case "event":
+                case "event":
                     eventCommand(s);
                     break;
-                    case "do":
+                case "do":
                     doAfterCommand(s);
                     break;
-                    case "fix":
+                case "fix":
                     fixCommand(s);
                     break;
-                    case "recur":
+                case "recur":
                     recurCommand(s);
                     break;
-                    default:
-                        throw DukeException.UNKNOWN_COMMAND;
+                default:
+                    throw DukeException.UNKNOWN_COMMAND;
                 }
             } catch (DukeException e) {
                 Ui.showError(e.getError());
@@ -133,8 +133,8 @@ public class Parser {
                         TaskList.getMessage(lower + 1).indexOf("(at:"));
                 }
                 //System.out.println(upper + " " + lower);
-                if ((upper - 1 >= 0) && (checkMessage.equals(message)) &&
-                    (TaskList.getType(upper - 1).equals("?][E"))) {
+                if ((upper - 1 >= 0) && (checkMessage.equals(message))
+                    && (TaskList.getType(upper - 1).equals("?][E"))) {
                     upper -= 1;
                 }
                 if ((lower + 1 <= TaskList.getTotalTasksNumber() - 1)
@@ -266,19 +266,19 @@ public class Parser {
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
             switch (userToDoList.get(i).getType()) {
-                case "E":
+            case "E":
                 message = ((Event) userToDoList.get(i)).getDescription();
                 break;
-                case "D":
+            case "D":
                 message = ((Deadline) userToDoList.get(i)).toMessage();
                 break;
-                case "T":
+            case "T":
                 message = ((ToDo) userToDoList.get(i)).toMessage();
                 break;
-                case "R":
+            case "R":
                 message = ((Recurring)userToDoList.get(i)).toMessage();
                 break;
-                default:
+            default:
                 message = (userToDoList.get(i)).getDescription();
                 break;
             }
