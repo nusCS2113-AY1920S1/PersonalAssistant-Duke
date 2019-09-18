@@ -12,6 +12,8 @@ import java.util.Date;
  * with start and end <code>Date</code>.
  */
 public class Event extends Task {
+    private String startString;
+    private String endString;
     private Date start;
     private Date end;
 
