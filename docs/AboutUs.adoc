@@ -20,32 +20,30 @@ Responsibilities: Data + Merging
 
 '''
 
-=== Nigel Tan
-image::enriquekhai.png[width="150", align="left"]
-{empty}[[homepage]] [https://github.com/enriquekhai[github]] [<<enriquekhai#, portfolio>>]
-
-Role: Project Advisor
-Responsibilities: Model
-
-'''
-
 === Nathan Yeo
 image::nystera.png[width="150", align="left"]
 {empty}[http://github.com/nystera[github]] [<<nystera#, portfolio>>]
 
 Role: Project Advisor +
-Responsibilities: Model
+Responsibilities: Dev Ops
 
 '''
 
+=== Nigel Tan
+image::enriquekhai.png[width="150", align="left"]
+{empty}[[homepage]] [https://github.com/enriquekhai[github]] [<<enriquekhai#, portfolio>>]
 
+Role: Developer (Productivity) +
+Responsibilities: Model
+
+'''
 
 === Ng Jie Wu
 image::ngjiewu.png[width="150", align="left"]
 {empty}[http://github.com/ngjiewu[github]] [<<ngjiewu#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer (Productivity) +
+Responsibilities: Threading
 
 '''
 
@@ -53,7 +51,7 @@ Responsibilities: Dev Ops + Threading
 image::jingkang97.png[width="150", align="left"]
 {empty}[http://github.com/jingkang97[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Developer (Game) +
 Responsibilities: UI
 
 '''
