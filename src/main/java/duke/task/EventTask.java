@@ -24,6 +24,9 @@ public class EventTask extends TimedTask {
 
     @Override
     public String toString() throws DateTimeException {
-        return "[" + type + "]" + super.toString() + " (at: " + getTime() + " - " + getEndTime() + ")";
+        if (type == 'E') {
+            return "[" + type + "]" + super.toString() + " (at: " + getTime() + " - " + getEndTime() + ")";
+        }
+        return "[" + type + "]" + super.toString();
     }
 }

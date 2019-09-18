@@ -28,7 +28,13 @@ public enum Tsk {
             return new FixedDurationTask(taskArr[2], period);
         }
     },
-
+    BETWN("B") {
+        public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
+            LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
+            LocalDateTime endDatetime = LocalDateTime.parse(taskArr[4], TimedTask.getPatDatetime());
+            return new DoWithinPeriodTask(taskArr[2], datetime, endDatetime);
+        }
+    },
     DLINE("D") {
         public Task getTask(String[] taskArr) throws DateTimeParseException, IndexOutOfBoundsException {
             LocalDateTime datetime = LocalDateTime.parse(taskArr[3], TimedTask.getPatDatetime());
