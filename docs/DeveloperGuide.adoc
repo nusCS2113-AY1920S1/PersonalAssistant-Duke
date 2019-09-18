@@ -113,16 +113,9 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. User types invalid input
+* 2a. User types in command to check progress again
 +
-[none]
-** 2a1. Cake shows error message
-Use case resumes at step 2.
-
-[none]
-* 2b. User types wrong answer
-+
-Cake shows "Wrong Answer" and proceeds to next question.
+Use case ends.
 
 [discrete]
 === Use case: Do quiz from sub-topic
@@ -139,7 +132,17 @@ Use case ends.
 *Extensions*
 
 [none]
-* 4a. User types in answer via the quiz options listed e.g. `1. A`, `2. A` etc.
+* 4a. User types invalid input
++
+[none]
+** 4a1. Cake shows error message
+Use case resumes at step 2.
+
+[none]
+* 4b. User types wrong answer
++
+[none]
+** 4b1. Cake shows "Wrong Answer" and proceeds to next question.
 +
 Use case ends
 
