@@ -6,6 +6,7 @@ import duke.task.TaskType;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -48,15 +49,11 @@ public class Storage {
         try {
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
+            Task newTask;
             while (scanner.hasNextLine()) {
                 try {
                     String loadedInput = scanner.nextLine();
-                    String[] parsedInput = Parser.parseStoredTask(loadedInput);
-                    TaskType taskType = TaskType.valueOf(parsedInput[0]);
-                    Task newTask = taskList.createTask(taskType, parsedInput[1]);
-                    if (Boolean.valueOf(parsedInput[2])) {
-                        newTask.markDone();
-                    }
+                    newTask = loadTaskFromStorageString(loadedInput);
                     taskList.addTask(newTask);
                 } catch (Exception e) {
                     System.out.println(e);
@@ -66,5 +63,29 @@ public class Storage {
             System.out.println("No Previously saved Data.");
         }
         return taskList;
+    }
+
+    /**
+     * Converts saved String in Storage to actual Task Object.
+     * @param loadedInput The saved String to be converted
+     * @return Task Object from String
+     */
+    public static Task loadTaskFromStorageString(String loadedInput) {
+        TaskList queuedTasks = new TaskList();
+        Task newTask = null;
+        Task queuedTask = null;
+        String[] taskStrings = Parser.parseStoredTask(loadedInput);
+        for (String taskString : taskStrings) {
+            if (newTask == null) {
+                newTask = TaskList.createTaskFromString(taskString);
+            } else {
+                queuedTask = TaskList.createTaskFromString(taskString);
+                queuedTasks.getList().add(queuedTask);
+            }
+        }
+        if (queuedTask != null) {
+            newTask.setQueuedTasks(queuedTasks);
+        }
+        return newTask;
     }
 }

@@ -10,15 +10,19 @@ public class CommandNewTask extends Command {
     protected String userInput;
     protected TaskType taskType;
 
-    // Constructor
+    /**
+     * Constructor for the CommandNewTask subCommand Class.
+     * @param userInput The user input from the CLI.
+     */
     public CommandNewTask(String userInput) {
         this.taskType = Parser.parseTaskType(userInput);
         this.userInput = userInput;
+        this.commandType = CommandType.TASK;
     }
 
     @Override
     public void execute(TaskList taskList) {
-        Task newTask = taskList.createTask(this.taskType, this.userInput);
+        Task newTask = TaskList.createTask(this.taskType, this.userInput);
         taskList.addTask(newTask);
         Ui.dukeSays("I've added "
                 + newTask.genTaskDesc()
