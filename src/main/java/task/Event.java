@@ -13,8 +13,6 @@ import java.util.Date;
 public class Event extends Task {
     private Date start;
     private Date end;
-    private String startString;
-    private String endString;
 
     /**
      * Constructs an Event object with description and time period in string.
@@ -29,8 +27,6 @@ public class Event extends Task {
         super(description);
         this.start = TimeParser.parse(startString);
         this.end = TimeParser.parse(endString);
-        this.startString = startString;
-        this.endString = endString;
     }
 
     /**
@@ -66,7 +62,7 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toStorageString() {
-        return "E | " + super.toStorageString() + " | " + startString + " | " + endString;
+        return "E | " + super.toStorageString() + " | " + TimeParser.format(start) + " | " + TimeParser.format(end);
     }
 
     public Date getStart() {
