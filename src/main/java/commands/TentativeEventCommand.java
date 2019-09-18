@@ -37,23 +37,7 @@ public class TentativeEventCommand extends Command{
             System.out.println(newtentative.listformat());
             System.out.println("You could confirm one of the slots later.");
             list.add(newtentative);
-//        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Event ev = new Event(description, fmt.parse(ui.FullCommand.split("/")[1].substring(3)));
-//        list.add(ev);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(ev.listformat());
-//        System.out.println("Now you have " + list.size() + " tasks in the list.");
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-//                sb.append(list.get(i).toString() + "\n");
-//            } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-//                sb.append(list.get(i).toString() + "\n");
-//            } else {
-//                sb.append(list.get(i).toString() + "\n");
-//            }
-//        }
-//        storage.Storages(sb.toString());
+
         }
     }
 
