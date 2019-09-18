@@ -9,8 +9,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
 public class Duke {
     /**
      * Returns void main function for duke.
@@ -25,6 +23,7 @@ public class Duke {
         boolean isExit = false;
         Ui ui = new Ui();
         ui.showWelcome();
+
         try {
 
             list = store.Readfile();
@@ -52,4 +51,5 @@ public class Duke {
             System.out.println("System exiting");
         }
     }
+
 }

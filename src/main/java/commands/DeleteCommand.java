@@ -1,4 +1,5 @@
 package commands;
+
 import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
@@ -49,4 +50,5 @@ public class DeleteCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

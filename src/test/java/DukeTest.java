@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class DukeTest {
     @Test
     public void testUi() {
@@ -57,7 +56,6 @@ public class DukeTest {
         }
     }
 
-
     DoAfter testdoAfter = new DoAfter("read book","read book","return book");
     @Test
     void testDoAfter() {
@@ -69,5 +67,6 @@ public class DukeTest {
     void testFixedD() {
         assertEquals("FD|\u2718| playing basketball|4 hours", testFD.toString());
     }
+
 
 }

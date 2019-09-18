@@ -1,4 +1,5 @@
 package commands;
+
 import Storage.Storage;
 import Tasks.FixedDuration;
 import Tasks.Task;
@@ -51,4 +52,5 @@ public class FixDurationCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

@@ -1,5 +1,4 @@
 package commands;
-
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
@@ -53,4 +52,5 @@ public class DeadlineCommand extends Command
     public boolean isExit() {
         return false;
     }
+
 }
