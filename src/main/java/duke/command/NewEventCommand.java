@@ -15,10 +15,8 @@ public class NewEventCommand extends NewTimedTaskCommand {
 
     LocalDateTime endDatetime;
 
-
     /**
      * Creates a new Command object that can be executed to create a new Event task.
-     *
      * argc will throw an error if the number of arguments is less than 3.
      */
     public NewEventCommand() {

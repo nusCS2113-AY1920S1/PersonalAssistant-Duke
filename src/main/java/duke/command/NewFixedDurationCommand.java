@@ -8,18 +8,16 @@ import java.time.Duration;
 import java.time.format.DateTimeParseException;
 
 /**
- * Abstract class for Tasks that need to store a LocalDateTime object as part of their description.
+ * Class responsible for executing Command to create a new FixedDuration task.
  */
 public class NewFixedDurationCommand extends MultiArgCommand {
 
     Duration period;
-
-
     /**
-     * Creates a new Command object that can be executed to create a new Event task.
-     *
-     * argc will throw an error if the number of arguments is less than 3.
+     * Creates a new Command object that can be executed to create a new FixedDuration task.
+     * argc will throw an error if the number of arguments is less than 2.
      */
+
     public NewFixedDurationCommand() {
         argc = 2;
         delim = "(/for)";
@@ -29,9 +27,9 @@ public class NewFixedDurationCommand extends MultiArgCommand {
 
     /**
      * Split the input string into the elements of the argv array using MultiArgCommand's parse, then load the task
-     * with argv[0] as the description and argv[1] as the date and time in the TimedTask data format.
+     * with argv[0] as the description and argv[1] as the period of time in the Duration data format.
      *
-     * @throws DukeException If task description is empty, or if date and time are invalid.
+     * @throws DukeException If task description is empty, or if duration is invalid.
      * @see MultiArgCommand
      */
     @Override
@@ -45,7 +43,8 @@ public class NewFixedDurationCommand extends MultiArgCommand {
         try {
             this.period = Duration.parse(argv[1]);
         } catch (DateTimeParseException excp) {
-            throw new DukeException("Date and time must be given as e.g. P3DT3H4M5S parses as 3 Days, 3 Hours, 4 Minutes, 5 Seconds.");
+            throw new DukeException("Date and time must be given as e.g. P3DT3H4M5S parses as"
+                                    + "3 Days, 3 Hours, 4 Minutes, 5 Seconds.");
         }
     }
 

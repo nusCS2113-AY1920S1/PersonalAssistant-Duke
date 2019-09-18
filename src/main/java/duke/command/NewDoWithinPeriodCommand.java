@@ -9,18 +9,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class responsible for executing Command to create a new Event task.
+ * Class responsible for executing Command to create a new DoWithinPeriod task.
  */
 public class NewDoWithinPeriodCommand extends NewTimedTaskCommand {
 
     LocalDateTime endDatetime;
-
-
     /**
-     * Creates a new Command object that can be executed to create a new Event task.
-     *
+     * Creates a new Command object that can be executed to create a new DoWithinPeriod task.
      * argc will throw an error if the number of arguments is less than 3.
      */
+
     public NewDoWithinPeriodCommand() {
         argc = 3;
         delim = "(/between|/and)";
