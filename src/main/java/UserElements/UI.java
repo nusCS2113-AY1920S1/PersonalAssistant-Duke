@@ -211,4 +211,23 @@ public class UI {
                 "Please resolve the conflict and try again!");
         System.out.print(lineSeparation);
     }
+
+    /**
+     * prints message when recurring tasks are added to the list successfully
+     */
+    public void recurringTaskAdded(Task taskAdded, int numTasks, int period) {
+        System.out.println(lineSeparation + "Got it. I've added these recurring tasks:");
+        System.out.println(taskAdded.toString() + " (every " + period + " days)");
+        System.out.println("Now you have " + numTasks + " tasks in the list.");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when format of input is wrong for adding new recurring events
+     */
+    public void recursionFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter the period of the recurring event (in days) after /every.");
+        System.out.print(lineSeparation);
+    }
 }
