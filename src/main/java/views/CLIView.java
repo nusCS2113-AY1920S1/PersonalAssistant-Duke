@@ -211,6 +211,12 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
+    /**
+     * Prints tasks sorted by deadline/event time with free time slots in between.
+     * @param taskList Current list of tasks.
+     * @param input The full command by the user.
+     * @throws ParseException parsing error if date and time are not in correct format.
+     */
     public void findFreeSlots(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         Scanner sc = new Scanner(input);

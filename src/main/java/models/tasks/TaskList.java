@@ -164,10 +164,11 @@ public class TaskList implements Serializable {
             long diffInHours = diff / (60 * 60 * 1000);
             long diffInDays = diffInHours / 24;
             long remainingHours = diffInHours % 24;
-            String timeRemaining = "    Free time before next task: " + diffInDays + " day(s) " + remainingHours + " hour(s)" + "\n";
+            String timeRemaining = "    Free time before next task: " + diffInDays + " day(s) "
+                + remainingHours + " hour(s)" + "\n";
             tasksAndFreeSlots.add(timeRemaining);
-            String fullTaskDescription = "[" + nextTaskInList.getInitials() + "][" + nextTaskInList.getStatusIcon() + "] "
-                + nextTaskInList.getDescription();
+            String fullTaskDescription = "[" + nextTaskInList.getInitials() + "][" + nextTaskInList.getStatusIcon()
+                + "] " + nextTaskInList.getDescription();
             tasksAndFreeSlots.add(fullTaskDescription);
             currentDateTime = nextTaskInList.getDateTimeObject();
         }

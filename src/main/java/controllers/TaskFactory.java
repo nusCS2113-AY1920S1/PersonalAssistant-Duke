@@ -1,6 +1,7 @@
 package controllers;
 
 import exceptions.DukeException;
+import exceptions.InvalidDateTimeException;
 import models.tasks.Deadline;
 import models.tasks.Event;
 import models.tasks.ITask;
@@ -21,7 +22,7 @@ public class TaskFactory {
      * @return : returns an models.tasks.ITask based on command typed into CLI
      * @throws DukeException : when command entered does not match existing Tasks
      */
-    public ITask createTask(String input) throws DukeException, ParseException {
+    public ITask createTask(String input) throws DukeException {
         String[] allArgs = input.split(" ");
         List<String> listArgs = new ArrayList<>(Arrays.asList(allArgs));
         String tempString;
@@ -57,6 +58,7 @@ public class TaskFactory {
 
             } catch (ParseException e) {
                 // Invalid Date and Time, revert back to lazyTiming
+                //throw new InvalidDateTimeException();
                 return new Deadline(parsedStrings[0], parsedStrings[1]);
             }
             return new Deadline(parsedStrings[0], formattedDate);
@@ -77,6 +79,7 @@ public class TaskFactory {
                 formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date) + " " + formattedTime;
 
             } catch (ParseException e) {
+                //throw new InvalidDateTimeException();
                 // Invalid Date and Time, revert back to lazyTiming
                 return new Event(parsedStrings[0], parsedStrings[1]);
             }

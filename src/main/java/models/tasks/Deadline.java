@@ -1,7 +1,7 @@
 package models.tasks;
 
+import exceptions.InvalidDateTimeException;
 import java.io.Serializable;
-import java.net.PasswordAuthentication;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,13 +22,17 @@ public class Deadline implements ITask, Serializable {
      * @param description : Description of new task
      * @param dueDate : Due date of deadline
      */
-    public Deadline(String description, String dueDate) throws ParseException {
+    public Deadline(String description, String dueDate) throws InvalidDateTimeException {
         this.description = description;
         this.isDone = false;
         this.initials = "D";
         this.dueDate = dueDate;
         SimpleDateFormat format = new SimpleDateFormat("dd MMMMM yyyy HH.mm a");
-        this.dueDateTime = format.parse(dueDate);
+        try {
+            this.dueDateTime = format.parse(dueDate);
+        } catch (ParseException e) {
+            throw new InvalidDateTimeException();
+        }
     }
 
     @Override

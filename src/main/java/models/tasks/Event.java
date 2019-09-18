@@ -1,5 +1,6 @@
 package models.tasks;
 
+import exceptions.InvalidDateTimeException;
 import java.io.Serializable;
 import java.net.PasswordAuthentication;
 import java.text.ParseException;
@@ -15,19 +16,24 @@ public class Event implements ITask, Serializable {
     private String initials;
     private String eventDate;
     private Date eventDateTime;
+
     /**
      * Constructor of Event data model.
      *
      * @param description : Description of the Event
      * @param eventDate : Timing at which the Event is held
      */
-    public Event(String description, String eventDate) throws ParseException {
+    public Event(String description, String eventDate) throws InvalidDateTimeException {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
         this.eventDate = eventDate;
         SimpleDateFormat format = new SimpleDateFormat("dd MMMMM yyyy HH.mm a");
-        this.eventDateTime = format.parse(eventDate);
+        try {
+            this.eventDateTime = format.parse(eventDate);
+        } catch (ParseException e) {
+            throw new InvalidDateTimeException();
+        }
     }
 
     @Override

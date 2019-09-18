@@ -82,8 +82,6 @@ public class ConsoleInputController implements IViewController {
                 saveData();
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
-            } catch (ParseException newException) {
-                consoleView.invalidCommandMessage(newException);
             }
         }
     }
