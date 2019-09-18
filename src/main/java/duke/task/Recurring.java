@@ -61,6 +61,10 @@ public class Recurring extends Task {
         recurringTaskScheduler();
     }
 
+    /**
+     * getter for recurrencePeriod
+     * @return recurrencePeriod
+     */
     public RecurrencePeriod getRecurrencePeriod() {
         return recurrencePeriod;
     }
@@ -80,6 +84,9 @@ public class Recurring extends Task {
         }
     }
 
+    /**
+     * Function to add task that is to be recurring
+     */
     public void addRecurringTask() {
         try {
             Command c = new AddCommand(description, taskType);
