@@ -1,17 +1,17 @@
 # Eggventory Systems Ltd.
 
-**Introduction
+## Introduction
 
 
 
 
 
 
-**Project scope
+## Project scope
 
 An inventory management system specialised towards laboratory technicians in NUS Faculty of Engineering.
 
-**Target Users
+## Target Users
 
 Supervisors of labs
 Lab technician officers
@@ -26,7 +26,7 @@ Eggventory is a system to consolidate the management of inventories that stock e
 In particular, it is to be [deployed in situations like schools where items from the inventory are often loaned out] idk 
 
 
-**Use Cases
+## Use Cases
 
 /* ASK THE TA THIS: If we want to implement an alternative way to achieve a functionality (e.g. Delete an item through CLI or GUI), do we have to write two use cases for it or combine them in one use case? */
 
@@ -52,14 +52,14 @@ User inputs delete command and item identifier
 System identifies the item requested and deletes the item object (with all its information).
 
 
-**Non-Functional Requirements
+## Non-Functional Requirements
 
 It must be responsive to many commands in succession
 It must be able to store at least 10,000 items
 The saved inventory data must be readable and editable manually.
 
 
-**Glossary
+## Glossary
 
 Part/Component/Equipment/Item - The items that our inventory system is managing. 
 
