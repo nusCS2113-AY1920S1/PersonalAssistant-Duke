@@ -1,10 +1,15 @@
 package com.nwjbrandon.duke.services.command;
 
-import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
-import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
-import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
+import com.nwjbrandon.duke.constants.TaskCommands;
+import com.nwjbrandon.duke.exceptions.*;
+import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.validation.Parser;
+import com.nwjbrandon.duke.services.validation.InputValidation;
+import com.nwjbrandon.duke.exceptions.DukeNullDateException;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SnoozeCommand extends Command {
 
@@ -45,9 +50,8 @@ public class SnoozeCommand extends Command {
      * @return task index.
      */
     private int getTaskIndex() throws DukeTypeConversionException, DukeOutOfBoundException {
-        Integer taskIndex = Parser.checkStringToIntegerConversion(taskIndexString);
-        return Parser.checkIndex(taskIndex - 1, size);
-
+        Integer taskIndex = InputValidation.checkStringToIntegerConversion(taskIndexString);
+        return InputValidation.checkIndex(taskIndex - 1, size);
     }
 
     /**
@@ -57,7 +61,20 @@ public class SnoozeCommand extends Command {
      * @return instruction in input.
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
-        return Parser.checkCommandInput(userInput, command);
+        return InputValidation.checkCommandInput(userInput, command);
+    }
+
+    /**
+     * Extends the deadline/time of specified task by 1 hour.
+     * @param task the specified task to be snoozed.
+     * @return the snoozed time.
+     */
+    public Date snoozeTime (Task task) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(task.getDate()); // your date (java.util.Date)
+        cal.add(Calendar.HOUR, 1); // You can -/+ x months here to go back in history or move forward.
+        return cal.getTime(); // New date
+
     }
 
     /**
@@ -69,10 +86,16 @@ public class SnoozeCommand extends Command {
         try {
             this.taskIndexString = parseCommand(userInput, command);
             int taskIndex = this.getTaskIndex();
-            taskList.getTask(taskIndex);
-            System.out.println();
+            if (taskList.getTask(taskIndex).getDate() == null) {
+                System.out.println("☹ OOPS!!! I'm sorry, but there is no date to be snoozed");
+            } else {
+                Date snoozedDate = snoozeTime(taskList.getTask(taskIndex));
+                taskList.modifyDate(taskIndex, snoozedDate);
+            }
         } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException e) {
             e.showError();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }
