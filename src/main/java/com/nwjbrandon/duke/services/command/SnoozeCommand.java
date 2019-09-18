@@ -94,8 +94,6 @@ public class SnoozeCommand extends Command {
             }
         } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException e) {
             e.showError();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
     }
 }
