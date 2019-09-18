@@ -1,21 +1,18 @@
 /**
- * This handles command that find a list of tasks with given keyword.
+ * This handles the reminder command.
  *
  * @author tygq13
  */
 package cube.command;
 
+import java.util.Date;
+import java.util.Calendar;
 import cube.ui.Ui;
 import cube.util.Storage;
 import cube.task.TaskList;
-import cube.util.Parser;
 import cube.task.Task;
 
-public class FindCommand implements Command{
-	private String keyword;
-	public FindCommand(String keyword) {
-		this.keyword = keyword;
-	}
+public class ReminderCommand implements Command{
 
 	/**
 	 * Always returns false since this is not an exit command.
@@ -28,7 +25,7 @@ public class FindCommand implements Command{
 	}
 
 	/**
-	 * Shows a list of task with the specified keyword in description or date.
+	 * Shows the list of tasks due in 10 days.
 	 *
 	 * @param tasks the list of tasks.
 	 * @param ui the user interface to output message.
@@ -36,16 +33,17 @@ public class FindCommand implements Command{
 	 */
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) {
-		TaskList tasksFoundAt = new TaskList();
+		TaskList tasksReminder = new TaskList();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date()); // get current time
+		cal.add(Calendar.DATE, 7); // deadline within 7 days
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task = tasks.get(i);
-			String description = task.getDescription();
-			String date = Parser.parseDateToString(task.getDate());
-			if (description.contains(keyword) || date.contains(keyword)) {
-				tasksFoundAt.add(task);
-				break;
+			Date taskDate = task.getDate();
+			if (taskDate != null && taskDate.before(cal.getTime())) {
+				tasksReminder.add(task);
 			}
 		}
-		ui.showFind(tasksFoundAt);
+		ui.showReminder(tasksReminder);
 	}
 }
