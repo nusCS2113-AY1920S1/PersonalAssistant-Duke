@@ -34,6 +34,17 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs a <code>Event</code> object from the separated storage string.
+     *
+     * @param splitStorageStrings the separated storage string.
+     */
+    public Event(String[] splitStorageStrings) {
+        super(splitStorageStrings);
+        this.start = TimeParser.parse(splitStorageStrings[4]);
+        this.end = TimeParser.parse(splitStorageStrings[5]);
+    }
+
+    /**
      * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
      * and returns information of the event to be printed by UI.
      * e.g. "[E][✓] attend the party (at: 02/05/2019 1800 - 02/05/2019 2100)"
@@ -43,7 +54,7 @@ public class Event extends Task {
     @Override
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + start + " - " + end + ")";
+        return "[E]" + super.toString() + " (at: " + TimeParser.format(start) + " - " + TimeParser.format(end) + ")";
     }
 
     /**

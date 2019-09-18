@@ -11,7 +11,7 @@ import java.util.Date;
  * The time string should follow the format: MM/dd/yyyy HHmm.
  */
 public class TimeParser {
-    private static final SimpleDateFormat TimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     /**
      * Parses the time string into <code>Date</code> object.
@@ -21,11 +21,28 @@ public class TimeParser {
      * @throws DukeException If time string has incorrect time format.
      */
     public static Date parse(String timeStr) throws DukeException {
+        if (timeStr == null) {
+            return null;
+        }
+
         try {
-            return TimeFormat.parse(timeStr);
+            return TIME_FORMAT.parse(timeStr);
         } catch (ParseException e) {
             throw new DukeException("☹ OOPS!!! Incorrect time format.");
         }
+    }
+
+    /**
+     * Converts a date the corresponding string.
+     * @param date the date to be converted into a <code>String</code>.
+     * @return the string.
+     */
+    public static String format(Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        return TIME_FORMAT.format(date);
     }
 
 }

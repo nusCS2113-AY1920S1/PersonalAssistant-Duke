@@ -1,7 +1,15 @@
 package parser;
 
 
-import command.*;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.RemindCommand;
+import command.ScheduleCommand;
 import exception.DukeException;
 
 /**
@@ -9,6 +17,7 @@ import exception.DukeException;
  * packages the tokens to <code>Command</code> object.
  */
 public class Parser {
+
     /**
      * Converts the <code>String</code> fullCommand into <code>Command</code> object.
      * Returns the <code>Command</code> object.

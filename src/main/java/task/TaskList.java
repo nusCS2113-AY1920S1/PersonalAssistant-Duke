@@ -21,33 +21,22 @@ public class TaskList {
     /**
      * Constructs a taskList with list of strings of existing tasks from the storage.
      *
-     * @param taskStrings List of strings loaded from the storage.
+     * @param storageStrings List of strings loaded from the storage.
      */
-    public TaskList(ArrayList<String> taskStrings) {
+    public TaskList(ArrayList<String> storageStrings) {
         tasks = new ArrayList<Task>(100);
-        for (String line : taskStrings) {
-            String[] tokens = line.split("\\Q|\\E");
-            for (int i = 0; i < tokens.length; i++) {
-                tokens[i] = tokens[i].trim();
-            }
-            switch (tokens[0]) {
+        for (String storageString : storageStrings) {
+            String[] splitStorageString = storageString.split("\\s+\\Q|\\E\\s+");
+
+            switch (splitStorageString[0]) {
             case "T":
-                addToDo(tokens[2]);
-                if (tokens[1].equals("1")) {
-                    done(tasks.size() - 1);
-                }
+                tasks.add(new ToDo(splitStorageString));
                 break;
             case "D":
-                addDeadline(tokens[2], tokens[3]);
-                if (tokens[1].equals("1")) {
-                    done(tasks.size() - 1);
-                }
+                tasks.add(new Deadline(splitStorageString));
                 break;
             case "E":
-                addEvent(tokens[2], tokens[3], tokens[4]);
-                if (tokens[1].equals("1")) {
-                    done(tasks.size() - 1);
-                }
+                tasks.add(new Event(splitStorageString));
                 break;
             default:
                 throw new DukeException("Invalid task in storage!");
@@ -56,35 +45,12 @@ public class TaskList {
     }
 
     /**
-     * Adds a task with description into the taskList.
+     * Adds a task into the taskList.
      *
-     * @param description Description of the added task.
+     * @param task task to be added into the taskList.
      */
-    public void addToDo(String description) {
-        tasks.add(new ToDo(description));
-    }
-
-    /**
-     * Adds a task with description and due time into the taskList.
-     *
-     * @param description Description of the added task.
-     * @param ddl         Due of the task.
-     * @throws DukeException If an exception is thrown when constructing the new task.
-     */
-    public void addDeadline(String description, String ddl) throws DukeException {
-        tasks.add(new Deadline(description, ddl));
-    }
-
-    /**
-     * Adds an event with description, start and end time into the taskList.
-     *
-     * @param description Description of the added event.
-     * @param start       the start time of the event.
-     * @param end         the end time of the event.
-     * @throws DukeException If an exception is thrown when constructing the new event.
-     */
-    public void addEvent(String description, String start, String end) throws DukeException {
-        tasks.add(new Event(description, start, end));
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     /**
@@ -189,9 +155,9 @@ public class TaskList {
     }
 
     /**
-     * Returns true/false depending if the task is done
+     * Returns true or false depending if the task is done.
      *
-     * @return True or false
+     * @return True or false.
      */
     public boolean isDone(int index) {
         return tasks.get(index).isDone;
