@@ -11,6 +11,7 @@ import java.util.Scanner;
 import exceptions.DukeException;
 import task.DoAfter;
 import task.TaskList;
+import task.Recurring;
 import task.Deadline;
 import task.Tasks;
 import task.Event;
@@ -63,8 +64,10 @@ public class Storage {
                     tasks = new Event(taskMessage, "E", arr[3].strip(), arr[4].strip());
                 } else if (type.equals("?][E")) {
                     tasks = new Event(taskMessage, "?][E", arr[3].strip(), arr[4].strip());
-                } else {
+                } else if (type.equals("A")){
                     tasks = new DoAfter(taskMessage, "A", arr[3].strip());
+                } else {
+                    tasks = new Recurring(taskMessage, "R", arr[3].strip());
                 }
                 if (done.equals("✓")) {
                     tasks.setDone(true);
@@ -101,9 +104,9 @@ public class Storage {
                 line = "?][E | " + task.getStatusIcon() + " | "
                     + task.getDescription() + " | " + ((Event) task).getDate().getStartDateStr()
                     + " | " + ((Event) task).getDate().getEndDateStr();
-                } else {
-                    line = "A | " + task.getStatusIcon() + " | "
-                        + task.getDescription() + " | " + ((DoAfter) task).getAfter();
+                } else  {
+                    line = "R | " + task.getStatusIcon() + " | "
+                        + task.getDescription() + " | " + ((Recurring) task).getRecur();
                 }
                 fileWriter.write(line + "\n");
             }

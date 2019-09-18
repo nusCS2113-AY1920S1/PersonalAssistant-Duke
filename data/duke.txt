@@ -1,2 +1,1 @@
-E | ✘ | vnejr ejnenr (at: 23rd of December 2019, 12:00 AM to 25th of December 2022, 12:00 AM) | 23rd of December 2019, 12:00 AM | 25th of December 2022, 12:00 AM
-E | ✘ | add (at: 17th of September 2019, 08:20 PM to 18th of December 2020, 07:00 PM) | 17th of September 2019, 08:20 PM | 18th of December 2020, 07:00 PM
+R | ✘ | borrow book | weekly

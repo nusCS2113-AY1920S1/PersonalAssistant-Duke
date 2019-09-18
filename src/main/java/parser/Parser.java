@@ -8,6 +8,7 @@ import task.Deadline;
 import task.Tasks;
 import task.Event;
 import task.ToDo;
+import task.Recurring;
 import ui.Ui;
 import wrapper.TimeInterval;
 
@@ -78,6 +79,9 @@ public class Parser {
                         break;
                     case "fix":
                         fixCommand(s);
+                        break;
+                    case "recur":
+                        recurCommand(s);
                         break;
                     default:
                         throw DukeException.UNKNOWN_COMMAND;
@@ -267,6 +271,9 @@ public class Parser {
                 case "T":
                     message = ((ToDo) userToDoList.get(i)).toMessage();
                     break;
+                case "R":
+                    message = ((Recurring)userToDoList.get(i)).toMessage();
+                    break;
                 default:
                     message = (userToDoList.get(i)).getDescription();
                     break;
@@ -332,6 +339,29 @@ public class Parser {
     }
 
     /**
+     * Creates a new Recurring Task with users input
+     */
+    private static void recurCommand(String command) throws DukeException {
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
+        try {
+            String[] token = command.substring("recur".length()).strip().split("/frequency");
+            if (token.length != 2 || token[1] == null) {
+                throw DukeException.EMPTY_TASK_IN_RECUR;
+            }
+            if (token[0].strip().isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_RECUR;
+            }
+            TaskList.addTask(new Recurring(token[0].strip(), "R", token[1].strip()));
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                    TaskList.getTotalTasksNumber());
+            Storage.saveTask(TaskList.getList());
+        } catch  (DukeException e) {
+            throw DukeException.EMPTY_TASK_IN_RECUR;
+        }
+    }
+
+    /**
      * Prints tasks that contain the keyword entered by user.
      */
     private static void findCommand(String s) throws DukeException {
@@ -374,6 +404,7 @@ public class Parser {
                 TaskList.getStatus(num - 1), TaskList.getMessage(num - 1),
                 TaskList.getTotalTasksNumber() - 1);
             TaskList.removeTask(num - 1);
+
             Storage.saveTask(TaskList.getList());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw DukeException.TASK_NO_MISSING_DELETE;
