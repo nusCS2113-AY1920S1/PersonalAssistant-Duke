@@ -171,4 +171,5 @@ There is no need to save manually.
 * *List*: `list`
 * *Snooze*: `snooze`
 * *Remind*: `remind`
+* *Show*: `show`
 * *Bye*: `bye`
