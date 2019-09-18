@@ -1,6 +1,7 @@
-package Model_Classes;
+package Operations;
 
 import CustomExceptions.DukeException;
+import Model_Classes.Task;
 
 import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;

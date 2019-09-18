@@ -1,4 +1,4 @@
-package Model_Classes;
+package Operations;
 
 import CustomExceptions.DukeException;
 

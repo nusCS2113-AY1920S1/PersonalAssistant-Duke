@@ -1,4 +1,4 @@
-package Model_Classes;
+package Operations;
 
 /**
  * class to tell user about errors and completion of operations
