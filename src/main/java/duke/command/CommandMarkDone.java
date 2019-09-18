@@ -43,8 +43,8 @@ public class CommandMarkDone extends Command {
      * @param taskList The TaskList containing all tasks
      */
     private void generateQueuedTasks(Task task, TaskList taskList) {
-        ArrayList<Task> newTasks = task.getQueuedTasks();
-        for (Task newTask : newTasks) {
+        TaskList newTasks = task.getQueuedTasks();
+        for (Task newTask : newTasks.getList()) {
             taskList.addTask(newTask);
         }
         task.setQueuedTasks(null);

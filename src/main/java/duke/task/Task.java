@@ -10,7 +10,7 @@ public class Task {
     public String detailDesc;
     public TaskType taskType;
     public Boolean isDone = false;
-    private ArrayList<Task> queuedTasks = null;
+    private TaskList queuedTasks = null;
 
     /**
      * Constructor for the 'Task' Class.
@@ -124,7 +124,7 @@ public class Task {
      * Getter for queuedTask Property.
      * @return ArrayList containing Task Objects
      */
-    public ArrayList<Task> getQueuedTasks() {
+    public TaskList getQueuedTasks() {
         return queuedTasks;
     }
 
@@ -132,7 +132,7 @@ public class Task {
      * Setter for queued Task Property.
      * @param queuedTasks ArrayList to be set
      */
-    public void setQueuedTasks(ArrayList<Task> queuedTasks) {
+    public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
     }
 }

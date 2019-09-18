@@ -4,6 +4,7 @@ import duke.task.TaskList;
 
 public abstract class Command {
     protected Boolean exitRequest = false;
+    protected CommandType commandType;
 
     // Constructor
     public Command() {

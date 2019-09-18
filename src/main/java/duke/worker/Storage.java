@@ -71,7 +71,7 @@ public class Storage {
      * @return Task Object from String
      */
     public static Task loadTaskFromStorageString(String loadedInput) {
-        ArrayList<Task> queuedTasks = new ArrayList<>();
+        TaskList queuedTasks = new TaskList();
         Task newTask = null;
         Task queuedTask = null;
         String[] taskStrings = Parser.parseStoredTask(loadedInput);
@@ -80,7 +80,7 @@ public class Storage {
                 newTask = TaskList.createTaskFromString(taskString);
             } else {
                 queuedTask = TaskList.createTaskFromString(taskString);
-                queuedTasks.add(queuedTask);
+                queuedTasks.getList().add(queuedTask);
             }
         }
         if (queuedTask != null) {

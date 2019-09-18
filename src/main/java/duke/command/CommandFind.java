@@ -7,7 +7,10 @@ import duke.worker.Ui;
 public class CommandFind extends Command {
     protected String userInput;
 
-    // Constructor
+    /**
+     * Constructor for CommandFind subCommand Class.
+     * @param userInput The User Input to be translated into a Command
+     */
     public CommandFind(String userInput) {
         this.userInput = userInput;
     }

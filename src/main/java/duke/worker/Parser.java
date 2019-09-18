@@ -1,15 +1,16 @@
 package duke.worker;
 
 import duke.command.Command;
-import duke.command.CommandBlank;
-import duke.command.CommandNewTask;
-import duke.command.CommandType;
-import duke.command.CommandList;
-import duke.command.CommandMarkDone;
 import duke.command.CommandBye;
-import duke.command.CommandDelete;
-import duke.command.CommandError;
+import duke.command.CommandType;
+import duke.command.CommandNewTask;
 import duke.command.CommandFind;
+import duke.command.CommandError;
+import duke.command.CommandDelete;
+import duke.command.CommandMarkDone;
+import duke.command.CommandList;
+import duke.command.CommandQueue;
+import duke.command.CommandBlank;
 
 import duke.task.Task;
 import duke.task.TaskType;
@@ -66,6 +67,10 @@ public class Parser {
 
         case DONE:
             c = new CommandMarkDone(userInput);
+            break;
+
+        case QUEUE:
+            c = new CommandQueue(userInput);
             break;
 
         default:
@@ -131,8 +136,7 @@ public class Parser {
     }
 
     /**
-     * Removes the Command Literal from the user input string.
-     *
+     * Removes the Command Literal from the user input string.*
      * @param commandStr Command Literal to remove
      * @param userInput  User Input to be parsed
      * @return String with command literal removed
@@ -142,7 +146,7 @@ public class Parser {
         return userInput.replaceFirst("(?i)" + commandStr, "").trim();
     }
 
-    /**
+    /** Work in progress.
     public String[] parseTask(TaskType taskType, String userInput) {
     // TODO: Currently in 'Task' RecordTaskDetails
     }
@@ -208,7 +212,7 @@ public class Parser {
             return "";
         }
         StringBuilder queuedTaskString = new StringBuilder();
-        for (Task queuedTask : task.getQueuedTasks()) {
+        for (Task queuedTask : task.getQueuedTasks().getList()) {
             queuedTaskString.append(PARSE_MARKER_TASK);
             queuedTaskString.append(encodeTask(queuedTask));
         }
