@@ -9,7 +9,6 @@ import java.util.Date;
 import util.Parser;
 
 public class Event extends Task{
-	private Date at;
 
 	/**
 	 * Default constructor with no argument.
@@ -21,25 +20,24 @@ public class Event extends Task{
 
 	/**
 	 * Constructor with two arguments.
-	 * Calls another constructor with additional parameter done=false.
+	 * Calls another constructor with additional parameter isDone=false.
 	 *
-	 * @param description the descirption of the event.
-	 * @param at the happening time of the event.
+	 * @param description the description of the task.
+	 * @param date the date of the event.
 	 */
-	public Event(String description, Date at) {
-		this(false, description, at);
+	public Event(String description, Date date) {
+		this(false, description, date);
 	}
 
 	/**
-	 * Constructor with three arguments.
+	 * Constructor with threee arguments.
 	 *
-	 * @param done indicate whether the event has completed.
-	 * @param description the description of the event.
-	 * @param at the happening time of the event.
+	 * @param done true if the task is marked as done, otherwise false.
+	 * @param description the description of the task.
+	 * @param date the date of the event.
 	 */
-	public Event(boolean done, String description, Date at) {
-		super(description);
-		this.at = at;
+	public Event(boolean done, String description, Date date) {
+		super(description, date);
 		this.isDone = done;
 	}
 
@@ -50,16 +48,7 @@ public class Event extends Task{
 	 */
 	@Override
 	public String toString() {
-		return "[E]" + super.toString() + " (at: " + Parser.parseDateToString(at) + ")";
+		return "[E]" + super.toString() + " (at: " + Parser.parseDateToString(date) + ")";
 	}
 
-	/**
-	 * Breaks the task into a String array
-	 *
-	 * @return a String array of all components of the event
-	 */
-	@Override
-	public String[] getTask() {
-		return new String[] {description, Parser.parseDateToString(at)};
-	}
 }

@@ -8,6 +8,7 @@ package command;
 import ui.Ui;
 import util.Storage;
 import task.TaskList;
+import util.Parser;
 import task.Task;
 
 public class FindCommand implements Command{
@@ -38,11 +39,11 @@ public class FindCommand implements Command{
 		TaskList tasksFoundAt = new TaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task = tasks.get(i);
-			for (String description : task.getTask()) {
-				if (description.contains(keyword)) {
-					tasksFoundAt.add(task);
-					break;
-				}
+			String description = task.getDescription();
+			String date = Parser.parseDateToString(task.getDate());
+			if (description.contains(keyword) || date.contains(keyword)) {
+				tasksFoundAt.add(task);
+				break;
 			}
 		}
 		ui.showFind(tasksFoundAt);

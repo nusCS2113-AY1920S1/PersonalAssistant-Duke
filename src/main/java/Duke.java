@@ -27,7 +27,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(filePath);
             tasks = new TaskList();
         }
     }
@@ -59,6 +59,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         //todo: allow user to specify data path
-        new Duke("D:\\codes\\java\\duke\\data").run();
+        new Duke("D:\\codes\\java\\project_cs2113\\main\\data").run();
     }
 }
