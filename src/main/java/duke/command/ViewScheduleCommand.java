@@ -6,15 +6,13 @@ import duke.task.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class ViewScheduleCommand extends Command {
     private List<String> words;
+    private List<Schedule> schedules;
     private Date start;
-    private Date end;
-    private SimpleDateFormat formatter;
+    private Date end; // will be changed to more days but for now one day start end only HAHAHAH
 
     /**
      * Constructor for class.
@@ -24,45 +22,43 @@ public class ViewScheduleCommand extends Command {
      */
     public ViewScheduleCommand(List<String> words) throws DukeException {
         this.words = words;
-        this.start = returnDate("/from");
-        this.end = returnDate("to");
-        if (end.before(start)) {
-            throw new DukeException("Start datetime cannot be after end datetime.");
-        }
+        this.schedules = new ArrayList<>();
+        this.start = returnDate(" 0000");
+        this.end = returnDate(" 2359");
     }
 
     /**
      * Creates Date object from string input in dd/MM/yyyy HHmm.
      *
-     * @param string User input.
      * @return Date
      * @throws DukeException Exception thrown for invalid or missing date time
      */
-    private Date returnDate(String string) throws DukeException {
+    private Date returnDate(String time) throws DukeException {
         try {
-            String dateString = words.get(words.indexOf(string) + 1)
-                    + " "
-                    + words.get(words.indexOf(string) + 2);
-            formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            String dateString = words.get(words.indexOf("/for") + 1) + time;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
             return formatter.parse(dateString);
         } catch (ParseException e) {
-            throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
+            throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Format for viewing schedule: schedule /from <start datetime> to <end datetime>");
+            throw new DukeException("Format for viewing schedule: schedule /for <date>");
         }
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        List<Task> scheduleTasks =
-                taskList.getTasks().stream()
-                        .filter(task -> task.isWithinTimeFrame(start, end))
-                        .collect(Collectors.toList());
-        if (scheduleTasks.size() > 0) {
-            ui.showSearchResult(scheduleTasks, formatter.format(start), formatter.format(end));
+        for (Task t : taskList.getTasks()) {
+            Schedule tempSchedule = t.isWithinTimeFrame(start, end);
+            if (tempSchedule != null) {
+                (this.schedules).add(tempSchedule);
+            }
+        }
+        if (schedules.size() > 0) {
+            schedules.sort(Comparator.comparing(Schedule::getStart));
+            ui.showScheduleResult(schedules, words.get(words.indexOf("/for") + 1));
         } else {
-            throw new DukeException("There are no matching tasks.");
+            throw new DukeException("There are no tasks in the schedule.");
         }
     }
 }
