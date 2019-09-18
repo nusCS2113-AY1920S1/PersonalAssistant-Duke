@@ -1,10 +1,12 @@
 import command.*;
 import exception.DukeException;
+import storage.Storage;
 import task.Deadline;
 import task.Recurring;
 import task.Todo;
 import task.Event;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -42,39 +44,50 @@ public class Parser {
                 } else if (taskInfo[0].equals("deadline")) {
                     //parse date
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
-                    String[] dateInfo = parseDate("deadline", taskInfo);
-                    if ((Arrays.toString(dateInfo).equals("[null]")  || (dateInfo.length < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                    ArrayList<String> dateInfo = parseDate("deadline", taskInfo);
+                    //throw exception if there is no date entered; did not find "/by" keyword
+                    if ((dateInfo.isEmpty())  || (dateInfo.size() < 2)) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
                     Date d = new Date();
-                    dateInfo[1] = d.convertDate(dateInfo[1]);
-                    if (dateInfo[1].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                    Deadline t;
+                    //parse remindDate if it exists
+                    if (dateInfo.size() == 3) {
+                        dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
+                        dateInfo.set(2,(d.convertDate(dateInfo.get(2))));
+                        if (dateInfo.get(1).equals("[null]") || dateInfo.get(2).equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                        t = new Deadline(dateInfo.get(0), dateInfo.get(1), dateInfo.get(2));
+                    } else {
+                        //no reminder parse date
+                        dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
+                        if (dateInfo.get(1).equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                        t = new Deadline(dateInfo.get(0), dateInfo.get(1));
+                    }
                     //create deadline object
-                    Deadline t = new Deadline(dateInfo[0], dateInfo[1]);
                     return new AddCommand(t);
                 } else if (taskInfo[0].equals("event")) {
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
-                    String[] dateInfo = parseDate("event", taskInfo);
-                    if ((Arrays.toString(dateInfo).equals("[null]") || (dateInfo.length < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
+                    ArrayList<String> dateInfo = parseDate("event", taskInfo);
+                    if ((dateInfo.isEmpty())  || (dateInfo.size() < 2)) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
                     Date d = new Date();
-                    dateInfo[1] = d.convertDate(dateInfo[1]);
-                    if (dateInfo[1].equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_EVENT); }
+                    dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
+                    if (dateInfo.get(1).equals("[null]")) { throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE); }
+                    Event t = new Event(dateInfo.get(0), dateInfo.get(1));
                     //create event object
-                    Event t = new Event(dateInfo[0], dateInfo[1]);
                     return new AddCommand(t);
                 } else if (taskInfo[0].equals("recurring")) {
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
                     }
-                    String[] dateInfo = parseDate("recurring", taskInfo);
-                    if ((Arrays.toString(dateInfo).equals("[null]") || (dateInfo.length < 2))) {
+                    ArrayList<String> dateInfo = parseDate("recurring", taskInfo);
+                    if (dateInfo.isEmpty() || (dateInfo.size() < 2)) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
                     }
                     Date d = new Date();
-                    dateInfo[1] = d.convertDate(dateInfo[1]);
-                    if (!dateInfo[1].equals("null")) {
+                    dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
+                    if (!dateInfo.get(1).equals("null")) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
                     }
                     //create event object
-                    Recurring t = new Recurring(dateInfo[0], dateInfo[1]);
+                    Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
                     return new AddCommand(t);
                 }
                 else {
@@ -92,18 +105,36 @@ public class Parser {
         }
     }
 
-    public static String[] parseDate(String type, String[] taskInfo) {
-        String[] dateInfo = { "null" };
+    public static ArrayList<String> parseDate(String type, String[] taskInfo) {
+        ArrayList<String> dateInfo = new ArrayList<String>();
+        String[] a;
+        String[] b;
 
         if (type.equals("deadline")) {
-            dateInfo = taskInfo[1].split("/by ");
-            //tell AddCommand to go add itself
+            a = taskInfo[1].split("/by ");
+            b = a[1].split("/remind");
+            if (b.length > 1) {
+                //there is a remind command
+                dateInfo.add(a[0].trim()); //description
+                dateInfo.add(b[0].trim()); //deadline date
+                dateInfo.add(b[1].trim()); //reminder date
+                String filePath = "/home/tessa/Documents/CS2113/main/data/reminders.txt";
+                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2) + System.lineSeparator();
+                Storage.writeReminderFile(reminderInfo, filePath);
+
+            } else {
+                //there is no remind command
+                dateInfo.addAll(Arrays.asList(a)); //contains description and deadline
+            }
+
         } else if (type.equals("event")) {
-            dateInfo = taskInfo[1].split("/at ");
             //tell AddCommand to go add itself
+            a = taskInfo[1].split("/at ");
+            dateInfo.addAll(Arrays.asList(a));
         } else if (type.equals("recurring")) {
-            dateInfo = taskInfo[1].split("/every ");
             //tell AddCommand to go add itself
+            a = taskInfo[1].split("/every ");
+            dateInfo.addAll(Arrays.asList(a));
         }
         return dateInfo;
     }

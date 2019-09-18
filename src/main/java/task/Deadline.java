@@ -15,6 +15,13 @@ public class Deadline extends Task {
         this.isDone = state;
     }
 
+    public Deadline(String description, String date, String remindDate) {
+        super(description);
+        this.type = "D";
+        this.date = date;
+        this.remindDate = remindDate;
+    }
+
     @Override
     public String toString() {
         return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + super.getDate() + ")";
