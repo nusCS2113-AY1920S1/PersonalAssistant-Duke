@@ -3,10 +3,17 @@ package seedu.duke.task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for Task class.
+ */
 public class TaskTest {
 
-  @Test
-  public void dummyTest() {
+    @Test
 
-  }
+    /**
+     * Dummy test for Task class.
+     */
+    public void dummyTest() {
+
+    }
 }
