@@ -1,6 +1,9 @@
 package tasks;
 
-import java.text.SimpleDateFormat;
+/**
+ * Provide support for managing tasks that takes a fixed amount of time but does not have a fixed start/end time
+ * e.g., reading the sales report (needs 2 hours).
+ */
 
 public class Last extends Task{
 

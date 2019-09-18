@@ -3,6 +3,10 @@ package tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Provide support for managing tasks that need to be done within a certain period
+ * e.g., collect certificate between Jan 15 and 25th.
+ */
 public class Period extends Task{
     Date start;
     Date end;
