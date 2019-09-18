@@ -84,6 +84,7 @@ public class TaskList {
         }
 
         task.setDate(c.getTime());
+        Terminal.showMessage("Task is set done until the next occurrence");
     }
 
     /**
@@ -157,7 +158,6 @@ public class TaskList {
         Collections.sort(overdueList, new CustomSort());
         Collections.sort(todayList, new CustomSort());
         Collections.sort(eventualList, new CustomSort());
-        Collections.sort(undefinedList, new CustomSort());
         Terminal.showSortedRemindersList(overdueList, todayList, eventualList, undefinedList);
     }
 
