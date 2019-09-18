@@ -38,6 +38,8 @@ public class AddDeadlineCommand extends Command {
         if (k == 0) {
             throw new DukeException(" Please make sure that you have entered \"/by\" "
                     + "to separate task and time");
+        } else if (split2.trim().length() == 0) {
+            throw new DukeException(" Please enter the time frame");
         }
         tasks.addTask(new Deadline(split1.trim(), split2.trim()));
         String taskA = tasks.getTask(tasks.numTasks() - 1).toString();

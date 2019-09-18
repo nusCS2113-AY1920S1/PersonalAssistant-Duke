@@ -39,7 +39,7 @@ public class AddDoAfterCommand extends Command {
             throw new DukeException(" Please make sure you have used \"/after\" to separate"
                     + " task and time");
         } else if (split2.trim().length() == 0) {
-            throw new DukeException(" The description of a Do-after task cannot be empty");
+            throw new DukeException(" Please enter the time frame");
         }
         tasks.addTask(new DoAfter(split1.trim(), split2.trim()));
         String taskA = tasks.getTask(tasks.numTasks() - 1).toString();

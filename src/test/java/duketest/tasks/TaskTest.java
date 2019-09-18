@@ -10,20 +10,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class TaskTest {
 
     @Test
-    void checkGetStatusIcon() {
+    public void checkGetStatusIcon() {
         Task obj = new Todo("borrow book");
         assertEquals("N",obj.getStatusIcon());
     }
 
     @Test
-    void checkMarkAsDone() {
+    public void checkMarkAsDone() {
         Task obj = new Todo("join cca");
         obj.markAsDone();
         assertTrue(obj.isDone);
     }
 
     @Test
-    void testCheckKeyword() {
+    public void testCheckKeyword() {
         Task obj = new Todo("leave cca");
         assertFalse(obj.checkKeyword("book"));
     }

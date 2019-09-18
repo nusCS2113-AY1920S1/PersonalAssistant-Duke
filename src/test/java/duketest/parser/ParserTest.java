@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ParserTest {
 
     @Test
-    void checkParsing() throws DukeException {
+    public void checkParsing() throws DukeException {
         Parser obj = new Parser();
         assertThrows(DukeException.class,() -> obj.parse("gfgregt4e"));
     }

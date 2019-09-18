@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class TaskListTest {
 
     @Test
-    void checkAddTask() {
+    public void checkAddTask() {
         TaskList obj = new TaskList();
         Task store =  new Todo("Borrow book");
         obj.addTask(store);
@@ -22,7 +22,7 @@ public class TaskListTest {
     }
 
     @Test
-    void checkDeleteTask() {
+    public void checkDeleteTask() {
         TaskList obj = new TaskList();
         Task store = new Todo("join cca");
         obj.addTask(store);
@@ -31,14 +31,14 @@ public class TaskListTest {
     }
 
     @Test
-    void checkNumTasks() {
+    public void checkNumTasks() {
         TaskList obj = new TaskList();
         obj.addTask(new Todo("quit cca"));
         assertEquals(1,obj.numTasks());
     }
 
     @Test
-    void checkGetTask() {
+    public void checkGetTask() {
         TaskList obj = new TaskList();
         obj.addTask(new Todo("Borrow book"));
         Task num2 = new Todo("Return book");
@@ -47,7 +47,7 @@ public class TaskListTest {
     }
 
     @Test
-    void checkGetAllTasks() {
+    public void checkGetAllTasks() {
         TaskList obj = new TaskList();
         obj.addTask(new Todo("return book"));
         obj.addTask(new Todo("study for CS2113"));
