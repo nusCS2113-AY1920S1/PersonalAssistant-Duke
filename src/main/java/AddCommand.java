@@ -28,6 +28,7 @@ public class AddCommand extends Command {
         tasks.addItem(task);
         storage.writeFile(task.toData(), true);
         ui.showAdded(task, tasks);
+
     }
 
 

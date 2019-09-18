@@ -90,6 +90,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
+
             Storage writer = new Storage();
             writer.writeFile(newContent, false);
 
