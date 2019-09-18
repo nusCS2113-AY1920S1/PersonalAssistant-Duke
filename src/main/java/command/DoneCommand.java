@@ -27,7 +27,7 @@ public class DoneCommand extends Command {
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
             throw new DukeException(DukeException.TASK_DOES_NOT_EXIST());
         }

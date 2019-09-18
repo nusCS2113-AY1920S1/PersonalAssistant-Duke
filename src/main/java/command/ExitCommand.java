@@ -20,9 +20,9 @@ public class ExitCommand extends Command {
      * This execute function calls the super.CommandOut function which is used to terminate the program by updating the
      * boolean flag exit to true.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         super.CommandOut();
-        ui.printGoodbye();
+        Ui.printGoodbye();
     }
 
 }

@@ -1,28 +1,44 @@
 package parser;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * This DateTimeExtractor class allows the identification of dates and is used to print out dates and times.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v2.0
+ */
 public class DateTimeExtractor {
 
-    private static SimpleDateFormat DATE_FORMATTER_EVENT = new SimpleDateFormat("dd/MM/yyyy HHmm-HHmm");
-    private static SimpleDateFormat DATE_FORMATTER_DEADLINE = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    private static String dateEvent;
-    private static String dateDeadline;
+    public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static LocalDateTime dateEvent;
+    private static LocalDateTime dateDeadline;
+    private static LocalDateTime datePostpone;
+    private static final LocalDateTime dateError = LocalDateTime.now();
 
-    public static String extractDateTime(String dateTimeFromUser, String command) throws ParseException {
-
-        if(command.equals("event")) {
-            System.out.println(command);
-            dateEvent = (DATE_FORMATTER_EVENT.parse(dateTimeFromUser)).toString();
+    /**
+     * This function appends the end time of an event to provide a standardised output of date and time.
+     *
+     * @param dateTimeFromUser A string containing only the date segment of the user input.
+     * @return String A string containing the end time of an event will also returned.
+     * @throws ParseException The ParseException is called if the date or time format provided by the user is incorrect!
+     *
+     */
+    public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
+        if(command.equals("event")){
+            dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
         }
         else if(command.equals("deadline")) {
-            dateDeadline = (DATE_FORMATTER_DEADLINE.parse(dateTimeFromUser)).toString();
+            dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateDeadline;
         }
-
-        String dateUnknown = "00/00/0000";
-        return dateUnknown;
+        else if (command.equals("postpone")){
+            datePostpone = LocalDateTime.parse(dateTimeFromUser,DATE_FORMATTER);
+            return datePostpone;
+        }        // Allows the developer to know that a command other than deadline or event was passed to the function!
+        return dateError;
     }
 }

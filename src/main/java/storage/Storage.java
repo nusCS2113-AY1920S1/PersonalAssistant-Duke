@@ -12,8 +12,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private static String filePath;
-    private static File file;
+    private File file;
 
     /**
      * This Storage constructor is used to function is used to assign the different parameters required by the Storage
@@ -22,8 +21,7 @@ public class Storage {
      * @param filePath This parameter holds the string which contains the location of the persistent storage.
      * @param file This parameter holds the file to write to.
      */
-    public Storage(String filePath, File file) {
-            this.filePath = filePath;
+    public Storage(File file) {
             this.file = file;
             this.file.getParentFile().mkdirs();
     }

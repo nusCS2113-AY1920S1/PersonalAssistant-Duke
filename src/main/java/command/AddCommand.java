@@ -9,6 +9,8 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
  * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
  *
@@ -19,19 +21,25 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private String formattedDateTime;
-
+    private LocalDateTime formattedToDate;
+    private LocalDateTime formattedAtDate;
+    private LocalDateTime formattedFromDate;
     /**
      * This AddCommand function is used to assign the different parameters required when adding a task.
      *
      * @param command this string holds command type determinant to decide how to process the user input.
      * @param taskFeatures this string holds the description of the task provided by the user.
-     * @param formattedDateTime this string contains the formatted user input that has the desired date time format.
+     * @param atDate string contains the formatted user input that has the desired date time format.
+     * @param toDate string contains the formatted user input that has the desired date time format.
+     * @param fromDate string contains the formatted user input that has the desired date time format.
      */
-    public AddCommand(String command, String taskFeatures, String formattedDateTime) {
+    public AddCommand(String command, String taskFeatures,
+                       LocalDateTime atDate, LocalDateTime toDate, LocalDateTime fromDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
-        this.formattedDateTime = formattedDateTime;
+        this.formattedFromDate = fromDate;
+        this.formattedAtDate = atDate;
+        this.formattedToDate = toDate;
     }
 
     /**
@@ -42,17 +50,23 @@ public class AddCommand extends Command {
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      *
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         Task task;
         switch (command) {
         case "todo":
             task = new Todo(taskFeatures);
             break;
         case "deadline":
-            task = new Deadline(taskFeatures, formattedDateTime);
+            task = new Deadline(taskFeatures, formattedAtDate);
+            if (tasks.isClash(task, "deadline")) {
+                throw new DukeException(DukeException.TaskClash());
+            }
             break;
         case "event":
-            task = new Event(taskFeatures, formattedDateTime);
+            task = new Event(taskFeatures, formattedToDate, formattedFromDate);
+            if (tasks.isClash(task, "event")) {
+                throw new DukeException(DukeException.TaskClash());
+            }
             break;
         default:
             throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
