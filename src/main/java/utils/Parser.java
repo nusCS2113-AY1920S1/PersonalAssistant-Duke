@@ -84,7 +84,7 @@ public class Parser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command commandLine(String line) throws DukeException {
-        String[] splites = line.trim().split("\\s+", 3);
+        String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].trim().toUpperCase();
         Command temp = null;
         if (splites[0].equals("ADD")) {
@@ -100,7 +100,7 @@ public class Parser {
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
         } else if (splites[0].equals("RECURRING")) {
-            temp = new RecurringCommand(splites[1], splites[2]);
+            temp = new RecurringCommand(splites[1]);
         } else if (splites[0].equals("SNOOZE")) {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
@@ -132,7 +132,7 @@ public class Parser {
         splites[0] = splites[0].toUpperCase();
         Task temp = null;
         if (splites.length < 2) {
-            throw new DukeException("No description");
+            throw new DukeException("No descriptions");
         }
         if (splites[0].equals("TODO")) {
             temp = new ToDo(splites[1]);
