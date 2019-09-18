@@ -2,12 +2,15 @@ package duke.tasks;
 
 import duke.commons.DukeException;
 import duke.commons.DuplicateTaskException;
+import duke.commons.MessageUtil;
 import duke.commons.TaskNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import java.lang.reflect.Member;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -40,8 +43,24 @@ public class UniqueTaskList implements Iterable<Task> {
     public void add(Task toAdd) throws DukeException {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
+        } else if (hasAnomaly(toAdd)) {
+            throw new DukeException(MessageUtil.ANOMALY_FOUND);
         }
         internalList.add(toAdd);
+    }
+
+    private boolean hasAnomaly(Task toAdd) {
+        if (toAdd instanceof TaskWithDates) {
+            LocalDateTime dateTime = ((TaskWithDates) toAdd).getStartDate();
+            if (dateTime != null) {
+                for (Task t : getChronoList()) {
+                    if (((TaskWithDates) t).getStartDate().isEqual(dateTime)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
