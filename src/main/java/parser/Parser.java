@@ -88,9 +88,9 @@ public class Parser {
                 case "recur":
                     recurCommand(s);
                     break;
-//               case "reminder":
-//                   reminderCommand(s);
-//                   break;
+               case "reminder":
+                   reminderCommand(s);
+                   break;
                 case "schedule":
                     scheduleCommand(s);
                     break;
@@ -567,6 +567,38 @@ public class Parser {
             }
         }
         Ui.showScheduleFinalMessage(count);
+        Ui.printLine();
+    }
+
+    /**
+     * Check for any incomplete events/deadlines since the user specified date
+     * The number of reminders is also specified by the user
+     * The reminders is then printed out
+     * Command: reminder <no. of reminders> <date>
+     */
+    private static void reminderCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showReminderIntroMessage(Integer.valueOf(tokens[1]), tokens[2]);
+        int count = 1;
+        Date startDate = TimeParser.convertToDate(tokens[2]);
+        Date previousDate = null;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            Date logDate = TimeParser.getDateOnly(log.getKey());
+            if (count > Integer.valueOf(tokens[1])) {
+                break;
+            }
+            if (logDate.equals(startDate) || logDate.after(startDate)){
+                if (!log.getValue().isDone()){
+                    if (!logDate.equals(previousDate)){
+                        Ui.printScheduleDate(TimeParser.getStringDate(logDate));
+                    }
+                    Ui.printScheduleTask(log);
+                    count++;
+                    previousDate = logDate;
+                }
+            }
+        }
+        Ui.showEmptyReminderMessage(count);
         Ui.printLine();
     }
 }

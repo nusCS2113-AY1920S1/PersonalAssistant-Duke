@@ -2,6 +2,7 @@ package ui;
 
 import parser.TimeParser;
 import task.Deadline;
+import task.TaskList;
 import wrapper.Pair;
 import task.Event;
 import task.Tasks;
@@ -363,5 +364,36 @@ public class Ui {
         } else{
             System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
         }
+    }
+
+    /**
+     * Prints a message corresponding to the user request for reminder
+     */
+    public static void showReminderIntroMessage(int n, String date) {
+        if (TaskList.getTreeMap().isEmpty()) {
+            System.out.println(line + "\n" + space + "You have no upcoming tasks");
+        } else {
+            System.out.println(line + "\n" + space + "Here is a reminder for your next " + n + " upcoming tasks from " + date);
+        }
+    }
+
+    /**
+     * Prints a notice to tell the user when there is no upcoming tasks to be reminded of
+     */
+    public static void showEmptyReminderMessage(int count){
+        if (count == 1){
+            System.out.println(space + space + "*You have no upcoming tasks*");
+        }
+    }
+
+    /**
+     * Prints the task according to the reminder format
+     */
+    public static void printReminder(Map.Entry<Date, Tasks> log, int count){
+        System.out.println(space + count + ". " + log.getValue().getDescription());
+    }
+
+    public static void printScheduleDate(String date){
+        System.out.println(space + date + ":");
     }
 }
