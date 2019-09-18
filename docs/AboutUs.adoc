@@ -1,0 +1,66 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+DUKE$$$ - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== John Doe
+image::damithc.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+
+Role: Project Advisor
+
+'''
+
+=== Park So Hyun
+image::lejolly.jpg[width="150", align="left"]
+{empty}[http://github.com/sallysohyun[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Rajamohan B Priyan
+image::lejolly.jpg[width="150", align="left"]
+{empty}[http://github.com/priyan-coder[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Raveendran Ajey Ashok
+image::yijinl.jpg[width="150", align="left"]
+{empty}[http://github.com/AjeyAshok[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Senthil Araavind
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/Araavinds[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Ahmad Mudaafi'
+image::yl_coder.jpg[width="150", align="left"]
+{empty}[http://github.com/Mudaafi[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
