@@ -5,5 +5,8 @@ os: linux
 dist: bionic
 jdk: openjdk11
 
+before_install:
+  - chmod +x gradlew
+
 script:
   - ./gradlew build --scan -s
