@@ -42,7 +42,7 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         switch (type) {
-         case TODO:
+        case TODO:
             ui.showMessage(Parser.runTodo(tasks.getData(), input, 0));
             storage.write(tasks.getData());
             break;

@@ -96,6 +96,7 @@ public class Storage {
                             break;
                         case 6:
                             finalOutput.append(" /monthly ").append(currStr);
+                            break;
                         default:
                         }
                     }
@@ -124,21 +125,21 @@ public class Storage {
                     }
                     break;
                 case 4:
-                    if(!isChecked) {
+                    if (!isChecked) {
                         Parser.runRecurring(data, finalOutput.toString(), 1, "daily");
                     } else {
                         Parser.runRecurring(data, finalOutput.toString(), 2, "daily");
                     }
                     break;
                 case 5:
-                    if(!isChecked) {
+                    if (!isChecked) {
                         Parser.runRecurring(data, finalOutput.toString(), 1, "weekly");
                     } else {
                         Parser.runRecurring(data, finalOutput.toString(), 2, "weekly");
                     }
                     break;
                 case 6:
-                    if(!isChecked) {
+                    if (!isChecked) {
                         Parser.runRecurring(data, finalOutput.toString(), 1, "monthly");
                     } else {
                         Parser.runRecurring(data, finalOutput.toString(), 2, "monthly");

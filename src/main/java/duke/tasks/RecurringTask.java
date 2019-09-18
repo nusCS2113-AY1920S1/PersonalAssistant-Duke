@@ -5,7 +5,7 @@ import duke.DukeException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class RecurringTask extends ToDo{
+public class RecurringTask extends ToDo {
     private Date date;
     protected Frequency frequency;
     protected String freq;
@@ -14,6 +14,12 @@ public class RecurringTask extends ToDo{
         DAILY, WEEKLY, MONTHLY
     }
 
+    /**
+     * Constructor for recurring tasks.
+     * @param description Task description
+     * @param startDateTime Starting date of task
+     * @param frequency daily, weekly or monthly
+     */
     public RecurringTask(String description, Date startDateTime, String frequency) {
         super(description);
 
@@ -26,25 +32,43 @@ public class RecurringTask extends ToDo{
         }
 
         //update date if it is past current date
-        updateDate();
-    }
-
-    private void setFrequency (String freq) throws DukeException {
-        switch (freq) {
-            case "daily":
-                this.frequency = Frequency.DAILY;
-                this.freq = "d";
+        Date currentDate = new Date();
+        Calendar c = Calendar.getInstance();
+        while (date.before(currentDate)) {
+            unmark();
+            c.setTime(date);
+            switch (this.frequency) {
+            case DAILY:
+                c.add(Calendar.DATE, 1);
                 break;
-            case "weekly":
-                this.frequency = Frequency.WEEKLY;
-                this.freq = "w";
+            case WEEKLY:
+                c.add(Calendar.WEEK_OF_YEAR, 1);
                 break;
-            case "monthly":
-                this.frequency = Frequency.MONTHLY;
-                this.freq = "m";
+            case MONTHLY:
+                c.add(Calendar.MONTH, 1);
                 break;
             default:
-                throw new DukeException("Please enter a frequency: daily, weekly or monthly");
+            }
+            date = c.getTime();
+        }
+    }
+
+    private void setFrequency(String freq) throws DukeException {
+        switch (freq) {
+        case "daily":
+            this.frequency = Frequency.DAILY;
+            this.freq = "d";
+            break;
+        case "weekly":
+            this.frequency = Frequency.WEEKLY;
+            this.freq = "w";
+            break;
+        case "monthly":
+            this.frequency = Frequency.MONTHLY;
+            this.freq = "m";
+            break;
+        default:
+            throw new DukeException("Please enter a frequency: daily, weekly or monthly");
         }
     }
 
@@ -68,28 +92,11 @@ public class RecurringTask extends ToDo{
         return this.date.toString();
     }
 
+    /**
+     * Method to get frequency.
+     * @return Frequency type
+     */
     public Frequency getFrequency() {
         return this.frequency;
-    }
-
-    public void updateDate() {
-        Date currentDate = new Date();
-        Calendar c = Calendar.getInstance();
-        while (date.before(currentDate)) {
-            unmark();
-            c.setTime(date);
-            switch (frequency) {
-                case DAILY:
-                    c.add(Calendar.DATE, 1);
-                    break;
-                case WEEKLY:
-                    c.add(Calendar.WEEK_OF_YEAR, 1);
-                    break;
-                case MONTHLY:
-                    c.add(Calendar.MONTH, 1);
-                    break;
-            }
-            date = c.getTime();
-        }
     }
 }
