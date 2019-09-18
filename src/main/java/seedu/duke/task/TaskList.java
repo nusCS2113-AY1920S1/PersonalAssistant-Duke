@@ -1,6 +1,8 @@
 package seedu.duke.task;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import seedu.duke.data.Schedule;
 import seedu.duke.ui.Ui;
 
 /**
@@ -18,6 +20,8 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
+    private Schedule schedule = new Schedule();
+
 
     /**
      * Initializes list.
@@ -72,8 +76,39 @@ public class TaskList {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Deadline(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                } catch (ParseException ignore) {
+                    return;
+                }
+            } else if (taskType.equals("doafter")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String after = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    boolean taskFound = false;
+                    for (Task j: list) {
+                        if (j.description.equals(after)) {
+                            list.add(new DoAfter(taskDescription, after));
+                            taskFound = true;
+                            break;
+                        }
+                    }
+                    if (!taskFound) {
+                        System.out.println();
+                        System.out.println("        _____________________________________");
+                        System.out.println("        Task: '" + after + "' not found!");
+                        System.out.println("        _____________________________________");
+                        System.out.println();
+                        System.out.println();
+                        return;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
                     ui.wrong_description_error();
                     return;
                 }
@@ -81,21 +116,33 @@ public class TaskList {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Event(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                } catch (ParseException ignore) {
+                    return;
+                }
+            } else if (taskType.equals("range")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    list.add(new RangedTask(taskDescription, taskTime));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
                 }
-            } else {
-                ui.correct_command_error();
-                return;
             }
         }
 
         String output = "\t  " + list.get(list.size() - 1).toString();
         System.out.println("\t_____________________________________");
         System.out.println("\tGot it. I've added this task:");
-        System.out.println(output);  
+        System.out.println(output);
         // Printing number of items in list
         System.out.println("\tNow you have " + list.size() + " tasks in the list.");
         System.out.println("\t_____________________________________\n\n");
@@ -119,10 +166,12 @@ public class TaskList {
     public void doTask(int i) {
         try {
             list.get(i).markAsDone();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
-            System.out.println("\t_____________________________________\n\n");
+            if (list.get(i).isDone) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
+                System.out.println("\t_____________________________________\n\n");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -190,6 +239,10 @@ public class TaskList {
         System.out.println("\t_____________________________________\n\n");
     }
 
+    public Task getLastTask() {
+        return this.list.get(list.size() - 1);
+    }
+
     /**
      * Checks whether two instaces of TaskList are equal.
      *
@@ -200,7 +253,7 @@ public class TaskList {
 
         if (this.size() != temp.size()) {
             System.out.println("Length not equal");
-            return false;  
+            return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
