@@ -12,10 +12,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
+
+    /**
+     * file that store the data
+     */
     private File dataFile;
+
+    /**
+     * input stream to get the file input
+     */
     private InputStream is;
 
+    /**
+     * constructor of Storage, pass the data to dataFile by file path
+     * @param filePath
+     *              path of the file that store the task list
+     */
     public Storage(String filePath) {
         dataFile = new File(filePath);
     }
