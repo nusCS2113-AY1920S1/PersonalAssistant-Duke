@@ -44,7 +44,7 @@ public class Deadline extends Task {
     public void translate_date() {
         // splitting date into indi
         DateTimeFormatter formatter
-                = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+            = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
         LocalDateTime parsedDate;
         try {
             parsedDate = LocalDateTime.parse(this.by, formatter);
@@ -56,18 +56,18 @@ public class Deadline extends Task {
 
         String suffix;
         switch (parsedDate.getDayOfMonth() % 10) {
-            case 1:
-                suffix = "st";
-                break;
-            case 2:
-                suffix = "nd";
-                break;
-            case 3:
-                suffix = "rd";
-                break;
-            default:
-                suffix = "th";
-                break;
+         case 1:
+             suffix = "st";
+             break;
+         case 2:
+             suffix = "nd";
+             break;
+         case 3:
+             suffix = "rd";
+            break;
+         default:
+             suffix = "th";
+             break;
         }
 
         if (parsedDate.getDayOfMonth() > 3 && parsedDate.getDayOfMonth() < 21) {
@@ -75,7 +75,7 @@ public class Deadline extends Task {
         }
 
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d'"
-                + suffix + "' 'of' MMMM uuuu',' h:mma", Locale.ENGLISH);
+            + suffix + "' 'of' MMMM uuuu',' h:mma", Locale.ENGLISH);
 
         this.dateBy = parsedDate.format(printFormat);
     }
@@ -106,7 +106,7 @@ public class Deadline extends Task {
      */
     public boolean equals(Deadline temp) {
         if (this.description == temp.description && this.by == temp.by
-                && this.dateBy == temp.dateBy) {
+            && this.dateBy == temp.dateBy) {
             return true;
         }
         return false;

@@ -73,7 +73,7 @@ public class Event extends Task {
         }
 
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d'"
-                + suffix + "' 'of' MMMM uuuu',' h:mma", Locale.ENGLISH);
+            + suffix + "' 'of' MMMM uuuu',' h:mma", Locale.ENGLISH);
 
         this.dateAt = parsedDate.format(printFormat);
     }

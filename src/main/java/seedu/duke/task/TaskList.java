@@ -179,29 +179,24 @@ public class TaskList {
                 LocalDateTime ldt = list.get(i).getDateTime();
 
                 switch (user_input[1]) {
-                    case "min":
-                        list.get(i).setDateTime(ldt.plusMinutes(num));
-                        break;
-
-                    case "hour":
-                        list.get(i).setDateTime(ldt.plusHours(num));
-                        break;
-
-                    case "day":
-                        list.get(i).setDateTime(ldt.plusDays(num));
-                        break;
-
-                    case "week":
-                        list.get(i).setDateTime(ldt.plusWeeks(num));
-                        break;
-
-                    case "month":
-                        list.get(i).setDateTime(ldt.plusMonths(num));
-                        break;
-
-                    default:
-                        System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
-                        failSnooze = true;
+                case "min":
+                    list.get(i).setDateTime(ldt.plusMinutes(num));
+                    break;
+                case "hour":
+                    list.get(i).setDateTime(ldt.plusHours(num));
+                    break;
+                case "day":
+                    list.get(i).setDateTime(ldt.plusDays(num));
+                    break;
+                case "week":
+                    list.get(i).setDateTime(ldt.plusWeeks(num));
+                    break;
+                case "month":
+                    list.get(i).setDateTime(ldt.plusMonths(num));
+                    break;
+                default:
+                    System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
+                    failSnooze = true;
                 }
             }
 
