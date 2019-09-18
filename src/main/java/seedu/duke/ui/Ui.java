@@ -96,7 +96,7 @@ public class Ui {
     }
 
     /**
-     * Prints an error message if a commad like find, delete, todo, deadline,
+     * Prints an error message if a command like find, delete, todo, deadline,
      * event or others is entered without a following description.
      */
     public void empty_description_error() {
@@ -115,6 +115,24 @@ public class Ui {
             + "or save file. Saving event/deadline as mentioned without date "
             + "time parsing.");
         System.out.println("\t_____________________________________\n\n");
+    }
+
+    /**
+     * Prints an error message when the format of date is wrong when showing schedule.
+     */
+    public void dateFormatError() {
+        System.out.println("\t_____________________________________");
+        System.out.println("\tFormat of date invalid. Please type it in in DD/MM/YYYY");
+        System.out.println("\t_____________________________________");
+    }
+
+    /**
+     * Prints an error message when the format of show command is wrong.
+     */
+    public void showFormatError() {
+        System.out.println("\t_____________________________________");
+        System.out.println("\tShow command invalid. Please only type \"show <DD/MM/YYYY>\"");
+        System.out.println("\t_____________________________________");
     }
 
     /**

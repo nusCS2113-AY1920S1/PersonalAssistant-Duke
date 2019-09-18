@@ -57,9 +57,18 @@ Hello from
 
 
 	_____________________________________
-	Found 2. Here you go.
+	Got it. I've added this task:
+	  [R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
+	Now you have 3 tasks in the list.
+	_____________________________________
+
+
+
+	_____________________________________
+	Found 3. Here you go.
 	  1.[T][✘] have some fun making Duke better
 	  2.[D][✘] finish Duke requirements  (by: 4th of September 2019, 11:59PM)
+	  3.[R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
 	_____________________________________
 
 
@@ -68,6 +77,7 @@ Hello from
 	Here are the tasks in your list:
 	1.[T][✘] have some fun making Duke better
 	2.[D][✘] finish Duke requirements  (by: 4th of September 2019, 11:59PM)
+	3.[R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
 	_____________________________________
 
 

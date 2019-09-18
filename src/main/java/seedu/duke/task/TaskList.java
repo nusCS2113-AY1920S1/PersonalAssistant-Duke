@@ -1,7 +1,9 @@
 package seedu.duke.task;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import seedu.duke.data.Schedule;
 import java.util.Scanner;
 
 import seedu.duke.ui.Ui;
@@ -21,6 +23,8 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
+    private Schedule schedule = new Schedule();
+
 
     /**
      * Initializes list.
@@ -75,23 +79,41 @@ public class TaskList {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Deadline(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
+                    return;
+                } catch (ParseException ignore) {
                     return;
                 }
             } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    String taskDateOnly = taskTime.split(" ", 2)[0];
                     list.add(new Event(taskDescription, taskTime));
+                    if (Schedule.isValidDate(taskDateOnly)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                } catch (ParseException ignore) {
+                    return;
+                }
+            } else if (taskType.equals("range")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
+                    list.add(new RangedTask(taskDescription, taskTime));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
                 }
-            } else {
-                ui.correct_command_error();
-                return;
             }
         }
 
@@ -251,6 +273,10 @@ public class TaskList {
             System.out.println("\t  " + (id + 1) + "." + list.get(id).toString());
         }
         System.out.println("\t_____________________________________\n\n");
+    }
+
+    public Task getLastTask() {
+        return this.list.get(list.size() - 1);
     }
 
     /**
