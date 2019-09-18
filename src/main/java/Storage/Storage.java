@@ -1,5 +1,8 @@
+package Storage;
+
 import java.io.File;
-import java.io.FileReader;
+import Tasks.Task;
+import Tasks.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,8 +13,8 @@ import java.util.Scanner;
 public class Storage {
     String directory = System.getProperty("user.home");
     String fileName = "sample.txt";
-    String absolutePath = "C:\\Users\\Jess\\Documents\\GitHub\\duke\\src\\main\\java\\Save";
-    protected void Storages(String fileContent) throws IOException{
+    private String absolutePath = "Save.txt";
+    public void Storages(String fileContent) throws IOException{
 
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
@@ -20,7 +23,7 @@ public class Storage {
 
     }
 
-    protected ArrayList<Task> Readfile() throws IOException, ParseException {
+    public ArrayList<Task> Readfile() throws IOException, ParseException {
         ArrayList<Task> tlist = new ArrayList<Task>();
         SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
         if(new File(absolutePath).exists()) {
@@ -46,6 +49,15 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
+                } else if (details[0].equals("P")) {
+                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
+                    if(details[1].equals("\u2713")) {
+                        tb.isDone = true;
+                    }
+                    else {
+                        tb.isDone = false;
+                    }
+                    tlist.add(tb);
                 } else {
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){
