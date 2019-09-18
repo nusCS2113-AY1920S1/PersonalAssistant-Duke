@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.exceptions.DukeInvalidTimeException;
 import duke.tasks.Deadline;
 import duke.tasks.Events;
 import duke.tasks.Task;
@@ -38,7 +39,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() {
+    public List<Task> readData() throws DukeInvalidTimeException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 

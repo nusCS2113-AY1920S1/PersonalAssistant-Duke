@@ -1,10 +1,15 @@
 package duke.command;
 
+import duke.exceptions.DukeScheduleException;
+import duke.tasks.Deadline;
+import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.util.TaskList;
 import duke.util.Ui;
 import duke.util.Storage;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 
 
@@ -28,8 +33,33 @@ public class AddCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
-        tasks.add(task);
+    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeScheduleException {
+        if (task.getClass().toString().equals("class duke.tasks.Todo")) {
+            tasks.add(task);
+        } else {
+            HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
+            for (Task temp : tasks.getTasks()) {
+                if (temp.getClass().toString().equals("class duke.tasks.Deadline")) {
+                    Deadline hold = (Deadline) temp;
+                    dateTimeSet.add(hold.getDateTime());
+                } else if (temp.getClass().toString().equals("class duke.tasks.Events")) {
+                    Events hold = (Events) temp;
+                    dateTimeSet.add(hold.getDateTime());
+                }
+            }
+            LocalDateTime taskDateTime;
+            if (task.getClass().toString().equals("class duke.tasks.Deadline")) {
+                Deadline hold = (Deadline) task;
+                taskDateTime = hold.getDateTime();
+            } else {
+                Events hold = (Events) task;
+                taskDateTime = hold.getDateTime();
+            }
+            if (dateTimeSet.contains(taskDateTime)) {
+                throw new DukeScheduleException();
+            }
+            tasks.add(task);
+        }
         ui.addedTaskMsg();
         ui.printTask(task);
         ui.currentTaskListSizeMsg(tasks.getSize());

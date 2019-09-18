@@ -3,6 +3,8 @@ package duke.tasks;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.exceptions.DukeInvalidTimeException;
+
 public class TasksTest {
 
     @Test
@@ -28,9 +30,13 @@ public class TasksTest {
         String dateLabel = "02-10-2012";
         String expectedPrintTodo = "[E][✗] EventTest (at: 02-10-2012 00:00)";
         String expectedWriteTodo = "E|EventTest|0|02-10-2012 00:00";
-        Task test = new Events(taskLabel, dateLabel);
-        assertEquals(expectedPrintTodo, test.toString());
-        assertEquals(expectedWriteTodo, test.writingFile());
+        try {
+            Task test = new Events(taskLabel, dateLabel);
+            assertEquals(expectedPrintTodo, test.toString());
+            assertEquals(expectedWriteTodo, test.writingFile());
+        } catch (DukeInvalidTimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -39,8 +45,12 @@ public class TasksTest {
         String dateLabel = "02/11/2013 1730";
         String expectedPrintTodo = "[D][✗] DeadlineTest (by: 02-11-2013 17:30)";
         String expectedWriteTodo = "D|DeadlineTest|0|02-11-2013 17:30";
-        Task test = new Deadline(taskLabel, dateLabel);
-        assertEquals(expectedPrintTodo, test.toString());
-        assertEquals(expectedWriteTodo, test.writingFile());
+        try {
+            Task test = new Deadline(taskLabel, dateLabel);
+            assertEquals(expectedPrintTodo, test.toString());
+            assertEquals(expectedWriteTodo, test.writingFile());
+        } catch (DukeInvalidTimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

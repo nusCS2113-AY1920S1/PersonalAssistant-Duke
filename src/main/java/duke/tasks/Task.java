@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Task {
@@ -10,6 +13,7 @@ public class Task {
      */
     private String task;
     private Boolean done;
+    protected LocalDateTime dateTime;
 
     /**
      * Constructor to Task class.
@@ -18,6 +22,7 @@ public class Task {
     public Task(String task) {
         this.task = task.trim();
         done = false;
+        this.dateTime = null;
     }
 
     public void setTaskDone() {
@@ -30,6 +35,18 @@ public class Task {
 
     private boolean getDone() {
         return done;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 
     /**
