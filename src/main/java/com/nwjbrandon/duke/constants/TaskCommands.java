@@ -9,7 +9,8 @@ public enum TaskCommands {
     DEADLINE("deadline"),
     DELETE("delete"),
     FIND("find"),
-    BYE("bye");
+    BYE("bye"),
+    SNOOZE("snooze");
 
     /**
      * Name of the tasks commands.

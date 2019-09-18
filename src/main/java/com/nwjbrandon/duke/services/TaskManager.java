@@ -3,15 +3,7 @@ package com.nwjbrandon.duke.services;
 import com.nwjbrandon.duke.constants.TaskCommands;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
-import com.nwjbrandon.duke.services.command.Command;
-import com.nwjbrandon.duke.services.command.DeadlinesCommand;
-import com.nwjbrandon.duke.services.command.DeleteCommand;
-import com.nwjbrandon.duke.services.command.DoneCommand;
-import com.nwjbrandon.duke.services.command.EventsCommand;
-import com.nwjbrandon.duke.services.command.InvalidCommand;
-import com.nwjbrandon.duke.services.command.ListCommand;
-import com.nwjbrandon.duke.services.command.SearchCommand;
-import com.nwjbrandon.duke.services.command.TodosCommand;
+import com.nwjbrandon.duke.services.command.*;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.task.Deadlines;
@@ -173,6 +165,8 @@ public class TaskManager {
         } else if (userInput.equals(TaskCommands.BYE.toString())) {
             isRunning = false;
             return new InvalidCommand();
+        } else if (userInput.startsWith(TaskCommands.SNOOZE.toString())) {
+            return new SnoozeCommand(userInput, TaskCommands.SNOOZE.toString(), size);
         } else {
             throw new DukeWrongCommandException();
         }
