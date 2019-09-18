@@ -1,0 +1,40 @@
+About Us
+AddressBook - Level 3 was developed by the se-edu team.
+{The dummy content given below serves as a placeholder to be used by future forks of the project.}
+
+We are a team based in the School of Computing, National University of Singapore.
+
+Project Team
+John Doe
+damithc
+[homepage] [github] [portfolio]
+
+Role: Project Advisor
+
+John Roe
+lejolly
+[github] [portfolio]
+
+Role: Team Lead
+Responsibilities: UI
+
+Johnny Doe
+yijinl
+[github] [portfolio]
+
+Role: Developer
+Responsibilities: Data
+
+Johnny Roe
+m133225
+[github] [portfolio]
+
+Role: Developer
+Responsibilities: Dev Ops + Threading
+
+Benson Meier
+yl coder
+[github] [portfolio]
+
+Role: Developer
+Responsibilities: UI
