@@ -10,7 +10,7 @@ public class ViewSchedule extends Command {
             throw new DukeException("OOPS!!! The date to search for cannot be empty.");
         }
 
-        input = input.substring(5,input.length()-5);
+        input = input.substring(5);
 
         if (taskList.getSize() == 0) {
             throw new DukeException("You have no tasks in your list");
@@ -23,7 +23,7 @@ public class ViewSchedule extends Command {
         int i = 0;
         while (i < taskList.getSize()) {
             Task task = taskList.getTask(i);
-            if (task.description.contains(input)) {
+            if (task.toString().contains(input)) {
                 schedule += start + "." + task.toString() + "\n";
                 start++;
                 found = true;
