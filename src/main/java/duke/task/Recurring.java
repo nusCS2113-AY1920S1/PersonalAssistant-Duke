@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Recurring extends Task {
+
+
     enum RecurrencePeriod {DAILY, WEEKLY}
 
     private Ui ui;
@@ -42,6 +44,10 @@ public class Recurring extends Task {
                 recurrencePeriod = RecurrencePeriod.WEEKLY;
         }
         recurringTaskScheduler();
+    }
+
+    public RecurrencePeriod getRecurrencePeriod() {
+        return recurrencePeriod;
     }
 
     public void recurringTaskScheduler() {
