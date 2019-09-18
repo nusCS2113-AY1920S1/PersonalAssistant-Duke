@@ -87,6 +87,7 @@ public class Storage {
 		        fileInput.close();
 		        in.close();
 		    } catch (IOException | ClassNotFoundException e) {
+		    	e.printStackTrace();
 		    	throw new DukeLoadingException(fileFullPath);
 		    }
 		}
