@@ -126,12 +126,29 @@ Examples:
 Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
 Format: `remind`
 
-=== 3.8 Exiting the program : `bye`
+=== 3.8 Viewing my Schedule : `show`
+
+Prints the schedule for a user defined date. +
+Format: `show DATE`
+
+****
+* Shows the tasks in the schedule for the specified `DATE`
+* The `DATE` should be in dd/MM/yyyy format.
+****
+
+Examples:
+
+****
+* `show 30/10/2019` +
+   Shows all task scheduled for 30/10/2019.
+****
+
+=== 3.9 Exiting the program : `bye`
 
 Exits the program. +
 Format: `bye`
 
-=== 3.9 Saving the data
+=== 3.10 Saving the data
 
 Save the tasks in the hard disk automatically whenever the task list changes.
 There is no need to save manually.
