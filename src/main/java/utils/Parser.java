@@ -90,6 +90,8 @@ public class Parser {
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("SNOOZE")) {
+            temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else {
