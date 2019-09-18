@@ -67,7 +67,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size()==0) ? "" : ( " (Precondition: " + this.getPrecondition() + ")"))
+        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size()==0) ? "" : ( " (Precondition: " + this.getPrecondition() + ")"));
     }
   
   /**
@@ -120,17 +120,6 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
-
-
-    /**
-     * how the task looks like in console
-     * @return
-     *          a string about how the task looks like
-     */
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
-    }
-
 
     /**
      * This abstract method return the String for saving the task object in txt file.
