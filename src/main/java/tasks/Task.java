@@ -99,7 +99,7 @@ public abstract class Task {
                 }
             }
             for ( int i = 0; i < preconditionIndex.length; i++) {
-                if (preconditionIndex[i] < 0 || preconditionIndex[i] >= tasks.size()) {
+                if (preconditionIndex[i] <= 0 || preconditionIndex[i] > tasks.size()) {
                     throw new DukeException("Prerequisite task sequence number out of range.");
                 }
                 this.addPrecondition(tasks.get(preconditionIndex[i] - 1));
