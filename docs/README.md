@@ -10,9 +10,9 @@ This user guide aims to help you learn your way around our app, making the learn
 ### 3.1 Adding a task : `todo/deadline/event`
 Adds a todo/deadline/event to the tasklist.
 
-Format: `todo DESCRIPTION`
-        `deadline DESCRIPTION /by dd/mm/yyyy hhmm`
-        `event DESCRIPTION /at dd/mm/yyyy hhmm`
+Format: `todo DESCRIPTION`  
+        `deadline DESCRIPTION /by dd/mm/yyyy hhmm`  
+        `event DESCRIPTION /at dd/mm/yyyy hhmm`  
         
   - `DESCRIPTION` is the description of the task.
   - `dd/mm/yyyy hhmm` is the day/month/year and time (24hrs) of the task e.g. `9/9/2019 1200`
@@ -31,8 +31,8 @@ Format: `delete INDEX`
   - The index must be a positive integer 1, 2, 3, ...
   
 Examples:
-  - `list`
-    `delete 2`
+  - `list`  
+    `delete 2`  
     Deletes the 2nd task in the task list.
   
 ### 3.3 Finding tasks : `find`
@@ -44,7 +44,7 @@ Format: `find KEYWORD`
   - Only full words will be matched e.g. `books` will not match `book`
   
 Examples:
-  - `find book`
+  - `find book`  
   Returns any task with the descriptions containing the keyword.
 
 
@@ -56,7 +56,7 @@ Format: `done INDEX`
   - The index refers to the index shown in the displayed task list.
   
 Examples:
-  - `done 1`
+  - `done 1`  
   Marks the 1st task in the task list as done.
 
 ### 3.5 Listing all the tasks : `list`
@@ -67,15 +67,15 @@ Format: `list`
 ### 3.6 Snoozing a task : `snooze`
 Provides a way to easily snooze/postpone/reschedule a task.
 
-Format: `snooze INDEX`
+Format: `snooze INDEX`  
         `NUMBER min/hour/day/week/month`
   - Snoozes the task as done at the specified `INDEX`
   - The index refers to the index shown in the displayed task list.
   - `NUMBER` refers to the quantity of the `min/hour/day/week/month`
   
-Examples:
-  - `snooze 1`
-    `1 week`
+Examples:  
+  - `snooze 1`  
+    `1 week`  
     Snoozes the 1st task in the task list by 1 week.
   
   
@@ -86,7 +86,6 @@ Format: `bye`
 
 ### 3.8 Saving the data
 Save the tasks in the hard disk automatically whenever the task list changes.
-Load the data from the hard disk whe Duke starts up.
 There is no need to save manually.
 
 ## Usage
