@@ -56,10 +56,13 @@ public class Parser {
 				return new HelpCommand();
 			case "find":
 				return new FindCommand(description);
+			case "freetime":
+				return new FreeTimeCommand(description);
+			case "reminder":
+				return new ReminderCommand();
 			case "bye":
 			case "exit":
 			case "quit":
-			case "fuck":
 				return new ExitCommand();
 			default:
 				throw new DukeException(Message.INVALID_COMMAND);
@@ -127,6 +130,9 @@ public class Parser {
 	 * @return the string of date.
 	 */
 	public static String parseDateToString(Date date) {
+		if (date == null) {
+			return "";
+		}
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		return formatter.format(date);

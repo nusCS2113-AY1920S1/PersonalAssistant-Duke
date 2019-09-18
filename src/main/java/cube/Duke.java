@@ -1,8 +1,10 @@
-package cube; /**
+/**
  * This is the main entrance of Duke programme.
  *
  * @author tygq13
  */
+package cube;
+
 import cube.exception.*;
 import cube.task.TaskList;
 import cube.ui.Ui;
@@ -27,7 +29,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(filePath);
             tasks = new TaskList();
         }
     }
