@@ -24,9 +24,20 @@
 
 ## User Interface
 
-![UI image](docs/UI.png)
+![UI image](docs/images/UI.png)
 
 ## How to use
+- add command
+  - Deadline task: `add deadline [description] /by [deadline]`
+  - Event task: `add event [description] /at [time]`
+  - Last task(no start or end time): `add last [description] /last [duration]`
+  - Period task: `add period [description] /from [start time] /to [end time]`
+  - Todo task: `add todo [description]`
+- delete command: `delete [index of the task]`
+- done command: `done [index of the task]`
+- find command: `find [keyword]`
+- list command: `list`
+- bye command: `bye`  
 
 
 ## Duke Increment
