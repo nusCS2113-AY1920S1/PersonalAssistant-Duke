@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.Time;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -8,6 +10,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected char type;
+    protected LocalDateTime date = Time.readDateTime("01/01/0001 0000"); // Default date
 
     public Task(String description) {
         this.description = description;
@@ -27,8 +30,12 @@ public class Task {
         isDone = true;
     }
 
-    public String getDate() {
+    public String getDateStr() {
         return "";
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public String timeToString(LocalDateTime time) {
@@ -38,7 +45,7 @@ public class Task {
     }
 
     public String getTask() {
-        return "[" + type + "][" + getStatusIcon() + "] " + description + getDate();
+        return "[" + type + "][" + getStatusIcon() + "] " + description + getDateStr();
     }
 
     public String formatDateSave() {

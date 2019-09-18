@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -15,11 +16,16 @@ public class Time {
      * @param timeStr String that should be converted into DateTImeFormatter type.
      * @return A LocalDateTime variable that the computer can understand as time.
      */
-    public static LocalDateTime readTime(String timeStr) {
+    public static LocalDateTime readDateTime(String timeStr) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
             LocalDateTime time = LocalDateTime.parse(timeStr, formatter);
 //            System.out.println(time);
             return time;
+    }
 
+    public static LocalDate readDate (String timeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        LocalDate time = LocalDate.parse(timeStr, formatter);
+        return time;
     }
 }
