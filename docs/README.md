@@ -1,3 +1,5 @@
+# AlgoSenpai
+
 # User Guide
 
 ## Features 
