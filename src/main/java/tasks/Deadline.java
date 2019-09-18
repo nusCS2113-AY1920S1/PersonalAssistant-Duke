@@ -3,16 +3,26 @@ package tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Deadline extends Task {
-    @Override
-    public void setTime(Date by) {
-        this.by = by;
-    }
+/**
+ * a task has deadline
+ * command is "add deadline [description] /by [deadline time]"
+ */
 
-    protected Date by;
+public class Deadline extends Task {
 
     /**
-     * This is a class for abstraction of a Deadline type task.
+     * a Date variable specifies the ddl of this task
+     */
+    protected Date by;
+
+
+    /**
+     * default constructor of Deadline
+     */
+    public Deadline() { }
+
+    /**
+     * another constructor of Deadline
      * @param description The description, or content of deadline
      * @param by the time when this task due
      */
@@ -21,16 +31,31 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description) {
-        super(description);
+    /**
+     * set the deadline
+     * @param by
+     *          deadline of this task
+     */
+    public void setTime(Date by) {
+        this.by = by;
     }
 
-    @Override
+    /**
+     * @Override toString() in Task
+     * a method to format the output of the task list
+     * @return string
+     *              how task list will print out in console
+     */
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    @Override
+    /**
+     * @Override dataString() in Task
+     * a method to format the data list data store in file
+     * @return string
+     *              a string which will show in data file that store the task list
+     */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
         return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.by);

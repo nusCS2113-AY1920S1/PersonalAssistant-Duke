@@ -7,6 +7,9 @@ import core.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "done" command
+ */
 public class DoneCommand extends Command {
     private String line;
 

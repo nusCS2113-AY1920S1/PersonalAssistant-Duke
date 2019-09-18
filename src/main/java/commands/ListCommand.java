@@ -5,6 +5,9 @@ import utils.Storage;
 import core.Ui;
 import java.util.ArrayList;
 
+/**
+ * This class is to handle "list" command
+ */
 public class ListCommand extends Command {
     /**
      * This is a class for command LIST, which list all the tasks in the task list.
