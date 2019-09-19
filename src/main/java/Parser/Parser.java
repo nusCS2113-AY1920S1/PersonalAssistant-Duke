@@ -52,7 +52,7 @@ public class Parser {
                 }
             }
         }
-        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after|within|fixed|snooze")) {
+        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after|within|fixed|snooze|schedule")) {
             if(!temp.hasNextLine())
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             String input = temp.nextLine();
@@ -76,6 +76,11 @@ public class Parser {
                 }
                 //reading task list
                 else if (command.matches("find"))
+                {
+                    return new SearchCommand(command, input);
+                }
+
+                else if (command.matches("schedule"))
                 {
                     return new SearchCommand(command, input);
                 }

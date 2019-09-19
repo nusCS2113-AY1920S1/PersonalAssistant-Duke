@@ -6,6 +6,7 @@ import Parser.Parser;
 
 import java.util.ArrayList;
 
+
 /**
  * Tasklist stores an arraylist of tasks and performs actions on tasks
  * Actions: Modify/Remove/Add Tasks
@@ -257,6 +258,49 @@ public class TaskList {
     }
 
     /**
+     * Shows the schedule if the input matches any of the dates in the tasklist
+     * @param input String to be matches to description/date
+     * @throws DukeException DukeException to be thrown when errors occur somehow
+     */
+
+    public void view_schedule(String input) throws DukeException {
+        ArrayList<Integer> foundDate = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getDueDate().contains(input)) {
+                foundDate.add(i);
+            }
+        }
+        if(foundDate.isEmpty())
+            System.out.println("You have no tasks today. Enjoy!");
+        else
+        {
+            System.out.println("Here's what the day looks like:");
+            for (Integer found_date : foundDate) {
+                System.out.println((found_date + 1) + ". " + this.get(found_date).toList());
+            }
+        }
+    }
+
+    /**
+        *Checks if there is any event with the same start time, that could lead to a conflict
+        *The AddCommand class is classified to check for such instances when the type of task is an "Event"
+     */
+    public void conflict_check() throws DukeException {
+        ArrayList<String> check_conflict = new ArrayList<>();
+        for(int i = 0; i < list.size() - 1; i++) {
+           check_conflict.add(list.get(i).getDueDate());
+        }
+
+        for (int i = 0; i < check_conflict.size(); i++) {
+            if(check_conflict.get(i).equals(list.get(list.size() -1).getDueDate())) {
+                System.out.println("There is a conflict in the schedule!");
+                break;
+            }
+        }
+    }
+
+    /**
      * Prints out all tasks in list
      * If list is empty, prints out message stating that it is empty
      */
@@ -270,4 +314,5 @@ public class TaskList {
             }
         }
     }
+
 }
