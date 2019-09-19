@@ -1,4 +1,5 @@
-# Setting up
+# Dolla
+Dolla is an expense tracker targeted at NUS students staying on campus.
 
 **Prerequisites**
 

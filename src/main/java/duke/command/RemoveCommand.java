@@ -50,8 +50,6 @@ public class RemoveCommand extends Command {
             Ui.printMsg(msg);
             return;
         }
-
         Ui.printMsg(msg);
-
     }
 }

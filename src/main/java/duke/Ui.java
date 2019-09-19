@@ -24,6 +24,7 @@ public class Ui {
     /**
      * This method prints the strings of text from 'msg' with the proper format. Each element
      * from 'msg' is a line of text to be printed.
+     *
      * @param msg ArrayList of strings containing the messages to be printed.
      */
     public static void printMsg(ArrayList<String> msg) {
@@ -39,9 +40,10 @@ public class Ui {
     /**
      * This method prints the details of the specified task and specified duke.task.TaskList size.
      * <p>
-     *     This method is typically called when a task is created, so that the user can
-     *     check the details of the created task.
+     * This method is typically called when a task is created, so that the user can
+     * check the details of the created task.
      * </p>
+     *
      * @param currTask duke.task.Task to be printed.
      * @param listSize Size of the duke.task.TaskList.
      */
@@ -60,17 +62,31 @@ public class Ui {
 
     public static void printDateTimeFormatError() {
         ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY HHmm'!" );
+        msg.add("Please use the format 'DD/MM/YYYY HHmm'!");
         Ui.printMsg(msg);
     }
 
     public static void printDateFormatError() {
         ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY'!" );
+        msg.add("Please use the format 'DD/MM/YYYY'!");
         Ui.printMsg(msg);
     }
 
-    public static void printFixDurationTaskError(){
+    public static void printFixDurationTaskError() {
         System.out.println("Sorry, please enter a valid fix duration task.");
     }
-}
+        /**
+         * This method will print the error message when the user enter a invalid recurring event.
+         */
+        public static void printRecurringTaskError() {
+            System.out.println("Sorry, please enter a valid recurring event.");
+        }
+
+        /**
+         * This method will print the error message when the user enter a invalid day of the week
+         */
+        public static void printInvaidDayInput() {
+            System.out.println("Sorry,please enter a valid day of the week.");
+        }
+
+    }

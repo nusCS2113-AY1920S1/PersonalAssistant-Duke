@@ -1,0 +1,23 @@
+= Dolla - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+
+
+By: `Team [no name]`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+Dolla is for those who *prefer to use a desktop app for keeping track of expenses*. Dolla is also optimized for users who prefer to use *Command Line Interface (CLI)* along with the benefits of a Graphical User Interface (GUI). 
+
+<< insert GUI mockup here >>
+
+== Quick Start
+
+== Features
+
+== FAQ
+
+== Command Summary

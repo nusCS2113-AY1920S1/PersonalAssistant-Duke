@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * duke.Storage handles the saving and loading of data from ./data/duke.txt.
+ * duke.Storage handles the saving and loading of data from ./data/duke.txt, as well as creating a new save file if it does not exist
  */
 public class Storage {
 
     /**
-     * Returns a duke.task.TaskList containing tasks from a save file (if available),
+     * Returns a duke.task.TaskList containing tasks from a save file (if available, else create one),
      * else returns an empty duke.task.TaskList.
      * <p>
      *     This method first tries to read from ./data/duke.txt. For every line
@@ -57,6 +57,8 @@ public class Storage {
                     newTask = new Event(inArray[2], Time.readDateTime(inArray[3])); //TODO: Update readTime
                 } else if (type.equals("D")) {
                     newTask = new Deadline(inArray[2], Time.readDateTime(inArray[3]));
+                } else if (type.equals("R")) {
+                    newTask = new RecurringTask(inArray[2],inArray[3]);//task description and day of the week.
                 }
                 else if (type.equals("W")){
                     newTask = new FixDuration(inArray[2], inArray[3]); //task description and time duration
@@ -72,6 +74,7 @@ public class Storage {
             // exception handling
 //            System.out.println("*** File not found :( ***");
             msg.add("Looks like it's your first time, let me create a save file for you :)");
+            createFolder();
         } catch (IOException e) {
             // exception handling
             System.out.println("*** there was an error reading duke.txt ***");
@@ -104,4 +107,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Create save file called data in root folder.
+     */
+    public static  void createFolder() {
+        File f = new File("data");
+        if (!f.exists()) {
+            //System.out.println("creating directory");
+            boolean result = false;
+            try {
+                f.mkdir();
+                result = true;
+            } catch (SecurityException e) {
+                //handle
+            }
+            if (result) {
+                //System.out.println("Folder created");
+            }
+        }
+    }
 }

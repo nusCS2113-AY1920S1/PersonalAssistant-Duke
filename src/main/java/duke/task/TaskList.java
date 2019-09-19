@@ -23,4 +23,6 @@ public class TaskList {
     public Task getFromList(int index) { return list.get(index); }
 
     public void removeFromList(int index) { list.remove(index); }
+
+    public void replaceTask(int index, Task newTask) { list.set(index, newTask); }
 }
