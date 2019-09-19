@@ -87,8 +87,7 @@ public class AddCommand extends Command {
                 event = (Event) taskList.get_first_e(sections,0);
                 if(event.has_date()) {
                     if(conflict_checker.is_conflict(event)) {
-                        System.out.println("conflict");
-                        throw new DukeException("A conflict is detected in your schedule", "event");
+                        throw new DukeException("", "conflict");
                     }
                     else {
                         taskList.add(event);
@@ -101,7 +100,7 @@ public class AddCommand extends Command {
                 storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), event);
             } catch (Exception e) {
-                throw new DukeException(message, "event");
+                throw new DukeException("", "conflict");
             }
         }
         case "betw":{
