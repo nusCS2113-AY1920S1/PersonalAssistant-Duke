@@ -62,7 +62,12 @@ public class Parser {
             } else if (isFind(input)) {
                 processFind(input, tasklist, ui);
 
-            } else {
+ /*           } else if(isSnooze(input)) {
+
+            } else if(isPropstone(input)){
+
+            } else if(isReschedule(input)) {*/
+            } else{
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
             }
