@@ -64,7 +64,7 @@ public class TaskList {
      * @param hours duration of task.
      */
     public void addTodoItem(int index, String todoitem, int afterIndex, int hours) {
-        taskList.add(new Todo(index, todoitem, hours)); //Use the constructor to create a new Task.
+        taskList.add(new Todo(index, todoitem, afterIndex, hours)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
         System.out.println("Hours needed: " + hours);
         setListIndex(index + 1); //Next open index.

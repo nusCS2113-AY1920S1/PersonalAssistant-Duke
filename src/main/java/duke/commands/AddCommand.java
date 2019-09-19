@@ -32,10 +32,10 @@ public class AddCommand extends Command {
         int currentIndex = -1;
         //Section for handling doAfters.
         //Using the indexes presented to the user.
-        if (afterIndex > 0 && afterIndex >= list.getSize()) { //Referring to a nonexistent task
+        if (afterIndex > 0 && afterIndex > list.getSize()) { //Referring to a nonexistent task
             throw new BadInputException("This is not a valid task. (to do after)");
         } else if (afterIndex > 0) { //afterIndex is -1 if there is nothing to do before.
-            currentIndex = list.getTaskList().get(afterIndex).getTaskIndex();
+            currentIndex = list.getTaskList().get(afterIndex - 1).getTaskIndex(); //0-indexed list!
             //Permanent index of the task to doAfter.
         }
 

@@ -27,7 +27,7 @@ public class Todo extends Task {
     @Override
     public String toString() {
         if (duration > 0) {
-            return  super.toString() + " (needs " + duration + "hours)";
+            return  super.toString() + " (needs " + duration + " hours)";
         }
         return super.toString();
     }
