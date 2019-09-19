@@ -78,6 +78,17 @@ public class Parser{
                     System.out.println(format("     Please indicate the date or time of the event with the right format\n"));
                 }
                 break;
+            case "time":
+                try {
+                    command = command.substring(5);
+                    String[] ti = command.split(" ");
+                    FixedDuration fixedDuration = new FixedDuration(ti[0], ti[1]);
+                    cmd = new CommandAdd(fixedDuration);
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(format("     Description of time task cannot be empty\n"));
+                }
+                break;
             default:
                 cmd = new CommandUnknown();
                 break;

@@ -24,7 +24,7 @@ public class Duke{
         storage.write(tasks.list());
     }
 
-    public static  void main(String args[]) throws Exception {
+    public static void main(String args[]) throws Exception {
         new Duke("data.txt").run();
     }
 }
