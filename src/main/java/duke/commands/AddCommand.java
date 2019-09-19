@@ -231,6 +231,20 @@ public class AddCommand extends Command {
             }
 
         }
+        case "fixe": {
+            if(message.length() < 14 || !message.substring(4, 14).equals("dDuration ")){
+                throw new DukeException(message);
+            }
+            try {
+                String[] sections = message.substring(14).split(" /need ");
+                Task fixedDurationTask = new FixedDurationTask(sections[0], sections[1]);
+                taskList.add(fixedDurationTask);
+                storage.updateFile(taskList);
+                return ui.formatAdd(taskList.getTaskList(), fixedDurationTask);
+            } catch (Exception e) {
+                throw new DukeException(message, "fixedDuration");
+            }
+        }
         default: {
             throw new DukeException(message);
         }
