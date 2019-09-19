@@ -256,20 +256,21 @@ public class TaskList {
         Event eventBeforeFreeTime = eventSortedList.get(0);
         int curMaxFreeHours = 0;
 
-        for (int i = 0; i < eventSortedList.size(); i++) {
+        for (int i = 1; i < eventSortedList.size(); i++) {
             DateTime nextStartTime = eventSortedList.get(i).getEventStartTimeObj();
-            DateTime nextEndTime = eventSortedList.get(i).getEventStartTimeObj();
+            DateTime nextEndTime = eventSortedList.get(i).getEventEndTimeObj();
 
             int compare = latestEndTime.getAt().compareTo(nextStartTime.getAt());
             // latestEndTime is earlier than nextStartTime
             if (compare < 0) {
                 // Getting number of hours between latestEndTime and nextStartTime
                 long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
-                int potentialMaxFreeHours = (int) (ms / (1000 * 60 * 60));
+                int potentialMaxFreeHours = (int) ((float)ms / (1000 * 60 * 60));
+                System.out.println(potentialMaxFreeHours);
 
                 if (potentialMaxFreeHours >= curMaxFreeHours) {
                     curMaxFreeHours = potentialMaxFreeHours;
-                    eventBeforeFreeTime = eventSortedList.get(i);
+                    eventBeforeFreeTime = eventSortedList.get(i - 1);
                 }
 
                 // Since curEndTime is earlier than or equal to nextStartTime, it is guaranteed that
@@ -278,7 +279,7 @@ public class TaskList {
                 latestEndTime = nextEndTime;
 
                 if (curMaxFreeHours >= reqFreeHours) {
-                    eventBeforeFreeTime = eventSortedList.get(i);
+                    eventBeforeFreeTime = eventSortedList.get(i - 1);
                     break;
                 }
             }
