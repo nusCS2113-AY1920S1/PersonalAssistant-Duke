@@ -10,7 +10,10 @@ public class ToDo extends Task {
     private Date dateFrom;
     private Date dateTo;
 
-    // Initialization
+    /**
+     * Constructor for Class.
+     * @param name The user input from CLI
+     */
     public ToDo(String name) {
         super(name);
         this.taskType = TaskType.TODO;
