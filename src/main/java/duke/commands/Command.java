@@ -13,7 +13,7 @@ import duke.Storage;
 public class Command {
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, BYE, LIST, DONE, DELETE, FIND, BAD
+        TODO, DEADLINE, EVENT, BYE, LIST, SNOOZE, DONE, DELETE, FIND, BAD
     }
 
     protected CommandType type;

@@ -7,6 +7,7 @@ import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
 import duke.items.Event;
+import duke.items.Snooze;
 
 /**
  * Manages the list of (different types of classes),
@@ -104,6 +105,10 @@ public class TaskList {
         }
     }
 
+    public Task getTask(int i) {
+        return taskList.get(i);
+    }
+
     /**
      * Deletes a task of the user's choice.
      *
@@ -139,6 +144,25 @@ public class TaskList {
             taskList.get(i).markAsDone(); //Mark task as done.
             System.out.print("Nice! I've marked this task as done: ");
             System.out.println(taskList.get(i).getDescription()); //Prints task name
+        } catch (IndexOutOfBoundsException e) {
+            printTaskNonexistent();
+        }
+    }
+
+    /**
+    * Snooze a task for a day.
+    * @param i the index of the task to be snoozed.
+    */
+    public void snoozeTask(int i) {
+        try {
+            Task task = taskList.get(i);
+            if (task instanceof Snooze) {
+                ((Snooze) taskList.get(i)).snooze(); //Snooze task.
+                System.out.print("Nice! I've snoozed this task: ");
+                System.out.println(taskList.get(i).getDescription()); //Prints task name
+            } else {
+                System.out.println("Only Events and Deadlines are able to be snoozed!");
+            }
         } catch (IndexOutOfBoundsException e) {
             printTaskNonexistent();
         }
