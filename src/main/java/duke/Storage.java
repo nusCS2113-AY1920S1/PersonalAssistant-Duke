@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import duke.TaskList;
+import duke.exceptions.BadInputException;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
@@ -63,6 +64,8 @@ public class Storage {
 
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
+        } catch (BadInputException e) {
+            System.out.println("Save file corrupted. Please fix it manually or use a new list.");
         }
 
         TaskList list = new TaskList(savedList, listIndex);

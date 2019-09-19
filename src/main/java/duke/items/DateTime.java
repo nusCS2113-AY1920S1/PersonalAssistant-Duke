@@ -1,5 +1,7 @@
 package duke.items;
 
+import duke.exceptions.BadInputException;
+
 import java.util.Calendar;
 import java.util.List;
 //TODO: Import an existing datetime class or write a better one.
@@ -17,7 +19,7 @@ public class DateTime {
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
      */
-    public DateTime(String dateAndTime) {
+    public DateTime(String dateAndTime) throws BadInputException {
         this.dateAndTime = dateAndTime;
         Calendar calendar = Calendar.getInstance();
         try {
@@ -37,23 +39,16 @@ public class DateTime {
             calendar.set(Calendar.SECOND, 0);
 
             this.at = calendar;
-            valid = true;
         } catch (Exception e) {
-            System.out.println("Improper datetime. Correct format: dd/mm/yyyy hhmm\nTask is still registered.");
-            valid = false;
+            throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nPlease enter task again.");
         }
     }
-
 
     /**
      * Returns the date in a friendlier format.
      */
     public String returnFormattedDate() {
-        if (valid) {
-            return ("" + at.getTime());
-        } else {
-            return dateAndTime;
-        }
+        return ("" + at.getTime());
     }
 
 }
