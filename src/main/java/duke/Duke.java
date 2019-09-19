@@ -1,6 +1,7 @@
 package duke;
 
 import duke.commands.Command;
+import duke.exceptions.BadInputException;
 
 /**
  * Duke is a task list that supports 3 types of classes - Todos, deadlines and events.
@@ -18,7 +19,7 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = new TaskList(storage.load()); //Will always return the right object even if empty.
+        taskList = storage.load(); //Will always return the right object even if empty.
         parser = new Parser();
     }
 
@@ -32,7 +33,11 @@ public class Duke {
             ui.printNewLine();
             userInput = ui.read();
             command = parser.parse(userInput);
-            command.execute(taskList, ui, storage);
+            try {
+                command.execute(taskList, ui, storage);
+            } catch (BadInputException e) {
+                System.out.println(e);
+            }
         } while (command.getType() != Command.CommandType.BYE);
 
     }

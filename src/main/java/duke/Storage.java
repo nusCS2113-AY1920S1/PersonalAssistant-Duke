@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import duke.exceptions.BadInputException;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
@@ -24,28 +25,28 @@ public class Storage {
     /**
      * Converts save file details into Tasks.
      */
-    public ArrayList<Task> load() {
-        ArrayList<Task> savedList = new ArrayList<>();
-
+    public TaskList load() {
+        ArrayList<Task> savedList = new ArrayList<Task>();
+        int listIndex = 0;
         File f = new File(filePath); //Create a File for the given file path
 
         try {
             Scanner s = new Scanner(f); //Create a Scanner using the File as the source
+
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
-                String[] item = itemRaw.split("/", 4);
+                String[] item = itemRaw.split("/", 5);
 
-                switch (item[0]) {
+                switch (item[1]) {
                 case "T":
-                    savedList.add(new Todo(item[2]));
-
+                    savedList.add(new Todo(Integer.parseInt(item[0]), item[3], ""));
                     break;
                 case "D":
-                    savedList.add(new Deadline(item[2], item[3]));
+                    savedList.add(new Deadline(Integer.parseInt(item[0]), item[3], item[4], ""));
 
                     break;
                 case "E":
-                    savedList.add(new Event(item[2], item[3]));
+                    savedList.add(new Event(Integer.parseInt(item[0]), item[3], item[4], ""));
 
                     break;
                 default:
@@ -54,15 +55,20 @@ public class Storage {
                     break;
                 }
 
-                if (item[1].equals("1")) {
-                    savedList.get(savedList.size() - 1).markAsDone();  //Refers to the last added item.
+                if (item[2].equals("1")) {
+                    savedList.get(savedList.size() - 1).markAsDone();
                 }
             }
+            listIndex = savedList.get(savedList.size() - 1).getTaskIndex() + 1;
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
+        } catch (BadInputException e) {
+            System.out.println("Save file format wrong. Please fix it manually or use a new list.");
+        } catch (Exception e) {
+            System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return savedList; //Returns an array of Task objects
+        return new TaskList(savedList, listIndex); //Returns a TaskList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {

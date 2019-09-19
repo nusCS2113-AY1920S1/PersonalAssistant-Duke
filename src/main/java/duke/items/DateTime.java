@@ -1,6 +1,9 @@
 package duke.items;
 
+import duke.exceptions.BadInputException;
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 //TODO: Import an existing datetime class or write a better one.
 /**
@@ -12,12 +15,14 @@ import java.util.List;
 public class DateTime {
     private String dateAndTime;
     private boolean valid;
-    private Calendar at;
+    private Date at;
 
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
+     *
+     * @param dateAndTime String representing date and time in format of "DD/MM/YYYY HHMM"
      */
-    public DateTime(String dateAndTime) {
+    public DateTime(String dateAndTime) throws BadInputException {
         this.dateAndTime = dateAndTime;
         Calendar calendar = Calendar.getInstance();
         try {
@@ -36,14 +41,27 @@ public class DateTime {
             // set seconds to be 0 by default
             calendar.set(Calendar.SECOND, 0);
 
-            this.at = calendar;
-            valid = true;
+            this.at = calendar.getTime();
         } catch (Exception e) {
-            System.out.println("Inproper datetime. Correct format: dd/mm/yyyy hhmm\n Task is still registered.");
-            valid = false;
+            throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
         }
     }
 
+    /**
+     * Returns the Date in the DateTime object.
+     * @return Time in Calendar-Date format.
+     */
+    public Date getAt() {
+        return at;
+    }
+
+    /**
+     * Sets the calendar date.
+     * @param date to be set.
+     */
+    public void setDate(Date date) {
+        at = (date);
+    }
 
 
     public Calendar getCalendar() {
@@ -53,11 +71,7 @@ public class DateTime {
      * Returns the date in a friendlier format.
      */
     public String returnFormattedDate() {
-        if (valid) {
-            return ("" + at.getTime());
-        } else {
-            return dateAndTime;
-        }
+        return ("" + at);
     }
 
 }

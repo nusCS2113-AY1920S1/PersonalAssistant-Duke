@@ -1,10 +1,15 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import duke.exceptions.BadInputException;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
 import duke.items.Event;
+import duke.items.Snooze;
 
 /**
  * Manages the list of (different types of classes),
@@ -14,12 +19,15 @@ import duke.items.Event;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    private int listIndex;
 
-    public TaskList(ArrayList<Task> savedFile) {
+    public TaskList(ArrayList<Task> savedFile, int lastIndex) {
         taskList = savedFile;
+        listIndex = lastIndex;
     }
 
     public TaskList() {
+        listIndex = 0;
         taskList = new ArrayList<Task>();
     }
 
@@ -27,20 +35,39 @@ public class TaskList {
         return taskList;
     }
 
-
     public int getSize() {
         return taskList.size();
     }
 
+    public void setListIndex(int index) {
+        listIndex = index;
+    }
+
+    public int getListIndex() {
+        return listIndex;
+    }
 
     /**
      * Adds a todo item to the list and prints a confirmation.
      *
      * @param todoitem the description of the task.
      */
-    public void addTodoItem(String todoitem) {
-        taskList.add(new Todo(todoitem)); //Use the constructor to create a new Task.
+    public void addTodoItem(int index, String todoitem, String doAfter) {
+        taskList.add(new Todo(index, todoitem, doAfter)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
+        setListIndex(index + 1); //Next open index.
+    }
+
+    /**
+     * Adds a todo item to the list but with duration.
+     * @param todoitem description of the task.
+     * @param hours duration of task.
+     */
+    public void addTodoItem(int index, String todoitem, String doAfter, int hours) {
+        taskList.add(new Todo(index, todoitem, doAfter, hours)); //Use the constructor to create a new Task.
+        System.out.println("Todo item added: " + todoitem);
+        System.out.println("Hours needed: " + hours);
+        setListIndex(index + 1); //Next open index.
     }
 
     /**
@@ -48,10 +75,16 @@ public class TaskList {
      *
      * @param deadline the command with the description and deadline of the task.
      */
-    public void addDeadlineItem(String description, String deadline) {
-        taskList.add(new Deadline(description, deadline)); //Use the constructor to create a new Task.
-        System.out.println("Deadline item added: " + description);
-        System.out.println("Deadline is: " + deadline);
+    public void addDeadlineItem(int index, String description, String deadline, String doAfter) {
+        try {
+            //Use the constructor to create a new Task.
+            taskList.add(new Deadline(index, description, deadline, doAfter));
+            System.out.println("Deadline item added: " + description);
+            System.out.println("Deadline is: " + deadline);
+            setListIndex(index + 1); //Next open index.
+        } catch (BadInputException e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -60,11 +93,15 @@ public class TaskList {
      * @param event the description of the task.
      * @param at the time the event happens.
      */
-    public void addEventItem(String event, String at) {
-
-        taskList.add(new Event(event, at)); //Use the constructor to create a new Task.
-        System.out.println("Event item added: " + event);
-        System.out.println("Event happens at: " + at);
+    public void addEventItem(int index, String event, String at, String doAfter) {
+        try {
+            taskList.add(new Event(index, event, at, doAfter)); //Use the constructor to create a new Task.
+            System.out.println("Event item added: " + event);
+            System.out.println("Event happens at: " + at);
+            setListIndex(index + 1); //Next open index.
+        } catch (BadInputException e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -81,6 +118,10 @@ public class TaskList {
             System.out.print(i + 1 + ". "); //Add 1 to follow natural numbers.
             taskList.get(i).printTaskDetails();
         }
+    }
+
+    public Task getTask(int i) {
+        return taskList.get(i);
     }
 
     /**
@@ -124,6 +165,25 @@ public class TaskList {
     }
 
     /**
+    * Snooze a task for a day.
+    * @param i the index of the task to be snoozed.
+    */
+    public void snoozeTask(int i) {
+        try {
+            Task task = taskList.get(i);
+            if (task instanceof Snooze) {
+                ((Snooze) taskList.get(i)).snooze(); //Snooze task.
+                System.out.print("Nice! I've snoozed this task: ");
+                System.out.println(taskList.get(i).getDescription()); //Prints task name
+            } else {
+                System.out.println("Only Events and Deadlines are able to be snoozed!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            printTaskNonexistent();
+        }
+    }
+
+    /**
      * Prints error message if a nonexistent task index is accessed.
      * Prints the task list for user to choose again.
      */
@@ -154,4 +214,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Looks for undone deadlines within the next 5 Days and prints the task.
+     */
+    public void printReminders() {
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+        long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
+
+        for (Task task: taskList) {
+            if (task instanceof Deadline && !task.getIsDone()) {
+                Deadline deadline = (Deadline) task;
+                long timeDifference = deadline.getDate().getTime() - now.getTime();
+                if (timeDifference <= millisInFiveDays && timeDifference > 0) {
+                    task.printTaskDetails();
+                }
+            }
+        }
+    }
 }
