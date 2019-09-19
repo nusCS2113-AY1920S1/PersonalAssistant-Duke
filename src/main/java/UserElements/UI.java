@@ -5,6 +5,8 @@ import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
+import java.util.Queue;
+
 
 /**
  * User interface: contains all methods pertaining to user interaction.
@@ -228,6 +230,20 @@ public class UI {
     public void recursionFormatWrong() {
         System.out.print(lineSeparation);
         System.out.println("Please enter the period of the recurring event (in days) after /every.");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints next 3 days that are free
+     *
+     * @param freeDays queue of free days of type DateObj
+     */
+    public void printFreeDays(Queue<String> freeDays) {
+        System.out.print(lineSeparation);
+        System.out.println("Here are the next 3 free days!");
+        for(int i=0; i<=freeDays.size(); i++) {
+            System.out.println(freeDays.poll());
+        }
         System.out.print(lineSeparation);
     }
 }
