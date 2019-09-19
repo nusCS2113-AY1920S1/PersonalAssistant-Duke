@@ -1,13 +1,16 @@
 package duke.items;
 
 import duke.exceptions.BadInputException;
+import java.util.Calendar;
+import java.util.Date;
+import duke.items.Snooze;
 
 /**
  * In addition to the deadline and done status (inherited from Task),
  * the Event has a start time (and later, end time) that is represented by a date class.
  * The save and print strings have been overridden to show more information.
  */
-public class Event extends Task {
+public class Event extends Task implements Snooze {
 
     private String start;
     private String end; //For later.
@@ -37,6 +40,19 @@ public class Event extends Task {
 
     public String getEventTime() {
         return eventStartTime.returnFormattedDate();
+    }
+
+    @Override
+    public void snooze() {
+        Calendar newStartDate = Calendar.getInstance();
+        newStartDate.setTime(eventStartTime.getAt());
+        newStartDate.add(Calendar.DATE, 1);
+        eventStartTime.setDate(newStartDate.getTime());
+
+        Calendar newEndDate = Calendar.getInstance();
+        newEndDate.setTime(eventEndTime.getAt());
+        newEndDate.add(Calendar.DATE, 1);
+        eventEndTime.setDate(newEndDate.getTime());
     }
 
     @Override

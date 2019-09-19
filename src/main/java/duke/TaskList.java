@@ -1,12 +1,15 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import duke.exceptions.BadInputException;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
 import duke.items.Event;
+import duke.items.Snooze;
 
 /**
  * Manages the list of (different types of classes),
@@ -104,6 +107,10 @@ public class TaskList {
         }
     }
 
+    public Task getTask(int i) {
+        return taskList.get(i);
+    }
+
     /**
      * Deletes a task of the user's choice.
      *
@@ -145,6 +152,25 @@ public class TaskList {
     }
 
     /**
+    * Snooze a task for a day.
+    * @param i the index of the task to be snoozed.
+    */
+    public void snoozeTask(int i) {
+        try {
+            Task task = taskList.get(i);
+            if (task instanceof Snooze) {
+                ((Snooze) taskList.get(i)).snooze(); //Snooze task.
+                System.out.print("Nice! I've snoozed this task: ");
+                System.out.println(taskList.get(i).getDescription()); //Prints task name
+            } else {
+                System.out.println("Only Events and Deadlines are able to be snoozed!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            printTaskNonexistent();
+        }
+    }
+
+    /**
      * Prints error message if a nonexistent task index is accessed.
      * Prints the task list for user to choose again.
      */
@@ -175,4 +201,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Looks for undone deadlines within the next 5 Days and prints the task.
+     */
+    public void printReminders() {
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+        long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
+
+        for (Task task: taskList) {
+            if (task instanceof Deadline && !task.getIsDone()) {
+                Deadline deadline = (Deadline) task;
+                long timeDifference = deadline.getDate().getTime() - now.getTime();
+                if (timeDifference <= millisInFiveDays && timeDifference > 0) {
+                    task.printTaskDetails();
+                }
+            }
+        }
+    }
 }
