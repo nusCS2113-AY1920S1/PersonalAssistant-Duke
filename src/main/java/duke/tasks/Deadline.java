@@ -36,7 +36,10 @@ public class Deadline extends Task {
             this.by = by; // custom deadline
         }
     }
-
+    @Override
+    public String get_type() {
+        return "D";
+    }
     /**
      * Returns a String representation of the duke.tasks.Deadline object, displaying its type (duke.tasks.Deadline),
      * description and the deadline associated with it.

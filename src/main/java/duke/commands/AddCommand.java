@@ -4,7 +4,14 @@ import duke.TaskList;
 import duke.Ui;
 import duke.DukeException;
 import duke.Storage;
+
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.Conflict_checker;
+
 import duke.tasks.*;
+
 
 /**
  * A class representing the command to add tasks to the task list.
@@ -73,8 +80,24 @@ public class AddCommand extends Command {
             Event event;
             try {
                 String[] sections = message.substring(6).split(" /at ");
-                event = new Event(sections[0], sections[1]);
-                taskList.add(event);
+                String[] start_end = sections[1].split("-");
+                String start =  start_end[0];
+                String end = start_end[1];
+                Conflict_checker conflict_checker = new Conflict_checker(taskList);
+                event = (Event) taskList.get_first_e(sections,0);
+                if(event.has_date()) {
+                    if(conflict_checker.is_conflict(event)) {
+                        System.out.println("conflict");
+                        throw new DukeException("A conflict is detected in your schedule", "event");
+                    }
+                    else {
+                        taskList.add(event);
+                    }
+                }
+                else {
+                    taskList.add(event);
+                }
+
                 storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), event);
             } catch (Exception e) {
