@@ -48,7 +48,7 @@ Responsibilities:
 '''
 
 === LEOW YONG KANG ANDREW
-image::yl_coder.jpg[width="150", align="left"]
+image::andrewleow97.png[width="150", align="left"]
 {empty}[http://github.com/andrewleow97[github]] 
 
 Role: Developer +
