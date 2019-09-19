@@ -39,7 +39,7 @@ public class DateTime {
             this.at = calendar;
             valid = true;
         } catch (Exception e) {
-            System.out.println("Inproper datetime. Correct format: dd/mm/yyyy hhmm\n Task is still registered.");
+            System.out.println("Improper datetime. Correct format: dd/mm/yyyy hhmm\nTask is still registered.");
             valid = false;
         }
     }
