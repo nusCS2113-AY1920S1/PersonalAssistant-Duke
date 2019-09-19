@@ -34,12 +34,12 @@ public class SnoozeCommand extends Command {
             } else if (type == 'D') {
                 Task newTask = new Deadline(taskToSnooze.getTaskDescription(), date);
                 tasks.replaceTask(taskNumInt - 1, newTask);
-                msg.add("Noted. I've snoozed this task:" );
+                msg.add("Noted. I've snoozed this task:");
                 msg.add(taskToSnooze.getTaskDescription() + "until " + newDateStr);
             } else if (type == 'E') {
                 Task newTask = new Event(taskToSnooze.getTaskDescription(), date);
                 tasks.replaceTask(taskNumInt - 1, newTask);
-                msg.add("Noted. I've snoozed this task:" );
+                msg.add("Noted. I've snoozed this task:");
                 msg.add(taskToSnooze.getTaskDescription() + "until " + newDateStr);
             } else {
                 msg.add("OOPS! An error has occurred.");
