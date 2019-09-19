@@ -1,3 +1,6 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Parser{
     private static String line = "   ___________________________________________________\n";
 
@@ -83,6 +86,17 @@ public class Parser{
                     command = command.substring(5);
                     String[] ti = command.split(" ");
                     FixedDuration fixedDuration = new FixedDuration(ti[0], ti[1]);
+                    Timer timer = new Timer();
+                    class RemindTask extends TimerTask {
+                        public void run() {
+                            System.out.println(ti[0] + " is completed");
+                            timer.cancel(); //Terminate the timer thread
+                            fixedDuration.have_done();
+                        }
+                    }
+                    RemindTask rt = new RemindTask();
+                    int seconds = Integer.parseInt(ti[1]);
+                    timer.schedule(rt, seconds * 1000);
                     cmd = new CommandAdd(fixedDuration);
                 }
                 catch (StringIndexOutOfBoundsException e) {

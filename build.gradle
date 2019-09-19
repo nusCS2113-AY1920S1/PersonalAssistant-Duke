@@ -15,6 +15,14 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
 application {
     // Change this to your main class.
     mainClassName = "Duke"
@@ -23,3 +31,4 @@ application {
 run {
     standardInput = System.in
 }
+
