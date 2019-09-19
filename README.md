@@ -4,6 +4,7 @@
 
 ![](docs/images/Ui.png)
 
-* This is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop application. It is targetted at NUS students who would like a helping hand in managing a busy school life.
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
