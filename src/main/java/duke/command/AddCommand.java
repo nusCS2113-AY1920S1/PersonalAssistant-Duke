@@ -46,13 +46,13 @@ public class AddCommand extends Command {
                 } else if (temp instanceof Events) {
                     Events hold = (Events) temp;
                     dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof FixedDurationTasks)) {
+                } else if (temp instanceof FixedDurationTasks) {
                     FixedDurationTasks hold = (FixedDurationTasks) temp;
                     dateTimeSet.add(hold.getDateTime());
                 }
             }
             LocalDateTime taskDateTime;
-            if (task instanceof Deadline)) {
+            if (task instanceof Deadline) {
                 Deadline hold = (Deadline) task;
                 taskDateTime = hold.getDateTime();
             } else if (task instanceof Events) {
