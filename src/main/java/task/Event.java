@@ -10,7 +10,7 @@ import java.util.Locale;
  * Represents an Event-typed-task
  */
 public class Event extends Task{
-    protected Date at;
+    public Date at;
     DateFormat fmt = new SimpleDateFormat("dd MMMM yyyy, h:mm a", Locale.US);
     /**
      * Creates an Event object with the given description, datetime and whether it is done

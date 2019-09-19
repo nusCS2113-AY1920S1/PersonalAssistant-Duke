@@ -2,6 +2,7 @@ import java.io.*;
 import java.text.ParseException;
 
 import command.Command;
+import command.ReminderCommand;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -43,7 +44,8 @@ public class Duke  extends Application {
      */
     public Duke(String file) {
         String directory = System.getProperty("user.home");
-        directory += "\\Documents\\CS2113T\\main\\data";
+        //directory += "\\Documents\\CS2113T\\main\\data"; //different for mac
+        directory += "/IdeaProjects/CS2113_Project/data";
         String savefile = file;
         String absolutePath = directory + File.separator + savefile;
         storage = new Storage(absolutePath);
@@ -64,6 +66,12 @@ public class Duke  extends Application {
         boolean isExit = false;
         while (!isExit) {
             try {
+
+               //Reminder toggle on startup
+               //System.out.println("Reminder DEBUG");
+               //Command reminder = new ReminderCommand();
+               //reminder.execute(tasks, ui, storage); //checks for upcoming tasks due within the next week
+
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);

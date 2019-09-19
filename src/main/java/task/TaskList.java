@@ -1,18 +1,13 @@
 package task;
 import process.*;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 
 /**
  * Represents the tasklist that duke is managing
  */
 public class TaskList extends ArrayList<Task>{
     String sep = "}-}";
-    DateFormat fmt = new SimpleDateFormat("dd MMMM yyyy, h:mm a", Locale.US);
     /**
      * Creates an empty task list
      */
@@ -65,6 +60,7 @@ public class TaskList extends ArrayList<Task>{
         }
         return output;
     }
+
     /**
      * Deletes the task at given index
      * @param index of the task to be deleted
@@ -112,25 +108,4 @@ public class TaskList extends ArrayList<Task>{
         }
         return output;
     }
-    public String view(String keyword) {
-
-
-        int y = 0;
-        String output = "Here are the matching tasks in your list:";
-        boolean have_result= false;
-        for (Task task: this) {
-            if (task.toString().indexOf(keyword) != -1) {
-                output += "\n" + (Integer.toString(y + 1) + ".");
-                output +=  (task.toString());
-                y ++;
-                have_result = true;
-            }
-        }
-        if (have_result == false) {
-            return ("Sorry, no results found");
-        }
-        return output;
-    }
-
 }
-

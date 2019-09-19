@@ -10,7 +10,8 @@ import java.util.Locale;
  * Represents a Deadline-typed-task
  */
 public class Deadline extends Task {
-    protected Date by;
+    public Date by;
+    //protected Date by;
     DateFormat fmt = new SimpleDateFormat("dd MMMM yyyy, h:mm a", Locale.US);
     /**
      * Creates a Deadline object with the given description, datetime and whether it is done
@@ -44,5 +45,4 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " +  DatetimeFormatter.view(this.fmt.format(by)) + ")";
     }
-
 }
