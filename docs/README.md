@@ -3,9 +3,22 @@
 
 
 ## Features 
+Command Format: 
+- text
+### Feature 1.1. Resume previous version of choice: `load`
 
-### Feature 1 
-Description of feature.
+
+When the program runs, the user can choose to create a new game or load a previous saved version
+
+Format: `load INDEX`
+
+Index refers to the version of the game to be loaded
+
+Example: 
+- `load 2`
+
+Loads the second saved version.
+
 
 ## Usage
 
@@ -18,5 +31,6 @@ Example of usage:
 `keyword (optional arguments)`
 
 Expected outcome:
+
 
 `outcome`
