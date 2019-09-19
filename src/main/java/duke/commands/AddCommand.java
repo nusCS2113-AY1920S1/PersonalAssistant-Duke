@@ -156,6 +156,16 @@ public class AddCommand extends Command {
                 dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
                 start = (Date) dates.get(0);
                 end = (Date) dates.get(1);
+
+                List<Task> tasks = taskList.getTasks();
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task currentTask = tasks.get(i);
+                    if (currentTask.isOverlapping(start, end)) {
+                        throw new InputException("Time conflicting with:\n"
+                                + "    " + (i + 1) + "." + currentTask.toString() + "\n"
+                                + "Please choose another time interval.");
+                    }
+                }
                 added = taskList.addTask(new Event(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
                         .replaceFirst("event ", ""),
                         start, end));
