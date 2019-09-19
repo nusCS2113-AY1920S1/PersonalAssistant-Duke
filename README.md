@@ -1,8 +1,15 @@
 # SpinBox
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2113T-F14-4/main[image:https://travis-ci.org/AY1920S1-CS2113T-F14-4/main.svg?branch=master[Build Status]]
 
-![](docs/images/Ui.png)
+ifdef::env-github[]
+image::docs/images/Ui.png[width="230" height="400"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="230" height="400"]
+endif::[]
 
 * This is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
