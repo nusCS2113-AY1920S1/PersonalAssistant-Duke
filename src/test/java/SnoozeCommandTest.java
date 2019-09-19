@@ -31,8 +31,8 @@ public class SnoozeCommandTest extends CommandTest {
     public void setupTaskList() {
         ctx.taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
-        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter());
-        EventTask event = new EventTask("tutorial", t);
+        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
+        EventTask event = new EventTask("tutorial", t, t);
         DeadlineTask deadline = new DeadlineTask("submission", t);
         ctx.taskList.addTask(todo);
         ctx.taskList.addTask(event);

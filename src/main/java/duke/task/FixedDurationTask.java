@@ -6,6 +6,11 @@ public class FixedDurationTask extends ToDoTask {
 
     private Duration period;
 
+    /**
+     * Constructor for FixedDurationTask.
+     * @param name task
+     * @param period duration task takes
+     */
     public FixedDurationTask(String name, Duration period) {
         super(name);
         this.period = period;
