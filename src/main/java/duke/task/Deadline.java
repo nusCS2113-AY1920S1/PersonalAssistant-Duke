@@ -17,7 +17,9 @@ class Deadline extends Task {
         this.recordTaskDetails(name);
         try {
             this.parseDateTime();
+            // New stuff
             DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HHmm");
+            // getDate time is his inbuilt method
             String strDate = dateFormat.format(getDatetime());
             this.setDates(strDate);
         } catch  (DukeException invalidInput) {

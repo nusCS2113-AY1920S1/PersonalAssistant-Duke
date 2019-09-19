@@ -11,6 +11,7 @@ public class Task {
     public TaskType taskType;
     public Boolean isDone = false;
     private TaskList queuedTasks = null;
+    //new stuff
     private String dates = null;
 
     /**
