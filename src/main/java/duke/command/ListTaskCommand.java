@@ -1,12 +1,16 @@
 package duke.command;
-import duke.task.*;
+
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
 
 /**
- * Class that represents command for the tasks to be listed.
+ * Represents command to list tasks.
  */
-public class ListTaskCommand extends Command{
+public class ListTaskCommand extends Command {
     /**
-     * Constructor that takes in a flag to represent if it should exit and the input given by the User
+     * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */

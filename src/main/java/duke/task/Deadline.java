@@ -4,15 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class that represents a deadline task that allows for a deadline to be set
- * Subclass of the Task Class.
+ * Represents a deadline task that allows for a deadline to be set.
  */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
     /**
-     * Constructor that takes in a description of the task and the deadline of the task.
+     * Takes in a description of the task and the deadline of the task.
      * @param description A String representing the task to be completed
      * @param by A LocalDateTime representing the deadline of the task.
      */
@@ -27,7 +26,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the input LocalDateTime to printable format in String
+     * Converts the input LocalDateTime to printable format in String.
      * @param dateTime LocalDateTime object to be converted to String
      * @return String format of the LocalDateTime
      */

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
-    public void TestAddToTaskList() {
+    public void testAddToTaskList() {
         TaskList newTaskList = new TaskList();
         newTaskList.addToArrayList(new ToDo("Hello World"));
 
