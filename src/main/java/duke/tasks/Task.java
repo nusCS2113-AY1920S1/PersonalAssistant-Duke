@@ -45,4 +45,12 @@ public abstract class Task {
     public Boolean getDone() {
         return isDone;
     }
+
+    /**
+     * Compare if input date is equals.
+     * @return default is to return false, only implemented properly in deadline and event task.
+     */
+    public boolean compareEquals(DateTime inputDate) {
+        return false;
+    }
 }

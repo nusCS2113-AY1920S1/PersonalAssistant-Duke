@@ -37,4 +37,14 @@ public class Deadline extends Task {
     private String getByString() {
         return this.startDate.toString();
     }
+
+    /**
+     * Check if given date is equal to deadline date.
+     * @param inputDate the date to be compared.
+     * @return true if equal, false if not equal.
+     */
+    @Override
+    public boolean compareEquals(DateTime inputDate) {
+        return (this.startDate.compareTo(inputDate) == 0);
+    }
 }

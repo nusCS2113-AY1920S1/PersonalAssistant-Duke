@@ -51,4 +51,17 @@ public class Event extends Task {
     private String getEndDateString() {
         return this.endDate.toString();
     }
+
+    /**
+     * Check if date given is within event period.
+     * @param inputDate the date to be compared.
+     * @return true if within, false if not.
+     */
+    @Override
+    public boolean compareEquals(DateTime inputDate) {
+        boolean isAfterStartDate = (this.startDate.compareTo(inputDate) <= 0);
+        boolean isBeforeEndDate = (this.endDate.compareTo(inputDate) >= 0);
+
+        return (isAfterStartDate && isBeforeEndDate);
+    }
 }
