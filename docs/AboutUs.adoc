@@ -21,7 +21,8 @@ image::zyleet.png[width="150", align="left"]
 
 Role: Team Lead +
 Responsibilities: GUI +
-About: He enjoys breathing and sleeping in his free time.+
+About: He enjoys breathing and sleeping in his free time. +
+
 '''
 
 === Talagadadivi Durga Rukmini Manaswini
@@ -31,6 +32,7 @@ image::manaswini05.png[width="150", align="left"]
 Role: Developer +
 Responsibilities: UI +
 About: Finds it a hassle to shade their full name in exams. +
+
 '''
 
 === Lee Raiyan Bin Zulkifli
@@ -40,6 +42,7 @@ image::woblek.png[width="150", align="left"] +
 Role: Developer +
 Responsibilities: Data +
 About: Likes Hedgehogs. +
+
 '''
 
 === Quah You Jing Kane
@@ -49,4 +52,5 @@ image::KaneQuah.png[width="150", align="left"] +
 Role: Admin Staff +
 Responsibilities: Dev Ops +
 About: Also known as Quiz Slayer in certain circles. +
+
 '''
