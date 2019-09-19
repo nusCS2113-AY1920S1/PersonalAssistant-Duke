@@ -66,6 +66,11 @@ Command: `cata <Index of task> <tag>`
 Removes the tag on a specific index 
 Command: `rcata <Index of task>`
 
+=== Creating a new "FixedDuration" task : `fixedduration`
+
+Creates a new task called "FixedDuration" in Duke Manager +
+Command: `fixedduration <FixedDuration Description> /for <Duration> <Unit>`
+
 === Sorting of tasks `sort`
 
 Sorts the tasks according to the specified sort
