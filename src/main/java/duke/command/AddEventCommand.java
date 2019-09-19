@@ -8,6 +8,7 @@ import duke.task.DukeException;
 import duke.task.Ui;
 import duke.task.Storage;
 import duke.task.Event;
+import duke.task.Task;
 
 /**
  * Represents the command to add an event.
@@ -42,11 +43,29 @@ public class AddEventCommand extends Command {
         if (atValue == null) {
             return;
         }
-        Event toAdd = new Event(task, atValue);
-        taskList.addToArrayList(toAdd);
-        ui.output = "Got it. I've added this task: \n  " + toAdd.toString()
-                + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
-        storage.saveToFile();
+
+        int i = 0;
+        int clash = 0;
+        String anomalies = "";
+        while (i < taskList.getSize()) {
+            Task type = taskList.getTask(i);
+            if (type.toString().contains(at)) {
+                int index = type.toString().indexOf("at: ");
+                anomalies += "There is a clash with " + type.toString().substring(14, index - 2) + " on " + at + "\n";
+                clash++;
+            }
+            i++;
+        }
+
+        if (clash != 0) {
+            ui.output = anomalies;
+        } else {
+            Event toAdd = new Event(task, atValue);
+            taskList.addToArrayList(toAdd);
+            ui.output = "Got it. I've added this task: \n  " + toAdd.toString()
+                    + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
+            storage.saveToFile();
+        }
     }
 
     /**
