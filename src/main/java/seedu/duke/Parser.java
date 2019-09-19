@@ -85,8 +85,22 @@ public class Parser {
                 try {
                     int itemNumber = Integer.parseInt(splitInput[1].trim());
                     return new DoAfterCommand(taskList, itemNumber, splitInput[2]);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     ui.showError(e.toString());
+                }
+            }
+        } else if (input.startsWith("snooze ")) {
+            if (input.length() <= 7) {
+                ui.showError("Please enter index of task after \'snooze\'");
+                return new InvalidCommand();
+            } else {
+                try {
+                    int index = parseIndex(input);
+                    return new SnoozeCommand(taskList, index);
+                } catch (NumberFormatException e) {
+                    ui.showError(e.toString());
+                } catch (UserInputException e) {
+                    ui.showError("Please enter correct task index");
                 }
             }
         } else {
