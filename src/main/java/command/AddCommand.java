@@ -48,7 +48,26 @@ public class AddCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasktype.equals("todo")) tasks.add(new Todo(description, false));
-        else if (tasktype.equals("deadline")) tasks.add(new Deadline(description, datetime, false));
+        else if (tasktype.equals("deadline")) {
+            boolean conflict = false;
+            int a = 1;
+        //    System.out.println(datetime);
+
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).toString().contains(datetime)) {
+                    System.out.println("have_Conflict");
+                    conflict = true;
+                    a++;
+                }
+                System.out.println("OOF");
+                System.out.println(tasks.get(i).toString());
+                System.out.println("OOF");
+
+            }
+                if (!conflict) {
+                    tasks.add(new Deadline(description, datetime, false)); // 10/10/2010 2222
+                }
+                }
         else if (tasktype.equals("event")) tasks.add(new Event(description, datetime, false));
         else if (tasktype.equals("task")) tasks.add(new FixedTask(description, false, durationHour, durationMinute));
         else throw new DukeException("add error");

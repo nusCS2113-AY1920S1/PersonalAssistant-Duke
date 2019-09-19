@@ -19,7 +19,7 @@ public class Parser {
      * @throws DukeException if Duke cannot make sense of the input
      */
     public static Command parse(String input) throws DukeException { //input validation
-        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule", "task", "daily", "weekly"));
+        ArrayList<String> command_list = new ArrayList<String>(Arrays.asList("bye", "list", "find", "delete", "done", "todo", "deadline", "event","reschedule", "task", "daily", "weekly", "view"));
         String operation;
         String date;
         int index =-1;
@@ -42,14 +42,18 @@ public class Parser {
                 }
                 if (operation.equals("delete")) return new DeleteCommand(index);
                 else return new DoneCommand(index); //done
-            } else if (operation.equals("find") || operation.equals("todo")) {
+            } else if (operation.equals("find") || operation.equals("todo") || operation.equals("view")) {
                 if (operation_list.length == 1) throw new DukeException("arg1 error "+ operation);
                 arg1 = input.substring(5);
                 if (arg1.isBlank()) throw new DukeException("arg1 error "+ operation);
                 arg1.trim();
                 if (operation.equals("find")) return new FindCommand(arg1);
+                if (operation.equals("view")) return new ViewCommand(arg1);
                 else return new AddCommand("todo", arg1);
-            } else if (operation.equals("deadline")) {
+
+            }
+
+            else if (operation.equals("deadline")) {
                 int by_index = input.indexOf(" /by ");
                 if (by_index == -1) throw new DukeException("datetime");
                 arg1 = input.substring(8, by_index).trim();
