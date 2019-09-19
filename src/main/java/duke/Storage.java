@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A class to implement persistent storage of the task list using a .txt file.
@@ -88,6 +89,7 @@ public class Storage {
         // loads data into list
         ArrayList<String> data = readFile();
         for (String line: data) {
+            //System.out.println(line);
             convertString(taskList, line);
         }
     }
@@ -103,9 +105,11 @@ public class Storage {
     private void convertString(TaskList taskList, String s) throws DukeException {
         try {
             String type = s.substring(1,2); // T, D or E
+
             boolean isDone = s.substring(4,5).equals("v");
             String description;
             String addendum;
+            //System.out.println("recieved"+type);
             switch (type) {
             case "T":
                 description = s.substring(7);
@@ -116,10 +120,17 @@ public class Storage {
                 taskList.add(todo);
                 break;
             case "E": {
-                String[] sections = s.substring(7).split("at:");
-                description = sections[0].substring(0, sections[0].length() - 2);
-                addendum = sections[1].substring(1, sections[1].length() - 1);
-                Event event = new Event(description, addendum);
+                //System.out.println("recieved1221"+s.substring(7));
+                String[] sections = s.substring(7).split("\\(from:");
+
+                sections[1] = sections[1].replace("to","-");
+                sections[1] = sections[1].replace(")","");
+                //System.out.println(sections[1]);
+                //description = sections[0].substring(0, sections[0].length() - 2);
+                //addendum = sections[1].substring(1, sections[1].length() - 1);
+                //String[] to_from  = addendum.split("to");
+
+                Event event = (Event)taskList.get_first_e(sections,1);
                 if (isDone) {
                     event.setDone();
                 }

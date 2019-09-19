@@ -4,10 +4,12 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'application'
     id 'checkstyle'
+
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
 }
 
 test {
@@ -23,8 +25,10 @@ repositories {
 
 javafx {
     version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.sourceSets' ]
 }
+
+fxml.main.java.srcDirs = ['src']
 
 shadowJar {
     archiveBaseName = "duke"
@@ -39,5 +43,5 @@ checkstyle {
 
 application {
     // Change this to your main class.
-    mainClassName = "Duke"
+    mainClassName = "duke.Duke"
 }
