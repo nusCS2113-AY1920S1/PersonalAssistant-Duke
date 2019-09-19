@@ -1,14 +1,18 @@
 package duke.command;
 
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
+import duke.task.Task;
+
 
 /**
- * Class that represents the command for a task to be found
- * Subclass of Command
+ * Represents the command for a task to be found.
  */
 public class FindTaskCommand extends Command {
     /**
-     * Constructor that takes in a flag to represent if it should exit and the input given by the User
+     * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
@@ -16,6 +20,13 @@ public class FindTaskCommand extends Command {
         super(isExit, input);
     }
 
+    /**
+     * Find the tasks given by the input of the user.
+     * @param taskList Task List containing the initialized lists of the task on run
+     * @param ui Ui for which any input and output will be given to
+     * @param storage Storage for storing and writing of the data to disk
+     * @throws DukeException thrown when invalid input is given
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (input.length() < 6) {
             throw new DukeException("OOPS!!! The task to find cannot be empty.");
@@ -42,10 +53,8 @@ public class FindTaskCommand extends Command {
         if (exists) {
             outputString = outputString.substring(0, outputString.length() - 1);
             ui.output = outputString;
-            //ui.showMessage(outputString);
         } else {
             ui.output = "There are no matching tasks in your list.";
-            //ui.showMessage("There are no matching tasks in your list.");
         }
     }
 

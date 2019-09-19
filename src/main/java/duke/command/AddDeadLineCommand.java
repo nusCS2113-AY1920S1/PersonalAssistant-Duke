@@ -1,18 +1,20 @@
 package duke.command;
 
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
+import duke.task.Deadline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
 /**
- * Class that holds the command to add a deadline
- * Subclass of Command
+ * Represents the command to add a deadline.
  */
 public class AddDeadLineCommand extends Command {
     /**
-     * Constructor that takes in a flag to represent if it should exit and the input given by the User
+     * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
@@ -31,21 +33,21 @@ public class AddDeadLineCommand extends Command {
             throw new DukeException("OOPS!!! Please indicate the deadline after \"/by\"");
         }
 
-        String by = input.substring(dateIndex+4);
-        String task = input.substring(0, dateIndex-1);
+        String by = input.substring(dateIndex + 4);
+        String task = input.substring(0, dateIndex - 1);
         LocalDateTime byValue = parseDate(by);
         if (byValue == null) {
             return;
         }
         Deadline toAdd = new Deadline(task, byValue);
         taskList.addToArrayList(toAdd);
-        //ui.showMessage("Got it. I've added this task: \n  " + toAdd.toString() + "\nNow you have " + taskList.getSize() + " task(s) in the list.");
-        ui.output = "Got it. I've added this task: \n  " + toAdd.toString() + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
+        ui.output = "Got it. I've added this task: \n  " + toAdd.toString()
+                + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
         storage.saveToFile();
     }
 
     /**
-     * Used to convert a string given to an appropriate LocalDateTime Object
+     * Converts a string given to an appropriate LocalDateTime Object.
      * @param dateToParse String to be converted
      * @return LocalDateTime object in d/M/yyyy HHmm format (2/2/2019 1830)
      * @throws DukeException Thrown if the input given does not match the format

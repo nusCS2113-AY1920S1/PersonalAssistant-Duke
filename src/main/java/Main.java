@@ -5,14 +5,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Class that represents the Main GUI window to be shown to user when run
+ * Represents the Main GUI window to be shown to user when run.
  */
 public class Main extends Application {
 
     private Duke duke = new Duke();
 
     /**
-     * Starts the GUI to be shown to the user, reads in precreated FXML file created in Java SceneBuilder
+     * Starts the GUI to be shown to the user, reads in precreated FXML file created in Java SceneBuilder.
      * @param stage Stage object that holds the container containing the visual elements.
      */
     public void start(Stage stage) {
@@ -24,7 +24,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (Exception e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

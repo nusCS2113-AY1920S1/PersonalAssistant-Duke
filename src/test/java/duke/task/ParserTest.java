@@ -4,11 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import duke.command.*;
+import duke.command.AddDeadLineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
+import duke.command.FindTaskCommand;
+import duke.command.ListTaskCommand;
+import duke.command.MarkTaskAsDoneCommand;
 
 public class ParserTest {
     @Test
-    public void TestParser() {
+    public void testParser() {
         try {
             assertTrue(Parser.parse("bye") instanceof ExitCommand);
             assertTrue(Parser.parse("list") instanceof ListTaskCommand);
@@ -19,9 +26,10 @@ public class ParserTest {
             assertTrue(Parser.parse("delete 1") instanceof DeleteTaskCommand);
             assertTrue(Parser.parse("find hello") instanceof FindTaskCommand);
 
-            Parser.parse("asdasd");
+            Parser.parse("invalid input");
         } catch (DukeException e) {
-            assertEquals("duke.task.DukeException: OOPS!!! I'm sorry, but I don't know what that means :-(", e.toString());
+            assertEquals("duke.task.DukeException: OOPS!!! I'm sorry, but I don't know what that means :-(",
+                    e.toString());
         }
     }
 }
