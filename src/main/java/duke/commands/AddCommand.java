@@ -6,11 +6,12 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.tasks.After;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Fixed;
-import duke.tasks.Task;
+import duke.tasks.Recurring;
 import duke.tasks.Todo;
+import duke.tasks.Fixed;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
+import duke.tasks.Event;
 import duke.tasks.Within;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class AddCommand extends Command {
             throw new InputException("☹ OOPS!!! The description of a fixed duration task cannot be empty.");
         } else if (this.type.equals("within") && components[1].equals("/between")) {
             throw new InputException("☹ OOPS!!! The description of a within task cannot be empty.");
+        } else if (this.type.equals("recurring") && components[1].equals("/at")) {
+            throw new InputException("☹ OOPS!!! The description of a recurring task cannot be empty.");
         }
     }
 
@@ -61,7 +64,6 @@ public class AddCommand extends Command {
         List dates;
         String fixedDuration;
         String doAfter;
-        String doWithin;
         Date start;
         Date end;
 
@@ -114,6 +116,28 @@ public class AddCommand extends Command {
                 formattedOutput.add(added.toString());
                 break;
 
+            case "recurring":
+                parser = new com.joestelmach.natty.Parser();
+                String[] partials = fullCommand.split("/every ");
+
+                dates = parser.parse(partials[0].split("/at ")[1]).get(0).getDates();
+                start = (Date) dates.get(0);
+                end = (Date) dates.get(1);
+
+                String[] frequencies = partials[1].split(":");
+                long minutes = (Long.parseLong(frequencies[0]) * 60 * 24)
+                        + (Long.parseLong(frequencies[1]) * 60)
+                        + Long.parseLong(frequencies[2]);
+
+                added = taskList.addTask(new Recurring(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
+                        .replaceFirst("recurring ", ""),
+                        start, end, minutes));
+
+                formattedOutput.add("Got it. I've added this recurring task:");
+                formattedOutput.add(added.toString());
+                formattedOutput.add("Use the done command to advance to the next instance of the task.");
+                break;
+
             default:
                 parser = new com.joestelmach.natty.Parser();
                 dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
@@ -133,7 +157,10 @@ public class AddCommand extends Command {
                     + "to <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>\n"
                     + "Duke.Tasks.Within: do-within <task name> /between <start as MM/DD/YYYY HH:MM> "
-                    + "and <end as MM/DD/YYYY HH:MM>");
+                    + "and <end as MM/DD/YYYY HH:MM>\n"
+                    + "Duke.Tasks.Recurring: recurring <task name> /at <start as MM/DD/YYYY HH:MM> "
+                    + "to <end as MM/DD/YYYY HH:MM> /every DD:HH:MM"
+            );
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));

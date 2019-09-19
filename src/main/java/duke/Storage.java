@@ -1,12 +1,12 @@
 package duke;
 
-import com.joestelmach.natty.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.tasks.After;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Fixed;
+import duke.tasks.Recurring;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Within;
@@ -75,6 +75,12 @@ public class Storage {
                         start = parser.parse(arguments[3]).get(0).getDates().get(0);
                         end = parser.parse(arguments[4]).get(0).getDates().get(0);
                         tasks.addElement(new Within(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                        break;
+                    case "R":
+                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        tasks.addElement(new Recurring(arguments[2], start, end, Long.parseLong(arguments[5]),
+                                Long.parseLong(arguments[6])));
                         break;
                     default:
                         start = parser.parse(arguments[3]).get(0).getDates().get(0);

@@ -18,8 +18,8 @@ public abstract class Task {
         this.startDate = null;
     }
 
-    private String getStatusIcon() {
-        return (isDone ? "✓" : "✗"); //return tick or X symbols
+    protected String getStatusIcon() {
+        return (isDone ? "✓" : "✗");
     }
 
     public String toString() {

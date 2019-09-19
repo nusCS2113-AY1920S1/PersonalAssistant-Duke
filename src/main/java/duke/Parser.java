@@ -56,6 +56,7 @@ public class Parser {
             case "do-after":
             case "event":
             case "fixed":
+            case "recurring":
                 command = new AddCommand(components, input);
                 break;
 
