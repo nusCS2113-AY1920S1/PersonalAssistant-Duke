@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class Deadline extends Task {
     private Date time;
+    private String doAfter;
 
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
@@ -29,6 +30,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
+     * cannot be changed later. This method accepts another task to be done after the first task.
+     *
+     * @param name name of the Deadline
+     * @param time time of the Deadline
+     * @param doAfter task to be done after main task
+     */
+    public Deadline(String name, Date time, String doAfter) {
+        super(name);
+        this.time = time;
+        setDoAfterDescription(doAfter);
+        this.taskType = TaskType.Deadline;
+    }
+
+    /**
      * Converts the Deadline to a human readable string containing important information about the Deadline,
      * including the type and time of this Deadline.
      *
@@ -36,7 +52,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        if (this.doAfterDescription == null) {
+            return "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        } else {
+            return "[D]" + this.getStatus() + " (by: " + formatDate() + ")"
+                    + "\n   After which: " + doAfterDescription;
+        }
     }
 
     /**
@@ -46,8 +67,13 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
-                + formatDate();
+        if (this.doAfterDescription == null) {
+            return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
+                    + formatDate();
+        } else {
+            return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
+                    + formatDate() + " /doafter " + doAfterDescription;
+        }
     }
 
     /**
