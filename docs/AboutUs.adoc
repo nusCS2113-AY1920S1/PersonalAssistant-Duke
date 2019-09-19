@@ -11,6 +11,7 @@ image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Jo
 {empty}[http://github.com/TYH[github]] [http://github.com/TYH[portfolio]]
 
 Role: Developer
+Responsibilites: -
 
 '''
 
@@ -27,6 +28,8 @@ image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/ji
 {empty}[http://github.com/jing-xuan[github]] [http://github.com/jing-xuan[portfolio]]
 
 Role: Developer
+Responsibilites: -
+
 
 '''
 
@@ -34,10 +37,16 @@ Role: Developer
 image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/notahotdog.png[width="150", align="left"]
 {empty}[http://github.com/notahotdog[github]] [http://github.com/notahotdog[portfolio]]
 
+Role: Developer
+Responsibilites: -
+
 '''
 
 ### Yew Jing Hui
 image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Expresscode.png[width="150", align="left"]
 {empty}[http://github.com/Expresscode[github]] [http://github.com/Expressscode[portfolio]]
+
+Role: Developer
+Responsibilites: -
 
 '''
