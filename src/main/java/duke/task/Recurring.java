@@ -1,8 +1,8 @@
 package duke.task;
 
-public class RecurringTask extends Task{
+public class Recurring extends Task{
     private String day;
-    public RecurringTask(String description,String day) {
+    public Recurring(String description, String day) {
         super(description);
         type = 'R';
         this.day = day;
@@ -17,6 +17,10 @@ public class RecurringTask extends Task{
         return "(every: " + day + ")";
     }
 
+    /**
+     * This method will a return a string in save format
+     * @return a string containg the save format
+     */
     @Override
     public String formatDateSave() {
         return " | " + day;
