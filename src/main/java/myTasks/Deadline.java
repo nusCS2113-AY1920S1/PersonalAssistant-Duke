@@ -47,6 +47,9 @@ public class Deadline extends Task {
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
     }
+
+
+
     /**
      * Returns Task in print friendly format
      * @return String which contains Task Type icon, status and Description and DueDate if any
@@ -56,5 +59,35 @@ public class Deadline extends Task {
         return "[D][" + this.getStatusIcon() + "] " + this.getDescription() +
                 " (by: " + this.getDueDate() + ")";
     }
+
+    /**
+     * sets a new due date for the deadline task
+     * @param postponeDetails
+     * @throws DukeException
+     */
+    @Override
+    public void snooze(String postponeDetails) throws DukeException{
+        String[] split = postponeDetails.split(Parser.postpone);
+        if(split.length < 2)
+        {
+            throw new DukeException("Please use /to to indicate date");
+        }
+        else if(split.length > 2)
+        {
+            throw new DukeException("Too many /to in String");
+        }
+        else {
+            this.readDate(split[1]);
+        }
+    }
+
+
+    /**
+     * Returns type of Task
+     * @return String consisting of a single Letter (for now)
+     */
+    @Override
+    public String getType(){ return "D";}
+
 
 }
