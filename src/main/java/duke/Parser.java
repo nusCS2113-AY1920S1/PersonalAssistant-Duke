@@ -80,6 +80,10 @@ public class Parser {
             command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
         }
+        case "snooze": {
+            command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
+            break;
+        }
 
         //Commands which require string input.
         case "todo":
