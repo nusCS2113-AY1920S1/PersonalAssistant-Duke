@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Deadline extends Task implements Serializable {
-    protected String by;
+    //protected String by;
 
     /**
      * Creates a Deadline instance and initialises the required attributes.
@@ -17,6 +17,7 @@ public class Deadline extends Task implements Serializable {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        this.type = "D";
     }
 
     /**

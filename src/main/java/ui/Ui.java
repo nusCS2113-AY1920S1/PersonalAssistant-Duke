@@ -105,6 +105,36 @@ public class Ui {
     }
 
     /**
+     * Prints message to indicate a Task being snoozed.
+     * @param task Task to be snoozed.
+     */
+        public void printSnoozeMessage(Task task) {
+        System.out.print(line + "     Got it. I've snoozed this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a Task being postponed.
+     * @param task Task to be postponed.
+     */
+    public void printPostponeMessage(Task task) {
+        System.out.print(line + "     Got it. I've postponed this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a Task being rescheduled.
+     * @param task Task to be snoozed.
+     */
+    public void printRescheduleMessage(Task task) {
+        System.out.print(line + "     Got it. I've rescheduled this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
      * Prints the message for the exception thrown.
      * @param message Exception message.
      */

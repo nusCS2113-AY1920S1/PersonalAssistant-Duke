@@ -8,6 +8,9 @@ import java.io.Serializable;
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
+    protected String type;
+    protected String by;
+    protected String at;
 
     /**
      * Creates a Task instance and initialises the required attributes.
@@ -42,10 +45,42 @@ public class Task implements Serializable {
     }
 
     /**
+     * Sets a new value to the by attribute.
+     */
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    /**
+     * Sets a new value to the at attribute.
+     */
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    /**
      * Gets the description of the Task.
      * @return Task Description.
      */
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Gets the type of the Task.
+     * @return Task type.
+     */
+    public String getType(){ return this.type; }
+
+    /**
+     * Gets the deadline of the Task.
+     * @return Task by.
+     */
+    public String getBy(){ return this.by; }
+
+    /**
+     * Gets the period of the Task.
+     * @return Task at.
+     */
+    public String getAt(){ return this.at; }
 }

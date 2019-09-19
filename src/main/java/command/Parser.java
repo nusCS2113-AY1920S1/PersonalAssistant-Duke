@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -61,6 +62,15 @@ public class Parser {
             } else if (isWithinPeriodTask(input)) {
                 processWithin(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
+            }else if (isSnooze(input)) {
+                processSnooze(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+            }else if (isPostpone(input)) {
+                processPostpone(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+            }else if (isReschedule(input)) {
+                processReschedule(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -69,8 +79,6 @@ public class Parser {
         }
         return false;
     }
-
-
 
     /**
      * Processes the find command and outputs a list of tasks containing the word.
@@ -222,6 +230,94 @@ public class Parser {
         }
     }
 
+    /**
+     * Process the snooze command and automatically postpone the selected deadline task by 1 hour.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processSnooze(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] arr = input.split(" ", 2);
+            int nsnooze = Integer.parseInt(arr[1]) - 1;
+            if(tasklist.get(nsnooze).getType().equals("D")){
+                String taskTime = tasklist.get(nsnooze).getBy();
+                Date formattedtime = dataformat.parse(taskTime);
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+                calendar.setTime(formattedtime);
+                calendar.add(Calendar.HOUR_OF_DAY,1);
+                Date newDate = calendar.getTime();
+                tasklist.get(nsnooze).setBy(dataformat.format(newDate));
+                ui.printSnoozeMessage(tasklist.get(nsnooze));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to snooze.");
+        }catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+        }
+    }
+    /**
+     * Process the postpone command and postpone the selected deadline task by required number of hours.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processPostpone(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splittime = splitspace[1].split(" ", 2);
+            int npostpone = Integer.parseInt(splittime[0]) - 1;
+            int delaytime = Integer.parseInt(splittime[1]);
+            if(tasklist.get(npostpone).getType().equals("D")){
+                String taskTime = tasklist.get(npostpone).getBy();
+                Date formattedtime = dataformat.parse(taskTime);
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+                calendar.setTime(formattedtime);
+                calendar.add(Calendar.HOUR_OF_DAY,delaytime);
+                Date newDate = calendar.getTime();
+                tasklist.get(npostpone).setBy(dataformat.format(newDate));
+                ui.printPostponeMessage(tasklist.get(npostpone));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to postpone. Format:'postpone <index> <no.of hours to postpone>'");
+        }catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. Format:'postpone <index> <no.of hours to postpone>");
+        }
+    }
+
+    private static void processReschedule(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splittime = splitspace[1].split(" ", 2);
+            int nreschedule = Integer.parseInt(splittime[0]) - 1;
+            String delay = splittime[1];
+            if(tasklist.get(nreschedule).getType().equals("D")){
+                Date formattedtime = dataformat.parse(delay);
+                String newschedule = dataformat.format(formattedtime);
+                tasklist.get(nreschedule).setBy(newschedule);
+                ui.printRescheduleMessage(tasklist.get(nreschedule));
+            } else if(tasklist.get(nreschedule).getType().equals("E")){
+                Date formattedtime = dataformat.parse(delay);
+                String newschedule = dataformat.format(formattedtime);
+                tasklist.get(nreschedule).setAt(newschedule);
+                ui.printRescheduleMessage(tasklist.get(nreschedule));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline or event type task to reschedule.");
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to reschedule. Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>'");
+        }catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
+        }
+    }
+
 
     private static boolean isBye(String input) {
         return input.equals("bye");
@@ -257,5 +353,17 @@ public class Parser {
 
     private static boolean isWithinPeriodTask(String input) {
         return input.startsWith("within");
+    }
+
+    private static boolean isSnooze(String input) {
+        return input.startsWith("snooze");
+    }
+
+    private static boolean isPostpone(String input) {
+        return input.startsWith("postpone");
+    }
+
+    private static boolean isReschedule(String input) {
+        return input.startsWith("reschedule");
     }
 }
