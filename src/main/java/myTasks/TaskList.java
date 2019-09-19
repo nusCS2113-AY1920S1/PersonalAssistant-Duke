@@ -315,4 +315,55 @@ public class TaskList {
         }
     }
 
+    /**
+     * Selects a Task from an Event with Tentative Dates
+     * @param input String which should contain two whitespace separated numbers
+     */
+    public void select(String input) throws DukeException {
+        String[] split = input.split("\\s+");
+        if(split.length != 2)
+        {
+            throw new DukeException("Incorrect number of arguments, Index + Index method expected");
+        }
+        else
+        {
+            try {
+                int index = Integer.parseInt(split[0]);
+                int dateIndex = Integer.parseInt(split[1]);
+                index -= 1;
+                dateIndex -= 1;
+                if (isOutOfRange(index))
+                {
+                    throw new DukeException("The index was not found within task range");
+                }
+                else if (!list.get(index).getType().equals("E"))
+                {
+                    throw new DukeException("The Task you chose is not the Event Type!");
+                }
+                else if (!list.get(index).tentativeExists())
+                {
+                    throw new DukeException("There are no Tentative Slots to be chosen from");
+                }
+                else if (list.get(index).outsideTentative(dateIndex))
+                {
+                    throw new DukeException("Not a valid Selection (out of range)");
+                }
+                else
+                {
+                    this.list.get(index).changeDueDate(this.list.get(index).getTentativeDate(dateIndex));
+                    this.list.get(index).clearTentative();
+                    System.out.println("Tentative Date selected successfully");
+                }
+
+            }
+            catch(DukeException e)
+            {
+                throw new DukeException(e.getLocalizedMessage());
+            }
+            catch(NumberFormatException e)
+            {
+                throw new DukeException("That is NOT a valid Integer");
+            }
+        }
+    }
 }
