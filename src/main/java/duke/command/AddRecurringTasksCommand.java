@@ -1,20 +1,21 @@
 package duke.command;
 
+import duke.Ui;
+import duke.task.RecurringTask;
+import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.Scanner;
 
 public class AddRecurringTasksCommand extends AddCommand{
     public AddRecurringTasksCommand (String taskDescription) {
         super(taskDescription);
-    }
-
-    public void GetRecurringDates() {
-        Scanner inputs = new Scanner(System.in);
+        dateTrigger = "/every";
     }
 
     public void execute(TaskList tasks) {
-
+        if (!splitDescTime()) return; // If error occurs, stop the method!
+        Task newTask = new RecurringTask(taskDescription, time);
+        tasks.add(newTask);
+        Ui.echoAdd(newTask, tasks.size());
     }
 
 
