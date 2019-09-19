@@ -2,7 +2,7 @@
 :site-section: AboutUs
 :imagesDir: images
 
-Dolla is bring developed by Team [no name]. +
+Dolla is developed by Team [no name]. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
