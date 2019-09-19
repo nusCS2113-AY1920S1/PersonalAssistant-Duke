@@ -27,18 +27,24 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
-        int index = list.getListIndex();
 
+        int index = list.getListIndex(); //To assign the next task's index.
+        int currentIndex = -1;
+        //Section for handling doAfters.
+        //Using the indexes presented to the user.
         if (afterIndex > 0 && afterIndex >= list.getSize()) { //Referring to a nonexistent task
             throw new BadInputException("This is not a valid task. (to do after)");
+        } else if (afterIndex > 0) { //afterIndex is -1 if there is nothing to do before.
+            currentIndex = list.getTaskList().get(afterIndex).getTaskIndex();
+            //Permanent index of the task to doAfter.
         }
 
         if (super.type == CommandType.TODO) {
-            list.addTodoItem(index, description, afterIndex);
+            list.addTodoItem(index, description, currentIndex);
         } else if (super.type == CommandType.DEADLINE) {
-            list.addDeadlineItem(index, description, details, afterIndex);
+            list.addDeadlineItem(index, description, details, currentIndex);
         } else { //Type is event
-            list.addEventItem(index, description, details, afterIndex);
+            list.addEventItem(index, description, details, currentIndex);
         }
     }
 }

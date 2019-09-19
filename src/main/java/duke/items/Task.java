@@ -33,6 +33,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.type = type;
+
     }
 
     public int getTaskIndex() {
