@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class ReminderCommand extends Command {
 
 
+    //Nothing of importance
 
     private int DaysUntilDeadline;
     public ReminderCommand(int days) {
