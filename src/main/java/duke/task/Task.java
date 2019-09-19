@@ -1,14 +1,14 @@
 package duke.task;
 
 /**
- * Main class used to represent various tasks
+ * Represent the various types of tasks.
  */
 public class Task {
     public String description;
     protected boolean isDone;
 
     /**
-     * Constructor that takes in the task or event to be completed.
+     * Takes in the task or event to be completed.
      * @param description String consisting of the task or event
      */
     public Task(String description) {
@@ -17,7 +17,7 @@ public class Task {
     }
 
     /**
-     * Returns the icon depending on the done status of the task
+     * Returns the icon depending on the done status of the task.
      * @return String representing the completion status
      */
     public String getStatusIcon() {
@@ -33,14 +33,14 @@ public class Task {
     }
 
     /**
-     * Marks the task as completed
+     * Marks the task as completed.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Returns the completion status of the task
+     * Returns the completion status of the task.
      * @return True if the task is mark as done, false otherwise
      */
     public boolean getIsDone() {
@@ -48,8 +48,7 @@ public class Task {
     }
 
     /**
-     * Returns a printable string of the task holding, all necessary values in the string
-     * Sub classes will override this method to print any extra info that it contains
+     * Returns a printable string of the task, with all necessary values in the string.
      * @return String that holds the full string to be printed to user
      */
     public String toString() {

@@ -14,21 +14,24 @@ import duke.task.DukeException;
 import duke.task.Ui;
 import duke.task.Storage;
 
-public class AddToDoCommandTest {
+public class AddEventCommandTest {
     @Test
     public void testAddCommand() throws DukeException, IOException {
-        File tempFile = File.createTempFile("duke", ".txt");
+        File tempFile = File.createTempFile("duke",".txt");
         tempFile.deleteOnExit();
 
         TaskList newTaskList = new TaskList();
         Ui newUi = new Ui();
         Storage newStorage = new Storage(tempFile.getPath());
 
-        AddToDoCommand todoCommand = new AddToDoCommand(false, "todo hello world");
-        todoCommand.execute(newTaskList, newUi, newStorage);
+        AddEventCommand eventCommand = new AddEventCommand(false,"event Birthday Party /at 12/12/2019 1830");
+        eventCommand.execute(newTaskList, newUi, newStorage);
 
         assertEquals(1, newTaskList.getSize());
+        newTaskList.getTask(0).markAsDone();
+        newStorage.saveToFile();
         assertTrue(tempFile.exists());
-        assertEquals("T | 0 | hello world", Files.readAllLines(Paths.get(tempFile.getPath())).get(0));
+        assertEquals("E | 1 | Birthday Party | 12/12/2019 1830",
+                Files.readAllLines(Paths.get(tempFile.getPath())).get(0));
     }
 }

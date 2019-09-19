@@ -1,9 +1,17 @@
 package duke.task;
 
-import duke.command.*;
+import duke.command.AddDeadLineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
+import duke.command.FindTaskCommand;
+import duke.command.ListTaskCommand;
+import duke.command.MarkTaskAsDoneCommand;
+import duke.command.Command;
 
 /**
- * Class that takes in a string and parses it to return a valid command to be ran
+ * Takes in a string and parses it to return a valid command to be ran.
  */
 public class Parser {
     /**
@@ -27,6 +35,8 @@ public class Parser {
             return new FindTaskCommand(false, input);
         } else if (input.startsWith("delete ")) {
             return new DeleteTaskCommand(false, input);
+        } else if (input.startsWith("view")){
+            return new ViewSchedule(false, input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {

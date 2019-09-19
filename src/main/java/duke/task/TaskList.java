@@ -3,20 +3,21 @@ package duke.task;
 import java.util.ArrayList;
 
 /**
- * Class representing the list of tasks.
+ * Represents the list of tasks.
  */
 public class TaskList {
 
     private static ArrayList<duke.task.Task> taskList;
+
     /**
-     * Constructor that creates a new TaskList if no TaskList is given
+     * Creates a new TaskList if no TaskList is given.
       */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Constructor that initializes the task list to a given task list
+     * Initializes the task list to a given task list.
      * @param tasks ArrayList object containing previously initialized tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -24,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Used to add a Task to the task list
+     * Adds a Task to the task list.
      * @param value Task to be added to the list
      */
     public void addToArrayList(Task value) {
@@ -32,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Used to delete a Task from the task list
+     * Deletes a Task from the task list.
      * @param num The index of the task in the task list to be removed
      * @return The Task that is to be deleted
      */
@@ -41,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Used to get the current size of the task list
+     * Returns the current size of the task list.
      * @return The number of tasks in the task list
      */
     public static int getSize() {
@@ -49,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the task corresponding to the index given
+     * Returns the task corresponding to the index given.
      * @param num Index of the Task to be found
      * @return The Task corresponding to the index
      */

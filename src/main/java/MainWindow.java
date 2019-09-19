@@ -6,10 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
-
 /**
- * Class that represents the main window holding the different elements of the GUI
+ * Represents the main window holding the different elements of the GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -37,7 +35,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     /**
-     * Handles input given by the user and creates a DialogBox for every value given by user or response given by Duke
+     * Handles input given by the user and creates a DialogBox for every value given by user or response given by Duke.
      */
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
@@ -49,8 +47,8 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equals("bye")) {
-            Thread exitThread = new Thread(){
-                public void run(){
+            Thread exitThread = new Thread() {
+                public void run() {
                     try {
                         Thread.sleep(1500);
                     } catch (InterruptedException e) {

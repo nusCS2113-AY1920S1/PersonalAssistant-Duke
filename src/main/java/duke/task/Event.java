@@ -4,15 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class that represents an Event Task with a timing of the event.
- * Subclass of the Task Class
+ * Represents an event that allows for a timing to be set.
  */
 public class Event extends Task {
 
     protected LocalDateTime at;
 
     /**
-     * Constructor that takes in the event that will happen and the start time of the event
+     * Takes in the event descriptio and the start time of the event.
      * @param description A String representing the event taking place
      * @param at LocalDateTime object representing the start time of the event
      */
@@ -27,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the input LocalDateTime to printable format in String
+     * Converts the input LocalDateTime to printable format in String.
      * @param dateTime LocalDateTime object to be converted to String
      * @return String format of the LocalDateTime
      */

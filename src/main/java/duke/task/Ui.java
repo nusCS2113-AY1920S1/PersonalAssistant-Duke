@@ -3,22 +3,21 @@ package duke.task;
 import java.util.Scanner;
 
 /**
- * Class representing the User Interface to be shown to the user
- * Prints out message to be shown to the user
+ * Represents the User Interface to be shown to the user.
  */
 public class Ui {
     public String output;
 
     /**
-     * Returns the value to be printed to the GUI
+     * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String printOutputGUI() {
+    public String printToGui() {
         return output;
     }
 
     /**
-     * Prints the welcome message to the User
+     * Prints the welcome message to the User.
      */
     public void showWelcome() {
         String logo = " ____        _        \n"
@@ -31,7 +30,7 @@ public class Ui {
     }
 
     /**
-     * Used to read input from the user
+     * Used to read input from the user.
      * @return String representing the input given by the User
      */
     public String readCommand() {
@@ -42,7 +41,7 @@ public class Ui {
     }
 
     /**
-     * Returns good bye message to be shown to the User
+     * Returns good bye message to be shown to the User.
      * @return String representing a good bye message when "bye" command is given
      */
     public String showGoodByeMessage() {
@@ -50,14 +49,14 @@ public class Ui {
     }
 
     /**
-     * Prints out the loading error when no file could be found
+     * Prints out the loading error when no file could be found.
      */
     public void showLoadingError() {
         System.out.println("OOPS!!! File not found or is empty. Creating a new task list!");
     }
 
     /**
-     * Prints out any error that occurs
+     * Prints out any error that occurs.
      * @param s Error message to be printed
      */
     public void showError(String s) {
@@ -65,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Returns message of duke.task.DukeException that occurs
+     * Returns message of duke.task.DukeException that occurs.
      * @param e duke.task.DukeException that occurs
      * @return Message of the duke.task.DukeException
      */
@@ -74,13 +73,15 @@ public class Ui {
     }
 
     /**
-     * Prints out message
+     * Prints out message.
      * @param s String to be printed
      */
-    public void showMessage(String s) { System.out.println(s); }
+    public void showMessage(String s) {
+        System.out.println(s);
+    }
 
     /**
-     * Returns a formatted list of tasks when "list" command is given
+     * Returns a formatted list of tasks when "list" command is given.
      * @return String that represents the list of task that is formatted to be shown to the User
      */
     public String printList() {

@@ -14,9 +14,9 @@ import duke.task.DukeException;
 import duke.task.Ui;
 import duke.task.Storage;
 
-public class AddDeadlineCommandTest {
+public class DeleteTaskCommandTest {
     @Test
-    public void testAddCommand() throws DukeException, IOException {
+    public void testDeleteCommand() throws DukeException, IOException {
         File tempFile = File.createTempFile("duke",".txt");
         tempFile.deleteOnExit();
 
@@ -24,13 +24,15 @@ public class AddDeadlineCommandTest {
         Ui newUi = new Ui();
         Storage newStorage = new Storage(tempFile.getPath());
 
-        AddDeadLineCommand deadLineCommand = new AddDeadLineCommand(false,
-                "deadline To complete work /by 1/1/2019 1830");
-        deadLineCommand.execute(newTaskList, newUi, newStorage);
+        AddEventCommand eventCommand = new AddEventCommand(false,"event Birthday Party /at 12/12/2019 1830");
+        eventCommand.execute(newTaskList, newUi, newStorage);
 
-        assertEquals(1, newTaskList.getSize());
+        DeleteTaskCommand newDeleteTaskCommand = new DeleteTaskCommand(false, "delete 1");
+        newDeleteTaskCommand.execute(newTaskList, newUi, newStorage);
+
+        assertEquals(0, newTaskList.getSize());
+        newStorage.saveToFile();
         assertTrue(tempFile.exists());
-        assertEquals("D | 0 | To complete work | 1/1/2019 1830",
-                Files.readAllLines(Paths.get(tempFile.getPath())).get(0));
+        assertTrue(Files.readAllLines(Paths.get(tempFile.getPath())).isEmpty());
     }
 }
