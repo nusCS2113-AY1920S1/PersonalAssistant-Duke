@@ -61,6 +61,7 @@ public class Parser {
         Command command;
 
         switch (keyword[0]) {
+            
             //Commands which are single words.
             case "list":
                 command = new Command(Command.CommandType.LIST);

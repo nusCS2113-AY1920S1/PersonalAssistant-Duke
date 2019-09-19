@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import duke.exceptions.BadInputException;
 import duke.items.Task;
@@ -199,4 +201,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Looks for undone deadlines within the next 5 Days and prints the task.
+     */
+    public void printReminders() {
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+        long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
+
+        for (Task task: taskList) {
+            if (task instanceof Deadline && !task.getIsDone()) {
+                Deadline deadline = (Deadline) task;
+                long timeDifference = deadline.getDate().getTime() - now.getTime();
+                if (timeDifference <= millisInFiveDays && timeDifference > 0) {
+                    task.printTaskDetails();
+                }
+            }
+        }
+    }
 }
