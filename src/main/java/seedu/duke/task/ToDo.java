@@ -16,6 +16,19 @@ public class ToDo extends Task {
     }
 
     /**
+     * Instantiates the ToDo class, which only takes in the name and set isDone flag to false like all tasks.
+     * This method also allows a doAfter task to be entered.
+     *
+     * @param name name of the task
+     * @param doAfter task to be done after the main task
+     */
+    public ToDo(String name, String doAfter) {
+        super(name);
+        setDoAfterDescription(doAfter);
+        this.taskType = TaskType.ToDo;
+    }
+
+    /**
      * Converts the task to a human readable string containing important information about the ToDo, including
      * the type of this task.
      *
@@ -37,6 +50,11 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + " todo " + this.name;
+        if (doAfterDescription == null) {
+            return (this.isDone ? "1" : "0") + " todo " + this.name;
+        } else {
+            return (this.isDone ? "1" : "0") + " todo " + this.name + " /doafter " + this.doAfterDescription;
+        }
+
     }
 }

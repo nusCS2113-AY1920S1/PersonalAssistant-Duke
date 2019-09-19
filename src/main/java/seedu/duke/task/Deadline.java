@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Deadline extends Task {
     private Date time;
+    private String doAfter;
 
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
@@ -19,6 +20,21 @@ public class Deadline extends Task {
     public Deadline(String name, Date time) {
         super(name);
         this.time = time;
+        this.taskType = TaskType.Deadline;
+    }
+
+    /**
+     * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
+     * cannot be changed later. This method accepts another task to be done after the first task.
+     *
+     * @param name name of the Deadline
+     * @param time time of the Deadline
+     * @param doAfter task to be done after main task
+     */
+    public Deadline(String name, Date time, String doAfter) {
+        super(name);
+        this.time = time;
+        setDoAfterDescription(doAfter);
         this.taskType = TaskType.Deadline;
     }
 
@@ -50,7 +66,7 @@ public class Deadline extends Task {
                     + formatDate();
         } else {
             return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
-                    + formatDate();
+                    + formatDate() + " /doafter " + doAfterDescription;
         }
     }
 
