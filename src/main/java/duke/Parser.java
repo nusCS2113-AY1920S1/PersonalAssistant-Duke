@@ -70,6 +70,9 @@ public class Parser {
         case "bye":
             command = new Command(Command.CommandType.BYE);
             break;
+        case "reminder":
+            command = new Command(Command.CommandType.REMINDER);
+            break;
 
         //Commands which require numerical input.
         case "done":
