@@ -20,6 +20,7 @@ public class Task {
     //protected String dueDate;
     private Date dueDate = null;
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
 
     /**
      * Task initialization with string as input
@@ -60,6 +61,7 @@ public class Task {
         }
     }
 
+
     /**
      * Returns status icon
      * @return String which is a status icon in unicode format
@@ -78,6 +80,14 @@ public class Task {
         }
         else
             this.isDone = true;
+    }
+
+    /**
+     * empty method for overriding of child
+     * @param snoozeDetails
+     * @throws DukeException
+     */
+    void snooze(String snoozeDetails) throws DukeException{
     }
 
     /**
@@ -103,6 +113,7 @@ public class Task {
             return dateFormatter.format(this.dueDate);
         else
             return ""; }
+
 
     /**
      * Returns Task in print friendly format
