@@ -38,8 +38,6 @@ public class DateObj {
      * Creates a custom "date object".
      * If no parameters are passed in, a DateObj with the current date and time is created.
      * The output will include both the date and time.
-     *
-     * @param inputDate the input keyed in for the date.
      */
     
     public DateObj() {
@@ -109,12 +107,9 @@ public class DateObj {
         }
     }
 
-    public Date getJavaDate() {
-        return javaDate;
-    }
-
     public int getFormat() {
         return format;
+    }
 
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.

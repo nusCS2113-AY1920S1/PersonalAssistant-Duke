@@ -8,6 +8,11 @@ import Events.Formatting.DateObj;
 import Events.Storage.Storage;
 import Events.Storage.TaskList;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 /**
  * Represents a command that is passed via user input.
@@ -201,6 +206,27 @@ public class Command {
                 boolean isTasksFound = !foundTask.isEmpty();
                 ui.searchTasks(foundTask, isTasksFound);
                 changesMade = false;
+                break;
+
+            case "check":
+                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                DateObj today = new DateObj(f.format(new Date()));
+                Queue<String> daysFree = new LinkedList<String>();
+                int nextDays = 1;
+                while(daysFree.size() <= 3) {
+                    boolean flagFree = true;
+                    for(Task viewTask : tasks.getTaskArrayList()) {
+                        if(viewTask.toString().contains(today.toOutputString())) {
+                            flagFree = false;
+                            break;
+                        }
+                    }
+                    if(flagFree) {
+                        daysFree.add(today.toOutputString());
+                    }
+                    today.addDays(nextDays);
+                }
+                ui.printFreeDays(daysFree);//print out the 3 free days
                 break;
 
             default:
