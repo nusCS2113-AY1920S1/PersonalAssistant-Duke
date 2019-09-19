@@ -60,6 +60,9 @@ public class Storage {
                 } else if (type.equals("R")) {
                     newTask = new RecurringTask(inArray[2],inArray[3]);//task description and day of the week.
                 }
+                else if (type.equals("W")){
+                    newTask = new FixDuration(inArray[2], inArray[3]); //task description and time duration
+                }
 
                 if (inArray[1].equals("1")) {
                     newTask.markAsDone();

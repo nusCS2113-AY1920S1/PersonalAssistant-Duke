@@ -115,10 +115,12 @@ public class Parser {
                 case "deadline":
                     commandToRun = new AddDeadlineCommand(taskDescription);
                     break;
+                case "duration":
+                    commandToRun = new AddFixDurationCommand(taskDescription);
+                    break;
                 case "recurring":
                     commandToRun = new AddRecurringTasksCommand(taskDescription);
-
-
+                    break;
             }
         } catch (IndexOutOfBoundsException e) {
             ArrayList<String> msg = new ArrayList<String>(Arrays.asList(

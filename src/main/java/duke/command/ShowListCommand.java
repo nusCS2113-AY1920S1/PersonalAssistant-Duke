@@ -21,7 +21,6 @@ public class ShowListCommand extends Command {
             ArrayList<String> msg = new ArrayList<String>();
             msg.add("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(tasks.size());
                 Task currTask = tasks.getFromList(i);
                 msg.add( (i+1) + "."  + currTask.getTask() );
             }
