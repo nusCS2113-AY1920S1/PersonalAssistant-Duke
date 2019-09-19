@@ -1,5 +1,9 @@
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.DoWithinPeriodTask;
+import duke.task.FixedDurationTask;
+import duke.task.TaskList;
+import duke.task.TimedTask;
+import duke.task.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,29 +29,24 @@ public class DurationPeriodTest {
         Duration d = Duration.parse("PT3H5M30S");
         FixedDurationTask fixedD = new FixedDurationTask("lecture", d);
         DoWithinPeriodTask periodT = new DoWithinPeriodTask("assignment submission", t, t);
-
         try {
-            assertTrue(taskList.addTask(todo).contains("1 task"));
-            assertTrue(taskList.addTask(fixedD).contains("2 tasks"));
-            assertTrue(taskList.addTask(periodT).contains("3 tasks"));
+            assertTrue(taskList.getAddReport(taskList.addTask(todo), 1).contains("1 task"));
+            assertTrue(taskList.getAddReport(taskList.addTask(fixedD), 1).contains("2 tasks"));
+            assertTrue(taskList.getAddReport(taskList.addTask(periodT), 1).contains("3 tasks"));
         } catch (AssertionError excp) {
             fail("Total number of tasks added is not 3!");
         }
 
         try {
-            String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2718] JUnit tests"
-                    + System.lineSeparator() + "2.[F][\u2718] lecture (for: 3 hour, 05 minutes, 30 seconds)"
-                    + System.lineSeparator() + "3.[B][\u2718] assignment submission (between: Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
+            String expectedTaskListStr = System.lineSeparator() + "1.[T][N] JUnit tests"
+                    + System.lineSeparator() + "2.[F][N] lecture (for: 3 hour, 05 minutes, 30 seconds)"
+                    + System.lineSeparator() + "3.[B][N] assignment submission (between: "
+                    + "Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
             fail("No tasks in the list after adding!");
         } catch (AssertionError excp) {
-            try{
-                fail("Tasks not listed correctly!" + taskList.listTasks());
-            } catch (DukeException e) {
-                fail(e);
-            }
-
+            fail("Tasks not listed correctly!");
         }
     }
 
@@ -56,7 +55,7 @@ public class DurationPeriodTest {
         try {
             taskList.deleteTask("1");
             taskList.deleteTask("2");
-            assertEquals(System.lineSeparator() + "1.[F][\u2718] lecture (for: 3 hour, 05 minutes, 30 seconds)",
+            assertEquals(System.lineSeparator() + "1.[F][N] lecture (for: 3 hour, 05 minutes, 30 seconds)",
                     taskList.listTasks());
         } catch (DukeException excp) {
             fail("Unable to find added tasks!");
@@ -70,9 +69,10 @@ public class DurationPeriodTest {
         assertThrows(DukeException.class, () -> {
             taskList.deleteTask("100");
         });
-        String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2718] JUnit tests"
-                + System.lineSeparator() + "2.[F][\u2718] lecture (for: 3 hour, 05 minutes, 30 seconds)"
-                + System.lineSeparator() + "3.[B][\u2718] assignment submission (between: Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
+        String expectedTaskListStr = System.lineSeparator() + "1.[T][N] JUnit tests"
+                + System.lineSeparator() + "2.[F][N] lecture (for: 3 hour, 05 minutes, 30 seconds)"
+                + System.lineSeparator() + "3.[B][N] assignment submission (between: "
+                + "Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
         try {
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
@@ -83,17 +83,22 @@ public class DurationPeriodTest {
     }
 
     @Test
-    public void taskList_findTasksSuccess() {
-        String expectedSearchResult = "Here are the tasks that contain 'u':"
-                + System.lineSeparator() + "1.[F][\u2718] lecture (for: 3 hour, 05 minutes, 30 seconds)"
-                + System.lineSeparator() + "2.[B][\u2718] assignment submission (between: Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
-        assertEquals(expectedSearchResult, taskList.find("u"));
+    public void findTasks_matchingTasks_matchingTasksReturned() {
+        String expectedSearchResult = System.lineSeparator() + "1.[F][N] lecture (for: 3 hour, 05 minutes, 30 seconds)"
+                + System.lineSeparator() + "2.[B][N] assignment submission (between: "
+                + "Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
+        try {
+            assertEquals(expectedSearchResult, taskList.find("u"));
+        } catch (DukeException excp) {
+            fail("Failed to find tasks!");
+        }
     }
 
     @Test
-    public void taskList_findTasksFailure() {
-        String expectedSearchResult = "Can't find any matching tasks!";
-        assertEquals(expectedSearchResult, taskList.find("CS2113"));
+    public void findTasks_noMatchingTasks_exceptionThrown() {
+        assertThrows(DukeException.class, () -> {
+            taskList.find("CS2113");
+        });
     }
 
     @Test
@@ -107,9 +112,10 @@ public class DurationPeriodTest {
         }
 
         try {
-            String expectedTaskListStr = System.lineSeparator() + "1.[T][\u2713] JUnit tests"
-                    + System.lineSeparator() + "2.[F][\u2713] lecture (for: 3 hour, 05 minutes, 30 seconds)"
-                    + System.lineSeparator() + "3.[B][\u2713] assignment submission (between: Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
+            String expectedTaskListStr = System.lineSeparator() + "1.[T][Y] JUnit tests"
+                    + System.lineSeparator() + "2.[F][Y] lecture (for: 3 hour, 05 minutes, 30 seconds)"
+                    + System.lineSeparator() + "3.[B][Y] assignment submission (between: "
+                    + "Thu, 12 Sep 2019 2:00 PM and Thu, 12 Sep 2019 2:00 PM)";
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
             fail("Marking tasks as done somehow deleted all tasks in the list!");

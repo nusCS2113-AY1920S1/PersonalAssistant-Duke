@@ -53,6 +53,6 @@ public class NewFixedDurationCommand extends MultiArgCommand {
         super.execute(ctx);
         String addStr = ctx.taskList.addTask(new FixedDurationTask(argv[0], this.period));
         ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(addStr);
+        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
     }
 }

@@ -25,9 +25,9 @@ public class TaskTest {
      */
     @BeforeEach
     public void initialise() {
-        datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getDataFormatter());
+        datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getPatDatetime());
         todo = new ToDoTask("JUnit tests");
-        event = new EventTask("tutorial", datetime);
+        event = new EventTask("tutorial", datetime, datetime);
     }
 
     /**
