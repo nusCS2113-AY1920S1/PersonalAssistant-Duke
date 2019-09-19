@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -47,7 +48,7 @@ public class TaskList {
      * @param task task.
      */
     public void addTask(Task task) throws DukeTaskCollisionException {
-        if (!(task instanceof Todos)) {
+        if (!(task instanceof Todos) && !(task instanceof FixedDuration)) {
             if (!isTaskCollision(this.tasksList, task.getDate())) {
                 tasksList.add(task);
             }
@@ -70,7 +71,24 @@ public class TaskList {
      * @param taskIndex index of task.
      */
     public void markDone(int taskIndex) {
-        tasksList.get(taskIndex).setDoneStatus(true);
+        Task task = tasksList.get(taskIndex);
+
+        if (task.getRecurFrequency().equals("none")) {
+            task.setDoneStatus(true);
+            return;
+        }
+
+        // Figure out next occurence for recurring task
+        Calendar c = Calendar.getInstance();
+        c.setTime(task.getDate());
+        if (task.getRecurFrequency().equals("daily")) {
+            c.add(Calendar.DATE,1);
+        } else if (task.getRecurFrequency().equals("weekly")) {
+            c.add(Calendar.DATE,7);
+        }
+
+        task.setDate(c.getTime());
+        Terminal.showMessage("Task is set done until the next occurrence");
     }
 
     /**
@@ -78,8 +96,8 @@ public class TaskList {
      * @param taskIndex index of task.
      * @param date date to be set in the task.
      */
-    public void modifyDate(int taskIndex, Date date) throws ParseException {
-        tasksList.get(taskIndex).setDate(date);
+    public void snoozeTask(int taskIndex, Date date) {
+        tasksList.get(taskIndex).snooze(date);
     }
 
     /**
@@ -144,7 +162,6 @@ public class TaskList {
         Collections.sort(overdueList, new CustomSort());
         Collections.sort(todayList, new CustomSort());
         Collections.sort(eventualList, new CustomSort());
-        Collections.sort(undefinedList, new CustomSort());
         Terminal.showSortedRemindersList(overdueList, todayList, eventualList, undefinedList);
     }
 
@@ -185,7 +202,9 @@ public class TaskList {
     private static boolean isTaskCollision(ArrayList<Task> listOfTasks, Date date) throws DukeTaskCollisionException {
         for (Task task: listOfTasks) {
             if (task.isSameDay(date)) {
-                throw new DukeTaskCollisionException();
+                if (date != null && task.isSameDay(date)) {
+                    throw new DukeTaskCollisionException();
+                }
             }
         }
         return false;

@@ -1,5 +1,6 @@
 package com.nwjbrandon.duke.services.task;
 
+import com.joestelmach.natty.Parser;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.ui.Terminal;
 import com.nwjbrandon.duke.services.utilities.DateUtilties;
@@ -31,11 +32,35 @@ public abstract class Task {
     private String taskDescription = "";
 
     /**
+     * Converts a string to a Date object.
+     * @param dateString the string containing the date.
+     * @return The corresponding Date object if the dateString is valid.
+     * @throws ParseException if there is no date found in the dateString.
+     */
+    public static Date parseDate(String dateString) throws ParseException {
+        Parser dateParser = new Parser();
+        Date date = null;
+        try {
+            date = dateParser.parse(dateString).get(0).getDates().get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException("",0);
+        }
+        return date;
+
+    }
+  
+    /**
      * If valid, date will be actual date.
      * else it will be null.
      */
     private Date date = null;
 
+    /**
+     * Specifies if the task is a recurring task or not.
+     * A value of none denotes that it is not recurring
+     * Other possible values are "daily" or "weekly"
+     */
+    private String recurFrequency = "none";
 
     /**
      * Create task.
@@ -80,13 +105,17 @@ public abstract class Task {
      * Sets the Date, taskDescription to the date specified.
      * @param currDate sets the Date object of the task to this.
      */
-    public void setDate(Date currDate) throws ParseException {
+    public void setDate(Date currDate) {
         this.date = currDate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String dateStr = formatter.format(currDate);
-        this.by = dateStr;
-        this.taskDescription = this.taskName + " (by: " + this.dateFormatter(dateStr) + ")";
-        this.showSetSnoozedStatus();
+        this.by = formatter.format(currDate);
+        this.taskDescription = this.taskName + " (by: " + date.toString() + ")";
+
+    }
+
+    public void snooze(Date date) {
+        setDate(date);
+        showSetSnoozedStatus();
     }
 
     /**
@@ -167,9 +196,11 @@ public abstract class Task {
      * @throws ParseException incorrect format of date.
      */
     String dateFormatter(String originalDate) throws ParseException {
+
         String pattern = "dd/MM/yyyy hhmm";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = formatter.parse(originalDate);
+
         this.date = date;
         pattern = "d";
         formatter = new SimpleDateFormat(pattern);
@@ -225,7 +256,18 @@ public abstract class Task {
      * @return true if tasks falls on the same day.
      */
     boolean isSameDay(Date date) {
+        if (this.date == null || date == null) {
+            return false;
+        }
         return DateUtilties.isSameDay(this.date, date);
     }
 
+
+    public String getRecurFrequency() {
+        return recurFrequency;
+    }
+
+    public void setRecurFrequency(String recurFrequency) {
+        this.recurFrequency = recurFrequency;
+    }
 }

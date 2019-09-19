@@ -3,12 +3,12 @@ package com.nwjbrandon.duke.services.command;
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
+import com.nwjbrandon.duke.services.task.FixedDuration;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.task.Todos;
 import com.nwjbrandon.duke.services.validation.InputValidation;
 
-public class TodosCommand extends Command {
+public class FixedDurationCommand extends Command {
 
     /**
      * Description of task.
@@ -31,12 +31,12 @@ public class TodosCommand extends Command {
     private int size;
 
     /**
-     * Create add command.
+     * Create fixed duration command.
      * @param userInput input by user.
      * @param command type of command.
      * @param size number of tasks.
      */
-    public TodosCommand(String userInput, String command, int size) {
+    public FixedDurationCommand(String userInput, String command, int size) {
         this.userInput = userInput;
         this.command = command;
         this.size = size;
@@ -47,7 +47,7 @@ public class TodosCommand extends Command {
      * @return specific task.
      */
     private Task setTask() throws DukeWrongCommandFormatException {
-        return new Todos(taskDescription, size);
+        return new FixedDuration(taskDescription, size);
     }
 
     /**
