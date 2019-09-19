@@ -58,7 +58,6 @@ public class Parser {
 
             } else if (isFind(input)) {
                 processFind(input, tasklist, ui);
-
             } else if (isWithinPeriodTask(input)) {
                 processWithin(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
