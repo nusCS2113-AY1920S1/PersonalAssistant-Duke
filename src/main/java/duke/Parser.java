@@ -1,15 +1,17 @@
 package duke;
 
-import duke.commands.Command;
 import duke.commands.AddCommand;
-import duke.commands.FindCommand;
+import duke.commands.Command;
 import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
 import duke.commands.ExitCommand;
 import duke.commands.UnknownCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
-import duke.commands.DoneCommand;
 import duke.commands.ViewScheduleCommand;
+import duke.commands.FindCommand;
+import duke.commands.SnoozeCommand;
+import duke.commands.SetCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 
@@ -55,13 +57,22 @@ public class Parser {
             case "do-within":
             case "do-after":
             case "event":
+            case "tentative":
             case "fixed":
             case "recurring":
                 command = new AddCommand(components, input);
                 break;
 
+            case "set-tentative":
+                command = new SetCommand(components, input);
+                break;
+
             case "bye":
                 command = new ExitCommand();
+                break;
+
+            case "snooze":
+                command = new SnoozeCommand(Integer.parseInt(components[1]) - 1, components, input);
                 break;
 
             default:

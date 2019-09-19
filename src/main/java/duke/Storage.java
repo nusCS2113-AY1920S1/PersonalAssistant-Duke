@@ -8,6 +8,7 @@ import duke.tasks.Event;
 import duke.tasks.Fixed;
 import duke.tasks.Recurring;
 import duke.tasks.Task;
+import duke.tasks.Tentative;
 import duke.tasks.Todo;
 import duke.tasks.Within;
 
@@ -75,6 +76,11 @@ public class Storage {
                         start = parser.parse(arguments[3]).get(0).getDates().get(0);
                         end = parser.parse(arguments[4]).get(0).getDates().get(0);
                         tasks.addElement(new Within(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                        break;
+                    case "TE":
+                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        tasks.addElement(new Tentative(Integer.parseInt(arguments[1]), arguments[2], start, end));
                         break;
                     case "R":
                         start = parser.parse(arguments[3]).get(0).getDates().get(0);

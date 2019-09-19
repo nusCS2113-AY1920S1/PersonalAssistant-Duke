@@ -64,4 +64,12 @@ public class Event extends Task {
 
         return (isAfterStartDate && isBeforeEndDate);
     }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = new DateTime(startDate);
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = new DateTime(endDate);
+    }
 }
