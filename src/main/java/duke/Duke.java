@@ -2,9 +2,15 @@ package duke;
 
 import duke.commands.Command;
 
-import java.nio.file.Paths;
+import duke.commands.RemindCommand;
 
-public class Duke  {
+
+import java.nio.file.Paths;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Duke {
     /**
      * A chat bot cum task management application that can handle events, deadlines and normal to-do tasks,
      * as well as basic exception handling.
@@ -38,6 +44,23 @@ public class Duke  {
     private void run() {
         System.out.println(ui.showWelcomeMessage());
         boolean isExit = false;
+        TimerTask repeatedTask = new TimerTask() {
+            public void run() {
+                Command c = new RemindCommand();
+                String output = null;
+                try {
+                    output = c.execute(tasks, ui, storage);
+                    if (!output.equals("")) {
+                        System.out.println(output);
+                    }
+                } catch (DukeException e) {
+                    System.out.println(ui.showError(e));
+                }
+            }
+        };
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(repeatedTask, 1000, 900000);
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -49,6 +72,7 @@ public class Duke  {
                 System.out.println(ui.showError(e));
             }
         }
+        timer.cancel();
     }
 
     /**
@@ -59,21 +83,5 @@ public class Duke  {
         new Duke().run();
     }
 
-
-    /**
-     * Returns a String, which is the response of duke.Duke in accordance to the input.
-     *
-     * @param input the String typed in as an input for duke.Duke
-     * @return the response String to be displayed
-     */
-    public String getResponse(String input) {
-        try {
-            Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
-            //isExit = c.isExit();
-        } catch (DukeException e) {
-            return ui.showError(e);
-        }
-    }
 
 }
