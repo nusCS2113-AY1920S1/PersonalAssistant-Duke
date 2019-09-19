@@ -73,7 +73,7 @@ public class Ui {
     }
 
     public static void printFixDurationTaskError() {
-        System.out.println("Sorry, please enter a valid fix duration task.");
+        System.out.println("Sorry, please enter a valid fixed duration task.");
     }
 
     /**
@@ -101,13 +101,12 @@ public class Ui {
      * This method will print the error message when the user enter a time that conflicts with a task
      * that's in the task list.
      */
-    public static void printTimeConflictError() {
+    public static void printTimeConflictError(Task conflictingTask) {
         ArrayList<String> msg = new ArrayList<String>();
-        msg.add("This task conflicts with another task and cannot be added :(");
-//        msg.add("The time you have entered conflicts with the following task(s): ");
-//        for (int i = 0; i < conflictingTasks; i++) {
-//
-//        }
+        msg.add("I'm sorry, an error has occured!");
+        msg.add("The time you have entered conflicts with the following task: ");
+        msg.add("  " + conflictingTask.getTask());
+        msg.add("Try looking for another time. :)");
         Ui.printMsg(msg);
     }
 }
