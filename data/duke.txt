@@ -1,3 +1,0 @@
-R | 0 | tata | monday
-W | 0 | hehehe | 8 hours
-R | 0 | tata | tuesday
