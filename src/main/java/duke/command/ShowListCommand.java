@@ -25,6 +25,5 @@ public class ShowListCommand extends Command {
                 msg.add( (i+1) + "."  + currTask.getTask() );
             }
             Ui.printMsg(msg);
-
     }
 }

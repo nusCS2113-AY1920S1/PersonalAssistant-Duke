@@ -44,6 +44,7 @@ public class Storage {
             BufferedReader inStream = new BufferedReader(inFile);
             msg.add("Your save data has been loaded :)");
             String inLine;
+
 //            System.out.println("Trying to load file now..."); // DEBUG
 
             while ((inLine = inStream.readLine()) != null) {
