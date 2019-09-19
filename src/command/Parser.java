@@ -2,6 +2,7 @@ package command;
 
 import common.DukeException;
 import common.TaskList;
+import task.*;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -54,7 +55,9 @@ public class Parser {
             } else if (IsEvent(input)) {
                 ProcessEvent(input, tasklist, ui);
                 storage.save(tasklist.ReturnArrayList());
-
+            } else if (IsDoAfter(input)) {
+                ProcessDoAfter(input, tasklist, ui);
+                Storage.save(tasklist.ReturnArrayList());
             } else if (IsDelete(input)) {
                 ProcessDelete(input, tasklist, ui);
                 storage.save(tasklist.ReturnArrayList());
@@ -185,6 +188,32 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
+    private static void ProcessDoAfter(String input, TaskList tasklist, Ui ui){
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitslash = splitspace[1].split("/", 2);
+            String taskDescription = splitslash[0];
+            String[] splittime = splitslash[1].split(" ", 2);
+            String taskTime = splittime[1];
+            if (taskTime.contains("/")) {
+            Date formattedtime = dataformat.parse(taskTime);
+            DoAfterTasks After = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
+            tasklist.AddTask(After);
+            ui.PrintAddedMessage(After, tasklist);
+            }
+            else{
+                DoAfterTasks After = new DoAfterTasks(taskDescription, taskTime);
+                tasklist.AddTask(After);
+                ui.PrintAddedMessage(After, tasklist);
+            }
+            }
+        catch(ArrayIndexOutOfBoundsException e) {
+            ui.ExceptionMessage("     \u2639 OOPS!!! The description of a DoAfter cannot be empty.");
+        }
+        catch (ParseException e){
+            ui.ExceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
+        }
+    }
     private static void ProcessEvent(String input, TaskList tasklist, Ui ui){
         try {
             String[] splitspace = input.split(" ", 2);
@@ -192,10 +221,10 @@ public class Parser {
             String taskDescription = splitslash[0];
             String[] splittime = splitslash[1].split(" ", 2);
             String taskTime = splittime[1];
-            Date formattedtime = dataformat.parse(taskTime);
-            Event event = new Event(taskDescription, dataformat.format(formattedtime));
-            tasklist.AddTask(event);
-            ui.PrintAddedMessage(event, tasklist);
+                Date formattedtime = dataformat.parse(taskTime);
+                Event event = new Event(taskDescription, dataformat.format(formattedtime));
+                tasklist.AddTask(event);
+                ui.PrintAddedMessage(event, tasklist);
         }
         catch(ArrayIndexOutOfBoundsException e) {
             ui.ExceptionMessage("     \u2639 OOPS!!! The description of a event cannot be empty.");
@@ -228,6 +257,10 @@ public class Parser {
 
     private static boolean IsEvent(String input){
         return input.startsWith("event");
+    }
+
+    private static boolean IsDoAfter(String input){
+        return input.startsWith("DoAfter");
     }
 
     private static boolean IsDelete(String input){
