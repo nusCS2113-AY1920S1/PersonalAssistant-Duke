@@ -1,15 +1,8 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
+import java.util.*;
 import duke.exceptions.BadInputException;
-import duke.items.Task;
-import duke.items.Todo;
-import duke.items.Deadline;
-import duke.items.Event;
-import duke.items.Snooze;
+import duke.items.*;
 
 /**
  * Manages the list of (different types of classes),
@@ -99,6 +92,7 @@ public class TaskList {
             System.out.println("Event item added: " + event);
             System.out.println("Event happens at: " + at);
             setListIndex(index + 1); //Next open index.
+
         } catch (BadInputException e) {
             System.out.println(e);
         }
@@ -231,5 +225,89 @@ public class TaskList {
                 }
             }
         }
+    }
+
+    public void findFreeHours(int reqFreeHours) {
+        if (reqFreeHours < 0) {
+            System.out.println("Please enter an hour value >= 0.");
+            return;
+        }
+
+        // Creating temporary ArrayList of events.
+        ArrayList<Event> eventSortedList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i) instanceof Event) {
+                eventSortedList.add((Event) taskList.get(i));
+            }
+        }
+        eventSortedList.sort(new EventDateTimeComparator());
+        if (eventSortedList.size() <= 1) {
+            System.out.println("You need at least 2 events to run this command!");
+            return;
+        }
+        // Array is definitely sorted at this point.
+
+        // Printing out for testing purposes.
+        for (int i = 0; i < eventSortedList.size(); i++) {
+            System.out.println(eventSortedList.get(i).toString());
+        }
+
+        DateTime latestEndTime = eventSortedList.get(0).getEventEndTimeObj();
+        Event eventBeforeFreeTime = eventSortedList.get(0);
+        int curMaxFreeHours = 0;
+        boolean freeTimeFound = false;
+
+        for (int i = 1; i < eventSortedList.size(); i++) {
+            DateTime nextStartTime = eventSortedList.get(i).getEventStartTimeObj();
+            DateTime nextEndTime = eventSortedList.get(i).getEventEndTimeObj();
+
+            int compare = latestEndTime.getAt().compareTo(nextStartTime.getAt());
+            // latestEndTime is earlier than nextStartTime
+            if (compare < 0) {
+                // Getting number of hours between latestEndTime and nextStartTime
+                long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
+                int potentialMaxFreeHours = Math.round((float)ms / (1000 * 60 * 60));
+                System.out.println(potentialMaxFreeHours);
+
+                if (potentialMaxFreeHours >= curMaxFreeHours) {
+                    curMaxFreeHours = potentialMaxFreeHours;
+                    eventBeforeFreeTime = eventSortedList.get(i - 1);
+                }
+
+                // Since curEndTime is earlier than or equal to nextStartTime, it is guaranteed that
+                // our latestEndTime will be equiv to nextEndTime - since this definitely
+                // takes place after curEndTime.
+                latestEndTime = nextEndTime;
+
+                if (curMaxFreeHours >= reqFreeHours) {
+                    eventBeforeFreeTime = eventSortedList.get(i - 1);
+                    freeTimeFound = true;
+                    break;
+                }
+            }
+
+            // If curEndTime is later than or equal to nextStartTime - this only happens in the
+            // event of a clash between events, i.e. events running concurrently.
+            else {
+                // Assuming the (next) clashing event takes place perfectly within the current event
+                // we keep the value of latestEndTime untouched.
+                if (nextEndTime.getAt().getTime() <= latestEndTime.getAt().getTime()) {
+                    // Leave latestEndTime untouched.
+                }
+
+                // Else, if the clashing event happens to end after the current event, we need to update
+                // out latestEndTime value accordingly.
+                else {
+                    latestEndTime = nextEndTime;
+                }
+            }
+        }
+
+        if (!freeTimeFound) {
+            eventBeforeFreeTime = eventSortedList.get(eventSortedList.size() - 1);
+        }
+
+        System.out.println("The earliest free time I found was after the following event:\n +" +
+                eventBeforeFreeTime.toString());
     }
 }
