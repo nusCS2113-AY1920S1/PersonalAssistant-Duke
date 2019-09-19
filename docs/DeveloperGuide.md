@@ -26,7 +26,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |Student| Edit meeting schedules| Update my appointment timings|***
 |Student| Edit examination dates and times| Update assessment dates|***
 |Student| View the application in a graphical user interface| View things in an organised and quick manner|***
-|Student| View the tasks that are soon to be overdued| Keep track of the things to do|***
+|Student| View the tasks that are soon to be overdue| Keep track of the things to do|***
 |Student| View the timetable in a daily view| See the overview of the whole day|***
 |Student| View my ongoing school-related task| Keep track of my progress|***
 |Student| Be notified of my classes to attend| Better manage my schedule|***
