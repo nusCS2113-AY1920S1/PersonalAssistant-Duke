@@ -1,9 +1,10 @@
 package duke;
 
-import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.Command;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 
@@ -47,6 +48,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Checks if the command keyword (first word is valid).
      * Determines what to do with the remaining string depending on the command.
@@ -69,9 +71,6 @@ public class Parser {
             break;
         case "bye":
             command = new Command(Command.CommandType.BYE);
-            break;
-        case "reminder":
-            command = new Command(Command.CommandType.REMINDER);
             break;
 
         //Commands which require numerical input.
@@ -110,6 +109,11 @@ public class Parser {
                 command = new Command();
                 System.out.println("Please enter the search description.");
             }
+            break;
+        }
+
+        case "view": {
+            command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
             break;
         }
 
