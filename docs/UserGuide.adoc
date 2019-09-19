@@ -18,13 +18,13 @@ This user guide aims to help you learn your way around our app, making the learn
 * **`delete`**`1` : deletes the 1st task in the current list
 * *`bye`* : exits the app
  
-== 3. Features 
+== 3A. Features 
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-=== 3.1 Adding a task : `todo/deadline/event/doafter/range`
+=== 3A.1 Adding a task : `todo/deadline/event/doafter/range`
 Adds a todo/deadline/event/doafter/range to the tasklist.
 
 Format: `todo DESCRIPTION`  
@@ -46,7 +46,7 @@ Examples:
 * `doafter return book /after read book`
 * `range attend workshop /at 21/09/2019 1600 and 21/09/2019 1800`
 
-=== 3.2 Deleting a task : `delete`
+=== 3A.2 Deleting a task : `delete`
 Deletes the specified task from the task list. +
 Format: `delete INDEX`
 
@@ -62,7 +62,7 @@ Examples:
    `delete 2` +
    Deletes the 2nd task in the task list.
   
-=== 3.3 Finding tasks : `find`
+=== 3A.3 Finding tasks : `find`
 
 Finds tasks whose description contains the given keyword. + 
 Format: `find KEYWORD`
@@ -78,7 +78,7 @@ Examples:
 * `find book` +  
   Returns any task with the descriptions containing the keyword.
 
-=== 3.4 Marking a task as done : `done`
+=== 3A.4 Marking a task as done : `done`
 
 Marks a task in the task list as done. DoAfter tasks can only be marked as done when the task before it has been marked as done. +
 Format: `done INDEX`
@@ -93,12 +93,12 @@ Examples:
   * `done 1` +  
   Marks the 1st task in the task list as done.
 
-=== 3.5 Listing all the tasks : `list`
+=== 3A.5 Listing all the tasks : `list`
 
 Shows a list of all the tasks in the task list. + 
 Format: `list`
 
-=== 3.6 Snoozing a task : `snooze`
+=== 3A.6 Snoozing a task : `snooze`
 
 Provides a way to easily snooze/postpone/reschedule a task. +
 Format: `snooze INDEX` +
@@ -121,12 +121,12 @@ Examples:
     `9/9/2019 1200` +
     Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
-=== 3.7 Reminders : `remind`
+=== 3A.7 Reminders : `remind`
 
 Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
 Format: `remind`
 
-=== 3.8 Viewing my Schedule : `show`
+=== 3A.8 Viewing my Schedule : `show`
 
 Prints the schedule for a user defined date. +
 Format: `show DATE`
@@ -143,15 +143,70 @@ Examples:
    Shows all task scheduled for 30/10/2019.
 ****
 
-=== 3.9 Exiting the program : `bye`
+=== 3A.9 Exiting the program : `bye`
 
 Exits the program. +
 Format: `bye`
 
-=== 3.10 Saving the data
+=== 3A.10 Saving the data
 
 Save the tasks in the hard disk automatically whenever the task list changes.
 There is no need to save manually.
+
+=== 3B. Future Features to Implement +
+These are the features that are discussed to bw implemented in the coming future. Note that these
+are just tentative and subject to changes
+
+=== 3B.1 Mode Select : 'using [directional] buttons'
+
+Changes the mode such as 'main', 'stopwatch', 'spend points' such that each mode takes in specified
+command line prompts.
+
+=== 3B.2 Points System +
+Contains functions to purchase items off the 'point shop'
+
+****
+* Every completed tasks on time or countdown timer that runs it's full course will have points added
+into the user's database
+* These points  can be used to purchase comestic value of the application.
+****
+
+Examples:
+****
+* 'buy hat 3' +
+User will purchase index 3 (1 index) of the hat off the shop.
+****
+
+=== 3B.3 Hero System +
+Contains functions related to the user's hero.
+
+****
+* Hero will be a personalized avatar that the user can customize based off their producitivity
+* The longer they play, the more personalized and "stronger" the hero can look.
+****
+
+Examples:
+****
+* 'play run' +
+User's hero run animation will be played on the screen.
+****
+
+
+=== 3B.4 Stopwatch : 'countdown' +
+
+Starts a exitable countdown. +
+Format: 'countdown TIMEINMINUTES'
+
+****
+* User earns points based off how long the countdown was given.
+****
+
+Examples:
+
+****
+* `countdown 60` +
+   Start a countdown for 60 minutes.
+****
 
 == 4. FAQ
 
