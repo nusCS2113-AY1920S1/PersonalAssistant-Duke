@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+
+import duke.exceptions.BadInputException;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
@@ -59,10 +61,14 @@ public class TaskList {
      * @param deadline the command with the description and deadline of the task.
      */
     public void addDeadlineItem(int index, String description, String deadline, int afterIndex) {
-        taskList.add(new Deadline(index, description, deadline, afterIndex)); //Use the constructor to create a new Task.
-        System.out.println("Deadline item added: " + description);
-        System.out.println("Deadline is: " + deadline);
-        setListIndex(index + 1); //Next open index.
+        try {
+            taskList.add(new Deadline(index, description, deadline, afterIndex)); //Use the constructor to create a new Task.
+            System.out.println("Deadline item added: " + description);
+            System.out.println("Deadline is: " + deadline);
+            setListIndex(index + 1); //Next open index.
+        } catch (BadInputException e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -72,10 +78,14 @@ public class TaskList {
      * @param at the time the event happens.
      */
     public void addEventItem(int index, String event, String at, int afterIndex) {
-        taskList.add(new Event(index, event, at, afterIndex)); //Use the constructor to create a new Task.
-        System.out.println("Event item added: " + event);
-        System.out.println("Event happens at: " + at);
-        setListIndex(index + 1); //Next open index.
+        try {
+            taskList.add(new Event(index, event, at, afterIndex)); //Use the constructor to create a new Task.
+            System.out.println("Event item added: " + event);
+            System.out.println("Event happens at: " + at);
+            setListIndex(index + 1); //Next open index.
+        } catch (BadInputException e) {
+            System.out.println(e);
+        }
     }
 
     /**

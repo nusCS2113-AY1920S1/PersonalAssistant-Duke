@@ -1,5 +1,7 @@
 package duke.items;
 
+import duke.exceptions.BadInputException;
+
 /**
  * In addition to the deadline and done status (inherited from Task),
  * the Event has a start time (and later, end time) that is represented by a date class.
@@ -14,7 +16,7 @@ public class Event extends Task {
     /**
      * Deadline object has a "at" string as well as a Date objects for start and end times.
      */
-    public Event(int index, String description, String start, int doAfter) {
+    public Event(int index, String description, String start, int doAfter) throws BadInputException{
         super(index, description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
         this.start = start;
         this.eventTime = new DateTime(start);

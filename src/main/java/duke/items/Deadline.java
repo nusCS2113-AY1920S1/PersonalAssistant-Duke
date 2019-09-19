@@ -1,5 +1,7 @@
 package duke.items;
 
+import duke.exceptions.BadInputException;
+
 /**
  * In addition to the deadline and done status (inherited from Task),
  * the Deadline has a doByDate that is represented by a date class.
@@ -14,7 +16,7 @@ public class Deadline extends Task {
     /**
      * Deadline object has a "by" string as well as a Date object.
      */
-    public Deadline(int index, String description, String by, int doAfter) {
+    public Deadline(int index, String description, String by, int doAfter) throws BadInputException {
         super(index, description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
         this.doByDate = new DateTime(doBy);
