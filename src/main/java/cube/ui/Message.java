@@ -25,4 +25,6 @@ public class Message {
 			= "OOPS!!! There is an existing task that contains the exact description!";
 	public static final String IO_ERROR
 			= "OOPS!!! The data file is deprecated. Unable to read or write in 'data/duke.txt'";
+	public static final String EMPTY_DURATION
+			= "OOPS!!! The duration cannot be empty. Please provide the duration of the task after \\ Character";
 }
