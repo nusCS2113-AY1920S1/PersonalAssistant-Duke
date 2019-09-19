@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Task containing information of a deadline.
  */
 public class Event extends Task implements Serializable {
-    protected String at;
+    //protected String at;
 
     /**
      * Creates an Event instance and initialises the required attributes.
@@ -16,6 +16,7 @@ public class Event extends Task implements Serializable {
     public Event(String description, String at) {
         super(description);
         this.at = at;
+        this.type = "E";
     }
 
     /**
