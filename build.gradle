@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'application'
+	id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+group 'cube'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = "cube.Duke"
+}
+
+run {
+    standardInput = System.in
+}
