@@ -16,6 +16,20 @@ List all commands along with description of commands.
 Shows a list of all tasks in the task scheduler. +
 Format: `list`
 
+=== Add tasks of todo type : `todo sample`
+
+Adds a todo task. +
+Format: `todo description of todo`
+
+=== Add tasks of event type : `event sample`
+
+Adds an event task. +
+Format: `event description of event /at date time-date time`
+
+=== Add a deadline task : `deadline sample`
+
+Adds an deadline task. +
+Format: `deadline description of deadline /by date time`
 
 === Postponing a task : `postpone`
 
