@@ -12,7 +12,7 @@ public class Deadline extends Task implements Serializable {
     /**
      * Creates a Deadline instance and initialises the required attributes.
      * @param description Description of the deadline.
-     * @param by Deadline of the task.
+     * @param by Deadline of the task in format "dd/MM/yyyy HHmm".
      */
     public Deadline(String description, String by) {
         super(description);
@@ -24,7 +24,7 @@ public class Deadline extends Task implements Serializable {
      * @return The task's status icon, description and deadline.
      */
     @Override
-    public String GiveTask() {
-        return "[D]" + super.GiveTask() + "(by: " + by + ")";
+    public String giveTask() {
+        return "[D]" + super.giveTask() + "(by: " + by + ")";
     }
 }

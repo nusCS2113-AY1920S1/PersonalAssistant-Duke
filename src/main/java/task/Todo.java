@@ -11,7 +11,7 @@ public class Todo extends Task implements Serializable {
      * Creates a Todo instance and initialises the required attributes.
      * @param description Description of the todo.
      */
-    public Todo(String description){
+    public Todo(String description) {
         super(description);
     }
 
@@ -20,7 +20,7 @@ public class Todo extends Task implements Serializable {
      * @return The task's status icon and description.
      */
     @Override
-    public String GiveTask() {
-        return "[T]" + super.GiveTask();
+    public String giveTask() {
+        return "[T]" + super.giveTask();
     }
 }
