@@ -24,7 +24,7 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage)  {
-        int index = list.getLastIndex();
+        int index = list.getListIndex();
 
         if (super.type == CommandType.TODO) {
             list.addTodoItem(index, description);

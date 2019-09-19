@@ -26,13 +26,6 @@ public class TaskList {
         taskList = new ArrayList<Task>();
     }
 
-    /**
-     * Returns the last index of the taskList.
-     */
-    public int getLastIndex() {
-        return taskList.get(taskList.size() - 1).getTaskIndex();
-    }
-
     public ArrayList<Task> getTaskList() {
         return taskList;
     }

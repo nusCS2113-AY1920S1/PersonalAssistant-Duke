@@ -30,11 +30,11 @@ public class Event extends Task {
 
     @Override
     public String saveDetailsString() {
-        return "E/" + super.saveDetailsString() + "/" + start;
+        return super.saveDetailsString() + "/" + start;
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at: " + eventTime.returnFormattedDate() + ")";
+        return super.toString() + " (at: " + eventTime.returnFormattedDate() + ")";
     }
 }

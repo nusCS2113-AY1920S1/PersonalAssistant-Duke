@@ -59,7 +59,7 @@ public class Storage {
                     savedList.get(savedList.size() - 1).markAsDone();
                 }
             }
-            listIndex = savedList.get(savedList.size() - 1).getTaskIndex();
+            listIndex = savedList.get(savedList.size() - 1).getTaskIndex() + 1;
 
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
