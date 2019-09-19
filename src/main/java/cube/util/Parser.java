@@ -51,6 +51,8 @@ public class Parser {
 				return new DoAfterCommand(description,parameter);
 			case "recur":
 				return new RecurCommand(description,parameter);
+			case "tentativescheduling":
+				return new TentSchedCommand(description, date);
 			case "list":
 				return new ListCommand();
 			case "done":
