@@ -59,7 +59,8 @@ public class Storage {
                         }
                         taskList.add(newDeadline);
                     } else if (value.charAt(0) == 'F') {
-                        FixedDuration newFixedDuration = new FixedDuration(splitInput[2], Duration.parse(splitInput[3]));
+                        FixedDuration newFixedDuration = new FixedDuration(splitInput[2],
+                                Duration.parse(splitInput[3]));
                         if (splitInput[1].equals("1")) {
                             newFixedDuration.markAsDone();
                         }
@@ -144,7 +145,8 @@ public class Storage {
                 isDone = 0;
             }
             if (newTiming != "") {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + " | " + newTiming + "\n";
+                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                        + " | " + newTiming + "\n";
             } else {
                 toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
             }

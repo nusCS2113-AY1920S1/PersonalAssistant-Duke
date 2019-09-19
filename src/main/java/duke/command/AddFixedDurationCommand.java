@@ -1,12 +1,14 @@
 package duke.command;
 
-import duke.task.*;
-
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
+import duke.task.FixedDuration;
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 /**
- * Holds the command to add a task that has a fixed duration.
+ * Represents the command to add a task that has a fixed duration.
  */
 public class AddFixedDurationCommand extends Command {
     /**
@@ -29,22 +31,23 @@ public class AddFixedDurationCommand extends Command {
             throw new DukeException("OOPS!!! Please indicate the duration after \"/for\"");
         }
 
-        String task = input.substring(0, dateIndex-1);
+        String task = input.substring(0, dateIndex - 1);
 
-        Duration duration = parseInputTiming( input.substring(dateIndex+5));
+        Duration duration = parseInputTiming(input.substring(dateIndex + 5));
         if (duration == null) {
             return;
         }
         FixedDuration toAdd = new FixedDuration(task, duration);
         taskList.addToArrayList(toAdd);
 
-        ui.output = "Got it. I've added this task: \n  " + toAdd.toString() + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
+        ui.output = "Got it. I've added this task: \n  " + toAdd.toString()
+                + "\nNow you have " + taskList.getSize() + " task(s) in the list.";
         storage.saveToFile();
     }
 
     /**
-     * Used to convert a string given to an appropriate LocalDateTime Object.
-     * @param toParse String to be converted
+     * Returns Duration object specified by user input.
+     * @param toParse User inputted duration, Example: 1 DAY 3 HRS 1 MIN 5 SECS
      * @return Duration representing length of duration
      * @throws DukeException Thrown if the input given does not match the format
      */
@@ -52,51 +55,66 @@ public class AddFixedDurationCommand extends Command {
     private Duration parseInputTiming(String toParse) throws DukeException {
         String[] toParseArray = toParse.split(" ");
         if (toParseArray.length < 2 || toParseArray.length % 2 != 0) {
-            throw new DukeException("Please enter a duration in this format \"2 HRS 3 HRS 5 MINS 12 SEC\"");
+            throw new DukeException("Please enter a duration in this format \"2 DAY(S) 1 HR(S) 5 MIN(S) 12 SEC(S)\"");
         }
-        Duration newDuration;
         String durationString = "P";
 
-        int dayValue = searchArray(toParseArray, "DAYS");
-        int hrValue = searchArray(toParseArray, "HRS");
-        int minValue = searchArray(toParseArray, "MINS");
-        int secValue = searchArray(toParseArray, "SEC");
+        int dayValue = searchArray(toParseArray, "DAYS|DAY");
+        int hrValue = searchArray(toParseArray, "HRS|HR");
+        int minValue = searchArray(toParseArray, "MINS|MIN");
 
         if (dayValue != -1) {
-            durationString += toParseArray[dayValue-1] + "D";
+            durationString += toParseArray[dayValue - 1] + "D";
         }
 
         if (hrValue != -1) {
-            durationString += "T" + toParseArray[hrValue-1] + "H";
+            durationString += "T" + toParseArray[hrValue - 1] + "H";
         }
 
         if (minValue != -1) {
             if (durationString.contains("T")) {
-                durationString += toParseArray[minValue-1] + "M";
+                durationString += toParseArray[minValue - 1] + "M";
             } else {
-                durationString += "T" + toParseArray[minValue-1] + "M";
+                durationString += "T" + toParseArray[minValue - 1] + "M";
             }
         }
 
-        if (secValue!=-1) {
+        int secValue = searchArray(toParseArray, "SECS|SEC");
+
+        if (secValue != -1) {
             if (durationString.contains("T")) {
-                durationString += toParseArray[secValue-1] + "S";
+                durationString += toParseArray[secValue - 1] + "S";
             } else {
-                durationString += "T" + toParseArray[secValue-1] + "S";
+                durationString += "T" + toParseArray[secValue - 1] + "S";
             }
         }
 
         if (durationString.equals("P")) {
-            throw new DukeException("Please enter a duration in this format \"2 HRS 3 HRS 5 MINS 12 SEC\"");
+            throw new DukeException("Please enter a duration in this format \"2 DAY(S) 1 HR(S) 5 MIN(S) 12 SEC(S)\"");
         }
-        newDuration = Duration.parse(durationString);
+        Duration newDuration = Duration.parse(durationString);
 
         return newDuration;
     }
-    private int searchArray(String[] toFindArray, String toFindValue) {
+
+    /**
+     * Returns the index containing a specified value in an array.
+     * @param toFindArray Array to search value from.
+     * @param toFindValue Value to search for in array.
+     * @return Index of value in array, else -1.
+     * @throws DukeException thrown when element before search value is not an integer.
+     */
+    private int searchArray(String[] toFindArray, String toFindValue) throws DukeException {
+        String[] splitArray = toFindValue.split("\\|");
         int i = 0;
         for (i = 0; i < toFindArray.length; ++i) {
-            if (toFindArray[i].equals(toFindValue)) {
+            if (toFindArray[i].equals(splitArray[0]) || toFindArray[i].equals(splitArray[1])) {
+                try {
+                    Integer.parseInt(toFindArray[i - 1]);
+                } catch (Exception e) {
+                    throw new DukeException("Please enter a duration in this format "
+                            + "\"2 DAY(S) 1 HR(S) 5 MIN(S) 12 SEC(S)\"");
+                }
                 return i;
             }
         }
