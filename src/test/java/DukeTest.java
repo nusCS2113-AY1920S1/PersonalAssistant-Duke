@@ -39,4 +39,6 @@ public class DukeTest {
     public void Todo() {
         new TodoTest().Test();
     }
+    @Test
+    public void RescheduleTest() {new RescheduleTest().Test();}
 }
