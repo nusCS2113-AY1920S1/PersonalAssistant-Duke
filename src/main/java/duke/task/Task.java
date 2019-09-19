@@ -115,11 +115,11 @@ public class Task {
     }
 
 
-    public void setDatetime(Date datetime){
+    public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 
-    public Date getDatetime(){
+    public Date getDatetime() {
         return this.datetime;
     }
 

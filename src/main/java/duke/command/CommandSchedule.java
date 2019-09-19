@@ -13,15 +13,15 @@ public class CommandSchedule extends Command {
 
 
     //constructor
-    public CommandSchedule(String userInput){
+    public CommandSchedule(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.VIEWSCHEDULE;
-    };
+    }
 
 
     @Override
     public void execute(TaskList taskList) {
-        String dateInput = Parser.removeStr(this.commandType.toString(), this.userInput); //removes command ViewSchedule leaving the date
+        String dateInput = Parser.removeStr(this.commandType.toString(), this.userInput);
         Ui.dukeSays("Here is your schedule for the following date '"
                 + dateInput
                 + "'."
@@ -39,17 +39,17 @@ public class CommandSchedule extends Command {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date userDate = format.parse(dateInput);
         userDate.setTime(0);
-        for (int index = 0; index < taskList.getSize(); ++index){
+        for (int index = 0; index < taskList.getSize(); ++index) {
             try {
-                Date taskDATE = taskList.getList().get(index).getDatetime();//creates of copy of datetime in the task
-                if (taskDATE == null) {
+                Date taskDate = taskList.getList().get(index).getDatetime();//creates of copy of datetime in the task
+                if (taskDate == null) {
                     return;
                 }
-                taskDATE.setTime(0);//this sets the time to zero
-                if (taskDATE.equals(userDate)) {
+                taskDate.setTime(0);//this sets the time to zero
+                if (taskDate.equals(userDate)) {
                     taskList.printTaskByIndex(index);
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("invalid");
             }
         }
