@@ -14,8 +14,8 @@ public class Deadline extends Task {
     /**
      * Deadline object has a "by" string as well as a Date object.
      */
-    public Deadline(String description, String by) {
-        super(description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
+    public Deadline(int index, String description, String by) {
+        super(index, description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
         this.doByDate = new DateTime(doBy);
     }

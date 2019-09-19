@@ -6,6 +6,7 @@ package duke.items;
  */
 
 public class Task {
+    protected int taskIndex;
     protected String description;
     protected boolean isDone;
     protected TaskType type;
@@ -15,6 +16,7 @@ public class Task {
     }
 
     public Task() {
+        this.taskIndex = 0;
         this.description = "None";
         this.isDone = false;
     }
@@ -22,10 +24,15 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(String description, TaskType type) {
+    public Task(int index, String description, TaskType type) {
+        this.taskIndex = index;
         this.description = description;
         this.isDone = false;
         this.type = type;
+    }
+
+    public int getTaskIndex() {
+        return taskIndex;
     }
 
     public String getDescription() {
