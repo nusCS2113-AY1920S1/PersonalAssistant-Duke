@@ -10,6 +10,7 @@ import duke.command.ListTaskCommand;
 import duke.command.MarkTaskAsDoneCommand;
 import duke.command.Command;
 import duke.command.ViewSchedule;
+import duke.command.AddDoWithinPeriodCommand;
 import duke.command.AddFixedDurationCommand;
 
 /**
@@ -41,6 +42,8 @@ public class Parser {
             return new ViewSchedule(false, input);
         } else if (input.startsWith("fixed ")) {
             return new AddFixedDurationCommand(false, input);
+        } else if (input.startsWith("dowithin ")) {
+            return new AddDoWithinPeriodCommand(false, input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {
