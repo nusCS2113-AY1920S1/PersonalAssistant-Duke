@@ -30,6 +30,8 @@ public class Duke {
      */
     public void run() throws Exception {
 //        duke.Ui.showWelcome(); // inside duke.Storage
+        Reminder RObject = new Reminder(); //reminder pop up
+        RObject.execute(tasks);
         boolean isExit = false;
         Scanner input = new Scanner(System.in); // TODO: Add to duke.Ui instead?
         while (isExit == false) {
