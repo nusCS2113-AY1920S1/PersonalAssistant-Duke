@@ -1,15 +1,12 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Calendar;
 import java.util.Date;
 
 import duke.exceptions.BadInputException;
-import duke.items.Task;
-import duke.items.Todo;
-import duke.items.Deadline;
-import duke.items.Event;
-import duke.items.Snooze;
+import duke.items.*;
 
 /**
  * Manages the list of (different types of classes),
@@ -19,6 +16,8 @@ import duke.items.Snooze;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    private PriorityQueue<DateTime> eventSortedList = 
+
     private int listIndex;
 
     public TaskList(ArrayList<Task> savedFile, int lastIndex) {
@@ -86,6 +85,8 @@ public class TaskList {
             System.out.println("Event item added: " + event);
             System.out.println("Event happens at: " + at);
             setListIndex(index + 1); //Next open index.
+
+
         } catch (BadInputException e) {
             System.out.println(e);
         }

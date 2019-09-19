@@ -42,6 +42,14 @@ public class Event extends Task implements Snooze {
         return eventStartTime.returnFormattedDate();
     }
 
+    public DateTime getEventStartTimeObj() {
+        return eventStartTime;
+    }
+
+    public DateTime getEventEndTimeObj() {
+        return eventEndTime;
+    }
+
     @Override
     public void snooze() {
         Calendar newStartDate = Calendar.getInstance();
