@@ -17,11 +17,6 @@ import java.util.Date;
 
 public class SnoozeCommand implements Command {
     private String number;
-/*
-    public SnoozeCommand() {
-        this(null);
-    }
-*/
     public SnoozeCommand(String number) {
         this.number = number;
     }
@@ -52,7 +47,7 @@ public class SnoozeCommand implements Command {
     }
 
     /**
-     * Shows the list of available command.
+     * Implement Snooze of a Task for 24 hours.
      *
      * @param tasks the list of tasks.
      * @param ui the user interface to output message.
@@ -63,7 +58,6 @@ public class SnoozeCommand implements Command {
         if (isValid(tasks)) {
             int taskIndex = Integer.parseInt(number) - 1;
             Task t = tasks.get(taskIndex);
-            //t.snooze(taskIndex);
             //snooze it
             Date task_date = t.getDate();
             task_date.setTime(task_date.getTime()+24*60*60*1000);
