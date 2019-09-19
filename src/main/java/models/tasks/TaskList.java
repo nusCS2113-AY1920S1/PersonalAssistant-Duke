@@ -110,8 +110,6 @@ public class TaskList implements Serializable {
     public boolean detectAnomalies(ITask newTask) {
         if (newTask instanceof ToDos) {
             return false;
-        } else if (newTask.getDateTime().equals("")) {
-            return false;
         }
         schedule = getSchedule(newTask.getDateTime());
         for (ITask task : schedule) {
