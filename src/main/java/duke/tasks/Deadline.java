@@ -38,6 +38,7 @@ public class Deadline extends Task {
             this.by = by; // custom deadline
         }
     }
+
     @Override
     public String get_type() {
         return "D";
