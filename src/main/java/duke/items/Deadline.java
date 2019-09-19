@@ -14,8 +14,8 @@ public class Deadline extends Task {
     /**
      * Deadline object has a "by" string as well as a Date object.
      */
-    public Deadline(String description, String by, int doAfter) {
-        super(description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
+    public Deadline(int index, String description, String by, int doAfter) {
+        super(index, description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
         this.doByDate = new DateTime(doBy);
     }
@@ -24,17 +24,17 @@ public class Deadline extends Task {
         return doBy;
     }
 
-    @Override
-    public String saveDetailsString() {
-        return "D/" + super.saveDetailsString() + "/" + doBy;
-    }
-
     public String getDoByDate() {
         return doByDate.returnFormattedDate();
     }
 
     @Override
+    public String saveDetailsString() {
+        return super.saveDetailsString() + "/" + doBy;
+    }
+
+    @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + doByDate.returnFormattedDate() + ")";
+        return super.toString() + " (by: " + doByDate.returnFormattedDate() + ")";
     }
 }

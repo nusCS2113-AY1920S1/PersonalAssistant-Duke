@@ -8,17 +8,17 @@ package duke.items;
 
 public class Todo extends Task {
 
-    public Todo(String description, int doAfter) {
-        super(description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
+    public Todo(int index, String description, int doAfter) {
+        super(index, description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
     }
 
     @Override
     public String saveDetailsString() {
-        return "T/" + super.saveDetailsString();
+        return super.saveDetailsString();
     }
 
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return super.toString();
     }
 }
