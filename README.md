@@ -1,13 +1,25 @@
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113-T13-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113-T13-1/main)
-# Team Technical Difficulties
-**Members**
+# ArchDuke - A CLI Project Manager with Kanban board
+**Done by:**
 * Sean
 * Abhishek
 * Dillen
 * Cynthia
 * Jerry
 
-# Setting up
+# Introduction
+* ArchDuke is a desktop Project Manager application. It has a GUI for better visualisation of the Kanban board and tasks
+, but most of the user interactions will happen using a Command Line Interface (CLI).
+* The Kanban board will also be printed onto command line for users that favour the usage of a CLI interface compared
+ to a GUI.
+
+# Table of Contents
+* [Setting Up] (#setting-up)
+* [Usage] (#usage)
+* [Acknowledgements] (#acknowledgements)
+* [License] (#license)
+
+## Setting up
 
 **Prerequisites**
 
@@ -42,7 +54,16 @@ Duke Increment | Tutorial
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
 
-# Feedback, Bug Reports
+## Usage
+You can refer to our user guide at this link:
+* [User Guide]: <./docs/README.md>
+For more advanced users and developers, do refer to our Developer Guide:
+* [Developer Guide]: <./docs/DeveloperGuide.adoc>
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+## Acknowledgements 
+* This application was written as submission for our Team project under the module CS2113 Software Engineering and
+ Object-Oriented Programming
+* Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
+
+## License
+We will include MIT License in the future
