@@ -105,6 +105,9 @@ public class Parser {
             }
             break;
         }
+            case "view": {
+
+            }
 
         default:
             command = new Command(); //Bad Command
