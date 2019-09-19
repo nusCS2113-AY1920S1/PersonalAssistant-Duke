@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Greatnest/main.svg?branch=master)](https://travis-ci.org/Greatnest/main)  [![Build status](https://ci.appveyor.com/api/projects/status/51do3k63gjj8x7fs?svg=true)](https://ci.appveyor.com/project/Greatnest/main)
+
+
 # Setting up
 
 **Prerequisites**
