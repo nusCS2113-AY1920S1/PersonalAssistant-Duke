@@ -3,6 +3,7 @@ package duke.commands;
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+import duke.exceptions.BadInputException;
 
 /**
  * Command objects for adding Todos, Events, and Deadlines.
