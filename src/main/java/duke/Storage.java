@@ -101,8 +101,7 @@ public class Storage {
      */
     private void convertString(TaskList taskList, String s) throws DukeException {
         try {
-            String type = s.substring(1,2); // T, D or E
-
+            String type = s.substring(1,2); // T, D, E or A
             boolean isDone = s.substring(4,5).equals("v");
             String description;
             String addendum;
@@ -143,6 +142,19 @@ public class Storage {
                     deadline.setDone();
                 }
                 taskList.add(deadline);
+                break;
+            }
+            case "A": {
+                String[] sections = s.substring(7).split("after:");
+                description = sections[0].substring(0, sections[0].length() - 2);
+                addendum = sections[1].substring(6, sections[1].length() - 1);
+                int previousTaskNumber = Integer.parseInt(addendum);
+                DoAfter doAfter = new DoAfter(description, previousTaskNumber, taskList.getSize() + 1);
+                DoAfterList.add(previousTaskNumber);
+                if (isDone) {
+                    doAfter.setDone();
+                }
+                taskList.add(doAfter);
                 break;
             }
             case "B": {
