@@ -12,9 +12,10 @@ public class Task {
     public Boolean isDone = false;
     private TaskList queuedTasks = null;
     protected Date datetime = null;
-  
+
     /**
      * Constructor for the 'Task' Class.
+     *
      * @param name Name of the task as inputted by the user
      */
     public Task(String name) {
@@ -25,6 +26,7 @@ public class Task {
 
     /**
      * Get a 'tick' or 'cross' depending on .isDone
+     *
      * @return A special string that represents a tick for true or a cross for false
      */
     public String getStatusIcon() {
@@ -52,6 +54,7 @@ public class Task {
     /**
      * Generates a String Describing the Task Object.
      * Optimized for user's reading.
+     *
      * @return String detailing the Task Object, including type, isDone, taskName and taskDetails
      */
     public String genTaskDesc() {
@@ -84,6 +87,7 @@ public class Task {
 
     /**
      * Records the details from the user input into this Task object.
+     *
      * @param userInput The input taken from the user in CLI
      */
     public void recordTaskDetails(String userInput) {
@@ -103,10 +107,12 @@ public class Task {
             }
         }
     }
-  
+
     // -- Boolean Checkers
+
     /**
      * Checks if the current task has any queued tasks.
+     *
      * @return false if queuedTask property is null, true otherwise
      */
     public boolean isQueuedTasks() {
@@ -121,6 +127,7 @@ public class Task {
 
     /**
      * Getter for queuedTask Property.
+     *
      * @return ArrayList containing Task Objects
      */
     public TaskList getQueuedTasks() {
@@ -129,24 +136,28 @@ public class Task {
 
     /**
      * Setter for queued Task Property.
+     *
      * @param queuedTasks ArrayList to be set
      */
     public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
     }
-  
-    /** 
-      * Setter for datetime property.
-      * @param datetime The Date to set
-      */
+
+    /**
+     * Setter for datetime property.
+     *
+     * @param datetime The Date to set
+     */
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
-  
-    /** 
-      * Getter for datetime property.
-      * @return Date represented by the datetime property
-      */
+
+    /**
+     * Getter for datetime property.
+     *
+     * @return Date represented by the datetime property
+     */
     public Date getDatetime() {
         return this.datetime;
     }
+}

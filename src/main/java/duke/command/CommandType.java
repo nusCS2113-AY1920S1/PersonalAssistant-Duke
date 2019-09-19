@@ -6,7 +6,8 @@ public enum CommandType {
     /**
      * Constructor for 'CommandType' enum.
      */
-    private CommandType() {}
+    private CommandType() {
+    }
 
     /**
      * Method to get all the types of this enum.

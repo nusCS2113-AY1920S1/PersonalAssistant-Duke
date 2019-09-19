@@ -24,8 +24,8 @@ public class CommandReminder extends Command {
     public void execute(TaskList taskList) {
         try {
             for (Task task : taskList.getList()) {
-                Date dateCopy = task.getDateTime();
-                if(dateCopy != null) {
+                Date dateCopy = task.getDatetime();
+                if (dateCopy != null) {
                     dateCopy.setTime(0);
                     if (dateCopy.equals(this.currentDate)) {
                         Ui.dukeSays(task.genTaskDesc());
@@ -33,7 +33,7 @@ public class CommandReminder extends Command {
                     }
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("sorry");
         }
     }
