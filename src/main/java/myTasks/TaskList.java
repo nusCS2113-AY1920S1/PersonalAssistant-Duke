@@ -198,34 +198,34 @@ public class TaskList {
         Task temp;
         try {
             switch (type) {
-                case "todo":
-                    temp = new Todo(input);
-                    break;
-                case "deadline":
-                    temp = new Deadline(input);
-                    break;
-                case "event":
-                    temp = new Event(input);
-                    break;
-                case "recurring":
-                    temp = new Recurring(input);
-                    break;
-                case "after":
-                    temp = new After(input);
-                    break;
-                case "within":
-                    temp = new Within(input);
-                    break;
-                case "fixed":
-                    temp = new Fixed(input);
-                    break;
-                default:
-                    throw new DukeException("What the Hell happened here?\n"+
-                            "Command passed successfully to tasklist.add, not found in any case");
+            case "todo":
+                temp = new Todo(input);
+                break;
+            case "deadline":
+                temp = new Deadline(input);
+                break;
+            case "event":
+                temp = new Event(input);
+                break;
+            case "recurring":
+                temp = new Recurring(input);
+                break;
+            case "after":
+                temp = new After(input);
+                break;
+            case "within":
+                temp = new Within(input);
+                break;
+            case "fixed":
+                temp = new Fixed(input);
+                break;
+            default:
+                throw new DukeException("What the Hell happened here?\n"
+                            + "Command passed successfully to tasklist.add, not found in any case");
             }
             this.list.add(temp);
-            System.out.println("Got it. I've added this task:\n  " +
-                    temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n  "
+                    + temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
         }
         catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
