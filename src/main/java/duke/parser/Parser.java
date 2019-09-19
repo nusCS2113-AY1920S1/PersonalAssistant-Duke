@@ -17,6 +17,7 @@ import java.util.Date;
 
 /**
  * Represents a parser used to parse the input String from the user into a Duke understandable {@link Command}
+ * It should deals with making sense of the user command
  */
 public class Parser {
 
@@ -30,53 +31,68 @@ public class Parser {
         String[] splitted = fullCommand.split(" ", 2);// splitted contains the keyword and the rest (description or task number)
         switch (splitted[0]) { // switching on the keyword
             case "list":
-                if (splitted.length == 2)
+                if (splitted.length == 2) {
                     throw new DukeException("Did you mean just list?");
-                else
+                } else {
                     return new ListCommand();
+                }
             case "bye":
-                if (splitted.length == 2)
+                if (splitted.length == 2) {
                     throw new DukeException("Did you mean just bye?");
-                else
+                } else {
                     return new ExitCommand();
+                }
             case "done":
                 if (splitted.length == 2) {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DoneCommand(taskNb - 1);
-                } else throw new DukeException("Need a task number after done!");
+                } else {
+                    throw new DukeException("Need a task number after done!");
+                }
             case "todo":
-                if ((splitted.length == 1) || splitted[1].isEmpty())
+                if ((splitted.length == 1) || splitted[1].isEmpty()){
                     throw new DukeException("The description of a todo cannot be empty.");
+                }
                 return new AddCommand(new Todo(splitted[1]));
             case "deadline":
-                if ((splitted.length == 1) || splitted[1].isEmpty())
+                if ((splitted.length == 1) || splitted[1].isEmpty()){
                     throw new DukeException("The description of a deadline cannot be empty.");
+                }
                 String[] getBy = splitted[1].split("/by ", 2);
-                if (getBy.length < 2)
+                if (getBy.length < 2){
                     throw new DukeException("The description of a deadline must contain /by date!");
+                }
                 return new AddCommand(new Deadline(getBy[0], getBy[1]));
             case "event":
-                if ((splitted.length == 1) || splitted[1].isEmpty())
+                if ((splitted.length == 1) || splitted[1].isEmpty()){
                     throw new DukeException("The description of an event cannot be empty, and it must contain /at");
+                }
                 String[] getAt = splitted[1].split("/at ", 2);
-                if (getAt.length < 2)
+                if (getAt.length < 2){
                     throw new DukeException("The description of a deadline must contain /at data and time from-to!");
+                }
                 return new AddCommand(new Event(getAt[0], getAt[1]));
             case "find":
                 if (splitted.length == 2) {
                     return new FindCommand(splitted[1]);
-                } else throw new DukeException("Need a word to find! ");
+                } else {
+                    throw new DukeException("Need a word to find! ");
+                }
             case "delete":
                 if (splitted.length == 2) {
                     int taskNb = Integer.parseInt(splitted[1]);
                     return new DeleteCommand(taskNb - 1);
-                } else throw new DukeException("Need a task number after done!");
+                } else {
+                    throw new DukeException("Need a task number after done!");
+                }
             case "snooze":
-                if ((splitted.length == 1) || splitted[1].isBlank())
+                if ((splitted.length == 1) || splitted[1].isBlank()){
                     throw new DukeException("The description of a snooze cannot be empty.");
+                }
                 String[] getUntil = splitted[1].split("/until ", 2);
-                if (getUntil.length < 2)
+                if (getUntil.length < 2){
                     throw new DukeException("The description of a snooze must contain /until date!");
+                }
             case "view":
                 if ((splitted.length == 1) || splitted[1].isBlank()) {
                     throw new DukeException("The description of a view must contain date!");
@@ -85,16 +101,18 @@ public class Parser {
                     Date splittedDate = Parser.getDate(splitted[1]);
                     return new ViewCommand(splittedDate);
                 }
-                return new Snooze(getUntil[0], getUntil[1]);
             case "period":
-                if ((splitted.length == 1) || splitted[1].isEmpty())
+                if ((splitted.length == 1) || splitted[1].isEmpty()){
                     throw new DukeException("The description of a period cannot be empty.");
+                }
                 String[] getPart = splitted[1].split("/from ", 2);
-                if (getPart.length < 2)
+                if (getPart.length < 2){
                     throw new DukeException("The description of a period must contain /from date!");
+                }
                 String[] part = getPart[1].split("/to ", 2);
-                if (part.length < 2)
+                if (part.length < 2){
                     throw new DukeException("NO");
+                }
                 try {
                     return new AddCommand(new DoWithinPeriodTasks(getPart[0], part[0], part[1]));
                 }

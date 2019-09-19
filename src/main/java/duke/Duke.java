@@ -1,4 +1,5 @@
 package  duke;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -6,13 +7,15 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+//MAIN CLASS DUKE, start from main function
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * @param filePath used to specify the location of the file in the hard disc
+     * The constructor method for Duke
+     * @param filePath used to specify the location of the file in the hard disc.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -45,6 +48,8 @@ public class Duke {
             }
         }
     }
+
+    //========== MAIN FUNCTION ==========
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
