@@ -17,7 +17,7 @@ public class Duke {
     private Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = new TaskList(storage.load()); //Will always return the right object even if empty.
+        taskList = storage.load(); //Will always return the right object even if empty.
         parser = new Parser();
     }
 

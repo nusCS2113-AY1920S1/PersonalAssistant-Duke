@@ -1,5 +1,9 @@
 package duke.items;
 
+import duke.exceptions.BadInputException;
+
+import java.util.Calendar;
+import java.util.List;
 //TODO: Import an existing datetime class or write a better one.
 /**
  * Stores date and time information by field - day, month, year, hour, minute.
@@ -8,118 +12,35 @@ package duke.items;
  */
 
 public class DateTime {
-    private boolean valid;
     private String dateAndTime;
-    private int day;
-    private int month;
-    private int year;
-    private int hour;
-    private String minute;
+    private boolean valid;
+    private Calendar at;
 
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
      */
-    public DateTime(String dateAndTime) {
+    public DateTime(String dateAndTime) throws BadInputException {
         this.dateAndTime = dateAndTime;
-        String[] details = dateAndTime.split("[ /]");
-
+        Calendar calendar = Calendar.getInstance();
         try {
-            day = Integer.parseInt(details[0]);
-            month = Integer.parseInt(details[1]);
-            year = Integer.parseInt(details[2]);
-            hour = Integer.parseInt(details[3].substring(0, 2));
-            minute = details[3].substring(2);
-            valid = true;
-        } catch (NumberFormatException e) {
-            System.out.println("Sorry, that date input is not recognised.");
-            System.out.println("The date input is still saved and can be accessed.");
-            valid = false;
-        }
-    }
+            String[] dateTimeToken = dateAndTime.split(" ", 2);
+            String[] dateToken = dateTimeToken[0].split("/");
+            String time = dateTimeToken[1];
 
-    public boolean isValid() {
-        return valid;
-    }
+            calendar.set(Calendar.DATE, Integer.parseInt(dateToken[0])); //day of the month
+            calendar.set(Calendar.MONTH, Integer.parseInt(dateToken[1]) - 1); // jan is 0, dec is 11
+            calendar.set(Calendar.YEAR, Integer.parseInt(dateToken[2]));
 
-    public int getDay() {
-        return day;
-    }
+            // set with the first 2 elements - the hour
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time) / 100);
+            // set with the last 2 elements, the minutes
+            calendar.set(Calendar.MINUTE, Integer.parseInt(time) % 100);
+            // set seconds to be 0 by default
+            calendar.set(Calendar.SECOND, 0);
 
-    public int getMonth() {
-        return month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getHour() {
-        return hour;
-    }
-
-    public String getMinute() {
-        return minute;
-    }
-
-    private String getDayString() {
-        if (day > 31) {
-            System.out.println("Day is invalid.");
-            return null;
-        } else if (day > 10 && day < 14) {
-            return Integer.toString(day) + "th";
-        } else if (day % 10 == 1) {
-            return Integer.toString(day) + "st";
-        } else if (day % 10 == 2) {
-            return Integer.toString(day) + "nd";
-        } else if (day % 10 == 3) {
-            return Integer.toString(day) + "rd";
-        } else {
-            return Integer.toString(day) + "th";
-        }
-    }
-
-    private String getMonthString() {
-        switch (month) {
-        case 1:
-            return "January";
-        case 2:
-            return "February";
-        case 3:
-            return "March";
-        case 4:
-            return "April";
-        case 5:
-            return "May";
-        case 6:
-            return "June";
-        case 7:
-            return "July";
-        case 8:
-            return "August";
-        case 9:
-            return "September";
-        case 10:
-            return "October";
-        case 11:
-            return "November";
-        case 12:
-            return "December";
-        default:
-            System.out.println("Month is invalid.");
-            return null;
-        }
-    }
-
-    private String getTimeString() {
-        if (hour > 12 && hour <= 24) {
-            return Integer.toString(hour - 12) + ":" + minute + " pm";
-        } else if (hour < 12) {
-            return Integer.toString(hour) + ":" + minute + " am";
-        } else if (hour == 12) {
-            return "12:" + minute + " pm";
-        } else {
-            System.out.println("Time is invalid.");
-            return null;
+            this.at = calendar;
+        } catch (Exception e) {
+            throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
         }
     }
 
@@ -127,11 +48,7 @@ public class DateTime {
      * Returns the date in a friendlier format.
      */
     public String returnFormattedDate() {
-        if (valid) {
-            return getDayString() + " of " + getMonthString() + " " + year + ", " + getTimeString();
-        } else {
-            return dateAndTime;
-        }
+        return ("" + at.getTime());
     }
 
 }

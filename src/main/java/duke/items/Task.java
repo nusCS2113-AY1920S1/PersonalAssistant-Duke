@@ -6,6 +6,7 @@ package duke.items;
  */
 
 public class Task {
+    protected int taskIndex;
     protected String description;
     protected boolean isDone;
     protected TaskType type;
@@ -14,7 +15,11 @@ public class Task {
         TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Task constructor sets a blank task by default.
+     */
     public Task() {
+        this.taskIndex = -1;
         this.description = "None";
         this.isDone = false;
     }
@@ -22,10 +27,15 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(String description, TaskType type) {
+    public Task(int index, String description, TaskType type) {
+        this.taskIndex = index;
         this.description = description;
         this.isDone = false;
         this.type = type;
+    }
+
+    public int getTaskIndex() {
+        return taskIndex;
     }
 
     public String getDescription() {
@@ -50,14 +60,22 @@ public class Task {
      */
     public String saveDetailsString() {
         String done;
+        String taskType;
         if (this.isDone) {
             done = "1";
         } else {
             done = "0";
         }
 
-        return done + "/" + description;
-        //Returns string in the style of "1/read book"
+        if (this.type == TaskType.DEADLINE) {
+            taskType = "D";
+        } else if (this.type == TaskType.TODO) {
+            taskType = "T";
+        } else {
+            taskType = "E";
+        }
+        return taskIndex + "/" + taskType + "/" + done + "/" + description;
+        //Returns string in the style of "12/T/1/read book"
     }
 
     /**
@@ -68,13 +86,21 @@ public class Task {
     }
 
 
+    /**
+     * toString method overridden to return the a description string.
+     * This string presents the task information in a readable format.
+     * @return the task details.
+     */
     @Override
     public String toString() {
-        /**
-         * toString method overridden to return the a description string.
-         * This string presents the task information in a readable format.
-         * @return the task details.
-         */
-        return getStatusIcon() + " " + description; //eg. [✓] read book
+        String taskType;
+        if (this.type == TaskType.DEADLINE) {
+            taskType = "[D]";
+        } else if (this.type == TaskType.TODO) {
+            taskType = "[T]";
+        } else {
+            taskType = "[E]";
+        }
+        return taskType + " " + getStatusIcon() + " " + description; //eg. [✓] read book
     }
 }
