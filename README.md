@@ -1,6 +1,6 @@
 # Copyright Notice 
 
-//Updated by the team repo creator, LL-Pengfei, on 2019/9/19 22:10PM
+**Updated by the team repo creator, LL-Pengfei, on 2019/9/19 22:10PM**
 
 This is the Group Component for the Module Project of the Module CS2113T, Software Engineering & Object-Oriented Programming, in Academic Year AY19/20, Semester 1 (AY19/20S1), conducted in School of Computing (SoC), National University of Singapore (NUS).
 
