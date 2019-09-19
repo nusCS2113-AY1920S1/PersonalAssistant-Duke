@@ -13,14 +13,14 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === John Doe
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Project Advisor
 
 '''
 
 === Park So Hyun
-image::lejolly.jpg[width="150", align="left"]
+image::So_hyun.jpg[width="150", align="left"]
 {empty}[http://github.com/sallysohyun[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Rajamohan B Priyan
-image::lejolly.jpg[width="150", align="left"]
+image::Priyan.jpg[width="150", align="left"]
 {empty}[http://github.com/priyan-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -38,7 +38,7 @@ Responsibilities: UI
 '''
 
 === Raveendran Ajey Ashok
-image::yijinl.jpg[width="150", align="left"]
+image::Ajey.jpg[width="150", align="left"]
 {empty}[http://github.com/AjeyAshok[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Data
 '''
 
 === Senthil Araavind
-image::m133225.jpg[width="150", align="left"]
+image::Araavind.jpg[width="150", align="left"]
 {empty}[http://github.com/Araavinds[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -56,7 +56,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Ahmad Mudaafi'
-image::yl_coder.jpg[width="150", align="left"]
+image::Mudaafi.jpg[width="150", align="left"]
 {empty}[http://github.com/Mudaafi[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
