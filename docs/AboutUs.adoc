@@ -4,53 +4,54 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+DukeMods was developed by the https://github.com/orgs/AY1920S1-CS2113T-F10-1/teams/developers[github] team. +
 _{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== EVELYN YI-WEN CHEN
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/e0313687[github]]
 
-Role: Project Advisor
+Role: Developer +
+Responsibilities: 
 
 '''
 
-=== John Roe
+=== KHAIRUL IMAN NASRI B AZHARIE
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/namiwa[github]] 
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities:
 
 '''
 
-=== Johnny Doe
+=== KYAWT KYAWT SAN
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/kyawtsan99[github]] 
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: 
 
 '''
 
-=== Johnny Roe
+=== LE HONG LONG
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/LongLeCE[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: 
 
 '''
 
-=== Benson Meier
+=== LEOW YONG KANG ANDREW
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/andrewleow97[github]] 
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities:
 
 '''
