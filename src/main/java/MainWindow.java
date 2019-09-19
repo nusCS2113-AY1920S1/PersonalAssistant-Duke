@@ -43,9 +43,9 @@ public class MainWindow extends AnchorPane {
         String[] splitArray = response.split("\n");
         String newResponse = "";
         for (String element : splitArray) {
-            if (element.length() > 60) {
+            if (element.length() > 80) {
                 for (int i = 0; i < element.length(); ++i) {
-                    if (i > 0 && i % 60 == 0) {
+                    if (i > 0 && i % 80 == 0) {
                         newResponse += "\n";
                     }
                     newResponse += element.charAt(i);

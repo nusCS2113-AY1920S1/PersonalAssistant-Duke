@@ -1,9 +1,5 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import duke.command.AddDeadLineCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddToDoCommand;
@@ -12,6 +8,11 @@ import duke.command.ExitCommand;
 import duke.command.FindTaskCommand;
 import duke.command.ListTaskCommand;
 import duke.command.MarkTaskAsDoneCommand;
+import duke.command.AddDoWithinPeriodCommand;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     @Test
@@ -25,7 +26,8 @@ public class ParserTest {
             assertTrue(Parser.parse("done 1") instanceof MarkTaskAsDoneCommand);
             assertTrue(Parser.parse("delete 1") instanceof DeleteTaskCommand);
             assertTrue(Parser.parse("find hello") instanceof FindTaskCommand);
-
+            assertTrue(Parser.parse("dowithin read book /from 3/2/2019 1830 /to 3/5/2019 1830")
+                    instanceof AddDoWithinPeriodCommand);
             Parser.parse("invalid input");
         } catch (DukeException e) {
             assertEquals("duke.task.DukeException: OOPS!!! I'm sorry, but I don't know what that means :-(",
