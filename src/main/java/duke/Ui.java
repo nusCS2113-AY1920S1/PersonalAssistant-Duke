@@ -138,13 +138,13 @@ public class Ui {
      * @param index the index of the item that was deleted
      * @return the formatted String to be displayed
      */
-    public String formatDelete(ArrayList<Task> list, int index) {
+    public String formatDelete(ArrayList<Task> list,ArrayList<Task> newList, int index) {
         String word = (list.size() == 2) ? "task" : "tasks";
         String result = "Noted! I've removed this task:\n "
                 + list.get(index - 1).toString()
                 + "\n"
                 + "Now you have "
-                + (list.size() - 1)
+                + (newList.size())
                 + " "
                 + word
                 + " in the list.";

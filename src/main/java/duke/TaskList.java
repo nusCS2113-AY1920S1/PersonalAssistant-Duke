@@ -66,4 +66,11 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Removes from this list all of its elements that are contained in the ArrayList.
+     * @param removeList The specified collection; its elements are removed from the list.
+     */
+    public void removeAll(ArrayList<Task> removeList) {
+        list.removeAll(removeList);
+    }
 }

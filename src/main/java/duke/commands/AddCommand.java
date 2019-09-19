@@ -1,12 +1,13 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.DukeException;
-import duke.Storage;
+import duke.*;
+import duke.tasks.DoAfter;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Task;
+
+import java.util.ArrayList;
 
 /**
  * A class representing the command to add tasks to the task list.
@@ -81,6 +82,23 @@ public class AddCommand extends Command {
                 return ui.formatAdd(taskList.getTaskList(), event);
             } catch (Exception e) {
                 throw new DukeException(message, "event");
+            }
+        }
+        case "doaf": {
+            if (message.length() < 8 || !message.substring(4,8).equals("ter ")) { //exception if not fully spelt
+                throw new DukeException(message);
+            }
+            DoAfter doAfter;
+            try {
+                String[] sections = message.substring(8).split(" /after ");
+                int previousTaskNumber = Integer.parseInt(sections[1]);
+                doAfter = new DoAfter(sections[0], previousTaskNumber, taskList.getSize() + 1);
+                taskList.add(doAfter);
+                DoAfterList.add(previousTaskNumber);
+                storage.updateFile(taskList);
+                return ui.formatAdd(taskList.getTaskList(), doAfter);
+            } catch (Exception e) {
+                throw new DukeException(message, "doafter");
             }
         }
         default: {

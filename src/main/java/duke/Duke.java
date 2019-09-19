@@ -45,7 +45,7 @@ public class Duke extends Application {
         try {
             storage.loadList(tasks);
         } catch (DukeException e) {
-            ui.showError(e);
+            System.out.println(ui.showError(e));
             tasks = new TaskList();
         }
     }
