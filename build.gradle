@@ -39,9 +39,5 @@ checkstyle {
 
 application {
     // Change this to your main class.
-    mainClassName = "src/main/java/duke/Duke"
-}
-
-run {
-    standardInput = System.in
+    mainClassName = "duke.Duke"
 }

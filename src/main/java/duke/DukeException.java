@@ -73,6 +73,10 @@ public class DukeException extends Exception {
                 message = "List is empty! Please enter a valid command.";
                 break;
             }
+            case "conflict": {
+                message = "There is a conflict between this event and another event!";
+                break;
+            }
             case "index": {
                 message = "Invalid index! Please try again.";
                 break;
