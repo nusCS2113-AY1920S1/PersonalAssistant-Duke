@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -57,6 +58,12 @@ public class Storage {
                             newDeadline.markAsDone();
                         }
                         taskList.add(newDeadline);
+                    } else if (value.charAt(0) == 'F') {
+                        FixedDuration newFixedDuration = new FixedDuration(splitInput[2], Duration.parse(splitInput[3]));
+                        if (splitInput[1].equals("1")) {
+                            newFixedDuration.markAsDone();
+                        }
+                        taskList.add(newFixedDuration);
                     }
                 }
             } else {
@@ -116,16 +123,19 @@ public class Storage {
             String className = value.getClass().getSimpleName();
             int isDone = 0;
             String description = value.description;
-            String newDate = "";
+            String newTiming = "";
 
             if (className.equals("ToDo")) {
                 taskType = "T";
             } else if (className.equals("Deadline")) {
                 taskType = "D";
-                newDate = unparseDate(((Deadline) value).by);
+                newTiming = unparseDate(((Deadline) value).by);
             } else if (className.equals("Event")) {
                 taskType = "E";
-                newDate = unparseDate(((Event) value).at);
+                newTiming = unparseDate(((Event) value).at);
+            } else if (className.equals("FixedDuration")) {
+                taskType = "F";
+                newTiming = ((FixedDuration) value).duration.toString();
             }
 
             if (value.isDone) {
@@ -133,8 +143,8 @@ public class Storage {
             } else {
                 isDone = 0;
             }
-            if (newDate != "") {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + " | " + newDate + "\n";
+            if (newTiming != "") {
+                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + " | " + newTiming + "\n";
             } else {
                 toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
             }
