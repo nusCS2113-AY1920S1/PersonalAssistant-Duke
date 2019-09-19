@@ -13,7 +13,7 @@ import java.util.EmptyStackException;
 
 public class Reminder extends Command {
     protected LocalDate today;
-    
+
     @Override
     public void execute(TaskList tasks){
             ArrayList<String> msg = new ArrayList<String>();
