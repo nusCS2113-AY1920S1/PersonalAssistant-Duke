@@ -4,7 +4,6 @@ import duke.exceptions.BadInputException;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 //TODO: Import an existing datetime class or write a better one.
 /**
  * Stores date and time information by field - day, month, year, hour, minute.
