@@ -30,8 +30,8 @@ repositories {
 
 application {
     // Change this to your main class.
-    //mainClassName = "JavaFX.Launcher"
-	mainClassName = "Main.Duke"
+    mainClassName = "JavaFX.Launcher"
+	//mainClassName = "Main.Duke"
 }
 
 run {
