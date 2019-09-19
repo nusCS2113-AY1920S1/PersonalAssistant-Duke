@@ -57,4 +57,11 @@ public class Deadline extends Task {
                 " (by: " + this.getDueDate() + ")";
     }
 
+    /**
+     * Returns type of Task
+     * @return String consisting of a single Letter (for now)
+     */
+    @Override
+    public String getType(){ return "D";}
+
 }

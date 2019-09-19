@@ -221,6 +221,31 @@ public class TaskList {
     }
 
     /**
+     * Shows the schedule if the input matches any of the dates in the tasklist
+     * @param input String to be matches to description/date
+     * @throws DukeException DukeException to be thrown when errors occur somehow
+     */
+
+    public void view_schedule(String input) throws DukeException {
+        ArrayList<Integer> foundDate = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getDueDate().contains(input)) {
+                foundDate.add(i);
+            }
+        }
+        if(foundDate.isEmpty())
+            System.out.println("You have no tasks today. Enjoy!");
+        else
+        {
+            System.out.println("Here's what the day looks like:");
+            for (Integer found_date : foundDate) {
+                System.out.println((found_date + 1) + ". " + this.get(found_date).toList());
+            }
+        }
+    }
+
+    /**
      * Prints out all tasks in list
      * If list is empty, prints out message stating that it is empty
      */

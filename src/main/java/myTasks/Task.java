@@ -20,6 +20,7 @@ public class Task {
     //protected String dueDate;
     private Date dueDate = null;
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
 
     /**
      * Task initialization with string as input
@@ -59,6 +60,7 @@ public class Task {
             //throw new DukeException("Please use DDD format for date");
         }
     }
+
 
     /**
      * Returns status icon
@@ -103,6 +105,7 @@ public class Task {
             return dateFormatter.format(this.dueDate);
         else
             return ""; }
+
 
     /**
      * Returns Task in print friendly format
