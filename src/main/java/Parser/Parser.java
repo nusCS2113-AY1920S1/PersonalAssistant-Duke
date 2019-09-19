@@ -19,6 +19,7 @@ public class Parser {
     public static String within = "\\s*/between\\s*";
     public static String fixed = "\\s*/need\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
+    public static String postpone = "\\s*/to\\s*";
     public static String newLine = "\n";
     private Storage save;
 
@@ -51,7 +52,7 @@ public class Parser {
                 }
             }
         }
-        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after|within|fixed|schedule")) {
+        else if (command.matches("todo|deadline|event|done|delete|find|recurring|after|within|fixed|snooze|schedule")) {
             if(!temp.hasNextLine())
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             String input = temp.nextLine();
@@ -69,7 +70,7 @@ public class Parser {
                     return new AddCommand(command, input);
                 }
                 //editing current task
-                else if(command.matches("done|delete"))
+                else if(command.matches("done|delete|snooze"))
                 {
                     return new ModCommand(command, input);
                 }
