@@ -1,0 +1,45 @@
+= About Us
+:site-section: AboutUs
+:imagesDir: images
+
+Dolla is developed by Team [no name]. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Aik Peng
+image::omupenguin.png[width="150", align="left"]
+{empty}[https://github.com/omupenguin[github]]
+
+Role: -
+Responsibilities: -
+
+'''
+
+=== Ye Tong
+image::yetong1895.png[width="150", align="left"]
+{empty}[http://github.com/yetong1895[github]]
+
+Role: - +
+Responsibilities: -
+
+'''
+
+=== Xiao Xue
+image::tatayu.png[width="150", align="left"]
+{empty}[http://github.com/tatayu[github]]
+
+Role: - +
+Responsibilities: -
+
+'''
+
+=== Kexin
+image::weng-kexin.png[width="150", align="left"]
+{empty}[http://github.com/weng-kexin[github]]
+
+Role: - +
+Responsibilities: -
+
+'''

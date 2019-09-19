@@ -71,7 +71,21 @@ public class Parser {
                     Ui.printDateFormatError();
                     break;
                 }
-            default:
+            case "snooze":
+                try {
+                    String dateTimeArray = inputArray[2] + " " + inputArray[3];
+                    return new SnoozeCommand(inputArray[1], dateTimeArray);
+                } catch (IndexOutOfBoundsException e) {
+                    ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
+                            "Please use the format 'snooze <task number> <new date> <new time>'!"
+                    ));
+                    Ui.printMsg(msg);
+                    break;
+                } catch (DateTimeParseException e) {
+                    Ui.printDateFormatError();
+                    break;
+                }
+                default:
                 return addToList(command, inputLine);
         }
         return new ErrorCommand();
@@ -101,6 +115,9 @@ public class Parser {
                 case "deadline":
                     commandToRun = new AddDeadlineCommand(taskDescription);
                     break;
+                case "duration":
+                    commandToRun = new AddFixDurationCommand(taskDescription);
+                    break;
                 case "recurring":
                     commandToRun = new AddRecurringTaskCommand(taskDescription);
                     break;
@@ -128,5 +145,4 @@ public class Parser {
         Ui.printMsg(msg);
         //duke.Storage.save(tasks); // Don't need to save since any previous commands are already saved
     }
-
 }
