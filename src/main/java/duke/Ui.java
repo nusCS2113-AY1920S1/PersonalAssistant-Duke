@@ -1,5 +1,6 @@
 package duke;
 
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
@@ -124,9 +125,17 @@ public class Ui {
      * @return the formatted String to be displayed
      */
     public String formatDone(ArrayList<Task> list, int index) {
-        String result = "Nice! I've marked this task as done:\n "
-                + list.get(index - 1).toString()
-                + "\n";
+        String result;
+        if(list.get(index - 1) instanceof RecurringTask){
+            result = "Nice! I've marked this task as done:\n "
+                    + ((RecurringTask)list.get(index - 1)).toOldString()
+                    + "\n";
+        } else {
+            result = "Nice! I've marked this task as done:\n "
+                    + list.get(index - 1).toString()
+                    + "\n";
+
+        }
         return wrap(result);
     }
 

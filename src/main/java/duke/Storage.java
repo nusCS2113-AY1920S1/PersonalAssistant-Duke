@@ -1,9 +1,6 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import duke.tasks.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -135,6 +132,39 @@ public class Storage {
                     deadline.setDone();
                 }
                 taskList.add(deadline);
+                break;
+            }
+            case "B": {
+                String[] sections = s.substring(7).split("between");
+                description = sections[0].substring(0, sections[0].length() -2);
+                String[] sections2 = sections[1].split("and");
+                String start = sections2[0].substring(1, sections2[0].length()-1).trim();
+                String end = sections2[1].substring(0, sections2[1].length()-1).trim();
+                BetweenTask betweenTask = new BetweenTask(description, start, end);
+                if(isDone){
+                    betweenTask.setDone();
+                }
+                taskList.add(betweenTask);
+                break;
+            }
+            case "R":{
+                String[] sections = s.substring(7).split("\\(");
+                description = sections[0];
+                String frequency = sections[1].split(" ")[0];
+
+                String[] date_info = sections[1].split("on: ");
+                String[] date_new_info = date_info[1].split(" ");
+                String date = date_new_info[0];
+                String time;
+                if(date_new_info.length == 3){
+                    time = date_new_info[2].substring(0, date_new_info[2].length() -1);
+                } else {
+                    time = "";
+                }
+                //String date = "";
+                 //       String time = "";
+                RecurringTask recurringTask = new RecurringTask(description, date, time, frequency);
+                taskList.add(recurringTask);
                 break;
             }
             default:
