@@ -1,4 +1,6 @@
-# User Guide
+# SpinBox - User Guide
+
+By: `CS2113T-F14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 ## Features 
 
