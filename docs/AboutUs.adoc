@@ -36,8 +36,8 @@ About: Finds it a hassle to shade their full name in exams. +
 '''
 
 === Lee Raiyan Bin Zulkifli
-image::woblek.png[width="150", align="left"] +
-{empty}[https://github.com/woblek[github]] [<<woblek#, portfolio>>] +
+image::woblek.png[width="150", align="left"]
+{empty}[https://github.com/woblek[github]] [<<woblek#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data +
@@ -46,8 +46,8 @@ About: Likes Hedgehogs. +
 '''
 
 === Quah You Jing Kane
-image::KaneQuah.png[width="150", align="left"] +
-{empty}[http://github.com/m133225[github]] [<<KaneQuah#, portfolio>>] +
+image::KaneQuah.png[width="150", align="left"]
+{empty}[https://github.com/KaneQuah/[github]] [<<KaneQuah#, portfolio>>]
 
 Role: Admin Staff +
 Responsibilities: Dev Ops +
