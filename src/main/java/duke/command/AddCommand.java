@@ -2,6 +2,8 @@ package duke.command;
 
 import duke.Time;
 import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -55,5 +57,30 @@ public abstract class AddCommand extends Command{
             Ui.printDateTimeFormatError();
             return false;
         }
+    }
+    /**
+     * Returns true if the method runs without running into any error.
+     * <p>
+     *     This method checks if any other task in the specified TaskList conflicts with the given time.
+     * </p>
+     * <p>
+     *     If the incorrect format is given in the input, the corresponding alert will be printed, and
+     *     the method will then return false.
+     * </p>
+     * @return true if method runs successfully.
+     * @see AddDeadlineCommand
+     * @see AddEventCommand
+     */
+    public boolean detectAnomalies(TaskList tasks, LocalDateTime time) {
+        boolean isConflict = true;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.getFromList(i);
+            //System.out.println(currTask.getDate().toLocalDate().compareTo(viewDate));
+            if (currTask.getDate().compareTo(time) == 0) {
+                Ui.printTimeConflictError(); // TODO: Check for ALL tasks that conflict and show the user
+                return false;
+            }
+        }
+        return isConflict;
     }
 }

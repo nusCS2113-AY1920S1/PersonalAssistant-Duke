@@ -32,6 +32,7 @@ public class AddDeadlineCommand extends AddCommand {
     @Override
     public void execute(TaskList tasks) {
         if (!splitDescTime()) return; // If error occurs, stop the method!
+        if (!detectAnomalies(tasks, time)) return; // If error occurs, stop the method!
         Task newTask = new Deadline(taskDescription, time);
         tasks.add(newTask);
         Ui.echoAdd(newTask, tasks.size());

@@ -84,16 +84,30 @@ public class Ui {
     }
 
     /**
-     * This method will print the error message when the user enter a invalid day of the week
+     * This method will print the error message when the user enter a invalid day of the week.
      */
     public static void printInvaidDayInput() {
         System.out.println("Sorry,please enter a valid day of the week.");
     }
 
     /**
-     * This method will print the error message when the user enter a invalid do after event
+     * This method will print the error message when the user enter a invalid do after event.
      */
     public static void printInvaidDoAfterInput() {
         System.out.println("Please enter a valid do after");
+    }
+
+    /**
+     * This method will print the error message when the user enter a time that conflicts with a task
+     * that's in the task list.
+     */
+    public static void printTimeConflictError() {
+        ArrayList<String> msg = new ArrayList<String>();
+        msg.add("This task conflicts with another task and cannot be added :(");
+//        msg.add("The time you have entered conflicts with the following task(s): ");
+//        for (int i = 0; i < conflictingTasks; i++) {
+//
+//        }
+        Ui.printMsg(msg);
     }
 }
