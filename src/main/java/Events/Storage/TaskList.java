@@ -4,9 +4,12 @@ import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Allows for access to the list of tasks currently stored, and editing that list of tasks.
@@ -24,6 +27,8 @@ public class TaskList {
 	 */
     static final int DATE = 0;
     static final int TYPE = 1;
+
+    protected int ONE_SEMESTER_DAYS = 16*7;
 
     /**
      * Creates new Model_Class.TaskList object.
@@ -47,25 +52,58 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task to the list
+     * Checks for a clash, then adds a new task if possible.
      *
      * @param task Model_Class.Task object to be added
+     * @return boolean signifying whether or not the task was added successfully. True if succeeded
+     * and false if not
      */
     public boolean addTask(Task task) {
-        boolean succeeded;
         if (task instanceof ToDo) {
             this.taskArrayList.add(task);
             return true;
         }
         else {
-            Task clashTask = clashTask(task);
-            if (clashTask == null) {
+            Task clashTask = clashTask(task); //check the list for a schedule clash
+            if (clashTask == null) { //null means no clash was found
                 this.taskArrayList.add(task);
                 return true;
             } else return false;
         }
     }
 
+    /**
+     * Adds recurring events to the list.
+     *
+     * @param event Event to be added as recursion.
+     * @param period Period of the recursion.
+     */
+    public boolean addRecurringEvent(Event event, int period) {
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateObj taskDate = new DateObj(event.getDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(taskDate.getJavaDate());
+        for (int addTaskCount = 0; addTaskCount*period <= ONE_SEMESTER_DAYS; addTaskCount++) {
+            String timeString = null;
+            if (taskDate.getFormat() == 1) {
+                timeString = format1.format(calendar.getTime());
+            }
+            else if (taskDate.getFormat() == 2) {
+                timeString = format2.format(calendar.getTime());
+            }
+            this.taskArrayList.add(new Event(event.getDescription(), timeString));
+            calendar.add(Calendar.DATE, period);
+        }
+        return true;
+    }
+
+    /**
+     * Checks the list of tasks for any clashes with the newly added task. If
+     * there is a clash, return a reference to the task, if not, return null.
+     * @param task newly added task
+     * @return task that causes a clash
+     */
     private Task clashTask(Task task) {
         for (Task currTask : taskArrayList) {
             try {

@@ -38,8 +38,6 @@ public class DateObj {
      * Creates a custom "date object".
      * If no parameters are passed in, a DateObj with the current date and time is created.
      * The output will include both the date and time.
-     *
-     * @param inputDate the input keyed in for the date.
      */
     
     public DateObj() {
@@ -58,16 +56,30 @@ public class DateObj {
     
     public DateObj(String inputDate) {
         try {
-            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            inputFormat.setLenient(false);
-            Date newJavaDate = inputFormat.parse(inputDate);
+            SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
+            inputFormat1.setLenient(false);
+            inputFormat2.setLenient(false);
+            Date newJavaDate;
+            if (inputDate.contains("/")) { //normal date input type from user
+                newJavaDate = inputFormat1.parse(inputDate);
+            } else { //date type from tasks by getDate()
+                newJavaDate = inputFormat2.parse(inputDate);
+            }
             this.javaDate = newJavaDate;
             format = DATE_AND_TIME; // date and time
         } catch (ParseException pe) {
             try {
-                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                inputFormat.setLenient(false);
-                Date newJavaDate = inputFormat.parse(inputDate);
+                SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy");
+                inputFormat1.setLenient(false);
+                inputFormat2.setLenient(false);
+                Date newJavaDate;
+                if (inputDate.contains("/")) { //normal date input type from user
+                    newJavaDate = inputFormat1.parse(inputDate);
+                } else { //date type from tasks by getDate()
+                    newJavaDate = inputFormat2.parse(inputDate);
+                }
                 this.javaDate = newJavaDate;
                 format = DATE; // only date
             } catch (ParseException pe2) {
@@ -94,7 +106,11 @@ public class DateObj {
             return date;
         }
     }
-    
+
+    public int getFormat() {
+        return format;
+    }
+
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.
      */
@@ -146,6 +162,6 @@ public class DateObj {
         	c.set(Calendar.MINUTE, 0);
         	c.set(Calendar.SECOND, 0);
         	javaDate = c.getTime();
-    	}
+      }
     }
-}
+  }
