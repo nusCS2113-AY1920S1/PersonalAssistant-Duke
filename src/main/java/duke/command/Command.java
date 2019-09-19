@@ -11,10 +11,10 @@ import java.util.ArrayList;
 public abstract class Command {
     /**
      * This method is called to read/write the specified duke.task.TaskList after every user input.
-     * @param task duke.task.TaskList containing all the tasks stored.
+     * @param tasks duke.task.TaskList containing all the tasks stored.
      * @throws Exception
      */
-    public abstract void execute(TaskList task) throws Exception;
+    public abstract void execute(TaskList tasks) throws Exception;
 
     /**
      * Returns an integer variable from the specified string.

@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
-
     /**
      * Creates an instance with specified task description and due date.
      * @param description String of what the task entails.
@@ -17,7 +15,7 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime date) {
         super(description);
         type = 'D';
-        this.by = date;
+        this.date = date;
     }
 
     /**
@@ -26,8 +24,8 @@ public class Deadline extends Task {
      * @return string of when the task is due in the format '(by 11/11/1111 0000)'.
      */
     @Override
-    public String getDate () {
-        String byStr = timeToString(by);
+    public String getDateStr () {
+        String byStr = timeToString(date);
         return "(by: " + byStr + ")";
     }
 
@@ -38,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String formatDateSave() {
-        String byStr = timeToString(by);
+        String byStr = timeToString(date);
         return " | " + byStr;
     }
 }

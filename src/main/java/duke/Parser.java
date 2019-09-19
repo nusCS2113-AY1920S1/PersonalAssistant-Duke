@@ -3,6 +3,7 @@ package duke;
 import duke.command.*;
 import duke.task.TaskList;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,6 +58,19 @@ public class Parser {
                 }
             case "find":
                 return new FindStringCommand(inputLine);
+            case "view":
+                try {
+                    return new ViewScheduleCommand(inputArray[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
+                            "Please use the format 'view today' or 'view <date>'!"
+                    ));
+                    Ui.printMsg(msg);
+                    break;
+                } catch (DateTimeParseException e) {
+                    Ui.printDateFormatError();
+                    break;
+                }
             default:
                 return addToList(command, inputLine);
         }
