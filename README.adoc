@@ -3,7 +3,7 @@
 
 Insert UI Pic here
 
-
+image::docs/images/UI_SAMPLE.jpg[width="600"]
 
 
 * A desktop Financial Tracker application for Exchange Students.
