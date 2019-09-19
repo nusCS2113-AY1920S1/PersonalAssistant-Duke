@@ -24,6 +24,10 @@ public class Deadline extends Task {
         return dateTime;
     }
 
+    public void setDateTime(LocalDateTime localDateTime) {
+        this.dateTime = localDateTime;
+    }
+
     @Override
     public String writingFile() {
         return "D"

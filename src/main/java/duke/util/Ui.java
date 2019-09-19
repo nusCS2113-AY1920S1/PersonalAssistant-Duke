@@ -101,4 +101,8 @@ public class Ui {
         System.out.println("Noted. I've removed this task:\n" + task);
     }
 
+    public void rescheduleTaskMsg(Task task, String time) {
+        System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
+    }
+
 }
