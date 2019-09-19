@@ -11,6 +11,7 @@ import duke.tasks.Todo;
 import duke.tasks.Fixed;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
+import duke.tasks.Tentative;
 import duke.tasks.Event;
 import duke.tasks.Within;
 
@@ -116,6 +117,18 @@ public class AddCommand extends Command {
                 formattedOutput.add(added.toString());
                 break;
 
+            case "tentative":
+                parser = new com.joestelmach.natty.Parser();
+                dates = parser.parse(fullCommand.split("/around ")[1]).get(0).getDates();
+                start = (Date) dates.get(0);
+                end = (Date) dates.get(1);
+                added = taskList.addTask(new Tentative(fullCommand.substring(0, fullCommand.lastIndexOf(" /around"))
+                        .replaceFirst("tentative ", ""),
+                        start, end));
+                formattedOutput.add("Got it. I've added this tentative event:");
+                formattedOutput.add(added.toString());
+                break;
+
             case "recurring":
                 parser = new com.joestelmach.natty.Parser();
                 String[] partials = fullCommand.split("/every ");
@@ -156,6 +169,8 @@ public class AddCommand extends Command {
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
                     + "to <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>\n"
+                    + "Duke.Tasks.Tentative: tentative <task name> /around <start as MM/DD/YYYY HH:MM> "
+                    + "to <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Within: do-within <task name> /between <start as MM/DD/YYYY HH:MM> "
                     + "and <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Recurring: recurring <task name> /at <start as MM/DD/YYYY HH:MM> "

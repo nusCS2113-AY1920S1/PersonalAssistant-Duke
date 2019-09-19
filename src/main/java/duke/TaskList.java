@@ -33,4 +33,9 @@ public class TaskList {
         tasks.get(index).markDone();
         return tasks.get(index);
     }
+
+    public Task replace(int index, Task newTask) {
+        tasks.set(index, newTask);
+        return newTask;
+    }
 }
