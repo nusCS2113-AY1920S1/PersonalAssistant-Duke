@@ -40,22 +40,22 @@ public class AddCommand extends Command {
         } else {
             HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
             for (Task temp : tasks.getTasks()) {
-                if (temp.getClass().toString().equals("class duke.tasks.Deadline")) {
+                if (temp instanceof Deadline) {
                     Deadline hold = (Deadline) temp;
                     dateTimeSet.add(hold.getDateTime());
-                } else if (temp.getClass().toString().equals("class duke.tasks.Events")) {
+                } else if (temp instanceof Events) {
                     Events hold = (Events) temp;
                     dateTimeSet.add(hold.getDateTime());
-                } else if (temp.getClass().toString().equals("class duke.tasks.FixedDurationTasks")) {
+                } else if (temp instanceof FixedDurationTasks)) {
                     FixedDurationTasks hold = (FixedDurationTasks) temp;
                     dateTimeSet.add(hold.getDateTime());
                 }
             }
             LocalDateTime taskDateTime;
-            if (task.getClass().toString().equals("class duke.tasks.Deadline")) {
+            if (task instanceof Deadline)) {
                 Deadline hold = (Deadline) task;
                 taskDateTime = hold.getDateTime();
-            } else if (task.getClass().toString().equals("class duke.tasks.Events")) {
+            } else if (task instanceof Events) {
                 Events hold = (Events) task;
                 taskDateTime = hold.getDateTime();
             } else{
