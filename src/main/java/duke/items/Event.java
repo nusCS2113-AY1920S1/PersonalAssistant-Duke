@@ -43,6 +43,11 @@ public class Event extends Task implements Snooze {
         return eventStartTime.returnFormattedDate();
     }
 
+    public Date getDate() {
+        return eventStartTime.getAt();
+    }
+
+
     @Override
     public void snooze() {
         Calendar newStartDate = Calendar.getInstance();

@@ -1,9 +1,10 @@
 package duke;
 
-import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.Command;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 
@@ -14,12 +15,15 @@ import duke.exceptions.BadInputException;
 
 public class Parser {
 
-    private String addTodo(String input) throws InsufficientInfoException {
+    private String[] addTodo(String input) throws InsufficientInfoException {
         if (input.isBlank()) {
             throw new InsufficientInfoException("Sorry, the description of a Todo cannot be blank!");
-        } else {
-            return input;
         }
+
+        String[] checkHours = input.split(" /needs ", -1);
+
+        return checkHours;
+
     }
 
     private String[] addDeadline(String input) throws InsufficientInfoException {
@@ -99,9 +103,6 @@ public class Parser {
         case "bye":
             command = new Command(Command.CommandType.BYE);
             break;
-        case "reminder":
-            command = new Command(Command.CommandType.REMINDER);
-            break;
 
         //Commands which require numerical input.
         case "done":
@@ -119,8 +120,10 @@ public class Parser {
 
         //Commands which require string input.
         case "todo":
-            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null, afterIndex);
+            String[] todoTemp = addTodo(keyword[1]);
+            command = new AddCommand(Command.CommandType.TODO, todoTemp[0], (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
             break;
+
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
             command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1], afterIndex);
@@ -139,6 +142,11 @@ public class Parser {
                 command = new Command();
                 System.out.println("Please enter the search description.");
             }
+            break;
+        }
+
+        case "view": {
+            command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
             break;
         }
 

@@ -40,7 +40,11 @@ public class AddCommand extends Command {
         }
 
         if (super.type == CommandType.TODO) {
-            list.addTodoItem(index, description, currentIndex);
+            if (!details.equals("")) {
+                list.addTodoItem(index, description, currentIndex, Integer.parseInt(details));
+            } else {
+                list.addTodoItem(index, description, currentIndex);
+            }
         } else if (super.type == CommandType.DEADLINE) {
             list.addDeadlineItem(index, description, details, currentIndex);
         } else { //Type is event

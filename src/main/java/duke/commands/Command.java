@@ -14,7 +14,7 @@ import duke.exceptions.BadInputException;
 public class Command {
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, BYE, LIST, REMINDER, SNOOZE, DONE, DELETE, FIND, BAD
+        TODO, DEADLINE, EVENT, BYE, LIST, REMINDER, SNOOZE, DONE, DELETE, FIND, BAD, VIEW
     }
 
     protected CommandType type;
