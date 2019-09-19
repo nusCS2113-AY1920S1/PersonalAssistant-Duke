@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Akshay Narayan
 image::AkshayNarayan.png[width="150", align="left"]
-{empty}[https://www.comp.nus.edu.sg/~anarayan[homepage]] [https://github.com/damithc[github]] [<<akshaynarayan#, portfolio>>]
+{empty}[https://www.comp.nus.edu.sg/~anarayan[homepage]] [github] [<<akshaynarayan#, portfolio>>]
 
 Role: Lecturer
 
@@ -23,7 +23,7 @@ Role: Lecturer
 image::leowyh.png[width="150", align="left"]
 {empty}[http://github.com/leowyh[github]] [<<leowyongheng#, portfolio>>]
 
-Role: Team Lead +
+Role: Team Lead, Documentation +
 Responsibilities: UI
 
 '''
@@ -32,7 +32,7 @@ Responsibilities: UI
 image::dummy.png[width="150", align="left"]
 {empty}[http://github.com/E0373902[github]] [<<shriyasaxena#, portfolio>>]
 
-Role: Developer +
+Role: Testing, Code quality +
 Responsibilities: Data
 
 '''
@@ -41,8 +41,8 @@ Responsibilities: Data
 image::dummy.png[width="150", align="left"]
 {empty}[http://github.com/lijiayu980606[github]] [<<lijiayu#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Deliverables and deadlines, Integration +
+Responsibilities: Storage
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: Dev Ops + Threading
 image::dummy.png[width="150", align="left"]
 {empty}[http://github.com/karansarat[github]] [<<karansarat#, portfolio>>]
 
-Role: Developer +
+Role: Scheduling and tracking,  +
 Responsibilities: UI
 
 '''
