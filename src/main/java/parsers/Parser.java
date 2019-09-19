@@ -36,10 +36,12 @@ public class Parser {
         else if(command.contains("find")) {
             return new FindCommand();
         }
+        else if(command.contains("reschedule")){
+            return new RescheduleCommand();
+        }
         else if(command.contains("schedule")) {
             return new ScheduleCommand();
         }
-
         else if(command.contains("bye")) {
             return new ByeCommand();
         }
