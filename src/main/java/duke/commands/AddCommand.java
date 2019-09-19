@@ -24,12 +24,14 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage)  {
+        int index = list.getListIndex();
+
         if (super.type == CommandType.TODO) {
-            list.addTodoItem(description);
+            list.addTodoItem(index, description);
         } else if (super.type == CommandType.DEADLINE) {
-            list.addDeadlineItem(description, details);
+            list.addDeadlineItem(index, description, details);
         } else { //Type is event
-            list.addEventItem(description, details);
+            list.addEventItem(index, description, details);
         }
     }
 }

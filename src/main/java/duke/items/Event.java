@@ -14,8 +14,8 @@ public class Event extends Task {
     /**
      * Deadline object has a "at" string as well as a Date objects for start and end times.
      */
-    public Event(String description, String start) {
-        super(description, TaskType.EVENT); //Using the Task constructor. isDone is set to false.
+    public Event(int index, String description, String start) {
+        super(index, description, TaskType.EVENT); //Using the Task constructor. isDone is set to false.
         this.start = start;
         this.eventTime = new DateTime(start);
     }
@@ -30,11 +30,11 @@ public class Event extends Task {
 
     @Override
     public String saveDetailsString() {
-        return "E/" + super.saveDetailsString() + "/" + start;
+        return super.saveDetailsString() + "/" + start;
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at: " + eventTime.returnFormattedDate() + ")";
+        return super.toString() + " (at: " + eventTime.returnFormattedDate() + ")";
     }
 }
