@@ -1,8 +1,6 @@
-package duke.Command;
+package duke.commands;
 
 import duke.task.Deadline;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RemindersCommandTest {
 

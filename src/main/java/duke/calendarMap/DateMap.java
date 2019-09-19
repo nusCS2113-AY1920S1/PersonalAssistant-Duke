@@ -40,20 +40,20 @@ public class DateMap extends TreeMap<LocalDate, TimeMap> {
         TimeMap timeMap;
 
         switch(checkCondition(key, time, task)){
-            case 1:
-            case 2:
-                timeMap = new TimeMap();
-                timeMap.put(time, task);
-                this.put(key, timeMap);
-                break;
-            case 5:
-                timeMap = this.get(key);
-                timeMap.put(time, task);
-                this.replace(key, timeMap);
-                break;
-            default:
-                Task clashedTask = this.get(key).get(time);
-                throw new DukeTaskClashException(clashedTask);
+        case 1:
+        case 2:
+            timeMap = new TimeMap();
+            timeMap.put(time, task);
+            this.put(key, timeMap);
+            break;
+        case 5:
+            timeMap = this.get(key);
+            timeMap.put(time, task);
+            this.replace(key, timeMap);
+            break;
+        default:
+            Task clashedTask = this.get(key).get(time);
+            throw new DukeTaskClashException(clashedTask);
         }
 
         if (this.isEmpty()) {

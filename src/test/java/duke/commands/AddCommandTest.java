@@ -1,13 +1,12 @@
-package duke.Command;
+package duke.commands;
 
-import duke.commands.AddCommand;
 import org.junit.jupiter.api.Test;
 
 class AddCommandTest {
     AddCommand newAddCommand = new AddCommand("T", "Hello", null);
-    @org.junit.jupiter.api.Test
+
+    @Test
     void execute() {
-
-
+        
     }
 }
