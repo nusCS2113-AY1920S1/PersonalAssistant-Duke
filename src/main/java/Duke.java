@@ -1,8 +1,12 @@
-import duke.command.*;
-import duke.task.*;
+import duke.command.Command;
+import duke.task.Storage;
+import duke.task.TaskList;
+import duke.task.Ui;
+import duke.task.DukeException;
+import duke.task.Parser;
 
 /**
- * Main class that runs Duke and contains the main method for Duke.
+ * Runs Duke.
  */
 public class Duke {
     private Storage storage;
@@ -10,8 +14,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructor that initializes the Task List, Storage and Ui
-     * Shows error if the file is empty or does not exit
+     * Initializes Storage, Ui and TaskList.
      */
     public Duke() {
         ui = new Ui();
@@ -25,7 +28,7 @@ public class Duke {
     }
 
     /**
-     * Runs the command line interface, reads input from user and returns result accordingly
+     * Runs the command line interface, reads input from user and returns result accordingly.
      */
     public void run() {
         ui.showWelcome();
@@ -43,10 +46,9 @@ public class Duke {
     }
 
     /**
-     * Returns the response to the GUI when given an input by a user
-     *
-     * @param input: Input given by user in the GUI
-     * @return String: Response to display on GUI by the bot.
+     * Returns the response to the GUI when given an input by a user.
+     * @param input Input given by user in the GUI
+     * @return String Response to display on GUI by the bot.
      */
     protected String getResponse(String input) {
         String response;
@@ -58,14 +60,14 @@ public class Duke {
             if (isExit) {
                 return ui.showGoodByeMessage();
             }
-            return ui.printOutputGUI();
+            return ui.printToGui();
         } catch (DukeException e) {
             return ui.printException(e);
         }
     }
 
     /**
-     * Main method to run Duke
+     * Runs Duke.
      * @param args Argument values given when running the program
      */
     public static void main(String[] args) {

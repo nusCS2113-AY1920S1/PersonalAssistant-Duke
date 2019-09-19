@@ -1,7 +1,7 @@
 import javafx.application.Application;
 
 /**
- * Class to launch the GUI Application
+ * Launches the GUI Application when using Gradle.
  */
 public class Launcher {
     public static void main(String[] args) {

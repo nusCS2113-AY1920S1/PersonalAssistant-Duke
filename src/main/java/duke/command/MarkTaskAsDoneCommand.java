@@ -1,12 +1,17 @@
 package duke.command;
-import duke.task.*;
+
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
+import duke.task.Task;
 
 /**
- * Class that represents the command to mark the task as done
+ * Represents the command to mark the task as done.
  */
-public class MarkTaskAsDoneCommand extends Command{
+public class MarkTaskAsDoneCommand extends Command {
     /**
-     * Constructor that takes in a flag to represent if it should exit and the input given by the User
+     * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
@@ -32,12 +37,11 @@ public class MarkTaskAsDoneCommand extends Command{
             throw new DukeException("The task number is larger than the number of tasks in the list");
         }
 
-        Task item = taskList.getTask(taskNumber-1);
+        Task item = taskList.getTask(taskNumber - 1);
         if (item.getIsDone()) {
             throw new DukeException("Task is already done.");
         }
         item.markAsDone();
-        //ui.showMessage("Nice! I've marked this task as done: \n  " + item.toString());
         ui.output = "Nice! I've marked this task as done: \n  " + item.toString();
         storage.saveToFile();
     }
