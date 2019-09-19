@@ -29,6 +29,21 @@ public class Event extends Task {
     }
 
     /**
+     * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
+     * cannot be changed later. Supports adding a task to be done after the first main task.
+     *
+     * @param name name of the Event
+     * @param time time of the Event that is going to happen
+     * @param doAfter task to be done after the main task
+     */
+    public Event(String name, Date time, String doAfter) {
+        super(name);
+        this.time = time;
+        setDoAfterDescription(doAfter);
+        this.taskType = TaskType.Event;
+    }
+
+    /**
      * Converts the Event to a human readable string containing important information about the Event,
      * including the type and time of this Event.
      *
@@ -36,7 +51,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + this.getStatus() + " (at: " + formatDate() + ")";
+        if (this.doAfterDescription == null) {
+            return "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
+        } else {
+            return "[E]" + this.getStatus() + " (by: " + formatDate() + ")"
+                    + "\n   After which: " + doAfterDescription;
+        }
     }
 
     /**
@@ -46,8 +66,13 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
-                + formatDate();
+        if (this.doAfterDescription == null) {
+            return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
+                    + formatDate();
+        } else {
+            return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
+                    + formatDate() + " /doafter " + doAfterDescription;
+        }
     }
 
     /**
