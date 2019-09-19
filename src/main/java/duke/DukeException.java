@@ -42,11 +42,12 @@ public class DukeException extends Exception {
         String message = "An unknown exception has occurred.";
         String word = input.trim().equals("event") ? "an " : "a ";
 
-        if (input.trim().equals("todo") || input.trim().equals("event") || input.trim().equals("deadline")) {
+        if (input.trim().equals("todo") || input.trim().equals("event") ||
+                input.trim().equals("deadline") || input.trim().equals("doafter")) {
             message = "OOPS!!! The description of "
                     + word
                     + input.trim()
-                    + " cannot be empty.";
+                    + " task cannot be empty.";
         } else if (!type.equals("other")) {
             switch (type) {
             case "todo": {
@@ -62,6 +63,14 @@ public class DukeException extends Exception {
             case "deadline": {
                 if (!input.contains("/by")) {
                     message = "OOPS!!! duke.tasks.Deadline is missing a deadline.";
+                }
+                break;
+            }
+            case "doafter": {
+                if (!input.contains("/after")) {
+                    message = "OOPS!!! duke.tasks.DoAfter is missing a task it is supposed to be done after.";
+                } else {
+                    message = "Please enter the task number of the task that the DoAfter should be after";
                 }
                 break;
             }
