@@ -26,7 +26,7 @@ About: He enjoys breathing and sleeping in his free time.
 '''
 
 === Talagadadivi Durga Rukmini Manaswini
-image::manaswini.png[width="150", align="left"]
+image::manaswini05.png[width="150", align="left"]
 {empty}[https://github.com/manaswini05[github]] [<<manaswini05#, portfolio>>]
 
 Role: Developer +
