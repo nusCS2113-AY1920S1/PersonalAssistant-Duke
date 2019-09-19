@@ -75,5 +75,13 @@ public class TaskList implements Serializable {
     public int indexOf(Task task) {
         return tasks.indexOf(task);
     }
+
+    public void updateRecurringTasks() {
+        for (Task task : tasks) {
+            if(task instanceof RecurringTask) {
+                ((RecurringTask) task).updateTask();
+            }
+        }
+    }
 }
 

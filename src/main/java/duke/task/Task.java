@@ -78,4 +78,5 @@ public abstract class Task {
         return "%1$s " + getStatusIcon() + " " + description;
     }
 
+
 }

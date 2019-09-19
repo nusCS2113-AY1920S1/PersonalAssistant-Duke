@@ -18,6 +18,8 @@ public class Duke {
         this.ui = ui;
         try {
             tasks = STORAGE.deserialize();
+            tasks.updateRecurringTasks();
+            System.out.println("hello");
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             ui.disableInput();
