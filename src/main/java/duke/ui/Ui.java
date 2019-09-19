@@ -11,20 +11,10 @@ public class Ui {
 
     private Scanner scanner;
     private static final String line = "____________________________________________________________";
-    private String input;
 
+    //Constructor method
     public Ui() {
         scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Used to print the greeting message from {@link Duke}
-     */
-    public void showWelcome() {
-        System.out.println("\t" + line);
-        System.out.println("\t Hello! I'm Duke");
-        System.out.println("\t What can I do for you?");
-        System.out.println("\t" + line);
     }
 
     /**
@@ -32,12 +22,21 @@ public class Ui {
      * @return String the input entered by the user
      */
     public String readCommand() {
-        input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     public void showLine() {
         System.out.println("\t " + line);
+    }
+
+    /**
+     * Used to print the greeting message from {@link Duke}
+     */
+    public void showWelcome() {
+        showLine();
+        System.out.println("\t Hello! I'm Duke");
+        System.out.println("\t What can I do for you?");
+        showLine();
     }
 
     public void showLoadingError() {
@@ -57,21 +56,27 @@ public class Ui {
         System.out.println("\t " + doneTask);
     }
 
-    public void  showChangedDate(String date, String changedTask){
-        System.out.println("\t Nice! I've snoozed this task as until "+ date+":");
+    public void showChangedDate(String date, String changedTask){
+        System.out.println("\t Nice! I've snoozed this task as until "+ date + ":");
         System.out.println("\t " + changedTask);
+    }
+
+    public void showSize(int size){
+        System.out.print("\t Now you have " + size);
+        if(size == 1) System.out.print(" task");
+        else System.out.print(" tasks");
+        System.out.println(" in the list.");
     }
 
     public void showAddCommand(String command, int size) {
         System.out.println("\t Got it. I've added this task: ");
         System.out.println("\t " + command);
-        System.out.println(size == 1 ? "\t Now you have 1 task in the list." : "\t Now you have " + size + " tasks in the list.");
+        showSize(size);
     }
 
     public void showRemovedTask(String removed, int size) {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t " + removed);
-        System.out.println(size == 1 ? "\t Now you have " + size + " task in the list." : "\t Now you have " + size + " tasks in the list.");
-
+        showSize(size);
     }
 }

@@ -1,4 +1,6 @@
 package duke.task;
+import duke.parser.Parser;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -31,7 +33,17 @@ public class DoAfter extends Task{
     public DoAfter(String description, String after) {
         super(description);
         this.after = after;
-        this.date = super.getDate(after);
+        this.date = Parser.getDate(after);
+    }
+
+    @Override
+    public void setNewDate(String date) {
+        //do nothing
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return null;
     }
 
     @Override
@@ -48,7 +60,7 @@ public class DoAfter extends Task{
         if (date == null)
             return after;
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String pattern = after.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+        String pattern = after.length() > 11 ? "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
     }
