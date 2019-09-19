@@ -12,7 +12,10 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+# Date files
 /duke
 /duke
+/data/duke.txt
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/data/duke.txt
