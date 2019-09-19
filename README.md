@@ -1,6 +1,5 @@
 # Ducats - A Financial Tracker App for University Students
 
-<<<<<<< HEAD
 ![](docs/images/Ui.png)
 
 # Introduction
