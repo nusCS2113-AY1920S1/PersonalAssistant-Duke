@@ -24,8 +24,8 @@ public class Event extends Task {
             this.start = startEndTime[0];
             this.end = startEndTime[1];
         } catch (Exception e) {
-            throw new BadInputException("Improper datetime. " +
-                    "Correct format: event <event name> /at <event start time> to <event end time>");
+            throw new BadInputException("Improper datetime. "
+                    + "Correct format: event <event name> /at <event start time> to <event end time>");
         }
         this.eventStartTime = new DateTime(start);
         this.eventEndTime = new DateTime(end);
@@ -46,7 +46,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (at: " + eventStartTime.returnFormattedDate() +
-                " to " + eventEndTime.returnFormattedDate() + ")";
+        return super.toString() + " (at: " + eventStartTime.returnFormattedDate()
+                + " to " + eventEndTime.returnFormattedDate() + ")";
     }
 }
