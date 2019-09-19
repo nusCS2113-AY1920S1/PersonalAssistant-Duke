@@ -4,7 +4,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.worker.Parser;
 import duke.worker.Ui;
-
 import java.util.ArrayList;
 
 public class CommandMarkDone extends Command {
@@ -73,6 +72,9 @@ public class CommandMarkDone extends Command {
      */
     private void loadQueuedTasks(TaskList taskList, Task mainTask) {
         TaskList queuedTasks = mainTask.getQueuedTasks();
+        if (queuedTasks == null) {
+            return;
+        }
         for (Task newTask : queuedTasks.getList()) {
             taskList.addTask(newTask);
         }

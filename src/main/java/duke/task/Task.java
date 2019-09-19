@@ -1,13 +1,8 @@
 package duke.task;
 
 import duke.worker.Parser;
-
-
+import java.util.ArrayList;
 import java.util.Date;
-
-
-
-
 
 public class Task {
     public String taskName;
@@ -15,32 +10,28 @@ public class Task {
     public String detailDesc;
     public TaskType taskType;
     public Boolean isDone = false;
-
-    protected Date datetime = null;
-
     private TaskList queuedTasks = null;
-
-
+    protected Date datetime = null;
+  
     /**
      * Constructor for the 'Task' Class.
-     *
      * @param name Name of the task as inputted by the user
      */
     public Task(String name) {
         this.taskType = TaskType.PARENT;
+        this.datetime = null;
         this.taskName = name.replace(this.taskType.name(), "").trim();
     }
 
     /**
      * Get a 'tick' or 'cross' depending on .isDone
-     *
      * @return A special string that represents a tick for true or a cross for false
      */
     public String getStatusIcon() {
         if (this.isDone) {
-            return "✓"; // / u2713
+            return "\u2713"; // / u2713
         } else {
-            return "✘"; // / u2718
+            return "\u2718"; // / u2718
         }
     }
 
@@ -61,7 +52,6 @@ public class Task {
     /**
      * Generates a String Describing the Task Object.
      * Optimized for user's reading.
-     *
      * @return String detailing the Task Object, including type, isDone, taskName and taskDetails
      */
     public String genTaskDesc() {
@@ -113,21 +103,7 @@ public class Task {
             }
         }
     }
-
-
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
-    }
-
-    public Date getDatetime() {
-        return this.datetime;
-    }
-
-
-
-
-
-
+  
     // -- Boolean Checkers
     /**
      * Checks if the current task has any queued tasks.
@@ -158,8 +134,19 @@ public class Task {
     public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
     }
-
-}
-
-
-
+  
+    /** 
+      * Setter for datetime property.
+      * @param datetime The Date to set
+      */
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+  
+    /** 
+      * Getter for datetime property.
+      * @return Date represented by the datetime property
+      */
+    public Date getDatetime() {
+        return this.datetime;
+    }

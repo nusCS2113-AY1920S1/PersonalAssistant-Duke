@@ -1,15 +1,12 @@
 package duke.command;
 
 public enum CommandType {
-
-    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE;
-
+    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE, REMINDER;
 
     /**
      * Constructor for 'CommandType' enum.
      */
-    private CommandType() {
-    }
+    private CommandType() {}
 
     /**
      * Method to get all the types of this enum.
