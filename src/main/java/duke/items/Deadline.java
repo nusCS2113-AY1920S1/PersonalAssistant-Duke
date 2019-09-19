@@ -2,6 +2,7 @@ package duke.items;
 
 import duke.exceptions.BadInputException;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * In addition to the deadline and done status (inherited from Task),
@@ -29,6 +30,10 @@ public class Deadline extends Task implements Snooze {
 
     public String getDoByDate() {
         return doByDate.returnFormattedDate();
+    }
+
+    public Date getDate() {
+        return doByDate.getAt();
     }
 
     @Override
