@@ -148,6 +148,12 @@ public class Ui {
         showList(taskList);
     }
 
+    public void getRemindersList(ArrayList<Task> taskList) {
+        printSpaces(" Here are your deadlines:");
+        showList(taskList);
+    }
+
+
     /**
      * This function prints the message when there is an error in loading data from the file.
      * @param message stores the error message.
