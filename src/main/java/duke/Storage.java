@@ -58,7 +58,9 @@ public class Storage {
                 } else if (type.equals("D")) {
                     newTask = new Deadline(inArray[2], Time.readDateTime(inArray[3]));
                 } else if (type.equals("R")) {
-                    newTask = new RecurringTask(inArray[2],inArray[3]);//task description and day of the week.
+                    newTask = new Recurring(inArray[2],inArray[3]);//task description and day of the week.
+                } else if (type.equals("A")) {
+                    newTask = new DoAfter(inArray[2],inArray[3]);//task description and the day to do after
                 }
                 else if (type.equals("W")){
                     newTask = new FixDuration(inArray[2], inArray[3]); //task description and time duration

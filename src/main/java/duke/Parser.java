@@ -119,7 +119,10 @@ public class Parser {
                     commandToRun = new AddFixDurationCommand(taskDescription);
                     break;
                 case "recurring":
-                    commandToRun = new AddRecurringTasksCommand(taskDescription);
+                    commandToRun = new AddRecurringTaskCommand(taskDescription);
+                    break;
+                case "after":
+                    commandToRun = new AddDoAfterTaskCommand(taskDescription);
                     break;
             }
         } catch (IndexOutOfBoundsException e) {
