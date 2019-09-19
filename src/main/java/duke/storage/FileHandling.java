@@ -3,6 +3,7 @@ package duke.storage;
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.DoAfter;
+import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.FixedDuration;
 import duke.tasks.Recurring;
@@ -35,6 +36,9 @@ public class FileHandling {
             break;
         case "E":
             initialData.add(new Event(columns.get(2), columns.get(3)));
+            break;
+        case "W":
+            initialData.add(new DoWithin(columns.get(2), columns.get(3)));
             break;
         case "D":
             initialData.add(new Deadline(columns.get(2), columns.get(3)));

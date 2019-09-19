@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.command.AddDeadlineCommand;
 import duke.command.AddDoAfterCommand;
+import duke.command.AddDoWithinCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddFixedDurationCommand;
 import duke.command.AddToDoCommand;
@@ -42,6 +43,8 @@ public class Parser {
             return new AddDeadlineCommand(splitInput);
         } else if (inputTask.equals("event")) {
             return new AddEventCommand(splitInput);
+        } else if (inputTask.equals("dowithin")) {
+            return new AddDoWithinCommand(splitInput);
         } else if (inputTask.equals("do-after")) {
             return new AddDoAfterCommand(splitInput);
         } else if (inputTask.equals("fixed")) {
