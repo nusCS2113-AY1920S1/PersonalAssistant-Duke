@@ -53,6 +53,8 @@ public class Parser {
         int taskIndex;
 
         shortStr = input.substring(input.indexOf("/after"));
+        //TODO: remove
+        System.out.println("this is the /after string: " + shortStr);
         try {
             splitStr = shortStr.split(" ", 3); //splits into "/after" "x" and other stuff, where "x" is an int
             taskIndex = Integer.parseInt(splitStr[1]); //check if this is an int
@@ -82,6 +84,8 @@ public class Parser {
         afterIndex = -1;
         if (listInput.contains("/after")) {
             afterIndex = processDoAfter(listInput);
+            listInput = listInput.replace( " /after " + Integer.toString(afterIndex), "" );
+            System.out.println("this is the new listinput: " + listInput);
         }
 
         String[] keyword = listInput.split(" ", 2);
