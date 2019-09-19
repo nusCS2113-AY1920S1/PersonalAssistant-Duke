@@ -47,7 +47,7 @@ Responsibilites: -
 '''
 
 ### Yew Jing Hui
-image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Expresscode.png[width="150", align="left"]
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Exprescode.png[width="150", align="left"]
 {empty}[http://github.com/Expresscode[github]] [http://github.com/Expressscode[portfolio]]
 
 Role: Developer
