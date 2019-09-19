@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Shriya Saxena
-image::dummy.png[width="150", align="left"]
+image::e0373902.png[width="150", align="left"]
 {empty}[http://github.com/E0373902[github]] [<<shriyasaxena#, portfolio>>]
 
 Role: Testing, Code quality +
