@@ -65,6 +65,13 @@ public class Storage {
                             newFixedDuration.markAsDone();
                         }
                         taskList.add(newFixedDuration);
+                    } else if (value.charAt(0) == 'W') {
+                        DoWithinPeriod newDoWithinPeriod = new DoWithinPeriod(splitInput[2],
+                                parseDate(splitInput[3]), parseDate(splitInput[4]));
+                        if (splitInput[1].equals("1")) {
+                            newDoWithinPeriod.markAsDone();
+                        }
+                        taskList.add(newDoWithinPeriod);
                     }
                 }
             } else {
@@ -124,19 +131,24 @@ public class Storage {
             String className = value.getClass().getSimpleName();
             int isDone = 0;
             String description = value.description;
-            String newTiming = "";
+            String newDate = "";
+            String endDate = "";
 
             if (className.equals("ToDo")) {
                 taskType = "T";
             } else if (className.equals("Deadline")) {
                 taskType = "D";
-                newTiming = unparseDate(((Deadline) value).by);
+                newDate = unparseDate(((Deadline) value).by);
             } else if (className.equals("Event")) {
                 taskType = "E";
-                newTiming = unparseDate(((Event) value).at);
+                newDate = unparseDate(((Event) value).at);
             } else if (className.equals("FixedDuration")) {
                 taskType = "F";
-                newTiming = ((FixedDuration) value).duration.toString();
+                newDate = ((FixedDuration) value).duration.toString();
+            } else if (className.equals("DoWithinPeriod")) {
+                taskType = "W";
+                newDate = unparseDate(((DoWithinPeriod) value).from);
+                endDate = unparseDate(((DoWithinPeriod) value).to);
             }
 
             if (value.isDone) {
@@ -144,9 +156,14 @@ public class Storage {
             } else {
                 isDone = 0;
             }
-            if (newTiming != "") {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
-                        + " | " + newTiming + "\n";
+            if (newDate != "") {
+                if (endDate != "") {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newDate + " | " + endDate + "\n";
+                } else {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newDate + "\n";
+                }
             } else {
                 toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
             }
