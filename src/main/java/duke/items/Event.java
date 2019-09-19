@@ -63,7 +63,7 @@ public class Event extends Task implements Snooze {
 
     @Override
     public String saveDetailsString() {
-        return super.saveDetailsString() + "/" + start;
+        return super.saveDetailsString() + "/" + start + " to " + end;
     }
 
     @Override
