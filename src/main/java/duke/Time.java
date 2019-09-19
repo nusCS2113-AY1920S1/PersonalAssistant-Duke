@@ -23,7 +23,7 @@ public class Time {
             return time;
     }
 
-    public static LocalDate readDate (String timeStr) {
+    public static LocalDate readDate(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
         LocalDate time = LocalDate.parse(timeStr, formatter);
         return time;
