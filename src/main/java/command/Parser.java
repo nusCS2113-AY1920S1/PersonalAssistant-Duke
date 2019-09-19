@@ -2,10 +2,7 @@ package command;
 
 import common.DukeException;
 import common.TaskList;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import task.*;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -61,24 +58,19 @@ public class Parser {
 
             } else if (isFind(input)) {
                 processFind(input, tasklist, ui);
-
- /*           } else if(isSnooze(input)) {
-
-            } else if(isPropstone(input)){
-
-            } else if(isReschedule(input)) {*/
-            } else{
+            } else if (isWithinPeriodTask(input)) {
+                processWithin(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+            } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-
             }
-
         } catch (DukeException e) {
             ui.exceptionMessage(e.getMessage());
-            return true;
         }
-
         return false;
     }
+
+
 
     /**
      * Processes the find command and outputs a list of tasks containing the word.
@@ -203,6 +195,33 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the within command and adds a withinPeriodTask to the user's Tasklist.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processWithin(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitslash = splitspace[1].split("/", 2);
+            String taskDescription = splitslash[0];
+            String[] splittime = splitslash[1].split(" ", 2);
+            String[] splitand = splittime[1].split("and ", 2);
+            String taskstart = splitand[0];
+            String taskend = splitand[1];
+            Date formattedtimestart = dataformat.parse(taskstart);
+            Date formattedtimeend = dataformat.parse(taskend);
+            WithinPeriodTask withinPeriodTask = new WithinPeriodTask(taskDescription, dataformat.format(formattedtimestart), dataformat.format(formattedtimeend));
+            tasklist.addTask(withinPeriodTask);
+            ui.printAddedMessage(withinPeriodTask, tasklist);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The description of a withinPeriodTask cannot be empty.");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+        }
+    }
+
 
     private static boolean isBye(String input) {
         return input.equals("bye");
@@ -234,5 +253,9 @@ public class Parser {
 
     private static boolean isFind(String input) {
         return input.startsWith("find");
+    }
+
+    private static boolean isWithinPeriodTask(String input) {
+        return input.startsWith("within");
     }
 }
