@@ -47,4 +47,8 @@ public class Deadline extends Task {
     public boolean compareEquals(DateTime inputDate) {
         return (this.startDate.compareTo(inputDate) == 0);
     }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = new DateTime(startDate);
+    }
 }
