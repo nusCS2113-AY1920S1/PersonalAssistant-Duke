@@ -1,6 +1,8 @@
 package duke.task;
 
 import duke.worker.Parser;
+
+import java.util.Date;
 import java.util.HashMap;
 
 public class Task {
@@ -9,6 +11,7 @@ public class Task {
     public String detailDesc;
     public TaskType taskType;
     public Boolean isDone = false;
+    protected Date datetime = null;
 
     /**
      * Constructor for the 'Task' Class.
@@ -102,4 +105,20 @@ public class Task {
             }
         }
     }
+
+    public void setDatetime(Date datetime){
+        this.datetime = datetime;
+    }
+
+    public Date getDatetime(){
+        return this.datetime;
+    }
+
+
+
+
+
 }
+
+
+

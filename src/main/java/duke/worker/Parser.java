@@ -1,15 +1,6 @@
 package duke.worker;
 
-import duke.command.Command;
-import duke.command.CommandBlank;
-import duke.command.CommandNewTask;
-import duke.command.CommandType;
-import duke.command.CommandList;
-import duke.command.CommandMarkDone;
-import duke.command.CommandBye;
-import duke.command.CommandDelete;
-import duke.command.CommandError;
-import duke.command.CommandFind;
+import duke.command.*;
 
 import duke.task.Task;
 import duke.task.TaskType;
@@ -64,6 +55,11 @@ public class Parser {
         case DONE:
             c = new CommandMarkDone(userInput);
             break;
+
+        case VIEWSCHEDULE:
+            c = new CommandSchedule(userInput);
+            break;
+
 
         default:
             c = new CommandError();

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class Deadline extends Task {
-    private Date datetime;
+
 
     // Initialization
     Deadline(String name) {
@@ -22,17 +22,17 @@ class Deadline extends Task {
     }
 
     private void parseDateTime() throws DukeException {
-        SimpleDateFormat formatx = new SimpleDateFormat("dd/mm/yyyy HHmm");
+        SimpleDateFormat formatx = new SimpleDateFormat("dd/MM/yyyy HHmm");
         if (this.detailDesc == null) {
             return;
         }
         if (this.detailDesc.equals("by")) {
             try {
-                this.datetime = formatx.parse(this.taskDetails);
+                this.setDatetime(formatx.parse(this.taskDetails));
                 System.out.println("Date Interpreted: " + formatx.format(this.datetime));
             } catch (Exception e) {
                 //System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
-                this.datetime = new Date();
+                this.setDatetime(new Date());
                 throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
             }
         }
