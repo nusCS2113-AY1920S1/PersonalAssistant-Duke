@@ -44,8 +44,8 @@ public class Duke  extends Application {
      */
     public Duke(String file) {
         String directory = System.getProperty("user.home");
-        //directory += "\\Documents\\CS2113T\\main\\data"; //different for mac
-        directory += "/IdeaProjects/CS2113_Project/data";
+        directory += "\\Documents\\CS2113T\\main\\data"; //different for mac
+//        directory += "/IdeaProjects/CS2113_Project/data";
         String savefile = file;
         String absolutePath = directory + File.separator + savefile;
         storage = new Storage(absolutePath);
