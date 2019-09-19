@@ -108,31 +108,30 @@ public class AddCommand extends Command {
         case "chan": {
             try {
                 String[] sections = message.substring(7).split(" /to ");
-                int item_to_delete = Integer.parseInt(sections[0])-1;
-                if(item_to_delete < taskList.getSize()) {
+                int item_to_delete = Integer.parseInt(sections[0]) - 1;
+                if (item_to_delete < taskList.getSize()) {
                     Task item = taskList.getTaskIndex(item_to_delete);
-                    if(item.get_type() == "E") {
+                    if (item.get_type() == "E") {
                         Event event;
                         String item_description = item.getDescription();
                         String status = item.getStatusIcon();
-                        String[] sections_1 = {item_description,sections[1]};
-                        event = (Event) taskList.get_first_e(sections_1,0);
-                        if(status == "v") {
+                        String[] sections_1 = {item_description, sections[1]};
+                        event = (Event) taskList.get_first_e(sections_1, 0);
+                        if (status == "v") {
                             event.setDone();
                         }
                         taskList.remove(item_to_delete);
                         taskList.add(event);
                         storage.updateFile(taskList);
                         return ui.formatAdd(taskList.getTaskList(), event);
-                    }
-                    else if(item.get_type()=="D") {
-                        String item_description = item.getDescription() ;
+                    } else if (item.get_type() == "D") {
+                        String item_description = item.getDescription();
                         String status = item.getStatusIcon();
                         Deadline deadline;
                         try {
                             deadline = new Deadline(item_description, sections[1]);
                             taskList.remove(item_to_delete);
-                            if(status=="v") {
+                            if (status == "v") {
                                 deadline.setDone();
                             }
                             taskList.add(deadline);
@@ -140,19 +139,17 @@ public class AddCommand extends Command {
                             return ui.formatAdd(taskList.getTaskList(), deadline);
 
                         } catch (Exception e) {
-                            throw new DukeException(message,"deadline");
+                            throw new DukeException(message, "deadline");
                         }
                     }
-                }
-                else {
-                    throw new DukeException(message,"event");
+                } else {
+                    throw new DukeException(message, "event");
                 }
 
+            } catch (Exception e) {
+                throw new DukeException(message, "event");
             }
-            catch (Exception e) {
-                throw new DukeException(message,"event");
-            }
-
+        }
         case "betw":{
             if(message.length() < 8 || !message.substring(4, 8).equals("een ")) {
                 throw new DukeException(message);
