@@ -21,7 +21,7 @@ public class Parser {
 	 * Enumerator for the different parts of a command.
 	 */
 	public enum Parts {
-	    COMMAND, DESCRIPTION, DATE
+		COMMAND, DESCRIPTION, DATE, AFTEREVENT
 	}
 
 	/**
@@ -39,6 +39,7 @@ public class Parser {
 		String command = dict.get(Parts.COMMAND);
 		String description = dict.get(Parts.DESCRIPTION);
 		Date date = parseStringToDate(dict.get(Parts.DATE));
+		String afterEvent = dict.get(Parts.AFTEREVENT);
 		switch (command) {
 			case "todo":
 				return new TodoCommand(description);
@@ -46,6 +47,8 @@ public class Parser {
 				return new EventCommand(description, date);
 			case "deadline":
 				return new DeadlineCommand(description, date);
+			case "doafter":
+				return new DoAfterCommand(description,afterEvent);
 			case "list":
 				return new ListCommand();
 			case "done":
@@ -68,7 +71,7 @@ public class Parser {
 				return new ExitCommand();
 			default:
 				throw new DukeException(Message.INVALID_COMMAND);
-		} 
+		}
 	}
 
 	/**
@@ -88,15 +91,19 @@ public class Parser {
 		if (inputs.length >= 2) {
 			// have description
 			int descriptionIndex = fullCommand.indexOf(" ");
-		    int dateIndex = fullCommand.indexOf("/at ") > fullCommand.indexOf("/by ") ? 
-		    	fullCommand.indexOf("/at ") : fullCommand.indexOf("/by ");
-		    if (dateIndex != -1) {
-		    	// have date
-		    	String description = fullCommand.substring(descriptionIndex, dateIndex -1);
-		    	dict.put(Parts.DESCRIPTION, description);
-		    	String date = fullCommand.substring(dateIndex + 3).trim();            
-		    	dict.put(Parts.DATE, date);
-		    } else {
+			int dateIndex = fullCommand.indexOf(" /");
+			if (dateIndex != -1) {
+				// have date or afterEvent
+				String description = fullCommand.substring(descriptionIndex, dateIndex);
+				dict.put(Parts.DESCRIPTION, description.trim());
+				if (!fullCommand.substring(dateIndex,dateIndex+7).equals(" /after")) {
+					String date = fullCommand.substring(dateIndex + 5).trim();
+					dict.put(Parts.DATE, date);
+				} else {
+					String afterEvent = fullCommand.substring(dateIndex + 7).trim();
+					dict.put(Parts.AFTEREVENT, afterEvent);
+				}
+			} else {
 				String description = fullCommand.substring(descriptionIndex).trim();
 				dict.put(Parts.DESCRIPTION, description);
 			}
