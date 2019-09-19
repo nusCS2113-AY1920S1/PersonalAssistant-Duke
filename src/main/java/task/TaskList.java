@@ -33,6 +33,8 @@ public class TaskList extends ArrayList<Task>{
                     this.add(new Deadline(attributes[2], DatetimeFormatter.check(attributes[3]), attributes[1].equals("true")));
                 } else if (attributes[0].equals("E")) {
                     this.add(new Event(attributes[2], DatetimeFormatter.check(attributes[3]), attributes[1].equals("true")));
+                } else if (attributes[0].equals("F")) {
+                    this.add(new FixedTask(attributes[2], attributes[1].equals("true"), Integer.parseInt(attributes[3])));
                 } else {
                     System.out.println("☹ OOPS!!! Line " + Integer.toString(line) + " in duke.txt is corrupted" + ", skipping...");
                 }

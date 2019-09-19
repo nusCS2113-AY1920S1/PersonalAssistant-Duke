@@ -72,9 +72,13 @@ public class Parser {
                 if (delimiterIndex == -1) throw new DukeException("Missing task delimiter. (/need)");
                 arg1 = input.substring(4, delimiterIndex).trim();
                 if (arg1.isBlank()) throw new DukeException("Missing task description.");
-                Matcher m = Pattern.compile("^(\\d+) (\\d+)$").matcher(input.substring(delimiterIndex + 7).trim());
-                if (!m.find()) throw new DukeException("Invalid task argument need.\ntask <description> /need <hour(s)> <minute(s)>");
-                return new AddCommand(arg1, Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)));
+                int arg2;
+                try{
+                    arg2 = Integer.parseInt(input.substring(delimiterIndex + 7).trim());
+                }catch(NumberFormatException e){
+                    throw new DukeException("Invalid task argument need.\ntask <description> /need <minute(s)>");
+                }
+                return new AddCommand(arg1, arg2);
             } else if (operation.equals("bye")) {
                 return new ExitCommand();
             } else if (operation.equals("list")) {
