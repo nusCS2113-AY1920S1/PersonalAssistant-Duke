@@ -36,8 +36,8 @@ Responsibilities: -
 '''
 
 === Kexin
-image::wang-kexin.png[width="150", align="left"]
-{empty}[http://github.com/wang-kexin[github]]
+image::weng-kexin.png[width="150", align="left"]
+{empty}[http://github.com/weng-kexin[github]]
 
 Role: - +
 Responsibilities: -
