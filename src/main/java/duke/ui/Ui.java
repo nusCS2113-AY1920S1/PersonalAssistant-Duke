@@ -73,6 +73,30 @@ public class Ui {
         showNumTasks(listOfTasks);
     }
 
+    /**
+     * This function tells the user that Duke has snoozed/postponed/rescheduled the task.
+     * @param taskA stores the task that is to be added to the list.
+     * @param type stores whether that task is an event or a deadline
+     * @param command stores whether user command is snooze or postpone or reschedule
+     */
+    public void printSnoozeTask(String taskA, String type, String command) {
+        switch (type) {
+        case "E":
+            printSpaces(" I have successfully " + command + "d" + " the data and time of this event:");
+            printSpaces("  " + taskA);
+            printDash();
+            break;
+        case "D":
+            printSpaces(" I have successfully " + command + "d" + " the data and time of this deadline:");
+            printSpaces("  " + taskA);
+            printDash();
+            break;
+        default:
+            printSpaces(" Invalid command");
+        }
+
+    }
+
     private void showNumTasks(ArrayList<Task> listOfTasks) {
         printSpaces(" Now you have " + listOfTasks.size()
                 + ((listOfTasks.size() == 1) ? " task in the list." : " tasks in "
