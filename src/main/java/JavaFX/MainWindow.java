@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
 
         String welcome = "Hello from\n" +
                 logo + "\n" +
-                "Hello! I'm JavaFX.Main.Duke\n" +
+                "Hello! I'm Duke\n" +
                 "What can I do for you?\n\n";
 
         dialogContainer.getChildren().addAll(

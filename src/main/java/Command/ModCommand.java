@@ -40,6 +40,10 @@ public class ModCommand extends Command {
             default:
                 throw new DukeException("Invalid ModCommand");
         }
+        else if(this.command.matches("snooze"))
+        {
+            tasks.snoozeTask(this.input);
+        }
     }
 
 }

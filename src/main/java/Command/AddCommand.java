@@ -28,7 +28,14 @@ public class AddCommand extends Command {
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        tasks.add(this.command, this.arguments);
+        if(this.command.matches("event")) {
+            tasks.add(this.command, this.arguments);
+            tasks.conflict_check();
+        }
+        else {
+            tasks.add(this.command, this.arguments);
+        }
+
     }
 
 }

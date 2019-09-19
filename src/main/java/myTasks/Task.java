@@ -23,6 +23,7 @@ public class Task {
     private Date dueDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
 
     /**
      * Task initialization with string as input
@@ -37,6 +38,14 @@ public class Task {
      * Empty Task
      */
     Task(){
+    }
+
+    /**
+     * Get the prerequisite of the task as defined by the user
+     * To be overwritten by the After, Recurring, Within and Duration class
+     */
+    public String getAfter() {
+        return "";
     }
 
     /**
@@ -58,6 +67,7 @@ public class Task {
             //throw new DukeException("Please use DDD format for date");
         }
     }
+
 
     /**
      * Attempts to parse dates and input it as Array of Date
@@ -112,7 +122,7 @@ public class Task {
      * @return String which is a status icon in unicode format
      */
     String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "Y" : "N"); //return Y or N
     }
 
     /**
@@ -125,6 +135,14 @@ public class Task {
         }
         else
             this.isDone = true;
+    }
+
+    /**
+     * empty method for overriding of child
+     * @param snoozeDetails
+     * @throws DukeException
+     */
+    void snooze(String snoozeDetails) throws DukeException{
     }
 
     /**
@@ -174,6 +192,7 @@ public class Task {
     boolean outsideTentative(int request){
         return ((request < 0) || (request >= this.tentativeDates.size()));
     }
+
 
     /**
      * Returns Task in print friendly format

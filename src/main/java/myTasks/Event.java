@@ -15,6 +15,7 @@ public class Event extends Task {
      */
     public Event(String description) throws DukeException {
         String[] split = description.split(Parser.event);
+        //String[] split1 = description.split(" ");
         if (split.length < 2) {
             throw new DukeException("Please use /at to indicate date");
         }
@@ -47,8 +48,30 @@ public class Event extends Task {
     @Override
     public String toList(){
         return "[E][" + this.getStatusIcon() + "] " + this.getDescription() +
-                " (by: " + this.getDueDate() + ")";
+                " (at: " + this.getDueDate() + ")";
     }
+
+    /**
+     * sets a new date for the due date
+     * @param postponeDetails
+     * @throws DukeException
+     */
+    @Override
+    public void snooze(String postponeDetails) throws DukeException{
+        String[] split = postponeDetails.split(Parser.postpone);
+        if(split.length < 2)
+        {
+            throw new DukeException("Please use /to to indicate date");
+        }
+        else if(split.length > 2)
+        {
+            throw new DukeException("Too many /to in String");
+        }
+        else {
+            this.readDate(split[1]);
+        }
+    }
+
 
     /**
      * Returns type of Task

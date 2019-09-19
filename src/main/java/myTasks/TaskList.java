@@ -1,9 +1,11 @@
 package myTasks;
 
 import Exception.DukeException;
+import Main.Duke;
 import Parser.Parser;
 
 import java.util.ArrayList;
+
 
 /**
  * Tasklist stores an arraylist of tasks and performs actions on tasks
@@ -40,6 +42,18 @@ public class TaskList {
                     case "E":
                         list.add(new Event(split[1], split[2], split[3]));
                         break;
+                    case "R":
+                        list.add(new Recurring(split[1], split[2], split[3]));
+                        break;
+                    case "A":
+                        list.add(new After(split[1], split[2], split[3]));
+                        break;
+                    case "W":
+                        list.add(new Within(split[1], split[2], split[3]));
+                        break;
+                    case "F":
+                        list.add(new Fixed(split[1], split[2], split[3]));
+                        break;
                     default:
                         throw new DukeException((i+1) + "has incorrect task format.");
                 }
@@ -53,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Fetches current size of Arraylist
+     * Fetches current size of ArrayList
      * @return long size of ArrayList
      */
     public long size(){
@@ -127,6 +141,41 @@ public class TaskList {
     }
 
     /**
+     * passes a new date into the event or deadline class
+     * @param input
+     * @throws DukeException
+     */
+    public void snoozeTask(String input) throws DukeException{
+        try{
+            String[] split = input.split(Parser.postpone);
+            int request = Integer.parseInt(split[0]);
+            request-=1;
+            if(split.length < 2){
+                throw new DukeException("Please use /to to indicate date");
+            }
+            else if(isOutOfRange(request)){
+                throw new DukeException("The index was not found withing range");
+            }
+            else if(!(list.get(request).getType().matches("E")|list.get(request).getType().matches("D"))){
+                throw new DukeException("Only Events and Deadlines can be snoozed");
+            }
+            else{
+                this.list.get(request).snooze(input);
+                System.out.println("Noted. I've snoozed this task:\n" +
+                    "  " + list.get(request).toList());
+
+            }
+        }
+        catch (DukeException e)
+        {
+            throw new DukeException(e.getLocalizedMessage());
+        }
+        catch (NumberFormatException e){
+            throw new DukeException("That is NOT a valid integer");
+        }
+    }
+
+    /**
      * Fetches a Task from the ArrayList, given an index
      * @param index int index of Task within ArrayList
      * @return Task Task within ArrayList
@@ -149,22 +198,34 @@ public class TaskList {
         Task temp;
         try {
             switch (type) {
-                case "todo":
-                    temp = new Todo(input);
-                    break;
-                case "deadline":
-                    temp = new Deadline(input);
-                    break;
-                case "event":
-                    temp = new Event(input);
-                    break;
-                default:
-                    throw new DukeException("What the Hell happened here?\n"+
-                            "Command passed successfully to tasklist.add, not found in any case");
+            case "todo":
+                temp = new Todo(input);
+                break;
+            case "deadline":
+                temp = new Deadline(input);
+                break;
+            case "event":
+                temp = new Event(input);
+                break;
+            case "recurring":
+                temp = new Recurring(input);
+                break;
+            case "after":
+                temp = new After(input);
+                break;
+            case "within":
+                temp = new Within(input);
+                break;
+            case "fixed":
+                temp = new Fixed(input);
+                break;
+            default:
+                throw new DukeException("What the Hell happened here?\n"
+                            + "Command passed successfully to tasklist.add, not found in any case");
             }
             this.list.add(temp);
-            System.out.println("Got it. I've added this task:\n  " +
-                    temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n  "
+                    + temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
         }
         catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
@@ -192,6 +253,49 @@ public class TaskList {
             System.out.println("Here are the matching tasks in your list:");
             for (Integer foundIndex : FoundIndex) {
                 System.out.println((foundIndex + 1) + ". " + this.get(foundIndex).toList());
+            }
+        }
+    }
+
+    /**
+     * Shows the schedule if the input matches any of the dates in the tasklist
+     * @param input String to be matches to description/date
+     * @throws DukeException DukeException to be thrown when errors occur somehow
+     */
+
+    public void view_schedule(String input) throws DukeException {
+        ArrayList<Integer> foundDate = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getDueDate().contains(input)) {
+                foundDate.add(i);
+            }
+        }
+        if(foundDate.isEmpty())
+            System.out.println("You have no tasks today. Enjoy!");
+        else
+        {
+            System.out.println("Here's what the day looks like:");
+            for (Integer found_date : foundDate) {
+                System.out.println((found_date + 1) + ". " + this.get(found_date).toList());
+            }
+        }
+    }
+
+    /**
+        *Checks if there is any event with the same start time, that could lead to a conflict
+        *The AddCommand class is classified to check for such instances when the type of task is an "Event"
+     */
+    public void conflict_check() throws DukeException {
+        ArrayList<String> check_conflict = new ArrayList<>();
+        for(int i = 0; i < list.size() - 1; i++) {
+           check_conflict.add(list.get(i).getDueDate());
+        }
+
+        for (int i = 0; i < check_conflict.size(); i++) {
+            if(check_conflict.get(i).equals(list.get(list.size() -1).getDueDate())) {
+                System.out.println("There is a conflict in the schedule!");
+                break;
             }
         }
     }
