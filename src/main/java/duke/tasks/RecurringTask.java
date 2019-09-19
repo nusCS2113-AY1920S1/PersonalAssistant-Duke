@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.tasks;
 
 public class RecurringTask extends Task {
     private Integer period; //1 = day
