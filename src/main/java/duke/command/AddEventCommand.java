@@ -50,8 +50,8 @@ public class AddEventCommand extends Command {
         while (i < taskList.getSize()) {
             Task type = taskList.getTask(i);
             if (type.toString().contains(at)) {
-                int Index = type.toString().indexOf("at: ");
-                anomalies += "There is a clash with " + type.toString().substring(14, Index - 2) + " on " + at + "\n";
+                int index = type.toString().indexOf("at: ");
+                anomalies += "There is a clash with " + type.toString().substring(14, index - 2) + " on " + at + "\n";
                 clash++;
             }
             i++;
