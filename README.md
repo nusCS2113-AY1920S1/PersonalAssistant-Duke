@@ -3,6 +3,9 @@
 # MooMooMoney
 MooMooMoney is a money management application written in Java and JavaFx 11.
 
+![Alt text](docs/images/Ui.png?raw=true "Ui Mockup")
+
+
 # Setting up
 
 **Prerequisites**
