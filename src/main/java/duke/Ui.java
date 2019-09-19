@@ -1,5 +1,6 @@
 package duke;
 
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
@@ -124,9 +125,17 @@ public class Ui {
      * @return the formatted String to be displayed
      */
     public String formatDone(ArrayList<Task> list, int index) {
-        String result = "Nice! I've marked this task as done:\n "
-                + list.get(index - 1).toString()
-                + "\n";
+        String result;
+        if(list.get(index - 1) instanceof RecurringTask){
+            result = "Nice! I've marked this task as done:\n "
+                    + ((RecurringTask)list.get(index - 1)).toOldString()
+                    + "\n";
+        } else {
+            result = "Nice! I've marked this task as done:\n "
+                    + list.get(index - 1).toString()
+                    + "\n";
+
+        }
         return wrap(result);
     }
 
@@ -169,5 +178,23 @@ public class Ui {
                 + word
                 + " in the list.";
         return wrap(result);
+    }
+
+    public String formatReminder(ArrayList<Task> list) {
+        if (list.size() == 0) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        result.append("The following tasks are due in 3 hours or less!\n\n");
+        for (int i = 0; i < list.size(); i++) {
+            result.append(i + 1)
+                    .append(". ")
+                    .append(list.get(i).toString());
+            if (i != list.size() - 1) {
+                result.append("\n");
+            }
+        }
+        return wrap(result.toString());
+
     }
 }
