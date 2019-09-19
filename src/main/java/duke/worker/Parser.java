@@ -76,6 +76,8 @@ public class Parser {
         case REMINDER:
             c = new CommandReminder();
 
+            break;
+
         case QUEUE:
             c = new CommandQueue(userInput);
 
@@ -85,6 +87,7 @@ public class Parser {
             c = new CommandError();
             break;
         }
+//        System.out.println(c.toString());
         return c;
     }
 

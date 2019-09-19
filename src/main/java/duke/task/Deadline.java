@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 class Deadline extends Task {
-    private Date datetime;
+
 
     // Initialization
     Deadline(String name) {
@@ -18,10 +18,8 @@ class Deadline extends Task {
         try {
             this.parseDateTime();
             // New stuff
-            DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HHmm");
             // getDate time is his inbuilt method
-            String strDate = dateFormat.format(getDatetime());
-            this.setDates(strDate);
+
         } catch  (DukeException invalidInput) {
             invalidInput.printStackTrace();
         }
@@ -35,11 +33,11 @@ class Deadline extends Task {
         }
         if (this.detailDesc.equals("by")) {
             try {
-                this.datetime = formatx.parse(this.taskDetails);
-                System.out.println("Date Interpreted: " + formatx.format(this.datetime));
+                this.setDateTime(formatx.parse(this.taskDetails));
+                System.out.println("Date Interpreted: " + formatx.format(this.getDateTime()));
             } catch (Exception e) {
                 //System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
-                this.datetime = new Date();
+                this.setDateTime(new Date());
                 throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
             }
         }
@@ -51,9 +49,7 @@ class Deadline extends Task {
      * Getter for datetime.
      * @return Datetime stored in this Deadline Object
      */
-    public Date getDatetime() {
-        return datetime;
-    }
+
 
 
 

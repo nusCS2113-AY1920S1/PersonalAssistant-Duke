@@ -3,6 +3,7 @@ package duke.task;
 import duke.worker.Parser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Task {
     public String taskName;
@@ -12,7 +13,7 @@ public class Task {
     public Boolean isDone = false;
     private TaskList queuedTasks = null;
     //new stuff
-    private String dates = null;
+    private Date dateTime;
 
     /**
      * Constructor for the 'Task' Class.
@@ -21,6 +22,7 @@ public class Task {
      */
     public Task(String name) {
         this.taskType = TaskType.PARENT;
+        this.dateTime = null;
         this.taskName = name.replace(this.taskType.name(), "").trim();
     }
 
@@ -138,11 +140,11 @@ public class Task {
         this.queuedTasks = queuedTasks;
     }
 
-    public String getDates() {
-        return dates;
+    public Date getDateTime() {
+        return dateTime;
     }
 
-    public void setDates(String dates) {
-        this.dates = dates;
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 }

@@ -1,33 +1,40 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.task.Task;
 import duke.task.TaskList;
-
+import duke.worker.Ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CommandReminder extends Command {
     //private String[] reminders;
-    Date date = Calendar.getInstance().getTime();
-    DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HHmm");
-    private String strDate = dateFormat.format(date);
+    protected Date currentDate = Calendar.getInstance().getTime();
 
+    public CommandReminder() {
+        this.currentDate.setTime(0);
+    }
 
     @Override
     public void execute(TaskList taskList) {
         try {
-            for (int i = 0; i < taskList.getSize(); i++) {
-                if (taskList.getList().get(i).getDates() != null) {
-                    System.out.println(taskList.getList().get(i).genTaskDesc());
+            for (Task task : taskList.getList()) {
+                Date dateCopy = task.getDateTime();
+                if(dateCopy != null) {
+                    dateCopy.setTime(0);
+                    if (dateCopy.equals(this.currentDate)) {
+                        Ui.dukeSays(task.genTaskDesc());
+                        Ui.printSeparator();
+                    }
                 }
             }
         } catch (Exception e){
             System.out.println("sorry");
         }
     }
-
-
 }
