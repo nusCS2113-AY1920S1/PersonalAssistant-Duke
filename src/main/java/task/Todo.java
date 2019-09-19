@@ -14,10 +14,11 @@ public class Todo extends Task implements Serializable {
         super(description);
     }
 
-    public Todo(String description, LocalDateTime from, LocalDateTime to){
+    public Todo(String description, LocalDateTime at, LocalDateTime to){
         super(description);
-        this.fromDate = from;
+        this.atDate = at;
         this.toDate = to;
+        this.createdDate = LocalDateTime.now();
     }
 
     /**
@@ -28,13 +29,18 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        if(!this.fromDate.isEqual(nullDate) && !this.toDate.isEqual(nullDate)){
+        if(!this.atDate.isEqual(nullDate) && !this.toDate.isEqual(nullDate)){
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
-                    this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
+                    this.atDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
                     this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         }
         else {
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
         }
+    }
+
+    @Override
+    public boolean checkReminderTrigger(){
+        return LocalDateTime.now().isAfter(createdDate.plusDays(remindInHowManyDays));
     }
 }

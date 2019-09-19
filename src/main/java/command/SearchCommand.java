@@ -65,10 +65,10 @@ public class SearchCommand extends Command {
     else {
       for(int i = 0; i < dateList.size(); i++){
         if(i != 0){
-          duration = ChronoUnit.HOURS.between(dateList.get(i-1).toDate, dateList.get(i).fromDate);
+          duration = ChronoUnit.HOURS.between(dateList.get(i-1).toDate, dateList.get(i).atDate);
         }
         else{
-          duration = ChronoUnit.HOURS.between(LocalDateTime.now(), dateList.get(i).fromDate);
+          duration = ChronoUnit.HOURS.between(LocalDateTime.now(), dateList.get(i).atDate);
         }
         if(durationToFind <= duration){
           if(i != 0){
