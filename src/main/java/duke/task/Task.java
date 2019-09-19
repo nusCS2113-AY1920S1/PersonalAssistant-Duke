@@ -55,4 +55,8 @@ public class Task {
     public String formatSave() {
         return type + " | " + (isDone ? 1 : 0) + " | " + description + formatDateSave();
     }
+
+    public char getTaskType() { return type; }
+
+    public String getTaskDescription() { return description; }
 }
