@@ -1,7 +1,5 @@
 package Events.EventTypes;
 
-import Events.EventTypes.Task;
-
 /**
  * Subclass of Model_Class.Task class.
  * Type of class available for use within Duke program, not time-specific.
@@ -40,5 +38,14 @@ public class ToDo extends Task {
 
     public String getDate() {
         return null;
+    }
+    
+    /**
+     * Returns the type of Task.
+     * @return String representing the type of Task.
+     */
+    @Override
+    public String getType() {
+    	return "ToDo";
     }
 }
