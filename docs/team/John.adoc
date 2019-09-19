@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Tan Yeh Han John - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,7 +9,13 @@
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+FarmLogic is a game that is targeted to children aged between 11 and 14, and aims to teach them basic computing methodology in a fun and interactive method.
+
+Through the gameplay, students are exposed to problems which can be solved using programming concepts, the if-else statement, for and while loops. The students are guided to write their own code blocks to fulfil the task that the farmer in the game has to do. For example, they have to write an if statement block to get the farmer to plant seeds if he has any. 
+
+What makes FarmLogic special is that the students will be able to see the execution of the code blocks they have written. The game will simulate the farm according to the code blocks that the students have written, and the students can watch and see whether their code blocks function as intended, and make any corrections if needed. 
+
+With interactive gameplay and gamification, we hope that FarmLogic will be able to help children who are new to programming understand, and learn to apply the basics of programming, while having fun.
 
 == Summary of contributions
 
