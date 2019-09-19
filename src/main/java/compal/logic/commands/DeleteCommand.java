@@ -11,6 +11,7 @@ public class DeleteCommand extends Command implements CommandParser {
 
     @Override
     public void Command(String userIn) {
+        duke.ui.printg(userIn);
         duke.tasklist.deleteTask(userIn);
     }
 }

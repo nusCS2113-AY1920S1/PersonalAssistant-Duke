@@ -12,10 +12,11 @@ public class FixedDurationTask extends Task {
      * @param hour        the duration hour
      * @param minute       the duration minute
      */
-    public FixedDurationTask(String description, Date date, int hour, int minute) {
+    public FixedDurationTask(String description, String date, String time, int hour, int minute) {
         super(description);
         super.symbol = "FDT";
-        super.setDateTime(date);
+        super.setDate(date);
+        super.setTime(time);
         super.setDurationHour(hour);
         super.setDurationMinute(minute);
     }

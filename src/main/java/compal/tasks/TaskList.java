@@ -1,7 +1,6 @@
 package compal.tasks;
 
 import compal.main.Duke;
-import compal.tasks.AllRecurringTask.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,11 +65,17 @@ public class TaskList {
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
      *
-     * @param cmd to tell the function what command is to be executed
+     * @param task The task to be added to the list of tasks.
      * @UsedIn: parser.processCommands
      */
-    public void addTask(String cmd) throws ParseException {
-        duke.ui.printg("Got it. I've added this task:");
+    public int addTask(Task task) {
+        arrlist.add(task);
+        System.out.println("DoneCommand processing adding of task");
+        duke.storage.saveCompal(arrlist);
+        duke.ui.showSize();
+        return arrlist.size();
+    }
+        /* duke.ui.printg("Got it. I've added this task:");
         Scanner sc1 = new Scanner(cmd);
         String s = sc1.next(); //get the command string (event/deadline/doafter/todo/recurtask)
         String cs = sc1.nextLine(); //get the description string (what follows after the command string)
@@ -137,7 +142,7 @@ public class TaskList {
         System.out.println("DoneCommand processing adding of task");
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
-    }
+    }*/
 
 
 
@@ -356,12 +361,12 @@ public class TaskList {
         c.add(Calendar.DATE, 7);
         Date dateOneWeekAfter = c.getTime();
         for (Task t : arrlist) {
-            Date deadline = t.getDateTime();
+            Date deadline = t.getDate();
             if ((deadline != null && !t.isDone && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
                 reminder.add(t);
             }
         }
-        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDate().compareTo(t2.getDate());
         Collections.sort(reminder, compareByDateTime);
 
         if (reminder.isEmpty()) {

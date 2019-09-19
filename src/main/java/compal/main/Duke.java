@@ -1,16 +1,13 @@
 package compal.main;
 
-import compal.inputs.Parser;
-import compal.inputs.Storage;
 import compal.inputs.Ui;
+import compal.logic.parser.ParserManager;
+import compal.storage.Storage;
+import compal.storage.StorageFile;
 import compal.tasks.TaskList;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import javax.swing.text.html.parser.Parser;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static java.lang.System.exit;
 
@@ -22,7 +19,7 @@ public class Duke {
     public Ui ui;
     public Storage storage;
     public TaskList tasklist;
-    public Parser parser;
+    public ParserManager parser;
 
     //----------------------->
 
@@ -43,7 +40,7 @@ public class Duke {
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        storage = new Storage();
+        storage = new StorageFile();
 
 
         //checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
@@ -58,7 +55,7 @@ public class Duke {
         ui = new Ui(this, tasklist.arrlist);
 
         //start parsing commands
-        parser = new Parser(this);
+        parser = new ParserManager(this,tasklist);
     }
 
     //----------------------->

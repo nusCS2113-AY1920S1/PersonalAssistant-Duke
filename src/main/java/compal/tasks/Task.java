@@ -1,6 +1,8 @@
 package compal.tasks;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Task implements Serializable {
@@ -13,7 +15,8 @@ public abstract class Task implements Serializable {
     private int id;
 
     //for now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
-    private Date dateTime;
+    private Date date;
+    private Date time;
     private String taskType;
     private String description;
     private int durationHour;
@@ -58,8 +61,8 @@ public abstract class Task implements Serializable {
         return symbol;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return this.date;
     }
 
     public int getDurationHour() {
@@ -72,6 +75,10 @@ public abstract class Task implements Serializable {
 
     public boolean isHasReminder() {
         return hasReminder;
+    }
+
+    public Date getTime() {
+        return time;
     }
 
     //----------------------->
@@ -90,8 +97,17 @@ public abstract class Task implements Serializable {
         return description;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(String dateInput) {
+        System.out.println("DATE INPUT : " + dateInput);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateInput);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(date);
+        this.date = date;
     }
 
     public void setDurationHour(int durationHour) {
@@ -104,6 +120,17 @@ public abstract class Task implements Serializable {
 
     public void setHasReminder() {
         this.hasReminder = true;
+    }
+
+    public void setTime(String timeInput) {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date time = null;
+        try {
+            time = format.parse(timeInput);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.time = time;
     }
 
     //----------------------->

@@ -1,4 +1,4 @@
-package compal.tasks.AllRecurringTask;
+package compal.tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,10 +16,10 @@ public class RecurringTask extends Task {
      * @param description Description of the task to be stored.
      * @param date Date of the event.
      */
-    public RecurringTask(String description, Date date) {
+    public RecurringTask(String description, String date) {
         super(description);
         super.symbol = "RT";
-        super.setDateTime(date);
+        super.setDate(date);
     }
 
     /**
@@ -32,7 +32,7 @@ public class RecurringTask extends Task {
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy HHmm");
-        Date date = this.getDateTime();
+        Date date = this.getDate();
         String strDate = format.format(date);
         return super.toString() + "at " + strDate;
     }
