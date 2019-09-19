@@ -86,6 +86,28 @@ public class Task {
     }
 
     /**
+     * checks if tentative Dates exist
+     * @return true is it does else false
+     */
+    public boolean tentativeExists(){
+        return !this.tentativeDates.isEmpty();
+    }
+    /**
+     * Clears ArrayList of Tentative Dates
+     */
+    void clearTentative(){
+        this.tentativeDates.clear();
+    }
+    /**
+     * Changes the task's Date to newDate
+     * @param newDate is the new dueDate of the Task
+     */
+    void changeDueDate(Date newDate)
+    {
+        this.dueDate = newDate;
+    }
+
+    /**
      * Returns status icon
      * @return String which is a status icon in unicode format
      */
@@ -140,6 +162,19 @@ public class Task {
             return "";
     }
 
+    public Date getTentativeDate(int index) {
+        return tentativeDates.get(index);
+    }
+
+    /**
+     * Out of Bounds checker
+     * @param request int The index to be checked if it exists
+     * @return boolean true if within range, false if not
+     */
+    boolean outsideTentative(int request){
+        return ((request < 0) || (request >= this.tentativeDates.size()));
+    }
+
     /**
      * Returns Task in print friendly format
      * @return String which contains Task Type icon, status and Description and DueDate if any
@@ -153,4 +188,5 @@ public class Task {
      * @return String consisting of a single Letter (for now)
      */
     public String getType(){ return "G";}
+
 }

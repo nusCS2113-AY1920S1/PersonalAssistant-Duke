@@ -35,7 +35,7 @@ public class ModCommand extends Command {
                 tasks.banishDelete(this.input);
                 break;
             case "select":
-                //tasks.select(this.input);
+                tasks.select(this.input);
                 break;
             default:
                 throw new DukeException("Invalid ModCommand");
