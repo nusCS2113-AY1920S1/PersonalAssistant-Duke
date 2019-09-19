@@ -1,10 +1,24 @@
-# Setting up
+# Ducats - A Financial Tracker App for University Students
 
-**Prerequisites**
+# Introduction
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+Ducats is a financial tracker app that provides an array of features for Unviersity Students to track their daily expenditure and manage their finances better. It adopts a GUI presentation of information but users will interact with the GUI using CLI. 
+
+# Features
+* Users will be able to see their financial statistics on a monthly basis in the dashboard
+* Users can categorise their spendings into different custom categories
+* Users can track who owes them money and who they owe money to
+* Users will be able to see their recent financial activity
+* Ducats will also provide financial tips to help users better manage their expenses
+* Users can track their total savings
+
+# Done by
+
+* Rohan
+* Joseph
+* Rishi
+* Samuel
+* Sha Long
 
 **Importing the project into IntelliJ**
 
