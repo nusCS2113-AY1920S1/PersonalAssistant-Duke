@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private String by;
+    private LocalDateTime byLDT = null;
 
     /**
      * Constructor for a duke.tasks.Deadline task, which consists of the description of the task and the deadline
@@ -30,12 +31,14 @@ public class Deadline extends Task {
         String[] simpleDateTime = by.trim().split(" ",2);
         try {
             LocalDateTime byDT = convertToLocalDateTime(simpleDateTime);
+            this.byLDT = byDT;
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
             this.by = byDT.format(dateTimeFormatter);
         } catch (Exception e) {
             this.by = by; // custom deadline
         }
     }
+
     @Override
     public String get_type() {
         return "D";
@@ -92,5 +95,14 @@ public class Deadline extends Task {
             }
             return LocalDateTime.parse(date + " " + time, formatter);
         }
+    }
+
+    /**
+     * Returns LocalDateTime object that corresponds to the assigned deadline to the task.
+     *
+     * @return deadline in the form of a LocalDateTime object
+     */
+    public LocalDateTime getByLDT() {
+        return byLDT;
     }
 }

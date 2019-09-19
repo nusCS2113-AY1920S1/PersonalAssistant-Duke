@@ -1,9 +1,11 @@
 package duke;
 
 import java.time.LocalDateTime;
-
+import duke.tasks.Deadline;
 import duke.tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -95,6 +97,20 @@ public class TaskList {
         return list.size();
     }
 
+    public ArrayList<Task> getTasksDueSoon() {
+        LocalDateTime now = LocalDateTime.now();
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t: list){
+            if (t instanceof Deadline){
+                if ((((Deadline) t).getByLDT() != null) && (Duration.between(((Deadline) t).getByLDT(), now).toSeconds() <= 10800)){ // 3 hours
+                    result.add(t);
+                }
+            }
+        }
+        return result;
+    }
+
+
     /**
      * Returns the task list for duke.Duke, which is implemented as an ArrayList of duke.tasks.Task objects.
      *
@@ -102,6 +118,9 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskList() {
         return list;
+    }
+    public Task getTaskIndex(int num){
+        return list.get(num);
     }
 
     /**

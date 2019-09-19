@@ -105,7 +105,7 @@ public class Storage {
             boolean isDone = s.substring(4,5).equals("v");
             String description;
             String addendum;
-            //System.out.println("recieved"+type);
+            //System.out.println("received"+type);
             switch (type) {
             case "T":
                 description = s.substring(7);
@@ -116,7 +116,7 @@ public class Storage {
                 taskList.add(todo);
                 break;
             case "E": {
-                //System.out.println("recieved1221"+s.substring(7));
+                //System.out.println("received1221"+s.substring(7));
                 String[] sections = s.substring(7).split("\\(from:");
 
                 sections[1] = sections[1].replace("to","-");

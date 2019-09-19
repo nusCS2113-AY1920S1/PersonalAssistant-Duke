@@ -2,6 +2,16 @@ package duke.commands;
 
 import duke.*;
 import duke.tasks.*;
+import duke.TaskList;
+import duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.Conflict_checker;
+import duke.tasks.Task;
 
 /**
  * A class representing the command to add tasks to the task list.
@@ -77,8 +87,7 @@ public class AddCommand extends Command {
                 event = (Event) taskList.get_first_e(sections,0);
                 if(event.has_date()) {
                     if(conflict_checker.is_conflict(event)) {
-                        System.out.println("conflict");
-                        throw new DukeException("A conflict is detected in your schedule", "event");
+                        throw new DukeException("", "conflict");
                     }
                     else {
                         taskList.add(event);
@@ -91,7 +100,7 @@ public class AddCommand extends Command {
                 storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), event);
             } catch (Exception e) {
-                throw new DukeException(message, "event");
+                throw new DukeException("", "conflict");
             }
         }
         case "doaf": {
@@ -109,6 +118,51 @@ public class AddCommand extends Command {
                 return ui.formatAdd(taskList.getTaskList(), doAfter);
             } catch (Exception e) {
                 throw new DukeException(message, "doafter");
+            }
+        }
+        case "chan": {
+            try {
+                String[] sections = message.substring(7).split(" /to ");
+                int item_to_delete = Integer.parseInt(sections[0]) - 1;
+                if (item_to_delete < taskList.getSize()) {
+                    Task item = taskList.getTaskIndex(item_to_delete);
+                    if (item.get_type() == "E") {
+                        Event event;
+                        String item_description = item.getDescription();
+                        String status = item.getStatusIcon();
+                        String[] sections_1 = {item_description, sections[1]};
+                        event = (Event) taskList.get_first_e(sections_1, 0);
+                        if (status == "v") {
+                            event.setDone();
+                        }
+                        taskList.remove(item_to_delete);
+                        taskList.add(event);
+                        storage.updateFile(taskList);
+                        return ui.formatAdd(taskList.getTaskList(), event);
+                    } else if (item.get_type() == "D") {
+                        String item_description = item.getDescription();
+                        String status = item.getStatusIcon();
+                        Deadline deadline;
+                        try {
+                            deadline = new Deadline(item_description, sections[1]);
+                            taskList.remove(item_to_delete);
+                            if (status == "v") {
+                                deadline.setDone();
+                            }
+                            taskList.add(deadline);
+                            storage.updateFile(taskList);
+                            return ui.formatAdd(taskList.getTaskList(), deadline);
+
+                        } catch (Exception e) {
+                            throw new DukeException(message, "deadline");
+                        }
+                    }
+                } else {
+                    throw new DukeException(message, "event");
+                }
+
+            } catch (Exception e) {
+                throw new DukeException(message, "event");
             }
         }
         case "betw":{

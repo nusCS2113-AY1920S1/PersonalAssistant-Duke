@@ -179,4 +179,22 @@ public class Ui {
                 + " in the list.";
         return wrap(result);
     }
+
+    public String formatReminder(ArrayList<Task> list) {
+        if (list.size() == 0) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        result.append("The following tasks are due in 3 hours or less!\n\n");
+        for (int i = 0; i < list.size(); i++) {
+            result.append(i + 1)
+                    .append(". ")
+                    .append(list.get(i).toString());
+            if (i != list.size() - 1) {
+                result.append("\n");
+            }
+        }
+        return wrap(result.toString());
+
+    }
 }
