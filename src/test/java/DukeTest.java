@@ -26,11 +26,6 @@ public class DukeTest {
     private static final int TYPE = 1;
 	
     @Test
-    public void dummyTest(){
-        assertEquals(2, 2);
-    }
-
-    @Test
     public void clashTest(){
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
@@ -73,12 +68,34 @@ public class DukeTest {
         boolean isTasksFound = !foundTask.isEmpty();
         assertEquals(true, isTasksFound);
     }
+
+    @Test
+    public void addRecurringEventTest() {
+        ArrayList<String> taskListString = new ArrayList<>();
+        TaskList testList = new TaskList(taskListString);
+        testList.addRecurringEvent(new Event("recurring event", "12/08/2019"), 100);
+        testList.addRecurringEvent(new Event("Recurring event", "12/09/2019 2359"), 80);
+        Event expectedEvent1 = new Event("recurring event", "12/08/2019");
+        Event expectedEvent2 = new Event("recurring event", "20/11/2019");
+        Event expectedEvent3 = new Event("Recurring event", "12/09/2019 2359");
+        Event expectedEvent4 = new Event("Recurring event", "01/12/2019 2359");
+        int taskFound = 0;
+        for (Task testViewTask : testList.getTaskArrayList()) {
+            if (testViewTask.toString().equals(expectedEvent1.toString()) ||
+                    testViewTask.toString().equals(expectedEvent2.toString()) ||
+                    testViewTask.toString().equals(expectedEvent3.toString()) ||
+                    testViewTask.toString().equals(expectedEvent4.toString())) {
+                taskFound++;
+            }
+        }
+        assertEquals(4, taskFound);
+    }
     
     @test
     public void reminderTest () {
     	
-    	ArrayList<String> testcase = new ArrayList<String>;
-    	ArrayList<String> all = new ArrayList<String>;
+    	ArrayList<String> testcase = new ArrayList<String>();
+    	ArrayList<String> all = new ArrayList<String>();
     	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
     	
     	// case 1: task due long ago (printed)
