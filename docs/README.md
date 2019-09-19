@@ -19,4 +19,5 @@ Expected outcome:
 
 `outcome`
 
-image::Ui.jpg[width="150", align="left"]
+
+![](images/Ui.png)
