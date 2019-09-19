@@ -1,0 +1,48 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+SpinBox is an application aimed at providing users with assistance to better manage school life.
+
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Sujay R Subramanian
+image::rssujay.png[width="150", align="left"]
+{empty}[https://github.com/rssujay[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Code Quality and Integration
+
+'''
+
+=== Andrew Lau Jia Jun
+image::lackmoo.png[width="150", align="left"]
+{empty}[https://github.com/lackmoo[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation
+
+'''
+
+=== Tan Chin Khang
+image::tck1997.png[width="150", align="left"]
+{empty}[https://github.com/TCK1997[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Testing
+
+'''
+
+=== Tanat Tippinyu
+image::ttippinyu.png[width="150", align="left"]
+{empty}[https://github.com/ttippinyu[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Scheduling and Tracking
+
+'''
