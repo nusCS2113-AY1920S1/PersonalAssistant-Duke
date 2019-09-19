@@ -43,27 +43,27 @@ public class AddCommand extends Command {
 
         switch (type) {
         case TODO:
-            ui.showMessage(Parser.runTodo(tasks.getData(), input, 0));
+            ui.showMessage(Parser.runTodo(tasks.getData(), input, Parser.TaskState.NOT_DONE));
             storage.write(tasks.getData());
             break;
         case DEADLINE:
-            ui.showMessage(Parser.runDeadline(tasks.getData(), input, 0));
+            ui.showMessage(Parser.runDeadline(tasks.getData(), input, Parser.TaskState.NOT_DONE));
             storage.write(tasks.getData());
             break;
         case EVENT:
-            ui.showMessage(Parser.runEvent(tasks.getData(), input, 0));
+            ui.showMessage(Parser.runEvent(tasks.getData(), input, Parser.TaskState.NOT_DONE));
             storage.write(tasks.getData());
             break;
         case DAILY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "daily"));
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "daily"));
             storage.write(tasks.getData());
             break;
         case WEEKLY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "weekly"));
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "weekly"));
             storage.write(tasks.getData());
             break;
         case MONTHLY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, 0, "monthly"));
+            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "monthly"));
             storage.write(tasks.getData());
             break;
         default:

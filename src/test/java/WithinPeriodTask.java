@@ -33,14 +33,23 @@ public class WithinPeriodTask {
     }
 
     @Test
-    public void test() throws DukeException {
+    public void test() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "todo completing my work within my house /within 1 sep to 2 dec";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   "
                 + "[T][✗] completing my work within my house within 1 sep to 2 dec\n"
                 + "Now you have 1 tasks in the list.";

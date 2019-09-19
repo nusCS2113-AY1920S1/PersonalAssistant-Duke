@@ -33,47 +33,77 @@ public class EventTest {
     }
 
     @Test
-    void test() throws DukeException {
+    void test() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "event test /at 0000";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [E][✗] test (at: 0000)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
 
     @Test
-    public void birthdayAt_myBday() throws DukeException {
+    public void birthdayAt_myBday() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "event bday /at 06/06/2019";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [E]"
                 + "[✗] bday (at: 06/06/2019)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
 
-    //    @Test
-    //    public void clashEvent() throws DukeException {
-    //        String input = "event bday /at 06/06/2019";
-    //        setUpStreams();
-    //        TaskList taskList = new TaskList();
-    //        Command c = Parser.parse(input);
-    //        c.execute(taskList, DukeTest.ui, DukeTest.storage);
-    //        restoreStreams();
-    //        setUpStreams();
-    //        c.execute(taskList, DukeTest.ui, DukeTest.storage);
-    //        String exp = "     ☹ OOPS!!! This new event clashes with\n"
-    //                + " [E][✗] bday (at: 06/06/2019)";
-    //        assertEquals(exp, errContent.toString().trim().replace("\r", ""));
-    //        restoreStreams();
-    //    }
+    @Test
+    public void clashEvent() {
+        Ui ui = new Ui();
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        String input = "event bday /at 06/06/2019";
+        setUpStreams();
+        TaskList taskList = new TaskList();
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+            restoreStreams();
+            setUpStreams();
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        String exp = "☹ OOPS!!! This new event clashes with: [E]"
+                + "[✗] bday (at: 06/06/2019)\n"
+                + "Please change date of new event to be added or delete current event";
+        assertEquals(exp, outContent.toString().trim());
+        restoreStreams();
+    }
 }

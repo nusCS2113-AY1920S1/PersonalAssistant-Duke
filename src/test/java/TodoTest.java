@@ -35,14 +35,23 @@ public class TodoTest {
     }
 
     @Test
-    void eat() throws DukeException {
+    void eat() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "todo eat";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [T][✗] eat\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
@@ -50,28 +59,46 @@ public class TodoTest {
     }
 
     @Test
-    void jog() throws DukeException {
+    void jog() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "todo jog";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [T][✗] jog\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
 
     @Test
-    void todo() throws DukeException {
+    void todo() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "todo todo";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [T][✗] todo\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
