@@ -72,6 +72,19 @@ public class Storage {
                             newDoWithinPeriod.markAsDone();
                         }
                         taskList.add(newDoWithinPeriod);
+                    } else if (value.charAt(0) == 'A') {
+                        DoAfter newDoAfter = null;
+                        if (parseDate(splitInput[3]) != null) {
+                            newDoAfter = new DoAfter(splitInput[2], parseDate(splitInput[3]), "");
+                        } else {
+                            newDoAfter = new DoAfter(splitInput[2],
+                                     null, splitInput[3]);
+                        }
+
+                        if (splitInput[1].equals("1")) {
+                            newDoAfter.markAsDone();
+                        }
+                        taskList.add(newDoAfter);
                     }
                 }
             } else {
@@ -103,7 +116,6 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateToParse, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date read from file.");
             return null;
         }
     }
@@ -133,6 +145,7 @@ public class Storage {
             String description = value.description;
             String newDate = "";
             String endDate = "";
+            String newTask = "";
 
             if (className.equals("ToDo")) {
                 taskType = "T";
@@ -149,6 +162,13 @@ public class Storage {
                 taskType = "W";
                 newDate = unparseDate(((DoWithinPeriod) value).from);
                 endDate = unparseDate(((DoWithinPeriod) value).to);
+            }  else if (className.equals("DoAfter")) {
+                taskType = "A";
+                if (((DoAfter) value).afterDate != null) {
+                    newDate = unparseDate(((DoAfter) value).afterDate);
+                } else {
+                    newTask = ((DoAfter) value).afterTask;
+                }
             }
 
             if (value.isDone) {
@@ -165,7 +185,12 @@ public class Storage {
                             + " | " + newDate + "\n";
                 }
             } else {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
+                if (taskType.equals("A")) {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newTask + "|n";
+                } else {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
+                }
             }
         }
         try {

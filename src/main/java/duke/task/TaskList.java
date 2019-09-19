@@ -57,4 +57,18 @@ public class TaskList {
     public static Task getTask(int num) {
         return taskList.get(num);
     }
+
+    /**
+     * Returns the index of the given task.
+     * @param task Task to search for within array
+     * @return Index of the given task, else -1
+     */
+    public static int getTaskIndex(Task task) {
+        for (int i = 0; i < taskList.size(); ++i) {
+            if (taskList.get(i) == task) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

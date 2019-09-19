@@ -12,6 +12,7 @@ import duke.command.Command;
 import duke.command.ViewSchedule;
 import duke.command.AddDoWithinPeriodCommand;
 import duke.command.AddFixedDurationCommand;
+import duke.command.AddDoAfterCommand;
 
 /**
  * Takes in a string and parses it to return a valid command to be ran.
@@ -44,6 +45,8 @@ public class Parser {
             return new AddFixedDurationCommand(false, input);
         } else if (input.startsWith("dowithin ")) {
             return new AddDoWithinPeriodCommand(false, input);
+        } else if (input.startsWith("doafter ")) {
+            return new AddDoAfterCommand(false, input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {
