@@ -266,7 +266,7 @@ public class TaskList {
             if (compare < 0) {
                 // Getting number of hours between latestEndTime and nextStartTime
                 long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
-                int potentialMaxFreeHours = (int) ((float)ms / (1000 * 60 * 60));
+                int potentialMaxFreeHours = Math.round((float)ms / (1000 * 60 * 60));
                 System.out.println(potentialMaxFreeHours);
 
                 if (potentialMaxFreeHours >= curMaxFreeHours) {
