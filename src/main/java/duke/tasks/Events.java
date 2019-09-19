@@ -23,6 +23,10 @@ public class Events extends Task {
         return dateTime;
     }
 
+    public void setDateTime(LocalDateTime localDateTime) {
+        this.dateTime = localDateTime;
+    }
+
     @Override
     public String writingFile() {
         return "E"

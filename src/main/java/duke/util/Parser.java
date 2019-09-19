@@ -1,12 +1,6 @@
 package duke.util;
 
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 import duke.exceptions.DukeCommandException;
 import duke.exceptions.DukeEmptyCommandException;
 import duke.exceptions.DukeInvalidTimeException;
@@ -35,6 +29,19 @@ public class Parser {
             throw new DukeEmptyCommandException();
         } else {
             return new DoneCommand(index);
+        }
+    }
+
+    private static Command checkValidRescheduleIndex(String input) throws DukeCommandException {
+        String[] hold = input.replaceAll(" {2,}", " ").split(" ");
+        int test = hold.length;
+        if (test > 3) {
+            throw new DukeCommandException();
+        }
+        try {
+            return new RescheduleCommand(Integer.parseInt(hold[1]), hold[2]);
+        } catch (NumberFormatException ex) {
+            throw new DukeCommandException();
         }
     }
 
@@ -142,6 +149,7 @@ public class Parser {
     public static Command parse(String input)
             throws DukeCommandException, DukeEmptyCommandException, DukeInvalidTimeException {
         //Checks every input for keyword command
+        input = input.trim();
         if (input.startsWith("todo ")) {
             String[] temp = input.split("todo ");
             String [] split = testRegex(temp[temp.length - 1]);
@@ -190,6 +198,8 @@ public class Parser {
             return new ListCommand();
         } else if (input.startsWith("find ")) {
             return parseFind(input);
+        } else if (input.startsWith("reschedule ")) {
+            return checkValidRescheduleIndex(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new DukeCommandException();
