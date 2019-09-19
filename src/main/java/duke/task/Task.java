@@ -2,7 +2,12 @@ package duke.task;
 
 import duke.worker.Parser;
 
-import java.util.ArrayList;
+
+import java.util.Date;
+
+
+
+
 
 public class Task {
     public String taskName;
@@ -10,7 +15,11 @@ public class Task {
     public String detailDesc;
     public TaskType taskType;
     public Boolean isDone = false;
+
+    protected Date datetime = null;
+
     private TaskList queuedTasks = null;
+
 
     /**
      * Constructor for the 'Task' Class.
@@ -105,6 +114,20 @@ public class Task {
         }
     }
 
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
+    public Date getDatetime() {
+        return this.datetime;
+    }
+
+
+
+
+
+
     // -- Boolean Checkers
     /**
      * Checks if the current task has any queued tasks.
@@ -135,4 +158,8 @@ public class Task {
     public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
     }
+
 }
+
+
+
