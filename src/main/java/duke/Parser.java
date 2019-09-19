@@ -1,6 +1,10 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.FindCommand;
+import duke.commands.NumCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 
@@ -61,61 +65,61 @@ public class Parser {
         Command command;
 
         switch (keyword[0]) {
-            //Commands which are single words.
-            case "list":
-                command = new Command(Command.CommandType.LIST);
-                break;
-            case "bye":
-                command = new Command(Command.CommandType.BYE);
-                break;
+        //Commands which are single words.
+        case "list":
+            command = new Command(Command.CommandType.LIST);
+            break;
+        case "bye":
+            command = new Command(Command.CommandType.BYE);
+            break;
 
-            //Commands which require numerical input.
-            case "done":
-                command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
+        //Commands which require numerical input.
+        case "done":
+            command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
 
-                break;
-            case "delete": {
-                command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
-                break;
-            }
-            case "snooze": {
-                command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
-                break;
-            }
+            break;
+        case "delete": {
+            command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
+            break;
+        }
+        case "snooze": {
+            command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
+            break;
+        }
 
-            //Commands which require string input.
-            case "todo":
-                command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
-                break;
-            case "deadline": {
-                String[] temp = addDeadline(keyword[1]);
-                command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
-                break;
+        //Commands which require string input.
+        case "todo":
+            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
+            break;
+        case "deadline": {
+            String[] temp = addDeadline(keyword[1]);
+            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
+            break;
+        }
+        case "event": {
+            String[] temp = addEvent(keyword[1]);
+            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
+            break;
+        }
+        case "find": {
+            String description = keyword[1].trim(); //Might need to catch empty string exceptions?
+            if (!description.isBlank()) {
+                command = new FindCommand(Command.CommandType.FIND, description);
+            } else {
+                command = new Command();
+                System.out.println("Please enter the search description.");
             }
-            case "event": {
-                String[] temp = addEvent(keyword[1]);
-                command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
-                break;
-            }
-            case "find": {
-                String description = keyword[1].trim(); //Might need to catch empty string exceptions?
-                if (!description.isBlank()) {
-                    command = new FindCommand(Command.CommandType.FIND, description);
-                } else {
-                    command = new Command();
-                    System.out.println("Please enter the search description.");
-                }
-                break;
-            }
+            break;
+        }
 
-            case "view": {
-                command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
-                break;
-            }
+        case "view": {
+            command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
+            break;
+        }
 
-            default:
-                command = new Command(); //Bad Command
-                throw new BadInputException("Sorry, I don't recognise that input keyword!");
+        default:
+            command = new Command(); //Bad Command
+            throw new BadInputException("Sorry, I don't recognise that input keyword!");
         }
         return command;
     }

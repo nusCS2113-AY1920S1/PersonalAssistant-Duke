@@ -15,7 +15,7 @@ public class ViewScheduleCommand extends Command {
     private DateTime day;
 
     /**
-     *
+     * Constructs a viewschedulecommand.
      * @param type Command type enum
      * @param day Date to check schedule in format of "DD/MM/YYYY"
      */
@@ -54,13 +54,10 @@ public class ViewScheduleCommand extends Command {
                     + (dayDate.getMonth() + 1) + "/"
                     + (dayDate.getYear() + 1900));
 
-            for(int i = 0; i < scheduledTasks.size(); i++) {
+            for (int i = 0; i < scheduledTasks.size(); i++) {
                 System.out.println(i + ". " + scheduledTasks.get(i).toString());
             }
-
-        }
-
-        else {
+        } else {
             System.out.println("Nothing is scheduled!");
         }
 
