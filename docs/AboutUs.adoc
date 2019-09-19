@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Park So Hyun
 image::So_hyun.jpg[width="150", align="left"]
-{empty}[http://github.com/sallysohyun[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/sallysohyun[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -30,7 +30,7 @@ Responsibilities: UI
 
 === Rajamohan B Priyan
 image::Priyan.jpg[width="150", align="left"]
-{empty}[http://github.com/priyan-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/priyan-coder[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -39,7 +39,7 @@ Responsibilities: UI
 
 === Raveendran Ajey Ashok
 image::Ajey.jpg[width="150", align="left"]
-{empty}[http://github.com/AjeyAshok[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/AjeyAshok[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -48,7 +48,7 @@ Responsibilities: Data
 
 === Senthil Araavind
 image::Araavind.jpg[width="150", align="left"]
-{empty}[http://github.com/Araavinds[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Araavinds[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -57,7 +57,7 @@ Responsibilities: Dev Ops + Threading
 
 === Ahmad Mudaafi'
 image::Mudaafi.jpg[width="150", align="left"]
-{empty}[http://github.com/Mudaafi[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Mudaafi[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
