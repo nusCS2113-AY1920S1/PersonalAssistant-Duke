@@ -131,35 +131,35 @@ public class TaskList {
     //B-Tentative Scheduling: Create Tentative Event (does not extend Event class)
     public Task createTentativeEvent(String description) {
 
-        //TODO: Shorten the code
-        ArrayList<Date> possibleDates = new ArrayList<Date>();
-
         if (description.length() == 0) {
             System.out.println("☹ OOPS!!! The description of tentative event cannot be empty");
             return null;
         }
 
-        System.out.println("Key in a possible date and hit enter. Key in ':done' to finish.");
+        ArrayList<Date> possibleDates = new ArrayList<Date>();
         Ui getDates = new Ui();
-        String inputDate = getDates.readLine();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        boolean done = true;
 
-        while (!inputDate.equals(":done")) {
+        while (done) {
 
-            try {
+            System.out.println("Key in a possible date and hit enter. Key in ':done' to finish.");
+            String inputDate = getDates.readLine();
 
-                Date test = sdf.parse(inputDate);
-                possibleDates.add(test);
-                System.out.println("Key in a possible date and hit enter. Key in ':done' to finish.");
-                inputDate = getDates.readLine();
+            if (inputDate.equals(":done")) {
+                done = false;
+            } else {
 
+                try {
 
-            } catch (ParseException e) {
-                System.out.println("☹ OOPS!!! The format of date/time is \"dd/mm/yyyy hhmm\" !");
-                inputDate = getDates.readLine();
-                continue;
+                    Date test = sdf.parse(inputDate);
+                    possibleDates.add(test);
+                } catch (ParseException e) {
+                    System.out.println("☹ OOPS!!! The format of date/time is \"dd/mm/yyyy hhmm\" !");
+                    continue;
+                }
+
             }
-
         }
 
         if (possibleDates.size() > 0) {

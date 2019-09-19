@@ -3,6 +3,7 @@ package wallet;
 import wallet.contact.Contact;
 import wallet.contact.ContactList;
 import wallet.record.RecordList;
+import wallet.record.ExpenseList;
 import wallet.task.ScheduleList;
 import wallet.command.Command;
 import wallet.storage.Storage;
@@ -30,7 +31,7 @@ public class Main {
     private ScheduleList scheduleList;
     private ContactList contactList;
     private RecordList recordList;
-
+    private ExpenseList expenseList;
     /**
      * The Reminder object that handles the reminder of undone tasks.
      */
@@ -47,6 +48,7 @@ public class Main {
         taskList = new TaskList((ArrayList<Task>) storage.loadFile());
         ArrayList<Contact> alc = new ArrayList<Contact>();
         contactList = new ContactList(alc);
+        expenseList = new ExpenseList();
     }
 
     public static void main(String[] args) {
@@ -62,7 +64,7 @@ public class Main {
         while (!isExit) {
             String cmd = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList);
+            isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();

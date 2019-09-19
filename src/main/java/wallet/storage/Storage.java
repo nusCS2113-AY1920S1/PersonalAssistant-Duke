@@ -67,7 +67,7 @@ public class Storage {
                         event.markAsDone();
                     }
                     taskList.add(event);
-                } else if (strArr[0].trim().equals("?")) {
+                } else if (strArr[0].trim().equals("*E")) {
                     //B-TentativeScheduling: Retrieve Tentative Records
                     String dateList = strArr[3];
                     String[] dateArr = dateList.split("\\|");
@@ -148,7 +148,16 @@ public class Storage {
                 raf.readLine();
                 index--;
             }
-            raf.seek(raf.getFilePointer() + 2);
+
+            //Added Codes to cater to Tentative
+            String outputString = task.toString();
+            String type = outputString.substring(1, 3);
+            if (type.equals("*E")) {
+                raf.seek(raf.getFilePointer() + 3);
+            } else {
+                raf.seek(raf.getFilePointer() + 2);
+            }
+
             raf.writeBytes("1");
             raf.close();
         } catch (IOException e) {

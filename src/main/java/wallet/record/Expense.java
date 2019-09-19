@@ -1,9 +1,13 @@
 package wallet.record;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Expense extends Record {
     private double amount;
     private String category;
     private boolean isRecurring;
+    private String recFrequency;
 
     /**
      * Constructs the Expense object.
@@ -12,10 +16,13 @@ public class Expense extends Record {
      * @param category    The category of the expense.
      * @param isRecurring Whether the expense is recurring.
      */
-    public Expense(double amount, String category, boolean isRecurring) {
+    public Expense(String description, LocalDate createdDate, double amount,
+                   String category, boolean isRecurring, String recFrequency) {
+        super(description, createdDate);
         this.amount = amount;
         this.category = category;
         this.isRecurring = isRecurring;
+        this.recFrequency = recFrequency;
     }
 
     /**
@@ -72,5 +79,22 @@ public class Expense extends Record {
         isRecurring = recurring;
     }
 
+    public String getRecFrequency() {
+        return recFrequency;
+    }
 
+    public void setRecFrequency(String recFrequency) {
+        this.recFrequency = recFrequency;
+    }
+
+    @Override
+    public String toString() {
+        if (isRecurring) {
+            return "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
+                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
+        } else {
+            return getDescription() + " Amount:$" + amount + " Date:"
+                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
+        }
+    }
 }

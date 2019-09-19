@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 version '0.1.0'
@@ -29,4 +30,11 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+shadowJar {
+    archiveBaseName = "main"
+    archiveVersion = "1.0"
+    archiveClassifier = null
+    archiveAppendix = null
 }
