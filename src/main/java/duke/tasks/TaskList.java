@@ -17,6 +17,10 @@ public class TaskList {
         this.storeList.add(task);
     }
 
+    public void changeTask(Task task, int position) {
+        this.storeList.add(position,task);
+    }
+
     public void deleteTask(int index) {
         this.storeList.remove(index);
     }
