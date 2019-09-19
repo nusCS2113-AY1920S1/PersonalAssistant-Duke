@@ -3,56 +3,64 @@ package task;
 import process.DukeException;
 
 public class FixedTask extends Task {
-    int durationHour, durationMinute;
+    int duration;
 
     /**
      * Creates FixedTask object that represents a fixed duration task.
-     * @param desc              Task description.
-     * @param check             Mark task as done.
-     * @param durationHour      Duration require to complete task. (Hours)
-     * @param durationMinute    Duration require to complete task. (Minutes)
+     *
+     * @param desc     Task description.
+     * @param check    Mark task as done.
+     * @param duration Duration require to complete task. (Minutes)
      * @throws DukeException
      */
-    public FixedTask(String desc, boolean check, int durationHour, int durationMinute) throws DukeException {
+    public FixedTask(String desc, boolean check, int duration) throws DukeException {
         super(desc, check);
-        checkHour(durationHour);
-        this.durationHour = durationHour;
-        checkMinute(durationMinute);
-        this.durationMinute = durationMinute;
-    }
-
-    /**
-     * Checks for valid hour representation.
-     * @param hour              Integer hour to validate.
-     * @throws DukeException    Hour is not a positive neutral number.
-     */
-    private void checkHour(int hour) throws DukeException {
-        if (hour < 0) {
-            throw new DukeException("FixedTask argument hour must be a positive neutral number.");
-        }
+        checkDuration(duration);
+        this.duration = duration;
+        super.tt = "F";
+        super.extra = String.valueOf(duration);
     }
 
     /**
      * Checks for valid minute representation.
-     * @param minute            Integer minute to validate.
-     * @throws DukeException    Minute is not a positive neutral number less than 60.
+     *
+     * @param minute Integer minute to validate.
+     * @throws DukeException Minute is not a positive neutral number less than 60.
      */
-    private void checkMinute(int minute) throws DukeException {
-        if (minute >= 60) {
-            throw new DukeException("FixedTask argument minute can be simplified to hours.");
-        }
-        if (minute < 0) {
-            throw new DukeException("FixedTask argument minute must be a positive neutral number.");
+    private void checkDuration(int minute) throws DukeException {
+        if (minute < 1) {
+            throw new DukeException("FixedTask argument duration must be a positive neutral number.");
         }
     }
 
     /**
+     * Converts minutes into hours without decimal.
+     * @param duration Minutes to be converted.
+     * @return  Minutes in hours.
+     */
+    private int getHour(int duration) {
+        return duration / 60;
+    }
+
+    /**
+     * Converts minutes into hours and minutes. Return only remaining minutes.
+     * @param duration Minutes to be converted.
+     * @return  Remaining minutes after conversion.
+     */
+    private int getMinute(int duration) {
+        return duration % 60;
+    }
+
+    /**
      * Formats object variables to text form.
-     * @return  Printable text representation of object.
+     *
+     * @return Printable text representation of object.
      */
     public String toString() {
-        String printHour = durationHour > 0 ? durationHour + " Hour" + (durationHour > 1 ? "s" : "") : "";
-        String printMinute = durationMinute > 0 ? durationMinute + " Minute" + (durationMinute > 1 ? "s" : "" ) : "";
-        return "[F]" + super.toString() + " (Requires: " + printHour + (durationHour > 0 && durationMinute > 0 ? " " : "") + printMinute + ")";
+        int hour = getHour(duration);
+        int minute = getMinute(duration);
+        String printHour = hour > 0 ? hour + " Hour" + (hour > 1 ? "s" : "") : "";
+        String printMinute = minute > 0 ? minute + " Minute" + (minute > 1 ? "s" : "") : "";
+        return "[F]" + super.toString() + " (Requires: " + printHour + (hour > 0 && minute > 0 ? " " : "") + printMinute + ")";
     }
 }

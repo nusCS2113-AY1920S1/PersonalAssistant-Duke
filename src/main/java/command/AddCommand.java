@@ -11,7 +11,7 @@ public class AddCommand extends Command {
     private String description;
     private String tasktype;
     private String datetime;
-    private int durationHour, durationMinute;
+    private int duration;
     /**
      * Creates a new AddCommand object with the given type of task and description
      * @param tasktype The task type
@@ -33,11 +33,10 @@ public class AddCommand extends Command {
         this.datetime = datetime;
     }
 
-    public AddCommand(String description, int durationHour, int durationMinute ){
+    public AddCommand(String description, int duration){
         this.tasktype = "task";
         this.description = description;
-        this.durationHour = durationHour;
-        this.durationMinute = durationMinute;
+        this.duration = duration;
     }
     /**
      * Executes the AddCommand and saves changes to storage
@@ -69,7 +68,7 @@ public class AddCommand extends Command {
                 }
                 }
         else if (tasktype.equals("event")) tasks.add(new Event(description, datetime, false));
-        else if (tasktype.equals("task")) tasks.add(new FixedTask(description, false, durationHour, durationMinute));
+        else if (tasktype.equals("task")) tasks.add(new FixedTask(description, false, duration));
         else throw new DukeException("add error");
         storage.save(tasks);
         return ui.showTaskAdded(tasks.get(tasks.size()-1).toString(), tasks.size());
