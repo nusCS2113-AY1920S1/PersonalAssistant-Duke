@@ -1,10 +1,12 @@
 package myTasks;
 
 import Exception.DukeException;
+import Parser.Parser;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,6 +21,7 @@ public class Task {
     boolean isDone;
     //protected String dueDate;
     private Date dueDate = null;
+    private ArrayList<Date> tentativeDates = new ArrayList<>();
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
 
     /**
@@ -43,9 +46,39 @@ public class Task {
      */
     void readDate(String date) throws DukeException {
         try {
-            this.dueDate = dateFormatter.parse(date);
+            String[] split = date.split(Parser.dateSeparator);
+            if(split.length == 1)
+                this.dueDate = dateFormatter.parse(date);
+            else
+                this.readDate(split);
         }
         catch(ParseException e)
+        {
+            throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
+            //throw new DukeException("Please use DDD format for date");
+        }
+    }
+
+    /**
+     * Attempts to parse dates and input it as Array of Date
+     * @param input String Array which shall be in Date format
+     * @throws DukeException DukeException thrown when dateFormatter parsing fails
+     */
+    void readDate(String[] input) throws DukeException {
+        try {
+            if(input.length == 1)
+            {
+                readDate(input[0]);
+            }
+            else
+            {
+                for(int i = 0; i < input.length; i++)
+                {
+                    this.tentativeDates.add(dateFormatter.parse(input[i]));
+                }
+            }
+        }
+        catch(ParseException | DukeException e)
         {
             throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
             //throw new DukeException("Please use DDD format for date");
@@ -93,15 +126,26 @@ public class Task {
     public String getDueDate() {
         if(this.dueDate != null)
             return dateFormatter.format(this.dueDate);
+        else if(!this.tentativeDates.isEmpty())
+        {
+            StringBuilder dates = new StringBuilder();
+            dates.append(dateFormatter.format(this.tentativeDates.get(0)));
+            for(int i = 1; i < this.tentativeDates.size(); i++)
+            {
+                dates.append(" OR ").append(dateFormatter.format(this.tentativeDates.get(i)));
+            }
+            return dates.toString();
+        }
         else
-            return ""; }
+            return "";
+    }
 
     /**
      * Returns Task in print friendly format
      * @return String which contains Task Type icon, status and Description and DueDate if any
      */
     public String toList(){
-        return "[?][" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[?][" + this.getStatusIcon() + "] " + this.getDescription() + "(on:" + getDueDate() + ")";
     }
 
     /**

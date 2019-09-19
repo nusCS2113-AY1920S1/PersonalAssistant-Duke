@@ -2,7 +2,6 @@ package Parser;
 
 import Command.*;
 import Exception.DukeException;
-import Storage.Storage;
 
 import java.util.Scanner;
 
@@ -15,8 +14,8 @@ public class Parser {
     public static String deadline = "\\s*/by\\s*";
     public static String event = "\\s*/at\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
+    public static String dateSeparator = "\\s*\\&\\s*";
     public static String newLine = "\n";
-    private Storage save;
 
     Parser(){}
 
@@ -47,7 +46,7 @@ public class Parser {
                 }
             }
         }
-        else if (command.matches("todo|deadline|event|done|delete|find")) {
+        else if (command.matches("todo|deadline|event|done|delete|find|select")) {
             if(!temp.hasNextLine())
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             String input = temp.nextLine();
@@ -63,7 +62,7 @@ public class Parser {
                 {
                     return new AddCommand(command, input);
                 }
-                else if(command.matches("done|delete"))
+                else if(command.matches("done|delete|select"))
                 {
                     return new ModCommand(command, input);
                 }
@@ -75,10 +74,7 @@ public class Parser {
         }
         return new BadCommand("bad", "");
     }
-    public void setSave(Storage save) {
-        this.save = save;
-    }
-/*
+    /*
     *//**
      * Takes in the taskList to be used for recording tasks.
      * Every time this taskList is updated, it is saved to the save file.

@@ -3,6 +3,8 @@ package myTasks;
 import Exception.DukeException;
 import Parser.Parser;
 
+import java.util.Arrays;
+
 public class Event extends Task {
     private String type = "E";
 
@@ -14,16 +16,15 @@ public class Event extends Task {
     public Event(String description) throws DukeException {
         String[] split = description.split(Parser.event);
         if (split.length < 2) {
-            System.out.println("I threw exception");
             throw new DukeException("Please use /at to indicate date");
         }
-        else if (split.length > 2) {
+/*        else if (split.length > 2) {
             throw new DukeException("Too many /at in String");
-        }
+        }*/
         else {
-            this.description = split[0];
-            this.readDate(split[1]);
             this.isDone = false;
+            this.description = split[0];
+            this.readDate(Arrays.copyOfRange(split, 1, split.length));
         }
     }
 
