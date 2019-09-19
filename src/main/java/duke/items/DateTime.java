@@ -40,7 +40,7 @@ public class DateTime {
 
             this.at = calendar;
         } catch (Exception e) {
-            throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nPlease enter task again.");
+            throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
         }
     }
 
