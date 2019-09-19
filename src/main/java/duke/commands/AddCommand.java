@@ -4,10 +4,15 @@ import duke.TaskList;
 import duke.Ui;
 import duke.DukeException;
 import duke.Storage;
+
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.Conflict_checker;
+
+import duke.tasks.*;
+
+
 /**
  * A class representing the command to add tasks to the task list.
  */
@@ -98,6 +103,72 @@ public class AddCommand extends Command {
             } catch (Exception e) {
                 throw new DukeException(message, "event");
             }
+        }
+        case "betw":{
+            if(message.length() < 8 || !message.substring(4, 8).equals("een ")) {
+                throw new DukeException(message);
+            }
+            BetweenTask betweenTask;
+            try{
+                String[] sections = message.substring(8).split("/between");
+                String[] periods = sections[1].split("and");
+                betweenTask = new BetweenTask(sections[0].trim(), periods[0].trim(), periods[1].trim());
+                taskList.add(betweenTask);
+                storage.updateFile(taskList);
+                return ui.formatAdd(taskList.getTaskList(), betweenTask);
+            } catch (Exception e){
+                throw new DukeException(message, "between");
+            }
+        }
+        case "recu": {
+            if(message.length() < 5 || !message.substring(4, 6).equals("r ")){
+                throw new DukeException(message);
+            }
+            RecurringTask recurringTask;
+            try{
+                String[] sections = message.split(" ");
+                String frequency, description, date, time;
+                if(sections[1].equals("daily") ||
+                        sections[1].equals("weekly") ||
+                        sections[1].equals("monthly") ||
+                        sections[1].equals("yearly")) {
+                    frequency = sections[1];
+
+                    //form back the content
+                    String result = "";
+                    for(int i = 2; i < sections.length; i++){
+                        result += sections[i];
+                    }
+
+                    String[] sub_content = result.split("/on");
+                    description = sub_content[0].trim();
+                    String[] sub_content_2 = sub_content[1].split("/at");
+                    date = sub_content_2[0].trim();  //this must be in dd/mm/yy specific format
+                    if(sub_content_2.length == 2){
+                        time = sub_content_2[1].trim();  //this could be anything
+                    } else {
+                        time = "";
+                    }
+                    int day, month, year;
+                    String[] date_data = date.split("/");
+                    day = Integer.parseInt(date_data[0].trim());
+                    month = Integer.parseInt(date_data[1].trim());
+                    year = Integer.parseInt(date_data[2].trim());
+                    if(!RecurringTask.isDateVaid(day, month, year)){
+                        throw new DukeException("");
+                    }
+                    recurringTask = new RecurringTask(description, date, time, frequency);
+                    taskList.add(recurringTask);
+                    storage.updateFile(taskList);
+                    return ui.formatAdd(taskList.getTaskList(), recurringTask);
+                }else {
+                    //invalid frequency input
+                    throw new DukeException("");
+                }
+            } catch (Exception e){
+                throw new DukeException(message, "recur");
+            }
+
         }
         default: {
             throw new DukeException(message);
