@@ -21,6 +21,7 @@ public class ByeCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws ParseException, IOException, NullPointerException {
         System.out.println("Bye! Hope to see you again soon!");
     }
+
     /**
      * Returns boolean true to exit the program.
      *
@@ -30,4 +31,5 @@ public class ByeCommand extends Command {
     public boolean isExit() {
         return true;
     }
+
 }

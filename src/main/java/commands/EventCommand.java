@@ -21,23 +21,6 @@ public class EventCommand extends Command {
         }
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Event ev = new Event(description, fmt.parse(ui.FullCommand.split("/")[1].substring(3)));
-
-        //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------
-        ArrayList <Event> clash = new ArrayList<Event>(); //to store events that clash with the incoming event
-        for (Task t : list) {
-            if (t.getClass().getName().equals("Tasks.Event") && ((Event)t).at.equals(ev.at)) {
-                clash.add((Event)t);
-            }
-        }
-        if (!clash.isEmpty()) {
-            System.out.println("The following event(s) clash with your current event:");
-            for (int i = 0; i < clash.size(); i++) {
-                System.out.println((i+1) + "." + clash.get(i).listformat());
-            }
-            System.out.println("");
-        }
-        //--------------------------------------------------------------------------------------------------
-
         list.add(ev);
         System.out.println("Got it. I've added this task:");
         System.out.println(ev.listformat());
@@ -47,18 +30,26 @@ public class EventCommand extends Command {
             if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Tasks.Event")){
+            else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else{
+            else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
+            else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
+            else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
+                sb.append(list.get(i).toString() + "\n");
+            } else{
                 sb.append(list.get(i).toString()+"\n");
             }
         }
         storage.Storages(sb.toString());
     }
-
     @Override
     public boolean isExit() {
         return false;
     }
+
 }
