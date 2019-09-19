@@ -134,7 +134,7 @@ public class TaskList {
         }
 
         //at this point, an update is made to the task list, so save to file
-        System.out.println("Done processing adding of task");
+        System.out.println("DoneCommand processing adding of task");
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
     }
