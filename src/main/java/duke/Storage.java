@@ -32,6 +32,7 @@ public class Storage {
 
         try {
             Scanner s = new Scanner(f); //Create a Scanner using the File as the source
+
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
                 String[] item = itemRaw.split("/", 5);
@@ -60,16 +61,15 @@ public class Storage {
                 }
             }
             listIndex = savedList.get(savedList.size() - 1).getTaskIndex() + 1;
-
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
         } catch (BadInputException e) {
-            System.out.println("Save file corrupted. Please fix it manually or use a new list.");
+            System.out.println("Save file format wrong. Please fix it manually or use a new list.");
+        } catch (Exception e) {
+            System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        TaskList list = new TaskList(savedList, listIndex);
-
-        return list; //Returns a TaskList.
+        return new TaskList(savedList, listIndex); //Returns a TaskList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {
