@@ -17,6 +17,7 @@ public class AddCommand extends Command {
     private Task.TaskType taskType;
     private String name;
     private Date time;
+    private String doAfter;
 
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
@@ -27,11 +28,12 @@ public class AddCommand extends Command {
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
      *                 time attribute, so any Date can be passed in and will be ignored.
      */
-    public AddCommand(TaskList taskList, Task.TaskType taskType, String name, Date time) {
+    public AddCommand(TaskList taskList, Task.TaskType taskType, String name, Date time, String doAfter) {
         this.taskList = taskList;
         this.taskType = taskType;
         this.name = name;
         this.time = time;
+        this.doAfter = doAfter;
     }
 
     /**
@@ -44,13 +46,13 @@ public class AddCommand extends Command {
         Task task;
         switch (taskType) {
         case ToDo:
-            task = new ToDo(name);
+            task = new ToDo(name, doAfter);
             break;
         case Deadline:
-            task = new Deadline(name, time);
+            task = new Deadline(name, time, doAfter);
             break;
         case Event:
-            task = new Event(name, time);
+            task = new Event(name, time, doAfter);
             break;
         default:
             return false;

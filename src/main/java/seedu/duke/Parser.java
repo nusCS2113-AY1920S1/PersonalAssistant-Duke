@@ -121,6 +121,7 @@ public class Parser {
         Task.TaskType taskType;
         String name;
         Date time = new Date();
+        String doAfter = null;
 
         if (input.startsWith("todo")) {
             taskType = Task.TaskType.ToDo;
@@ -128,6 +129,10 @@ public class Parser {
                 throw new Parser.UserInputException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             name = input.substring(5);
+            if (input.contains(" /doafter ")) {
+                name = name.split(" /doafter ",2)[0];
+                doAfter = input.split(" /doafter ", 2)[1];
+            }
         } else if (input.startsWith("deadline")) {
             taskType = Task.TaskType.Deadline;
             if (input.length() <= 9) {
@@ -140,6 +145,10 @@ public class Parser {
             }
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
+            if (input.contains(" /doafter ")) {
+                timeString = timeString.split(" /doafter ",2)[0];
+                doAfter = input.split(" /doafter ", 2)[1];
+            }
             try {
                 time = Task.parseDate(timeString);
             } catch (ParseException e) {
@@ -157,6 +166,10 @@ public class Parser {
             }
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
+            if (input.contains(" /doafter ")) {
+                timeString = timeString.split(" /doafter ",2)[0];
+                doAfter = input.split(" /doafter ", 2)[1];
+            }
             try {
                 time = Task.parseDate(timeString);
             } catch (ParseException e) {
@@ -166,7 +179,7 @@ public class Parser {
         } else {
             throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return new AddCommand(taskList, taskType, name, time);
+        return new AddCommand(taskList, taskType, name, time, doAfter);
     }
 
     /**
