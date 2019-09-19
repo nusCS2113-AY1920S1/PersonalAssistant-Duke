@@ -16,8 +16,8 @@ public class Todo extends Task implements Serializable {
 
     public Todo(String description, LocalDateTime at, LocalDateTime to){
         super(description);
-        this.atDate = at;
-        this.toDate = to;
+        this.startDate = at;
+        this.endDate = to;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -29,10 +29,10 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        if(!this.atDate.isEqual(nullDate) && !this.toDate.isEqual(nullDate)){
+        if(!this.startDate.isEqual(nullDate) && !this.endDate.isEqual(nullDate)){
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
-                    this.atDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
-                    this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                    this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
+                    this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         }
         else {
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;

@@ -15,8 +15,8 @@ public class Task implements Serializable{
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
     public LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
-    public LocalDateTime toDate = nullDate;
-    public LocalDateTime atDate = nullDate;
+    public LocalDateTime endDate = nullDate;
+    public LocalDateTime startDate = nullDate;
     public LocalDateTime createdDate;
     public Period eventPeriod;
     public int remindInHowManyDays = 0;
@@ -63,8 +63,8 @@ public class Task implements Serializable{
     }
 
     public boolean checkReminderTrigger() {
-        if (!atDate.isEqual(nullDate)) {
-            LocalDateTime reminderDate = atDate.minusDays(remindInHowManyDays);
+        if (!startDate.isEqual(nullDate)) {
+            LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
             return LocalDateTime.now().isAfter(reminderDate);
         }
         return false;
