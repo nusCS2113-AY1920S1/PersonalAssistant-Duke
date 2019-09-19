@@ -1,9 +1,6 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.AddCommand;
-import duke.commands.FindCommand;
-import duke.commands.NumCommand;
+import duke.commands.*;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 
@@ -102,6 +99,30 @@ public class Parser {
             } else {
                 command = new Command();
                 System.out.println("Please enter the search description.");
+            }
+            break;
+        }
+        case "recur": {
+            //Input format: recur 5 12 deadline description /by dd/mm/yyyy HHMM
+            String taskInput = keyword[1].trim();
+            String newKeyword[] = taskInput.split(" ", 3);
+            int recurInterval = Integer.parseInt(newKeyword[0]);
+            int numberOfRecur = Integer.parseInt(newKeyword[1]);
+            String finalKeyword[] = newKeyword[2].split(" ", 2);
+            switch (finalKeyword[0]) {
+                case "deadline": {
+                    String[] temp = addDeadline(finalKeyword[1]);
+                    command = new RecurCommand(Command.CommandType.DEADLINE, temp[0], temp[1], recurInterval, numberOfRecur);
+                    break;
+                }
+                case "event": {
+                    String[] temp = addEvent(finalKeyword[1]);
+                    command = new RecurCommand(Command.CommandType.EVENT, temp[0], temp[1], recurInterval, numberOfRecur);
+                    break;
+                }
+                default:
+                    command = new Command();
+                    throw new BadInputException("Sorry, I don't recognise that input keyword");
             }
             break;
         }

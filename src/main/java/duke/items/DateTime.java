@@ -45,6 +45,10 @@ public class DateTime {
     }
 
 
+
+    public Calendar getCalendar() {
+        return at;
+    }
     /**
      * Returns the date in a friendlier format.
      */
