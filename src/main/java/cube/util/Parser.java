@@ -95,7 +95,7 @@ public class Parser {
 			int descriptionIndex = fullCommand.indexOf(" ");
 			int dateIndex = fullCommand.indexOf(" /");
 			if (dateIndex != -1) {
-				// have date or afterEvent
+				// have date or string parameter
 				String description = fullCommand.substring(descriptionIndex, dateIndex);
 				dict.put(Parts.DESCRIPTION, description.trim());
 				if (fullCommand.substring(dateIndex,dateIndex+4).equals(" /at")||
