@@ -11,19 +11,19 @@ public class Ui {
     /**
      * Constructs a new ui.Ui object.
      */
-    public Ui(){
+    public Ui() {
         sc = new Scanner(System.in);
     }
 
     /**
      * Prints the welcome message of the program.
      */
-    public void welcomeMsg(){
+    public void welcomeMsg() {
         String logo = "__             __       _   _         \n"
-                     + "\\ \\    __     / /      | | | |        _\n"
-                     + " \\ \\  /  \\   / /___,__ | | | | ______| |_    \n"
-                     + "  \\ \\/ /\\  \\/ /  [] | || | | |  []_\\_  __|\n"
-                     + "   \\__/  \\___/ \\__,_|_||_| |_|\\___/  |_|\n";
+                + "\\ \\    __     / /      | | | |        _\n"
+                + " \\ \\  /  \\   / /___,__ | | | | ______| |_    \n"
+                + "  \\ \\/ /\\  \\/ /  [] | || | | |  []_\\_  __|\n"
+                + "   \\__/  \\___/ \\__,_|_||_| |_|\\___/  |_|\n";
         System.out.println("Hello from\n" + logo);
 
         printLine();
@@ -35,7 +35,7 @@ public class Ui {
     /**
      * Prints the goodbye message when the user exits the program.
      */
-    public void byeMsg(){
+    public void byeMsg() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
@@ -43,16 +43,17 @@ public class Ui {
 
     /**
      * Prompts the user for input.
+     *
      * @return The input of the user.
      */
-    public String readLine(){
+    public String readLine() {
         return sc.nextLine();
     }
 
     /**
-     * Prints the separator lines for UI
+     * Prints the separator lines for UI.
      */
-    public void printLine(){
+    public void printLine() {
         System.out.println("____________________________________________________________");
     }
 }

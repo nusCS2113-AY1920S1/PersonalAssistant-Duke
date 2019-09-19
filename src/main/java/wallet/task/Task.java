@@ -6,6 +6,7 @@ public class Task {
 
     /**
      * Constructs a new Task object.
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -14,57 +15,63 @@ public class Task {
     }
 
     /**
-     * Retrieve the status icon of the task based on isDone
-     * @return The corresponding status icon
+     * Retrieve the status icon of the task based on isDone.
+     *
+     * @return The corresponding status icon.
      */
     public String getStatusIcon() {
         return (isDone ? "✓" : "✘"); //return tick or X symbols
     }
 
     /**
-     * Get the current status of the task
-     * @return true if the task is done
+     * Get the current status of the task.
+     *
+     * @return true if the task is done.
      */
-    public boolean getStatus(){
+    public boolean getStatus() {
         return isDone;
     }
 
     /**
      * Set the isDone variable to true, showing that the task is done.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Retrieve the description of the task
-     * @return The description of the task
+     * Retrieve the description of the task.
+     *
+     * @return The description of the task.
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
     /**
-     * Update the description of the task
+     * Update the description of the task.
+     *
      * @param description The new description of the task.
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Outputs the string with the correct format for printing to UI
-     * @return The string formatted for printing to UI
+     * Outputs the string with the correct format for printing to UI.
+     *
+     * @return The string formatted for printing to UI.
      */
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
     /**
-     * Outputs the string with the correct format for writing to output file
-     * @return The string formatted for writing to output file
+     * Outputs the string with the correct format for writing to output file.
+     *
+     * @return The string formatted for writing to output file.
      */
-    public String writeToFile(){
+    public String writeToFile() {
         return (this.isDone ? '1' : '0') + "," + this.getDescription();
     }
 }

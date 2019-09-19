@@ -1,4 +1,8 @@
 package wallet;
+
+import wallet.contact.Contact;
+import wallet.contact.ContactList;
+import wallet.record.RecordList;
 import wallet.record.ExpenseList;
 import wallet.task.ScheduleList;
 import wallet.command.Command;
@@ -13,7 +17,7 @@ import java.util.ArrayList;
 
 public class Main {
     /**
-     * The Ui object that handles input and output of the application
+     * The Ui object that handles input and output of the application.
      */
     private Ui ui;
     /**
@@ -25,21 +29,25 @@ public class Main {
      */
     private TaskList taskList;
     private ScheduleList scheduleList;
+    private ContactList contactList;
+    private RecordList recordList;
     private ExpenseList expenseList;
     /**
-     * The Reminder object that handles the reminder of undone tasks
+     * The Reminder object that handles the reminder of undone tasks.
      */
     private Reminder reminder;
 
     /**
      * Constructs a new ui.Duke object.
+     *
      * @param path The path of the save file in the local computer.
      */
-    public Main(String path){
+    public Main(String path) {
         ui = new Ui();
         storage = new Storage(path);
         taskList = new TaskList((ArrayList<Task>) storage.loadFile());
-        reminder = new Reminder(taskList);
+        ArrayList<Contact> alc = new ArrayList<Contact>();
+        contactList = new ContactList(alc);
         expenseList = new ExpenseList();
     }
 
@@ -50,14 +58,13 @@ public class Main {
     /**
      * Execute and run the Duke application.
      */
-    public void run(){
+    public void run() {
         ui.welcomeMsg();
-        reminder.autoReminder();
         boolean isExit = false;
-        while (!isExit){
+        while (!isExit) {
             String cmd = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage, scheduleList, expenseList);
+            isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();

@@ -5,6 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ExpenseParser {
+    /**
+     * Parses the input of the user and returns a corresponding Expense object.
+     * @param input The input of the user.
+     * @return The Expense object.
+     */
     public static Expense parseInput(String input) {
         Expense expense = null;
         try {
@@ -30,10 +35,15 @@ public class ExpenseParser {
         return expense;
     }
 
-    public static ArrayList<Expense> getRecurringRecords(ExpenseList expenseList){
+    /**
+     * Returns the list of recurring expenses.
+     * @param expenseList The list of all expenses.
+     * @return The list of recurring expenses.
+     */
+    public static ArrayList<Expense> getRecurringRecords(ExpenseList expenseList) {
         ArrayList<Expense> recList = new ArrayList<Expense>();
 
-        for (Expense e : expenseList.getExpenseList()){
+        for (Expense e : expenseList.getExpenseList()) {
             if (e.isRecurring()) {
                 recList.add(e);
             }
@@ -42,63 +52,73 @@ public class ExpenseParser {
         return recList;
     }
 
+    /**
+     * Populates the expense list with the recurring expenses.
+     * @param expenseList The list of expenses.
+     */
     public static void populateRecurringRecords(ExpenseList expenseList) {
         ArrayList<Expense> recList = getRecurringRecords(expenseList);
         LocalDate currentDate = LocalDate.now();
         for (Expense e : recList) {
             int lastDay = currentDate.lengthOfMonth();
             int currentMonth = currentDate.getMonthValue();
-            LocalDate eDate = e.getCreatedDate();
+            LocalDate expenseDate = e.getCreatedDate();
             if (e.getRecFrequency().equals("DAILY")) {
-                if (eDate.getMonthValue() == currentMonth && eDate.getDayOfMonth() == lastDay) {
+                if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() == lastDay) {
                     continue;
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
                 e.setRecFrequency("NULL");
                 expenseList.editExpense(index, e);
-                eDate = eDate.plusDays(1);
-                while (eDate.getMonthValue() != currentMonth+1) {
-                    if (eDate.getMonthValue() == currentMonth && eDate.getDayOfMonth() == lastDay) {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), true, "DAILY"));
+                expenseDate = expenseDate.plusDays(1);
+                while (expenseDate.getMonthValue() != currentMonth + 1) {
+                    if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() == lastDay) {
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), true, "DAILY"));
                     } else {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), false, "NULL"));
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), false, "NULL"));
                     }
-                    eDate = eDate.plusDays(1);
+                    expenseDate = expenseDate.plusDays(1);
                 }
             } else if (e.getRecFrequency().equals("WEEKLY")) {
-                if (eDate.getMonthValue() == currentMonth && eDate.getDayOfMonth() > lastDay-7) {
+                if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() > lastDay - 7) {
                     continue;
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
                 e.setRecFrequency("NULL");
                 expenseList.editExpense(index, e);
-                eDate = eDate.plusDays(7);
-                while (eDate.getMonthValue() != currentMonth+1) {
-                    if (eDate.getMonthValue() == currentMonth && eDate.getDayOfMonth() > lastDay-7) {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), true, "WEEKLY"));
+                expenseDate = expenseDate.plusDays(7);
+                while (expenseDate.getMonthValue() != currentMonth + 1) {
+                    if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() > lastDay - 7) {
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), true, "WEEKLY"));
                     } else {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), false, "NULL"));
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), false, "NULL"));
                     }
-                    eDate = eDate.plusDays(7);
+                    expenseDate = expenseDate.plusDays(7);
                 }
             } else if (e.getRecFrequency().equals("MONTHLY")) {
-                if (eDate.getMonthValue() == currentMonth) {
+                if (expenseDate.getMonthValue() == currentMonth) {
                     continue;
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
                 e.setRecFrequency("NULL");
                 expenseList.editExpense(index, e);
-                eDate = eDate.plusMonths(1);
-                while (eDate.getMonthValue() != currentMonth+1) {
-                    if (eDate.getMonthValue() == currentMonth) {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), true, "MONTHLY"));
+                expenseDate = expenseDate.plusMonths(1);
+                while (expenseDate.getMonthValue() != currentMonth + 1) {
+                    if (expenseDate.getMonthValue() == currentMonth) {
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), true, "MONTHLY"));
                     } else {
-                        expenseList.addExpense(new Expense(e.getDescription(), eDate, e.getAmount(), e.getCategory(), false, "NULL"));
+                        expenseList.addExpense(new Expense(e.getDescription(), expenseDate,
+                                e.getAmount(), e.getCategory(), false, "NULL"));
                     }
-                    eDate = eDate.plusMonths(1);
+                    expenseDate = expenseDate.plusMonths(1);
                 }
             }
         }

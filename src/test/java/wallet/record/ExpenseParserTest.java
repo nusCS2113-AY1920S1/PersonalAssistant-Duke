@@ -20,12 +20,12 @@ public class ExpenseParserTest {
 
     @Test
     public void getRecurringRecords_populatedList_success() {
-        ExpenseList eList = new ExpenseList();
-        eList.addExpense(new Expense("Lunch", LocalDate.now(), 5, "Food", false, "NULL"));
-        eList.addExpense(new Expense("Dinner", LocalDate.now(), 10, "Food", false, "NULL"));
-        eList.addExpense(new Expense("Breakfast", LocalDate.now(), 3, "Food", true, "WEEKLY"));
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(new Expense("Lunch", LocalDate.now(), 5, "Food", false, "NULL"));
+        expenseList.addExpense(new Expense("Dinner", LocalDate.now(), 10, "Food", false, "NULL"));
+        expenseList.addExpense(new Expense("Breakfast", LocalDate.now(), 3, "Food", true, "WEEKLY"));
 
-        for (Expense e : ExpenseParser.getRecurringRecords(eList)) {
+        for (Expense e : ExpenseParser.getRecurringRecords(expenseList)) {
             assertEquals("Breakfast", e.getDescription());
             assertEquals(LocalDate.now(), e.getCreatedDate());
             assertEquals(3.0, e.getAmount());
@@ -38,30 +38,30 @@ public class ExpenseParserTest {
     @Test
     public void populateRecurringRecords_dailyRecurring_success() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate eDate = currentDate.minusDays(5);
-        ExpenseList eList = new ExpenseList();
-        eList.addExpense(new Expense("Breakfast", eDate, 3, "Food", true, "DAILY"));
+        LocalDate expenseDate = currentDate.minusDays(5);
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(new Expense("Breakfast", expenseDate, 3, "Food", true, "DAILY"));
 
-        ExpenseParser.populateRecurringRecords(eList);
+        ExpenseParser.populateRecurringRecords(expenseList);
 
-        for (int i = 0; i < eList.getSize(); i++) {
-            Expense e = eList.getExpense(i);
-            if (i != eList.getSize()-1) {
+        for (int i = 0; i < expenseList.getSize(); i++) {
+            Expense e = expenseList.getExpense(i);
+            if (i != expenseList.getSize() - 1) {
                 assertEquals("Breakfast", e.getDescription());
-                assertEquals(eDate, e.getCreatedDate());
+                assertEquals(expenseDate, e.getCreatedDate());
                 assertEquals(3.0, e.getAmount());
                 assertEquals("Food", e.getCategory());
                 assertEquals(false, e.isRecurring());
                 assertEquals("NULL", e.getRecFrequency());
             } else {
                 assertEquals("Breakfast", e.getDescription());
-                assertEquals(eDate, e.getCreatedDate());
+                assertEquals(expenseDate, e.getCreatedDate());
                 assertEquals(3.0, e.getAmount());
                 assertEquals("Food", e.getCategory());
                 assertEquals(true, e.isRecurring());
                 assertEquals("DAILY", e.getRecFrequency());
             }
-            eDate = eDate.plusDays(1);
+            expenseDate = expenseDate.plusDays(1);
         }
     }
 }

@@ -26,4 +26,5 @@ public abstract class Record {
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
+
 }
