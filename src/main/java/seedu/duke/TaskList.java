@@ -1,7 +1,5 @@
 package seedu.duke;
 
-import seedu.duke.command.Command;
-import seedu.duke.command.SnoozeCommand;
 import seedu.duke.task.Task;
 
 import java.util.ArrayList;
@@ -123,5 +121,21 @@ public class TaskList extends ArrayList<Task> {
             Duke.getUI().showError("This task cannot be snoozed");
         }
         return msg;
+    }
+
+    /**
+     * Detect if a task being added clashes with another task in the list.
+     *
+     * @param task task to be added.
+     * @return TaskList containing tasks that clashes with the new task being added.
+     */
+    public TaskList findClash(Task task) {
+        TaskList clashTasks = new TaskList();
+        for (Task t : this) {
+            if (t.isClash(task)) {
+                clashTasks.add(t);
+            }
+        }
+        return clashTasks;
     }
 }
