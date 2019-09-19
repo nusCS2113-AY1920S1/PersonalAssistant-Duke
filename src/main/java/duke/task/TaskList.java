@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.worker.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,13 +62,13 @@ public class TaskList {
     }
 
     /**
-     * Initializes a 'Task' subclass based on TaskType
+     * Initializes a 'Task' subclass based on TaskType.
      * TODO: Think about how this can be neater.
      *
      * @param taskDesc The task description from the user input
      * @param taskType TaskType enum that specifies the subclass to create
      */
-    public Task createTask(TaskType taskType, String taskDesc) {
+    public static Task createTask(TaskType taskType, String taskDesc) {
         Task newTask;
         switch (taskType) {
         case DEADLINE:
@@ -81,6 +83,21 @@ public class TaskList {
         default:
             newTask = new Task(taskDesc);
             break;
+        }
+        return newTask;
+    }
+
+    /**
+     * Creates a Task Object from a saved (Storage) String.
+     * @param userInput The saved string
+     * @return Created Task Object
+     */
+    public static Task createTaskFromString(String userInput) {
+        String[] parsedInput = Parser.parseStoredTaskDetails(userInput);
+        TaskType taskType = TaskType.valueOf(parsedInput[0]);
+        Task newTask = TaskList.createTask(taskType, parsedInput[1]);
+        if (Boolean.valueOf(parsedInput[2])) {
+            newTask.markDone();
         }
         return newTask;
     }
