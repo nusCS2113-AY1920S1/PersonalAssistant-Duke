@@ -1,6 +1,12 @@
 Production Title
 ================
-introduction of our product
+<NAME_OF_PROJECT> is a scheduler program created 
+for serious music students pursuing a professional music career 
+as a western classical music performer. 
+The program is designed to automate and streamline 
+most of the process in scheduling and organisation of materials, 
+allowing the students to focus more on 
+the important aspects of their education.
 
 # Install
 **Prerequisites**
@@ -25,12 +31,17 @@ introduction of our product
 
 # Usage
 Please see the user guide: 
-*link
+*https://docs.google.com/document/d/1WDTRTpNnmUHK0kjuEMp1OZcCORxTkKtjis_KhHN_JxY/edit#heading=h.2wlzp2j0tfu8
+need a "view only" link
 
 # Versions
 v1.0
 -----
 * describe what is done for v1.0
+
+v1.1
+-----
+* describe what is done for v1.1
 
 # Contributing 
 PRs accepted 
@@ -42,8 +53,5 @@ Contributors
 
 **Team Google Drive link**
 *https://drive.google.com/drive/folders/1D1Tr99E0DBlkt2JiG13V1_xfWj_jowNs?usp=sharing
-
-**User Guide**
-*link
 
 # License
