@@ -12,8 +12,6 @@ import duke.items.*;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private ArrayList<Event> eventSortedList;
-
     private int listIndex;
 
     public TaskList(ArrayList<Task> savedFile, int lastIndex) {
@@ -95,10 +93,6 @@ public class TaskList {
             System.out.println("Event item added: " + event);
             System.out.println("Event happens at: " + at);
             setListIndex(index + 1); //Next open index.
-
-            // Adding event to pure event array, and sorting by starting time of each event
-            eventSortedList.add(curAddEvent);
-            Collections.sort(eventSortedList, new EventDateTimeComparator());
 
         } catch (BadInputException e) {
             System.out.println(e);
@@ -235,12 +229,32 @@ public class TaskList {
     }
 
     public void findFreeHours(int reqFreeHours) {
-        //DateTime curStartTime = eventSortedList.get(0).getEventStartTimeObj();
-        DateTime curEndTime = eventSortedList.get(0).getEventEndTimeObj();
-        DateTime latestEndTime = curEndTime;
+        if (reqFreeHours < 0) {
+            System.out.println("Please enter an hour value >= 0.");
+            return;
+        }
 
-        Event eventBeforeFreeTime = null;
-        boolean freeHoursFound = false;
+        // Creating temporary ArrayList of events.
+        ArrayList<Event> eventSortedList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i) instanceof Event) {
+                eventSortedList.add((Event) taskList.get(i));
+            }
+        }
+        eventSortedList.sort(new EventDateTimeComparator());
+        if (eventSortedList.size() == 0) {
+            System.out.println("You have no scheduled events yet!");
+            return;
+        }
+        // Array is definitely sorted at this point.
+
+        // Printing out for testing purposes.
+        for (int i = 0; i < eventSortedList.size(); i++) {
+            System.out.println(eventSortedList.get(i).toString());
+        }
+
+        DateTime latestEndTime = eventSortedList.get(0).getEventEndTimeObj();
+        Event eventBeforeFreeTime = eventSortedList.get(0);
         int curMaxFreeHours = 0;
 
         for (int i = 0; i < eventSortedList.size(); i++) {
@@ -248,7 +262,7 @@ public class TaskList {
             DateTime nextEndTime = eventSortedList.get(i).getEventStartTimeObj();
 
             int compare = latestEndTime.getAt().compareTo(nextStartTime.getAt());
-            // curEndTime is earlier than nextStartTime
+            // latestEndTime is earlier than nextStartTime
             if (compare < 0) {
                 // Getting number of hours between latestEndTime and nextStartTime
                 long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
@@ -256,16 +270,16 @@ public class TaskList {
 
                 if (potentialMaxFreeHours >= curMaxFreeHours) {
                     curMaxFreeHours = potentialMaxFreeHours;
+                    eventBeforeFreeTime = eventSortedList.get(i);
                 }
 
-                // Since curEndTime is earlier than nextStartTime, it is guaranteed that
+                // Since curEndTime is earlier than or equal to nextStartTime, it is guaranteed that
                 // our latestEndTime will be equiv to nextEndTime - since this definitely
                 // takes place after curEndTime.
                 latestEndTime = nextEndTime;
 
                 if (curMaxFreeHours >= reqFreeHours) {
                     eventBeforeFreeTime = eventSortedList.get(i);
-                    freeHoursFound = true;
                     break;
                 }
             }
@@ -287,12 +301,7 @@ public class TaskList {
             }
         }
 
-        // Output of function
-        if (freeHoursFound) {
-            System.out.println("The earlier free time I found was after the following event:\n +" +
-                    eventBeforeFreeTime.toString());
-        } else {
-            System.out.println("I'm sorry, I wasn't able to find any free time in your schedule!");
-        }
+        System.out.println("The earliest free time I found was after the following event:\n +" +
+                eventBeforeFreeTime.toString());
     }
 }
