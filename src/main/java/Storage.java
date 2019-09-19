@@ -32,11 +32,6 @@ public class Storage {
                     if (arr[1].equals("[V]")) new_deadline.have_done();
                     ls.add(new_deadline);
                     break;
-                case "[TT]":
-                    FixedDuration fixedDuration = new FixedDuration(arr[2], arr[3]);
-                    if (arr[1].equals("[V]")) fixedDuration.have_done();
-                    ls.add(fixedDuration);
-                    break;
             }
         }
         return ls;
