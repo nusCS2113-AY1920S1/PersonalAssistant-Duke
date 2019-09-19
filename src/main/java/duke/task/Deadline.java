@@ -8,8 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 class Deadline extends Task {
-
-
+  
     // Initialization
     Deadline(String name) {
         super(name);
@@ -19,15 +18,13 @@ class Deadline extends Task {
             this.parseDateTime();
             // New stuff
             // getDate time is his inbuilt method
-
         } catch  (DukeException invalidInput) {
             invalidInput.printStackTrace();
         }
-
     }
 
     private void parseDateTime() throws DukeException {
-        SimpleDateFormat formatx = new SimpleDateFormat("dd/mm/yyyy HHmm");
+        SimpleDateFormat formatx = new SimpleDateFormat("dd/MM/yyyy HHmm");
         if (this.detailDesc == null) {
             return;
         }
@@ -49,9 +46,4 @@ class Deadline extends Task {
      * Getter for datetime.
      * @return Datetime stored in this Deadline Object
      */
-
-
-
-
-
 }

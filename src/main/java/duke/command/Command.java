@@ -2,9 +2,14 @@ package duke.command;
 
 import duke.task.TaskList;
 
+import java.text.ParseException;
+
 public abstract class Command {
     protected Boolean exitRequest = false;
     protected CommandType commandType;
+
+    protected CommandType commandType = null;
+
 
     // Constructor
     public Command() {

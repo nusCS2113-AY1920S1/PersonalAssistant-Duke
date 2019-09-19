@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.worker.Parser;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,23 +11,20 @@ public class Task {
     public TaskType taskType;
     public Boolean isDone = false;
     private TaskList queuedTasks = null;
-    //new stuff
-    private Date dateTime;
-
+    protected Date datetime = null;
+  
     /**
      * Constructor for the 'Task' Class.
-     *
      * @param name Name of the task as inputted by the user
      */
     public Task(String name) {
         this.taskType = TaskType.PARENT;
-        this.dateTime = null;
+        this.datetime = null;
         this.taskName = name.replace(this.taskType.name(), "").trim();
     }
 
     /**
      * Get a 'tick' or 'cross' depending on .isDone
-     *
      * @return A special string that represents a tick for true or a cross for false
      */
     public String getStatusIcon() {
@@ -56,7 +52,6 @@ public class Task {
     /**
      * Generates a String Describing the Task Object.
      * Optimized for user's reading.
-     *
      * @return String detailing the Task Object, including type, isDone, taskName and taskDetails
      */
     public String genTaskDesc() {
@@ -108,7 +103,7 @@ public class Task {
             }
         }
     }
-
+  
     // -- Boolean Checkers
     /**
      * Checks if the current task has any queued tasks.
@@ -139,12 +134,19 @@ public class Task {
     public void setQueuedTasks(TaskList queuedTasks) {
         this.queuedTasks = queuedTasks;
     }
-
-    public Date getDateTime() {
-        return dateTime;
+  
+    /** 
+      * Setter for datetime property.
+      * @param datetime The Date to set
+      */
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+  
+    /** 
+      * Getter for datetime property.
+      * @return Date represented by the datetime property
+      */
+    public Date getDatetime() {
+        return this.datetime;
     }
-}

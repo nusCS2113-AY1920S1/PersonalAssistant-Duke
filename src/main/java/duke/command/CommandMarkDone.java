@@ -4,7 +4,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.worker.Parser;
 import duke.worker.Ui;
-
 import java.util.ArrayList;
 
 public class CommandMarkDone extends Command {

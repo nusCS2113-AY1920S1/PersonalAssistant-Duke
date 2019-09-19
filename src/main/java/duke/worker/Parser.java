@@ -1,11 +1,10 @@
 package duke.worker;
 
-
-import duke.command.*;
-
 import duke.command.Command;
-import duke.command.CommandBye;
 import duke.command.CommandType;
+import duke.command.CommandSchedule;
+import duke.command.CommandBlank;
+import duke.command.CommandBye;
 import duke.command.CommandNewTask;
 import duke.command.CommandFind;
 import duke.command.CommandError;
@@ -13,8 +12,8 @@ import duke.command.CommandDelete;
 import duke.command.CommandMarkDone;
 import duke.command.CommandList;
 import duke.command.CommandQueue;
-import duke.command.CommandBlank;
 import duke.command.CommandReminder;
+
 import duke.task.Task;
 import duke.task.TaskType;
 
@@ -71,23 +70,23 @@ public class Parser {
         case DONE:
             c = new CommandMarkDone(userInput);
             break;
-
-
+            
         case REMINDER:
             c = new CommandReminder();
-
             break;
 
         case QUEUE:
             c = new CommandQueue(userInput);
-
+            break;
+            
+        case VIEWSCHEDULE:
+            c = new CommandSchedule(userInput);
             break;
 
         default:
             c = new CommandError();
             break;
         }
-//        System.out.println(c.toString());
         return c;
     }
 

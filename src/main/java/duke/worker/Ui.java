@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.command.CommandType;
 import duke.task.TaskList;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +45,7 @@ public class Ui {
     /**
      * Obtains user input and executes commands.
      */
-    public void interact(TaskList taskList) {
+    public void interact(TaskList taskList)  {
         // Declarations
         String userInput;
         CommandType commandType;
