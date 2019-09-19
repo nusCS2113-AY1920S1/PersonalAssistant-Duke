@@ -1,23 +1,31 @@
 package com.nwjbrandon.duke.services;
 
 import com.nwjbrandon.duke.constants.TaskCommands;
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
+
 import com.nwjbrandon.duke.services.command.Command;
 import com.nwjbrandon.duke.services.command.DeadlinesCommand;
 import com.nwjbrandon.duke.services.command.DeleteCommand;
 import com.nwjbrandon.duke.services.command.DoneCommand;
 import com.nwjbrandon.duke.services.command.EventsCommand;
+import com.nwjbrandon.duke.services.command.FixedDurationCommand;
 import com.nwjbrandon.duke.services.command.InvalidCommand;
 import com.nwjbrandon.duke.services.command.ListCommand;
+import com.nwjbrandon.duke.services.command.RecurringCommand;
+import com.nwjbrandon.duke.services.command.RemindersCommand;
 import com.nwjbrandon.duke.services.command.SearchCommand;
+import com.nwjbrandon.duke.services.command.SnoozeCommand;
 import com.nwjbrandon.duke.services.command.TodosCommand;
+import com.nwjbrandon.duke.services.command.ViewSchedulesCommand;
+import com.nwjbrandon.duke.services.storage.Storage;
+import com.nwjbrandon.duke.services.task.Deadlines;
+import com.nwjbrandon.duke.services.task.Events;
+import com.nwjbrandon.duke.services.task.FixedDuration;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.task.Deadlines;
 import com.nwjbrandon.duke.services.task.Todos;
-import com.nwjbrandon.duke.services.task.Events;
-import com.nwjbrandon.duke.services.storage.Storage;
 import com.nwjbrandon.duke.services.ui.Terminal;
 
 import java.io.FileNotFoundException;
@@ -58,7 +66,8 @@ public class TaskManager {
             String[] details = taskDetails.split("\\s\\|\\s");
             Task task = loadTask(details);
             tasksList.addTask(task);
-        } catch (DukeWrongCommandFormatException e) {
+        } catch (DukeWrongCommandFormatException
+                | DukeTaskCollisionException e) {
             e.showError();
         }
     }
@@ -74,8 +83,10 @@ public class TaskManager {
             task = new Todos(details, tasksList.numberOfTasks() + 1);
         } else if (details[0].equals("D")) {
             task = new Deadlines(details, tasksList.numberOfTasks() + 1);
-        } else {
+        } else if (details[0].equals("E")) {
             task = new Events(details, tasksList.numberOfTasks() + 1);
+        } else {
+            task = new FixedDuration(details, tasksList.numberOfTasks() + 1);
         }
         if (details[1].equals("1")) {
             task.setDoneStatus(true);
@@ -107,8 +118,10 @@ public class TaskManager {
                 output.append("T");
             } else if (task instanceof Deadlines) {
                 output.append("D");
-            } else {
+            } else if (task instanceof Events) {
                 output.append("E");
+            } else {
+                output.append("F");
             }
             output.append(" | ").append(task.getIsDoneStatus() ? "1" : "0")
                     .append(" | ").append(task.getTaskName());
@@ -166,13 +179,23 @@ public class TaskManager {
             return new EventsCommand(userInput, TaskCommands.EVENT.toString(), size + 1);
         } else if (userInput.startsWith(TaskCommands.DEADLINE.toString())) {
             return new DeadlinesCommand(userInput, TaskCommands.DEADLINE.toString(), size + 1);
+        } else if (userInput.startsWith(TaskCommands.FIXED_DURATION.toString())) {
+            return new FixedDurationCommand(userInput, TaskCommands.FIXED_DURATION.toString(), size + 1);
         } else if (userInput.startsWith(TaskCommands.DELETE.toString())) {
             return new DeleteCommand(userInput, TaskCommands.DELETE.toString(), size);
         } else if (userInput.startsWith(TaskCommands.FIND.toString())) {
             return new SearchCommand(userInput, TaskCommands.FIND.toString());
+        } else if (userInput.startsWith(TaskCommands.VIEW_SCHEDULE.toString())) {
+            return new ViewSchedulesCommand(userInput, TaskCommands.VIEW_SCHEDULE.toString(), size);
+        } else if (userInput.equals(TaskCommands.REMINDER.toString())) {
+            return new RemindersCommand(userInput, TaskCommands.REMINDER.toString(), size);
         } else if (userInput.equals(TaskCommands.BYE.toString())) {
             isRunning = false;
             return new InvalidCommand();
+        } else if (userInput.startsWith(TaskCommands.SNOOZE.toString())) {
+            return new SnoozeCommand(userInput, TaskCommands.SNOOZE.toString(), size);
+        } else if (userInput.startsWith(TaskCommands.RECURRING.toString())) {
+            return new RecurringCommand(userInput,TaskCommands.RECURRING.toString(),size);
         } else {
             throw new DukeWrongCommandException();
         }

@@ -1,11 +1,12 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.task.Todos;
-import com.nwjbrandon.duke.services.validation.Parser;
+import com.nwjbrandon.duke.services.validation.InputValidation;
 
 public class TodosCommand extends Command {
 
@@ -56,8 +57,7 @@ public class TodosCommand extends Command {
      * @return instruction in input.
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
-        return Parser.checkCommandInput(userInput, command);
-
+        return InputValidation.checkCommandInput(userInput, command);
     }
 
     /**
@@ -69,7 +69,9 @@ public class TodosCommand extends Command {
         try {
             this.taskDescription = parseCommand(userInput, command);
             taskList.addTask(this.setTask());
-        } catch (DukeWrongCommandFormatException | DukeEmptyCommandException e) {
+        } catch (DukeWrongCommandFormatException
+                | DukeEmptyCommandException
+                | DukeTaskCollisionException e) {
             e.showError();
         }
     }

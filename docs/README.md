@@ -1,3 +1,6 @@
+# AlgoSenpai
+<img src="./images/Ui.png" alt="AlgoSenpai"/>
+
 # User Guide
 
 ## Features 

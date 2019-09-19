@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main)
+
 # AY1920S1-CS2113T-T09-3
 Team Members:
 1) NG WEI JIE, BRANDON

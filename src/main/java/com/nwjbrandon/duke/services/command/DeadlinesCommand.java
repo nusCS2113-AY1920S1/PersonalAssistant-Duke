@@ -1,11 +1,12 @@
 package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
+import com.nwjbrandon.duke.exceptions.DukeTaskCollisionException;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import com.nwjbrandon.duke.services.task.Deadlines;
 import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.validation.Parser;
+import com.nwjbrandon.duke.services.validation.InputValidation;
 
 public class DeadlinesCommand extends Command {
 
@@ -56,7 +57,7 @@ public class DeadlinesCommand extends Command {
      * @return instruction in input.
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
-        return Parser.checkCommandInput(userInput, command);
+        return InputValidation.checkCommandInput(userInput, command);
     }
 
     /**
@@ -67,8 +68,11 @@ public class DeadlinesCommand extends Command {
     public void execute(TaskList taskList) {
         try {
             this.taskDescription = parseCommand(userInput, command);
+
             taskList.addTask(this.setTask());
-        } catch (DukeWrongCommandFormatException | DukeEmptyCommandException e) {
+        } catch (DukeWrongCommandFormatException
+                | DukeEmptyCommandException
+                | DukeTaskCollisionException e) {
             e.showError();
         }
     }

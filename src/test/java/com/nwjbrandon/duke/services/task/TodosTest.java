@@ -1,18 +1,22 @@
 package com.nwjbrandon.duke.services.task;
 
-import com.nwjbrandon.duke.TestExtender;
+import com.nwjbrandon.duke.SystemIO;
 import com.nwjbrandon.duke.exceptions.DukeWrongCommandFormatException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class TodosTest extends TestExtender {
+class TodosTest {
+
+    @RegisterExtension
+    SystemIO io = new SystemIO();
 
     @Test
     void testTodo() throws DukeWrongCommandFormatException {
         new Todos("borrow book", 2);
-        String output = getOutput();
+        String output = io.getOutput();
         String expected = "\t____________________________________________________________\n"
                         + "\t Got it. I've added this task:\n"
                         + "\t   [T][✗] borrow book\n"

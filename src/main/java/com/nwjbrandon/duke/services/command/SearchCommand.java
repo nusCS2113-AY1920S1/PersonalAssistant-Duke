@@ -2,7 +2,7 @@ package com.nwjbrandon.duke.services.command;
 
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.services.task.TaskList;
-import com.nwjbrandon.duke.services.validation.Parser;
+import com.nwjbrandon.duke.services.validation.InputValidation;
 
 public class SearchCommand extends Command {
 
@@ -46,7 +46,7 @@ public class SearchCommand extends Command {
      * @return instruction in input.
      */
     private String parseCommand(String userInput, String command) throws DukeEmptyCommandException {
-        return Parser.checkCommandInput(userInput, command);
+        return InputValidation.checkCommandInput(userInput, command);
     }
 
     /**

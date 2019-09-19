@@ -1,7 +1,12 @@
 package com.nwjbrandon.duke.services.ui;
 
+import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Terminal {
@@ -144,6 +149,41 @@ public class Terminal {
     }
 
     /**
+     * Prints the list of reminders in sequential order.
+     * @param overdueList the list of overdue tasks.
+     * @param todayList the list of tasks which are due today.
+     * @param eventualList the list of tasks which have a date, but isn't due yet.
+     * @param undefinedList the list of tasks which do not have a date.
+     */
+    public static void showSortedRemindersList(ArrayList<Task> overdueList,ArrayList<Task> todayList,
+                                               ArrayList<Task> eventualList,ArrayList<Task> undefinedList) {
+        Terminal.printDivider();
+        System.out.println(printTaskList("\tHere are the overdue tasks:\n", overdueList));
+        System.out.println(printTaskList("\tHere are the tasks you have today:\n", todayList));
+        System.out.println(printTaskList("\tHere are the upcoming tasks:\n", eventualList));
+        System.out.println(printTaskList("\tHere are the undefined tasks:\n", undefinedList));
+        Terminal.printDivider();
+    }
+
+    /**
+     * Abcd.
+     * @param s The string to be built upon.
+     * @param list the list which is to be printed.
+     * @return the string which is the concatenation of all the contents of the list.
+     */
+    private static String printTaskList(String s, ArrayList<Task> list) {
+        StringBuilder output = new StringBuilder(s);
+        int size = list.size();
+        int count = 1;
+        for (int i = 0; i < size; i++) {
+            output.append("\t ").append(count).append(".").append(list.get(i)
+                    .toTaskDescriptionString()).append("\n");
+            count++;
+        }
+        return output.toString();
+    }
+
+    /**
      * Show set status message.
      * @param taskDescription description of task.
      */
@@ -164,5 +204,46 @@ public class Terminal {
         System.out.print("\t " + errorMessage + "\n");
         Terminal.printDivider();
     }
+
+    /**
+     * Show any message.
+     * @param message message.
+     */
+    public static void showMessage(String message) {
+        Terminal.printDivider();
+        System.out.print("\t " + message + "\n");
+        Terminal.printDivider();
+    }
+
+    /**
+     * Print the schedule of tasks that falls on the same day.
+     * @param date day input by user.
+     * @param tasks tasks on the day user query.
+     */
+    public static void showSchedule(Date date, ArrayList<Task> tasks) {
+        StringBuilder output = new StringBuilder("\t Searching tasks on: " + date + "\n");
+        for (Task task: tasks) {
+            output.append("\t ").append(task.toTaskDescriptionString()).append("\n");
+        }
+
+        Terminal.printDivider();
+        System.out.print(output);
+        Terminal.printDivider();
+    }
+
+    /**
+     * Show snoozed successful message.
+     * @param taskDescription description of task.
+     */
+    public static void showSetSnoozed(String taskDescription) {
+        String output = "\t Okay! I've snoozed this task:\n"
+                + "\t " + taskDescription + "\n";
+        Terminal.printDivider();
+        System.out.print(output);
+        Terminal.printDivider();
+    }
+
+
+
 
 }

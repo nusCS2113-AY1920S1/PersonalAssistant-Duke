@@ -3,10 +3,15 @@ package com.nwjbrandon.duke.services.command;
 import com.nwjbrandon.duke.exceptions.DukeEmptyCommandException;
 import com.nwjbrandon.duke.exceptions.DukeOutOfBoundException;
 import com.nwjbrandon.duke.exceptions.DukeTypeConversionException;
+import com.nwjbrandon.duke.services.task.Task;
 import com.nwjbrandon.duke.services.task.TaskList;
 import com.nwjbrandon.duke.services.validation.InputValidation;
 
-public class DoneCommand extends Command {
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
+public class SnoozeCommand extends Command {
 
     /**
      * Index of task in string.
@@ -29,12 +34,12 @@ public class DoneCommand extends Command {
     private int size;
 
     /**
-     * Create done command.
+     * Create snooze command.
      * @param userInput input by user.
      * @param command type of command.
      * @param size number of tasks.
      */
-    public DoneCommand(String userInput, String command, int size) {
+    public SnoozeCommand(String userInput, String command, int size) {
         this.userInput = userInput;
         this.command = command;
         this.size = size;
@@ -60,6 +65,19 @@ public class DoneCommand extends Command {
     }
 
     /**
+     * Extends the deadline/time of specified task by 1 hour.
+     * @param task the specified task to be snoozed.
+     * @return the snoozed time.
+     */
+    public Date snoozeTime(Task task) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(task.getDate()); // your date (java.util.Date)
+        cal.add(Calendar.HOUR, 1); // You can -/+ x months here to go back in history or move forward.
+        return cal.getTime(); // New date
+
+    }
+
+    /**
      * Execute command.
      * @param taskList list of tasks.
      */
@@ -68,7 +86,12 @@ public class DoneCommand extends Command {
         try {
             this.taskIndexString = parseCommand(userInput, command);
             int taskIndex = this.getTaskIndex();
-            taskList.markDone(taskIndex);
+            if (taskList.getTask(taskIndex).getDate() == null) {
+                System.out.println("☹ OOPS!!! I'm sorry, but there is no date to be snoozed");
+            } else {
+                Date snoozedDate = snoozeTime(taskList.getTask(taskIndex));
+                taskList.snoozeTask(taskIndex, snoozedDate);
+            }
         } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException e) {
             e.showError();
         }
