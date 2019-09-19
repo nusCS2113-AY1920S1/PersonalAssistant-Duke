@@ -52,8 +52,8 @@ public class TaskList {
      *
      * @param todoitem the description of the task.
      */
-    public void addTodoItem(int index, String todoitem) {
-        taskList.add(new Todo(index, todoitem)); //Use the constructor to create a new Task.
+    public void addTodoItem(int index, String todoitem, String doAfter) {
+        taskList.add(new Todo(index, todoitem, doAfter)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
         setListIndex(index + 1); //Next open index.
     }
@@ -63,8 +63,8 @@ public class TaskList {
      * @param todoitem description of the task.
      * @param hours duration of task.
      */
-    public void addTodoItem(int index, String todoitem, int hours) {
-        taskList.add(new Todo(index, todoitem, hours)); //Use the constructor to create a new Task.
+    public void addTodoItem(int index, String todoitem, String doAfter, int hours) {
+        taskList.add(new Todo(index, todoitem, doAfter, hours)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
         System.out.println("Hours needed: " + hours);
         setListIndex(index + 1); //Next open index.
@@ -75,9 +75,10 @@ public class TaskList {
      *
      * @param deadline the command with the description and deadline of the task.
      */
-    public void addDeadlineItem(int index, String description, String deadline) {
+    public void addDeadlineItem(int index, String description, String deadline, String doAfter) {
         try {
-            taskList.add(new Deadline(index, description, deadline)); //Use the constructor to create a new Task.
+            //Use the constructor to create a new Task.
+            taskList.add(new Deadline(index, description, deadline, doAfter));
             System.out.println("Deadline item added: " + description);
             System.out.println("Deadline is: " + deadline);
             setListIndex(index + 1); //Next open index.
@@ -92,9 +93,9 @@ public class TaskList {
      * @param event the description of the task.
      * @param at the time the event happens.
      */
-    public void addEventItem(int index, String event, String at) {
+    public void addEventItem(int index, String event, String at, String doAfter) {
         try {
-            taskList.add(new Event(index, event, at)); //Use the constructor to create a new Task.
+            taskList.add(new Event(index, event, at, doAfter)); //Use the constructor to create a new Task.
             System.out.println("Event item added: " + event);
             System.out.println("Event happens at: " + at);
             setListIndex(index + 1); //Next open index.
