@@ -241,8 +241,8 @@ public class TaskList {
             }
         }
         eventSortedList.sort(new EventDateTimeComparator());
-        if (eventSortedList.size() == 0) {
-            System.out.println("You have no scheduled events yet!");
+        if (eventSortedList.size() <= 1) {
+            System.out.println("You need at least 2 events to run this command!");
             return;
         }
         // Array is definitely sorted at this point.
@@ -255,6 +255,7 @@ public class TaskList {
         DateTime latestEndTime = eventSortedList.get(0).getEventEndTimeObj();
         Event eventBeforeFreeTime = eventSortedList.get(0);
         int curMaxFreeHours = 0;
+        boolean freeTimeFound = false;
 
         for (int i = 1; i < eventSortedList.size(); i++) {
             DateTime nextStartTime = eventSortedList.get(i).getEventStartTimeObj();
@@ -280,6 +281,7 @@ public class TaskList {
 
                 if (curMaxFreeHours >= reqFreeHours) {
                     eventBeforeFreeTime = eventSortedList.get(i - 1);
+                    freeTimeFound = true;
                     break;
                 }
             }
@@ -299,6 +301,10 @@ public class TaskList {
                     latestEndTime = nextEndTime;
                 }
             }
+        }
+
+        if (!freeTimeFound) {
+            eventBeforeFreeTime = eventSortedList.get(eventSortedList.size() - 1);
         }
 
         System.out.println("The earliest free time I found was after the following event:\n +" +
