@@ -52,7 +52,8 @@ public class SnoozeCommandTest extends CommandTest {
             fail("Exception thrown on valid command!");
         }
         assertEquals(taskListStr, System.lineSeparator() + "1.[T][N] JUnit tests"
-                + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM - "
+                + "Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "3.[D][N] submission (by: Thu, 19 Sep 2019 2:00 PM)");
     }
 
