@@ -63,7 +63,9 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
         } catch (BadInputException e) {
-            System.out.println("Save file corrupted. Please fix it manually or use a new list.");
+            System.out.println("Save file format wrong. Please fix it manually or use a new list.");
+        } catch (Exception e) {
+            System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
         TaskList list = new TaskList(savedList, listIndex);
