@@ -35,4 +35,7 @@ public class Event extends Task {
         return dateTime.format(formatter);
     }
 
+    public void setAt(LocalDateTime tillValue) {
+        at = tillValue;
+    }
 }

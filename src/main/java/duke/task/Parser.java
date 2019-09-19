@@ -1,14 +1,12 @@
 package duke.task;
 
-import duke.command.AddDeadLineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddToDoCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.FindTaskCommand;
-import duke.command.ListTaskCommand;
-import duke.command.MarkTaskAsDoneCommand;
-import duke.command.Command;
+import duke.command.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 
 /**
  * Takes in a string and parses it to return a valid command to be ran.
@@ -35,12 +33,28 @@ public class Parser {
             return new FindTaskCommand(false, input);
         } else if (input.startsWith("delete ")) {
             return new DeleteTaskCommand(false, input);
-        } else if (input.startsWith("view")){
+        } else if (input.startsWith("view")) {
             return new ViewSchedule(false, input);
+        } else if (input.startsWith("snooze")) {
+            return parseSnooze(input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private static Command parseSnooze(String input) throws DukeException {
+        Scanner scanner = new Scanner(input);
+        scanner.next();
+        try {
+            int taskNumber = scanner.nextInt() - 1;
+            String till = scanner.nextLine().trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime tillValue = LocalDateTime.parse(till, formatter);
+            return new SnoozeCommand(false, input, taskNumber, tillValue);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("OOPS!!! Please format your date and time in \n this format \"20/12/2019 1859\"");
         }
     }
 }
