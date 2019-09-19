@@ -5,6 +5,7 @@ import Parser.Parser;
 
 import java.util.ArrayList;
 
+
 /**
  * Tasklist stores an arraylist of tasks and performs actions on tasks
  * Actions: Modify/Remove/Add Tasks
@@ -246,6 +247,24 @@ public class TaskList {
     }
 
     /**
+        *Checks if there is any event with the same start time, that could lead to a conflict
+        *The AddCommand class is classified to check for such instances when the type of task is an "Event"
+     */
+    public void conflict_check() throws DukeException {
+        ArrayList<String> check_conflict = new ArrayList<>();
+        for(int i = 0; i < list.size() - 1; i++) {
+           check_conflict.add(list.get(i).getDueDate());
+        }
+
+        for (int i = 0; i < check_conflict.size(); i++) {
+            if(check_conflict.get(i).equals(list.get(list.size() -1).getDueDate())) {
+                System.out.println("There is a conflict in the schedule!");
+                break;
+            }
+        }
+    }
+
+    /**
      * Prints out all tasks in list
      * If list is empty, prints out message stating that it is empty
      */
@@ -259,4 +278,5 @@ public class TaskList {
             }
         }
     }
+
 }
