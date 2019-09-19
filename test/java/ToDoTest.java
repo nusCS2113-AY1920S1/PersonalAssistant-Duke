@@ -1,11 +1,13 @@
-public class ToDoTest {
-    private static final ToDo TEST1 = new ToDo("testing JUnit");
-    private static final ToDo TEST2 = new ToDo("");
+package java;
 
-    public static ToDo test1() {
-        return TEST1;
-    }
-    public static ToDo test2() {
-        return TEST2;
+import Model_Classes.ToDo;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+public class ToDoTest {
+    @Test
+    public void testStringConversion() {
+        assertEquals("[T][\u2718] homework", new ToDo("homework").toString());
     }
 }
