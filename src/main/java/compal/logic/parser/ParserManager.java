@@ -2,6 +2,7 @@ package compal.logic.parser;
 
 import compal.logic.commands.*;
 import compal.main.Duke;
+import compal.tasks.TaskList;
 
 import java.text.ParseException;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class ParserManager{
     static final String CMD_DEADLINE = "deadline";
     static final String CMD_DO_AFTER_TASK = "doaftertask";
     static final String CMD_FIXED_DURATION_TASK = "fixeddurationtask";
-    static final String CMD_RECUR_TASk = "recurtask";
+    static final String CMD_RECUR_TASK = "recurtask";
     static final String CMD_VIEW = "view";
     static final String CMD_FIND = "find";
 
@@ -38,6 +39,7 @@ public class ParserManager{
      */
     public int stage = 0;
     Duke duke;
+    TaskList tasklist;
 
     //----------------------->
 
@@ -54,8 +56,9 @@ public class ParserManager{
      *
      * @param d Duke
      */
-    public ParserManager(Duke d) {
+    public ParserManager(Duke d, TaskList tasklist) {
         this.duke = d;
+        this.tasklist = tasklist;
     }
 
 
@@ -76,7 +79,7 @@ public class ParserManager{
      * @Function
      * @UsedIn: COMPal.Duke.handleUserInput()
      */
-    public void processCommandFirstWord(String userInput) throws ParseException, Duke.DukeException {
+    public void processCMD(String userInput) throws ParseException, Duke.DukeException {
         char sadFace = '\u2639';
         Scanner sc = new Scanner(userInput);
         String cmd = sc.next();
@@ -95,79 +98,48 @@ public class ParserManager{
             break;
         case CMD_DONE:
             DoneCommand done = new DoneCommand(duke);
-            done.Command(cmd);
+            done.Command(userInput);
             break;
         case CMD_DELETE:
             DeleteCommand delete = new DeleteCommand(duke);
-            delete.Command(cmd);
+            delete.Command(userInput);
             break;
         case CMD_TODO:
+            ToDoCommand todo = new ToDoCommand(duke);
+            todo.Command(userInput);
             break;
         case CMD_EVENT:
+            EventCommand event = new EventCommand(duke);
+            event.Command(userInput);
             break;
         case CMD_DEADLINE:
+            DeadlineCommand deadline = new DeadlineCommand(duke);
+            deadline.Command(userInput);
             break;
         case CMD_DO_AFTER_TASK:
+            DoAfterCommand doafter = new DoAfterCommand(duke);
+            doafter.Command(userInput);
             break;
         case CMD_FIXED_DURATION_TASK:
+            FixedDurationCommand fixedduration = new FixedDurationCommand(duke);
+            fixedduration.Command(userInput);
             break;
-        case CMD_RECUR_TASk:
+        case CMD_RECUR_TASK:
+            RecurTaskCommand recurTask = new RecurTaskCommand(duke);
+            recurTask.Command(userInput);
             break;
         case CMD_FIND:
+            FindCommand findCommand = new FindCommand(duke);
+            findCommand.Command(userInput);
             break;
-        //case CMD_NAME: f
-            //break;
         case CMD_VIEW:
+            ViewCommand viewCommand = new ViewCommand(duke);
+            viewCommand.Command(userInput);
             break;
         default:
             throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
-    public void processCommand(String userIn)
-            /*
-        } else if (cmd.matches("done ([0-9]+)")) {
-            duke.tasklist.taskDone(cmd);
-        } else if (cmd.matches("delete ([0-9]+)")) {
-            duke.tasklist.deleteTask(cmd);
-        } else if (cmd.matches("(todo|event|deadline|doaftertask|fixeddurationtask|recurtask) .+")) {
-            duke.tasklist.addTask(cmd);
-        } else if (cmd.matches("[T|t]ask .+")) { //draft task adding for ComPAL
-            duke.tasklist.addTask(cmd);
-        } else if (cmd.matches("find (.*)")) {
-            duke.tasklist.findTask(cmd);
-        } else if (status.equals("init")) {
-            duke.ui.firstTimeInit(cmd, stage++);
-        } else if (cmd.matches("(todo|event|deadline|fixeddurationtask|doaftertask|recurtask)")) {
-            try {
-                throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + cmd + " cannot be empty.");
-            } catch (Duke.DukeException e) {
-                duke.ui.printg(e.toString());
-            }
-        } else if (cmd.matches("view (.*)")) {
-            //deadline return book /by 2/12/2019 1800
-            if (cmd.matches("(view (3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$)")) {
-                ArrayList<Task> viewDay = duke.tasklist.viewDate(cmd);
-                if (viewDay.isEmpty()) {
-                    return;
-                }
-                duke.ui.printTemp(viewDay);
-            } else {
-                duke.ui.printg("Wrong format of date for view command! Use view DD/MM/YYYY");
-            }
-
-
-        } else {
-            try {
-                throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (Duke.DukeException e) {
-                duke.ui.printg(e.toString());
-            }
-        }
-
-
-    }*/
-
 
 
     //----------------------->

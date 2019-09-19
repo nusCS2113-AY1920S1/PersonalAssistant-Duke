@@ -9,9 +9,9 @@ public class DoAfterTasks extends Task {
      * @param description task description
      * @param date doafter this date
      */
-    public DoAfterTasks(String description, Date date) {
+    public DoAfterTasks(String description, String date) {
         super(description);
-        super.setDateTime(date);
+        super.setDate(date);
         super.symbol = "DAT";
 
     }

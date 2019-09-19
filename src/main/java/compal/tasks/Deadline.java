@@ -10,10 +10,10 @@ public class Deadline extends Task {
      * @param description Description of the deadline to be stored
      * @param date        of the event to be stored
      */
-    public Deadline(String description, Date date) {
+    public Deadline(String description, String date) {
         super(description);
         super.symbol = "D";
-        super.setDateTime(date);
+        super.setDate(date);
     }
 
 
