@@ -6,11 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TaskList {
     /**
-     * Stores the current list of task of the user
+     * Stores the current list of task of the user.
      */
     private ArrayList<Task> taskList;
 
@@ -54,8 +53,8 @@ public class TaskList {
     /**
      * Modify the value of the task at the given index in the list.
      *
-     * @param index The index of the task in the list
-     * @param task  The task with modified values
+     * @param index The index of the task in the list.
+     * @param task  The task with modified values.
      */
     public void modifyTask(int index, Task task) {
         taskList.set(index, task);
@@ -64,7 +63,7 @@ public class TaskList {
     /**
      * Removes the task at the given index of the task list.
      *
-     * @param index The index of the task in the list
+     * @param index The index of the task in the list.
      */
     public void deleteTask(int index) {
         taskList.remove(index);
@@ -82,9 +81,9 @@ public class TaskList {
     /**
      * Creates and populate a corresponding task object given its type.
      *
-     * @param type        The type of task to be created
-     * @param description The description of the task
-     * @return The task object with its corresponding values
+     * @param type        The type of task to be created.
+     * @param description The description of the task.
+     * @return The task object with its corresponding values.
      */
     public Task createTask(String type, String description) {
         String[] info;
@@ -106,7 +105,7 @@ public class TaskList {
                 info = description.split("/at");
                 Date date = sdf.parse(info[1].trim());
                 return new Event(info[0].trim(), date);
-            }else if(type.equals("dowithin")){
+            } else if (type.equals("dowithin")) {
                 info = description.split("/from");
                 String temp = info[0];
                 info = info[1].split("/to");
@@ -123,6 +122,12 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * B-Tentative Scheduling: Create Tentative Event (does not extend Event class).
+     *
+     * @param description Description for the tentative event.
+     * @return Task object.
+     */
     //B-Tentative Scheduling: Create Tentative Event (does not extend Event class)
     public Task createTentativeEvent(String description) {
 
@@ -163,10 +168,16 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Updates Tentative task.
+     *
+     * @param t The Tentative object.
+     * @return The Tentative task.
+     */
     public Task updateTentative(Tentative t) {
         System.out.println("Select which date you want for this event: ");
         ArrayList<Date> possibleDates = t.getPossibleDates();
-        for(Date d: possibleDates){
+        for (Date d : possibleDates) {
             String formatDate = new SimpleDateFormat("dd/MM/yyyy HHmm").format(d);
             System.out.println(Integer.toString(possibleDates.indexOf(d) + 1) + "." + d);
         }
@@ -174,11 +185,11 @@ public class TaskList {
         Ui getDates = new Ui();
         try {
             Integer selected = Integer.parseInt(getDates.readLine());
-            String selectedDate = new SimpleDateFormat("dd/MM/yyyy HHmm").format(possibleDates.get(selected-1));
+            String selectedDate = new SimpleDateFormat("dd/MM/yyyy HHmm").format(possibleDates.get(selected - 1));
             Task newEvent = createTask("event", t.getDescription() + " /at " + selectedDate);
             return newEvent;
 
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Wrong Index!");
         }
         return null;

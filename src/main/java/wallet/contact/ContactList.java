@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ContactList {
     /**
-     * Stores the current list of records of the user
+     * Stores the current list of records of the user.
      */
     private ArrayList<Contact> contactList;
 
@@ -17,17 +17,9 @@ public class ContactList {
         this.contactList = contactList;
     }
 
-    /**
-     * Returns the list of contacts in the contactList.
-     *
-     * @return The list of contacts
-     */
-    public ArrayList<Contact> getRecordList() {
-        return contactList;
-    }
 
     /**
-     * Add the given contact into the contactList
+     * Add the given contact into the contactList.
      *
      * @param contact The contact to be added.
      */
@@ -36,7 +28,7 @@ public class ContactList {
     }
 
     /**
-     * Retrieve the contact at the given index of the contactList
+     * Retrieve the contact at the given index of the contactList.
      *
      * @param index The index of the contact in the contactList.
      * @return The contact at the given index.
@@ -46,10 +38,10 @@ public class ContactList {
     }
 
     /**
-     * Modify the value of the contact at the given index in the contactList
+     * Modify the value of the contact at the given index in the contactList.
      *
-     * @param index  The index of the contact in the list
-     * @param contact The contact with modified values
+     * @param index  The index of the contact in the list.
+     * @param contact The contact with modified values.
      */
     public void modifyContact(int index, Contact contact) {
         contactList.set(index, contact);
@@ -73,16 +65,21 @@ public class ContactList {
         return contactList.size();
     }
 
+    /**
+     * Returns the list of contacts in the contactList.
+     *
+     * @return The list of contacts.
+     */
     public ArrayList<Contact> getContactList() {
         return contactList;
     }
 
     /**
-     * Creates
-     * @param name Name of the contact
-     * @param detail Details of the contact
-     * @param phoneNum Phone Number of the contact
-     * @return
+     * Creates Contact object.
+     * @param name Name of the contact.
+     * @param detail Details of the contact.
+     * @param phoneNum Phone Number of the contact.
+     * @return The Contact Object.
      */
     public Contact createContact(String name, String detail, String phoneNum) {
         return new Contact(name, detail, phoneNum);

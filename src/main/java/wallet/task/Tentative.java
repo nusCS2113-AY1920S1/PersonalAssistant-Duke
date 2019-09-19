@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Tentative extends Task{
+public class Tentative extends Task {
 
     private ArrayList<Date> possibleDates;
 
@@ -30,17 +30,17 @@ public class Tentative extends Task{
     }
 
     @Override
-    public String writeToFile(){
+    public String writeToFile() {
 
         String concatArray = "";
 
-        for(Date d: possibleDates){
+        for (Date d : possibleDates) {
 
             String formatDate = new SimpleDateFormat("dd MMM yyyy h:mma").format(d);
             concatArray = String.join("|", formatDate, concatArray);
 
         }
 
-        return "?," + super.writeToFile() + "," + concatArray ;
+        return "?," + super.writeToFile() + "," + concatArray;
     }
 }

@@ -1,4 +1,5 @@
 package wallet;
+
 import wallet.contact.Contact;
 import wallet.contact.ContactList;
 import wallet.record.RecordList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class Main {
     /**
-     * The Ui object that handles input and output of the application
+     * The Ui object that handles input and output of the application.
      */
     private Ui ui;
     /**
@@ -31,15 +32,16 @@ public class Main {
     private RecordList recordList;
 
     /**
-     * The Reminder object that handles the reminder of undone tasks
+     * The Reminder object that handles the reminder of undone tasks.
      */
     private Reminder reminder;
 
     /**
      * Constructs a new ui.Duke object.
+     *
      * @param path The path of the save file in the local computer.
      */
-    public Main(String path){
+    public Main(String path) {
         ui = new Ui();
         storage = new Storage(path);
         taskList = new TaskList((ArrayList<Task>) storage.loadFile());
@@ -54,10 +56,10 @@ public class Main {
     /**
      * Execute and run the Duke application.
      */
-    public void run(){
+    public void run() {
         ui.welcomeMsg();
         boolean isExit = false;
-        while (!isExit){
+        while (!isExit) {
             String cmd = ui.readLine();
             ui.printLine();
             isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList);

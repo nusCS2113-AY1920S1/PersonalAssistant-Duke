@@ -1,6 +1,7 @@
 package wallet.task;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +10,7 @@ public class TaskListTest {
     TaskList taskList = new TaskList(new ArrayList<Task>());
 
     @Test
-    public void createTaskTest(){
+    public void createTaskTest() {
         String type = "todo";
         String desc = "read book";
 
@@ -30,22 +31,22 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTaskTest(){
+    public void addTaskTest() {
         Task task = new Todo("homework");
         taskList.addTask(task);
-        for (Task t : taskList.getTaskList()){
+        for (Task t : taskList.getTaskList()) {
             assertEquals("[T][✘] homework", t.toString());
         }
     }
 
     @Test
-    public void getTaskListSizeTest(){
+    public void getTaskListSizeTest() {
         int size = taskList.getTaskListSize();
         assertEquals(0, size);
     }
 
     @Test
-    public void getTaskTest(){
+    public void getTaskTest() {
         Task t = new Todo("test getTask");
         taskList.addTask(t);
         Task newTask = taskList.getTask(0);
@@ -53,7 +54,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void modifyTaskTest(){
+    public void modifyTaskTest() {
         Task t = new Todo("test modifyTask");
         taskList.addTask(t);
         Task newTask = taskList.createTask("event", "modified Task /at 1/1/2020 0000");

@@ -1,8 +1,15 @@
 package wallet.storage;
 
-import wallet.task.*;
+import wallet.task.Deadline;
+import wallet.task.DoWithinPeriod;
+import wallet.task.Event;
+import wallet.task.Task;
+import wallet.task.Tentative;
+import wallet.task.Todo;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,9 +24,10 @@ public class Storage {
 
     /**
      * Constructs a new Storage object.
+     *
      * @param path The path of the save file in the local computer.
      */
-    public Storage(String path){
+    public Storage(String path) {
         this.path = path;
     }
 
@@ -28,27 +36,27 @@ public class Storage {
      *
      * @return The list of task loaded from save file
      */
-    public List<Task> loadFile(){
+    public List<Task> loadFile() {
         List<Task> taskList = new ArrayList<Task>();
 
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "r");
             String str;
-            while (raf.getFilePointer() != raf.length()){
+            while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
                 String[] strArr = str.split(",");
                 String[] info;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy h:mma");
-                if (strArr[0].trim().equals("T")){
+                if (strArr[0].trim().equals("T")) {
                     Todo todo = new Todo(strArr[2].trim());
-                    if (strArr[1].trim().equals("1")){
+                    if (strArr[1].trim().equals("1")) {
                         todo.markAsDone();
                     }
                     taskList.add(todo);
-                } else if (strArr[0].trim().equals("D")){
+                } else if (strArr[0].trim().equals("D")) {
                     Date date = sdf.parse(strArr[3].trim());
                     Deadline deadline = new Deadline(strArr[2].trim(), date);
-                    if (strArr[1].trim().equals("1")){
+                    if (strArr[1].trim().equals("1")) {
                         deadline.markAsDone();
                     }
                     taskList.add(deadline);
@@ -65,7 +73,7 @@ public class Storage {
                     String[] dateArr = dateList.split("\\|");
                     ArrayList<Date> possibleDates = new ArrayList<Date>();
                     SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yyyy h:mma");
-                    for(String d : dateArr){
+                    for (String d : dateArr) {
                         Date entry = sdf.parse(d);
                         possibleDates.add(entry);
                     }
@@ -87,11 +95,11 @@ public class Storage {
                 }
             }
             raf.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("No saved tasks found.");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("End of file.");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             System.out.println("Wrong date/time format.");
         }
 
@@ -104,21 +112,25 @@ public class Storage {
      * @param task The new task that is added
      * @param type The type of task added
      */
-    public void writeFile(Task task, String type){
+    public void writeFile(Task task, String type) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             raf.seek(raf.length());
-            if (type.equals("todo")) { type = "T"; }
-            else if (type.equals("event")) { type = "E"; }
-            else if (type.equals("deadline")) { type = "D";}
-            //B-TentativeScheduling: Write Entry
-            else if (type.equals("tentative")) { type = "*E"; }
+            if (type.equals("todo")) {
+                type = "T";
+            } else if (type.equals("event")) {
+                type = "E";
+            } else if (type.equals("deadline")) {
+                type = "D";
+            } else if (type.equals("tentative")) {
+                type = "*E";
+            }
             if (raf.getFilePointer() != 0) {
                 raf.writeBytes("\r\n");
             }
             raf.writeBytes(task.writeToFile());
             raf.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
     }
@@ -126,20 +138,20 @@ public class Storage {
     /**
      * Updates the save file on the local computer when a task is marked as done.
      *
-     * @param task The task to be marked as done
+     * @param task  The task to be marked as done
      * @param index The index of the task in the list
      */
-    public void updateFile(Task task, int index){
+    public void updateFile(Task task, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
-            while (index != 0){
+            while (index != 0) {
                 raf.readLine();
                 index--;
             }
             raf.seek(raf.getFilePointer() + 2);
             raf.writeBytes("1");
             raf.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
     }
@@ -148,26 +160,27 @@ public class Storage {
      * Updates the save file on the local computer when a task is deleted.
      *
      * @param taskList The list of task to update
-     * @param index The index of the task in the list to be removed
+     * @param index    The index of the task in the list to be removed
      */
-    public void removeTask(List<Task> taskList, int index){
+    public void removeTask(List<Task> taskList, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             int counter = index;
-            while (counter != 0){
+            while (counter != 0) {
                 raf.readLine();
                 counter--;
             }
             long start = raf.getFilePointer();
-            while (index != taskList.size()){
+            while (index != taskList.size()) {
                 raf.writeBytes(taskList.get(index).writeToFile());
                 index++;
-                if (index != taskList.size())
+                if (index != taskList.size()) {
                     raf.writeBytes("\r\n");
+                }
             }
             raf.setLength(raf.getFilePointer());
             raf.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
     }

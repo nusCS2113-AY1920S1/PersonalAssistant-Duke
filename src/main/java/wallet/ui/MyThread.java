@@ -11,28 +11,25 @@ class MyThread implements Runnable {
     private boolean exit;
 
     private String name;
-    Thread t;
+    Thread thread;
 
-    MyThread(boolean exit, RecordList recordList)
-    {
+    MyThread(boolean exit, RecordList recordList) {
         this.exit = exit;
-        t = new Thread(this);
-        System.out.println("New thread: " + t);
-        t.start(); // Starting the thread
+        thread = new Thread(this);
+        System.out.println("New thread: " + thread);
+        thread.start(); // Starting the thread
     }
 
 
     // execution of thread starts from run() method
-    public void run()
-    {
+    public void run() {
         int i = 0;
         while (!exit) {
             System.out.println(name + ": " + i);
             i++;
             try {
                 Thread.sleep(100);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.out.println("Caught:" + e);
             }
         }
@@ -40,8 +37,7 @@ class MyThread implements Runnable {
     }
 
     // for stopping the thread
-    public void stop()
-    {
+    public void stop() {
         exit = true;
     }
 }

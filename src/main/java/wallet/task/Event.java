@@ -11,6 +11,7 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event object.
+     *
      * @param description The description of the task.
      * @param date The date of the event.
      */
@@ -20,16 +21,18 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the date of event task.
      *
-     * @return date of event task
+     * @return date of event task.
      */
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
     /**
-     * Outputs the string with the correct format for printing to UI
-     * @return The string formatted for printing to UI
+     * Outputs the string with the correct format for printing to UI.
+     *
+     * @return The string formatted for printing to UI.
      */
     @Override
     public String toString() {
@@ -37,11 +40,12 @@ public class Event extends Task {
     }
 
     /**
-     * Outputs the string with the correct format for writing to output file
-     * @return The string formatted for writing to output file
+     * Outputs the string with the correct format for writing to output file.
+     *
+     * @return The string formatted for writing to output file.
      */
     @Override
-    public String writeToFile(){
+    public String writeToFile() {
         return "E," + super.writeToFile() + "," + new SimpleDateFormat("dd MMM yyyy h:mma").format(date);
     }
 }

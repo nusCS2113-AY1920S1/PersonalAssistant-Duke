@@ -1,10 +1,6 @@
 package wallet.ui;
 
-import wallet.record.Record;
 import wallet.record.RecordList;
-import wallet.task.TaskList;
-
-import java.util.ArrayList;
 
 public class Reminder {
 
@@ -14,8 +10,12 @@ public class Reminder {
     private boolean autoRemind;
     private int timeInSeconds;
 
-
-    public Reminder(RecordList recordList){
+    /**
+     * The constructor for the Reminder object.
+     *
+     * @param recordList The RecordList object.
+     */
+    public Reminder(RecordList recordList) {
         ui = new Ui();
         this.recordList = recordList;
         number = 1;
@@ -25,26 +25,48 @@ public class Reminder {
 
 
     /**
-     * autoReminds the user of undone tasks
-     * this method will run as a background process
-     * users can also set the reminder interval timings
-     * and also turn it off and on as they wish
+     * autoReminds the user of undone tasks.
+     * this method will run as a background process.
+     * users can also set the reminder interval timings.
+     * and also turn it off and on as they wish.
      */
-    public void autoRemindStart(){
+    public void autoRemindStart() {
         MyThread t = new MyThread(true, recordList);
     }
 
+    /**
+     * Sets whether there is a automatic reminder.
+     *
+     * @param autoRemind Whether automatic reminder is on/off.
+     */
     public void setAutoRemind(boolean autoRemind) {
         this.autoRemind = autoRemind;
     }
-    public boolean getAutoRemind(){
+
+    /**
+     * Checks if automatic reminder is turned on/off.
+     *
+     * @return whether automatic reminder is turned on/off.
+     */
+    public boolean getAutoRemind() {
         return this.autoRemind;
     }
 
+    /**
+     * Sets the time interval for automatic reminder.
+     *
+     * @param timeInSeconds THe time interval for the automatic reminder.
+     */
     public void setTimeInSeconds(int timeInSeconds) {
         this.timeInSeconds = timeInSeconds;
     }
-    public int getTimeInSeconds(){
+
+    /**
+     * Shows the time interval in seconds.
+     *
+     * @return The time interval in seconds.
+     */
+    public int getTimeInSeconds() {
         return this.timeInSeconds;
     }
 }
