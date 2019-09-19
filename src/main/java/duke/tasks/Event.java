@@ -77,4 +77,8 @@ public class Event extends Task {
     public void setEndDate(Date endDate) {
         this.endDate = new DateTime(endDate);
     }
+
+    public DateTime getEndDate() {
+        return endDate;
+    }
 }

@@ -19,9 +19,9 @@ public class TimeConflictTest {
         Storage storage = new Storage("data/dukeTest.txt");
 
         com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
+        Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
-        Command addEventTwo = new Parser().parse("event eventTwo /at today at 3pm to 5pm");
+        Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 15:00 to 09/19/2019 17:00");
         try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
@@ -40,9 +40,9 @@ public class TimeConflictTest {
         Storage storage = new Storage("data/dukeTest.txt");
 
         com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
+        Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
-        Command addEventTwo = new Parser().parse("event eventTwo /at today at 1pm to 6pm");
+        Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 13:00 to 09/19/2019 18:00");
         try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
@@ -61,9 +61,9 @@ public class TimeConflictTest {
         Storage storage = new Storage("data/dukeTest.txt");
 
         com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
+        Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
-        Command addEventTwo = new Parser().parse("event eventTwo /at today at 2pm to 3pm");
+        Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 14:00 to 09/19/2019 15:00");
         try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
@@ -82,9 +82,9 @@ public class TimeConflictTest {
         Storage storage = new Storage("data/dukeTest.txt");
 
         com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
+        Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
-        Command addEventTwo = new Parser().parse("event eventTwo /at today at 6pm to 7pm");
+        Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 18:00 to 09/19/2019 19:00");
         assertEquals(addEventTwo.execute(tasks, storage, ui),
                 "____________________________________________________________\n"
                 + "Got it. I've added this event:\n"

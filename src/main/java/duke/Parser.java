@@ -12,6 +12,7 @@ import duke.commands.ViewScheduleCommand;
 import duke.commands.FindCommand;
 import duke.commands.SnoozeCommand;
 import duke.commands.SetCommand;
+import duke.commands.FindFreeCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 
@@ -73,6 +74,10 @@ public class Parser {
 
             case "snooze":
                 command = new SnoozeCommand(Integer.parseInt(components[1]) - 1, components, input);
+                break;
+
+            case "free":
+                command = new FindFreeCommand(components[1]);
                 break;
 
             default:

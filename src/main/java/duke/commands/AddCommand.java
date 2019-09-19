@@ -175,7 +175,7 @@ public class AddCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "Duke.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
-                    + "Duke.Tasks.Do-After: do-after <task name> /needs <do-after event or time>\n"
+                    + "Duke.Tasks.Do-After: do-after <task name> /after <do-after event or time>\n"
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
                     + "to <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>\n"
