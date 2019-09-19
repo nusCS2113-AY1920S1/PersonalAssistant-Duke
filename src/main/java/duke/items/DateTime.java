@@ -19,6 +19,8 @@ public class DateTime {
 
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
+     *
+     * @param dateAndTime String representing date and time in format of "DD/MM/YYYY HHMM"
      */
     public DateTime(String dateAndTime) throws BadInputException {
         this.dateAndTime = dateAndTime;

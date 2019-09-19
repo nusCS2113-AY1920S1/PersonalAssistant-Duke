@@ -1,5 +1,7 @@
 package duke.items;
 
+import java.util.Date;
+
 /**
  * Task is an abstract class that stores the description and done status of a task.
  * Is extended by Todo, Deadline and Event classes.
@@ -83,6 +85,10 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public Date getDate() {
+        return null;
     }
 
 
