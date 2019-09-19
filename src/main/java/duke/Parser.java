@@ -15,12 +15,15 @@ import duke.exceptions.BadInputException;
 
 public class Parser {
 
-    private String addTodo(String input) throws InsufficientInfoException {
+    private String[] addTodo(String input) throws InsufficientInfoException {
         if (input.isBlank()) {
             throw new InsufficientInfoException("Sorry, the description of a Todo cannot be blank!");
-        } else {
-            return input;
         }
+
+        String[] checkHours = input.split(" /needs ", -1);
+
+        return checkHours;
+
     }
 
     private String[] addDeadline(String input) throws InsufficientInfoException {
@@ -89,7 +92,8 @@ public class Parser {
 
         //Commands which require string input.
         case "todo":
-            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
+            String[] todoTemp = addTodo(keyword[1]);
+            command = new AddCommand(Command.CommandType.TODO, todoTemp[0], (todoTemp.length > 1) ? todoTemp[1] : "");
             break;
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);

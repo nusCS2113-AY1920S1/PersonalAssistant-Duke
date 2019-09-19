@@ -28,7 +28,11 @@ public class AddCommand extends Command {
         int index = list.getListIndex();
 
         if (super.type == CommandType.TODO) {
-            list.addTodoItem(index, description);
+            if (!details.equals("")) {
+                list.addTodoItem(index, description, Integer.parseInt(details));
+            } else {
+                list.addTodoItem(index, description);
+            }
         } else if (super.type == CommandType.DEADLINE) {
             list.addDeadlineItem(index, description, details);
         } else { //Type is event
