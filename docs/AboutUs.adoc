@@ -28,7 +28,7 @@ Role: Developer
 '''
 
 === Joshua Tam
-image::Joshua.jpg[width="150", align="left"]
+image::Joshua.JPG[width="150", align="left"]
 {empty}[http://github.com/JOSHTAM[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
