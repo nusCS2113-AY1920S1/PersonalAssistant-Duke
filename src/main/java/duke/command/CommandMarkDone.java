@@ -73,6 +73,9 @@ public class CommandMarkDone extends Command {
      */
     private void loadQueuedTasks(TaskList taskList, Task mainTask) {
         TaskList queuedTasks = mainTask.getQueuedTasks();
+        if (queuedTasks == null) {
+            return;
+        }
         for (Task newTask : queuedTasks.getList()) {
             taskList.addTask(newTask);
         }
