@@ -32,7 +32,7 @@ public class TodoTest {
             from = DateTimeExtractor.extractDateTime("01/01/2019 0800", "todo");
             to = DateTimeExtractor.extractDateTime("01/01/2019 2200", "todo");
             Todo newTodo = new Todo("testTodo", from, to);
-            Assertions.assertEquals(newTodo.fromDate, from);
+            Assertions.assertEquals(newTodo.startDate, from);
         } catch (ParseException e) {
             throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
         }

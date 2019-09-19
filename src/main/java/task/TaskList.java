@@ -27,24 +27,8 @@ public class TaskList {
     public static final Comparator<Task> DateComparator = (firstDate, secondDate) -> {
         LocalDateTime localDateTime = LocalDateTime.of(1,1,1,1,1,
                 1,1);
-        if (firstDate.fromDate == localDateTime && secondDate.fromDate == localDateTime)
-        {
-            if (firstDate.atDate.isBefore(secondDate.atDate)){ return -1; }
-            else{ return 1; }
-        }
-        else if (firstDate.fromDate == localDateTime)
-        {
-            if (firstDate.atDate.isBefore(secondDate.fromDate)){ return -1; }
-            else{ return 1; }
-        }
-        else if (secondDate.fromDate == localDateTime) {
-            if (firstDate.fromDate.isBefore(secondDate.atDate)){ return -1; }
-            else{ return 1; }
-        }
-        else {
-            if (firstDate.fromDate.isBefore(secondDate.fromDate)){ return -1; }
-            else{ return 1; }
-        }
+        if (firstDate.startDate.isBefore(secondDate.startDate)){ return -1; }
+        else{ return 1; }
     };
 
     /**
@@ -93,12 +77,12 @@ public class TaskList {
         if (command.contains("event")) {
             for (Task task : listOfTasks) {
                 if ((task.toString()).contains("[E]")) {
-                    if (task.fromDate.isBefore(taskToCheck.toDate) && task.toDate.isAfter(taskToCheck.fromDate)) {
+                    if (task.startDate.isBefore(taskToCheck.endDate) && task.endDate.isAfter(taskToCheck.startDate)) { //check for intersections at two points
                         return true;
                     }
                 }
                 else if ((task.toString()).contains("[D]")){
-                    if (taskToCheck.fromDate.isBefore(task.atDate) && taskToCheck.toDate.isAfter(task.atDate)) {
+                    if (taskToCheck.startDate.isBefore(task.startDate) && taskToCheck.endDate.isAfter(task.startDate)) {
                         return true;
                     }
                 }
@@ -107,12 +91,12 @@ public class TaskList {
         else{
             for (Task task : listOfTasks) {
                 if ((task.toString()).contains("[E]")) {
-                    if (task.fromDate.isBefore(taskToCheck.atDate) && task.toDate.isAfter(taskToCheck.atDate)) {
+                    if (task.startDate.isBefore(taskToCheck.startDate) && task.endDate.isAfter(taskToCheck.startDate)) {
                         return true;
                     }
                 }
                 else if ((task.toString()).contains("[D]")){
-                    if (task.atDate == taskToCheck.atDate) {
+                    if (task.startDate == taskToCheck.startDate) {
                         return true;
                     }
                 }
@@ -134,11 +118,11 @@ public class TaskList {
     public void updateDate(Task taskToBeChanged, String command,LocalDateTime atDate, LocalDateTime fromDate, LocalDateTime toDate){
 
         if("event".equals(command)){
-            taskToBeChanged.fromDate = fromDate;
-            taskToBeChanged.toDate = toDate;
+            taskToBeChanged.startDate = atDate;
+            taskToBeChanged.endDate = toDate;
         }
         else {
-            taskToBeChanged.atDate = atDate;
+            taskToBeChanged.startDate = atDate;
         }
 
     }
