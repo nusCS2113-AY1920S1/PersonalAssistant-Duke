@@ -1,6 +1,11 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.AddCommand;
+import duke.commands.FindFreeTimeCommand;
+import duke.commands.NumCommand;
+import duke.commands.ViewScheduleCommand;
+import duke.commands.FindCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 

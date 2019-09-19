@@ -1,8 +1,16 @@
 package duke;
 
-import java.util.*;
+//import java.util.;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.ArrayList;
 import duke.exceptions.BadInputException;
-import duke.items.*;
+import duke.items.DateTime;
+import duke.items.Deadline;
+import duke.items.Event;
+import duke.items.Snooze;
+import duke.items.Task;
+import duke.items.Todo;
 
 /**
  * Manages the list of (different types of classes),
@@ -227,6 +235,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Outputs the nearest event after which a block of free time has been detected.
+     *
+     * @param reqFreeHours The size of the block of free time the user wishes to find.
+     */
     public void findFreeHours(int reqFreeHours) {
         if (reqFreeHours < 0) {
             System.out.println("Please enter an hour value >= 0.");
@@ -284,20 +297,17 @@ public class TaskList {
                     freeTimeFound = true;
                     break;
                 }
-            }
+            } else {
+                // If curEndTime is later than or equal to nextStartTime - this only happens in the
+                // event of a clash between events, i.e. events running concurrently.
 
-            // If curEndTime is later than or equal to nextStartTime - this only happens in the
-            // event of a clash between events, i.e. events running concurrently.
-            else {
                 // Assuming the (next) clashing event takes place perfectly within the current event
                 // we keep the value of latestEndTime untouched.
                 if (nextEndTime.getAt().getTime() <= latestEndTime.getAt().getTime()) {
                     // Leave latestEndTime untouched.
-                }
-
-                // Else, if the clashing event happens to end after the current event, we need to update
-                // out latestEndTime value accordingly.
-                else {
+                } else {
+                    // Else, if the clashing event happens to end after the current event, we need to update
+                    // out latestEndTime value accordingly.
                     latestEndTime = nextEndTime;
                 }
             }
@@ -307,7 +317,7 @@ public class TaskList {
             eventBeforeFreeTime = eventSortedList.get(eventSortedList.size() - 1);
         }
 
-        System.out.println("The earliest free time I found was after the following event:\n +" +
-                eventBeforeFreeTime.toString());
+        System.out.println("The earliest free time I found was after the following event:\n"
+                + eventBeforeFreeTime.toString());
     }
 }
