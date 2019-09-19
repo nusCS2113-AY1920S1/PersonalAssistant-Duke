@@ -106,8 +106,8 @@ public class Parser {
 					String afterEvent = fullCommand.substring(dateIndex + 7).trim();
 					dict.put(Parts.PARAMETER, afterEvent);
 				} else {
-					String frequency = fullCommand.substring(dateIndex+2).trim();
-					dict.put(Parts.PARAMETER,frequency);
+					String frequency = fullCommand.substring(dateIndex + 2).trim();
+					dict.put(Parts.PARAMETER, frequency);
 				}
 			} else {
 				String description = fullCommand.substring(descriptionIndex).trim();
