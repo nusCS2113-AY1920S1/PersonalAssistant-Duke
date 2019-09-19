@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+import seedu.duke.Duke;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,6 +22,10 @@ public class Event extends Task {
         super(name);
         this.time = time;
         this.taskType = TaskType.Event;
+    }
+
+    public Date getTime() {
+        return time;
     }
 
     /**
@@ -98,4 +104,41 @@ public class Event extends Task {
         }
         return false;
     }
+
+    @Override
+    public void snooze() {
+        Calendar date = Calendar.getInstance();
+        date.setTime(time);
+        date.add(Calendar.DAY_OF_MONTH, 3);
+        time.setTime(date.getTimeInMillis());
+    }
+
+    /**
+     * Check if this task clashes with the new task being added.
+     *
+     * @param task the new task being added into the list.
+     * @return true if this task clashes with the new task being added, false if not.
+     */
+    @Override
+    public boolean isClash(Task task) {
+        try {
+            if (task.taskType.equals(TaskType.Deadline)) {
+                Deadline deadlineTask = (Deadline) task;  // downcasting task to Deadline in order to use
+                // getTime().
+                if (this.time.compareTo(deadlineTask.getTime()) == 0) {
+                    return true;
+                }
+            }
+            if (task.taskType.equals(TaskType.Event)) {
+                Event eventTask = (Event) task;  // downcasting task to Event in order to use getTime().
+                if (this.time.compareTo(eventTask.getTime()) == 0) {
+                    return true;
+                }
+            }
+        } catch(Exception e) {
+            Duke.getUI().showError("Error when finding clashes of tasks.");
+        }
+        return false;
+    }
+
 }

@@ -141,4 +141,11 @@ public class Task {
     public void setDoAfterDescription(String description) {
         this.doAfterDescription = description;
     }
+
+    public void snooze() {
+    }
+
+    public boolean isClash(Task task) {
+        return false;
+    }
 }

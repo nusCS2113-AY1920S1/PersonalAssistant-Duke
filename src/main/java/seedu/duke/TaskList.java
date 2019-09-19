@@ -106,4 +106,36 @@ public class TaskList extends ArrayList<Task> {
         }
         return nearTasks;
     }
+
+    public String snoozed(int index) throws Parser.UserInputException {
+        if (index < 0 || index >= this.size()) {
+            throw new Parser.UserInputException("Invalid index");
+        }
+        Task task =  this.get(index);
+        String msg = "";
+        if (task.getTaskType() != Task.TaskType.ToDo) {
+            task.snooze();
+            msg = "Noted. I've snoozed this task: \n";
+            msg += task;
+        } else {
+            Duke.getUI().showError("This task cannot be snoozed");
+        }
+        return msg;
+    }
+
+    /**
+     * Detect if a task being added clashes with another task in the list.
+     *
+     * @param task task to be added.
+     * @return TaskList containing tasks that clashes with the new task being added.
+     */
+    public TaskList findClash(Task task) {
+        TaskList clashTasks = new TaskList();
+        for (Task t : this) {
+            if (t.isClash(task)) {
+                clashTasks.add(t);
+            }
+        }
+        return clashTasks;
+    }
 }
