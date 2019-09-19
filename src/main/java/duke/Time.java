@@ -1,8 +1,11 @@
 package duke;
 
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -28,4 +31,20 @@ public class Time {
         LocalDate time = LocalDate.parse(timeStr, formatter);
         return time;
     }
+
+//    private String day;
+//    private Date date = new Date();
+//    private String now;
+//    public void checkDay(String day) {
+//        this.day = day;
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+//        now = simpleDateFormat.format(date);
+//        System.out.println(now);
+//        if (day == now){
+//            System.out.println("wow, its today");
+//        }
+//    }
+
+
+
 }
