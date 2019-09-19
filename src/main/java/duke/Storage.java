@@ -39,15 +39,14 @@ public class Storage {
 
                 switch (item[1]) {
                 case "T":
-                    savedList.add(new Todo(Integer.parseInt(item[0]), item[3]));
-
+                    savedList.add(new Todo(Integer.parseInt(item[0]), item[3], ""));
                     break;
                 case "D":
-                    savedList.add(new Deadline(Integer.parseInt(item[0]), item[3], item[4]));
+                    savedList.add(new Deadline(Integer.parseInt(item[0]), item[3], item[4], ""));
 
                     break;
                 case "E":
-                    savedList.add(new Event(Integer.parseInt(item[0]), item[3], item[4]));
+                    savedList.add(new Event(Integer.parseInt(item[0]), item[3], item[4], ""));
 
                     break;
                 default:

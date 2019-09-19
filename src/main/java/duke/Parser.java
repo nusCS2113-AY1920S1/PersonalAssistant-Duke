@@ -47,6 +47,21 @@ public class Parser {
         }
     }
 
+    private int processDoAfter(String input) throws BadInputException {
+        String shortStr;
+        String[] splitStr;
+        int taskIndex;
+
+        shortStr = input.substring(input.indexOf("/after"));
+
+        try {
+            splitStr = shortStr.split(" ", 3); //splits into "/after" "x" and other stuff, where "x" is an int
+            taskIndex = Integer.parseInt(splitStr[1]); //check if this is an int
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new BadInputException("Please input the index number of the task that has to be done first.");
+        }
+        return taskIndex;
+    }
 
     /**
      * Checks if the command keyword (first word is valid).
@@ -59,6 +74,17 @@ public class Parser {
      */
     private Command handleListInput(String listInput) throws BadInputException,
             InsufficientInfoException, NumberFormatException {
+
+        /*TODO: Update parser to handle Task requests separately to process optional commands better
+            eg. doAfter or repeating tasks
+        */
+
+        int afterIndex;
+        afterIndex = -1;
+        if (listInput.contains("/after")) {
+            afterIndex = processDoAfter(listInput);
+            listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
+        }
 
         String[] keyword = listInput.split(" ", 2);
         Command command;
@@ -92,16 +118,18 @@ public class Parser {
         //Commands which require string input.
         case "todo":
             String[] todoTemp = addTodo(keyword[1]);
-            command = new AddCommand(Command.CommandType.TODO, todoTemp[0], (todoTemp.length > 1) ? todoTemp[1] : "");
+            command = new AddCommand(Command.CommandType.TODO, todoTemp[0],
+                    (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
             break;
+
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1], afterIndex);
             break;
         }
         case "event": {
             String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1], afterIndex);
             break;
         }
         case "find": {

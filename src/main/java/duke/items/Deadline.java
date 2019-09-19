@@ -18,8 +18,8 @@ public class Deadline extends Task implements Snooze {
     /**
      * Deadline object has a "by" string as well as a Date object.
      */
-    public Deadline(int index, String description, String by) throws BadInputException {
-        super(index, description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
+    public Deadline(int index, String description, String by, String doAfter) throws BadInputException {
+        super(index, description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
         this.doByDate = new DateTime(doBy);
     }

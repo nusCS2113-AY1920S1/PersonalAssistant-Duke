@@ -54,5 +54,13 @@ git push origin your-branch-name
 10. Add reviewers and wait for their reviews.
 11. If your pull request fails, dont close it. Just repeat steps 4 to 6.
 12. Else if you are pull request is approved, squash and merge. Again, write proper messages for the same.
+13. Tag your work done if required 
+```git
+git tag <extension>
+```
+14. Push the tags to main repository.
+```git
+git push upstream --tags
+```
 
 Adapted from Mohideen Imran Khan's [CONTRIBUTING.md](https://github.com/mohideenik/main/blob/master/CONTRIBUTING.md#contributing-to-duchess)
