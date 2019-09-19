@@ -22,6 +22,11 @@ public class Task {
     protected String date;
 
     /**
+     * The reminder date of the task as specified
+     */
+    protected String remindDate;
+
+    /**
      * The boolean value to indicate if task has been marked done or not
      */
     protected boolean isDone;
