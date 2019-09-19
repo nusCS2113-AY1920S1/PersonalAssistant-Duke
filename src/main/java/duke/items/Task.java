@@ -19,6 +19,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * All tasks contain a description and isDone status, and also belong to a type.
+     */
     public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
@@ -47,8 +50,11 @@ public class Task {
      */
     public String saveDetailsString() {
         String done;
-        if (this.isDone) done = "1";
-        else done = "0";
+        if (this.isDone) {
+            done = "1";
+        } else {
+            done = "0";
+        }
 
         return done + "/" + description;
         //Returns string in the style of "1/read book"
@@ -56,7 +62,6 @@ public class Task {
 
     /**
      * Marks the task as done. This occurs one-way; the task cannot be unmarked.
-     * @return Nothing.
      */
     public void markAsDone() {
         this.isDone = true;

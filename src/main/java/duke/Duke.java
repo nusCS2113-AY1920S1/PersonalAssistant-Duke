@@ -1,5 +1,7 @@
 package duke;
-import duke.commands.*;
+
+import duke.commands.Command;
+
 /**
  * Duke is a task list that supports 3 types of classes - Todos, deadlines and events.
  * Tasks can be added, marked as done, searched for, and deleted.
@@ -12,13 +14,8 @@ public class Duke {
     private static TaskList taskList;
     private static Ui ui;
 
-    //Consider not using the listIndex anymore?
-    private static int listIndex = 0; //Starts from 0 now lol.
-    private static void setListIndex(int value) {
-        listIndex = value;
-    }
 
-    private Duke(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load()); //Will always return the right object even if empty.
@@ -27,7 +24,6 @@ public class Duke {
 
     private void run() {
         ui.printIntro();
-
         String userInput;
         Command command;
 
@@ -41,6 +37,9 @@ public class Duke {
 
     }
 
+    /**
+     * Main function that sets the save path and runs duke.
+     */
     public static void main(String[] args) {
 
         String currentDir = System.getProperty("user.dir");

@@ -1,11 +1,15 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import duke.items.*;
+import duke.items.Task;
+import duke.items.Todo;
+import duke.items.Deadline;
+import duke.items.Event;
 /**
  * Handles reading and writing the tasklist to file.
  */
@@ -17,10 +21,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Converts save file details into Tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> savedList = new ArrayList<>();
 
-        int i = 0;
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -30,29 +36,27 @@ public class Storage {
                 String[] item = itemRaw.split("/", 4);
 
                 switch (item[0]) {
-                    case "T":
-                        savedList.add(new Todo(item[2], i));
+                case "T":
+                    savedList.add(new Todo(item[2]));
 
-                        break;
-                    case "D":
-                        savedList.add(new Deadline(item[2], item[3], i));
+                    break;
+                case "D":
+                    savedList.add(new Deadline(item[2], item[3]));
 
-                        break;
-                    case "E":
-                        savedList.add(new Event(item[2], item[3], i));
+                    break;
+                case "E":
+                    savedList.add(new Event(item[2], item[3]));
 
-                        break;
-                    default:
-                        //TODO: throw an exception
-                        System.out.println("An exception will be thrown here eventually.");
-                        break;
+                    break;
+                default:
+                    //TODO: throw an exception
+                    System.out.println("An exception will be thrown here eventually.");
+                    break;
                 }
 
                 if (item[1].equals("1")) {
-                    savedList.get(i).markAsDone();  //ArrayList indexing starts from 0.
+                    savedList.get(savedList.size() - 1).markAsDone();  //Refers to the last added item.
                 }
-
-                i++;
             }
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
@@ -67,6 +71,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves existing TaskList to a text file.
+     */
     public void save(ArrayList<Task> taskList) {
         StringBuilder tasksToSave = new StringBuilder();
         int max = taskList.size();

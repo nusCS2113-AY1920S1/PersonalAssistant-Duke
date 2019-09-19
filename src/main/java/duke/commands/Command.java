@@ -1,7 +1,9 @@
 package duke.commands;
+
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+
 /**
  * This is an abstract class.
  * Command objects are sent from the Parser and executed with TaskList or Ui.
@@ -25,10 +27,15 @@ public class Command {
         this.type = type;
     }
 
-    public CommandType getType(){
+    public CommandType getType() {
         return type;
     }
 
+    /**
+     * Executes the command.
+     * Prints the list or saves the list and sends exit message.
+     * Might need to separate into bye and list commands.
+     */
     public void execute(TaskList list, Ui ui, Storage storage)  {
         if (type == CommandType.LIST) {
             list.printList();
