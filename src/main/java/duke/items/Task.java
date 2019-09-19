@@ -12,7 +12,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-    protected int doAfter; //Can extend to a list of tasks that have to be done before.
+    protected String doAfter; //Can extend to a list of tasks that have to be done before.
 
     protected enum TaskType {
         TODO, DEADLINE, EVENT
@@ -30,12 +30,12 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(int index, String description, TaskType type, int doAfter) {
+    public Task(int index, String description, TaskType type, String doAfter) {
         this.taskIndex = index;
         this.description = description;
         this.isDone = false;
         this.type = type;
-
+        this.doAfter = doAfter;
     }
 
     public int getTaskIndex() {
@@ -47,14 +47,14 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[\u2713]" : "[\u2718]"); //return tick or X symbols
+        return (isDone ? "[\u2713] " : "[\u2718] "); //return tick or X symbols
     }
 
     public boolean getIsDone() {
         return isDone;
     }
 
-    public void setDoAfter(int doAfter) {
+    public void setDoAfter(String doAfter) {
         this.doAfter = doAfter;
     }
 
@@ -107,12 +107,20 @@ public class Task {
     public String toString() {
         String taskType;
         if (this.type == TaskType.DEADLINE) {
-            taskType = "[D]";
+            taskType = "[D] ";
         } else if (this.type == TaskType.TODO) {
-            taskType = "[T]";
+            taskType = "[T] ";
         } else {
-            taskType = "[E]";
+            taskType = "[E] ";
         }
-        return taskType + " " + getStatusIcon() + " " + description; //eg. [✓] read book
+
+        String after;
+        if (!doAfter.equals("")) {
+            after = " (do after: " + doAfter + ")";
+        } else {
+            after = "";
+        }
+
+        return taskType + getStatusIcon() + description + after; //eg. [✓] read book
     }
 }

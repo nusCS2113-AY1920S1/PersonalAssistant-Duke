@@ -87,7 +87,7 @@ public class Parser {
         afterIndex = -1;
         if (listInput.contains("/after")) {
             afterIndex = processDoAfter(listInput);
-            listInput = listInput.replace( " /after " + Integer.toString(afterIndex), "" );
+            listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
         }
 
         String[] keyword = listInput.split(" ", 2);
@@ -119,7 +119,8 @@ public class Parser {
         //Commands which require string input.
         case "todo":
             String[] todoTemp = addTodo(keyword[1]);
-            command = new AddCommand(Command.CommandType.TODO, todoTemp[0], (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
+            command = new AddCommand(Command.CommandType.TODO, todoTemp[0],
+                    (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
             break;
 
         case "deadline": {

@@ -29,26 +29,26 @@ public class AddCommand extends Command {
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
 
         int index = list.getListIndex(); //To assign the next task's index.
-        int currentIndex = -1;
+        String doAfterWhat = "";
         //Section for handling doAfters.
         //Using the indexes presented to the user.
         if (afterIndex > 0 && afterIndex > list.getSize()) { //Referring to a nonexistent task
             throw new BadInputException("This is not a valid task. (to do after)");
         } else if (afterIndex > 0) { //afterIndex is -1 if there is nothing to do before.
-            currentIndex = list.getTaskList().get(afterIndex - 1).getTaskIndex(); //0-indexed list!
-            //Permanent index of the task to doAfter.
+            //Get description of task to doAfter.
+            doAfterWhat = list.getTaskList().get(afterIndex - 1).getDescription(); //0-indexed list!
         }
 
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
-                list.addTodoItem(index, description, currentIndex, Integer.parseInt(details));
+                list.addTodoItem(index, description, doAfterWhat, Integer.parseInt(details));
             } else {
-                list.addTodoItem(index, description, currentIndex);
+                list.addTodoItem(index, description, doAfterWhat);
             }
         } else if (super.type == CommandType.DEADLINE) {
-            list.addDeadlineItem(index, description, details, currentIndex);
+            list.addDeadlineItem(index, description, details, doAfterWhat);
         } else { //Type is event
-            list.addEventItem(index, description, details, currentIndex);
+            list.addEventItem(index, description, details, doAfterWhat);
         }
     }
 }

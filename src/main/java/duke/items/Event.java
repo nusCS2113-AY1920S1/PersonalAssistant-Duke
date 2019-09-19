@@ -21,7 +21,7 @@ public class Event extends Task implements Snooze {
      * Deadline object has a "at" string as well as a Date objects for start and end times.
      */
 
-    public Event(int index, String description, String time, int doAfter) throws BadInputException {
+    public Event(int index, String description, String time, String doAfter) throws BadInputException {
         super(index, description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
         try {
             String[] startEndTime = time.split(" to ", 2);
