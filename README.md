@@ -1,17 +1,20 @@
-# SpinBox
+= Address Book (Level 3) - A Reference Project
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/AY1920S1-CS2113T-F14-4/main[image:https://travis-ci.org/AY1920S1-CS2113T-F14-4/main.svg?branch=master[Build Status]]
+https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
+https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="230" height="400"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="230" height="400"]
+image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
