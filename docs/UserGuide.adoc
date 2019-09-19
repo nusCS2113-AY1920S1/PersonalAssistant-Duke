@@ -49,7 +49,7 @@ Command: `deadline <Deadline Description> /by <Due date>`
 finds the task inside the tasklist, and returns the list of tasks found +
 Command: `find <Keyword>`
 
-=== Finding a particular task : `done`
+=== Marking a completed task : `done`
 
 Labels a task with the specified index as done +
 Command: `done <index of task to be marked>`
