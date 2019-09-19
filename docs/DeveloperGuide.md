@@ -20,23 +20,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |Student| Add my academic timetable| Store my academic schedule|***
 |Student| Add meeting schedules| Easily remember about scheduled meetings|***
 |Student| Add examination dates and times| View and track upcoming assessments|***
-|Student| Add the result/grade of module assignment, attendance, midterm results|Store module's component grades|*
-|Student| Add my received module grades for each semester| Store the semester's grades|*
 |Student| Add a description to a task that I have| Record necessary information about the task|***
 |Student| Edit due dates of tasks that I have| Update the description and deadlines of the tasks|***
 |Student| Edit my academic timetable| Update my academic schedule|***
 |Student| Edit meeting schedules| Update my appointment timings|***
 |Student| Edit examination dates and times| Update assessment dates|***
-|Student| Edit the result/grade of module assignment, attendance, midterm results| Estimate the grade that I will receive|*
 |Student| View the application in a graphical user interface| View things in an organised and quick manner|***
-|Student| View the tasks that are soon to be overdued| Keep track of the things to do|***
-|Student| View the timetable in a monthly view| See the overview of the whole month|**
-|Student| View the timetable in a weekly view| See the overview of the whole week|**
+|Student| View the tasks that are soon to be overdue| Keep track of the things to do|***
 |Student| View the timetable in a daily view| See the overview of the whole day|***
 |Student| View my ongoing school-related task| Keep track of my progress|***
-|Student| Mark my ongoing school-related task as completed by task and subtask| Keep track of the progress of individual task and subtasks|**
-|Student| Track my assignment progress| Know what needs to be done|**
-|Student| Track my cumulative GPA| Work towards the GPA I aim for|*
 |Student| Be notified of my classes to attend| Better manage my schedule|***
 |Student| Be notified of the tasks due| Better manage my schedule|***
 |Student| Be notified of upcoming examinations| Better manage my schedule|***
@@ -46,6 +38,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |Student| Remove a scheduled slot| Delete cancelled meetings/classes|***
 |Student| Remove tasks| Delete irrelevant tasks|***
 |Student| Priortise more important timetable slots based on personal ranking| rearrange my schedule in the event that there is a timetable clash|***
+|Student| View the timetable in a monthly view| See the overview of the whole month|**
+|Student| View the timetable in a weekly view| See the overview of the whole week|**
+|Student| Mark my ongoing school-related task as completed by task and subtask| Keep track of the progress of individual task and subtasks|**
+|Student| Track my assignment progress| Know what needs to be done|**
+|Student| Add the result/grade of module assignment, attendance, midterm results|Store module's component grades|*
+|Student| Add my received module grades for each semester| Store the semester's grades|*
+|Student| Edit the result/grade of module assignment, attendance, midterm results| Estimate the grade that I will receive|*
+|Student| Track my cumulative GPA| Work towards the GPA I aim for|*
 
 # Use Cases
 
