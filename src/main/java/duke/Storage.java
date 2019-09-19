@@ -12,8 +12,14 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Storage {
+    private int stringBuffer = 7;
     private ArrayList<Task> data = new ArrayList<>();
     private String filepath;
+    private TaskType dataType;
+
+    public enum TaskType {
+        TODO, DEADLINE, EVENT, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
+    }
 
     /**
      * Initialises the 'data' based on previous data
@@ -42,7 +48,6 @@ public class Storage {
                 StringBuilder finalOutput = new StringBuilder();
                 String currStr;
                 boolean isChecked = false;
-                int cmdState = 0;
 
                 while (stringTokenizer.hasMoreTokens()) {
                     currStr = stringTokenizer.nextToken();
@@ -50,51 +55,49 @@ public class Storage {
                         switch (currStr) {
                         case "T":
                             finalOutput = new StringBuilder("todo ");
-                            cmdState = 1;
+                            this.dataType = TaskType.TODO;
                             break;
                         case "D":
                             finalOutput = new StringBuilder("deadline ");
-                            cmdState = 2;
+                            this.dataType = TaskType.DEADLINE;
                             break;
                         case "E":
                             finalOutput = new StringBuilder("event ");
-                            cmdState = 3;
+                            this.dataType = TaskType.EVENT;
                             break;
                         case "d":
                             finalOutput = new StringBuilder("todo ");
-                            cmdState = 4;
+                            this.dataType = TaskType.TODO_DAILY;
                             break;
                         case "w":
                             finalOutput = new StringBuilder("todo ");
-                            cmdState = 5;
+                            this.dataType = TaskType.TODO_WEEKLY;
                             break;
                         case "m":
                             finalOutput = new StringBuilder(("todo "));
-                            cmdState = 6;
+                            this.dataType = TaskType.TODO_MONTHLY;
                             break;
                         default:
                         }
-                    } else if (count == 2) {
-                        if (currStr.equals("✓")) {
-                            isChecked = true;
-                        }
+                    } else if (count == 2 && currStr.equals("✓")) {
+                        isChecked = true;
                     } else if (count == 3) {
                         finalOutput.append(currStr);
                     } else if (count == 4) {
-                        switch (cmdState) {
-                        case 2:
+                        switch (this.dataType) {
+                        case DEADLINE:
                             finalOutput.append(" /by ").append(currStr);
                             break;
-                        case 3:
+                        case EVENT:
                             finalOutput.append(" /at ").append(currStr);
                             break;
-                        case 4:
+                        case TODO_DAILY:
                             finalOutput.append(" /daily ").append(currStr);
                             break;
-                        case 5:
+                        case TODO_WEEKLY:
                             finalOutput.append(" /weekly ").append(currStr);
                             break;
-                        case 6:
+                        case TODO_MONTHLY:
                             finalOutput.append(" /monthly ").append(currStr);
                             break;
                         default:
@@ -102,47 +105,48 @@ public class Storage {
                     }
                     count++;
                 }
-                switch (cmdState) {
-                case 1:
+
+                switch (this.dataType) {
+                case TODO:
                     if (!isChecked) {
-                        Parser.runTodo(data, finalOutput.toString(), 1);
+                        Parser.runTodo(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
-                        Parser.runTodo(data, finalOutput.toString(), 2);
+                        Parser.runTodo(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
-                case 2:
+                case DEADLINE:
                     if (!isChecked) {
-                        Parser.runDeadline(data, finalOutput.toString(), 1);
+                        Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
-                        Parser.runDeadline(data, finalOutput.toString(), 2);
+                        Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
-                case 3:
+                case EVENT:
                     if (!isChecked) {
-                        Parser.runEvent(data, finalOutput.toString(), 1);
+                        Parser.runEvent(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
-                        Parser.runEvent(data, finalOutput.toString(), 2);
+                        Parser.runEvent(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
-                case 4:
+                case TODO_DAILY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), 1, "daily");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "daily");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), 2, "daily");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "daily");
                     }
                     break;
-                case 5:
+                case TODO_WEEKLY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), 1, "weekly");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "weekly");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), 2, "weekly");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "weekly");
                     }
                     break;
-                case 6:
+                case TODO_MONTHLY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), 1, "monthly");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "monthly");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), 2, "monthly");
+                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "monthly");
                     }
                     break;
                 default:
@@ -175,6 +179,7 @@ public class Storage {
                 String st1;
                 st1 = task.toString().substring(1, 2);
                 String st4 = null;
+                //Appends extra task details for all task types excent 'Todo'
                 if (st1.equals("D") || st1.equals("E") || st1.equals("d") || st1.equals("m") || st1.equals("w")) {
                     st4 = task.getExtra();
                 }
@@ -184,7 +189,8 @@ public class Storage {
                 st3 = task.toString().substring(3);
                 if (st4 != null && st3.contains(st4)) {
                     st3 = st3.replace(st4, "");
-                    st3 = st3.substring(0, st3.length() - 7);
+                    //STRING_BUFFER removes the " (by: )" / " (at: )" from st3
+                    st3 = st3.substring(0, st3.length() - stringBuffer);
                 }
                 StringBuilder str = new StringBuilder();
                 str.append(st1);

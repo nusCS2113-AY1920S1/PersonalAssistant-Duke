@@ -15,7 +15,7 @@ public class ConfirmCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.showMessage(Parser.runConfirm(tasks.getData(), input, 0));
+        ui.showMessage(Parser.runConfirm(tasks.getData(), input, Parser.TaskState.NOT_DONE));
         storage.write(tasks.getData());
         // null the tentative event object
         TentativeEvent.clearTentativeEvent();

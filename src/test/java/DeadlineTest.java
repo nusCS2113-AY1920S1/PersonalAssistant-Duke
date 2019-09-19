@@ -33,28 +33,46 @@ public class DeadlineTest {
     }
 
     @Test
-    void test() throws DukeException {
+    void test() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "deadline test /by 0000";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [D][✗] test (by: 0000)\nNow you have 1 tasks in the list.";
         assertEquals(exp, outContent.toString().trim());
         restoreStreams();
     }
 
     @Test
-    void examBy_Date() throws DukeException {
+    void examBy_Date() {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String input = "deadline exam /by 01/01/2019";
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Got it. I've added this task: \n   [D]"
                 + "[✗] exam (by: 01/01/2019)\n"
                 + "Now you have 1 tasks in the list.";

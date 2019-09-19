@@ -38,15 +38,24 @@ public class ViewSchedulesTest {
     @Test
     void test() throws DukeException {
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/test_data.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage("./data/test_data.txt");
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         setUpStreams();
         TaskList taskList = new TaskList();
-        Command c = Parser.parse("deadline a /by 3pm 15 sept");
-        c.execute(taskList, ui, storage);
-        restoreStreams();
-        setUpStreams();
-        c = Parser.parse("viewschedule 15 sept");
-        c.execute(taskList, ui, storage);
+        try {
+            Command c = Parser.parse("deadline a /by 3pm 15 sept");
+            c.execute(taskList, ui, storage);
+            restoreStreams();
+            setUpStreams();
+            c = Parser.parse("viewschedule 15 sept");
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         String exp = "Here are your tasks for 15 Sep 2019\n"
                     + "1. [D][✗] a (by: 3pm 15 sept)";
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));
