@@ -8,12 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
 
 public class FindTaskCommandTest {
     @Test
-    public void TestFindCommand() throws DukeException, IOException {
+    public void testFindCommand() throws DukeException, IOException {
         File tempFile = File.createTempFile("duke",".txt");
         tempFile.deleteOnExit();
 
@@ -36,8 +38,8 @@ public class FindTaskCommandTest {
         FindTaskCommand newFindTaskCommand = new FindTaskCommand(false, "find Birthday");
         newFindTaskCommand.execute(newTaskList, newUi, newStorage);
 
-        assertEquals("Here are the matching tasks in your list:\n" +
-                "1.[E][DONE] Birthday Party (at: 12/12/2019 1830)\n" +
-                "2.[T][NOT DONE] celebrate Birthday", newUi.output);
+        assertEquals("Here are the matching tasks in your list:\n"
+                + "1.[E][DONE] Birthday Party (at: 12/12/2019 1830)\n"
+                + "2.[T][NOT DONE] celebrate Birthday", newUi.output);
     }
 }

@@ -9,11 +9,14 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.DukeException;
+import duke.task.Ui;
+import duke.task.Storage;
 
 public class DeleteTaskCommandTest {
     @Test
-    public void TestDeleteCommand() throws DukeException, IOException {
+    public void testDeleteCommand() throws DukeException, IOException {
         File tempFile = File.createTempFile("duke",".txt");
         tempFile.deleteOnExit();
 

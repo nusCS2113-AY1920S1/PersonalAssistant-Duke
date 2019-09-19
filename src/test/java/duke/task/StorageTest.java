@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
-    public void TestFileLoad() throws DukeException, IOException {
+    public void testFileLoad() throws DukeException, IOException {
         File tempFile = File.createTempFile("duke", ".txt");
         tempFile.deleteOnExit();
 
