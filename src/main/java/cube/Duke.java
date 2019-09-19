@@ -12,6 +12,9 @@ import cube.util.Parser;
 import cube.util.Storage;
 import cube.command.Command;
 
+/**
+ * the main class of Duke Programme
+ */
 public class Duke {
 
     private Storage storage;
