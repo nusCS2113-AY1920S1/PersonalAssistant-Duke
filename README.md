@@ -32,10 +32,3 @@ Duke Increment | Tutorial
 [fx2]: <tutorials/javaFxTutorialPart2.md>
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
-
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too. 
-
-xx
