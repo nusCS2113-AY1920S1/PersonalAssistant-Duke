@@ -230,4 +230,16 @@ public class Parser {
         }
         return queuedTaskString.toString();
     }
+
+    /**
+     * Boolean to check if the user input has a slash.
+     * @param userInput this is the user input
+     * @return true if there is a slash in the user input
+     */
+    public static Boolean checkSlash(String userInput) {
+        if (userInput.contains("/")) {
+            return true;
+        }
+        return false;
+    }
 }

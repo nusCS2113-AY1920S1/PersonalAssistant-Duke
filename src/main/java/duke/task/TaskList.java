@@ -80,6 +80,9 @@ public class TaskList {
         case TODO:
             newTask = new ToDo(taskDesc);
             break;
+        case FDURATION:
+            newTask = new FixedDuration(taskDesc);
+            break;
         default:
             newTask = new Task(taskDesc);
             break;
