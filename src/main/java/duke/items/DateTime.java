@@ -3,6 +3,7 @@ package duke.items;
 import duke.exceptions.BadInputException;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 //TODO: Import an existing datetime class or write a better one.
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public class DateTime {
     private String dateAndTime;
     private boolean valid;
-    private Calendar at;
+    private Date at;
 
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
@@ -38,17 +39,33 @@ public class DateTime {
             // set seconds to be 0 by default
             calendar.set(Calendar.SECOND, 0);
 
-            this.at = calendar;
+            this.at = calendar.getTime();
         } catch (Exception e) {
             throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
         }
     }
 
     /**
+     * Returns the Date in the DateTime object.
+     * @return Time in Calendar-Date format.
+     */
+    public Date getAt() {
+        return at;
+    }
+
+    /**
+     * Sets the calendar date.
+     * @param date to be set.
+     */
+    public void setDate(Date date) {
+        at = (date);
+    }
+
+    /**
      * Returns the date in a friendlier format.
      */
     public String returnFormattedDate() {
-        return ("" + at.getTime());
+        return ("" + at);
     }
 
 }

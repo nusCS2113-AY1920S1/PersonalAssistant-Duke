@@ -99,6 +99,9 @@ public class Parser {
         case "bye":
             command = new Command(Command.CommandType.BYE);
             break;
+        case "reminder":
+            command = new Command(Command.CommandType.REMINDER);
+            break;
 
         //Commands which require numerical input.
         case "done":
@@ -107,6 +110,10 @@ public class Parser {
             break;
         case "delete": {
             command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
+            break;
+        }
+        case "snooze": {
+            command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
             break;
         }
 

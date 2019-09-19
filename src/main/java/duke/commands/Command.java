@@ -14,7 +14,7 @@ import duke.exceptions.BadInputException;
 public class Command {
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, BYE, LIST, DONE, DELETE, FIND, BAD
+        TODO, DEADLINE, EVENT, BYE, LIST, REMINDER, SNOOZE, DONE, DELETE, FIND, BAD
     }
 
     protected CommandType type;
@@ -40,6 +40,8 @@ public class Command {
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
         if (type == CommandType.LIST) {
             list.printList();
+        } else if (type == CommandType.REMINDER) {
+            list.printReminders();
         } else if (type == CommandType.BYE) {
             storage.save(list.getTaskList());
             ui.printExitMessage();
