@@ -56,9 +56,9 @@ public class Storage {
                 if (type.equals("T")) {
                     newTask = new ToDo(inArray[2]);
                 } else if (type.equals("E")) {
-                    newTask = new Event(inArray[2], Time.readTime(inArray[3])); //TODO: Update readTime
+                    newTask = new Event(inArray[2], Time.readDateTime(inArray[3])); //TODO: Update readTime
                 } else if (type.equals("D")) {
-                    newTask = new Deadline(inArray[2], Time.readTime(inArray[3]));
+                    newTask = new Deadline(inArray[2], Time.readDateTime(inArray[3]));
                 }
 
                 if (inArray[1].equals("1")) {

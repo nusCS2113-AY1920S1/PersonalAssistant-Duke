@@ -13,3 +13,6 @@ src/main/resources/docs/
 *.iml
 bin/
 /data
+/data
+/text-ui-test/ACTUAL.TXT
+/text-ui-test/data/duke.txt
