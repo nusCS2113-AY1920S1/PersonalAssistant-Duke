@@ -1,10 +1,9 @@
-T|?| as
-D|?| ask question|by: Mon Dec 02 12:02:12 SGT 2019
-D|?| walk dog|by: Sun Dec 01 12:22:02 SGT 2019
-D|?| go school|by: Tue Nov 12 12:12:12 SGT 2019
+T|?| lol
+E|?| eat|at: Mon Dec 02 12:02:12 SGT 2019
+E|?| sleep|at: Mon Dec 02 12:02:12 SGT 2019
+D|?| walk dog|by: Mon Apr 04 04:04:04 SGT 2016
+D|?| go school|by: Mon Apr 04 04:04:04 SGT 2016
 E|?| basketball finals|at: Wed Jan 22 12:12:12 SGT 2020
 E|?| golf finals|at: Mon Jan 13 12:12:12 SGT 2020
-E|?| hookok finals|at: Wed Jan 15 12:12:12 SGT 2020
-D|?| go work|by: Sun Nov 03 12:12:02 SGT 2019
-FD|?| drive school| 2hours
-T|?| jusssssss
+E|?| hookok finals|at: Mon Jan 01 02:02:02 SGT 2018
+D|?| ask question|by: Mon Apr 04 04:04:04 SGT 2016
