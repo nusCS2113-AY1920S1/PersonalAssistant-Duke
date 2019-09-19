@@ -103,5 +103,8 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return list;
     }
+    public Task getTaskIndex(int num){
+        return list.get(num);
+    }
 
 }

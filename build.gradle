@@ -39,7 +39,9 @@ checkstyle {
 
 application {
     // Change this to your main class.
-    mainClassName = "src/main/java/duke/Duke"
+
+    mainClassName = "duke.Duke"
+
 }
 
 run {
