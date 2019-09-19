@@ -4,11 +4,7 @@ import duke.command.*;
 import duke.exceptions.DukeCommandException;
 import duke.exceptions.DukeEmptyCommandException;
 import duke.exceptions.DukeInvalidTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.Events;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.tasks.RecurringTask;
+import duke.tasks.*;
 
 public class Parser {
 
@@ -65,6 +61,11 @@ public class Parser {
         if (inputs.equals("todo")) {
             throw new DukeEmptyCommandException();
         }
+        if (inputs.startsWith("fixedDuration")) {
+            if (!inputs.contains("/needs")) {
+                throw new DukeEmptyCommandException();
+            }
+        }
         String[] res = inputs.split("/", 2);
         if (res.length == 0) {
             throw new DukeEmptyCommandException();
@@ -78,6 +79,8 @@ public class Parser {
         } else if (keyword.equals("deadline") && inputs.startsWith("deadline ") && !inputs.contains("/by")) {
             throw new DukeEmptyCommandException();
         } else if (keyword.equals("event") && inputs.startsWith("event ") && !inputs.contains("/at")) {
+            throw new DukeEmptyCommandException();
+        } else if (keyword.equals("fixedDuration") && inputs.startsWith("fixedDuration") && !inputs.contains("/needs")) {
             throw new DukeEmptyCommandException();
         } else {
             String[] res = inputs.split("/", 2);
@@ -131,6 +134,8 @@ public class Parser {
             split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
         } else if (keyword.equals("event")) {
             split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
+        } else if (keyword.equals("fixedDuration")) {
+            split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
         }
         return split;
     }
@@ -188,7 +193,18 @@ public class Parser {
             split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
             Task hold = new RecurringTask(split);
             return new AddCommand(hold);
-        }else if (input.equals("bye")) {
+        } else if (input.startsWith("fixedDuration")) {
+            String[] temp = input.split("fixedDuration ");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if(!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
+            Task hold = new FixedDurationTasks(split);
+            return new AddCommand(hold);
+        }
+        else if (input.equals("bye")) {
             return new ByeCommand();
         } else if (input.startsWith("done ")) {
             return checkValidDoneIndex(input);

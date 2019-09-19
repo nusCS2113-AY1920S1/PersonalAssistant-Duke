@@ -3,6 +3,7 @@ package duke.command;
 import duke.exceptions.DukeScheduleException;
 import duke.tasks.Deadline;
 import duke.tasks.Events;
+import duke.tasks.FixedDurationTasks;
 import duke.tasks.Task;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -45,14 +46,20 @@ public class AddCommand extends Command {
                 } else if (temp.getClass().toString().equals("class duke.tasks.Events")) {
                     Events hold = (Events) temp;
                     dateTimeSet.add(hold.getDateTime());
+                } else if (temp.getClass().toString().equals("class duke.tasks.FixedDurationTasks")) {
+                    FixedDurationTasks hold = (FixedDurationTasks) temp;
+                    dateTimeSet.add(hold.getDateTime());
                 }
             }
             LocalDateTime taskDateTime;
             if (task.getClass().toString().equals("class duke.tasks.Deadline")) {
                 Deadline hold = (Deadline) task;
                 taskDateTime = hold.getDateTime();
-            } else {
+            } else if (task.getClass().toString().equals("class duke.tasks.Events")) {
                 Events hold = (Events) task;
+                taskDateTime = hold.getDateTime();
+            } else{
+                FixedDurationTasks hold = (FixedDurationTasks) task;
                 taskDateTime = hold.getDateTime();
             }
             if (dateTimeSet.contains(taskDateTime)) {
