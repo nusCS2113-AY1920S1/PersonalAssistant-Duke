@@ -60,4 +60,7 @@ public class Task {
         this.isDone = true;
     }
 
+    public String get_type(){
+        return "T";
+    }
 }

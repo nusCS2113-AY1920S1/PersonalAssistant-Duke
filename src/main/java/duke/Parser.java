@@ -29,5 +29,4 @@ class Parser {
             return new AddCommand(message);
         }
     }
-
 }
