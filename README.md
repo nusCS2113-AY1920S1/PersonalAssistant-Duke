@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Greatnest/main.svg?branch=master)](https://travis-ci.org/Greatnest/main)  [![Build status](https://ci.appveyor.com/api/projects/status/51do3k63gjj8x7fs?svg=true)](https://ci.appveyor.com/project/Greatnest/main)
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main)  [![Build status](https://ci.appveyor.com/api/projects/status/51do3k63gjj8x7fs?svg=true)](https://ci.appveyor.com/project/Greatnest/main)
 
 
 # Setting up
