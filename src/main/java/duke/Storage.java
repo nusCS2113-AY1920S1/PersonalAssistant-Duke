@@ -1,9 +1,6 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -60,6 +57,9 @@ public class Storage {
                     newTask = new Event(inArray[2], Time.readDateTime(inArray[3])); //TODO: Update readTime
                 } else if (type.equals("D")) {
                     newTask = new Deadline(inArray[2], Time.readDateTime(inArray[3]));
+                }
+                else if (type.equals("W")){
+                    newTask = new FixDuration(inArray[2], inArray[3]); //task description and time duration
                 }
 
                 if (inArray[1].equals("1")) {

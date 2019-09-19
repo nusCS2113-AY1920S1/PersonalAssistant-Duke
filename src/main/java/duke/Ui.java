@@ -69,4 +69,8 @@ public class Ui {
         msg.add("Please use the format 'DD/MM/YYYY'!" );
         Ui.printMsg(msg);
     }
+
+    public static void printFixDurationTaskError(){
+        System.out.println("Sorry, please enter a valid fix duration task.");
+    }
 }
