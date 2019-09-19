@@ -4,17 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import duke.task.Storage;
 import duke.task.Ui;
 import duke.task.TaskList;
 import duke.task.DukeException;
-import duke.command.AddFixedDurationCommand;
-import duke.task.FixedDuration;
 
 public class AddFixedDurationCommandTest {
     @Test
