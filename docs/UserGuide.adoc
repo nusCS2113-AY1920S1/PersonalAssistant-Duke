@@ -66,6 +66,19 @@ This section guides you through the installation of *WalletCLi* and provides a f
 .[.underline]#GUI screen upon start-up#
 image::Start_Screen.png[width="790"]
 +
+[TIP]
+Commands are not case sensitive!
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Here are some other commands you can try:
+
+* **`set budget 1000`** : +
+*WalletCLi* takes note of this budget and reminds you when you are close to or have exceeded the budget.
+* *`list expense`* : List all expenses in WalletCLi
+* **`List expense /sortby date`** :  List all expenses in order of date specified in the expenses
+* *`bye`* : exit the app
+
+.  Refer to <<Features>> for details of each command.
+{zwsp}
+
+{zwsp}
