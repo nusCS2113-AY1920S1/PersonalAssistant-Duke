@@ -15,7 +15,11 @@ public class Duke {
     private static TaskList taskList;
     private static Ui ui;
 
-    private Duke(String filePath) {
+    /**
+     * Duke does somethings.
+     * @param filePath which stores path of persistent storage
+     */
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = storage.load(); //Will always return the right object even if empty.
@@ -24,7 +28,6 @@ public class Duke {
 
     private void run() {
         ui.printIntro();
-
         String userInput;
         Command command;
 

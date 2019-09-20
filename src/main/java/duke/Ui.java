@@ -43,6 +43,7 @@ public class Ui {
         printNewLine();
         System.out.println("Bye! Hope to see you again soon!");
         printNewLine();
+        System.exit(0);
     }
 
     public String read() {

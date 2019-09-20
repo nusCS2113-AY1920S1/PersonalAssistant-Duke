@@ -8,7 +8,6 @@ import java.util.Date;
  */
 
 public class Task {
-    protected int taskIndex;
     protected String description;
     protected boolean isDone;
     protected TaskType type;
@@ -22,7 +21,6 @@ public class Task {
      * Task constructor sets a blank task by default.
      */
     public Task() {
-        this.taskIndex = -1;
         this.description = "None";
         this.isDone = false;
     }
@@ -30,16 +28,11 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(int index, String description, TaskType type, String doAfter) {
-        this.taskIndex = index;
+    public Task(String description, TaskType type, String doAfter) {
         this.description = description;
         this.isDone = false;
         this.type = type;
         this.doAfter = doAfter;
-    }
-
-    public int getTaskIndex() {
-        return taskIndex;
     }
 
     public String getDescription() {
@@ -82,8 +75,8 @@ public class Task {
         } else {
             taskType = "E";
         }
-        return taskIndex + "/" + taskType + "/" + done + "/" + description;
-        //Returns string in the style of "12/T/1/read book"
+        return taskType + "/" + done + "/" + description;
+        //Returns string in the style of "T/1/read book"
     }
 
     /**

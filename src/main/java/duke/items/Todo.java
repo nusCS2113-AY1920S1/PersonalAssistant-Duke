@@ -10,12 +10,12 @@ public class Todo extends Task {
 
     private int duration = 0;
 
-    public Todo(int index, String description, String doAfter) {
-        super(index, description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
+    public Todo(String description, String doAfter) {
+        super(description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
     }
 
-    public Todo(int index, String description, String doAfter, int duration) {
-        super(index, description, TaskType.TODO, doAfter);
+    public Todo(String description, String doAfter, int duration) {
+        super(description, TaskType.TODO, doAfter);
         this.duration = duration;
     }
 

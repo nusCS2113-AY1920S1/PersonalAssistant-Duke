@@ -10,7 +10,7 @@ import duke.items.Snooze;
  * the Event has a start time (and later, end time) that is represented by a date class.
  * The save and print strings have been overridden to show more information.
  */
-public class Event extends Task implements Snooze {
+public class Event extends Task /*implements Snooze*/ {
 
     private String start;
     private String end; //For later.
@@ -21,8 +21,8 @@ public class Event extends Task implements Snooze {
      * Deadline object has a "at" string as well as a Date objects for start and end times.
      */
 
-    public Event(int index, String description, String time, String doAfter) throws BadInputException {
-        super(index, description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
+    public Event(String description, String time, String doAfter) throws BadInputException {
+        super(description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
         try {
             String[] startEndTime = time.split(" to ", 2);
             this.start = startEndTime[0];
@@ -54,19 +54,6 @@ public class Event extends Task implements Snooze {
 
     public DateTime getEventEndTimeObj() {
         return eventEndTime;
-    }
-
-    @Override
-    public void snooze() {
-        Calendar newStartDate = Calendar.getInstance();
-        newStartDate.setTime(eventStartTime.getAt());
-        newStartDate.add(Calendar.DATE, 1);
-        eventStartTime.setDate(newStartDate.getTime());
-
-        Calendar newEndDate = Calendar.getInstance();
-        newEndDate.setTime(eventEndTime.getAt());
-        newEndDate.add(Calendar.DATE, 1);
-        eventEndTime.setDate(newEndDate.getTime());
     }
 
     @Override

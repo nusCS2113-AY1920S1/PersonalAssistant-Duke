@@ -22,9 +22,9 @@ public class TaskList {
     private ArrayList<Task> taskList;
     private int listIndex;
 
-    public TaskList(ArrayList<Task> savedFile, int lastIndex) {
+    public TaskList(ArrayList<Task> savedFile) {
         taskList = savedFile;
-        listIndex = lastIndex;
+        //listIndex = lastIndex;
     }
 
     public TaskList() {
@@ -53,10 +53,9 @@ public class TaskList {
      *
      * @param todoitem the description of the task.
      */
-    public void addTodoItem(int index, String todoitem, String doAfter) {
-        taskList.add(new Todo(index, todoitem, doAfter)); //Use the constructor to create a new Task.
+    public void addTodoItem(String todoitem, String doAfter) {
+        taskList.add(new Todo(todoitem, doAfter)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
-        setListIndex(index + 1); //Next open index.
     }
 
     /**
@@ -64,11 +63,10 @@ public class TaskList {
      * @param todoitem description of the task.
      * @param hours duration of task.
      */
-    public void addTodoItem(int index, String todoitem, String doAfter, int hours) {
-        taskList.add(new Todo(index, todoitem, doAfter, hours)); //Use the constructor to create a new Task.
+    public void addTodoItem(String todoitem, String doAfter, int hours) {
+        taskList.add(new Todo(todoitem, doAfter, hours)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
         System.out.println("Hours needed: " + hours);
-        setListIndex(index + 1); //Next open index.
     }
 
     /**
@@ -76,13 +74,12 @@ public class TaskList {
      *
      * @param deadline the command with the description and deadline of the task.
      */
-    public void addDeadlineItem(int index, String description, String deadline, String doAfter) {
+    public void addDeadlineItem(String description, String deadline, String doAfter) {
         try {
             //Use the constructor to create a new Task.
-            taskList.add(new Deadline(index, description, deadline, doAfter));
+            taskList.add(new Deadline(description, deadline, doAfter));
             System.out.println("Deadline item added: " + description);
             System.out.println("Deadline is: " + deadline);
-            setListIndex(index + 1); //Next open index.
         } catch (BadInputException e) {
             System.out.println(e);
         }
@@ -94,13 +91,11 @@ public class TaskList {
      * @param event the description of the task.
      * @param at the time the event happens.
      */
-    public void addEventItem(int index, String event, String at, String doAfter) {
+    public void addEventItem(String event, String at, String doAfter) {
         try {
-            taskList.add(new Event(index, event, at, doAfter)); //Use the constructor to create a new Task.
+            taskList.add(new Event(event, at, doAfter)); //Use the constructor to create a new Task.
             System.out.println("Event item added: " + event);
             System.out.println("Event happens at: " + at);
-            setListIndex(index + 1); //Next open index.
-
         } catch (BadInputException e) {
             System.out.println(e);
         }
@@ -166,24 +161,6 @@ public class TaskList {
         }
     }
 
-    /**
-    * Snooze a task for a day.
-    * @param i the index of the task to be snoozed.
-    */
-    public void snoozeTask(int i) {
-        try {
-            Task task = taskList.get(i);
-            if (task instanceof Snooze) {
-                ((Snooze) taskList.get(i)).snooze(); //Snooze task.
-                System.out.print("Nice! I've snoozed this task: ");
-                System.out.println(taskList.get(i).getDescription()); //Prints task name
-            } else {
-                System.out.println("Only Events and Deadlines are able to be snoozed!");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            printTaskNonexistent();
-        }
-    }
 
     /**
      * Prints error message if a nonexistent task index is accessed.
