@@ -1,10 +1,14 @@
-import  java.lang.Exception;
 
 /**
- * Represents exceptions specific to Duke
+ * Represents exceptions specific to Duke.
  */
 public class DukeException extends Exception {
-    public DukeException (String message) {
+    /**
+     * Throws exception with message.
+     *
+     * @param message text to be displayed on screen
+     */
+    public DukeException(final String message) {
         super(message);
     }
 }
