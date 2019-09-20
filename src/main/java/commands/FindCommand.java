@@ -1,4 +1,5 @@
 package commands;
+
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
@@ -26,9 +27,9 @@ public class FindCommand extends Command {
             }
         }
     }
-
     @Override
     public boolean isExit() {
         return false;
     }
+
 }
