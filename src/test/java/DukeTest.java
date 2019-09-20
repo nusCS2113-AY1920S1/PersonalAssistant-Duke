@@ -125,7 +125,7 @@ public class DukeTest {
         if(daysFree.poll().equals("19 SEP 2019")) {checkFreeFlag = true;}
         assertEquals(true, checkFreeFlag);
     
-    @test
+    @Test
     public void reminderTest () {
     	
     	ArrayList<String> testcase = new ArrayList<String>();
