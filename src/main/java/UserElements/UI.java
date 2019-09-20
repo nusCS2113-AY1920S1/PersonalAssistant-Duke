@@ -67,7 +67,7 @@ public class UI {
     	System.out.print(lineSeparation);
     	System.out.print("The time now is " + now.toOutputString() + ".\n");
     	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + limit.toOutputString() + "):\n");
-    	System.out.print(tasks.filteredlist(pred, DATE));
+    	System.out.print(tasks.filteredList(pred, DATE));
     	System.out.print(lineSeparation);
     }
 
