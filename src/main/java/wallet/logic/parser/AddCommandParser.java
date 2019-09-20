@@ -49,9 +49,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
         default:
-
+            return null;
         }
-
         return null;
     }
 
