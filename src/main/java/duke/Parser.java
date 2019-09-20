@@ -3,6 +3,7 @@ package duke;
 import duke.commands.Command;
 import duke.commands.AddCommand;
 import duke.commands.FindFreeTimeCommand;
+import duke.commands.FindCommand;
 import duke.commands.NumCommand;
 import duke.commands.RecurCommand;
 import duke.commands.Command;
