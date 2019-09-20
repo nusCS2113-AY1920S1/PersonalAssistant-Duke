@@ -1,8 +1,9 @@
-import Task.*;
-
 import java.time.Month;
 import java.util.*;
 
+import duke.Task.Event;
+import duke.Task.TaskList;
+import duke.Task.item;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
