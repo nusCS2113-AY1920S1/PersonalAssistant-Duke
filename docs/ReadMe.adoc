@@ -1,4 +1,5 @@
 = MooMooMoney
+:site-section: ReadMe
 :imagesDir: images
 :stylesDir: stylesheets
 

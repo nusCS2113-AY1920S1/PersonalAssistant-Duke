@@ -8,56 +8,64 @@ import duke.task.TaskList;
 import duke.task.DukeException;
 import duke.task.Ui;
 import duke.task.Storage;
-import duke.task.DoWithinPeriod;
+import duke.task.DoAfter;
 
 /**
- * Represents the command to add a task to be done within a time period.
+ * Represents the command to add a task to be completed after another task.
  */
-public class AddDoWithinPeriodCommand extends Command {
+public class AddDoAfterCommand extends Command {
     /**
      * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
-    public AddDoWithinPeriodCommand(boolean isExit, String input) {
+    public AddDoAfterCommand(boolean isExit, String input) {
         super(isExit, input);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (input.length() < 10) {
+        if (input.length() < 9) {
             throw new DukeException("OOPS!!! The description of a task cannot be empty.");
         }
-        input = input.substring(9);
-        int startIndex = input.indexOf("/from ");
+        input = input.substring(8);
+        int startIndex = input.indexOf("/after ");
         if (startIndex == -1) {
-            throw new DukeException("OOPS!!! Please indicate the start time after \"/from\"");
+            throw new DukeException("OOPS!!! Please indicate the task or date after \"/from\"");
         }
 
-        int endIndex = input.indexOf("/to ");
-        if (endIndex == -1) {
-            throw new DukeException("OOPS!!! Please indicate the end time after \"/to\"");
-        }
+        String after = input.substring(startIndex + 7);
+        LocalDateTime afterTime = null;
+        int afterTask = 0;
+        try {
+            afterTask = Integer.parseInt(after);
+            if (afterTask > taskList.getSize()) {
+                throw new DukeException("You have entered a number larger than the number of tasks.");
+            }
 
-        String from = input.substring(startIndex + 6, endIndex - 1);
-        String to = input.substring(endIndex + 4);
+            if (afterTask <= 0) {
+                throw new DukeException("Please enter a number larger than 0");
+            }
 
-        LocalDateTime startValue = parseDate(from);
-        if (startValue == null) {
-            return;
-        }
-        LocalDateTime endValue = parseDate(to);
-        if (endValue == null) {
-            return;
-        }
-
-        if (startValue.compareTo(endValue) > 1) {
-            throw new DukeException("Start time cannot be later than end time.");
+        } catch (NumberFormatException e) {
+            afterTime = parseDate(after);
         }
 
         String task = input.substring(0, startIndex - 1);
+        DoAfter toAdd;
 
-        DoWithinPeriod toAdd = new DoWithinPeriod(task, startValue, endValue);
+        if (afterTime != null) {
+            if (afterTime.compareTo(LocalDateTime.now()) < 1) {
+                throw new DukeException("Date and time cannot be earlier than now.");
+            }
+        }
+
+        if (afterTask > 0) {
+            toAdd = new DoAfter(task, afterTime, taskList.getTask(afterTask - 1).description);
+        } else {
+            toAdd = new DoAfter(task, afterTime, null);
+
+        }
         taskList.addToArrayList(toAdd);
 
         ui.output = "Got it. I've added this task: \n  " + toAdd.toString()
@@ -76,7 +84,8 @@ public class AddDoWithinPeriodCommand extends Command {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateToParse, formatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("OOPS!!! Please format your date and time in this format \"20/12/2019 1859\"");
+            throw new DukeException("OOPS!!! Please format your date and time in this format \"20/12/2019 1859\" "
+                    + "or insert a task number");
         }
     }
 
