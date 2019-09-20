@@ -2,10 +2,17 @@ package UserElements;
 
 import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
-import Events.Storage.Storage;
-import Events.Storage.TaskList;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
+import Events.Formatting.DateObj;
+import Events.Storage.Storage;
+import Events.Storage.TaskList;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 /**
  * Represents a command that is passed via user input.
@@ -60,6 +67,11 @@ public class Command {
                 ui.printListOfTasks(tasks);
                 changesMade = false;
                 break;
+                
+            case "reminder":
+            	ui.printReminder(tasks);
+                changesMade = false;
+                break;
 
             case "done":
                 try {
@@ -93,12 +105,12 @@ public class Command {
             case "find":
                 String searchFor = continuation;
                 String allTasksFound = "";
+                int index = 1;
                 for (Task taskFound : tasks.getTaskArrayList()) {
-                    int index = 1;
                     if (taskFound.getDescription().contains(searchFor)) {
                         allTasksFound += index + ". " + taskFound.toString() + "\n";
                     }
-                    ++index;
+                    index++;
                 }
 
                 boolean tasksFound = !allTasksFound.isEmpty();
@@ -111,6 +123,7 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
+                tasks.addTask(new ToDo(continuation));
                 ui.taskAdded(new ToDo(continuation), tasks.getNumTasks());
                 break;
 
@@ -142,6 +155,25 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
+                if (continuation.contains("/every")) {
+                    try {
+                        int datePos = continuation.indexOf("/at"); //to find index of position and date
+                        int periodPos = continuation.indexOf("/every"); //to find index of position and period
+                        String description = continuation.substring(0, datePos);
+                        String date = continuation.substring(datePos + 4, periodPos);
+                        int period = Integer.parseInt(continuation.substring(periodPos + 7));
+                        boolean succeeded = tasks.addRecurringEvent(new Event(description, date), period);
+                        if (succeeded) {
+                            ui.recurringTaskAdded(new Event(description, date), tasks.getNumTasks(), period);
+                        } else {
+                            ui.scheduleClash(new Event(description, date));
+                        }
+                        break;
+                    } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                        ui.recursionFormatWrong();
+                        break;
+                    }
+                }
                 try {
                     int slashPos = continuation.indexOf("/at"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
@@ -159,6 +191,47 @@ public class Command {
                     ui.eventFormatWrong();
                     break;
                 }
+
+            case "view":
+                if (continuation.isEmpty()) {
+                    ui.taskDescriptionEmpty();
+                    break;
+                }
+                String dateToView = continuation;
+                String foundTask = "";
+                int viewIndex = 1;
+                DateObj findDate = new DateObj(dateToView);
+                for (Task viewTask : tasks.getTaskArrayList()) {
+                    if (viewTask.toString().contains(findDate.toOutputString())) {
+                        foundTask += viewIndex + ". " + viewTask.toString() + "\n";
+                        viewIndex++;
+                    }
+                }
+                boolean isTasksFound = !foundTask.isEmpty();
+                ui.searchTasks(foundTask, isTasksFound);
+                changesMade = false;
+                break;
+
+            case "check":
+                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                DateObj today = new DateObj(f.format(new Date()));
+                Queue<String> daysFree = new LinkedList<String>();
+                int nextDays = 1;
+                while(daysFree.size() <= 3) {
+                    boolean flagFree = true;
+                    for(Task viewTask : tasks.getTaskArrayList()) {
+                        if(viewTask.toString().contains(today.toOutputString())) {
+                            flagFree = false;
+                            break;
+                        }
+                    }
+                    if(flagFree) {
+                        daysFree.add(today.toOutputString());
+                    }
+                    today.addDays(nextDays);
+                }
+                ui.printFreeDays(daysFree);//print out the 3 free days
+                break;
 
             default:
                 ui.printInvalidCommand();

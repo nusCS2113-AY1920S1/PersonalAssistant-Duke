@@ -51,7 +51,17 @@ public class Event extends Task {
     }
 
     @Override
-    public void reschedule(String date)  {
-        this.dateObj = new DateObj(date);
+    public String getType() {
+    	return "Event";
+    }
+    
+    /**
+     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
+     * @return the DateObj stored in the Event object.
+     */
+    @Override
+    public DateObj getDateObj() {
+    	return this.dateObj;
+
     }
 }

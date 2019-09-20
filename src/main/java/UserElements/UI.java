@@ -2,18 +2,35 @@ package UserElements;
 
 import Events.Storage.TaskList;
 import Events.EventTypes.Task;
-import org.w3c.dom.ls.LSOutput;
+import Events.Formatting.DateObj;
+import Events.Formatting.Predicate;
+
+import java.util.Queue;
+
 
 /**
  * User interface: contains all methods pertaining to user interaction.
  */
 public class UI {
     private static String lineSeparation = "____________________________________________________________\n";
-
+    
+    /** 
+     * Comparator function codes
+     */
+	private static final int EQUAL = 0;
+	private static final int GREATER_THAN = 1;
+	private static final int SMALLER_THAN = 2;
+	
+	/**
+	 * Filter type codes
+	 */
+    private static final int DATE = 0;
+    private static final int TYPE = 1;
+    
     /**
      * prints welcome message and instructions for use.
      */
-    public void welcome() {
+    public void welcome(TaskList Tasks){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -25,14 +42,33 @@ public class UI {
         System.out.println("Commands:");
         System.out.println("1. list: Print a list of tasks currently stored.");
         System.out.println("2. todo <description of task>: Adds a simple task with no time or date involved");
-        System.out.println("3. event OR deadline <description of task> /at OR /by " +
-                "<time>: adds an event/deadline to the list of tasks.");
+        System.out.println("3. event OR deadline <description of task> /at OR /by <time>: adds an event/deadline to the list of tasks.");
         System.out.println("4. done <task number>: completes a task");
         System.out.println("5. bye: exits the program\n");
-        System.out.println("When entering dates and times, " +
-                "you may do so in the following format for faster entry : \n" +
+        System.out.println("6. reminder: view your upcoming tasks for the next 3 days");
+        System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
                 "<day>/<month>/<year> <time(24hr format)>\n" + lineSeparation);
+        printReminder(Tasks);
         System.out.println("Enter a command:");
+    }
+    
+    
+    /**
+     * Obtains the current date and prints the tasks to be completed within the next
+     * three days as a reminder.
+     * @param tasks the TaskList used in the Duke function. 
+     */
+    public void printReminder(TaskList tasks) {
+    	DateObj now = new DateObj(); // variable now contains the current date
+    	DateObj limit = new DateObj();
+    	limit.addDays(4);
+    	limit.setMidnight();
+    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
+    	System.out.print(lineSeparation);
+    	System.out.print("The time now is " + now.toOutputString() + ".\n");
+    	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + limit.toOutputString() + "):\n");
+    	System.out.print(tasks.filteredlist(pred, DATE));
+    	System.out.print(lineSeparation);
     }
 
     /**
@@ -180,6 +216,39 @@ public class UI {
                 "the newly added task or the old task accordingly.");
         System.out.println("If rescheduling, also type the new date and time separated by a space.");
         System.out.println("Type cancel to cancel this operation.");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when recurring tasks are added to the list successfully
+     */
+    public void recurringTaskAdded(Task taskAdded, int numTasks, int period) {
+        System.out.println(lineSeparation + "Got it. I've added these recurring tasks:");
+        System.out.println(taskAdded.toString() + " (every " + period + " days)");
+        System.out.println("Now you have " + numTasks + " tasks in the list.");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when format of input is wrong for adding new recurring events
+     */
+    public void recursionFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter the period of the recurring event (in days) after /every.");
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints next 3 days that are free
+     *
+     * @param freeDays queue of free days of type DateObj
+     */
+    public void printFreeDays(Queue<String> freeDays) {
+        System.out.print(lineSeparation);
+        System.out.println("Here are the next 3 free days!");
+        for(int i=0; i<=freeDays.size(); i++) {
+            System.out.println(freeDays.poll());
+        }
         System.out.print(lineSeparation);
     }
 }
