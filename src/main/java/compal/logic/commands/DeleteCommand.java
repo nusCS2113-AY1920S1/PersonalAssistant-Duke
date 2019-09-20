@@ -24,7 +24,7 @@ public class DeleteCommand extends Command implements CommandParser {
         String restOfInput = scanner.nextLine();
 
         int toRemove = Integer.parseInt(restOfInput.trim())-1;
-        String removeDesc = taskList.arrlist.get(toRemove).getDescription();
+        String removeDesc = taskList.arrlist.get(toRemove).toString();
         taskList.arrlist.remove(toRemove);
 
         duke.ui.printg("Noted. I've removed this task:");
