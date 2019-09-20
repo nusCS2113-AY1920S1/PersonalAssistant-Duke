@@ -135,7 +135,7 @@ public class Event extends Task {
                     return true;
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             Duke.getUI().showError("Error when finding clashes of tasks.");
         }
         return false;

@@ -1,6 +1,16 @@
 package seedu.duke;
 
-import seedu.duke.command.*;
+import seedu.duke.command.AddCommand;
+import seedu.duke.command.Command;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.DoAfterCommand;
+import seedu.duke.command.DoneCommand;
+import seedu.duke.command.ExitCommand;
+import seedu.duke.command.FindCommand;
+import seedu.duke.command.InvalidCommand;
+import seedu.duke.command.ListCommand;
+import seedu.duke.command.ReminderCommand;
+import seedu.duke.command.SnoozeCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
