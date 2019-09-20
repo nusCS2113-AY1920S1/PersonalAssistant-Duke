@@ -4,23 +4,34 @@ import compal.main.Duke;
 import compal.tasks.Task;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Ui {
 
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
+    public ScrollPane mainWindow;
+    public ScrollPane secondaryWindow;
     private ArrayList<Task> arrlist;
     private Duke duke;
     private String username;
-    public ScrollPane sp;
+
+    //----------------------->
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
     /**
-     * Set up the Ui parameter.
+     * Constructor.
      *
      * @param d         duke main class to be initialise
      * @param arrayList of the data to store,display or edit .
@@ -28,22 +39,89 @@ public class Ui {
     public Ui(Duke d, ArrayList<Task> arrayList) {
         this.duke = d;
         arrlist = arrayList;
+        System.out.println("UI:LOG: Ui Initialized!");
+
     }
 
+    //----------------------->
+
+
+    //***OUTPUT FUNCTIONS***--------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
     /**
-     * This function converts the object into string form using toString()
+     * Converts the object into string form using toString()
      * and prints it onto the GUI's primary display box.
-     * @param text input object received to be print on gui
+     *
+     * @param text input object received to be print on gui. Any object type can be used, as long as
+     *             it has a 'toString()' function defined
      */
     public void printg(Object text) {
-        VBox vbox = (VBox) sp.getContent();
+        VBox vbox = (VBox) mainWindow.getContent();
         vbox.getChildren().addAll(getDialogLabel(text.toString()));
     }
 
 
     /**
+     * This function converts the object into string form using toString()
+     * and prints it onto the GUI's secondary display box.
+     *
+     * @param text input object received to be print on gui. Any object type can be used, as long as
+     *             *             it has a 'toString()' function defined
+     */
+    public void printSecondaryg(Object text) {
+        VBox vbox = (VBox) secondaryWindow.getContent();
+        vbox.getChildren().addAll(getDialogLabel(text.toString(), "verdana", 12, Color.RED));
+    }
+
+
+    /**
+     * Simply shows the number of tasks in the arraylist.
+     *
+     * @Function No Params, No Return Value
+     * @UsedIn: tasklist.addTask
+     */
+    public void showSize() {
+        duke.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
+    }
+
+
+    /**
+     * Handles the list command which lists the tasks currently in COMPal.Duke's tracking
+     * It will display the task symbol (T,E,D), the status (done or not done) and the description string
+     */
+    public void listTasks() {
+        int count = 1;
+        duke.ui.printg("Here are the tasks in your list:");
+        for (Task t : arrlist) {
+            printg(count++ + "." + t.toString());
+        }
+    }
+
+
+    /**
+     * Used to print temp array!.
+     */
+    public void printTemp(ArrayList<Task> viewDay) {
+        int count = 1;
+
+        for (Task t : viewDay) {
+            printg(count++ + "." + t.toString());
+
+        }
+    }
+
+    //----------------------->
+
+
+    //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+    /**
      * Returns a label (node) with the text as text.
+     *
      * @param text Dialog text label received
      * @return Label (node) with the text as text
      */
@@ -57,24 +135,80 @@ public class Ui {
 
 
     /**
+     * Overloaded. Returns a label (node) with the text as text with font font and fontsize size.
+     *
+     * @param text Dialog text label received
+     * @return Label (node) with the text as text
+     */
+    private Label getDialogLabel(String text, String font, int size, Color color) {
+        Label label = new Label(text);
+        label.setFont(Font.font(font, FontWeight.LIGHT, FontPosture.REGULAR, size));
+        label.setTextFill(color);
+        label.setWrapText(true);
+
+        return label;
+    }
+
+
+    /**
+     * Clears the display viewport on the GUI.
+     * Parser will call this function when it receives a 'clear' command
+     */
+    public void clearPrimary() {
+        VBox vbox = (VBox) mainWindow.getContent();
+        vbox.getChildren().clear();
+    }
+
+
+    //----------------------->
+
+
+    //***FIRST-TIME INITIALIZATION FUNCTIONS***-------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+
+    /**
      * Checks if user is a new user.
      * No Params, No Return Value
      */
     public void checkInit() {
+
+        //print the changelog for developers. todo: Remove when releasing build.
+        printSecondaryg("CHANGELOG V1.1:\n (REMOVE BEFORE PACKAGING AS JAR)");
+        printSecondaryg("\n+ viewing of tasks on a specific date\n"
+                + "   displays the tasks for that date\n"
+                + "   usage: view <dd/mm/yyyy>\n\n\n"
+                + "+ reminders\n"
+                + "   ComPAL shows reminders of tasks due within a week and tasks with reminders set\n"
+                + "   NOTE: setting reminders is not yet implemented\n\n\n"
+                + "+ new task type added: doaftertask\n"
+                + "   task that can be done only after a certain date\n"
+                + "   usage: doaftertask < descriptive name> /after <dd/mm/yyyy hhmm>\n\n\n"
+                + "+ clearing terminal\n"
+                + "   clears Compal's primary terminal\n"
+                + "   usage: clear\n\n\n"
+                + "+ new task type added: fixeddurationtask\n"
+                + "  task that have a fixed duration\n"
+                + "   usage: fixeddurationtask < descriptive name> /on <dd/mm/yyyy hhmm> /for "
+                + "< number of hours> hours < number of minutes> minutes");
+
+
         File tmpDir = new File("./prefs.txt");
         boolean saveFileExists = tmpDir.exists();
+
         if (!saveFileExists) {
             duke.parser.setStatus("init");
             printg("Hello! I'm COMPal\n");
-            printg("May I have the honour of knowing your name?");
+            printg("What is your name?");
         } else {
             username = duke.storage.getUserName();
             printg("Hello again "
                     + username
                     + "! "
                     +
-                    "Here are your tasks that are due soon! I've sorted it in order of importance :)");
-            //todo: Implement displaying of tasks, sorted according to priority
+                    "Here are your tasks that are due within a week: \n");
+            duke.tasklist.taskReminder();
         }
     }
 
@@ -82,6 +216,7 @@ public class Ui {
     /**
      * Performs first time initialization for new users.
      * Consists of 2 steps(stages).Parser holds the current stage number.
+     *
      * @param stage int
      * @param value String
      */
@@ -93,7 +228,7 @@ public class Ui {
             break;
         case 1:
             if (value.matches("(y|Y).*")) {
-                printg("Hello " + username + "! What a lovely name!");
+                printg("Hello " + username + "! Great to meet you!");
                 duke.parser.setStatus("normal");
                 duke.storage.storeUserName(username); //save the user's name
                 break;
@@ -110,131 +245,9 @@ public class Ui {
     }
 
 
-    /**
-     * Simply shows the number of tasks in the arraylist.
-     *
-     * @Function No Params, No Return Value
-     * @UsedIn: tasklist.addTask
-     */
-    public void showSize() {
-        duke.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
-    }
-
-    /**
-     * Simply displays the details of the task passed into it.
-     *
-     * @Function No Params, No Return Value
-     * @UsedIn: tasklist.taskDone, tasklist.deleteTask
-     */
-    public void showTask(Task t) {
-        duke.ui.printg("[" + t.getSymbol() + "]" + "[" + t.getStatusIcon() + "] " + t.getDescription());
-    }
+    //----------------------->
 
 
-    /**
-     * Handles the list command which lists the tasks currently in COMPal.Duke's tracking
-     * It will display the task symbol (T,E,D), the status (done or not done) and the description string
-     */
-    public void listTasks() {
-        int count = 1;
-        duke.ui.printg("Here are the tasks in your list:");
-        for (Task t : arrlist) {
-            printg(count++ + ".");
-            showTask(t);
-        }
-    }
 }
 
 
-
-/* For future reference
-stage.initStyle(StageStyle.TRANSPARENT);
-
-
-        //make GUI components
-        primaryScrollPane = new ScrollPane();
-        secondaryScrollPane = new ScrollPane();
-        mainDisplay= new VBox();
-        secondaryDisplay = new VBox();
-        primaryScrollPane.setContent(mainDisplay);
-        secondaryScrollPane.setContent(secondaryDisplay);
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(primaryScrollPane, userInput, sendButton,secondaryDisplay);
-
-
-        //SETTING COLORS --------------------------------------------------------------------->
-
-        mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
-                CornerRadii.EMPTY, Insets.EMPTY)));
-
-        secondaryScrollPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
-                CornerRadii.EMPTY, Insets.EMPTY)));
-
-        mainDisplay.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,
-                CornerRadii.EMPTY, Insets.EMPTY)));
-
-
-
-        // --------------------------------------------------------------------------->
-
-
-
-        final Scene scene = new Scene(mainLayout);
-        System.out.println("Displaying GUI!");
-
-        stage.setTitle("COMPal.Duke");
-
-        //Setting dimensions of components/stage
-        stage.setResizable(true);
-        stage.setMinHeight(700);
-        stage.setMinWidth(1000);
-        mainLayout.setPrefSize(700, 500);
-
-        primaryScrollPane.setPrefSize(400, 500);
-        primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        primaryScrollPane.setVvalue(1.0);
-        primaryScrollPane.setFitToWidth(true);
-
-        secondaryScrollPane.setPrefSize(250, 500);
-        secondaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        secondaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        secondaryScrollPane.setVvalue(1.0);
-        secondaryScrollPane.setFitToWidth(true);
-
-        mainDisplay.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        secondaryDisplay.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-
-        userInput.setPrefWidth(600);
-        sendButton.setPrefWidth(55);
-
-        //set the constraints of the 3 UI elements to the parent (AnchorPane)
-        AnchorPane.setTopAnchor(primaryScrollPane, userInput.getHeight() + 30.0);
-        AnchorPane.setTopAnchor(secondaryDisplay, userInput.getHeight() + 30.0);
-        AnchorPane.setTopAnchor(userInput, 1.0);
-        AnchorPane.setTopAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(userInput, 0.0);
-        AnchorPane.setRightAnchor(secondaryDisplay, 20.0);
-
-
-        //on clicking the send button
-        sendButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                handleUserInput();
-            }
-        });
-
-        //on user pressing enter while focus is on textfield
-        userInput.setOnAction(actionEvent -> handleUserInput());
-
-        mainDisplay.heightProperty().addListener(observable -> primaryScrollPane.setVvalue(1.0));
-        secondaryDisplay.heightProperty().addListener(observable -> secondaryScrollPane.setVvalue(1.0));
-
-        scene.setFill(Color.TRANSPARENT);
-
- */

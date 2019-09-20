@@ -5,16 +5,18 @@ import compal.inputs.Storage;
 import compal.inputs.Ui;
 import compal.tasks.TaskList;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static java.lang.System.exit;
 
-public class Duke extends Application {
+public class Duke {
+
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
 
     //objects supporting COMPal.Duke
     public Ui ui;
@@ -22,97 +24,71 @@ public class Duke extends Application {
     public TaskList tasklist;
     public Parser parser;
 
+    //----------------------->
+
+
+
+
+
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
 
     /**
+     * Constructor.
      * Initializes the supporting objects.
      * Starts off the parser CLI parsing loop.
      *
-     * @ClassConstructor No Params, No Return Values
      */
     public Duke() {
-        System.out.println("COMPal.Duke constructor");
+        System.out.println("Duke:LOG: In Duke Constructor");
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        ui = new Ui(this, tasklist.arrlist);
-
         storage = new Storage();
 
-        storage.loadDuke(tasklist.arrlist); //load from the file into the arraylist, if any thing to load at all
+
+        //checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
+        //arraylist stored in the binary file into tasklist.arrlist
+        if (storage.loadCompal() == null) {
+            tasklist.arrlist = new ArrayList<>();
+        } else {
+            tasklist.arrlist = storage.loadCompal();
+
+        }
+
+        ui = new Ui(this, tasklist.arrlist);
 
         //start parsing commands
         parser = new Parser(this);
     }
 
-    /**
-     * This function parses the date in the format dd/MM/yyyy HHmm and returns a date in the format
-     * dd MMMM yyyy hh:mma .
-     *
-     * @param when date input to be formatted
-     * @return dateString format the date of input when
-     * @Function
-     * @UsedIn: ui.getDescription
-     */
-    public static String dateParse(String when) {
-        //parse date
-        String duration = durationParse(when);
-        if (duration != null) {
-            //reformat the time
-            when = when.substring(0,when.indexOf("/for"));
-        }
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date date = null;
-        try {
-            date = format.parse(when);
-        } catch (ParseException e) {
-            return "false";
-        }
-        format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
-        when = format.format(date);
-        return when;
-    }
+    //----------------------->
 
-    /**
-     * This function parses the duration of a task and returns the duration string.
-     *
-     * @param when date input to be formatted
-     * @return String shows the duration
-     * @return null if the time does not have a duration message
-     * @Function
-     * @UsedIn: TaskList.getDuration & Duke.dataParse
-     */
-    public static String durationParse(String when) {
-        if (when.indexOf("/for") == -1) {
-            return null;
-        } else {
-            return " for" + when.substring(when.indexOf("/for") + 4);
-        }
-    }
 
-    /**
-     * This function is for setting up the JavaFX(GUI) stage, overridden from javafx.application.Application .
-     *
-     * @param stage the stage to read settings from
-     * @throws Exception throw error message of javaFX
-     * @Function
-     * @UsedIn: COMPal.Launcher.java (indirect call)
-     */
-    @Override
-    public void start(Stage stage) throws Exception {
-        System.out.println("Start");
-        ui.checkInit();
-    }
+
+
+    //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * This function handles the exiting/shutdown of the program compal.main.Duke .
      *
-     * @Function No Params, No Return Value
      * @UsedIn: parser.processCommands
      */
     public void exitDuke() {
-        System.out.println("Bye. Hope to see you again soon!");
+
         exit(0);
     }
+
+
+    //----------------------->
+
+
+
+
 
     /**
      * This static inner class is the custom exception class extending Exception
@@ -136,49 +112,12 @@ public class Duke extends Application {
     }
 
 
+
+
 }
 
 
-/**
- * Don't delete. For future reference
- *
- * @Class This class is a dialog box used for implementing custom control
- * <p>
- * class DialogBox extends HBox {
- * <p>
- * private Label text;
- * private ImageView displayPicture;
- * <p>
- * public DialogBox(Label l, ImageView iv){
- * text = l;
- * displayPicture = iv;
- * <p>
- * text.setWrapText(true);
- * displayPicture.setFitWidth(100);
- * displayPicture.setFitHeight(100);
- * <p>
- * this.setAlignment(Pos.TOP_RIGHT);
- * this.getChildren().addAll(text,displayPicture);
- * }
- * <p>
- * private void flip(){
- * this.setAlignment(Pos.TOP_LEFT);
- * ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
- * FXCollections.reverse(tmp);
- * this.getChildren().setAll(tmp);
- * }
- * <p>
- * public static DialogBox getUserDialog(Label l, ImageView iv){
- * return new DialogBox(l,iv);
- * }
- * <p>
- * public static DialogBox getDukeDialog(Label l, ImageView iv){
- * var db = new DialogBox(l,iv);
- * db.flip();
- * return db;
- * }
- * <p>
- * <p>
- * }
- */
+
+
+
 
