@@ -1,6 +1,12 @@
 package wallet.logic.parser;
 
-import wallet.logic.command.*;
+import wallet.logic.command.AddCommand;
+import wallet.logic.command.Command;
+import wallet.logic.command.DeleteCommand;
+import wallet.logic.command.EditCommand;
+import wallet.logic.command.ExitCommand;
+import wallet.logic.command.HelpCommand;
+import wallet.logic.command.ListCommand;
 
 import java.text.ParseException;
 

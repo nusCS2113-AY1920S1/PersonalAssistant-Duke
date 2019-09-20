@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.contact.Contact;
 import wallet.model.Wallet;
 import wallet.record.Expense;
+import wallet.storage.Storage;
 import wallet.task.Task;
 
 public class ListCommand extends Command {
@@ -25,7 +26,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet) {
+    public boolean execute(Wallet wallet, Storage storage) {
         boolean isListAll = false;
         int counter;
         switch (record) {

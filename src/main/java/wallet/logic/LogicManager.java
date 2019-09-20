@@ -34,7 +34,7 @@ public class LogicManager {
         boolean isExit = false;
         try {
             Command command = parserManager.parseCommand(fullCommand);
-            isExit = command.execute(wallet);
+            isExit = command.execute(wallet, storage);
         } catch (Exception e) {
             System.out.println("Error encountered while executing command.");
         }

@@ -96,7 +96,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -180,7 +180,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -203,7 +203,7 @@ public class Command {
                         System.out.println("Got it. I've updated it into an event:");
                         System.out.println(newEvent.toString());
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                        fileIO.writeFile(newEvent, "event");
+                        fileIO.writeFile(newEvent);
                         fileIO.removeTask(taskList.getTaskList(), num);
                     }
                 } else {

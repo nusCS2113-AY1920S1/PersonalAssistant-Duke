@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Storage {
+    public static final String DEFAULT_STORAGE_FILEPATH = "wallet.txt";
     /**
      * The path where the save file is located in the local computer.
      */
@@ -23,11 +24,9 @@ public class Storage {
 
     /**
      * Constructs a new Storage object.
-     *
-     * @param path The path of the save file in the local computer.
      */
-    public Storage(String path) {
-        this.path = path;
+    public Storage() {
+        this.path = DEFAULT_STORAGE_FILEPATH;
     }
 
     /**
@@ -109,21 +108,11 @@ public class Storage {
      * Attempts to write newly added task into a save file on the local computer.
      *
      * @param task The new task that is added
-     * @param type The type of task added
      */
-    public void writeFile(Task task, String type) {
+    public void writeFile(Task task) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             raf.seek(raf.length());
-            if (type.equals("todo")) {
-                type = "T";
-            } else if (type.equals("event")) {
-                type = "E";
-            } else if (type.equals("deadline")) {
-                type = "D";
-            } else if (type.equals("tentative")) {
-                type = "*E";
-            }
             if (raf.getFilePointer() != 0) {
                 raf.writeBytes("\r\n");
             }

@@ -1,21 +1,9 @@
 package wallet;
 
-import wallet.contact.Contact;
-import wallet.contact.ContactList;
 import wallet.logic.LogicManager;
-import wallet.model.Wallet;
-import wallet.record.RecordList;
-import wallet.record.ExpenseList;
-import wallet.task.ScheduleList;
-import wallet.command.Command;
 import wallet.storage.Storage;
-import wallet.task.Task;
-import wallet.task.TaskList;
 import wallet.ui.Reminder;
 import wallet.ui.Ui;
-
-import java.util.ArrayList;
-
 
 public class Main {
     /**
@@ -36,18 +24,16 @@ public class Main {
     private Reminder reminder;
 
     /**
-     * Constructs a new ui.Duke object.
-     *
-     * @param path The path of the save file in the local computer.
+     * Constructs a new Main object.
      */
-    public Main(String path) {
+    public Main() {
         ui = new Ui();
-        storage = new Storage(path);
+        storage = new Storage();
         logicManager = new LogicManager(storage);
     }
 
     public static void main(String[] args) {
-        new Main(".\\duke.txt").run();
+        new Main().run();
     }
 
     /**

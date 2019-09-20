@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.contact.Contact;
 import wallet.model.Wallet;
 import wallet.record.Expense;
+import wallet.storage.Storage;
 import wallet.task.Task;
 
 public class AddCommand extends Command {
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet) {
+    public boolean execute(Wallet wallet, Storage storage) {
         if (expense != null) {
             wallet.getExpenseList().addExpense(expense);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
             wallet.getTaskList().addTask(task);
             System.out.println(MESSAGE_SUCCESS_ADD_TASK);
             System.out.println(task.toString());
+            storage.writeFile(task);
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);
