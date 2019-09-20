@@ -34,6 +34,6 @@ public class RecurringTask extends Task {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy HHmm");
         Date date = this.getDate();
         String strDate = format.format(date);
-        return super.toString() + "at " + strDate;
+        return super.toString() + " at " + strDate;
     }
 }

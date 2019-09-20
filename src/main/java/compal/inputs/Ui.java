@@ -223,9 +223,7 @@ public class Ui {
             }
         default:
             System.out.println("Unknown init stage");
-
         }
-
     }
 
 
