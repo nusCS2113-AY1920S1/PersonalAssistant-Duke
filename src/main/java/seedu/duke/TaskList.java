@@ -107,6 +107,12 @@ public class TaskList extends ArrayList<Task> {
         return nearTasks;
     }
 
+    /**
+     * Snooze or delay the tasks.
+     *
+     * @param index of the task in taskList.
+     * @return string msg.
+     */
     public String snoozed(int index) throws Parser.UserInputException {
         if (index < 0 || index >= this.size()) {
             throw new Parser.UserInputException("Invalid index");
