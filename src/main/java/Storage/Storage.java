@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -27,7 +28,7 @@ public class Storage {
     }
     public ArrayList<Task> Readfile() throws IOException, ParseException {
         ArrayList<Task> tlist = new ArrayList<Task>();
-        SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         if(new File(absolutePath).exists()) {
             File file = new File(absolutePath);
             Scanner sc = new Scanner(file);
@@ -51,7 +52,10 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
+<<<<<<< HEAD
+=======
 
+>>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
                 } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {
@@ -61,6 +65,9 @@ public class Storage {
                         tb.isDone = false;
                     }
                     tlist.add(tb);
+<<<<<<< HEAD
+                } else {
+=======
 
                 } else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
@@ -80,6 +87,7 @@ public class Storage {
                         DA.isDone = false;
                 }
                 else {
+>>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){
                         e.isDone = true;
