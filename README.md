@@ -1,39 +1,19 @@
-# Setting up
+# FarmLogic
+##### A fun and interactive game that aims to introduce programming concepts to children aged 11 - 14 years old
 
-**Prerequisites**
+![Ui.png](https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Ui.png)
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+# Key Features
+- **Gamified Learning**  
+   Through the gameplay, students will be exposed to problems which can be solved using programming concepts such as “if-else” statements, “for” and “while” loops. 
 
-**Importing the project into IntelliJ**
+- **Simulation of Code**  
+   Students will be able to see their code in action! Through the game simulation, the students can better understand the logic of the code blocks they have created
+   
+# External Documentation
+*These files will be added to github soon*
+- [User Guide](https://docs.google.com/document/d/1A5LLKNmbI2uFIMQNCFIRgSmn4wSs3a05lRpn5Q7jw3w/edit#heading=h.2gracqy3d779)
+- [Developer Guide](https://docs.google.com/document/d/1A5LLKNmbI2uFIMQNCFIRgSmn4wSs3a05lRpn5Q7jw3w/edit#heading=h.yit8fu8g8j0n)
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
-
-# Tutorials 
-
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
-
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
-
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+---
+Through fun and interactive gameplay, we hope that FarmLogic can help children who are new to programming understand and learn to apply the basics of programming while having fun. 
