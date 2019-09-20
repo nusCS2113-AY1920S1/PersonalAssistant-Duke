@@ -34,15 +34,16 @@ public class RecurTaskCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
-            String startDate = getDate(restOfInput);
+            String startDateString = getDate(restOfInput);
             int rep = getRep(restOfInput);
+            String dateStr = startDateString;
             for (int count = 0; count < rep; count++) {
-                String date = startDate;
-                taskList.addTask(new RecurringTask(description, date));
+                RecurringTask newRecurTask = new RecurringTask(description, dateStr);
+                taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size()-1;
-                String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-                duke.ui.printg("[RT][" + statusIcon + "] " + description);
-                incrementDateByWeek(date);
+                String desc = taskList.arrlist.get(arrSize).toString();
+                duke.ui.printg(desc);
+                dateStr = incrementDateByWeek(dateStr);
             }
 
         } else {
@@ -73,7 +74,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @return The final incremented date.
      * @UsedIn recurTaskPacker
      */
-    public static Date incrementDateByWeek(String dateString) {
+    public static String incrementDateByWeek(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -84,6 +85,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 7);
-        return calendar.getTime();
+        return format.format(calendar.getTime());
     }
 }

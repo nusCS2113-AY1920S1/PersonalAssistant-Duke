@@ -21,10 +21,6 @@ public class TaskList {
     private BitSet idBitSet;
 
     //----------------------->
-
-
-
-
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
@@ -41,19 +37,10 @@ public class TaskList {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
         */
-
-
-
     }
 
 
     //----------------------->
-
-
-
-
-
-
 
     //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -75,83 +62,6 @@ public class TaskList {
         duke.ui.showSize();
         return arrlist.size();
     }
-        /* duke.ui.printg("Got it. I've added this task:");
-        Scanner sc1 = new Scanner(cmd);
-        String s = sc1.next(); //get the command string (event/deadline/doafter/todo/recurtask)
-        String cs = sc1.nextLine(); //get the description string (what follows after the command string)
-        String token;
-        String description;
-        Date date;
-        char notDone = '\u2718';
-
-        switch (s) {
-        case "todo":
-            arrlist.add(new Todo(cs.trim()));
-            duke.ui.printg("[T][ " + notDone + "] " + cs);
-            break;
-        case "event":
-            token = "/at";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new Event(description, date));
-            duke.ui.printg("[E][ " + notDone + "] " + description);
-            break;
-        case "deadline":
-            token = "/by";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new Deadline(description, date));
-            duke.ui.printg("[D][ " + notDone + "] " + description);
-            break;
-        case "doaftertask":
-            token = "/after";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new DoAfterTasks(description,date));
-            duke.ui.printg("[DAT][ " + notDone + "] " + description);
-            break;
-        case "fixeddurationtask":
-            token = "/on";
-            description = getDescription(cs.substring(0, cs.indexOf("/for")), token);
-            date = getDate(cs.substring(0, cs.indexOf("/for")), token);
-            int hour = 0;
-            int minute = 0;
-            hour = getDuration(cs, 1);
-            minute = getDuration(cs, 2);
-            arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
-                    + " minute(s)",date, hour, minute));
-            duke.ui.printg("[FDT][" + notDone + "] " + description + "for " + hour + " hour(s) " + minute
-                    + " minute(s)");
-            break;
-        case "recurtask":
-            token = "/start";
-            date = getDate(cs, token);
-            RecurTaskHandler handler = new RecurTaskHandler(duke);
-            ArrayList<RecurringTask> recurTaskList = handler.recurTaskPacker(cs, date);
-            for (RecurringTask recurTask : recurTaskList) {
-                arrlist.add(recurTask);
-            }
-            duke.ui.printg("The first iteration of this task is: ");
-            duke.ui.printg(recurTaskList.get(0).toString());
-            break;
-        default:
-            throw new IllegalStateException("Unexpected value: " + s);
-        }
-
-        //at this point, an update is made to the task list, so save to file
-        System.out.println("DoneCommand processing adding of task");
-        duke.storage.saveCompal(arrlist);
-        duke.ui.showSize();
-    }*/
-
-
-
-    //----------------------->
-
-
-
-
-
 
     //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
