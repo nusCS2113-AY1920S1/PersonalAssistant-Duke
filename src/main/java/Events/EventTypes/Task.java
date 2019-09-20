@@ -67,7 +67,7 @@ public abstract class Task {
     }
 
     public abstract String getDate();
-
+   
     /**
      * Returns the type of Task. May be overridden by subclasses.
      * @return String representing the type of Task.

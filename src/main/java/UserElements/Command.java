@@ -136,13 +136,11 @@ public class Command {
                     int slashPos = continuation.indexOf("/by"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    Deadline addedTask = new Deadline(description, date);
-                    Task clashTask = tasks.addTask(addedTask);
-                    if (clashTask == null) {
-                        ui.taskAdded(addedTask, tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Deadline(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
                     } else {
-                        ui.scheduleClash(addedTask);
-                        tasks.handleClash(addedTask, clashTask, ui);
+                        ui.scheduleClash(new Deadline(description, date));
                     }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
@@ -178,13 +176,11 @@ public class Command {
                     int slashPos = continuation.indexOf("/at"); //to find index of position and date
                     String date = continuation.substring(slashPos + 4);
                     String description = continuation.substring(0, slashPos);
-                    Event addedTask = new Event(description, date);
-                    Task clashTask = tasks.addTask(addedTask);
-                    if (clashTask == null) { //null clashTask means there was no clashing task.
-                        ui.taskAdded(addedTask, tasks.getNumTasks());
+                    boolean succeeded = tasks.addTask(new Event(description, date));
+                    if (succeeded) {
+                        ui.taskAdded(new Event(description, date), tasks.getNumTasks());
                     } else {
-                        ui.scheduleClash(addedTask);
-                        tasks.handleClash(addedTask, clashTask, ui);
+                        ui.scheduleClash(new Event(description, date));
                     }
                     break;
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {

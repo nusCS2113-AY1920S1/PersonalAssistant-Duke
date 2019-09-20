@@ -7,11 +7,9 @@ import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 
 /**
  * Allows for access to the list of tasks currently stored, and editing that list of tasks.
@@ -61,17 +59,16 @@ public class TaskList {
      * and false if not
      */
     public boolean addTask(Task task) {
-
         if (task instanceof ToDo) {
             this.taskArrayList.add(task);
-            return null;
+            return true;
         }
         else {
             Task clashTask = clashTask(task); //check the list for a schedule clash
             if (clashTask == null) { //null means no clash was found
                 this.taskArrayList.add(task);
-                return null;
-            } else return clashTask;
+                return true;
+            } else return false;
         }
     }
 
@@ -119,17 +116,6 @@ public class TaskList {
         return null;
     }
 
-    private boolean checkForDateClash(String date) {
-        DateObj dateObj = new DateObj(date);
-        for (Task currTask : taskArrayList) {
-            if (currTask.getDate().equals(dateObj.toOutputString())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Deletes a task from the list.
      *
@@ -137,10 +123,6 @@ public class TaskList {
      */
     public void deleteTask(int taskNo) {
         this.taskArrayList.remove(taskNo);
-    }
-
-    public void deleteTask(Task taskToDelete) {
-        this.taskArrayList.remove(taskToDelete);
     }
 
     /**
@@ -185,7 +167,7 @@ public class TaskList {
         }
         return allTasks;
     }
-
+    
     /**
      * Gets a filtered list of tasks based on a predicate.
      * @return String containing the filtered list of tasks, separated by a newline.
