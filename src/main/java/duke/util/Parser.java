@@ -1,10 +1,20 @@
 package duke.util;
 
-import duke.command.*;
-import duke.exceptions.DukeCommandException;
-import duke.exceptions.DukeEmptyCommandException;
-import duke.exceptions.DukeInvalidTimeException;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.RescheduleCommand;
+import duke.exceptions.*;
 import duke.tasks.*;
+
+import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Parser {
 
@@ -38,6 +48,15 @@ public class Parser {
             return new RescheduleCommand(Integer.parseInt(hold[1]), hold[2]);
         } catch (NumberFormatException ex) {
             throw new DukeCommandException();
+        }
+    }
+
+    private static void checkContainRequiredArguments(LinkedHashMap <String, String> parsedArgs, String... args)
+            throws DukeMissingArgumentException {
+        for (String arg: args) {
+            if (!parsedArgs.containsKey(arg) || parsedArgs.get(arg).isBlank()) {
+                throw new DukeMissingArgumentException(arg);
+            }
         }
     }
 
@@ -151,8 +170,12 @@ public class Parser {
      * @throws DukeCommandException when the user inputs an invalid command.
      * @throws DukeEmptyCommandException when the user inputs and empty command.
      */
-    public static Command parse(String input)
-            throws DukeCommandException, DukeEmptyCommandException, DukeInvalidTimeException {
+    public static Command parse(String input) throws DukeCommandException,
+            DukeEmptyCommandException,
+            DukeInvalidTimeException,
+            DukeMultipleValuesForSameArgumentException,
+            DukeMissingArgumentException,
+            DukeInvalidTimePeriodException {
         //Checks every input for keyword command
         input = input.trim();
         if (input.startsWith("todo ")) {
@@ -203,8 +226,12 @@ public class Parser {
             split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
             Task hold = new FixedDurationTasks(split);
             return new AddCommand(hold);
-        }
-        else if (input.equals("bye")) {
+        } else if (input.startsWith("doWithin ")) {
+            LinkedHashMap<String, String> args = parse(input, true, true);
+            checkContainRequiredArguments(args, "/begin", "/end");
+            Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        }else if (input.equals("bye")) {
             return new ByeCommand();
         } else if (input.startsWith("done ")) {
             return checkValidDoneIndex(input);
@@ -220,5 +247,57 @@ public class Parser {
             //throws invalid command exception when user inputs non-keywords
             throw new DukeCommandException();
         }
+    }
+
+    public static LinkedHashMap<String, String> parse(String command,
+                                                      boolean includeCommand,
+                                                      boolean includeArgs)
+            throws DukeMultipleValuesForSameArgumentException {
+        return parse(command, includeCommand, includeArgs, "/", true);
+    }
+    public static LinkedHashMap<String, String> parse(String command,
+                                                      boolean includeCommand,
+                                                      boolean includeArgs,
+                                                      String delimiter,
+                                                      boolean isTrim)
+            throws DukeMultipleValuesForSameArgumentException {
+        LinkedHashMap<String, String> ret = new LinkedHashMap<>();
+        String commandClean = command.trim();
+        int endCommandIndex = commandClean.indexOf(" ");
+        if (endCommandIndex == -1) {
+            endCommandIndex = commandClean.length();
+            if (includeCommand) {
+                ret.put("command", commandClean.substring(0, endCommandIndex));
+            }
+            return ret;
+        }
+//        String[] commandComponents = command.split(" +");
+        if (includeCommand) {
+            ret.put("command", commandClean.substring(0, endCommandIndex++));
+        }
+        if (includeArgs) {
+            commandClean = commandClean.substring(endCommandIndex).trim();
+            String regex = " ?" + delimiter + "[a-zA-Z]+ ?";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(commandClean);
+            int currIndex = 0;
+            String currArgument = "description";
+            while (matcher.find()) {
+                if (ret.containsKey(currArgument)) {
+                    throw new DukeMultipleValuesForSameArgumentException();
+                }
+                if (isTrim) {
+                    ret.put(currArgument, commandClean.substring(currIndex, matcher.start()).trim());
+                    currArgument = matcher.group().trim();
+                }
+                else {
+                    ret.put(currArgument, commandClean.substring(currIndex, matcher.start()));
+                    currArgument = matcher.group();
+                }
+                currIndex = matcher.end();
+            }
+            ret.put(currArgument, commandClean.substring(currIndex));
+        }
+        return ret;
     }
 }
