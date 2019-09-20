@@ -27,7 +27,6 @@ public class Storage {
      */
     public TaskList load() {
         ArrayList<Task> savedList = new ArrayList<Task>();
-        int listIndex = 0;
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -35,18 +34,18 @@ public class Storage {
 
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
-                String[] item = itemRaw.split("/", 5);
+                String[] item = itemRaw.split("/", 4);
 
-                switch (item[1]) {
+                switch (item[0]) {
                 case "T":
-                    savedList.add(new Todo(Integer.parseInt(item[0]), item[3], ""));
+                    savedList.add(new Todo(item[2], ""));
                     break;
                 case "D":
-                    savedList.add(new Deadline(Integer.parseInt(item[0]), item[3], item[4], ""));
+                    savedList.add(new Deadline(item[2], item[3], ""));
 
                     break;
                 case "E":
-                    savedList.add(new Event(Integer.parseInt(item[0]), item[3], item[4], ""));
+                    savedList.add(new Event(item[2], item[3], ""));
 
                     break;
                 default:
@@ -55,11 +54,10 @@ public class Storage {
                     break;
                 }
 
-                if (item[2].equals("1")) {
+                if (item[1].equals("1")) {
                     savedList.get(savedList.size() - 1).markAsDone();
                 }
             }
-            listIndex = savedList.get(savedList.size() - 1).getTaskIndex() + 1;
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
         } catch (BadInputException e) {
@@ -68,7 +66,7 @@ public class Storage {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return new TaskList(savedList, listIndex); //Returns a TaskList.
+        return new TaskList(savedList); //Returns a TaskList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {

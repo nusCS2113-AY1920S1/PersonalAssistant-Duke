@@ -16,6 +16,7 @@ public class DateTime {
     private String dateAndTime;
     private boolean valid;
     private Date at;
+    private Calendar calendar;
 
     /**
      * DateTime constructor. Converts input string into attributes of the date and time.
@@ -42,6 +43,7 @@ public class DateTime {
             calendar.set(Calendar.SECOND, 0);
 
             this.at = calendar.getTime();
+            this.calendar = calendar;
         } catch (Exception e) {
             throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
         }
@@ -65,7 +67,7 @@ public class DateTime {
 
 
     public Calendar getCalendar() {
-        return at;
+        return calendar;
     }
     /**
      * Returns the date in a friendlier format.

@@ -2,6 +2,7 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.BadInputException;
 import duke.items.DateTime;
 import duke.items.Deadline;
 import duke.items.Event;
@@ -31,7 +32,7 @@ public class RecurCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
         SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy HHmm");
         Calendar startDate = new DateTime(details).getCalendar();
 
@@ -39,9 +40,9 @@ public class RecurCommand extends Command {
             startDate.add(Calendar.DATE, recurInterval);
             String dt = sdf.format(startDate.getTime());
             if (super.type == CommandType.DEADLINE) {
-                list.addDeadlineItem(description, dt);
+                list.addDeadlineItem(description, dt, "");
             } else { //Type is event
-                list.addEventItem(description, dt);
+                list.addEventItem(description, dt, "");
             }
         }
     }
