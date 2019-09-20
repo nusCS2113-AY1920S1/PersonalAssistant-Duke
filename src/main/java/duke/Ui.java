@@ -21,6 +21,8 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
     }
 
+    private static String line = "\t____________________________________________________________";
+
     /**
      * This method prints the strings of text from 'msg' with the proper format. Each element
      * from 'msg' is a line of text to be printed.
@@ -28,14 +30,12 @@ public class Ui {
      * @param msg ArrayList of strings containing the messages to be printed.
      */
     public static void printMsg(ArrayList<String> msg) {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(line);
         for (String outputMsg : msg) {
-            System.out.println("     " + outputMsg);
+            System.out.println("\t" + outputMsg);
         }
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println(line);
     }
-
-    // Echoes when an item is added
 
     /**
      * This method prints the details of the specified task and specified duke.task.TaskList size.
@@ -56,46 +56,49 @@ public class Ui {
         printMsg(msg);
     }
 
-    public static void showLine() {
-        System.out.println("    ____________________________________________________________");
-    }
-
-    private static String line = "\t____________________________________________________________";
     public static void printDateTimeFormatError() {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY HHmm'!");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("Please use the format 'DD/MM/YYYY HHmm'!");
+        System.out.println(line);
     }
 
     public static void printDateFormatError() {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY'!");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("\tPlease use the format 'DD/MM/YYYY'!");
+        System.out.println(line);
     }
 
     public static void printFixDurationTaskError() {
-        System.out.println("Sorry, please enter a valid fixed duration task.");
+        System.out.println(line);
+        System.out.println("\tSorry, please enter a valid fixed duration task.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid recurring event.
      */
     public static void printRecurringTaskError() {
-        System.out.println("Sorry, please enter a valid recurring event.");
+        System.out.println(line);
+        System.out.println("\tSorry, please enter a valid recurring event.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid day of the week.
      */
-    public static void printInvaidDayInput() {
-        System.out.println("Sorry,please enter a valid day of the week.");
+    public static void printInvalidDayInput() {
+        System.out.println(line);
+        System.out.println("\tSorry,please enter a valid day of the week.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid do after event.
      */
-    public static void printInvaidDoAfterInput() {
-        System.out.println("Please enter a valid do after");
+    public static void printInvalidDoAfterInput() {
+        System.out.println(line);
+        System.out.println("\tPlease enter a valid do after");
+        System.out.println(line);
     }
 
     /**

@@ -33,7 +33,7 @@ public class AddRecurringTaskCommand extends AddCommand{
                 tasks.add(newTask);
                 Ui.echoAdd(newTask, tasks.size());
             } else {
-                Ui.printInvaidDayInput();
+                Ui.printInvalidDayInput();
             }
         } catch (Exception e) {
             Ui.printRecurringTaskError();
