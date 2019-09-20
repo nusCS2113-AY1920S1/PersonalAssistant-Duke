@@ -55,7 +55,7 @@ public class Deadline extends Task {
 
     @Override
     public LocalDateTime getLocalDate() {
-        LocalDateTime t = new DateFormatter(this.by).convertToLocalDate(this.by);
+        LocalDateTime t = new DateFormatter(this.by).toLocalDateTime(this.by);
         return t;
     }
 

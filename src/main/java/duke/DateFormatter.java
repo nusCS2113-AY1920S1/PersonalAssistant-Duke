@@ -1,6 +1,6 @@
 package duke;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateFormatter {
@@ -171,9 +171,9 @@ public class DateFormatter {
         return date != null;
     }
 
-    public LocalDate convertToLocalDate(String sDate) {
+    public LocalDateTime toLocalDateTime(String sDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDate parsedDate = LocalDate.parse(sDate, formatter);
+        LocalDateTime parsedDate = LocalDateTime.parse(sDate, formatter);
         return parsedDate;
     }
 }

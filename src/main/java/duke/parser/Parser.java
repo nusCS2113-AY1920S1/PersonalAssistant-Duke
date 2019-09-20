@@ -69,7 +69,6 @@ public class Parser {
      */
     private static Command parseSnooze(String command) throws NumberFormatException {
         int index = Integer.parseInt(command);
-
         return new SnoozeCommand(index);
     }
 
