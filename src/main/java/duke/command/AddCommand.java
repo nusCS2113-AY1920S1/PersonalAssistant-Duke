@@ -72,15 +72,13 @@ public abstract class AddCommand extends Command{
      * @see AddEventCommand
      */
     public boolean detectAnomalies(TaskList tasks, LocalDateTime time) {
-        boolean isConflict = true;
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.getFromList(i);
-            //System.out.println(currTask.getDate().toLocalDate().compareTo(viewDate));
             if (currTask.getDate().compareTo(time) == 0) {
-                Ui.printTimeConflictError(); // TODO: Check for ALL tasks that conflict and show the user
+                Ui.printTimeConflictError(tasks.getFromList(i));
                 return false;
             }
         }
-        return isConflict;
+        return true;
     }
 }
