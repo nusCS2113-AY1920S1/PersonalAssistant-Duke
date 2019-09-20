@@ -39,6 +39,9 @@ public class FixedDurationCommand extends Command implements CommandParser {
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
             taskList.addTask(new FixedDurationTask(description, date,time, hour, minute));
+            int arrSize = taskList.arrlist.size()-1;
+            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
+            duke.ui.printg("[FDT][" + statusIcon + "] " + description);
         } else {
             throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
         }
