@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+import java.util.ArrayList;
 
-public class TaskList {
+public class TaskList extends ArrayList<Task>{
+
+    public TaskList() {}
 }
