@@ -1,5 +1,7 @@
 package duke.commands;
 
+import duke.*;
+import duke.tasks.*;
 import duke.TaskList;
 import duke.Ui;
 import duke.DukeException;
@@ -10,9 +12,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.Conflict_checker;
 import duke.tasks.Task;
-import duke.tasks.*;
-
-
 
 /**
  * A class representing the command to add tasks to the task list.
@@ -104,7 +103,23 @@ public class AddCommand extends Command {
                 throw new DukeException("", "conflict");
             }
         }
-
+        case "doaf": {
+            if (message.length() < 8 || !message.substring(4,8).equals("ter ")) { //exception if not fully spelt
+                throw new DukeException(message);
+            }
+            DoAfter doAfter;
+            try {
+                String[] sections = message.substring(8).split(" /after ");
+                int previousTaskNumber = Integer.parseInt(sections[1]);
+                doAfter = new DoAfter(sections[0], previousTaskNumber, taskList.getSize() + 1);
+                taskList.add(doAfter);
+                DoAfterList.add(previousTaskNumber);
+                storage.updateFile(taskList);
+                return ui.formatAdd(taskList.getTaskList(), doAfter);
+            } catch (Exception e) {
+                throw new DukeException(message, "doafter");
+            }
+        }
         case "chan": {
             try {
                 String[] sections = message.substring(7).split(" /to ");
@@ -215,6 +230,20 @@ public class AddCommand extends Command {
                 throw new DukeException(message, "recur");
             }
 
+        }
+        case "fixe": {
+            if(message.length() < 14 || !message.substring(4, 14).equals("dDuration ")){
+                throw new DukeException(message);
+            }
+            try {
+                String[] sections = message.substring(14).split(" /need ");
+                Task fixedDurationTask = new FixedDurationTask(sections[0], sections[1]);
+                taskList.add(fixedDurationTask);
+                storage.updateFile(taskList);
+                return ui.formatAdd(taskList.getTaskList(), fixedDurationTask);
+            } catch (Exception e) {
+                throw new DukeException(message, "fixedDuration");
+            }
         }
         default: {
             throw new DukeException(message);
