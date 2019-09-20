@@ -212,19 +212,19 @@ public class Command {
                 SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
                 DateObj today = new DateObj(f.format(new Date()));
                 Queue<String> daysFree = new LinkedList<String>();
-                int nextDays = 1;
+                int addDays = 1;
                 while(daysFree.size() <= 3) {
-                    boolean flagFree = true;
+                    boolean isFree = true;
                     for(Task viewTask : tasks.getTaskArrayList()) {
                         if(viewTask.toString().contains(today.toOutputString())) {
-                            flagFree = false;
+                            isFree = false;
                             break;
                         }
                     }
-                    if(flagFree) {
+                    if(isFree) {
                         daysFree.add(today.toOutputString());
                     }
-                    today.addDays(nextDays);
+                    today.addDays(addDays);
                 }
                 ui.printFreeDays(daysFree);//print out the 3 free days
                 break;
