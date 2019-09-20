@@ -45,10 +45,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + "(at: " + dateObj.toOutputString() + ")";
     }
 
+    @Override
     public String getDate() {
         return dateObj.toOutputString();
     }
-    
+
     @Override
     public String getType() {
     	return "Event";
@@ -61,5 +62,6 @@ public class Event extends Task {
     @Override
     public DateObj getDateObj() {
     	return this.dateObj;
+
     }
 }
