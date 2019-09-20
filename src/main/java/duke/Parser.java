@@ -2,8 +2,10 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
-import duke.commands.FindCommand;
+import duke.commands.FindFreeTimeCommand;
 import duke.commands.NumCommand;
+import duke.commands.ViewScheduleCommand;
+import duke.commands.FindCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 
@@ -14,12 +16,15 @@ import duke.exceptions.BadInputException;
 
 public class Parser {
 
-    private String addTodo(String input) throws InsufficientInfoException {
+    private String[] addTodo(String input) throws InsufficientInfoException {
         if (input.isBlank()) {
             throw new InsufficientInfoException("Sorry, the description of a Todo cannot be blank!");
-        } else {
-            return input;
         }
+
+        String[] checkHours = input.split(" /needs ", -1);
+
+        return checkHours;
+
     }
 
     private String[] addDeadline(String input) throws InsufficientInfoException {
@@ -47,6 +52,22 @@ public class Parser {
         }
     }
 
+    private int processDoAfter(String input) throws BadInputException {
+        String shortStr;
+        String[] splitStr;
+        int taskIndex;
+
+        shortStr = input.substring(input.indexOf("/after"));
+
+        try {
+            splitStr = shortStr.split(" ", 3); //splits into "/after" "x" and other stuff, where "x" is an int
+            taskIndex = Integer.parseInt(splitStr[1]); //check if this is an int
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new BadInputException("Please input the index number of the task that has to be done first.");
+        }
+        return taskIndex;
+    }
+
     /**
      * Checks if the command keyword (first word is valid).
      * Determines what to do with the remaining string depending on the command.
@@ -58,6 +79,17 @@ public class Parser {
      */
     private Command handleListInput(String listInput) throws BadInputException,
             InsufficientInfoException, NumberFormatException {
+
+        /*TODO: Update parser to handle Task requests separately to process optional commands better
+            eg. doAfter or repeating tasks
+        */
+
+        int afterIndex;
+        afterIndex = -1;
+        if (listInput.contains("/after")) {
+            afterIndex = processDoAfter(listInput);
+            listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
+        }
 
         String[] keyword = listInput.split(" ", 2);
         Command command;
@@ -74,25 +106,35 @@ public class Parser {
         //Commands which require numerical input.
         case "done":
             command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
-
             break;
         case "delete": {
             command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
         }
+        case "snooze": {
+            command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
+            break;
+        }
+        case "findfreetime": {
+            command = new FindFreeTimeCommand(Command.CommandType.FINDFREETIME, Integer.parseInt(keyword[1]));
+            break;
+        }
 
         //Commands which require string input.
         case "todo":
-            command = new AddCommand(Command.CommandType.TODO, addTodo(keyword[1]), null);
+            String[] todoTemp = addTodo(keyword[1]);
+            command = new AddCommand(Command.CommandType.TODO, todoTemp[0],
+                    (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
             break;
+
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1], afterIndex);
             break;
         }
         case "event": {
             String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1]);
+            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1], afterIndex);
             break;
         }
         case "find": {
@@ -103,6 +145,11 @@ public class Parser {
                 command = new Command();
                 System.out.println("Please enter the search description.");
             }
+            break;
+        }
+
+        case "view": {
+            command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
             break;
         }
 

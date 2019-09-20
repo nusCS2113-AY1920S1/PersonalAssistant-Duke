@@ -12,3 +12,6 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#data files for storing and loading
+data/saved_tasks.txt
