@@ -28,21 +28,19 @@ public class ModCommand extends Command {
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         switch(this.command){
-            case "done":
-                tasks.markDone(this.input);
-                break;
-            case "delete":
-                tasks.banishDelete(this.input);
-                break;
-            case "select":
-                tasks.select(this.input);
-                break;
-            default:
-                throw new DukeException("Invalid ModCommand");
-        }
-        else if(this.command.matches("snooze"))
-        {
+        case "done":
+            tasks.markDone(this.input);
+            break;
+        case "delete":
+            tasks.banishDelete(this.input);
+            break;
+        case "select":
+            tasks.select(this.input);
+            break;
+        case "snooze":
             tasks.snoozeTask(this.input);
+        default:
+            throw new DukeException("Invalid ModCommand");
         }
     }
 
