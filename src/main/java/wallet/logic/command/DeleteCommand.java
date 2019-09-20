@@ -2,7 +2,7 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.storage.Storage;
-import wallet.task.Task;
+import wallet.model.task.Task;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

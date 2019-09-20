@@ -1,4 +1,4 @@
-package wallet.contact;
+package wallet.model.contact;
 
 import java.util.ArrayList;
 

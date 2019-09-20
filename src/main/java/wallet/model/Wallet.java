@@ -1,10 +1,10 @@
 package wallet.model;
 
-import wallet.contact.ContactList;
-import wallet.record.ExpenseList;
-import wallet.record.RecordList;
-import wallet.task.ScheduleList;
-import wallet.task.TaskList;
+import wallet.model.contact.ContactList;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.RecordList;
+import wallet.model.task.ScheduleList;
+import wallet.model.task.TaskList;
 
 public class Wallet {
     private RecordList recordList;

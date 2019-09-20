@@ -1,14 +1,14 @@
 package wallet.logic;
 
-import wallet.contact.ContactList;
+import wallet.model.contact.ContactList;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
-import wallet.record.ExpenseList;
-import wallet.record.RecordList;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.RecordList;
 import wallet.storage.Storage;
-import wallet.task.ScheduleList;
-import wallet.task.TaskList;
+import wallet.model.task.ScheduleList;
+import wallet.model.task.TaskList;
 
 public class LogicManager {
     private final Storage storage;

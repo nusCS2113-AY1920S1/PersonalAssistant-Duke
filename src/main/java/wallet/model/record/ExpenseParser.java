@@ -1,4 +1,4 @@
-package wallet.record;
+package wallet.model.record;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

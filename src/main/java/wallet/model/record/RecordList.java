@@ -1,12 +1,6 @@
-package wallet.record;
+package wallet.model.record;
 
-import wallet.ui.Ui;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class RecordList {
     /**

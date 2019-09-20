@@ -1,13 +1,13 @@
 package wallet.logic.parser;
 
-import wallet.contact.Contact;
+import wallet.model.contact.Contact;
 import wallet.logic.command.AddCommand;
-import wallet.record.Expense;
-import wallet.task.Deadline;
-import wallet.task.DoWithinPeriod;
-import wallet.task.Event;
-import wallet.task.Task;
-import wallet.task.Todo;
+import wallet.model.record.Expense;
+import wallet.model.task.Deadline;
+import wallet.model.task.DoWithinPeriod;
+import wallet.model.task.Event;
+import wallet.model.task.Task;
+import wallet.model.task.Todo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

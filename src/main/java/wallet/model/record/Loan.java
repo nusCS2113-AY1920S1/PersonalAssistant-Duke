@@ -1,6 +1,6 @@
-package wallet.record;
+package wallet.model.record;
 
-import wallet.contact.Contact;
+import wallet.model.contact.Contact;
 
 import java.time.LocalDate;
 

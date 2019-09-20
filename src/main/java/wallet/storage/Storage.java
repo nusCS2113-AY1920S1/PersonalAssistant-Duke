@@ -1,11 +1,11 @@
 package wallet.storage;
 
-import wallet.task.Deadline;
-import wallet.task.DoWithinPeriod;
-import wallet.task.Event;
-import wallet.task.Task;
-import wallet.task.Tentative;
-import wallet.task.Todo;
+import wallet.model.task.Deadline;
+import wallet.model.task.DoWithinPeriod;
+import wallet.model.task.Event;
+import wallet.model.task.Task;
+import wallet.model.task.Tentative;
+import wallet.model.task.Todo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

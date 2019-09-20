@@ -1,32 +1,32 @@
-package wallet.task;
+package wallet.model.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Deadline extends Task {
+public class Event extends Task {
     /**
-     * The deadline of the task.
+     * The date of the event.
      */
-    private Date by;
+    private Date date;
 
     /**
-     * Constructs a new Deadline object.
+     * Constructs a new Event object.
      *
      * @param description The description of the task.
-     * @param by The deadline of the task.
+     * @param date The date of the event.
      */
-    public Deadline(String description, Date by) {
+    public Event(String description, Date date) {
         super(description);
-        this.by = by;
+        this.date = date;
     }
 
     /**
-     * Returns the date of the deadline task.
+     * Returns the date of event task.
      *
-     * @return date of deadline task.
+     * @return date of event task.
      */
     public Date getDate() {
-        return by;
+        return date;
     }
 
     /**
@@ -36,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + new SimpleDateFormat("dd MMM yyyy h:mma").format(by) + ")";
+        return "[E]" + super.toString() + " (at: " + new SimpleDateFormat("dd MMM yyyy h:mma").format(date) + ")";
     }
 
     /**
@@ -46,6 +46,6 @@ public class Deadline extends Task {
      */
     @Override
     public String writeToFile() {
-        return "D," + super.writeToFile() + "," + new SimpleDateFormat("dd MMM yyyy h:mma").format(by);
+        return "E," + super.writeToFile() + "," + new SimpleDateFormat("dd MMM yyyy h:mma").format(date);
     }
 }

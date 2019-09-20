@@ -1,10 +1,10 @@
 package wallet.logic.command;
 
-import wallet.contact.Contact;
+import wallet.model.contact.Contact;
 import wallet.model.Wallet;
-import wallet.record.Expense;
+import wallet.model.record.Expense;
 import wallet.storage.Storage;
-import wallet.task.Task;
+import wallet.model.task.Task;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";

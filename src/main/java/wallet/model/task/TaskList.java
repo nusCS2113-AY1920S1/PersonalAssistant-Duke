@@ -1,4 +1,4 @@
-package wallet.task;
+package wallet.model.task;
 
 import wallet.ui.Ui;
 

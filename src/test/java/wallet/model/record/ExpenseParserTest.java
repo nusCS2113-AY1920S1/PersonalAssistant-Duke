@@ -1,4 +1,4 @@
-package wallet.record;
+package wallet.model.record;
 
 import org.junit.jupiter.api.Test;
 
