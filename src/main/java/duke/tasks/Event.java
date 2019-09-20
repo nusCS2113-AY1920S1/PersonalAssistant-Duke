@@ -65,11 +65,20 @@ public class Event extends Task {
         return (isAfterStartDate && isBeforeEndDate);
     }
 
+    @Override
+    public Boolean isOverlapping(Date startTime, Date endTime) {
+        return startTime.before(endDate.getDateTime()) && startDate.getDateTime().before(endTime);
+    }
+
     public void setStartDate(Date startDate) {
         this.startDate = new DateTime(startDate);
     }
 
     public void setEndDate(Date endDate) {
         this.endDate = new DateTime(endDate);
+    }
+
+    public DateTime getEndDate() {
+        return endDate;
     }
 }
