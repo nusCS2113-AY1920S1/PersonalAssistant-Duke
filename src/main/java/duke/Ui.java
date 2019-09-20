@@ -118,17 +118,17 @@ public class Ui {
      * Prints the snoozed task with new date after successfully snoozing
      * @param snoozedTask task that was snoozed
      */
-    public static void snoozedTaskPrinter(Task snoozedTask) {
+    public static void printSnoozedTask(Task snoozedTask) {
         System.out.println(line);
         System.out.println("\tNoted. I have snoozed this task:");
-        System.out.println("\t" + snoozedTask.getTaskDescription() + "until " + snoozedTask.getDateStr());
+        System.out.println("\t" + snoozedTask.getTaskDescription() + " " + snoozedTask.getDateStr());
         System.out.println(line);
     }
 
     /**
      * Prints an error message for no date in task
      */
-    public static void noDateToSnoozePrinter(Task taskToSnooze) {
+    public static void printNoDateToSnoozeError(Task taskToSnooze) {
         System.out.println(line);
         System.out.println("\tOOPS! " + taskToSnooze + " do not have a date to snooze!");
         System.out.println(line);
@@ -137,7 +137,7 @@ public class Ui {
     /**
      * Prints a default error message
      */
-    public static void errorMsgPrinter() {
+    public static void printErrorMsg() {
         System.out.println(line);
         System.out.println("\tOOPS! An error has occurred.");
         System.out.println(line);
@@ -161,6 +161,15 @@ public class Ui {
     public static void printInvalidNumberError(String str) {
         System.out.println(line);
         System.out.println(str + " is not a number. Please use a number instead!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when the new date to snooze until is before the old date
+     */
+    public static void printOldDateIsAfterError() {
+        System.out.println(line);
+        System.out.println("\tOOPS! The new date given should be after the previous date!");
         System.out.println(line);
     }
 }

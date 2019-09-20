@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * duke.command.AddCommand is a subclass of Command that acts as a skeleton
  * for all other commands that involve adding tasks to the duke.task.TaskList.
  */
-public abstract class AddCommand extends Command{
+public abstract class AddCommand extends Command {
 
     /**
      * Represents all the information given after the command in the input.
