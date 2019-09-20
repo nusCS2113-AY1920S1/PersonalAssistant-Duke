@@ -1,5 +1,6 @@
 package duke.task;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Task {
     public TaskType taskType;
@@ -61,4 +62,8 @@ public abstract class Task {
     public abstract String writeToFile();
 
     public abstract String getDateTime();
+
+    public abstract LocalDateTime getLocalDate();
+
+    public abstract void setDate(String newDate);
 }

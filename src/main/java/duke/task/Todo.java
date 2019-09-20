@@ -1,5 +1,8 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Todo extends Task {
     private final String SYMBOL = "[T]";
 
@@ -39,7 +42,18 @@ public class Todo extends Task {
         return String.format("T | %d | %s",  (isCompleted() ? 1 : 0), this.getDescription());
     }
 
+    // not applicable for Todo.
     public String getDateTime() {
         return null;
+    }
+
+    public LocalDateTime getLocalDate() {
+        return null;
+    }
+
+
+    // does not apply for Todo
+    @Override
+    public void setDate(String newDate) {
     }
 }
