@@ -23,7 +23,6 @@ public class SnoozeCommand extends Command {
     public void execute(TaskList tasks) throws Exception {
         int taskNumInt = stringToInt(taskNumStr);
         LocalDateTime date = Time.readDateTime(newDateStr); // Default date
-        ArrayList<String> msg = new ArrayList<>();
 
         try {
             Task taskToSnooze = tasks.getFromList(taskNumInt - 1);

@@ -10,18 +10,18 @@ import java.util.Arrays;
  */
 public class Ui {
 
-    protected ArrayList<String> messageArray;
-
-    public static void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-    }
+    private static String logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
 
     private static String line = "\t____________________________________________________________";
+
+
+    public static void showWelcome() {
+        System.out.println("Hello from\n" + logo);
+    }
 
     /**
      * This method prints the strings of text from 'msg' with the proper format. Each element
@@ -88,7 +88,7 @@ public class Ui {
      */
     public static void printInvalidDayInput() {
         System.out.println(line);
-        System.out.println("\tSorry,please enter a valid day of the week.");
+        System.out.println("\tSorry, please enter a valid day of the week.");
         System.out.println(line);
     }
 
@@ -151,6 +151,16 @@ public class Ui {
         System.out.println(line);
         System.out.println("\t" + taskNum + " is not associated to any task number.");
         System.out.println("\tUse 'list' to check the tasks that are here first!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when string parsed is not an integer.
+     * @param str to be parsed to an integer
+     */
+    public static void printInvalidNumberError(String str) {
+        System.out.println(line);
+        System.out.println(str + " is not a number. Please use a number instead!");
         System.out.println(line);
     }
 }
