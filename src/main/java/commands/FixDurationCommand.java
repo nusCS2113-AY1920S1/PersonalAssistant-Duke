@@ -1,4 +1,5 @@
 package commands;
+
 import Storage.Storage;
 import Tasks.FixedDuration;
 import Tasks.Task;
@@ -37,6 +38,9 @@ public class FixDurationCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
                 sb.append(list.get(i).toString()+"\n");
             }
+            else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
             else{
                 sb.append(list.get(i).toString()+"\n");
             }
@@ -48,4 +52,5 @@ public class FixDurationCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

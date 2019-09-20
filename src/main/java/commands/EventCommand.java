@@ -33,6 +33,12 @@ public class EventCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
                 sb.append(list.get(i).toString()+"\n");
             }
+            else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
+            else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
             else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
                 sb.append(list.get(i).toString() + "\n");
             } else{
@@ -41,9 +47,9 @@ public class EventCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-
     @Override
     public boolean isExit() {
         return false;
     }
+
 }

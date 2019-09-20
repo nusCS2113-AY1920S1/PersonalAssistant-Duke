@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class EventCommandTest {
     //creating a stream to hold the output
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -53,4 +52,5 @@ class EventCommandTest {
                 "[E][\u2718]sleep(at:Mon Dec 02 12:02:12 SGT 2019)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());
     }
+
 }

@@ -1,2 +1,26 @@
+<<<<<<< HEAD
 E|?| eat|at: Mon Dec 02 12:02:12 SGT 2019
 E|?| sleep|at: Mon Dec 02 12:02:12 SGT 2019
+=======
+<<<<<<< HEAD
+D|?| ask question|by: Mon Dec 02 12:02:12 SGT 2019
+D|?| walk dog|by: Sun Dec 01 12:22:02 SGT 2019
+D|?| go school|by: Tue Nov 12 12:12:12 SGT 2019
+E|?| basketball finals|at: Wed Jan 22 12:12:12 SGT 2020
+E|?| golf finals|at: Mon Jan 13 12:12:12 SGT 2020
+E|?| hookok finals|at: Wed Jan 15 12:12:12 SGT 2020
+P|?| collect book | jan 2 and jan 3
+=======
+
+T|?| lol
+E|?| eat|at: Mon Dec 02 12:02:12 SGT 2019
+E|?| sleep|at: Mon Dec 02 12:02:12 SGT 2019
+D|?| walk dog|by: Mon Apr 04 04:04:04 SGT 2016
+D|?| go school|by: Mon Apr 04 04:04:04 SGT 2016
+E|?| basketball finals|at: Wed Jan 22 12:12:12 SGT 2020
+E|?| golf finals|at: Mon Jan 13 12:12:12 SGT 2020
+E|?| hookok finals|at: Mon Jan 01 02:02:02 SGT 2018
+D|?| ask question|by: Mon Apr 04 04:04:04 SGT 2016
+
+>>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
+>>>>>>> 45b0ae0e66d3affc6fa72fe88359cda595e988cc

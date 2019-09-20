@@ -1,4 +1,6 @@
 package commands;
+
+
 import Tasks.Task;
 import UI.Ui;
 import Tasks.*;
@@ -9,6 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class TodoCommand extends Command {
+
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
@@ -31,6 +34,12 @@ public class TodoCommand extends Command {
             else if(list.get(i).getClass().getName().equals("Tasks.Event")){
                 sb.append(list.get(i).toString()+"\n");
             }
+            else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
+            else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
+                sb.append(list.get(i).toString()+"\n");
+            }
             else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
                 sb.append(list.get(i).toString() + "\n");
             } else{
@@ -39,9 +48,9 @@ public class TodoCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-
     @Override
     public boolean isExit() {
         return false;
     }
+
 }

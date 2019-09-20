@@ -20,7 +20,6 @@ public class Ui {
         public void ReadCommand() throws IOException {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             FullCommand = reader.readLine();
-
         }
 
         public String showWelcome () {
@@ -66,4 +65,5 @@ public class Ui {
         public void showErrorMessage (Exception e){
             System.err.println(e.getMessage());
         }
-    }
+
+}
