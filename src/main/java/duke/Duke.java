@@ -15,7 +15,10 @@ public class Duke {
     private static TaskList taskList;
     private static Ui ui;
 
-
+    /**
+     * Duke does somethings.
+     * @param filePath which stores path of persistent storage
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

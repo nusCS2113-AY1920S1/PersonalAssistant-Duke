@@ -52,7 +52,7 @@ public class TaskList {
      *
      * @param todoitem the description of the task.
      */
-    public void addTodoItem( String todoitem, String doAfter) {
+    public void addTodoItem(String todoitem, String doAfter) {
         taskList.add(new Todo(todoitem, doAfter)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
     }
@@ -62,7 +62,7 @@ public class TaskList {
      * @param todoitem description of the task.
      * @param hours duration of task.
      */
-    public void addTodoItem( String todoitem, String doAfter, int hours) {
+    public void addTodoItem(String todoitem, String doAfter, int hours) {
         taskList.add(new Todo(todoitem, doAfter, hours)); //Use the constructor to create a new Task.
         System.out.println("Todo item added: " + todoitem);
         System.out.println("Hours needed: " + hours);
@@ -160,24 +160,6 @@ public class TaskList {
         }
     }
 
-//    /**
-//    * Snooze a task for a day.
-//    * @param i the index of the task to be snoozed.
-//    */
-//    public void snoozeTask(int i) {
-//        try {
-//            Task task = taskList.get(i);
-//            if (task instanceof Snooze) {
-//                ((Snooze) taskList.get(i)).snooze(); //Snooze task.
-//                System.out.print("Nice! I've snoozed this task: ");
-//                System.out.println(taskList.get(i).getDescription()); //Prints task name
-//            } else {
-//                System.out.println("Only Events and Deadlines are able to be snoozed!");
-//            }
-//        } catch (IndexOutOfBoundsException e) {
-//            printTaskNonexistent();
-//        }
-//    }
 
     /**
      * Prints error message if a nonexistent task index is accessed.

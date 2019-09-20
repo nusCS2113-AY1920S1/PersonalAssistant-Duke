@@ -21,8 +21,8 @@ public class Event extends Task /*implements Snooze*/ {
      * Deadline object has a "at" string as well as a Date objects for start and end times.
      */
 
-    public Event( String description, String time, String doAfter) throws BadInputException {
-        super( description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
+    public Event(String description, String time, String doAfter) throws BadInputException {
+        super(description, TaskType.EVENT, doAfter); //Using the Task constructor. isDone is set to false.
         try {
             String[] startEndTime = time.split(" to ", 2);
             this.start = startEndTime[0];
@@ -47,19 +47,6 @@ public class Event extends Task /*implements Snooze*/ {
         return eventStartTime.getAt();
     }
 
-
-//    @Override
-//    public void snooze() {
-//        Calendar newStartDate = Calendar.getInstance();
-//        newStartDate.setTime(eventStartTime.getAt());
-//        newStartDate.add(Calendar.DATE, 1);
-//        eventStartTime.setDate(newStartDate.getTime());
-//
-//        Calendar newEndDate = Calendar.getInstance();
-//        newEndDate.setTime(eventEndTime.getAt());
-//        newEndDate.add(Calendar.DATE, 1);
-//        eventEndTime.setDate(newEndDate.getTime());
-//    }
 
     @Override
     public String saveDetailsString() {

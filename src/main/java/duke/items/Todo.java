@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     public Todo(String description, String doAfter, int duration) {
-        super( description, TaskType.TODO, doAfter);
+        super(description, TaskType.TODO, doAfter);
         this.duration = duration;
     }
 

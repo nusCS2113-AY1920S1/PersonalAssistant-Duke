@@ -19,7 +19,7 @@ public class Deadline extends Task /*implements Snooze*/ {
      * Deadline object has a "by" string as well as a Date object.
      */
     public Deadline(String description, String by, String doAfter) throws BadInputException {
-        super( description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
+        super(description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
         this.doBy = by;
         this.doByDate = new DateTime(doBy);
     }
@@ -35,14 +35,6 @@ public class Deadline extends Task /*implements Snooze*/ {
     public Date getDate() {
         return doByDate.getAt();
     }
-
-//    @Override
-//    public void snooze() {
-//        Calendar newDate = Calendar.getInstance();
-//        newDate.setTime(doByDate.getAt());
-//        newDate.add(Calendar.DATE, 1);
-//        doByDate.setDate(newDate.getTime());
-//    }
 
     @Override
     public String saveDetailsString() {

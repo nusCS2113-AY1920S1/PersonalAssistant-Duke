@@ -69,6 +69,7 @@ public class DateTime {
     public Calendar getCalendar() {
         return calendar;
     }
+
     /**
      * Returns the date in a friendlier format.
      */
