@@ -7,12 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.BitSet;
-<<<<<<< HEAD
-=======
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
->>>>>>> upstream/master
 import java.util.Date;
 import java.util.Scanner;
 
@@ -102,13 +99,6 @@ public class TaskList {
             arrlist.add(new Deadline(description, date));
             duke.ui.printg("[D][ " + notDone + "] " + description);
             break;
-<<<<<<< HEAD
-        case "fixedDurationTask":
-            token = "/on";
-            description = getDescription(cs, token);
-            arrlist.add(new FixedDurationTask(description));
-            duke.ui.printg("[F][ " + notDone + "] " + description);
-=======
         case "doaftertask":
             token = "/after";
             description = getDescription(cs, token);
@@ -139,7 +129,6 @@ public class TaskList {
             }
             duke.ui.printg("The first iteration of this task is: ");
             duke.ui.printg(recurTaskList.get(0).toString());
->>>>>>> upstream/master
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + s);
@@ -383,19 +372,6 @@ public class TaskList {
                 duke.ui.printg(t.getDescription());
             }
         }
-
-<<<<<<< HEAD
-        String duration = Duke.durationParse(when);
-        //call the date parser to parse and return a date string
-        String check = Duke.dateParse(when);
-        if (!check.equals("false")) {
-            when = check;
-        }
-
-        token = token.replace("/", "");
-        String what = cs.substring(0, splitPoint).trim();
-        return what + " (" + token + ": " + when + duration + ")";
-=======
     }
 
 
@@ -429,7 +405,6 @@ public class TaskList {
         }
 
         return viewDay;
->>>>>>> upstream/master
     }
 
 
