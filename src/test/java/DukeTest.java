@@ -108,22 +108,25 @@ public class DukeTest {
         DateObj today = new DateObj(f.format(new Date()));
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
-        while(daysFree.size() <= 3) {
+        while (daysFree.size() <= 3) {
             boolean flagFree = true;
-            for(Task viewTask : testList.getTaskArrayList()) {
-                if(viewTask.toString().contains(today.toOutputString())) {
+            for (Task viewTask : testList.getTaskArrayList()) {
+                if (viewTask.toString().contains(today.toOutputString())) {
                     flagFree = false;
                     break;
                 }
             }
-            if(flagFree) {
+            if (flagFree) {
                 daysFree.add(today.toOutputString());
             }
             today.addDays(nextDays);
         }
         boolean checkFreeFlag = false;
-        if(daysFree.poll().equals("19 SEP 2019")) {checkFreeFlag = true;}
+        if (daysFree.poll().equals("19 SEP 2019")) {
+            checkFreeFlag = true;
+        }
         assertEquals(true, checkFreeFlag);
+    }
     
     @Test
     public void reminderTest () {
