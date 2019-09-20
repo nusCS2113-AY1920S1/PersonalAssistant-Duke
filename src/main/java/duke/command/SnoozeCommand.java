@@ -44,7 +44,6 @@ public class SnoozeCommand extends Command {
                 } else {
                     Ui.printOldDateIsAfterError();
                 }
-
             } else {
                 Ui.printErrorMsg();
             }

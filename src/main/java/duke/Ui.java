@@ -18,7 +18,6 @@ public class Ui {
 
     private static String line = "\t____________________________________________________________";
 
-
     public static void showWelcome() {
         System.out.println("Hello from\n" + logo);
     }
@@ -34,6 +33,16 @@ public class Ui {
         for (String outputMsg : msg) {
             System.out.println("\t" + outputMsg);
         }
+        System.out.println(line);
+    }
+
+    public static void printMsg(String... s) {
+        final StringBuilder messageAccumulator = new StringBuilder();
+        for (String str: s) {
+            messageAccumulator.append(str);
+        }
+        System.out.println(line);
+        System.out.println("\t" + messageAccumulator);
         System.out.println(line);
     }
 
@@ -106,12 +115,12 @@ public class Ui {
      * that's in the task list.
      */
     public static void printTimeConflictError(Task conflictingTask) {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("I'm sorry, an error has occured!");
-        msg.add("The time you have entered conflicts with the following task: ");
-        msg.add("  " + conflictingTask.getTask());
-        msg.add("Try looking for another time. :)");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("\tI'm sorry, an error has occurred!");
+        System.out.println("\tThe time you have entered conflicts with the following task: ");
+        System.out.println("\t  " + conflictingTask.getTask());
+        System.out.println("Try looking for another time. :)");
+        System.out.println(line);
     }
 
     /**

@@ -56,8 +56,7 @@ public class FindStringCommand extends Command {
                 itemsFound.add(taskStr);
             }
         }
-
-
+        
         if (itemsFound.isEmpty()) {
             msg.add("There are no matching tasks in your list :(");
         } else {

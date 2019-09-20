@@ -49,9 +49,7 @@ public abstract class AddCommand extends Command {
             taskDescription = data[0];
             return true;
         } catch(ArrayIndexOutOfBoundsException e) {
-            ArrayList<String> msg = new ArrayList<String>();
-            msg.add("Please add '" + dateTrigger + " <date>' after your task to specify the event date." );
-            Ui.printMsg(msg);
+            Ui.printMsg("Please add '" + dateTrigger + " <date>' after your task to specify the event date.");
             return false;
         }  catch(DateTimeParseException e) {
             Ui.printDateTimeFormatError();
