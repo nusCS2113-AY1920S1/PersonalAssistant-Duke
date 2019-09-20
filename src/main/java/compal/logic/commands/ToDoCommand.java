@@ -27,8 +27,11 @@ public class ToDoCommand extends Command implements CommandParser {
         Scanner scanner = new Scanner(userIn);
         String todo = scanner.next();
         if (scanner.hasNext()) {
-            String restOfInput = scanner.nextLine();
-            taskList.addTask(new Todo(restOfInput.trim()));
+            String description = scanner.nextLine();
+            taskList.addTask(new Todo(description.trim()));
+            int arrSize = taskList.arrlist.size()-1;
+            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
+            duke.ui.printg("[T][" + statusIcon + "] " + description);
         } else {
             throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + todo + " cannot be empty.");
         }

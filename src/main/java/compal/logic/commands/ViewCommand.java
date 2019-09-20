@@ -26,25 +26,33 @@ public class ViewCommand extends Command implements CommandParser {
         String dateInput = scanner.next();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
+        String formatDate = null;
         try {
             date = formatter.parse(dateInput);
+            formatDate = formatter.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         if (taskList.arrlist.isEmpty()) {
             duke.ui.printg("No task.");
         }
+
         Boolean isEmpty = true;
 
         for (Task task : taskList.arrlist){
-            if (task.getDate() == date) {
-                duke.ui.printg(task.getDescription());
+            Date convertDate = task.getDate();
+            String compareDate = formatter.format(convertDate);
+            if (compareDate.matches(formatDate)) {
+                if(isEmpty){
+                    duke.ui.printg("On " + formatDate + " you have the task below:");
+                }
+                duke.ui.printg(task.toString());
                 isEmpty = false;
             }
         }
 
         if(isEmpty){
-            duke.ui.printg("No task found on " + date);
+            duke.ui.printg("No task found on " + formatDate);
         }
     }
 }

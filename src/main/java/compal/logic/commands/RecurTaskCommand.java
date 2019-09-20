@@ -39,8 +39,12 @@ public class RecurTaskCommand extends Command implements CommandParser {
             for (int count = 0; count < rep; count++) {
                 String date = startDate;
                 taskList.addTask(new RecurringTask(description, date));
+                int arrSize = taskList.arrlist.size()-1;
+                String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
+                duke.ui.printg("[RT][" + statusIcon + "] " + description);
                 incrementDateByWeek(date);
             }
+
         } else {
             throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + recurtask + " cannot be empty.");
         }
