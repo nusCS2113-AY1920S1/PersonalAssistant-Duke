@@ -52,10 +52,6 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
-<<<<<<< HEAD
-=======
-
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
                 } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {
@@ -65,10 +61,6 @@ public class Storage {
                         tb.isDone = false;
                     }
                     tlist.add(tb);
-<<<<<<< HEAD
-                } else {
-=======
-
                 } else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {
@@ -87,7 +79,6 @@ public class Storage {
                         DA.isDone = false;
                 }
                 else {
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){
                         e.isDone = true;
