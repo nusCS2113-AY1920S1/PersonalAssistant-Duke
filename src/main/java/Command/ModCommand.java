@@ -1,9 +1,9 @@
 package Command;
 
+import Exception.DukeException;
+import Storage.Storage;
 import UI.UI;
 import myTasks.TaskList;
-import Storage.Storage;
-import Exception.DukeException;
 
 /**
  * ModCommand Class extends the abstract Command class
@@ -27,16 +27,20 @@ public class ModCommand extends Command {
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        if(this.command.matches("done")){
+        switch(this.command){
+        case "done":
             tasks.markDone(this.input);
-        }
-        else if(this.command.matches("delete"))
-        {
+            break;
+        case "delete":
             tasks.banishDelete(this.input);
-        }
-        else if(this.command.matches("snooze"))
-        {
+            break;
+        case "select":
+            tasks.select(this.input);
+            break;
+        case "snooze":
             tasks.snoozeTask(this.input);
+        default:
+            throw new DukeException("Invalid ModCommand");
         }
     }
 

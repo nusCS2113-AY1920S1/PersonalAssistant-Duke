@@ -47,8 +47,6 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
 
         duke = d;
-        //ArrayList<Task> myTasks = new ArrayList<>(); //Instantiate an array list of a dynamic size and class Task
-        //TaskList myList = new TaskList(myTasks); //Initialise tasklist
 
 
         String logo = " ____        _        \n"
@@ -65,13 +63,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcome, dukeImage)
         );
-
-        //String saveBuffer = duke.getSave(myList);
-/*
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(saveBuffer, dukeImage)
-        );
-*/
     }
 
 
