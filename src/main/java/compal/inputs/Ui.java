@@ -86,29 +86,13 @@ public class Ui {
         duke.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
     }
 
-
-    /**
-     * Handles the list command which lists the tasks currently in COMPal.Duke's tracking
-     * It will display the task symbol (T,E,D), the status (done or not done) and the description string
-     */
-    public void listTasks() {
-        int count = 1;
-        duke.ui.printg("Here are the tasks in your list:");
-        for (Task t : arrlist) {
-            printg(count++ + "." + t.toString());
-        }
-    }
-
-
     /**
      * Used to print temp array!.
      */
     public void printTemp(ArrayList<Task> viewDay) {
         int count = 1;
-
         for (Task t : viewDay) {
             printg(count++ + "." + t.toString());
-
         }
     }
 
