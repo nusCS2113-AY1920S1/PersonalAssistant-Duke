@@ -30,26 +30,21 @@ public class SnoozeCommand extends Command {
             char type = taskToSnooze.getTaskType();
 
             if (type == 'T') {
-                msg.add("OOPS! " + taskToSnooze + " do not have a date to snooze!");
+                Ui.noDateToSnoozePrinter(taskToSnooze);
             } else if (type == 'D') {
                 Task newTask = new Deadline(taskToSnooze.getTaskDescription(), date);
                 tasks.replaceTask(taskNumInt - 1, newTask);
-                msg.add("Noted. I've snoozed this task:");
-                msg.add(taskToSnooze.getTaskDescription() + "until " + newDateStr);
+                Ui.snoozedTaskPrinter(newTask);
             } else if (type == 'E') {
                 Task newTask = new Event(taskToSnooze.getTaskDescription(), date);
                 tasks.replaceTask(taskNumInt - 1, newTask);
-                msg.add("Noted. I've snoozed this task:");
-                msg.add(taskToSnooze.getTaskDescription() + "until " + newDateStr);
+                Ui.snoozedTaskPrinter(newTask);
             } else {
-                msg.add("OOPS! An error has occurred.");
+                Ui.errorMsgPrinter();
             }
         } catch (IndexOutOfBoundsException e) {
-            msg.add(taskNumInt + " is not associated to any task number.");
-            msg.add("Use 'list' to check the tasks that are here first!");
-            Ui.printMsg(msg);
+            Ui.printNoTaskAssocError(taskNumInt);
             return;
         }
-        Ui.printMsg(msg);
     }
 }

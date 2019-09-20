@@ -60,6 +60,7 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    private static String line = "\t____________________________________________________________";
     public static void printDateTimeFormatError() {
         ArrayList<String> msg = new ArrayList<String>();
         msg.add("Please use the format 'DD/MM/YYYY HHmm'!");
@@ -108,5 +109,45 @@ public class Ui {
         msg.add("  " + conflictingTask.getTask());
         msg.add("Try looking for another time. :)");
         Ui.printMsg(msg);
+    }
+
+    /**
+     * Prints the snoozed task with new date after successfully snoozing
+     * @param snoozedTask task that was snoozed
+     */
+    public static void snoozedTaskPrinter(Task snoozedTask) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have snoozed this task:");
+        System.out.println("\t" + snoozedTask.getTaskDescription() + "until " + snoozedTask.getDateStr());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints an error message for no date in task
+     */
+    public static void noDateToSnoozePrinter(Task taskToSnooze) {
+        System.out.println(line);
+        System.out.println("\tOOPS! " + taskToSnooze + " do not have a date to snooze!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a default error message
+     */
+    public static void errorMsgPrinter() {
+        System.out.println(line);
+        System.out.println("\tOOPS! An error has occurred.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when taskNum is not associated to a task.
+     * @param taskNum the task number that is not associated with a task.
+     */
+    public static void printNoTaskAssocError(int taskNum) {
+        System.out.println(line);
+        System.out.println("\t" + taskNum + " is not associated to any task number.");
+        System.out.println("\tUse 'list' to check the tasks that are here first!");
+        System.out.println(line);
     }
 }
