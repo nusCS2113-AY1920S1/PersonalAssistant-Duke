@@ -8,6 +8,10 @@ public class ContactList {
      */
     private ArrayList<Contact> contactList;
 
+    public ContactList() {
+        this.contactList = new ArrayList<Contact>();
+    }
+
     /**
      * Constructs a new recordList object.
      *

@@ -14,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Storage {
     /**
@@ -36,8 +35,8 @@ public class Storage {
      *
      * @return The list of task loaded from save file
      */
-    public List<Task> loadFile() {
-        List<Task> taskList = new ArrayList<Task>();
+    public ArrayList<Task> loadFile() {
+        ArrayList<Task> taskList = new ArrayList<Task>();
 
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "r");
@@ -171,7 +170,7 @@ public class Storage {
      * @param taskList The list of task to update
      * @param index    The index of the task in the list to be removed
      */
-    public void removeTask(List<Task> taskList, int index) {
+    public void removeTask(ArrayList<Task> taskList, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             int counter = index;

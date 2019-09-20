@@ -2,6 +2,8 @@ package wallet;
 
 import wallet.contact.Contact;
 import wallet.contact.ContactList;
+import wallet.logic.LogicManager;
+import wallet.model.Wallet;
 import wallet.record.RecordList;
 import wallet.record.ExpenseList;
 import wallet.task.ScheduleList;
@@ -27,11 +29,7 @@ public class Main {
     /**
      * The TaskList object that handles the list of task added by the user.
      */
-    private TaskList taskList;
-    private ScheduleList scheduleList;
-    private ContactList contactList;
-    private RecordList recordList;
-    private ExpenseList expenseList;
+    private LogicManager logicManager;
     /**
      * The Reminder object that handles the reminder of undone tasks.
      */
@@ -45,10 +43,7 @@ public class Main {
     public Main(String path) {
         ui = new Ui();
         storage = new Storage(path);
-        taskList = new TaskList((ArrayList<Task>) storage.loadFile());
-        ArrayList<Contact> alc = new ArrayList<Contact>();
-        contactList = new ContactList(alc);
-        expenseList = new ExpenseList();
+        logicManager = new LogicManager(storage);
     }
 
     public static void main(String[] args) {
@@ -62,9 +57,10 @@ public class Main {
         ui.welcomeMsg();
         boolean isExit = false;
         while (!isExit) {
-            String cmd = ui.readLine();
+            String fullCommand = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
+            isExit = logicManager.execute(fullCommand);
+            //isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();

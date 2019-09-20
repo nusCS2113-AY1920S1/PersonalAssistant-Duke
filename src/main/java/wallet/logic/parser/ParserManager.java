@@ -7,13 +7,15 @@ import wallet.logic.command.ExitCommand;
 import wallet.logic.command.HelpCommand;
 import wallet.logic.command.ListCommand;
 
+import java.text.ParseException;
+
 public class ParserManager {
     /**
      * Parses the user input command and returns the corresponding Command object.
      * @param fullCommand The input of user.
      * @return The corresponding Command object.
      */
-    public Command parseCommand(String fullCommand) {
+    public Command parseCommand(String fullCommand) throws ParseException {
         String[] command = fullCommand.split(" ", 2);
 
         switch (command[0]) {

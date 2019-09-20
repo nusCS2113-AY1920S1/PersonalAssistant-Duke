@@ -14,6 +14,10 @@ public class RecordList {
      */
     private ArrayList<Record> recordList;
 
+    public RecordList() {
+        this.recordList = new ArrayList<Record>();
+    }
+
     /**
      * Constructs a new recordList object.
      *

@@ -170,7 +170,6 @@ public class Command {
                 System.out.println("☹ OOPS!!! Please use input the index of the task to delete");
             }
         } else if (command[0].equals("bye")) {
-
             isExit = true;
         } else if (command[0].equals("tentative")) {
             //B-Tentative Scheduling: Create Tentative Event Entry
