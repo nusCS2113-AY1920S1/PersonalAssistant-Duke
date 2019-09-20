@@ -82,3 +82,55 @@ For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
 {zwsp}
 
 {zwsp}
+
+[[Features]]
+== Features
+This section displays the available features of *WalletCLi* together with examples for you to refer to.
+
+*Category System*
+[TO FILL]
+
+*Reminder System*
+[TO FILL]
+
+*Recurring Expenses System*
+[TO FILL]
+
+*Command Format*
+
+* Words in UPPER_CASE are the parameters to be supplied by the user. For example, in `/r DAILY`, `DAILY` is a parameter which can be used as the recurrence rate.
+* Items in square brackets are optional. For example, in `Add expense <description> <amount> [<date>] <Category> </r for recurring> <recurrence rate>`, `<date>` is a parameter that may be omitted.
+* Parameters can be in any order. For example, [TO FILL]
+
+[TIP]
+You can save time by utilizing the alternate and shortcut commands. [TO FILL: IF WE CAN DO THIS FEATURE]
+
+*Identifiers and Parameters*
+
+Identifiers in *WalletCLi* are designed to be short and easy to memorise.
+Once you are familiarised with them, they should be intuitive to use to add your parameters.
+The table of Identifiers and Parameters and their descriptions (Table 1) below is useful for your reference as you jump right into grasping the system.
+
+.Identifiers and their Parameters and descriptions.
+[width="100%",cols="5%,<10%,<30%,<30%,<25",options="header"]
+|=======================================================================
+|Identifier |Parameter |Description |Format |Example
+
+.4+|`/sortby`
+    |`LEND` |Sorts loans based on the user lending money|Text |`/sortby lend`
+    |`BORROW` |Sorts loans based on the user borrowing money|Text |`/sortby borrow`
+    |`DATE` |Sorts expenses or loans by date specified in expenses or loans|Text |`/sortby date`
+    |`CATEGORY` |Sorts expenses or loans by their specified category|Text |`/sortby category`
+
+|`/r`
+    |`RECURRING` |Frequency of expenses|Text |`/r daily`
+
+.2+|`/d`
+    |`DESCRIPTION` |Description of a Loan|Text |`/d interest rate 10%`
+    |`DETAILS` |Details of contact|Text |`/d friend`
+ 
+|`/p`
+    |`PHONE NUMBER` |Phone number of a contact|Text |`/p 91234567`
+
+|`/a`
+    |`NEW AMOUNT` |Amount of loan|Text |`/a 1000`
