@@ -1,6 +1,8 @@
+package duke;
+
 import java.util.Scanner;
 
-import Task.*;
+import duke.Task.*;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -37,7 +39,7 @@ public class Duke extends Application {
             Scanner sc = new Scanner(System.in);
             if (sc.hasNextLine()) {
                 String input = sc.nextLine();
-                if (input.equals("bye")){
+                if (input.equals("bye")) {
                     ui.goodbye();
                     break;
                 }
@@ -46,9 +48,6 @@ public class Duke extends Application {
         }
     }
 
-    /**
-     * Settting the stage for JavaFX GUI
-     */
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -131,7 +130,7 @@ public class Duke extends Application {
 }
 
 /**
- * A launcher class to run the GUI
+ * A launcher class to workaround classpath issues.
  */
 class Launcher {
     public static void main(String[] args) {

@@ -1,4 +1,6 @@
-import  java.lang.Exception;
+package duke;
+
+import java.lang.Exception;
 
 /**
  * Represents exceptions specific to Duke

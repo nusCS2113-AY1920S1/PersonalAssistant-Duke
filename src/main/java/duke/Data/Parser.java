@@ -1,7 +1,7 @@
-package Data;
+package duke.Data;
 
-import Task.*;
-import Module.Reminder;
+import duke.Task.*;
+import duke.Module.Reminder;
 
 import java.util.ArrayList;
 import java.util.Arrays;

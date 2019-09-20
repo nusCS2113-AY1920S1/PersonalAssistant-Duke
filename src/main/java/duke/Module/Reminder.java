@@ -1,6 +1,5 @@
-package Module;
-import Task.TaskList;
-import Task.item;
+package duke.Module;
+import duke.Task.*;
 
 import java.util.ArrayList;
 import java.util.Date;

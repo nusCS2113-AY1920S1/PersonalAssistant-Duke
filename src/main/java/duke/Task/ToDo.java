@@ -1,4 +1,4 @@
-package Task;
+package duke.Task;
 
 /**
  * Represents the todo task class
