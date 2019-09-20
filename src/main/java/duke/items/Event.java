@@ -48,6 +48,14 @@ public class Event extends Task /*implements Snooze*/ {
     }
 
 
+    public DateTime getEventStartTimeObj() {
+        return eventStartTime;
+    }
+
+    public DateTime getEventEndTimeObj() {
+        return eventEndTime;
+    }
+
     @Override
     public String saveDetailsString() {
         return super.saveDetailsString() + "/" + start + " to " + end;
