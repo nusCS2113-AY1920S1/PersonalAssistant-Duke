@@ -1,7 +1,6 @@
-package Data;
+package duke.Data;
 
-
-import Task.*;
+import duke.Task.*;
 import javafx.concurrent.Task;
 
 import java.io.File;
@@ -16,7 +15,7 @@ import java.util.Scanner;
  * Storage handles all the loading and saving of data from and into the duke.txt file respectively
  */
 public class Storage {
-    private static String path = ".\\src\\main\\java\\Data\\duke.txt";
+    private static String path = ".\\src\\main\\java\\duke\\Data\\duke.txt";
     private static Scanner fileInput;
     private static ArrayList<item> oldList = new ArrayList<>();
     private static File f = new File(path);

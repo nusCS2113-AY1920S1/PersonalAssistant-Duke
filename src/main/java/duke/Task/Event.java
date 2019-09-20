@@ -1,4 +1,4 @@
-package Task;
+package duke.Task;
 
 import javafx.concurrent.Task;
 

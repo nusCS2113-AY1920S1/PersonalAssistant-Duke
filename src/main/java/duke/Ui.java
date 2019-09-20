@@ -1,8 +1,10 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import Data.Parser;
-import Task.TaskList;
-import Task.item;
+import duke.Data.Parser;
+import duke.Task.TaskList;
+import duke.Task.item;
 import java.util.Date;
 
 public class Ui {

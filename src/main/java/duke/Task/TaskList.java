@@ -1,6 +1,6 @@
-package Task;
+package duke.Task;
 
-import Data.*;
+import duke.Data.*;
 import javafx.concurrent.Task;
 
 import java.text.DateFormat;
@@ -40,7 +40,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:\n " +
                 list.get(list.size() - 1).toString()+"\n" +
                 "Now you have " + (list.size()) + " tasks in the list.");
-        Data.Storage.saveFile(type, i, i.getDate());
+        Storage.saveFile(type, i, i.getDate());
     }
 
     /**
