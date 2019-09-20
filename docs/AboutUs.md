@@ -7,38 +7,36 @@ Eggventory is developed by the dream team
 # Project Team
 
 ## Raghav
-images[width="150", align="left"]
 
 
-Role: Project Advisor
+Role: Project Advisor  
+Responsibilities: 
 
 ---
 
-## Rebevva
+## Rebecca
 
-Role: Team Lead +
+Role: Team Lead  
 Responsibilities: UI
 
 ---
 
 ## Yanbo
 
-Role: Developer +
+Role: Developer  
 Responsibilities: Data
 
 ---
 
 ## Rishab
 
-Role: Developer +
+Role: Developer  
 Responsibilities: Dev Ops + Threading
-
-'''
 
 ## Benjamin
 
 
-Role: Developer +
+Role: Developer  
 Responsibilities: UI
 
 ---
