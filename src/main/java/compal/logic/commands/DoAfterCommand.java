@@ -33,6 +33,9 @@ public class DoAfterCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             taskList.addTask(new DoAfterTasks(description, date));
+            int arrSize = taskList.arrlist.size()-1;
+            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
+            duke.ui.printg("[DAT][" + statusIcon + "] " + description);
         } else {
             throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
         }
