@@ -172,13 +172,13 @@ public class TaskList {
      * Gets a filtered list of tasks based on a predicate.
      * @return String containing the filtered list of tasks, separated by a newline.
      */
-    public String filteredlist(Predicate<Object> pred, int filtercode) {
-        String fltredTasks = "";
+    public String filteredList(Predicate<Object> pred, int filterCode) {
+        String filteredTasks = "";
         int j = 1;
         for (int i = 0; i < taskArrayList.size(); ++i) {
             if (taskArrayList.get(i) == null) {
             	continue;
-            } else if (filtercode == DATE) { 
+            } else if (filterCode == DATE) {
                 if (taskArrayList.get(i) instanceof Event || taskArrayList.get(i) instanceof Deadline) {
                 	if (!pred.check(taskArrayList.get(i).getDateObj())) {
                 		continue;
@@ -186,14 +186,14 @@ public class TaskList {
                 } else {
                 	continue;
                 }
-            } else if (filtercode == TYPE) { 
+            } else if (filterCode == TYPE) {
                 if (!pred.check(taskArrayList.get(i).getType())) {
                 	continue;
                 }
             } 
-            fltredTasks += j + ". " + this.getTask(i).toString() + "\n";
+            filteredTasks += j + ". " + this.getTask(i).toString() + "\n";
             j++;
         }
-        return fltredTasks;
+        return filteredTasks;
     }
 }
