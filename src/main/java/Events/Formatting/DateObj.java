@@ -145,6 +145,10 @@ public class DateObj {
     	return 2;
     }
     
+    /**
+     * Adds n days to the javaDate object.
+     * @param n numbers of days to add
+     */
     public void addDays(int n) {
     	if (javaDate != null) {
     		Calendar c = Calendar.getInstance();
@@ -154,6 +158,9 @@ public class DateObj {
     	}
     }
     
+    /**
+     * Set the time to 0000 hours on the same day.
+     */
     public void setMidnight() {
     	if (javaDate != null) {
     		Calendar c = Calendar.getInstance();
