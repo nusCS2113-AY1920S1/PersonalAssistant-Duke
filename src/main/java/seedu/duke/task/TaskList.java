@@ -3,10 +3,14 @@ package seedu.duke.task;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
 
 import seedu.duke.ui.Ui;
+
+import static seedu.duke.command.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods
@@ -80,7 +84,9 @@ public class TaskList {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
-                    list.add(new Deadline(taskDescription, taskTime));
+                    LocalDateTime localDateTime = getDateTime(taskTime);
+
+                    list.add(new Deadline(taskDescription,localDateTime));
                     if (Schedule.isValidDate(taskDateOnly)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
                     }

@@ -14,7 +14,7 @@ public class Deadline extends Task {
     /**
      * String that denotes when the deadline is due.
      */
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * String that denotes variable by converted
@@ -30,7 +30,7 @@ public class Deadline extends Task {
     /**
      * Initializes description and by.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
         this.translate_date();
