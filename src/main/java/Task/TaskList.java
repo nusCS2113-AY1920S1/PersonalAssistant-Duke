@@ -164,7 +164,6 @@ public class TaskList {
             return null;
         } catch (ParseException pe) {
             System.out.println("Please enter a valid date format");
-            return null;
         }
     }
 
@@ -185,9 +184,8 @@ public class TaskList {
      * @param date the date to be converted
      * @return String of new dat format
      */
-    public static String dateToStringFormat(Date date) {
-
-        String hour = new SimpleDateFormat("h").format(date);
+    public static String dateToStringFormat (Date date) {
+        String hour =  new SimpleDateFormat("h").format(date);
         String min = new SimpleDateFormat("mm").format(date);
         String marker = new SimpleDateFormat("a").format(date);
         String day = new SimpleDateFormat("d").format(date);
