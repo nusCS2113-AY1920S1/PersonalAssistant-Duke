@@ -13,6 +13,7 @@ public class ListCommand extends Command implements CommandParser {
         super(d);
         this.taskList = d.tasklist;
     }
+
     /**
      * Handles the list command which lists the tasks currently in COMPal.Duke's tracking
      * It will display the task symbol (T,E,D), the status (done or not done) and the description string

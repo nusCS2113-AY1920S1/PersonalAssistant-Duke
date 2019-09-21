@@ -32,8 +32,8 @@ public class EventCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
-            taskList.addTask(new Event(description, date,time));
-            int arrSize = taskList.arrlist.size()-1;
+            taskList.addTask(new Event(description, date, time));
+            int arrSize = taskList.arrlist.size() - 1;
             String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
             duke.ui.printg("[E][" + statusIcon + "] " + description);
         } else {

@@ -41,6 +41,7 @@ public class StorageFile implements Storage {
     /**
      * Loads and returns the user's name as a String.
      * TODO: logic error(Unknown user, return logic)
+     *
      * @return String username
      */
     @Override

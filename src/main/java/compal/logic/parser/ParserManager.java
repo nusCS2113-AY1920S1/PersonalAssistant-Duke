@@ -7,7 +7,7 @@ import compal.tasks.TaskList;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class ParserManager{
+public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
 
     static final String CMD_EXIT = "bye";
@@ -44,9 +44,6 @@ public class ParserManager{
     //----------------------->
 
 
-
-
-
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
@@ -63,7 +60,6 @@ public class ParserManager{
 
 
     //----------------------->
-
 
 
     //***COMMAND PROCESSING***------------------------------------------------------------------------------------------
@@ -137,14 +133,12 @@ public class ParserManager{
             viewCommand.Command(userInput);
             break;
         default:
-            throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            //throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
 
     //----------------------->
-
-
 
 
     //***CONTROL PARSING LOGIC***---------------------------------------------------------------------------------------

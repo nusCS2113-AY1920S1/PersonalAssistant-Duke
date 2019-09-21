@@ -23,7 +23,7 @@ public class DeleteCommand extends Command implements CommandParser {
         String delete = scanner.next();
         String restOfInput = scanner.nextLine();
 
-        int toRemove = Integer.parseInt(restOfInput.trim())-1;
+        int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
         String removeDesc = taskList.arrlist.get(toRemove).toString();
         taskList.arrlist.remove(toRemove);
 

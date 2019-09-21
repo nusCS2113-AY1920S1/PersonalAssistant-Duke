@@ -14,7 +14,7 @@ public class RecurringTask extends Task {
      * Store the recurring task.
      *
      * @param description Description of the task to be stored.
-     * @param date Date of the event.
+     * @param date        Date of the event.
      */
     public RecurringTask(String description, String date) {
         super(description);

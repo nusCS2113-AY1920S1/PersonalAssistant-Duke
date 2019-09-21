@@ -4,6 +4,6 @@ import compal.main.Duke;
 
 import java.text.ParseException;
 
-public interface CommandParser  {
-    public void Command(String userIn) throws Duke.DukeException, ParseException;
+public interface CommandParser {
+    void Command(String userIn) throws Duke.DukeException, ParseException;
 }

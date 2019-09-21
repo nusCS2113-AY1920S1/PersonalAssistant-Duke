@@ -20,7 +20,7 @@ public class FindCommand extends Command implements CommandParser {
     }
 
     @Override
-    public void Command(String userIn) throws Duke.DukeException, ParseException{
+    public void Command(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         String searchTerm = scanner.next();
@@ -29,14 +29,14 @@ public class FindCommand extends Command implements CommandParser {
             duke.ui.printg("No task to find.");
         }
         Boolean isEmpty = true;
-        for (Task task : taskList.arrlist){
+        for (Task task : taskList.arrlist) {
             if (task.getDescription().contains(searchTerm)) {
                 duke.ui.printg(task.getDescription());
                 isEmpty = false;
             }
         }
 
-        if(isEmpty){
+        if (isEmpty) {
             duke.ui.printg("Cannot find  " + searchTerm);
         }
     }

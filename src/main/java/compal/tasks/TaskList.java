@@ -46,7 +46,23 @@ public class TaskList {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
+    public static String dateParse(String when) {
+        //parse date
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date date = null;
+        try {
+            date = format.parse(when);
+        } catch (ParseException e) {
+            return "false";
+        }
+        format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
+        when = format.format(date);
+        return when;
+    }
 
+    //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
@@ -62,27 +78,6 @@ public class TaskList {
         duke.ui.showSize();
         return arrlist.size();
     }
-
-    //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
-
-    public static String dateParse(String when) {
-        //parse date
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date date = null;
-        try {
-            date = format.parse(when);
-        } catch (ParseException e) {
-            return "false";
-        }
-        format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
-        when = format.format(date);
-        return when;
-    }
-
-
 
     /**
      * Displays reminders for tasks due in the next week when app starts up.
@@ -150,40 +145,37 @@ public class TaskList {
     }
 
 
-
-
     /**
      * Saves the current bitset to file. For assignment of task IDs.
 
-    public void writeIdBitSet() {
+     public void writeIdBitSet() {
 
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
-            oos.writeObject(idBitSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+     try {
+     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
+     oos.writeObject(idBitSet);
+     } catch (IOException e) {
+     e.printStackTrace();
+     }
 
-    }
+     }
 
 
-    /**
+     /**
      * Loads the current bitset saved on file and returns it.
      *
      * @return BitSet
 
     public BitSet getIdBitSet() {
-        BitSet b = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
-            b = (BitSet) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return b;
+    BitSet b = null;
+    try {
+    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
+    b = (BitSet) ois.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+    e.printStackTrace();
+    }
+    return b;
     }
      */
-
 
 
     /**
@@ -211,14 +203,7 @@ public class TaskList {
     }
 
 
-
     //----------------------->
-
-
-
-
-
-
 
 
 }

@@ -12,15 +12,16 @@ import java.util.Scanner;
 import java.util.GregorianCalendar;
 
 public abstract class Command {
-    public String cmdString;
-    public Duke duke;
+    public static final String ERROR_DATE_STRING = "27/07/1987";
+    public static final String ERROR_TIME_STRING = "TIME";
     public final String TOKEN_SLASH = "/";
     public final char sadFace = '\u2639';
     public final String TIME_TOKEN = "/time";
     public final String DATE_TOKEN = "/date";
-    public static final String ERROR_DATE_STRING = "27/07/1987";
-    public static final String ERROR_TIME_STRING = "TIME";
-    public Command(Duke d){
+    public String cmdString;
+    public Duke duke;
+
+    public Command(Duke d) {
         this.duke = d;
     }
 

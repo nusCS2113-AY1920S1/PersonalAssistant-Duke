@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             taskList.addTask(new Deadline(description, date));
-            int arrSize = taskList.arrlist.size()-1;
+            int arrSize = taskList.arrlist.size() - 1;
             String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
             duke.ui.printg("[D][" + statusIcon + "] " + description);
         } else {

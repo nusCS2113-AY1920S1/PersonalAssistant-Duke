@@ -23,10 +23,10 @@ public class DoneCommand extends Command implements CommandParser {
         String delete = scanner.next();
         String restOfInput = scanner.nextLine();
 
-        int toMark = Integer.parseInt(restOfInput.trim())-1;
+        int toMark = Integer.parseInt(restOfInput.trim()) - 1;
         taskList.arrlist.get(toMark).markAsDone();
         String desc = taskList.arrlist.get(toMark).toString();
-        duke.ui.printg("Nice! I've marked this task as done: \n" +desc);
+        duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
         //duke.tasklist.taskDone(userIn);
     }
 }

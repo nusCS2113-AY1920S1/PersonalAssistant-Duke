@@ -10,7 +10,7 @@ public class FixedDurationTask extends Task {
      * @param description Description of the event to be stored
      * @param date        of the event to be stored
      * @param hour        the duration hour
-     * @param minute       the duration minute
+     * @param minute      the duration minute
      */
     public FixedDurationTask(String description, String date, String time, int hour, int minute) {
         super(description);

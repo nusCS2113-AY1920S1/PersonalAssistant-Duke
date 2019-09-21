@@ -29,7 +29,7 @@ public class ToDoCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String description = scanner.nextLine();
             taskList.addTask(new Todo(description.trim()));
-            int arrSize = taskList.arrlist.size()-1;
+            int arrSize = taskList.arrlist.size() - 1;
             String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
             duke.ui.printg("[T][" + statusIcon + "] " + description);
         } else {

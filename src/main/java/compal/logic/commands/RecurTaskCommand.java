@@ -23,35 +23,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
-     *
-     * @param userIn Entire String input by the user.
-     */
-    @Override
-    public void Command(String userIn) throws Duke.DukeException {
-        Scanner scanner = new Scanner(userIn);
-        String recurtask = scanner.next();
-        if (scanner.hasNext()) {
-            String restOfInput = scanner.nextLine();
-            String description = getDescription(restOfInput);
-            String startDateString = getDate(restOfInput);
-            int rep = getRep(restOfInput);
-            String dateStr = startDateString;
-            for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, dateStr);
-                taskList.addTask(newRecurTask);
-                int arrSize = taskList.arrlist.size()-1;
-                String desc = taskList.arrlist.get(arrSize).toString();
-                duke.ui.printg(desc);
-                dateStr = incrementDateByWeek(dateStr);
-            }
-
-        } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + recurtask + " cannot be empty.");
-        }
-    }
-
-    /**
      * This function returns the number of repetitions of the recurring task in an integer form.
      *
      * @param restOfUserInput description string
@@ -86,5 +57,34 @@ public class RecurTaskCommand extends Command implements CommandParser {
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 7);
         return format.format(calendar.getTime());
+    }
+
+    /**
+     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     *
+     * @param userIn Entire String input by the user.
+     */
+    @Override
+    public void Command(String userIn) throws Duke.DukeException {
+        Scanner scanner = new Scanner(userIn);
+        String recurtask = scanner.next();
+        if (scanner.hasNext()) {
+            String restOfInput = scanner.nextLine();
+            String description = getDescription(restOfInput);
+            String startDateString = getDate(restOfInput);
+            int rep = getRep(restOfInput);
+            String dateStr = startDateString;
+            for (int count = 0; count < rep; count++) {
+                RecurringTask newRecurTask = new RecurringTask(description, dateStr);
+                taskList.addTask(newRecurTask);
+                int arrSize = taskList.arrlist.size() - 1;
+                String desc = taskList.arrlist.get(arrSize).toString();
+                duke.ui.printg(desc);
+                dateStr = incrementDateByWeek(dateStr);
+            }
+
+        } else {
+            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + recurtask + " cannot be empty.");
+        }
     }
 }

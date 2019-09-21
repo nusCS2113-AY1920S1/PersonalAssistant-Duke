@@ -38,8 +38,8 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String time = getTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, date,time, hour, minute));
-            int arrSize = taskList.arrlist.size()-1;
+            taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
+            int arrSize = taskList.arrlist.size() - 1;
             String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
             duke.ui.printg("[FDT][" + statusIcon + "] " + description);
         } else {

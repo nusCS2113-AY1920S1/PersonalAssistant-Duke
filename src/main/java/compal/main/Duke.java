@@ -33,7 +33,6 @@ public class Duke {
      * Constructor.
      * Initializes the supporting objects.
      * Starts off the parser CLI parsing loop.
-     *
      */
     public Duke() {
         System.out.println("Duke:LOG: In Duke Constructor");
@@ -55,12 +54,10 @@ public class Duke {
         ui = new Ui(this, tasklist.arrlist);
 
         //start parsing commands
-        parser = new ParserManager(this,tasklist);
+        parser = new ParserManager(this, tasklist);
     }
 
     //----------------------->
-
-
 
 
     //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
@@ -79,9 +76,6 @@ public class Duke {
 
 
     //----------------------->
-
-
-
 
 
     /**
@@ -104,8 +98,6 @@ public class Duke {
             return description;
         }
     }
-
-
 
 
 }
