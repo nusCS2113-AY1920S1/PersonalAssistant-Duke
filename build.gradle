@@ -22,15 +22,15 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion = "mid-v1.1"
+    archiveBaseName = "OwlMoney"
+    archiveVersion = "-v1.1"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 application {
     // Change this to your main class.
-    mainClassName = "duke.Main"
+    mainClassName = "owlmoney.Main"
 }
 
 run {
