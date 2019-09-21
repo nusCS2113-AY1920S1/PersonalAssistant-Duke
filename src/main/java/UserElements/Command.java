@@ -155,16 +155,13 @@ public class Command {
                 }
                 if (continuation.contains("/every")) {
                     try {
-                        int datePos = continuation.indexOf("/at"); //to find index of position and date
-                        int periodPos = continuation.indexOf("/every"); //to find index of position and period
-                        String description = continuation.substring(0, datePos);
-                        String date = continuation.substring(datePos + 4, periodPos);
-                        int period = Integer.parseInt(continuation.substring(periodPos + 7));
-                        boolean succeeded = tasks.addRecurringEvent(new Event(description, date), period);
+                        EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke();
+                        Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
+                        boolean succeeded = tasks.addRecurringEvent(newEvent, entryForRecEvent.getPeriod());
                         if (succeeded) {
-                            ui.recurringTaskAdded(new Event(description, date), tasks.getNumTasks(), period);
+                            ui.recurringTaskAdded(newEvent, tasks.getNumTasks(), entryForRecEvent.getPeriod());
                         } else {
-                            ui.scheduleClash(new Event(description, date));
+                            ui.scheduleClash(newEvent);
                         }
                         break;
                     } catch (StringIndexOutOfBoundsException outOfBoundsE) {
@@ -173,17 +170,16 @@ public class Command {
                     }
                 }
                 try {
-                    int slashPos = continuation.indexOf("/at"); //to find index of position and date
-                    String date = continuation.substring(slashPos + 4);
-                    String description = continuation.substring(0, slashPos);
-                    boolean succeeded = tasks.addTask(new Event(description, date));
+                    EntryForEvent entryForEvent = new EntryForEvent().invoke();
+                    Event newEvent = new Event(entryForEvent.getDescription(), entryForEvent.getDate());
+                    boolean succeeded = tasks.addTask(newEvent);
                     if (succeeded) {
-                        ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                        ui.taskAdded(newEvent, tasks.getNumTasks()); //normal flow of events
                     } else {
-                        ui.scheduleClash(new Event(description, date));
+                        ui.scheduleClash(newEvent); //if not succeeded, there is a schedule clash. Print error msg.
                     }
                     break;
-                } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                } catch (StringIndexOutOfBoundsException outOfBoundsE) { //if parsing fails, print error msg (wrong format)
                     ui.eventFormatWrong();
                     break;
                 }
@@ -235,6 +231,65 @@ public class Command {
         }
         if (changesMade) {
             storage.saveToFile(tasks, ui);
+        }
+    }
+
+    /**
+     * Contains all info concerning a new entry for a recurring event.
+     */
+    private class EntryForRecEvent {
+        private String description;
+        private String date;
+        private int period;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public int getPeriod() {
+            return period;
+        }
+
+        /**
+         * contains all info regarding an entry for a non-recurring event
+         * @return
+         */
+        public EntryForRecEvent invoke() {
+            int NO_PERIOD = -1;
+            int datePos = continuation.indexOf("/at"); //to find index of position and date
+            int periodPos = continuation.indexOf("/every"); //to find index of position and period
+            description = continuation.substring(0, datePos);
+            date = continuation.substring(datePos + 4, periodPos);
+            if (!continuation.substring(periodPos + 7).isEmpty()) {
+                period = Integer.parseInt(continuation.substring(periodPos + 7));
+            } else {
+                period = NO_PERIOD;
+            }
+            return this;
+        }
+    }
+
+    private class EntryForEvent {
+        private String date;
+        private String description;
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public EntryForEvent invoke() {
+            int slashPos = continuation.indexOf("/at"); //to find index of position and date
+            date = continuation.substring(slashPos + 4);
+            description = continuation.substring(0, slashPos);
+            return this;
         }
     }
 }
