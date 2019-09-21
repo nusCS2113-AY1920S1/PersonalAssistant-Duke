@@ -41,7 +41,7 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             fileAssigned = true;
-            System.out.println("Model_Class.Task list loaded!");
+            System.out.println("Task list loaded!");
         } catch (FileNotFoundException FNFe) {
 
             System.out.println("No Duke file found!\nCreating new file...");
@@ -86,7 +86,7 @@ public class Storage {
             writer.write(toWriteToFile);
             writer.close();
         } catch (IOException IOe) {
-
+            ui.errorWritingToFile();
         }
     }
 }
