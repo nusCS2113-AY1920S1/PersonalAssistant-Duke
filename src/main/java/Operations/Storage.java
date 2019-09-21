@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.Savetype;
 import Model_Classes.*;
 
 import java.io.*;
@@ -41,15 +42,16 @@ public class Storage {
             parser = new Parser();
             for (String list : tempList) {
                 String[] temp = list.split("#", 4);
-                switch (temp[0]) {
-                    case "T":
+                Savetype type = Savetype.valueOf(temp[0]);
+                switch (type) {
+                    case T :
                         ToDo tempToDo = new ToDo(temp[2]);
                         if (temp[1].equals("y")) {
                             tempToDo.setDone();
                         }
                         taskArrayList.add(tempToDo);
                         break;
-                    case "E":
+                    case E :
                         Date by = parser.formatDate(temp[3]);
                         Event tempEvent = new Event(temp[2], by);
                         if (temp[1].equals("y")) {
@@ -57,7 +59,7 @@ public class Storage {
                         }
                         taskArrayList.add(tempEvent);
                         break;
-                    case "D":
+                    case D :
                         Date deadlineBy = parser.formatDate(temp[3]);
                         Deadline tempDeadline = new Deadline(temp[2], deadlineBy);
                         if (temp[1].equals("y")) {
