@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.GUI.DialogBox;
 import duke.Task.*;
 
 import javafx.application.Application;
@@ -137,8 +138,8 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new duke.GUI.DialogBox(userText, new ImageView(user)),
-                new duke.GUI.DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
