@@ -7,6 +7,9 @@ import java.util.Scanner;
  * Takes inputs and contains methods that output error messages.
  */
 public class Ui {
+
+    public static final String LINE = "\t_____________________________________";
+
     /**
      * The scanner object that is used to take input from console.
      */
