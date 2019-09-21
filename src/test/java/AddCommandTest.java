@@ -20,7 +20,7 @@ public class AddCommandTest {
         ArrayList<Task> test = new ArrayList<>();
         test.add(task1);
         TaskList testisClash = new TaskList(test);
-        Assertions.assertEquals(testisClash.isClash(task2,"deadline"), true);
+        Assertions.assertEquals(testisClash.isClash(task2), true);
     }
 }
 

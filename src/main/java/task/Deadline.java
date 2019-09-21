@@ -30,5 +30,13 @@ public class Deadline extends Task implements Serializable{
                 + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
+    @Override
+    public boolean checkForClash(Task taskToCheck) {
+        if (taskToCheck.endDate.isEqual(nullDate)) {
+            return (this.startDate.isEqual(taskToCheck.startDate));
+        } else {
+            return (taskToCheck.startDate.isBefore(this.startDate) && taskToCheck.endDate.isAfter(this.startDate));
+        }
+    }
 }
 

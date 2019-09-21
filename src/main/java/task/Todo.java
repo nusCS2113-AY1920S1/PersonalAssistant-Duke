@@ -43,4 +43,9 @@ public class Todo extends Task implements Serializable {
     public boolean checkReminderTrigger(){
         return LocalDateTime.now().isAfter(createdDate.plusDays(remindInHowManyDays));
     }
+
+    @Override
+    boolean checkForClash(Task taskToCheck) {
+        return false;
+    }
 }

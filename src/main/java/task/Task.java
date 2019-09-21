@@ -10,7 +10,7 @@ import java.time.Period;
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Task implements Serializable{
+public abstract class Task implements Serializable{
 
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
@@ -70,4 +70,5 @@ public class Task implements Serializable{
         return false;
     }
 
+    abstract boolean checkForClash(Task taskToCheck);
 }

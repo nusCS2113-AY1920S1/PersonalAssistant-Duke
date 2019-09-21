@@ -41,4 +41,15 @@ public class Event extends Task implements Serializable, Comparable<Event>{
                 this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
+    @Override
+    boolean checkForClash(Task taskToCheck) {
+        if (taskToCheck.endDate.isEqual(nullDate)) {
+            return (this.startDate.isBefore(taskToCheck.startDate) && this.endDate.isAfter(taskToCheck.startDate));
+        }
+        else {
+            return this.startDate.isBefore(taskToCheck.endDate) && this.endDate.isAfter(taskToCheck.startDate);
+        }
+    }
+
+
 }
