@@ -8,10 +8,16 @@ import java.time.LocalDateTime;
  */
 public class ToDo extends Task {
     /**
+     * LocalDateTime to store the todo's date and time.
+     */
+    protected LocalDateTime localDateTime;
+
+    /**
      * Initializes description.
      */
     public ToDo(String description) {
         super(description);
+        this.localDateTime = null;
     }
 
     /**
@@ -34,33 +40,13 @@ public class ToDo extends Task {
         return "T|" + super.toSaveFormat();
     }
 
-    /**
-     * Overrides the getDateTime method in Task to obtain the todo's date and time.
-     *
-     * @return date and time of todo of type LocalDateTime.
-     */
     @Override
     public LocalDateTime getDateTime() {
-        return null; //currently empty as todo currently does not have date and time to it
+        return this.localDateTime;
     }
 
-    /**
-     * Overrides the setDateTime method in Task to set the todo's date and time.
-     *
-     * @param dateTime the date and time of the todo of type LocalDateTime.
-     */
     @Override
-    public void setDateTime(LocalDateTime dateTime) {
-        //currently empty as todo currently does not have date and time to it
-    }
-
-    /**
-     * Overrides the setDateTime method in Task to set the todo's date and time.
-     *
-     * @param dateTime string of the date and time of the todo.
-     */
-    @Override
-    public void setDateTime(String dateTime) {
-        //currently empty as todo currently does not have date and time to it
+    public void setDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 }

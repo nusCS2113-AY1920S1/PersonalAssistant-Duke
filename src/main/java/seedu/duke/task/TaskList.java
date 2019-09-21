@@ -3,10 +3,15 @@ package seedu.duke.task;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+
+import seedu.duke.command.DateTimeParser;
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
 
 import seedu.duke.ui.Ui;
+
+import static seedu.duke.command.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods
@@ -80,7 +85,9 @@ public class TaskList {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
-                    list.add(new Deadline(taskDescription, taskTime));
+                    LocalDateTime localDateTime = getDateTime(taskTime);
+
+                    list.add(new Deadline(taskDescription,localDateTime));
                     if (Schedule.isValidDate(taskDateOnly)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
                     }
@@ -93,11 +100,15 @@ public class TaskList {
             } else if (taskType.equals("doafter")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String after = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    String indexString = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    int indexInt = Integer.parseInt(indexString) - 1;
+                    String after = list.get(indexInt).description;
                     boolean taskFound = false;
+
                     for (Task j: list) {
                         if (j.description.equals(after)) {
-                            list.add(new DoAfter(taskDescription, after));
+                            LocalDateTime localDateTime = getDateTime(after);
+                            list.add(new DoAfter(taskDescription, localDateTime));
                             taskFound = true;
                             break;
                         }
@@ -120,7 +131,8 @@ public class TaskList {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
-                    list.add(new Event(taskDescription, taskTime));
+                    LocalDateTime localDateTime = getDateTime(taskTime);
+                    list.add(new Event(taskDescription, localDateTime));
                     if (Schedule.isValidDate(taskDateOnly)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
                     }
@@ -134,7 +146,10 @@ public class TaskList {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    list.add(new RangedTask(taskDescription, taskTime));
+                    String[] dateTime = taskTime.split(" and ");
+                    LocalDateTime from = getDateTime(dateTime[0]);
+                    LocalDateTime by = getDateTime(dateTime[1]);
+                    list.add(new RangedTask(taskDescription, from, by));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
@@ -222,7 +237,8 @@ public class TaskList {
             boolean failSnooze = false;
 
             if (userInput[0].contains("/")) {
-                list.get(i).setDateTime(rawInput);
+                LocalDateTime localDateTime = getDateTime(rawInput);
+                list.get(i).setDateTime(localDateTime);
             } else {
                 int num = Integer.parseInt(userInput[0]);
                 LocalDateTime ldt = list.get(i).getDateTime();
