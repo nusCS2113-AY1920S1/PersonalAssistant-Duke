@@ -15,7 +15,7 @@ Role: Project Coder
 '''
 
 === Rui Huan
-image::e0318465.png.jpg[width="150", align="left"]
+image::e0318465.PNG[width="150", align="left"]
 {empty}[https://github.com/e0318465[github]] [https://github.com/e0318465[portfolio]]
 
 Role: Project Coder 
@@ -23,7 +23,8 @@ Role: Project Coder
 '''
 
 === Yu Xuan
-
+image::maxxyx96.PNG[width="150", align="left"]
+{empty}[https://github.com/maxxyx96[github]] [https://github.com/maxxyx96[portfolio]]
 Role: Project Coder
 
 '''
