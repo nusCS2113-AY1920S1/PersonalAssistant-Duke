@@ -15,7 +15,8 @@ Role: Project Coder
 '''
 
 === Rui Huan
-
+image::RuiHuan.jpg[width="150", align="left"]
+{empty}[https://github.com/e0318465[github]] [https://github.com/e0318465[portfolio]]
 Role: Project Coder 
 
 '''
