@@ -1,4 +1,4 @@
-import Task.ToDo;
+import duke.Task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +16,7 @@ public class ToDoTest {
     @Test
     public void dummyTest(){
 
-        ToDo todo = new ToDo("return library books",false);
+        ToDo todo = new ToDo("return library books",false, "2/12/2019 1800");
         assertEquals("return library books", todo.getInfo());
     }
 }

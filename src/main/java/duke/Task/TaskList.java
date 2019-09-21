@@ -1,8 +1,9 @@
-package Task;
+package duke.Task;
 
-import Data.Storage;
+import duke.Data.*;
+import javafx.concurrent.Task;
 
-
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,10 +20,11 @@ public class TaskList {
     /**
      * This method loads all the ArrayList items from the previous load file into the current ArrayList.
      */
-    public static void addAllList() {
+    public static void addAllList () {
         try {
             list.addAll(Objects.requireNonNull(Storage.loadFile()));
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e) {
             System.out.println("No previous list loaded");
         }
     }
@@ -30,15 +32,15 @@ public class TaskList {
     /**
      * This method adds tasks to the list of tasks in duke
      *
-     * @param i    This is the first parameter, it takes the newly created Deadline/ToDo/Event
+     * @param i This is the first parameter, it takes the newly created Deadline/ToDo/Event
      * @param type This is the second parameter, defines the type of task that has been created
      */
     public static void addTask(item i, String type) {
         list.add(i);
         System.out.println("Got it. I've added this task:\n " +
-            list.get(list.size() - 1).toString() + "\n" +
-            "Now you have " + (list.size()) + " tasks in the list.");
-        Data.Storage.saveFile(type, i, i.getDate());
+                list.get(list.size() - 1).toString()+"\n" +
+                "Now you have " + (list.size()) + " tasks in the list.");
+        Storage.saveFile(type, i, i.getDate());
     }
 
     /**
@@ -46,8 +48,8 @@ public class TaskList {
      */
     public static void getList() {
         int count = 1;
-        for (item i : list) {
-            System.out.println(count++ + "." + i.toString());
+        for (item i: list) {
+            System.out.println(count++ +"."+ i.toString());
         }
     }
 
@@ -56,10 +58,10 @@ public class TaskList {
      *
      * @param index This is the index location of the task to be changed in the ArrayList
      */
-    public static void doneTask(int index) {
+    public static void doneTask (int index) {
         list.get(index).changeStatus();
         System.out.println("Nice! I've marked this task as done:\n " +
-            list.get(index).toString());
+                list.get(index).toString());
         Storage.updateFile(list);
     }
 
@@ -77,7 +79,8 @@ public class TaskList {
         try {
             list.remove(index);
             Storage.updateFile(list);
-        } catch (IndexOutOfBoundsException e) {
+        }
+        catch (IndexOutOfBoundsException e) {
             System.err.println("Opps! Sorry that item does not exist!");
         }
     }
@@ -87,22 +90,17 @@ public class TaskList {
      *
      * @param word This parameter is the defined key word that must be searched for
      */
-    public static void findTask(String word) {
-        int count = 1;
-
-        if (list.size() == 0) {
-            System.out.println("Sorry, there are no tasks matching your search");
-        }
-
+    public static void findTask (String word) {
+        int cnt = 1;
         for (item i : list) {
             if (i.getInfo().contains(word)) {
-                if (count == 1) {
+                if (cnt == 1)
                     System.out.println("Here are the matching tasks in your list:");
-                }
-                System.out.println(count++ + ". " + i.toString());
+                System.out.println(cnt++ + ". " + i.toString());
             }
         }
-        if (count == 1) {
+
+        if (cnt == 1) {
             System.out.println("Sorry, there are no tasks matching your search");
         }
     }
@@ -133,15 +131,15 @@ public class TaskList {
      * @param num This parameter is the number taken
      * @return String of the input number with the ordinal attached to the end of the number
      */
-    public static String numOrdinal(int num) {
-        String[] suffix = new String[] {"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
+    public static String numOrdinal (int num) {
+        String[] suffix = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
         switch (num) {
-        case 11:
-        case 12:
-        case 13:
-            return num + "th";
-        default:
-            return num + suffix[num % 10];
+            case 11:
+            case 12:
+            case 13:
+                return num + "th";
+            default:
+                return num + suffix[num % 10];
         }
     }
 
@@ -151,28 +149,32 @@ public class TaskList {
      * @param date The date taken in by the function
      * @return The date that has been converted into a string phrase, if in incorrect format return original date
      * @throws StringIndexOutOfBoundsException e
-     * @throws ArrayIndexOutOfBoundsException  e
-     * @throws ParseException                  thrown when date input is in incorrect format
+     * @throws ArrayIndexOutOfBoundsException e
+     * @throws ParseException thrown when date input is in incorrect format
      */
-    public static Date dateConvert(String date) {
+    public static Date dateConvert (String date) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date formatDate = simpleDateFormat.parse(date);
             return formatDate;
-        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+        }
+        catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please enter a valid date format");
+            return null;
+        }
+        catch (ParseException pe) {
             System.out.println("Date error");
             return null;
-        } catch (ParseException pe) {
-            System.out.println("Please enter a valid date format");
         }
     }
 
-    public static String dateRevert(String date) {
+    public static String dateRevert (String date) {
         try {
             Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
             String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
             return oldDateFormat;
-        } catch (ParseException pe) {
+        }
+        catch (ParseException pe) {
             System.err.println("Error: Date in wrong format");
             return date;
         }
@@ -191,7 +193,7 @@ public class TaskList {
         String day = new SimpleDateFormat("d").format(date);
         String monthYear = new SimpleDateFormat("MMMMM yyyy").format(date);
         String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
-            hour + (min.equals("00") ? marker : ("." + min + marker));
+                hour + (min.equals("00") ? marker : ("." + min + marker));
         return newDateFormat;
     }
 
@@ -199,23 +201,23 @@ public class TaskList {
      * Function checks to see which deadlines are between now and the specified end date
      *
      * @param todayDate the present time
-     * @param endDate   the specified end date and time
+     * @param endDate the specified end date and time
+     * @return deadlineList if there are deadlines before end date they are returned as a list
      * @return null if there are no deadlines
      */
-    public static ArrayList<item> getReminderList(Date todayDate, Date endDate) {
+    public static ArrayList<item> getReminderList (Date todayDate, Date endDate) {
         ArrayList<item> deadlineList = new ArrayList<>();
         Boolean isNotEmpty = false;
-        for (item i : list) {
+        for (item i: list) {
             // check if deadline is before today's date,
             if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.status) {
                 deadlineList.add(i);
                 isNotEmpty = true;
             }
         }
-        if (isNotEmpty) {
-
+        if (isNotEmpty)
             return deadlineList;
-        }
+
         return null;
     }
 
