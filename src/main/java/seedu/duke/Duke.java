@@ -1,14 +1,15 @@
 package seedu.duke;
 
 import java.io.IOException;
-import java.text.ParseException;
+import seedu.duke.command.Command;
+/* import java.text.ParseException; */
 import java.util.Scanner;
 import seedu.duke.data.Schedule;
 import seedu.duke.task.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
 import seedu.duke.task.TaskList;
-import seedu.duke.command.Parser;
+import seedu.duke.parser.CommandParser;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -36,7 +37,7 @@ public class Duke {
      * Parser instance that makes sense of user input and
      * performs some operation on list.
      */
-    private static Parser parser = new Parser();
+    private static CommandParser parser = new CommandParser();
 
     /**
      * Runs Duke which commences the user to machine
@@ -66,7 +67,8 @@ public class Duke {
 
         // Taking input and printing till user input is bye
         while (!rawInput.equals("bye")) {
-            list = parser.parse(rawInput, list);
+            Command command = parser.parse(rawInput);
+            command.execute(list);
 
             try {
                 storage.save(list.return_list());
