@@ -2,9 +2,12 @@ package seedu.duke.task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+
+import static seedu.duke.command.DateTimeParser.getDateTime;
 
 /**
  * Display reminders list when the app first start
@@ -20,11 +23,6 @@ public class Reminders {
     private int currentYear = currentDate.get(Calendar.YEAR);
     private int currentMonth = currentDate.get(Calendar.MONTH) + 1;
     private int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
-    private int currentHour = currentDate.get(Calendar.HOUR_OF_DAY);
-    private int currentMin = currentDate.get(Calendar.MINUTE);
-
-    public Reminders() {
-    }
 
     /**
      * Creates a reminder list when it is the last day for the tasks/task to be done base on real actual time.
@@ -46,8 +44,9 @@ public class Reminders {
                     boolean checkDay = day - currentDay == 1;
                     boolean checkMonth = month - currentMonth == 0;
                     boolean checkYear = year - currentYear == 0;
+                    LocalDateTime localDateTime = getDateTime(taskString[3]);
                     if (checkYear && checkMonth && checkDay) {
-                        lastDayList.add(new Deadline(taskString[2], taskString[3]));
+                        lastDayList.add(new Deadline(taskString[2], localDateTime));
                     }
                 } else if (taskString[0].equals("E") && !taskString[1].equals("1")) {
                     String[] dateString = taskString[3].split("/| ");
@@ -58,8 +57,9 @@ public class Reminders {
                     boolean checkDay = day - currentDay == 1;
                     boolean checkMonth = month - currentMonth == 0;
                     boolean checkYear = year - currentYear == 0;
+                    LocalDateTime localDateTime = getDateTime(taskString[3]);
                     if (checkYear && checkMonth && checkDay) {
-                        lastDayList.add(new Event(taskString[2], taskString[3]));
+                        lastDayList.add(new Event(taskString[2], localDateTime));
                     }
                 }
             }
