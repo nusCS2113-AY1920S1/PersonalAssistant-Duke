@@ -40,10 +40,10 @@ public class MainWindow extends AnchorPane {
      * Basically the eyes of the program
      */
     @FXML
-    private void handleUserInput() throws ParseException {
+    private void handleUserInput() throws ParseException, Duke.DukeException {
         String cmd = userInput.getText();
         //send to parser to parse
-        duke.parser.processCommands(cmd);
+        duke.parser.processCMD(cmd);
 
         userInput.clear();
     }

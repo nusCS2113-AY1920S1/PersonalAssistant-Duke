@@ -1,7 +1,6 @@
 package compal.tasks;
 
 import compal.main.Duke;
-import compal.tasks.AllRecurringTask.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,10 +22,6 @@ public class TaskList {
     private Object Date;
 
     //----------------------->
-
-
-
-
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
@@ -43,19 +38,10 @@ public class TaskList {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
         }
         */
-
-
-
     }
 
 
     //----------------------->
-
-
-
-
-
-
 
     //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -67,226 +53,22 @@ public class TaskList {
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
      *
-     * @param cmd to tell the function what command is to be executed
+     * @param task The task to be added to the list of tasks.
      * @UsedIn: parser.processCommands
      */
-    public void addTask(String cmd) throws ParseException {
-        duke.ui.printg("Got it. I've added this task:");
-        Scanner sc1 = new Scanner(cmd);
-        String s = sc1.next(); //get the command string (event/deadline/doafter/todo/recurtask)
-        String cs = sc1.nextLine(); //get the description string (what follows after the command string)
-        String token;
-        String description;
-        Date date;
-        char notDone = '\u2718';
-
-        switch (s) {
-        case "todo":
-            arrlist.add(new Todo(cs.trim()));
-            duke.ui.printg("[T][ " + notDone + "] " + cs);
-            break;
-        case "event":
-            token = "/at";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new Event(description, date));
-            duke.ui.printg("[E][ " + notDone + "] " + description);
-            break;
-        case "deadline":
-            token = "/by";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new Deadline(description, date));
-            duke.ui.printg("[D][ " + notDone + "] " + description);
-            break;
-        case "doaftertask":
-            token = "/after";
-            description = getDescription(cs, token);
-            date = getDate(cs, token);
-            arrlist.add(new DoAfterTasks(description,date));
-            duke.ui.printg("[DAT][ " + notDone + "] " + description);
-            break;
-        case "fixeddurationtask":
-            token = "/on";
-            description = getDescription(cs.substring(0, cs.indexOf("/for")), token);
-            date = getDate(cs.substring(0, cs.indexOf("/for")), token);
-            int hour = 0;
-            int minute = 0;
-            hour = getDuration(cs, 1);
-            minute = getDuration(cs, 2);
-            arrlist.add(new FixedDurationTask(description + "duration: " + hour + " hour(s) " + minute
-                    + " minute(s)",date, hour, minute));
-            duke.ui.printg("[FDT][" + notDone + "] " + description + "for " + hour + " hour(s) " + minute
-                    + " minute(s)");
-            break;
-        case "recurtask":
-            token = "/start";
-            date = getDate(cs, token);
-            RecurTaskHandler handler = new RecurTaskHandler(duke);
-            ArrayList<RecurringTask> recurTaskList = handler.recurTaskPacker(cs, date);
-            for (RecurringTask recurTask : recurTaskList) {
-                arrlist.add(recurTask);
-            }
-            duke.ui.printg("The first iteration of this task is: ");
-            duke.ui.printg(recurTaskList.get(0).toString());
-            break;
-        default:
-            throw new IllegalStateException("Unexpected value: " + s);
-        }
-
-        //at this point, an update is made to the task list, so save to file
-        System.out.println("Done processing adding of task");
+    public int addTask(Task task) {
+        arrlist.add(task);
+        System.out.println("DoneCommand processing adding of task");
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
+        return arrlist.size();
     }
-
-
-
-    //----------------------->
-
-
-
-
-
-
-    //***FUNCTIONS FOR EDITING TASKS***---------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
-
-
-    /**
-     * This function handles the completion of tasks by marking them as done.
-     *
-     * @param cmd Mark the numbered task to be completed.
-     * @Function
-     * @UsedIn: parser.processCommands
-     */
-    public void taskDone(String cmd) {
-        Scanner sc1 = new Scanner(cmd);
-        sc1.next(); //skip over the 'done'
-        duke.ui.printg("Nice! I've marked this task as done:");
-        Task t = arrlist.get(sc1.nextInt() - 1);
-        t.markAsDone();
-
-        duke.ui.printg(t);
-        duke.storage.saveCompal(arrlist);
-    }
-
-
-
-    /**
-     * This function handles the deletion of tasks.
-     *
-     * @param cmd to tell the function which number is to be remove.
-     * @Function
-     * @UsedIn: parser.processCommands
-     */
-    public void deleteTask(String cmd) {
-        Scanner sc1 = new Scanner(cmd);
-        sc1.next(); //skip over the 'delete'
-        duke.ui.printg("Noted. I've removed this task:");
-        Task t = arrlist.remove(sc1.nextInt() - 1);
-        t.markAsDone();
-        duke.ui.printg(t);
-        duke.storage.saveCompal(arrlist);
-        duke.ui.showSize();
-    }
-
-
-    //----------------------->
-
-
-
-
-
 
     //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
 
-
-    /**
-     * This function builds a description from the description string according to the token (/at or /by etc).
-     * Description string is the string before the token.
-     *
-     * @param cs    description string
-     * @param token the separator word of the description
-     * @return description
-     * @UsedIn: : addTask
-     */
-    public String getDescription(String cs, String token) {
-        int splitPoint = cs.indexOf(token);
-        String when = cs.substring(splitPoint + token.length() + 1);
-
-        //call the date parser to parse and return a date string
-        String check = dateParse(when);
-        if (!check.equals("false")) {
-            when = check;
-        }
-
-        token = token.replace("/", "");
-        String what = cs.substring(0, splitPoint).trim();
-        return what + " (" + token + ": " + when + ")";
-    }
-
-
-    /**
-     * This function gets the date and time from the description string according to the token (/at or /by etc).
-     * Date/time string is the string after the token.
-     *
-     * @param cs    description string
-     * @param token the separator word of the description
-     * @return date and time
-     * @Function
-     * @UsedIn: : addTask
-     */
-    public Date getDate(String cs, String token) throws ParseException {
-        int splitPoint = cs.indexOf(token);
-        String when = cs.substring(splitPoint + token.length() + 1);
-
-        //call the date parser to parse and return a date string
-        String check = dateParse(when);
-        if (!check.equals("false")) {
-            when = check;
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy hh:mma");
-        Date date = formatter.parse(when);
-        return date;
-    }
-
-    /**
-     * This function gets the duration hour and minute of the task.
-     * hour or minute is the number in the substring after "/for"
-     *
-     * @param cs    description string
-     * @param i     whether the system is asking for the hour or the minute
-     * @return hour if i = 1
-     *         minute if i = 2
-     * @UsedIn: : addTask
-     */
-    private int getDuration(String cs, int i) {
-        cs = cs.substring(cs.indexOf("/for") + 4);
-        Scanner sc1 = new Scanner(cs);
-        int time = 0; //to represent hour/minute
-        while (i != 0) {
-            i--;
-            time = sc1.nextInt();
-            sc1.next();//ignore the string
-        }
-        return time;
-    }
-
-
-    /**
-     * This function parses the date in the format dd/MM/yyyy HHmm and returns a date in the format
-     * dd MMMM yyyy hh:mma .
-     *
-     * @param when date input to be formatted
-     * @return dateString format the date of input when
-     * @UsedIn: ui.getDescription
-     */
     public static String dateParse(String when) {
         //parse date
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -300,46 +82,6 @@ public class TaskList {
         when = format.format(date);
         return when;
     }
-
-
-
-    //----------------------->
-
-
-
-
-
-
-
-
-    //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
-
-    /**
-     * This function handles the searching of tasks.
-     *
-     * @param cmd used to find the keyword given
-     * @UsedIn: parser.processCommands
-     */
-    public void findTask(String cmd) {
-        Scanner sc1 = new Scanner(cmd);
-        sc1.next(); //skip over the 'find'
-        String pattern = sc1.next();
-        System.out.println("Here are the matching tasks in your list:");
-
-        int count = 1;
-
-        for (Task t : arrlist) {
-            if (t.getDescription().contains(pattern)) {
-                System.out.print(count++ + ".");
-                duke.ui.printg(t);
-            }
-        }
-
-    }
-
 
 
 
@@ -357,12 +99,12 @@ public class TaskList {
         c.add(Calendar.DATE, 7);
         Date dateOneWeekAfter = c.getTime();
         for (Task t : arrlist) {
-            Date deadline = t.getDateTime();
+            Date deadline = t.getDate();
             if ((deadline != null && !t.isDone && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
                 reminder.add(t);
             }
         }
-        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDateTime().compareTo(t2.getDateTime());
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDate().compareTo(t2.getDate());
         Collections.sort(reminder, compareByDateTime);
 
         if (reminder.isEmpty()) {
