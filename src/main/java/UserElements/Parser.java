@@ -1,16 +1,25 @@
 package UserElements;
 
+import java.util.Scanner;
+
 /**
  * Contains method to parse the user input and interpret it for Model_Class.Command class
  */
 public class Parser {
 
+    private Scanner inputScanner = new Scanner(System.in);
     /**
      * Creates new Model_Class.Parser object.
      */
     public Parser() {
     }
 
+    /**
+     *
+     */
+    public String readUserInput(){
+        return inputScanner.nextLine();
+    }
     /**
      * Parses user input to extract command.
      *

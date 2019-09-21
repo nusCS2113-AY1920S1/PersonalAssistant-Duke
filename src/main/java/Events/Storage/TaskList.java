@@ -38,15 +38,15 @@ public class TaskList {
     public TaskList(ArrayList<String> inputList) {
         taskArrayList = new ArrayList<Task>();
         for (String currLine : inputList) {
-            boolean isDone = (currLine.charAt(4) == '\u2713');
-            if (currLine.charAt(1) == 'T') {
-                taskArrayList.add(new ToDo(currLine.substring(7), isDone));
-            } else if (currLine.charAt(1) == 'E') {
+            boolean isDone = (currLine.substring(4,5).equals("✓"));
+            if (currLine.charAt(1) == 'T') { //todo type task
+                taskArrayList.add(new ToDo(currLine.substring(9), isDone));
+            } else if (currLine.charAt(1) == 'E') { //event type task
                 int posOfLine = currLine.indexOf("(at: ");
-                taskArrayList.add(new Event(currLine.substring(7, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
-            } else if (currLine.charAt(1) == 'D') {
+                taskArrayList.add(new Event(currLine.substring(9, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
+            } else if (currLine.charAt(1) == 'D') { //deadline type task
                 int posOfLine = currLine.indexOf("(by: ");
-                taskArrayList.add(new Deadline(currLine.substring(7, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
+                taskArrayList.add(new Deadline(currLine.substring(9, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
             }
         }
     }
