@@ -1,6 +1,7 @@
 package seedu.duke.command;
 
 import seedu.duke.data.Schedule;
+import seedu.duke.task.Reminders;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
 
@@ -63,6 +64,10 @@ public class Parser {
             }
         } else if (userInput[0].equals("list")) {
             list.displayList();
+        } else if (userInput[0].equals("remind")) {
+            Reminders reminders = new Reminders();
+            reminders.oneDay();
+            reminders.displayReminder();
         } else if (userInput[0].equals("done")) {
             if (userInput.length == 1) {
                 ui.empty_description_error();
@@ -79,10 +84,17 @@ public class Parser {
                     schedule.printSchedule(date);
                 }
             }
+        } else if (userInput[0].equals("snooze")) {
+            if (userInput.length == 1) {
+                ui.empty_description_error();
+            } else {
+                int taskId = Integer.parseInt(userInput[1]) - 1;
+                list.snoozeTask(taskId);
+            }
         } else {
             // add task to list
             if (userInput[0].equals("todo") || userInput[0].equals("deadline")
-                || userInput[0].equals("event") || userInput[0].equals("range")) {
+                || userInput[0].equals("event") || userInput[0].equals("range") || userInput[0].equals("doafter")) {
                 if (userInput.length == 1) {
                     ui.empty_description_error();
                 } else {

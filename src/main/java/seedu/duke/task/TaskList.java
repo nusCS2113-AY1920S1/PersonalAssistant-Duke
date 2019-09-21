@@ -1,8 +1,11 @@
 package seedu.duke.task;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import seedu.duke.data.Schedule;
+import java.util.Scanner;
+
 import seedu.duke.ui.Ui;
 
 /**
@@ -87,6 +90,31 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
+            } else if (taskType.equals("doafter")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String after = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    boolean taskFound = false;
+                    for (Task j: list) {
+                        if (j.description.equals(after)) {
+                            list.add(new DoAfter(taskDescription, after));
+                            taskFound = true;
+                            break;
+                        }
+                    }
+                    if (!taskFound) {
+                        System.out.println();
+                        System.out.println("        _____________________________________");
+                        System.out.println("        Task: '" + after + "' not found!");
+                        System.out.println("        _____________________________________");
+                        System.out.println();
+                        System.out.println();
+                        return;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
+                    ui.wrong_description_error();
+                    return;
+                }
             } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
@@ -141,10 +169,12 @@ public class TaskList {
     public void doTask(int i) {
         try {
             list.get(i).markAsDone();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
-            System.out.println("\t_____________________________________\n\n");
+            if (list.get(i).isDone) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
+                System.out.println("\t_____________________________________\n\n");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -165,6 +195,66 @@ public class TaskList {
             System.out.println("\t  " + (i + 1) + "." + lastTask.toString());
             System.out.println("\tNow there are " + list.size() + " tasks left.");
             System.out.println("\t_____________________________________\n\n");
+        } catch (IndexOutOfBoundsException e) {
+            ui.task_doesnt_exist_error();
+        }
+    }
+
+    /**
+     * Snoozes task at index.
+     *
+     * @param i index at which task is snoozed.
+     * @throws IndexOutOfBoundsException if an out of bounds index is requested.
+     */
+    public void snoozeTask(int i) {
+        try {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tYou are requesting to snooze the following task:");
+            System.out.println("\t" + list.get(i).toString() + "\n");
+            System.out.println("\tPlease choose one of the following way to snooze this task.");
+            System.out.println("\t1) Enter a number followed by min/hour/day/week/month");
+            System.out.println("\t2) Enter the new date and time in the following format (dd/MM/yyyy HHmm)");
+            System.out.println("\t_____________________________________");
+
+            Scanner scanner = new Scanner(System.in);
+            String rawInput = scanner.nextLine();
+            String[] userInput = rawInput.split(" ");
+            boolean failSnooze = false;
+
+            if (userInput[0].contains("/")) {
+                list.get(i).setDateTime(rawInput);
+            } else {
+                int num = Integer.parseInt(userInput[0]);
+                LocalDateTime ldt = list.get(i).getDateTime();
+
+                switch (userInput[1]) {
+                case "min":
+                    list.get(i).setDateTime(ldt.plusMinutes(num));
+                    break;
+                case "hour":
+                    list.get(i).setDateTime(ldt.plusHours(num));
+                    break;
+                case "day":
+                    list.get(i).setDateTime(ldt.plusDays(num));
+                    break;
+                case "week":
+                    list.get(i).setDateTime(ldt.plusWeeks(num));
+                    break;
+                case "month":
+                    list.get(i).setDateTime(ldt.plusMonths(num));
+                    break;
+                default:
+                    System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
+                    failSnooze = true;
+                }
+            }
+
+            if (!failSnooze) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tGot it. You have snoozed the task.");
+                System.out.println("\t" + list.get(i).toString());
+                System.out.println("\t_____________________________________");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }

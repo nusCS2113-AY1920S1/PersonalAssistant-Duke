@@ -6,6 +6,7 @@ import seedu.duke.task.ToDo;
 import seedu.duke.task.Event;
 import seedu.duke.task.RangedTask;
 import seedu.duke.task.Deadline;
+import seedu.duke.task.DoAfter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -62,6 +63,8 @@ public class Storage {
                     }
                 } else if (taskString[0].equals("R")) {
                     list.add(new RangedTask(taskString[2], taskString[3]));
+                } else if (taskString[0].equals("A")) {
+                    list.add(new DoAfter(taskString[2], taskString[3]));
                 } else {
                     list.add(new Event(taskString[2], taskString[3]));
                     try {
@@ -84,7 +87,6 @@ public class Storage {
             System.out.println("\tNo list saved in database. Please "
                 + "create a list now.");
             System.out.println("\t_____________________________________\n\n");
-            return null;
         }
         return list;
     }
@@ -101,7 +103,6 @@ public class Storage {
             (new File(this.filePath)).delete();
             return;
         }
-
         //if data folder doesnt exist create it
         File directory = new File(this.filePath.split("/")[0]);
         if (!directory.exists()) {

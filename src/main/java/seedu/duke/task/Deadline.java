@@ -111,4 +111,38 @@ public class Deadline extends Task {
         }
         return false;
     }
+
+    /**
+     * Overrides the getDateTime method in Task to obtain the deadline date and time.
+     *
+     * @return date and time of deadline of type LocalDateTime.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+        return LocalDateTime.parse(this.by, formatter);
+    }
+
+    /**
+     * Overrides the setDateTime method in Task to set the deadline's date and time.
+     *
+     * @param dateTime the date and time of the deadline of type LocalDateTime.
+     */
+    @Override
+    public void setDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+        by = dateTime.format(formatter);
+        this.translate_date();
+    }
+
+    /**
+     * Overrides the setDateTime method in Task to set the deadline's date and time.
+     *
+     * @param dateTime string of the date and time of the deadline.
+     */
+    @Override
+    public void setDateTime(String dateTime) {
+        by = dateTime;
+        this.translate_date();
+    }
 }

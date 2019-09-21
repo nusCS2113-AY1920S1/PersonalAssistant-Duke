@@ -131,6 +131,21 @@ public class RangedTask extends Task {
         return "R|" + super.toSaveFormat() + "|" + this.time;
     }
 
+    @Override
+    public LocalDateTime getDateTime() {
+        return null;
+    }
+
+    @Override
+    public void setDateTime(LocalDateTime dateTime) {
+
+    }
+
+    @Override
+    public void setDateTime(String dateTime) {
+
+    }
+
     /**
      * Checks equality with another Event instance.
      *
