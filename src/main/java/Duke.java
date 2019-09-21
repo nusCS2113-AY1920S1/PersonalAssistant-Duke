@@ -1,10 +1,8 @@
 import CustomExceptions.DukeException;
+import Enums.ExceptionType;
 import Enums.Tasktype;
 import Model_Classes.*;
-import Operations.Parser;
-import Operations.Storage;
-import Operations.TaskList;
-import Operations.Ui;
+import Operations.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -111,9 +109,13 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] eventArray = parser.getDescriptionWithDate();
-                        Date by = parser.formatDate(eventArray[1]);
-                        Event temp = new Event(eventArray[0], by);
-                        taskList.add(temp);
+                        Date at = parser.formatDate(eventArray[1]);
+                        if(CheckAnomaly.checkTime(at, TaskList.currentList())){
+                            Event temp = new Event(eventArray[0], at);
+                            taskList.add(temp);
+                        } else {
+                            throw new DukeException(ExceptionType.timeClash);
+                        }
                     } catch (DukeException e) {
                         ui.showDateError();
                     }
