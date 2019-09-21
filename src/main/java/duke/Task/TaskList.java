@@ -1,9 +1,7 @@
 package duke.Task;
 
 import duke.Data.*;
-import javafx.concurrent.Task;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import java.time.Month;
  * TaskList handles all the operations Duke uses.
  */
 public class TaskList {
-    private static ArrayList<item> list = new ArrayList<>();
+    private static ArrayList<Item> list = new ArrayList<>();
 
     /**
      * This method loads all the ArrayList items from the previous load file into the current ArrayList.
@@ -35,7 +33,7 @@ public class TaskList {
      * @param i This is the first parameter, it takes the newly created Deadline/ToDo/Event
      * @param type This is the second parameter, defines the type of task that has been created
      */
-    public static void addTask(item i, String type) {
+    public static void addTask(Item i, String type) {
         list.add(i);
         System.out.println("Got it. I've added this task:\n " +
                 list.get(list.size() - 1).toString()+"\n" +
@@ -48,7 +46,7 @@ public class TaskList {
      */
     public static void getList() {
         int count = 1;
-        for (item i: list) {
+        for (Item i: list) {
             System.out.println(count++ +"."+ i.toString());
         }
     }
@@ -81,7 +79,7 @@ public class TaskList {
             Storage.updateFile(list);
         }
         catch (IndexOutOfBoundsException e) {
-            System.err.println("Opps! Sorry that item does not exist!");
+            System.err.println("Opps! Sorry that Item does not exist!");
         }
     }
 
@@ -92,7 +90,7 @@ public class TaskList {
      */
     public static void findTask (String word) {
         int cnt = 1;
-        for (item i : list) {
+        for (Item i : list) {
             if (i.getInfo().contains(word)) {
                 if (cnt == 1)
                     System.out.println("Here are the matching tasks in your list:");
@@ -112,7 +110,7 @@ public class TaskList {
         Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
-        for (item i : list) {
+        for (Item i : list) {
             String desc = i.toString();
             if (desc.toLowerCase().contains(check.toLowerCase())) {
                 System.out.println("Here are the tasks on " + check);
@@ -205,12 +203,12 @@ public class TaskList {
      * @return deadlineList if there are deadlines before end date they are returned as a list
      * @return null if there are no deadlines
      */
-    public static ArrayList<item> getReminderList (Date todayDate, Date endDate) {
-        ArrayList<item> deadlineList = new ArrayList<>();
+    public static ArrayList<Item> getReminderList (Date todayDate, Date endDate) {
+        ArrayList<Item> deadlineList = new ArrayList<>();
         Boolean isNotEmpty = false;
-        for (item i: list) {
+        for (Item i: list) {
             // check if deadline is before today's date,
-            if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.status) {
+            if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.isDone()) {
                 deadlineList.add(i);
                 isNotEmpty = true;
             }

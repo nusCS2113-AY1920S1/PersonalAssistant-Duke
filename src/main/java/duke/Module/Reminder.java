@@ -15,7 +15,7 @@ public class Reminder {
 
     protected Date endDate;
     protected Date todayDate;
-    protected ArrayList<item> deadlineList = new ArrayList<>();
+    protected ArrayList<Item> deadlineList = new ArrayList<>();
 
     /**
      * Constructor for the Reminder class
@@ -38,7 +38,7 @@ public class Reminder {
     }
 
     public void compareDates () {
-        ArrayList<item> tempList = new ArrayList<>();
+        ArrayList<Item> tempList = new ArrayList<>();
         try {
             deadlineList.addAll(Objects.requireNonNull(TaskList.getReminderList(todayDate, endDate)));
         }
@@ -52,7 +52,7 @@ public class Reminder {
         if (!deadlineList.isEmpty()) {
             int count = 1;
             System.out.println("Reminder to do these tasks before " + TaskList.dateToStringFormat(endDate));
-            for (item i: deadlineList) {
+            for (Item i: deadlineList) {
                 System.out.println(count++ +"."+ i.toString());
             }
         }

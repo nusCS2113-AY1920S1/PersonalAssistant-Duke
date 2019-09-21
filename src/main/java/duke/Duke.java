@@ -30,6 +30,8 @@ public class Duke extends Application {
 
     /**
      * This program runs the main duke program
+     *
+     * @param args expects array of string objects
      */
     public static void main(String[] args) {
         run();
@@ -99,7 +101,7 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Part 3. Add functionality to handle user input.
@@ -118,6 +120,7 @@ public class Duke extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -137,8 +140,8 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new duke.GUI.DialogBox(userText, new ImageView(user)),
-                new duke.GUI.DialogBox(dukeText, new ImageView(duke))
+            new duke.GUI.DialogBox(userText, new ImageView(user)),
+            new duke.GUI.DialogBox(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
