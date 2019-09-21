@@ -246,4 +246,10 @@ public class UI {
         }
         System.out.print(lineSeparation);
     }
+
+    public void errorWritingToFile() {
+        System.out.print(lineSeparation);
+        System.out.println("Error writing to file! Details not saved!");
+        System.out.print(lineSeparation);
+    }
 }
