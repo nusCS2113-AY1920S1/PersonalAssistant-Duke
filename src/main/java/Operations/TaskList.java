@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * A class to perform operations on the task list in Duke
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     /**
      * Constructor for the TaskList class.
@@ -82,7 +82,7 @@ public class TaskList {
      * Returns the entire ArrayList of tasks
      * @return tasks The ArrayList of Task objects that is being operated on.
      */
-    public ArrayList<Task> currentList() {
+    public static ArrayList<Task> currentList() {
         return tasks;
     }
 }

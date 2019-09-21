@@ -1,6 +1,9 @@
 package Model_Classes;
 
 import CustomExceptions.DukeException;
+import Enums.ExceptionType;
+import Operations.CheckAnomaly;
+import Operations.TaskList;
 
 import java.util.Date;
 /**
@@ -8,18 +11,20 @@ import java.util.Date;
  * Stores the description and when the event happens.
  */
 public class Event extends Task {
-    private Date by;
+    private Date at;
 
     /**
      * Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
      * @param description Description of the event
-     * @param by Time the event happens
+     * @param at Time the event happens
      */
-    public Event(String description, Date by)  {
+    public Event(String description, Date at) {
         super(description);
-        this.by = by;
+        this.at = at;
     }
+
+    public Date checkDate() { return this.at; }
 
     /**
      * Returns a string that has the full description of the vent including the occurrence time
@@ -27,7 +32,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (on: " + by + ")";
+        return "[E]" + super.toString() + " (on: " + at + ")";
     }
 
 }
