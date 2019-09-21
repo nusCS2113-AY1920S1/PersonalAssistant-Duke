@@ -41,7 +41,9 @@ public class Parser {
                     System.out.println("\u2639 OOPS!!! The following task does not exist!");
                 }
                 break;
-
+        /**
+         * TODO Fix saving of ToDo class, is causing the load file error due to save formatting
+         */
             case "todo":
                 try {
                     String[] tempString = input.split(" ");
