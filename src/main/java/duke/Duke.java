@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.GUI.DialogBox;
 import duke.Task.*;
 
 import javafx.application.Application;
