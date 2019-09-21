@@ -1,8 +1,10 @@
 package seedu.duke.command;
 
 import seedu.duke.data.Schedule;
+import seedu.duke.logic.CommandLineException;
 import seedu.duke.task.Reminders;
 import seedu.duke.task.TaskList;
+import seedu.duke.logic.CommandLogic;
 import seedu.duke.ui.Ui;
 
 import java.text.ParseException;
@@ -12,7 +14,7 @@ import java.util.Date;
  * Takes raw user input as string, makes sense out of the input using
  * regex and then performs operations based on the input.
  */
-public class Parser {
+public class CommandParser {
 
     private Schedule schedule = new Schedule();
 
@@ -40,25 +42,32 @@ public class Parser {
      * @param rawInput user's single line string input
      * @return an instruction, of type Command, to be executed.
      */
-    public Command parse(String rawInput) {
+    public Command parse(String rawInput) throws CommandLineException {
         Ui ui = new Ui();
         String[] userInput = this.split(rawInput);
         /* return output; */
 
         // If user inputs list
         if (userInput[0].equals("find")) {
+            CommandLogic.validateFind(rawInput);
             return new commandFindTask(userInput[1]);
         } else if (userInput[0].equals("delete")) {
+            CommandLogic.validateNumberCommand(rawInput);
             return new commandDeleteTask(userInput[1]);
         } else if (userInput[0].equals("list")) {
+            CommandLogic.validateOneWord(rawInput);
             return new commandDisplayTaskList();
         } else if (userInput[0].equals("remind")) {
+            CommandLogic.validateOneWord(rawInput);
             return new commandDisplayReminders();
         } else if (userInput[0].equals("done")) {
+            CommandLogic.validateNumberCommand(rawInput);
             return new commandMarkTaskAsDone(userInput[1]);
         } else if (userInput[0].equals("show")) {
+            CommandLogic.validateShow(rawInput);
             return new commandDisplaySchedule(userInput[1]);
         } else if (userInput[0].equals("snooze")) {
+            CommandLogic.validateNumberCommand(rawInput);
             return new commandSnoozeTask(userInput[1]);
         } else {
             // add task to list
