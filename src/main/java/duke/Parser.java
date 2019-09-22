@@ -1,17 +1,18 @@
 package duke;
 
+import duke.commands.AddCommand;
 import duke.commands.Command;
+import duke.commands.ConfirmCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EditCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.FreeTimeCommand;
 import duke.commands.ListCommand;
 import duke.commands.ReminderCommand;
-import duke.commands.ViewScheduleCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.FindCommand;
-import duke.commands.DoneCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.AddCommand;
 import duke.commands.TentativeCommand;
-import duke.commands.ConfirmCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
