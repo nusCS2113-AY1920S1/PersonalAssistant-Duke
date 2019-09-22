@@ -1,8 +1,10 @@
 package duke.command;
 
 import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.DukeInvalidTimePeriodException;
 import duke.exceptions.DukeNoTimeException;
 import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.util.DateTimeParser;
@@ -17,10 +19,18 @@ public class RescheduleCommand extends Command {
 
     private int index;
     private String time;
+    private String begin;
+    private String end;
 
     public RescheduleCommand(int index, String time) {
         this.index = index - 1;
         this.time = time;
+    }
+
+    public RescheduleCommand(int index, String begin, String end) {
+        this.index = index - 1;
+        this.begin = begin;
+        this.end = end;
     }
 
     private int getIndex() {
@@ -31,7 +41,8 @@ public class RescheduleCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage store) throws
             DukeInvalidIndexException,
             DukeInvalidTimeException,
-            DukeNoTimeException {
+            DukeNoTimeException,
+            DukeInvalidTimePeriodException {
         if (index >= tasks.getTasks().size() || index < 0) {
             throw new DukeInvalidIndexException();
         }
@@ -44,6 +55,11 @@ public class RescheduleCommand extends Command {
             else if (task instanceof Events) {
                 ((Events)task).setDateTime(DateTimeParser.getStringToDate(this.time));
                 ui.rescheduleTaskMsg(task, this.time);
+            }
+            else if (task instanceof DoWithin) {
+                ((DoWithin)task).setDateTime(DateTimeParser.getStringToDate(this.begin),
+                        DateTimeParser.getStringToDate(this.end));
+                ui.rescheduleTaskMsg(task, "between " + this.begin + " and " + this.end);
             }
             else {
                 throw new DukeNoTimeException();
