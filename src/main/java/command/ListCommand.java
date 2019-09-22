@@ -6,13 +6,13 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * Represents a specified command as ListCommand by extending the <code>Command</code> class.
+ * Represents a specified command as ListCommand by extending the {@code Command} class.
  * Lists all tasks in taskList of Duke.
  * Responses with the result.
  */
 public class ListCommand extends Command {
     /**
-     * Constructs a <code>ListCommand</code> object.
+     * Constructs a {@code ListCommand} object.
      *
      * @param commandParams parameters used to invoke the command.
      */

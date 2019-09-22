@@ -18,7 +18,7 @@ public class ScheduleCommand extends Command {
 
 
     /**
-     * Constructs a <code>Command</code> object with commandType.
+     * Constructs a {@code Command} object with commandType.
      *
      * @param commandParams parameters used to invoke the command.
      */

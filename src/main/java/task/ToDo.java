@@ -3,7 +3,7 @@ package task;
 import parser.TimeParser;
 
 /**
- * Represents a specified task by extending the <code>Task</code> class
+ * Represents a specified task by extending the {@code Task} class
  * without adding any extra information.
  */
 public class ToDo extends Task {
@@ -19,7 +19,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Constructs a <code>ToDo</code> object from the separated storage string.
+     * Constructs a {@code ToDo} object from the separated storage string.
      *
      * @param splitStorageStrings the separated storage string.
      */
@@ -34,7 +34,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
+     * Overrides the {@code toString()} method in parent class {@code Task},
      * and returns information of the task to be printed by UI.
      * e.g. "[T][✓] attend the party"
      *
@@ -42,8 +42,16 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")"
-                + "(" + recurringType + ")";
+        if (timeTaken != 0 && !recurringType.equals("NONE")) {
+            return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")"
+                    + "(" + recurringType + ")";
+        } else if (timeTaken != 0) {
+            return "[T]" + super.toString() + " (needs: " + TimeParser.formatDuration(timeTaken) + ")";
+        } else if (!recurringType.equals("NONE")) {
+            return "[T]" + super.toString() + "(" + recurringType + ")";
+        } else {
+            return "[T]" + super.toString();
+        }
     }
 
     /**

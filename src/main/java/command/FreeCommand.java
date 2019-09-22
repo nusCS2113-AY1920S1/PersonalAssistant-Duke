@@ -19,7 +19,7 @@ public class FreeCommand extends Command {
 
 
     /**
-     * Constructs a <code>FreeCommand</code> object with commandType.
+     * Constructs a {@code FreeCommand} object with commandType.
      *
      * @param commandParams parameters used to invoke the command.
      */

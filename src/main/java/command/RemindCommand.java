@@ -8,13 +8,13 @@ import ui.Ui;
 import java.util.ArrayList;
 
 /**
- * Represents a specified command as RemindCommand by extending the <code>Command</code> class.
+ * Represents a specified command as RemindCommand by extending the {@code Command} class.
  * Lists all uncompleted tasks in Duke
  * Responses with the result.
  */
 public class RemindCommand extends Command {
     /**
-     * Constructs a <code>RemindCommand</code> object.
+     * Constructs a {@code RemindCommand} object.
      *
      * @param commandParams parameters used to invoke the command.
      */

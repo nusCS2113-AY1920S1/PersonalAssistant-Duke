@@ -2,31 +2,50 @@ package parser;
 
 import exception.DukeException;
 
+import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An object containing information about a command's type and parameters.
+ */
 public class CommandParams {
+    // Internal map that stores all secondary parameters
     private Map<String, String> paramMap;
+
+    // The command type i.e. the first word in the command
     private String commandType;
+
+    // The main parameter value i.e. everything after the first word, before any secondary parameters are declared
     private String mainParam;
 
-    @SuppressWarnings({"chekstyle:SummaryJavadoc", "checkstyle:MissingJavadocMethod"})
+    // The regular expression used to identify secondary parameters.
+    // Currently matches and replaces any number of spaces followed by a forward slash (\\s+(\\/)),
+    // which are followed by any word consisting of only lowercase alphabets (not replaced).
+    // Matches [and replaces]: "[ /]at", "[ /]b", "[ /]test"
+    // Ignores: "1/1", "a / b", "a/ "
+    private static final Pattern PARAM_INDICATOR_REGEX = Pattern.compile("(\\s+(\\/(?=[a-z]+)))");
+
+    // The regular expression used to identify a space.
+    // Currently matches and replaces any number of spaces.
+    private static final Pattern SPACE_REGEX = Pattern.compile("(\\s+)");
+
     /**
-     * Returns a <code>Map<String, String></code> containing all the parameters input by the user.
+     * Creates a new {@code CommandParams} object using a {@code String} obtained directly from
+     * the user. The {@code CommandParams} object cannot have two parameters of the same name, and
+     * will throw a {@code DukeException} if the user tries to specify two parameters of the same name.
      *
      * @param fullCommand the full command input by the user, which will be parsed into parameters.
      * @throws DukeException if the user specified a parameter twice.
      */
     public CommandParams(String fullCommand) throws DukeException {
-        // Split the full command at " /paramName", keeping paramName intact.
-        // Full conditions for matching require a space before the slash,
-        // and a paramName that is purely alphabetical.
-        // Matches: " /at", " /b", " /test" Ignores: "1/1", "a / b", "a/ "
         paramMap = new HashMap<String, String>();
-        String[] tokens = fullCommand.split("(\\s+(\\/(?=[A-Za-z]+)))");
+
+        // Split the input into an array of Strings, containing concatenated parameter names and values
+        String[] nameValueStrings = PARAM_INDICATOR_REGEX.split(fullCommand);
 
         // Get commandType and mainParam first
-        String[] typeAndMainParam = tokens[0].split("(\\s+)", 2);
+        String[] typeAndMainParam = SPACE_REGEX.split(nameValueStrings[0], 2);
         commandType = typeAndMainParam[0];
         if (typeAndMainParam.length == 2) { // has main param
             mainParam = typeAndMainParam[1];
@@ -35,67 +54,82 @@ public class CommandParams {
         }
 
         // Get all the others
-        for (int i = 1; i < tokens.length; i++) {
-            // Split the token into parameterName and parameterValue aka paramParams
-            String[] paramParams = tokens[i].split("(\\s+)", 2);
-            if (paramMap.containsKey(paramParams[0])) { // can't contain the same key twice
-                throw new DukeException(String.format("☹ OOPS!!! You specified %1$s twice!", paramParams[0]));
+        for (int i = 1; i < nameValueStrings.length; i++) {
+            String[] nameValuePair = SPACE_REGEX.split(nameValueStrings[i], 2);
+            if (paramMap.containsKey(nameValuePair[0])) { // can't contain the same key twice
+                throw new DukeException(String.format("☹ OOPS!!! You specified %1$s twice!", nameValuePair[0]));
             }
 
-            if (paramParams.length == 1) {
-                // parameter without value; possibly a flag (don't set to null?)
-                paramMap.put(paramParams[0], null);
+            if (nameValuePair.length == 2) {
+                paramMap.put(nameValuePair[0], nameValuePair[1]);
             } else {
-                paramMap.put(paramParams[0], paramParams[1]);
+                paramMap.put(nameValuePair[0], null);
             }
         }
     }
 
-    @SuppressWarnings("checkstyle:NonEmptyAtclauseDescription")
     /**
-     * Returns the <code>commandType</code> parameter that was input by the user.
+     * Returns the {@code commandType} parameter that was input by the user.
      *
-     * @return <code>commandType</code>.
+     * @return {@code commandType}.
      */
     public String getCommandType() {
         return commandType;
     }
 
     /**
-     * Returns the <code>mainParam</code> parameter that was input by the user. May be null.
+     * Returns the {@code mainParam} parameter that was input by the user. May be null.
      *
-     * @return <code>mainParam</code>. May be null.
+     * @return {@code mainParam}. May be null.
      */
     public String getMainParam() {
         return mainParam;
     }
 
     /**
-     * Returns the value of a requested parameter. Use <code>containsParam()</code> to check
-     * for existence of an optional parameter, as this method will throw an exception if
-     * the parameter was not provided by the user; calling this method implies that the
-     * parameter must exist at the point where it was invoked. May be null.
+     * Returns the value of a requested parameter. This function should be used to request mandatory parameters,
+     * and will throw a {@code DukeException} if the parameter does not exist, or is null.
      *
      * @param paramName the name of the parameter whose value to return.
-     * @return the value of the requested parameter. May be null.
-     * @throws DukeException if the parameter does not exist.
+     * @return the value of the requested parameter.
+     * @throws DukeException if the parameter does not exist, or is null.
      */
     public String getParam(String paramName) throws DukeException {
-        if (containsParam(paramName)) {
-            return paramMap.get(paramName);
-        } else {
+        String paramValue = paramMap.get(paramName);
+        if (paramValue == null) {
             throw new DukeException(String.format("☹ OOPS!!! You need to give me a value for %1$s!", paramName));
+        } else {
+            return paramValue;
         }
     }
 
     /**
-     * Returns true if the parameter specified by <code>paramName</code> exists, and false otherwise.
-     * Used to check if an optional parameter exists, or for parameters that act as flags with no value.
+     * Returns the value of a requested parameter. This function should be used to request optional parameters,
+     * and returns {@code null} if the parameter does not exist, or contains no value.
      *
-     * @param paramName the parameter whose existence to check for.
-     * @return true if the parameter specified by <code>paramName</code> exists, and false otherwise.
+     * @param paramName the name of the parameter whose value to return.
+     * @return the value of the requested parameter. May be null.
      */
-    public boolean containsParam(String paramName) {
-        return paramMap.containsKey(paramName);
+    public String getOptionalParam(String paramName) {
+        return paramMap.get(paramName);
+    }
+
+    /**
+     * Returns true if all parameters specified by {@code paramNames} exist in the {@code CommandParams}
+     * object, and false otherwise.
+     *
+     * Can be used to check for optional flags.
+     *
+     * @param paramNames the parameter(s) whose existence to check for.
+     * @return true if the parameter(s) specified by {@code paramNames} exists, and false otherwise.
+     */
+    public boolean containsParams(String... paramNames) {
+        for (String paramName : paramNames) {
+            if (!paramMap.containsKey(paramName)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
