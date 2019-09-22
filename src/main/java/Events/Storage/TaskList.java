@@ -38,15 +38,15 @@ public class TaskList {
     public TaskList(ArrayList<String> inputList) {
         taskArrayList = new ArrayList<Task>();
         for (String currLine : inputList) {
-            boolean isDone = (currLine.charAt(4) == '\u2713');
-            if (currLine.charAt(1) == 'T') {
-                taskArrayList.add(new ToDo(currLine.substring(7), isDone));
-            } else if (currLine.charAt(1) == 'E') {
+            boolean isDone = (currLine.substring(4,7).equals("✓"));
+            if (currLine.charAt(1) == 'T') { //todo type task
+                taskArrayList.add(new ToDo(currLine.substring(9), isDone));
+            } else if (currLine.charAt(1) == 'E') { //event type task
                 int posOfLine = currLine.indexOf("(at: ");
-                taskArrayList.add(new Event(currLine.substring(7, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
-            } else if (currLine.charAt(1) == 'D') {
+                taskArrayList.add(new Event(currLine.substring(9, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
+            } else if (currLine.charAt(1) == 'D') { //deadline type task
                 int posOfLine = currLine.indexOf("(by: ");
-                taskArrayList.add(new Deadline(currLine.substring(7, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
+                taskArrayList.add(new Deadline(currLine.substring(9, posOfLine), currLine.substring(posOfLine + 5, currLine.length() - 1), isDone));
             }
         }
     }
@@ -172,28 +172,28 @@ public class TaskList {
      * Gets a filtered list of tasks based on a predicate.
      * @return String containing the filtered list of tasks, separated by a newline.
      */
-    public String filteredlist(Predicate<Object> pred, int filtercode) {
-        String fltredTasks = "";
+    public String filteredList(Predicate<Object> predicate, int filterCode) {
+        String filteredTasks = "";
         int j = 1;
         for (int i = 0; i < taskArrayList.size(); ++i) {
             if (taskArrayList.get(i) == null) {
             	continue;
-            } else if (filtercode == DATE) { 
+            } else if (filterCode == DATE) {
                 if (taskArrayList.get(i) instanceof Event || taskArrayList.get(i) instanceof Deadline) {
-                	if (!pred.check(taskArrayList.get(i).getDateObj())) {
+                	if (!predicate.check(taskArrayList.get(i).getDateObj())) {
                 		continue;
                 	} 
                 } else {
                 	continue;
                 }
-            } else if (filtercode == TYPE) { 
-                if (!pred.check(taskArrayList.get(i).getType())) {
+            } else if (filterCode == TYPE) {
+                if (!predicate.check(taskArrayList.get(i).getType())) {
                 	continue;
                 }
             } 
-            fltredTasks += j + ". " + this.getTask(i).toString() + "\n";
+            filteredTasks += j + ". " + this.getTask(i).toString() + "\n";
             j++;
         }
-        return fltredTasks;
+        return filteredTasks;
     }
 }
