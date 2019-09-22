@@ -3,7 +3,6 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -15,10 +14,10 @@ public class Snooze extends Command {
     private String until;
     private Date date;
 
-    public Snooze(String taskNb, String until){
-         this.taskNb = Integer.parseInt(taskNb.trim())-1;
+    public Snooze(int taskNb, String until){
+         this.taskNb = taskNb;
          this.until=until;
-         this.date= Parser.getDate(until);
+         this.date= Parser.stringToDate(until);
     }
 
     @Override

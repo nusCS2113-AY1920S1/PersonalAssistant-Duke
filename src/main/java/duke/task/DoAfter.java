@@ -33,7 +33,7 @@ public class DoAfter extends Task{
     public DoAfter(String description, String after) {
         super(description);
         this.after = after;
-        this.date = Parser.getDate(after);
+        this.date = Parser.stringToDate(after);
     }
 
     @Override

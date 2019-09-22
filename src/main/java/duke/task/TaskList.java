@@ -13,13 +13,19 @@ import java.util.List;
 public class TaskList {
     
     private List<Task> taskList;
-
-    public TaskList() {
-        taskList = new ArrayList<>();
-    }
-
+	
+	/**
+	 * The constructor method(1) for TaskList
+	 */
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
+    }
+	
+	/**
+	 * The constructor method(2) for TaskList
+	 */
+    public TaskList() {
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -37,7 +43,6 @@ public class TaskList {
     public int size() {
         return taskList.size();
     }
-
 
     /**
      * Marks a task as completed if the user finished it
@@ -61,7 +66,7 @@ public class TaskList {
      * @return unmodifiable {@link ArrayList} of {@link Task} listed so far
      */
     public List<Task> getAllTasks() {
-        return  Collections.unmodifiableList(new ArrayList<>(taskList));
+        return Collections.unmodifiableList(new ArrayList<>(taskList));
     }
 
     /**
@@ -76,5 +81,4 @@ public class TaskList {
     public void changeTaskDate(int taskNb, String date){
         taskList.get(taskNb).setNewDate(date);
     }
-
 }

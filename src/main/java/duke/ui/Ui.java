@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.Duke;
-
 import java.util.Scanner;
 
 /**
@@ -12,7 +11,9 @@ public class Ui {
     private Scanner scanner;
     private static final String line = "____________________________________________________________";
 
-    //Constructor method
+    /**
+	 * The constructor method for Ui
+	 */
     public Ui() {
         scanner = new Scanner(System.in);
     }

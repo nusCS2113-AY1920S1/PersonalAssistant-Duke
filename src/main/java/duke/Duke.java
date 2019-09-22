@@ -7,8 +7,11 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-//MAIN CLASS DUKE, start from main function
+/**
+ * MAIN CLASS DUKE, start from main function
+ */
 public class Duke {
+	
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -38,7 +41,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(fullCommand, tasks.size());
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
@@ -49,7 +52,9 @@ public class Duke {
         }
     }
 
-    //========== MAIN FUNCTION ==========
+    /**
+	 * =============== MAIN FUNCTION ===============
+	 */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

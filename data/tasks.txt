@@ -1,2 +1,4 @@
-T|1|cry
-D|0|die |06/06/1996 2359
+T|1|read book
+D|0|return book|Monday
+E|0|meeting|U-Town
+P|0|lecture|1600|1800
