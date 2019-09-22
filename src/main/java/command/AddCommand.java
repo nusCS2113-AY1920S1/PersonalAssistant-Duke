@@ -72,6 +72,9 @@ public class AddCommand extends Command {
         if (commandParams.containsParams("recurring")) {
             String recurringType = commandParams.getParam("recurring");
             taskToAdd.setRecurringType(commandParams.getParam("recurring"));
+        }
+        if (commandParams.containsParams("tentative")) {
+            taskToAdd.setTentative(true);
         } else {
             taskToAdd.setRecurringType("NONE");
         }

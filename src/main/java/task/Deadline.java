@@ -23,6 +23,7 @@ public class Deadline extends Task {
     public Deadline(String description, String ddl) throws DukeException {
         super(description);
         this.by = TimeParser.parse(ddl);
+        this.toString();
     }
 
     /**
