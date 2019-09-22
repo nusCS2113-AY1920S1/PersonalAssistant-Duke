@@ -15,7 +15,7 @@ public class Reminder {
 
     protected Date endDate;
     protected Date todayDate;
-    protected ArrayList<item> deadlineList = new ArrayList<>();
+    protected ArrayList<Item> deadlineList = new ArrayList<>();
 
     /**
      * Constructor for the Reminder class

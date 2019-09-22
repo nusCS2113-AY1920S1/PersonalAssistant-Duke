@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class After extends item {
-    protected Date after;
+    /**
+     * "after" is the date allocated to the task to be completed by.
+     */
+    private Date after;
 
     public Date dateConvert (String date) {
         try {
@@ -53,8 +56,9 @@ public class After extends item {
     }
 
     /**
-     * This function takes the "after" data in the After class and converts it into the string output format
-     *  Format: 2nd of December 2019, 2pm.
+     * This function takes the "after" data in the After class.
+     * Converts it into the string output format.
+     * Format: 2nd of December 2019, 2pm.
      *
      * @return New string format
      */
@@ -64,7 +68,7 @@ public class After extends item {
     }
 
     /**
-     * Function gets the unformatted date of after
+     * Function gets the unformatted date of after.
      *
      * @return after
      */
@@ -73,7 +77,12 @@ public class After extends item {
         return this.after;
     }
 
-
+    /**
+     * Overrides the toString function in Item.
+     * Extends function to include After class info.
+     *
+     * @return string of data with After class info
+     */
     @Override
     public String toString() {
         return "[A]" + super.toString() + " (after: " + getDate() + ")";

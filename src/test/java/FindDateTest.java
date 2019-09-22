@@ -2,8 +2,8 @@ import java.time.Month;
 import java.util.*;
 
 import duke.Task.Event;
+import duke.Task.Item;
 import duke.Task.TaskList;
-import duke.Task.item;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ public class FindDateTest {
     @Test
     public void FindDateTest() {
         String date = "23/09/2019";
-        ArrayList<item> list = new ArrayList<>();
+        ArrayList<Item> list = new ArrayList<>();
         String descr = "read book";
         String time = "23/09/2019 1830";
         Event ev = new Event(descr,false,time);
@@ -30,7 +30,7 @@ public class FindDateTest {
         assertEquals("2019", yy);
 
         String check = dd + " of " + mm + " " + yy;
-        for (item i : list) {
+        for (Item i : list) {
             String desc = i.toString();
             assertEquals("[E][✗] read book (at: 23rd of September 2019, 6.30pm)", desc);
         }
