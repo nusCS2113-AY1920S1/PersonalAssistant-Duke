@@ -2,12 +2,14 @@ package ControlPanel;
 
 import Commands.*;
 
+import java.text.ParseException;
+
 /**
  * The class which analyze the input command line and initialize a command
  * according to its type
  */
 public class Parser {
-    public Parser(){}
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * The constructor which runs the parser
@@ -15,6 +17,7 @@ public class Parser {
      * @return return a command object which is initialized based on its type
      * @throws DukeException if any exception is caught
      */
+
     public static Command parse(String cmd) throws DukeException {
         Command command;
         if (cmd.equals("bye")) {
@@ -42,8 +45,12 @@ public class Parser {
             command  = new ViewScheduleCommand(cmd);
         } else if (cmd.startsWith("reschedule")) {
             command = new RescheduleCommand(cmd);
-        } else if (cmd.contains("choose")) {
+        } else if(cmd.contains("choose")) {
             command = new ChooseEventTime(cmd);
+        } else if(cmd.startsWith("free-time")){
+            String[] words = cmd.split(" ");
+            int duration = Integer.parseInt(words[1]);
+            command = new FreeTimeCommand(words[4]+" "+words[5], duration);
         } else {
             String keyword = cmd.split(" ")[0];
             if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration") || keyword.equals("multiEvent"))) {
