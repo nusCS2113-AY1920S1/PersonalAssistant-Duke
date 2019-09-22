@@ -19,7 +19,6 @@ public class Duke {
         try {
             tasks = STORAGE.deserialize();
             tasks.updateRecurringTasks();
-            System.out.println("hello");
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             ui.disableInput();

@@ -1,12 +1,7 @@
 package duke.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -71,7 +66,6 @@ public class RecurringTask extends Task {
                 ((Event) task).setTime(eventFromTime, eventToTime);
             }
         }
-        System.out.println(period);
     }
 
 
