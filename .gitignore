@@ -14,4 +14,4 @@ src/main/resources/docs/
 bin/
 
 # Project data files
-main/data/
+/data/
