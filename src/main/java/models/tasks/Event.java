@@ -29,7 +29,7 @@ public class Event implements ITask, IDateSettable, Serializable {
         this.isDone = false;
         this.initials = "E";
         this.eventDate = eventDate;
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMMM yyyy HH.mm a");
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy HH.mm a");
         try {
             this.eventDateTime = format.parse(eventDate);
         } catch (ParseException e) {

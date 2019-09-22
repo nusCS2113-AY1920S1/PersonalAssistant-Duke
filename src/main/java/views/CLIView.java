@@ -31,7 +31,7 @@ public class CLIView {
     /**
      * Method to call when View model is started.
      */
-    public void start() {
+    public void start() throws DukeException {
         Scanner sc = new Scanner(System.in);
         consoleInputController.readData();
 
