@@ -171,7 +171,6 @@ public class Parser {
             DukeInvalidTimePeriodException, DukeScheduleException {
         //Checks every input for keyword command
         input = input.trim();
-        try {
             if (input.startsWith("todo ")) {
                 String[] temp = input.split("todo ");
                 String[] split = testRegex(temp[temp.length - 1]);
@@ -243,10 +242,6 @@ public class Parser {
                 //throws invalid command exception when user inputs non-keywords
                 throw new DukeCommandException();
             }
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-        }
-        return new ListCommand();
     }
 
     public static LinkedHashMap<String, String> parse(String command,
