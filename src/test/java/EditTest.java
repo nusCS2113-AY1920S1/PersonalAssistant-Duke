@@ -53,8 +53,8 @@ public class EditTest {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
-        String exp = "Noted. I've rescheduled this task: \n" +
-                "[D][✗] assignment (by: 12/12/2012)";
+        String exp = "Noted. I've rescheduled this task: \n" 
+                + "[D][✗] assignment (by: 12/12/2012)";
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));
         restoreStreams();
     }
@@ -81,8 +81,8 @@ public class EditTest {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
-        String exp = "Noted. I've rescheduled this task: \n" +
-                "[E][✗] birthday (at: 12/12/2012)";
+        String exp = "Noted. I've rescheduled this task: \n" 
+                + "[E][✗] birthday (at: 12/12/2012)";
         assertEquals(exp, outContent.toString().trim().replace("\r", ""));
         restoreStreams();
     }
