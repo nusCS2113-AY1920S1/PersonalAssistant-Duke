@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,18 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<?import javafx.scene.control.TextArea?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
     <children>
-        <Button fx:id="sendButton" layoutX="524.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="74.0" prefHeight="483.0" prefWidth="600.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="480.0" prefWidth="600.0" />
-            </content>
-        </ScrollPane>
-        <VBox>
-            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <VBox prefHeight="177.0" prefWidth="1200.0">
+            <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="1184.0" VBox.vgrow="NEVER">
                 <!--                user has the option to exit the program without typing in exit command-->
                 <Menu mnemonicParsing="false" text="File">
                     <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -32,6 +25,7 @@
                     <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </Menu>
             </MenuBar>
+
             <!--        user to input command-->
             <StackPane fx:id="commandBoxPlaceholder" layoutY="25.0" prefHeight="51.0" prefWidth="600.0" styleClass="pane-with-border">
                 <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" promptText="Enter command here..." />
@@ -39,8 +33,32 @@
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
             </StackPane>
+
             <!--            display the result of the user command-->
-            <StackPane fx:id="resultDisplayPlaceholder" prefHeight="0.0" prefWidth="600" VBox.vgrow="NEVER" />
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <TextArea fx:id="resultDisplay" promptText="Display error message here..." editable="false" styleClass="result-display"/>
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+            </StackPane>
         </VBox>
+
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="193.0" prefHeight="456.0" prefWidth="400.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="455.0" prefWidth="400.0" />
+            </content>
+        </ScrollPane>
+
+       <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutX="399.0" layoutY="193.0" prefHeight="456.0" prefWidth="400.0" vvalue="1.0">
+          <content>
+             <ListView prefHeight="455.0" prefWidth="400.0" />
+          </content>
+       </ScrollPane>
+
+       <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutX="800.0" layoutY="193.0" prefHeight="456.0" prefWidth="400.0" vvalue="1.0">
+          <content>
+             <ListView prefHeight="455.0" prefWidth="400.0" />
+          </content>
+       </ScrollPane>
     </children>
 </AnchorPane>

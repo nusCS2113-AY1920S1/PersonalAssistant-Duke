@@ -47,4 +47,6 @@ public class HelpWindow extends HBox {
         AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Copied URL",
                 "URL link has been copied");
     }
+
+
 }

@@ -7,8 +7,6 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.util.function.DoubleToIntFunction;
-
 import static duke.common.Messages.filePath;
 
 /**
@@ -74,7 +72,7 @@ public class Duke {
         String output = "";
         if (input.contains("list")) {
             output =  "Duke heard: " + tasks.listTask();
-        } else {
+        } else if (input.contains("find")) {
             output = "Duke heard: " + tasks.findTask(input.trim().split("\\s", 2)[1]);
         }
         return output;
