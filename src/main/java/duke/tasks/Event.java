@@ -78,4 +78,9 @@ public class Event extends Task {
     public String getExtra() {
         return this.at;
     }
+    
+    @Override
+    public void changeDate(String newDate){
+        this.at = newDate;
+    }
 }
