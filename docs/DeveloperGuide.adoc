@@ -112,16 +112,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the System is OwlMoney, unless specified otherwise)
 
 *Actor: First time user* +
-*Use case: UC1 - Create new profile* +
+[[UC-1]] *Use case: UC1 - Create new profile* +
 *Main success scenario:*
 
 . User choose to setup account.
 . System requests personal details.
 . User enters personal details.
 . System requests for bank account details.
-. User +++<u>+++enters bank account details (UC2).+++</u>+++
+. User +++<u>+++enters bank account details <<UC-2,(UC-2)>>.+++</u>+++
 . System requests for income details.
-. User +++<u>+++enters income details (UC3).+++</u>+++
+. User +++<u>+++enters income details <<UC-3,(UC-3)>>.+++</u>+++
 . System will setup a profile tied to new bank account with the details specified.
 +
 Use case ends.
@@ -149,7 +149,7 @@ Use case ends.
 
 
 *Actor: User* +
-*Use case: UC2 - Add bank account* +
+[[UC-2]] *Use case: UC2 - Add bank account* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -175,8 +175,8 @@ Use case ends.
 
 
 
-*Use case: UC3 - Add income* +
 *Actor: User* +
+[[UC-3]] *Use case: UC3 - Add income* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -202,8 +202,8 @@ Use case ends.
 
 
 
-*Use case: UC4 - Edit profile details* +
 *Actor: Existing User* +
+[[UC-4]] *Use case: UC4 - Edit profile details* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -226,8 +226,11 @@ Use case ends.
 ** Use case resumes from step 4.
 
 
-*Use case: UC5 - Edit bank account details* +
+
+
+
 *Actor: Existing User* +
+[[UC-5]] *Use case: UC5 - Edit bank account details* +
 *Preconditions:*
 
 *  *User has a profile created* +
@@ -255,7 +258,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC6 - Edit income* +
+[[UC-6]] *Use case: UC6 - Edit income* +
 *Preconditions:*
 
 * * User has a profile created
@@ -283,7 +286,7 @@ Use case ends.
 
 
 *Actor: Spendthrift* +
-*Use case: UC7 - Add expenditures record* +
+[[UC-7]] *Use case: UC7 - Add expenditures record* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -310,7 +313,7 @@ Use case ends.
 
 
 *Actor: Careless user* +
-*Use case: UC8 - Edit expenditures record* +
+[[UC-8]] *Use case: UC8 - Edit expenditures record* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -338,7 +341,7 @@ Use case ends.
 
 
 *Actor: Careless user* +
-*Use case: UC9 -  Delete expenditure record* +
+[[UC-9]] *Use case: UC9 -  Delete expenditure record* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -366,7 +369,7 @@ Use case ends.
 
 
 *Actor: Organized user* +
-*Use case: UC10 -  List expenditure record* +
+[[UC-10]]  *Use case: UC10 -  List expenditure record* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -391,7 +394,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC11 -  Search for specific expenditure record* +
+[[UC-11]] *Use case: UC11 -  Search for specific expenditure record* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -418,7 +421,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC12 - Set short or long term financial goal* +
+[[UC-12]] *Use case: UC12 - Set short or long term financial goal* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -451,7 +454,7 @@ Use case ends.
 
 
 *Actor: Indecisive user* +
-*Use case: UC13 -  Edit existing financial goal* +
+[[UC-13]] *Use case: UC13 -  Edit existing financial goal* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -486,7 +489,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC14 -  Undo last command* +
+[[UC-14]] *Use case: UC14 -  Undo last command* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -508,7 +511,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC15 - Compare overall expenditure of different month* +
+[[UC-15]] *Use case: UC15 - Compare overall expenditure of different month* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -536,7 +539,7 @@ Use case ends.
 
 
 *Actor: Credit card user* +
-*Use case: UC16 - Add credit card to account* +
+[[UC-16]] *Use case: UC16 - Add credit card to account* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -563,7 +566,7 @@ Use case ends.
 
 
 *Actor: Credit card user* +
-*Use case: UC17 - Charge expenditure to credit card* +
+[[UC-17]] *Use case: UC17 - Charge expenditure to credit card* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -591,7 +594,7 @@ Use case ends.
 
 
 *Actor: Credit card user* +
-*Use case: UC18 - Edit credit card details* +
+[[UC-18]] *Use case: UC18 - Edit credit card details* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -619,14 +622,14 @@ Use case ends.
 
 
 *Actor: Spendthrift user* +
-*Use case: UC19 - System warns user when exceeding or have exceeded budget* +
+[[UC-19]] *Use case: UC19 - System warns user when exceeding or have exceeded budget* +
 *Preconditions:*
 
 * *User has a profile created*
 
 *Main success scenario:*
 
-. User +++<u>+++adds expenditure (UC7)+++</u>+++.
+. User +++<u>+++adds expenditure <<UC-7,(UC-7)>>.+++</u>+++
 . System warns user if total expenditure is exceeding or have exceeded budget.
 +
 Use case ends.
@@ -640,7 +643,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC20 - Set recurring expenditure* +
+[[UC-20]] *Use case: UC20 - Set recurring expenditure* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -667,7 +670,7 @@ Use case ends.
 
 
 *Actor: User with income* +
-*Use case: UC21 - Set recurring income* +
+[[UC-21]] *Use case: UC21 - Set recurring income* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -693,7 +696,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC22 - View recurring expenditure* +
+[[UC-22]] *Use case: UC22 - View recurring expenditure* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -715,7 +718,7 @@ Use case ends.
 
 
 *Actor: User with income* +
-*Use case: UC23 - View recurring income* +
+[[UC-23]] *Use case: UC23 - View recurring income* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -737,7 +740,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC24 - Edit recurring expenditure* +
+[[UC-24]] *Use case: UC24 - Edit recurring expenditure* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -770,7 +773,7 @@ Use case ends.
 
 
 *Actor: User with income* +
-*Use case: UC25 - Edit recurring income*  +
+[[UC-25]] *Use case: UC25 - Edit recurring income*  +
 *Preconditions:*
 
 * *User has a profile created*
@@ -805,7 +808,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC26 - Reminded of due payment* +
+[[UC-26]] *Use case: UC26 - Reminded of due payment* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -827,7 +830,7 @@ Use case ends.
 
 
 *Actor: Organized user* +
-*Use case: UC27 - Export expenditures statement as HTML* +
+[[UC-27]] *Use case: UC27 - Export expenditures statement as HTML* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -850,7 +853,7 @@ Use case ends.
 
 
 *Actor: Achievement oriented user* +
-*Use case: UC28 - Gain achievement* +
+[[UC-28]] *Use case: UC28 - Gain achievement* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -871,7 +874,7 @@ Use case ends.
 
 
 *Actor: Achievement oriented user* +
-*Use case: UC29 - View different types of achievements* +
+[[UC-29]] *Use case: UC29 - View different types of achievements* +
 *Preconditions:*
 
 * *User has a profile created.*
@@ -898,7 +901,7 @@ Use case ends.
 
 
 *Actor: Achievement oriented user* +
-*Use case: UC30 - View description of an achievement* +
+[[UC-30]] *Use case: UC30 - View description of an achievement* +
 *Preconditions:*
 
 * *User has a profile created.*
@@ -924,7 +927,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC31 - Add investment account (bond)* +
+[[UC-31]] *Use case: UC31 - Add investment account (bond)* +
 *Main success scenario:*
 
 . User choose to add investment account.
@@ -945,7 +948,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC32 - Edit investment account (bond)* +
+[[UC-32]] *Use case: UC32 - Edit investment account (bond)* +
 *Main success scenario:*
 
 . User choose to edit investment account.
@@ -967,7 +970,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC33 - Delete investment account (bond)* +
+[[UC-33]] *Use case: UC33 - Delete investment account (bond)* +
 *Main success scenario:*
 
 . User choose to delete investment account.
@@ -990,7 +993,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC34 - Automatically calculate half yearly interest for investment account (bond)* +
+[[UC-34]] *Use case: UC34 - Automatically calculate half yearly interest for investment account (bond)* +
 *Main success scenario:*
 
 . User starts up the program.
@@ -1007,7 +1010,7 @@ Use case ends.
 
 
 *Actor: Existing user* +
-*Use case: UC35 - Transfer money between different bank accounts* +
+[[UC-35]] *Use case: UC35 - Transfer money between different bank accounts* +
 *Main success scenario:*
 
 . User choose to transfer money to another bank account.
