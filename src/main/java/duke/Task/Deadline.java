@@ -1,5 +1,6 @@
 package duke.Task;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,6 +10,45 @@ import java.util.Date;
 public class Deadline extends item{
 
     protected Date by;
+
+    public Date dateConvert (String date) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            Date formatDate = simpleDateFormat.parse(date);
+            return formatDate;
+        }
+        catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please enter a valid date format");
+            return null;
+        }
+        catch (ParseException pe) {
+            System.out.println("Date error");
+            return null;
+        }
+    }
+
+    public String dateToStringFormat (Date date) {
+        String hour =  new SimpleDateFormat("h").format(date);
+        String min = new SimpleDateFormat("mm").format(date);
+        String marker = new SimpleDateFormat("a").format(date);
+        String day = new SimpleDateFormat("d").format(date);
+        String monthYear = new SimpleDateFormat("MMMMM yyyy").format(date);
+        String newDateFormat = this.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
+                hour + (min.equals("00") ? marker : ("." + min + marker));
+        return newDateFormat;
+    }
+
+    public String numOrdinal (int num) {
+        String[] suffix = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (num) {
+            case 11:
+            case 12:
+            case 13:
+                return num + "th";
+            default:
+                return num + suffix[num % 10];
+        }
+    }
 
     /**
      * Constructor to create the deadline class
@@ -20,7 +60,7 @@ public class Deadline extends item{
     public Deadline(String info, Boolean status, String by) {
         super(info, status);
         super.setType("D");
-        this.by = TaskList.dateConvert(by);
+        this.by = dateConvert(by);
     }
 
     /**
@@ -31,7 +71,7 @@ public class Deadline extends item{
      */
     @Override
     public String getDate () {
-        return TaskList.dateToStringFormat(by);
+        return dateToStringFormat(by);
     }
 
 

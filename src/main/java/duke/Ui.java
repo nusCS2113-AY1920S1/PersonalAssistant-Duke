@@ -6,6 +6,8 @@ import duke.Data.Parser;
 import duke.Task.TaskList;
 import duke.Task.item;
 import java.util.Date;
+import duke.Task.TaskList;
+import duke.Data.Storage;
 
 public class Ui {
 
@@ -29,9 +31,9 @@ public class Ui {
      * into the Parser class
      * @param input This is the string input defined by the user
      */
-    public void readCommand(String input) {
+    public void readCommand(String input, TaskList tasks, Storage storage) {
         Parser parser = new Parser();
-        parser.parseInput(input);
+        parser.parseInput(input, tasks, storage);
     }
 
 }
