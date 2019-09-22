@@ -1,6 +1,9 @@
 package controllers;
 
 import exceptions.DukeException;
+import exceptions.InvalidInputException;
+import exceptions.NoCommandDetailsException;
+import java.util.Scanner;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.tasks.IRecurring;
@@ -99,40 +102,57 @@ public class ConsoleInputController implements IViewController {
      * @param input : Input typed by user into CLI
      */
     @Override
-    public void onCommandReceived(String input) {
+    public void onCommandReceived(String input) throws DukeException {
         checkRecurring();
+        Scanner scanner = new Scanner(input);
+        String command = scanner.next();
 
-        if (input.equals("bye")) {
+        switch (command) {
+        case "bye":
             consoleView.end();
-        } else if (input.equals("list")) {
+            break;
+        case "list":
             consoleView.printAllTasks(taskList);
-        } else if (input.contains("done")) {
+            break;
+        case "done":
             DoneCommand doneCommand = new DoneCommand(input);
             consoleView.markDone(taskList, doneCommand);
             saveData();
-        } else if (input.contains("delete")) {
+            break;
+        case "delete":
             DeleteCommand deleteCommand = new DeleteCommand(input);
             consoleView.deleteTask(taskList, deleteCommand);
             saveData();
-        } else if (input.contains("find")) {
+            break;
+        case "find":
             try {
                 consoleView.findTask(taskList, input);
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.contains("remind")) {
+            break;
+        case "remind":
             try {
                 consoleView.remindTask(taskList, input);
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() >= 9 && input.substring(0,9).equals("schedule ")) {
+            break;
+        case "schedule":
             try {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {
-                System.out.println("error in scheduling");
+                System.out.println("Error in scheduling");
             }
-        } else if (input.contains("reschedule")) {
+            break;
+        case "free":
+            try {
+                consoleView.findFreeSlots(taskList, input);
+            } catch (ParseException e) {
+                System.out.print("Wrong date time input format");
+            }
+            break;
+        case "reschedule":
             try {
                 RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
                 consoleView.rescheduleTask(taskList, rescheduleCommand);
@@ -140,7 +160,8 @@ public class ConsoleInputController implements IViewController {
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() >= 10 && input.substring(0, 10).equals("recurring ")) {
+            break;
+        case "recurring":
             try {
                 Recurring newRecurringTask = recurringFactory.createTask(input);
                 boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
@@ -149,7 +170,10 @@ public class ConsoleInputController implements IViewController {
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else {
+            break;
+        case "event":
+        case "todo":
+        case "deadline":
             try {
                 ITask newTask = taskFactory.createTask(input);
                 boolean anomaly = taskList.addToList(newTask);
@@ -158,6 +182,9 @@ public class ConsoleInputController implements IViewController {
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
+            break;
+        default:
+            throw new InvalidInputException(input);
         }
     }
     // TODO refactor saving data and reading data to repository/database

@@ -1,5 +1,6 @@
 import controllers.TaskFactory;
 import exceptions.DukeException;
+import java.text.ParseException;
 import models.tasks.Deadline;
 import models.tasks.ITask;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,8 @@ public class DeadlineTest {
     public void creationDeadlineValidDate() {
         String input = "deadline return book /by 02/08/2012 1830";
         ITask expectedTask;
-        ITask dummyTask = new Deadline("return book", "2 August 2012 06.30 PM");
         try {
+            ITask dummyTask = new Deadline("return book", "2 August 2012 06.30 PM");
             expectedTask = taskFactory.createTask(input);
             assertEquals(expectedTask.getDescription(), dummyTask.getDescription());
         } catch (DukeException e) {

@@ -1,8 +1,12 @@
 package models.tasks;
 
+import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
-
 import java.io.Serializable;
+import java.net.PasswordAuthentication;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Event implements ITask, IDateSettable, Serializable {
     /**
@@ -11,7 +15,8 @@ public class Event implements ITask, IDateSettable, Serializable {
     private String description;
     private boolean isDone;
     private String initials;
-    private String timing;
+    private String eventDate;
+    private Date eventDateTime;
 
     /**
      * Constructor of Event data model.
@@ -19,11 +24,17 @@ public class Event implements ITask, IDateSettable, Serializable {
      * @param description : Description of the Event
      * @param eventDate : Timing at which the Event is held
      */
-    public Event(String description, String eventDate) {
+    public Event(String description, String eventDate) throws InvalidDateTimeException {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
-        this.timing = eventDate;
+        this.eventDate = eventDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy HH.mm a");
+        try {
+            this.eventDateTime = format.parse(eventDate);
+        } catch (ParseException e) {
+            throw new InvalidDateTimeException();
+        }
     }
 
     @Override
@@ -38,7 +49,7 @@ public class Event implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (at: " + this.timing + ")";
+        return this.description + " (at: " + this.eventDate + ")";
     }
 
     @Override
@@ -48,10 +59,15 @@ public class Event implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDateTime() {
-        return this.timing;
+        return this.eventDate;
+    }
+
+    @Override
+    public Date getDateTimeObject() {
+        return this.eventDateTime;
     }
 
     public void setDateTime(String newDateTime) {
-        this.timing = newDateTime;
+        this.eventDate = newDateTime;
     }
 }

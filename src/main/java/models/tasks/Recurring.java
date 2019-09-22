@@ -52,6 +52,11 @@ public class Recurring implements ITask, IRecurring {
     }
 
     @Override
+    public Date getDateTimeObject() {
+        return null;
+    }
+
+    @Override
     public int getDaysLeft() {
         return this.daysLeft;
     }
