@@ -54,7 +54,8 @@ public abstract class Command {
             String date_input = scanner.next();
             return date_input;
         } else {
-            throw new Duke.DukeException("Date field cannot be empty. Please enter a valid date.");
+            duke.ui.printg("DateError: Date field cannot be empty. Please enter a valid date.");
+            throw new Duke.DukeException("DateError: Date field cannot be empty. Please enter a valid date.");
         }
     }
 
@@ -72,7 +73,8 @@ public abstract class Command {
             String time_input = scanner.next();
             return time_input;
         } else {
-            throw new Duke.DukeException("Time field cannot be empty. Please enter a valid time.");
+            duke.ui.printg("TimeError: Time field cannot be empty. Please enter a valid time.");
+            throw new Duke.DukeException("TimeError: Time field cannot be empty. Please enter a valid time.");
         }
     }
 }

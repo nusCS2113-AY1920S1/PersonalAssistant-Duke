@@ -133,7 +133,8 @@ public class ParserManager {
             viewCommand.Command(userInput);
             break;
         default:
-            //throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            duke.ui.printg("CommandError: Unknown command input detected!" +sadFace);
+            throw new Duke.DukeException("CommandError: Unknown command input detected!");
         }
     }
 
