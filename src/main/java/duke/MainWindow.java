@@ -1,21 +1,41 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.storage.Storage;
+import duke.ui.DialogBox;
+import duke.ui.HelpWindow;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import duke.tasklist.TaskList;
-import static duke.common.Messages.filePath;
+import javafx.stage.Stage;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
+    @FXML
+    private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,6 +44,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
+    @FXML
+    private Button copyButton;
 
     private Duke duke;
 
@@ -52,5 +75,21 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    @FXML
+    private void handleExit() {
+        System.exit(0);
+    }
+
+    @FXML
+    private void handleHelp() {
+        HelpWindow helpWindow = new HelpWindow();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(helpWindow));
+        stage.setTitle("Help");
+        stage.setWidth(680);
+        stage.setHeight(100);
+        stage.show();
     }
 }

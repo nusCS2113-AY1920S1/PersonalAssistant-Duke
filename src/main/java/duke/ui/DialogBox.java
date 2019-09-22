@@ -1,5 +1,6 @@
-package duke;
+package duke.ui;
 
+import duke.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
