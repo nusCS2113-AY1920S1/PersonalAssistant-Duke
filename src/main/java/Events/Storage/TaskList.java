@@ -1,9 +1,7 @@
 package Events.Storage;
 
-import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
-import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
