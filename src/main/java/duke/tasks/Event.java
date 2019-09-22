@@ -80,7 +80,7 @@ public class Event extends Task {
     }
     
     @Override
-    public void changeDate(String newDate){
+    public void changeDate(String newDate) {
         this.at = newDate;
     }
 }
