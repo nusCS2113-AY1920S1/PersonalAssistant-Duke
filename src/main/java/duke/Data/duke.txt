@@ -1,4 +1,1 @@
-E-0-lol stuff -Sat Mar 23 19:00:00 SGT 2019
-D-0-more things -Mon Sep 23 21:00:00 SGT 2019
-E-0-blah -Thu Sep 19 11:00:00 SGT 2019
-A-0-return book -Sat Mar 23 20:19:00 SGT 2019
+D-1-buy bread -Sat Sep 27 15:50:00 GMT+08:00 1997

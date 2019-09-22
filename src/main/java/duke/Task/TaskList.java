@@ -1,7 +1,6 @@
 package duke.Task;
 
-import duke.Data.*;
-
+import duke.Data.Storage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,14 +12,22 @@ import java.time.Month;
  * TaskList handles all the operations Duke uses.
  */
 public class TaskList {
-    private static ArrayList<Item> list = new ArrayList<>();
+    private ArrayList<item> list = new ArrayList<>();
+
+    public void setList(ArrayList<item> list) {
+        this.list = list;
+    }
+
+    public ArrayList<item> getList() {
+        return this.list;
+    }
 
     /**
      * This method loads all the ArrayList items from the previous load file into the current ArrayList.
      */
-    public static void addAllList () {
+    public void addAllList (Storage storage) {
         try {
-            list.addAll(Objects.requireNonNull(Storage.loadFile()));
+            setList((Objects.requireNonNull(storage.loadFile())));
         }
         catch (NullPointerException e) {
             System.out.println("No previous list loaded");
@@ -33,20 +40,19 @@ public class TaskList {
      * @param i This is the first parameter, it takes the newly created Deadline/ToDo/Event
      * @param type This is the second parameter, defines the type of task that has been created
      */
-    public static void addTask(Item i, String type) {
-        list.add(i);
+    public void addTask(item i, String type) {
+        getList().add(i);
         System.out.println("Got it. I've added this task:\n " +
-                list.get(list.size() - 1).toString()+"\n" +
-                "Now you have " + (list.size()) + " tasks in the list.");
-        Storage.saveFile(type, i, i.getDate());
+                getList().get(getList().size() - 1).toString()+"\n" +
+                "Now you have " + (getList().size()) + " tasks in the list.");
     }
 
     /**
      * This function prints out the complete list of tasks in the ArrayList.
      */
-    public static void getList() {
+    public void showList() {
         int count = 1;
-        for (Item i: list) {
+        for (item i: getList()) {
             System.out.println(count++ +"."+ i.toString());
         }
     }
@@ -56,11 +62,10 @@ public class TaskList {
      *
      * @param index This is the index location of the task to be changed in the ArrayList
      */
-    public static void doneTask (int index) {
-        list.get(index).changeStatus();
+    public void doneTask (int index) {
+        getList().get(index).changeStatus();
         System.out.println("Nice! I've marked this task as done:\n " +
-                list.get(index).toString());
-        Storage.updateFile(list);
+                getList().get(index).toString());
     }
 
     /**
@@ -71,12 +76,11 @@ public class TaskList {
      * @param index This is the index location of the task to be deleted in the ArrayList
      * @throws IndexOutOfBoundsException e
      */
-    public static void deleteTask(int index) {
-        System.out.println("Noted. I've removed this task:\n " + list.get(index).toString());
-        System.out.println("Now you have " + (list.size() - 1) + " tasks in the list.");
+    public void deleteTask(int index) {
+        System.out.println("Noted. I've removed this task:\n " + getList().get(index).toString());
+        System.out.println("Now you have " + (getList().size() - 1) + " tasks in the list.");
         try {
-            list.remove(index);
-            Storage.updateFile(list);
+            getList().remove(index);
         }
         catch (IndexOutOfBoundsException e) {
             System.err.println("Opps! Sorry that Item does not exist!");
@@ -88,9 +92,9 @@ public class TaskList {
      *
      * @param word This parameter is the defined key word that must be searched for
      */
-    public static void findTask (String word) {
+    public void findTask (String word) {
         int cnt = 1;
-        for (Item i : list) {
+        for (item i : getList()) {
             if (i.getInfo().contains(word)) {
                 if (cnt == 1)
                     System.out.println("Here are the matching tasks in your list:");
@@ -103,14 +107,15 @@ public class TaskList {
         }
     }
 
-    public static void findDate(String word) {
+    public void findDate(String word) {
         int index = 1;
         String[] temp = word.split("/");
-        String dd = TaskList.numOrdinal(Integer.parseInt(temp[0]));
+        String dd = this.numOrdinal(Integer.parseInt(temp[0]));
         Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
-        for (Item i : list) {
+      
+        for (item i : getList()) {
             String desc = i.toString();
             if (desc.toLowerCase().contains(check.toLowerCase())) {
                 System.out.println("Here are the tasks on " + check);
@@ -129,7 +134,7 @@ public class TaskList {
      * @param num This parameter is the number taken
      * @return String of the input number with the ordinal attached to the end of the number
      */
-    public static String numOrdinal (int num) {
+    public String numOrdinal (int num) {
         String[] suffix = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
         switch (num) {
             case 11:
@@ -150,7 +155,7 @@ public class TaskList {
      * @throws ArrayIndexOutOfBoundsException e
      * @throws ParseException thrown when date input is in incorrect format
      */
-    public static Date dateConvert (String date) {
+    public Date dateConvert (String date) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date formatDate = simpleDateFormat.parse(date);
@@ -166,31 +171,19 @@ public class TaskList {
         }
     }
 
-    public static String dateRevert (String date) {
-        try {
-            Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
-            String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
-            return oldDateFormat;
-        }
-        catch (ParseException pe) {
-            System.err.println("Error: Date in wrong format");
-            return date;
-        }
-    }
-
     /**
      * Function converts the date object to the date format 2nd of December 2019, 6pm
      *
      * @param date the date to be converted
      * @return String of new dat format
      */
-    public static String dateToStringFormat (Date date) {
+    public String dateToStringFormat (Date date) {
         String hour =  new SimpleDateFormat("h").format(date);
         String min = new SimpleDateFormat("mm").format(date);
         String marker = new SimpleDateFormat("a").format(date);
         String day = new SimpleDateFormat("d").format(date);
         String monthYear = new SimpleDateFormat("MMMMM yyyy").format(date);
-        String newDateFormat = TaskList.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
+        String newDateFormat = this.numOrdinal(Integer.parseInt(day)) + " of " + monthYear + ", " +
                 hour + (min.equals("00") ? marker : ("." + min + marker));
         return newDateFormat;
     }
@@ -203,10 +196,10 @@ public class TaskList {
      * @return deadlineList if there are deadlines before end date they are returned as a list
      * @return null if there are no deadlines
      */
-    public static ArrayList<Item> getReminderList (Date todayDate, Date endDate) {
-        ArrayList<Item> deadlineList = new ArrayList<>();
+    public ArrayList<item> getReminderList (Date todayDate, Date endDate) {
+        ArrayList<item> deadlineList = new ArrayList<>();
         Boolean isNotEmpty = false;
-        for (Item i: list) {
+        for (item i: getList()) {
             // check if deadline is before today's date,
             if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.isDone()) {
                 deadlineList.add(i);

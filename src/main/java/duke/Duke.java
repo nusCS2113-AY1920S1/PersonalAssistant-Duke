@@ -1,7 +1,9 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import duke.Data.Storage;
 import duke.GUI.DialogBox;
 import duke.Task.*;
 
@@ -27,22 +29,29 @@ public class Duke extends Application {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private static Ui ui = new Ui();
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+
+    public Duke(String filePath) throws FileNotFoundException {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+    }
 
     /**
      * This program runs the main duke program
      *
      * @param args expects array of string objects
      */
-    public static void main(String[] args) {
-        run();
+    public static void main(String[] args) throws FileNotFoundException {
+        new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt").run();
     }
 
-    public static void run() {
+    public void run() {
         ui.welcome();
-        TaskList.addAllList();
+        tasks.addAllList(storage);
         while (true) {
-
             Scanner sc = new Scanner(System.in);
             if (sc.hasNextLine()) {
                 String input = sc.nextLine();
@@ -50,7 +59,7 @@ public class Duke extends Application {
                     ui.goodbye();
                     break;
                 }
-                ui.readCommand(input);
+                ui.readCommand(input, tasks, storage);
             }
         }
     }
