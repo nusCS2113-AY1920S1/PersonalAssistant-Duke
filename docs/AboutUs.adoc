@@ -1,4 +1,6 @@
 = About Us
+CS2113-T14-1 <cs2113.t14.t1@gmail.com>
+v1.1, 2019-09-23
 :site-section: AboutUs
 :relfileprefix: team/
 :imagesDir: images
@@ -21,8 +23,8 @@ Role: Lecturer / Project Supervisor
 image::gowgos5.png[width="150", align="left"]
 {empty}[https://github.com/gowgos5[github]] [<<portfolio#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI, Scheduling and Tracking
+Role: TBC +
+Responsibilities: TBC
 
 '''
 
@@ -30,8 +32,8 @@ Responsibilities: UI, Scheduling and Tracking
 image::aquohn.png[width="150", align="left"]
 {empty}[http://github.com/aquohn[github]] [<<portfolio#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Integration, Documentation
+Role: TBC +
+Responsibilities: TBC
 
 '''
 
@@ -39,8 +41,8 @@ Responsibilities: Integration, Documentation
 image::jacobtoresson.png[width="150", align="left"]
 {empty}[http://github.com/JacobToresson[github]] [<<portfolio#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Testing
+Role: TBC +
+Responsibilities: TBC
 
 '''
 
@@ -48,7 +50,7 @@ Responsibilities: Testing
 image::jeremykwok.png[width="150", align="left"]
 {empty}[http://github.com/JeremyKwok[github]] [<<portfolio#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Code Quality
+Role: TBC +
+Responsibilities: TBC
 
 '''
