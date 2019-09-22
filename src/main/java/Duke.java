@@ -10,10 +10,6 @@ public class Duke {
     public static void main(String[] args) {
         CLIView cliView = new CLIView();
 
-        try {
-            cliView.start();
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+        cliView.start();
     }
 }

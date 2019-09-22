@@ -31,7 +31,7 @@ public class CLIView {
     /**
      * Method to call when View model is started.
      */
-    public void start() throws DukeException {
+    public void start() {
         Scanner sc = new Scanner(System.in);
         consoleInputController.readData();
 
@@ -42,7 +42,11 @@ public class CLIView {
 
         while (true) {
             String command = sc.nextLine();
-            consoleInputController.onCommandReceived(command);
+            try {
+                consoleInputController.onCommandReceived(command);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
