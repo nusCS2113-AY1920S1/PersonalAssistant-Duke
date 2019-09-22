@@ -2,14 +2,7 @@ package compal.logic.commands;
 
 import compal.main.Duke;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,13 +28,13 @@ public abstract class Command {
      * @return description
      */
     public String getDescription(String restOfInput) throws Duke.DukeException {
-        if(!restOfInput.contains(TOKEN_SLASH)){
+        if (!restOfInput.contains(TOKEN_SLASH)) {
             duke.ui.printg("ArgumentError: Missing date or time!");
             throw new Duke.DukeException("ArgumentError: Missing date or time!");
         }
         int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
-        String desc = restOfInput.substring(0,splitPoint).trim();
-        if(desc.matches(" ")){
+        String desc = restOfInput.substring(0, splitPoint).trim();
+        if (desc.matches(" ")) {
             duke.ui.printg("DescError: Description field cannot be empty. Please enter a description");
             throw new Duke.DukeException("DescError: Description field cannot be empty. Please enter a description.");
         }
@@ -61,7 +54,7 @@ public abstract class Command {
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            if(!scanner.hasNext()){
+            if (!scanner.hasNext()) {
                 duke.ui.printg("MissingDateError: Date field cannot be empty. Please enter a valid date.");
                 throw new Duke.DukeException("MissingDateError: Date field cannot be empty. Please enter a valid date.");
             }
@@ -71,7 +64,7 @@ public abstract class Command {
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(date_input);
 
-            if(matcher.matches() == false){
+            if (matcher.matches() == false) {
                 duke.ui.printg("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
                 throw new Duke.DukeException("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
             }
@@ -96,7 +89,7 @@ public abstract class Command {
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            if(!scanner.hasNext()){
+            if (!scanner.hasNext()) {
                 duke.ui.printg("MissingTimeError: Time field cannot be empty. Please enter a valid time.");
                 throw new Duke.DukeException("MissingTimeError: Time field cannot be empty. Please enter a valid time.");
             }

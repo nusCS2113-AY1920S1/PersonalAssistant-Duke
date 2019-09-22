@@ -1,11 +1,5 @@
 package compal.tasks;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import compal.main.Duke;
-import compal.tasks.Task;
-
 /**
  * Provides support for recurring tasks.
  */
@@ -17,7 +11,7 @@ public class RecurringTask extends Task {
      * @param description Description of the task to be stored.
      * @param date        Date of the event.
      */
-    public RecurringTask(String description, String date,String time) {
+    public RecurringTask(String description, String date, String time) {
         super(description);
         super.symbol = "RT";
         super.setDate(date);

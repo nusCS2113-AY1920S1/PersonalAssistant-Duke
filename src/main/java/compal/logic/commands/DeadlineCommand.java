@@ -3,11 +3,8 @@ package compal.logic.commands;
 import compal.logic.parser.CommandParser;
 import compal.main.Duke;
 import compal.tasks.Deadline;
-import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Scanner;
 
 public class DeadlineCommand extends Command implements CommandParser {

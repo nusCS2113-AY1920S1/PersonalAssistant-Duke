@@ -2,11 +2,9 @@ package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
 import compal.main.Duke;
-import compal.tasks.Event;
 import compal.tasks.FixedDurationTask;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class FixedDurationCommand extends Command implements CommandParser {
@@ -37,8 +35,8 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String time = getTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, date,time, hour, minute));
-            int arrSize = taskList.arrlist.size()-1;
+            taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
+            int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             duke.ui.printg(descToPrint);
 
@@ -54,7 +52,7 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            if(!scanner.hasNext()){
+            if (!scanner.hasNext()) {
                 duke.ui.printg("HourInputError: Required hour input for FixedDuration command!");
                 throw new Duke.DukeException("HourInputError: Required hour input for FixedDuration command!");
             }
@@ -71,7 +69,7 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            if(!scanner.hasNext()){
+            if (!scanner.hasNext()) {
                 duke.ui.printg("MinInputError: Required minute input for FixedDuration command!");
                 throw new Duke.DukeException("MinInputError: Required minute input for FixedDuration command!");
             }

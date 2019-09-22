@@ -2,7 +2,6 @@ package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
 import compal.main.Duke;
-import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class DeleteCommand extends Command implements CommandParser {
         int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
         int maxLimit = taskList.arrlist.size();
 
-        if(toRemove < 0 || toRemove >= maxLimit){
+        if (toRemove < 0 || toRemove >= maxLimit) {
             duke.ui.printg("RangeError: Invalid range detected for delete command");
             throw new Duke.DukeException("RangeError: Invalid range detected for delete command");
         }

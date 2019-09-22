@@ -1,9 +1,5 @@
 package compal.tasks;
 
-import compal.main.Duke;
-
-import java.util.Date;
-
 public class DoAfterTasks extends Task {
 
     /**

@@ -2,7 +2,6 @@ package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
 import compal.main.Duke;
-import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class DoneCommand extends Command implements CommandParser {
             taskList.arrlist.get(toMark).markAsDone();
             String desc = taskList.arrlist.get(toMark).toString();
             duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
-        }else{
+        } else {
             duke.ui.printg("InputError: Required input for done command!");
             throw new Duke.DukeException("InputError: Required input for done command!");
         }

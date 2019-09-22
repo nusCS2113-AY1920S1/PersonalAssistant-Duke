@@ -3,10 +3,8 @@ package compal.logic.commands;
 import compal.logic.parser.CommandParser;
 import compal.main.Duke;
 import compal.tasks.DoAfterTasks;
-import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class DoAfterCommand extends Command implements CommandParser {

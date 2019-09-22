@@ -6,7 +6,6 @@ import compal.storage.Storage;
 import compal.storage.StorageFile;
 import compal.tasks.TaskList;
 
-import javax.swing.text.html.parser.Parser;
 import java.util.ArrayList;
 
 import static java.lang.System.exit;

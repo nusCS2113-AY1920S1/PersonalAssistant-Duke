@@ -76,7 +76,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
             int rep = getRep(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, dateStr,time);
+                RecurringTask newRecurTask = new RecurringTask(description, dateStr, time);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

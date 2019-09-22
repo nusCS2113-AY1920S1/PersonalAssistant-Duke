@@ -61,12 +61,6 @@ public abstract class Task implements Serializable {
         return this.date;
     }
 
-    public String getStringDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String stringDate = formatter.format(this.date);
-        return stringDate;
-    }
-
     public void setDate(String dateInput) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
@@ -76,6 +70,12 @@ public abstract class Task implements Serializable {
             e.printStackTrace();
         }
         this.date = date;
+    }
+
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String stringDate = formatter.format(this.date);
+        return stringDate;
     }
 
     public Integer getDurationHour() {
@@ -146,15 +146,15 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
 
-        if(getDurationHour() != null && getDurationMinute()!= null){
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: "  + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute() ;
+        if (getDurationHour() != null && getDurationMinute() != null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
         }
 
-        if(getTime() == null){
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: "  + getStringDate();
+        if (getTime() == null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate();
         }
 
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " +getStringTime();
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " + getStringTime();
     }
 
 

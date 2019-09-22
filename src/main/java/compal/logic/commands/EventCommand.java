@@ -5,7 +5,6 @@ import compal.main.Duke;
 import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class EventCommand extends Command implements CommandParser {
