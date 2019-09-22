@@ -1,11 +1,6 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import duke.Data.Parser;
-import duke.Task.TaskList;
-import duke.Task.item;
-import java.util.Date;
 import duke.Task.TaskList;
 import duke.Data.Storage;
 
