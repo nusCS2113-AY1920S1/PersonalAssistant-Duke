@@ -7,7 +7,7 @@ import compal.tasks.TaskList;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class ParserManager{
+public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
 
     static final String CMD_EXIT = "bye";
@@ -15,7 +15,6 @@ public class ParserManager{
     static final String CMD_CLEAR = "clear";
     static final String CMD_DONE = "done";
     static final String CMD_DELETE = "delete";
-    static final String CMD_TODO = "todo";
     static final String CMD_EVENT = "event";
     static final String CMD_DEADLINE = "deadline";
     static final String CMD_DO_AFTER_TASK = "doaftertask";
@@ -44,9 +43,6 @@ public class ParserManager{
     //----------------------->
 
 
-
-
-
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
@@ -63,7 +59,6 @@ public class ParserManager{
 
 
     //----------------------->
-
 
 
     //***COMMAND PROCESSING***------------------------------------------------------------------------------------------
@@ -104,10 +99,6 @@ public class ParserManager{
             DeleteCommand delete = new DeleteCommand(duke);
             delete.Command(userInput);
             break;
-        case CMD_TODO:
-            ToDoCommand todo = new ToDoCommand(duke);
-            todo.Command(userInput);
-            break;
         case CMD_EVENT:
             EventCommand event = new EventCommand(duke);
             event.Command(userInput);
@@ -137,14 +128,13 @@ public class ParserManager{
             viewCommand.Command(userInput);
             break;
         default:
-            throw new Duke.DukeException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            duke.ui.printg("CommandError: Unknown command input detected!" + sadFace);
+            throw new Duke.DukeException("CommandError: Unknown command input detected!");
         }
     }
 
 
     //----------------------->
-
-
 
 
     //***CONTROL PARSING LOGIC***---------------------------------------------------------------------------------------

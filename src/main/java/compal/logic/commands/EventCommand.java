@@ -5,7 +5,6 @@ import compal.main.Duke;
 import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class EventCommand extends Command implements CommandParser {
@@ -32,12 +31,13 @@ public class EventCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
-            taskList.addTask(new Event(description, date,time));
-            int arrSize = taskList.arrlist.size()-1;
-            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[E][" + statusIcon + "] " + description);
+            taskList.addTask(new Event(description, date, time));
+            int arrSize = taskList.arrlist.size() - 1;
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            duke.ui.printg(descToPrint);
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            duke.ui.printg("InputError: Required input for Event command!");
+            throw new Duke.DukeException("InputError: Required input for Event command!");
         }
     }
 }

@@ -23,7 +23,6 @@ public class MainWindow extends AnchorPane {
     //----------------------->
 
 
-
     @FXML
     public void initialize() {
         System.out.println("MainWindow:LOG: Controller Class Initialized");

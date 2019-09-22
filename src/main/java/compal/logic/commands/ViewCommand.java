@@ -20,7 +20,7 @@ public class ViewCommand extends Command implements CommandParser {
     }
 
     @Override
-    public void Command(String userIn) throws Duke.DukeException, ParseException{
+    public void Command(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         String dateInput = scanner.next();
@@ -39,11 +39,11 @@ public class ViewCommand extends Command implements CommandParser {
 
         Boolean isEmpty = true;
 
-        for (Task task : taskList.arrlist){
+        for (Task task : taskList.arrlist) {
             Date convertDate = task.getDate();
             String compareDate = formatter.format(convertDate);
             if (compareDate.matches(formatDate)) {
-                if(isEmpty){
+                if (isEmpty) {
                     duke.ui.printg("On " + formatDate + " you have the task below:");
                 }
                 duke.ui.printg(task.toString());
@@ -51,7 +51,7 @@ public class ViewCommand extends Command implements CommandParser {
             }
         }
 
-        if(isEmpty){
+        if (isEmpty) {
             duke.ui.printg("No task found on " + formatDate);
         }
     }
