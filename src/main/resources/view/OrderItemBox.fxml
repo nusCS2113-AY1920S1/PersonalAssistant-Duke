@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<fx:root maxHeight="100.0" prefHeight="80.0" prefWidth="164.0"
+         style="-fx-background-radius: 25; -fx-background-color: #f3f3f3;" type="AnchorPane"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label fx:id="itemName" alignment="CENTER" text="White bread" textAlignment="CENTER" textFill="#96663b">
+                    <font>
+                        <Font name="Arial" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="itemQuantity" alignment="CENTER" text="5 pieces" textAlignment="CENTER">
+                    <font>
+                        <Font name="Arial" size="20.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="itemQuantity1" alignment="CENTER"
+                       style="-fx-background-color: rgb(101, 203, 87); -fx-background-radius: 25;"
+                       text=" Enough ingredients " textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial" size="12.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets top="5.0"/>
+                    </VBox.margin>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</fx:root>

@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class MainWindow extends AnchorPane {
@@ -25,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private JFXListView<DialogBox> taskList;
+    @FXML
+    private VBox orderList;
+
 
     @FXML
     public void initialize() {
