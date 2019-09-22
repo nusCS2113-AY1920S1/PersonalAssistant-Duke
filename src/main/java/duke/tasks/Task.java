@@ -60,4 +60,5 @@ public abstract class Task {
     public TaskType getTaskType() {
         return taskType;
     }
+    public abstract void changeDate(String newDate);
 }
