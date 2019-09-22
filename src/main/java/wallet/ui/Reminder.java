@@ -1,6 +1,6 @@
 package wallet.ui;
 
-import wallet.record.RecordList;
+import wallet.model.record.RecordList;
 
 public class Reminder {
 

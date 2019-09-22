@@ -1,9 +1,6 @@
 package wallet.ui;
 
-import wallet.record.Record;
-import wallet.record.RecordList;
-
-import java.util.ArrayList;
+import wallet.model.record.RecordList;
 
 class MyThread implements Runnable {
 

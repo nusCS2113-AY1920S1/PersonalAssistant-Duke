@@ -1,20 +1,17 @@
 package wallet.command;
 
-import wallet.contact.Contact;
-import wallet.contact.ContactList;
-import wallet.record.*;
+import wallet.model.contact.Contact;
+import wallet.model.contact.ContactList;
+import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.ExpenseParser;
+import wallet.model.record.RecordList;
+import wallet.model.task.Task;
+import wallet.model.task.TaskList;
+import wallet.model.task.Tentative;
 import wallet.storage.Storage;
-import wallet.task.Deadline;
-import wallet.task.Event;
-import wallet.task.ScheduleList;
-import wallet.task.Task;
-import wallet.task.TaskList;
-import wallet.task.Tentative;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Command {
     /**
@@ -25,7 +22,7 @@ public class Command {
      * @param fileIO      The class object that handles file IO
      * @return true if the command given is bye
      */
-    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO, ScheduleList scheduleList,
+    public static boolean parse(String fullCommand, TaskList taskList, Storage fileIO,
                                 ContactList contactList, RecordList recordList, ExpenseList expenseList) {
         boolean isExit = false;
 
@@ -94,45 +91,10 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
-            }
-        } else if (command[0].equals("view")) {
-            try {
-                scheduleList = new ScheduleList();
-
-                if (command[1].equals("all")) {
-                    for (Record r : recordList.getRecordList()) {
-                        if (r instanceof Expense || r instanceof Loan) {
-                            scheduleList.addSchedule(r);
-                        }
-                    }
-                    scheduleList.printScheduleList();
-                } else {
-                    LocalDate date = LocalDate.parse(command[1].trim());
-                    for (Record r : recordList.getRecordList()) {
-                        if (r instanceof Expense) {
-                            LocalDate expensesDate = ((Expense) r).getDate();
-                            if (date.equals(expensesDate)) {
-                                scheduleList.addSchedule(r);
-                            }
-                        } else if (r instanceof Loan) {
-                            LocalDate loanDate = ((Loan) r).getDate();
-                            if (date.equals(loanDate)) {
-                                scheduleList.addSchedule(r);
-                            }
-                        }
-                    }
-                    if (scheduleList.getScheduleListSize() == 0) {
-                        System.out.println("There is nothing due for that date/time!");
-                    } else {
-                        scheduleList.printScheduleList();
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         } else if (command[0].equals("delete")) {
             try {
@@ -149,7 +111,6 @@ public class Command {
                 System.out.println("☹ OOPS!!! Please use input the index of the task to delete");
             }
         } else if (command[0].equals("bye")) {
-
             isExit = true;
         } else if (command[0].equals("tentative")) {
             //B-Tentative Scheduling: Create Tentative Event Entry
@@ -160,7 +121,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -183,7 +144,7 @@ public class Command {
                         System.out.println("Got it. I've updated it into an event:");
                         System.out.println(newEvent.toString());
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                        fileIO.writeFile(newEvent, "event");
+                        fileIO.writeFile(newEvent);
                         fileIO.removeTask(taskList.getTaskList(), num);
                     }
                 } else {
@@ -218,7 +179,7 @@ public class Command {
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The format of adding expense is "
-                                    + "\"expense lunch $5 /on 01/01/2019 /cat Food /r daily\"");
+                                    + "\"\"");
             }
         } else if (command[0].equals("recurring")) {
             ArrayList<Expense> recList = ExpenseParser.getRecurringRecords(expenseList);

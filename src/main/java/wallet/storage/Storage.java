@@ -1,11 +1,11 @@
 package wallet.storage;
 
-import wallet.task.Deadline;
-import wallet.task.DoWithinPeriod;
-import wallet.task.Event;
-import wallet.task.Task;
-import wallet.task.Tentative;
-import wallet.task.Todo;
+import wallet.model.task.Deadline;
+import wallet.model.task.DoWithinPeriod;
+import wallet.model.task.Event;
+import wallet.model.task.Task;
+import wallet.model.task.Tentative;
+import wallet.model.task.Todo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Storage {
+    public static final String DEFAULT_STORAGE_FILEPATH = "wallet.txt";
     /**
      * The path where the save file is located in the local computer.
      */
@@ -24,11 +24,9 @@ public class Storage {
 
     /**
      * Constructs a new Storage object.
-     *
-     * @param path The path of the save file in the local computer.
      */
-    public Storage(String path) {
-        this.path = path;
+    public Storage() {
+        this.path = DEFAULT_STORAGE_FILEPATH;
     }
 
     /**
@@ -36,8 +34,8 @@ public class Storage {
      *
      * @return The list of task loaded from save file
      */
-    public List<Task> loadFile() {
-        List<Task> taskList = new ArrayList<Task>();
+    public ArrayList<Task> loadFile() {
+        ArrayList<Task> taskList = new ArrayList<Task>();
 
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "r");
@@ -110,21 +108,11 @@ public class Storage {
      * Attempts to write newly added task into a save file on the local computer.
      *
      * @param task The new task that is added
-     * @param type The type of task added
      */
-    public void writeFile(Task task, String type) {
+    public void writeFile(Task task) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             raf.seek(raf.length());
-            if (type.equals("todo")) {
-                type = "T";
-            } else if (type.equals("event")) {
-                type = "E";
-            } else if (type.equals("deadline")) {
-                type = "D";
-            } else if (type.equals("tentative")) {
-                type = "*E";
-            }
             if (raf.getFilePointer() != 0) {
                 raf.writeBytes("\r\n");
             }
@@ -171,7 +159,7 @@ public class Storage {
      * @param taskList The list of task to update
      * @param index    The index of the task in the list to be removed
      */
-    public void removeTask(List<Task> taskList, int index) {
+    public void removeTask(ArrayList<Task> taskList, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rws");
             int counter = index;
