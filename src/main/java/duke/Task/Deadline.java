@@ -64,7 +64,7 @@ public class Deadline extends Item {
                     final String date) {
         super(info, status);
         super.setType("D");
-        this.by = dateConvert(by);
+        this.by = dateConvert(date);
     }
 
     /**

@@ -12,13 +12,13 @@ import java.time.Month;
  * TaskList handles all the operations Duke uses.
  */
 public class TaskList {
-    private ArrayList<item> list = new ArrayList<>();
+    private ArrayList<Item> list = new ArrayList<>();
 
-    public void setList(ArrayList<item> list) {
+    public void setList(ArrayList<Item> list) {
         this.list = list;
     }
 
-    public ArrayList<item> getList() {
+    public ArrayList<Item> getList() {
         return this.list;
     }
 
@@ -40,7 +40,7 @@ public class TaskList {
      * @param i This is the first parameter, it takes the newly created Deadline/ToDo/Event
      * @param type This is the second parameter, defines the type of task that has been created
      */
-    public void addTask(item i, String type) {
+    public void addTask(Item i, String type) {
         getList().add(i);
         System.out.println("Got it. I've added this task:\n " +
                 getList().get(getList().size() - 1).toString()+"\n" +
@@ -52,7 +52,7 @@ public class TaskList {
      */
     public void showList() {
         int count = 1;
-        for (item i: getList()) {
+        for (Item i: getList()) {
             System.out.println(count++ +"."+ i.toString());
         }
     }
@@ -94,7 +94,7 @@ public class TaskList {
      */
     public void findTask (String word) {
         int cnt = 1;
-        for (item i : getList()) {
+        for (Item i : getList()) {
             if (i.getInfo().contains(word)) {
                 if (cnt == 1)
                     System.out.println("Here are the matching tasks in your list:");
@@ -115,7 +115,7 @@ public class TaskList {
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
       
-        for (item i : getList()) {
+        for (Item i : getList()) {
             String desc = i.toString();
             if (desc.toLowerCase().contains(check.toLowerCase())) {
                 System.out.println("Here are the tasks on " + check);
@@ -196,10 +196,10 @@ public class TaskList {
      * @return deadlineList if there are deadlines before end date they are returned as a list
      * @return null if there are no deadlines
      */
-    public ArrayList<item> getReminderList (Date todayDate, Date endDate) {
-        ArrayList<item> deadlineList = new ArrayList<>();
+    public ArrayList<Item> getReminderList (Date todayDate, Date endDate) {
+        ArrayList<Item> deadlineList = new ArrayList<>();
         Boolean isNotEmpty = false;
-        for (item i: getList()) {
+        for (Item i: getList()) {
             // check if deadline is before today's date,
             if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.isDone()) {
                 deadlineList.add(i);

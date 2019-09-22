@@ -60,7 +60,7 @@ public class Event extends Item {
     public Event(final String info, final Boolean status, final String date) {
         super(info, status);
         super.setType("E");
-        this.at = dateConvert(at);
+        this.at = dateConvert(date);
     }
 
     /**
