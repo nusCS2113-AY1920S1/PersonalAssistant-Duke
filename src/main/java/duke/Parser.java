@@ -72,7 +72,7 @@ public class Parser {
             return new AddCommand(Command.CmdType.EVENT, input);
         } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             return new AddCommand(Command.CmdType.DEADLINE, input);
-        } else if(input.length() >= 4 && input.substring(0, 4).equals("edit")) {
+        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
             return new EditCommand(input);
         } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
             return new TentativeCommand(input, true);

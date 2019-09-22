@@ -11,12 +11,12 @@ import java.util.Date;
 
 /**
  * EDIT commands should be of the following format:
- * edit <insert task index>  <new date for task>
+ * edit TASKINDEX  NEWDATE.
  */
 
 public class EditCommand extends Command {
 
-    public EditCommand(String str){
+    public EditCommand(String str) {
         type = CmdType.EDIT;
         input = str;
     }

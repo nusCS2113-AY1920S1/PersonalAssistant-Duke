@@ -66,9 +66,8 @@ public class Deadline extends Task {
     public String getExtra() {
         return this.by;
     }
+
     @Override
-    public void changeDate(String newDate){
-        this.by = newDate;
-    }
+    public void changeDate(String newDate) { this.by = newDate; }
 
 }
