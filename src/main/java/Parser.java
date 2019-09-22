@@ -1,5 +1,10 @@
+import Commands.Command;
+import Commands.ExitCommand;
+
 public class Parser {
     public Command parse(String fullCommand) {
-        return null;
+        if (fullCommand.equals("dummysring")) {
+        }
+        return new ExitCommand();
     }
 }
