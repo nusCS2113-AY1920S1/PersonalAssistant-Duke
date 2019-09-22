@@ -1,3 +1,5 @@
+import Commands.Command;
+
 public class Farmio {
     private Storage storage;
     private Farmer farmer;
@@ -6,6 +8,7 @@ public class Farmio {
 
     public Farmio() {
         Ui ui = new Ui();
+        parser = new Parser();
         Storage storage = new Storage();
         ui.showWelcome();
         String filepath;
@@ -34,7 +37,7 @@ public class Farmio {
 
     private static String loadLevel(Farmer farmer) {
 
-        return null;
+        return "dummystring";
     }
 
     private static void checkObjectives(Farmer farmer) {

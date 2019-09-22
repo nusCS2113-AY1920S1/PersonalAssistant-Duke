@@ -1,6 +1,6 @@
 public class Storage {
     public Farmer load(String filepath) {
-        return null;
+        return new Farmer();
     }
 
     public static void save(Farmer farmer) {

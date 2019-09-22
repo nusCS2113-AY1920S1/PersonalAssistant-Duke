@@ -1,5 +1,7 @@
+package Commands;
+
 public abstract class Command {
-    private boolean isExit = false;
+    protected boolean isExit = false;
 
     public boolean getIsExit() {
         return isExit;

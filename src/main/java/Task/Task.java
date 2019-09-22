@@ -1,3 +1,5 @@
+package Task;
+
 public class Task {
     protected String condition; //may change to enum in the future
     protected String task; //may change to enum in the future
