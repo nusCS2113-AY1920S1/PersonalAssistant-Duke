@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public abstract class Record {
     private String description;
-    private LocalDate createdDate;
+    private LocalDate date;
 
-    public Record(String description, LocalDate createdDate) {
+    public Record(String description, LocalDate date) {
         this.description = description;
-        this.createdDate = createdDate;
+        this.date = date;
     }
 
     public String getDescription() {
@@ -19,12 +19,12 @@ public abstract class Record {
         this.description = description;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setDate(LocalDate createdDate) {
+        this.date = createdDate;
     }
 
 }

@@ -2,10 +2,7 @@ package wallet.command;
 
 import wallet.contact.Contact;
 import wallet.contact.ContactList;
-import wallet.record.Expense;
-import wallet.record.ExpenseList;
-import wallet.record.ExpenseParser;
-import wallet.record.RecordList;
+import wallet.record.*;
 import wallet.storage.Storage;
 import wallet.task.Deadline;
 import wallet.task.Event;
@@ -15,6 +12,7 @@ import wallet.task.TaskList;
 import wallet.task.Tentative;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -106,25 +104,24 @@ public class Command {
                 scheduleList = new ScheduleList();
 
                 if (command[1].equals("all")) {
-                    for (Task t : taskList.getTaskList()) {
-                        if (t instanceof Deadline || t instanceof Event) {
-                            scheduleList.addSchedule(t);
+                    for (Record r : recordList.getRecordList()) {
+                        if (r instanceof Expense || r instanceof Loan) {
+                            scheduleList.addSchedule(r);
                         }
                     }
                     scheduleList.printScheduleList();
-                } else { //TODO: Will change it to date only (Depends on our Expenses and Loans data)
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date date = sdf.parse(command[1].trim());
-                    for (Task t : taskList.getTaskList()) {
-                        if (t instanceof Deadline) {
-                            Date deadlineDate = ((Deadline) t).getDate();
-                            if (date.equals(deadlineDate)) {
-                                scheduleList.addSchedule(t);
+                } else {
+                    LocalDate date = LocalDate.parse(command[1].trim());
+                    for (Record r : recordList.getRecordList()) {
+                        if (r instanceof Expense) {
+                            LocalDate expensesDate = ((Expense) r).getDate();
+                            if (date.equals(expensesDate)) {
+                                scheduleList.addSchedule(r);
                             }
-                        } else if (t instanceof Event) {
-                            Date eventDate = ((Event) t).getDate();
-                            if (date.equals(eventDate)) {
-                                scheduleList.addSchedule(t);
+                        } else if (r instanceof Loan) {
+                            LocalDate loanDate = ((Loan) r).getDate();
+                            if (date.equals(loanDate)) {
+                                scheduleList.addSchedule(r);
                             }
                         }
                     }
@@ -134,24 +131,6 @@ public class Command {
                         scheduleList.printScheduleList();
                     }
                 }
-                /*else if (command[1].equals("loans")){ //TODO: IF viewing just loans
-                    for (Task t : taskList.getTaskList()) {
-                        if (t instanceof Loans) {
-                            scheduleList.addSchedule(t);
-                        }
-                    }
-                    scheduleList.printScheduleList();
-                }
-                else if (command[1].equals("expenses")){ //TODO: IF viewing just expenses
-                 for (Task t : taskList.getTaskList()) {
-                        if (t instanceof Expenses) {
-                            scheduleList.addSchedule(t);
-                        }
-                    }
-                    scheduleList.printScheduleList();
-                 */
-                //TODO: Can extend to multiple categories
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

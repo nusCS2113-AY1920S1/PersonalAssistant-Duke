@@ -1,5 +1,7 @@
 package wallet.task;
 
+import wallet.record.Record;
+
 import java.util.ArrayList;
 
 public class ScheduleList {
@@ -7,13 +9,13 @@ public class ScheduleList {
      * Data structure to hold list of schedules of the user.
      * [TODO] FOR NOW: SCHEDULES REFER TO EXPENSES AND LOANS.
      */
-    private ArrayList<Task> scheduleList;
+    private ArrayList<Record> scheduleList;
 
     /**
      * Constructs a new ArrayList object.
      */
     public ScheduleList() {
-        scheduleList = new ArrayList<Task>();
+        scheduleList = new ArrayList<Record>();
     }
 
     /**
@@ -22,17 +24,17 @@ public class ScheduleList {
      * @return The list of schedules.
      */
 
-    public ArrayList<Task> getScheduleList() {
+    public ArrayList<Record> getScheduleList() {
         return scheduleList;
     }
 
     /**
      * Add the given schedule into the task list.
      *
-     * @param task The schedule to be added.
+     * @param record The schedule to be added.
      */
-    public void addSchedule(Task task) {
-        scheduleList.add(task);
+    public void addSchedule(Record record) {
+        scheduleList.add(record);
     }
 
     /**
@@ -41,7 +43,7 @@ public class ScheduleList {
      * @param index The index of the schedules in the list.
      * @return The schedules at the given index.
      */
-    public Task getSchedule(int index) {
+    public Record getSchedule(int index) {
         return scheduleList.get(index);
     }
 

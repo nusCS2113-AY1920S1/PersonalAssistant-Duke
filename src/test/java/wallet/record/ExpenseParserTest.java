@@ -11,7 +11,7 @@ public class ExpenseParserTest {
     public void parseInput_recurringExpense_success() {
         Expense e = ExpenseParser.parseInput("Dinner $10 /on 10/10/2019 /cat Food /r daily");
         assertEquals("Dinner", e.getDescription());
-        assertEquals("2019-10-10", e.getCreatedDate().toString());
+        assertEquals("2019-10-10", e.getDate().toString());
         assertEquals(10.0, e.getAmount());
         assertEquals("Food", e.getCategory());
         assertEquals(true, e.isRecurring());
@@ -27,7 +27,7 @@ public class ExpenseParserTest {
 
         for (Expense e : ExpenseParser.getRecurringRecords(expenseList)) {
             assertEquals("Breakfast", e.getDescription());
-            assertEquals(LocalDate.now(), e.getCreatedDate());
+            assertEquals(LocalDate.now(), e.getDate());
             assertEquals(3.0, e.getAmount());
             assertEquals("Food", e.getCategory());
             assertEquals(true, e.isRecurring());
@@ -48,14 +48,14 @@ public class ExpenseParserTest {
             Expense e = expenseList.getExpense(i);
             if (i != expenseList.getSize() - 1) {
                 assertEquals("Breakfast", e.getDescription());
-                assertEquals(expenseDate, e.getCreatedDate());
+                assertEquals(expenseDate, e.getDate());
                 assertEquals(3.0, e.getAmount());
                 assertEquals("Food", e.getCategory());
                 assertEquals(false, e.isRecurring());
                 assertEquals("NULL", e.getRecFrequency());
             } else {
                 assertEquals("Breakfast", e.getDescription());
-                assertEquals(expenseDate, e.getCreatedDate());
+                assertEquals(expenseDate, e.getDate());
                 assertEquals(3.0, e.getAmount());
                 assertEquals("Food", e.getCategory());
                 assertEquals(true, e.isRecurring());

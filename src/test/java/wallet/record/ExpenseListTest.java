@@ -15,7 +15,7 @@ public class ExpenseListTest {
         expenseList.addExpense(e);
         for (Expense ex : expenseList.getExpenseList()) {
             assertEquals("Lunch", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getCreatedDate());
+            assertEquals(LocalDate.now(), ex.getDate());
             assertEquals(3.0, ex.getAmount());
             assertEquals("Food", ex.getCategory());
             assertEquals(false, ex.isRecurring());
@@ -29,7 +29,7 @@ public class ExpenseListTest {
         expenseList.addExpense(e);
         for (Expense ex : expenseList.getExpenseList()) {
             assertEquals("Lunch", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getCreatedDate());
+            assertEquals(LocalDate.now(), ex.getDate());
             assertEquals(3.0, ex.getAmount());
             assertEquals("Food", ex.getCategory());
             assertEquals(true, ex.isRecurring());
@@ -46,7 +46,7 @@ public class ExpenseListTest {
         expenseList.editExpense(0, e);
         for (Expense ex : expenseList.getExpenseList()) {
             assertEquals("Dinner", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getCreatedDate());
+            assertEquals(LocalDate.now(), ex.getDate());
             assertEquals(5.0, ex.getAmount());
             assertEquals("Food", ex.getCategory());
             assertEquals(false, ex.isRecurring());
