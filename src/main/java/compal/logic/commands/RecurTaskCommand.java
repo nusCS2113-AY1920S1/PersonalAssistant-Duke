@@ -71,20 +71,22 @@ public class RecurTaskCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
-            String startDateString = getDate(restOfInput);
+            String date = getDate(restOfInput);
+            String time = getTime(restOfInput);
             int rep = getRep(restOfInput);
-            String dateStr = startDateString;
+            String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, dateStr);
+                RecurringTask newRecurTask = new RecurringTask(description, dateStr,time);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
-                String desc = taskList.arrlist.get(arrSize).toString();
-                duke.ui.printg(desc);
+                String descToPrint = taskList.arrlist.get(arrSize).toString();
+                duke.ui.printg(descToPrint);
                 dateStr = incrementDateByWeek(dateStr);
             }
 
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + recurtask + " cannot be empty.");
+            duke.ui.printg("InputError: Required input for Recurring Task command!");
+            throw new Duke.DukeException("InputError: Required input for Recurring Task command!");
         }
     }
 }

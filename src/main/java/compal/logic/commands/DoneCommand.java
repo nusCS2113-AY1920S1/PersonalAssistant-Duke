@@ -17,16 +17,21 @@ public class DoneCommand extends Command implements CommandParser {
     }
 
     @Override
-    public void Command(String userIn) {
+    public void Command(String userIn) throws Duke.DukeException {
 
         Scanner scanner = new Scanner(userIn);
-        String delete = scanner.next();
-        String restOfInput = scanner.nextLine();
+        scanner.next();
+        if (scanner.hasNextLine()) {
+            String restOfInput = scanner.nextLine();
+            int toMark = Integer.parseInt(restOfInput.trim()) - 1;
+            taskList.arrlist.get(toMark).markAsDone();
+            String desc = taskList.arrlist.get(toMark).toString();
+            duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
+        }else{
+            duke.ui.printg("InputError: Required input for done command!");
+            throw new Duke.DukeException("InputError: Required input for done command!");
+        }
 
-        int toMark = Integer.parseInt(restOfInput.trim()) - 1;
-        taskList.arrlist.get(toMark).markAsDone();
-        String desc = taskList.arrlist.get(toMark).toString();
-        duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
         //duke.tasklist.taskDone(userIn);
     }
 }

@@ -25,8 +25,9 @@ public class DeleteCommand extends Command implements CommandParser {
 
 
         int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
+        int maxLimit = taskList.arrlist.size();
 
-        if(toRemove <= 0){
+        if(toRemove < 0 || toRemove >= maxLimit){
             duke.ui.printg("RangeError: Invalid range detected for delete command");
             throw new Duke.DukeException("RangeError: Invalid range detected for delete command");
         }

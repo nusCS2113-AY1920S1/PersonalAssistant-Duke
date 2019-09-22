@@ -15,7 +15,6 @@ public class ParserManager {
     static final String CMD_CLEAR = "clear";
     static final String CMD_DONE = "done";
     static final String CMD_DELETE = "delete";
-    static final String CMD_TODO = "todo";
     static final String CMD_EVENT = "event";
     static final String CMD_DEADLINE = "deadline";
     static final String CMD_DO_AFTER_TASK = "doaftertask";
@@ -99,10 +98,6 @@ public class ParserManager {
         case CMD_DELETE:
             DeleteCommand delete = new DeleteCommand(duke);
             delete.Command(userInput);
-            break;
-        case CMD_TODO:
-            ToDoCommand todo = new ToDoCommand(duke);
-            todo.Command(userInput);
             break;
         case CMD_EVENT:
             EventCommand event = new EventCommand(duke);

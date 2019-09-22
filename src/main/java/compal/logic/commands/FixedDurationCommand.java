@@ -28,7 +28,6 @@ public class FixedDurationCommand extends Command implements CommandParser {
      */
     @Override
     public void Command(String userIn) throws Duke.DukeException {
-        duke.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -38,34 +37,48 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String time = getTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
-            int arrSize = taskList.arrlist.size() - 1;
-            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[FDT][" + statusIcon + "] " + description);
+            taskList.addTask(new FixedDurationTask(description, date,time, hour, minute));
+            int arrSize = taskList.arrlist.size()-1;
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            duke.ui.printg(descToPrint);
+
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            duke.ui.printg("InputError: Required input for FixedDuration command!");
+            throw new Duke.DukeException("InputError: Required input for FixedDuration command!");
         }
     }
 
     public int getHour(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(TOKEN_HOUR)) {
-            Scanner scanner = new Scanner(restOfInput);
+            int startPoint = restOfInput.indexOf(TOKEN_HOUR);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            int hour_input = scanner.nextInt();
-            return hour_input;
+            if(!scanner.hasNext()){
+                duke.ui.printg("HourInputError: Required hour input for FixedDuration command!");
+                throw new Duke.DukeException("HourInputError: Required hour input for FixedDuration command!");
+            }
+            return scanner.nextInt();
         } else {
-            throw new Duke.DukeException("Hour field cannot be empty. Please enter a valid date.");
+            duke.ui.printg("HourInputError: Required hour input for FixedDuration command!");
+            throw new Duke.DukeException("HourInputError: Required hour input for FixedDuration command!");
         }
     }
 
     public int getMinute(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(TOKEN_MINUTE)) {
-            Scanner scanner = new Scanner(restOfInput);
+            int startPoint = restOfInput.indexOf(TOKEN_MINUTE);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            int minute_input = scanner.nextInt();
-            return minute_input;
+            if(!scanner.hasNext()){
+                duke.ui.printg("MinInputError: Required minute input for FixedDuration command!");
+                throw new Duke.DukeException("MinInputError: Required minute input for FixedDuration command!");
+            }
+            return scanner.nextInt();
         } else {
-            throw new Duke.DukeException("Minute field cannot be empty. Please enter a valid date.");
+            duke.ui.printg("MinInputError: Required minute input for FixedDuration command!");
+            throw new Duke.DukeException("MinInputError: Required minute input for FixedDuration command!");
         }
     }
 }

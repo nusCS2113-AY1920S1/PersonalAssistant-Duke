@@ -19,8 +19,8 @@ public abstract class Task implements Serializable {
     private Date time;
     private String taskType;
     private String description;
-    private int durationHour;
-    private int durationMinute;
+    private Integer durationHour;
+    private Integer durationMinute;
     private boolean hasReminder;
 
     //----------------------->
@@ -61,8 +61,13 @@ public abstract class Task implements Serializable {
         return this.date;
     }
 
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String stringDate = formatter.format(this.date);
+        return stringDate;
+    }
+
     public void setDate(String dateInput) {
-        System.out.println("DATE INPUT : " + dateInput);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -70,25 +75,24 @@ public abstract class Task implements Serializable {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(date);
         this.date = date;
     }
 
-    public int getDurationHour() {
+    public Integer getDurationHour() {
         return durationHour;
     }
 
-    public void setDurationHour(int durationHour) {
+    public void setDurationHour(Integer durationHour) {
         this.durationHour = durationHour;
     }
 
-    public int getDurationMinute() {
+    public Integer getDurationMinute() {
         return durationMinute;
     }
 
     //----------------------->
 
-    public void setDurationMinute(int durationMinute) {
+    public void setDurationMinute(Integer durationMinute) {
         this.durationMinute = durationMinute;
     }
 
@@ -109,6 +113,12 @@ public abstract class Task implements Serializable {
             e.printStackTrace();
         }
         this.time = time;
+    }
+
+    public String getStringTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
+        String stringDate = formatter.format(this.time);
+        return stringDate;
     }
 
     //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
@@ -135,7 +145,16 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+
+        if(getDurationHour() != null && getDurationMinute()!= null){
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: "  + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute() ;
+        }
+
+        if(getTime() == null){
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: "  + getStringDate();
+        }
+
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " +getStringTime();
     }
 
 

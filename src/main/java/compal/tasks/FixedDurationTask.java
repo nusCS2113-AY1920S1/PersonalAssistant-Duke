@@ -1,7 +1,5 @@
 package compal.tasks;
 
-import java.util.Date;
-
 public class FixedDurationTask extends Task {
     /**
      * Store the event type task. Event refers object with deadline such as,

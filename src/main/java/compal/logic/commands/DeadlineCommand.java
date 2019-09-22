@@ -28,17 +28,20 @@ public class DeadlineCommand extends Command implements CommandParser {
     @Override
     public void Command(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
-        String event = scanner.next();
+
         if (scanner.hasNext()) {
+            String event = scanner.next();
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             taskList.addTask(new Deadline(description, date));
             int arrSize = taskList.arrlist.size() - 1;
             String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[D][" + statusIcon + "] " + description);
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            duke.ui.printg(descToPrint);
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            duke.ui.printg("InputError: Required input for deadline command!");
+            throw new Duke.DukeException("InputError: Required input for deadline command!");
         }
     }
 

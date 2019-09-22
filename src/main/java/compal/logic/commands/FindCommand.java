@@ -23,6 +23,10 @@ public class FindCommand extends Command implements CommandParser {
     public void Command(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
+        if(!scanner.hasNext()){
+            duke.ui.printg("FindError: Find field cannot be empty. Please enter a valid search term.");
+            throw new Duke.DukeException("FindError: Find field cannot be empty. Please enter a search time.");
+        }
         String searchTerm = scanner.next();
 
         if (taskList.arrlist.isEmpty()) {
@@ -31,13 +35,16 @@ public class FindCommand extends Command implements CommandParser {
         Boolean isEmpty = true;
         for (Task task : taskList.arrlist) {
             if (task.getDescription().contains(searchTerm)) {
-                duke.ui.printg(task.getDescription());
+                if(isEmpty == true){
+                    duke.ui.printg("Your search result for the keyword " + searchTerm +": \n");
+                }
+                duke.ui.printg(task.toString());
                 isEmpty = false;
             }
         }
 
         if (isEmpty) {
-            duke.ui.printg("Cannot find  " + searchTerm);
+            duke.ui.printg("No result found for " + searchTerm);
         }
     }
 }
