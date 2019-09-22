@@ -161,7 +161,7 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
             break;
-        case"recurring":
+        case "recurring":
             try {
                 Recurring newRecurringTask = recurringFactory.createTask(input);
                 boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
