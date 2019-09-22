@@ -19,13 +19,15 @@ endif::[]
 By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
-*OwlMoney* is an application designed to help undergraduates and fresh graduates track and manage their finances.
+*OwlMoney* is an application designed to assist undergraduates and fresh graduates track and manage their finances.
 
-*OwlMoney* is optimized for those who prefer using a Command Line Interface (CLI). The commands used to interact with
+*OwlMoney* is specially tailored for those who prefer using a Command Line Interface (CLI). The commands used to
+interact with
 *OwlMoney* are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with
 ease.
 
-*OwlMoney* also comes with a clean Graphical User Interface (GUI) that presents information in an organized manner.
+*OwlMoney* also comes with a minimalistic Graphical User Interface (GUI) that presents information in an organized
+manner.
 
 Interested in using *OwlMoney* to plan your finances easily?
 Jump to, <<Quick Start>> to get started!
@@ -33,14 +35,14 @@ Jump to, <<Quick Start>> to get started!
 == Understanding This User Guide
 
 === Basic Information
-This user guide provides a quick start guide for you to easily setup and install *OwlMoney*.
+This user guide provides you with tips for a quick and easy way to setup and install *OwlMoney*.
 
 You can find all the details of *OwlMoney*’s features, tips, frequently asked questions and a summary of the available
 commands.
 
-To navigate between the different sections easily, you can use the Table of Contents above.
+You can use the Table of Contents above to navigate effortlessly between the sections.
 
-The following symbols are used throughout this user guide:
+Look out for the following icons that could aid you in this user guide:
 [NOTE]
 ====
 This symbol denotes information that you may want to take note of.
@@ -98,13 +100,13 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . As this is your first time starting up this program, you have to create a profile by
-typing *`create /profile`* and pressing kbd:[Enter]
-. You can now try entering commands in the *command box* and press kdb:[Enter] to execute it! +
+typing *`/create /profile /user_name USER_NAME /add /bank_name BANK_NAME /type SAVINGS`* and pressing kbd:[Enter]
+. You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
-* **`add`**` /bankname DBB Multi-Currency Account /type savings /amount 8000 `: adds a new `DBB Multi-Currency Account`,
+* **`add`** `/bank_name DBB Multi-Currency Account /type savings /amount 8000` `: adds a new `DBB Multi-Currency Account`,
 which has an initial amount of `8000` dollars.
-* **`delete`** `/bankname POSBkids`: deletes POSBkids account
+* **`delete`** `/bank_name POSBkids`: deletes DBB Multi-Currency Account
 * **`list`** `bank`: lists all bank accounts
 * **`bye`**: exits the app
 
@@ -118,3 +120,78 @@ In this section, the expected command format will be introduced, and you can exp
 Don't worry if you don't understand everything at once. +
 There are plentiful examples provided to aid your understanding of the commands' usage better.
 ====
+
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user
+** e.g. in `/add /bank_name BANK_NAME`, `BANK_NAME` is a parameter
+which can be used as:
+.. `/add /bank_name JunBank Savings Account /type savings`
+.. `/add /bank_name Standard Bank Investment Account /type investment`
+* Items in square brackets are optional parameters
+** e.g. `/category [/category TAG]` can be used as:
+.. `/transaction_add /amount 13.50 /category entertainment` (with optional `category` parameter)
+.. `/transaction_add /amount 13.50` (without optional `category` parameter)
+[WARNING]
+====
+Parameter values cannot be empty (unless otherwise stated).
+====
+=== General Commands
+==== Viewing help: `/help`
+Don't worry if you are feeling lost! You can use this User Guide document to gain a better understanding of
+*OwlMoney*'s commands.
+
+To see a list of commands available, simply enter `/help` in the *command box*.
+[TIP]
+====
+Alternatively, you can access this User Guide document by clicking link:{repoURL}/main/blob/master/docs/UserGuide.adoc[here].
+====
+==== Exiting OwlMoney : `/exit`
+If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
+Hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
+
+=== Detailed Management Commands
+In this section, you'll be introduced to commands that helps you to manage your account in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `YOUR_NAME` | Indicates your name used in *OwlMoney* | `YOUR_NAME` should contain alphabets and spaces. +
+Take note that there is a maximum 15 character limit.
+| `BANK_NAME` | Indicates the bank name of the bank account you are adding +
+(e.g. `POBB Kids Savings Account`). | `BANK_NAME` should contain alphabets, spaces and dashes only
+alphabet. +
+`BANK_NAME` is case-insensitive.
+| `CATEGORY` | Indicates the category of spending +
+(e.g. `Entertainment`). |
+`CATEGORY` should only contain alphabetic characters and spaces.
+|======
+==== /create `/create`
+==== /add `/add`
+==== /delete `/delete`
+==== /edit `/edit`
+==== /transaction_add `/transaction_add`
+==== /transaction_delete `/transaction_delete`
+==== /transaction_edit `/transaction_edit`
+
+
+=== Utility Commands
+
+== Future Enhancements `[coming in v2.0]`
+=== Multi-Currency Support `/currency USD`
+=== Support for Stocks `/investment_type stocks`
+
+== FAQ
+*Q*: How do I save my data in the application? +
+*A*: You do need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
+saved automatically in the `data` directory.
+
+== Command Summary
+This section provides a quick references for all commands available in *OwlMoney*.
+
+=== General Commands
+
+=== Detailed Management Commands
+
+=== Utility Commands
