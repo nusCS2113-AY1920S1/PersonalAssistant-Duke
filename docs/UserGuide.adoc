@@ -144,7 +144,7 @@ Don't worry if you are feeling lost! You can use this User Guide document to gai
 To see a list of commands available, simply enter `/help` in the *command box*.
 [TIP]
 ====
-Alternatively, you can access this User Guide document by clicking link:{repoURL}/main/blob/master/docs/UserGuide.adoc[here].
+Alternatively, you can access this User Guide document by clicking link:{repoURL}/blob/master/docs/UserGuide.adoc[here].
 ====
 ==== Exiting OwlMoney : `/exit`
 If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
@@ -159,9 +159,9 @@ Below is a list of command parameters that you can expect to use for commands in
 |*Parameter*| *Description* | *Acceptable Range of Values*
 | `YOUR_NAME` | Indicates your name used in *OwlMoney* | `YOUR_NAME` should contain alphabets and spaces. +
 Take note that there is a maximum 15 character limit.
+`BANK_NAME` is case-sensitive.
 | `BANK_NAME` | Indicates the bank name of the bank account you are adding +
 (e.g. `POBB Kids Savings Account`). | `BANK_NAME` should contain alphabets, spaces and dashes only
-alphabet. +
 `BANK_NAME` is case-insensitive.
 | `CATEGORY` | Indicates the category of spending +
 (e.g. `Entertainment`). |
