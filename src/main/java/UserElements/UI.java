@@ -67,7 +67,7 @@ public class UI {
     	System.out.print(lineSeparation);
     	System.out.print("The time now is " + now.toOutputString() + ".\n");
     	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + limit.toOutputString() + "):\n");
-    	System.out.print(tasks.filteredlist(pred, DATE));
+    	System.out.print(tasks.filteredList(pred, DATE));
     	System.out.print(lineSeparation);
     }
 
@@ -244,6 +244,12 @@ public class UI {
         for(int i=0; i<=freeDays.size(); i++) {
             System.out.println(freeDays.poll());
         }
+        System.out.print(lineSeparation);
+    }
+
+    public void errorWritingToFile() {
+        System.out.print(lineSeparation);
+        System.out.println("Error writing to file! Details not saved!");
         System.out.print(lineSeparation);
     }
 }
