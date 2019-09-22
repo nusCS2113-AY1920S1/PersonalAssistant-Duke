@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class After extends item {
+public class After extends Item {
     /**
      * "after" is the date allocated to the task to be completed by.
      */
