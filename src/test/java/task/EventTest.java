@@ -16,19 +16,19 @@ public class EventTest {
                 "02/05/2019 1800",
                 "02/05/2019 1900",
                 new TaskList());
-        assertEquals("[E][\u2718] do the homework (at: 02/05/2019 1800 - 02/05/2019 1900)",
+        assertEquals("[E][\u2718] do the homework (at: 02/05/2019 1800 - 02/05/2019 1900)(NONE)",
                 testEvent.toString());
 
         testEvent.setDoAfterDate("01/05/2019 1800");
         assertEquals("[E][\u2718] do the homework "
                         + "(after: 01/05/2019 1800) "
-                        + "(at: 02/05/2019 1800 - 02/05/2019 1900)",
+                        + "(at: 02/05/2019 1800 - 02/05/2019 1900)(NONE)",
                 testEvent.toString());
 
         testEvent.markAsDone();
         assertEquals("[E][\u2713] do the homework "
                         + "(after: 01/05/2019 1800) "
-                        + "(at: 02/05/2019 1800 - 02/05/2019 1900)",
+                        + "(at: 02/05/2019 1800 - 02/05/2019 1900)(NONE)",
                 testEvent.toString());
     }
 
@@ -36,7 +36,7 @@ public class EventTest {
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public void testStorageStringConversion() {
 
-        assertEquals("E | 0 | do the homework | null | 02/05/2019 1800 | 02/05/2019 1900",
+        assertEquals("E | 0 | 0 | do the homework | null | 02/05/2019 1800 | 02/05/2019 1900 | NONE",
                 new Event("do the homework",
                         "02/05/2019 1800",
                         "02/05/2019 1900",
@@ -47,15 +47,15 @@ public class EventTest {
                 "02/05/2019 1800",
                 "02/05/2019 1900",
                 new TaskList());
-        assertEquals("E | 0 | do the homework | null | 02/05/2019 1800 | 02/05/2019 1900",
+        assertEquals("E | 0 | 0 | do the homework | null | 02/05/2019 1800 | 02/05/2019 1900 | NONE",
                 testEvent.toStorageString());
 
         testEvent.setDoAfterDate("01/05/2019 1800");
-        assertEquals("E | 0 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | 02/05/2019 1900",
+        assertEquals("E | 0 | 0 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | 02/05/2019 1900 | NONE",
                 testEvent.toStorageString());
 
         testEvent.markAsDone();
-        assertEquals("E | 1 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | 02/05/2019 1900",
+        assertEquals("E | 1 | 0 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | 02/05/2019 1900 | NONE",
                 testEvent.toStorageString());
 
     }
