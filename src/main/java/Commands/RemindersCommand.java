@@ -34,7 +34,7 @@ public class RemindersCommand extends Command {
 
         switch (keyword){
             case "upcoming":{
-                System.out.println(" Got it. Your Upcoming Reminders: \n");
+                ui.appendToOutput(" Got it. Your Upcoming Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isAfter = false;
@@ -53,14 +53,14 @@ public class RemindersCommand extends Command {
                     }
 
                     if(isAfter && !t.getStatus()){
-                        System.out.println(" " + counter++ + "." + t.toString() + "\n");
+                        ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }
                 break;
             }
 
             case "past":{
-                System.out.println(" Got it. Your Past Reminders: \n");
+                ui.appendToOutput(" Got it. Your Past Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isBefore = false;
@@ -77,13 +77,13 @@ public class RemindersCommand extends Command {
                     }
 
                     if(isBefore && !t.getStatus()){
-                        System.out.println(" " + counter++ + "." + t.toString() + "\n");
+                        ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }
                 break;
             }
             case "today":{
-                System.out.println(" Got it. Today's Reminders: \n");
+                ui.appendToOutput(" Got it. Today's Reminders: \n");
                 int counter = 1;
                 for(Task t : tasks.getCheckList()){
                     Boolean isToday = false;
@@ -106,7 +106,7 @@ public class RemindersCommand extends Command {
                     }
 
                     if(isToday && !t.getStatus()){
-                        System.out.println(" " + counter++ + "." + t.toString() + "\n");
+                        ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
                     }
                 }
                 break;

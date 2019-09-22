@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
         }
         tasks.markDoneATask(serialNo-1);
         storage.writeTheFile(tasks.getCheckList());
-        System.out.println(" Nice! I've marked this task as done:\n");
-        System.out.println("   [✓] " + tasks.getTask(serialNo-1).getDescription() + "\n");
+        ui.appendToOutput(" Nice! I've marked this task as done:\n");
+        ui.appendToOutput("   [✓] " + tasks.getTask(serialNo-1).getDescription() + "\n");
     }
 }

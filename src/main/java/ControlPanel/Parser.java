@@ -18,7 +18,7 @@ public class Parser {
      * @throws DukeException if any exception is caught
      */
 
-    public static Command parse(String cmd) throws DukeException {
+    public static Command parse(String cmd) throws DukeException, ParseException {
         Command command;
         if (cmd.equals("bye")) {
             command = new ExitCommand();

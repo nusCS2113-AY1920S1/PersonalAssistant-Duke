@@ -21,9 +21,9 @@ public class DeleteCommand extends Command {
         if (serialNo > tasks.lengthOfList()){
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
-        System.out.println(" Noted. I've removed this task:\n");
-        System.out.println("  " + tasks.getTask(serialNo-1).toString() + "\n");
-        System.out.println(" Now you have " + (tasks.lengthOfList()-1) + " tasks in the list.");
+        ui.appendToOutput(" Noted. I've removed this task:\n");
+        ui.appendToOutput("  " + tasks.getTask(serialNo-1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + (tasks.lengthOfList()-1) + " tasks in the list.\n");
         tasks.removeTask(serialNo-1);
         storage.writeTheFile(tasks.getCheckList());
     }

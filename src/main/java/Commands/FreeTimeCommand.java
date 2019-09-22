@@ -101,8 +101,8 @@ public class FreeTimeCommand extends Command {
                 }
             }
         }
-        System.out.println("The nearest time slot: " + simpleDateFormat.format(start) + " ~ "
-                + simpleDateFormat.format(end) + " is available");
+        ui.appendToOutput("The nearest time slot: " + simpleDateFormat.format(start) + " ~ "
+                + simpleDateFormat.format(end) + " is available\n");
 
     }//execute
 }//class
