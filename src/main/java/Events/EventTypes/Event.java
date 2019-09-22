@@ -3,63 +3,86 @@ package Events.EventTypes;
 import Events.Formatting.DateObj;
 
 /**
- * Model_Class.Event object inherits Model_Class.Task.
- * Is a type of task available for use.
+ * Represents a event that can be created, deleted and completed within the Duke program.
+ * Is to be the parent class for all types of events available for Duke program.
  */
-public class Event extends Task {
-    /**
-     * Contains the date and time in a DateObj.
-     */
-    protected DateObj dateObj;
+public abstract class Event {
+    protected String description;
+    protected boolean isDone;
 
     /**
-     * Creates event
+     * Creates event using description.
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
+     * @param description description of event
      */
-    public Event(String description, String date) {
-        super(description);
-        this.dateObj = new DateObj(date);
+    public Event(String description) {
+        this.description = description;
+        this.isDone = false;
     }
 
     /**
-     * Creates event with boolean attached, so as to read from file correctly.
+     * Creates event including boolean representing whether or not the event is completed.
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
-     * @param isDone      Boolean defining if the task is completed.
+     * @param description event description
+     * @param isDone      boolean representing state of event completion
      */
-    public Event(String description, String date, boolean isDone) {
-        super(description, isDone);
-        this.dateObj = new DateObj(date);
+    public Event(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
-     * Converts event type task to string format for printing.
+     * Returns a tick if the event is completed, else returns a cross.
      *
-     * @return Formatted string representing the event, whether or not it is completed and its date.
+     * @return Symbol tick or cross
+     */
+    public String getStatusIcon() {
+        return (isDone) ? "✓" : "✗";
+    }
+
+    /**
+     * Marks a event as completed
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Gets description of the event.
+     *
+     * @return event description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * returns formatted string of event, including status icon and description.
+     *
+     * @return string containing event in the format [(tick/cross)] (event description)
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + dateObj.toOutputString() + ")";
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String getDate() {
-        return dateObj.toOutputString();
-    }
-    
-    @Override
+    public abstract String getDate();
+   
+    /**
+     * Returns the type of event. May be overridden by subclasses.
+     * @return String representing the type of Event.
+     */
     public String getType() {
-    	return "Event";
+        return "Event";
     }
     
     /**
-     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
+     * Returns the DateObj stored in the Event object.
+     * This is overridden by the types of events that require the storage of dates.
+     * The purpose of this method is to facilitate comparison of dates.
      * @return the DateObj stored in the Event object.
      */
-    @Override
     public DateObj getDateObj() {
-    	return this.dateObj;
+    	return null;
     }
 }
