@@ -3,7 +3,6 @@ E | 0 | shitposting  | 1/12/2009 2232 | 1/12/2009 2234
 D | 0 | Duke Documentation  | 17/9/2019 2359
 E | 0 | code jam  | 6/6/2011 1100 | 7/7/2011 1400
 T | 0 | some stuff
-P | 0 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
-P | 0 | H2 math revision  | 12/9/2019 1400 | 14/9/2019 1800
-D | 0 | shitposting   | 12/2/2010 1200
-M | 0 | shitposting  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
+E | 0 | board game party  | 18/9/2019 1900 | 18/9/2019 2100
+E | 0 | doint assignment  | 18/9/2019 1500 | 18/9/2019 1700
+E | 0 | OP rehearsal  | 18/9/2019 1300 | 18/9/2019 1400
