@@ -1,7 +1,6 @@
 package duke.Data;
 
 import duke.Task.*;
-import javafx.concurrent.Task;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -38,7 +36,6 @@ public class Storage {
             return date;
         }
     }
-
 
     /**
      * This function parses the info of the duke.txt into an ArrayList.
@@ -135,7 +132,7 @@ public class Storage {
             System.out.println("File not found:" + io.getMessage());
         }
 
-        for (item i: up) {
+        for (Item i: up) {
             try {
                 FileWriter fileWriter = new FileWriter(filePath,true);
                 fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" +i.getRawDate()+ "\n");

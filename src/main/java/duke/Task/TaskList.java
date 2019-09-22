@@ -1,10 +1,6 @@
 package duke.Task;
 
-import duke.Data.*;
 import duke.Data.Storage;
-import javafx.concurrent.Task;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,7 +83,7 @@ public class TaskList {
             getList().remove(index);
         }
         catch (IndexOutOfBoundsException e) {
-            System.err.println("Opps! Sorry that item does not exist!");
+            System.err.println("Opps! Sorry that Item does not exist!");
         }
     }
 
@@ -118,6 +114,7 @@ public class TaskList {
         Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
+      
         for (item i : getList()) {
             String desc = i.toString();
             if (desc.toLowerCase().contains(check.toLowerCase())) {
@@ -204,7 +201,7 @@ public class TaskList {
         Boolean isNotEmpty = false;
         for (item i: getList()) {
             // check if deadline is before today's date,
-            if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.status) {
+            if (i.getType().equals("D") && i.getRawDate().before(endDate) && todayDate.before(i.getRawDate()) && !i.isDone()) {
                 deadlineList.add(i);
                 isNotEmpty = true;
             }
