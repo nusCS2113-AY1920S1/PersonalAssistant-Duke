@@ -14,7 +14,6 @@ import duke.util.Ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ScheduleCommand extends Command {
 
@@ -22,9 +21,9 @@ public class ScheduleCommand extends Command {
     private LocalDate currentDate;
 
     /**
-     * Constructor for the ScheduleCommand class that takes in the user input
-     * @param input User's input in the command line
-     * @throws DukeException If the user does not input a date/command after "schedule "
+     * Constructor for the ScheduleCommand class that takes in the user input.
+     * @param input User's input in the command line.
+     * @throws DukeException If the user does not input a date/command after "schedule ".
      */
     public ScheduleCommand(String input) throws DukeException {
         this.input = input;
@@ -36,27 +35,28 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     * This method finds all the tasks scheduled on the date that the user specifies, and adds them to an ArrayList of Tasks if the dates match
-     * It then sorts the new ArrayList printArray according to the time the task is scheduled for
+     * This method finds all the tasks scheduled on the date that the user specifies, and adds them
+     * to an ArrayList of Tasks if the dates match.
+     * It then sorts the new ArrayList printArray according to the time the task is scheduled.
      * @param tasks TaskList object containing current active taskList.
      * @param ui Ui object containing all output methods to user.
-     * @param storage Storage object for storing the taskList
-     * @throws DukeException When no tasks are found to match that date
+     * @param storage Storage object for storing the taskList.
+     * @throws DukeException When no tasks are found to match that date.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> printArray = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
-             if ((tasks.access(i) instanceof Deadline) || (tasks.access(i) instanceof Events)) {
-                 if (tasks.access(i).getDate().equals(currentDate)) {
-                     printArray.add(tasks.access(i));
-                 }
-             }
-             if (tasks.access(i).toString().contains(input.substring(9))) {
+            if ((tasks.access(i) instanceof Deadline) || (tasks.access(i) instanceof Events)) {
+                if (tasks.access(i).getDate().equals(currentDate)) {
+                    printArray.add(tasks.access(i));
+                }
+            }
+            if (tasks.access(i).toString().contains(input.substring(9))) {
                 printArray.add(tasks.access(i));
             }
         }
-        Collections.sort(printArray, this::compare);
+        printArray.sort(this::compare);
         boolean isEmpty = printArray.isEmpty();
         if (isEmpty) {
             throw new DukeEmptyListException();

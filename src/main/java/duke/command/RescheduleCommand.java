@@ -22,11 +22,22 @@ public class RescheduleCommand extends Command {
     private String begin;
     private String end;
 
+    /**
+     * Overloaded constructor for Reschedule Command.
+     * @param index of selected task.
+     * @param time new time of selected task.
+     */
     public RescheduleCommand(int index, String time) {
         this.index = index - 1;
         this.time = time;
     }
 
+    /**
+     * Overloaded constructor for Reschedule Command.
+     * @param index of desired task to be Rescheduled.
+     * @param begin New start time.
+     * @param end New end time.
+     */
     public RescheduleCommand(int index, String begin, String end) {
         this.index = index - 1;
         this.begin = begin;
@@ -45,23 +56,19 @@ public class RescheduleCommand extends Command {
             DukeInvalidTimePeriodException {
         if (index >= tasks.getTasks().size() || index < 0) {
             throw new DukeInvalidIndexException();
-        }
-        else {
+        } else {
             Task task = tasks.access(index);
             if (task instanceof Deadline) {
                 ((Deadline)task).setDateTime(DateTimeParser.getStringToDate(this.time));
                 ui.rescheduleTaskMsg(task, this.time);
-            }
-            else if (task instanceof Events) {
+            } else if (task instanceof Events) {
                 ((Events)task).setDateTime(DateTimeParser.getStringToDate(this.time));
                 ui.rescheduleTaskMsg(task, this.time);
-            }
-            else if (task instanceof DoWithin) {
+            } else if (task instanceof DoWithin) {
                 ((DoWithin)task).setDateTime(DateTimeParser.getStringToDate(this.begin),
                         DateTimeParser.getStringToDate(this.end));
                 ui.rescheduleTaskMsg(task, "between " + this.begin + " and " + this.end);
-            }
-            else {
+            } else {
                 throw new DukeNoTimeException();
             }
         }
@@ -80,12 +87,13 @@ public class RescheduleCommand extends Command {
         if (!(obj instanceof RescheduleCommand)) {
             return false;
         }
-        RescheduleCommand otherCommand = (RescheduleCommand) obj;
+        RescheduleCommand otherCommand;
+        otherCommand = (RescheduleCommand) obj;
         return otherCommand.getIndex() == otherCommand.getIndex();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(index);
+        return Objects.hash(index,time,begin,end);
     }
 }
