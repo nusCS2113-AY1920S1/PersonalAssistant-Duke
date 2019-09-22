@@ -28,10 +28,10 @@ public class Event extends Task {
      */
     public Event(String description, String startString, String endString, TaskList taskList) throws DukeException {
         super(description);
-        this.start = TimeParser.parse(startString);
-        this.end = TimeParser.parse(endString);
         this.startString = startString;
         this.endString = endString;
+        this.start = TimeParser.parse(startString);
+        this.end = TimeParser.parse(endString);
         TaskList overlappingTasks = overlappingWithOtherEvents(taskList);
         if (overlappingTasks.getSize() > 0) {
             Ui ui = new Ui();
@@ -66,7 +66,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: "
                 + TimeParser.format(start) + " - " + TimeParser.format(end) + ")"
-                + "(" + recurringType + ")";
+                + "(" + recurringType + ")" + getTentativeString();
     }
 
     /**

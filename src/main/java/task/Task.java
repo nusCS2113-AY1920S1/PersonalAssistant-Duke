@@ -3,8 +3,8 @@ package task;
 import exception.DukeException;
 import parser.TimeParser;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -15,11 +15,13 @@ public class Task {
     // Mandatory fields
     protected String description;
     protected boolean isDone;
+    protected boolean isTentative;
 
     // Optional fields
     protected Date doAfterDate;
     protected List<Task> doAfterTasks; // todo: implement doAfterTasks
     protected String recurringType; // DAILY, WEEKLY, MONTHLY, YEARLY, NONE;
+
 
     protected Task(String description) {
         this.description = description;
@@ -99,6 +101,7 @@ public class Task {
 
     /**
      * Set {@code doAfterDate} to a new value, given by a {@code String}.
+     *
      * @param dateString the new value of {@code doAfterDate}.
      * @throws DukeException if the {@code String} provided was not a valid date.
      */
@@ -117,11 +120,11 @@ public class Task {
     public String toString() {
         if (doAfterDate == null) {
             return "[" + getStatusIcon() + "] "
-                    + description;
+                    + description + getTentativeString();
         } else {
             return "[" + getStatusIcon() + "] "
                     + description
-                    + " (after: " + TimeParser.format(doAfterDate) + ")";
+                    + " (after: " + TimeParser.format(doAfterDate) + ")" + getTentativeString();
         }
     }
 
@@ -132,14 +135,40 @@ public class Task {
      * @return Information of the task to be stored in storage.
      */
     public String toStorageString() {
-        String storageString;
+        String isDoneString;
         if (isDone) {
-            storageString = "1";
+            isDoneString = "1";
         } else {
-            storageString = "0";
+            isDoneString = "0";
         }
-        storageString += " | " + description + " | " + TimeParser.format(doAfterDate);
+        String isTentativeString;
+        if (isTentative) {
+            isTentativeString = "1";
+        } else {
+            isTentativeString = "0";
+        }
+        String storageString = isDoneString
+                + " | " + isTentativeString
+                + " | " + description
+                + " | " + TimeParser.format(doAfterDate);
         return storageString;
+    }
+
+    /**
+     * Returns a tentative tag if task is tentative, else return an empty string.
+     *
+     * @return String "tentative" if task is a tentative task, else return an empty string.
+     */
+    public String getTentativeString() {
+        if (isTentative) {
+            return "(tentative)";
+        } else {
+            return "";
+        }
+    }
+
+    public void setTentative(boolean tentative) {
+        isTentative = tentative;
     }
 
     /**
