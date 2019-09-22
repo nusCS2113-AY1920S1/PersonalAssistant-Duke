@@ -6,9 +6,12 @@
 # Gradle build files
 /.gradle/
 /build/
-src/main/resources/docs/
+/src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
-bin/
+/bin/
+
+# Duke data files
+/data/

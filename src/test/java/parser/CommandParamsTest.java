@@ -19,20 +19,53 @@ public class CommandParamsTest {
         assertEquals(testParams.getCommandType(), "name");
         assertEquals(testParams.getMainParam(), "description goes here");
         assertEquals(testParams.getParam("a"), "is a");
+        assertEquals(testParams.getOptionalParam("a"), "is a");
         assertEquals(testParams.getParam("b"), "is b");
+        assertEquals(testParams.getOptionalParam("b"), "is b");
         assertEquals(testParams.getParam("c"), "is c");
-        assertTrue(testParams.containsParam("a"));
-        assertFalse(testParams.containsParam("d"));
+        assertEquals(testParams.getOptionalParam("c"), "is c");
+        assertNull(testParams.getOptionalParam("d"));
+        assertTrue(testParams.containsParams("a"));
+        assertFalse(testParams.containsParams("d"));
     }
 
     @Test
     public void testCorrectNullParamValues() {
         CommandParams testParams = new CommandParams("noMainParam /a /b /c /d not null");
         assertNull(testParams.getMainParam());
-        assertNull(testParams.getParam("a"));
-        assertNull(testParams.getParam("b"));
-        assertNull(testParams.getParam("c"));
-        assertNotNull(testParams.getParam("d"));
+        assertNull(testParams.getOptionalParam("a"));
+        assertNull(testParams.getOptionalParam("b"));
+        assertNull(testParams.getOptionalParam("c"));
+        assertEquals(testParams.getOptionalParam("d"), "not null");
+        assertNull(testParams.getOptionalParam("e"));
+
+        try {
+            testParams.getParam("a");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
+        }
+
+        try {
+            testParams.getParam("b");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("☹ OOPS!!! You need to give me a value for b!", e.getMessage());
+        }
+
+        try {
+            testParams.getParam("c");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("☹ OOPS!!! You need to give me a value for c!", e.getMessage());
+        }
+
+        try {
+            testParams.getParam("e");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("☹ OOPS!!! You need to give me a value for e!", e.getMessage());
+        }
     }
 
     @Test

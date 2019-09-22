@@ -11,7 +11,7 @@ public class ConflictCommand extends Command {
 
 
     /**
-     * Constructs a <code>Command</code> object with commandType.
+     * Constructs a {@code Command} object with commandType.
      *
      * @param commandParams parameters used to invoke the command.
      */
@@ -21,7 +21,7 @@ public class ConflictCommand extends Command {
 
     /**
      * Checks if there are overlapping Events for a given index of an Event.
-     * @param taskList The <code>TaskList</code> of Duke
+     * @param taskList The {@code TaskList} of Duke
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
      * @throws DukeException If the index given is out of range, invalid, does not exist, or not an Event class.

@@ -75,7 +75,7 @@ public class TaskList {
      * Reschedules the deadline with the given index in taskList.
      *
      * @param index The index of the deadline to be scheduled
-     * @param ddl The new due <code>Date</code>.
+     * @param ddl The new due {@code Date}.
      */
     public void reschedule(int index, String ddl) throws DukeException {
         try {
@@ -89,8 +89,8 @@ public class TaskList {
      * Reschedules the event with the given index in taskList.
      *
      * @param index The index of the event to be scheduled.
-     * @param start The new start <code>Date</code>.
-     * @param end The new end <code>Date</code>.
+     * @param start The new start {@code Date}.
+     * @param end The new end {@code Date}.
      */
     public void reschedule(int index, String start, String end) throws DukeException  {
         try {
@@ -131,7 +131,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of all tasks' information(<code>String</code>)
+     * Returns the list of all tasks' information({@code String})
      * in the taskList following the storage format.
      * This list of strings are used to update the storage of Duke.
      *

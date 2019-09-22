@@ -6,14 +6,14 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * Represents a command packaged by class <code>Parser</code>.
+ * Represents a command packaged by class {@code Parser}.
  * Works as a parent class of more specified command classes in the package.
  */
 public class Command {
     protected CommandParams commandParams;
 
     /**
-     * Constructs a <code>Command</code> object with commandType.
+     * Constructs a {@code Command} object with commandType.
      *
      * @param commandParams parameters used to invoke the command.
      */
@@ -35,9 +35,9 @@ public class Command {
 
     /**
      * Returns true if commandType is "exit" and false otherwise.
-     * Decides whether the loop in <code>main</code> method of Duke terminates.
+     * Decides whether the loop in {@code main} method of Duke terminates.
      *
-     * @return The boolean indicating whether quit the loop in <code>main</code> method.
+     * @return The boolean indicating whether quit the loop in {@code main} method.
      */
     public boolean isExit() {
         if (commandParams.getCommandType().equals("bye")) {

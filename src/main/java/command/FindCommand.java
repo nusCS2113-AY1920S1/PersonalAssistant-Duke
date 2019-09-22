@@ -9,14 +9,14 @@ import storage.Storage;
 import java.util.ArrayList;
 
 /**
- * Represents a specified command as FindCommand by extending the <code>Command</code> class.
+ * Represents a specified command as FindCommand by extending the {@code Command} class.
  * Finds all tasks relevant with the searched keyword.
  * Responses with the result.
  */
 public class FindCommand extends Command {
 
     /**
-     * Constructs a <code>FindCommand</code> object
+     * Constructs a {@code FindCommand} object
      * with given searched keyword.
      *
      * @param commandParams parameters used to invoke the command.

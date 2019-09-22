@@ -6,13 +6,13 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * Represents a specified command as ExitCommand by extending the <code>Command</code> class.
- * Terminates the loop in <code>main</code> method of Duke.
+ * Represents a specified command as ExitCommand by extending the {@code Command} class.
+ * Terminates the loop in {@code main} method of Duke.
  * Responses with the result.
  */
 public class ExitCommand extends Command {
     /**
-     * Constructs an <code>ExitCommand</code> object.
+     * Constructs an {@code ExitCommand} object.
      *
      * @param commandParams parameters used to invoke the command.
      */

@@ -27,7 +27,7 @@ public class RescheduleCommand extends Command {
         }
         try {
             int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0 - based
-            if (commandParams.containsParam("by")) {
+            if (commandParams.containsParams("by")) {
                 tasks.reschedule(index, commandParams.getParam("by"));
             } else {
                 tasks.reschedule(index, commandParams.getParam("start"),

@@ -11,14 +11,14 @@ import task.ToDo;
 import ui.Ui;
 
 /**
- * Represents a specified command as AddCommand by extending the <code>Command</code> class.
+ * Represents a specified command as AddCommand by extending the {@code Command} class.
  * Adds various specified type of tasks into the taskList. e.g event
  * Responses with the result.
  */
 public class AddCommand extends Command {
 
     /**
-     * Constructs an <code>AddCommand</code> object
+     * Constructs an {@code AddCommand} object
      * with all components of the added task.
      *
      * @param commandParams parameters used to invoke the command.
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
         switch (commandParams.getCommandType()) {
         case "todo":
             taskToAdd = new ToDo(commandParams.getMainParam());
-            if (commandParams.containsParam("needs")) {
+            if (commandParams.containsParams("needs")) {
                 ((ToDo) taskToAdd).setTimeTaken(commandParams.getParam("needs"));
             }
             break;
@@ -65,11 +65,11 @@ public class AddCommand extends Command {
             throw new DukeException("☹ OOPS!!! Your command type is unknown!");
         }
 
-        if (commandParams.containsParam("after")) {
+        if (commandParams.containsParams("after")) {
             taskToAdd.setDoAfterDate(commandParams.getParam("after"));
         }
 
-        if(commandParams.containsParam("recurring")) {
+        if (commandParams.containsParams("recurring")) {
             String recurringType = commandParams.getParam("recurring");
             taskToAdd.setRecurringType(commandParams.getParam("recurring"));
         } else {

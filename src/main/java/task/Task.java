@@ -75,8 +75,9 @@ public class Task {
     }
 
     /**
+     * Returns the type of task recurrence.
      *
-     * @return The recurringType in <code>String</code> format.
+     * @return The recurringType in {@code String} format.
      */
     public String getRecurringType() {
         return recurringType;
@@ -96,12 +97,17 @@ public class Task {
         }
     }
 
+    /**
+     * Set {@code doAfterDate} to a new value, given by a {@code String}.
+     * @param dateString the new value of {@code doAfterDate}.
+     * @throws DukeException if the {@code String} provided was not a valid date.
+     */
     public void setDoAfterDate(String dateString) throws DukeException {
         doAfterDate = TimeParser.parse(dateString);
     }
 
     /**
-     * Overrides the <code>toString()</code> method in parent class <code>Object</code>,
+     * Overrides the {@code toString()} method in parent class {@code Object},
      * and returns information of the task to be printed by UI.
      * e.g. "[✓] return the book"
      *

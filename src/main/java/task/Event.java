@@ -8,8 +8,8 @@ import utils.DateCompare;
 import java.util.Date;
 
 /**
- * Represents a specified task as event by extending the <code>Task</code> class
- * with start and end <code>Date</code>.
+ * Represents a specified task as event by extending the {@code Task} class
+ * with start and end {@code Date}.
  */
 public class Event extends Task {
     private String startString;
@@ -19,12 +19,12 @@ public class Event extends Task {
 
     /**
      * Constructs an Event object with description and time period in string.
-     * The time period is then stored as <code>Date</code>.
+     * The time period is then stored as {@code Date}.
      *
      * @param description Description of the task.
      * @param startString String containing the start time.
      * @param endString   String containing the end time.
-     * @throws DukeException If <code>timePiece</code> string has incorrect time format.
+     * @throws DukeException If {@code timePiece} string has incorrect time format.
      */
     public Event(String description, String startString, String endString, TaskList taskList) throws DukeException {
         super(description);
@@ -43,7 +43,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a <code>Event</code> object from the separated storage string.
+     * Constructs a {@code Event} object from the separated storage string.
      *
      * @param splitStorageStrings the separated storage string.
      */
@@ -55,7 +55,7 @@ public class Event extends Task {
     }
 
     /**
-     * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
+     * Overrides the {@code toString()} method in parent class {@code Task},
      * and returns information of the event to be printed by UI.
      * e.g. "[E][✓] attend the party (at: 02/05/2019 1800 - 02/05/2019 2100)"
      *
@@ -94,8 +94,8 @@ public class Event extends Task {
     /**
      * Reschedules the start and end dates of the event.
      *
-     * @param start The start <code>Date</code> of the event.
-     * @param end   The end <code>Date</code> of the event.
+     * @param start The start {@code Date} of the event.
+     * @param end   The end {@code Date} of the event.
      */
     public void reschedule(String start, String end) {
         this.start = TimeParser.parse(start);
@@ -103,9 +103,9 @@ public class Event extends Task {
     }
 
     /**
-     * Detect overlapping instances of <code>Event</code>.
-     * @param taskList the <code>TaskList</code> of Duke
-     * @return the overlapping events in a <code>TaskList</code>
+     * Detect overlapping instances of {@code Event}.
+     * @param taskList the {@code TaskList} of Duke
+     * @return the overlapping events in a {@code TaskList}
      */
     public TaskList overlappingWithOtherEvents(TaskList taskList) {
         Event event = this;

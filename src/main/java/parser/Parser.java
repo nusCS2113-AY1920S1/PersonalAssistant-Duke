@@ -17,16 +17,16 @@ import exception.DukeException;
 
 /**
  * Parses the command line from user input to tokens and
- * packages the tokens to <code>Command</code> object.
+ * packages the tokens to {@code Command} object.
  */
 public class Parser {
 
     /**
-     * Converts the <code>String</code> fullCommand into <code>Command</code> object.
-     * Returns the <code>Command</code> object.
+     * Converts the {@code String} fullCommand into {@code Command} object.
+     * Returns the {@code Command} object.
      *
      * @param fullCommand The command line read from user input.
-     * @return <code>Command</code> object converted from fullCommand.
+     * @return {@code Command} object converted from fullCommand.
      * @throws DukeException If user input is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {

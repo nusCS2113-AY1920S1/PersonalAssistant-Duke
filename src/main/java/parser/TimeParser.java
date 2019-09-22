@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.StringJoiner;
 
 /**
- * Parses the time in <code>String</code> type into the <code>Date</code> type.
+ * Parses the time in {@code String} type into the {@code Date} type.
  * The time string should follow the format: MM/dd/yyyy HHmm.
  */
 public class TimeParser {
@@ -19,10 +19,10 @@ public class TimeParser {
     private static final int MILLISECONDS_IN_SECOND = 1000;
 
     /**
-     * Parses the time string into <code>Date</code> object.
+     * Parses the time string into {@code Date} object.
      *
-     * @param timeStr The time string to be converted into <code>Date</code> type.
-     * @return The <code>Date</code> object.
+     * @param timeStr The time string to be converted into {@code Date} type.
+     * @return The {@code Date} object.
      * @throws DukeException If time string has incorrect time format.
      */
     public static Date parse(String timeStr) throws DukeException {
@@ -39,7 +39,7 @@ public class TimeParser {
 
     /**
      * Converts a date the corresponding string.
-     * @param date the date to be converted into a <code>String</code>.
+     * @param date the date to be converted into a {@code String}.
      * @return the string.
      */
     public static String format(Date date) {

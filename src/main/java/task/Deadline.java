@@ -6,18 +6,18 @@ import parser.TimeParser;
 import java.util.Date;
 
 /**
- * Represents a specified task as Deadline by extending the <code>Task</code> class
- * with due <code>Date</code>.
+ * Represents a specified task as Deadline by extending the {@code Task} class
+ * with due {@code Date}.
  */
 public class Deadline extends Task {
     private Date by;
 
     /**
-     * Constructs the <code>Deadline</code> object with description and due time.
-     * The due time is stored as <code>Date</code>.
+     * Constructs the {@code Deadline} object with description and due time.
+     * The due time is stored as {@code Date}.
      *
      * @param description Description of the task
-     * @param ddl Deadline of the task in <code>String</code> type.
+     * @param ddl Deadline of the task in {@code String} type.
      * @throws DukeException If string ddl has incorrect time format.
      */
     public Deadline(String description, String ddl) throws DukeException {
@@ -26,7 +26,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a <code>Deadline</code> object from the separated storage string.
+     * Constructs a {@code Deadline} object from the separated storage string.
      *
      * @param splitStorageStrings the separated storage string.
      */
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overrides the <code>toString()</code> method in parent class <code>Task</code>,
+     * Overrides the {@code toString()} method in parent class {@code Task},
      * and returns information of the task to be printed by UI.
      * e.g. "[D][✓] attend the party (by: 02/05/2019 1800)"
      *
@@ -67,7 +67,7 @@ public class Deadline extends Task {
     /**
      * Reschedules the by date of the deadline.
      *
-     * @param by The by <code>Date</code> of the event.
+     * @param by The by {@code Date} of the event.
      */
     public void reschedule(String by) {
         this.by = TimeParser.parse(by);

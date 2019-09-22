@@ -28,7 +28,7 @@ public class Storage {
      * Creates new storage file if no file exists yet.
      * Reads all strings representing tasks in storage format in the file and
      * returns the list of strings.
-     * Works as the parameter of the constructor of <code>taskList</code>.
+     * Works as the parameter of the constructor of {@code taskList}.
      *
      * @return List of information of stored tasks in storage format.
      * @throws DukeException If errors occur in loading process.

@@ -36,14 +36,14 @@ public class Ui {
     /**
      * Reads one line of user's commands.
      *
-     * @return User's command in <code>String</code> type.
+     * @return User's command in {@code String} type.
      */
     public String readCommand() {
         return dukeIn.nextLine();
     }
 
     /**
-     * Replaces the <code>System.out.println</code> method.
+     * Replaces the {@code System.out.println} method.
      *
      * @param s The string to be printed.
      */
@@ -54,16 +54,16 @@ public class Ui {
     /**
      * Prints the message of the exception.
      *
-     * @param e the <code>DukeException</code> whose message will be printed.
+     * @param e the {@code DukeException} whose message will be printed.
      */
     public void showError(DukeException e) {
         System.out.println(e.getMessage());
     }
 
     /**
-     * Prints the <code>TaskList</code> given.
+     * Prints the {@code TaskList} given.
      *
-     * @param taskList <code>TaskList</code> that we want to be printed
+     * @param taskList {@code TaskList} that we want to be printed
      */
     public void printTaskList(TaskList taskList) {
         if (taskList.getSize() > 0) {

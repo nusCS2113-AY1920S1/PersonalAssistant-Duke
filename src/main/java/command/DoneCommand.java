@@ -7,14 +7,14 @@ import storage.Storage;
 import exception.DukeException;
 
 /**
- * Represents a specified command as DoneCommand by extending the <code>Command</code> class.
+ * Represents a specified command as DoneCommand by extending the {@code Command} class.
  * Marks the task with given index as done.
  * Responses with the result.
  */
 public class DoneCommand extends Command {
 
     /**
-     * Constructs a <code>DoneCommand</code> object
+     * Constructs a {@code DoneCommand} object
      * given the index of the task to be marked as done.
      *
      * @param commandParams parameters used to invoke the command.

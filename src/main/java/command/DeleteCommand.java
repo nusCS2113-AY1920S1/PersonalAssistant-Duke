@@ -7,14 +7,14 @@ import storage.Storage;
 import exception.DukeException;
 
 /**
- * Represents a specified command as DeleteCommand by extending the <code>Command</code> class.
+ * Represents a specified command as DeleteCommand by extending the {@code Command} class.
  * Deletes the task with given index from the taskList of Duke.
  * Responses with the result.
  */
 public class DeleteCommand extends Command {
 
     /**
-     * Constructs a <code>DeleteCommand</code> object
+     * Constructs a {@code DeleteCommand} object
      * given the index of the task to be deleted.
      *
      * @param commandParams parameters used to invoke the command.
