@@ -9,7 +9,7 @@ import wallet.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class ViewCommand extends Command{
+public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_VIEW_EXPENSES = "Here are your expenses:";
@@ -65,8 +65,7 @@ public class ViewCommand extends Command{
                 }
             }*/
 
-        }
-        else {
+        } else {
             System.out.println(MESSAGE_USAGE);
         }
         return false;
