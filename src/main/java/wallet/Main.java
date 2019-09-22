@@ -1,19 +1,9 @@
 package wallet;
 
-import wallet.contact.Contact;
-import wallet.contact.ContactList;
-import wallet.record.RecordList;
-import wallet.record.ExpenseList;
-import wallet.task.ScheduleList;
-import wallet.command.Command;
+import wallet.logic.LogicManager;
 import wallet.storage.Storage;
-import wallet.task.Task;
-import wallet.task.TaskList;
 import wallet.ui.Reminder;
 import wallet.ui.Ui;
-
-import java.util.ArrayList;
-
 
 public class Main {
     /**
@@ -27,32 +17,23 @@ public class Main {
     /**
      * The TaskList object that handles the list of task added by the user.
      */
-    private TaskList taskList;
-    private ScheduleList scheduleList;
-    private ContactList contactList;
-    private RecordList recordList;
-    private ExpenseList expenseList;
+    private LogicManager logicManager;
     /**
      * The Reminder object that handles the reminder of undone tasks.
      */
     private Reminder reminder;
 
     /**
-     * Constructs a new ui.Duke object.
-     *
-     * @param path The path of the save file in the local computer.
+     * Constructs a new Main object.
      */
-    public Main(String path) {
+    public Main() {
         ui = new Ui();
-        storage = new Storage(path);
-        taskList = new TaskList((ArrayList<Task>) storage.loadFile());
-        ArrayList<Contact> alc = new ArrayList<Contact>();
-        contactList = new ContactList(alc);
-        expenseList = new ExpenseList();
+        storage = new Storage();
+        logicManager = new LogicManager(storage);
     }
 
     public static void main(String[] args) {
-        new Main(".\\duke.txt").run();
+        new Main().run();
     }
 
     /**
@@ -62,9 +43,10 @@ public class Main {
         ui.welcomeMsg();
         boolean isExit = false;
         while (!isExit) {
-            String cmd = ui.readLine();
+            String fullCommand = ui.readLine();
             ui.printLine();
-            isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
+            isExit = logicManager.execute(fullCommand);
+            //isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();

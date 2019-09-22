@@ -1,18 +1,18 @@
 package wallet.command;
 
-import wallet.contact.Contact;
-import wallet.contact.ContactList;
-import wallet.record.Expense;
-import wallet.record.ExpenseList;
-import wallet.record.ExpenseParser;
-import wallet.record.RecordList;
+import wallet.model.contact.Contact;
+import wallet.model.contact.ContactList;
+import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.ExpenseParser;
+import wallet.model.record.RecordList;
 import wallet.storage.Storage;
-import wallet.task.Deadline;
-import wallet.task.Event;
-import wallet.task.ScheduleList;
-import wallet.task.Task;
-import wallet.task.TaskList;
-import wallet.task.Tentative;
+import wallet.model.task.Deadline;
+import wallet.model.task.Event;
+import wallet.model.task.ScheduleList;
+import wallet.model.task.Task;
+import wallet.model.task.TaskList;
+import wallet.model.task.Tentative;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -170,7 +170,6 @@ public class Command {
                 System.out.println("☹ OOPS!!! Please use input the index of the task to delete");
             }
         } else if (command[0].equals("bye")) {
-
             isExit = true;
         } else if (command[0].equals("tentative")) {
             //B-Tentative Scheduling: Create Tentative Event Entry
@@ -181,7 +180,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeFile(task, command[0]);
+                    fileIO.writeFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -204,7 +203,7 @@ public class Command {
                         System.out.println("Got it. I've updated it into an event:");
                         System.out.println(newEvent.toString());
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                        fileIO.writeFile(newEvent, "event");
+                        fileIO.writeFile(newEvent);
                         fileIO.removeTask(taskList.getTaskList(), num);
                     }
                 } else {
