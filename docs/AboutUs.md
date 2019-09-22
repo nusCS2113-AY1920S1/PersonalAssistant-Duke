@@ -33,7 +33,7 @@ Responsibilities:
 
 [photo here]
 
-[[github](https://github.com/saradj/)] [profolio]
+[[github](https://github.com/VirginiaYu)] [profolio]
 
 Role: Developer
 
