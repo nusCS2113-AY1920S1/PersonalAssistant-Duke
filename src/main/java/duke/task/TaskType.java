@@ -1,7 +1,7 @@
 package duke.task;
 
 public enum TaskType {
-    PARENT, DEADLINE, TODO, EVENT, FDURATION;
+    PARENT, DEADLINE, TODO, EVENT, FDURATION, BLANK;
 
     /**
      * Constructor for 'TaskType' enum.

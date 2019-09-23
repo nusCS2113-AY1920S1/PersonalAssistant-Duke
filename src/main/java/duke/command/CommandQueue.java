@@ -19,7 +19,6 @@ public class CommandQueue extends Command {
 
     @Override
     public void execute(TaskList taskList) {
-        TaskList throwaway = new TaskList();
         String[] parsedInput = Parser.removeStr(this.commandType.toString(), this.userInput)
                 .split(" ", 2);
         int mainTaskIndex = Integer.parseInt(parsedInput[0]) - 1;
