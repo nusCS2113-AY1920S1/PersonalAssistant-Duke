@@ -33,6 +33,11 @@ public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
 
+    //
+    public Duke() {
+
+    }
+
     public Duke(String filePath) throws FileNotFoundException {
         ui = new Ui();
         storage = new Storage(filePath);
