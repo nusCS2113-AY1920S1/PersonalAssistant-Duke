@@ -1,27 +1,46 @@
-# WalletCLi
+= WalletCLi
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+ifdef::env-github,env-browser[:imagesDir: docs/images]
 
-WalletCLi is a Java library for dealing with expenses and loans, with our target audience being thrifty students.
+https://travis-ci.org/AY1920S1-CS2113T-W17-2/main[image:https://travis-ci.org/AY1920S1-CS2113T-W17-2/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2113T-W17-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2113T-W17-2/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/CS2113T-T08-3/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2113T-W17-2/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/90f57d16da5049858ef67b6eaaf692f2[Codacy Badge]]
+https://opensource.org/licenses/MIT[image:https://img.shields.io/badge/License-MIT-yellow.svg[License: MIT]]
 
-# Setting up
+*ADD SCREENSHOT HERE*
+image::Ui.png[]
 
-**Prerequisites**
+*WalletCLi* is a CLI (Command Line Interface) expenses/loans application that caters to NUS students who prefer to use a desktop application to manage their expenses/loans.
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+*WalletCLi* automatically creates an interface that allows users to interact with our application, and enables easy creation, editing and deleting of items.
+Recurring expenses such as bills are taken into account within our unique recursion system.
+Expenses and loans can then be efficiently managed via the intuitive category system.
 
-**Importing the project into IntelliJ**
+*WalletCLi* is optimized for those who prefer to work with a Command Line Interface (CLI) and/or are learning to work more efficiently with CLI tools. Additionally, unlike traditional wallet applications, *WalletCLi* utilizes minimal resources on the user’s machine while still allowing the user to view their expenses and loans swiftly and efficiently.
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
+*Useful Links*
 
-##Features
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
+
+== Contributors
+
+* Matthew Ng Wei Le 
+* Gerald Lim Wee Koon
+* Ang Kiang Yang
+* Ho Si Shi Annette
+
+== Acknowledgements
+
+* WalletCLi is built upon an https://github.com/se-edu/duke[Duke] Application created by the https://github.com/se-edu/[SE-EDU] initiative.
+* Librarie(s) used: https://github.com/junit-team/junit5[JUnit5]
+
+== Contact Us
+
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2113T-W17-2/main/issues[issue tracker]
+if you noticed bugs or have suggestions on how to improve.
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
+
+== Licence : link:LICENSE[MIT]
