@@ -114,4 +114,8 @@ public abstract class Event {
     public DateObj getEndDateObj() {
         return endDateObj;
     }
+
+    public String startDateToString() {
+        return startDateObj.toOutputString();
+    }
 }
