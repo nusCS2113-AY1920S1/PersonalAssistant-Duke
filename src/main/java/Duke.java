@@ -6,6 +6,8 @@ import Operations.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * main class of the Duke program
@@ -109,7 +111,9 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] eventArray = parser.getDescriptionWithDate();
+                        System.out.println(eventArray[1]);
                         Date at = parser.formatDate(eventArray[1]);
+                        System.out.println(at);
                         if(CheckAnomaly.checkTime(at, TaskList.currentList())){
                             Event temp = new Event(eventArray[0], at);
                             taskList.add(temp);
@@ -119,6 +123,25 @@ public class Duke {
                     } catch (DukeException e) {
                         ui.showDateError();
                     }
+                    break;
+
+                case time :
+                    ui.showAdd();
+                    String[] ti = parser.getDescriptionWithDuration();
+                    String[] ar = parser.getDuration(ti);
+//                    String[] ar = ti[0].trim().split("/", 2);
+                    int duration = Integer.parseInt(ar[1]);
+                    FixedDuration fixedDuration = new FixedDuration(ar[0], ar[1]);
+                    taskList.add(fixedDuration);
+                    Timer timer = new Timer();
+                    class RemindTask extends TimerTask {
+                        public void run() {
+                            System.out.println(ar[0] + " is completed");
+                            timer.cancel();
+                        }
+                    }
+                    RemindTask rt = new RemindTask();
+                    timer.schedule(rt, duration * 1000);
                     break;
 
                 default:
