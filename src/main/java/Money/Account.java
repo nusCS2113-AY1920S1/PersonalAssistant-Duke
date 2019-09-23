@@ -8,27 +8,60 @@ public class Account {
     private ArrayList<Expenditure> ExpListTotal;
     private ArrayList<Income> IncomeListCurrMonth;
     private ArrayList<Expenditure> ExpListCurrMonth;
+    private ArrayList<Goal> ShortTermGoals;
+    private ArrayList<Installment> Installments;
     private float TotalSavings;
     private float CurrMonthSavings;
     private float BaseSavings;
     private float GoalSavings;
-    private ArrayList<Goal> ShortTermGoals;
-    private ArrayList<Installment> Installments;
 
-    Account(float User_savings, float AvgExp) {
+    Account() {
+        IncomeListTotal = new ArrayList<>();
+        ExpListTotal = new ArrayList<>();
+        IncomeListCurrMonth = new ArrayList<>();
+        ExpListCurrMonth = new ArrayList<>();
+        ShortTermGoals = new ArrayList<>();
+        Installments = new ArrayList<>();
+    }
+
+    public void Initialize(float UserSavings, float AvgExp) {
         Date nowDate = new Date();
         Income InitialSavings;
-        if(User_savings > AvgExp * 6) {
+        if(UserSavings > AvgExp * 6) {
             this.BaseSavings = AvgExp * 6;
-            this.GoalSavings = User_savings - BaseSavings;
-            InitialSavings = new Income(User_savings, "InitialSavings", nowDate);
+            this.GoalSavings = UserSavings - BaseSavings;
+            InitialSavings = new Income(UserSavings, "InitialSavings", nowDate);
             IncomeListTotal.add(InitialSavings);
         } else {
-            InitialSavings = new Income(User_savings, "InitialSavings", nowDate);
+            InitialSavings = new Income(UserSavings, "InitialSavings", nowDate);
             IncomeListTotal.add(InitialSavings);
             this.BaseSavings = TotalSavings;
             this.GoalSavings = 0;
         }
+    }
+
+    public ArrayList<Income> getIncomeListTotal() {
+        return IncomeListTotal;
+    }
+
+    public ArrayList<Expenditure> getExpListTotal() {
+        return ExpListTotal;
+    }
+
+    public ArrayList<Income> getIncomeListCurrMonth() {
+        return IncomeListCurrMonth;
+    }
+
+    public ArrayList<Expenditure> getExpListCurrMonth() {
+        return ExpListCurrMonth;
+    }
+
+    public ArrayList<Goal> getShortTermGoals() {
+        return ShortTermGoals;
+    }
+
+    public ArrayList<Installment> getInstallments() {
+        return Installments;
     }
 
     public float getTotalIncome() {
@@ -55,7 +88,28 @@ public class Account {
         return total;
     }
 
-    public void getTotalSavings() {
+    public float getTotalSavings() {
         TotalSavings = getTotalIncome() - getTotalExp();
+        return TotalSavings;
+    }
+
+    public float getCurrMonthSavings() {
+        CurrMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
+        return CurrMonthSavings;
+    }
+
+    public float getBaseSavings() {
+        return BaseSavings;
+    }
+
+    public float getGoalSavings() {
+        GoalSavings = getTotalSavings() - getBaseSavings();
+        return GoalSavings;
+    }
+
+    public void UpdateSavings() {
+        TotalSavings = getTotalIncome() - getTotalExp();
+        CurrMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
+        GoalSavings = getTotalSavings() - getBaseSavings();
     }
 }
