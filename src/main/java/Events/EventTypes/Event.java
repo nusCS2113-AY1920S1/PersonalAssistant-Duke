@@ -36,28 +36,46 @@ public abstract class Event {
     }
 
     /**
-     * Creates event
+     * Creates event with two date input
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
+     * @param description event description
+     * @param isDone      boolean representing state of event completion
+     * @param startDateAndTime string representing start date of event
+     * @param endDateAndTime string representing end date of event
      */
-    public Event(String description, String date) {
-        super(description);
-        this.date = new DateObj(date).formatDate();
-        this.dateObj = new DateObj(date);
+    public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime) {
+        this.description = description;
+        this.isDone = isDone;
+        this.startDateObj = new DateObj(startDateAndTime);
+        this.endDateObj = new DateObj(endDateAndTime);
     }
 
     /**
-     * Creates event with boolean attached, so as to read from file correctly.
+     * Creates event with one date input (e.g todo)
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
-     * @param isDone      Boolean defining if the task is completed.
+     * @param description event description
+     * @param dateAndTime string representing date of event
      */
-    public Event(String description, String date, boolean isDone) {
-        super(description, isDone);
-        this.date = new DateObj(date).formatDate();
-        this.dateObj = new DateObj(date);
+    public Event(String description, String dateAndTime) {
+        this.description = description;
+        this.isDone = false;
+        this.startDateObj = new DateObj(dateAndTime);
+        this.endDateObj = null; //no end date, set to null
+        this.eventType = 'T'; //event with no end date can only be todo type
+    }
+
+    /**
+     * Creates event with two date input
+     *
+     * @param description event description
+     * @param startDateAndTime string representing start date of event
+     * @param endDateAndTime string representing end date of event
+     */
+    public Event(String description, String startDateAndTime, String endDateAndTime) {
+        this.description = description;
+        this.isDone = false;
+        this.startDateObj = new DateObj(startDateAndTime);
+        this.endDateObj = new DateObj(endDateAndTime);
     }
 
     /**

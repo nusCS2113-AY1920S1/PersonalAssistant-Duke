@@ -1,7 +1,7 @@
 package UserElements;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.ToDo;
+import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Storage.Storage;
 import Events.Storage.EventList;
