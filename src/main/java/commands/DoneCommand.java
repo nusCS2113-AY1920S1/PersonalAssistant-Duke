@@ -17,8 +17,11 @@ public class DoneCommand extends Command {
         list.get(numbercheck).isDone = true;
 
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("[" + list.get(numbercheck).getStatusIcon() + "]" + list.get(numbercheck).description);
+        System.out.println(list.get(numbercheck).listformat());
 
+        /**
+         * Print out the task to do after
+         */
         if(list.get(numbercheck).getStatusIcon().equals("\u2713")) {
             for(int i = 0; i < list.size(); i++) {
                 if(list.get(i).description.contains(list.get(numbercheck).description) && i != numbercheck) {
@@ -29,6 +32,11 @@ public class DoneCommand extends Command {
                 }
             }
         }
+        /**
+         * Add some weekly task
+         */
+        RecurringCommand rc = new RecurringCommand(list.get(numbercheck).listformat());
+        rc.AddRecurring(list, list.get(numbercheck).listformat(), storage);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
