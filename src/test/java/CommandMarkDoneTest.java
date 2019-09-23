@@ -22,11 +22,11 @@ class CommandMarkDoneTest {
         c.execute(taskList);
 
         Task loadedTask = taskList.getList().get(1);
-        assertEquals(true, mainTask.isDone);
+        assertEquals(true, mainTask.getIsDone());
         assertEquals(false, mainTask.isQueuedTasks());
-        assertEquals(TaskType.DEADLINE, loadedTask.taskType);
-        assertEquals("Something Else", loadedTask.taskName);
-        assertEquals("", loadedTask.detailDesc);
-        assertEquals("rly", loadedTask.taskDetails);
+        assertEquals(TaskType.DEADLINE, loadedTask.getTaskType());
+        assertEquals("Something Else", loadedTask.getTaskName());
+        assertEquals("", loadedTask.getDetailDesc());
+        assertEquals("rly", loadedTask.getTaskDetails());
     }
 }

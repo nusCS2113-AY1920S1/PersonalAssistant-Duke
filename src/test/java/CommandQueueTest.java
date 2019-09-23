@@ -19,9 +19,9 @@ class CommandQueueTest {
         Task mainTask = taskList.getList().get(0);
         assertEquals(true, mainTask.isQueuedTasks());
         Task queuedTask = mainTask.getQueuedTasks().getList().get(0);
-        assertEquals(TaskType.EVENT, queuedTask.taskType);
-        assertEquals("Ice Cream Party", queuedTask.taskName);
-        assertEquals("", queuedTask.detailDesc);
-        assertEquals("Tomorrow", queuedTask.taskDetails);
+        assertEquals(TaskType.EVENT, queuedTask.getTaskType());
+        assertEquals("Ice Cream Party", queuedTask.getTaskName());
+        assertEquals("", queuedTask.getDetailDesc());
+        assertEquals("Tomorrow", queuedTask.getTaskDetails());
     }
 }

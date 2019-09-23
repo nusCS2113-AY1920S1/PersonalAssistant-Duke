@@ -18,48 +18,47 @@ public class StorageTest {
     void loadData() {
         Storage storage = new Storage("testDataLoad.txt");
         TaskList taskListResult = storage.loadData();
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
         //TODO yoda things/ tmrw at last@|@false
         Task taskResult = taskListResult.getList().get(0);
-        assertEquals(TaskType.TODO, taskResult.taskType,
+        assertEquals(TaskType.TODO, taskResult.getTaskType(),
                 "Loaded wrong taskType");
-        assertEquals("yoda things", taskResult.taskName,
+        assertEquals("yoda things", taskResult.getTaskName(),
                 "Loaded wrong taskName");
-        assertEquals("", taskResult.detailDesc,
+        assertEquals("", taskResult.getDetailDesc(),
                 "Loaded wrong detailDesc");
-        assertEquals("tmrw at last", taskResult.taskDetails,
+        assertEquals("tmrw at last", taskResult.getTaskDetails(),
                 "Loaded wrong taskDetails");
-        assertEquals(false, taskResult.isDone,
+        assertEquals(false, taskResult.getIsDone(),
                 "Loaded wrong isDone");
 
         //EVENT something/by somewhen@|@true
         taskResult = taskListResult.getList().get(1);
-        assertEquals(TaskType.EVENT, taskResult.taskType,
+        assertEquals(TaskType.EVENT, taskResult.getTaskType(),
                 "Loaded wrong taskType");
-        assertEquals("something", taskResult.taskName,
+        assertEquals("something", taskResult.getTaskName(),
                 "Loaded wrong taskName");
-        assertEquals("by", taskResult.detailDesc,
+        assertEquals("by", taskResult.getDetailDesc(),
                 "Loaded wrong detailDesc");
-        assertEquals("somewhen", taskResult.taskDetails,
+        assertEquals("somewhen", taskResult.getTaskDetails(),
                 "Loaded wrong taskDetails");
-        assertEquals(true, taskResult.isDone,
+        assertEquals(true, taskResult.getIsDone(),
                 "Loaded wrong isDone");
 
         //DEADLINE this/by 19/09/2019 1015@|@false
         taskResult = taskListResult.getList().get(2);
-        assertEquals(TaskType.DEADLINE, taskResult.taskType,
+        assertEquals(TaskType.DEADLINE, taskResult.getTaskType(),
                 "Loaded wrong taskType");
-        assertEquals("this", taskResult.taskName,
+        assertEquals("this", taskResult.getTaskName(),
                 "Loaded wrong taskName");
-        assertEquals("by", taskResult.detailDesc,
+        assertEquals("by", taskResult.getDetailDesc(),
                 "Loaded wrong detailDesc");
-        assertEquals("19/09/2019 1015", taskResult.taskDetails,
+        assertEquals("19/09/2019 1015", taskResult.getTaskDetails(),
                 "Loaded wrong taskDetails");
-        assertEquals(false, taskResult.isDone,
+        assertEquals(false, taskResult.getIsDone(),
                 "Loaded wrong isDone");
-        /** TODO: Make Task Class Abstract
-         assertEquals("19/09/2019 1015", taskResult.getDatetime(),
-         "Loaded wrong taskDetails"); */
+        assertEquals("19/09/2019 1015", dateFormat.format(taskResult.getDatetime()),
+                "Loaded wrong taskDetails");
     }
 
     @Test
