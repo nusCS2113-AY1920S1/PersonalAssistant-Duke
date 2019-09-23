@@ -51,30 +51,12 @@ public class Loan extends Record {
     }
 
     /**
-     * Returns the Contact object.
-     *
-     * @return The Contact object.
-     */
-    /*public Contact getPerson() {
-        return person;
-    }*/
-
-    /**
-     * Sets the Contact Object.
-     *
-     * @param person The Contact Object.
-     */
-    /*public void setPerson(Contact person) {
-        this.person = person;
-    }*/
-
-    /**
      * Returns true or false.
      *
      * @return true or false.
      */
     public boolean isLend() {
-        return isLend;
+        return this.isLend;
     }
 
     /**
@@ -108,10 +90,10 @@ public class Loan extends Record {
     public String toString() {
         if (isLend) {
             return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Lend] " + description + " Amount:$"
-                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate());
+                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate());
         } else { //isBorrow
             return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Borrow] " + description + " Amount:$"
-                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate());
+                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate());
         }
     }
 }

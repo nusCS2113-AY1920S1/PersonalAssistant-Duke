@@ -4,51 +4,43 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-WalletCLi was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+WalletCLi is a CLI (Command Line Interface) expenses/wallet application that targets NUS students who prefer to use a desktop application to manage their daily expenses. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Matthew Ng 
-//-image::damithc.jpg[width="150", align="left"]
-//-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+//-image::matthewng.jpg[width="150", align="left"]
+{empty}[https://github.com/matthewng1996[Github]] [<<matthewng#, Portfolio>>] [http://mattgeraldcomputingjourney.wordpress.com/[Personal Website]] 
 
-Role: 
-//-Project Advisor
+Role: Developer + 
+Responsibilities: View Expenses and Loans, User Guide, Developer Guide
 
 '''
 
 === Gerald Lim
-//-image::lejolly.jpg[width="150", align="left"]
-//-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+//-image::geraldlim.jpg[width="150", align="left"]
+{empty}[https://github.com/A0171206R[Github]] [<<geraldlim#, portfolio>>]
 
-Role: 
-//-Team Lead 
-Responsibilities:
-//-UI 
+Role: Developer +
+Responsibilities: LoanList
 
 '''
 
 === Annette
-//-image::yijinl.jpg[width="150", align="left"]
-//-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+//-image::annette.jpg[width="150", align="left"]
+{empty}[https://github.com/Xdecosee[github]] [<<annette#, portfolio>>]
 
-Role: 
-//-Developer 
+Role: Developer +
 Responsibilities: 
-//-Data
 
 '''
 
 === Kiang Yang
-//-image::m133225.jpg[width="150", align="left"]
-//-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+//-image::kiangyang.jpg[width="150", align="left"]
+{empty}[https://github.com/kyang96[github]] [<<kiangyang#, portfolio>>]
 
-Role: 
-//-Developer 
+Role: Developer +
 Responsibilities: 
-//-Dev Ops + Threading
 
 '''

@@ -14,7 +14,7 @@ public class LoanListTest {
         for (Loan loan : loanList.getLoanList()) {
             assertEquals("lunch", loan.getDescription());
             assertEquals(100.0, loan.getAmount());
-            assertEquals(LocalDate.now(), loan.getCreatedDate());
+            assertEquals(LocalDate.now(), loan.getDate());
             assertEquals(false, loan.isLend());
             assertEquals(false, loan.isSettled());
         }
@@ -27,7 +27,7 @@ public class LoanListTest {
         for (Loan loan : loanList.getLoanList()) {
             assertEquals("lunch", loan.getDescription());
             assertEquals(100.0, loan.getAmount());
-            assertEquals(LocalDate.now(), loan.getCreatedDate());
+            assertEquals(LocalDate.now(), loan.getDate());
             assertEquals(false, loan.isLend());
             assertEquals(true, loan.isSettled());
         }
@@ -40,7 +40,7 @@ public class LoanListTest {
         for (Loan loan : loanList.getLoanList()) {
             assertEquals("lunch", loan.getDescription());
             assertEquals(100.0, loan.getAmount());
-            assertEquals(LocalDate.now(), loan.getCreatedDate());
+            assertEquals(LocalDate.now(), loan.getDate());
             assertEquals(true, loan.isLend());
             assertEquals(false, loan.isSettled());
         }
@@ -53,7 +53,7 @@ public class LoanListTest {
         for (Loan loan : loanList.getLoanList()) {
             assertEquals("lunch", loan.getDescription());
             assertEquals(100.0, loan.getAmount());
-            assertEquals(LocalDate.now(), loan.getCreatedDate());
+            assertEquals(LocalDate.now(), loan.getDate());
             assertEquals(true, loan.isLend());
             assertEquals(true, loan.isSettled());
         }

@@ -7,17 +7,17 @@ import java.time.LocalDate;
  */
 public abstract class Record {
     private String description;
-    private LocalDate createdDate;
+    private LocalDate date;
 
     /**
      * Constructs a Record Object.
      *
      * @param description The String description.
-     * @param createdDate The LocalDate object.
+     * @param date The LocalDate object.
      */
-    public Record(String description, LocalDate createdDate) {
+    public Record(String description, LocalDate date) {
         this.description = description;
-        this.createdDate = createdDate;
+        this.date = date;
     }
 
     /**
@@ -39,21 +39,20 @@ public abstract class Record {
     }
 
     /**
-     * Returns LocalDate object.
+     * Sets the LocalDate object.
      *
-     * @return The LocalDate object.
+     * @param date LocalDate object.
      */
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     /**
-     * Sets the LocalDate object.
+     * Returns the LocalDate object.
      *
-     * @param createdDate The LocalDate object.
+     * @return the LocalDate object.
      */
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public LocalDate getDate() {
+        return this.date;
     }
-
 }
