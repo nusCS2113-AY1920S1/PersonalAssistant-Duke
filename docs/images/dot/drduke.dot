@@ -1,0 +1,45 @@
+digraph main {
+
+  graph [
+    splines = ortho
+  ]
+
+  node [
+    shape = "record"
+  ]
+
+  //data indexed by integers for quick, unambiguous access
+  //separately provide the ability to search by various fields
+  //toString() for data format
+  //toDataString() for display format (GUI)
+  Patient [
+    label = "{Patient
+    |+ name : String\l
+    - bedNo : int\l
+    - height : int\l
+    - weight : int\l
+    - age : int\l
+    - number : int\l
+    - address : String\l
+    + priDiagnosis : Diagnosis\l
+    - allergies/impressions/observations/plans/medicine/treatment : \<relevant type\>\l
+    |+ discharge() : void\l
+    + addNew<impression, diagnosis etc.>() : void\l
+    + toString() : String\l
+    + toDisplayString() : String\l
+    \<a bunch of other functions to operate on the above private data structures\>
+    }"
+  ]
+
+  //references
+
+  edge [
+    arrowhead = "vee"
+  ]
+
+  //subclass relations
+
+  edge [
+    arrowhead = "empty"
+  ]
+}
