@@ -17,6 +17,6 @@ public class DukeTest {
         Duke.getUI();
         System.out.println("JUnit testing is running");
         int x = 2;
-        assertEquals(1, x);
+        assertEquals(2, x);
     }
 }
