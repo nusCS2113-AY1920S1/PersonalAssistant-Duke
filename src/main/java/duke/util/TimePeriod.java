@@ -5,9 +5,16 @@ import duke.exceptions.DukeInvalidTimePeriodException;
 import java.time.LocalDateTime;
 
 public class TimePeriod {
+
     private LocalDateTime begin;
     private LocalDateTime end;
 
+    /**
+     * Constructor for TimePeriod check.
+     * @param begin Start date.
+     * @param end End date.
+     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     */
     public TimePeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
         if (end.isBefore(begin)) {
             throw new DukeInvalidTimePeriodException("End before begin!");
@@ -16,6 +23,13 @@ public class TimePeriod {
         this.end = end;
     }
 
+    /**
+     * Checker function for clashing time periods.
+     * @param localDateTime Given LocalDateTime.
+     * @param strictBegin Starting date boolean test result.
+     * @param strictEnd Ending data boolean test result.
+     * @return Boolean result if the set period is a valid period.
+     */
     public boolean isClashing(LocalDateTime localDateTime, boolean strictBegin, boolean strictEnd) {
         return localDateTime.isAfter(this.begin) && localDateTime.isBefore(this.end)
                 || strictBegin && localDateTime.isEqual(this.begin)

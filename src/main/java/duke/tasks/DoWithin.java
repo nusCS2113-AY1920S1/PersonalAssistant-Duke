@@ -10,8 +10,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DoWithin extends Task {
+
     private TimePeriod period;
 
+    /**
+     * Constructor for do With In tasks.
+     * @param description Task name.
+     * @param beginString Starting time.
+     * @param endString Ending time.
+     * @throws DukeInvalidTimeException when the time input cannot be parsed.
+     * @throws DukeInvalidTimePeriodException when the period input is invalid.
+     */
     public DoWithin(String description, String beginString, String endString)
             throws DukeInvalidTimeException,
             DukeInvalidTimePeriodException {
@@ -25,7 +34,7 @@ public class DoWithin extends Task {
         return period;
     }
 
-    public void setDateTime(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException{
+    public void setDateTime(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
         this.period = new TimePeriod(begin, end);
     }
 

@@ -81,8 +81,7 @@ public class AddCommand extends Command {
                         throw new DukeScheduleException();
                     }
                 }
-            }
-            else {
+            } else {
                 if (timePeriodSet.contains(taskTimePeriod)) {
                     throw new DukeScheduleException();
                 }

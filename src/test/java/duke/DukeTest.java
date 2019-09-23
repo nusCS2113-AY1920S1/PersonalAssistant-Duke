@@ -11,10 +11,14 @@ public class DukeTest extends InputTest {
     /**
      * Testing the Duke class with bye as the only input
      * and checking the expected output.
-     * Ignores the NullPointerException thrown by getOutput.
+     * outContent must have it's carriage return removed due
+     * to windows/linus newline differences.
      */
     @Test
  public void testDuke() {
+        final String test = "bye";
+        provideInput(test);
+        Duke.main(new String[0]);
         String expected =
                 LINE
                 + "Hello! I'm Duke\n"
@@ -26,7 +30,6 @@ public class DukeTest extends InputTest {
                 + "Bye. Hope to see you again soon!\n"
                 + LINE
                 + "\n";
-        //TODO fix assertEquals failing despite being the same String
-        assertEquals(expected, expected);
+        assertEquals(expected, outContent.toString().replace("\r", ""));
     }
 }
