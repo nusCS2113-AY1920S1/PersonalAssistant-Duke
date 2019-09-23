@@ -24,10 +24,10 @@ digraph main {
     + priDiagnosis : Diagnosis\l
     - allergies/impressions/observations/plans/medicine/treatment : \<relevant type\>\l
     |+ discharge() : void\l
-    + addNew<impression, diagnosis etc.>() : void\l
+    + addNew\<impression, diagnosis etc.\>() : void\l
     + toString() : String\l
     + toDisplayString() : String\l
-    \<a bunch of other functions to operate on the above private data structures\>
+    \<a bunch of other functions to operate on the above private data structures\>\l
     }"
   ]
 
