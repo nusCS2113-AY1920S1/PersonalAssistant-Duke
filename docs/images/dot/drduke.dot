@@ -160,6 +160,8 @@ digraph main {
   ]
 
   Treatment -> Investigation 
+  Treatment -> Plan
+  Treatment -> Medicine
   Evidence -> Observation
   Evidence -> Result
 }
