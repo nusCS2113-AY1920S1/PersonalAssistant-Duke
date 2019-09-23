@@ -3,7 +3,9 @@ package duke.command;
 import duke.DukeContext;
 import duke.exception.DukeException;
 
-// Commands that take only one argument
+/**
+ * Abstract class for commands that involve an argument.
+ */
 public abstract class ArgCommand extends Command {
     String arg; //argument supplied to the command
     String emptyArgMsg; //error message if the argument is empty
