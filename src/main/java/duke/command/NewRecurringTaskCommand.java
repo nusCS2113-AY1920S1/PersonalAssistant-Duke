@@ -56,28 +56,28 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
 
         String countDelim = "/count";
         String untilDelim = "/until";
-        long count = 0;
+        long count = 1; //for the task itself
 
         DukeException invalidRecurrenceExcp = new DukeException("You need to tell me how many times you want that "
                 + "task to recur!" + System.lineSeparator() + "Either tell me to repeat it with e.g. '/count 5' or"
                 + "with e.g. '/until " + LocalDateTime.now().plus(3, period)
-                .format(TimedTask.getDataFormatter()) + "'.");
-        if (argv[1].matches("^" + countDelim + "\\s+\\d+$")) {
-            count = Long.parseLong(argv[1].substring(countDelim.length()).strip()); //regex checks to ensure validity
-        } else if (argv[1].matches("^" + untilDelim + "\\s+[A-Za-z 0-9/]+$")) {
+                .format(TimedTask.getPatDatetime()) + "'.");
+        if (argv[1].matches("^" + countDelim + "\\s+\\d+$")) { //fixed counter
+            count += Long.parseLong(argv[1].substring(countDelim.length()).strip());
+        } else if (argv[1].matches("^" + untilDelim + "\\s+[A-Za-z 0-9/]+$")) { //until date
             LocalDateTime until = null;
             try {
                 until = LocalDateTime.parse(argv[1].substring(untilDelim.length()).strip(),
-                        TimedTask.getDataFormatter());
+                        TimedTask.getPatDatetime());
             } catch (DateTimeParseException excp) {
                 throw invalidRecurrenceExcp;
             }
-            count = period.between(LocalDateTime.now(), until);
+            count += period.between(refCommand.taskDateTime, until);
         } else {
             throw invalidRecurrenceExcp;
         }
 
-        if (count <= 0) {
+        if (count == 1) {
             throw new DukeException("This task will not recur!");
         }
 

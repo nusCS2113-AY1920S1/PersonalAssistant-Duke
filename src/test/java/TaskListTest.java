@@ -5,6 +5,7 @@ import duke.task.Reminder;
 import duke.task.TaskList;
 import duke.task.TimedTask;
 import duke.task.ToDoTask;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +20,29 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TaskListTest {
     private TaskList taskList;
 
+
+
     /**
      * Adds tasks to an empty TaskList. This is executed before each JUnit test.
      */
     @BeforeEach
+    public void setupTaskList() {
+        taskList = new TaskList();
+        ToDoTask todo = new ToDoTask("JUnit tests");
+        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
+        EventTask event = new EventTask("tutorial", t, t);
+        DeadlineTask deadline = new DeadlineTask("submission", t);
+        taskList.addTask(todo);
+        taskList.addTask(event);
+        taskList.addTask(deadline);
+    }
+
+    @Test
     public void addTasks_validTasks_successMessageReturned() {
         taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
-        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getDataFormatter());
-        EventTask event = new EventTask("tutorial", t);
+        LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
+        EventTask event = new EventTask("tutorial", t, t);
         DeadlineTask deadline = new DeadlineTask("submission", t);
 
         try {
@@ -40,10 +55,10 @@ public class TaskListTest {
 
         try {
             String expectedTaskListStr = System.lineSeparator() + "1.[T][N] JUnit tests"
-                    + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "2.[E][N] tutorial (at: "
+                    + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
-            String listStr = taskList.listTasks();
-
+          
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
             fail("No tasks in the list after adding!");
@@ -57,7 +72,8 @@ public class TaskListTest {
         try {
             taskList.deleteTask("1");
             taskList.deleteTask("2");
-            assertEquals(System.lineSeparator() + "1.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)",
+            assertEquals(System.lineSeparator() + "1.[E][N] tutorial (at: "
+                            + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)",
                     taskList.listTasks());
         } catch (DukeException excp) {
             fail("Unable to find added tasks!");
@@ -72,7 +88,8 @@ public class TaskListTest {
             taskList.deleteTask("100");
         });
         String expectedTaskListStr = System.lineSeparator() + "1.[T][N] JUnit tests"
-                + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                + System.lineSeparator() + "2.[E][N] tutorial (at: "
+                + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
         try {
             assertEquals(expectedTaskListStr, taskList.listTasks());
@@ -85,7 +102,8 @@ public class TaskListTest {
 
     @Test
     public void findTasks_matchingTasks_matchingTasksReturned() {
-        String expectedSearchResult = System.lineSeparator() + "1.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+        String expectedSearchResult = System.lineSeparator() + "1.[E][N] tutorial (at: "
+                + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                 + System.lineSeparator() + "2.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)";
         try {
             assertEquals(expectedSearchResult, taskList.find("u"));
@@ -113,7 +131,8 @@ public class TaskListTest {
 
         try {
             String expectedTaskListStr = System.lineSeparator() + "1.[T][Y] JUnit tests"
-                    + System.lineSeparator() + "2.[E][Y] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "2.[E][Y] tutorial (at: "
+                    + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][Y] submission (by: Thu, 12 Sep 2019 2:00 PM)";
             assertEquals(expectedTaskListStr, taskList.listTasks());
         } catch (DukeException excp) {
@@ -157,23 +176,26 @@ public class TaskListTest {
     @Test
     public void setReminder_validIdx_successMessageReturned() {
         try {
-            LocalDateTime datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getDataFormatter());
+            LocalDateTime datetime = LocalDateTime.parse("18/09/2019 0200", TimedTask.getPatDatetime());
             taskList.setReminder("1", new Reminder(datetime));
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 2:00 AM] JUnit tests"
-                            + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                            + System.lineSeparator() + "2.[E][N] tutorial (at: "
+                            + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                             + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)",
                     taskList.listTasks());
 
-            datetime = LocalDateTime.parse("18/09/2019 0300", TimedTask.getDataFormatter());
+            datetime = LocalDateTime.parse("18/09/2019 0300", TimedTask.getPatDatetime());
             taskList.setReminder("1", new Reminder(datetime));
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
-                            + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                            + System.lineSeparator() + "2.[E][N] tutorial (at: "
+                            + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                             + System.lineSeparator() + "3.[D][N] submission (by: Thu, 12 Sep 2019 2:00 PM)",
                     taskList.listTasks());
 
             taskList.setReminder("3", new Reminder(datetime));
             assertEquals(System.lineSeparator() + "1.[T][N][R: Wed, 18 Sep 2019 3:00 AM] JUnit tests"
-                    + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM)"
+                    + System.lineSeparator() + "2.[E][N] tutorial (at: "
+                    + "Thu, 12 Sep 2019 2:00 PM - Thu, 12 Sep 2019 2:00 PM)"
                     + System.lineSeparator() + "3.[D][N][R: Wed, 18 Sep 2019 3:00 AM] "
                     + "submission (by: Thu, 12 Sep 2019 2:00 PM)", taskList.listTasks());
         } catch (DukeException excp) {
