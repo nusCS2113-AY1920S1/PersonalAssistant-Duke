@@ -1,6 +1,18 @@
 package compal.logic.parser;
 
-import compal.logic.commands.*;
+import compal.logic.commands.ByeCommand;
+import compal.logic.commands.ClearCommand;
+import compal.logic.commands.DeadlineCommand;
+import compal.logic.commands.DeleteCommand;
+import compal.logic.commands.DoAfterCommand;
+import compal.logic.commands.DoneCommand;
+import compal.logic.commands.EventCommand;
+import compal.logic.commands.FindCommand;
+import compal.logic.commands.FixedDurationCommand;
+import compal.logic.commands.ListCommand;
+import compal.logic.commands.RecurTaskCommand;
+import compal.logic.commands.ReminderCommand;
+import compal.logic.commands.ViewCommand;
 import compal.main.Duke;
 import compal.tasks.TaskList;
 
@@ -22,6 +34,7 @@ public class ParserManager {
     static final String CMD_RECUR_TASK = "recurtask";
     static final String CMD_VIEW = "view";
     static final String CMD_FIND = "find";
+    static final String CMD_REMINDER = "reminder";
 
 
     /**
@@ -66,71 +79,79 @@ public class ParserManager {
     //----------------------------------------------------------------------------------------------------------------->
 
 
-    /**
-     * This function handles the main CLI parsing. Just pass in the cmd string and it will work its magic.
-     * It uses regex to understand the command entered.
-     *
-     * @param userInput No return value
-     * @Function
-     * @UsedIn: COMPal.Duke.handleUserInput()
-     */
     public void processCMD(String userInput) throws ParseException, Duke.DukeException {
-        char sadFace = '\u2639';
         Scanner sc = new Scanner(userInput);
-        String cmd = sc.next();
-        switch (cmd) {
-        case CMD_EXIT:
-            ByeCommand bye = new ByeCommand(duke);
-            bye.Command(cmd);
-            break;
-        case CMD_LIST:
-            ListCommand list = new ListCommand(duke);
-            list.Command(cmd);
-            break;
-        case CMD_CLEAR:
-            ClearCommand clear = new ClearCommand(duke);
-            clear.Command(cmd);
-            break;
-        case CMD_DONE:
-            DoneCommand done = new DoneCommand(duke);
-            done.Command(userInput);
-            break;
-        case CMD_DELETE:
-            DeleteCommand delete = new DeleteCommand(duke);
-            delete.Command(userInput);
-            break;
-        case CMD_EVENT:
-            EventCommand event = new EventCommand(duke);
-            event.Command(userInput);
-            break;
-        case CMD_DEADLINE:
-            DeadlineCommand deadline = new DeadlineCommand(duke);
-            deadline.Command(userInput);
-            break;
-        case CMD_DO_AFTER_TASK:
-            DoAfterCommand doafter = new DoAfterCommand(duke);
-            doafter.Command(userInput);
-            break;
-        case CMD_FIXED_DURATION_TASK:
-            FixedDurationCommand fixedduration = new FixedDurationCommand(duke);
-            fixedduration.Command(userInput);
-            break;
-        case CMD_RECUR_TASK:
-            RecurTaskCommand recurTask = new RecurTaskCommand(duke);
-            recurTask.Command(userInput);
-            break;
-        case CMD_FIND:
-            FindCommand findCommand = new FindCommand(duke);
-            findCommand.Command(userInput);
-            break;
-        case CMD_VIEW:
-            ViewCommand viewCommand = new ViewCommand(duke);
-            viewCommand.Command(userInput);
-            break;
-        default:
-            duke.ui.printg("CommandError: Unknown command input detected!" + sadFace);
-            throw new Duke.DukeException("CommandError: Unknown command input detected!");
+
+        if (sc.hasNext()) {
+            String cmd = sc.next();
+
+            if (status.equals("init")) {
+                duke.ui.firstTimeInit(cmd, stage++);
+            } else {
+                switch (cmd) {
+                case CMD_EXIT:
+                    ByeCommand bye = new ByeCommand(duke);
+                    bye.Command(cmd);
+                    break;
+                case CMD_LIST:
+                    ListCommand list = new ListCommand(duke);
+                    list.Command(cmd);
+                    break;
+                case CMD_CLEAR:
+                    ClearCommand clear = new ClearCommand(duke);
+                    clear.Command(cmd);
+                    break;
+                case CMD_DONE:
+                    DoneCommand done = new DoneCommand(duke);
+                    done.Command(userInput);
+                    break;
+                case CMD_DELETE:
+                    DeleteCommand delete = new DeleteCommand(duke);
+                    delete.Command(userInput);
+                    break;
+                case CMD_EVENT:
+                    EventCommand event = new EventCommand(duke);
+                    event.Command(userInput);
+                    break;
+                case CMD_DEADLINE:
+                    DeadlineCommand deadline = new DeadlineCommand(duke);
+                    deadline.Command(userInput);
+                    break;
+                case CMD_DO_AFTER_TASK:
+                    DoAfterCommand doafter = new DoAfterCommand(duke);
+                    doafter.Command(userInput);
+                    break;
+                case CMD_FIXED_DURATION_TASK:
+                    FixedDurationCommand fixedduration = new FixedDurationCommand(duke);
+                    fixedduration.Command(userInput);
+                    break;
+                case CMD_RECUR_TASK:
+                    RecurTaskCommand recurTask = new RecurTaskCommand(duke);
+                    recurTask.Command(userInput);
+                    break;
+                case CMD_FIND:
+                    FindCommand findCommand = new FindCommand(duke);
+                    findCommand.Command(userInput);
+                    break;
+                case CMD_VIEW:
+                    ViewCommand viewCommand = new ViewCommand(duke);
+                    viewCommand.Command(userInput);
+                    break;
+                case CMD_REMINDER:
+                    ReminderCommand reminderCommand = new ReminderCommand(duke);
+                    reminderCommand.Command(cmd);
+                    break;
+                default:
+                    duke.ui.printg("CommandError: Unknown command input detected!");
+                    throw new Duke.DukeException("CommandError: Unknown command input detected!");
+                }
+            }
+        } else {
+            duke.ui.printg("EmptyInput: Empty input detected!");
+            throw new Duke.DukeException("CommandError: Empty input detected!");
         }
+
+
     }
 
 

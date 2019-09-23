@@ -26,6 +26,7 @@ public class DoneCommand extends Command implements CommandParser {
             taskList.arrlist.get(toMark).markAsDone();
             String desc = taskList.arrlist.get(toMark).toString();
             duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
+            duke.storage.saveCompal(taskList.arrlist);
         } else {
             duke.ui.printg("InputError: Required input for done command!");
             throw new Duke.DukeException("InputError: Required input for done command!");

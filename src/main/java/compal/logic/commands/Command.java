@@ -2,6 +2,7 @@ package compal.logic.commands;
 
 import compal.main.Duke;
 
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,7 +69,16 @@ public abstract class Command {
                 duke.ui.printg("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
                 throw new Duke.DukeException("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
             }
+            int inputSize = date_input.length();
 
+            String year = date_input.substring(inputSize - 4, inputSize);
+            int inputYear = Integer.parseInt(year);
+            int currYear = Calendar.getInstance().get(Calendar.YEAR);
+
+            if (inputYear < currYear) {
+                duke.ui.printg("YearRangeError: You can only put input schedule of the " + currYear + " onwards!");
+                throw new Duke.DukeException("YearRangeError: You can only put input schedule of the " + currYear + " onwards!");
+            }
             return date_input;
         } else {
             duke.ui.printg("ArgumentError: Missing /date");
