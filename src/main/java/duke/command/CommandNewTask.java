@@ -23,6 +23,9 @@ public class CommandNewTask extends Command {
 
     @Override
     public void execute(TaskList taskList) {
+        if (this.taskType == TaskType.BLANK) {
+            return;
+        }
         try {
             checkS(this.userInput);
         } catch (DukeException e) {

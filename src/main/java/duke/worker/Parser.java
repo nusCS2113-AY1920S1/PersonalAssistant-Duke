@@ -47,10 +47,6 @@ public class Parser {
             c = new CommandBlank();
             break;
 
-        case TASK:
-            c = new CommandNewTask(userInput);
-            break;
-
         case LIST:
             c = new CommandList();
             break;
@@ -84,7 +80,7 @@ public class Parser {
             break;
 
         default:
-            c = new CommandError();
+            c = new CommandNewTask(userInput);
             break;
         }
         return c;
@@ -142,7 +138,7 @@ public class Parser {
         String taskStr = parseForEnum(userInput, TaskType.getNames());
         // Default
         if (taskStr == "") {
-            return TaskType.PARENT;
+            return TaskType.BLANK;
         }
         return TaskType.valueOf(taskStr);
     }
