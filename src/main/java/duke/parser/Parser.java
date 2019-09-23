@@ -117,6 +117,10 @@ public class Parser {
                 params.get("contact").get(0),
                 TimeParser.convertStringToDate(params.get("by").get(0)));
 
+        if (params.containsKey("rmk")) {
+            order.setRemarks(params.get("rmk").get(0));
+        }
+
         for (String item : params.get("item")) {
             String[] itemAndQty = item.split(",");
             if (itemAndQty.length < 2) {
@@ -131,7 +135,6 @@ public class Parser {
                 throw new DukeException("Quantity should be an integer.");
             }
         }
-
         return new AddOrderCommand(order);
         //order add -name jj -contact 12345678 -by 01/10/2019 18:00 -item bread, 1
     }

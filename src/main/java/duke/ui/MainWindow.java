@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import duke.logic.Duke;
 import duke.order.Order;
-import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -74,17 +73,12 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(true);
     }
 
-    void refreshTaskList(TaskList tasks, TaskList all) {
-        taskList.getItems().clear();
-        for (int i = 0; i < tasks.size(); i++) {
-            taskList.getItems().add(new DialogBox(tasks.get(i), all));
-        }
-    }
-
     void refreshOrderList(List<Order> orders, List<Order> all) {
         orderList.getChildren().clear();
+        int index = 1;
         for (Order order : orders) {
-            orderList.getChildren().add(new OrderBox(order));
+            orderList.getChildren().add(new OrderBox(order, index));
+            index++;
         }
     }
 

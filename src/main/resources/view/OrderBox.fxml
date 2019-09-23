@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<fx:root maxHeight="1.7976931348623157E308" minHeight="210.0" prefHeight="170.0" prefWidth="800.0"
+<fx:root maxHeight="1.7976931348623157E308" minHeight="240.0" prefHeight="200.0" prefWidth="800.0"
          style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -19,7 +19,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" spacing="10.0"
                               style="-fx-background-color: #96663b;">
                             <children>
-                                <Label fx:id="id" text="#14g4ar" textFill="WHITE">
+                                <Label fx:id="index" text="#14g4ar" textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="20.0"/>
                                     </font>
@@ -102,6 +102,44 @@
                                         </FlowPane>
                                     </content>
                                 </ScrollPane>
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0"/>
+                        <HBox alignment="TOP_RIGHT" prefHeight="18.0" prefWidth="200.0">
+                            <children>
+                                <Label alignment="CENTER" text="Order ID:">
+                                    <font>
+                                        <Font name="Arial" size="12.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="id" alignment="CENTER" text="Jiajun" textFill="#96663b">
+                                    <font>
+                                        <Font name="Arial" size="12.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="5.0" right="20.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label alignment="CENTER" text="Created on:">
+                                    <font>
+                                        <Font name="Arial" size="12.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="20.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="creationDate" alignment="CENTER" text="01/01/1999 18:00"
+                                       textFill="#96663b">
+                                    <font>
+                                        <Font name="Arial" size="12.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="5.0" right="20.0"/>
+                                    </HBox.margin>
+                                </Label>
                             </children>
                         </HBox>
                     </children>

@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.order.Order;
-import duke.task.TaskList;
 
 import java.util.List;
 
@@ -27,10 +26,6 @@ public class Ui {
 
     public void refreshOrderList(List<Order> orders, List<Order> all) {
         mainWindow.refreshOrderList(orders, all);
-    }
-
-    public void refreshTaskList(TaskList tasks, TaskList all) {
-        mainWindow.refreshTaskList(tasks, all);
     }
 
     public void disableInput() {

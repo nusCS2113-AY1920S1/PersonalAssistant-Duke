@@ -18,6 +18,8 @@ public class OrderBox extends AnchorPane {
     @FXML
     private Label id;
     @FXML
+    private Label index;
+    @FXML
     private Label deadline;
     @FXML
     private Label name;
@@ -26,7 +28,7 @@ public class OrderBox extends AnchorPane {
     @FXML
     private Label remarks;
 
-    public OrderBox(Order order) {
+    public OrderBox(Order order, int indexNumber) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderBox.fxml"));
             fxmlLoader.setController(this);
@@ -35,10 +37,15 @@ public class OrderBox extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        id.setText(Long.toString(order.getId()));
+        index.setText("#" + Integer.toString(indexNumber));
         deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
         name.setText(order.getCustomerName());
         contact.setText(order.getCustomerContact());
         remarks.setText(order.getRemarks());
-        itemFlow.getChildren().add(new OrderItemBox());
+        for (String itemName : order.getItems().keySet()) {
+            itemFlow.getChildren().add(new OrderItemBox(itemName, order.getItems().get(itemName)));
+        }
+
     }
 }
