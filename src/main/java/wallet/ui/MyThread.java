@@ -30,12 +30,12 @@ class MyThread implements Runnable {
             System.out.println(i);
             i++;
             try {
-                Thread.sleep(timeInSeconds*1000);
+                Thread.sleep(timeInSeconds * 1000);
                 counter = 1;
                 ui.printLine();
                 System.out.println("Remember to settle your loans soon!");
                 for (Loan l : wallet.getLoanList().getLoanList()) {
-                    if(!l.isSettled()) {
+                    if (!l.isSettled()) {
                         System.out.println(counter + ". " + l.toString());
                     }
                     counter++;

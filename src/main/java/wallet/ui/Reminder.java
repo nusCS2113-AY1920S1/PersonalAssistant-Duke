@@ -11,7 +11,7 @@ public class Reminder {
     private int number;
     private boolean autoRemind;
     private int timeInSeconds;
-    private MyThread t;
+    private MyThread thread;
 
     /**
      * The constructor for the Reminder object.
@@ -24,7 +24,7 @@ public class Reminder {
         number = 1;
         autoRemind = true;
         timeInSeconds = 5; //set default time interval of auto remind to be 30 minutes
-        t = new MyThread(true, wallet.getLoanList(), timeInSeconds);
+        thread = new MyThread(true, wallet.getLoanList(), timeInSeconds);
     }
 
 
@@ -35,14 +35,14 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        t.run();
+        thread.run();
     }
 
     /**
      * Kills the auto remind thread.
      */
     public void autoRemindStop() {
-        t.stop();
+        thread.stop();
     }
 
     /**
