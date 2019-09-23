@@ -15,6 +15,7 @@ public abstract class Record {
      * @param description The String description.
      * @param date The LocalDate object.
      */
+
     public Record(String description, LocalDate date) {
         this.description = description;
         this.date = date;
