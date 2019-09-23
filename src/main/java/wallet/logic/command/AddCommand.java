@@ -8,9 +8,16 @@ import wallet.model.task.Task;
 
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
+    public static final String MESSAGE_USAGE = "Usage for add command."
+            + "\nThe options for recurrence rate (/r) are \\\"daily, weekly or monthly\\\""
+            + "\nExample: " + COMMAND_WORD + "expense lunch $5 Food /on 20/02/2019"
+            + "\nExample: " + COMMAND_WORD + "expense phone bills $100 bills /on 10/10/2019 /r monthly"
+            + "\nExample: " + COMMAND_WORD + "expense dinner $10 Food";
     public static final String MESSAGE_SUCCESS_ADD_TASK = "Got it. I've added this task:";
     public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
+    public static final String MESSAGE_ERROR_ADD_EXPENSE = "Error in format when adding expense.\n"
+                                                            + MESSAGE_USAGE;
 
     private Expense expense = null;
     private Task task = null;

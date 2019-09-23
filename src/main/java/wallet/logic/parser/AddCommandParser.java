@@ -49,41 +49,43 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
         default:
+            System.out.println(AddCommand.MESSAGE_USAGE);
             return null;
         }
         return null;
     }
 
     private Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
-        Expense expense = null;
-
         boolean isRecurring = input.contains("/r");
-        if (isRecurring) {
-            String[] getRec = input.split("/r");
-            String freq = getRec[1].trim().toUpperCase();
-            String[] getCat = getRec[0].split("/cat");
-            String cat = getCat[1].trim();
-            String[] getDate = getCat[0].split("/on");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
-            String[] getDesc = getDate[0].split("\\$");
+        String[] arguments = input.split("\\$");
+        String desc = arguments[0].trim();
+        arguments = arguments[1].split(" ", 2);
+        Double amount = Double.parseDouble(arguments[0].trim());
+        String cat;
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String freq = "NULL";
 
-            if (freq.equals("DAILY") || freq.equals("WEEKLY") || freq.equals("MONTHLY")) {
-                expense = new Expense(getDesc[0].trim(), date, Double.parseDouble(getDesc[1].trim()), cat, true, freq);
+        if (arguments[1].contains("/on")) {
+            arguments = arguments[1].split(" ", 2);
+            cat = arguments[0].trim();
+            if (isRecurring) {
+                arguments = arguments[1].split("/on");
+                arguments = arguments[1].split("/r");
+                date = LocalDate.parse(arguments[0].trim(), formatter);
+                freq = arguments[1].trim().toUpperCase();
+                if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
+                    System.out.println(AddCommand.MESSAGE_ERROR_ADD_EXPENSE);
+                    System.out.println(AddCommand.MESSAGE_USAGE);
+                }
             } else {
-                System.out.println("☹ OOPS!!! The options for recurrence (/r) are \"daily, weekly or monthly\"");
+                arguments = arguments[1].split("/on");
+                date = LocalDate.parse(arguments[1].trim(), formatter);
             }
         } else {
-            String[] getCat = input.split("/cat");
-            String cat = getCat[1].trim();
-            String[] getDate = getCat[0].split("/on");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
-            String[] getDesc = getDate[0].split("\\$");
-
-            expense = new Expense(getDesc[0].trim(), date, Double.parseDouble(getDesc[1].trim()), cat, false, "NULL");
+            cat = arguments[1].trim();
         }
-
+        Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
         return expense;
     }
 

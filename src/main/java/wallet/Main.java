@@ -46,7 +46,6 @@ public class Main {
             String fullCommand = ui.readLine();
             ui.printLine();
             isExit = logicManager.execute(fullCommand);
-            //isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();
