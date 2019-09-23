@@ -41,6 +41,5 @@ public class ViewScheduleCommand extends Command {
             msg.add((i+1) + "."  + tasksOnGivenDate.get(i).getTask());
         }
         Ui.printMsg(msg);
-
     }
 }
