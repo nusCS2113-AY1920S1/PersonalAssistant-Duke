@@ -14,10 +14,10 @@ public class ListCommand extends Command {
     public static final String MESSAGE_LIST_EXPENSES = "Here are the expenses in your list:";
     public static final String MESSAGE_LIST_RECURRING_EXPENSES = "Here are the recurring expenses in your list:";
     public static final String MESSAGE_USAGE = "Error in format for command."
-            + "\nExample: " + COMMAND_WORD + "all"
-            + "\nExample: " + COMMAND_WORD + "expense"
-            + "\nExample: " + COMMAND_WORD + "task"
-            + "\nExample: " + COMMAND_WORD + "recurring";
+            + "\nExample: " + COMMAND_WORD + " all"
+            + "\nExample: " + COMMAND_WORD + " expense"
+            + "\nExample: " + COMMAND_WORD + " task"
+            + "\nExample: " + COMMAND_WORD + " recurring";
 
     private final String record;
 

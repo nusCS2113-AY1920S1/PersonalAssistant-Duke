@@ -19,9 +19,9 @@ public class Loan extends Record {
      * @param isSettled If isSettled is true, then it means the loan has been settled.
      */
 
-    public Loan(String description, LocalDate createdDate, double amount,
+    public Loan(String description, LocalDate date, double amount,
                 Contact person, boolean isLend, boolean isSettled) {
-        super(description, createdDate);
+        super(description, date);
         this.amount = amount;
         this.person = person;
         this.isLend = isLend;

@@ -16,9 +16,9 @@ public class Expense extends Record {
      * @param category    The category of the expense.
      * @param isRecurring Whether the expense is recurring.
      */
-    public Expense(String description, LocalDate createdDate, double amount,
+    public Expense(String description, LocalDate date, double amount,
                    String category, boolean isRecurring, String recFrequency) {
-        super(description, createdDate);
+        super(description, date);
         this.amount = amount;
         this.category = category;
         this.isRecurring = isRecurring;
@@ -91,10 +91,10 @@ public class Expense extends Record {
     public String toString() {
         if (isRecurring) {
             return "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
-                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
+                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         } else {
             return getDescription() + " Amount:$" + amount + " Date:"
-                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate()) + " Category:" + category;
+                    + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         }
     }
 }
