@@ -19,14 +19,18 @@ public class Ui {
      * Prints duke introduction message.
      */
     public void printIntro() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "  _      __    __                     __         ____         _   __         __               \n"
+                + " | | /| / /__ / /______  __ _  ___   / /____    / __/__ ____ | | / /__ ___  / /____  ______ __\n"
+                + " | |/ |/ / -_) / __/ _ \\/  ' \\/ -_) / __/ _ \\  / _// _ `/ _ `/ |/ / -_) _ \\/ __/ _ \\/"
+                + " __/ // /\n"
+                + " |__/|__/\\__/_/\\__/\\___/_/_/_/\\__/  \\__/\\___/ /___/\\_, /\\_, /|___/\\__/_//_/\\__/\\___/_/"
+                + "  \\_, / \n"
+                + "                                                  /___//___/                           /___/  \n";
+
+
         printNewLine();
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println(logo);
+        System.out.println("Hello! I'm Humpty Dumpty\n" + "What can I do for you?");
     }
 
     /**
