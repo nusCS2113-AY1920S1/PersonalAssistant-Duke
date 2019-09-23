@@ -39,6 +39,8 @@ digraph main {
 
   //treatments and evidence may be uncategorised: create a default
   //"Uncategorised" impression to hold all of the other evidence and results
+  //Or should we force all objects to be categorised, and allow vague
+  //descriptions for the Impression?
 
   //abstract out a super class for normal impressions vs uncategorised?
   //function to consolidate e.g. observations to generate reports to upload to 
@@ -56,7 +58,7 @@ digraph main {
 
   //evidence: observations, results - support this impression
   Evidence [
-     label = "{\{abstract\} Evidence
+    label = "{\{abstract\} Evidence
     |- name : String\l
     - impression : Impression\l
     |+ toDisplayString() : String \{abstract\}\l
@@ -68,7 +70,7 @@ digraph main {
   //various status codes
   //treatments should be sortable by their status of completion
   Treatment [
-     label = "{\{abstract\} Treatment
+    label = "{\{abstract\} Treatment
     |- name : String\l
     - status : int\l
     - statusArr : String[]
@@ -79,17 +81,18 @@ digraph main {
   ]
 
   Result [
-     label = "{Result
+    label = "{Result
     |- summary : String\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
   ]
 
+  //should observations have dates attached?
   //observations may need further investigation, uncategorised observations can
   //be tagged based on priority to address the most worrying ones
   Observation [
-     label = "{Observation
+    label = "{Observation
     |- data : String\l
     - isObjective : bool\l
     - investigations : ArrayList\<Investigation\>\l
@@ -99,13 +102,36 @@ digraph main {
     }"
   ]
 
-
   //when an investigation is completed, it becomes a result
   //when converting to result, remember to clean up its Observation
   Investigation [
-     label = "{Investigation
+    label = "{Investigation
     |- summary : String\l
     - observation : Observation\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+  
+  //Can format these properly if we have the time, if not just hold raw strings
+  //Sort by completion status
+  Medicine [
+    label = "{Medicine
+    |- dose : String\l
+    - startDate : String\l
+    - duration : String\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //Sort by priority and completion status
+  Plan [
+    label = "{Plan
+    |- summary : String\l
+    - priority : int\l
     |+ toDisplayString() : String\l
     + toResult(String) : Result\l 
     \<getters and setters\>\l
