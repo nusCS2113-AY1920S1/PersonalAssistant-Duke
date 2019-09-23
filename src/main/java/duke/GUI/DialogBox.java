@@ -22,6 +22,7 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
         displayPicture.setClip(new Circle(50,50,50));    //Clip the ImageView into a circle
+        text.setPadding(new Insets(0,10,0,10));    //Add padding between the ImageView and the text
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
