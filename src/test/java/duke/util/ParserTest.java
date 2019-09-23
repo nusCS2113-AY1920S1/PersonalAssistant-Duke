@@ -9,6 +9,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exceptions.DukeException;
 import duke.tasks.Todo;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,10 +60,18 @@ public class ParserTest {
     }
 
     @Test
-    public void allCommandTest() {
+    public void listCommandTest() {
+        try {
+            assertTrue(Parser.parse("list") instanceof ListCommand);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void byeCommandTest() {
         try {
             assertTrue(Parser.parse("bye") instanceof ByeCommand);
-            assertTrue(Parser.parse("list") instanceof ListCommand);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
