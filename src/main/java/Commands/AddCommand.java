@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class AddCommand extends Command {
 
-    protected Task task;
+    private Task task;
 
     /**
      * Creates an AddCommand object.
@@ -26,30 +26,34 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
-
-
-        int size =list.taskListSize();
-        boolean[] conflict = new boolean[size];
-        int con = 0;
         String out = "";
-        for(int i =0; i < size;i++){
-            if (list.getTask(i).getDateTime().equals(task.getDateTime())){
-                conflict[i] = true;
-                con++;
-            }
-        }
-        if (con == 0) {
-            list.addTask(this.task);
-            out = ui.showAdd(this.task, list.taskListSize());
-            //out = "new date: " + task.getDate() + "\n" +  "old date: "+ list.getTask(3).getDate();
-        }
-        else{
-            out = "Sorry, you have similar events at the same time and on the same day \n";
-            for(int i =0; i < size;i++){
-                if (conflict[i]){
-                    out += list.getTask(i).toString() + "\n";
+        if (task.getType().equals("[E]")) {
+            int size = list.taskListSize();
+            boolean[] conflict = new boolean[size];
+            int con = 0;
+
+            for (int i = 0; i < size; i++) {
+                if (list.getTask(i).getDateTime().equals(task.getDateTime())) {
+                    conflict[i] = true;
+                    con++;
                 }
             }
+            if (con == 0) {
+                list.addTask(this.task);
+                out = ui.showAdd(this.task, list.taskListSize());
+
+            } else {
+                out = "Sorry, you have similar events at the same time and on the same day \n";
+                for (int i = 0; i < size; i++) {
+                    if (conflict[i]) {
+                        out += list.getTask(i).toString() + "\n";
+                    }
+                }
+            }
+        }
+        else {
+            list.addTask(this.task);
+            out = ui.showAdd(this.task, list.taskListSize());
         }
         return  out;
 

@@ -5,8 +5,8 @@ import Interface.*;
  * Represents the command to snooze a Task object to a TaskList object.
  */
 public class SnoozeCommand extends Command{
-    protected int index;
-    protected String dateString;
+    private int index;
+    private String dateString;
 
     /**
      * Creates an SnoozeCommand object.
