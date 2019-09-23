@@ -7,6 +7,7 @@ public class Task {
     private boolean isDone;
     private String type;
 
+
     /**
      * Creates Task object.
      * @param description The description of the task
@@ -15,10 +16,11 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.type = "";
+
     }
 
     public String getType() {
-        return type;
+        return "void";
     }
 
     /**
