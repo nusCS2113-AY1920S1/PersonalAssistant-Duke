@@ -22,6 +22,7 @@ public class ParserManager {
     static final String CMD_RECUR_TASK = "recurtask";
     static final String CMD_VIEW = "view";
     static final String CMD_FIND = "find";
+    static final String CMD_REMINDER = "reminder";
 
 
     /**
@@ -123,6 +124,10 @@ public class ParserManager {
                 case CMD_VIEW:
                     ViewCommand viewCommand = new ViewCommand(duke);
                     viewCommand.Command(userInput);
+                    break;
+                case CMD_REMINDER:
+                    ReminderCommand reminderCommand = new ReminderCommand(duke);
+                    reminderCommand.Command(cmd);
                     break;
                 default:
                     duke.ui.printg("CommandError: Unknown command input detected!");

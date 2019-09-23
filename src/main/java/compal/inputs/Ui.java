@@ -11,6 +11,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Ui {
@@ -156,7 +157,7 @@ public class Ui {
      * Checks if user is a new user.
      * No Params, No Return Value
      */
-    public void checkInit() {
+    public void checkInit() throws ParseException, Duke.DukeException {
 
         //print the changelog for developers. todo: Remove when releasing build.
         printSecondaryg("CHANGELOG V1.1:\n (REMOVE BEFORE PACKAGING AS JAR)");
@@ -192,7 +193,7 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n");
-            duke.tasklist.taskReminder();
+            duke.parser.processCMD("reminder");
         }
     }
 
