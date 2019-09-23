@@ -38,8 +38,6 @@ digraph main {
 
   //treatments and evidence should all be associated with an Impression, even if
   //the Impression is not definite yet, or just consists of a symptom
-  //Or should we force all objects to be categorised, and allow vague
-  //descriptions for the Impression?
 
   //function to consolidate e.g. observations to generate reports to upload to 
   //regular system?
@@ -72,7 +70,7 @@ digraph main {
     label = "{\{abstract\} Treatment
     |- name : String\l
     - status : int\l
-    - statusArr : String[]
+    - statusArr : String[]\l
     - impression : Impression\l
     |+ toDisplayString() : String \{abstract\}\l
     + updateStatus() : void\l
