@@ -18,6 +18,7 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Ui ui;
+
     @FXML
     private AnchorPane orderPane;
     @FXML
@@ -33,11 +34,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox orderList;
 
-
-    @FXML
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
+        popUp.setVisible(false);
     }
 
     @FXML

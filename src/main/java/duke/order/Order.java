@@ -12,7 +12,7 @@ public class Order {
     private String customerContact;
     private Date deliveryDate;
     private Map<String, Integer> items = new HashMap<>();
-    private String remarks = "";
+    private String remarks = "N/A";
 
     public Order(@JsonProperty("customerName") String customerName, @JsonProperty("customerContact") String customerContact, @JsonProperty("deliveryDate") Date deliveryDate) {
         this.customerName = customerName;
@@ -22,7 +22,6 @@ public class Order {
     }
 
     public void addItem(String itemName, int quantity) {
-        //System.out.println("Item: " + itemName + quantity);
         items.put(itemName, quantity);
     }
 
