@@ -9,7 +9,7 @@ For executable Jar files, please visit the [releases](https://github.com/AY1920S
 
 [hackmd](https://hackmd.io/eDB8uyaARGWpFUN58Aw-eg?both)
 
-#User Guide
+# User Guide
 
 [hackmd](https://hackmd.io/OrqBKHzZSaKguB3OVu8qGw)
 
