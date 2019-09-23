@@ -65,7 +65,7 @@ public class ExpenseParser {
         for (Expense e : recList) {
             int lastDay = currentDate.lengthOfMonth();
             int currentMonth = currentDate.getMonthValue();
-            LocalDate expenseDate = e.getCreatedDate();
+            LocalDate expenseDate = e.getDate();
             if (e.getRecFrequency().equals("DAILY")) {
                 if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() == lastDay) {
                     continue;

@@ -7,7 +7,7 @@ import java.time.LocalDate;
  */
 public abstract class Record {
     private String description;
-    private LocalDate createdDate;
+    private LocalDate date;
 
     /**
      * Constructs a Record Object.
@@ -17,7 +17,7 @@ public abstract class Record {
      */
     public Record(String description, LocalDate createdDate) {
         this.description = description;
-        this.createdDate = createdDate;
+        this.date = date;
     }
 
     /**
