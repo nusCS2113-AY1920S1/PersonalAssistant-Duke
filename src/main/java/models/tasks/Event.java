@@ -3,7 +3,6 @@ package models.tasks;
 import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
 import java.io.Serializable;
-import java.net.PasswordAuthentication;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,26 +14,22 @@ public class Event implements ITask, IDateSettable, Serializable {
     private String description;
     private boolean isDone;
     private String initials;
-    private String eventDate;
-    private Date eventDateTime;
+    private String eventDateTimeString;
+    private Date eventDateTimeObject;
 
     /**
      * Constructor of Event data model.
      *
      * @param description : Description of the Event
-     * @param eventDate : Timing at which the Event is held
+     * @param eventDateTimeString : Timing at which the Event is held
      */
-    public Event(String description, String eventDate) throws InvalidDateTimeException {
+    public Event(String description, String eventDateTimeString, Date eventDateTimeObject)
+        throws InvalidDateTimeException {
         this.description = description;
         this.isDone = false;
         this.initials = "E";
-        this.eventDate = eventDate;
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy HH.mm a");
-        try {
-            this.eventDateTime = format.parse(eventDate);
-        } catch (ParseException e) {
-            throw new InvalidDateTimeException();
-        }
+        this.eventDateTimeString = eventDateTimeString;
+        this.eventDateTimeObject = eventDateTimeObject;
     }
 
     @Override
@@ -49,7 +44,7 @@ public class Event implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (at: " + this.eventDate + ")";
+        return this.description + " (at: " + this.eventDateTimeString + ")";
     }
 
     @Override
@@ -59,15 +54,15 @@ public class Event implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDateTime() {
-        return this.eventDate;
+        return this.eventDateTimeString;
     }
 
     @Override
     public Date getDateTimeObject() {
-        return this.eventDateTime;
+        return this.eventDateTimeObject;
     }
 
     public void setDateTime(String newDateTime) {
-        this.eventDate = newDateTime;
+        this.eventDateTimeString = newDateTime;
     }
 }
