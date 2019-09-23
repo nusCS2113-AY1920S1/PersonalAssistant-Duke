@@ -75,7 +75,7 @@ public class Storage {
      * @param tasks Tasklist where information is extracted to be saved
      * @param ui    User interface
      */
-    public void saveToFile(TaskList tasks, UI ui) {
+    public void saveToFile(EventList tasks, UI ui) {
         String toWriteToFile = "";
         for (Task currTask : tasks.getTaskArrayList()) {
             toWriteToFile += currTask.toString() + "\n";

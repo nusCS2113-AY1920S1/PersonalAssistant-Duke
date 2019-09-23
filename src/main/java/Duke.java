@@ -1,18 +1,17 @@
+import Events.Storage.EventList;
 import Events.Storage.Storage;
-import Events.Storage.TaskList;
 import UserElements.Command;
 import UserElements.Parser;
 import UserElements.UI;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
     private static Parser parser = new Parser();
     private static UI ui = new UI();
     private static Storage storage = new Storage(new File("data/Duke.txt"));
-    private static TaskList tasks = new TaskList(storage.readFromFile(ui));
+    private static EventList tasks = new EventList(storage.readFromFile(ui));
 
     /**
      * main Duke method
@@ -38,6 +37,6 @@ public class Duke {
         parser = new Parser();
         ui = new UI();
         storage = new Storage(new File("data/Duke.txt"));
-        tasks = new TaskList(storage.readFromFile(ui));
+        tasks = new EventList(storage.readFromFile(ui));
     }
 }
