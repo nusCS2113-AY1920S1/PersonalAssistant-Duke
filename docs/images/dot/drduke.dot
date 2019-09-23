@@ -1,8 +1,8 @@
 digraph main {
 
-  graph [
+  /*graph [
     splines = ortho
-  ]
+  ]*/
 
   node [
     shape = "record"
@@ -10,6 +10,7 @@ digraph main {
 
   //data indexed by integers for quick, unambiguous access
   //separately provide the ability to search by various fields
+  //discharge() to archive
   //toString() for data format
   //toDataString() for display format (GUI)
   Patient [
@@ -30,10 +31,10 @@ digraph main {
     - investigations : ArrayList\<Investigation\>\l
     - results : ArrayList\<Result\>\l 
     |+ discharge() : void\l
-    + addNew\<impression, diagnosis etc.\>() : void\l
+    + addNew\<impression/treatment/evidence\>() : void\l
     + toString() : String\l
     + toDisplayString() : String\l
-    \<a bunch of other functions to operate on the above private data structures\>\l
+    \<functions for private data structures\>\l
     \<getters and setters\>\l
     }"
   ]
@@ -50,7 +51,7 @@ digraph main {
     }"
   ]
 
-  //treatment: plans, medicine, investigation
+  //treatment: plans, medicines, investigations
   Evidence [
      label = "{\{abstract\} Treatment
     |- name : String\l
@@ -63,10 +64,9 @@ digraph main {
   Impression [
     label = "{Impression
     |- name : String\l
-    - evidence : ArrayList\<Evidence\>
-    - treatments : ArrayList\<Treatment\>
+    - evidence : ArrayList\<Evidence\>\l
+    - treatments : ArrayList\<Treatment\>\l
     |+ discharge() : void\l
-    + addNew\<impression, diagnosis etc.\>() : void\l
     + toDisplayString() : String\l
     \<getters and setters\>\l
     }"
@@ -78,8 +78,8 @@ digraph main {
     arrowhead = "vee"
   ]
 
-  Evidence -> Impression [dir = "both"; arrowtail = "vee"; label = "supports \>"]
-  Treatment -> Impression [dir = "both"; arrowtail = "vee"; label = "treats \>"]
+  Evidence -> Impression [dir = "both"; arrowtail = "vee"; label = "supports"]
+  Treatment -> Impression [dir = "both"; arrowtail = "vee"; label = "treats"]
 
   //subclass relations
 
