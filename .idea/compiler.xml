@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="duke.main" target="11" />
-      <module name="duke.test" target="11" />
-    </bytecodeTargetLevel>
-  </component>
-</project>
