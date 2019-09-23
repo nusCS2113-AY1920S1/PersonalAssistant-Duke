@@ -4,8 +4,12 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TaskList {
     // TSV files will have one entry per line, tabs disallowed in input
@@ -150,8 +154,9 @@ public class TaskList {
 
     /**
      * Reports the addition of a number of tasks.
-     * @param addStr The descriptions of the tasks, formatted with two spaces behind each task and a leading line
-     *               separator.
+     *
+     * @param addStr    The descriptions of the tasks, formatted with two spaces behind each task and a leading line
+     *                  separator.
      * @param taskCount Number of tasks added.
      * @return A String reporting the addition of one or more tasks.
      */
@@ -163,8 +168,9 @@ public class TaskList {
 
     /**
      * Reports the deletion of a number of tasks.
-     * @param delStr The descriptions of the tasks, formatted with two spaces behind each task and a leading line
-     *               separator.
+     *
+     * @param delStr    The descriptions of the tasks, formatted with two spaces behind each task and a leading line
+     *                  separator.
      * @param taskCount Number of tasks added.
      * @return A String reporting the deletion of one or more tasks.
      */
@@ -186,6 +192,45 @@ public class TaskList {
     }
 
     /**
+     * Reports the schedule of the user on a specified date.
+     *
+     * @param date The specified date.
+     * @return Concatenated data representations of all scheduled tasks on the specified date.
+     * @throws DukeException If the user has no scheduled tasks on the specified date.
+     */
+    public String listSchedule(LocalDate date) throws DukeException {
+        List<TimedTask> timedTaskList = new ArrayList<>();
+
+        for (Task currTask : taskArrList) {
+            // TODO: Code smell
+            if (!currTask.isDone() && currTask instanceof TimedTask) {
+                LocalDate taskDate = ((TimedTask) currTask).getDateTime().toLocalDate();
+
+                if (taskDate.isEqual(date)) {
+                    timedTaskList.add((TimedTask) currTask);
+                }
+            }
+        }
+        Collections.sort(timedTaskList);
+
+        StringBuilder scheduleBuilder = new StringBuilder();
+        int scheduleCount = 0;
+
+        for (Task timedTask : timedTaskList) {
+            scheduleCount = scheduleCount + 1;
+            scheduleBuilder.append(System.lineSeparator()).append(scheduleCount).append(".")
+                    .append(timedTask.toString());
+        }
+
+        if (scheduleCount == 0) {
+            throw new DukeException("You have no tasks due on " + date.format(DateTimeFormatter.ofPattern("d/M/yyyy"))
+                    + "!");
+        }
+
+        return scheduleBuilder.toString();
+    }
+
+    /**
      * Returns a string that indicates if snooze was successful.
      * @param index the tasks to be snoozed index in the list of all tasks
      * @param datetime the new time that the task will be snoozed to
@@ -196,7 +241,7 @@ public class TaskList {
         taskArrList.get(index).changeTime(datetime);
         return "The task have been snoozed;\n\t" + taskArrList.get(index);
     }
-    
+
     /**
      * Sets a reminder for a task in the list.
      *
