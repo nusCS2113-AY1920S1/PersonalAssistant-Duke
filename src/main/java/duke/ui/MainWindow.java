@@ -3,6 +3,7 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import duke.logic.Duke;
+import duke.order.Order;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,10 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+
 public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Ui ui;
+    @FXML
+    private AnchorPane orderPane;
     @FXML
     private HBox popUp;
     @FXML
@@ -74,6 +79,17 @@ public class MainWindow extends AnchorPane {
         for (int i = 0; i < tasks.size(); i++) {
             taskList.getItems().add(new DialogBox(tasks.get(i), all));
         }
+    }
+
+    void refreshOrderList(List<Order> orders, List<Order> all) {
+        orderList.getChildren().clear();
+        for (Order order : orders) {
+            orderList.getChildren().add(new OrderBox(order));
+        }
+    }
+
+    void showOrderPane() {
+        orderPane.setVisible(true);
     }
 
     void disableInput() {

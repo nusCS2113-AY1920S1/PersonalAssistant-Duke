@@ -13,8 +13,8 @@
         <JFXTextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0"
                       prefWidth="338.0" promptText="Enter any duke.command to start" AnchorPane.bottomAnchor="6.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="orderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="Orders" textFill="#96663b" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                     <font>
