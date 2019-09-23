@@ -3,8 +3,8 @@ package Events.EventTypes;
 import Events.Formatting.DateObj;
 
 /**
- * Represents a event that can be created, deleted and completed within the Duke program.
- * Is to be the parent class for all types of events available for Duke program.
+ * Model_Class.Event object inherits Model_Class.Task.
+ * Is a type of task available for use.
  */
 public abstract class Event {
     DateObj startDate;
@@ -16,20 +16,9 @@ public abstract class Event {
     protected char eventType;
 
     /**
-     * Creates event with start and end date.
-     *
-     * @param description      event description
-     * @param isDone           boolean representing state of event completion
-     * @param startDateAndTime string representing start date of event
-     * @param endDateAndTime   string representing end date of event
+     * Contains the date and time in a DateObj.
      */
-    public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
-        this.description = description;
-        this.isDone = isDone;
-        this.eventType = eventType;
-        this.startDateObj = new DateObj(startDateAndTime);
-        this.endDateObj = new DateObj(endDateAndTime);
-    }
+    protected String date;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -47,74 +36,54 @@ public abstract class Event {
     }
 
     /**
-     * Returns a tick if the event is completed, else returns a cross.
+     * Creates event
      *
-     * @return Symbol tick or cross
+     * @param description Description of task.
+     * @param date        Event date and time.
      */
-    public String getStatusIcon() {
-        return (isDone) ? "✓" : "✗";
+    public Event(String description, String date) {
+        super(description);
+        this.date = new DateObj(date).formatDate();
+        this.dateObj = new DateObj(date);
     }
 
     /**
-     * Marks a event as completed
+     * Creates event with boolean attached, so as to read from file correctly.
+     *
+     * @param description Description of task.
+     * @param date        Event date and time.
+     * @param isDone      Boolean defining if the task is completed.
      */
-    public void markAsDone() {
-        this.isDone = true;
+    public Event(String description, String date, boolean isDone) {
+        super(description, isDone);
+        this.date = new DateObj(date).formatDate();
+        this.dateObj = new DateObj(date);
     }
 
     /**
-     * Gets description of the event.
+     * Converts event type task to string format for printing.
      *
-     * @return event description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * returns formatted string of event, including status icon and description.
-     *
-     * @return string containing event in the format [(tick/cross)] (event description)
+     * @return Formatted string representing the event, whether or not it is completed and its date.
      */
     @Override
     public String toString() {
-        if (endDateObj == null) {
-            return "[" + this.eventType + "][" + this.getStatusIcon() + "] " +
-                    this.description + "\nDate: " + startDateObj.toOutputString();
-        } else {
-            return "[" + this.eventType + "][" + this.getStatusIcon() + "] " +
-                    this.description + "\nStart date: " + startDateObj.toOutputString() +
-                    "\nEnd date: " + endDateObj.toOutputString();
-        }
+        return "[E]" + super.toString() + "(at: " + date + ")";
     }
 
-    /**
-     * Returns the type of event. May be overridden by subclasses.
-     *
-     * @return String representing the type of Event.
-     */
+    public String getDate() {
+        return date;
+    }
+    
     public String getType() {
-        return "Event";
+    	return "Event";
     }
-
+    
     /**
-     * This is overridden by the types of events that require the storage of dates.
-     * The purpose of this method is to facilitate comparison of dates.
-     *
-     * @return startDateObj stored in the Event object.
+     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
+     * @return the DateObj stored in the Event object.
      */
-    public DateObj getStartDateObj() {
-        return startDateObj;
-    }
-
-    /**
-     * This is overridden by the types of events that require the storage of dates.
-     * The purpose of this method is to facilitate comparison of dates.
-     *
-     * @return endDateObj stored in the Event object.
-     */
-    public DateObj getEndDateObj() {
-        return endDateObj;
+    public DateObj getDateObj() {
+    	return this.dateObj;
     }
 
     public String startDateToString() {

@@ -1,9 +1,10 @@
 package UserElements;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
-import Events.Storage.EventList;
 import Events.Storage.Storage;
+import Events.Storage.EventList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,8 +80,12 @@ public class Command {
                 break;
 
             case "find":
-                searchForEvent(events, ui);
+                searchEvents(events, ui);
                 changesMade = false;
+                break;
+
+            case "todo":
+                createNewTodo(events, ui);
                 break;
 
             case "event":
@@ -94,10 +99,12 @@ public class Command {
 
             case "check":
                 checkFreeDays(events, ui);
+                changesMade = false;
                 break;
 
             default:
                 ui.printInvalidCommand();
+                changesMade = false;
                 break;
         }
         if (changesMade) {
@@ -106,22 +113,22 @@ public class Command {
     }
 
     public void checkFreeDays(EventList events, UI ui) {
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
         DateObj today = new DateObj(f.format(new Date()));
         Queue<String> daysFree = new LinkedList<String>();
-        int addDays = 1;
+        int nextDays = 1;
         while(daysFree.size() <= 3) {
-            boolean isFree = true;
+            boolean flagFree = true;
             for(Event viewEvent : events.getEventArrayList()) {
-                if(viewEvent.toString().contains(today.toOutputString())) {
-                    isFree = false;
+                if(viewEvent.toString().contains(today.formatDate())) {
+                    flagFree = false;
                     break;
                 }
             }
-            if(isFree) {
-                daysFree.add(today.toOutputString());
+            if(flagFree) {
+                daysFree.add(today.formatDate());
             }
-            today.addDays(addDays);
+            today.addDaysAndSetMidnight(nextDays);
         }
         ui.printFreeDays(daysFree);
     }
@@ -135,7 +142,7 @@ public class Command {
             int viewIndex = 1;
             DateObj findDate = new DateObj(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(findDate.toOutputString())) {
+                if (viewEvent.toString().contains(findDate.formatDate())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                     viewIndex++;
                 }
@@ -154,7 +161,7 @@ public class Command {
             try {
                 EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
                 Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
-                boolean succeeded = false;
+                boolean succeeded;
 
                 if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
                     succeeded = events.addEvent(newEvent);
@@ -171,14 +178,22 @@ public class Command {
                 } else {
                     ui.scheduleClash(newEvent);
                 }
-
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                 ui.eventFormatWrong();
             }
         }
     }
 
-    public void searchForEvent(EventList events, UI ui) {
+    public void createNewTodo(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+            return;
+        }
+        events.addEvent(new ToDo(continuation));
+        ui.eventAdded(new ToDo(continuation), events.getNumEvents());
+    }
+
+    public void searchEvents(EventList events, UI ui) {
         String searchFor = continuation;
         String allEventsFound = "";
         int index = 1;
@@ -199,13 +214,10 @@ public class Command {
             Event currEvent = events.getEvent(eventNo - 1);
             events.deleteEvent(eventNo - 1);
             ui.eventDeleted(currEvent);
-            return;
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
-            return;
         } catch (NumberFormatException notInteger) {
             ui.notAnInteger();
-            return;
         }
     }
 
@@ -214,13 +226,10 @@ public class Command {
             int eventNo = Integer.parseInt(continuation);
             events.getEvent(eventNo - 1).markAsDone();
             ui.eventDone(events.getEvent(eventNo - 1));
-            return;
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
-            return;
         } catch (NumberFormatException notInteger) {
             ui.notAnInteger();
-            return;
         }
     }
 
@@ -258,18 +267,16 @@ public class Command {
          */
         public EntryForRecEvent invoke() {
             int NON_RECURRING = -1;
-            int datePos = continuation.indexOf("/at"); //to find index of position and date
-            int periodPos = continuation.indexOf("/every"); //to find index of position and period
-
-            if (periodPos == -1) { //cant find period extension of command, event is non-recurring
-                periodPos = continuation.length();
-                date = continuation.substring(datePos + 4);
+            String[] splitEvent = continuation.split("/");
+            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
+                date = splitEvent[1];
                 period = NON_RECURRING;
             } else {
-                period = Integer.parseInt(continuation.substring(periodPos + 7));
-                date = continuation.substring(datePos + 4, periodPos);
+                String[] splitPeriod = splitEvent[2].split(" ");
+                period = Integer.parseInt(splitPeriod[1]);
+                date = splitEvent[1];
             }
-            description = continuation.substring(0, datePos);
+            description = splitEvent[0];
 
             return this;
         }
