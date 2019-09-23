@@ -204,7 +204,8 @@ public class Ui {
      * @param stage int
      * @param value String
      */
-    public void firstTimeInit(String value, int stage) {
+    public void firstTimeInit(String value, int stage) throws Duke.DukeException {
+
         switch (stage) {
         case 0:
             printg(value + "? Did I say it correctly? [Yes or No]");

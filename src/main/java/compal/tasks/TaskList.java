@@ -2,8 +2,6 @@ package compal.tasks;
 
 import compal.main.Duke;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
@@ -39,26 +37,13 @@ public class TaskList {
         */
     }
 
-
     //----------------------->
 
     //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-    public static String dateParse(String when) {
-        //parse date
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date date = null;
-        try {
-            date = format.parse(when);
-        } catch (ParseException e) {
-            return "false";
-        }
-        format = new SimpleDateFormat("dd MMMM yyyy hh:mma");
-        when = format.format(date);
-        return when;
-    }
+
 
     //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -73,7 +58,6 @@ public class TaskList {
      */
     public int addTask(Task task) {
         arrlist.add(task);
-        System.out.println("DoneCommand processing adding of task");
         duke.storage.saveCompal(arrlist);
         duke.ui.showSize();
         return arrlist.size();
@@ -86,7 +70,6 @@ public class TaskList {
      */
     public void taskReminder() {
         ArrayList<Task> reminder = new ArrayList<>();
-        //ArrayList<Task> sortedReminder = new ArrayList<Task>();
         Date currentDate = java.util.Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
         c.setTime(currentDate);
@@ -105,44 +88,12 @@ public class TaskList {
             duke.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
         } else {
             for (Task t : reminder) {
-                duke.ui.printg(t.getDescription());
+                duke.ui.printg(t.toString());
             }
         }
 
     }
 
-
-    /**
-     * This function will store a temp ArrayList for looking at that specific date. (Sholihin)
-     * e.g. view 01/18/2019
-     *
-     * @param cmd the command input by used
-     * @return the temp array list of the task on that day
-     */
-    public ArrayList<Task> viewDate(String cmd) {
-        ArrayList<Task> viewDay = new ArrayList<Task>();
-        Scanner sc1 = new Scanner(cmd);
-        sc1.next(); //skip over the 'find'
-        String unformattedDate = sc1.next(); //date 12/12/2018
-        //duke.ui.printg("Viewing all task on " + unformattedDate);
-        unformattedDate += " 0000"; //fake timing so that we can still use dateParse function
-        String formattedDate = dateParse(unformattedDate);
-        formattedDate = formattedDate.substring(0, formattedDate.length() - 8); // depending on the length remove timing
-
-
-        for (Task t : arrlist) {
-            if (t.getDescription().contains(formattedDate)) {
-                viewDay.add(t);
-            }
-        }
-
-        if (viewDay.isEmpty()) {
-            duke.ui.printg("No tasks found on " + formattedDate + "!");
-            //return null;
-        }
-
-        return viewDay;
-    }
 
 
     /**
