@@ -68,12 +68,12 @@ public class Ui {
     public static void showReminder(TaskList tasks){
         ArrayList<Task> taskList = tasks.getTasks();
         System.out.println("You currently have these upcoming tasks:\n");
-        for (Task t: taskList) {
-            if(t.triggerReminder()){
-                System.out.println(t.toString());
-            }
+        for (Task remaining: taskList) {
+            remaining.triggerReminder();
+            System.out.println(remaining.toString());
         }
     }
+
     /**
      * Outputs all the tasks of the task list to the user.
      *

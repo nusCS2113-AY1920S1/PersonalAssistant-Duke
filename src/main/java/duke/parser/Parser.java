@@ -49,7 +49,7 @@ public class Parser {
 
                             if (!items.getTaskStatus(tempString)) {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
-                                       + " please complete task [" + tempString + "] before marking this as done!");
+                                        + " please complete task [" + tempString + "] before marking this as done!");
                             }
                         }
                         return new DoneCommand(tasknum);
@@ -233,20 +233,21 @@ public class Parser {
             }
         }
         else if (arr.length > 0 && arr[0].equals("remind")) {
-            String description;
+            //remind <taskNumber> /in <howManyDays>
+            String description = "";
             String durDesc;
-            int indexOfTask;
-            description = sentence.split(taskDesc, 2)[1].trim();
-//          taskDesc = description.split(" /for ")[0].trim();
-            if (description.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a remind cannot be empty.");
-            } else {
-                //Task taskObj = new Todo(description);
-                indexOfTask = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
-                String d = description.split("in", 2)[1].trim();
-                int days = Integer.parseInt(d.split(" ",2)[0].trim());
-                return new RemindCommand(indexOfTask, days);
+            int duration;
+            String unit;
+            for (int i = 1; i < arr.length; i++) {
+                description += arr[i] + " ";
             }
+            if (description.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+            }
+            duration = Integer.parseInt(description.split("/in", 2)[0].trim()) -1;
+            String in = description.split(" /in ", 2)[1].trim();
+            int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
+            return new RemindCommand(duration, howManyDays);
         }
         else if (sentence.equals("bye")) {
             return new ExitCommand();

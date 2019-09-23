@@ -43,12 +43,13 @@ public class TaskList {
     }
 
     /**
-     * The items in the ArrayList
+     * Get remaining tasks in the ArrayList
      *
      * @return tasks that represents the items
      */
     public ArrayList<Task> getTasks() {
         return items;
+
     }
 
     /**
