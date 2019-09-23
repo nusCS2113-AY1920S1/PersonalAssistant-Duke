@@ -18,12 +18,10 @@ public class Parser {
         else if(command.contains("deadline")) {
             return new DeadlineCommand();
         }
-<<<<<<< HEAD
-=======
+
         else if(command.contains("/after")) {
             return new DoAfterCommand();
         }
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
         else if(command.contains("event")) {
             return new EventCommand();
         }
@@ -33,30 +31,20 @@ public class Parser {
         else if(command.contains("/between")) {
             return new TimeboundCommand();
         }
-<<<<<<< HEAD
         else if(command.contains("find")) {
             return new FindCommand();
         }
         else if(command.contains("bye")) {
             return new ByeCommand();
         }
-        else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-=======
         else if(command.contains("/require")) {
             return new FixDurationCommand();
-        }
-        else if(command.contains("find")) {
-            return new FindCommand();
         }
         else if(command.contains("reschedule")){
             return new RescheduleCommand();
         }
         else if(command.contains("schedule")) {
             return new ScheduleCommand();
-        }
-        else if(command.contains("bye")) {
-            return new ByeCommand();
         }
         else if(command.contains("snooze")){
             return new SnoozeCommand();
@@ -69,8 +57,6 @@ public class Parser {
         }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
         }
 //        switch (command){
 //            case("list"):
