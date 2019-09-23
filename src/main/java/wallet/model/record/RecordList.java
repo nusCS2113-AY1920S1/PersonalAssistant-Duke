@@ -84,6 +84,7 @@ public class RecordList {
      * @param description The description of the task.
      * @return The task object with its corresponding values.
      */
+    /*
     public Record createRecord(String type, String description) {
         String[] info;
 
@@ -99,7 +100,6 @@ public class RecordList {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The date/time of a " + type + " cannot be empty");
-        }*/
-        return null;
-    }
+        }
+    }*/
 }
