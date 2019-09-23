@@ -9,7 +9,7 @@ digraph main {
   ]
 
   //data indexed by integers for quick, unambiguous access
-  //separately provide the ability to search by various fields
+  //provide the ability to search by various fields separately
   //discharge() to archive
   //toString() for data format
   //toDataString() for display format (GUI)
@@ -24,9 +24,10 @@ digraph main {
     - number : int\l
     - address : String\l
     - priDiagnosis : Diagnosis\l
+    - uncategorised : Impression\l
     - allergies : ArrayList\<Allergy\>\l
     - impressions : ArrayList\<Impression\>\l
-   |+ discharge() : void\l
+    |+ discharge() : void\l
     + addNew\<impression/treatment/evidence\>() : void\l
     + toString() : String\l
     + toDisplayString() : String\l
@@ -35,41 +36,79 @@ digraph main {
     }"
   ]
 
+
   //treatments and evidence may be uncategorised: create a default
   //"Uncategorised" impression to hold all of the other evidence and results
 
-  //evidence: observations, results
-  Treatment [
-     label = "{\{abstract\} Evidence
-    |- name : String\l
-    - impression : Impression\l
-    |+ toDisplayString() : String\l
-    \<getters and setters\>\l
-    }"
-  ]
-
-  //treatment: plans, medicines, investigations
-  Evidence [
-     label = "{\{abstract\} Treatment
-    |- name : String\l
-    - impression : Impression\l
-    |+ toDisplayString() : String\l
-    \<getters and setters\>\l
-    }"
-  ]
-
+  //abstract out a super class for normal impressions vs uncategorised?
   Impression [
     label = "{Impression
     |- name : String\l
     - evidence : ArrayList\<Evidence\>\l
     - treatments : ArrayList\<Treatment\>\l
-    |+ discharge() : void\l
-    + toDisplayString() : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    \<CRUD for evidence/treatments\>\l
+    }"
+  ]
+
+  //evidence: observations, results - support this impression
+  Evidence [
+     label = "{\{abstract\} Evidence
+    |- name : String\l
+    - impression : Impression\l
+    |+ toDisplayString() : String {abstract}\l
+    }"
+  ]
+
+  //treatment: plans, medicines, investigations - responses to the impression
+  //statusArr - array of strings representing the status to display for the
+  //various status codes
+  //treatments should be sortable by their status of completion
+  Treatment [
+     label = "{\{abstract\} Treatment
+    |- name : String\l
+    - status : int\l
+    - statusArr : String[]
+    - impression : Impression\l
+    |+ toDisplayString() : String {abstract}\l
+    + updateStatus() : void\l
+    }"
+  ]
+
+  //observations may need further investigation, uncategorised observations can
+  //be tagged based on priority to address the most worrying ones
+  Observation [
+     label = "{Observation
+    |- data : String\l
+    - isObjective : bool\l
+    - investigations : ArrayList<Investigation>\l
+    - priority : int\l
+    |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
   ]
 
-  //navigability
+  Results [
+     label = "{Results
+    |- summary : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //when an investigation is completed, it becomes a result
+  //when converting to result, remember to clean up its Observation
+  Investigation [
+     label = "{Investigation
+    |- summary : String\l
+    - observation : Observation\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+
 
   edge [
     arrowhead = "vee"
