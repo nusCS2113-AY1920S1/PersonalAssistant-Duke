@@ -57,7 +57,7 @@ digraph main {
      label = "{\{abstract\} Evidence
     |- name : String\l
     - impression : Impression\l
-    |+ toDisplayString() : String {abstract}\l
+    |+ toDisplayString() : String \{abstract\}\l
     }"
   ]
 
@@ -71,7 +71,7 @@ digraph main {
     - status : int\l
     - statusArr : String[]
     - impression : Impression\l
-    |+ toDisplayString() : String {abstract}\l
+    |+ toDisplayString() : String \{abstract\}\l
     + updateStatus() : void\l
     }"
   ]
