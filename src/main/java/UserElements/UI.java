@@ -1,6 +1,6 @@
 package UserElements;
 
-import Events.Storage.TaskList;
+import Events.Storage.EventList;
 import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
@@ -30,7 +30,7 @@ public class UI {
     /**
      * prints welcome message and instructions for use.
      */
-    public void welcome(TaskList Tasks){
+    public void welcome(EventList Tasks){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -56,9 +56,9 @@ public class UI {
     /**
      * Obtains the current date and prints the tasks to be completed within the next
      * three days as a reminder.
-     * @param tasks the TaskList used in the Duke function. 
+     * @param tasks the EventList used in the Duke function.
      */
-    public void printReminder(TaskList tasks) {
+    public void printReminder(EventList tasks) {
     	DateObj now = new DateObj(); // variable now contains the current date
     	DateObj limit = new DateObj();
     	limit.addDays(4);
@@ -83,9 +83,9 @@ public class UI {
     /**
      * prints entire list of tasks stored.
      *
-     * @param tasks Model_Class.TaskList object containing all stored classes and pertaining methods.
+     * @param tasks Model_Class.EventList object containing all stored classes and pertaining methods.
      */
-    public static void printListOfTasks(TaskList tasks) {
+    public static void printListOfTasks(EventList tasks) {
         System.out.print(lineSeparation);
         System.out.print(tasks.listOfTasks_String());
         System.out.print(lineSeparation);

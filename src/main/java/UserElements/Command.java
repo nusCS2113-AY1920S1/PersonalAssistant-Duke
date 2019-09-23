@@ -3,8 +3,8 @@ package UserElements;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
+import Events.Storage.EventList;
 import Events.Storage.Storage;
-import Events.Storage.TaskList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,16 +58,16 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(EventList tasks, UI ui, Storage storage) {
         boolean changesMade = true;
         switch (command) {
             case "list":
                 ui.printListOfTasks(tasks);
                 changesMade = false;
                 break;
-                
+
             case "reminder":
-            	ui.printReminder(tasks);
+                ui.printReminder(tasks);
                 changesMade = false;
                 break;
 
@@ -116,36 +116,6 @@ public class Command {
                 changesMade = false;
                 break;
 
-            case "todo":
-                if (continuation.isEmpty()) {
-                    ui.taskDescriptionEmpty();
-                    break;
-                }
-                tasks.addTask(new ToDo(continuation));
-                ui.taskAdded(new ToDo(continuation), tasks.getNumTasks());
-                break;
-
-            case "deadline":
-                if (continuation.isEmpty()) {
-                    ui.taskDescriptionEmpty();
-                    break;
-                }
-                try {
-                    int slashPos = continuation.indexOf("/by"); //to find index of position and date
-                    String date = continuation.substring(slashPos + 4);
-                    String description = continuation.substring(0, slashPos);
-                    boolean succeeded = tasks.addTask(new Deadline(description, date));
-                    if (succeeded) {
-                        ui.taskAdded(new Deadline(description, date), tasks.getNumTasks());
-                    } else {
-                        ui.scheduleClash(new Deadline(description, date));
-                    }
-                    break;
-                } catch (StringIndexOutOfBoundsException outOfBoundsE) {
-                    ui.deadlineFormatWrong();
-                    break;
-                }
-
             case "event":
                 if (continuation.isEmpty()) {
                     ui.taskDescriptionEmpty();
@@ -189,7 +159,7 @@ public class Command {
                 String foundTask = "";
                 int viewIndex = 1;
                 DateObj findDate = new DateObj(dateToView);
-                for (Task viewTask : tasks.getTaskArrayList()) {
+                for (Event viewTask : tasks.getTaskArrayList()) {
                     if (viewTask.toString().contains(findDate.toOutputString())) {
                         foundTask += viewIndex + ". " + viewTask.toString() + "\n";
                         viewIndex++;
