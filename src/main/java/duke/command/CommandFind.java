@@ -40,7 +40,7 @@ public class CommandFind extends Command {
     public void findTasks(String name, TaskList taskList) {
         for (int index = 0; index < taskList.getSize(); ++index) {
             try {
-                if (taskList.getList().get(index).taskName.toLowerCase().contains(name)) {
+                if (taskList.getList().get(index).getTaskName().toLowerCase().contains(name)) {
                     taskList.printTaskByIndex(index);
                 }
             } catch (Exception e) {

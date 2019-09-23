@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Task {
-    public String taskName;
-    public String taskDetails;
-    public String detailDesc;
-    public TaskType taskType;
-    public Boolean isDone = false;
+    protected String taskName;
+    protected String taskDetails;
+    protected String detailDesc;
+    protected TaskType taskType;
+    protected Boolean isDone = false;
     private TaskList queuedTasks = null;
     protected Date datetime = null;
 
@@ -113,7 +113,6 @@ public abstract class Task {
 
     /**
      * Checks if the current task has any queued tasks.
-     *
      * @return false if queuedTask property is null, true otherwise
      */
     public boolean isQueuedTasks() {
@@ -125,6 +124,78 @@ public abstract class Task {
     }
 
     // -- Setters & Getters
+
+    /**
+     * Getter for taskName Property.
+     * @return String containing the taskName of the Task
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    /**
+     * Setter for taskName Property.
+     * @param taskName taskName to be set
+     */
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    /**
+     * Getter for detailDesc Property.
+     * @return String containing the detailDesc of the Task
+     */
+    public String getDetailDesc() {
+        return detailDesc;
+    }
+
+    /**
+     * Setter for the detailDesc Property.
+     * @param detailDesc detailDesc to be set
+     */
+    public void setDetailDesc(String detailDesc) {
+        this.detailDesc = detailDesc;
+    }
+
+    /**
+     * Getter for the taskDetails Property.
+     * @return String containing the taskDetails of the Task
+     */
+    public String getTaskDetails() {
+        return taskDetails;
+    }
+
+    /**
+     * Setter for the taskDetails Property.
+     * @param taskDetails taskDetails to be set
+     */
+    public void setTaskDetails(String taskDetails) {
+        this.taskDetails = taskDetails;
+    }
+
+    /**
+     * Getter for the taskType Property.
+     * @return TaskType of the taskType Property.
+     */
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    /**
+     * Setter for the taskType Property.
+     * @param taskType TaskType Enum to be set
+     */
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
+    /**
+     * Getter for the isDone Property.
+     * @return Boolean representing the isDone Property
+     */
+    public Boolean getIsDone() {
+        return isDone;
+    }
 
     /**
      * Getter for queuedTask Property.

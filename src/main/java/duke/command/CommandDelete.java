@@ -18,7 +18,7 @@ public class CommandDelete extends Command {
             Ui.dukeSays("Task '"
                     + String.valueOf(index + 1)
                     + ") "
-                    + taskList.getList().get(index).taskName
+                    + taskList.getList().get(index).getTaskName()
                     + "' deleted"
             );
             taskList.deleteTaskByIndex(index);

@@ -198,20 +198,20 @@ public class Parser {
 
     private static String encodeMainTask(Task task) {
         String strSave = "";
-        strSave += task.taskType.name()
+        strSave += task.getTaskType().name()
                 + " "
-                + task.taskName;
-        if (task.detailDesc != null && task.taskDetails != null) {
+                + task.getTaskName();
+        if (task.getDetailDesc() != null && task.getTaskDetails() != null) {
             strSave += '/';
         }
-        if (task.detailDesc != null) {
-            strSave += task.detailDesc;
+        if (task.getDetailDesc() != null) {
+            strSave += task.getDetailDesc();
         }
         strSave += " ";
-        if (task.taskDetails != null) {
-            strSave += task.taskDetails;
+        if (task.getTaskDetails() != null) {
+            strSave += task.getTaskDetails();
         }
-        strSave += PARSE_MARKER_IS_DONE + task.isDone.toString();
+        strSave += PARSE_MARKER_IS_DONE + task.getIsDone().toString();
         return strSave;
     }
 

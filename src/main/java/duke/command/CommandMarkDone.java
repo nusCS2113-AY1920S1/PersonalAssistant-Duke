@@ -61,7 +61,7 @@ public class CommandMarkDone extends Command {
         return "Alrighty, I've marked task '"
                 + String.valueOf(index + 1)
                 + ") "
-                + taskList.getList().get(index).taskName
+                + taskList.getList().get(index).getTaskName()
                 + "' as done!";
     }
 

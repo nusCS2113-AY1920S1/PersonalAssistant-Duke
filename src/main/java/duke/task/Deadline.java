@@ -33,7 +33,6 @@ class Deadline extends Task {
                 this.setDatetime(formatx.parse(this.taskDetails));
                 System.out.println("Date Interpreted: " + formatx.format(this.getDatetime()));
             } catch (Exception e) {
-                //System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
                 this.setDatetime(new Date());
                 throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
             }
