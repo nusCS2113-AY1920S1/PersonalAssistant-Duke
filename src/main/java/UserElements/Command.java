@@ -158,7 +158,7 @@ public class Command {
                 try {
                     EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
                     Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
-                    boolean succeeded = false;
+                    boolean succeeded;
 
                     if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
                         succeeded = tasks.addTask(newEvent);
@@ -192,7 +192,7 @@ public class Command {
                 int viewIndex = 1;
                 DateObj findDate = new DateObj(dateToView);
                 for (Task viewTask : tasks.getTaskArrayList()) {
-                    if (viewTask.toString().contains(findDate.toOutputString())) {
+                    if (viewTask.toString().contains(findDate.formatDate())) {
                         foundTask += viewIndex + ". " + viewTask.toString() + "\n";
                         viewIndex++;
                     }
@@ -203,22 +203,22 @@ public class Command {
                 break;
 
             case "check":
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
                 DateObj today = new DateObj(f.format(new Date()));
                 Queue<String> daysFree = new LinkedList<String>();
                 int nextDays = 1;
                 while(daysFree.size() <= 3) {
                     boolean flagFree = true;
                     for(Task viewTask : tasks.getTaskArrayList()) {
-                        if(viewTask.toString().contains(today.toOutputString())) {
+                        if(viewTask.toString().contains(today.formatDate())) {
                             flagFree = false;
                             break;
                         }
                     }
                     if(flagFree) {
-                        daysFree.add(today.toOutputString());
+                        daysFree.add(today.formatDate());
                     }
-                    today.addDays(nextDays);
+                    today.addDaysAndSetMidnight(nextDays);
                 }
                 ui.printFreeDays(daysFree);//print out the 3 free days
                 break;
@@ -258,18 +258,16 @@ public class Command {
          */
         public EntryForRecEvent invoke() {
             int NON_RECURRING = -1;
-            int datePos = continuation.indexOf("/at"); //to find index of position and date
-            int periodPos = continuation.indexOf("/every"); //to find index of position and period
-
-            if (periodPos == -1) { //cant find period extension of command, event is non-recurring
-                periodPos = continuation.length();
-                date = continuation.substring(datePos + 4);
+            String[] splitEvent = continuation.split("/");
+            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
+                date = splitEvent[1];
                 period = NON_RECURRING;
             } else {
-                period = Integer.parseInt(continuation.substring(periodPos + 7));
-                date = continuation.substring(datePos + 4, periodPos);
+                String[] splitPeriod = splitEvent[2].split(" ");
+                period = Integer.parseInt(splitPeriod[1]);
+                date = splitEvent[1];
             }
-            description = continuation.substring(0, datePos);
+            description = splitEvent[0];
 
             return this;
         }

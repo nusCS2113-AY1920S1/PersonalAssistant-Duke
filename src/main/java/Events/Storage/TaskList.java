@@ -7,6 +7,7 @@ import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,7 +69,9 @@ public class TaskList {
             if (clashTask == null) { //null means no clash was found
                 this.taskArrayList.add(task);
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -79,20 +82,12 @@ public class TaskList {
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj taskDate = new DateObj(event.getDate());
+        DateObj taskDate = event.getDateObj();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(taskDate.getJavaDate());
+        calendar.setTime(taskDate.getTaskJavaDate());
         for (int addTaskCount = 0; addTaskCount*period <= ONE_SEMESTER_DAYS; addTaskCount++) {
-            String timeString = null;
-            if (taskDate.getFormat() == 1) {
-                timeString = format1.format(calendar.getTime());
-            }
-            else if (taskDate.getFormat() == 2) {
-                timeString = format2.format(calendar.getTime());
-            }
-            this.taskArrayList.add(new Event(event.getDescription(), timeString));
+            Event recurringEvent = new Event(event.getDescription(), calendar.getTime().toString());
+            this.taskArrayList.add(recurringEvent);
             calendar.add(Calendar.DATE, period);
         }
         return true;

@@ -5,6 +5,7 @@ import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
+import java.util.Date;
 import java.util.Queue;
 
 
@@ -47,7 +48,7 @@ public class UI {
         System.out.println("5. bye: exits the program\n");
         System.out.println("6. reminder: view your upcoming tasks for the next 3 days");
         System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
-                "<day>/<month>/<year> <time(24hr format)>\n" + lineSeparation);
+                "dd-MM-yyyy HHmm\n" + lineSeparation);
         printReminder(Tasks);
         System.out.println("Enter a command:");
     }
@@ -59,14 +60,14 @@ public class UI {
      * @param tasks the TaskList used in the Duke function. 
      */
     public void printReminder(TaskList tasks) {
-    	DateObj now = new DateObj(); // variable now contains the current date
-    	DateObj limit = new DateObj();
-    	limit.addDays(4);
-    	limit.setMidnight();
+        String systemDateAndTime = new Date().toString();
+    	DateObj limit = new DateObj(systemDateAndTime);
+    	limit.addDaysAndSetMidnight(3);
+    	String reminderDeadline = limit.getCurrentJavaDate().toString();
     	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
-    	System.out.print("The time now is " + now.toOutputString() + ".\n");
-    	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + limit.toOutputString() + "):\n");
+    	System.out.print("The time now is " + systemDateAndTime + ".\n");
+    	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
     	System.out.print(tasks.filteredList(pred, DATE));
     	System.out.print(lineSeparation);
     }
@@ -203,7 +204,7 @@ public class UI {
      */
     public void eventFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the name of the event and its date/time, separated by /at");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm' or 'dd-MM-yyyy'.");
         System.out.print(lineSeparation);
     }
 
