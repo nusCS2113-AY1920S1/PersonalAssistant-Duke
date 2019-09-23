@@ -6,8 +6,7 @@ import Events.EventTypes.EventSubClasses.AssessmentSubClasses.Recital;
 import Events.EventTypes.EventSubClasses.Concert;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubClasses.ToDo;
-import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
