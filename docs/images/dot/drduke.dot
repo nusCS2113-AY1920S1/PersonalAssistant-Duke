@@ -22,8 +22,13 @@ digraph main {
     - number : int\l
     - address : String\l
     - priDiagnosis : Diagnosis\l
-    - allergies/impressions/observations/plans/medicine/investigations/results :
-      ArrayList\<relevant type\>\l
+    - allergies : ArrayList\<Allergy\>\l
+    - impressions : ArrayList\<Impression\>\l
+    - observations : ArrayList\<Observation\>\l
+    - plans : ArrayList\<Plan\>\l
+    - medicines : ArrayList\<Medicine\>\l
+    - investigations : ArrayList\<Investigation\>\l
+    - results : ArrayList\<Result\>\l 
     |+ discharge() : void\l
     + addNew\<impression, diagnosis etc.\>() : void\l
     + toString() : String\l
@@ -33,10 +38,13 @@ digraph main {
     }"
   ]
 
+  //treatments and evidence may be uncategorised: impression == null
+
   //evidence: observations, results
   Treatment [
      label = "{\{abstract\} Evidence
     |- name : String\l
+    - impression : Impression\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
@@ -46,6 +54,7 @@ digraph main {
   Evidence [
      label = "{\{abstract\} Treatment
     |- name : String\l
+    - impression : Impression\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
@@ -63,11 +72,14 @@ digraph main {
     }"
   ]
 
-  //references
+  //navigability
 
   edge [
     arrowhead = "vee"
   ]
+
+  Evidence -> Impression [dir = "both"; arrowtail = "vee"; label = "supports \>"]
+  Treatment -> Impression [dir = "both"; arrowtail = "vee"; label = "treats \>"]
 
   //subclass relations
 
