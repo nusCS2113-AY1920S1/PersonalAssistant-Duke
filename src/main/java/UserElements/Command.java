@@ -1,7 +1,9 @@
 package UserElements;
 
+import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
+import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
 import Events.Storage.Storage;
 import Events.Storage.TaskList;
@@ -204,19 +206,19 @@ public class Command {
                 SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
                 DateObj today = new DateObj(f.format(new Date()));
                 Queue<String> daysFree = new LinkedList<String>();
-                int addDays = 1;
+                int nextDays = 1;
                 while(daysFree.size() <= 3) {
-                    boolean isFree = true;
+                    boolean flagFree = true;
                     for(Task viewTask : tasks.getTaskArrayList()) {
                         if(viewTask.toString().contains(today.toOutputString())) {
-                            isFree = false;
+                            flagFree = false;
                             break;
                         }
                     }
-                    if(isFree) {
+                    if(flagFree) {
                         daysFree.add(today.toOutputString());
                     }
-                    today.addDays(addDays);
+                    today.addDays(nextDays);
                 }
                 ui.printFreeDays(daysFree);//print out the 3 free days
                 break;
