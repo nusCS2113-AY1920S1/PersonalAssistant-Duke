@@ -7,7 +7,7 @@ import Events.EventTypes.EventSubClasses.Concert;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubClasses.ToDo;
-import Events.EventTypes.Task;
+import Events.EventTypes.Event;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Allows for access to the list of tasks currently stored, and editing that list of tasks.
+ * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
  */
 public class EventList {
 
     /**
-     * list of Model_Class.Task objects currently stored.
+     * list of Model_Class.Event objects currently stored.
      */
-    private ArrayList<Event> taskArrayList;
+    private ArrayList<Event> eventArrayList;
     
     /**
 	 * Filter type codes
@@ -48,41 +48,41 @@ public class EventList {
         final char EXAM = 'E';
         final char RECITAL = 'R';
 
-        taskArrayList = new ArrayList<Event>();
+        eventArrayList = new ArrayList<Event>();
         for (String currLine : inputList) {
             boolean isDone = (currLine.substring(4,7).equals("✓"));
-            if (currLine.charAt(1) == TODO) { //todo type task
-                taskArrayList.add(new ToDo());
-            } else if (currLine.charAt(1) == CONCERT) { //event type task
-                taskArrayList.add(new Concert());
-            } else if (currLine.charAt(1) == LESSON) { //deadline type task
-                taskArrayList.add(new Lesson());
+            if (currLine.charAt(1) == TODO) { //todo type event
+                eventArrayList.add(new ToDo());
+            } else if (currLine.charAt(1) == CONCERT) {
+                eventArrayList.add(new Concert());
+            } else if (currLine.charAt(1) == LESSON) {
+                eventArrayList.add(new Lesson());
             } else if (currLine.charAt(1) == PRACTICE) {
-                taskArrayList.add(new Practice());
+                eventArrayList.add(new Practice());
             } else if (currLine.charAt(1) == EXAM) {
-                taskArrayList.add(new Exam());
+                eventArrayList.add(new Exam());
             } else if (currLine.charAt(1) == RECITAL) {
-                taskArrayList.add(new Recital());
+                eventArrayList.add(new Recital());
             }
         }
     }
 
     /**
-     * Checks for a clash, then adds a new task if possible.
+     * Checks for a clash, then adds a new event if possible.
      *
-     * @param task Model_Class.Task object to be added
-     * @return boolean signifying whether or not the task was added successfully. True if succeeded
+     * @param event Model_Class.Event object to be added
+     * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addTask(Event event) {
+    public boolean addEvent(Event event) {
         if (event instanceof ToDo) {
-            this.taskArrayList.add(event);
+            this.eventArrayList.add(event);
             return true;
         }
         else {
-            Event clashTask = clashTask(event); //check the list for a schedule clash
-            if (clashTask == null) { //null means no clash was found
-                this.taskArrayList.add(event);
+            Event clashEvent = clashEvent(event); //check the list for a schedule clash
+            if (clashEvent == null) { //null means no clash was found
+                this.eventArrayList.add(event);
                 return true;
             } else return false;
         }
@@ -97,34 +97,34 @@ public class EventList {
     public boolean addRecurringEvent(Event event, int period) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
         SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj taskDate = new DateObj(event.getStartDateObj().toOutputString());
+        DateObj eventDate = new DateObj(event.getStartDateObj().toOutputString());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(taskDate.getJavaDate());
-        for (int addTaskCount = 0; addTaskCount*period <= ONE_SEMESTER_DAYS; addTaskCount++) {
+        calendar.setTime(eventDate.getJavaDate());
+        for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
             String timeString = null;
-            if (taskDate.getFormat() == 1) {
+            if (eventDate.getFormat() == 1) {
                 timeString = format1.format(calendar.getTime());
             }
-            else if (taskDate.getFormat() == 2) {
+            else if (eventDate.getFormat() == 2) {
                 timeString = format2.format(calendar.getTime());
             }
-            this.taskArrayList.add(new Event(event.getDescription(), timeString));
+            this.eventArrayList.add(new Event(event.getDescription(), timeString));
             calendar.add(Calendar.DATE, period);
         }
         return true;
     }
 
     /**
-     * Checks the list of tasks for any clashes with the newly added task. If
-     * there is a clash, return a reference to the task, if not, return null.
-     * @param task newly added task
-     * @return task that causes a clash
+     * Checks the list of events for any clashes with the newly added event. If
+     * there is a clash, return a reference to the event, if not, return null.
+     * @param event newly added event
+     * @return event that causes a clash
      */
-    private Event clashTask(Event task) {
-        for (Event currTask : taskArrayList) {
+    private Event clashEvent(Event event) {
+        for (Event currEvent : eventArrayList) {
             try {
-                if (currTask.startDateToString().equals(task.startDateToString())) {
-                    return currTask;
+                if (currEvent.startDateToString().equals(event.startDateToString())) {
+                    return currEvent;
                 }
             } catch (Exception e){
             }
@@ -133,83 +133,83 @@ public class EventList {
     }
 
     /**
-     * Deletes a task from the list.
+     * Deletes a event from the list.
      *
-     * @param taskNo Index of task to be deleted
+     * @param eventNo Index of event to be deleted
      */
-    public void deleteTask(int taskNo) {
-        this.taskArrayList.remove(taskNo);
+    public void deleteEvent(int eventNo) {
+        this.eventArrayList.remove(eventNo);
     }
 
     /**
-     * Gets list of Model_Class.Task objects stored
+     * Gets list of Model_Class.Event objects stored
      *
-     * @return Array of TaskLists containing all tasks.
+     * @return Array of EventLists containing all events.
      */
-    public ArrayList<Event> getTaskArrayList() {
-        return this.taskArrayList;
+    public ArrayList<Event> getEventArrayList() {
+        return this.eventArrayList;
     }
 
     /**
-     * Gets number of tasks stored.
+     * Gets number of events stored.
      *
-     * @return number of tasks stored
+     * @return number of events stored
      */
-    public int getNumTasks() {
-        return taskArrayList.size();
+    public int getNumEvents() {
+        return eventArrayList.size();
     }
 
     /**
-     * Gets a specific task using indexing.
+     * Gets a specific event using indexing.
      *
-     * @param index Index of task to be extracted
-     * @return Model_Class.Task object of specified task
+     * @param index Index of event to be extracted
+     * @return Model_Class.Event object of specified event
      */
     public Event getEvent(int index) {
-        return taskArrayList.get(index);
+        return eventArrayList.get(index);
     }
 
     /**
-     * Gets the entire list of tasks stored in String format
+     * Gets the entire list of events stored in String format
      *
-     * @return String containing all tasks, separated by a newline.
+     * @return String containing all events, separated by a newline.
      */
-    public String listOfTasks_String() {
-        String allTasks = "";
-        for (int i = 0; i < taskArrayList.size(); ++i) {
-            if (taskArrayList.get(i) == null) continue;
+    public String listOfEvents_String() {
+        String allEvents = "";
+        for (int i = 0; i < eventArrayList.size(); ++i) {
+            if (eventArrayList.get(i) == null) continue;
             int j = i + 1;
-            allTasks += j + ". " + this.getTask(i).toString() + "\n";
+            allEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
-        return allTasks;
+        return allEvents;
     }
     
     /**
-     * Gets a filtered list of tasks based on a predicate.
-     * @return String containing the filtered list of tasks, separated by a newline.
+     * Gets a filtered list of events based on a predicate.
+     * @return String containing the filtered list of events, separated by a newline.
      */
     public String filteredList(Predicate<Object> predicate, int filterCode) {
-        String filteredTasks = "";
+        String filteredEvents = "";
         int j = 1;
-        for (int i = 0; i < taskArrayList.size(); ++i) {
-            if (taskArrayList.get(i) == null) {
+        for (int i = 0; i < eventArrayList.size(); ++i) {
+            if (eventArrayList.get(i) == null) {
             	continue;
             } else if (filterCode == DATE) {
-                if (taskArrayList.get(i) instanceof Event || taskArrayList.get(i) instanceof Deadline) {
-                	if (!predicate.check(taskArrayList.get(i).getStartDateObj())) {
+                if (eventArrayList.get(i) instanceof Event || eventArrayList.get(i) instanceof Deadline) {
+                	if (!predicate.check(eventArrayList.get(i).getStartDateObj())) {
                 		continue;
                 	} 
                 } else {
                 	continue;
                 }
             } else if (filterCode == TYPE) {
-                if (!predicate.check(taskArrayList.get(i).getType())) {
+                if (!predicate.check(eventArrayList.get(i).getType())) {
                 	continue;
                 }
             } 
-            filteredTasks += j + ". " + this.getEvent(i).toString() + "\n";
+            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
             j++;
         }
-        return filteredTasks;
+        return filteredEvents;
     }
 }

@@ -12,7 +12,7 @@ public abstract class Assessment extends Event {
     }
 
     /**
-     * Creates assessment without isDone boolean for user input (assumes task entered is incomplete)
+     * Creates assessment without isDone boolean for user input (assumes event entered is incomplete)
      * @param eventType type of event denoted by character
      */
     public Assessment(String description, String startDateAndTime, String endDateAndTime, char eventType) {

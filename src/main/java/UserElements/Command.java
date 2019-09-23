@@ -1,7 +1,6 @@
 package UserElements;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.Task;
 import Events.Formatting.DateObj;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -19,13 +18,13 @@ import java.util.Queue;
 public class Command {
 
     /**
-     * The String representing the type of command e.g add/delete task
+     * The String representing the type of command e.g add/delete event
      */
     protected String command;
 
     /**
      * The String representing the continuation of the command, if it exists.
-     * Contains further specific instructions about the command passed e.g which task to add or delete
+     * Contains further specific instructions about the command passed e.g which event to add or delete
      */
     protected String continuation;
 
@@ -54,141 +53,47 @@ public class Command {
     /**
      * Executes the command stored.
      *
-     * @param tasks   Class containing the list of tasks and all relevant methods.
+     * @param events   Class containing the list of events and all relevant methods.
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList tasks, UI ui, Storage storage) {
+    public void execute(EventList events, UI ui, Storage storage) {
         boolean changesMade = true;
         switch (command) {
             case "list":
-                ui.printListOfTasks(tasks);
+                listEvents(events, ui);
                 changesMade = false;
                 break;
 
             case "reminder":
-                ui.printReminder(tasks);
+                remindEvents(events, ui);
                 changesMade = false;
                 break;
 
             case "done":
-                try {
-                    int taskNo = Integer.parseInt(continuation);
-                    tasks.getTask(taskNo - 1).markAsDone();
-                    ui.taskDone(tasks.getTask(taskNo - 1));
-                    break;
-                } catch (IndexOutOfBoundsException outOfBoundsE) {
-                    ui.noSuchTask();
-                    break;
-                } catch (NumberFormatException notInteger) {
-                    ui.notAnInteger();
-                    break;
-                }
+                markEventAsDone(events, ui);
+                break;
 
             case "delete":
-                try {
-                    int taskNo = Integer.parseInt(continuation);
-                    Task currTask = tasks.getTask(taskNo - 1);
-                    tasks.deleteTask(taskNo - 1);
-                    ui.taskDeleted(currTask);
-                    break;
-                } catch (IndexOutOfBoundsException outOfBoundsE) {
-                    ui.noSuchTask();
-                    break;
-                } catch (NumberFormatException notInteger) {
-                    ui.notAnInteger();
-                    break;
-                }
+                deleteEvent(events, ui);
+                break;
 
             case "find":
-                String searchFor = continuation;
-                String allTasksFound = "";
-                int index = 1;
-                for (Task taskFound : tasks.getTaskArrayList()) {
-                    if (taskFound.getDescription().contains(searchFor)) {
-                        allTasksFound += index + ". " + taskFound.toString() + "\n";
-                    }
-                    index++;
-                }
-
-                boolean tasksFound = !allTasksFound.isEmpty();
-                ui.searchTasks(allTasksFound, tasksFound);
+                searchForEvent(events, ui);
                 changesMade = false;
                 break;
 
             case "event":
-                if (continuation.isEmpty()) {
-                    ui.taskDescriptionEmpty();
-                    break;
-                }
-                int NO_PERIOD = -1;
-
-                try {
-                    EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
-                    Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
-                    boolean succeeded = false;
-
-                    if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                        succeeded = tasks.addTask(newEvent);
-                    } else { //add recurring event
-                        succeeded = tasks.addRecurringEvent(newEvent, entryForRecEvent.getPeriod());
-                    }
-
-                    if (succeeded) {
-                        if (entryForRecEvent.getPeriod() == NO_PERIOD) {
-                            ui.taskAdded(newEvent, tasks.getNumTasks());
-                        } else {
-                            ui.recurringTaskAdded(newEvent, tasks.getNumTasks(), entryForRecEvent.getPeriod());
-                        }
-                    } else {
-                        ui.scheduleClash(newEvent);
-                    }
-                    break;
-
-                } catch (StringIndexOutOfBoundsException outOfBoundsE) {
-                    ui.eventFormatWrong();
-                    break;
-                }
+                createNewEvent(events, ui);
+                break;
 
             case "view":
-                if (continuation.isEmpty()) {
-                    ui.taskDescriptionEmpty();
-                    break;
-                }
-                String dateToView = continuation;
-                String foundTask = "";
-                int viewIndex = 1;
-                DateObj findDate = new DateObj(dateToView);
-                for (Event viewTask : tasks.getTaskArrayList()) {
-                    if (viewTask.toString().contains(findDate.toOutputString())) {
-                        foundTask += viewIndex + ". " + viewTask.toString() + "\n";
-                        viewIndex++;
-                    }
-                }
-                boolean isTasksFound = !foundTask.isEmpty();
-                ui.searchTasks(foundTask, isTasksFound);
+                viewEvents(events, ui);
                 changesMade = false;
                 break;
 
             case "check":
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                DateObj today = new DateObj(f.format(new Date()));
-                Queue<String> daysFree = new LinkedList<String>();
-                int addDays = 1;
-                while(daysFree.size() <= 3) {
-                    boolean isFree = true;
-                    for(Task viewTask : tasks.getTaskArrayList()) {
-                        if(viewTask.toString().contains(today.toOutputString())) {
-                            isFree = false;
-                            break;
-                        }
-                    }
-                    if(isFree) {
-                        daysFree.add(today.toOutputString());
-                    }
-                    today.addDays(addDays);
-                }
-                ui.printFreeDays(daysFree);//print out the 3 free days
+                checkFreeDays(events, ui);
                 break;
 
             default:
@@ -196,8 +101,135 @@ public class Command {
                 break;
         }
         if (changesMade) {
-            storage.saveToFile(tasks, ui);
+            storage.saveToFile(events, ui);
         }
+    }
+
+    public void checkFreeDays(EventList events, UI ui) {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        DateObj today = new DateObj(f.format(new Date()));
+        Queue<String> daysFree = new LinkedList<String>();
+        int addDays = 1;
+        while(daysFree.size() <= 3) {
+            boolean isFree = true;
+            for(Event viewEvent : events.getEventArrayList()) {
+                if(viewEvent.toString().contains(today.toOutputString())) {
+                    isFree = false;
+                    break;
+                }
+            }
+            if(isFree) {
+                daysFree.add(today.toOutputString());
+            }
+            today.addDays(addDays);
+        }
+        ui.printFreeDays(daysFree);
+    }
+
+    public void viewEvents(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String dateToView = continuation;
+            String foundEvent = "";
+            int viewIndex = 1;
+            DateObj findDate = new DateObj(dateToView);
+            for (Event viewEvent : events.getEventArrayList()) {
+                if (viewEvent.toString().contains(findDate.toOutputString())) {
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    viewIndex++;
+                }
+            }
+            boolean isEventsFound = !foundEvent.isEmpty();
+            ui.searchEvents(foundEvent, isEventsFound);
+        }
+    }
+
+    public void createNewEvent(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            int NO_PERIOD = -1;
+
+            try {
+                EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
+                Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
+                boolean succeeded = false;
+
+                if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
+                    succeeded = events.addEvent(newEvent);
+                } else { //add recurring event
+                    succeeded = events.addRecurringEvent(newEvent, entryForRecEvent.getPeriod());
+                }
+
+                if (succeeded) {
+                    if (entryForRecEvent.getPeriod() == NO_PERIOD) {
+                        ui.eventAdded(newEvent, events.getNumEvents());
+                    } else {
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForRecEvent.getPeriod());
+                    }
+                } else {
+                    ui.scheduleClash(newEvent);
+                }
+
+            } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                ui.eventFormatWrong();
+            }
+        }
+    }
+
+    public void searchForEvent(EventList events, UI ui) {
+        String searchFor = continuation;
+        String allEventsFound = "";
+        int index = 1;
+        for (Event eventFound : events.getEventArrayList()) {
+            if (eventFound.getDescription().contains(searchFor)) {
+                allEventsFound += index + ". " + eventFound.toString() + "\n";
+            }
+            index++;
+        }
+
+        boolean eventsFound = !allEventsFound.isEmpty();
+        ui.searchEvents(allEventsFound, eventsFound);
+    }
+
+    public void deleteEvent(EventList events, UI ui) {
+        try {
+            int eventNo = Integer.parseInt(continuation);
+            Event currEvent = events.getEvent(eventNo - 1);
+            events.deleteEvent(eventNo - 1);
+            ui.eventDeleted(currEvent);
+            return;
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+            return;
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+            return;
+        }
+    }
+
+    public void markEventAsDone(EventList events, UI ui) {
+        try {
+            int eventNo = Integer.parseInt(continuation);
+            events.getEvent(eventNo - 1).markAsDone();
+            ui.eventDone(events.getEvent(eventNo - 1));
+            return;
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+            return;
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+            return;
+        }
+    }
+
+    public void remindEvents(EventList events, UI ui) {
+        ui.printReminder(events);
+    }
+
+    public void listEvents(EventList events, UI ui) {
+        ui.printListOfEvents(events);
     }
 
     /**

@@ -63,7 +63,7 @@ public class DateObj {
             Date newJavaDate;
             if (inputDate.contains("/")) { //normal date input type from user
                 newJavaDate = inputFormat1.parse(inputDate);
-            } else { //date type from tasks by getDate()
+            } else { //date type from events by getDate()
                 newJavaDate = inputFormat2.parse(inputDate);
             }
             this.javaDate = newJavaDate;
@@ -77,7 +77,7 @@ public class DateObj {
                 Date newJavaDate;
                 if (inputDate.contains("/")) { //normal date input type from user
                     newJavaDate = inputFormat1.parse(inputDate);
-                } else { //date type from tasks by getDate()
+                } else { //date type from events by getDate()
                     newJavaDate = inputFormat2.parse(inputDate);
                 }
                 this.javaDate = newJavaDate;
@@ -90,7 +90,7 @@ public class DateObj {
     }
 
     /**
-     * Converts deadline type task to string format for printing.
+     * Converts deadline type event to string format for printing.
      *
      * @return Formatted string representing the deadline and its date.
      */

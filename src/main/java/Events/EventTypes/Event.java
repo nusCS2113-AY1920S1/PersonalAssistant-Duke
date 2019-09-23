@@ -36,7 +36,7 @@ public abstract class Event {
      *
      * @param description event description
      * @param isDone      boolean representing state of event completion
-     * @param dateAndTime string representing date of task
+     * @param dateAndTime string representing date of event
      */
     public Event(String description, boolean isDone, String dateAndTime) {
         this.description = description;
