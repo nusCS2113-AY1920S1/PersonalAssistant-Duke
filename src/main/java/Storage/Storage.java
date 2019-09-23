@@ -52,6 +52,7 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
+
                 } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {

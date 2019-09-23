@@ -45,5 +45,4 @@ public class TimeboundCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }
