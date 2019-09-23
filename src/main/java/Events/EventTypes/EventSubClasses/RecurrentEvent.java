@@ -2,7 +2,7 @@ package Events.EventTypes.EventSubClasses;
 
 import Events.EventTypes.Event;
 
-public class RecurrentEvent extends Event {
+public abstract class RecurrentEvent extends Event {
     /**
      * Creates recurrent event with isDone boolean for reading from files
      * @param eventType type of event denoted by character

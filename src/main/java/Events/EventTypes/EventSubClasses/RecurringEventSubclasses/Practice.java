@@ -1,4 +1,6 @@
-package Events.EventTypes.EventSubClasses;
+package Events.EventTypes.EventSubClasses.RecurringEventSubclasses;
+
+import Events.EventTypes.EventSubClasses.RecurrentEvent;
 
 public class Practice extends RecurrentEvent {
     /**
