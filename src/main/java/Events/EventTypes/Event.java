@@ -7,6 +7,8 @@ import Events.Formatting.DateObj;
  * Is to be the parent class for all types of events available for Duke program.
  */
 public abstract class Event {
+    DateObj startDate;
+    DateObj endDate;
     protected String description;
     protected boolean isDone;
 
