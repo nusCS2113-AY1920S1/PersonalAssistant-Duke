@@ -14,20 +14,52 @@ digraph main {
   //toDataString() for display format (GUI)
   Patient [
     label = "{Patient
-    |+ name : String\l
+    |- name : String\l
     - bedNo : int\l
     - height : int\l
     - weight : int\l
     - age : int\l
     - number : int\l
     - address : String\l
-    + priDiagnosis : Diagnosis\l
-    - allergies/impressions/observations/plans/medicine/treatment : \<relevant type\>\l
+    - priDiagnosis : Diagnosis\l
+    - allergies/impressions/observations/plans/medicine/investigations/results :
+      ArrayList\<relevant type\>\l
     |+ discharge() : void\l
     + addNew\<impression, diagnosis etc.\>() : void\l
     + toString() : String\l
     + toDisplayString() : String\l
     \<a bunch of other functions to operate on the above private data structures\>\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //evidence: observations, results
+  Treatment [
+     label = "{\{abstract\} Evidence
+    |- name : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //treatment: plans, medicine, investigation
+  Evidence [
+     label = "{\{abstract\} Treatment
+    |- name : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  Impression [
+    label = "{Impression
+    |- name : String\l
+    - evidence : ArrayList\<Evidence\>
+    - treatments : ArrayList\<Treatment\>
+    |+ discharge() : void\l
+    + addNew\<impression, diagnosis etc.\>() : void\l
+    + toDisplayString() : String\l
+    \<getters and setters\>\l
     }"
   ]
 
