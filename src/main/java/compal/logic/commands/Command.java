@@ -7,6 +7,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Extracts and formats user input string into description, date and time.
+ * Includes input validations to ensure that user input string is in valid format.
+ */
 public abstract class Command {
     public static final String ERROR_DATE_STRING = "27/07/1987";
     public static final String ERROR_TIME_STRING = "TIME";
@@ -17,16 +21,21 @@ public abstract class Command {
     public String cmdString;
     public Duke duke;
 
+    /**
+     * Constructs a Command object.
+     *
+     * @param d Duke object
+     */
     public Command(Duke d) {
         this.duke = d;
     }
 
     /**
-     * This function builds a description from the description string according to the token (/at or /by etc).
-     * Description string is the string before the token.
+     * Returns description from the input string according to the token (/at or /by etc).
      *
-     * @param restOfInput Input after the initial command word.
-     * @return description
+     * @param restOfInput Input description after initial command word.
+     * @return Description without date and time.
+     * @throws Duke.DukeException If restOfInput is missing date, time or description field.
      */
     public String getDescription(String restOfInput) throws Duke.DukeException {
         if (!restOfInput.contains(TOKEN_SLASH)) {
@@ -45,9 +54,10 @@ public abstract class Command {
     /**
      * Returns a date string if specified in the task.
      *
-     * @param restOfInput The part of the input after the command word.
+     * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
-     * @throws Duke.DukeException
+     * @throws Duke.DukeException If date field is empty, date or date format is invalid,
+     * date token (/date) is missing.
      */
     public String getDate(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(DATE_TOKEN)) {
@@ -89,9 +99,9 @@ public abstract class Command {
     /**
      * Returns a time string if specified in the task.
      *
-     * @param restOfInput The part of the input after the command word.
+     * @param restOfInput Input description after initial command word.
      * @return Time in the form of a string.
-     * @throws Duke.DukeException
+     * @throws Duke.DukeException If time field is empty or time token (/time) is missing.
      */
     public String getTime(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(TIME_TOKEN)) {

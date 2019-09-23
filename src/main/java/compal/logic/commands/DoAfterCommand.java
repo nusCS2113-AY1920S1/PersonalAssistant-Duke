@@ -7,20 +7,29 @@ import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Executes user command "doaftertask".
+ */
 public class DoAfterCommand extends Command implements CommandParser {
 
     private final String TOKEN = "/after";
     private TaskList taskList;
 
+    /**
+     * Constructs DoAfterCommand object.
+     *
+     * @param d Duke
+     */
     public DoAfterCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     * Adds a DoAfterTask into taskList and prints confirmation message to user.
      *
-     * @param userIn Entire String input by the user.
+     * @param userIn Entire user input string.
+     * @throws Duke.DukeException If user input after "doafter" is empty.
      */
     @Override
     public void Command(String userIn) throws Duke.DukeException {

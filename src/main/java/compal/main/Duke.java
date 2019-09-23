@@ -10,27 +10,25 @@ import java.util.ArrayList;
 
 import static java.lang.System.exit;
 
+/**
+ * Main class
+ */
 public class Duke {
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
     //objects supporting COMPal.Duke
     public Ui ui;
     public Storage storage;
     public TaskList tasklist;
     public ParserManager parser;
-
     //----------------------->
-
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
-
-
     /**
-     * Constructor.
-     * Initializes the supporting objects.
+     * Constructs Duke object.
+     * Initializes supporting objects.
      * Starts off the parser CLI parsing loop.
      */
     public Duke() {
@@ -40,9 +38,10 @@ public class Duke {
 
         storage = new StorageFile();
 
-
-        //checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
-        //arraylist stored in the binary file into tasklist.arrlist
+        /*
+        * Checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
+        * arraylist stored in the binary file into tasklist.arrlist.
+        */
         if (storage.loadCompal() == null) {
             tasklist.arrlist = new ArrayList<>();
         } else {
@@ -55,7 +54,6 @@ public class Duke {
         //start parsing commands
         parser = new ParserManager(this, tasklist);
     }
-
     //----------------------->
 
 
@@ -64,25 +62,18 @@ public class Duke {
     //----------------------------------------------------------------------------------------------------------------->
 
     /**
-     * This function handles the exiting/shutdown of the program compal.main.Duke .
-     *
-     * @UsedIn: parser.processCommands
+     * This function handles the exiting/shutdown of the program compal.main.Duke.
+     * Used in parser.processCommands
      */
     public void exitDuke() {
-
         exit(0);
     }
-
-
     //----------------------->
-
 
     /**
      * This static inner class is the custom exception class extending Exception
      * that overwrites toString() for returning custom exception messages.
      * It is thrown when command is unknown or when there are invalid arguments.
-     *
-     * @InnerClass Extends Exception
      */
     public static class DukeException extends Exception {
 
@@ -97,8 +88,6 @@ public class Duke {
             return description;
         }
     }
-
-
 }
 
 

@@ -9,18 +9,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Executes user command "list".
+ */
 public class ListCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
+    /**
+     * Constructs ListCommand object.
+     *
+     * @param d Duke.
+     */
     public ListCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * Handles the list command which lists the tasks currently in COMPal.Duke's tracking
-     * It will display the task symbol (T,E,D), the status (done or not done) and the description string
+     * Lists the tasks currently in taskList.
+     * It will display the task symbol (T,E,D), the status (done or not done) and the description string.
+     *
+     * @param userIn Entire user input string.
      */
     @Override
     public void Command(String userIn) {

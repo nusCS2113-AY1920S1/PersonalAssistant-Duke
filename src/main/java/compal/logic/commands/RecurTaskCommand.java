@@ -11,23 +11,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * Executes user command "recurtask".
+ */
 public class RecurTaskCommand extends Command implements CommandParser {
 
     private static final String TOKEN_REP = "/rep";
     private final String TOKEN = "/by";
     private TaskList taskList;
 
+    /**
+     * Constructs RecurTaskCommand object.
+     *
+     * @param d Duke.
+     */
     public RecurTaskCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * This function returns the number of repetitions of the recurring task in an integer form.
+     * Returns the number of repetitions of the recurring task in an integer form.
+     * Used in recurTaskPacker.
      *
-     * @param restOfUserInput description string
-     * @return The number of repetitions of the recurring task.
-     * @UsedIn recurTaskPacker
+     * @param restOfUserInput User input string.
+     * @return Number of repetitions of the recurring task.
      */
     public static int getRep(String restOfUserInput) {
         int splitPoint = restOfUserInput.indexOf(TOKEN_REP);
@@ -39,11 +47,11 @@ public class RecurTaskCommand extends Command implements CommandParser {
     }
 
     /**
-     * Increment the date by one week
+     * Increases the date by one week.
+     * Used in recurTaskPacker.
      *
-     * @param dateString The date to be incremented
-     * @return The final incremented date.
-     * @UsedIn recurTaskPacker
+     * @param dateString The date to increment.
+     * @return Final incremented date.
      */
     public static String incrementDateByWeek(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -60,9 +68,10 @@ public class RecurTaskCommand extends Command implements CommandParser {
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     * Adds multiple RecurringTask into taskList and prints confirmation message to user.
      *
-     * @param userIn Entire String input by the user.
+     * @param userIn Entire user string input.
+     * @throws Duke.DukeException If user input after "recurtask" is empty.
      */
     @Override
     public void Command(String userIn) throws Duke.DukeException {
@@ -83,7 +92,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
                 duke.ui.printg(descToPrint);
                 dateStr = incrementDateByWeek(dateStr);
             }
-
         } else {
             duke.ui.printg("InputError: Required input for Recurring Task command!");
             throw new Duke.DukeException("InputError: Required input for Recurring Task command!");

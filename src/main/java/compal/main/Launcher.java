@@ -1,11 +1,11 @@
 package compal.main;
 
 import compal.inputs.Main;
+
 import javafx.application.Application;
 
-
 /**
- * This class merely holds the launch code to start the GUI and passes CLI args.
+ * Holds launch code to start the GUI and pass CLI args.
  */
 public class Launcher {
 

@@ -7,6 +7,9 @@ import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Executes user command "fixeddurationtask".
+ */
 public class FixedDurationCommand extends Command implements CommandParser {
 
     private final String TOKEN = "/on";
@@ -14,15 +17,21 @@ public class FixedDurationCommand extends Command implements CommandParser {
     private final String TOKEN_MINUTE = "/min";
     private TaskList taskList;
 
+    /**
+     * Constructs FixedDurationCommand object.
+     *
+     * @param d Duke.
+     */
     public FixedDurationCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     * Adds a FixedDurationTask into taskList and prints confirmation message to user.
      *
-     * @param userIn Entire String input by the user.
+     * @param userIn Entire user input string.
+     * @throws Duke.DukeException If user input after "fixeddurationtask" is empty.
      */
     @Override
     public void Command(String userIn) throws Duke.DukeException {
@@ -39,13 +48,20 @@ public class FixedDurationCommand extends Command implements CommandParser {
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             duke.ui.printg(descToPrint);
-
         } else {
             duke.ui.printg("InputError: Required input for FixedDuration command!");
             throw new Duke.DukeException("InputError: Required input for FixedDuration command!");
         }
     }
 
+    /**
+     * Returns the number of hours needed for the fixed duration task.
+     * The fixed duration task has a duration in both hours and minutes.
+     *
+     * @param restOfInput User input string.
+     * @return Number of hours needed to complete the fixed duration task.
+     * @throws Duke.DukeException If no input for hour is found.
+     */
     public int getHour(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(TOKEN_HOUR)) {
             int startPoint = restOfInput.indexOf(TOKEN_HOUR);
@@ -63,6 +79,14 @@ public class FixedDurationCommand extends Command implements CommandParser {
         }
     }
 
+    /**
+     * Returns the number of minutes needed for the fixed duration task.
+     * The fixed duration task has a duration in both hours and minutes.
+     *
+     * @param restOfInput User input string.
+     * @return Number of minutes needed to complete the fixed duration task.
+     * @throws Duke.DukeException If no input for minute is found.
+     */
     public int getMinute(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(TOKEN_MINUTE)) {
             int startPoint = restOfInput.indexOf(TOKEN_MINUTE);

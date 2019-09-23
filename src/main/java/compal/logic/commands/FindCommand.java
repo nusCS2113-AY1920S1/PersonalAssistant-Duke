@@ -8,15 +8,29 @@ import compal.tasks.TaskList;
 import java.text.ParseException;
 import java.util.Scanner;
 
+/**
+ * Executes user command "find".
+ */
 public class FindCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
+    /**
+     * Constructs FindCommand object.
+     *
+     * @param d Duke.
+     */
     public FindCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
+    /**
+     * Displays search result of keyword input by user.
+     *
+     * @param userIn Entire user input string.
+     * @throws Duke.DukeException If user input after "find" is empty.
+     */
     @Override
     public void Command(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
