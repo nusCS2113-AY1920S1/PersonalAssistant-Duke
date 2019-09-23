@@ -4,7 +4,7 @@ import duke.worker.Parser;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task {
+public abstract class Task {
     public String taskName;
     public String taskDetails;
     public String detailDesc;
@@ -19,9 +19,10 @@ public class Task {
      * @param name Name of the task as inputted by the user
      */
     public Task(String name) {
-        this.taskType = TaskType.PARENT;
-        this.datetime = null;
+        this.taskType = TaskType.BLANK;
         this.taskName = name.replace(this.taskType.name(), "").trim();
+        this.datetime = null;
+        this.isDone = false;
     }
 
     /**

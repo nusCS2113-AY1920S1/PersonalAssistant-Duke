@@ -84,7 +84,7 @@ public class TaskList {
             newTask = new FixedDuration(taskDesc);
             break;
         default:
-            newTask = new Task(taskDesc);
+            newTask = null;
             break;
         }
         return newTask;
