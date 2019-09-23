@@ -25,7 +25,7 @@ public class ListCommand extends Command implements CommandParser {
     @Override
     public void Command(String userIn) {
         Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
-        ArrayList<Task> toList  =taskList.arrlist;
+        ArrayList<Task> toList = taskList.arrlist;
         Collections.sort(toList, compareByDateTime);
         int count = 1;
         duke.ui.printg("Here are the tasks in your list:");

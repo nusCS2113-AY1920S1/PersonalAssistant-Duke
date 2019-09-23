@@ -6,7 +6,11 @@ import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class ReminderCommand extends Command implements CommandParser {
 

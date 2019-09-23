@@ -4,10 +4,6 @@ import compal.main.Duke;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TaskList {
@@ -43,12 +39,6 @@ public class TaskList {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-
-
-    //***FUNCTIONS FOR GETTING VARIOUS TASK INFO***---------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
     /**
      * This function handles the adding of the tasks (Events, Deadlines, Todos).
      * It tests for the event type, then parses it according to the correct syntax
@@ -62,38 +52,6 @@ public class TaskList {
         duke.ui.showSize();
         return arrlist.size();
     }
-
-    /**
-     * Displays reminders for tasks due in the next week when app starts up.
-     *
-     * @UsedIn: Ui.checkInit
-     */
-    public void taskReminder() {
-        ArrayList<Task> reminder = new ArrayList<>();
-        Date currentDate = java.util.Calendar.getInstance().getTime();
-        Calendar c = Calendar.getInstance();
-        c.setTime(currentDate);
-        c.add(Calendar.DATE, 7);
-        Date dateOneWeekAfter = c.getTime();
-        for (Task t : arrlist) {
-            Date deadline = t.getDate();
-            if ((deadline != null && !t.isDone && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
-                reminder.add(t);
-            }
-        }
-        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> t1.getDate().compareTo(t2.getDate());
-        Collections.sort(reminder, compareByDateTime);
-
-        if (reminder.isEmpty()) {
-            duke.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
-        } else {
-            for (Task t : reminder) {
-                duke.ui.printg(t.toString());
-            }
-        }
-
-    }
-
 
 
     /**

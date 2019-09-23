@@ -71,7 +71,6 @@ public class Main extends Application {
             duke.ui.checkInit();
 
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }

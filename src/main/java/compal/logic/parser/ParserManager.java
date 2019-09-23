@@ -1,6 +1,18 @@
 package compal.logic.parser;
 
-import compal.logic.commands.*;
+import compal.logic.commands.ByeCommand;
+import compal.logic.commands.ClearCommand;
+import compal.logic.commands.DeadlineCommand;
+import compal.logic.commands.DeleteCommand;
+import compal.logic.commands.DoAfterCommand;
+import compal.logic.commands.DoneCommand;
+import compal.logic.commands.EventCommand;
+import compal.logic.commands.FindCommand;
+import compal.logic.commands.FixedDurationCommand;
+import compal.logic.commands.ListCommand;
+import compal.logic.commands.RecurTaskCommand;
+import compal.logic.commands.ReminderCommand;
+import compal.logic.commands.ViewCommand;
 import compal.main.Duke;
 import compal.tasks.TaskList;
 
@@ -70,12 +82,12 @@ public class ParserManager {
     public void processCMD(String userInput) throws ParseException, Duke.DukeException {
         Scanner sc = new Scanner(userInput);
 
-        if(sc.hasNext()){
+        if (sc.hasNext()) {
             String cmd = sc.next();
 
             if (status.equals("init")) {
                 duke.ui.firstTimeInit(cmd, stage++);
-            }else{
+            } else {
                 switch (cmd) {
                 case CMD_EXIT:
                     ByeCommand bye = new ByeCommand(duke);
@@ -134,14 +146,13 @@ public class ParserManager {
                     throw new Duke.DukeException("CommandError: Unknown command input detected!");
                 }
             }
-        }else{
+        } else {
             duke.ui.printg("EmptyInput: Empty input detected!");
             throw new Duke.DukeException("CommandError: Empty input detected!");
         }
 
 
     }
-
 
 
     //----------------------->
