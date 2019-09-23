@@ -24,7 +24,6 @@ digraph main {
     - number : int\l
     - address : String\l
     - priDiagnosis : Diagnosis\l
-    - uncategorised : Impression\l
     - allergies : ArrayList\<Allergy\>\l
     - impressions : ArrayList\<Impression\>\l
     |+ discharge() : void\l
@@ -37,17 +36,17 @@ digraph main {
   ]
 
 
-  //treatments and evidence may be uncategorised: create a default
-  //"Uncategorised" impression to hold all of the other evidence and results
+  //treatments and evidence should all be associated with an Impression, even if
+  //the Impression is not definite yet, or just consists of a symptom
   //Or should we force all objects to be categorised, and allow vague
   //descriptions for the Impression?
 
-  //abstract out a super class for normal impressions vs uncategorised?
   //function to consolidate e.g. observations to generate reports to upload to 
   //regular system?
   Impression [
     label = "{Impression
     |- name : String\l
+    - description : String\l
     - evidence : ArrayList\<Evidence\>\l
     - treatments : ArrayList\<Treatment\>\l
     |+ toDisplayString() : String\l
@@ -89,13 +88,12 @@ digraph main {
   ]
 
   //should observations have dates attached?
-  //observations may need further investigation, uncategorised observations can
-  //be tagged based on priority to address the most worrying ones
+  //observations may need further investigation, can be tagged based on 
+  //priority to address the most worrying ones
   Observation [
     label = "{Observation
     |- data : String\l
     - isObjective : bool\l
-    - investigations : ArrayList\<Investigation\>\l
     - priority : int\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
@@ -103,11 +101,9 @@ digraph main {
   ]
 
   //when an investigation is completed, it becomes a result
-  //when converting to result, remember to clean up its Observation
   Investigation [
     label = "{Investigation
     |- summary : String\l
-    - observation : Observation\l
     |+ toDisplayString() : String\l
     + toResult(String) : Result\l 
     \<getters and setters\>\l
@@ -155,7 +151,6 @@ digraph main {
 
   Impression -> Evidence [label = "supports"]
   Impression -> Treatment [label = "treats"]
-  Investigation -> Observation [label = "investigates"]
 
   //subclass relations
 
