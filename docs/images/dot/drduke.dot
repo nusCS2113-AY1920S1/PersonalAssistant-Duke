@@ -41,6 +41,8 @@ digraph main {
   //"Uncategorised" impression to hold all of the other evidence and results
 
   //abstract out a super class for normal impressions vs uncategorised?
+  //function to consolidate e.g. observations to generate reports to upload to 
+  //regular system?
   Impression [
     label = "{Impression
     |- name : String\l
@@ -76,26 +78,27 @@ digraph main {
     }"
   ]
 
+  Result [
+     label = "{Result
+    |- summary : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
   //observations may need further investigation, uncategorised observations can
   //be tagged based on priority to address the most worrying ones
   Observation [
      label = "{Observation
     |- data : String\l
     - isObjective : bool\l
-    - investigations : ArrayList<Investigation>\l
+    - investigations : ArrayList\<Investigation\>\l
     - priority : int\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
   ]
 
-  Results [
-     label = "{Results
-    |- summary : String\l
-    |+ toDisplayString() : String\l
-    \<getters and setters\>\l
-    }"
-  ]
 
   //when an investigation is completed, it becomes a result
   //when converting to result, remember to clean up its Observation
@@ -109,17 +112,33 @@ digraph main {
     }"
   ]
 
-
+  //navigability 
+  
   edge [
     arrowhead = "vee"
   ]
 
-  Impression -> Evidence [dir = "both"; arrowtail = "vee"; label = "supports"]
-  Impression -> Treatment [dir = "both"; arrowtail = "vee"; label = "treats"]
+  Patient -> Impression
+
+  //two-way navigability
+
+  edge [
+    arrowtail = "vee"
+    dir = "both"
+  ]
+
+  Impression -> Evidence [label = "supports"]
+  Impression -> Treatment [label = "treats"]
+  Investigation -> Observation [label = "investigates"]
 
   //subclass relations
 
   edge [
-    arrowhead = "empty"
+    arrowtail = "empty"
+    dir = "back"
   ]
+
+  Treatment -> Investigation 
+  Evidence -> Observation
+  Evidence -> Result
 }
