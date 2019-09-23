@@ -41,12 +41,12 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static duke.GUI.DialogBox getUserDialog(Label l, ImageView iv) {
-        return new duke.GUI.DialogBox(l, iv);
+    public static DialogBox getUserDialog(Label l, ImageView iv) {
+        return new DialogBox(l, iv);
     }
 
-    public static duke.GUI.DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new duke.GUI.DialogBox(l, iv);
+    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+        var db = new DialogBox(l, iv);
         db.flip();
         return db;
     }
