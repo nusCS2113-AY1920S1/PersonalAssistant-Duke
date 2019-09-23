@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Liu Jia Jun
-image::docs/images/jiajun.png[width="150", align="left"]
+image::liujiajun.png[width="150", align="left"]
 {empty}[http://github.com/liujiajun[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -21,7 +21,7 @@ Responsibilities: UI
 '''
 
 === Liu Shiru
-image::docs/images/shiru.png[width="150", align="left"]
+image::liushiru.png[width="150", align="left"]
 {empty}[http://github.com/liushiru[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -30,7 +30,7 @@ Responsibilities: Data
 '''
 
 === Lim Wen Han Eugene
-image::docs/images/eugene.png[width="150", align="left"]
+image::eugenelim97.png[width="150", align="left"]
 {empty}[http://github.com/eugenelim97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -39,7 +39,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Lim Chek Jun
-image::docs/images/chekjun.png[width="150", align="left"]
+image::chekjun.png[width="150", align="left"]
 {empty}[http://github.com/chekjun[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
