@@ -93,8 +93,10 @@ public class Duke extends Application {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        //stage.setMinHeight(600.0);
+        //stage.setMinWidth(400.0);
+        stage.setMinHeight(700.0);
+        stage.setMinWidth(1000.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
 
