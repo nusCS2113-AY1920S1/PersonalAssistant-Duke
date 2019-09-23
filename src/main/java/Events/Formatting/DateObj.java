@@ -1,5 +1,7 @@
 package Events.Formatting;
 
+import UserElements.UI;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,18 +14,11 @@ import java.util.Date;
 
 public class DateObj {
 
-    /**
-     * The javaDate variable stores the date and time as a java Date object
-     * if the input is in the format dd/mm/yyyy HHmm (24-hr clock) or
-     * dd/mm/yyyy.
-     */
-    protected Date javaDate;
+    protected String splitDate;
 
-    /**
-     * The java date variable stores the date and time as a string if the input is
-     * not in either of the two formats defined for the dateobj variable.
-     */
-    protected String date;
+    protected Date dateObject;
+
+    protected UI ui;
 
     /**
      * Stores the format type of the date input.
@@ -39,85 +34,57 @@ public class DateObj {
      * If no parameters are passed in, a DateObj with the current date and time is created.
      * The output will include both the date and time.
      */
-    
-    public DateObj() {
-    	Date now = new Date(); // obtain current date and time
-    	this.javaDate = now;
-    	this.format = DATE_AND_TIME;
+    public DateObj(String splitDate) {
+    	this.splitDate = splitDate;
+    	this.dateObject = new Date();
+    	this.format = 0;
     }
 
-    /**
-     * Creates a custom "date object".
-     * It processes the input according to the description stated above.
-     *
-     * @param inputDate the input keyed in for the date.
-     */
-    
-    
-    public DateObj(String inputDate) {
+    public String formatDate() {
         try {
-            SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy, KK:mm a");
-            inputFormat1.setLenient(false);
-            inputFormat2.setLenient(false);
-            Date newJavaDate;
-            if (inputDate.contains("/")) { //normal date input type from user
-                newJavaDate = inputFormat1.parse(inputDate);
-            } else { //date type from tasks by getDate()
-                newJavaDate = inputFormat2.parse(inputDate);
-            }
-            this.javaDate = newJavaDate;
-            format = DATE_AND_TIME; // date and time
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            dateFormat.setLenient(false);
+            Date taskJavaDate = dateFormat.parse(splitDate);
+            format = DATE_AND_TIME;
+            return taskJavaDate.toString();
         } catch (ParseException pe) {
             try {
-                SimpleDateFormat inputFormat1 = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat inputFormat2 = new SimpleDateFormat("dd MMMMM yyyy");
-                inputFormat1.setLenient(false);
-                inputFormat2.setLenient(false);
-                Date newJavaDate;
-                if (inputDate.contains("/")) { //normal date input type from user
-                    newJavaDate = inputFormat1.parse(inputDate);
-                } else { //date type from tasks by getDate()
-                    newJavaDate = inputFormat2.parse(inputDate);
-                }
-                this.javaDate = newJavaDate;
-                format = DATE; // only date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.setLenient(false);
+                Date taskJavaDate = dateFormat.parse(splitDate);
+                format = DATE;
+                return taskJavaDate.toString();
             } catch (ParseException pe2) {
-                format = OTHER; // other types; store as string
-                this.date = inputDate;
+                return splitDate;
             }
         }
-    }
-
-    /**
-     * Converts deadline type task to string format for printing.
-     *
-     * @return Formatted string representing the deadline and its date.
-     */
-    public String toOutputString() {
-        if (format == DATE_AND_TIME) {
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm aa");
-            return outputFormat.format(javaDate);
-        } else if (format == DATE) {
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
-            String out = outputFormat.format(javaDate);
-            return outputFormat.format(javaDate);
-        } else {
-            return date;
-        }
-    }
-
-    public int getFormat() {
-        return format;
     }
 
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.
      */
-
-    public Date getJavaDate() {
-    	return this.javaDate;
+    public Date getCurrentJavaDate() {
+        return dateObject;
     }
+
+    public Date getTaskJavaDate() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            dateFormat.setLenient(false);
+            dateObject = dateFormat.parse(splitDate);
+            return dateObject;
+        } catch (ParseException pe) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.setLenient(false);
+                dateObject = dateFormat.parse(splitDate);
+                return dateObject;
+            } catch (ParseException pe2) {
+                return dateObject;
+            }
+        }
+    }
+
     
     /**
      * Compares this dateObj with another input dateObj
@@ -130,15 +97,15 @@ public class DateObj {
      * @return Output the result of the comparison according to the algorithm stated above. 
      */
     public int compare(DateObj other) {
-    	if (javaDate == null || other.getJavaDate() == null) {
+    	if (dateObject == null || other.getTaskJavaDate() == null) {
     		return 2;
     	} else {
-    		Date otherDate = other.getJavaDate();
-    		if (javaDate.compareTo(otherDate) > 0) {
+    		Date otherDate = other.getTaskJavaDate();
+    		if (dateObject.compareTo(otherDate) > 0) {
     			return 1;
-    		} else if (javaDate.compareTo(otherDate) == 0) {
+    		} else if (dateObject.compareTo(otherDate) == 0) {
     			return 0;
-    		} else if (javaDate.compareTo(otherDate) < 0) {
+    		} else if (dateObject.compareTo(otherDate) < 0) {
     			return -1;
     		}
     	}
@@ -147,28 +114,16 @@ public class DateObj {
     
     /**
      * Adds n days to the javaDate object.
-     * @param n numbers of days to add
+     * @param noOfDays numbers of days to add
      */
-    public void addDays(int n) {
-    	if (javaDate != null) {
+    public void addDaysAndSetMidnight(int noOfDays) {
+    	if (dateObject != null) {
     		Calendar c = Calendar.getInstance();
-        	c.setTime(javaDate);
-        	c.add(Calendar.DATE, n);
-        	javaDate = c.getTime();
+        	c.add(Calendar.DATE, noOfDays);
+            c.set(Calendar.HOUR_OF_DAY, 23);
+            c.set(Calendar.MINUTE, 59);
+            c.set(Calendar.SECOND, 59);
+            dateObject = c.getTime();
     	}
-    }
-    
-    /**
-     * Set the time to 0000 hours on the same day.
-     */
-    public void setMidnight() {
-    	if (javaDate != null) {
-    		Calendar c = Calendar.getInstance();
-        	c.setTime(javaDate);
-        	c.set(Calendar.HOUR_OF_DAY, 0);
-        	c.set(Calendar.MINUTE, 0);
-        	c.set(Calendar.SECOND, 0);
-        	javaDate = c.getTime();
-      }
     }
   }

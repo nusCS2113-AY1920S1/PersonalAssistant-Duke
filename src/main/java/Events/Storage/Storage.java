@@ -1,6 +1,6 @@
 package Events.Storage;
 
-import Events.EventTypes.Task;
+import Events.EventTypes.Event;
 import UserElements.UI;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             fileAssigned = true;
-            System.out.println("Task list loaded!");
+            System.out.println("Event list loaded!");
         } catch (FileNotFoundException FNFe) {
 
             System.out.println("No Duke file found!\nCreating new file...");
@@ -72,13 +72,13 @@ public class Storage {
     /**
      * Saves current information to the storage file.
      *
-     * @param tasks Tasklist where information is extracted to be saved
+     * @param events Eventlist where information is extracted to be saved
      * @param ui    User interface
      */
-    public void saveToFile(EventList tasks, UI ui) {
+    public void saveToFile(EventList events, UI ui) {
         String toWriteToFile = "";
-        for (Task currTask : tasks.getTaskArrayList()) {
-            toWriteToFile += currTask.toString() + "\n";
+        for (Event currEvent : events.getEventArrayList()) {
+            toWriteToFile += currEvent.toString() + "\n";
         }
 
         try {
