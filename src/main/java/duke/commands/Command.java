@@ -14,7 +14,7 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, EVENT, REMIND, FREETIME, VIEWSCH, TENTATIVE, CONFIRM,
-        DAILY, WEEKLY, MONTHLY
+        DAILY, WEEKLY, MONTHLY, EDIT
 
     }
 

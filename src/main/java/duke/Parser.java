@@ -1,17 +1,18 @@
 package duke;
 
+import duke.commands.AddCommand;
 import duke.commands.Command;
+import duke.commands.ConfirmCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EditCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.FreeTimeCommand;
 import duke.commands.ListCommand;
 import duke.commands.ReminderCommand;
-import duke.commands.ViewScheduleCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.FindCommand;
-import duke.commands.DoneCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.AddCommand;
 import duke.commands.TentativeCommand;
-import duke.commands.ConfirmCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
@@ -71,6 +72,8 @@ public class Parser {
             return new AddCommand(Command.CmdType.EVENT, input);
         } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             return new AddCommand(Command.CmdType.DEADLINE, input);
+        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
+            return new EditCommand(input);
         } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
             return new TentativeCommand(input, true);
         } else if (input.equals("tentative list")) {
