@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Duke {
     private static TaskList taskList;
+    private static EmailList emailList = new EmailList();
     private static UI ui;
 
     /**
@@ -42,5 +43,9 @@ public class Duke {
         }
         Storage.saveTasks(taskList);
         ui.showMessage("Bye. Hope to see you again!");
+    }
+
+    public static EmailList getEmailList() {
+        return emailList;
     }
 }

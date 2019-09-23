@@ -11,6 +11,7 @@ import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
 import seedu.duke.command.SnoozeCommand;
+import seedu.duke.emailCommand.EmailListCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -31,7 +32,7 @@ public class Parser {
     public static Command parseCommand(String input) {
         UI ui = Duke.getUI();
         TaskList taskList = Duke.getTaskList();
-
+        EmailList emailList = Duke.getEmailList();
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -113,6 +114,8 @@ public class Parser {
                     ui.showError("Please enter correct task index");
                 }
             }
+        }  else if (input.startsWith("email -l")) {
+            return new EmailListCommand(emailList);
         } else {
             try {
                 return parseTask(taskList, input);
