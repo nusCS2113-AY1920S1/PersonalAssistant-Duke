@@ -3,7 +3,7 @@ package Money;
 import java.util.Date;
 
 public class Income extends Item {
-    Date payday;
+    private Date payday;
 
     public Income(float price, String description, Date payday) {
         super(price, description);
