@@ -1,0 +1,165 @@
+digraph main {
+
+  /*graph [
+    splines = ortho
+  ]*/
+
+  node [
+    shape = "record"
+  ]
+
+  //data indexed by integers for quick, unambiguous access
+  //provide the ability to search by various fields separately
+  //discharge() to archive
+  //toString() for data format
+  //toDataString() for display format (GUI)
+  //Allergy may be a simple String or index (int) if no complexity is required
+  Patient [
+    label = "{Patient
+    |- name : String\l
+    - bedNo : int\l
+    - height : int\l
+    - weight : int\l
+    - age : int\l
+    - number : int\l
+    - address : String\l
+    - priDiagnosis : Diagnosis\l
+    - allergies : ArrayList\<Allergy\>\l
+    - impressions : ArrayList\<Impression\>\l
+    |+ discharge() : void\l
+    + addNew\<impression/treatment/evidence\>() : void\l
+    + toString() : String\l
+    + toDisplayString() : String\l
+    \<functions for private data structures\>\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+
+  //treatments and evidence should all be associated with an Impression, even if
+  //the Impression is not definite yet, or just consists of a symptom
+
+  //function to consolidate e.g. observations to generate reports to upload to 
+  //regular system?
+  Impression [
+    label = "{Impression
+    |- name : String\l
+    - description : String\l
+    - evidence : ArrayList\<Evidence\>\l
+    - treatments : ArrayList\<Treatment\>\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    \<CRUD for evidence/treatments\>\l
+    }"
+  ]
+
+  //evidence: observations, results - support this impression
+  Evidence [
+    label = "{\{abstract\} Evidence
+    |- name : String\l
+    - impression : Impression\l
+    |+ toDisplayString() : String \{abstract\}\l
+    }"
+  ]
+
+  //treatment: plans, medicines, investigations - responses to the impression
+  //statusArr - array of strings representing the status to display for the
+  //various status codes
+  //treatments should be sortable by their status of completion
+  Treatment [
+    label = "{\{abstract\} Treatment
+    |- name : String\l
+    - status : int\l
+    - statusArr : String[]\l
+    - impression : Impression\l
+    |+ toDisplayString() : String \{abstract\}\l
+    + updateStatus() : void\l
+    }"
+  ]
+
+  Result [
+    label = "{Result
+    |- summary : String\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //should observations have dates attached?
+  //observations may need further investigation, can be tagged based on 
+  //priority to address the most worrying ones
+  Observation [
+    label = "{Observation
+    |- data : String\l
+    - isObjective : bool\l
+    - priority : int\l
+    |+ toDisplayString() : String\l
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //when an investigation is completed, it becomes a result
+  Investigation [
+    label = "{Investigation
+    |- summary : String\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+  
+  //Can format these properly if we have the time, if not just hold raw strings
+  //Sort by completion status
+  Medicine [
+    label = "{Medicine
+    |- dose : String\l
+    - startDate : String\l
+    - duration : String\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //Sort by priority and completion status
+  Plan [
+    label = "{Plan
+    |- summary : String\l
+    - priority : int\l
+    |+ toDisplayString() : String\l
+    + toResult(String) : Result\l 
+    \<getters and setters\>\l
+    }"
+  ]
+
+  //navigability 
+  
+  edge [
+    arrowhead = "vee"
+  ]
+
+  Patient -> Impression
+
+  //two-way navigability
+
+  edge [
+    arrowtail = "vee"
+    dir = "both"
+  ]
+
+  Impression -> Evidence [label = "supports"]
+  Impression -> Treatment [label = "treats"]
+
+  //subclass relations
+
+  edge [
+    arrowtail = "empty"
+    dir = "back"
+  ]
+
+  Treatment -> Investigation 
+  Treatment -> Plan
+  Treatment -> Medicine
+  Evidence -> Observation
+  Evidence -> Result
+}

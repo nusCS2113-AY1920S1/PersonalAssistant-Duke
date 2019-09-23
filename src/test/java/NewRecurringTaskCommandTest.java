@@ -22,7 +22,7 @@ public class NewRecurringTaskCommandTest extends CommandTest {
     //TODO create abstract superclass CommandTest
     private static String successStr =
             "    ________________________________________________________________________________"
-                    + System.lineSeparator() + "    Got it, I've added these 9 tasks:"
+                    + System.lineSeparator() + "    Got it, I've added these 10 tasks:"
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 18 Sep 2019 11:59 PM)"
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 25 Sep 2019 11:59 PM)"
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 2 Oct 2019 11:59 PM)"
@@ -32,7 +32,8 @@ public class NewRecurringTaskCommandTest extends CommandTest {
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 30 Oct 2019 11:59 PM)"
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 6 Nov 2019 11:59 PM)"
                     + System.lineSeparator() + "      [D][N] submission (by: Wed, 13 Nov 2019 11:59 PM)"
-                    + System.lineSeparator() + "    Now you have 9 tasks in the list." + System.lineSeparator()
+                    + System.lineSeparator() + "      [D][N] submission (by: Wed, 20 Nov 2019 11:59 PM)"
+                    + System.lineSeparator() + "    Now you have 10 tasks in the list." + System.lineSeparator()
                     + "    ________________________________________________________________________________"
                     + System.lineSeparator() + System.lineSeparator();
     //NOTE: something might not be right here, dates generated the other time were off by 1 day
