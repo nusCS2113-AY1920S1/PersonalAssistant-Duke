@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EmailList extends ArrayList<Email> {
@@ -21,7 +22,10 @@ public class EmailList extends ArrayList<Email> {
         int i = 0;
         for (File fileEntry : folder.listFiles()) {
             if(fileEntry.isFile()) {
-                listOfEmails += "\n" + ++i + ". " + fileEntry.getName();
+                String emailFileName = fileEntry.getName();
+                listOfEmails += "\n" + ++i + ". " + emailFileName;
+                Email email = new Email(emailFileName);
+                this.add(email);
             }
         }
         return listOfEmails;
@@ -38,6 +42,17 @@ public class EmailList extends ArrayList<Email> {
             dir = "." + File.separator + "emails";
         }
         return dir;
+    }
+
+    public String show(int index) throws Parser.UserInputException, IOException {
+        System.out.println(this.size());
+        if (index < 0 || index >= this.size()) {
+            throw new Parser.UserInputException("Invalid index");
+        }
+        Email email = this.get(index);
+        email.showEmail();
+        String responseMsg = "Showing email in browser: " + email.getTitle();
+        return responseMsg;
     }
 
 }

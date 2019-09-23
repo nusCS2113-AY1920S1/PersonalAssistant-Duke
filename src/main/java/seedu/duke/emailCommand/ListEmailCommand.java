@@ -4,10 +4,10 @@ import seedu.duke.Duke;
 import seedu.duke.EmailList;
 import seedu.duke.command.Command;
 
-public class EmailListCommand extends Command {
+public class ListEmailCommand extends Command {
     private EmailList emailList;
 
-    public EmailListCommand(EmailList emailList) {
+    public ListEmailCommand(EmailList emailList) {
         this.emailList = emailList;
     }
 
@@ -22,5 +22,4 @@ public class EmailListCommand extends Command {
         }
         return true;
     }
-
 }

@@ -11,7 +11,8 @@ import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
 import seedu.duke.command.SnoozeCommand;
-import seedu.duke.emailCommand.EmailListCommand;
+import seedu.duke.emailCommand.ListEmailCommand;
+import seedu.duke.emailCommand.ShowEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -88,7 +89,7 @@ public class Parser {
             }
         } else if (input.startsWith("doafter")) {
             if (input.length() < 8) {
-                ui.showError("Please enter item number");
+                ui.showError("Please enter index of task after \'doafter\'");
             } else if (input.length() < 11) {
                 ui.showError("Please enter description for do-after task");
             } else {
@@ -114,8 +115,12 @@ public class Parser {
                     ui.showError("Please enter correct task index");
                 }
             }
-        }  else if (input.startsWith("email -l")) {
-            return new EmailListCommand(emailList);
+        }  else if (input.startsWith("email")) {
+            try {
+                return parseEmail(emailList, input);
+            } catch (UserInputException e) {
+                ui.showError(e.toString());
+            }
         } else {
             try {
                 return parseTask(taskList, input);
@@ -134,6 +139,37 @@ public class Parser {
         return Integer.parseInt(splited[1]) - 1;
     }
 
+    public static Command parseEmail(EmailList emailList, String input) throws UserInputException {
+        if (input.length() <= 7) {
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+                    + "email.");
+        }
+        String emailCommand = input.substring(7,8);
+        switch(emailCommand) {
+        case "l":
+            return new ListEmailCommand(emailList);
+        case "s":
+            if (input.length() <= 9) {
+                throw new Parser.UserInputException("Please enter index of email to be shown after \'email -s\'");
+            }
+            try {
+                String parsedInput = input.substring(9, 10).strip();
+                System.out.println("before parse\n");
+                System.out.println(parsedInput + "\n");
+                int index = Integer.parseInt(parsedInput) - 1;
+                System.out.println(index + "\n");
+                System.out.println("before command\n");
+                return new ShowEmailCommand(emailList, index);
+            } catch (NumberFormatException e) {
+                throw new Parser.UserInputException(e.toString());
+            } catch (Exception e) {
+                throw new Parser.UserInputException(e.toString());
+            }
+        default:
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+                    + "email.");
+        }
+    }
     /**
      * Parses the specific part of a user/file input that is relevant to a task. A successful parsing always
      * returns an AddCommand, as it is assumed that an input starting with a task name is an add command.
