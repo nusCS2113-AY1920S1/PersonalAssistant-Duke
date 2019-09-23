@@ -1,8 +1,9 @@
 package wallet.logic.parser;
 
-import wallet.model.contact.Contact;
 import wallet.logic.command.AddCommand;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.model.task.Deadline;
 import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
@@ -17,6 +18,13 @@ import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
 
+    /**
+     * Returns an AddCommand object.
+     *
+     * @param input User input of command.
+     * @return An AddCommand object.
+     * @throws ParseException ParseException.
+     */
     @Override
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
@@ -47,13 +55,27 @@ public class AddCommandParser implements Parser<AddCommand> {
             } else {
                 break;
             }
-
+        case "loan":
+            Loan loan = parseLoan(arguments[1]);
+            if (loan != null) {
+                return new AddCommand(loan);
+            } else {
+                break;
+            }
         default:
             return null;
         }
         return null;
     }
 
+    /**
+     * Returns an Expense object.
+     *
+     * @param input A string input.
+     * @return The Expense object.
+     * @throws NumberFormatException Wrong format.
+     * @throws ArrayIndexOutOfBoundsException Out of index.
+     */
     private Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
         Expense expense = null;
 
@@ -87,6 +109,40 @@ public class AddCommandParser implements Parser<AddCommand> {
         return expense;
     }
 
+    /**
+     * Returns a Loan object.
+     *
+     * @param input The string after "loan".
+     * @return The Loan object.
+     * @throws ArrayIndexOutOfBoundsException Out of index.
+     * @throws ParseException ParseException.
+     */
+    private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+        Loan loan = null;
+        Boolean isLend = false;
+
+        String[] info = input.split(" ", 4);
+        String description = info[0];
+        double amount = Double.parseDouble(info[1].replace("$",""));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
+
+        if (info[3].equals("/l")) {
+            isLend = true;
+        } else if (info[3].equals("/b")) {
+            isLend = false;
+        }
+        loan = new Loan(description, createdDate, amount, isLend, false);
+        return loan;
+    }
+
+    /**
+     * Returns a Contact object.
+     *
+     * @param input The string after "contact".
+     * @return The Contact object.
+     * @throws ArrayIndexOutOfBoundsException Out of index.
+     */
     private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
         Contact contact = null;
 
@@ -96,6 +152,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         return contact;
     }
 
+    /**
+     * Returns a Task Object based on command and input.
+     *
+     * @param command A string command.
+     * @param input A string input.
+     * @return The Task object.
+     * @throws ArrayIndexOutOfBoundsException Out of index.
+     * @throws ParseException ParseException.
+     */
     private Task parseTask(String command, String input) throws ArrayIndexOutOfBoundsException, ParseException {
         Task task = null;
 

@@ -1,29 +1,33 @@
 package wallet.model.record;
 
-import wallet.model.contact.Contact;
-
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class Loan extends Record {
+    String description;
     private double amount;
-    private Contact person;
+    //Contact person;
+    LocalDate createdDate;
     private boolean isLend;
     private boolean isSettled;
+
 
     /**
      * The constructor for Loan objects.
      *
-     * @param amount The amount of money lent to /borrowed from the Contact person.
-     * @param person The Contact person.
-     * @param isLend If isLend is true, then it means you lend people money. Else, it means you borrow from people.
-     * @param isSettled If isSettled is true, then it means the loan has been settled.
+     * @param description The description of the loan.
+     * @param amount      The amount of money lent to /borrowed from the Contact person.
+     * @param isLend      If isLend is true, then it means you lend people money. Else, it means you borrow from people.
+     * @param isSettled   If isSettled is true, then it means the loan has been settled.
      */
 
     public Loan(String description, LocalDate createdDate, double amount,
-                Contact person, boolean isLend, boolean isSettled) {
+                boolean isLend, boolean isSettled) {
         super(description, createdDate);
+        this.description = description;
         this.amount = amount;
-        this.person = person;
+        this.createdDate = createdDate;
         this.isLend = isLend;
         this.isSettled = isSettled;
     }
@@ -51,18 +55,18 @@ public class Loan extends Record {
      *
      * @return The Contact object.
      */
-    public Contact getPerson() {
+    /*public Contact getPerson() {
         return person;
-    }
+    }*/
 
     /**
      * Sets the Contact Object.
      *
      * @param person The Contact Object.
      */
-    public void setPerson(Contact person) {
+    /*public void setPerson(Contact person) {
         this.person = person;
-    }
+    }*/
 
     /**
      * Returns true or false.
@@ -98,5 +102,16 @@ public class Loan extends Record {
      */
     public void setIsSettled(boolean isSettled) {
         this.isSettled = isSettled;
+    }
+
+    @Override
+    public String toString() {
+        if (isLend) {
+            return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Lend] " + description + " Amount:$"
+                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate());
+        } else { //isBorrow
+            return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Borrow] " + description + " Amount:$"
+                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getCreatedDate());
+        }
     }
 }

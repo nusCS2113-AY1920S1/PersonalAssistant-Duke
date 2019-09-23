@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The ExpenseParser Class handles the logic of creating an Expense Object.
+ */
 public class ExpenseParser {
     /**
      * Parses the input of the user and returns a corresponding Expense object.

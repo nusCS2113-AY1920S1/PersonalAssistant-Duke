@@ -10,6 +10,9 @@ import wallet.logic.command.ListCommand;
 
 import java.text.ParseException;
 
+/**
+ * The ParserManager Class that handles all CommandParser classes.
+ */
 public class ParserManager {
     /**
      * Parses the user input command and returns the corresponding Command object.
