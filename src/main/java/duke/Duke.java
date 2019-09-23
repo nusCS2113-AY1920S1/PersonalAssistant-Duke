@@ -8,6 +8,7 @@ import duke.GUI.DialogBox;
 import duke.Task.*;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -152,13 +153,18 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(userText, new ImageView(user)),
-            DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
+        if (userInput.getText().equals("bye")) {     //Make the GUI automatically close by itself.
+            Platform.exit();
+            System.exit(0);
+        } else {
+            Label userText = new Label(userInput.getText());
+            Label dukeText = new Label(getResponse(userInput.getText()));
+            dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+            );
+            userInput.clear();
+        }
     }
 
     /**
