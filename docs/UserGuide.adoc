@@ -45,16 +45,17 @@ e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add i
 * Parameters should be in the correct order. +
 e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
 
-*NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [NO.]` `*remove*` is the keyword that will execute the remove command.
+*NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 ====
 
 === Viewing help: `help`
 
 Format: +
-`help`
+`*help*`
 
-=== Adding expenses/income: `add expense`, `add income`
+=== Adding expense/income: `add expense`, `add income`
 
+Add a expense or income on a particular date. +
 Format: + 
 `*add expense* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}`
@@ -64,16 +65,73 @@ Examples:
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
 * `add income $500 part time tution /on 01/09/2019`
 
-=== list all expenses/income : `list`
+=== List all expenses and income : `list`
 
+List all the expenses and income that you have stored in Dolla. +
 Format: +
-`list`
+`*list*`
 
-==== remove a expenses/income from the list : `remove`
+=== Remove a expense/income from the list : `remove`
 
+Remove a particular entry of expanse/income from the list base on the list number. +
+Format: + 
+remove [LIST NO.]
 
+*NOTE*: `*[LIST NO].*` should be a positive integer and should be within the total number of listing available.
+[TIP] Use the keyword `*list*` to list out the expenses and incomes to find the `*LIST NO.*` to be removed.
 
+Example:
+
+* `remove 3`
+
+=== Modify a expense/income : `modify`
+
+Modify the details of a particular entry in the list. +
+Format: +
+* `modify [LIST NO.]`
+[TIP] Try using the same method as `*remove*` to find `*[LIST NO.]*`.
+
+Example:
+
+* `modify 4`
+
+=== Add recurring expenses or income : `add recurring expense`, `add recurring income`
+
+Add a recurring expenses or income that happen once in a while.
+Format: +
+`*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+`*add recurring income* [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}`
+
+*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
+
+Examples:
+
+* `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `add recurring income $800 part time job /every month`
+
+=== Add duration-based expenses limit : `set limit`
+
+Set the limit on the amount you can spend within the time period you have input. +
+Format: +
+`*set limit* [AMOUNT] /every [DURATION]`
+*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
+
+Example:
+
+* `set limit $50 every week`
 
 == FAQ
 
 == Command Summary
+
+* `*add expenses/income*`  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
+e.g. `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
+* `*list*`
+* `*remove*` `remove [LIST NO.]` +
+e.g. `remove 3`
+* `*modify*` `modify [LIST NO.]` +
+e.g. `modify 4`
+* `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
+e.g. `set limit $50 every week`
