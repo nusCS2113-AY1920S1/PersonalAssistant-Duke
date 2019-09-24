@@ -1,16 +1,6 @@
 package duke.parser;
 
-import duke.commands.AddCommand;
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.DoAfterCommand;
-import duke.commands.DoneCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
-import duke.commands.RemindersCommand;
-import duke.commands.SnoozeCommand;
-import duke.commands.ViewCommand;
+import duke.commands.*;
 import duke.exception.DukeException;
 
 public class Parser {
@@ -26,9 +16,6 @@ public class Parser {
         if (splitStr.length == 1) {
             throw new DukeException("Invalid command\n");
         }
-
-
-
         return new AddCommand(taskType, splitStr[0], splitStr[1]);
     }
 
@@ -78,13 +65,28 @@ public class Parser {
      * @throws NumberFormatException if command has characters.
      */
     private static Command parseSnooze(String command) throws NumberFormatException {
-        int index = Integer.parseInt(command);
-
-        return new SnoozeCommand(index);
+        String[] details = command.split(" ");
+        int index = Integer.parseInt(details[0]);
+        int value = Integer.parseInt(details[1]);
+        String units = details[2];
+        return new SnoozeCommand(index, value, units);
     }
 
-    /**
-     * Return the correct command given by user, Class method.
+/**
+ * find free time according to period desired
+ * @param s String containing details like amount of time . e.g. 5 min
+ * @return FindFreeTimeCommand a command to find the time
+ * @throws DukeException when s is invalid.
+ */
+private static Command parseFindFreeTime(String s) throws DukeException {
+    String[] details = s.split(" ");
+    int value = Integer.parseInt(details[0]);
+    String units = details[1];
+    return new FindFreeTimeCommand(value, units);
+}
+
+/**
+ * Return the correct command given by user, Class method.
      * @param fullCommand command input by user to be parse
      * @return The correct command class as defined by first word
      * @throws NumberFormatException if command has characters.
@@ -94,47 +96,47 @@ public class Parser {
         String[] splitStr = fullCommand.trim().split(" ", 2);
 
         switch (splitStr.length) {
-        case 1:
-            switch (splitStr[0].toLowerCase()) {
-            case "list":
-                return new ListCommand();
-            case "bye":
-                return new ByeCommand();
-            case "reminders":
-                return new RemindersCommand();
-            default:
-                throw new DukeException("Invalid command\n");
-            }
-        case 2:
-            if (!splitStr[1].isEmpty()) {
-                splitStr[1] = splitStr[1].trim();
+            case 1:
                 switch (splitStr[0].toLowerCase()) {
-                case "todo":
-                    return new AddCommand(splitStr[0], splitStr[1]);
-                case "deadline":
-                    return parseDeadline(splitStr[0], splitStr[1]);
-                case "event":
-                    return parseEvent(splitStr[0], splitStr[1]);
-                case "find":
-                    return new FindCommand(splitStr[1]);
-                case "done":
-                    return parseDone(splitStr[1]);
-                case "delete":
-                    return parseDelete(splitStr[1]);
-                case "snooze":
-                    return parseSnooze(splitStr[1]);
-                case "view":
-                    return new ViewCommand(splitStr[1]);
-                case  "doafter":
-                    return new DoAfterCommand(splitStr[1]);
-                default:
+                    case "list":
+                        return new ListCommand();
+                    case "bye":
+                        return new ByeCommand();
+                    case "reminders":
+                        return new RemindersCommand();
+                    default:
+                        throw new DukeException("Invalid command\n");
+                }
+            case 2:
+                if (!splitStr[1].isEmpty()) {
+                    splitStr[1] = splitStr[1].trim();
+                    switch (splitStr[0].toLowerCase()) {
+                        case "todo":
+                            return new AddCommand(splitStr[0], splitStr[1]);
+                        case "deadline":
+                            return parseDeadline(splitStr[0], splitStr[1]);
+                        case "event":
+                            return parseEvent(splitStr[0], splitStr[1]);
+                        case "find":
+                            return new FindCommand(splitStr[1]);
+                        case "done":
+                            return parseDone(splitStr[1]);
+                        case "delete":
+                            return parseDelete(splitStr[1]);
+                        case "snooze":
+                            return parseSnooze(splitStr[1]);
+                        case "findfreetime":
+                            return parseFindFreeTime(splitStr[1]);
+                        case "view":
+                            return new ViewCommand(splitStr[1]);
+                        default:
+                            throw new DukeException("Invalid command\n");
+                    }
+                } else {
                     throw new DukeException("Invalid command\n");
                 }
-            } else {
+            default:
                 throw new DukeException("Invalid command\n");
-            }
-        default:
-            throw new DukeException("Invalid command\n");
         }
     }
 }
