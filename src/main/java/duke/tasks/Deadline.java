@@ -3,7 +3,9 @@ package duke.tasks;
 import duke.exceptions.DukeInvalidTimeException;
 import duke.util.DateTimeParser;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -44,6 +46,14 @@ public class Deadline extends Task {
             + " (by: "
             + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
             + ")";
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 
 
