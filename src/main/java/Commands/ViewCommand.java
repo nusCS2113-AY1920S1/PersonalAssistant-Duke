@@ -16,7 +16,7 @@ public class ViewCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         for (int i = 1; i <= tasks.lengthOfList();i++) {
-            System.out.println(" " + i + "." + tasks.getTask(i-1).toString() + "\n");
+            ui.appendToOutput(" " + i + "." + tasks.getTask(i-1).toString() + "\n");
         }
     }
 }
