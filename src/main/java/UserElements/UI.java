@@ -1,7 +1,7 @@
 package UserElements;
 
-import Events.Storage.TaskList;
-import Events.EventTypes.Task;
+import Events.Storage.EventList;
+import Events.EventTypes.Event;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 
@@ -31,7 +31,7 @@ public class UI {
     /**
      * prints welcome message and instructions for use.
      */
-    public void welcome(TaskList Tasks){
+    public void welcome(EventList Events){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -41,36 +41,37 @@ public class UI {
         System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can i do for you?\n");
 
         System.out.println("Commands:");
-        System.out.println("1. list: Print a list of tasks currently stored.");
-        System.out.println("2. todo <description of task>: Adds a simple task with no time or date involved");
-        System.out.println("3. event OR deadline <description of task> /at OR /by <time>: adds an event/deadline to the list of tasks.");
-        System.out.println("4. done <task number>: completes a task");
+        System.out.println("1. list: Print a list of events currently stored.");
+        System.out.println("2. todo <description of event>: Adds a simple event with no time or date involved");
+        System.out.println("3. event OR deadline <description of event> /at OR /by <time>: adds an event/deadline to the list of events.");
+        System.out.println("4. done <event number>: completes a event");
         System.out.println("5. bye: exits the program\n");
-        System.out.println("6. reminder: view your upcoming tasks for the next 3 days");
+        System.out.println("6. reminder: view your upcoming events for the next 3 days");
         System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
                 "dd-MM-yyyy HHmm\n" + lineSeparation);
-        printReminder(Tasks);
+//        printReminder(Events);
         System.out.println("Enter a command:");
     }
     
     
     /**
-     * Obtains the current date and prints the tasks to be completed within the next
+     * Obtains the current date and prints the events to be completed within the next
      * three days as a reminder.
-     * @param tasks the TaskList used in the Duke function. 
+     * @param events the EventList used in the Duke function.
      */
-    public void printReminder(TaskList tasks) {
-        String systemDateAndTime = new Date().toString();
-    	DateObj limit = new DateObj(systemDateAndTime);
-    	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getCurrentJavaDate().toString();
-    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-    	System.out.print(lineSeparation);
-    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-    	System.out.print("Here is a list of tasks you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-    	System.out.print(tasks.filteredList(pred, DATE));
-    	System.out.print(lineSeparation);
-    }
+
+//    public void printReminder(EventList events) {
+//        String systemDateAndTime = new Date().toString();
+//    	DateObj limit = new DateObj(systemDateAndTime);
+//    	limit.addDaysAndSetMidnight(3);
+//    	String reminderDeadline = limit.getCurrentJavaDate().toString();
+//    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
+//    	System.out.print(lineSeparation);
+//    	System.out.print("The time now is " + systemDateAndTime + ".\n");
+//    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
+//    	System.out.print(events.filteredList(pred, DATE));
+//    	System.out.print(lineSeparation);
+//    }
 
     /**
      * Prints a message when an invalid command is entered.
@@ -82,13 +83,13 @@ public class UI {
     }
 
     /**
-     * prints entire list of tasks stored.
+     * prints entire list of events stored.
      *
-     * @param tasks Model_Class.TaskList object containing all stored classes and pertaining methods.
+     * @param events Model_Class.EventList object containing all stored classes and pertaining methods.
      */
-    public static void printListOfTasks(TaskList tasks) {
+    public static void printListOfEvents(EventList events) {
         System.out.print(lineSeparation);
-        System.out.print(tasks.listOfTasks_String());
+        System.out.print(events.listOfEvents_String());
         System.out.print(lineSeparation);
     }
 
@@ -107,86 +108,86 @@ public class UI {
     }
 
     /**
-     * prints message when a task is successfully added
+     * prints message when a event is successfully added
      *
-     * @param taskAdded task in question
-     * @param numTasks  total number of tasks
+     * @param eventAdded event in question
+     * @param numEvents  total number of events
      */
-    public void taskAdded(Task taskAdded, int numTasks) {
-        System.out.println(lineSeparation + "Got it. I've added this task:");
-        System.out.println(taskAdded.toString());
-        System.out.println("Now you have " + numTasks + " tasks in the list.");
+    public void eventAdded(Event eventAdded, int numEvents) {
+        System.out.println(lineSeparation + "Got it. I've added this event:");
+        System.out.println(eventAdded.toString());
+        System.out.println("Now you have " + numEvents + " events in the list.");
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message when a task is marked as completed
+     * prints message when a event is marked as completed
      *
-     * @param task task in question
+     * @param event event in question
      */
-    public void taskDone(Task task) {
+    public void eventDone(Event event) {
         System.out.print(lineSeparation);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+        System.out.println("Nice! I've marked this event as done:");
+        System.out.println(event.toString());
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message when a task is deleted successfully
+     * prints message when a event is deleted successfully
      *
-     * @param task task in question to be deleted
+     * @param event event in question to be deleted
      */
-    public void taskDeleted(Task task) {
+    public void eventDeleted(Event event) {
         System.out.print(lineSeparation);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
+        System.out.println("Noted. I've removed this event:");
+        System.out.println(event.toString());
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message containing tasks found when a search is performed.
-     * prints error message if no tasks are found
+     * prints message containing events found when a search is performed.
+     * prints error message if no events are found
      *
-     * @param allFoundTasks string containing all the tasks found, separated by newline character
-     * @param found         boolean signifying whether or not any tasks were found
+     * @param allFoundEvents string containing all the events found, separated by newline character
+     * @param found         boolean signifying whether or not any events were found
      */
-    public void searchTasks(String allFoundTasks, boolean found) {
+    public void searchEvents(String allFoundEvents, boolean found) {
         if (found) {
             System.out.print(lineSeparation);
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.print(allFoundTasks);
+            System.out.println("Here are the matching events in your list:");
+            System.out.print(allFoundEvents);
             System.out.print(lineSeparation);
         } else {
             System.out.print(lineSeparation);
-            System.out.println("No such tasks were found! Please try again.");
+            System.out.println("No such events were found! Please try again.");
             System.out.print(lineSeparation);
         }
     }
 
     /**
-     * prints message if command does not contain valid input for related task.
+     * prints message if command does not contain valid input for related event.
      */
-    public void noSuchTask() {
+    public void noSuchEvent() {
         System.out.print(lineSeparation);
-        System.out.println("There is no such task! Please try again.");
+        System.out.println("There is no such event! Please try again.");
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message if no task description is found when adding a new task to the list
+     * prints message if no event description is found when adding a new event to the list
      */
-    public void taskDescriptionEmpty() {
+    public void eventDescriptionEmpty() {
         System.out.print(lineSeparation);
-        System.out.println("The description of your task cannot be empty!");
+        System.out.println("The description of your event cannot be empty!");
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message when task index from input is not an integer
+     * prints message when event index from input is not an integer
      */
     public void notAnInteger() {
         System.out.print(lineSeparation);
-        System.out.println("That is not an integer! Please enter the index of the task you intend to alter.");
+        System.out.println("That is not an integer! Please enter the index of the event you intend to alter.");
         System.out.print(lineSeparation);
     }
 
@@ -195,12 +196,12 @@ public class UI {
      */
     public void deadlineFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the name of the task followed by the deadline, separated by /by");
+        System.out.println("Please enter the name of the event followed by the deadline, separated by /by");
         System.out.print(lineSeparation);
     }
 
     /**
-     * prints message when input format is wrong for addition of new event type task.
+     * prints message when input format is wrong for addition of new event type event.
      */
     public void eventFormatWrong() {
         System.out.print(lineSeparation);
@@ -208,7 +209,7 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void scheduleClash(Task task) {
+    public void scheduleClash(Event event) {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
@@ -216,12 +217,12 @@ public class UI {
     }
 
     /**
-     * prints message when recurring tasks are added to the list successfully
+     * prints message when recurring events are added to the list successfully
      */
-    public void recurringTaskAdded(Task taskAdded, int numTasks, int period) {
-        System.out.println(lineSeparation + "Got it. I've added these recurring tasks:");
-        System.out.println(taskAdded.toString() + " (every " + period + " days)");
-        System.out.println("Now you have " + numTasks + " tasks in the list.");
+    public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
+        System.out.println(lineSeparation + "Got it. I've added these recurring events:");
+        System.out.println(eventAdded.toString() + " (every " + period + " days)");
+        System.out.println("Now you have " + numEvents + " events in the list.");
         System.out.print(lineSeparation);
     }
 
