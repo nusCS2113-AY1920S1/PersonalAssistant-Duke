@@ -5,6 +5,4 @@ public class Ui {
     public String getSaveFile() {
         return null;
     }
-
-    public String getInput() { return "dummyString"; }
 }
