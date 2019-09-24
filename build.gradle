@@ -12,7 +12,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'duke.Main'
+mainClassName = 'duke.Launcher'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -90,9 +90,10 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'duke.jar'
-
-    destinationDir = file("${buildDir}/jar/")
+    archiveBaseName = "duke"
+    archiveVersion = "1.1"
+    archiveClassifier = null
+    archiveAppendix = null
 }
 
 task(guiTests)

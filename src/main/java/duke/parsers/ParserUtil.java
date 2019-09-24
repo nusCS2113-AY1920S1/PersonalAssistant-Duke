@@ -6,6 +6,8 @@ import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Event;
+import duke.tasks.RecurringTask;
+import duke.tasks.Task;
 import duke.tasks.Todo;
 
 import java.time.LocalDateTime;
@@ -88,6 +90,29 @@ public class ParserUtil {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
         return new DoWithin(withinDetails[0].strip(), start, end);
+    }
+
+    /**
+     * Parses the user input and creates a recurring task.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new recurring task.
+     */
+    protected static Task createRecurringTask(String userInput) throws DukeException {
+        String[] taskDetails = userInput.substring("repeat".length()).strip().split("/at");
+        try {
+            String[] dateDetails = taskDetails[1].split("/every");
+            if (dateDetails.length != 2 || dateDetails[1] == null) {
+                throw new DukeException(MessageUtil.INVALID_FORMAT);
+            }
+            if (taskDetails[0].strip().isEmpty()) {
+                throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            }
+            return new RecurringTask(taskDetails[0].strip(), ParserTimeUtil.parseStringToDate(dateDetails[0].strip()),
+                    getIndex(dateDetails[1].strip()) + 1);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
     }
 
     /**
