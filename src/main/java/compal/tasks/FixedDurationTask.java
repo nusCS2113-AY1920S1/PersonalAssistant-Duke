@@ -10,10 +10,10 @@ public class FixedDurationTask extends Task {
      * Constructs FixedDurationTask object.
      *
      * @param description Description of fixed duration task.
-     * @param date Starting date of fixed duration task.
-     * @param time Starting time of fixed duration task.
-     * @param hour Hour duration of fixed duration task.
-     * @param minute Minute duration of fixed duration task.
+     * @param date        Starting date of fixed duration task.
+     * @param time        Starting time of fixed duration task.
+     * @param hour        Hour duration of fixed duration task.
+     * @param minute      Minute duration of fixed duration task.
      */
     public FixedDurationTask(String description, String date, String time, int hour, int minute) {
         super(description);

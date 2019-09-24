@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
+import compal.compal.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
@@ -15,14 +15,14 @@ public class ReminderCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
-    public ReminderCommand(Duke d) {
+    public ReminderCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     @Override
     public void parseCommand(String userIn) {
-        duke.ui.printg("Reminder: \n");
+        compal.ui.printg("Reminder: \n");
         ArrayList<Task> reminder = new ArrayList<>();
         Date currentDate = java.util.Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
@@ -47,10 +47,10 @@ public class ReminderCommand extends Command implements CommandParser {
         Collections.sort(reminder, compareByDateTime);
 
         if (reminder.isEmpty()) {
-            duke.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
+            compal.ui.printg("You currently have no tasks that have reminders set or are due within a week!");
         } else {
             for (Task t : reminder) {
-                duke.ui.printg(t.toString());
+                compal.ui.printg(t.toString());
             }
         }
     }

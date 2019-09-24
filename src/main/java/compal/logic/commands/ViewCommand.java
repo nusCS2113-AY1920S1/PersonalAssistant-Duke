@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
+import compal.compal.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
@@ -20,9 +20,9 @@ public class ViewCommand extends Command implements CommandParser {
     /**
      * Constructs ViewCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public ViewCommand(Duke d) {
+    public ViewCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -33,7 +33,7 @@ public class ViewCommand extends Command implements CommandParser {
      * @param userIn User string input.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         String dateInput = scanner.next();
@@ -47,7 +47,7 @@ public class ViewCommand extends Command implements CommandParser {
             e.printStackTrace();
         }
         if (taskList.arrlist.isEmpty()) {
-            duke.ui.printg("No task.");
+            compal.ui.printg("No task.");
         }
 
         Boolean isEmpty = true;
@@ -57,15 +57,15 @@ public class ViewCommand extends Command implements CommandParser {
             String compareDate = formatter.format(convertDate);
             if (compareDate.matches(formatDate)) {
                 if (isEmpty) {
-                    duke.ui.printg("On " + formatDate + " you have the task below:");
+                    compal.ui.printg("On " + formatDate + " you have the task below:");
                 }
-                duke.ui.printg(task.toString());
+                compal.ui.printg(task.toString());
                 isEmpty = false;
             }
         }
 
         if (isEmpty) {
-            duke.ui.printg("No task found on " + formatDate);
+            compal.ui.printg("No task found on " + formatDate);
         }
     }
 }

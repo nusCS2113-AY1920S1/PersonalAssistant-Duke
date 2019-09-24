@@ -1,10 +1,13 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_INVALID_RANGE;
 
 /**
  * Executes user command "delete".
@@ -16,9 +19,9 @@ public class DeleteCommand extends Command implements CommandParser {
     /**
      * Constructs DeleteCommand object.
      *
-     * @param d Duke
+     * @param d Compal
      */
-    public DeleteCommand(Duke d) {
+    public DeleteCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -27,29 +30,34 @@ public class DeleteCommand extends Command implements CommandParser {
      * Deletes a task based on user task number input and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user task number input is invalid.
+     * @throws Compal.DukeException If user task number input is invalid.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
-        //duke.ui.printg(userIn);
+    public void parseCommand(String userIn) throws Compal.DukeException {
+        //Compal.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String delete = scanner.next();
-        String restOfInput = scanner.nextLine();
+        if (scanner.hasNext()) {
+            String restOfInput = scanner.nextLine();
 
-        int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
-        int maxLimit = taskList.arrlist.size();
+            int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
+            int maxLimit = taskList.arrlist.size();
 
-        if (toRemove < 0 || toRemove >= maxLimit) {
-            duke.ui.printg("RangeError: Invalid range detected for delete command");
-            throw new Duke.DukeException("RangeError: Invalid range detected for delete command");
+            if (toRemove < 0 || toRemove >= maxLimit) {
+                compal.ui.printg(MESSAGE_INVALID_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_RANGE);
+            }
+
+            String removeDesc = taskList.arrlist.get(toRemove).toString();
+            taskList.arrlist.remove(toRemove);
+            compal.ui.printg("Noted. I've removed this task:");
+            compal.ui.printg(removeDesc);
+            compal.storage.saveCompal(taskList.arrlist);
+            compal.ui.showSize();
+            //Compal.tasklist.deleteTask(userIn);
+        } else {
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
-
-        String removeDesc = taskList.arrlist.get(toRemove).toString();
-        taskList.arrlist.remove(toRemove);
-        duke.ui.printg("Noted. I've removed this task:");
-        duke.ui.printg(removeDesc);
-        duke.storage.saveCompal(taskList.arrlist);
-        duke.ui.showSize();
-        //duke.tasklist.deleteTask(userIn);
     }
 }

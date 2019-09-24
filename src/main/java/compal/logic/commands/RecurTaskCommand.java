@@ -1,9 +1,11 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.RecurringTask;
 import compal.tasks.TaskList;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,9 +25,9 @@ public class RecurTaskCommand extends Command implements CommandParser {
     /**
      * Constructs RecurTaskCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public RecurTaskCommand(Duke d) {
+    public RecurTaskCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -71,10 +73,10 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * Adds multiple RecurringTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user string input.
-     * @throws Duke.DukeException If user input after "recurtask" is empty.
+     * @throws Compal.DukeException If user input after "recurtask" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String recurtask = scanner.next();
         if (scanner.hasNext()) {
@@ -89,12 +91,12 @@ public class RecurTaskCommand extends Command implements CommandParser {
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();
-                duke.ui.printg(descToPrint);
+                compal.ui.printg(descToPrint);
                 dateStr = incrementDateByWeek(dateStr);
             }
         } else {
-            duke.ui.printg("InputError: Required input for Recurring Task command!");
-            throw new Duke.DukeException("InputError: Required input for Recurring Task command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 }

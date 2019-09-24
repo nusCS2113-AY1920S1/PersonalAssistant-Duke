@@ -9,8 +9,8 @@ public class RecurringTask extends Task {
      * Constructs RecurringTask object.
      *
      * @param description Description of recurring task.
-     * @param date Starting date of recurring task.
-     * @param time Starting time of recurring task.
+     * @param date        Starting date of recurring task.
+     * @param time        Starting time of recurring task.
      */
     public RecurringTask(String description, String date, String time) {
         super(description);

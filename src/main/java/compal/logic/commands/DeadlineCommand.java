@@ -1,11 +1,13 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.Deadline;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "deadline".
@@ -18,9 +20,9 @@ public class DeadlineCommand extends Command implements CommandParser {
     /**
      * Constructs DeadlineCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public DeadlineCommand(Duke d) {
+    public DeadlineCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -29,10 +31,10 @@ public class DeadlineCommand extends Command implements CommandParser {
      * Adds a Deadline into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user input after "deadline" is empty.
+     * @throws Compal.DukeException If user input after "deadline" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
 
         if (scanner.hasNext()) {
@@ -43,10 +45,10 @@ public class DeadlineCommand extends Command implements CommandParser {
             taskList.addTask(new Deadline(description, date));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
-            duke.ui.printg(descToPrint);
+            compal.ui.printg(descToPrint);
         } else {
-            duke.ui.printg("InputError: Required input for deadline command!");
-            throw new Duke.DukeException("InputError: Required input for deadline command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 }

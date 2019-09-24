@@ -1,11 +1,13 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.Event;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "event".
@@ -18,9 +20,9 @@ public class EventCommand extends Command implements CommandParser {
     /**
      * Constructs EventCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public EventCommand(Duke d) {
+    public EventCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -36,10 +38,10 @@ public class EventCommand extends Command implements CommandParser {
      * Adds an Event into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user input after "event" is empty.
+     * @throws Compal.DukeException If user input after "event" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -50,10 +52,10 @@ public class EventCommand extends Command implements CommandParser {
             taskList.addTask(new Event(description, date, time));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
-            duke.ui.printg(descToPrint);
+            compal.ui.printg(descToPrint);
         } else {
-            duke.ui.printg("InputError: Required input for Event command!");
-            throw new Duke.DukeException("InputError: Required input for Event command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 }

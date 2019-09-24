@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
+import compal.compal.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
@@ -19,9 +19,9 @@ public class ListCommand extends Command implements CommandParser {
     /**
      * Constructs ListCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public ListCommand(Duke d) {
+    public ListCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -38,9 +38,9 @@ public class ListCommand extends Command implements CommandParser {
         ArrayList<Task> toList = taskList.arrlist;
         Collections.sort(toList, compareByDateTime);
         int count = 1;
-        duke.ui.printg("Here are the tasks in your list:");
+        compal.ui.printg("Here are the tasks in your list:");
         for (Task t : toList) {
-            duke.ui.printg(count++ + "." + t.toString());
+            compal.ui.printg(count++ + "." + t.toString());
         }
     }
 }

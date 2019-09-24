@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    private static final String saveFilePath = "./duke.txt";
+    private static final String saveFilePath = "./Compal.txt";
     private static final String binarySaveFilePath = "binary";
     private static final String userPreferencesFilePath = "./prefs.txt";
 
@@ -85,7 +85,7 @@ public class StorageFile implements Storage {
     /**
      * Saves a string to a file.
      *
-     * @param toSave String to save into file.
+     * @param toSave   String to save into file.
      * @param filePath File path of file.
      */
     @Override

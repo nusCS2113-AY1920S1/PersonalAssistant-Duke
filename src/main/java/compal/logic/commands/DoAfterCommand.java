@@ -1,11 +1,13 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.DoAfterTasks;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "doaftertask".
@@ -18,9 +20,9 @@ public class DoAfterCommand extends Command implements CommandParser {
     /**
      * Constructs DoAfterCommand object.
      *
-     * @param d Duke
+     * @param d Compal
      */
-    public DoAfterCommand(Duke d) {
+    public DoAfterCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -29,10 +31,10 @@ public class DoAfterCommand extends Command implements CommandParser {
      * Adds a DoAfterTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user input after "doafter" is empty.
+     * @throws Compal.DukeException If user input after "doafter" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -42,10 +44,10 @@ public class DoAfterCommand extends Command implements CommandParser {
             taskList.addTask(new DoAfterTasks(description, date));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
-            duke.ui.printg(descToPrint);
+            compal.ui.printg(descToPrint);
         } else {
-            duke.ui.printg("InputError: Required input for DoAfter command!");
-            throw new Duke.DukeException("InputError: Required input for DoAfter command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 }

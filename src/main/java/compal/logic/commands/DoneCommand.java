@@ -1,10 +1,12 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "done".
@@ -16,9 +18,9 @@ public class DoneCommand extends Command implements CommandParser {
     /**
      * Constructs Done object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public DoneCommand(Duke d) {
+    public DoneCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -27,10 +29,10 @@ public class DoneCommand extends Command implements CommandParser {
      * Marks task as done based on user task number input and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user task number input is missing.
+     * @throws Compal.DukeException If user task number input is missing.
      */
     @Override
-    public void parseCommand(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
 
         Scanner scanner = new Scanner(userIn);
         scanner.next();
@@ -39,12 +41,12 @@ public class DoneCommand extends Command implements CommandParser {
             int toMark = Integer.parseInt(restOfInput.trim()) - 1;
             taskList.arrlist.get(toMark).markAsDone();
             String desc = taskList.arrlist.get(toMark).toString();
-            duke.ui.printg("Nice! I've marked this task as done: \n" + desc);
-            duke.storage.saveCompal(taskList.arrlist);
+            compal.ui.printg("Nice! I've marked this task as done: \n" + desc);
+            compal.storage.saveCompal(taskList.arrlist);
         } else {
-            duke.ui.printg("InputError: Required input for done command!");
-            throw new Duke.DukeException("InputError: Required input for done command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
-        //duke.tasklist.taskDone(userIn);
+        //Compal.tasklist.taskDone(userIn);
     }
 }
