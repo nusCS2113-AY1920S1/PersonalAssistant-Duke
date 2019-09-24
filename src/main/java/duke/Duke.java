@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import duke.Data.Storage;
 import duke.GUI.ViewModules;
+import duke.Module.Schedule;
 import duke.Task.*;
 
 import javafx.application.Application;
