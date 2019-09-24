@@ -62,7 +62,6 @@ public class Storage {
                         tb.isDone = false;
                     }
                     tlist.add(tb);
-
                 } else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
                     if(details[1].equals("\u2713")) {
