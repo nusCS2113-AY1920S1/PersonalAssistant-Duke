@@ -7,6 +7,8 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.util.ArrayList;
+
 import static duke.common.Messages.filePath;
 
 /**
@@ -74,7 +76,17 @@ public class Duke {
             output =  "Duke heard: " + tasks.listTask();
         } else if (input.contains("find")) {
             output = "Duke heard: " + tasks.findTask(input.trim().split("\\s", 2)[1]);
+        } else {
+            output = "unknown";
         }
         return output;
+    }
+
+    public ArrayList<String> getList(){
+        TaskList taskList = new TaskList();
+//        for (int i = 0; i < tasks.listTask().size(); i++) {
+        ArrayList<String> arrayList = new ArrayList<>(tasks.listTask());
+//        }
+        return arrayList;
     }
 }

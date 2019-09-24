@@ -6,6 +6,7 @@ import duke.ui.HelpWindow;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -13,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,6 +31,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private TextArea resultDisplay;
+
+    @FXML
+    private ListView<String> listView;
 
     private Duke duke;
 
@@ -51,6 +57,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        for (int i = 0; i < duke.getList().size(); i++) {
+            listView.getItems().add(duke.getList().get(i));
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
