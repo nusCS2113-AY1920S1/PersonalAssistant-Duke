@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,12 +15,13 @@ public class RecurringTaskTesting {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String time = "1230";
+    private Task.Priority priority = high;
     private RecurringTask recurringTask;
 
 
     @BeforeEach
     public void setup() {
-        recurringTask = new RecurringTask(description, date, time);
+        recurringTask = new RecurringTask(description, high, date, time);
     }
 
     @Test
@@ -67,8 +69,8 @@ public class RecurringTaskTesting {
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, recurringTask.isHasReminder());
+    void hasReminder() {
+        assertEquals(false, recurringTask.hasReminder());
     }
 
     @Test
@@ -108,8 +110,11 @@ public class RecurringTaskTesting {
 
     @Test
     void toStringTest() {
-        assertEquals("[" + recurringTask.getSymbol() + "]" + "[" + recurringTask.getStatusIcon() + "] "
-                + recurringTask.getDescription() + " Date: " + recurringTask.getStringDate() + " Time: "
-                + recurringTask.getStringTime(), recurringTask.toString());
+        assertEquals("[" + recurringTask.getSymbol() + "]"
+                + "[" + recurringTask.getStatusIcon() + "] "
+                + recurringTask.getDescription() + " Date: "
+                + recurringTask.getStringDate() + " Time: "
+                + recurringTask.getStringTime() + " Priority: "
+                + recurringTask.getPriority(), recurringTask.toString());
     }
 }
