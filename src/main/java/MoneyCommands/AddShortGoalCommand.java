@@ -30,13 +30,14 @@ public class AddShortGoalCommand extends MoneyCommand {
                 Date byDate = simpleDateFormat.parse(inputString.split("/by ")[1].split("/priority ")[0] + "2359");
                 String priorityLevel = inputString.split("/priority ")[1];
                 String category = "GS";
-                System.out.println(priorityLevel);
+                //System.out.println(priorityLevel);
                 Goal g = new Goal(price, desc, category,byDate, priorityLevel);
                 account.getShortTermGoals().add(g);
 
         System.out.println(" Got it. I've added this task: \n");
         System.out.println("     " + account.getShortTermGoals().get(account.getShortTermGoals().size()-1).toString() + "\n");
         System.out.println(" Now you have " + account.getShortTermGoals().size() + " Goals in the list.");
+        System.out.println("Current Goal Savings: $" + account.getGoalSavings());
         ////storage.writeTheFile(account.getShortTermGoals());
     }
 }
