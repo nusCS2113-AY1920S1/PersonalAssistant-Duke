@@ -17,7 +17,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_NUMBER = "TaskNumberError: You can only input "
             + "a valid task number!";
 
-
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
             + " Please enter a description";
     public static final String MESSAGE_MISSING_HOUR = "Empty Hour Error: Required hour input!";
