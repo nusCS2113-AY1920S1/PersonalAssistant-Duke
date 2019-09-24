@@ -1,9 +1,8 @@
 import CustomExceptions.DukeException;
+import Enums.ExceptionType;
+import Enums.Tasktype;
 import Model_Classes.*;
-import Operations.Parser;
-import Operations.Storage;
-import Operations.TaskList;
-import Operations.Ui;
+import Operations.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,14 +41,14 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             String command = parser.getCommand();
-            switch (command) {
-
-                case "list" :
+            Tasktype type = Tasktype.valueOf(command);
+            switch (type) {
+                case list :
                     ui.showList();
                     taskList.list();
                     break;
 
-                case "bye" :
+                case bye :
                     isExit = true;
                     try {
                         storage.writeFile(taskList.currentList());
@@ -60,7 +59,7 @@ public class Duke {
                     }
                     break;
 
-                case "done" :
+                case done :
                     try {
                         ui.showDone();
                         taskList.done(parser.getIndex());
@@ -69,7 +68,7 @@ public class Duke {
                     }
                     break;
 
-                case "delete" :
+                case delete :
                     try {
                         int index = parser.getIndex();
                         taskList.delete(index);
@@ -79,12 +78,12 @@ public class Duke {
                     }
                     break;
 
-                case "find" :
+                case find :
                     ui.showFind();
                     taskList.find(parser.getKey());
                     break;
 
-                case "todo" :
+                case todo :
                     try {
                         ui.showAdd();
                         ToDo temp = new ToDo(parser.getDescription());
@@ -94,7 +93,7 @@ public class Duke {
                     }
                     break;
 
-                case "deadline" :
+                case deadline :
                     try {
                         ui.showAdd();
                         String[] deadlineArray = parser.getDescriptionWithDate();
@@ -106,13 +105,17 @@ public class Duke {
                     }
                     break;
 
-                case "event" :
+                case event :
                     try {
                         ui.showAdd();
                         String[] eventArray = parser.getDescriptionWithDate();
-                        Date by = parser.formatDate(eventArray[1]);
-                        Event temp = new Event(eventArray[0], by);
-                        taskList.add(temp);
+                        Date at = parser.formatDate(eventArray[1]);
+                        if(CheckAnomaly.checkTime(at, TaskList.currentList())){
+                            Event temp = new Event(eventArray[0], at);
+                            taskList.add(temp);
+                        } else {
+                            throw new DukeException(ExceptionType.timeClash);
+                        }
                     } catch (DukeException e) {
                         ui.showDateError();
                     }
