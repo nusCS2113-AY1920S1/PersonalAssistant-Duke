@@ -11,9 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DoAfterTasksTest {
+    private String description = "Test content";
+    private String date = "01/10/2019";
     private DoAfterTasks doAfterTasks;
-    final private String description = "Test content";
-    final private String date = "01/10/2019";
+
 
     @BeforeEach
     public void setup() {

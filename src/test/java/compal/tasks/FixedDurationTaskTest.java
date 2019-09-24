@@ -10,12 +10,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FixedDurationTaskTest {
+    private String description = "Test content";
+    private String date = "01/10/2019";
+    private String time = "1230";
+    private int hour = 2;
+    private int minute = 25;
     private FixedDurationTask fixedDurationTask;
-    final private String description = "Test content";
-    final private String date = "01/10/2019";
-    final private String time = "1230";
-    final private int hour = 2;
-    final private int minute = 25;
+
 
     @BeforeEach
     public void setup() {

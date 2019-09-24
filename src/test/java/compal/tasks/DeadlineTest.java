@@ -11,9 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class DeadlineTest {
+    private String description = "Test content";
+    private String date = "01/10/2019";
     private Deadline deadline;
-    final private String description = "Test content";
-    final private String date = "01/10/2019";
+
 
     @BeforeEach
     public void setup() {
