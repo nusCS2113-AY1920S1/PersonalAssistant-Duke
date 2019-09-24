@@ -1,26 +1,30 @@
 package wallet.ui;
 
+import wallet.model.Wallet;
+import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 
 public class Reminder {
 
-    private RecordList recordList;
+    private LoanList loanList;
     private Ui ui;
     private int number;
     private boolean autoRemind;
     private int timeInSeconds;
+    private MyThread thread;
 
     /**
      * The constructor for the Reminder object.
      *
-     * @param recordList The RecordList object.
+     * @param wallet The Wallet object.
      */
-    public Reminder(RecordList recordList) {
+    public Reminder(Wallet wallet) {
         ui = new Ui();
-        this.recordList = recordList;
+        this.loanList = loanList;
         number = 1;
         autoRemind = true;
-        timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
+        timeInSeconds = 5; //set default time interval of auto remind to be 30 minutes
+        thread = new MyThread(true, wallet.getLoanList(), timeInSeconds);
     }
 
 
@@ -31,7 +35,14 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        MyThread t = new MyThread(true, recordList);
+        thread.run();
+    }
+
+    /**
+     * Kills the auto remind thread.
+     */
+    public void autoRemindStop() {
+        thread.stop();
     }
 
     /**

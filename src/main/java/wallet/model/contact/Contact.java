@@ -1,5 +1,8 @@
 package wallet.model.contact;
 
+/**
+ * The Contact Class.
+ */
 public class Contact {
 
     private String name;

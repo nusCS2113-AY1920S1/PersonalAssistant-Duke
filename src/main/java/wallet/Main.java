@@ -41,6 +41,7 @@ public class Main {
      */
     public void run() {
         ui.welcomeMsg();
+
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readLine();

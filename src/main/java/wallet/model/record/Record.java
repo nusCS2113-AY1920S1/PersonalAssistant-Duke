@@ -2,29 +2,58 @@ package wallet.model.record;
 
 import java.time.LocalDate;
 
+/**
+ * The Record Class that is the parent of Loans, Notes, Expenses.
+ */
 public abstract class Record {
     private String description;
-    private LocalDate createdDate;
+    private LocalDate date;
 
-    public Record(String description, LocalDate createdDate) {
+    /**
+     * Constructs a Record Object.
+     *
+     * @param description The String description.
+     * @param date The LocalDate object.
+     */
+
+    public Record(String description, LocalDate date) {
         this.description = description;
-        this.createdDate = createdDate;
+        this.date = date;
     }
 
+    /**
+     * Returns a String description.
+     *
+     * @return String description.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets the String description.
+     *
+     * @param description The String description.
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    /**
+     * Sets the LocalDate object.
+     *
+     * @param date LocalDate object.
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    /**
+     * Returns the LocalDate object.
+     *
+     * @return the LocalDate object.
+     */
+    public LocalDate getDate() {
+        return this.date;
     }
-
 }
