@@ -32,18 +32,20 @@ public class CompleteCommand extends Command {
      *     If the 'isDone' variable of the task is already true, print a message to alert the user.
      * </p>
      * @param tasks The task list to be accessed.
-     * @throws Exception
+     * @throws Exception handle exception
      */
     @Override
     public void execute(TaskList tasks) throws Exception {
         int taskNumInt = stringToInt(taskNumStr);
-        if (taskNumInt == 0) return; // don't do anything if task number is invalid
+        if (taskNumInt == 0) {
+            return; // don't do anything if task number is invalid
+        }
 
         ArrayList<String> msg = new ArrayList<String>();
 
         Task currTask;
         try {
-            currTask = tasks.getFromList(taskNumInt-1);
+            currTask = tasks.getFromList(taskNumInt - 1);
         } catch (IndexOutOfBoundsException e) {
             Ui.printNoTaskAssocError(taskNumInt);
             throw new Exception("duke.task.Task number not in list");

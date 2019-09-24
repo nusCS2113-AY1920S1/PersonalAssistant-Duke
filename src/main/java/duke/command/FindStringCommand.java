@@ -41,7 +41,7 @@ public class FindStringCommand extends Command {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            searchStr = inputLine.substring(commandName.length()+1);
+            searchStr = inputLine.substring(commandName.length() + 1);
         } catch (IndexOutOfBoundsException e) {
             msg.add("Please use the format 'find <string>'");
             Ui.printMsg(msg);
@@ -62,7 +62,7 @@ public class FindStringCommand extends Command {
         } else {
             msg.add("Here are the matching tasks in your list:");
             for (int i = 0; i < itemsFound.size(); i++) {
-                msg.add( (i+1) + "."  + itemsFound.get(i) );
+                msg.add((i + 1) + "."  + itemsFound.get(i));
             }
         }
 

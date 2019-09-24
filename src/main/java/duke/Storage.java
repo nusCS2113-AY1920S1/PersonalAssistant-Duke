@@ -1,13 +1,30 @@
 package duke;
 
-import duke.task.*;
 
-import java.io.*;
+
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Recurring;
+import duke.task.DoAfter;
+import duke.task.FixDuration;
+
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * duke.Storage handles the saving and loading of data from ./data/duke.txt, as well as creating a new save file if it does not exist
+ * duke.Storage handles the saving and loading of data from ./data/duke.txt,
+ * as well as creating a new save file if it does not exist
  */
 public class Storage {
 
@@ -42,12 +59,8 @@ public class Storage {
             msg.add("Your save data has been loaded :)");
             String inLine;
 
-//            System.out.println("Trying to load file now..."); // DEBUG
-
             while ((inLine = inStream.readLine()) != null) {
                 String[] inArray = inLine.split(" \\| ");
-//                System.out.println(("Adding a task...")); // DEBUG
-//                System.out.println(Arrays.toString(inArray)); // DEBUG
                 String type = inArray[0];
                 Task newTask = null;
 
@@ -61,8 +74,7 @@ public class Storage {
                     newTask = new Recurring(inArray[2],inArray[3]);//task description and day of the week.
                 } else if (type.equals("A")) {
                     newTask = new DoAfter(inArray[2],inArray[3]);//task description and the day to do after
-                }
-                else if (type.equals("W")){
+                } else if (type.equals("W")) {
                     newTask = new FixDuration(inArray[2], inArray[3]); //task description and time duration
                 }
 
@@ -73,12 +85,9 @@ public class Storage {
             }
 
         } catch (FileNotFoundException e) {
-            // exception handling
-//            System.out.println("*** File not found :( ***");
             msg.add("Looks like it's your first time, let me create a save file for you :)");
             createFolder();
-        } catch (IOException e) {
-            // exception handling
+        } catch (IOException e) { // exception handling
             System.out.println("*** there was an error reading duke.txt ***");
             Parser.exit(); // TODO: Find out what is supposed to happen here
         }
@@ -96,16 +105,14 @@ public class Storage {
      * @param list An Arraylist containing the tasks to be saved.
      */
     public static void save(ArrayList<Task> list) {
-        try(FileWriter file = new FileWriter("./data/duke.txt")) {
+        try (FileWriter file = new FileWriter("./data/duke.txt")) {
             for (Task currTask : list) {
                 String fileContent = currTask.formatSave();
                 file.write(fileContent);
                 file.write(System.lineSeparator());
             }
-//            System.out.println("saved"); // DEBUG
         } catch (IOException e) {
             System.out.println("***Error writing to duke.txt***");
-            // exception handling
         }
     }
 
@@ -115,16 +122,12 @@ public class Storage {
     public static  void createFolder() {
         File f = new File("data");
         if (!f.exists()) {
-            //System.out.println("creating directory");
             boolean result = false;
             try {
                 f.mkdir();
                 result = true;
-            } catch (SecurityException e) {
-                //handle
-            }
-            if (result) {
-                //System.out.println("Folder created");
+            } catch (SecurityException e) { //security exception?
+
             }
         }
     }

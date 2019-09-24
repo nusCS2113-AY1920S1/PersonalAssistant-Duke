@@ -12,7 +12,7 @@ public abstract class Command {
     /**
      * This method is called to read/write the specified duke.task.TaskList after every user input.
      * @param tasks duke.task.TaskList containing all the tasks stored.
-     * @throws Exception
+     * @throws Exception handle exception
      */
     public abstract void execute(TaskList tasks) throws Exception;
 

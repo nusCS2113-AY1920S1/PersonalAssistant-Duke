@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class AddTodoCommand extends AddCommand {
 
-   public AddTodoCommand(String taskDescription) {
+    public AddTodoCommand(String taskDescription) {
         super(taskDescription);
     }
 
@@ -28,7 +28,7 @@ public class AddTodoCommand extends AddCommand {
     public void execute(TaskList tasks) {
 
         if (taskDescription.length() == 0) { // TODO: Exception handling?
-            Ui.printMsg(MissingDescriptionString);
+            Ui.printMsg(missingDescriptionString);
             return;
         }
 
