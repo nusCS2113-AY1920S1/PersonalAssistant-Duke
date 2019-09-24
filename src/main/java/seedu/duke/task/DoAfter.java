@@ -2,15 +2,23 @@ package seedu.duke.task;
 
 import seedu.duke.ui.Ui;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static seedu.duke.command.DateTimeParser.convertDateTime;
+import static seedu.duke.command.DateTimeParser.toDateTimeString;
 
 public class DoAfter extends Task {
+    /**
+     * LocalDateTime to store the DoAfter's date and time.
+     */
+    protected LocalDateTime after;
 
-    protected String description;
-    protected String after;
+    /**
+     * Object of the Ui class that that is used to
+     * communicate errors to the user.
+     */
     private Ui ui = new Ui();
 
-    public DoAfter(String description, String after) {
+    public DoAfter(String description, LocalDateTime after) {
         super(description);
         this.after = after;
     }
@@ -21,7 +29,7 @@ public class DoAfter extends Task {
      * @return a string with the target info.
      */
     public String toString() {
-        return "[A]" + super.toString() + " (after: " + this.after + ")";
+        return "[A]" + super.toString() + " (after: " + toDateTimeString(after) + ")";
     }
 
     /**
@@ -30,7 +38,7 @@ public class DoAfter extends Task {
      * @return a string with pipe separated info.
      */
     public String toSaveFormat() {
-        return "A|" + super.toSaveFormat() + "|" + this.after;
+        return "A|" + super.toSaveFormat() + "|" + convertDateTime(after);
     }
 
     @Override
@@ -69,34 +77,22 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Overrides the getDateTime method in Task to obtain the deadline date and time.
+     * Overrides the getDateTime method in Task to obtain the DoAfter's date and time.
      *
      * @return date and time of deadline of type LocalDateTime.
      */
     @Override
     public LocalDateTime getDateTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
-        return LocalDateTime.parse(this.after, formatter);
+        return this.after;
     }
 
     /**
      * Overrides the setDateTime method in Task to set the deadline's date and time.
      *
-     * @param dateTime the date and time of the deadline of type LocalDateTime.
+     * @param localDateTime the date and time of the deadline of type LocalDateTime.
      */
     @Override
-    public void setDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
-        after = dateTime.format(formatter);
-    }
-
-    /**
-     * Overrides the setDateTime method in Task to set the deadline's date and time.
-     *
-     * @param dateTime string of the date and time of the deadline.
-     */
-    @Override
-    public void setDateTime(String dateTime) {
-        after = dateTime;
+    public void setDateTime(LocalDateTime localDateTime) {
+        this.after = localDateTime;
     }
 }
