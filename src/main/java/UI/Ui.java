@@ -1,4 +1,5 @@
 package UI;
+import Exception.DukeException;
 
 import Tasks.Deadline;
 import Tasks.Event;
@@ -16,10 +17,29 @@ import java.util.Comparator;
 public class Ui {
     public String FullCommand;
 
-
         public void ReadCommand() throws IOException {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            FullCommand = reader.readLine();
+            while(true) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                FullCommand = reader.readLine();
+                String[] splitString = FullCommand.split(" ");
+                try {
+                    if (FullCommand.equals("todo") || FullCommand.equals("deadline") || FullCommand.equals("event") || FullCommand.equals("find") || FullCommand.equals("/require")
+                            || FullCommand.equals("reschedule") || FullCommand.equals("schedule") || FullCommand.equals("snooze") || FullCommand.equals("tentative")
+                            || FullCommand.equals("confirm") || FullCommand.equals("/between") || FullCommand.equals("/after") || FullCommand.equals("delete")) {
+
+                        throw new DukeException("\t☹ OOPS!!! The description of a " + FullCommand + " cannot be empty.");
+                    } else if (!FullCommand.equals("list") && !(splitString[0].equals("done") && splitString.length != 1) && !(FullCommand.equals("bye")) &&
+                            !splitString[0].equals("todo") && !splitString[0].equals("deadline") && !splitString[0].equals("event") && !splitString[0].equals("delete")
+                            && !splitString[0].equals("find") && !splitString[0].equals("snooze") && !splitString[0].equals("tentative") && !splitString[0].equals("reschedule")
+                            && !splitString[0].equals("schedule") && !splitString[0].equals("confirm")) {
+                        throw new DukeException("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    } else {
+                        break;
+                    }
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
         }
 
         public String showWelcome () {

@@ -9,6 +9,4 @@ import java.util.ArrayList;
 
 public abstract class Command {
     public abstract void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException;
-    public abstract boolean isExit();
-
 }

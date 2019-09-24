@@ -47,10 +47,4 @@ public class FixDurationCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }
