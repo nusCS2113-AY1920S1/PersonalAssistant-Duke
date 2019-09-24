@@ -9,30 +9,32 @@ public class TaskList {
     public TaskList(ArrayList<Task> initialList) {
         checkList = initialList;
     }
-    public TaskList(){
+
+    public TaskList() {
         checkList = new ArrayList<>();
     }
 
-    public Task getTask(int index){
+    public Task getTask(int index) {
         return checkList.get(index);
     }
 
-    public ArrayList<Task> getCheckList(){
+    public ArrayList<Task> getCheckList() {
         return checkList;
     }
 
-    public void addTask(Task t){
+    public void addTask(Task t) {
         checkList.add(t);
     }
 
-    public void removeTask(int index){
+    public void removeTask(int index) {
         checkList.remove(index);
     }
 
-    public int lengthOfList(){ return checkList.size(); }
-
-    public void markDoneATask(int index){
-        checkList.get(index).markAsDone();
+    public int lengthOfList() {
+        return checkList.size();
     }
 
+    public void markDoneATask(int index) {
+        checkList.get(index).markAsDone();
+    }
 }

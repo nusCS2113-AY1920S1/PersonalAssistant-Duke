@@ -1,7 +1,8 @@
 package Commands;
 
-import Tasks.*;
-import ControlPanel.*;
+import Tasks.TaskList;
+import ControlPanel.Ui;
+import ControlPanel.Storage;
 
 /**
  * the exit command aims to trigger the greeting and cease the overall program
@@ -11,8 +12,7 @@ public class ExitCommand extends Command {
     /**
      * A default constructor
      */
-    public ExitCommand(){
-
+    public ExitCommand() {
     }
 
     /**

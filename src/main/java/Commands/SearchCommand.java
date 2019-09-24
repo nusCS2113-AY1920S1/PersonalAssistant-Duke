@@ -1,7 +1,8 @@
 package Commands;
 
-import Tasks.*;
-import ControlPanel.*;
+import Tasks.TaskList;
+import ControlPanel.Ui;
+import ControlPanel.Storage;
 
 /**
  * The command aims to search the tasks with the keyword
@@ -14,7 +15,7 @@ public class SearchCommand extends Command {
      * The constructor which initialize the search command object
      * @param string The keyword
      */
-    public SearchCommand(String string){
+    public SearchCommand(String string) {
         keyword = string;
     }
 
@@ -38,10 +39,9 @@ public class SearchCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int count = 1;
         for (int i = 1;i <= tasks.lengthOfList();i++) {
-            if (tasks.getTask(i-1).getDescription().contains(keyword)) {
+            if (tasks.getTask(i - 1).getDescription().contains(keyword)) {
                 ui.appendToOutput(" " + count++ + "." + tasks.getTask(i - 1).toString() + "\n");
-
             }
-        };
+        }
     }
 }

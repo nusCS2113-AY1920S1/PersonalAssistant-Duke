@@ -19,13 +19,15 @@ public class Events extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + getStartAt() +" to "+ getEndAt() + ")";
+        return "[E]" + super.toString() + "(at: " + getStartAt() + " to " + getEndAt() + ")";
     }
 
-    public String getStartAt(){
+
+    public String getStartAt() {
         return simpleDateFormat.format(startAt);
     }
-    public String getEndAt(){
+
+    public String getEndAt() {
         return simpleDateFormat.format(endAt);
     }
 
