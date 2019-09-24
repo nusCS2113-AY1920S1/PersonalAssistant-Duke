@@ -50,7 +50,7 @@ public abstract class Command {
         }
         int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
         String desc = restOfInput.substring(0, splitPoint).trim();
-        if (desc.matches(" ")) {
+        if (desc.matches("")) {
             compal.ui.printg(MESSAGE_MISSING_DESC);
             throw new Compal.DukeException(MESSAGE_MISSING_DESC);
         }
