@@ -14,7 +14,6 @@ import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
  */
 public class EventCommand extends Command implements CommandParser {
 
-    private static final String TOKEN = "/at";
     private TaskList taskList;
 
     /**
