@@ -93,7 +93,7 @@ Add a favourite product
 
 Format:
 
-`*add favourite* [LIST NUMBER]
+`*add favourite* [LIST NO.]`
 
 Example:
 
@@ -102,3 +102,31 @@ Example:
 == FAQ
 
 == Command Summary
+
+* `*set saving*` `set saving [AMOUNT] /for [DURATION]`
+
+e.g. `set saving $300 /for every month`
+
+* `*reminder*` `reminder`
+
+e.g. `reminder`
+
+* `*set limit*` `set limit /tag [TAG] [AMOUNT]`
+
+e.g. `set limit /tag bubble tea $20`
+
+* `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]`
+
+e.g. `owe xx $4 bubble tea`
+
+* `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]`
+
+e.g. `borrow xx $10 lunch`
+
+* `*stats*` `stats`
+
+e.g. `stats`
+
+* `*add favourite*` `add favourite [LIST NO.]`
+
+e.g. `add favourite 3`
