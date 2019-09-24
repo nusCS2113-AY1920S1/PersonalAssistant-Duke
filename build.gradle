@@ -29,6 +29,7 @@ test {
     useJUnitPlatform()
 }
 
+
 repositories {
     mavenCentral()
 }
@@ -41,3 +42,4 @@ application {
 run {
     standardInput = System.in
 }
+

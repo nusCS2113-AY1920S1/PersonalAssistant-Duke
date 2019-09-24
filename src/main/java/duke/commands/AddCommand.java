@@ -41,14 +41,14 @@ public class AddCommand extends Command {
 
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
-                list.addTodoItem(index, description, doAfterWhat, Integer.parseInt(details));
+                list.addTodoItem(description, doAfterWhat, Integer.parseInt(details));
             } else {
-                list.addTodoItem(index, description, doAfterWhat);
+                list.addTodoItem(description, doAfterWhat);
             }
         } else if (super.type == CommandType.DEADLINE) {
-            list.addDeadlineItem(index, description, details, doAfterWhat);
+            list.addDeadlineItem(description, details, doAfterWhat);
         } else { //Type is event
-            list.addEventItem(index, description, details, doAfterWhat);
+            list.addEventItem(description, details, doAfterWhat);
         }
     }
 }
