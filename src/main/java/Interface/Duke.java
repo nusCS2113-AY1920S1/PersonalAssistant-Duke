@@ -3,8 +3,10 @@ import Tasks.*;
 import Commands.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * A program that manages tasks input by user
@@ -33,6 +35,11 @@ public class Duke extends Application {
         }
     }
 
+    @Override
+    public void start(Stage primaryStage) {
+        //...
+    }
+
     /**
      * This method runs the Duke program.
      * @param input The user's input to the Duke program
@@ -48,11 +55,6 @@ public class Duke extends Application {
             return e.getMessage();
         }
    }
-
-    @Override
-    public void start(Stage stage) {
-        //...
-    }
 
     /**
      * This method is to get the response to the user's input.
