@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
  */
 public class Launcher {
 
-    Duke duke = new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt");
-
     public Launcher() throws FileNotFoundException {
     }
 
