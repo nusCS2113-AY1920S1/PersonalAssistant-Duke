@@ -5,8 +5,6 @@ import java.util.Date;
 
 import Commands.*;
 import ControlPanel.*;
-import Money.*;
-import MoneyCommands.MoneyCommand;
 import Tasks.*;
 
 /**
@@ -17,7 +15,6 @@ public class Duke{
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
-    private Account account;
 
     /**
      * Duke class acts as a constructor to initialize and setup
@@ -28,7 +25,6 @@ public class Duke{
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-            account = new Account();
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -45,12 +41,9 @@ public class Duke{
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-                MoneyCommand mc = Parser.moneyParse(fullCommand);
-                mc.execute(account, ui, storage);
-                isExit = mc.isExit();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+               isExit = c.isExit();
             } catch (ParseException | DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
