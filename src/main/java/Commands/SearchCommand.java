@@ -21,7 +21,7 @@ public class SearchCommand extends Command {
         int count = 1;
         for (int i = 1;i <= tasks.lengthOfList();i++) {
             if (tasks.getTask(i-1).getDescription().contains(keyword)) {
-                System.out.println(" " + count++ + "." + tasks.getTask(i - 1).toString() + "\n");
+                ui.appendToOutput(" " + count++ + "." + tasks.getTask(i - 1).toString() + "\n");
 
             }
         };
