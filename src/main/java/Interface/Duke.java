@@ -65,8 +65,4 @@ public class Duke extends Application {
     public String getResponse(String input) {
         return run(input);
     }
-
-    public ArrayList<Task> getCurrentList() {
-        return tasks.getList();
-    }
 }
