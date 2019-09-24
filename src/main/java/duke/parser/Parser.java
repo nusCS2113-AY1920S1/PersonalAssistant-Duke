@@ -72,21 +72,21 @@ public class Parser {
         return new SnoozeCommand(index, value, units);
     }
 
-/**
- * find free time according to period desired
- * @param s String containing details like amount of time . e.g. 5 min
- * @return FindFreeTimeCommand a command to find the time
- * @throws DukeException when s is invalid.
- */
-private static Command parseFindFreeTime(String s) throws DukeException {
-    String[] details = s.split(" ");
-    int value = Integer.parseInt(details[0]);
-    String units = details[1];
-    return new FindFreeTimeCommand(value, units);
-}
+    /**
+     * find free time according to period desired
+     * @param s String containing details like amount of time . e.g. 5 min
+     * @return FindFreeTimeCommand a command to find the time
+     * @throws DukeException when s is invalid.
+     */
+    private static Command parseFindFreeTime(String s) throws DukeException {
+        String[] details = s.split(" ");
+        int value = Integer.parseInt(details[0]);
+        String units = details[1];
+        return new FindFreeTimeCommand(value, units);
+    }
 
-/**
- * Return the correct command given by user, Class method.
+    /**
+     * Return the correct command given by user, Class method.
      * @param fullCommand command input by user to be parse
      * @return The correct command class as defined by first word
      * @throws NumberFormatException if command has characters.

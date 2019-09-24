@@ -18,8 +18,6 @@ import java.util.Scanner;
  * @since 2019-09-07
  */
 public class Duke {
-
-
     /**
      * Stores and keeps track of all user's task.
      */
