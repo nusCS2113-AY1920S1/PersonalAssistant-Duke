@@ -1,35 +1,43 @@
-package Data;
+package duke.Data;
 
-import Task.TaskList;
-import Task.Deadline;
-import Task.ToDo;
-import Task.After;
-import Task.item;
-import Task.Event;
+import duke.Task.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
  * Storage handles all the loading and saving of data
  * from and into the duke.txt file respectively.
  */
-public final class Storage {
-    private Storage() {
+
+public class Storage {
+    private String filePath;
+    private Scanner fileInput;
+    private ArrayList<Item> oldList = new ArrayList<>();
+
+    public Storage(String filePath) throws FileNotFoundException {
+        this.filePath = filePath;
+        File f = new File(filePath);
+        fileInput = new Scanner(f);
     }
 
-    /**
-     *
-     */
-    private static String path = ".\\src\\main\\java\\Data\\duke.txt";
-    private static ArrayList<item> oldList = new ArrayList<>();
-    private static File f = new File(path);
-    private static ArrayList<item> list = new ArrayList<>();
-
+    public String dateRevert(String date) {
+        try {
+            Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
+            String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
+            return oldDateFormat;
+        } catch (ParseException pe) {
+            System.err.println("Error: Date in wrong format");
+            return date;
+        }
+    }
 
     /**
      * This function parses the info of the duke.txt into an ArrayList.
@@ -38,10 +46,9 @@ public final class Storage {
      * @throws FileNotFoundException          e
      * @throws ArrayIndexOutOfBoundsException e
      */
-    public static ArrayList<item> loadFile() {
+    public ArrayList<Item> loadFile() {
 
         try {
-            Scanner fileInput = new Scanner(f);
             while (fileInput.hasNextLine()) { //do something
                 String type, info;
                 Boolean stat;
@@ -52,22 +59,22 @@ public final class Storage {
 
                 switch (type) {
                 case "D":
-                    item deadline = new Deadline(data[2], stat, TaskList.dateRevert(data[3]));
+                    Item deadline = new Deadline(data[2], stat, dateRevert(data[3]));
                     oldList.add(deadline);
                     break;
 
                 case "E":
-                    item event = new Event(data[2], stat, TaskList.dateRevert(data[3]));
+                    Item event = new Event(data[2], stat, dateRevert(data[3]));
                     oldList.add(event);
                     break;
 
                 case "T":
-                    item todo = new ToDo(data[2], stat);
+                    Item todo = new ToDo(data[2], stat, dateRevert(data[3]));
                     oldList.add(todo);
                     break;
 
                 case "A":
-                    item after = new After(data[2], stat, TaskList.dateRevert(data[3]));
+                    Item after = new After(data[2], stat, dateRevert(data[3]));
                     oldList.add(after);
                     break;
 
@@ -77,7 +84,7 @@ public final class Storage {
             }
             fileInput.close();
             return oldList;
-        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
     }
@@ -90,16 +97,14 @@ public final class Storage {
      * @param date The date of the task created
      * @throws IOException io
      */
-    public static void saveFile(String type, item e, String date) {
+    public void saveFile(String type, Item e, String date) {
         try {
             if (type.equals("T")) {
-                FileWriter fileWriter = new FileWriter(f, true);
-                fileWriter.write(type + "-" + e.checkStatus()
-                    + "-" + e.getInfo() + "\n");
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "\n");
                 fileWriter.close();
             } else {
-                FileWriter fileWriter = new FileWriter(f, true);
-
+                FileWriter fileWriter = new FileWriter(filePath, true);
                 fileWriter.write(type + "-" + e.checkStatus() + "-"
                     + e.getInfo() + "-" + e.getRawDate() + "\n");
                 fileWriter.close();
@@ -116,20 +121,20 @@ public final class Storage {
      * @param up The updated ArrayList that must be used to recreate the updated duke.txt
      * @throws IOException io
      */
-    public static void updateFile(ArrayList<item> up) {
+    public void updateFile(ArrayList<Item> up) {
         try {
-            FileWriter fileWriter = new FileWriter(f);
+            FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
             fileWriter.close();
         } catch (IOException io) {
             System.out.println("File not found:" + io.getMessage());
         }
 
-        for (item i : up) {
+
+        for (Item i : up) {
             try {
-                FileWriter fileWriter = new FileWriter(f, true);
-                fileWriter.write(i.getType() + "-" + i.checkStatus()
-                    + "-" + i.getInfo() + "-" + i.getRawDate() + "\n");
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" + i.getRawDate() + "\n");
                 fileWriter.close();
             } catch (IOException io) {
                 System.out.println("File not found:" + io.getMessage());
