@@ -1,36 +1,34 @@
 package ControlPanel;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Tasks.*;
+import Tasks.Deadline;
+import Tasks.Events;
+import Tasks.ToDos;
+import Tasks.Periods;
+import Tasks.FixedDuration;
+import Tasks.Task;
+import Tasks.MultipleEvent;
 import javafx.util.Pair;
 
-/**
- * The class aims to write or read in the file which is saved on local disk
- */
 public class Storage {
 
     private String fileName;
     private SimpleDateFormat simpleDateFormat;
-
-    /**
-     * The constructor to initialize the storage tool
-     * @param filePath the path of the file which contains the data of the task list
-     */
-    public  Storage (String filePath){
+    public Storage(String filePath) {
         fileName = filePath;
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
-    /**
-     * Read in the current data in the local file
-     * @return return the checklist which contains the current data saved on the local disk
-     */
-    public ArrayList<Task> load () {
+    public ArrayList<Task> load() {
         ArrayList<Task> checkList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -39,45 +37,47 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.replace('|', '@');
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E") || info[0].equals("P") || info[0].equals("F") || info[0].equals("M"))) {
+                if (!(info[0].equals("T") || info[0].equals("D") || info[0].equals("E")
+                        || info[0].equals("P") || info[0].equals("F") || info[0].equals("M"))) {
                     throw new DukeException("This is not a valid input from the file!!!");
                 }
                 Task t = new Task("default");
                 switch (info[0]) {
-                    case "F":
-                        t = new FixedDuration(info[2], info[3]);
-                        break;
-                    case "T":
-                        t = new ToDos(info[2]);
-                        break;
-                    case "D":
-                        Date deadlineDate = simpleDateFormat.parse(info[3]);
-                        t = new Deadline(info[2], deadlineDate);
-                        break;
-                    case "E":
-                        Date eventStartDate = simpleDateFormat.parse(info[3]);
-                        Date eventEndDate = simpleDateFormat.parse(info[4]);
-                        t = new Events(info[2], eventStartDate, eventEndDate);
-                        break;
-                    case "P":
-                        Date periodStartDate = simpleDateFormat.parse(info[3]);
-                        Date periodEndDate = simpleDateFormat.parse(info[4]);
-                        t = new Periods(info[2], info[3], info[4]);
-                        break;
-                    case "M":
-                        String[] dateStr = info[3].split(" /or ");
-                        ArrayList<Pair<Date, Date>> dates = new ArrayList<>();
-                        for (String choices : dateStr) {
-                            //System.out.println(choices);
-                            String[] startendDate = choices.split("to ");
-                            Date startDate = simpleDateFormat.parse(startendDate[0]);
-                            Date endDate = simpleDateFormat.parse(startendDate[1]);
-                            Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
-                            dates.add(tempDate);
-
-                        }
-                        t = new MultipleEvent(info[2], dates);
-                        break;
+                case "F":
+                    t = new FixedDuration(info[2], info[3]);
+                    break;
+                case "T":
+                    t = new ToDos(info[2]);
+                    break;
+                case "D":
+                    Date deadlineDate = simpleDateFormat.parse(info[3]);
+                    t = new Deadline(info[2], deadlineDate);
+                    break;
+                case "E":
+                    Date eventStartDate = simpleDateFormat.parse(info[3]);
+                    Date eventEndDate = simpleDateFormat.parse(info[4]);
+                    t = new Events(info[2], eventStartDate, eventEndDate);
+                    break;
+                case "P":
+                    Date periodStartDate = simpleDateFormat.parse(info[3]);
+                    Date periodEndDate = simpleDateFormat.parse(info[4]);
+                    t = new Periods(info[2], info[3], info[4]);
+                    break;
+                case "M":
+                    String[] dateStr = info[3].split(" /or ");
+                    ArrayList<Pair<Date, Date>> dates = new ArrayList<>();
+                    for (String choices : dateStr) {
+                        //System.out.println(choices);
+                        String[] startendDate = choices.split("to ");
+                        Date startDate = simpleDateFormat.parse(startendDate[0]);
+                        Date endDate = simpleDateFormat.parse(startendDate[1]);
+                        Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
+                        dates.add(tempDate);
+                    }
+                    t = new MultipleEvent(info[2], dates);
+                    break;
+                default:
+                    break;
                 }
                 if (t.getDescription().equals("default")) {
                     throw new DukeException("This task is not refreshed.");
@@ -94,10 +94,6 @@ public class Storage {
         return checkList;
     }
 
-    /**
-     * The method used to write the file
-     * @param taskList the current checklist
-     */
     public void writeTheFile(ArrayList<Task> taskList) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
@@ -105,52 +101,57 @@ public class Storage {
             bufferedWriter.write("");
             for (Task t : taskList) {
                 if (t instanceof  FixedDuration) {
-                    if(t.getStatus())
+                    if (t.getStatus()) {
                         bufferedWriter.write("F | 1 | " + t.getDescription() + "\n");
-                    else
+                    } else {
                         bufferedWriter.write("F | 0 | " + t.getDescription() + "\n");
+                    }
                 } else if (t instanceof ToDos) {
-                    if (t.getStatus())
+                    if (t.getStatus()) {
                         bufferedWriter.write("T | 1 | " + t.getDescription() + "\n");
-                    else
+                    } else {
                         bufferedWriter.write("T | 0 | " + t.getDescription() + "\n");
+                    }
                 } else if (t instanceof Events) {
-                    if (t.getStatus())
+                    if (t.getStatus()) {
                         bufferedWriter.write("E | 1 | " + t.getDescription() + " | "
                                 + ((Events) t).getStartAt() + " | "
                                 + ((Events) t).getEndAt() + "\n");
-                    else
+                    } else {
                         bufferedWriter.write("E | 0 | " + t.getDescription() + " | "
                                 + ((Events) t).getStartAt() + " | "
-                                + ((Events) t).getEndAt() +  "\n");
+                                + ((Events) t).getEndAt() + "\n");
+                    }
                 } else if (t instanceof Deadline) {
-                    if (t.getStatus())
+                    if (t.getStatus()) {
                         bufferedWriter.write("D | 1 | " + t.getDescription() + " | "
                                 + ((Deadline) t).getBy() + "\n");
-                    else
+                    } else {
                         bufferedWriter.write("D | 0 | " + t.getDescription() + " | "
                                 + ((Deadline) t).getBy() + "\n");
-
+                    }
                 } else if (t instanceof Periods) {
-                    if (t.getStatus())
+                    if (t.getStatus()) {
                         bufferedWriter.write("P | 1 | " + t.getDescription() + " | "
                                 + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
-                    else
+                    } else {
                         bufferedWriter.write("P | 0 | " + t.getDescription() + " | "
                                 + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
-
+                    }
                 } else if (t instanceof MultipleEvent) {
                     if (t.getStatus()) {
                         String possibleDates = "";
                         for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
-                            possibleDates += simpleDateFormat.format(date.getKey()) + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
+                            possibleDates += simpleDateFormat.format(date.getKey()) + " to "
+                                    + simpleDateFormat.format(date.getValue()) + " /or ";
                         }
                         bufferedWriter.write("M | 1 | " + t.getDescription() + " | "
                                 + possibleDates + "\n");
                     } else {
                         String possibleDates = "";
                         for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
-                            possibleDates += simpleDateFormat.format(date.getKey()) + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
+                            possibleDates += simpleDateFormat.format(date.getKey())
+                                    + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
                         }
                         bufferedWriter.write("M | 0 | " + t.getDescription() + " | "
                                 + possibleDates + "\n");
