@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113-T14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113-T14-1/main)
 
-![Logo](docs/images/Logo.jpg | width=400)
-![Ui](docs/images/Ui.png | width=600)
+<img src="docs/images/Logo.png" width=400>
+<img src="docs/images/Ui.png" width=600>
 
 Dr. Duke is a command-line based personal assistant for doctors to manage their patients' data.
 
