@@ -1,6 +1,9 @@
 package Commands;
 
-import ControlPanel.*;
+import ControlPanel.Ui;
+import ControlPanel.Parser;
+import ControlPanel.Storage;
+import ControlPanel.DukeException;
 import Tasks.TaskList;
 
 import java.text.ParseException;
@@ -16,7 +19,7 @@ public class RescheduleCommand extends Command {
      * The constructor
      * @param inputString the original command typed in by user
      */
-    public RescheduleCommand(String inputString){
+    public RescheduleCommand(String inputString) {
         cmd = inputString;
     }
 
@@ -40,15 +43,13 @@ public class RescheduleCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
         String[] words = cmd.split(" ");
-
         String deleteCommand = "delete " + words[2];
-
         int serialNo = Integer.parseInt(words[2]);
         words[0] = "";
-        words[2] = tasks.getTask(serialNo-1).getDescription();
+        words[2] = tasks.getTask(serialNo - 1).getDescription();
 
         String newAddCommand = words[1];
-        for(int i = 2; i < words.length; i++){
+        for (int i = 2; i < words.length; i++) {
             newAddCommand = newAddCommand + " " + words[i];
         }
 
