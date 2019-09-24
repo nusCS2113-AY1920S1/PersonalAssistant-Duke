@@ -18,6 +18,7 @@ public class Parser {
         else if(command.contains("deadline")) {
             return new DeadlineCommand();
         }
+
         else if(command.contains("/after")) {
             return new DoAfterCommand();
         }
@@ -30,18 +31,20 @@ public class Parser {
         else if(command.contains("/between")) {
             return new TimeboundCommand();
         }
-        else if(command.contains("/require")) {
-            return new FixDurationCommand();
-        }
         else if(command.contains("find")) {
             return new FindCommand();
         }
-        else if(command.contains("schedule")) {
-            return new ScheduleCommand();
-        }
-
         else if(command.contains("bye")) {
             return new ByeCommand();
+        }
+        else if(command.contains("/require")) {
+            return new FixDurationCommand();
+        }
+        else if(command.contains("reschedule")){
+            return new RescheduleCommand();
+        }
+        else if(command.contains("schedule")) {
+            return new ScheduleCommand();
         }
         else if(command.contains("snooze")){
             return new SnoozeCommand();
@@ -54,8 +57,36 @@ public class Parser {
         }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-
         }
+//        switch (command){
+//            case("list"):
+//                return new ListCommand();
+//
+//            case("done"):
+//                return new DoneCommand();
+//
+//            case ("delete"):
+//                return new DeleteCommand();
+//
+//            case("deadline"):
+//                return new DeadlineCommand();
+//
+//            case ("event"):
+//                return new EventCommand();
+//
+//            case ("todo"):
+//                return new TodoCommand();
+//
+//            case ("find"):
+//                return new FindCommand();
+//
+//            case ("bye"):
+//                return new ByeCommand();
+//
+//            default:
+//                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+//
+//        }
     }
 
 }

@@ -25,13 +25,10 @@ public class Duke {
         ui.showWelcome();
 
         try {
-
             list = store.Readfile();
             ui.UpcomingTask(list);
             while(!isExit) {
-                ui.ReadCommand();
-                String command = ui.FullCommand;
-                Command c = Parser.parse(command);
+                ui.ReadCommand();String command = ui.FullCommand;Command c = Parser.parse(command);
                 c.execute(list, ui, store);
                 isExit = c.isExit();
             }

@@ -9,17 +9,16 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
+import java.util.ArrayList;
 import Exception.DukeException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
-
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SnoozeCommandTest {
+public class RescheduleCommandTest {
     @Test
     public void testExecuteSnooze() throws ParseException,IOException,DukeException{
         DeadlineCommand deadlineCommand = new DeadlineCommand();
@@ -29,21 +28,14 @@ public class SnoozeCommandTest {
         Storage storage = new Storage();
         ui.FullCommand = "deadline return book /by 2008-7-7 3:3:3";
         deadlineCommand.execute(tasks,ui,storage);
-        ui.FullCommand = "snooze 1";
-        int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
+        ui.FullCommand = "reschedule 1";
+        int index = Integer.parseInt(ui.FullCommand.substring(10).trim()) - 1;
         String Decription = tasks.get(index).description;
-        SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        Date initial = fmt.parse(tasks.get(index).toString().split("\\|")[3].substring(3).trim());
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.setTime(initial);
-        int year = 1,month=1,day=1,hour=1;
-        if(year >0) rightNow.add(Calendar.YEAR,year);
-        if(month>0) rightNow.add(Calendar.MONTH,month);
-        if(day > 0) rightNow.add(Calendar.DAY_OF_YEAR,day);
-        if(hour > 0) rightNow.add(Calendar.HOUR,hour);
-        Date after = rightNow.getTime();
-        Task snoozedDeadline = new Deadline(Decription,after);
-        tasks.add(snoozedDeadline);
-        assertEquals(tasks.get(1).listformat(),"[D]" + "[" + tasks.get(1).getStatusIcon() + "]" + "return book " + "(by:" + "Sat Aug 08 04:03:03 SGT 2009" + ")");
+        ui.FullCommand="2019-9-18 5:5:5";
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Deadline RescheduledDeadline = new Deadline(Decription, fmt.parse(ui.FullCommand));
+        tasks.remove(index);
+        tasks.add(RescheduledDeadline);
+        assertEquals(tasks.get(0).listformat(),"[D]" + "[" + tasks.get(0).getStatusIcon() + "]" + "return book " + "(by:" + fmt.parse(ui.FullCommand) + ")");
     }
 }

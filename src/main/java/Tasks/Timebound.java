@@ -16,6 +16,4 @@ public class Timebound extends Task {
     public String listformat(){
         return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + " (between: " + period + ")" ;
     }
-
-
 }
