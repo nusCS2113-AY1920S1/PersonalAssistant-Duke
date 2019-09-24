@@ -1,4 +1,4 @@
-package duke.order;
+package duke.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +14,9 @@ public class Order {
     private Map<String, Integer> items = new HashMap<>();
     private String remarks = "N/A";
 
-    public Order(@JsonProperty("customerName") String customerName, @JsonProperty("customerContact") String customerContact, @JsonProperty("deliveryDate") Date deliveryDate) {
+    public Order(@JsonProperty("customerName") String customerName,
+                 @JsonProperty("customerContact") String customerContact,
+                 @JsonProperty("deliveryDate") Date deliveryDate) {
         this.customerName = customerName;
         this.customerContact = customerContact;
         this.deliveryDate = deliveryDate;

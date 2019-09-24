@@ -1,7 +1,7 @@
 package duke.storage;
 
 import duke.commons.DukeException;
-import duke.order.Order;
+import duke.entities.Order;
 import duke.parser.TimeParser;
 import org.junit.jupiter.api.Test;
 

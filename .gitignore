@@ -14,4 +14,4 @@ src/main/resources/docs/
 bin/
 
 # Generated Data Files
-/*.dat
+/baking.json

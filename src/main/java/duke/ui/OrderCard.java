@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.order.Order;
+import duke.entities.Order;
 import duke.parser.TimeParser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 
-public class OrderBox extends AnchorPane {
+public class OrderCard extends AnchorPane {
     @FXML
     private AnchorPane innerPane;
     @FXML
@@ -28,9 +28,9 @@ public class OrderBox extends AnchorPane {
     @FXML
     private Label remarks;
 
-    public OrderBox(Order order, int indexNumber) {
+    public OrderCard(Order order, int indexNumber) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderCard.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

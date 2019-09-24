@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.order.Order;
+import duke.entities.Order;
 
 import java.util.List;
 

@@ -3,24 +3,34 @@ package duke.parser;
 import duke.command.AddOrderCommand;
 import duke.command.Command;
 import duke.command.DeleteOrderCommand;
+import duke.command.EditOrderCommand;
 import duke.commons.DukeException;
-import duke.order.Order;
+import duke.entities.Order;
 
 import java.util.List;
 import java.util.Map;
 
 public class CommandParser {
     public static Command parseOrderAdd(Map<String, List<String>> params) throws DukeException {
-        if (!params.containsKey("name") || !params.containsKey("contact") || !params.containsKey("by") || !params.containsKey("item")) {
-            throw new DukeException("Must have name, contact, deadline & item.");
+        return new AddOrderCommand(params);
+    }
+
+    public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
+        try {
+            int index = Integer.parseInt(params.get("i").get(0));
+            return new DeleteOrderCommand(index);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid index.");
         }
+    }
 
-        Order order = new Order(params.get("name").get(0),
-                params.get("contact").get(0),
-                TimeParser.convertStringToDate(params.get("by").get(0)));
+    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
+        return new EditOrderCommand(params);
+    }
 
-        if (params.containsKey("rmk")) {
-            order.setRemarks(params.get("rmk").get(0));
+    public static void addItemsToOrder(Map<String, List<String>> params, Order order) throws DukeException {
+        if (!params.containsKey("item")) {
+            return;
         }
 
         for (String item : params.get("item")) {
@@ -34,18 +44,8 @@ public class CommandParser {
             try {
                 order.addItem(itemAndQty[0].strip(), Integer.parseInt(itemAndQty[1].strip()));
             } catch (NumberFormatException e) {
-                throw new DukeException("Quantity should be an integer.");
+                throw new DukeException("Quantity should be an integer");
             }
-        }
-        return new AddOrderCommand(order);
-    }
-
-    public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
-        try {
-            int index = Integer.parseInt(params.get("i").get(0));
-            return new DeleteOrderCommand(index);
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index.");
         }
     }
 }

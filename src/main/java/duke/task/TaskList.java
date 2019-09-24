@@ -78,7 +78,7 @@ public class TaskList implements Serializable {
 
     public void updateRecurringTasks() {
         for (Task task : tasks) {
-            if(task instanceof RecurringTask) {
+            if (task instanceof RecurringTask) {
                 ((RecurringTask) task).updateTask();
             }
         }
