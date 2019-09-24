@@ -12,6 +12,7 @@ public class TaskList {
     public ArrayList<Task> arrlist;
     public Compal compal;
     private BitSet idBitSet;
+
     //----------------------->
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,6 @@ public class TaskList {
         compal.ui.showSize();
         return arrlist.size();
     }
-
 
     /**
      * Saves the current bitset to file. For assignment of task IDs.
