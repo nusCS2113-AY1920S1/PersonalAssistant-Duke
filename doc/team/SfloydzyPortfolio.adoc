@@ -1,9 +1,9 @@
-= DukeGeek - Project Portfolio
+= Sfloydzy - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: [Name TBC] - Level 3
+== PROJECT: Sports Manager - Level 3
 
 ---
 
