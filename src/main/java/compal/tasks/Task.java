@@ -18,12 +18,11 @@ public abstract class Task implements Serializable {
     private Date time;
     private String taskType;
     private String description;
-    private int durationHour;
-    private int durationMinute;
+    private Integer durationHour;
+    private Integer durationMinute;
     private boolean hasReminder;
 
     //----------------------->
-
 
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
@@ -33,6 +32,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Constructor.
+     *
      * @param description the task's description
      */
     public Task(String description) {
@@ -42,10 +42,6 @@ public abstract class Task implements Serializable {
     }
 
     //----------------------->
-
-
-
-
 
 
     //***GETTER FUNCTIONS***--------------------------------------------------------------------------------------------
@@ -64,12 +60,39 @@ public abstract class Task implements Serializable {
         return this.date;
     }
 
-    public int getDurationHour() {
+    public void setDate(String dateInput) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateInput);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.date = date;
+    }
+
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String stringDate = formatter.format(this.date);
+        return stringDate;
+    }
+
+    public Integer getDurationHour() {
         return durationHour;
     }
 
-    public int getDurationMinute() {
+    public void setDurationHour(Integer durationHour) {
+        this.durationHour = durationHour;
+    }
+
+    public Integer getDurationMinute() {
         return durationMinute;
+    }
+
+    //----------------------->
+
+    public void setDurationMinute(Integer durationMinute) {
+        this.durationMinute = durationMinute;
     }
 
     public boolean isHasReminder() {
@@ -78,47 +101,6 @@ public abstract class Task implements Serializable {
 
     public Date getTime() {
         return time;
-    }
-
-    //----------------------->
-
-
-
-
-    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDate(String dateInput) {
-        System.out.println("DATE INPUT : " + dateInput);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(date);
-        this.date = date;
-    }
-
-    public void setDurationHour(int durationHour) {
-        this.durationHour = durationHour;
-    }
-
-    public void setDurationMinute(int durationMinute) {
-        this.durationMinute = durationMinute;
-    }
-
-    public void setHasReminder() {
-        this.hasReminder = true;
     }
 
     public void setTime(String timeInput) {
@@ -132,18 +114,47 @@ public abstract class Task implements Serializable {
         this.time = time;
     }
 
-    //----------------------->
+    public String getStringTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
+        String stringDate = formatter.format(this.time);
+        return stringDate;
+    }
 
+    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setHasReminder() {
+        this.hasReminder = true;
+    }
+
+    //----------------------->
 
     /**
      * Prints out the task as a nice string.
+     *
      * @return String task-string
      */
     @Override
     public String toString() {
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription();
-    }
 
+        if (getDurationHour() != null && getDurationMinute() != null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
+        }
+
+        if (getTime() == null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate();
+        }
+
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " + getStringTime();
+    }
 
 
 }

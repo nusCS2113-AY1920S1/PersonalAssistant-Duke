@@ -22,5 +22,4 @@ public interface Storage {
     String generateStorageString(String... properties);
 
 
-
 }
