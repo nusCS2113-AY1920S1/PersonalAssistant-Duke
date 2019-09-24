@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_INVALID_DATE;
+import static compal.compal.Messages.MESSAGE_INVALID_DATE_FORMATTING;
 import static compal.compal.Messages.MESSAGE_INVALID_YEAR;
 import static compal.compal.Messages.MESSAGE_MISSING_DATE;
 import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
@@ -82,8 +82,8 @@ public abstract class Command {
             Matcher matcher = pattern.matcher(dateInput);
 
             if (matcher.matches() == false) {
-                compal.ui.printg(MESSAGE_INVALID_DATE);
-                throw new Compal.DukeException(MESSAGE_INVALID_DATE);
+                compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
             }
             int inputSize = dateInput.length();
 

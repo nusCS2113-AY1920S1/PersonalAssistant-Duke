@@ -36,7 +36,6 @@ public class DeadlineCommand extends Command implements CommandParser {
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
-
         if (scanner.hasNext()) {
             String event = scanner.next();
             String restOfInput = scanner.nextLine();
