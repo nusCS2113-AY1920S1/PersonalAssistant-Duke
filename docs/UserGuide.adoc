@@ -217,31 +217,16 @@ e.g. `modify 4`
 e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
 e.g. `set limit $50 every week`
-
 * `*set saving*` `set saving [AMOUNT] /for [DURATION]`
-
 e.g. `set saving $300 /for every month`
-
 * `*reminder*` `reminder`
-
-e.g. `reminder`
-
 * `*set limit*` `set limit /tag [TAG] [AMOUNT]`
-
 e.g. `set limit /tag bubble tea $20`
-
 * `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]`
-
 e.g. `owe xx $4 bubble tea`
-
 * `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]`
-
 e.g. `borrow xx $10 lunch`
-
 * `*stats*` `stats`
-
 e.g. `stats`
-
 * `*add favourite*` `add favourite [LIST NO.]`
-
 e.g. `add favourite 3`
