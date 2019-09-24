@@ -26,7 +26,7 @@ or many more other cool features. Users can interact with Dolla with the various
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 .  Here are some example command you can try:
-* *`list`* List all the income and expense with the most recently added on the top
+* *`list`* : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
 * **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
@@ -34,7 +34,15 @@ e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 
 [[Features]]
 == Features
-
+*Command Format*
+* Words in *bold* are the keywords that define the type of command to be executed. +
+e.g. `*remove* [NO.]` `*remove* is the keyword that will execute the remove command`.
+* Uppercase words in square brackets are the parameter to be inputed by the user. +
+e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`,`[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the user can input as `*add expense* $5 dinner /on 11/11/2019`.
+* Item in curly braces are optional. +
+e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income $40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* $40 TA salary for CS1010 /on 10/10/2019`.
+* Parameters should be in the correct order. +
+e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
 == FAQ
 
 == Command Summary
