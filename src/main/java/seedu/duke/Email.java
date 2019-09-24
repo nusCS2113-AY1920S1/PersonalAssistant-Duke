@@ -10,6 +10,8 @@ public class Email {
     protected String filepath;
     protected String title;
     protected String sender;
+    protected Boolean hasHtml;
+    protected String tag;
     protected static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     public Email(String title) {
@@ -19,6 +21,10 @@ public class Email {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getEmailFilePath () {
@@ -44,4 +50,8 @@ public class Email {
         return dir;
     }
 
+    public String toFileString() {
+        String filestring = this.title + " | ";  // to add on info such as tags.
+        return filestring;
+    }
 }
