@@ -12,6 +12,10 @@ public class Messages {
             + "Please make sure is dd/mm/yyyy format.";
     public static final String MESSAGE_INVALID_YEAR = "YearRangeError: You can only put input "
             + "schedule of the current year onwards!";
+    public static final String MESSAGE_INVALID_MINUTE = "MinuteRangeError: You can only input "
+            + "a value between 0 and 59 inclusive!";
+    public static final String MESSAGE_INVALID_TASK_NUMBER = "TaskNumberError: You can only input "
+            + "a valid task number!";
 
 
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
