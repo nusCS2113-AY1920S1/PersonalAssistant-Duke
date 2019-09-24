@@ -37,7 +37,7 @@ Responsibilities:
 '''
 
 === Kiang Yang
-//-image::kiangyang.jpg[width="150", align="left"]
+image::kiangyang.jpg[width="150", align="left"]
 {empty}[https://github.com/kyang96[github]] [<<kiangyang#, portfolio>>]
 
 Role: Developer +
