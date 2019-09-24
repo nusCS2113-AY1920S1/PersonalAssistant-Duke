@@ -43,7 +43,7 @@ public class RemindCommand extends Command implements CommandParser {
         scanner.next();
         int maxSize = taskList.arrlist.size();
         Date currentDate = java.util.Calendar.getInstance().getTime();
-        if (scanner.hasNextLine()) {
+        if(scanner.hasNextLine()) {
             String restOfInput = scanner.nextLine();
             int toMark = Integer.parseInt(restOfInput.trim()) - 1;
             if (toMark >= 0 && toMark < maxSize) {
