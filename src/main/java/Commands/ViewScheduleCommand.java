@@ -29,9 +29,9 @@ public class ViewScheduleCommand extends Command {
 
         Date startDay = simpleDateFormat.parse(currDay[currDay.length-1] + " 0000");
         Date endDay = simpleDateFormat.parse(currDay[currDay.length-1] + " 2359");
-        //System.out.println(startDay);
-        //System.out.println(endDay);
-        System.out.println(" Got it. Your schedule for " + currDay[currDay.length-1] + ": \n");
+        //ui.appendToOutput(startDay);
+        //ui.appendToOutput(endDay);
+        ui.appendToOutput(" Got it. Your schedule for " + currDay[currDay.length-1] + ": \n");
         int counter = 1;
         for(Task t : tasks.getCheckList()){
             Boolean isToday = false;
@@ -54,7 +54,7 @@ public class ViewScheduleCommand extends Command {
             }
 
             if(isToday && !t.getStatus()){
-                System.out.println(" " + counter++ + "." + t.toString() + "\n");
+                ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
             }
         }
     }

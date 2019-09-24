@@ -1,7 +1,13 @@
+import Commands.Command;
+import ControlPanel.DukeException;
+import ControlPanel.Parser;
+import ControlPanel.Storage;
+import ControlPanel.Ui;
+import Tasks.TaskList;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.Date;
 
 import Commands.*;
 import ControlPanel.*;
@@ -18,9 +24,11 @@ public class Duke{
 
     /**
      * Duke class acts as a constructor to initialize and setup
-     * @param filePath the path of the tasks.txt which contains the data of the tasks' list
+     * //@param filePath the path of the tasks.txt which contains the data of the tasks' list
      */
-    public Duke(String filePath){
+    public Duke(){
+        Path currentDir = Paths.get("data/tasks.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -50,23 +58,20 @@ public class Duke{
                 ui.showLine();
             }
 
+    public String getResponse(String input) {
+        try {
+            ui.clearOutputString();
+            ui.appendToOutput(ui.showLine());
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (ParseException | DukeException e) {
+            ui.clearOutputString();
+            ui.appendToOutput(ui.showError(e.getMessage()));
+            return ui.getOutputString();
+        } finally {
+            ui.appendToOutput(ui.showLine());
         }
+        return ui.getOutputString();
     }
 
-    /**
-     * the main class which trigger the program
-     * @param args arguments
-     * @throws DukeException if any exception is caught
-     */
-    public static void main(String[] args) throws DukeException {
-        Path currentDir = Paths.get("data/tasks.txt");
-        //System.out.println(currentDir.toAbsolutePath());
-        String file = currentDir.toAbsolutePath().toString();
-        //System.out.println(file);
-        new Duke(file).run();
-    }
-
-}//duke class
-
-
-
+}
