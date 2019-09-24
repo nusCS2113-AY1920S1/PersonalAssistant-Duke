@@ -202,9 +202,9 @@ Example:
 
 == FAQ
 
-Q: How do I transfer my data to another computer
+*Q*: How do I transfer my data to another computer
 
-A: Install the app in the new computer and overwrite the empty data file it creates with the file that contains the data of your previous data folder.
+*A*: Install the app in the new computer and overwrite the empty data file it creates with the file that contains the data of your previous data folder.
 
 == Command Summary
 
