@@ -5,7 +5,6 @@ import compal.compal.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -38,7 +37,7 @@ public class ViewCommand extends Command implements CommandParser {
     public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
-        if(scanner.hasNext()){
+        if (scanner.hasNext()) {
             String dateInput = getDate(scanner.nextLine());
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -59,7 +58,7 @@ public class ViewCommand extends Command implements CommandParser {
             if (isEmpty) {
                 compal.ui.printg("No task found on " + dateInput);
             }
-        }else{
+        } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
