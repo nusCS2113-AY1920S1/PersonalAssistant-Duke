@@ -1,9 +1,8 @@
 package ControlPanel;
 
 import Commands.*;
-import MoneyCommands.AddShortGoalCommand;
-import MoneyCommands.ExitMoneyCommand;
-import MoneyCommands.MoneyCommand;
+import MoneyCommands.*;
+
 
 import java.text.ParseException;
 
@@ -40,7 +39,7 @@ public class Parser {
             int serialNo = Integer.parseInt(temp);
             command = new DoneCommand(serialNo);
         }
-        else if (cmd.contains("delete")){
+        else if (cmd.startsWith("delete")){
             String temp = cmd.replaceAll("[^0-9]", "");
             int serialNo = Integer.parseInt(temp);
             command = new DeleteCommand(serialNo);
@@ -77,11 +76,18 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if (cmd.equals("bye")){
+        if (cmd.equals("bye")) {
             moneyCommand = new ExitMoneyCommand();
         }
-        else if (cmd.startsWith("goal-short")){
+        else if (cmd.startsWith("goal-short")) {
             moneyCommand = new AddShortGoalCommand(cmd);
+        } else if (cmd.equals("list goals")) {
+            moneyCommand = new ListGoalsCommand();
+        } else if (cmd.startsWith("delete goal")) {
+            String temp = cmd.replaceAll("[^0-9]", "");
+            int serialNo = Integer.parseInt(temp);
+            moneyCommand = new DeleteGoalCommand(serialNo);
+
         }else{
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
