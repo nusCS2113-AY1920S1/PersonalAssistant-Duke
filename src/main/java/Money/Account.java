@@ -14,6 +14,7 @@ public class Account {
     private float CurrMonthSavings;
     private float BaseSavings;
     private float GoalSavings;
+    private boolean toInitialize;
 
     public Account() {
         IncomeListTotal = new ArrayList<>();
@@ -22,6 +23,7 @@ public class Account {
         ExpListCurrMonth = new ArrayList<>();
         ShortTermGoals = new ArrayList<>();
         Installments = new ArrayList<>();
+        toInitialize = true;
     }
 
     public void Initialize(float UserSavings, float AvgExp) {
@@ -37,7 +39,7 @@ public class Account {
             IncomeListTotal.add(InitialSavings);
             this.BaseSavings = TotalSavings;
             this.GoalSavings = 0;
-        }
+        }toInitialize = false;
     }
 
     public ArrayList<Income> getIncomeListTotal() {
@@ -111,5 +113,9 @@ public class Account {
         TotalSavings = getTotalIncome() - getTotalExp();
         CurrMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
         GoalSavings = getTotalSavings() - getBaseSavings();
+    }
+
+    public boolean isToInitialize() {
+        return toInitialize;
     }
 }

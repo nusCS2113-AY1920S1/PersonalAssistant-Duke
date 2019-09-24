@@ -40,7 +40,20 @@ public class Duke{
      */
     public void run(){
         ui.showWelcome();
+        if(account.isToInitialize()){
+            System.out.println("You're a first time user, Please Enter your existing savings and Avg monthly expenditure");
+            while(ui.inputStatus()){
+                String initCommand = ui.readCommand();
+                float userSavings = Float.parseFloat(initCommand.split(" ")[0]);
+                float avgExp = Float.parseFloat(initCommand.split(" ")[1]);
+                account.Initialize(userSavings,avgExp);
+                System.out.println("You're ready to use Financial Ghosts");
+                break;
+            }
+        }
+
         boolean isExit = false;
+        System.out.println("Let's Go");
         while(!isExit && ui.inputStatus()){
             try {
                 String fullCommand = ui.readCommand();
@@ -67,9 +80,7 @@ public class Duke{
      */
     public static void main(String[] args) throws DukeException {
         Path currentDir = Paths.get("data/tasks.txt");
-        //System.out.println(currentDir.toAbsolutePath());
         String file = currentDir.toAbsolutePath().toString();
-        //System.out.println(file);
         new Duke(file).run();
     }
 
