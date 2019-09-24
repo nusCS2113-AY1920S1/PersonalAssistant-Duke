@@ -59,7 +59,6 @@ public class AddCommand extends Command {
                 String[] getDate = inputString.split("/at ");
                 String eventPeriod = getDate[getDate.length - 1];
                 String[] startendDate = eventPeriod.split(" to ");
-                //System.out.println(startendDate[1]);
                 Date startDate = simpleDateFormat.parse(startendDate[0]);
                 Date endDate = simpleDateFormat.parse(startendDate[1]);
                 if (InvalidDuration(startDate, endDate)) {
@@ -115,9 +114,9 @@ public class AddCommand extends Command {
             }
         }
         storage.writeTheFile(tasks.getCheckList());
-        System.out.println(" Got it. I've added this task: \n");
-        System.out.println("     " + tasks.getTask(tasks.lengthOfList()-1).toString() + "\n");
-        System.out.println(" Now you have " + tasks.lengthOfList() + " tasks in the list.");
+        ui.appendToOutput(" Got it. I've added this task: \n");
+        ui.appendToOutput("     " + tasks.getTask(tasks.lengthOfList()-1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + tasks.lengthOfList() + " tasks in the list.\n");
 
     }
 
