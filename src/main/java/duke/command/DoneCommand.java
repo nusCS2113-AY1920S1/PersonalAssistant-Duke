@@ -53,7 +53,7 @@ public class DoneCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_DONE)) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
         } else if (userInputCommand.trim().charAt(4) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (isParsable(description)) {
                 //converting string to integer
                 int index = Integer.parseInt(description);

@@ -41,10 +41,10 @@ public class DeadlineCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_DEADLINE)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(8) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains("/by")) {
-                String details = description.trim().split("/by", 2)[0];
-                String date = description.trim().split("/by", 2)[1];
+                String details = description.split("/by", 2)[0].trim();
+                String date = description.split("/by", 2)[1].trim();
                 if (details.isEmpty() || date.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_DEADLINE);
                 } else {
