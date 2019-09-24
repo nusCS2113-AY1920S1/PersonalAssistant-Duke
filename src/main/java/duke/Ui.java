@@ -124,7 +124,7 @@ public class Ui {
     }
 
     /**
-     * Prints the snoozed task with new date after successfully snoozing
+     * Prints the snoozed task with new date after successfully snoozing.
      * @param snoozedTask task that was snoozed
      */
     public static void printSnoozedTask(Task snoozedTask) {
@@ -135,7 +135,7 @@ public class Ui {
     }
 
     /**
-     * Prints an error message for no date in task
+     * Prints an error message for no date in task.
      */
     public static void printNoDateToSnoozeError(Task taskToSnooze) {
         System.out.println(line);
@@ -144,7 +144,7 @@ public class Ui {
     }
 
     /**
-     * Prints a default error message
+     * Prints a default error message.
      */
     public static void printErrorMsg() {
         System.out.println(line);
@@ -174,11 +174,15 @@ public class Ui {
     }
 
     /**
-     * Prints error message when the new date to snooze until is before the old date
+     * Prints error message when the new date to snooze until is before the old date.
      */
     public static void printOldDateIsAfterError() {
         System.out.println(line);
         System.out.println("\tOOPS! The new date given should be after the previous date!");
         System.out.println(line);
+    }
+
+    public static void printInvalidCommandError() {
+        System.out.println("\tOOPS! The command is invalid. Please enter a valid command");
     }
 }

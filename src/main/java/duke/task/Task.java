@@ -22,7 +22,6 @@ public class Task {
     }
 
     public String getStatusIcon() {
-//        return (isDone ? "\u2713" : "\u2718"); // returns ✓ or X
         return (isDone ? "O" : "X"); // returns O or X
     }
 
@@ -56,7 +55,11 @@ public class Task {
         return type + " | " + (isDone ? 1 : 0) + " | " + description + formatDateSave();
     }
 
-    public char getTaskType() { return type; }
+    public char getTaskType() {
+        return type;
+    }
 
-    public String getTaskDescription() { return description; }
+    public String getTaskDescription() {
+        return description;
+    }
 }

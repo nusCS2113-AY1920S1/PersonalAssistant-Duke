@@ -1,6 +1,5 @@
 package duke;
 
-import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,10 +19,9 @@ public class Time {
      * @return A LocalDateTime variable that the computer can understand as time.
      */
     public static LocalDateTime readDateTime(String timeStr) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
-            LocalDateTime time = LocalDateTime.parse(timeStr, formatter);
-//            System.out.println(time);
-            return time;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
+        LocalDateTime time = LocalDateTime.parse(timeStr, formatter);
+        return time;
     }
 
     public static LocalDate readDate(String timeStr) {
@@ -31,20 +29,4 @@ public class Time {
         LocalDate time = LocalDate.parse(timeStr, formatter);
         return time;
     }
-
-//    private String day;
-//    private Date date = new Date();
-//    private String now;
-//    public void checkDay(String day) {
-//        this.day = day;
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-//        now = simpleDateFormat.format(date);
-//        System.out.println(now);
-//        if (day == now){
-//            System.out.println("wow, its today");
-//        }
-//    }
-
-
-
 }

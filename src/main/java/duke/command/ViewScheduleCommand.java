@@ -38,7 +38,7 @@ public class ViewScheduleCommand extends Command {
 
         msg.add("Here is the schedule for " + dateStr + ":");
         for (int i = 0; i < tasksOnGivenDate.size(); i++) {
-            msg.add((i+1) + "."  + tasksOnGivenDate.get(i).getTask());
+            msg.add((i + 1) + "."  + tasksOnGivenDate.get(i).getTask());
         }
         Ui.printMsg(msg);
     }

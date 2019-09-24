@@ -23,7 +23,7 @@ public abstract class AddCommand extends Command {
     protected LocalDateTime time;
     protected String dateTrigger;
 
-    public String MissingDescriptionString = "Please specify the task you want to add!";
+    public String missingDescriptionString = "Please specify the task you want to add!";
 
     public AddCommand(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -48,14 +48,15 @@ public abstract class AddCommand extends Command {
             time = Time.readDateTime(data[1]);
             taskDescription = data[0];
             return true;
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printMsg("Please add '" + dateTrigger + " <date>' after your task to specify the event date.");
             return false;
-        }  catch(DateTimeParseException e) {
+        }  catch (DateTimeParseException e) {
             Ui.printDateTimeFormatError();
             return false;
         }
     }
+
     /**
      * Returns true if the method runs without running into any error.
      * <p>
