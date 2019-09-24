@@ -1,7 +1,7 @@
-package seedu.duke.emailCommand;
+package seedu.duke.email.emailcommand;
 
 import seedu.duke.Duke;
-import seedu.duke.EmailList;
+import seedu.duke.email.EmailList;
 import seedu.duke.Parser;
 import seedu.duke.command.Command;
 

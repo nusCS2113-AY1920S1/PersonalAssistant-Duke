@@ -2,6 +2,8 @@ package seedu.duke;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.EmailStorage;
 
 import java.util.Scanner;
 
