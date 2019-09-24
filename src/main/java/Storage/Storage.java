@@ -1,14 +1,17 @@
 package Storage;
 
+
 import java.io.File;
 import Tasks.Task;
 import Tasks.*;
+import commands.FixDurationCommand;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Storage {
     String directory = System.getProperty("user.home");
@@ -22,7 +25,6 @@ public class Storage {
         fileWriter.close();
 
     }
-
     public ArrayList<Task> Readfile() throws IOException, ParseException {
         ArrayList<Task> tlist = new ArrayList<Task>();
         SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
@@ -49,7 +51,35 @@ public class Storage {
                         d.isDone = false;
                     }
                     tlist.add(d);
-                } else {
+
+                } else if (details[0].equals("P")) {
+                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
+                    if(details[1].equals("\u2713")) {
+                        tb.isDone = true;
+                    }
+                    else {
+                        tb.isDone = false;
+                    }
+                    tlist.add(tb);
+
+                } else if (details[0].equals("FD")) {
+                    FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                    if(details[1].equals("\u2713")) {
+                        FD.isDone = true;
+                    }
+                    else {
+                        FD.isDone = false;
+                    }
+                    tlist.add(FD);
+                } else if(details[0].equals("DA")) {
+                    DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
+                    if(details[1].equals("\u2713")) {
+                        DA.isDone = true;
+                    }
+                    else
+                        DA.isDone = false;
+                }
+                else {
                     Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
                     if(details[1].equals("\u2713")){
                         e.isDone = true;
@@ -63,4 +93,5 @@ public class Storage {
         }
         return tlist;
     }
+
 }

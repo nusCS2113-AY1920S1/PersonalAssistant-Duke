@@ -1,7 +1,5 @@
 package Tasks;
-
 import Tasks.Task;
-
 import java.util.Date;
 
 public class Event extends Task {
@@ -11,7 +9,6 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
-
     @Override
     public String toString() {
         return "E"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "at: "+at;
@@ -19,6 +16,7 @@ public class Event extends Task {
     public String listformat(){
         return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + at + ")";
     }
+
 }
 
 
