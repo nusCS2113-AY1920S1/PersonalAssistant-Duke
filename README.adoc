@@ -1,17 +1,21 @@
 = Production Title
 
-== Introduction
+image::docs/images/Ui.png[width="1280", height="1024"]
+
 NAME_OF_PROJECT is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer. +
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
+
 == Site Map
-* https://github.com/AY1920S1-CS2113T-F11-4/main/tree/master/docs/UserGuide[User Guide]
-* https://github.com/AY1920S1-CS2113T-F11-4/main/tree/master/docs/DeveloperGuide[Developer Guide]
-* https://github.com/AY1920S1-CS2113T-F11-4/main/tree/master/docs/AboutUs[About Us]
-* https://github.com/AY1920S1-CS2113T-F11-4/main/tree/master/docs/ContactUs[Contact Us]
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
+
 
 == Acknowledgements
 
 * Libraries used: https://openjfx.io/[JavaFX]
+
 
 == Licence : link:LICENSE[MIT]
