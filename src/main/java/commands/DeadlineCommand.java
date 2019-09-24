@@ -24,7 +24,7 @@ public class DeadlineCommand extends Command
         Deadline d = new Deadline(description, fmt.parse(ui.FullCommand.split("/")[1].substring(3)));
         list.add(d);
         System.out.println("Got it. I've added this task:");
-        System.out.println(d.listformat());
+        System.out.println(d.listFormat());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

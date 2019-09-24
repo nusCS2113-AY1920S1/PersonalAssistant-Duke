@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 public class Deadline extends Task {
-    public static Date by ;
+    public Date by ;
 
     public Deadline(String description, Date by) {
         super(description);
@@ -16,7 +16,7 @@ public class Deadline extends Task {
         return "D"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by;
     }
     @Override
-    public String listformat(){
+    public String listFormat(){
         return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
     }
 

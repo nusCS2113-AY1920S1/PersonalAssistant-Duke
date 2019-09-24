@@ -18,7 +18,7 @@ public class DoAfterCommand extends Command {
         DoAfter to = new DoAfter(before, before, after);
         list.add(to);
         System.out.println("Got it. I've added this task:");
-        System.out.println(to.listformat());
+        System.out.println(to.listFormat());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -44,5 +44,4 @@ public class DoAfterCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }

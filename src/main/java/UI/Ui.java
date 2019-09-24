@@ -20,7 +20,6 @@ public class Ui {
         public void ReadCommand() throws IOException {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             FullCommand = reader.readLine();
-
         }
 
         public String showWelcome () {
@@ -42,23 +41,26 @@ public class Ui {
                     Deadline deadline = new Deadline(task.description, fmt.parse(task.toString().split("by:")[1].trim()));
                     DeadlineList.add(deadline);
                 } else if (task.getClass().getName().equals("Tasks.Event")) {
-                    Event event = new Event(task.description, fmt.parse(task.toString().split("at:")[1].trim()));
+                    Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                     EventList.add(event);
                 }
             }
             Collections.sort(DeadlineList, Comparator.comparing(u -> u.by));
-            Collections.sort(EventList, Comparator.comparing(u -> u.at));
+            Collections.sort(EventList, Comparator.comparing(u -> u.date));
             System.out.println("Upcoming deadlines:");
             for (int i = 0; i < DeadlineList.size(); i++) {
-                System.out.println(i + 1 + "." + DeadlineList.get(i).listformat());
+                System.out.println(i + 1 + "." + DeadlineList.get(i).listFormat());
             }
             System.out.println("Upcoming events:");
             for (int i = 0; i < EventList.size(); i++) {
-                System.out.println(i + 1 + "." + EventList.get(i).listformat());
+                System.out.println(i + 1 + "." + EventList.get(i).listFormat());
             }
         }
         public void showDateFormatError () {
             System.err.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
+        }
+        public static void showEventDateFormatError() {
+        System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
         }
         public void showIOErrorMessage (Exception e){
             System.err.println("An IOException was caught :" + e.getMessage());

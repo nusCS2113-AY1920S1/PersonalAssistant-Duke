@@ -1,5 +1,4 @@
 package Tasks;
-import Tasks.Task;
 
 public class Todo extends Task {
     public Todo(String description) {
@@ -9,7 +8,7 @@ public class Todo extends Task {
     public String toString() {
         return "T"+ "|" + super.getStatusIcon() + "| " + super.description;
     }
-    public String listformat(){
+    public String listFormat(){
         return "[T]" + "[" + super.getStatusIcon() + "]" + super.description ;
     }
 

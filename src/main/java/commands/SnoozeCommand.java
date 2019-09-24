@@ -8,51 +8,69 @@ import java.io.IOException;
 import Exception.DukeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
 public class SnoozeCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         if(ui.FullCommand.length() == 6) {
-            throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
+            throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
         }else{
             int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-            String Decription = list.get(index).description;
-            System.out.println("You are rescheduling this task: "+Decription);
-            System.out.println("Please type in your new timeline");
+            String Decription=list.get(index).description;
+            System.out.println("Please indicate how much time you want to snooze");
             ui.ReadCommand();
-            String time  = ui.FullCommand;
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            System.out.println("Are you sure you want to reschedule this task? (yes/no)");
-            ui.ReadCommand();
-            if(ui.FullCommand.equals("yes")) {
-                if(list.get(index).listformat().contains("by")){
-                    Deadline RescheduledDeadline = new Deadline(Decription, fmt.parse(time));
-                    list.remove(index);
-                    list.add(RescheduledDeadline);
-                    System.out.println("Noted. I've changed this task's timeline: ");
-                    System.out.println(RescheduledDeadline.listformat());
-                }else{
-                    Event RescheduledEvent = new Event(Decription,fmt.parse(time));
-                    list.remove(index);
-                    list.add(RescheduledEvent);
-                    System.out.println("Noted. I've changed this task's timeline: ");
-                    System.out.println(RescheduledEvent.listformat());
-                }
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
-                }
-                storage.Storages(sb.toString());
-            }else{
-                System.out.println("It's fine. Nothing has been changed.");
+            int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
+            int day = Integer.parseInt(ui.FullCommand.split(" ")[2]);
+            int month =Integer.parseInt(ui.FullCommand.split(" ")[1]);
+            int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
+            if (list.get(index).listFormat().contains("by")) {
+                SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
+//                System.out.println("Success" + initial);
+                Calendar rightNow = Calendar.getInstance();
+                rightNow.setTime(initial);
+                if(year >0) rightNow.add(Calendar.YEAR,year);
+                if(month>0) rightNow.add(Calendar.MONTH,month);
+                if(day > 0) rightNow.add(Calendar.DAY_OF_YEAR,day);
+                if(hour > 0) rightNow.add(Calendar.HOUR,hour);
+                Date after = rightNow.getTime();
+//                System.out.println("Success"+after);
+                Task snoozedDeadline = new Deadline(Decription,after);
+                list.remove(index);
+                list.add(snoozedDeadline);
+                System.out.println("Okay. I've prolonged this task's deadline: ");
+                System.out.println(snoozedDeadline.listFormat());
+            } else {
+                SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.ENGLISH);
+                Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
+                Calendar rightNow = Calendar.getInstance();
+                rightNow.setTime(initial);
+                if(year >0) rightNow.add(Calendar.YEAR,year);
+                if(month>0) rightNow.add(Calendar.MONTH,month);
+                if(day > 0) rightNow.add(Calendar.DAY_OF_YEAR,day);
+                if(hour > 0) rightNow.add(Calendar.HOUR,hour);
+                Date after = rightNow.getTime();
+                Event snoozedEvent = new Event(Decription, after);
+                list.remove(index);
+                list.add(snoozedEvent);
+                System.out.println("Okay. I've prolonged this task's time: ");
+                System.out.println(snoozedEvent.listFormat());
             }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
+                    sb.append(list.get(i).toString() + "\n");
+                } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
+                    sb.append(list.get(i).toString() + "\n");
+                } else {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+            }
+            storage.Storages(sb.toString());
         }
     }
     @Override
