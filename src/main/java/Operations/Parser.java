@@ -60,7 +60,12 @@ public class Parser {
      *               index 1 stores the date String.
      */
     public String[] getDescriptionWithDate() {
-        String[] array = scanner.nextLine().split("/", 2);
+        String[] array = scanner.nextLine().split(" ", 1);
+        return array;
+    }
+
+    public String[] getDate(String[] ar) {
+        String[] array = ar[0].trim().split("/", 2);
         return array;
     }
 

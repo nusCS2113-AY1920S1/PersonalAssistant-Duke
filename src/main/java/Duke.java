@@ -99,8 +99,9 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] deadlineArray = parser.getDescriptionWithDate();
-                        Date by = parser.formatDate(deadlineArray[1]);
-                        Deadline temp = new Deadline(deadlineArray[0], by);
+                        String[] ar = parser.getDate(deadlineArray);
+                        Date by = parser.formatDate(ar[1]);
+                        Deadline temp = new Deadline(ar[0], by);
                         taskList.add(temp);
                     } catch (DukeException e) {
                         ui.showDateError();
@@ -111,11 +112,10 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] eventArray = parser.getDescriptionWithDate();
-                        System.out.println(eventArray[1]);
-                        Date at = parser.formatDate(eventArray[1]);
-                        System.out.println(at);
+                        String[] ar = parser.getDate(eventArray);
+                        Date at = parser.formatDate(ar[1]);
                         if(CheckAnomaly.checkTime(at, TaskList.currentList())){
-                            Event temp = new Event(eventArray[0], at);
+                            Event temp = new Event(ar[0], at);
                             taskList.add(temp);
                         } else {
                             throw new DukeException(ExceptionType.timeClash);
