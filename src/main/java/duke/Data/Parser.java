@@ -20,7 +20,7 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io) {
+    public void parseInput(String io, TaskList tasks, Storage storage) {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -29,13 +29,14 @@ public class Parser {
         switch (cmd) {
 
             case "list":
-                TaskList.getList();
+                tasks.showList();
                 break;
 
             case "done":
                 try {
                     index = Integer.parseInt(input.substring(5)) - 1;
-                    TaskList.doneTask(index);
+                    tasks.doneTask(index);
+                    storage.updateFile(tasks.getList());
                 }
                 catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The following task does not exist!");
@@ -52,7 +53,8 @@ public class Parser {
                     String info1 = String.join(" ", listString);
                     String[] parseString = info1.split("/in");
                     ToDo todo = new ToDo(parseString[0], false, parseString[1]);
-                    TaskList.addTask(todo, "T");
+                    tasks.addTask(todo, "T");
+                    storage.saveFile("T",todo,todo.getDate());
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -64,7 +66,8 @@ public class Parser {
                     String info = input.substring(9, index);
                     String endDate = input.substring(index + 4);
                     Deadline deadline = new Deadline(info, false, endDate);
-                    TaskList.addTask(deadline, "D");
+                    tasks.addTask(deadline, "D");
+                    storage.saveFile("D",deadline,deadline.getDate());
                 }
                 catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The task needs a deadline");
@@ -77,7 +80,8 @@ public class Parser {
                     String info = input.substring(6, index);
                     String endDate = input.substring(index + 4);
                     Event event = new Event(info, false, endDate);
-                    TaskList.addTask(event, "E");
+                    tasks.addTask(event, "E");
+                    storage.saveFile("E",event,event.getDate());
                 }
                 catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The task needs a deadline");
@@ -90,9 +94,9 @@ public class Parser {
             case "reminder":
                 try{
                     index = input.indexOf("before");
-                    Date date = TaskList.dateConvert(input.substring(index + 7));
+                    Date date = tasks.dateConvert(input.substring(index + 7));
                     Reminder reminder = new Reminder(date);
-                    reminder.getReminders();
+                    reminder.getReminders(tasks);
                 }
                 catch (StringIndexOutOfBoundsException e) {
                     System.err.println("Incorrect format");
@@ -109,7 +113,8 @@ public class Parser {
                     String info = input.substring(10, index);
                     String endDate = input.substring(index + 7);
                     After after = new After(info, false, endDate);
-                    TaskList.addTask(after, "A");
+                    tasks.addTask(after, "A");
+                    storage.saveFile("A",after,after.getDate());
                 }
                 catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
@@ -118,12 +123,13 @@ public class Parser {
 
             case "delete":
                 index = Integer.parseInt(input.substring(7)) - 1;
-                TaskList.deleteTask(index);
+                tasks.deleteTask(index);
+                storage.updateFile(tasks.getList());
                 break;
 
             case "find":
                 String searchWord = input.substring(5);
-                TaskList.findTask(searchWord);
+                tasks.findTask(searchWord);
                 break;
 
             case "date":
@@ -131,7 +137,7 @@ public class Parser {
                 if (searchDate.length() < 10) {
                     System.out.println("Please enter input in the form: date dd/MM/YYYY");
                 } else {
-                    TaskList.findDate(searchDate);
+                    tasks.findDate(searchDate);
                 }
                 break;
 

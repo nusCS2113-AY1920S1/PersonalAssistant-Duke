@@ -21,37 +21,36 @@ public class Reminder {
      * Constructor for the Reminder class
      * @param endDate specified deadline in date-time format
      */
-    public Reminder (Date endDate) {
+    public Reminder(Date endDate) {
         this.endDate = endDate;
         todayDate = new Date();
     }
 
 
-
-    public Date getTodayDate () {
+    public Date getTodayDate() {
         System.out.println("Today's date " + todayDate);
         System.out.println("Saved date: " + endDate);
         return todayDate;
     }
-    public Date getEndDate () {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void compareDates () {
+    public void compareDates (TaskList tasks) {
         ArrayList<Item> tempList = new ArrayList<>();
         try {
-            deadlineList.addAll(Objects.requireNonNull(TaskList.getReminderList(todayDate, endDate)));
+            deadlineList.addAll(Objects.requireNonNull(tasks.getReminderList(todayDate, endDate)));
         }
         catch (NullPointerException e) {
             System.out.println("No deadlines due before specified date");
         }
     }
 
-    public void getReminders () {
-        compareDates();
+    public void getReminders(TaskList tasks) {
+        compareDates(tasks);
         if (!deadlineList.isEmpty()) {
             int count = 1;
-            System.out.println("Reminder to do these tasks before " + TaskList.dateToStringFormat(endDate));
+            System.out.println("Reminder to do these tasks before " + tasks.dateToStringFormat(endDate));
             for (Item i: deadlineList) {
                 System.out.println(count++ +"."+ i.toString());
             }

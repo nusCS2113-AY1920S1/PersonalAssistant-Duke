@@ -1,48 +1,53 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import duke.GUI.DialogBox;
+import duke.Data.Storage;
 import duke.Task.*;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Duke extends Application {
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private static Ui ui = new Ui();
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+    Button button1;
+    Button button2;
+    Button button3;
+
+    public Duke() {
+
+    }
+
+    public Duke(String filePath) throws FileNotFoundException {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+    }
 
     /**
      * This program runs the main duke program
      *
      * @param args expects array of string objects
      */
-    public static void main(String[] args) {
-        run();
+    public static void main(String[] args) throws FileNotFoundException {
+        new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt").run();
     }
 
-    public static void run() {
+    public void run() {
         ui.welcome();
-        TaskList.addAllList();
+        tasks.addAllList(storage);
         while (true) {
-
             Scanner sc = new Scanner(System.in);
             if (sc.hasNextLine()) {
                 String input = sc.nextLine();
@@ -50,7 +55,7 @@ public class Duke extends Application {
                     ui.goodbye();
                     break;
                 }
-                ui.readCommand(input);
+                ui.readCommand(input, tasks, storage);
             }
         }
     }
@@ -58,101 +63,65 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
+        Pane layout = new Pane();
+        //Create buttons and add to layout
+        button1 = new Button();
+        button1.setText("View Schedule");
+        button2 = new Button();
+        button2.setText("Manage Students");
+        button3 = new Button();
+        button3.setText("Manage Training Programmes");
+        layout.getChildren().addAll(button1, button2, button3);
+        //Create the timetable and add to layout
+        GridPane timetable = new GridPane();
+        timetable.setGridLinesVisible(true);
+        int numCols = 8;
+        int numRows = 11;
+        for (int i = 0; i < numCols; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth(100.0 / numCols);
+            timetable.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < numRows; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight(100.0 / numRows);
+            timetable.getRowConstraints().add(rowConst);
+        }
+        String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+        for (int i=0; i < days.length; i++) {
+            timetable.add(new Label(days[i]),i+1,0);
+        }
+        String[] periods = new String[]{"8am-9am","9am-10am","10am-11am","11am-12pm","12pm-1pm","1pm-2pm","2pm-3pm","3pm-4pm","4pm-5pm","5pm-6pm"};
+        for (int i=0; i < periods.length; i++) {
+            timetable.add(new Label(periods[i]),0,i+1);
+        }
+        layout.getChildren().addAll(timetable);
+        //Create the scene
+        Scene scene = new Scene(layout, 1280,720);
         stage.setScene(scene);
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Main menu");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-            new duke.GUI.DialogBox(userText, new ImageView(user)),
-            new duke.GUI.DialogBox(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+        stage.setHeight(720.0);
+        stage.setWidth(1280.0);
+        //Move the buttons to their correct positions
+        button1.setLayoutX(100);
+        button1.setLayoutY(150);
+        button2.setLayoutX(100);
+        button2.setLayoutY(300);
+        button3.setLayoutX(100);
+        button3.setLayoutY(450);
+        //Change the look of the buttons
+        button1.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        button2.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        button3.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        //Move the timetable to its correct position
+        timetable.setLayoutX(350);
+        timetable.setLayoutY(125);
+        //Change the look of the timetable
+        timetable.setStyle("-fx-pref-height: 450px; -fx-pref-width: 850px; -fx-background-color: lavender;");
     }
 
 }
