@@ -17,4 +17,8 @@ public class Item {
         return this.description;
     }
 
+    public String toString() {
+        return "$" + price + " " + description;
+    }
+
 }

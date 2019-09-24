@@ -1,6 +1,9 @@
 package ControlPanel;
 
 import Commands.*;
+import MoneyCommands.AddShortGoalCommand;
+import MoneyCommands.ExitMoneyCommand;
+import MoneyCommands.MoneyCommand;
 
 import java.text.ParseException;
 
@@ -69,5 +72,22 @@ public class Parser {
 
 
         return command;
+    }
+
+    public static MoneyCommand moneyParse(String cmd) throws DukeException, ParseException {
+        MoneyCommand moneyCommand = null;
+
+        if (cmd.equals("bye")){
+            moneyCommand = new ExitMoneyCommand();
+        }
+        else if (cmd.startsWith("goal-short")){
+            moneyCommand = new AddShortGoalCommand(cmd);
+        }else{
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
+        }
+
+
+
+        return moneyCommand;
     }
 }
