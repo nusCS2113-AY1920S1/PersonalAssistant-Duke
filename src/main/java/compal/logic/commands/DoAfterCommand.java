@@ -14,7 +14,6 @@ import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
  */
 public class DoAfterCommand extends Command implements CommandParser {
 
-    private static final String TOKEN = "/after";
     private TaskList taskList;
 
     /**
