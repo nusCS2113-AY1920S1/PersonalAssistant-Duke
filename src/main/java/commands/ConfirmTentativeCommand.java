@@ -24,7 +24,7 @@ public class ConfirmTentativeCommand extends Command{
             int WhichTimeSlot = Integer.parseInt(ui.FullCommand);
             String[] timeslots = tempstring.split("\n");
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Event ev = new Event(list.get(index).description, fmt.parse(timeslots[WhichTimeSlot].substring(3)));
+            Event ev = new Event(list.get(index).description, timeslots[WhichTimeSlot].substring(3));
             System.out.println("Are you sure you want to confirm this time slot: ");
             System.out.println(ev.listFormat());
             ui.ReadCommand();

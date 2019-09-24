@@ -42,7 +42,7 @@ public class RecurringCommand {
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6,splitstring[0].length()-1);
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Event new_weeklyEvent = new Event(description,fmt.parse(conc_time));
+                Event new_weeklyEvent = new Event(description,conc_time);
                 list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");

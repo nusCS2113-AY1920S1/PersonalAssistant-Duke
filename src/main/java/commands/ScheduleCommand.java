@@ -34,7 +34,7 @@ public class ScheduleCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             if (t.getClass().getName().equals("Tasks.Event")) {
-                tDate = ((Event) t).date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                tDate = ((Event) t).date;
             } else if (t.getClass().getName().equals("Tasks.Deadline")) {
                 tDate = ((Deadline) t).by.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             }

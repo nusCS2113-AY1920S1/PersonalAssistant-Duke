@@ -34,7 +34,7 @@ public class RescheduleCommand extends Command {
                     System.out.println("Noted. I've changed this task's timeline: ");
                     System.out.println(RescheduledDeadline.listFormat());
                 } else {
-                    Event RescheduledEvent = new Event(Decription, fmt.parse(time));
+                    Event RescheduledEvent = new Event(Decription, time);
                     list.remove(index);
                     list.add(RescheduledEvent);
                     System.out.println("Noted. I've changed this task's timeline: ");
