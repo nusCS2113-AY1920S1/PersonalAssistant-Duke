@@ -41,7 +41,7 @@ public abstract class Command {
      * @param usage the usage of the command to create.
      * @param secondaryParams the secondary parameters of the command to create.
      */
-    public Command(String name, String description, String usage, Map<String, String> secondaryParams) {
+    protected Command(String name, String description, String usage, Map<String, String> secondaryParams) {
         this.name = name;
         this.description = description;
         this.usage = usage;
