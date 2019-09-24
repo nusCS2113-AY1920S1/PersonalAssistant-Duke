@@ -7,7 +7,7 @@ public class TimeboundTest {
 
     @Test
     void getDescriptionTest() {
-            assertEquals ("[P][\u2718] task to be done (between: Jan 15th and Jan 25th)", timeboundTest.listformat());
+            assertEquals ("[P][\u2718] task to be done (between: Jan 15th and Jan 25th)", timeboundTest.listFormat());
         }
 
     @Test

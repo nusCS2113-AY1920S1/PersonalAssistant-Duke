@@ -34,7 +34,7 @@ public class ScheduleCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             if (t.getClass().getName().equals("Tasks.Event")) {
-                tDate = ((Event) t).at.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                tDate = ((Event) t).date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             } else if (t.getClass().getName().equals("Tasks.Deadline")) {
                 tDate = ((Deadline) t).by.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             }
@@ -47,7 +47,7 @@ public class ScheduleCommand extends Command {
         } else {
             System.out.println("Here is your schedule for " + date.format(fmt) + ":");
             for (int i = 0; i < schedule.size(); i++) {
-                System.out.println((i+1) + "." + schedule.get(i).listformat());
+                System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
     }

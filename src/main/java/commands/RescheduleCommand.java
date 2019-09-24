@@ -27,18 +27,18 @@ public class RescheduleCommand extends Command {
             System.out.println("Are you sure you want to reschedule this task? (yes/no)");
             ui.ReadCommand();
             if (ui.FullCommand.equals("yes")) {
-                if (list.get(index).listformat().contains("by")) {
+                if (list.get(index).listFormat().contains("by")) {
                     Task RescheduledDeadline = new Deadline(Decription, fmt.parse(time));
                     list.remove(index);
                     list.add(RescheduledDeadline);
                     System.out.println("Noted. I've changed this task's timeline: ");
-                    System.out.println(RescheduledDeadline.listformat());
+                    System.out.println(RescheduledDeadline.listFormat());
                 } else {
                     Event RescheduledEvent = new Event(Decription, fmt.parse(time));
                     list.remove(index);
                     list.add(RescheduledEvent);
                     System.out.println("Noted. I've changed this task's timeline: ");
-                    System.out.println(RescheduledEvent.listformat());
+                    System.out.println(RescheduledEvent.listFormat());
                 }
 
                 StringBuilder sb = new StringBuilder();

@@ -2,10 +2,8 @@ package commands;
 
 import Storage.Storage;
 import Tasks.Deadline;
-import Tasks.DoAfter;
 import Tasks.Event;
 import Tasks.Task;
-import UI.Ui;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -48,7 +46,7 @@ public class RecurringCommand {
                 list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_weeklyEvent.listformat());
+                System.out.println(new_weeklyEvent.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
@@ -94,7 +92,7 @@ public class RecurringCommand {
                 list.add(new_weeklyDeadline);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_weeklyDeadline.listformat());
+                System.out.println(new_weeklyDeadline.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {

@@ -1,6 +1,5 @@
 import Storage.Storage;
 import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
 import commands.DeadlineCommand;
@@ -12,9 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import Exception.DukeException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +41,6 @@ public class SnoozeCommandTest {
         Date after = rightNow.getTime();
         Task snoozedDeadline = new Deadline(Decription,after);
         tasks.add(snoozedDeadline);
-        assertEquals(tasks.get(1).listformat(),"[D]" + "[" + tasks.get(1).getStatusIcon() + "]" + "return book " + "(by:" + "Sat Aug 08 04:03:03 SGT 2009" + ")");
+        assertEquals(tasks.get(1).listFormat(),"[D]" + "[" + tasks.get(1).getStatusIcon() + "]" + "return book " + "(by:" + "Sat Aug 08 04:03:03 SGT 2009" + ")");
     }
 }

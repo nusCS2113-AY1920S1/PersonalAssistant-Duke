@@ -1,5 +1,4 @@
 package Tasks;
-import java.util.Date;
 
 public class Task {
     public String description;
@@ -13,7 +12,7 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public String listformat(){
+    public String listFormat(){
         return "";
     }
 

@@ -27,7 +27,7 @@ public class SnoozeCommand extends Command {
             int day = Integer.parseInt(ui.FullCommand.split(" ")[2]);
             int month =Integer.parseInt(ui.FullCommand.split(" ")[1]);
             int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
-            if (list.get(index).listformat().contains("by")) {
+            if (list.get(index).listFormat().contains("by")) {
                 SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
                 Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
 //                System.out.println("Success" + initial);
@@ -43,7 +43,7 @@ public class SnoozeCommand extends Command {
                 list.remove(index);
                 list.add(snoozedDeadline);
                 System.out.println("Okay. I've prolonged this task's deadline: ");
-                System.out.println(snoozedDeadline.listformat());
+                System.out.println(snoozedDeadline.listFormat());
             } else {
                 SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.ENGLISH);
                 Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
@@ -58,7 +58,7 @@ public class SnoozeCommand extends Command {
                 list.remove(index);
                 list.add(snoozedEvent);
                 System.out.println("Okay. I've prolonged this task's time: ");
-                System.out.println(snoozedEvent.listformat());
+                System.out.println(snoozedEvent.listFormat());
             }
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {

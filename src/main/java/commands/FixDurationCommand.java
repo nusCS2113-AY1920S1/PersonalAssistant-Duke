@@ -7,9 +7,7 @@ import UI.Ui;
 import java.io.IOException;
 import Exception.DukeException;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FixDurationCommand extends Command {
@@ -25,7 +23,7 @@ public class FixDurationCommand extends Command {
         FixedDuration to = new FixedDuration(description, duration);
         list.add(to);
         System.out.println("Got it. I've added this task:");
-        System.out.println(to.listformat());
+        System.out.println(to.listFormat());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
