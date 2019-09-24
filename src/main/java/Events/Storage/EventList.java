@@ -1,14 +1,12 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.EventSubClasses.AssessmentSubClasses.Exam;
-import Events.EventTypes.EventSubClasses.AssessmentSubClasses.Recital;
 import Events.EventTypes.EventSubClasses.Concert;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubclasses.ToDo;
+import Events.EventTypes.EventSubClasses.ToDo;
 import Events.Formatting.DateObj;
-import Events.Formatting.Predicate;
+import UserElements.Parser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class EventList {
      *
      * @param inputList list of strings containing all information extracted from save file
      */
-    public EventList(ArrayList<String> inputList) {
+    public EventList(ArrayList<String> inputList, Parser parser) {
         //magic characters for type of event
         final char TODO = 'T';
         final char CONCERT = 'C';
@@ -49,19 +47,28 @@ public class EventList {
 
         eventArrayList = new ArrayList<Event>();
         for (String currLine : inputList) {
-            boolean isDone = (currLine.substring(4,7).equals("✓"));
-            if (currLine.charAt(1) == TODO) { //todo type event
-                eventArrayList.add(new ToDo());
-            } else if (currLine.charAt(1) == CONCERT) {
-                eventArrayList.add(new Concert());
-            } else if (currLine.charAt(1) == LESSON) {
-                eventArrayList.add(new Lesson());
-            } else if (currLine.charAt(1) == PRACTICE) {
-                eventArrayList.add(new Practice());
-            } else if (currLine.charAt(1) == EXAM) {
-                eventArrayList.add(new Exam());
-            } else if (currLine.charAt(1) == RECITAL) {
-                eventArrayList.add(new Recital());
+            boolean isDone = currLine.substring(0, 3).equals("✓");
+            char eventType = currLine.charAt(3);
+
+            String[] splitString = currLine.split(" ");
+            String description = splitString[1];
+            String startDateAndTime = splitString[2] + " " + splitString[3];
+            String endDateAndTime;
+
+            if (splitString.length == 6) {
+                endDateAndTime = splitString[4] + " " + splitString[5];
+            } else {
+                endDateAndTime = "";
+            }
+
+            if (eventType == TODO) { //todo type event
+                eventArrayList.add(new ToDo(description, isDone, startDateAndTime));
+            } else if (eventType == CONCERT) {
+                eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+            } else if (eventType == LESSON) {
+                eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+            } else if (eventType == PRACTICE) {
+                eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
             }
         }
     }
@@ -74,7 +81,7 @@ public class EventList {
      * and false if not
      */
     public boolean addEvent(Event event) {
-        if (event instanceof ToDo) {
+        if (event.getType() == 'T') {
             this.eventArrayList.add(event);
             return true;
         }
@@ -96,9 +103,9 @@ public class EventList {
     public boolean addRecurringEvent(Event event, int period) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
         SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj eventDate = new DateObj(event.getStartDateObj().toOutputString());
+        DateObj eventDate = new DateObj(event.getStartDate().getSplitDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(eventDate.getJavaDate());
+        calendar.setTime(eventDate.getCurrentJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
             String timeString = null;
             if (eventDate.getFormat() == 1) {
@@ -107,7 +114,7 @@ public class EventList {
             else if (eventDate.getFormat() == 2) {
                 timeString = format2.format(calendar.getTime());
             }
-            this.eventArrayList.add(new Event(event.getDescription(), timeString));
+            this.eventArrayList.add(new Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson(event.getDescription(), timeString, ""));
             calendar.add(Calendar.DATE, period);
         }
         return true;
@@ -122,7 +129,7 @@ public class EventList {
     private Event clashEvent(Event event) {
         for (Event currEvent : eventArrayList) {
             try {
-                if (currEvent.startDateToString().equals(event.startDateToString())) {
+                if (currEvent.getStartDate().toString().equals(event.getStartDate().toString())) {
                     return currEvent;
                 }
             } catch (Exception e){
@@ -187,28 +194,28 @@ public class EventList {
      * Gets a filtered list of events based on a predicate.
      * @return String containing the filtered list of events, separated by a newline.
      */
-    public String filteredList(Predicate<Object> predicate, int filterCode) {
-        String filteredEvents = "";
-        int j = 1;
-        for (int i = 0; i < eventArrayList.size(); ++i) {
-            if (eventArrayList.get(i) == null) {
-            	continue;
-            } else if (filterCode == DATE) {
-                if (eventArrayList.get(i) instanceof Event || eventArrayList.get(i) instanceof Deadline) {
-                	if (!predicate.check(eventArrayList.get(i).getStartDateObj())) {
-                		continue;
-                	} 
-                } else {
-                	continue;
-                }
-            } else if (filterCode == TYPE) {
-                if (!predicate.check(eventArrayList.get(i).getType())) {
-                	continue;
-                }
-            } 
-            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
-            j++;
-        }
-        return filteredEvents;
-    }
+//    public String filteredList(Predicate<Object> predicate, int filterCode) {
+//        String filteredEvents = "";
+//        int j = 1;
+//        for (int i = 0; i < eventArrayList.size(); ++i) {
+//            if (eventArrayList.get(i) == null) {
+//            	continue;
+//            } else if (filterCode == DATE) {
+//                if (eventArrayList.get(i) instanceof Event || eventArrayList.get(i) instanceof Deadline) {
+//                	if (!predicate.check(eventArrayList.get(i).getStartDateObj())) {
+//                		continue;
+//                	}
+//                } else {
+//                	continue;
+//                }
+//            } else if (filterCode == TYPE) {
+//                if (!predicate.check(eventArrayList.get(i).getType())) {
+//                	continue;
+//                }
+//            }
+//            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
+//            j++;
+//        }
+//        return filteredEvents;
+//    }
 }
