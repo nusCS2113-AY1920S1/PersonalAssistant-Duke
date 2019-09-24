@@ -87,23 +87,14 @@ public class Duke extends Application {
             rowConst.setPercentHeight(100.0 / numRows);
             timetable.getRowConstraints().add(rowConst);
         }
-        timetable.add(new Label("Monday"),1,0);
-        timetable.add(new Label("Tuesday"),2,0);
-        timetable.add(new Label("Wednesday"),3,0);
-        timetable.add(new Label("Thursday"),4,0);
-        timetable.add(new Label("Friday"),5,0);
-        timetable.add(new Label("Saturday"),6,0);
-        timetable.add(new Label("Sunday"),7,0);
-        timetable.add(new Label("8am-9am"),0,1);
-        timetable.add(new Label("9am-10am"),0,2);
-        timetable.add(new Label("10am-11am"),0,3);
-        timetable.add(new Label("11am-12pm"),0,4);
-        timetable.add(new Label("12pm-1pm"),0,5);
-        timetable.add(new Label("1pm-2pm"),0,6);
-        timetable.add(new Label("2pm-3pm"),0,7);
-        timetable.add(new Label("3pm-4pm"),0,8);
-        timetable.add(new Label("4pm-5pm"),0,9);
-        timetable.add(new Label("5pm-6pm"),0,10);
+        String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+        for (int i=0; i < days.length; i++) {
+            timetable.add(new Label(days[i]),i+1,0);
+        }
+        String[] periods = new String[]{"8am-9am","9am-10am","10am-11am","11am-12pm","12pm-1pm","1pm-2pm","2pm-3pm","3pm-4pm","4pm-5pm","5pm-6pm"};
+        for (int i=0; i < periods.length; i++) {
+            timetable.add(new Label(periods[i]),0,i+1);
+        }
         layout.getChildren().addAll(timetable);
         //Create the scene
         Scene scene = new Scene(layout, 1000,600);
