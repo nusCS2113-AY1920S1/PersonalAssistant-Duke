@@ -19,6 +19,7 @@ public class ListCommand extends Command {
         int counter = 1;
 
         if (!shows.isEmpty()) {
+            message += new OptixResponse().LIST_FOUND;
             for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
                 Show show = entry.getValue();
                 LocalDate showDate = entry.getKey();

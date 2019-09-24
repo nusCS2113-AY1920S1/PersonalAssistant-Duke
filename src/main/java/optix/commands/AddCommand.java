@@ -11,22 +11,32 @@ import java.time.format.DateTimeFormatter;
 
 public class AddCommand extends Command {
     private String name;
-    private String date;
+    private LocalDate date;
     private double cost;
 
     public AddCommand(String name, String date, double cost) {
+        // need to check if it is a valid date if not need to throw exception
         this.name = name;
-        this.date = date;
+        this.date = toLocalDate(date);
         this.cost = cost;
     }
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         Show show = new Show(name, cost);
-        // to abstract the  date formatting in the future extensions
-        LocalDate date = toLocalDate(this.date);
-        shows.put(date, show);
-        ui.setMessage(new OptixResponse().ADD + show.toString() + " at: " + this.date + "\n");
+        LocalDate today = storage.getToday();
+
+        if (date.compareTo(today) > 0) {
+            ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
+        } else if (shows.containsKey(date)) {
+            // to abstract the  date formatting in the future extensions
+            ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
+                    + "Please try again. \n");
+        } else {
+            shows.put(date, show);
+            ui.setMessage(new OptixResponse().ADD + show.toString() + " at: " + this.date + "\n");
+        }
+
     }
 
     private String getFormat(String date) {

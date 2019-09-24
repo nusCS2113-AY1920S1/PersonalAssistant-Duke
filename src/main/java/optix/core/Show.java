@@ -32,4 +32,8 @@ public class Show {
     public String toString() {
         return this.name;
     }
+
+    public boolean hasSameName(String checkName) {
+        return name.toLowerCase().equals(checkName.toLowerCase());
+    }
 }
