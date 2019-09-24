@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.command.AddOrderCommand;
 import duke.command.Command;
 import duke.command.RedoCommand;
 import duke.command.UndoCommand;
@@ -22,7 +21,7 @@ public class Parser {
     private static final String COMMAND_ORDER = "order";
     private static final String COMMAND_ORDER_ADD = "add";
     private static final String COMMAND_ORDER_DELETE = "remove";
-    private Class[] allCommandClasses = {AddOrderCommand.class};
+    private static final String COMMAND_ORDER_EDIT = "edit";
     /**
      * Parses user input into a command.
      *
@@ -107,6 +106,8 @@ public class Parser {
                 return CommandParser.parseOrderAdd(params);
             case COMMAND_ORDER_DELETE:
                 return CommandParser.parseOrderDelete(params);
+            case COMMAND_ORDER_EDIT:
+                return CommandParser.parseOrderEdit(params);
             default:
                 throw new DukeException("Invalid command");
         }
