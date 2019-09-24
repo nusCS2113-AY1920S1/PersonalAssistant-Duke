@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import static parser.DateTimeExtractor.NULL_DATE;
+
 /**
  * This Task class is extended by the other tasks and serves as a template for all tasks.
  *
@@ -14,9 +16,8 @@ public abstract class Task implements Serializable{
 
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
-    public LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
-    public LocalDateTime endDate = nullDate;
-    public LocalDateTime startDate = nullDate;
+    public LocalDateTime endDate = NULL_DATE;
+    public LocalDateTime startDate = NULL_DATE;
     public LocalDateTime createdDate;
     public Period eventPeriod;
     public int remindInHowManyDays = 0;
@@ -63,7 +64,7 @@ public abstract class Task implements Serializable{
     }
 
     public boolean checkReminderTrigger() {
-        if (!startDate.isEqual(nullDate)) {
+        if (!startDate.isEqual(NULL_DATE)) {
             LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
             return LocalDateTime.now().isAfter(reminderDate);
         }

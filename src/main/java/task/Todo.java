@@ -2,6 +2,9 @@ package task;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import parser.DateTimeExtractor;
+
+import static parser.DateTimeExtractor.NULL_DATE;
+
 /**
  * This extension of the task class will allow the user to add a task of to-do type.
  *
@@ -29,7 +32,7 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        if(!this.startDate.isEqual(nullDate) && !this.endDate.isEqual(nullDate)){
+        if(!this.startDate.isEqual(NULL_DATE) && !this.endDate.isEqual(NULL_DATE)){
             return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
                     this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
                     this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";

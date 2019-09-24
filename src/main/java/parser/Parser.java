@@ -108,15 +108,7 @@ public class Parser {
                 return new DoneCommand(indexOfTask);
 
             case "remind":
-                description = userInput.split(command, 2)[1].trim();
-                if (description.isEmpty()) {
-                    throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
-                }
-
-                indexOfTask = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
-                String d = description.split("in", 2)[1].trim();
-                int days = Integer.parseInt(d.split(" ",2)[0].trim());
-                return new RemindCommand(indexOfTask, days);
+                return parseRemind(userInput, command);
 
             case "postpone":
                 String dateTimeFromUser;
@@ -168,12 +160,12 @@ public class Parser {
         }
     }
 
-    private static Command parseTodo(String command, String userInput) throws DukeException{
+    private static Command parseTodo(String command, String userInput) throws DukeException {
         String taskFeatures;
 
         try {
             taskFeatures = userInput.split("\\s+", 2)[1].trim();
-        }catch (ArrayIndexOutOfBoundsException e)
+        } catch (ArrayIndexOutOfBoundsException e)
         {
             throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
         }
@@ -192,7 +184,7 @@ public class Parser {
         }
     }
 
-    private static Command parseToDoDuration(String taskFeatures, String[] taskDetails, String checkType, String command) throws DukeException{
+    private static Command parseToDoDuration(String taskFeatures, String[] taskDetails, String checkType, String command) throws DukeException {
         {
             String dateTimeFromUser = taskDetails[1];
             String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
@@ -214,5 +206,34 @@ public class Parser {
             }
             return new AddCommand(command, taskDescription, NULL_DATE, to, from);
         }
+    }
+
+    private static Command parseRemind(String userInput, String command) throws DukeException {
+        String description;
+        int indexOfTask;
+        int days;
+
+        description = extractDescription(userInput, command);
+        indexOfTask = extractIndexOfTask(description);
+        days = extractReminderValue(description);
+
+        return new RemindCommand(indexOfTask, days);
+    }
+
+    private static String extractDescription(String userInput, String command) throws DukeException{
+        try {
+            return userInput.split("\\s+", 2)[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
+        }
+    }
+
+    private static int extractIndexOfTask(String description) {
+        return Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+    }
+
+    private static int extractReminderValue(String description) {
+        String substring = description.split("in", 2)[1].trim();
+        return Integer.parseInt(substring.split(" ",2)[0].trim());
     }
 }
