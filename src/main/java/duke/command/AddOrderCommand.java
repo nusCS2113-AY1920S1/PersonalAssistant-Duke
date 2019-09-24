@@ -37,7 +37,8 @@ public class AddOrderCommand extends UndoableCommand {
     }
 
     private Order getOrder() throws DukeException {
-        if (!params.containsKey("name") || !params.containsKey("contact") || !params.containsKey("by") || !params.containsKey("item")) {
+        if (!params.containsKey("name") || !params.containsKey("contact")
+                || !params.containsKey("by") || !params.containsKey("item")) {
             throw new DukeException("Must have name, contact, deadline & item.");
         }
 

@@ -32,7 +32,9 @@ public class CommandManager {
             redo();
         } else {
             command.execute(bakingList, storage, ui);
-            if (command instanceof UndoableCommand) undoStack.add((UndoableCommand) command);
+            if (command instanceof UndoableCommand) {
+                undoStack.add((UndoableCommand) command);
+            }
         }
     }
 

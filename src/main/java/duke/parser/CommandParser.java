@@ -29,7 +29,9 @@ public class CommandParser {
     }
 
     public static void addItemsToOrder(Map<String, List<String>> params, Order order) throws DukeException {
-        if (!params.containsKey("item")) return;
+        if (!params.containsKey("item")) {
+            return;
+        }
 
         for (String item : params.get("item")) {
             String[] itemAndQty = item.split(",");

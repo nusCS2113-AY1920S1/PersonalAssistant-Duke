@@ -20,7 +20,9 @@ public class Event extends Task implements Comparable<Task> {
      * @param from        start time of the Event.
      * @param to          end time of the Event.
      */
-    public Event(@JsonProperty("description") String description, @JsonProperty("from") Date from, @JsonProperty("to") Date to) {
+    public Event(@JsonProperty("description") String description,
+                 @JsonProperty("from") Date from,
+                 @JsonProperty("to") Date to) {
         super(description);
         this.from = from;
         this.to = to;

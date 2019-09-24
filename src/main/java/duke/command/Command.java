@@ -18,5 +18,5 @@ public abstract class Command {
      * @param ui A Ui object capable of controlling GUI.
      * @throws DukeException If the execution fails.
      */
-    abstract public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
+    public abstract void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
 }

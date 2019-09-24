@@ -22,6 +22,7 @@ public class Parser {
     private static final String COMMAND_ORDER_ADD = "add";
     private static final String COMMAND_ORDER_DELETE = "remove";
     private static final String COMMAND_ORDER_EDIT = "edit";
+
     /**
      * Parses user input into a command.
      *
@@ -36,8 +37,9 @@ public class Parser {
         switch (commandWord) {
             case COMMAND_ORDER:
                 return parseOrder(line);
+            default:
+                throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
-        throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private static Map<String, List<String>> parseCommandAndParams(String line) throws DukeException {
@@ -50,14 +52,18 @@ public class Parser {
             throw new DukeException("Please enter a command");
         }
 
-        params.put("cmd", new ArrayList<String>() {{
-            add(commandWordMatcher.group(1).strip());
-        }});
+        params.put("cmd", new ArrayList<String>() {
+            {
+                add(commandWordMatcher.group(1).strip());
+            }
+        });
 
         if (commandWordMatcher.group(2) != null) {
-            params.put("primary", new ArrayList<String>() {{
-                add(commandWordMatcher.group(2).strip());
-            }});
+            params.put("primary", new ArrayList<String>() {
+                {
+                    add(commandWordMatcher.group(2).strip());
+                }
+            });
         }
 
         //Regex to get each parameter block. e.g. "-at some place" is one command block.
@@ -66,9 +72,12 @@ public class Parser {
 
         while (paramsMatcher.find()) {
             String s = paramsMatcher.group().strip();
-            if (s.isEmpty() || s.isBlank()) continue;
+            if (s.isEmpty() || s.isBlank()) {
+                continue;
+            }
 
-            //Regex to get parameter and value. e.g. in "-at some place", "at" is the parameter and "some place" is the value.
+            //Regex to get parameter and value.
+            // e.g. in "-at some place", "at" is the parameter and "some place" is the value.
             Pattern attrAndValuePattern = Pattern.compile("-(\\w+) ([^-]+)|-(\\w+)");
             Matcher attrAndValueMatcher = attrAndValuePattern.matcher(s);
 
@@ -78,17 +87,21 @@ public class Parser {
 
             if (attrAndValueMatcher.group(2) == null) {
                 if (!params.containsKey(attrAndValueMatcher.group(3))) {
-                    params.put(attrAndValueMatcher.group(3), new ArrayList<>() {{
-                        add("");
-                    }});
+                    params.put(attrAndValueMatcher.group(3), new ArrayList<>() {
+                        {
+                            add("");
+                        }
+                    });
                 } else {
                     params.get(attrAndValueMatcher.group(3)).add("");
                 }
             } else {
                 if (!params.containsKey(attrAndValueMatcher.group(1))) {
-                    params.put(attrAndValueMatcher.group(1).strip(), new ArrayList<>() {{
-                        add(attrAndValueMatcher.group(2));
-                    }});
+                    params.put(attrAndValueMatcher.group(1).strip(), new ArrayList<>() {
+                        {
+                            add(attrAndValueMatcher.group(2));
+                        }
+                    });
                 } else {
                     params.get(attrAndValueMatcher.group(1).strip()).add(attrAndValueMatcher.group(2));
                 }

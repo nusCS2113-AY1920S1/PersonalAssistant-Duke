@@ -44,7 +44,9 @@ public class TimeParser {
     }
 
     public static List<Task> detectConflict(Task task, TaskList taskList) {
-        if (!(task instanceof Event)) return new ArrayList<>();
+        if (!(task instanceof Event)) {
+            return new ArrayList<>();
+        }
 
         List<Task> tasks = taskList.getTasks();
         List<Task> result = new ArrayList<>();
