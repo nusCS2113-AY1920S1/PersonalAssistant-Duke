@@ -1,0 +1,88 @@
+.dialog {
+    -fx-background-color: lightblue;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 5;
+    -fx-border-insets: 5;
+    -fx-border-width: 1;
+    -fx-border-color: blue;
+    -fx-background-insets: 5;
+}
+
+.dialogFlip {
+    -fx-background-color: lightgreen;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 5;
+    -fx-border-insets: 5;
+    -fx-border-width: 1;
+    -fx-border-color: green;
+    -fx-background-insets: 5;
+}
+
+#circle {
+    -fx-border-width: 5;
+}
+
+#dialogContainer {
+    -fx-background-image: url("../images/wallpaper.jpg");
+    -fx-background-size: 400 600;
+    -fx-background-repeat: repeat-y;
+}
+
+.scroll-bar {
+    -fx-background-color : black;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color : linear-gradient(to top left, mediumseagreen, midnightblue);
+    -fx-border-color : black;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.00em 0.0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : linear-gradient(to bottom right, mediumseagreen, midnightblue);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-border-width: 1;
+    -fx-background-radius : 2.0em;
+    -fx-border-color : honeydew;
+    -fx-border-radius : 2.0em;
+}
+
+.mainPane {
+    -fx-background-color: rgba(0, 30, 15, 0.8);
+}
+
+.button {
+    -fx-background-color : linear-gradient(to bottom right, mediumseagreen, midnightblue);
+    -fx-border-width: 2;
+    -fx-border-color : linear-gradient(to top left, mediumseagreen, midnightblue);
+    -fx-background-radius : 2.0em;
+    -fx-border-radius : 2.0em;
+}
+
+#userInput {
+  -fx-control-inner-background: rgba(10, 50, 100, 0.75);
+  -fx-text-inner-color: lightseagreen;
+}
+
+.dialog .label {
+     -fx-text-fill: mediumblue;
+}
+
+.dialogFlip .label {
+    -fx-text-fill: seagreen;
+}

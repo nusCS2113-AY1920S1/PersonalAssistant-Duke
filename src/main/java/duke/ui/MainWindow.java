@@ -29,9 +29,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
+    /**
+     * Initialises the MainWindow.
+     */
     public MainWindow(Stage primaryStage) {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
+        primaryStage.getScene().getStylesheets().addAll(
+                this.getClass().getResource("/css/mainStyle.css").toExternalForm());
     }
 
     /**

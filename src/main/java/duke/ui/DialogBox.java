@@ -9,56 +9,72 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
-
 public class DialogBox extends UiPart<HBox> {
     private static final String FXML = "DialogBox.fxml";
+
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private HBox dialogBox;
+    @FXML
+    private Circle circle;
+    @FXML
+    private HBox miniBox;
 
     private DialogBox(String text, Image img) {
         super(FXML);
         dialog.setText(text);
-        displayPicture.setImage(img);
+        dialog.setMinHeight(Label.USE_PREF_SIZE);
+        roundImageView(img);
+    }
+
+    /**
+     * Rounds an image.
+     */
+    private void roundImageView(Image img) {
+        ImagePattern pattern = new ImagePattern(img);
+        circle.setFill(pattern);
     }
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(getRoot().getChildren());
+        miniBox.getStyleClass().remove("dialog");
+        miniBox.getStyleClass().add("dialogFlip");
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getRoot().getChildren());
+        flipNode(tmp, this.getRoot());
+        ObservableList<Node> tmp2 = FXCollections.observableArrayList(miniBox.getChildren());
+        flipNode(tmp2, miniBox);
+    }
+
+    private void flipNode(ObservableList<Node> tmp, HBox root) {
         Collections.reverse(tmp);
-        getRoot().getChildren().setAll(tmp);
-        getRoot().setAlignment(Pos.TOP_LEFT);
+        root.getChildren().setAll(tmp);
+        root.setAlignment(Pos.TOP_LEFT);
     }
 
     /**
-     * Returns a Dialog Box corresponding to the User.
-     * @param text the text in the Dialog Box.
-     * @param img the image of the user.
-     * @return the Dialog Box to be added.
+     * Gets a User Dialog box for display.
      */
     public static HBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img).getRoot();
     }
 
     /**
-     * Returns a Dialog Box corresponding to Duke.
-     * @param text the text in the Dialog Box.
-     * @param img the image used by Duke.
-     * @return the dialog Box to be added.
+     * Gets a Duke Dialog box for display.
      */
     public static HBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db.getRoot();
     }
