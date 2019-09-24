@@ -1,13 +1,4 @@
-import command.ByeCommand;
-import command.Command;
-import command.DeadlineCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.EventCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.TodoCommand;
-import command.ViewScheduleCommand;
+import command.*;
 import exception.DukeException;
 
 import java.text.ParseException;
@@ -42,7 +33,9 @@ public class Parser{
             case "snooze":
                 return new SnoozeCommand(splitStr);
             case "unsnooze":
-                return new UnSnoozeCommand(splitStr);  
+                return new UnSnoozeCommand(splitStr);
+            case "duration" :
+                return new FixedDurationCommand(input, splitStr);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
