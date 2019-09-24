@@ -159,7 +159,7 @@ public class AddCommand extends Command {
      * @param e The input event needs to be checked
      * @return Is there any time clash between the input event an the existing tasks
      */
-    public Boolean ScheduleClashes(TaskList tasks, Events e){
+    public Boolean ScheduleClashes(TaskList tasks, Events e) {
         for (Task t : tasks.getCheckList()) {
             if (t instanceof Events) {
                 if (((Events) t).getStartDateAt().compareTo(e.getEndDateAt()) <= 0
@@ -178,7 +178,7 @@ public class AddCommand extends Command {
      * @param to The end date of a event
      * @return Whether it is a valid input duration
      */
-    public Boolean InvalidDuration (Date from, Date to) {
+    public Boolean InvalidDuration(Date from, Date to) {
         return (from.compareTo(to) > 0);
     }
 }
