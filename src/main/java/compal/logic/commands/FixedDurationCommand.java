@@ -12,9 +12,9 @@ import java.util.Scanner;
  */
 public class FixedDurationCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/on";
-    private final String TOKEN_HOUR = "/hr";
-    private final String TOKEN_MINUTE = "/min";
+    private static final String TOKEN = "/on";
+    private static final String TOKEN_HOUR = "/hr";
+    private static final String TOKEN_MINUTE = "/min";
     private TaskList taskList;
 
     /**
@@ -34,7 +34,7 @@ public class FixedDurationCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user input after "fixeddurationtask" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {

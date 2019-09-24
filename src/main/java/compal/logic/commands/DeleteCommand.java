@@ -30,7 +30,7 @@ public class DeleteCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user task number input is invalid.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         //duke.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String delete = scanner.next();

@@ -30,7 +30,7 @@ public class DoneCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user task number input is missing.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
 
         Scanner scanner = new Scanner(userIn);
         scanner.next();

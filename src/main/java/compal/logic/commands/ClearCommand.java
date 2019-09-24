@@ -23,7 +23,7 @@ public class ClearCommand extends Command implements CommandParser {
      * @param userIn Entire user input string.
      */
     @Override
-    public void Command(String userIn) {
+    public void parseCommand(String userIn) {
         duke.ui.clearPrimary();
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static java.lang.System.exit;
 
 /**
- * Main class
+ * Main class.
  */
 public class Duke {
 

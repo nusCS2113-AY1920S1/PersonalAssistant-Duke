@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class RecurTaskCommand extends Command implements CommandParser {
 
     private static final String TOKEN_REP = "/rep";
-    private final String TOKEN = "/by";
+    private static final String TOKEN = "/by";
     private TaskList taskList;
 
     /**
@@ -74,7 +74,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user input after "recurtask" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
         String recurtask = scanner.next();
         if (scanner.hasNext()) {

@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 public abstract class Command {
     public static final String ERROR_DATE_STRING = "27/07/1987";
     public static final String ERROR_TIME_STRING = "TIME";
-    public final String TOKEN_SLASH = "/";
+    public static final String TOKEN_SLASH = "/";
+    public static final String TIME_TOKEN = "/time";
+    public static final String DATE_TOKEN = "/date";
     public final char sadFace = '\u2639';
-    public final String TIME_TOKEN = "/time";
-    public final String DATE_TOKEN = "/date";
     public String cmdString;
     public Duke duke;
 
@@ -57,7 +57,7 @@ public abstract class Command {
      * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
      * @throws Duke.DukeException If date field is empty, date or date format is invalid,
-     * date token (/date) is missing.
+     *                            date token (/date) is missing.
      */
     public String getDate(String restOfInput) throws Duke.DukeException {
         if (restOfInput.contains(DATE_TOKEN)) {
@@ -67,29 +67,34 @@ public abstract class Command {
             scanner.next();
             if (!scanner.hasNext()) {
                 duke.ui.printg("MissingDateError: Date field cannot be empty. Please enter a valid date.");
-                throw new Duke.DukeException("MissingDateError: Date field cannot be empty. Please enter a valid date.");
+                throw new Duke.DukeException("MissingDateError: Date field cannot be empty. "
+                        + "Please enter a valid date.");
             }
-            String date_input = scanner.next();
+            String dateInput = scanner.next();
 
             String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
             Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(date_input);
+            Matcher matcher = pattern.matcher(dateInput);
 
             if (matcher.matches() == false) {
-                duke.ui.printg("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
-                throw new Duke.DukeException("DateFormattingError: Date format input is invalid! Please make sure is dd/mm/yyyy format.");
+                duke.ui.printg("DateFormattingError: Date format input is invalid! "
+                        + "Please make sure is dd/mm/yyyy format.");
+                throw new Duke.DukeException("DateFormattingError: Date format input is invalid! "
+                        + "Please make sure is dd/mm/yyyy format.");
             }
-            int inputSize = date_input.length();
+            int inputSize = dateInput.length();
 
-            String year = date_input.substring(inputSize - 4, inputSize);
+            String year = dateInput.substring(inputSize - 4, inputSize);
             int inputYear = Integer.parseInt(year);
             int currYear = Calendar.getInstance().get(Calendar.YEAR);
 
             if (inputYear < currYear) {
-                duke.ui.printg("YearRangeError: You can only put input schedule of the " + currYear + " onwards!");
-                throw new Duke.DukeException("YearRangeError: You can only put input schedule of the " + currYear + " onwards!");
+                duke.ui.printg("YearRangeError: You can only put input "
+                        + "schedule of the " + currYear + " onwards!");
+                throw new Duke.DukeException("YearRangeError: You can only put input "
+                        + "schedule of the " + currYear + " onwards!");
             }
-            return date_input;
+            return dateInput;
         } else {
             duke.ui.printg("ArgumentError: Missing /date");
             throw new Duke.DukeException("ArgumentError: Missing /date");
@@ -110,11 +115,13 @@ public abstract class Command {
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
             if (!scanner.hasNext()) {
-                duke.ui.printg("MissingTimeError: Time field cannot be empty. Please enter a valid time.");
-                throw new Duke.DukeException("MissingTimeError: Time field cannot be empty. Please enter a valid time.");
+                duke.ui.printg("MissingTimeError: Time field cannot be empty."
+                        + " Please enter a valid time.");
+                throw new Duke.DukeException("MissingTimeError: Time field cannot be empty."
+                        + " Please enter a valid time.");
             }
-            String time_input = scanner.next();
-            return time_input;
+            String timeInput = scanner.next();
+            return timeInput;
         } else {
             duke.ui.printg("ArgumentError: Missing /time");
             throw new Duke.DukeException("ArgumentError: Missing /time");

@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class EventCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/at";
+    private static final String TOKEN = "/at";
     private TaskList taskList;
 
     /**
@@ -39,7 +39,7 @@ public class EventCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user input after "event" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {

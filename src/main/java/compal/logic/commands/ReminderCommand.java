@@ -21,7 +21,7 @@ public class ReminderCommand extends Command implements CommandParser {
     }
 
     @Override
-    public void Command(String userIn) {
+    public void parseCommand(String userIn) {
         duke.ui.printg("Reminder: \n");
         ArrayList<Task> reminder = new ArrayList<>();
         Date currentDate = java.util.Calendar.getInstance().getTime();
@@ -36,7 +36,8 @@ public class ReminderCommand extends Command implements CommandParser {
 
         for (Task t : taskList.arrlist) {
             Date deadline = t.getDate();
-            if ((deadline != null && !t.isDone && deadline.after(dateToday) && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
+            if ((deadline != null && !t.isDone && deadline.after(dateToday)
+                    && deadline.before(dateOneWeekAfter)) || t.isHasReminder()) {
                 System.out.println(deadline);
                 reminder.add(t);
             }

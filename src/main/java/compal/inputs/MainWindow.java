@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws ParseException, Duke.DukeException {
         String cmd = userInput.getText();
         //send to parser to parse
-        duke.parser.processCMD(cmd);
+        duke.parser.processCmd(cmd);
         userInput.clear();
     }
 }

@@ -177,7 +177,7 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n");
-            duke.parser.processCMD("reminder");
+            duke.parser.processCmd("reminder");
         }
     }
 

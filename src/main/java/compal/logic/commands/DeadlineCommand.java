@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class DeadlineCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/by";
+    private static final String TOKEN = "/by";
     private TaskList taskList;
 
     /**
@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user input after "deadline" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
 
         if (scanner.hasNext()) {

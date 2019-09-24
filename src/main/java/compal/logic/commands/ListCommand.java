@@ -33,7 +33,7 @@ public class ListCommand extends Command implements CommandParser {
      * @param userIn Entire user input string.
      */
     @Override
-    public void Command(String userIn) {
+    public void parseCommand(String userIn) {
         Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
         ArrayList<Task> toList = taskList.arrlist;
         Collections.sort(toList, compareByDateTime);

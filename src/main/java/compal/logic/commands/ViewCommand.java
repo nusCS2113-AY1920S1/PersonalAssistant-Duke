@@ -33,7 +33,7 @@ public class ViewCommand extends Command implements CommandParser {
      * @param userIn User string input.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         String dateInput = scanner.next();

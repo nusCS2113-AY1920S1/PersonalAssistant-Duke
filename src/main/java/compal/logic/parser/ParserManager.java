@@ -84,7 +84,7 @@ public class ParserManager {
      * @throws ParseException If input date is invalid.
      * @throws Duke.DukeException If command input is unknown or user input is empty.
      */
-    public void processCMD(String userInput) throws ParseException, Duke.DukeException {
+    public void processCmd(String userInput) throws ParseException, Duke.DukeException {
         Scanner sc = new Scanner(userInput);
         if (sc.hasNext()) {
             String cmd = sc.next();
@@ -94,55 +94,55 @@ public class ParserManager {
                 switch (cmd) {
                 case CMD_EXIT:
                     ByeCommand bye = new ByeCommand(duke);
-                    bye.Command(cmd);
+                    bye.parseCommand(cmd);
                     break;
                 case CMD_LIST:
                     ListCommand list = new ListCommand(duke);
-                    list.Command(cmd);
+                    list.parseCommand(cmd);
                     break;
                 case CMD_CLEAR:
                     ClearCommand clear = new ClearCommand(duke);
-                    clear.Command(cmd);
+                    clear.parseCommand(cmd);
                     break;
                 case CMD_DONE:
                     DoneCommand done = new DoneCommand(duke);
-                    done.Command(userInput);
+                    done.parseCommand(userInput);
                     break;
                 case CMD_DELETE:
                     DeleteCommand delete = new DeleteCommand(duke);
-                    delete.Command(userInput);
+                    delete.parseCommand(userInput);
                     break;
                 case CMD_EVENT:
                     EventCommand event = new EventCommand(duke);
-                    event.Command(userInput);
+                    event.parseCommand(userInput);
                     break;
                 case CMD_DEADLINE:
                     DeadlineCommand deadline = new DeadlineCommand(duke);
-                    deadline.Command(userInput);
+                    deadline.parseCommand(userInput);
                     break;
                 case CMD_DO_AFTER_TASK:
                     DoAfterCommand doafter = new DoAfterCommand(duke);
-                    doafter.Command(userInput);
+                    doafter.parseCommand(userInput);
                     break;
                 case CMD_FIXED_DURATION_TASK:
                     FixedDurationCommand fixedduration = new FixedDurationCommand(duke);
-                    fixedduration.Command(userInput);
+                    fixedduration.parseCommand(userInput);
                     break;
                 case CMD_RECUR_TASK:
                     RecurTaskCommand recurTask = new RecurTaskCommand(duke);
-                    recurTask.Command(userInput);
+                    recurTask.parseCommand(userInput);
                     break;
                 case CMD_FIND:
                     FindCommand findCommand = new FindCommand(duke);
-                    findCommand.Command(userInput);
+                    findCommand.parseCommand(userInput);
                     break;
                 case CMD_VIEW:
                     ViewCommand viewCommand = new ViewCommand(duke);
-                    viewCommand.Command(userInput);
+                    viewCommand.parseCommand(userInput);
                     break;
                 case CMD_REMINDER:
                     ReminderCommand reminderCommand = new ReminderCommand(duke);
-                    reminderCommand.Command(cmd);
+                    reminderCommand.parseCommand(cmd);
                     break;
                 default:
                     duke.ui.printg("CommandError: Unknown command input detected!");

@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class DoAfterCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/after";
+    private static final String TOKEN = "/after";
     private TaskList taskList;
 
     /**
@@ -32,7 +32,7 @@ public class DoAfterCommand extends Command implements CommandParser {
      * @throws Duke.DukeException If user input after "doafter" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Duke.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {

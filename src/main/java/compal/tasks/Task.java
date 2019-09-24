@@ -106,7 +106,7 @@ public abstract class Task implements Serializable {
      * Gets hasReminder of task.
      *
      * @return whether the task has reminder. If task has reminder, return true.
-     * If task has no reminder, return false.
+     *     If task has no reminder, return false.
      */
     public boolean isHasReminder() {
         return hasReminder;
@@ -219,11 +219,14 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         if (getDurationHour() != null && getDurationMinute() != null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
         }
         if (getTime() == null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate();
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate();
         }
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " + getStringTime();
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " Date: " + getStringDate() + " Time: " + getStringTime();
     }
 }
