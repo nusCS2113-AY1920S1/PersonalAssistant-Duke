@@ -1,7 +1,9 @@
 package Commands;
 
-import Tasks.*;
-import ControlPanel.*;
+import Tasks.TaskList;
+import ControlPanel.Ui;
+import ControlPanel.Storage;
+import ControlPanel.DukeException;
 
 /**
  * The command which aims to delete a specific task from the checklist
@@ -14,7 +16,7 @@ public class DeleteCommand extends Command {
      * The constructor which initializes the delete command
      * @param index the index number of the task which will be deleted
      */
-    public DeleteCommand(int index){
+    public DeleteCommand(int index) {
         serialNo = index;
     }
 
@@ -37,13 +39,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (serialNo > tasks.lengthOfList()){
+        if (serialNo > tasks.lengthOfList()) {
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
         ui.appendToOutput(" Noted. I've removed this task:\n");
-        ui.appendToOutput("  " + tasks.getTask(serialNo-1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (tasks.lengthOfList()-1) + " tasks in the list.\n");
-        tasks.removeTask(serialNo-1);
+        ui.appendToOutput("  " + tasks.getTask(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + (tasks.lengthOfList() - 1) + " tasks in the list.\n");
+        tasks.removeTask(serialNo - 1);
         storage.writeTheFile(tasks.getCheckList());
     }
 }
