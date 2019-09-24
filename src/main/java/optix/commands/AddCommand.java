@@ -3,6 +3,7 @@ package optix.commands;
 import optix.Ui;
 import optix.constant.OptixResponse;
 import optix.core.Show;
+import optix.core.Storage;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ShowMap shows, Ui ui) {
+    public void execute(ShowMap shows, Ui ui, Storage storage) {
         Show show = new Show(name, cost);
         // to abstract the  date formatting in the future extensions
         LocalDate date = toLocalDate(this.date);

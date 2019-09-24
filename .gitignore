@@ -15,3 +15,5 @@ bin/
 
 # ignore save file
 /src/main/data/duke.txt
+/src/main/data/optix.txt
+

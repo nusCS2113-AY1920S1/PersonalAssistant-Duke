@@ -1,13 +1,19 @@
 package optix.parser;
 
 import optix.commands.AddCommand;
+import optix.commands.ByeCommand;
 import optix.commands.Command;
+import optix.commands.ListCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) {
         String[] splitStr = fullCommand.trim().split(" ", 2);
 
         switch (splitStr[0].toLowerCase()) {
+        case "list":
+            return new ListCommand();
+        case "bye":
+            return new ByeCommand();
         case "add":
             return parseAddShow(splitStr[1]);
         default:

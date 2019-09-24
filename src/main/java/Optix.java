@@ -1,8 +1,10 @@
 import optix.Ui;
 import optix.commands.Command;
+import optix.core.Storage;
 import optix.parser.Parser;
 import optix.util.ShowMap;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Optix {
@@ -11,13 +13,18 @@ public class Optix {
 
     private Ui ui;
 
-    public Optix() {
+    private Storage storage;
+
+    public Optix(File filePath) {
         ui = new Ui();
-        shows = new ShowMap();
+        storage = new Storage(filePath);
+        shows = storage.load();
     }
 
     public static void main(String[] args) {
-        new Optix().run();
+        File currentDir = new File(System.getProperty("user.dir"));
+        File filePath = new File(currentDir.toString() + "\\src\\main\\data\\optix.txt");
+        new Optix(filePath).run();
     }
 
     public void run() {
@@ -28,7 +35,7 @@ public class Optix {
         while (!isExit) {
             String fullCommand = ui.readCommand(sc);
             Command c = Parser.parse(fullCommand);
-            c.execute(shows, ui);
+            c.execute(shows, ui, storage);
             System.out.println(ui.showLine());
             isExit = c.isExit();
         }

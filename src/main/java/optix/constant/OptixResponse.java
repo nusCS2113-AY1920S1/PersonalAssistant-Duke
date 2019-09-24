@@ -9,9 +9,9 @@ public class OptixResponse {
 
     public final String BYE = "Bye. Hope to see you again soon!\n";
 
-    public final String LIST_FOUND = "Here are the tasks in your list:\n";
+    public final String LIST_FOUND = "Here are the list of shows:\n";
 
-    public final String LIST_NOT_FOUND = "☹ OOPS!!! Your List is currently empty.\n";
+    public final String LIST_NOT_FOUND = "☹ OOPS!!! There are no shows in the near future.\n";
 
     public final String DONE_FOUND = "Nice! I've marked this task as done:\n";
 
