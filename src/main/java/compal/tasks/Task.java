@@ -3,12 +3,18 @@ package compal.tasks;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Represents task with description, status and reminder.
  */
 public abstract class Task implements Serializable {
+
+    public enum Priority
+    {
+        high, medium, low;
+    }
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public boolean isDone;
@@ -23,6 +29,7 @@ public abstract class Task implements Serializable {
     private Integer durationHour;
     private Integer durationMinute;
     private boolean hasReminder;
+    private Priority priority;
     //----------------------->
 
 
@@ -35,8 +42,9 @@ public abstract class Task implements Serializable {
      *
      * @param description Description.
      */
-    public Task(String description) {
+    public Task(String description, Priority priority) {
         this.description = description;
+        this.priority = priority;
         this.isDone = false;
         hasReminder = false;
     }
@@ -45,6 +53,16 @@ public abstract class Task implements Serializable {
     //***GETTER FUNCTIONS***--------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
+
+
+    /**
+     * Gets priority status (HIGH, MEDIUM, LOW) of task.
+     *
+     * @return Priority status of task.
+     */
+    public Priority getPriority() {
+        return priority;
+    }
 
     /**
      * Gets status icon (tick or cross) of task.
@@ -70,7 +88,21 @@ public abstract class Task implements Serializable {
      * @return Date of task.
      */
     public Date getDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        this.date = calendar.getTime();
         return this.date;
+    }
+
+    /**
+     * Sets priority of task as HIGH, MEDIUM or LOW.
+     *
+     * @param priority Priority of task.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**
@@ -140,9 +172,9 @@ public abstract class Task implements Serializable {
      * Gets hasReminder of task.
      *
      * @return whether the task has reminder. If task has reminder, return true.
-     *     If task has no reminder, return false.
+     * If task has no reminder, return false.
      */
-    public boolean isHasReminder() {
+    public boolean hasReminder() {
         return hasReminder;
     }
     //----------------------->
@@ -221,13 +253,14 @@ public abstract class Task implements Serializable {
     public String toString() {
         if (getDurationHour() != null && getDurationMinute() != null) {
             return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
+                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: "
+                    + getDurationMinute() + " Priority: " + getPriority();
         }
         if (getTime() == null) {
             return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " Date: " + getStringDate();
+                    + " Date: " + getStringDate() + " Priority: " + getPriority();
         }
         return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " Date: " + getStringDate() + " Time: " + getStringTime();
+                + " Date: " + getStringDate() + " Time: " + getStringTime() + " Priority: " + getPriority();
     }
 }

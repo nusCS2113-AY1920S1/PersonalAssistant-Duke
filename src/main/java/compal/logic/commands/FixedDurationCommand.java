@@ -3,6 +3,7 @@ package compal.logic.commands;
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.FixedDurationTask;
+import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
@@ -47,11 +48,12 @@ public class FixedDurationCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
+            Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
+            taskList.addTask(new FixedDurationTask(description, priority, date, time, hour, minute));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);
