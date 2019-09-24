@@ -15,7 +15,7 @@ public class Account {
     private float BaseSavings;
     private float GoalSavings;
 
-    Account() {
+    public Account() {
         IncomeListTotal = new ArrayList<>();
         ExpListTotal = new ArrayList<>();
         IncomeListCurrMonth = new ArrayList<>();
