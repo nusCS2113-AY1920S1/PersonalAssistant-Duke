@@ -7,6 +7,7 @@ import seedu.duke.task.Event;
 import seedu.duke.task.RangedTask;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.DoAfter;
+import seedu.duke.task.FixedDurationTask;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -74,6 +75,8 @@ public class Storage {
                 } else if (taskString[0].equals("A")) {
                     LocalDateTime localDateTime = getDateTime(taskString[3]);
                     list.add(new DoAfter(taskString[2], localDateTime));
+                } else if (taskString[0].equals("F")) {
+                    list.add(new FixedDurationTask(taskString[2], taskString[3]));
                 } else {
                     LocalDateTime at = getDateTime(taskString[3]);
                     list.add(new Event(taskString[2], at));

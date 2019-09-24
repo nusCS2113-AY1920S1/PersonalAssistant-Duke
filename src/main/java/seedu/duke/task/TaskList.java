@@ -154,7 +154,16 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            }
+            } else if (taskType.equals("fixedtask")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String needs = taskDescriptionFull.split("/", 2)[1].substring(6);
+                    list.add(new FixedDurationTask(taskDescription, needs));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                }
+	    }
         }
 
         String output = "\t  " + list.get(list.size() - 1).toString();
