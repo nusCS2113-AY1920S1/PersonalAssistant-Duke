@@ -27,10 +27,12 @@ or many more other cool features. Users can interact with Dolla with the various
 e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 .  Here are some example command you can try:
 * *`list`* List all the income and expense with the most recently added on the top
-* *`add expense`* `$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* *`set limit`* `/tag food $300` : set a limit for the user on the amount of money they can spend on food
+* **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
+* **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
 .  Refer to <<Features>> for the details of each command.
+
+[[Features]]
 == Features
 
 == FAQ
