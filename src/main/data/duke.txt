@@ -3,4 +3,4 @@ D | - | return book | 2nd of December 2019, 6.00pm
 D | - | assignment 3 | 9th of September 2019, 12.00pm
 E | - | project meeting | Aug 6th 2-4pm
 F | + | homework | in 2hours
-P | - | serve ns  | 15 may to 20 may
+F | + | meeting | 3hours

@@ -27,10 +27,10 @@ public class PeriodCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_PERIOD)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(6) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains("/between")) {
-                String details = description.trim().split("/between", 2)[0];
-                String period = description.trim().split("/between", 2)[1];
+                String details = description.split("/between", 2)[0].trim();
+                String period = description.split("/between", 2)[1].trim();
                 if (!period.isEmpty()) {
                     if (period.contains("/and")) {
                         String startDate = period.trim().split("/and", 2)[0].trim();

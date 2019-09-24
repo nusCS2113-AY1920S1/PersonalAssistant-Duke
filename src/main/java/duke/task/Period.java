@@ -32,6 +32,6 @@ public class Period extends Task {
      */
     @Override
     public String toString() {
-        return "[P]" + super.toString() + "(between: " + startDate + " and " + endDate + ")";
+        return "[P]" + super.toString() + " (between: " + startDate + " and " + endDate + ")";
     }
 }

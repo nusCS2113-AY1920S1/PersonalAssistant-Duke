@@ -27,10 +27,10 @@ public class DurationCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_DURATION)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(5) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains(" /need ")) {
-                String details = description.trim().split(" /need ", 2)[0];
-                String need = description.trim().split(" /need ", 2)[1];
+                String details = description.split(" /need ", 2)[0].trim();
+                String need = description.split(" /need ", 2)[1].trim();
                 if (details == null || need == null) {
                     throw new DukeException(ERROR_MESSAGE_DURATION);
                 } else {
