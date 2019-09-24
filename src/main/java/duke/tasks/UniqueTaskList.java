@@ -29,6 +29,10 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.get(index);
     }
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Returns true if the list contains an equivalent Task as the given argument.
      */

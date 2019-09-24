@@ -43,5 +43,6 @@ public class ViewScheduleCommand extends Command {
             }
         }
         ui.showList(result);
+        ui.showCalendar(storage.getTasks());
     }
 }

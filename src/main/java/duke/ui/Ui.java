@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.tasks.Task;
 import duke.tasks.UniqueTaskList;
+import duke.ui.calendar.CalendarWindow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
@@ -22,7 +23,6 @@ public class Ui {
     private static final String MESSAGE_UPDATE = "No problem! I've rescheduled this task:\n  ";
 
     private VBox dialogContainer;
-
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
     public Ui(VBox dialogContainer) {
@@ -98,5 +98,12 @@ public class Ui {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(msg, dukeImage)
         );
+    }
+
+    /**
+     * Shows a calendar.
+     */
+    public void showCalendar(UniqueTaskList tasks) {
+        new CalendarWindow(tasks).show();
     }
 }
