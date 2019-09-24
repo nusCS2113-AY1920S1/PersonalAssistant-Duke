@@ -1,5 +1,7 @@
 package task;
+import java.time.LocalDateTime;
 import java.io.Serializable;
+import parser.DateTimeExtractor;
 /**
  * This extension of the task class will allow the user to add a task of to-do type.
  *
@@ -12,6 +14,13 @@ public class Todo extends Task implements Serializable {
         super(description);
     }
 
+    public Todo(String description, LocalDateTime at, LocalDateTime to){
+        super(description);
+        this.startDate = at;
+        this.endDate = to;
+        this.createdDate = LocalDateTime.now();
+    }
+
     /**
      * This override of the toString function of the task class etches the different portions of the user input into a
      * single string.
@@ -20,6 +29,18 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        if(!this.startDate.isEqual(nullDate) && !this.endDate.isEqual(nullDate)){
+            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
+                    this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
+                    this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        }
+        else {
+            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        }
+    }
+
+    @Override
+    public boolean checkReminderTrigger(){
+        return LocalDateTime.now().isAfter(createdDate.plusDays(remindInHowManyDays));
     }
 }

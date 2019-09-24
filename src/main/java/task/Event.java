@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task implements Serializable, Comparable<Event>{
 
-    public Event(String description, LocalDateTime toDate, LocalDateTime fromDate) {
+    public Event(String description, LocalDateTime toDate, LocalDateTime atDate) {
         super(description);
-        this.toDate = toDate;
-        this.fromDate = fromDate;
+        this.endDate = toDate;
+        this.startDate = atDate;
+        this.remindInHowManyDays = 3;
     }
     
     /**
@@ -23,7 +24,7 @@ public class Event extends Task implements Serializable, Comparable<Event>{
      */
     @Override
     public int compareTo(Event o) {
-      return this.fromDate.compareTo(o.fromDate);
+      return this.startDate.compareTo(o.startDate);
     }
 
     /**
@@ -36,8 +37,8 @@ public class Event extends Task implements Serializable, Comparable<Event>{
     public String toString() {
 
         return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: "
-                + this.fromDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
-                this.toDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
+                this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
 }

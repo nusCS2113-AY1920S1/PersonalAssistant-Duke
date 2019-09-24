@@ -31,6 +31,7 @@ public class Parser {
         String checkType;
         String description;
         Integer indexOfTask;
+        LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
 
         switch (command) {
             case "todo":
@@ -42,8 +43,35 @@ public class Parser {
                 }
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                } else {
-                    return new AddCommand(command, taskFeatures, null, null, null);
+                } 
+                else {
+                    checkType = "/between";
+                    String taskDetails[] = taskFeatures.split(checkType, 2);
+                    if (taskDetails.length == 1)
+                    {
+                        return new AddCommand(command, taskDetails[0], nullDate, nullDate, nullDate);
+                    }
+                    else {
+                        String dateTimeFromUser = taskDetails[1];
+                        String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
+                        String fromDate;
+                        String toDate;
+                        try {
+                            fromDate = dateTimeFromUser.split("-", 2)[0].trim();
+                            toDate = dateTimeFromUser.split("-", 2)[1].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new DukeException(DukeException.EMPTY_DATE_OR_TIME());
+                        }
+                        LocalDateTime to;
+                        LocalDateTime from;
+                        try {
+                            to = DateTimeExtractor.extractDateTime(toDate, command);
+                            from = DateTimeExtractor.extractDateTime(fromDate, command);
+                        } catch (ParseException e) {
+                            throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
+                        }
+                        return new AddCommand(command, taskDescription, nullDate, to, from);
+                    }
                 }
             case "deadline":
                 //fall through to avoid rewriting the same code multiple times!
@@ -68,9 +96,9 @@ public class Parser {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                     }
                     String dateTimeFromUser;
-                    LocalDateTime atDate = LocalDateTime.now();
-                    LocalDateTime toDate = LocalDateTime.now();
-                    LocalDateTime fromDate = LocalDateTime.now();
+                    LocalDateTime atDate = nullDate;
+                    LocalDateTime toDate = nullDate;
+                    LocalDateTime fromDate = nullDate;
                     try {
                         dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
                         if (checkType.contains("/by")){
@@ -127,9 +155,9 @@ public class Parser {
 
             case "postpone":
                 String dateTimeFromUser;
-                LocalDateTime atDate = LocalDateTime.now();
-                LocalDateTime toDate = LocalDateTime.now();
-                LocalDateTime fromDate = LocalDateTime.now();
+                LocalDateTime atDate = nullDate;
+                LocalDateTime toDate = nullDate;
+                LocalDateTime fromDate = nullDate;
                 checkType = "/to";
 
                 if(!userInput.contains(checkType)){
@@ -159,7 +187,9 @@ public class Parser {
                     throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
                 }
                 return new PostponeCommand(indexOfTask,atDate,fromDate,toDate);
-
+            case "view":
+                    String userScheduleDate = userInput.split(" ", 2)[1].trim();
+                    return new ViewCommand(userScheduleDate);
             case "list":
                 return new ListCommand();
             case "bye":

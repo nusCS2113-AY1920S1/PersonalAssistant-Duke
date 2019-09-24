@@ -21,9 +21,10 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private LocalDateTime formattedToDate;
-    private LocalDateTime formattedAtDate;
-    private LocalDateTime formattedFromDate;
+    private final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    private LocalDateTime formattedToDate = nullDate;
+    private LocalDateTime formattedAtDate = nullDate;
+    private LocalDateTime formattedFromDate = nullDate;
     /**
      * This AddCommand function is used to assign the different parameters required when adding a task.
      *
@@ -46,7 +47,6 @@ public class AddCommand extends Command {
      * This execute function is used to add the respective tasks to the TaskList and save to persistent storage.
      *
      * @param tasks this string holds command type determinant to decide how to process the user input.
-     * @param ui this string holds the description of the task provided by the user.
      * @param storage this parameter provides the execute function the storage to allow the saving of the file.
      *
      */
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            task = new Todo(taskFeatures);
+            task = new Todo(taskFeatures, formattedFromDate, formattedToDate);
             break;
         case "deadline":
             task = new Deadline(taskFeatures, formattedAtDate);

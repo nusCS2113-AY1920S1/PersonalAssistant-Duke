@@ -13,10 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeExtractor {
 
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static LocalDateTime dateEvent;
-    private static LocalDateTime dateDeadline;
-    private static LocalDateTime datePostpone;
-    private static final LocalDateTime dateError = LocalDateTime.now();
+    private static final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    private static LocalDateTime dateEvent = nullDate;
+    private static LocalDateTime dateDeadline = nullDate;
+    private static LocalDateTime datePostpone = nullDate;
+    private static LocalDateTime dateTodo = nullDate;
+    private static LocalDateTime dateView = nullDate;
+    private static final LocalDateTime dateError = nullDate;
 
     /**
      * This function appends the end time of an event to provide a standardised output of date and time.
@@ -31,6 +34,10 @@ public class DateTimeExtractor {
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
         }
+        else if(command.equals("todo")) {
+            dateTodo = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateTodo;
+        }
         else if(command.equals("deadline")) {
             dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateDeadline;
@@ -38,7 +45,12 @@ public class DateTimeExtractor {
         else if (command.equals("postpone")){
             datePostpone = LocalDateTime.parse(dateTimeFromUser,DATE_FORMATTER);
             return datePostpone;
-        }        // Allows the developer to know that a command other than deadline or event was passed to the function!
+        }
+        else if (command.equals("view")){
+            dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateView;
+        }
+        // Allows the developer to know that a command other than deadline or event was passed to the function!
         return dateError;
     }
 }
