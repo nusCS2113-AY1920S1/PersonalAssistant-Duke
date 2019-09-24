@@ -50,18 +50,29 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 === Viewing help: `help`
 
-Format: `help`
+Format: +
+`help`
 
 === Adding expenses/income: `add expense`, `add income`
 
 Format: + 
-`*add expense* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}`
+`*add expense* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}`
 
 Examples:
 
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
 * `add income $500 part time tution /on 01/09/2019`
+
+=== list all expenses/income : `list`
+
+Format: +
+`list`
+
+== remove a expenses/income from the list : `remove`
+
+
+
 
 == FAQ
 
