@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FixedDurationTaskTest {
     private String description = "Test content";
+    private Task.Priority priority = null;
     private String date = "01/10/2019";
     private String time = "1230";
     private int hour = 2;
@@ -20,7 +21,7 @@ public class FixedDurationTaskTest {
 
     @BeforeEach
     public void setup() {
-        fixedDurationTask = new FixedDurationTask(description, date, time, hour, minute);
+        fixedDurationTask = new FixedDurationTask(description, priority, date, time, hour, minute);
     }
 
     @Test
@@ -81,7 +82,7 @@ public class FixedDurationTaskTest {
 
     @Test
     void isHasReminder() {
-        assertEquals(false, fixedDurationTask.isHasReminder());
+        assertEquals(false, fixedDurationTask.hasReminder());
     }
 
     @Test

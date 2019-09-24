@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RecurringTaskTesting {
     private String description = "Test content";
+    private Task.Priority priority = null;
     private String date = "01/10/2019";
     private String time = "1230";
     private RecurringTask recurringTask;
@@ -19,7 +20,7 @@ public class RecurringTaskTesting {
 
     @BeforeEach
     public void setup() {
-        recurringTask = new RecurringTask(description, date, time);
+        recurringTask = new RecurringTask(description, priority, date, time);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class RecurringTaskTesting {
 
     @Test
     void isHasReminder() {
-        assertEquals(false, recurringTask.isHasReminder());
+        assertEquals(false, recurringTask.hasReminder());
     }
 
     @Test

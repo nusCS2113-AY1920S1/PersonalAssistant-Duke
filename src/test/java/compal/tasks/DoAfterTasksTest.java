@@ -13,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class DoAfterTasksTest {
     private String description = "Test content";
     private String date = "01/10/2019";
+    private Task.Priority priority = null;
     private DoAfterTasks doAfterTasks;
 
 
     @BeforeEach
     public void setup() {
-        doAfterTasks = new DoAfterTasks(description, date);
+        doAfterTasks = new DoAfterTasks(description, priority, date);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class DoAfterTasksTest {
 
     @Test
     void isHasReminder() {
-        assertEquals(false, doAfterTasks.isHasReminder());
+        assertEquals(false, doAfterTasks.hasReminder());
     }
 
     @Test

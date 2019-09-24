@@ -12,13 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EventTest {
     private String description = "Test content";
+    private Task.Priority priority = null;
     private String date = "01/10/2019";
     private String time = "1230";
     private Event event;
 
     @BeforeEach
     public void setup() {
-        event = new Event(description, date, time);
+        event = new Event(description, priority, date, time);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class EventTest {
 
     @Test
     void isHasReminder() {
-        assertEquals(false, event.isHasReminder());
+        assertEquals(false, event.hasReminder());
     }
 
     @Test
