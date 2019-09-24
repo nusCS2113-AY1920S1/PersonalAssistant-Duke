@@ -13,6 +13,7 @@ import seedu.duke.command.ReminderCommand;
 import seedu.duke.command.SnoozeCommand;
 import seedu.duke.emailCommand.ListEmailCommand;
 import seedu.duke.emailCommand.ShowEmailCommand;
+import seedu.duke.emailCommand.fetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -150,7 +151,8 @@ public class Parser {
             return new ListEmailCommand(emailList);
         case "-show":
             if (input.length() <= 12) {
-                throw new Parser.UserInputException("Please enter index of email to be shown after \'email -s\'");
+                throw new Parser.UserInputException("Please enter index of email to be shown after \'email "
+                        + "-show\'");
             }
             try {
                 String parsedInput = input.substring(12, 13).strip();
@@ -164,7 +166,7 @@ public class Parser {
         case "-fetch":
             return new fetchEmailCommand(emailList);
         default:
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -h\' to get list of methods for "
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
                     + "email.");
         }
     }

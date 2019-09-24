@@ -11,7 +11,7 @@ public class EmailList extends ArrayList<Email> {
             return "There is nothing in your email list.";
         }
         int index = 0;
-        String listOfEmails = "This is your list of emails: ";
+        String listOfEmails = "This is your list of emails " + "(total of " + this.size() + "): ";
         for(Email email : this) {
             listOfEmails += "\n" + (++index) + ". " + email.getTitle();
         }

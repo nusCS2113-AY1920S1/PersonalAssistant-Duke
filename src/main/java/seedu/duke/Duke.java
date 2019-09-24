@@ -31,6 +31,10 @@ public class Duke {
         return emailList;
     }
 
+    public static void setEmailList(EmailList emailList) {
+        Duke.emailList = emailList;
+    }
+
     public static UI getUI() {
         return ui;
     }
