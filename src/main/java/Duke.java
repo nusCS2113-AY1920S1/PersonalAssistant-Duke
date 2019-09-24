@@ -13,7 +13,8 @@ import java.util.Date;
 public class Duke {
     private Ui ui;
     private Storage storage;
-    private TaskList taskList, recurringTaskList;
+    private TaskList taskList;
+    private RecurList recurringTaskList;
     private Parser parser;
     private RecurHandler recurHandler;
     /**
@@ -26,12 +27,13 @@ public class Duke {
         storage = new Storage();
         parser = new Parser();
         try {
-            recurringTaskList = new TaskList(storage.loadFile("recurringData.txt"));
+            recurringTaskList = new RecurList(storage.loadFile("recurringData.txt"));
         } catch (DukeException e) {
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
-            recurringTaskList = new TaskList(emptyList);
+            recurringTaskList = new RecurList(emptyList);
         }
+        recurringTaskList.list();
         recurHandler = new RecurHandler(recurringTaskList);
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
@@ -40,6 +42,7 @@ public class Duke {
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
+        recurringTaskList.list();
     }
 
     /**
@@ -47,9 +50,15 @@ public class Duke {
      */
     public void run() {
         boolean isExit = false;
+        boolean isExitRecur = false;
         while (!isExit) {
             String command = parser.getCommand();
-            TaskType type = TaskType.valueOf(command);
+            TaskType type;
+            try {
+                type = TaskType.valueOf(command);
+            } catch (IllegalArgumentException e) {
+                type = TaskType.others;
+            }
             switch (type) {
                 case list :
                     ui.showList();
@@ -64,7 +73,7 @@ public class Duke {
                         ui.showWriteError();
                     }
                     try {
-                        storage.writeFile(TaskList.currentList(), "recurringData.txt");
+                        storage.writeFile(recurringTaskList.currentList(), "recurringData.txt");
                     } catch (DukeException e) {
                         ui.showWriteError();
                     }
@@ -133,9 +142,26 @@ public class Duke {
                     }
                     break;
 
-                case recurring:
+                case recur:
                     ui.promptRecurringActions();
-
+                    while (!isExitRecur) {
+                        String temp = parser.getCommand();
+                        if (temp.equals("delete")) {
+                            recurHandler.deleteRecurring(parser.getIndex());
+                        } else if (temp.equals("list")) {
+                            recurHandler.listRecurring();
+                        } else if (temp.equals("find")) {
+                            recurHandler.findRecurring(parser.getKey());
+                        } else if (temp.equals("exit")){
+                            isExitRecur = true;
+                            ui.showExit();
+                        } else if (temp.equals("add")) {
+                            recurHandler.addBasedOnOperation();
+                        } else {
+                            ui.showCommandError();
+                        }
+                    }
+                    isExitRecur = false;
                     break;
 
                 default:

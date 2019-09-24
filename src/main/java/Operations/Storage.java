@@ -31,6 +31,9 @@ public class Storage {
      * @throws DukeException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
      */
     public ArrayList<Task> loadFile(String fileName) throws DukeException {
+        if (fileName.equals("recurringData.txt")) {
+            System.out.println("recurring data text file");
+        }
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -42,7 +45,12 @@ public class Storage {
             parser = new Parser();
             for (String list : tempList) {
                 String[] temp = list.split("#", 4);
-                SaveType type = SaveType.valueOf(temp[0]);
+                SaveType type;
+                try {
+                    type = SaveType.valueOf(temp[0]);
+                } catch (IllegalArgumentException e) {
+                    type = SaveType.empty;
+                }
                 switch (type) {
                     case T :
                         ToDo tempToDo = new ToDo(temp[2]);
@@ -67,6 +75,8 @@ public class Storage {
                         }
                         taskArrayList.add(tempDeadline);
                         break;
+                    default:
+                        throw new DukeException();
                 }
             }
         } catch (IOException e) {
