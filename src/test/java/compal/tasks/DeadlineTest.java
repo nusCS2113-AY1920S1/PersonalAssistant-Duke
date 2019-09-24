@@ -13,13 +13,12 @@ import java.util.Date;
 class DeadlineTest {
     private String description = "Test content";
     private String date = "01/10/2019";
-    private Task.Priority priority = null;
     private Deadline deadline;
 
 
     @BeforeEach
     public void setup() {
-        deadline = new Deadline(description, priority, date);
+        deadline = new Deadline(description, date);
     }
 
     @Test
@@ -68,7 +67,7 @@ class DeadlineTest {
 
     @Test
     void isHasReminder() {
-        assertEquals(false, deadline.hasReminder());
+        assertEquals(false, deadline.isHasReminder());
     }
 
     @Test
