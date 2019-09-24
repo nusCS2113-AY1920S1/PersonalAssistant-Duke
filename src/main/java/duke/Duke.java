@@ -97,31 +97,31 @@ public class Duke extends Application {
         }
         layout.getChildren().addAll(timetable);
         //Create the scene
-        Scene scene = new Scene(layout, 1000,600);
+        Scene scene = new Scene(layout, 1280,720);
         stage.setScene(scene);
         stage.show();
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Main menu");
         stage.setResizable(false);
-        stage.setHeight(600.0);
-        stage.setWidth(1000.0);
+        stage.setHeight(720.0);
+        stage.setWidth(1280.0);
         //Move the buttons to their correct positions
         button1.setLayoutX(100);
-        button1.setLayoutY(100);
+        button1.setLayoutY(150);
         button2.setLayoutX(100);
-        button2.setLayoutY(250);
+        button2.setLayoutY(300);
         button3.setLayoutX(100);
-        button3.setLayoutY(400);
+        button3.setLayoutY(450);
         //Change the look of the buttons
         button1.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         button2.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         button3.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         //Move the timetable to its correct position
-        timetable.setLayoutX(400);
-        timetable.setLayoutY(100);
+        timetable.setLayoutX(350);
+        timetable.setLayoutY(125);
         //Change the look of the timetable
-        timetable.setStyle("-fx-pref-height: 400px; -fx-pref-width: 550px; -fx-background-color: lavender;");
+        timetable.setStyle("-fx-pref-height: 450px; -fx-pref-width: 850px; -fx-background-color: lavender;");
     }
 
 }
