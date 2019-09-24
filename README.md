@@ -12,13 +12,13 @@ Additionally, you can include non-academic activities along with your academic t
 ## Contributors
 COMPal is developed and maintained by a dedicated team of student developers. 
 
-* [JAEDON KEE SHAOWEI](https://github.com/jaedonkey/)
-* [LIU PEIZE](https://github.com/LTPZ)
-* [MUHAMMAD SHOLIHIN BIN KAMARUDIN](https://github.com/SholihinK)
-* [TAN KAI LI CATHERINE](https://github.com/Catherinetan99/)
-* [YUE JUN YI](https://github.com/yueyeah)
+* [Jaedon Kee Shaowei](https://github.com/jaedonkey/)
+* [Liu Peize](https://github.com/LTPZ)
+* [Muhammad Sholihin Bin Kamarudin](https://github.com/SholihinK)
+* [Tan Kai Li Catherine](https://github.com/Catherinetan99/)
+* [Yue Jun Yi](https://github.com/yueyeah)
 
-Visit [Project Team page](docs/AboutUs.md) or any of our profiles to find out more!
+Visit our [Project Team page](docs/AboutUs.md) or any of our Github profiles to find out more!
 
 ## Acknowledgements
 * COMPal is developed with the goal of improving on the [Duke](https://github.com/se-edu/duke) 
