@@ -54,7 +54,7 @@ public class Parser {
             } else if (description.contains("/between")) {
                 try {
                     String[] splitString = description.split("/between", 2);
-                    String[] splitString2 = splitString[1].split(",", 2);
+                    String[] splitString2 = splitString[1].split("-", 2);
                     return new AddCommand(new ToDo(splitString[0], splitString2[0], splitString2[1]));
                 } catch (Exception e) {
                     throw new DukeException("\u2639 OOPS!!! The todo command does not seem to be valid.");
@@ -70,6 +70,15 @@ public class Parser {
             }
         } else if (command.equals("event")) {
             String[] splitString;
+            if (description.contains("/between")) {
+                try {
+                    splitString = description.split(" /between ", 2);
+                    String[] splitString2 = splitString[1].split("-", 2);
+                    return new AddCommand(new Event(splitString[0], splitString2[0],splitString2[1]));
+                } catch (Exception e) {
+                    throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
+                }
+            }
             try {
                 splitString = description.split(" /at ");
                 return new AddCommand(new Event(splitString[0], splitString[1]));
@@ -127,6 +136,12 @@ public class Parser {
             return new TentativeCommand();
         } else if (command.equals("confirm")) {
             return new ConfirmCommand();
+        } else if (command.equals("viewschedule")) {
+            try {
+                return new ViewScheduleCommand(description);
+            } catch (Exception e) {
+                throw new DukeException(e.getMessage());
+            }
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

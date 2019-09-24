@@ -43,7 +43,7 @@ public class Ui {
         for (int i = 1; i <= tasks.size(); i++) {
             Task currentTask = tasks.get(i - 1);
             showPadding();
-            System.out.println(i + ". " + currentTask);
+            System.out.println(i + ". " + currentTask.toString());
         }
     }
 
@@ -76,6 +76,13 @@ public class Ui {
         System.out.println(padding + "Now you have " + tasks.size()  + " tasks in the list.");
     }
 
+    public void showSchedule(ArrayList<Task> currentTask, String day) {
+        System.out.println(padding + "These are the tasks for " + day);
+        for (int i = 0; i < currentTask.size(); i += 1) {
+            System.out.println(padding + currentTask.get(i).toString());
+        }
+    }
+
     public String readCommand(Scanner in) {
         String input = in.nextLine();
         return input;
@@ -83,6 +90,12 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println(padding + message);
+    }
+
+    public void showDoAfter(ArrayList<Task> task) {
+        for (int i = 0; i < task.size(); i += 1) {
+            System.out.println(task.get(i));
+        }
     }
 
     public void showLoadingError() {

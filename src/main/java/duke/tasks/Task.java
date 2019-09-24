@@ -13,7 +13,11 @@ public class Task {
     protected String type = "";
     protected String subtypes = " ";
     protected boolean isDone;
+    protected int duration;
     protected Calendar datetime = Calendar.getInstance();
+    protected Calendar end = Calendar.getInstance();
+    protected ArrayList<ToDo> doAfter = new ArrayList();
+    private static final String padding = "     ";
 
     /**
      * This is the constructor of Task object.
@@ -78,6 +82,22 @@ public class Task {
      */
     public Calendar getDate() {
         return this.datetime;
+    }
+
+    public Calendar getEnd() {
+        return this.end;
+    }
+
+    public int getDuration() {
+        return this.duration;
+    }
+
+    public void setDoAfter(ArrayList<ToDo> doAfter) {
+        this.doAfter = doAfter;
+    }
+
+    public ArrayList<ToDo> getDoAfter() {
+        return this.doAfter;
     }
 
     public void setDate(Calendar datetime) {
