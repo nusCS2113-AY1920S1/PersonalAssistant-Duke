@@ -17,7 +17,6 @@ public class Parser {
      * @return return a command object which is initialized based on its type
      * @throws DukeException if any exception is caught
      */
-
     public static Command parse(String cmd) throws DukeException, ParseException {
         Command command;
         if (cmd.equals("bye")) {
