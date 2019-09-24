@@ -72,6 +72,39 @@ public class Duke extends Application {
         button3 = new Button();
         button3.setText("Manage Training Programmes");
         layout.getChildren().addAll(button1, button2, button3);
+        //Create the timetable and add to layout
+        GridPane timetable = new GridPane();
+        timetable.setGridLinesVisible(true);
+        int numCols = 8;
+        int numRows = 11;
+        for (int i = 0; i < numCols; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth(100.0 / numCols);
+            timetable.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < numRows; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight(100.0 / numRows);
+            timetable.getRowConstraints().add(rowConst);
+        }
+        timetable.add(new Label("Monday"),1,0);
+        timetable.add(new Label("Tuesday"),2,0);
+        timetable.add(new Label("Wednesday"),3,0);
+        timetable.add(new Label("Thursday"),4,0);
+        timetable.add(new Label("Friday"),5,0);
+        timetable.add(new Label("Saturday"),6,0);
+        timetable.add(new Label("Sunday"),7,0);
+        timetable.add(new Label("8am-9am"),0,1);
+        timetable.add(new Label("9am-10am"),0,2);
+        timetable.add(new Label("10am-11am"),0,3);
+        timetable.add(new Label("11am-12pm"),0,4);
+        timetable.add(new Label("12pm-1pm"),0,5);
+        timetable.add(new Label("1pm-2pm"),0,6);
+        timetable.add(new Label("2pm-3pm"),0,7);
+        timetable.add(new Label("3pm-4pm"),0,8);
+        timetable.add(new Label("4pm-5pm"),0,9);
+        timetable.add(new Label("5pm-6pm"),0,10);
+        layout.getChildren().addAll(timetable);
         //Create the scene
         Scene scene = new Scene(layout, 1000,600);
         stage.setScene(scene);
@@ -93,6 +126,11 @@ public class Duke extends Application {
         button1.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         button2.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         button3.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        //Move the timetable to its correct position
+        timetable.setLayoutX(400);
+        timetable.setLayoutY(100);
+        //Change the look of the timetable
+        timetable.setStyle("-fx-pref-height: 400px; -fx-pref-width: 550px; -fx-background-color: lavender;");
     }
 
 }
