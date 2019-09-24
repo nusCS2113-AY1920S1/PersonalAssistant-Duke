@@ -7,27 +7,25 @@ public class Farmio {
     private Parser parser;
 
     public Farmio() {
-        Ui ui = new Ui();
-        parser = new Parser();
-        Storage storage = new Storage();
+        this.ui = new Ui();
+        this.parser = new Parser();
+        this.storage = new Storage();
         ui.showWelcome();
         String filepath;
-        this.farmer = storage.load(ui.getSaveFile());
+        this.farmer = new Farmer(); //load savefile if it exists
+        //storage.load(ui.getSaveFile());
     }
 
     public void run() {
         boolean isExit = false;
         while(!isExit) {
-       //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
-       String fullCommand = loadLevel(farmer);
-       Command c = parser.parse(fullCommand);
-       //create the new task, and add to the tasklist or do whatever
-        c.execute();
-        //Farmer goes through the day
-        farmer.startDay();
-        Storage.save(farmer);
-        checkObjectives(farmer);
-        isExit = c.getIsExit();
+            //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
+            loadLevel(farmer);
+            //create the new task, and add to the tasklist or do whatever
+            isExit = getUserActions(farmer, ui, parser);
+            farmer.startDay();
+            Storage.save(farmer);
+            checkObjectives(farmer);
         }
     }
 
@@ -35,9 +33,22 @@ public class Farmio {
         new Farmio().run();
     }
 
-    private static String loadLevel(Farmer farmer) {
+    public boolean getUserActions(Farmer farmer, Ui ui, Parser parser) {
+        boolean isStart = false;
+        boolean isExit = false;
+        while (!isStart) {
+            String fullCommand = ui.getCommand();
+            Command c = parser.parse(fullCommand);
+            c.execute();
+            isStart = true;//c.getIsStart();
+            isExit = true;//c.getIsExit();
+        }
+        return  isExit;
+    }
 
-        return "dummystring";
+
+    private static void loadLevel(Farmer farmer) {
+
     }
 
     private static void checkObjectives(Farmer farmer) {
