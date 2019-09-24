@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.TimeType;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -36,7 +37,7 @@ public class Parser {
      * @return index Index the user wishes to perform operations on.
      */
     public Integer getIndex() {
-        String temp = scanner.nextLine().trim();
+        String temp = scanner.next().trim();
         int index = Integer.parseInt(temp);
         return index;
     }
@@ -86,5 +87,19 @@ public class Parser {
     public String getKey() {
         String key = scanner.nextLine().toLowerCase();
         return key;
+    }
+
+    /**
+     * Returns the amount of time
+     * @return
+     */
+    public int getAmount(){
+        String temp = scanner.next().trim();
+        return Integer.parseInt(temp);
+    }
+
+    public TimeType getTimeType(){
+        String temp = scanner.next();
+        return TimeType.valueOf(temp);
     }
 }

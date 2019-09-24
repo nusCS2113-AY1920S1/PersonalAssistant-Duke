@@ -1,6 +1,7 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
 import Enums.Tasktype;
+import Enums.TimeType;
 import Model_Classes.*;
 import Operations.*;
 
@@ -121,6 +122,14 @@ public class Duke {
                     }
                     break;
 
+                case snooze :
+                    int index = parser.getIndex();
+                    ui.showSnooze();
+                    int amount = parser.getAmount();
+                    TimeType timeType = parser.getTimeType();
+                    taskList.snooze(index, amount, timeType);
+                    ui.showSnoozeComplete();
+                    break;
                 default:
                     ui.showCommandError();
                     break;
