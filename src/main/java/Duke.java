@@ -1,5 +1,6 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
+import Enums.RecurTaskType;
 import Enums.TaskType;
 import Model_Classes.*;
 import Operations.*;
@@ -33,7 +34,6 @@ public class Duke {
             ArrayList<Task> emptyList = new ArrayList<>();
             recurringTaskList = new RecurList(emptyList);
         }
-        recurringTaskList.list();
         recurHandler = new RecurHandler(recurringTaskList);
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
@@ -42,7 +42,6 @@ public class Duke {
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
-        recurringTaskList.list();
     }
 
     /**
@@ -73,7 +72,7 @@ public class Duke {
                         ui.showWriteError();
                     }
                     try {
-                        storage.writeFile(recurringTaskList.currentList(), "recurringData.txt");
+                        storage.writeFile(RecurList.currentList(), "recurringData.txt");
                     } catch (DukeException e) {
                         ui.showWriteError();
                     }
@@ -146,19 +145,32 @@ public class Duke {
                     ui.promptRecurringActions();
                     while (!isExitRecur) {
                         String temp = parser.getCommand();
-                        if (temp.equals("delete")) {
-                            recurHandler.deleteRecurring(parser.getIndex());
-                        } else if (temp.equals("list")) {
-                            recurHandler.listRecurring();
-                        } else if (temp.equals("find")) {
-                            recurHandler.findRecurring(parser.getKey());
-                        } else if (temp.equals("exit")){
-                            isExitRecur = true;
-                            ui.showExit();
-                        } else if (temp.equals("add")) {
-                            recurHandler.addBasedOnOperation();
-                        } else {
-                            ui.showCommandError();
+                        RecurTaskType recurType;
+                        try {
+                            recurType = RecurTaskType.valueOf(temp);
+                        } catch (IllegalArgumentException e) {
+                            recurType = RecurTaskType.others;
+                        }
+                        switch (recurType) {
+                            case delete:
+                                recurHandler.deleteRecurring(parser.getIndex());
+                                break;
+                            case list:
+                                recurHandler.listRecurring();
+                                break;
+                            case find:
+                                recurHandler.findRecurring(parser.getKey());
+                                break;
+                            case exit:
+                                isExitRecur = true;
+                                ui.showExit();
+                                break;
+                            case add:
+                                recurHandler.addBasedOnOperation();
+                                break;
+                            default:
+                                ui.showCommandError();
+                                break;
                         }
                     }
                     isExitRecur = false;

@@ -31,9 +31,6 @@ public class Storage {
      * @throws DukeException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
      */
     public ArrayList<Task> loadFile(String fileName) throws DukeException {
-        if (fileName.equals("recurringData.txt")) {
-            System.out.println("recurring data text file");
-        }
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
