@@ -10,14 +10,15 @@ import java.util.Arrays;
  */
 public class Ui {
 
-    protected ArrayList<String> messageArray;
+    private static String logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
+
+    private static String line = "\t____________________________________________________________";
 
     public static void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
     }
 
@@ -28,14 +29,22 @@ public class Ui {
      * @param msg ArrayList of strings containing the messages to be printed.
      */
     public static void printMsg(ArrayList<String> msg) {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(line);
         for (String outputMsg : msg) {
-            System.out.println("     " + outputMsg);
+            System.out.println("\t" + outputMsg);
         }
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println(line);
     }
 
-    // Echoes when an item is added
+    public static void printMsg(String... s) {
+        final StringBuilder messageAccumulator = new StringBuilder();
+        for (String str: s) {
+            messageAccumulator.append(str);
+        }
+        System.out.println(line);
+        System.out.println("\t" + messageAccumulator);
+        System.out.println(line);
+    }
 
     /**
      * This method prints the details of the specified task and specified duke.task.TaskList size.
@@ -56,45 +65,49 @@ public class Ui {
         printMsg(msg);
     }
 
-    public static void showLine() {
-        System.out.println("    ____________________________________________________________");
-    }
-
     public static void printDateTimeFormatError() {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY HHmm'!");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("Please use the format 'DD/MM/YYYY HHmm'!");
+        System.out.println(line);
     }
 
     public static void printDateFormatError() {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Please use the format 'DD/MM/YYYY'!");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("\tPlease use the format 'DD/MM/YYYY'!");
+        System.out.println(line);
     }
 
     public static void printFixDurationTaskError() {
-        System.out.println("Sorry, please enter a valid fixed duration task.");
+        System.out.println(line);
+        System.out.println("\tSorry, please enter a valid fixed duration task.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid recurring event.
      */
     public static void printRecurringTaskError() {
-        System.out.println("Sorry, please enter a valid recurring event.");
+        System.out.println(line);
+        System.out.println("\tSorry, please enter a valid recurring event.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid day of the week.
      */
-    public static void printInvaidDayInput() {
-        System.out.println("Sorry,please enter a valid day of the week.");
+    public static void printInvalidDayInput() {
+        System.out.println(line);
+        System.out.println("\tSorry, please enter a valid day of the week.");
+        System.out.println(line);
     }
 
     /**
      * This method will print the error message when the user enter a invalid do after event.
      */
-    public static void printInvaidDoAfterInput() {
-        System.out.println("Please enter a valid do after");
+    public static void printInvalidDoAfterInput() {
+        System.out.println(line);
+        System.out.println("\tPlease enter a valid do after");
+        System.out.println(line);
     }
 
     /**
@@ -102,11 +115,70 @@ public class Ui {
      * that's in the task list.
      */
     public static void printTimeConflictError(Task conflictingTask) {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("I'm sorry, an error has occured!");
-        msg.add("The time you have entered conflicts with the following task: ");
-        msg.add("  " + conflictingTask.getTask());
-        msg.add("Try looking for another time. :)");
-        Ui.printMsg(msg);
+        System.out.println(line);
+        System.out.println("\tI'm sorry, an error has occurred!");
+        System.out.println("\tThe time you have entered conflicts with the following task: ");
+        System.out.println("\t  " + conflictingTask.getTask());
+        System.out.println("Try looking for another time. :)");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the snoozed task with new date after successfully snoozing
+     * @param snoozedTask task that was snoozed
+     */
+    public static void printSnoozedTask(Task snoozedTask) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have snoozed this task:");
+        System.out.println("\t" + snoozedTask.getTaskDescription() + " " + snoozedTask.getDateStr());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints an error message for no date in task
+     */
+    public static void printNoDateToSnoozeError(Task taskToSnooze) {
+        System.out.println(line);
+        System.out.println("\tOOPS! " + taskToSnooze + " do not have a date to snooze!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a default error message
+     */
+    public static void printErrorMsg() {
+        System.out.println(line);
+        System.out.println("\tOOPS! An error has occurred.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when taskNum is not associated to a task.
+     * @param taskNum the task number that is not associated with a task.
+     */
+    public static void printNoTaskAssocError(int taskNum) {
+        System.out.println(line);
+        System.out.println("\t" + taskNum + " is not associated to any task number.");
+        System.out.println("\tUse 'list' to check the tasks that are here first!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when string parsed is not an integer.
+     * @param str to be parsed to an integer
+     */
+    public static void printInvalidNumberError(String str) {
+        System.out.println(line);
+        System.out.println(str + " is not a number. Please use a number instead!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when the new date to snooze until is before the old date
+     */
+    public static void printOldDateIsAfterError() {
+        System.out.println(line);
+        System.out.println("\tOOPS! The new date given should be after the previous date!");
+        System.out.println(line);
     }
 }

@@ -45,9 +45,7 @@ public class CompleteCommand extends Command {
         try {
             currTask = tasks.getFromList(taskNumInt-1);
         } catch (IndexOutOfBoundsException e) {
-            msg.add(taskNumInt + " is not associated to any task number.");
-            msg.add("Use 'list' to check the tasks that are here first!");
-            Ui.printMsg(msg);
+            Ui.printNoTaskAssocError(taskNumInt);
             throw new Exception("duke.task.Task number not in list");
         }
 

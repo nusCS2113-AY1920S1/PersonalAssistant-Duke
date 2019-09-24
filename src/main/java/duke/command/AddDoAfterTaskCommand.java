@@ -25,7 +25,7 @@ public class AddDoAfterTaskCommand extends AddCommand{
                 tasks.add(newTask);
                 Ui.echoAdd(newTask, tasks.size());
         } catch (Exception e) {
-                Ui.printInvaidDoAfterInput();
+                Ui.printInvalidDoAfterInput();
         }
     }
 }

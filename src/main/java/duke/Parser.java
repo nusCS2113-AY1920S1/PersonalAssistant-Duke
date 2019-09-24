@@ -76,10 +76,7 @@ public class Parser {
                     String dateTimeArray = inputArray[2] + " " + inputArray[3];
                     return new SnoozeCommand(inputArray[1], dateTimeArray);
                 } catch (IndexOutOfBoundsException e) {
-                    ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                            "Please use the format 'snooze <task number> <new date> <new time>'!"
-                    ));
-                    Ui.printMsg(msg);
+                    Ui.printMsg("Please use the format 'snooze <task number> <new date> <new time>'!");
                     break;
                 } catch (DateTimeParseException e) {
                     Ui.printDateFormatError();

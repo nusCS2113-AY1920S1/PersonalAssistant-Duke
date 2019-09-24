@@ -28,10 +28,7 @@ public class AddTodoCommand extends AddCommand {
     public void execute(TaskList tasks) {
 
         if (taskDescription.length() == 0) { // TODO: Exception handling?
-            ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                    MissingDescriptionString
-            ));
-            Ui.printMsg(msg);
+            Ui.printMsg(MissingDescriptionString);
             return;
         }
 

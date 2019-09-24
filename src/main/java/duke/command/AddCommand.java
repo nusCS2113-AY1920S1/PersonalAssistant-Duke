@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * duke.command.AddCommand is a subclass of Command that acts as a skeleton
  * for all other commands that involve adding tasks to the duke.task.TaskList.
  */
-public abstract class AddCommand extends Command{
+public abstract class AddCommand extends Command {
 
     /**
      * Represents all the information given after the command in the input.
@@ -49,9 +49,7 @@ public abstract class AddCommand extends Command{
             taskDescription = data[0];
             return true;
         } catch(ArrayIndexOutOfBoundsException e) {
-            ArrayList<String> msg = new ArrayList<String>();
-            msg.add("Please add '" + dateTrigger + " <date>' after your task to specify the event date." );
-            Ui.printMsg(msg);
+            Ui.printMsg("Please add '" + dateTrigger + " <date>' after your task to specify the event date.");
             return false;
         }  catch(DateTimeParseException e) {
             Ui.printDateTimeFormatError();

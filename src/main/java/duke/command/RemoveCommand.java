@@ -45,9 +45,7 @@ public class RemoveCommand extends Command {
             msg.add("Now you have " + tasks.size() + " tasks in the list.");
         }
         catch (IndexOutOfBoundsException e) {
-            msg.add(taskNumInt + " is not associated to any task number.");
-            msg.add("Use 'list' to check the tasks that are here first!");
-            Ui.printMsg(msg);
+            Ui.printNoTaskAssocError(taskNumInt);
             return;
         }
         Ui.printMsg(msg);
