@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * Display reminders list when the app first start

@@ -5,13 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-import seedu.duke.command.DateTimeParser;
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
 
 import seedu.duke.ui.Ui;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods

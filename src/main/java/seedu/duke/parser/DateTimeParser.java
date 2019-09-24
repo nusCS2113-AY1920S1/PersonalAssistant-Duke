@@ -1,4 +1,4 @@
-package seedu.duke.command;
+package seedu.duke.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
