@@ -2,8 +2,8 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import duke.entities.Order;
 import duke.logic.Duke;
-import duke.order.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -77,7 +77,7 @@ public class MainWindow extends AnchorPane {
         orderList.getChildren().clear();
         int index = 1;
         for (Order order : orders) {
-            orderList.getChildren().add(new OrderBox(order, index));
+            orderList.getChildren().add(new OrderCard(order, index));
             index++;
         }
     }

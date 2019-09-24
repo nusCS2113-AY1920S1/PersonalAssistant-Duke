@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.order.Order;
+import duke.entities.Order;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import duke.command.Command;
 import duke.command.DeleteOrderCommand;
 import duke.command.EditOrderCommand;
 import duke.commons.DukeException;
-import duke.order.Order;
+import duke.entities.Order;
 
 import java.util.List;
 import java.util.Map;

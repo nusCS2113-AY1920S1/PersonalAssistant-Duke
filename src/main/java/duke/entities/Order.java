@@ -1,4 +1,4 @@
-package duke.order;
+package duke.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

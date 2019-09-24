@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.commons.DukeException;
-import duke.order.Order;
+import duke.entities.Order;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
