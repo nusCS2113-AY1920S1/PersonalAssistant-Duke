@@ -14,7 +14,9 @@ public class ViewScheduleCommand extends Command {
     public ViewScheduleCommand(String date) {
         this.date = date;
     }
+
     @Override
+
     public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) throws DukeException {
         ArrayList<Task> temp = schedule.viewSchedule(this.date);
         ui.showSchedule(temp, date);

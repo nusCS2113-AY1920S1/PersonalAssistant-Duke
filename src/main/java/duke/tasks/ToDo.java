@@ -27,7 +27,6 @@ public class ToDo extends Task {
     /**
      * Secondary constructor of ToDo object with period.
      * @param description description embedded in object
-     * @param start start of period
      * @param inputEnd end of period
      */
     public ToDo(String description, String inputStart, String inputEnd) {

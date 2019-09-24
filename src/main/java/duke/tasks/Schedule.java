@@ -51,8 +51,7 @@ public class Schedule {
                     }
                 }
             }
-        }
-        else if (task.getType().equals("E")) {
+        } else if (task.getType().equals("E")) {
             if (task.getDate() != null) {
                 if (now.getYear() == task.getDate().get(Calendar.YEAR)) {
                     if (now.getMonthValue() == task.getDate().get(Calendar.MONTH) + 1) {
@@ -92,11 +91,11 @@ public class Schedule {
         int counter = 0;
         Task prevCheck = null;
         for (int i = 0; i < hour; i += 1) {
-            current = this.schedule[currentDay + (currentHour + i)/24 - 1][(currentHour + i) % 24];
+            current = this.schedule[currentDay + (currentHour + i) / 24 - 1][(currentHour + i) % 24];
             for (int j = 0; j < current.size(); j += 1) {
                 if (current.get(j).equals(prevCheck)) {
-                }
-                else {
+                    String bypass = "lol";
+                } else {
                     if (current.get(j).getType() == "D" && current.get(j).getisDone() == false) {
                         result.add(current.get(j));
                     } else if (current.get(j).getType() == "E") {
@@ -296,7 +295,7 @@ public class Schedule {
         return confirmed;
     }
 
-    public ArrayList<Task> viewSchedule(String date) {
+    public ArrayList<Task> viewSchedule(String date) throws DukeException {
         int day = 1;
         try {
             SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
@@ -306,6 +305,7 @@ public class Schedule {
             temp.setTime(tempDate);
             day = temp.get(Calendar.DAY_OF_MONTH);
         } catch (ParseException e) {
+            throw new DukeException("Wrong date format");
         }
         ArrayList<Task> selected = new ArrayList<>();
         Task prevCheck = null;
@@ -313,8 +313,8 @@ public class Schedule {
             ArrayList<Task> current = this.schedule[day - 1][i];
             for (int j = 0; j < current.size(); j += 1) {
                 if (current.get(j).equals(prevCheck)) {
-                }
-                else {
+                    String bypass = "lol";
+                } else {
                     selected.add(current.get(j));
                     prevCheck = current.get(j);
                 }

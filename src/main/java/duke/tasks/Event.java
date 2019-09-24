@@ -89,7 +89,8 @@ public class Event extends Task {
         String text = "";
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         if (this.end != null) {
-            text += "[E]" + super.toString() + " (From: " + dateFormat.format(this.datetime.getTime()) + " to " + dateFormat.format(this.end.getTime()) + ")\n";
+            text += "[E]" + super.toString() + " (From: " + dateFormat.format(this.datetime.getTime()) + " to "
+                    + dateFormat.format(this.end.getTime()) + ")\n";
         } else if (this.datetime != null) {
             text +=  "[E]" + super.toString() + " (at: " + dateFormat.format(this.datetime.getTime()) + ")\n";
         } else {

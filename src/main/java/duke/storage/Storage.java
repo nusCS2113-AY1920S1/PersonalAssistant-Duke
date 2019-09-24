@@ -84,8 +84,7 @@ public class Storage {
         } else if (taskType.equals("E")) {
             if (subtypes.trim().length() == 0) {
                 loadEvent(tasks, description, isDone, subtypes, doAfter, schedule, splitLine[5]);
-            }
-            else {
+            } else {
                 loadEvent(tasks, description, isDone, subtypes, doAfter, schedule, splitLine[5], splitLine[6]);
             }
         }
@@ -155,19 +154,19 @@ public class Storage {
      * @param isDone whether the event is completed
      */
     private static void loadEvent(ArrayList<Task> tasks, String description,
-                                  boolean isDone, String subtypes, ArrayList<ToDo> doAfter, Schedule schedule, String...timeFrame) {
-        boolean toAdd;
+                                  boolean isDone, String subtypes, ArrayList<ToDo> doAfter,
+                                  Schedule schedule, String...timeFrame) {
         Event newEvent;
         if (subtypes.trim().equals("P")) {
             newEvent = new Event(description, timeFrame[0], timeFrame[1]);
-        }
-        else {
+        } else {
             newEvent = new Event(description, timeFrame[0]);
         }
         if (isDone) {
             newEvent.markAsDone();
         }
         newEvent.setDoAfter(doAfter);
+        boolean toAdd;
         toAdd = schedule.update(newEvent);
         if (toAdd) {
             tasks.add(newEvent);
@@ -213,13 +212,13 @@ public class Storage {
                     }
                 }
                 if ((currentTask.getType()).equals("E")) {
-                    if (subtypes.contains("P")){
+                    if (subtypes.contains("P")) {
                         String[] data = currentLine.split("From: ", 2);
                         String[] timeFrame = data[1].split(" to ", 2);
                         bufferedWriter.write("|" + timeFrame[0] + "|"
-                                + timeFrame[1].split("\n")[0].split("\n")[0].substring(0, timeFrame[1].split("\n")[0].length() - 1));
-                    }
-                    else {
+                                + timeFrame[1].split("\n")[0].split("\n")[0]
+                                .substring(0, timeFrame[1].split("\n")[0].length() - 1));
+                    } else {
                         String timeFrame = currentLine.split("at: ", 2)[1].split("\n")[0];
                         bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
                     }

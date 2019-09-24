@@ -82,6 +82,7 @@ public class Ui {
             System.out.println(padding + currentTask.get(i).toString());
         }
     }
+
     public String readCommand(Scanner in) {
         String input = in.nextLine();
         return input;
@@ -96,6 +97,7 @@ public class Ui {
             System.out.println(task.get(i));
         }
     }
+
     public void showLoadingError() {
         System.out.println(padding + "Failed to load file.");
     }

@@ -70,7 +70,7 @@ public class Parser {
             }
         } else if (command.equals("event")) {
             String[] splitString;
-            if (description.contains("/between")){
+            if (description.contains("/between")) {
                 try {
                     splitString = description.split(" /between ", 2);
                     String[] splitString2 = splitString[1].split("-", 2);
@@ -137,7 +137,11 @@ public class Parser {
         } else if (command.equals("confirm")) {
             return new ConfirmCommand();
         } else if (command.equals("viewschedule")) {
-            return new ViewScheduleCommand(description);
+            try {
+                return new ViewScheduleCommand(description);
+            } catch (Exception e) {
+                throw new DukeException(e.getMessage());
+            }
         } else {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

@@ -84,13 +84,21 @@ public class Task {
         return this.datetime;
     }
 
-    public Calendar getEnd() { return this.end; }
+    public Calendar getEnd() {
+        return this.end;
+    }
 
-    public int getDuration() { return this.duration; }
+    public int getDuration() {
+        return this.duration;
+    }
 
-    public void setDoAfter(ArrayList<ToDo> doAfter) { this.doAfter = doAfter; }
+    public void setDoAfter(ArrayList<ToDo> doAfter) {
+        this.doAfter = doAfter;
+    }
 
-    public ArrayList<ToDo> getDoAfter() { return this.doAfter; }
+    public ArrayList<ToDo> getDoAfter() {
+        return this.doAfter;
+    }
 
     public void setDate(Calendar datetime) {
         this.datetime = datetime;
