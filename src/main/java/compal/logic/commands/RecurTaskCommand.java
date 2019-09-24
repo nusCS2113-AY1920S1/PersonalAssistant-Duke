@@ -20,7 +20,6 @@ import java.util.Scanner;
 public class RecurTaskCommand extends Command implements CommandParser {
 
     private static final String TOKEN_REP = "/rep";
-    private static final String TOKEN = "/by";
     private TaskList taskList;
 
     /**

@@ -15,7 +15,6 @@ import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
  */
 public class DeadlineCommand extends Command implements CommandParser {
 
-    private static final String TOKEN = "/by";
     private TaskList taskList;
 
     /**
