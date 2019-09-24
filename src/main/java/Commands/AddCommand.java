@@ -8,23 +8,45 @@ import Tasks.*;
 import ControlPanel.*;
 import javafx.util.Pair;
 
+/**
+ * The command which aims to add a new task to the list
+ */
 public class AddCommand extends Command {
 
     private String type;
     private String inputString;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * The constructor to initialize a add command object
+     * @param string The type of the command
+     * @param cmd The content of the original text in input command
+     */
     public AddCommand(String string, String cmd){
         type = string;
         inputString = cmd;
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
+    /**
+     * This method labels whether this command means ceasing the overall program
+     * @return Whether this command means ceasing the overall program
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+
+    /**
+     * The method execute the add command to add different types of task to the task list based on the
+     * task type which is specified in the input command.
+     * @param tasks The task list object to interact with the checklist
+     * @param ui To print something needed in user interface
+     * @param storage To re-save the data in local disk if necessary
+     * @throws ParseException When there is something wrong with the parsing
+     * @throws DukeException When the command line is not qualified
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, DukeException {
         switch (type) {
@@ -120,6 +142,13 @@ public class AddCommand extends Command {
 
     }
 
+    /**
+     * This method check that is there any time clash between the input event and
+     * the existing tasks
+     * @param tasks The task list object to interact with the checklist
+     * @param e The input event needs to be checked
+     * @return Is there any time clash between the input event an the existing tasks
+     */
     public Boolean ScheduleClashes(TaskList tasks, Events e){
         for (Task t : tasks.getCheckList()) {
             if (t instanceof Events) {
@@ -132,6 +161,13 @@ public class AddCommand extends Command {
         return false;
     }
 
+    /**
+     * This method compares the start date and the end date of one event
+     * to check whether it is a valid input duration.
+     * @param from The start date of a event
+     * @param to The end date of a event
+     * @return Whether it is a valid input duration
+     */
     public Boolean InvalidDuration (Date from, Date to) {
         return (from.compareTo(to) > 0);
     }

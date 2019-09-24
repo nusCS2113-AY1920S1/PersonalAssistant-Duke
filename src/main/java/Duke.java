@@ -38,6 +38,9 @@ public class Duke{
 
     public String getResponse(String input) {
         try {
+            if (input.equals("greeting")) {
+                return ui.showWelcome();
+            }
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
             Command c = Parser.parse(input);
