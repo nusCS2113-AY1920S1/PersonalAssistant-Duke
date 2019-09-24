@@ -2,6 +2,7 @@ package seedu.duke.emailCommand;
 
 import seedu.duke.Duke;
 import seedu.duke.EmailList;
+import seedu.duke.EmailStorage;
 import seedu.duke.command.Command;
 
 public class ListEmailCommand extends Command {
@@ -15,7 +16,11 @@ public class ListEmailCommand extends Command {
     public boolean execute() {
         if (!silent) {
             try {
-                Duke.getUI().showResponse(this.emailList.toString());
+                EmailList syncedEmailList= EmailStorage.syncEmailListWithHtml(emailList);
+                Duke.setEmailList(syncedEmailList);
+                String responseMsg =  "Syncing email list with local storage...\n\n";
+                responseMsg += Duke.getEmailList().toString();
+                Duke.getUI().showResponse(responseMsg);
             } catch (Exception e) {
                 Duke.getUI().showError(e.toString());
             }

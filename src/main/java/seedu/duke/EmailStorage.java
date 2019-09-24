@@ -11,10 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//Enter command "email -l" to get a list of email title locally stored in "data/emails" folder.
-//Enter command "email -s 2" to show the 2nd email in emailList in browser.
-//Note: showEmail() method in the Email Class is to be replaced by JavaFx code to display the email in our UI platform.
-
 public class EmailStorage {
     private static String getSaveEmailDir() {
         String dir = "";
