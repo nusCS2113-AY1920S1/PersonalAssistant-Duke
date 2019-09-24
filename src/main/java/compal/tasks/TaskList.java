@@ -1,6 +1,6 @@
 package compal.tasks;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -10,7 +10,7 @@ public class TaskList {
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public ArrayList<Task> arrlist;
-    public Duke duke;
+    public Compal compal;
     private BitSet idBitSet;
     //----------------------->
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
@@ -20,10 +20,10 @@ public class TaskList {
     /**
      * Constructs TaskList object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public TaskList(Duke d) {
-        this.duke = d;
+    public TaskList(Compal d) {
+        this.compal = d;
         //idBitSet = getIdBitSet();
         /*if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
@@ -47,8 +47,8 @@ public class TaskList {
      */
     public int addTask(Task task) {
         arrlist.add(task);
-        duke.storage.saveCompal(arrlist);
-        duke.ui.showSize();
+        compal.storage.saveCompal(arrlist);
+        compal.ui.showSize();
         return arrlist.size();
     }
 
@@ -88,7 +88,7 @@ public class TaskList {
      * Draft function for adding tasks to ComPAL. Currently not in use.
      *
      * @param currentStage Current stage status.
-     * @param value Input value.
+     * @param value        Input value.
      */
     public void addTaskTest(int currentStage, String value) {
 

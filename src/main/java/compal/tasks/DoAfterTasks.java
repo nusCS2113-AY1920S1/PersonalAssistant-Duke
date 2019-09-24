@@ -9,7 +9,7 @@ public class DoAfterTasks extends Task {
      * Constructs DoAfterTask object.
      *
      * @param description Description of do after task.
-     * @param date Starting date of do after task.
+     * @param date        Starting date of do after task.
      */
     public DoAfterTasks(String description, String date) {
         super(description);

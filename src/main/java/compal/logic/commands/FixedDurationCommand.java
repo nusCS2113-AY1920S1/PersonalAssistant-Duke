@@ -1,28 +1,34 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.FixedDurationTask;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_HOUR;
+import static compal.compal.Messages.MESSAGE_MISSING_MIN;
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_HOUR_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_MIN_ARG;
 
 /**
  * Executes user command "fixeddurationtask".
  */
 public class FixedDurationCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/on";
-    private final String TOKEN_HOUR = "/hr";
-    private final String TOKEN_MINUTE = "/min";
+    private static final String TOKEN = "/on";
+    private static final String TOKEN_HOUR = "/hr";
+    private static final String TOKEN_MINUTE = "/min";
     private TaskList taskList;
 
     /**
      * Constructs FixedDurationCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public FixedDurationCommand(Duke d) {
+    public FixedDurationCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -31,10 +37,10 @@ public class FixedDurationCommand extends Command implements CommandParser {
      * Adds a FixedDurationTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user input after "fixeddurationtask" is empty.
+     * @throws Compal.DukeException If user input after "fixeddurationtask" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -47,10 +53,10 @@ public class FixedDurationCommand extends Command implements CommandParser {
             taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
-            duke.ui.printg(descToPrint);
+            compal.ui.printg(descToPrint);
         } else {
-            duke.ui.printg("InputError: Required input for FixedDuration command!");
-            throw new Duke.DukeException("InputError: Required input for FixedDuration command!");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 
@@ -60,22 +66,22 @@ public class FixedDurationCommand extends Command implements CommandParser {
      *
      * @param restOfInput User input string.
      * @return Number of hours needed to complete the fixed duration task.
-     * @throws Duke.DukeException If no input for hour is found.
+     * @throws Compal.DukeException If no input for hour is found.
      */
-    public int getHour(String restOfInput) throws Duke.DukeException {
+    public int getHour(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_HOUR)) {
             int startPoint = restOfInput.indexOf(TOKEN_HOUR);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
             if (!scanner.hasNext()) {
-                duke.ui.printg("HourInputError: Required hour input for FixedDuration command!");
-                throw new Duke.DukeException("HourInputError: Required hour input for FixedDuration command!");
+                compal.ui.printg(MESSAGE_MISSING_HOUR);
+                throw new Compal.DukeException(MESSAGE_MISSING_HOUR);
             }
             return scanner.nextInt();
         } else {
-            duke.ui.printg("HourInputError: Required hour input for FixedDuration command!");
-            throw new Duke.DukeException("HourInputError: Required hour input for FixedDuration command!");
+            compal.ui.printg(MESSAGE_MISSING_HOUR_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_HOUR_ARG);
         }
     }
 
@@ -85,22 +91,22 @@ public class FixedDurationCommand extends Command implements CommandParser {
      *
      * @param restOfInput User input string.
      * @return Number of minutes needed to complete the fixed duration task.
-     * @throws Duke.DukeException If no input for minute is found.
+     * @throws Compal.DukeException If no input for minute is found.
      */
-    public int getMinute(String restOfInput) throws Duke.DukeException {
+    public int getMinute(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_MINUTE)) {
             int startPoint = restOfInput.indexOf(TOKEN_MINUTE);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
             if (!scanner.hasNext()) {
-                duke.ui.printg("MinInputError: Required minute input for FixedDuration command!");
-                throw new Duke.DukeException("MinInputError: Required minute input for FixedDuration command!");
+                compal.ui.printg(MESSAGE_MISSING_MIN);
+                throw new Compal.DukeException(MESSAGE_MISSING_MIN);
             }
             return scanner.nextInt();
         } else {
-            duke.ui.printg("MinInputError: Required minute input for FixedDuration command!");
-            throw new Duke.DukeException("MinInputError: Required minute input for FixedDuration command!");
+            compal.ui.printg(MESSAGE_MISSING_MIN_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_MIN_ARG);
         }
     }
 }

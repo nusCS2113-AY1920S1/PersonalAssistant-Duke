@@ -74,6 +74,22 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Formats dateInput then sets date as dateInput.
+     *
+     * @param dateInput Input date of task.
+     */
+    public void setDate(String dateInput) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateInput);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.date = date;
+    }
+
+    /**
      * Gets date of task in string.
      *
      * @return Date of task.
@@ -94,6 +110,15 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets durationHour as input durationHour.
+     *
+     * @param durationHour Input duration hour.
+     */
+    public void setDurationHour(Integer durationHour) {
+        this.durationHour = durationHour;
+    }
+
+    /**
      * Gets durationMinute of task.
      *
      * @return Minute duration of task.
@@ -103,14 +128,28 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets durationMinute as input durationMinute.
+     *
+     * @param durationMinute Input duration minute.
+     */
+    public void setDurationMinute(Integer durationMinute) {
+        this.durationMinute = durationMinute;
+    }
+
+    /**
      * Gets hasReminder of task.
      *
      * @return whether the task has reminder. If task has reminder, return true.
-     * If task has no reminder, return false.
+     *     If task has no reminder, return false.
      */
     public boolean isHasReminder() {
         return hasReminder;
     }
+    //----------------------->
+
+    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * Gets time of task in date format.
@@ -119,6 +158,22 @@ public abstract class Task implements Serializable {
      */
     public Date getTime() {
         return time;
+    }
+
+    /**
+     * Formats timeInput then sets time as timeInput.
+     *
+     * @param timeInput Input time of task.
+     */
+    public void setTime(String timeInput) {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date time = null;
+        try {
+            time = format.parse(timeInput);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.time = time;
     }
 
     /**
@@ -139,60 +194,6 @@ public abstract class Task implements Serializable {
      */
     public String getDescription() {
         return description;
-    }
-    //----------------------->
-
-    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-    /**
-     * Sets durationHour as input durationHour.
-     *
-     * @param durationHour Input duration hour.
-     */
-    public void setDurationHour(Integer durationHour) {
-        this.durationHour = durationHour;
-    }
-
-    /**
-     * Sets durationMinute as input durationMinute.
-     *
-     * @param durationMinute Input duration minute.
-     */
-    public void setDurationMinute(Integer durationMinute) {
-        this.durationMinute = durationMinute;
-    }
-
-    /**
-     * Formats dateInput then sets date as dateInput.
-     *
-     * @param dateInput Input date of task.
-     */
-    public void setDate(String dateInput) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.date = date;
-    }
-
-    /**
-     * Formats timeInput then sets time as timeInput.
-     *
-     * @param timeInput Input time of task.
-     */
-    public void setTime(String timeInput) {
-        SimpleDateFormat format = new SimpleDateFormat("HHmm");
-        Date time = null;
-        try {
-            time = format.parse(timeInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.time = time;
     }
 
     /**
@@ -219,11 +220,14 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         if (getDurationHour() != null && getDurationMinute() != null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
         }
         if (getTime() == null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate();
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate();
         }
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription() + " Date: " + getStringDate() + " Time: " + getStringTime();
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " Date: " + getStringDate() + " Time: " + getStringTime();
     }
 }

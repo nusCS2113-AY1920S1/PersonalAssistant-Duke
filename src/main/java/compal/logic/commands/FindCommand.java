@@ -1,12 +1,14 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.text.ParseException;
 import java.util.Scanner;
+
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "find".
@@ -18,9 +20,9 @@ public class FindCommand extends Command implements CommandParser {
     /**
      * Constructs FindCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public FindCommand(Duke d) {
+    public FindCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -29,34 +31,34 @@ public class FindCommand extends Command implements CommandParser {
      * Displays search result of keyword input by user.
      *
      * @param userIn Entire user input string.
-     * @throws Duke.DukeException If user input after "find" is empty.
+     * @throws Compal.DukeException If user input after "find" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         if (!scanner.hasNext()) {
-            duke.ui.printg("FindError: Find field cannot be empty. Please enter a valid search term.");
-            throw new Duke.DukeException("FindError: Find field cannot be empty. Please enter a search time.");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
         String searchTerm = scanner.next();
 
         if (taskList.arrlist.isEmpty()) {
-            duke.ui.printg("No task to find.");
+            compal.ui.printg("No task to find.");
         }
         Boolean isEmpty = true;
         for (Task task : taskList.arrlist) {
             if (task.getDescription().contains(searchTerm)) {
                 if (isEmpty == true) {
-                    duke.ui.printg("Your search result for the keyword " + searchTerm + ": \n");
+                    compal.ui.printg("Your search result for the keyword " + searchTerm + ": \n");
                 }
-                duke.ui.printg(task.toString());
+                compal.ui.printg(task.toString());
                 isEmpty = false;
             }
         }
 
         if (isEmpty) {
-            duke.ui.printg("No result found for " + searchTerm);
+            compal.ui.printg("No result found for " + searchTerm);
         }
     }
 }

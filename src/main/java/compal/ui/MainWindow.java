@@ -1,6 +1,6 @@
-package compal.inputs;
+package compal.ui;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 
 import java.text.ParseException;
 
@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Label date;
-    private Duke duke;
+    private Compal compal;
 
     /**
      * Prints initialization message.
@@ -30,12 +30,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initializes duke.
+     * Initializes Compal.
      *
-     * @param d Duke object.
+     * @param d Compal object.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setCompal(Compal d) {
+        compal = d;
     }
 
     /**
@@ -43,10 +43,10 @@ public class MainWindow extends AnchorPane {
      * Called by the enter button inside MainWindow.fxml.
      */
     @FXML
-    private void handleUserInput() throws ParseException, Duke.DukeException {
+    private void handleUserInput() throws ParseException, Compal.DukeException {
         String cmd = userInput.getText();
         //send to parser to parse
-        duke.parser.processCMD(cmd);
+        compal.parser.processCmd(cmd);
         userInput.clear();
     }
 }

@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
+import compal.compal.Compal;
 
 /**
  * Executes user input "bye".
@@ -11,9 +11,9 @@ public class ByeCommand extends Command implements CommandParser {
     /**
      * Constructs ByeCommand object.
      *
-     * @param d Duke.
+     * @param d Compal.
      */
-    public ByeCommand(Duke d) {
+    public ByeCommand(Compal d) {
         super(d);
     }
 
@@ -23,7 +23,7 @@ public class ByeCommand extends Command implements CommandParser {
      * @param userIn Entire user input string.
      */
     @Override
-    public void Command(String userIn) {
+    public void parseCommand(String userIn) {
         System.exit(0);
     }
 }

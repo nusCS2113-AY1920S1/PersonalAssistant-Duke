@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 
 /**
  * Executes user input "clear".
@@ -11,9 +11,9 @@ public class ClearCommand extends Command implements CommandParser {
     /**
      * Constructs ClearCommand object.
      *
-     * @param d Duke
+     * @param d Compal
      */
-    public ClearCommand(Duke d) {
+    public ClearCommand(Compal d) {
         super(d);
     }
 
@@ -23,7 +23,7 @@ public class ClearCommand extends Command implements CommandParser {
      * @param userIn Entire user input string.
      */
     @Override
-    public void Command(String userIn) {
-        duke.ui.clearPrimary();
+    public void parseCommand(String userIn) {
+        compal.ui.clearPrimary();
     }
 }

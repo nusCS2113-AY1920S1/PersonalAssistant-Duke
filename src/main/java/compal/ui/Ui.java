@@ -1,6 +1,6 @@
-package compal.inputs;
+package compal.ui;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 import compal.tasks.Task;
 
 import java.io.File;
@@ -24,18 +24,18 @@ public class Ui {
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
     private ArrayList<Task> arrlist;
-    private Duke duke;
+    private Compal compal;
     private String username;
     //----------------------->
 
     /**
      * Constructs Ui object.
      *
-     * @param d Duke, main class to be initialised.
+     * @param d         Compal, main class to be initialised.
      * @param arrayList arrayList of the data to store, display or edit.
      */
-    public Ui(Duke d, ArrayList<Task> arrayList) {
-        this.duke = d;
+    public Ui(Compal d, ArrayList<Task> arrayList) {
+        this.compal = d;
         arrlist = arrayList;
         System.out.println("UI:LOG: Ui Initialized!");
     }
@@ -43,6 +43,7 @@ public class Ui {
     //***OUTPUT FUNCTIONS***--------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
+
     /**
      * Converts the object into string form using toString()
      * and prints it onto the GUI's primary display box.
@@ -72,7 +73,7 @@ public class Ui {
      * Used in TaskList.addTask.
      */
     public void showSize() {
-        duke.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
+        compal.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
     }
 
     /**
@@ -91,6 +92,7 @@ public class Ui {
     //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
+
     /**
      * Returns a label (node) with the text as text.
      *
@@ -108,9 +110,9 @@ public class Ui {
      * Returns a label (node) with the input text, font, fontsize and color.
      * Used when function is overloaded.
      *
-     * @param text Dialog text label received.
-     * @param font Font of text.
-     * @param size Fontsize of text.
+     * @param text  Dialog text label received.
+     * @param font  Font of text.
+     * @param size  Fontsize of text.
      * @param color Color of text.
      * @return Label (Node) with the text as text.
      */
@@ -140,10 +142,10 @@ public class Ui {
      * Initializes the text in the GUI's secondary display box.
      * Checks if user is a first-time user. If he/she is, name of user is asked.
      *
-     * @throws ParseException If an error reaches when parsing.
-     * @throws Duke.DukeException If an error is encountered.
+     * @throws ParseException       If an error reaches when parsing.
+     * @throws Compal.DukeException If an error is encountered.
      */
-    public void checkInit() throws ParseException, Duke.DukeException {
+    public void checkInit() throws ParseException, Compal.DukeException {
         //print the changelog for developers. todo: Remove when releasing build.
         printSecondaryg("CHANGELOG V1.1:\n (REMOVE BEFORE PACKAGING AS JAR)");
         printSecondaryg("\n+ viewing of tasks on a specific date\n"
@@ -167,17 +169,17 @@ public class Ui {
         boolean saveFileExists = tmpDir.exists();
 
         if (!saveFileExists) {
-            duke.parser.setStatus("init");
+            compal.parser.setStatus("init");
             printg("Hello! I'm COMPal\n");
             printg("What is your name?");
         } else {
-            username = duke.storage.getUserName();
+            username = compal.storage.getUserName();
             printg("Hello again "
                     + username
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n");
-            duke.parser.processCMD("reminder");
+            compal.parser.processCmd("reminder");
         }
     }
 
@@ -187,9 +189,9 @@ public class Ui {
      *
      * @param value Name of user.
      * @param stage Stage number of user.
-     * @throws Duke.DukeException If an error is encountered.
+     * @throws Compal.DukeException If an error is encountered.
      */
-    public void firstTimeInit(String value, int stage) throws Duke.DukeException {
+    public void firstTimeInit(String value, int stage) throws Compal.DukeException {
         switch (stage) {
         case 0:
             printg(value + "? Did I say it correctly? [Yes or No]");
@@ -198,12 +200,12 @@ public class Ui {
         case 1:
             if (value.matches("(y|Y).*")) {
                 printg("Hello " + username + "! Great to meet you!");
-                duke.parser.setStatus("normal");
-                duke.storage.storeUserName(username); //save the user's name
+                compal.parser.setStatus("normal");
+                compal.storage.storeUserName(username); //save the user's name
                 break;
             } else {
                 printg("Okay, what is your name then?");
-                duke.parser.setStatus("init");
+                compal.parser.setStatus("init");
                 break;
             }
         default:
