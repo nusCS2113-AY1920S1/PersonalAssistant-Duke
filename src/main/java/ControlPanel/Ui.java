@@ -56,5 +56,5 @@ public class Ui {
     public void clearOutputString(){
         outputString = "";
     }
-    
+
 }

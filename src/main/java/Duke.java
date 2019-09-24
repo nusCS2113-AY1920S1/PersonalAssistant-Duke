@@ -36,7 +36,7 @@ public class Duke{
         }
     }
 
-    String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
