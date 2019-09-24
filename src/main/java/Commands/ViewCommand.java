@@ -1,18 +1,19 @@
 package Commands;
 
-import Tasks.*;
-import ControlPanel.*;
+import Tasks.TaskList;
+import ControlPanel.Ui;
+import ControlPanel.Storage;
 
 /**
  * The command aims to view the current checklist i.e. print out all the tasks
  * in the list
  */
-public class ViewCommand extends Command{
+public class ViewCommand extends Command {
 
     /**
      * A default constructor
      */
-    public ViewCommand(){
+    public ViewCommand() {
     }
 
     /**
@@ -33,7 +34,7 @@ public class ViewCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         for (int i = 1; i <= tasks.lengthOfList();i++) {
-            ui.appendToOutput(" " + i + "." + tasks.getTask(i-1).toString() + "\n");
+            ui.appendToOutput(" " + i + "." + tasks.getTask(i - 1).toString() + "\n");
         }
     }
 }
