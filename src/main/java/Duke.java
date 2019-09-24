@@ -1,6 +1,6 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
-import Enums.Tasktype;
+import Enums.TaskType;
 import Model_Classes.*;
 import Operations.*;
 
@@ -13,9 +13,9 @@ import java.util.Date;
 public class Duke {
     private Ui ui;
     private Storage storage;
-    private TaskList taskList;
+    private TaskList taskList, recurringTaskList;
     private Parser parser;
-
+    private RecurHandler recurHandler;
     /**
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
@@ -26,7 +26,15 @@ public class Duke {
         storage = new Storage();
         parser = new Parser();
         try {
-            taskList = new TaskList(storage.loadFile());
+            recurringTaskList = new TaskList(storage.loadFile("recurringData.txt"));
+        } catch (DukeException e) {
+            ui.showLoadError();
+            ArrayList<Task> emptyList = new ArrayList<>();
+            recurringTaskList = new TaskList(emptyList);
+        }
+        recurHandler = new RecurHandler(recurringTaskList);
+        try {
+            taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (DukeException e) {
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
@@ -41,7 +49,7 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             String command = parser.getCommand();
-            Tasktype type = Tasktype.valueOf(command);
+            TaskType type = TaskType.valueOf(command);
             switch (type) {
                 case list :
                     ui.showList();
@@ -51,12 +59,16 @@ public class Duke {
                 case bye :
                     isExit = true;
                     try {
-                        storage.writeFile(taskList.currentList());
-                        ui.showBye();
+                        storage.writeFile(TaskList.currentList(), "data.txt");
                     } catch (DukeException e) {
                         ui.showWriteError();
-                        ui.showBye();
                     }
+                    try {
+                        storage.writeFile(TaskList.currentList(), "recurringData.txt");
+                    } catch (DukeException e) {
+                        ui.showWriteError();
+                    }
+                    ui.showBye();
                     break;
 
                 case done :
@@ -119,6 +131,11 @@ public class Duke {
                     } catch (DukeException e) {
                         ui.showDateError();
                     }
+                    break;
+
+                case recurring:
+                    ui.promptRecurringActions();
+
                     break;
 
                 default:

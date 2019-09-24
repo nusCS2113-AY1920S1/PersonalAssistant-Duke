@@ -1,7 +1,7 @@
 package Operations;
 
 import CustomExceptions.DukeException;
-import Enums.Savetype;
+import Enums.SaveType;
 import Model_Classes.*;
 
 import java.io.*;
@@ -30,10 +30,10 @@ public class Storage {
      * @return taskArrayList An ArrayList of Tasks that is created from the .txt file.
      * @throws DukeException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
      */
-    public ArrayList<Task> loadFile() throws DukeException {
+    public ArrayList<Task> loadFile(String fileName) throws DukeException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("data.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String line = "";
             ArrayList<String> tempList = new ArrayList<>();
             while ((line = bufferedReader.readLine()) != null) {
@@ -42,7 +42,7 @@ public class Storage {
             parser = new Parser();
             for (String list : tempList) {
                 String[] temp = list.split("#", 4);
-                Savetype type = Savetype.valueOf(temp[0]);
+                SaveType type = SaveType.valueOf(temp[0]);
                 switch (type) {
                     case T :
                         ToDo tempToDo = new ToDo(temp[2]);
@@ -83,9 +83,9 @@ public class Storage {
      * @param list ArrayList of Tasks to be stored on data.txt
      * @throws DukeException If there are parsing errors in the ArrayList.
      */
-    public void writeFile(ArrayList<Task> list) throws DukeException {
+    public void writeFile(ArrayList<Task> list, String fileName) throws DukeException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             for (Task s : list) {
                 String done = s.getDone() ? "y" : "n";
                 String type = String.valueOf(s.toString().charAt(1));

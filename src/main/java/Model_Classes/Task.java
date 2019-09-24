@@ -48,6 +48,10 @@ public class Task{
         isDone = true;
     }
 
+    public void setNotDone() {
+        isDone = false;
+    }
+
     /**
      * Returns both the status icon and the description of the task.
      * @return

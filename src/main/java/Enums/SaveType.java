@@ -1,5 +1,5 @@
 package Enums;
 
-public enum Savetype {
+public enum SaveType {
     T, E, D
 }

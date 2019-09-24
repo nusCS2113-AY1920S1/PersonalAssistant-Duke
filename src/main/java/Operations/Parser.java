@@ -87,4 +87,5 @@ public class Parser {
         String key = scanner.nextLine().toLowerCase();
         return key;
     }
+
 }

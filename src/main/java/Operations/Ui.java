@@ -111,4 +111,20 @@ public class Ui {
         System.out.println("example: deadline meeting/30/12/2019 18:00");
         System.out.println("example: event concert/30/12/2019 18:00");
     }
+
+    public void promptRecurringActions() {
+        System.out.println("You are now accessing and performing operations on the Recurring Task List");
+        System.out.println("Tasks that appear here will appear based on when you want it to appear again");
+        System.out.println("Please input your intended action\n");
+        System.out.println("To add a new task into the recurring task list,\ninput a new tasks as you would with any other task," +
+                " followed by recurrence by month or day of the week, separated by a '#'.");
+        System.out.println("\tE.g : todo buy groceries#monday");
+        System.out.println("\tE.g : todo buy groceries#month");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#monday");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#month");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00#monday");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00#month");
+        System.out.println("\tTo delete a task in the recurring task list, input 'delete'.");
+        System.out.println("\tTo perform other operations in the recurring task list, input 'find' or 'list'");
+    }
 }
