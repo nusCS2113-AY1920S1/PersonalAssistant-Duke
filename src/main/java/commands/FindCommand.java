@@ -20,7 +20,7 @@ public class FindCommand extends Command {
         }
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < searchedlist.size(); i++) {
-            System.out.println(i + 1 + "." + searchedlist.get(i).listformat());
+            System.out.println(i + 1 + "." + searchedlist.get(i).listFormat());
         }
     }
 

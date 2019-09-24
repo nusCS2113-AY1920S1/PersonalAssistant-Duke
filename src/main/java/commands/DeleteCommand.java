@@ -3,8 +3,11 @@ package commands;
 import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
+
 import java.io.IOException;
+
 import Exception.DukeException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -12,7 +15,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-        String taskremoved = list.get(index).listformat();
+        String taskremoved = list.get(index).listFormat();
         list.remove(index);
         System.out.println("Noted. I've removed this task: ");
         System.out.println(taskremoved);
@@ -22,7 +25,6 @@ public class DeleteCommand extends Command {
             if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString() + "\n");
             } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-
                 sb.append(list.get(i).toString() + "\n");
             } else if (list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
                 sb.append(list.get(i).toString() + "\n");

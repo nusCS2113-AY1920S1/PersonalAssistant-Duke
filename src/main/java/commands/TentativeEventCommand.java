@@ -35,7 +35,7 @@ public class TentativeEventCommand extends Command {
         }
         TentativeEvent newtentative = new TentativeEvent(description, tentativeoptions, tentativetimes);
         System.out.println("Got it. I've added this tentative event:");
-        System.out.println(newtentative.listformat());
+        System.out.println(newtentative.listFormat());
         System.out.println("You could confirm one of the slots later.");
         list.add(newtentative);
 

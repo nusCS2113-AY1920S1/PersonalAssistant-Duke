@@ -26,7 +26,7 @@ public class TentativeEvent extends Task {
         return showlist;
     }
     @Override
-    public String listformat(){
+    public String listFormat(){
         String timeslots = "[TE]"+ "[" + super.getStatusIcon() + "] "+description+"\n" ;
         for (int i = 0; i < tentativetimes.size(); i++) {
             if(i==0){
