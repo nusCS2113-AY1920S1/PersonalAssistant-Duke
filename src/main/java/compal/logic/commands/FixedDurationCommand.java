@@ -7,6 +7,7 @@ import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
+import static compal.compal.Messages.MESSAGE_INVALID_MINUTE;
 import static compal.compal.Messages.MESSAGE_MISSING_HOUR;
 import static compal.compal.Messages.MESSAGE_MISSING_MIN;
 import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
@@ -103,7 +104,13 @@ public class FixedDurationCommand extends Command implements CommandParser {
                 compal.ui.printg(MESSAGE_MISSING_MIN);
                 throw new Compal.DukeException(MESSAGE_MISSING_MIN);
             }
-            return scanner.nextInt();
+            int minutes = scanner.nextInt();
+            if (minutes >= 0 && minutes < 60) {
+                return minutes;
+            } else {
+                compal.ui.printg(MESSAGE_INVALID_MINUTE);
+                throw new Compal.DukeException(MESSAGE_INVALID_MINUTE);
+            }
         } else {
             compal.ui.printg(MESSAGE_MISSING_MIN_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_MIN_ARG);
