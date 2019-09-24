@@ -24,7 +24,7 @@ public class Deadline extends Task {
      * @return string of when the task is due in the format '(by 11/11/1111 0000)'.
      */
     @Override
-    public String getDateStr () {
+    public String getDateStr() {
         String byStr = timeToString(date);
         return "(by: " + byStr + ")";
     }
