@@ -18,6 +18,73 @@ Dolla is for those who *prefer to use a desktop app for keeping track of expense
 
 == Features
 
+=== Set target saving `set saving`
+
+Set target saving for a particular duration.
+Format:
+`*set saving* [AMOUNT] /for [DURATION]`
+
+*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
+
+Example:
+
+*`set saving $300 /for every month`
+
+=== Reminders `reminder`
+
+Reminders for upcoming payments.
+Format:
+`*reminder*`
+
+*NOTE*: Reminders will auto pop up with the greeting message.
+
+Example:
+
+*`reminder`
+
+=== Set expense limit `set limit`
+
+Set expense limit on particular types of spending.
+Format:
+`*set limit* /tag [TAG] [AMOUNT]`
+
+Example:
+
+*`set limit /tag bubble tea $20`
+
+
+=== Add loans an debts `owe` `borrow`
+
+Add loans and debts that are one off kind.
+Format:
+`*owe* [FRIEND] [AMOUNT] [DESCRIPTION]`
+`*borrow* [FRIEND] [AMOUNT] [DESCRIPTION]`
+
+Example:
+
+*`owe xx $4 bubble tea`
+*`borrow xx $10 lunch`
+
+=== View statistics `stats`
+
+View spending statistics using histograms
+Format:
+`*stats*`
+
+Example:
+
+*`stats`
+
+=== Add to favourite `add favourite`
+
+Add a favourite product 
+Format:
+`*add favourite* [LIST NUMBER]
+
+Example:
+
+*`add favourite 3`
+
 == FAQ
 
 == Command Summary
