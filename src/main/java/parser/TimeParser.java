@@ -1,5 +1,6 @@
 package parser;
 
+import exceptions.DukeException;
 import task.Event;
 import task.Tasks;
 
@@ -65,27 +66,27 @@ public class TimeParser {
                             } catch (ParseException e6) {
 
                                 SimpleDateFormat formatter7 =
-                                    new SimpleDateFormat("dd'st of' MMMMMMMM yyyy',' hh:mm aaa");
+                                        new SimpleDateFormat("dd'st of' MMMMMMMM yyyy',' hh:mm aaa");
                                 try {
                                     date = formatter7.parse(time);
                                     return date;
                                 } catch (ParseException e7) {
                                     SimpleDateFormat formatter8 =
-                                        new SimpleDateFormat("dd'nd of' MMMMMMMM yyyy',' hh:mm aaa");
+                                            new SimpleDateFormat("dd'nd of' MMMMMMMM yyyy',' hh:mm aaa");
                                     try {
                                         date = formatter8.parse(time);
                                         return date;
                                     } catch (ParseException e8) {
 
                                         SimpleDateFormat formatter9
-                                            = new SimpleDateFormat("dd'rd of' MMMMMMMM yyyy',' hh:mm aaa");
+                                                = new SimpleDateFormat("dd'rd of' MMMMMMMM yyyy',' hh:mm aaa");
                                         try {
                                             date = formatter9.parse(time);
                                             return date;
                                         } catch (ParseException e9) {
 
                                             SimpleDateFormat formatter10
-                                                = new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa");
+                                                    = new SimpleDateFormat("dd'th of' MMMMMMMM yyyy',' hh:mm aaa");
                                             try {
                                                 date = formatter10.parse(time);
                                                 return date;
@@ -171,12 +172,12 @@ public class TimeParser {
     /**
      * Get time portion of Date object only and convert it to String
      */
-    public static String getStringTime(Date date){
+    public static String getStringTime(Date date) {
         SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aaa");
         return targetFormat.format(date);
     }
 
-    public static String getStringDate(Date date){
+    public static String getStringDate(Date date) {
         SimpleDateFormat targetFormat = new SimpleDateFormat("d/MM/yyy");
         return targetFormat.format(date);
     }
@@ -188,7 +189,7 @@ public class TimeParser {
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             return targetFormat.parse(targetFormat.format(date));
-        } catch (ParseException e){
+        } catch (ParseException e) {
             return null;
         }
     }
@@ -200,9 +201,13 @@ public class TimeParser {
         try {
             SimpleDateFormat sourceFormat = new SimpleDateFormat("d/MM/yyyy");
             return sourceFormat.parse(s);
-        } catch (ParseException e) {
-            return null;
+        } catch (ParseException e1) {
+            try {
+                SimpleDateFormat sourceFormat = new SimpleDateFormat("d-MM-yyyy");
+                return sourceFormat.parse(s);
+            } catch (ParseException e2) {
+                return null;
+            }
         }
     }
 }
-
