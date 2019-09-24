@@ -4,6 +4,7 @@ import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.Deadline;
 import compal.tasks.TaskList;
+import compal.tasks.Task;
 
 import java.util.Scanner;
 
@@ -40,8 +41,9 @@ public class DeadlineCommand extends Command implements CommandParser {
             String event = scanner.next();
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
+            Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            taskList.addTask(new Deadline(description, date));
+            taskList.addTask(new Deadline(description, priority, date));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

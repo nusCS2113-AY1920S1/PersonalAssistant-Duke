@@ -11,8 +11,8 @@ public class DoAfterTasks extends Task {
      * @param description Description of do after task.
      * @param date        Starting date of do after task.
      */
-    public DoAfterTasks(String description, String date) {
-        super(description);
+    public DoAfterTasks(String description, Priority priority, String date) {
+        super(description, priority);
         super.setDate(date);
         super.symbol = "DAT";
     }
