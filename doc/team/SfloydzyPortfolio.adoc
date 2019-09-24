@@ -1,0 +1,6 @@
+= DukeGeek - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Sports Manager - Level 3
