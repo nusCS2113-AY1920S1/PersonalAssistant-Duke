@@ -1,6 +1,5 @@
 import Storage.Storage;
 import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
 import commands.DeadlineCommand;
@@ -11,11 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Exception.DukeException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RescheduleCommandTest {
@@ -36,6 +31,6 @@ public class RescheduleCommandTest {
         Deadline RescheduledDeadline = new Deadline(Decription, fmt.parse(ui.FullCommand));
         tasks.remove(index);
         tasks.add(RescheduledDeadline);
-        assertEquals(tasks.get(0).listformat(),"[D]" + "[" + tasks.get(0).getStatusIcon() + "]" + "return book " + "(by:" + fmt.parse(ui.FullCommand) + ")");
+        assertEquals(tasks.get(0).listFormat(),"[D]" + "[" + tasks.get(0).getStatusIcon() + "]" + "return book " + "(by:" + fmt.parse(ui.FullCommand) + ")");
     }
 }

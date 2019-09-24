@@ -1,23 +1,13 @@
-import Storage.Storage;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
 import Tasks.TentativeEvent;
-import UI.Ui;
-import commands.DeadlineCommand;
-import commands.SnoozeCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Exception.DukeException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TentativeEventTest {
@@ -42,6 +32,6 @@ public class TentativeEventTest {
             }
         }
 
-        assertEquals(newtentative.listformat(),timeslots);
+        assertEquals(newtentative.listFormat(),timeslots);
     }
 }

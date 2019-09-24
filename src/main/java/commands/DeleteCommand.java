@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
         }
         else {
             int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-            String taskremoved = list.get(index).listformat();
+            String taskremoved = list.get(index).listFormat();
             list.remove(index);
             System.out.println("Noted. I've removed this task: ");
             System.out.println(taskremoved);
