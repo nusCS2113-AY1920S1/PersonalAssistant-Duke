@@ -8,6 +8,7 @@ import duke.items.DateTime;
 import duke.items.Deadline;
 import duke.items.Event;
 import duke.items.Task;
+import duke.enums.CommandType;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

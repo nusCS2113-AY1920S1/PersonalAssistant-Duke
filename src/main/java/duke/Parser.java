@@ -101,50 +101,50 @@ public class Parser {
         switch (keyword[0]) {
         //Commands which are single words.
         case "list":
-            command = new Command(Command.CommandType.LIST);
+            command = new Command(CommandType.LIST);
             break;
         case "bye":
-            command = new Command(Command.CommandType.BYE);
+            command = new Command(CommandType.BYE);
             break;
 
         //Commands which require numerical input.
         case "done":
-            command = new NumCommand(Command.CommandType.DONE, Integer.parseInt(keyword[1]));
+            command = new NumCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
         case "delete": {
-            command = new NumCommand(Command.CommandType.DELETE, Integer.parseInt(keyword[1]));
+            command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
         }
         case "snooze": {
-            command = new NumCommand(Command.CommandType.SNOOZE, Integer.parseInt(keyword[1]));
+            command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
             break;
         }
         case "findfreetime": {
-            command = new FindFreeTimeCommand(Command.CommandType.FINDFREETIME, Integer.parseInt(keyword[1]));
+            command = new FindFreeTimeCommand(CommandType.FINDFREETIME, Integer.parseInt(keyword[1]));
             break;
         }
 
         //Commands which require string input.
         case "todo":
             String[] todoTemp = addTodo(keyword[1]);
-            command = new AddCommand(Command.CommandType.TODO, todoTemp[0],
+            command = new AddCommand(CommandType.TODO, todoTemp[0],
                     (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
             break;
 
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(Command.CommandType.DEADLINE, temp[0], temp[1], afterIndex);
+            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1], afterIndex);
             break;
         }
         case "event": {
             String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(Command.CommandType.EVENT, temp[0], temp[1], afterIndex);
+            command = new AddCommand(CommandType.EVENT, temp[0], temp[1], afterIndex);
             break;
         }
         case "find": {
             String description = keyword[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
-                command = new FindCommand(Command.CommandType.FIND, description);
+                command = new FindCommand(CommandType.FIND, description);
             } else {
                 command = new Command();
                 System.out.println("Please enter the search description.");
@@ -161,13 +161,13 @@ public class Parser {
             switch (finalKeyword[0]) {
             case "deadline": {
                 String[] temp = addDeadline(finalKeyword[1]);
-                command = new RecurCommand(Command.CommandType.DEADLINE, temp[0], temp[1],
+                command = new RecurCommand(CommandType.DEADLINE, temp[0], temp[1],
                         recurInterval, numberOfRecur);
                 break;
             }
             case "event": {
                 String[] temp = addEvent(finalKeyword[1]);
-                command = new RecurCommand(Command.CommandType.EVENT, temp[0], temp[1], recurInterval, numberOfRecur);
+                command = new RecurCommand(CommandType.EVENT, temp[0], temp[1], recurInterval, numberOfRecur);
                 break;
             }
             default:
@@ -178,7 +178,7 @@ public class Parser {
         }
 
         case "view": {
-            command = new ViewScheduleCommand(Command.CommandType.VIEW, keyword[1]);
+            command = new ViewScheduleCommand(CommandType.VIEW, keyword[1]);
             break;
         }
 

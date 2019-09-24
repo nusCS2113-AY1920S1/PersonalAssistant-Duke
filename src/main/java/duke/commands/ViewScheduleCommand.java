@@ -6,6 +6,7 @@ import duke.Ui;
 import duke.exceptions.BadInputException;
 import duke.items.DateTime;
 import duke.items.Task;
+import duke.enums.CommandType;
 
 import java.util.ArrayList;
 import java.util.Date;
