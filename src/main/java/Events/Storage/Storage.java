@@ -49,7 +49,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException IOe) {
-                System.out.println("Retrying...");
+                System.out.println("Failed! Please ensure data folder exists, then try again!");
             }
 
             System.out.println("New file created!\nAssigning...");
@@ -78,7 +78,7 @@ public class Storage {
     public void saveToFile(EventList events, UI ui) {
         String toWriteToFile = "";
         for (Event currEvent : events.getEventArrayList()) {
-            toWriteToFile += currEvent.toString() + "\n";
+            toWriteToFile += currEvent.toStringForFile() + "\n";
         }
 
         try {

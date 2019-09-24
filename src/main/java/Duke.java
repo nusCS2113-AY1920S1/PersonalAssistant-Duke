@@ -10,8 +10,8 @@ import java.io.IOException;
 public class Duke {
     private static Parser parser = new Parser();
     private static UI ui = new UI();
-    private static Storage storage = new Storage(new File("data/Duke.txt"));
-    private static EventList tasks = new EventList(storage.readFromFile(ui));
+    private static Storage storage;
+    private static EventList tasks;
 
     /**
      * main Duke method
@@ -37,6 +37,6 @@ public class Duke {
         parser = new Parser();
         ui = new UI();
         storage = new Storage(new File("data/Duke.txt"));
-        tasks = new EventList(storage.readFromFile(ui));
+        tasks = new EventList(storage.readFromFile(ui), parser);
     }
 }

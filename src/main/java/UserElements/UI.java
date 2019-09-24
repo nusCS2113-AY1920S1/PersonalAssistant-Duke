@@ -49,7 +49,7 @@ public class UI {
         System.out.println("6. reminder: view your upcoming events for the next 3 days");
         System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
                 "dd-MM-yyyy HHmm\n" + lineSeparation);
-        printReminder(Events);
+//        printReminder(Events);
         System.out.println("Enter a command:");
     }
     
@@ -60,18 +60,18 @@ public class UI {
      * @param events the EventList used in the Duke function.
      */
 
-    public void printReminder(EventList events) {
-        String systemDateAndTime = new Date().toString();
-    	DateObj limit = new DateObj(systemDateAndTime);
-    	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getCurrentJavaDate().toString();
-    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-    	System.out.print(lineSeparation);
-    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-    	System.out.print(events.filteredList(pred, DATE));
-    	System.out.print(lineSeparation);
-    }
+//    public void printReminder(EventList events) {
+//        String systemDateAndTime = new Date().toString();
+//    	DateObj limit = new DateObj(systemDateAndTime);
+//    	limit.addDaysAndSetMidnight(3);
+//    	String reminderDeadline = limit.getCurrentJavaDate().toString();
+//    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
+//    	System.out.print(lineSeparation);
+//    	System.out.print("The time now is " + systemDateAndTime + ".\n");
+//    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
+//    	System.out.print(events.filteredList(pred, DATE));
+//    	System.out.print(lineSeparation);
+//    }
 
     /**
      * Prints a message when an invalid command is entered.

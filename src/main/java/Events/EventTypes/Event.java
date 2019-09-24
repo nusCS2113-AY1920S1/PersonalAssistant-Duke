@@ -7,18 +7,11 @@ import Events.Formatting.DateObj;
  * Is a type of task available for use.
  */
 public abstract class Event {
-    DateObj startDate;
-    DateObj endDate;
     protected String description;
     protected boolean isDone;
     protected DateObj startDateObj;
     protected DateObj endDateObj;
     protected char eventType;
-
-    /**
-     * Contains the date and time in a DateObj.
-     */
-    protected String date;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -43,39 +36,12 @@ public abstract class Event {
      * @param startDateAndTime string representing start date of event
      * @param endDateAndTime string representing end date of event
      */
-    public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime) {
+    public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
         this.description = description;
         this.isDone = isDone;
         this.startDateObj = new DateObj(startDateAndTime);
         this.endDateObj = new DateObj(endDateAndTime);
-    }
-
-    /**
-     * Creates event with one date input (e.g todo)
-     *
-     * @param description event description
-     * @param dateAndTime string representing date of event
-     */
-    public Event(String description, String dateAndTime) {
-        this.description = description;
-        this.isDone = false;
-        this.startDateObj = new DateObj(dateAndTime);
-        this.endDateObj = null; //no end date, set to null
-        this.eventType = 'T'; //event with no end date can only be todo type
-    }
-
-    /**
-     * Creates event with two date input
-     *
-     * @param description event description
-     * @param startDateAndTime string representing start date of event
-     * @param endDateAndTime string representing end date of event
-     */
-    public Event(String description, String startDateAndTime, String endDateAndTime) {
-        this.description = description;
-        this.isDone = false;
-        this.startDateObj = new DateObj(startDateAndTime);
-        this.endDateObj = new DateObj(endDateAndTime);
+        this.eventType = eventType;
     }
 
     /**
@@ -83,28 +49,38 @@ public abstract class Event {
      *
      * @return Formatted string representing the event, whether or not it is completed and its date.
      */
-    @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + date + ")";
+        if (getType() == 'T') { //if todo, then only one date entry
+            return "[" + getDoneSymbol() + "][T]" + getDescription() + " BY: " + this.getStartDate().toString();
+        } else { //multiple date entries
+            return "[" + getDoneSymbol() + "][" + getType() + "]" +
+                    getDescription() + " START: " + this.getStartDate().formatDate() +
+                    " END: " + this.getEndDate().formatDate();
+        }
     }
 
-    public String getDate() {
-        return date;
+    public String toStringForFile() { //string that is to be saved to file.
+        return getDoneSymbol() + getType() + " " + getDescription() + " " +
+                getStartDate().getSplitDate() + " " + getEndDate().getSplitDate();
     }
     
-    public String getType() {
-    	return "Event";
-    }
-    
-    /**
-     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
-     * @return the DateObj stored in the Event object.
-     */
-    public DateObj getDateObj() {
-    	return this.dateObj;
+    public char getType() {
+    	return eventType;
     }
 
-    public String startDateToString() {
-        return startDateObj.toOutputString();
+    public DateObj getStartDate() {
+        return startDateObj;
+    }
+
+    public DateObj getEndDate() {
+        return endDateObj;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getDoneSymbol() {
+        return (isDone) ? "✓" : "✗";
     }
 }
