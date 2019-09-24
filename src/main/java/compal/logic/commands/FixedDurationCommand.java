@@ -1,34 +1,46 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
-import compal.tasks.Event;
 import compal.tasks.FixedDurationTask;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
+import static compal.compal.Messages.MESSAGE_MISSING_HOUR;
+import static compal.compal.Messages.MESSAGE_MISSING_MIN;
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_HOUR_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_MIN_ARG;
+
+/**
+ * Executes user command "fixeddurationtask".
+ */
 public class FixedDurationCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/on";
-    private final String TOKEN_HOUR = "/hr";
-    private final String TOKEN_MINUTE = "/min";
+    private static final String TOKEN = "/on";
+    private static final String TOKEN_HOUR = "/hr";
+    private static final String TOKEN_MINUTE = "/min";
     private TaskList taskList;
 
-    public FixedDurationCommand(Duke d) {
+    /**
+     * Constructs FixedDurationCommand object.
+     *
+     * @param d Compal.
+     */
+    public FixedDurationCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     * Adds a FixedDurationTask into taskList and prints confirmation message to user.
      *
-     * @param userIn Entire String input by the user.
+     * @param userIn Entire user input string.
+     * @throws Compal.DukeException If user input after "fixeddurationtask" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
-        duke.ui.printg(userIn);
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -38,34 +50,63 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String time = getTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, date,time, hour, minute));
-            int arrSize = taskList.arrlist.size()-1;
-            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[FDT][" + statusIcon + "] " + description);
+            taskList.addTask(new FixedDurationTask(description, date, time, hour, minute));
+            int arrSize = taskList.arrlist.size() - 1;
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            compal.ui.printg(descToPrint);
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 
-    public int getHour(String restOfInput) throws Duke.DukeException {
+    /**
+     * Returns the number of hours needed for the fixed duration task.
+     * The fixed duration task has a duration in both hours and minutes.
+     *
+     * @param restOfInput User input string.
+     * @return Number of hours needed to complete the fixed duration task.
+     * @throws Compal.DukeException If no input for hour is found.
+     */
+    public int getHour(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_HOUR)) {
-            Scanner scanner = new Scanner(restOfInput);
+            int startPoint = restOfInput.indexOf(TOKEN_HOUR);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            int hour_input = scanner.nextInt();
-            return hour_input;
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_HOUR);
+                throw new Compal.DukeException(MESSAGE_MISSING_HOUR);
+            }
+            return scanner.nextInt();
         } else {
-            throw new Duke.DukeException("Hour field cannot be empty. Please enter a valid date.");
+            compal.ui.printg(MESSAGE_MISSING_HOUR_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_HOUR_ARG);
         }
     }
 
-    public int getMinute(String restOfInput) throws Duke.DukeException {
+    /**
+     * Returns the number of minutes needed for the fixed duration task.
+     * The fixed duration task has a duration in both hours and minutes.
+     *
+     * @param restOfInput User input string.
+     * @return Number of minutes needed to complete the fixed duration task.
+     * @throws Compal.DukeException If no input for minute is found.
+     */
+    public int getMinute(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_MINUTE)) {
-            Scanner scanner = new Scanner(restOfInput);
+            int startPoint = restOfInput.indexOf(TOKEN_MINUTE);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            int minute_input = scanner.nextInt();
-            return minute_input;
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_MIN);
+                throw new Compal.DukeException(MESSAGE_MISSING_MIN);
+            }
+            return scanner.nextInt();
         } else {
-            throw new Duke.DukeException("Minute field cannot be empty. Please enter a valid date.");
+            compal.ui.printg(MESSAGE_MISSING_MIN_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_MIN_ARG);
         }
     }
 }

@@ -1,5 +1,8 @@
-# AY1920S1-CS2113T-W17-G1
+# COMpal
 
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main)
+
+# AY1920S1-CS2113T-W17-G1
 **Team Members:**
 
 1. JAEDON KEE SHAOWEI

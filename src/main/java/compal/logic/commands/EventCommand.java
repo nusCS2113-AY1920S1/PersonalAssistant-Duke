@@ -1,30 +1,47 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+
+/**
+ * Executes user command "event".
+ */
 public class EventCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/at";
+    private static final String TOKEN = "/at";
     private TaskList taskList;
 
-    public EventCommand(Duke d) {
+    /**
+     * Constructs EventCommand object.
+     *
+     * @param d Compal.
+     */
+    public EventCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
+     *
      * Adds a single ToDo to the tasklist and print out confirmation for the user.
      *
      * @param userIn Entire String input by the user.
      */
+
+    /**
+     * Adds an Event into taskList and prints confirmation message to user.
+     *
+     * @param userIn Entire user input string.
+     * @throws Compal.DukeException If user input after "event" is empty.
+     */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -32,12 +49,13 @@ public class EventCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
-            taskList.addTask(new Event(description, date,time));
-            int arrSize = taskList.arrlist.size()-1;
-            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[E][" + statusIcon + "] " + description);
+            taskList.addTask(new Event(description, date, time));
+            int arrSize = taskList.arrlist.size() - 1;
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            compal.ui.printg(descToPrint);
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
 }

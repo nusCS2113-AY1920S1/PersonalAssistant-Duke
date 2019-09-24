@@ -1,46 +1,53 @@
 package compal.logic.commands;
 
+import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.main.Duke;
 import compal.tasks.Deadline;
-import compal.tasks.Event;
 import compal.tasks.TaskList;
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Scanner;
 
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+
+/**
+ * Executes user command "deadline".
+ */
 public class DeadlineCommand extends Command implements CommandParser {
 
-    private final String TOKEN = "/by";
+    private static final String TOKEN = "/by";
     private TaskList taskList;
 
-    public DeadlineCommand(Duke d) {
+    /**
+     * Constructs DeadlineCommand object.
+     *
+     * @param d Compal.
+     */
+    public DeadlineCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
     /**
-     * Adds a single ToDo to the tasklist and print out confirmation for the user.
+     * Adds a Deadline into taskList and prints confirmation message to user.
      *
-     * @param userIn Entire String input by the user.
+     * @param userIn Entire user input string.
+     * @throws Compal.DukeException If user input after "deadline" is empty.
      */
     @Override
-    public void Command(String userIn) throws Duke.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
-        String event = scanner.next();
         if (scanner.hasNext()) {
+            String event = scanner.next();
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
             String date = getDate(restOfInput);
             taskList.addTask(new Deadline(description, date));
-            int arrSize = taskList.arrlist.size()-1;
-            String statusIcon = taskList.arrlist.get(arrSize).getStatusIcon();
-            duke.ui.printg("[D][" + statusIcon + "] " + description);
+            int arrSize = taskList.arrlist.size() - 1;
+            String descToPrint = taskList.arrlist.get(arrSize).toString();
+            compal.ui.printg(descToPrint);
         } else {
-            throw new Duke.DukeException(sadFace + " OOPS!!! The description of a " + event + " cannot be empty.");
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
-
-
 }

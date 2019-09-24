@@ -1,25 +1,22 @@
 package compal.tasks;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import compal.tasks.Task;
-
 /**
- * Provides support for recurring tasks.
+ * Represents recurring task type with date and time.
  */
 public class RecurringTask extends Task {
 
     /**
-     * Store the recurring task.
+     * Constructs RecurringTask object.
      *
-     * @param description Description of the task to be stored.
-     * @param date Date of the event.
+     * @param description Description of recurring task.
+     * @param date        Starting date of recurring task.
+     * @param time        Starting time of recurring task.
      */
-    public RecurringTask(String description, String date) {
+    public RecurringTask(String description, String date, String time) {
         super(description);
         super.symbol = "RT";
         super.setDate(date);
+        super.setTime(time);
     }
 
     /**
@@ -29,11 +26,4 @@ public class RecurringTask extends Task {
      *
      * @return The description of the task with the date of the task.
      */
-    @Override
-    public String toString() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy HHmm");
-        Date date = this.getDate();
-        String strDate = format.format(date);
-        return super.toString() + " at " + strDate;
-    }
 }

@@ -1,77 +1,129 @@
 package compal.logic.commands;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.compal.Messages.MESSAGE_INVALID_YEAR;
+import static compal.compal.Messages.MESSAGE_MISSING_DATE;
+import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_DESC;
+import static compal.compal.Messages.MESSAGE_MISSING_TIME;
+import static compal.compal.Messages.MESSAGE_MISSING_TIME_ARG;
+
+/**
+ * Extracts and formats user input string into description, date and time.
+ * Includes input validations to ensure that user input string is in valid format.
+ */
 public abstract class Command {
-    public String cmdString;
-    public Duke duke;
-    public final String TOKEN_SLASH = "/";
-    public final char sadFace = '\u2639';
-    public final String TIME_TOKEN = "/time";
-    public final String DATE_TOKEN = "/date";
-    public static final String ERROR_DATE_STRING = "27/07/1987";
-    public static final String ERROR_TIME_STRING = "TIME";
-    public Command(Duke d){
-        this.duke = d;
+
+    public static final String TOKEN_SLASH = "/";
+    public static final String TIME_TOKEN = "/time";
+    public static final String DATE_TOKEN = "/date";
+    public Compal compal;
+
+    /**
+     * Constructs a Command object.
+     *
+     * @param d Compal object
+     */
+    public Command(Compal d) {
+        this.compal = d;
     }
 
     /**
-     * This function builds a description from the description string according to the token (/at or /by etc).
-     * Description string is the string before the token.
+     * Returns description from the input string according to the token (/at or /by etc).
      *
-     * @param restOfInput Input after the initial command word.
-     * @return description
+     * @param restOfInput Input description after initial command word.
+     * @return Description without date and time.
+     * @throws Compal.DukeException If restOfInput is missing date, time or description field.
      */
-    public String getDescription(String restOfInput) {
+    public String getDescription(String restOfInput) throws Compal.DukeException {
+        if (!restOfInput.contains(TOKEN_SLASH)) {
+            compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
+        }
         int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
-        String desc = restOfInput.substring(TOKEN_SLASH.length()).trim();
+        String desc = restOfInput.substring(0, splitPoint).trim();
+        if (desc.matches(" ")) {
+            compal.ui.printg(MESSAGE_MISSING_DESC);
+            throw new Compal.DukeException(MESSAGE_MISSING_DESC);
+        }
         return desc;
     }
 
     /**
      * Returns a date string if specified in the task.
      *
-     * @param restOfInput The part of the input after the command word.
+     * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
-     * @throws Duke.DukeException
+     * @throws Compal.DukeException If date field is empty, date or date format is invalid,
+     *                              date token (/date) is missing.
      */
-    public String getDate(String restOfInput) throws Duke.DukeException {
+    public String getDate(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(DATE_TOKEN)) {
             int startPoint = restOfInput.indexOf(DATE_TOKEN);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            String date_input = scanner.next();
-            return date_input;
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_DATE);
+                throw new Compal.DukeException(MESSAGE_MISSING_DATE);
+            }
+            String dateInput = scanner.next();
+
+            String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(dateInput);
+
+            if (matcher.matches() == false) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
+            }
+            int inputSize = dateInput.length();
+
+            String year = dateInput.substring(inputSize - 4, inputSize);
+            int inputYear = Integer.parseInt(year);
+            int currYear = Calendar.getInstance().get(Calendar.YEAR);
+
+            if (inputYear < currYear) {
+                compal.ui.printg(MESSAGE_INVALID_YEAR);
+                throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
+            }
+            return dateInput;
         } else {
-            throw new Duke.DukeException("Date field cannot be empty. Please enter a valid date.");
+            compal.ui.printg(MESSAGE_MISSING_DATE_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_DATE_ARG);
         }
     }
 
     /**
      * Returns a time string if specified in the task.
      *
-     * @param restOfInput The part of the input after the command word.
+     * @param restOfInput Input description after initial command word.
      * @return Time in the form of a string.
-     * @throws Duke.DukeException
+     * @throws Compal.DukeException If time field is empty or time token (/time) is missing.
      */
-    public String getTime(String restOfInput) throws Duke.DukeException {
+    public String getTime(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TIME_TOKEN)) {
-            Scanner scanner = new Scanner(restOfInput);
+            int startPoint = restOfInput.indexOf(TIME_TOKEN);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
-            String time_input = scanner.next();
-            return time_input;
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_TIME);
+                throw new Compal.DukeException(MESSAGE_MISSING_TIME);
+            }
+            String timeInput = scanner.next();
+            return timeInput;
         } else {
-            throw new Duke.DukeException("Time field cannot be empty. Please enter a valid time.");
+            compal.ui.printg(MESSAGE_MISSING_TIME_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_TIME_ARG);
         }
     }
 }

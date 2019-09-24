@@ -1,14 +1,12 @@
 package compal.tasks;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TaskListTest {
-    private Duke model = new Duke();
-    private Duke expectedModel = new Duke();
+    private Compal model = new Compal();
+    private Compal expectedModel = new Compal();
 
     @BeforeEach
     public void setup() throws Exception {

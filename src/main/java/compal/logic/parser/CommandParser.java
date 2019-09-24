@@ -1,9 +1,9 @@
 package compal.logic.parser;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 
 import java.text.ParseException;
 
-public interface CommandParser  {
-    public void Command(String userIn) throws Duke.DukeException, ParseException;
+public interface CommandParser {
+    void parseCommand(String userIn) throws Compal.DukeException, ParseException;
 }

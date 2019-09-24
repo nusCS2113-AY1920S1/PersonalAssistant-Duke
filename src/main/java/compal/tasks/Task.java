@@ -5,100 +5,80 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents task with description, status and reminder.
+ */
 public abstract class Task implements Serializable {
 
-
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
     public boolean isDone;
     protected String symbol;
     private int id;
 
-    //for now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
+    //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details.
     private Date date;
     private Date time;
     private String taskType;
     private String description;
-    private int durationHour;
-    private int durationMinute;
+    private Integer durationHour;
+    private Integer durationMinute;
     private boolean hasReminder;
-
     //----------------------->
-
 
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-
     /**
-     * Constructor.
-     * @param description the task's description
+     * Constructs Task object.
+     *
+     * @param description Description.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         hasReminder = false;
     }
-
     //----------------------->
-
-
-
-
-
 
     //***GETTER FUNCTIONS***--------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
     }
 
+    /**
+     * Gets symbol of task.
+     *
+     * @return Symbol of task.
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Gets date of task in date format.
+     *
+     * @return Date of task.
+     */
     public Date getDate() {
         return this.date;
     }
 
-    public int getDurationHour() {
-        return durationHour;
-    }
-
-    public int getDurationMinute() {
-        return durationMinute;
-    }
-
-    public boolean isHasReminder() {
-        return hasReminder;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    //----------------------->
-
-
-
-
-    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
+    /**
+     * Formats dateInput then sets date as dateInput.
+     *
+     * @param dateInput Input date of task.
+     */
     public void setDate(String dateInput) {
-        System.out.println("DATE INPUT : " + dateInput);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -106,22 +86,85 @@ public abstract class Task implements Serializable {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(date);
         this.date = date;
     }
 
-    public void setDurationHour(int durationHour) {
+    /**
+     * Gets date of task in string.
+     *
+     * @return Date of task.
+     */
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String stringDate = formatter.format(this.date);
+        return stringDate;
+    }
+
+    /**
+     * Gets durationHour of task.
+     *
+     * @return Hour duration of task.
+     */
+    public Integer getDurationHour() {
+        return durationHour;
+    }
+
+    /**
+     * Sets durationHour as input durationHour.
+     *
+     * @param durationHour Input duration hour.
+     */
+    public void setDurationHour(Integer durationHour) {
         this.durationHour = durationHour;
     }
 
-    public void setDurationMinute(int durationMinute) {
+    /**
+     * Gets durationMinute of task.
+     *
+     * @return Minute duration of task.
+     */
+    public Integer getDurationMinute() {
+        return durationMinute;
+    }
+
+    /**
+     * Sets durationMinute as input durationMinute.
+     *
+     * @param durationMinute Input duration minute.
+     */
+    public void setDurationMinute(Integer durationMinute) {
         this.durationMinute = durationMinute;
     }
 
-    public void setHasReminder() {
-        this.hasReminder = true;
+    /**
+     * Gets hasReminder of task.
+     *
+     * @return whether the task has reminder. If task has reminder, return true.
+     *     If task has no reminder, return false.
+     */
+    public boolean isHasReminder() {
+        return hasReminder;
+    }
+    //----------------------->
+
+    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
+    /**
+     * Gets time of task in date format.
+     *
+     * @return Time of task.
+     */
+    public Date getTime() {
+        return time;
     }
 
+    /**
+     * Formats timeInput then sets time as timeInput.
+     *
+     * @param timeInput Input time of task.
+     */
     public void setTime(String timeInput) {
         SimpleDateFormat format = new SimpleDateFormat("HHmm");
         Date time = null;
@@ -133,18 +176,58 @@ public abstract class Task implements Serializable {
         this.time = time;
     }
 
-    //----------------------->
-
+    /**
+     * Gets time of task in string.
+     *
+     * @return Time of task.
+     */
+    public String getStringTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
+        String stringDate = formatter.format(this.time);
+        return stringDate;
+    }
 
     /**
-     * Prints out the task as a nice string.
-     * @return String task-string
+     * Gets description of task.
+     *
+     * @return Description of task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets isDone as true.
+     */
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    /**
+     * Sets HasReminder as true.
+     */
+    public void setHasReminder() {
+        this.hasReminder = true;
+    }
+    //----------------------->
+
+    /**
+     * Returns the task as a formatted string.
+     * This function standardizes the displayed task format.
+     *
+     * @return Task as a formatted string.
      */
     @Override
     public String toString() {
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+        if (getDurationHour() != null && getDurationMinute() != null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: " + getDurationMinute();
+        }
+        if (getTime() == null) {
+            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " Date: " + getStringDate();
+        }
+        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " Date: " + getStringDate() + " Time: " + getStringTime();
     }
-
-
-
 }
