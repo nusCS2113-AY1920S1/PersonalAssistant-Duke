@@ -24,7 +24,7 @@ public class SnoozeCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
-        ui.FullCommand = "deadline return book /by 2008-7-7 3:3:3";
+        ui.FullCommand = "deadline return book /by 2008-07-07 3:3:3";
         deadlineCommand.execute(tasks,ui,storage);
         ui.FullCommand = "snooze 1";
         int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;

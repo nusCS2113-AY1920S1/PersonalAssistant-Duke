@@ -43,7 +43,7 @@ class EventCommandTest {
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Event e = new Event("eat", fmt.parse("2019-12-02 12:02:12"));
+        Event e = new Event("eat", "2019-12-02 12:02:12");
         tasks.add(e);
         ec.execute(tasks, ui, storage);
         assertEquals("The following event(s) clash with your current event:\r\n" +
