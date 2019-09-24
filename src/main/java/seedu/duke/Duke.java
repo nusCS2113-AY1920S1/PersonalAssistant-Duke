@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Duke {
     private static TaskList taskList;
-    private static EmailList emailList = new EmailList();
+    private static EmailList emailList;
     private static UI ui;
 
     /**
@@ -27,12 +27,17 @@ public class Duke {
         return taskList;
     }
 
+    public static EmailList getEmailList() {
+        return emailList;
+    }
+
     public static UI getUI() {
         return ui;
     }
 
     private static void run() {
         taskList = Storage.readTasks();
+        emailList = EmailStorage.readEmails();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         Command command = Parser.parseCommand(input);
@@ -42,10 +47,8 @@ public class Duke {
             command = Parser.parseCommand(input);
         }
         Storage.saveTasks(taskList);
+        EmailStorage.saveEmails(emailList);
         ui.showMessage("Bye. Hope to see you again!");
     }
 
-    public static EmailList getEmailList() {
-        return emailList;
-    }
 }

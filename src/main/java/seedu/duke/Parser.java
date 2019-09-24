@@ -144,29 +144,27 @@ public class Parser {
             throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
                     + "email.");
         }
-        String emailCommand = input.substring(7,8);
+        String emailCommand = input.split(" ")[1];
         switch(emailCommand) {
-        case "l":
+        case "-list":
             return new ListEmailCommand(emailList);
-        case "s":
-            if (input.length() <= 9) {
+        case "-show":
+            if (input.length() <= 12) {
                 throw new Parser.UserInputException("Please enter index of email to be shown after \'email -s\'");
             }
             try {
-                String parsedInput = input.substring(9, 10).strip();
-                System.out.println("before parse\n");
-                System.out.println(parsedInput + "\n");
+                String parsedInput = input.substring(12, 13).strip();
                 int index = Integer.parseInt(parsedInput) - 1;
-                System.out.println(index + "\n");
-                System.out.println("before command\n");
                 return new ShowEmailCommand(emailList, index);
             } catch (NumberFormatException e) {
                 throw new Parser.UserInputException(e.toString());
             } catch (Exception e) {
                 throw new Parser.UserInputException(e.toString());
             }
+        case "-fetch":
+            return new fetchEmailCommand(emailList);
         default:
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -h\' to get list of methods for "
                     + "email.");
         }
     }
