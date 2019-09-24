@@ -21,6 +21,7 @@ Dolla is for those who *prefer to use a desktop app for keeping track of expense
 === Set target saving `set saving`
 
 Set target saving for a particular duration.
+
 Format:
 `*set saving* [AMOUNT] /for [DURATION]`
 
@@ -33,6 +34,7 @@ Example:
 === Reminders `reminder`
 
 Reminders for upcoming payments.
+
 Format:
 `*reminder*`
 
@@ -45,6 +47,7 @@ Example:
 === Set expense limit `set limit`
 
 Set expense limit on particular types of spending.
+
 Format:
 `*set limit* /tag [TAG] [AMOUNT]`
 
@@ -56,18 +59,22 @@ Example:
 === Add loans an debts `owe` `borrow`
 
 Add loans and debts that are one off kind.
+
 Format:
 `*owe* [FRIEND] [AMOUNT] [DESCRIPTION]`
+
 `*borrow* [FRIEND] [AMOUNT] [DESCRIPTION]`
 
 Example:
 
 *`owe xx $4 bubble tea`
+
 *`borrow xx $10 lunch`
 
 === View statistics `stats`
 
 View spending statistics using histograms
+
 Format:
 `*stats*`
 
@@ -78,6 +85,7 @@ Example:
 === Add to favourite `add favourite`
 
 Add a favourite product 
+
 Format:
 `*add favourite* [LIST NUMBER]
 
