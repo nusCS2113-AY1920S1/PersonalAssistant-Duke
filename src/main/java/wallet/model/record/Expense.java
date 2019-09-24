@@ -3,6 +3,9 @@ package wallet.model.record;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Expense Class.
+ */
 public class Expense extends Record {
     private double amount;
     private String category;

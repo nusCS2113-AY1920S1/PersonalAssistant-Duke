@@ -4,23 +4,16 @@ import java.util.ArrayList;
 
 public class ContactList {
     /**
-     * Stores the current list of records of the user.
+     * Stores the current list of contacts of the user.
      */
     private ArrayList<Contact> contactList;
 
+    /**
+     * Constructs a new ContactList object.
+     */
     public ContactList() {
         this.contactList = new ArrayList<Contact>();
     }
-
-    /**
-     * Constructs a new recordList object.
-     *
-     * @param contactList The list of records to be added.
-     */
-    public ContactList(ArrayList<Contact> contactList) {
-        this.contactList = contactList;
-    }
-
 
     /**
      * Add the given contact into the contactList.
@@ -47,7 +40,7 @@ public class ContactList {
      * @param index  The index of the contact in the list.
      * @param contact The contact with modified values.
      */
-    public void modifyContact(int index, Contact contact) {
+    public void editContact(int index, Contact contact) {
         contactList.set(index, contact);
     }
 
