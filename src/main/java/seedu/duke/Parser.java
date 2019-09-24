@@ -11,9 +11,10 @@ import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
 import seedu.duke.command.SnoozeCommand;
-import seedu.duke.emailCommand.ListEmailCommand;
-import seedu.duke.emailCommand.ShowEmailCommand;
-import seedu.duke.emailCommand.fetchEmailCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.emailcommand.ListEmailCommand;
+import seedu.duke.email.emailcommand.ShowEmailCommand;
+import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -146,7 +147,7 @@ public class Parser {
                     + "email.");
         }
         String emailCommand = input.split(" ")[1];
-        switch(emailCommand) {
+        switch (emailCommand) {
         case "-list":
             return new ListEmailCommand(emailList);
         case "-show":
@@ -164,7 +165,7 @@ public class Parser {
                 throw new Parser.UserInputException(e.toString());
             }
         case "-fetch":
-            return new fetchEmailCommand(emailList);
+            return new FetchEmailCommand(emailList);
         default:
             throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
                     + "email.");

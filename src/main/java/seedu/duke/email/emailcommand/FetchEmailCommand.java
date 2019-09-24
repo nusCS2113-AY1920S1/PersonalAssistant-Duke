@@ -1,14 +1,14 @@
-package seedu.duke.emailCommand;
+package seedu.duke.email.emailcommand;
 
 import seedu.duke.Duke;
-import seedu.duke.EmailList;
-import seedu.duke.EmailStorage;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.EmailStorage;
 import seedu.duke.command.Command;
 
-public class fetchEmailCommand extends Command {
+public class FetchEmailCommand extends Command {
     private EmailList emailList;
 
-    public fetchEmailCommand(EmailList emailList) {
+    public FetchEmailCommand(EmailList emailList) {
         this.emailList = emailList;
     }
 
@@ -20,7 +20,7 @@ public class fetchEmailCommand extends Command {
                 // EmailStorage.syncWithServer();
 
                 // Sync the current emailList with the html files in local storage.
-                EmailList syncedEmailList= EmailStorage.syncEmailListWithHtml(emailList);
+                EmailList syncedEmailList = EmailStorage.syncEmailListWithHtml(emailList);
                 Duke.setEmailList(syncedEmailList);
                 String responseMsg =  "Fetching emails and syncing with local storage...\n\n";
                 responseMsg += Duke.getEmailList().toString();
