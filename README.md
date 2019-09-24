@@ -2,10 +2,9 @@
 
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main)
 
-**Insert Screenshot here [Ui.png]**
-# AY1920S1-CS2113T-W17-G1
+![Ui](/docs/images/Ui.png)
 
-##Contributors
+## Contributors
 
 * [JAEDON KEE SHAOWEI](https://github.com/jaedonkey/)
 * [LIU PEIZE](https://github.com/LTPZ)
@@ -13,7 +12,7 @@
 * [TAN KAI LI CATHERINE](https://github.com/Catherinetan99/)
 * [YUE JUN YI](https://github.com/yueyeah)
 
-##Acknowledgements
+## Acknowledgements
 * COMPal is developed with the goal of improving on the [Duke](https://github.com/se-edu/duke) 
 Personal Assistant originally created by the [SE-EDU](https://github.com/se-edu) initiative. 
 * Libraries used: 
