@@ -30,7 +30,7 @@ Format:
 
 Example:
 
-*`set saving $300 /for every month`
+* `set saving $300 /for every month`
 
 === Reminders `reminder`
 
@@ -44,7 +44,7 @@ Format:
 
 Example:
 
-*`reminder`
+* `reminder`
 
 === Set expense limit `set limit`
 
@@ -56,7 +56,7 @@ Format:
 
 Example:
 
-*`set limit /tag bubble tea $20`
+* `set limit /tag bubble tea $20`
 
 
 === Add loans an debts `owe` `borrow`
@@ -71,9 +71,9 @@ Format:
 
 Example:
 
-*`owe xx $4 bubble tea`
+* `owe xx $4 bubble tea`
 
-*`borrow xx $10 lunch`
+* `borrow xx $10 lunch`
 
 === View statistics `stats`
 
@@ -85,7 +85,7 @@ Format:
 
 Example:
 
-*`stats`
+* `stats`
 
 === Add to favourite `add favourite`
 
@@ -97,7 +97,7 @@ Format:
 
 Example:
 
-*`add favourite 3`
+* `add favourite 3`
 
 == FAQ
 
