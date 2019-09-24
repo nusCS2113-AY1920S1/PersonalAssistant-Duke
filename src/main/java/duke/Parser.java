@@ -11,6 +11,7 @@ import duke.commands.ViewScheduleCommand;
 import duke.commands.FindCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
+import duke.enums.CommandType;
 
 
 /**

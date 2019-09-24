@@ -1,6 +1,7 @@
 package duke.items;
 
 import java.util.Date;
+import duke.enums.TaskType;
 
 /**
  * Task is an abstract class that stores the description and done status of a task.
@@ -13,10 +14,6 @@ public class Task {
     protected TaskType type;
     protected String doAfter; //Can extend to a list of tasks that have to be done before.
 
-    protected enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
     /**
      * Task constructor sets a blank task by default.
      */
@@ -28,11 +25,10 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(String description, TaskType type, String doAfter) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
         this.type = type;
-        this.doAfter = doAfter;
     }
 
     public String getDescription() {

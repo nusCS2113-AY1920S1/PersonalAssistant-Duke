@@ -11,6 +11,7 @@ import duke.items.Event;
 import duke.items.Snooze;
 import duke.items.Task;
 import duke.items.Todo;
+import duke.enums.TaskType;
 
 /**
  * Manages the list of (different types of classes),
@@ -49,57 +50,85 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo item to the list and prints a confirmation.
-     *
-     * @param todoitem the description of the task.
+     * Adds a task to the tasklist.
+     * @return True if item was added successfully.
      */
-    public void addTodoItem(String todoitem, String doAfter) {
-        taskList.add(new Todo(todoitem, doAfter)); //Use the constructor to create a new Task.
-        System.out.println("Todo item added: " + todoitem);
+    public boolean addItem(TaskType type, String description) {
+        taskList.add(new Todo(description));
+
+        return true;
     }
 
-    /**
-     * Adds a todo item to the list but with duration.
-     * @param todoitem description of the task.
-     * @param hours duration of task.
-     */
-    public void addTodoItem(String todoitem, String doAfter, int hours) {
-        taskList.add(new Todo(todoitem, doAfter, hours)); //Use the constructor to create a new Task.
-        System.out.println("Todo item added: " + todoitem);
-        System.out.println("Hours needed: " + hours);
-    }
-
-    /**
-     * Adds a deadline item to the list and prints a confirmation.
-     *
-     * @param deadline the command with the description and deadline of the task.
-     */
-    public void addDeadlineItem(String description, String deadline, String doAfter) {
+    public boolean addItem(TaskType type, String description, DateTime... dateTimes) {
         try {
-            //Use the constructor to create a new Task.
-            taskList.add(new Deadline(description, deadline, doAfter));
-            System.out.println("Deadline item added: " + description);
-            System.out.println("Deadline is: " + deadline);
-        } catch (BadInputException e) {
-            System.out.println(e);
+            switch (type) {
+                case DEADLINE:
+                    taskList.add(new Deadline(description, dateTimes[0]));
+
+            }
         }
+
+        catch (BadInputException e) {
+                System.out.println(e);
+        }
+
+
+
+        return true;
     }
 
-    /**
-     * Adds an event item to the list and prints a confirmation.
-     *
-     * @param event the description of the task.
-     * @param at the time the event happens.
-     */
-    public void addEventItem(String event, String at, String doAfter) {
-        try {
-            taskList.add(new Event(event, at, doAfter)); //Use the constructor to create a new Task.
-            System.out.println("Event item added: " + event);
-            System.out.println("Event happens at: " + at);
-        } catch (BadInputException e) {
-            System.out.println(e);
-        }
-    }
+//    /**
+//     * Adds a todo item to the list and prints a confirmation.
+//     *
+//     * @param todoitem the description of the task.
+//     */
+//    public void addTodoItem(String todoitem, String doAfter) {
+//        taskList.add(new Todo(todoitem, doAfter)); //Use the constructor to create a new Task.
+//        System.out.println("Todo item added: " + todoitem);
+//    }
+//
+//    /**
+//     * Adds a todo item to the list but with duration.
+//     * @param todoitem description of the task.
+//     * @param hours duration of task.
+//     */
+//    public void addTodoItem(String todoitem, String doAfter, int hours) {
+//        taskList.add(new Todo(todoitem, doAfter, hours)); //Use the constructor to create a new Task.
+//        System.out.println("Todo item added: " + todoitem);
+//        System.out.println("Hours needed: " + hours);
+//    }
+//
+//    /**
+//     * Adds a deadline item to the list and prints a confirmation.
+//     *
+//     * @param deadline the command with the description and deadline of the task.
+//     */
+//    public void addDeadlineItem(String description, String deadline, String doAfter) {
+//        try {
+//            //Use the constructor to create a new Task.
+//            taskList.add(new Deadline(description, deadline));
+//            System.out.println("Deadline item added: " + description);
+//            System.out.println("Deadline is: " + deadline);
+//        } catch (BadInputException e) {
+//            System.out.println(e);
+//        }
+//    }
+//
+//    /**
+//     * Adds an event item to the list and prints a confirmation.
+//     *
+//     * @param event the description of the task.
+//     * @param at the time the event happens.
+//     */
+//    public void addEventItem(String event, String at, String doAfter) {
+//        try {
+//            taskList.add(new Event(event, at, doAfter)); //Use the constructor to create a new Task.
+//            System.out.println("Event item added: " + event);
+//            System.out.println("Event happens at: " + at);
+//        } catch (BadInputException e) {
+//            System.out.println(e);
+//        }
+//    }
 
     /**
      * Prints the whole list of items with index numbers.
