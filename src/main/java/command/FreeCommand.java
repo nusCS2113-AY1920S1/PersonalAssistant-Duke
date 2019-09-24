@@ -20,11 +20,9 @@ public class FreeCommand extends Command {
 
     /**
      * Constructs a {@code FreeCommand} object with commandType.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public FreeCommand(CommandParams commandParams) {
-        super(commandParams);
+    public FreeCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -34,8 +32,7 @@ public class FreeCommand extends Command {
      * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know your slot timing");
         }

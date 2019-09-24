@@ -22,55 +22,51 @@ import exception.DukeException;
 public class Parser {
 
     /**
-     * Converts the {@code String} fullCommand into {@code Command} object.
-     * Returns the {@code Command} object.
+     * Returns the command with the name commandName.
      *
-     * @param fullCommand The command line read from user input.
+     * @param commandName The name of the command.
      * @return {@code Command} object converted from fullCommand.
      * @throws DukeException If user input is invalid.
      */
-    public static Command parse(String fullCommand) throws DukeException {
-        CommandParams commandParams = new CommandParams(fullCommand);
-
-        switch (commandParams.getCommandType()) {
+    public static Command getCommand(String commandName) throws DukeException {
+        switch (commandName) {
         case "todo":
         case "deadline":
         case "event":
-            return new AddCommand(commandParams);
+            return new AddCommand();
 
         case "list":
-            return new ListCommand(commandParams);
+            return new ListCommand();
 
         case "done":
-            return new DoneCommand(commandParams);
+            return new DoneCommand();
 
         case "delete":
-            return new DeleteCommand(commandParams);
+            return new DeleteCommand();
 
         case "find":
-            return new FindCommand(commandParams);
+            return new FindCommand();
 
         case "bye":
-            return new ExitCommand(commandParams);
+            return new ExitCommand();
 
         case "schedule":
-            return new ScheduleCommand(commandParams);
+            return new ScheduleCommand();
 
         case "remind":
-            return new RemindCommand(commandParams);
+            return new RemindCommand();
 
         case "reschedule":
-            return new RescheduleCommand(commandParams);
+            return new RescheduleCommand();
 
         case "free":
-            return new FreeCommand(commandParams);
+            return new FreeCommand();
 
         case "conflict":
-            return new ConflictCommand(commandParams);
+            return new ConflictCommand();
 
         default:
             throw new DukeException("☹ OOPS!!! I don't know what that means :-(");
         }
-
     }
 }
