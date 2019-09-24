@@ -8,7 +8,7 @@
 Your one stop solution to module planning through out your university tenure!
 
 **Sample Mockup**
-![SampleImage](docs/image/Sample_Mockup.png)
+![test](main/docs/image/Sample_Mockup.PNG)
 
 
 
