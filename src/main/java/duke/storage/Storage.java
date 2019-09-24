@@ -35,7 +35,11 @@ public class Storage {
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, tasks, schedule);
+                ArrayList<ToDo> temp = new ArrayList();
+                for (int i = 0; i < Integer.parseInt(line.split("\\|")[4].trim()); i += 1) {
+                    temp.add(new ToDo(bufferedReader.readLine()));
+                }
+                loadFile(line, tasks, schedule, temp);
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -51,8 +55,11 @@ public class Storage {
      * @param line the line input from the input file
      * @param tasks the task arraylist that will store the tasks from the input file
      */
-    private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule) {
-        String[] splitLine = line.split(" \\| ");
+    private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule, ArrayList<ToDo> doAfter) {
+        String[] splitLine = line.split("\\|");
+        for (int i = 0; i < splitLine.length; i += 1) {
+            System.out.println(splitLine[i]);
+        }
         String taskType = splitLine[0];
         String subtypes = splitLine[1];
         boolean isDone = splitLine[2].equals("1");
@@ -64,18 +71,23 @@ public class Storage {
         }
         if (taskType.equals("T")) {
             if (subtypes.trim().length() == 0) {
-                loadToDo(tasks, isDone, subtypes, description);
+                loadToDo(tasks, isDone, subtypes, doAfter, description);
             }
             if (subtypes.contains("P")) {
-                loadToDo(tasks, isDone, subtypes, description, splitLine[4], splitLine[5]);
+                loadToDo(tasks, isDone, subtypes, doAfter, description, splitLine[5], splitLine[6]);
             }
             if (subtypes.contains("F")) {
-                loadToDo(tasks, isDone, subtypes, description, splitLine[4]);
+                loadToDo(tasks, isDone, subtypes, doAfter, description, splitLine[5]);
             }
         } else if (taskType.equals("D")) {
-            loadDeadline(tasks, description, timeFrame, isDone, schedule);
+            loadDeadline(tasks, description, timeFrame, isDone, schedule, doAfter);
         } else if (taskType.equals("E")) {
-            loadEvent(tasks, description, timeFrame, isDone, schedule);
+            if (subtypes.trim().length() == 0) {
+                loadEvent(tasks, description, isDone, subtypes, doAfter, schedule, splitLine[5]);
+            }
+            else {
+                loadEvent(tasks, description, isDone, subtypes, doAfter, schedule, splitLine[5], splitLine[6]);
+            }
         }
 
     }
@@ -88,12 +100,13 @@ public class Storage {
      */
     //TODO: make such that the loadFile only need to call one function only
     private static void loadToDo(ArrayList<Task> tasks, boolean isDone,
-                                 String subtypes, String...description) {
+                                 String subtypes, ArrayList<ToDo> doAfter, String...description) {
         if (subtypes.trim().length() == 0) {
             ToDo newToDo = new ToDo(description[0]);
             if (isDone) {
                 newToDo.markAsDone();
             }
+            newToDo.setDoAfter(doAfter);
             tasks.add(newToDo);
         }
         if (subtypes.contains("P")) {
@@ -101,6 +114,7 @@ public class Storage {
             if (isDone) {
                 newToDo.markAsDone();
             }
+            newToDo.setDoAfter(doAfter);
             tasks.add(newToDo);
         }
         if (subtypes.contains("F")) {
@@ -108,6 +122,7 @@ public class Storage {
             if (isDone) {
                 newToDo.markAsDone();
             }
+            newToDo.setDoAfter(doAfter);
             tasks.add(newToDo);
         }
     }
@@ -119,13 +134,14 @@ public class Storage {
      * @param isDone whether the deadline task is done
      */
     private static void loadDeadline(ArrayList<Task> tasks, String description,
-                                     String by, boolean isDone, Schedule schedule) {
+                                     String by, boolean isDone, Schedule schedule, ArrayList<ToDo> doAfter) {
         boolean toAdd;
         Deadline newDeadline = new Deadline(description, by);
         if (isDone) {
             newDeadline.markAsDone();
         }
         toAdd = schedule.update(newDeadline);
+        newDeadline.setDoAfter(doAfter);
         if (toAdd) {
             tasks.add(newDeadline);
         }
@@ -139,12 +155,19 @@ public class Storage {
      * @param isDone whether the event is completed
      */
     private static void loadEvent(ArrayList<Task> tasks, String description,
-                                  String duration, boolean isDone, Schedule schedule) {
+                                  boolean isDone, String subtypes, ArrayList<ToDo> doAfter, Schedule schedule, String...timeFrame) {
         boolean toAdd;
-        Event newEvent = new Event(description, duration);
+        Event newEvent;
+        if (subtypes.trim().equals("P")) {
+            newEvent = new Event(description, timeFrame[0], timeFrame[1]);
+        }
+        else {
+            newEvent = new Event(description, timeFrame[0]);
+        }
         if (isDone) {
             newEvent.markAsDone();
         }
+        newEvent.setDoAfter(doAfter);
         toAdd = schedule.update(newEvent);
         if (toAdd) {
             tasks.add(newEvent);
@@ -175,26 +198,38 @@ public class Storage {
                     status = "1";
                 }
                 String subtypes = currentTask.getSubtype();
-                bufferedWriter.write(currentTask.getType() + " | " + subtypes + " | "
-                        + status + " | " + currentTask.getDescription());
+                bufferedWriter.write(currentTask.getType() + "|" + subtypes + "|"
+                        + status + "|" + currentTask.getDescription() + "|" + currentTask.getDoAfter().size());
                 if ((currentTask.getType()).equals("T")) {
                     if (subtypes.contains("P")) {
                         String[] data = currentLine.split("From: ", 2);
                         String[] timeFrame = data[1].split(" to ", 2);
-                        bufferedWriter.write(" | " + timeFrame[0] + " | "
-                                + timeFrame[1].substring(0, timeFrame[1].length() - 1));
+                        bufferedWriter.write("|" + timeFrame[0] + "|"
+                                + timeFrame[1].split("\n")[0].substring(0, timeFrame[1].split("\n")[0].length() - 1));
                     }
                     if (subtypes.contains("F")) {
-                        String timeFrame = (currentLine.split("needs: ", 2))[1];
-                        bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                        String timeFrame = (currentLine.split("needs: ", 2))[1].split("\n")[0];
+                        bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
                     }
                 }
                 if ((currentTask.getType()).equals("E")) {
-                    String timeFrame = (currentLine.split("at: ", 2))[1];
-                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                    if (subtypes.contains("P")){
+                        String[] data = currentLine.split("From: ", 2);
+                        String[] timeFrame = data[1].split(" to ", 2);
+                        bufferedWriter.write("|" + timeFrame[0] + "|"
+                                + timeFrame[1].split("\n")[0].split("\n")[0].substring(0, timeFrame[1].split("\n")[0].length() - 1));
+                    }
+                    else {
+                        String timeFrame = currentLine.split("at: ", 2)[1].split("\n")[0];
+                        bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
+                    }
                 } else if ((currentTask.getType()).equals("D")) {
-                    String timeFrame = (currentLine.split("by: ", 2))[1];
-                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                    String timeFrame = (currentLine.split("by: ", 2))[1].split("\n")[0];
+                    bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+                for (int j = 0; j < currentTask.getDoAfter().size(); j += 1) {
+                    bufferedWriter.newLine();
+                    bufferedWriter.write(currentTask.getDoAfter().get(j).getDescription());
                 }
             }
             bufferedWriter.close();

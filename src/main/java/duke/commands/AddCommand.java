@@ -37,6 +37,7 @@ public class AddCommand extends Command {
         toAdd = schedule.update(task);
         if (toAdd) {
             currentTasks.add(task);
+            schedule.doAfter(task);
             ui.showAdded(task, currentTasks);
             storage.updateFile(currentTasks);
         }

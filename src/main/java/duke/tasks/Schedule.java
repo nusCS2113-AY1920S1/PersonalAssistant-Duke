@@ -41,19 +41,34 @@ public class Schedule {
     public boolean update(Task task) {
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
         LocalDate now = LocalDate.now();
-        if (task.getType() == "D" || task.getType() == "E") {
+        if (task.getType().equals("D")) {
             if (task.getDate() != null) {
                 if (now.getYear() == task.getDate().get(Calendar.YEAR)) {
                     if (now.getMonthValue() == task.getDate().get(Calendar.MONTH) + 1) {
                         int taskDate = task.getDate().get(Calendar.DAY_OF_MONTH);
                         int taskHour = task.getDate().get(Calendar.HOUR_OF_DAY);
-                        boolean checkForAnomaly = detectAnomalies(this.schedule[taskDate - 1][taskHour]);
+                        this.schedule[taskDate - 1][taskHour].add(task);
+                    }
+                }
+            }
+        }
+        else if (task.getType().equals("E")) {
+            if (task.getDate() != null) {
+                if (now.getYear() == task.getDate().get(Calendar.YEAR)) {
+                    if (now.getMonthValue() == task.getDate().get(Calendar.MONTH) + 1) {
+                        int taskDate = task.getDate().get(Calendar.DAY_OF_MONTH);
+                        int taskHour = task.getDate().get(Calendar.HOUR_OF_DAY);
+                        int taskEnd = task.getEnd().get(Calendar.HOUR_OF_DAY);
+                        int duration = taskEnd - taskHour + 1;
+                        boolean checkForAnomaly = detectAnomalies(this.schedule[taskDate - 1], taskHour, duration);
                         if (checkForAnomaly) {
                             System.out.println("There is already an event task at "
                                     + dateFormat.format(task.getDate().getTime()));
                             return false;
                         } else {
-                            this.schedule[taskDate - 1][taskHour].add(task);
+                            for (int i = 0; i < duration; i += 1) {
+                                this.schedule[taskDate - 1][taskHour + i].add(task);
+                            }
                         }
                     }
                 }
@@ -75,16 +90,19 @@ public class Schedule {
         ArrayList<Task> result = new ArrayList<Task>();
         ArrayList<Task> current;
         int counter = 0;
+        Task prevCheck = null;
         for (int i = 0; i < hour; i += 1) {
-            current = this.schedule[currentDay + counter - 1][(currentHour + i) % 24];
-            if (currentHour + i > (counter + 1) * 24 - 1) {
-                counter += 1;
-            }
+            current = this.schedule[currentDay + (currentHour + i)/24 - 1][(currentHour + i) % 24];
             for (int j = 0; j < current.size(); j += 1) {
-                if (current.get(j).getType() == "D" && current.get(j).getisDone() == false) {
-                    result.add(current.get(j));
-                } else if (current.get(j).getType() == "E") {
-                    result.add(current.get(j));
+                if (current.get(j).equals(prevCheck)) {
+                }
+                else {
+                    if (current.get(j).getType() == "D" && current.get(j).getisDone() == false) {
+                        result.add(current.get(j));
+                    } else if (current.get(j).getType() == "E") {
+                        result.add(current.get(j));
+                    }
+                    prevCheck = current.get(i);
                 }
             }
         }
@@ -99,9 +117,20 @@ public class Schedule {
      * @param activity arraylist of tasks
      * @return boolean value
      */
+    private boolean detectAnomalies(ArrayList<Task>[] activity, int start, int duration) {
+        for (int i = 0; i < duration; i += 1) {
+            for (int j = 0; j < activity[i].size(); j += 1) {
+                if (activity[i].get(j).equals("E") || activity[i].get(j).equals("T")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean detectAnomalies(ArrayList<Task> activity) {
-        for (int i = 0; i < activity.size(); i += 1) {
-            if (activity.get(i).getType().equals("E")) {
+        for (int j = 0; j < activity.size(); j += 1) {
+            if (activity.get(j).equals("E") || activity.get(j).equals("T")) {
                 return true;
             }
         }
@@ -265,5 +294,49 @@ public class Schedule {
         this.ponder.remove(taskIndex - 1);
         this.ponderDate.remove(taskIndex - 1);
         return confirmed;
+    }
+
+    public ArrayList<Task> viewSchedule(String date) {
+        int day = 1;
+        try {
+            SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
+            Date tempDate;
+            tempDate = dateparser.parse(date);
+            Calendar temp = Calendar.getInstance();
+            temp.setTime(tempDate);
+            day = temp.get(Calendar.DAY_OF_MONTH);
+        } catch (ParseException e) {
+        }
+        ArrayList<Task> selected = new ArrayList<>();
+        Task prevCheck = null;
+        for (int i = 0; i < 24; i += 1) {
+            ArrayList<Task> current = this.schedule[day - 1][i];
+            for (int j = 0; j < current.size(); j += 1) {
+                if (current.get(j).equals(prevCheck)) {
+                }
+                else {
+                    selected.add(current.get(j));
+                    prevCheck = current.get(j);
+                }
+            }
+        }
+        return selected;
+    }
+
+    public void doAfter(Task task) {
+        Scanner temp = new Scanner(System.in);
+        System.out.println("Please input ToDo task. Input exit to escape.");
+        String input = temp.nextLine();
+        while (true) {
+            if (input.equals("exit")) {
+                break;
+            }
+            System.out.println("Please input ToDo task. Input exit to escape.");
+            String[] process = input.split(" ",2);
+            ToDo doAfter = new ToDo(process[1]);
+            task.getDoAfter().add(doAfter);
+            System.out.println(doAfter.toString() + "has been added.");
+            input = temp.nextLine();
+        }
     }
 }

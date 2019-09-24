@@ -11,8 +11,7 @@ import java.util.Date;
  */
 public class ToDo extends Task {
 
-    protected Calendar end = Calendar.getInstance();
-    protected String duration = "";
+    protected int duration;
 
     /**
      * Primary constructor of ToDo object.
@@ -21,6 +20,8 @@ public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
         super.type = "T";
+        this.datetime = null;
+        this.end = null;
     }
 
     /**
@@ -29,33 +30,35 @@ public class ToDo extends Task {
      * @param start start of period
      * @param inputEnd end of period
      */
-    public ToDo(String description, String start, String inputEnd) {
+    public ToDo(String description, String inputStart, String inputEnd) {
         super(description);
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date;
         try {
-            date = dateparser.parse(start);
-            datetime.setTime(date);
+            date = dateparser.parse(inputStart);
+            this.datetime.setTime(date);
             date = dateparser.parse(inputEnd);
-            end.setTime(date);
+            this.end.setTime(date);
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
-                date = altparser.parse(start);
-                datetime.setTime(date);
+                date = altparser.parse(inputStart);
+                this.datetime.setTime(date);
                 date = altparser.parse(inputEnd);
-                end.setTime(date);
+                this.end.setTime(date);
+                System.out.println(this.datetime.get(Calendar.MONTH));
             } catch (ParseException f) {
-                datetime = null;
+                this.datetime = null;
+                this.end = null;
             }
         }
-        if (datetime.after(end)) {
-            Calendar temp = datetime;
-            datetime = end;
-            end = temp;
+        if (this.datetime.after(this.end)) {
+            Calendar temp = this.datetime;
+            this.datetime = this.end;
+            this.end = temp;
         }
         super.type = "T";
-        subtypes += "P ";
+        subtypes += "P";
     }
 
     /**
@@ -65,9 +68,9 @@ public class ToDo extends Task {
      */
     public ToDo(String description, String duration) {
         super(description);
-        this.duration = duration;
+        this.duration = Integer.parseInt(duration);
         super.type = "T";
-        subtypes += "F ";
+        subtypes += "F";
     }
 
     /**
@@ -78,15 +81,20 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        String text = "";
         if (subtypes.trim().isEmpty()) {
-            return "[T]" + super.toString();
+            text += "[T]" + super.toString() + "";
         } else if (subtypes.contains("P")) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
-            return "[T]" + super.toString() + "(From: " + dateFormat.format(datetime.getTime())
-                    + " to " + dateFormat.format(end.getTime()) + ")";
+            text +=  "[T]" + super.toString() + "(From: " + dateFormat.format(this.datetime.getTime())
+                    + " to " + dateFormat.format(this.end.getTime()) + ")";
         } else if (subtypes.contains("F")) {
-            return "[T]" + super.toString() + " (needs: " + this.duration + ")";
+            text += "[T]" + super.toString() + " (needs: " + this.duration + ")";
         }
-        return null;
+        for (int i = 0; i < this.doAfter.size(); i += 1) {
+            text += "\n";
+            text += this.doAfter.get(i).toString();
+        }
+        return text;
     }
 }

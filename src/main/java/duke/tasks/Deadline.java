@@ -45,13 +45,20 @@ public class Deadline extends Task {
      * @return <code>"[D]" + super.toString() + " (by: " + by + ")"</code>
      */
     @Override
+
+
     public String toString() {
+        String text = "";
         if (datetime != null) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
-            return "[D]" + super.toString() + " (by: " + dateFormat.format(datetime.getTime()) + ")";
+            text += "[D]" + super.toString() + " (by: " + dateFormat.format(datetime.getTime()) + ")\n";
         } else {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            text += "[D]" + super.toString() + " (by: " + by + ")\n";
         }
+        for (int i = 0; i < this.doAfter.size(); i += 1) {
+            text += this.doAfter.get(i).toString() + "\n";
+        }
+        return text;
     }
 
 
