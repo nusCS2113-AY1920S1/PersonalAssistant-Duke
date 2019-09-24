@@ -106,30 +106,13 @@ public class EventList {
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
         DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
         DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(eventStartDate.getCurrentJavaDate());
+        calendar.setTime(eventStartDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            String startDateAndTimeString = null;
-            if (eventStartDate.getFormat() == 1) {
-                startDateAndTimeString = format1.format(calendar.getTime());
-            }
-            else if (eventStartDate.getFormat() == 2) {
-                startDateAndTimeString = format2.format(calendar.getTime());
-            }
 
-            String endDateAndTimeString = null;
-            if (eventEndDate.getFormat() == 1) {
-                endDateAndTimeString = format1.format(calendar.getTime());
-            }
-            else if (eventStartDate.getFormat() == 2) {
-                endDateAndTimeString = format2.format(calendar.getTime());
-            }
-
-            this.eventArrayList.add(new Lesson(event.getDescription(), startDateAndTimeString, endDateAndTimeString));
+            this.eventArrayList.add(new Lesson(event.getDescription(), calendar.getTime().toString(), eventEndDate.getEventJavaDate().toString()));
             calendar.add(Calendar.DATE, period);
         }
         return true;
