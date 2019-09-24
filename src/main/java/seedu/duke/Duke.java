@@ -1,8 +1,10 @@
 package seedu.duke;
 
+import seedu.duke.client.Http;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
