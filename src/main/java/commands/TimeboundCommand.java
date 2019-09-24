@@ -1,8 +1,5 @@
 package commands;
-<<<<<<< HEAD
-=======
 
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
@@ -49,8 +46,5 @@ public class TimeboundCommand extends Command {
     public boolean isExit() {
         return false;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> f4d56ffa7287b3411536cd5032d0656f1f1e0185
 }
