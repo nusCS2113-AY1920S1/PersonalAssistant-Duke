@@ -7,6 +7,7 @@ import compal.tasks.TaskList;
 import java.util.Scanner;
 
 import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_INVALID_TASK_NUMBER;
 
 /**
  * Executes user command "done".
@@ -33,16 +34,21 @@ public class DoneCommand extends Command implements CommandParser {
      */
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException {
-
         Scanner scanner = new Scanner(userIn);
         scanner.next();
+        int maxSize = taskList.arrlist.size();
         if (scanner.hasNextLine()) {
             String restOfInput = scanner.nextLine();
             int toMark = Integer.parseInt(restOfInput.trim()) - 1;
-            taskList.arrlist.get(toMark).markAsDone();
-            String desc = taskList.arrlist.get(toMark).toString();
-            compal.ui.printg("Nice! I've marked this task as done: \n" + desc);
-            compal.storage.saveCompal(taskList.arrlist);
+            if (toMark >= 0 && toMark < maxSize) {
+                taskList.arrlist.get(toMark).markAsDone();
+                String desc = taskList.arrlist.get(toMark).toString();
+                compal.ui.printg("Nice! I've marked this task as done: \n" + desc);
+                compal.storage.saveCompal(taskList.arrlist);
+            } else {
+                compal.ui.printg(MESSAGE_INVALID_TASK_NUMBER);
+                throw new Compal.DukeException(MESSAGE_INVALID_TASK_NUMBER);
+            }
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
