@@ -8,7 +8,7 @@ import Tasks.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 public class ConfirmTentativeCommand extends Command{
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
@@ -16,7 +16,7 @@ public class ConfirmTentativeCommand extends Command{
             throw new DukeException("OOPS!!! The index of tentative event cannot be empty.");
         }else{
             int index = Integer.parseInt(ui.FullCommand.substring(7).trim()) - 1;
-            String tempstring = list.get(index).listformat();
+            String tempstring = list.get(index).listFormat();
             System.out.println("You are confirming this tentative event: " + list.get(index).description);
             System.out.println(tempstring);
             System.out.println("Please indicate which time slot you want to confirm");
@@ -24,9 +24,9 @@ public class ConfirmTentativeCommand extends Command{
             int WhichTimeSlot = Integer.parseInt(ui.FullCommand);
             String[] timeslots = tempstring.split("\n");
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Event ev = new Event(list.get(index).description, fmt.parse(timeslots[WhichTimeSlot].substring(3)));
+            Event ev = new Event(list.get(index).description, timeslots[WhichTimeSlot].substring(3));
             System.out.println("Are you sure you want to confirm this time slot: ");
-            System.out.println(ev.listformat());
+            System.out.println(ev.listFormat());
             ui.ReadCommand();
             if(ui.FullCommand.equals("yes")){
                 list.add(ev);

@@ -80,7 +80,7 @@ public class Storage {
                         DA.isDone = false;
                 }
                 else {
-                    Event e = new Event(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
+                    Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if(details[1].equals("\u2713")){
                         e.isDone = true;
                     }
