@@ -1,5 +1,6 @@
 package compal.logic.parser;
 
+import compal.compal.Compal;
 import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.DeadlineCommand;
@@ -13,15 +14,19 @@ import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
 import compal.logic.commands.ReminderCommand;
 import compal.logic.commands.ViewCommand;
-import compal.main.Duke;
 import compal.tasks.TaskList;
+
+import static compal.compal.Messages.MESSAGE_INVALID_COMMAND;
+import static compal.compal.Messages.MESSAGE_MISSING_INPUT;
 
 import java.text.ParseException;
 import java.util.Scanner;
 
+/**
+ * Deals with user inputs.
+ */
 public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
     static final String CMD_EXIT = "bye";
     static final String CMD_LIST = "list";
     static final String CMD_CLEAR = "clear";
@@ -36,41 +41,38 @@ public class ParserManager {
     static final String CMD_FIND = "find";
     static final String CMD_REMINDER = "reminder";
 
-
-    /**
-     * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
+    /*
+     * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
      * know where to redirect the input command.
      * Can be an enum e.g State.INIT, State.NORMAL, State.READTIMETABLE etc.
      */
     public String status = "normal";
-    /**
-     * stage tells the parser which stage of the current prompt sequence ComPAL is on.
+
+    /*
+     * Stage tells the parser which stage of the current prompt sequence ComPAL is on.
      * e.g if stage == 1 and status == "init", then ComPAL is currently expecting the user to
      * confirm his/her name (YES or NO)
      * Note: stage is always reset to 0 upon a status change. This is done in the function below called setStatus()
      */
     public int stage = 0;
-    Duke duke;
+    Compal compal;
     TaskList tasklist;
-
     //----------------------->
-
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
     /**
-     * Constructor for the parser. Called in Duke when initializing
+     * Constructs ParserManager object.
      *
-     * @param d Duke
+     * @param d        Compal.
+     * @param tasklist list of tasks.
      */
-    public ParserManager(Duke d, TaskList tasklist) {
-        this.duke = d;
+    public ParserManager(Compal d, TaskList tasklist) {
+        this.compal = d;
         this.tasklist = tasklist;
     }
-
-
     //----------------------->
 
 
@@ -78,98 +80,99 @@ public class ParserManager {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-
-    public void processCMD(String userInput) throws ParseException, Duke.DukeException {
+    /**
+     * Processes command input by user.
+     * Based on the command input by user, it instantiates different command classes
+     * and executes the respective methods implemented.
+     *
+     * @param userInput Entire user string input.
+     * @throws ParseException       If input date is invalid.
+     * @throws Compal.DukeException If command input is unknown or user input is empty.
+     */
+    public void processCmd(String userInput) throws ParseException, Compal.DukeException {
         Scanner sc = new Scanner(userInput);
-
         if (sc.hasNext()) {
             String cmd = sc.next();
-
             if (status.equals("init")) {
-                duke.ui.firstTimeInit(cmd, stage++);
+                compal.ui.firstTimeInit(cmd, stage++);
             } else {
                 switch (cmd) {
                 case CMD_EXIT:
-                    ByeCommand bye = new ByeCommand(duke);
-                    bye.Command(cmd);
+                    ByeCommand bye = new ByeCommand(compal);
+                    bye.parseCommand(cmd);
                     break;
                 case CMD_LIST:
-                    ListCommand list = new ListCommand(duke);
-                    list.Command(cmd);
+                    ListCommand list = new ListCommand(compal);
+                    list.parseCommand(cmd);
                     break;
                 case CMD_CLEAR:
-                    ClearCommand clear = new ClearCommand(duke);
-                    clear.Command(cmd);
+                    ClearCommand clear = new ClearCommand(compal);
+                    clear.parseCommand(cmd);
                     break;
                 case CMD_DONE:
-                    DoneCommand done = new DoneCommand(duke);
-                    done.Command(userInput);
+                    DoneCommand done = new DoneCommand(compal);
+                    done.parseCommand(userInput);
                     break;
                 case CMD_DELETE:
-                    DeleteCommand delete = new DeleteCommand(duke);
-                    delete.Command(userInput);
+                    DeleteCommand delete = new DeleteCommand(compal);
+                    delete.parseCommand(userInput);
                     break;
                 case CMD_EVENT:
-                    EventCommand event = new EventCommand(duke);
-                    event.Command(userInput);
+                    EventCommand event = new EventCommand(compal);
+                    event.parseCommand(userInput);
                     break;
                 case CMD_DEADLINE:
-                    DeadlineCommand deadline = new DeadlineCommand(duke);
-                    deadline.Command(userInput);
+                    DeadlineCommand deadline = new DeadlineCommand(compal);
+                    deadline.parseCommand(userInput);
                     break;
                 case CMD_DO_AFTER_TASK:
-                    DoAfterCommand doafter = new DoAfterCommand(duke);
-                    doafter.Command(userInput);
+                    DoAfterCommand doafter = new DoAfterCommand(compal);
+                    doafter.parseCommand(userInput);
                     break;
                 case CMD_FIXED_DURATION_TASK:
-                    FixedDurationCommand fixedduration = new FixedDurationCommand(duke);
-                    fixedduration.Command(userInput);
+                    FixedDurationCommand fixedduration = new FixedDurationCommand(compal);
+                    fixedduration.parseCommand(userInput);
                     break;
                 case CMD_RECUR_TASK:
-                    RecurTaskCommand recurTask = new RecurTaskCommand(duke);
-                    recurTask.Command(userInput);
+                    RecurTaskCommand recurTask = new RecurTaskCommand(compal);
+                    recurTask.parseCommand(userInput);
                     break;
                 case CMD_FIND:
-                    FindCommand findCommand = new FindCommand(duke);
-                    findCommand.Command(userInput);
+                    FindCommand findCommand = new FindCommand(compal);
+                    findCommand.parseCommand(userInput);
                     break;
                 case CMD_VIEW:
-                    ViewCommand viewCommand = new ViewCommand(duke);
-                    viewCommand.Command(userInput);
+                    ViewCommand viewCommand = new ViewCommand(compal);
+                    viewCommand.parseCommand(userInput);
                     break;
                 case CMD_REMINDER:
-                    ReminderCommand reminderCommand = new ReminderCommand(duke);
-                    reminderCommand.Command(cmd);
+                    ReminderCommand reminderCommand = new ReminderCommand(compal);
+                    reminderCommand.parseCommand(cmd);
                     break;
                 default:
-                    duke.ui.printg("CommandError: Unknown command input detected!");
-                    throw new Duke.DukeException("CommandError: Unknown command input detected!");
+                    compal.ui.printg(MESSAGE_INVALID_COMMAND);
+                    throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);
                 }
             }
         } else {
-            duke.ui.printg("EmptyInput: Empty input detected!");
-            throw new Duke.DukeException("CommandError: Empty input detected!");
+            compal.ui.printg(MESSAGE_MISSING_INPUT);
+            throw new Compal.DukeException(MESSAGE_MISSING_INPUT);
         }
-
-
     }
-
-
     //----------------------->
-
 
     //***CONTROL PARSING LOGIC***---------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-
+    /**
+     * Resets stage by setting stage to be 0.
+     *
+     * @param status Input status.
+     */
     public void setStatus(String status) {
         this.status = status;
         stage = 0; //reset stage everytime status is changed
     }
-
-
     //----------------------->
-
-
 }

@@ -19,39 +19,40 @@ import java.util.ArrayList;
  */
 public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    private static final String saveFilePath = "./duke.txt";
+    private static final String saveFilePath = "./Compal.txt";
     private static final String binarySaveFilePath = "binary";
     private static final String userPreferencesFilePath = "./prefs.txt";
 
-
+    /**
+     * Prints message of storage initialized.
+     */
     public StorageFile() {
         System.out.println("Storage:LOG: Storage Initialized!");
     }
 
+
     /**
-     * Preloads the arraylist as a binary stream if there is anything to load at all.
+     * Loads the arrayList as a binary stream.
      *
-     * @return tempList The arraylist of stored item found in file.
+     * @return ArrayList of stored item found in file.
      */
     @Override
     public ArrayList<Task> loadCompal() {
         ArrayList<Task> tempList = null;
-
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(binarySaveFilePath));
             tempList = (ArrayList<Task>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Storage:WARNING: Binary save-file not found");
         }
-
         return tempList;
     }
 
     /**
-     * Loads and returns the user's name as a String.
+     * Loads and returns the username as a String.
      * TODO: logic error(Unknown user, return logic)
      *
-     * @return String username
+     * @return Username.
      */
     @Override
     public String getUserName() {
@@ -66,9 +67,9 @@ public class StorageFile implements Storage {
     }
 
     /**
-     * Used to save the arraylist of task into the file.
+     * Saves ArrayList of tasks into file.
      *
-     * @param tasks ArrayList of task stored
+     * @param tasks ArrayList of task stored.
      */
     @Override
     public void saveCompal(ArrayList<Task> tasks) {
@@ -82,9 +83,10 @@ public class StorageFile implements Storage {
     }
 
     /**
-     * Saves the string toSave to the saveFilePath just as it is.
+     * Saves a string to a file.
      *
-     * @param toSave String
+     * @param toSave   String to save into file.
+     * @param filePath File path of file.
      */
     @Override
     public void saveString(String toSave, String filePath) {
@@ -99,7 +101,10 @@ public class StorageFile implements Storage {
     }
 
     /**
-     * Stores username in prefs.txt .
+     * Stores username in file.
+     * File is prefs.txt.
+     *
+     * @param name Username to store into file.
      */
     @Override
     public void storeUserName(String name) {
@@ -108,17 +113,18 @@ public class StorageFile implements Storage {
 
     /**
      * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
-     * Returns a fully joined string (each component string is joined by underscores) .
+     * Returns a fully joined string (each component string is joined by underscores).
+     *
+     * @param properties Varargs strings that contain different properties of a task.
+     * @return Joined string of all properties.
      */
     @Override
     public String generateStorageString(String... properties) {
         StringBuilder sb = new StringBuilder();
-
         for (String property : properties) {
             sb.append("_");
             sb.append(property);
         }
-
         return sb.toString();
     }
 }

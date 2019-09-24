@@ -1,6 +1,6 @@
 package compal.tasks;
 
-import compal.main.Duke;
+import compal.compal.Compal;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -9,11 +9,9 @@ import java.util.Scanner;
 public class TaskList {
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
     public ArrayList<Task> arrlist;
-    public Duke duke;
+    public Compal compal;
     private BitSet idBitSet;
-    private Object Date;
 
     //----------------------->
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
@@ -21,12 +19,12 @@ public class TaskList {
     //----------------------------------------------------------------------------------------------------------------->
 
     /**
-     * Constructor 1.
+     * Constructs TaskList object.
      *
-     * @param d Duke
+     * @param d Compal.
      */
-    public TaskList(Duke d) {
-        this.duke = d;
+    public TaskList(Compal d) {
+        this.compal = d;
         //idBitSet = getIdBitSet();
         /*if (idBitSet == null) {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits
@@ -41,16 +39,17 @@ public class TaskList {
     //----------------------------------------------------------------------------------------------------------------->
 
     /**
-     * This function handles the adding of the tasks (Events, Deadlines, Todos).
-     * It tests for the event type, then parses it according to the correct syntax
+     * Handles the adding of the tasks.
+     * It tests for the task type, then parses it according to the correct syntax.
+     * Used in parser.processCommands.
      *
-     * @param task The task to be added to the list of tasks.
-     * @UsedIn: parser.processCommands
+     * @param task Task to be added to the list of tasks.
+     * @return Size of arrayList.
      */
     public int addTask(Task task) {
         arrlist.add(task);
-        duke.storage.saveCompal(arrlist);
-        duke.ui.showSize();
+        compal.storage.saveCompal(arrlist);
+        compal.ui.showSize();
         return arrlist.size();
     }
 
@@ -67,7 +66,6 @@ public class TaskList {
      }
 
      }
-
 
      /**
      * Loads the current bitset saved on file and returns it.
@@ -86,9 +84,11 @@ public class TaskList {
     }
      */
 
-
     /**
      * Draft function for adding tasks to ComPAL. Currently not in use.
+     *
+     * @param currentStage Current stage status.
+     * @param value        Input value.
      */
     public void addTaskTest(int currentStage, String value) {
 
@@ -110,9 +110,5 @@ public class TaskList {
         }
 
     }
-
-
     //----------------------->
-
-
 }

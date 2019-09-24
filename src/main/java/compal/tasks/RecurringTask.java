@@ -1,15 +1,16 @@
 package compal.tasks;
 
 /**
- * Provides support for recurring tasks.
+ * Represents recurring task type with date and time.
  */
 public class RecurringTask extends Task {
 
     /**
-     * Store the recurring task.
+     * Constructs RecurringTask object.
      *
-     * @param description Description of the task to be stored.
-     * @param date        Date of the event.
+     * @param description Description of recurring task.
+     * @param date        Starting date of recurring task.
+     * @param time        Starting time of recurring task.
      */
     public RecurringTask(String description, String date, String time) {
         super(description);
