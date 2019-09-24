@@ -129,14 +129,13 @@ public class Duke {
                     ui.showAdd();
                     String[] ti = parser.getDescriptionWithDuration();
                     String[] ar = parser.getDuration(ti);
-//                    String[] ar = ti[0].trim().split("/", 2);
                     int duration = Integer.parseInt(ar[1]);
                     FixedDuration fixedDuration = new FixedDuration(ar[0], ar[1]);
                     taskList.add(fixedDuration);
                     Timer timer = new Timer();
                     class RemindTask extends TimerTask {
                         public void run() {
-                            System.out.println(ar[0] + " is completed");
+                            System.out.println(ar[0] + "is completed");
                             timer.cancel();
                         }
                     }
