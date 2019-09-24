@@ -19,9 +19,11 @@ import compal.tasks.TaskList;
 import java.text.ParseException;
 import java.util.Scanner;
 
+/**
+ * Deals with user inputs.
+ */
 public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
     static final String CMD_EXIT = "bye";
     static final String CMD_LIST = "list";
     static final String CMD_CLEAR = "clear";
@@ -36,15 +38,15 @@ public class ParserManager {
     static final String CMD_FIND = "find";
     static final String CMD_REMINDER = "reminder";
 
-
-    /**
-     * status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
+    /*
+     * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
      * know where to redirect the input command.
      * Can be an enum e.g State.INIT, State.NORMAL, State.READTIMETABLE etc.
      */
     public String status = "normal";
-    /**
-     * stage tells the parser which stage of the current prompt sequence ComPAL is on.
+
+    /*
+     * Stage tells the parser which stage of the current prompt sequence ComPAL is on.
      * e.g if stage == 1 and status == "init", then ComPAL is currently expecting the user to
      * confirm his/her name (YES or NO)
      * Note: stage is always reset to 0 upon a status change. This is done in the function below called setStatus()
@@ -52,39 +54,40 @@ public class ParserManager {
     public int stage = 0;
     Duke duke;
     TaskList tasklist;
-
     //----------------------->
-
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
-
     /**
-     * Constructor for the parser. Called in Duke when initializing
+     * Constructs ParserManager object.
      *
-     * @param d Duke
+     * @param d Duke.
+     * @param tasklist list of tasks.
      */
     public ParserManager(Duke d, TaskList tasklist) {
         this.duke = d;
         this.tasklist = tasklist;
     }
-
-
     //----------------------->
 
 
     //***COMMAND PROCESSING***------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
-
-
+    /**
+     * Processes command input by user.
+     * Based on the command input by user, it instantiates different command classes
+     * and executes the respective methods implemented.
+     *
+     * @param userInput Entire user string input.
+     * @throws ParseException If input date is invalid.
+     * @throws Duke.DukeException If command input is unknown or user input is empty.
+     */
     public void processCMD(String userInput) throws ParseException, Duke.DukeException {
         Scanner sc = new Scanner(userInput);
-
         if (sc.hasNext()) {
             String cmd = sc.next();
-
             if (status.equals("init")) {
                 duke.ui.firstTimeInit(cmd, stage++);
             } else {
@@ -150,26 +153,20 @@ public class ParserManager {
             duke.ui.printg("EmptyInput: Empty input detected!");
             throw new Duke.DukeException("CommandError: Empty input detected!");
         }
-
-
     }
-
-
     //----------------------->
-
 
     //***CONTROL PARSING LOGIC***---------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
-
-
+    /**
+     * Resets stage by setting stage to be 0.
+     *
+     * @param status Input status.
+     */
     public void setStatus(String status) {
         this.status = status;
         stage = 0; //reset stage everytime status is changed
     }
-
-
     //----------------------->
-
-
 }

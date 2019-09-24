@@ -10,15 +10,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * Executes user command "view".
+ */
 public class ViewCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
+    /**
+     * Constructs ViewCommand object.
+     *
+     * @param d Duke.
+     */
     public ViewCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
+    /**
+     * Displays the tasks available on the user input date.
+     *
+     * @param userIn User string input.
+     */
     @Override
     public void Command(String userIn) throws Duke.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);

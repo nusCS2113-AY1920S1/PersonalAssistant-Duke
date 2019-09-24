@@ -6,15 +6,29 @@ import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Executes user command "done".
+ */
 public class DoneCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
+    /**
+     * Constructs Done object.
+     *
+     * @param d Duke.
+     */
     public DoneCommand(Duke d) {
         super(d);
         this.taskList = d.tasklist;
     }
 
+    /**
+     * Marks task as done based on user task number input and prints confirmation message to user.
+     *
+     * @param userIn Entire user input string.
+     * @throws Duke.DukeException If user task number input is missing.
+     */
     @Override
     public void Command(String userIn) throws Duke.DukeException {
 
@@ -31,7 +45,6 @@ public class DoneCommand extends Command implements CommandParser {
             duke.ui.printg("InputError: Required input for done command!");
             throw new Duke.DukeException("InputError: Required input for done command!");
         }
-
         //duke.tasklist.taskDone(userIn);
     }
 }
