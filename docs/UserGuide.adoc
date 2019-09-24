@@ -36,16 +36,16 @@ e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 == Features
 *Command Format*
 
-* Words in *bold* are the keywords that define the type of command to be executed. +
-e.g. `*remove* [NO.]` `*remove* is the keyword that will execute the remove command`.
-* Uppercase words in square brackets are the parameter to be inputed by the user. +
-e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`,`[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the user can input as `*add expense* $5 dinner /on 11/11/2019`.
+* Uppercase word in square brackets are the parameter to be inputed by the user. +
+e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`, the `[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the user can input as `*add expense* $5 dinner /on 11/11/2019`.
 * Item in curly braces are optional. +
 e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income $40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* $40 TA salary for CS1010 /on 10/10/2019`.
 * Parameters should be in the correct order. +
 e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
 
-[[FAQ]]
+*NOTE*: Words in *bold* are the keywords that define the type of command to be executed. +
+e.g. `*remove* [NO.]` `*remove*` is the keyword that will execute the remove command.
+
 == FAQ
 
 == Command Summary
