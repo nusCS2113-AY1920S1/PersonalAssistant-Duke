@@ -3,7 +3,7 @@
 About Us
 ============
 
-COMPal - A CLI (Command Line Interface) scheduling application that targets students who prefer to use a desktop application for managing their schedule easily with reminders!  
+compal - A CLI (Command Line Interface) scheduling application that targets students who prefer to use a desktop application for managing their schedule easily with reminders!  
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 Project Team
@@ -17,7 +17,7 @@ Project Team
 \[[github](http://github.com/jaedonkey)\] \[[portfolio](#jaedonkey#)\]
 
 Role: Developer  
-Responsibilities:
+Responsibilities: Edit Command,UI
 
 ---
 
@@ -28,7 +28,7 @@ Responsibilities:
 \[[github](http://github.com/catherinetan99)\] \[[portfolio](#catherinetan99#)\]
 
 Role: Developer  
-Responsibilities:
+Responsibilities: Notification, Sorting
 
 ---
 **Liu Peize**
@@ -38,7 +38,7 @@ Responsibilities:
 \[[github](http://github.com/ltpz)\] \[[portfolio](#ltpz#)\]
 
 Role: Developer  
-Responsibilities:
+Responsibilities:FixedDurationTasks Command
 
 ---
 **Yue Jun Yi**
@@ -49,7 +49,7 @@ Responsibilities:
 \[[github](http://github.com/yueyeah)\] \[[portfolio](#johndoe#)\]
 
 Role: Developer  
-Responsibilities:
+Responsibilities: RecurringTask Command
 
 ---
 **Sholihin Kamarudin**
@@ -59,6 +59,6 @@ Responsibilities:
 \[[github](https://github.com/sholihink)\] \[[portfolio](#sholihink#)\]
 
 Role: Team Lead,Developer  
-Responsibilities:
+Responsibilities: View Command
 
 ---

@@ -1,20 +1,19 @@
 package compal.tasks;
 
-import java.util.Date;
-
+/**
+ * Represents assignment task type with a due date.
+ */
 public class Deadline extends Task {
 
     /**
-     * Deadline refers to assignment type task with a due date to be done by.
+     * Constructs Deadline object.
      *
-     * @param description Description of the deadline to be stored
-     * @param date        of the event to be stored
+     * @param description Description of deadline.
+     * @param date        Due date of deadline.
      */
-    public Deadline(String description, Date date) {
-        super(description);
+    public Deadline(String description, Priority priority, String date) {
+        super(description, priority);
         super.symbol = "D";
-        super.setDateTime(date);
+        super.setDate(date);
     }
-
-
 }

@@ -1,21 +1,21 @@
 package compal.tasks;
 
-import java.util.Date;
-
+/**
+ * Represents event task type with a starting date and time.
+ */
 public class Event extends Task {
 
     /**
-     * Store the event type task. Event refers object with deadline such as,
-     * meetings and what not.
+     * Constructs Event object.
      *
-     * @param description Description of the event to be stored
-     * @param date        of the event to be stored
+     * @param description Description of event.
+     * @param date        Starting date of event.
+     * @param time        Starting time of event.
      */
-    public Event(String description, Date date) {
-        super(description);
+    public Event(String description, Priority priority, String date, String time) {
+        super(description, priority);
         super.symbol = "E";
-        super.setDateTime(date);
+        super.setDate(date);
+        super.setTime(time);
     }
-
-
 }
