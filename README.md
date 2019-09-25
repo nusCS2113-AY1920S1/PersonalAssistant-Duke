@@ -63,6 +63,7 @@ Gradle Commands | Usage
 The dependencies and properties of the gradle project can be changed in [build.gradle](build.gradle).
 
 **Shadowjar**
+
 When `gradlew shadowjar` is run, it will create a .jar file in the format {archiveBaseName}-{archiveVersion}.jar.
 Modify the the following part in the `build.gradle` file to update the name of the jar file.
 ```
@@ -74,6 +75,7 @@ shadowJar {
 }
 ```
 **Working directory**
+
 The following lines determines the working directory of the gradle project when `gradlew run` is used.
 For the gradle project to detect the save file in `../data`, the working directory must be set to `../main/bin`.
 ```
@@ -82,6 +84,7 @@ runningDir.mkdirs()
 tasks.run.workingDir = runningDir
 ```
 **Main class**
+
 This part of `build.gradle` determines which class is to be the main class of the project. 
 
 Using `javafx.Launcher` means Duke 2.0 will launch with a GUI, while using `Main.Duke` means Duke 2.0 will run in console mode only.
