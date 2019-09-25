@@ -35,16 +35,20 @@ public class Ui {
      * @param index Index of task to be deleted.
      */
     public void showDeleted (int index) {
-        System.out.println("Deleted task number " + index + " !");
+        System.out.println("Deleted task number " + index + "!");
     }
-
+    public void showDeletedRecur (int index) {
+        System.out.println("Deleted recurring task number " + index + "!");
+    }
     /**
      * Tells the user that the search operation is executing
      */
     public void showFind () {
         System.out.println("Searching for item in task list...");
     }
-
+    public void showFindRecur () {
+        System.out.println("Searching for item in recurring task list...");
+    }
     /**
      * Tells the user that the task of index has been done and the list has been updated.
      */
@@ -59,20 +63,27 @@ public class Ui {
         System.out.println("Your task has been added into the list!");
     }
 
+    public void showAddRecur () {
+        System.out.println("Your task has been added into the recurring list!");
+    }
     /**
      * tells the user goodbye
      */
     public void showBye() {
         System.out.println("Goodbye!");
     }
-
+    public void showExit() {
+        System.out.println("You have exited recurring list mode");
+    }
     /**
      * tells the user that Duke is listing the tasks
      */
     public void showList() {
         System.out.println("Listing tasks in your task list...");
     }
-
+    public void showListRecur() {
+        System.out.println("Listing tasks in your recurring task list...");
+    }
     /**
      * tells the user that there is an error in writing the data.txt file.
      */
@@ -110,5 +121,39 @@ public class Ui {
         System.out.println("please input date format as dd/mm/yyyy HH:mm");
         System.out.println("example: deadline meeting/30/12/2019 18:00");
         System.out.println("example: event concert/30/12/2019 18:00");
+    }
+
+    public void promptRecurringActions() {
+        System.out.println("You have accessed Recurring Mode");
+        System.out.println("You are now accessing and performing operations on the Recurring Task List");
+        System.out.println("Tasks that appear here will appear based on when you want it to appear again");
+        System.out.println("Please input your intended action\n");
+        System.out.println("To add a new task into the recurring task list, input 'add',\n Then input a new tasks as you would with any other task," +
+                "\nfollowed by recurrence by month or day of the week, separated by a '#'.");
+        System.out.println("\tE.g : todo buy groceries#monday");
+        System.out.println("\tE.g : todo buy groceries#month");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#monday");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#month");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00#monday");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00#month\n");
+        System.out.println("To perform operations like delete, find or list, do it similar to how you would do it normally");
+        System.out.println("\tE.g : delete 1");
+        System.out.println("\tE.g : find homework");
+        System.out.println("\tE.g : list");
+    }
+
+    public void promptForRecurrence() {
+        System.out.println("Please enter the recurrence of the task, either by day, week or month");
+        System.out.println("\tE.g : Day");
+        System.out.println("\tE.g : Week");
+        System.out.println("\tE.g : Month");
+    }
+
+    public void promptForTask() {
+        System.out.println("now enter your desired task as usual!");
+    }
+
+    public void showChangeInTaskList() {
+        System.out.println("You have some recurring tasks that need to be cleared, please check them:");
     }
 }

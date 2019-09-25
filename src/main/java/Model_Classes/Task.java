@@ -1,11 +1,16 @@
 package Model_Classes;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 /**
  * Parent class for all other types of tasks
  */
 public class Task{
     private String description;
     private boolean isDone;
+    private String created;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -14,6 +19,13 @@ public class Task{
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        this.created = now.format(dateTimeFormatterNow);
+    }
+
+    public String getCreated() {
+        return this.created;
     }
 
     /**
@@ -46,6 +58,10 @@ public class Task{
      */
     public void setDone() {
         isDone = true;
+    }
+
+    public void setNotDone() {
+        isDone = false;
     }
 
     /**

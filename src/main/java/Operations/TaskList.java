@@ -3,7 +3,6 @@ package Operations;
 import CustomExceptions.DukeException;
 import Model_Classes.Task;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 
 /**
@@ -84,5 +83,9 @@ public class TaskList {
      */
     public static ArrayList<Task> currentList() {
         return tasks;
+    }
+
+    public void replace(int index, Task replacement) {
+        tasks.set(index, replacement);
     }
 }
