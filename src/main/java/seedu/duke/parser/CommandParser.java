@@ -63,14 +63,19 @@ public class CommandParser extends Parser {
             CommandLogic.validateNumberCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("list")) {
+            CommandLogic.validateOneWord(rawInput);
             return new ListCommand();
         } else if (userInput[0].equals("remind")) {
+            CommandLogic.validateOneWord(rawInput);
             return new RemindCommand();
         } else if (userInput[0].equals("done")) {
+            CommandLogic.validateOneWord(rawInput);
             return new DoneCommand(userInput);
         } else if (userInput[0].equals("show")) {
+            CommandLogic.validateShow(rawInput);
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
+            CommandLogic.validateSnooze(rawInput);
             return new SnoozeCommand(userInput);
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
             return new AddCommand(userInput);
