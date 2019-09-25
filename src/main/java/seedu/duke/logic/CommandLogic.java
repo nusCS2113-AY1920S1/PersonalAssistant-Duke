@@ -2,6 +2,7 @@ package seedu.duke.logic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import seedu.duke.command.DateTimeParser;
 
 public class CommandLogic {
 
@@ -17,7 +18,7 @@ public class CommandLogic {
 
 
 
-    public static boolean validateDeadline(String rawInput) throws CommandLineException {
+    public static boolean validateDeadline(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/by")) {
@@ -29,7 +30,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateEvent(String rawInput) throws CommandLineException {
+    public static boolean validateEvent(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/at")) {
@@ -38,7 +39,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateToDo(String rawInput) throws CommandLineException {
+    public static boolean validateToDo(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (rawInput.contains("/")) {
@@ -47,7 +48,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateRange(String rawInput) throws CommandLineException {
+    public static boolean validateRange(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/in")) {
@@ -60,7 +61,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateDoAfter(String rawInput) throws CommandLineException {
+    public static boolean validateDoAfter(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/after")) {
@@ -91,9 +92,8 @@ public class CommandLogic {
          */
         if (isTwoWord(command)) {
             try {
-                String[] splitCommand = command.split(" ");
-                int number = Integer.parseInt(splitCommand[0]);
-                    switch (splitCommand[1]) {
+                int number = Integer.parseInt(command.split(" ")[0]);
+                    switch (command.split(" ")[1]) {
                         case "minutes":
                         case "hours":
                         case "days":
@@ -107,7 +107,7 @@ public class CommandLogic {
                 throw new CommandLineException(INVALID_SNOOZE);
             }
         } else if (isOneWord(command)) {
-            DateTimeParser.getDateTime(command);
+            DateTimeParser.getDateTime(command.split(" ")[0]);
         } else {
             throw new CommandLineException(INVALID_SNOOZE);
         }
@@ -122,11 +122,10 @@ public class CommandLogic {
     }
 
     public static boolean validateShow(String rawInput) throws CommandLineException {
-        String[] splitInput = rawInput.split(" ");
         if(!isTwoWord(rawInput)) {
-            throw new CommandLineException(WRONG_FORMAT_LENGTH + splitInput[0] + " <DD/MM/YYYY>");
+            throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <DD/MM/YYYY>");
         } else {
-            DateTimeParser.getDateTime(splitInput[1]);
+            DateTimeParser.getDateTime(rawInput.split(" ")[1]);
         }
         return true;
     }
@@ -139,11 +138,11 @@ public class CommandLogic {
     }
 
     private static boolean isOneWord(String rawInput) {
-        return rawInput.length() == 1;
+        return rawInput.split(" ").length == 1;
     }
 
     private static boolean isTwoWord(String rawInput) {
-        return rawInput.length() == 2;
+        return rawInput.split(" ").length == 2;
     }
 
 

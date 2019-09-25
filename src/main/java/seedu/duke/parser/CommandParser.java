@@ -2,6 +2,9 @@ package seedu.duke.parser;
 
 import seedu.duke.data.Schedule;
 import java.util.Arrays;
+
+import seedu.duke.logic.CommandLineException;
+import seedu.duke.logic.CommandLogic;
 import seedu.duke.task.Reminders;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
@@ -24,7 +27,6 @@ import java.util.Date;
  * regex and then performs operations based on the input.
  */
 public class CommandParser extends Parser {
-
     /**
      * Takes raw input and splits it into task type (eg. todo) and task
      * description (eg. finish work). In cases like task type: list, bye,
@@ -49,15 +51,16 @@ public class CommandParser extends Parser {
      * @param rawInput user's single line string input
      * @return an instruction, of type Command, to be executed.
      */
-    public Command parse(String rawInput) {
+    public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
         String[] taskCommands = {"todo", "deadline", "event", "range", "doafter"};
         Arrays.sort(taskCommands);
-
         if (userInput[0].equals("find")) {
+            CommandLogic.validateFind(rawInput);
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
+            CommandLogic.validateNumberCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("list")) {
             return new ListCommand();

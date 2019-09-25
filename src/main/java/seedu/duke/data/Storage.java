@@ -7,6 +7,8 @@ import seedu.duke.task.Event;
 import seedu.duke.task.RangedTask;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.DoAfter;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -15,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
+
+import static seedu.duke.command.DateTimeParser.getDateTime;
 
 /**
  * A class that stores current task list and loads it on request from disc.
@@ -52,7 +56,8 @@ public class Storage {
                 if (taskString[0].equals("T")) {
                     list.add(new ToDo(taskString[2]));
                 } else if (taskString[0].equals("D")) {
-                    list.add(new Deadline(taskString[2], taskString[3]));
+                    LocalDateTime localDateTime = getDateTime(taskString[3]);
+                    list.add(new Deadline(taskString[2], localDateTime));
                     try {
                         String dateOnly = taskString[3].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -62,11 +67,16 @@ public class Storage {
                         return null;
                     }
                 } else if (taskString[0].equals("R")) {
-                    list.add(new RangedTask(taskString[2], taskString[3]));
+                    String[] dateTime = taskString[3].split(" and ");
+                    LocalDateTime from = getDateTime(dateTime[0]);
+                    LocalDateTime by = getDateTime(dateTime[1]);
+                    list.add(new RangedTask(taskString[2], from, by));
                 } else if (taskString[0].equals("A")) {
-                    list.add(new DoAfter(taskString[2], taskString[3]));
+                    LocalDateTime localDateTime = getDateTime(taskString[3]);
+                    list.add(new DoAfter(taskString[2], localDateTime));
                 } else {
-                    list.add(new Event(taskString[2], taskString[3]));
+                    LocalDateTime at = getDateTime(taskString[3]);
+                    list.add(new Event(taskString[2], at));
                     try {
                         String dateOnly = taskString[3].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);

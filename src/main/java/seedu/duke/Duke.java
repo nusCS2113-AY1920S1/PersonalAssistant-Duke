@@ -5,6 +5,7 @@ import seedu.duke.command.Command;
 /* import java.text.ParseException; */
 import java.util.Scanner;
 import seedu.duke.data.Schedule;
+import seedu.duke.logic.CommandLineException;
 import seedu.duke.task.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
@@ -67,17 +68,21 @@ public class Duke {
 
         // Taking input and printing till user input is bye
         while (!rawInput.equals("bye")) {
-            Command command = parser.parse(rawInput);
-            command.execute(list);
-
             try {
-                storage.save(list.return_list());
-            } catch (IOException e) {
-                ui.show_save_error();
-            }
-            rawInput = ui.take_input();
+                Command command = parser.parse(rawInput);
+                command.execute(list);
+                try {
+                    storage.save(list.return_list());
+                } catch (IOException e) {
+                    ui.show_save_error();
+                }
+                rawInput = ui.take_input();
 
-            System.out.println();
+                System.out.println();
+            } catch (CommandLineException e) {
+                e.getErrorMsg();
+                rawInput = ui.take_input();
+            }
         }
         ui.show_bye_message();
     }
