@@ -11,6 +11,7 @@ import UserElements.Parser;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
@@ -108,12 +109,21 @@ public class EventList {
     public boolean addRecurringEvent(Event event, int period) {
         DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
         DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(eventStartDate.getEventJavaDate());
+        Calendar calendarStartDate = Calendar.getInstance();
+        Calendar calendarEndDate = Calendar.getInstance();
+        calendarStartDate.setTime(eventStartDate.getEventJavaDate());
+        calendarEndDate.setTime(eventEndDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-
-            this.eventArrayList.add(new Lesson(event.getDescription(), calendar.getTime().toString(), eventEndDate.getEventJavaDate().toString()));
-            calendar.add(Calendar.DATE, period);
+            if (event.getStartDate().getFormat() == 1) {
+                this.eventArrayList.add(new Lesson(event.getDescription(), calendarStartDate.getTime().toString(), calendarEndDate.getTime().toString()));
+            } else {
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE MM dd yyyy", Locale.ENGLISH);
+                String taskStartDateFormatNoTime = formatter.format(calendarStartDate.getTime());
+                String taskEndDateFormatNoTime = formatter.format(calendarEndDate.getTime());
+                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
+            }
+            calendarStartDate.add(Calendar.DATE, period);
+            calendarEndDate.add(Calendar.DATE, period);
         }
         return true;
     }
