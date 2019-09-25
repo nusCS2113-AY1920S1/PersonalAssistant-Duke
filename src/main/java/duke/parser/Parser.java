@@ -1,6 +1,14 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.RemindCommand;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -231,8 +239,7 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
-        }
-        else if (arr.length > 0 && arr[0].equals("remind")) {
+        } else if (arr.length > 0 && arr[0].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String description = "";
             String durDesc;
@@ -244,12 +251,11 @@ public class Parser {
             if (description.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
             }
-            duration = Integer.parseInt(description.split("/in", 2)[0].trim()) -1;
+            duration = Integer.parseInt(description.split("/in", 2)[0].trim()) - 1;
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
-        }
-        else if (sentence.equals("bye")) {
+        } else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");

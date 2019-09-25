@@ -65,7 +65,7 @@ public class Ui {
      *
      * @param tasks The task list that contains all reminders.
      */
-    public static void showReminder(TaskList tasks){
+    public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
         System.out.println("You currently have these upcoming tasks:\n");
         for (Task remaining: taskList) {
