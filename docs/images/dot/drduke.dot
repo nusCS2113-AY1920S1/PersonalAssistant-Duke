@@ -23,6 +23,7 @@ digraph main {
     - age : int\l
     - number : int\l
     - address : String\l
+    - history : String\l
     - priDiagnosis : Diagnosis\l
     - allergies : ArrayList\<Allergy\>\l
     - impressions : ArrayList\<Impression\>\l
