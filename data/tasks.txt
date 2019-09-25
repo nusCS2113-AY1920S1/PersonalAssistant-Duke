@@ -1,0 +1,11 @@
+T | 1 | some stuff
+P | 1 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
+P | 1 | hackathon  | 12/9/2019 1400 | 19/9/2019 1800
+T | 1 | reading
+T | 0 | sleep before midnight
+T | 0 | travel around the world
+D | 0 | Duke Documentation  | 17/9/2019 2359
+D | 1 | H2 math revision   | 13/2/2019 1200
+D | 0 | deadline 4  | 20/9/2019 2000
+D | 0 | shitposting   | 16/9/2019 1800
+D | 0 | work  | 16/9/2019 1800
