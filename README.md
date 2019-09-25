@@ -26,6 +26,7 @@ For those who wish to modify the source files for their own project, or just to 
 1. Rename the project if you want. Click `Next`.
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
+1. If there is an option to import this project as a gradle project, accept it.
 
 # Tutorials 
 
