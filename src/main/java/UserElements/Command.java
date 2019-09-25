@@ -82,11 +82,11 @@ public class Command {
                 deleteEvent(events, ui);
                 break;
 
-//            case "find":
-//                searchEvents(events, ui);
-//                changesMade = false;
-//                break;
-//
+            case "find":
+                searchEvents(events, ui);
+                changesMade = false;
+                break;
+
             case "todo":
                 createNewTodo(events, ui);
                 break;
@@ -103,11 +103,11 @@ public class Command {
                 createNewEvent(events, ui, 'P');
                 break;
 
-//            case "view":
-//                viewEvents(events, ui);
-//                changesMade = false;
-//                break;
-//
+            case "view":
+                viewEvents(events, ui);
+                changesMade = false;
+                break;
+
 //            case "check":
 //                checkFreeDays(events, ui);
 //                changesMade = false;
@@ -120,6 +120,24 @@ public class Command {
         }
         if (changesMade) {
             storage.saveToFile(events, ui);
+        }
+    }
+
+    private void searchEvents(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String searchKeyWords = continuation;
+            String foundEvent = "";
+            int viewIndex = 1;
+            for (Event viewEvent : events.getEventArrayList()) {
+                if (viewEvent.toString().contains(searchKeyWords)) {
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    viewIndex++;
+                }
+            }
+            boolean isEventsFound = !foundEvent.isEmpty();
+            ui.printFoundEvents(foundEvent, isEventsFound);
         }
     }
 
@@ -159,7 +177,7 @@ public class Command {
                 }
             }
             boolean isEventsFound = !foundEvent.isEmpty();
-            ui.searchEvents(foundEvent, isEventsFound);
+            ui.printFoundEvents(foundEvent, isEventsFound);
         }
     }
 
