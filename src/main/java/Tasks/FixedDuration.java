@@ -11,7 +11,7 @@ public class FixedDuration extends Task {
         return "FD"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + duration;
     }
     @Override
-    public String listformat(){
+    public String listFormat(){
         return "[FD]" + "[" + super.getStatusIcon() + "]" + super.description + "(requires:" + duration + ")";
     }
 

@@ -11,12 +11,13 @@ import java.util.ArrayList;
 public class DeleteCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+
         try {
             if (ui.FullCommand.length() == 6) {
                 throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
             } else {
                 int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-                String taskremoved = list.get(index).listformat();
+                String taskremoved = list.get(index).listFormat();
                 list.remove(index);
                 System.out.println("Noted. I've removed this task: ");
                 System.out.println(taskremoved);

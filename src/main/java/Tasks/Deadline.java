@@ -16,7 +16,7 @@ public class Deadline extends Task {
         return "D"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by;
     }
     @Override
-    public String listformat(){
+    public String listFormat(){
         return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
     }
 
