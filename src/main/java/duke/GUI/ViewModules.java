@@ -53,10 +53,12 @@ public class ViewModules {
 
     /**
      * Method creates the layout for the Schedule UI
-     * @return Pane of the layout Schedule
+     * @return Pane of the layoutSchedule
      */
     public static Pane layoutSchedule() {
         Pane layoutSchedule = new Pane();
+
+        //create the buttons
         Button buttonMenu = new Button();
         buttonMenu.setText("Menu");
         Button buttonStudents = new Button();
@@ -64,11 +66,15 @@ public class ViewModules {
         Button buttonTraining = new Button();
         buttonTraining.setText("Manage Training Programmes");
 
+        //add handler functions
+        buttonMenu.setOnAction(e -> Duke.window.setScene(new Scene(layoutHome(), 1280, 720)));
+        buttonStudents.setOnAction(e -> Duke.window.setScene(new Scene(layoutStudents(), 1280, 720)));
+        buttonTraining.setOnAction(e -> Duke.window.setScene(new Scene(layoutTraining(), 1280, 720)));
+
         //sample text area
         TextArea textArea = new TextArea();
-        textArea.setText("Time table here");
+        textArea.setText("Set Schedule here");
         VBox vbox = new VBox(textArea);
-
 
         //Set coordinates of all buttons
         buttonStudents.setLayoutX(100);
@@ -84,7 +90,6 @@ public class ViewModules {
         buttonStudents.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         buttonTraining.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         buttonMenu.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
-
 
         layoutSchedule.getChildren().addAll(buttonStudents, buttonTraining, buttonMenu, vbox);
 
@@ -93,11 +98,12 @@ public class ViewModules {
 
     /**
      * Method creates the layout for the Students UI
-     * @return Pane of the layout Students UI
+     * @return Pane of the layoutStudents
      */
     public static Pane layoutStudents() {
         Pane layoutStudents = new Pane();
 
+        //create the buttons
         Button buttonMenu = new Button();
         buttonMenu.setText("Menu");
         Button buttonSchedule = new Button();
@@ -105,11 +111,15 @@ public class ViewModules {
         Button buttonTraining = new Button();
         buttonTraining.setText("Manage Training Programmes");
 
+        //add handler functions
+        buttonMenu.setOnAction(e -> Duke.window.setScene(new Scene(layoutHome(), 1280, 720)));
+        buttonSchedule.setOnAction(e -> Duke.window.setScene(new Scene(layoutSchedule(), 1280, 720)));
+        buttonTraining.setOnAction(e -> Duke.window.setScene(new Scene(layoutTraining(), 1280, 720)));
+
         //sample text area
         TextArea textArea = new TextArea();
-        textArea.setText("Time table here");
+        textArea.setText("Set Students here");
         VBox vbox = new VBox(textArea);
-
 
         //Set coordinates of all buttons
         buttonSchedule.setLayoutX(100);
@@ -126,19 +136,19 @@ public class ViewModules {
         buttonTraining.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         buttonMenu.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
 
-
         layoutStudents.getChildren().addAll(buttonSchedule, buttonTraining, buttonMenu, vbox);
 
         return layoutStudents;
     }
 
     /**
-     * Method creates the layout for the Students UI
-     * @return Pane of the layout Students UI
+     * Method creates the layout for the Training UI
+     * @return Pane of the layoutTraining
      */
     public static Pane layoutTraining() {
         Pane layoutTraining = new Pane();
 
+        //create the buttons
         Button buttonMenu = new Button();
         buttonMenu.setText("Menu");
         Button buttonSchedule = new Button();
@@ -146,11 +156,15 @@ public class ViewModules {
         Button buttonStudents = new Button();
         buttonStudents.setText("Manage Students");
 
+        //add handler functions
+        buttonMenu.setOnAction(e -> Duke.window.setScene(new Scene(layoutHome(), 1280, 720)));
+        buttonSchedule.setOnAction(e -> Duke.window.setScene(new Scene(layoutSchedule(), 1280, 720)));
+        buttonStudents.setOnAction(e -> Duke.window.setScene(new Scene(layoutStudents(), 1280, 720)));
+
         //sample text area
         TextArea textArea = new TextArea();
-        textArea.setText("Time table here");
+        textArea.setText("Set Training here");
         VBox vbox = new VBox(textArea);
-
 
         //Set coordinates of all buttons
         buttonSchedule.setLayoutX(100);
@@ -167,10 +181,50 @@ public class ViewModules {
         buttonStudents.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
         buttonMenu.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
 
-
         layoutTraining.getChildren().addAll(buttonSchedule, buttonStudents, buttonMenu, vbox);
 
         return layoutTraining;
+    }
+
+    /**
+     * Method creates the layout for the main menu UI
+     * @return Pane of the layoutHome
+     */
+    public static Pane layoutHome() {
+        Pane layoutHome = new Pane();
+
+        //create the buttons
+        Button buttonSchedule = new Button();
+        buttonSchedule.setText("Manage Schedule");
+        Button buttonStudents = new Button();
+        buttonStudents.setText("Manage Students");
+        Button buttonTraining = new Button();
+        buttonTraining.setText("Manage Training Programmes");
+
+        //add handler functions
+        buttonSchedule.setOnAction(e -> Duke.window.setScene(new Scene(layoutSchedule(), 1280, 720)));
+        buttonStudents.setOnAction(e -> Duke.window.setScene(new Scene(layoutStudents(), 1280, 720)));
+        buttonTraining.setOnAction(e -> Duke.window.setScene(new Scene(layoutTraining(), 1280, 720)));
+
+        //Create the timetable of the week
+        GridPane timetable = timeTable();
+
+        //Set coordinates of all buttons
+        buttonSchedule.setLayoutX(100);
+        buttonSchedule.setLayoutY(150);
+        buttonStudents.setLayoutX(100);
+        buttonStudents.setLayoutY(300);
+        buttonTraining.setLayoutX(100);
+        buttonTraining.setLayoutY(450);
+
+        //change button style
+        buttonSchedule.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        buttonStudents.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+        buttonTraining.setStyle("-fx-pref-height: 50px; -fx-pref-width: 180px; -fx-background-color: orange;");
+
+        layoutHome.getChildren().addAll(buttonSchedule, buttonStudents, buttonTraining, timetable);
+
+        return layoutHome;
     }
 
 }
