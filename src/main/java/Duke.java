@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * main class of the Duke program
@@ -137,7 +138,6 @@ public class Duke {
                     }
                     break;
 
-<<<<<<< HEAD
                 case recur:
                     ui.promptRecurringActions();
                     while (!isExitRecur) {
@@ -168,7 +168,8 @@ public class Duke {
                         }
                     }
                     isExitRecur = false;
-=======
+                    break;
+
                 case time :
                     ui.showAdd();
                     String[] ti = parser.getDescriptionWithDuration();
@@ -194,7 +195,6 @@ public class Duke {
                     TimeUnit timeUnit = parser.getTimeUnit();
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete();
->>>>>>> 3551a62b695b05af1cad37967151b5e9f821236b
                     break;
 
                 default:

@@ -156,4 +156,16 @@ public class Ui {
     public void showChangeInTaskList() {
         System.out.println("You have some recurring tasks that need to be cleared, please check them:");
     }
+
+    public void showSnooze() {
+        System.out.println("Please indicate the amount of time you want to snooze this task");
+    }
+
+    /**
+     * tells the user that the requested task has been snoozed
+     */
+    public void showSnoozeComplete() {
+        System.out.println("Great I've snoozed your task");
+    }
+
 }
