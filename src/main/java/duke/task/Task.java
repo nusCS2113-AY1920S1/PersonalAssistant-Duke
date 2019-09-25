@@ -77,33 +77,34 @@ public class Task {
     }
 
     /**
-     * Set the remaining days of reminder
+     * Set the remaining days of reminder.
      *
      * @param remainingDays The number of days left of the reminded task.
      */
-    public void setReminder(int remainingDays){
+    public void setReminder(int remainingDays) {
         this.numberOfDays = remainingDays;
     }
 
     /**
-     * Set the remaining days of reminder
+     * Set the remaining days of reminder.
      *
-     * @return boolean that triggers the reminder
+     * @return boolean that triggers the reminder.
      */
-    public boolean triggerReminder(){
-//        if (dueDate != null) {
-//            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
-//            return LocalDateTime.now().isAfter(reminderDate);
-//        }
-//        if (currentDate != null) {
-//            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
-//            return LocalDateTime.now().isAfter(reminderDate);
-//        }
-        if (getisDone()==false) {
+    public boolean triggerReminder() {
+        /*if (dueDate != null) {
+            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }
+        if (currentDate != null) {
+            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }*/
+        if (getisDone() == false) {
             System.out.println("High priority: ");
         }
         return false;
     }
+
     /**
      * Extracting a task content into readable string.
      *

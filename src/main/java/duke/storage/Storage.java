@@ -11,7 +11,14 @@ import duke.task.FixedDuration;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
-import java.io.*;
+//import java.io.FileOutputStream;
+//import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -159,16 +166,16 @@ public class Storage {
         writer.close();
     }
 
-    public void saveFile(ArrayList<Task> listOfTasks){
-        try {
-            FileOutputStream fw = new FileOutputStream(filePath);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
-            objectOutputStream.writeObject(listOfTasks);
-            objectOutputStream.close(); //always close
-            fw.flush();
-            fw.close();
-        } catch (IOException IOE) {
-            System.out.println("Something went wrong " + IOE.getMessage());
-        }
-    }
+    //    public void saveFile(ArrayList<Task> listOfTasks){
+    //        try {
+    //            FileOutputStream fw = new FileOutputStream(filePath);
+    //            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
+    //            objectOutputStream.writeObject(listOfTasks);
+    //            objectOutputStream.close(); //always close
+    //            fw.flush();
+    //            fw.close();
+    //        } catch (IOException IOE) {
+    //            System.out.println("Something went wrong " + IOE.getMessage());
+    //        }
+    //    }
 }

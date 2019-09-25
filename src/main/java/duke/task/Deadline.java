@@ -62,7 +62,7 @@ public class Deadline extends Task {
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
-        return "[D]" + super.toString() + " (from: " + displayDT + ")";
+        return "[D]" + super.toString() + " (by: " + displayDT + ")";
     }
 
     /**
@@ -96,7 +96,7 @@ public class Deadline extends Task {
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
-        return "[D]" + super.toStringGui() + " (from: " + displayDT + ")";
+        return "[D]" + super.toStringGui() + " (by: " + displayDT + ")";
     }
 
     /**

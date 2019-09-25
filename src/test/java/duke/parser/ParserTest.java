@@ -7,6 +7,7 @@ import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.AddMultipleCommand;
+import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -30,7 +31,7 @@ class ParserTest {
 
         Command cmd = Parser.parse("todo Work", items);
         assertTrue(cmd instanceof AddCommand);
-        cmd = Parser.parse("deadline basketball /from 19/04/2019 1900", items);
+        cmd = Parser.parse("deadline basketball /by 19/04/2019 1900", items);
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("event watch movies /at 20/07/2018 1240", items);
         assertTrue(cmd instanceof AddCommand);
@@ -49,10 +50,31 @@ class ParserTest {
     @Test
     public void parserTest_exceptionThrown() {
         try {
-            Parser.parse("invalid",items);
+            Parser.parse("invalid", items);
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
+    }
+
+    @Test
+    void parserTest_DetectAnomalies() throws Exception {
+        Task task = new Deadline("basketball", "19/04/2019 1900");
+        items.add(task);
+        Command cmd;
+        try {
+            Parser.parse("deadline soccer /by 19/04/2019 1900", items);
+            fail(); // the test should not reach this line
+        } catch (Exception e) {
+            assertEquals("     (>_<) OOPS!!! The date/time for deadline clashes with "
+                    + "[D][X] basketball (by: 19th of April 2019, 7PM)\n"
+                    + "     Please choose another date/time! Or mark the above task as Done first!", e.getMessage());
+        }
+        cmd = Parser.parse("deadline soccer /by 19/04/2019 2000", items);
+        assertTrue(cmd instanceof AddCommand);
+        cmd = Parser.parse("done 1", items);
+        cmd.execute(items, ui);
+        cmd = Parser.parse("event party /at 19/04/2019 1900", items);
+        assertTrue(cmd instanceof AddCommand);
     }
 }

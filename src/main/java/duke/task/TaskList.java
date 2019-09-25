@@ -43,9 +43,9 @@ public class TaskList {
     }
 
     /**
-     * Get remaining tasks in the ArrayList
+     * Get remaining tasks in the ArrayList.
      *
-     * @return tasks that represents the items
+     * @return tasks that represents the items.
      */
     public ArrayList<Task> getTasks() {
         return items;
