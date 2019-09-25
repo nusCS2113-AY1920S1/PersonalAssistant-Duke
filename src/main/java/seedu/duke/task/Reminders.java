@@ -26,7 +26,10 @@ public class Reminders {
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
                 if (duration <= 0) {
                     overDueList.add(list.get(i));
@@ -46,7 +49,10 @@ public class Reminders {
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
                 if (duration <= TWENTY_FOUR_HOURS && duration > THIRTY_MINUTES) {
                     lastDayList.add(list.get(i));
@@ -66,7 +72,10 @@ public class Reminders {
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
                 if (duration <= THIRTY_MINUTES && duration > 0) {
                     lastThirtyMinutesList.add(list.get(i));

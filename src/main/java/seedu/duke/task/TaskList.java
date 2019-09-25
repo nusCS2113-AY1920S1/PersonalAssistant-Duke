@@ -102,7 +102,6 @@ public class TaskList {
                 }
             } else if (taskType.equals("doafter")) {
                 try {
-                    checkAnomaly = false;
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String indexString = taskDescriptionFull.split("/", 2)[1].substring(6);
                     int indexInt = Integer.parseInt(indexString) - 1;
@@ -112,6 +111,7 @@ public class TaskList {
                     for (Task j: list) {
                         if (j.description.equals(after)) {
                             if (!DetectAnomalies.test(new DoAfter(taskDescription, after),list)) {
+                                checkAnomaly = false;
                                 list.add(new DoAfter(taskDescription, after));
                                 taskFound = true;
                                 break;
