@@ -11,6 +11,9 @@ import duke.items.Task;
 import duke.items.Todo;
 import duke.items.Deadline;
 import duke.items.Event;
+import duke.commands.AddCommand;
+import duke.enums.TaskType;
+import duke.enums.CommandType;
 /**
  * Handles reading and writing the tasklist to file.
  */
@@ -26,7 +29,8 @@ public class Storage {
      * Converts save file details into Tasks.
      */
     public TaskList load() {
-        ArrayList<Task> savedList = new ArrayList<Task>();
+
+        TaskList savedList = new TaskList();
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -35,17 +39,19 @@ public class Storage {
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
                 String[] item = itemRaw.split("/", 4);
+                AddCommand cmd = null;
 
                 switch (item[0]) {
                 case "T":
-                    savedList.add(new Todo(item[2], ""));
+                    cmd = new AddCommand(CommandType.TODO, item[2], "");
+
                     break;
                 case "D":
-                    savedList.add(new Deadline(item[2], item[3], ""));
+                    cmd = new AddCommand(CommandType.DEADLINE, item[2],item[3]);
 
                     break;
                 case "E":
-                    savedList.add(new Event(item[2], item[3], ""));
+                    cmd = new AddCommand(CommandType.EVENT, item[2],item[3]);
 
                     break;
                 default:
@@ -54,8 +60,13 @@ public class Storage {
                     break;
                 }
 
+                if (cmd != null) {
+                    cmd.execute(savedList);
+                }
+
+                // Saved item is a completed task
                 if (item[1].equals("1")) {
-                    savedList.get(savedList.size() - 1).markAsDone();
+                    savedList.getTask(savedList.getSize()-1).markAsDone();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -66,7 +77,7 @@ public class Storage {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return new TaskList(savedList); //Returns a TaskList.
+        return savedList; //Returns a TaskList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {
