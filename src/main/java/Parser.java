@@ -1,3 +1,7 @@
+import command.*;
+import exception.DukeException;
+import storage.Storage;
+import task.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -65,7 +69,35 @@ public class Parser {
                     Event t = new Event(dateInfo.get(0), dateInfo.get(1));
                     //create event object
                     return new AddCommand(t);
-                } else {
+                } else if (taskInfo[0].equals("recurring")) {
+                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
+                    }
+                    ArrayList<String> dateInfo = parseDate("recurring", taskInfo);
+                    if (dateInfo.isEmpty() || (dateInfo.size() < 2)) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
+                    }
+                    Date d = new Date();
+                    dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
+                    if (!dateInfo.get(1).equals("null")) {
+                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
+                    }
+                    //create event object
+                    Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
+                    return new AddCommand(t);
+                }
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                    String lookUpDate = dateInfo;
+                    //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                    return new ViewSchedule(lookUpDate);
+                }
+                else {
                     try {
                         throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
                     } catch (DukeException e){
@@ -93,6 +125,7 @@ public class Parser {
                 dateInfo.add(a[0].trim()); //description
                 dateInfo.add(b[0].trim()); //deadline date
                 dateInfo.add(b[1].trim()); //reminder date
+
                 String filePath = "/home/tessa/Documents/CS2113/main/data/reminders.txt";
                 String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2) + System.lineSeparator();
                 Storage.writeReminderFile(reminderInfo, filePath);
@@ -103,7 +136,12 @@ public class Parser {
             }
 
         } else if (type.equals("event")) {
+            //tell AddCommand to go add itself
             a = taskInfo[1].split("/at ");
+            dateInfo.addAll(Arrays.asList(a));
+        } else if (type.equals("recurring")) {
+            //tell AddCommand to go add itself
+            a = taskInfo[1].split("/every ");
             dateInfo.addAll(Arrays.asList(a));
         }
         return dateInfo;

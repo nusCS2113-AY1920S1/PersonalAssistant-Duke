@@ -1,9 +1,11 @@
+package exception;
+
 public class DukeException extends Exception {
 
     protected ErrorType error;
     protected String errorType;
 
-    enum ErrorType {
+    public enum ErrorType {
         LIST_EMPTY,
         COMMAND_EMPTY,
         COMMAND_INVALID,
@@ -13,9 +15,12 @@ public class DukeException extends Exception {
         FORMAT_TODO,
         FORMAT_DEADLINE,
         FORMAT_EVENT,
+        FORMAT_RECURRING,
+        FORMAT_RECURRING_DATE,
+        FORMAT_VIEW,
     }
 
-    DukeException(ErrorType e) {
+    public DukeException(ErrorType e) {
         error = e;
     }
 
@@ -31,6 +36,9 @@ public class DukeException extends Exception {
             case FORMAT_TODO: System.out.println("     ☹ OOPS: Expected format: \"todo [description of task]\""); break;
             case FORMAT_DEADLINE: System.out.println("     ☹ OOPS: Expected format: \"deadline [description of task] /by\n             DD/MM/YYYY HHMM\""); break;
             case FORMAT_EVENT: System.out.println("     ☹ OOPS: Expected format: \"event [description of event] /at\n            DD/MM/YYYY HHMM"); break;
+            case FORMAT_RECURRING: System.out.println("     ☹ OOPS: Expected format: \"recurring [description of task] /every\""); break;
+            case FORMAT_RECURRING_DATE: System.out.println("     ☹ OOPS: Recurring task cannot have a specific date"); break;
+            case FORMAT_VIEW: System.out.println("     ☹ OOPS: Expected format: \"view DD/MM/YYYY"); break;
         }
     }
 }

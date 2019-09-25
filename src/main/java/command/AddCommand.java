@@ -3,13 +3,21 @@
  * Inherits from Command class.
  * @author Zhang Yue Han
  */
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
+
 public class AddCommand extends Command {
 
     /**
      * Assigns the task object to take on the values in input from user.
      * @param t task object to be processed
      */
-    AddCommand(Task t) {
+    public AddCommand(Task t) {
         task = t;
     }
 
@@ -29,7 +37,4 @@ public class AddCommand extends Command {
         storage.writeFile(task.toData(), true);
         ui.showAdded(task, tasks);
     }
-
-
-
 }

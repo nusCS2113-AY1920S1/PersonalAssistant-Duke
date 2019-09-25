@@ -1,3 +1,8 @@
+import command.Command;
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,8 +49,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("/home/tessa/Documents/CS2113/main/data/duke.txt").run();
+        new Duke("/home/tessa/Documents/CS2113/main/src/main/data/duke.txt").run();
     }
-
 }
 

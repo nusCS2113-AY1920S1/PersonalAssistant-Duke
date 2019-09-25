@@ -1,3 +1,10 @@
+package command;
+
+import task.Task;
+import task.TaskList;
+import storage.Storage;
+import ui.Ui;
+
 public abstract class Command {
 
     protected Task task;

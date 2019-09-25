@@ -13,7 +13,6 @@ public class Date {
     public String convertDate(String dateString) {
         String[] dateTime = dateString.split(" ");
         String[] date = dateTime[0].split("/");
-
         if (date.length == 3) {
             if (dateTime.length == 1) { //user only input date
                 return getDay(date[0]) + " of " + getMonth(Integer.parseInt(date[1])) + " "
@@ -31,19 +30,21 @@ public class Date {
      * @return DD + date suffix e.g. 23rd
      */
     public String getDay(String day) {
-        if (day.charAt(0) != '1') {
-            if (day.charAt(1) == '1') {
-                return day + "st";
-            } else if (day.charAt(1) == '2') {
-                return day + "nd";
-            } else if (day.charAt(1) == '3') {
-                return day + "rd";
-            } else {
-                return day + "th";
-            }
-        } else {
-            return day + "th";
+        int integerDay = Integer.parseInt(day);
+        String suffix = "";
+        if(integerDay==11||integerDay==12||integerDay==13){
+            suffix = "th";
         }
+        else{
+            int lastDigit = integerDay%10;
+            switch(lastDigit) {
+                case 1: suffix="st";break;
+                case 2: suffix="nd";break;
+                case 3: suffix="rd";break;
+                default : suffix = "th";
+            }
+        }
+        return day+suffix;
     }
 
     /**
@@ -115,6 +116,5 @@ public class Date {
         }
         return hour + "." + minutes + indicator;
     }
-
 
 }

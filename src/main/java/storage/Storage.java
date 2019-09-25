@@ -1,12 +1,16 @@
+package storage;
+
+import task.*;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "/home/tessa/Documents/CS2113/main/data/duke.txt";
+    private static String FILE_PATH = "/home/tessa/Documents/CS2113/main/src/main/data/duke.txt";
 
-    Storage() {}
-    Storage(String filePath) {
+    public Storage() {}
+    public Storage(String filePath) {
         FILE_PATH = filePath;
     }
 
@@ -30,6 +34,9 @@ public class Storage {
                     listContent.add(t);
                 } else if (data[0].equals("E ")) {
                     Event t = new Event(data[2], data[3], data[1].contains("1"));
+                    listContent.add(t);
+                } else if (data[0].equals("R ")) {
+                    Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
                 }
                 line = br.readLine();
@@ -122,8 +129,40 @@ public class Storage {
     }
 
 
+    public void deleteReminderItemFromFile(String oldString) {
+        File file = new File("/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String oldContent = "";
+            String line = br.readLine();
+
+            while (line != null) {
+                oldContent = oldContent + line + System.lineSeparator();
+                line = br.readLine();
+            }
+            oldContent = oldContent.substring(0, oldContent.length() - 1);
+            System.out.println("STRING TO BE DELETED IS " + oldString);
+            String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
+            Storage writer = new Storage();
+            writer.writeFile(newContent, false);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void deleteItemFromFile(String oldString) {
-        File file = new File(Storage.FILE_PATH);
+        File file = new File("/home/tessa/Documents/CS2113/main/src/main/data/duke.txt");
         FileReader fr = null;
         BufferedReader br = null;
         try {

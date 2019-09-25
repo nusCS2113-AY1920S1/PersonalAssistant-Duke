@@ -1,3 +1,5 @@
+package task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -10,5 +12,4 @@ public class Todo extends Task {
         this.isDone = state;
         this.type = "T";
     }
-
 }
