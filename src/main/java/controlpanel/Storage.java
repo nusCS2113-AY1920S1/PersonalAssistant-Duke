@@ -29,6 +29,10 @@ public class Storage {
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
+    /**
+     * This method is used to read a txt file and store it in an Array List that contains all the tasks.
+     * @return checkList the Array List that stores the tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> checkList = new ArrayList<>();
         try {
@@ -95,6 +99,10 @@ public class Storage {
         return checkList;
     }
 
+    /**
+     * This method is to write the Array List that contains all the tasks into a txt file.
+     * @param taskList The list to be push into the txt file.
+     */
     public void writeTheFile(ArrayList<Task> taskList) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);

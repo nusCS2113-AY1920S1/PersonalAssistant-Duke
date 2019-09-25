@@ -11,6 +11,9 @@ public class Ui {
         scanner = new Scanner(System. in);
     }
 
+    /**
+     * The method to initialize and show welcome to the user.
+     */
     public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

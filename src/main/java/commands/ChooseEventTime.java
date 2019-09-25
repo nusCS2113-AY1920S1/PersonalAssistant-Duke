@@ -12,6 +12,10 @@ public class ChooseEventTime extends Command {
     private int serialNo;
     private int choice;
 
+    /**
+     * The constructor initialise a ChooseEventTime command.
+     * @param command the content of the original command input by the user.
+     */
     public ChooseEventTime(String command) {
         command = command.replaceFirst("choose ", "");
         String[] splitStr = command.split(" ");
