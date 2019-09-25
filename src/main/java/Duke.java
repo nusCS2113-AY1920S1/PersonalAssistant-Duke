@@ -1,7 +1,6 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
 import Enums.Tasktype;
-import Enums.TimeUnit;
 import Model_Classes.*;
 import Operations.*;
 
@@ -152,7 +151,7 @@ public class Duke {
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete();
                     break;
-                
+
                 default:
                     ui.showCommandError();
                     break;
