@@ -56,4 +56,4 @@ Gradle Commands | Usage
 
 # UI
 
-<Insert mock up UI here>
+Insert mock up UI here
