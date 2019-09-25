@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.task.DetectAnomalies;
 import seedu.duke.task.TaskList;
 import seedu.duke.ui.Ui;
 

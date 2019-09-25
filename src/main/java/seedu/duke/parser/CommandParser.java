@@ -4,6 +4,7 @@ import seedu.duke.data.Schedule;
 import java.util.Arrays;
 import seedu.duke.task.Reminders;
 import seedu.duke.task.TaskList;
+import seedu.duke.logic.CommandLogic;
 import seedu.duke.ui.Ui;
 import seedu.duke.command.Command;
 import seedu.duke.command.DeleteCommand;
@@ -24,7 +25,6 @@ import java.util.Date;
  * regex and then performs operations based on the input.
  */
 public class CommandParser extends Parser {
-
     /**
      * Takes raw input and splits it into task type (eg. todo) and task
      * description (eg. finish work). In cases like task type: list, bye,

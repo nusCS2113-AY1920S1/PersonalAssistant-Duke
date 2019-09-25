@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+//import com.sun.tools.javac.comp.Todo;
+
 import java.time.LocalDateTime;
 
 /**
@@ -40,6 +42,19 @@ public class ToDo extends Task {
         return "T|" + super.toSaveFormat();
     }
 
+    /**
+     * Checks equality with another Todo instance.
+     *
+     * @param temp the instance to compare against.
+     * @return true or false to the comparison.
+     */
+    public boolean equals(ToDo temp) {
+        if (this.description.equals(temp.description)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public LocalDateTime getDateTime() {
         return this.localDateTime;
@@ -49,4 +64,5 @@ public class ToDo extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
     }
+
 }
