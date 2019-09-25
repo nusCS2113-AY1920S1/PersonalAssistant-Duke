@@ -3,6 +3,7 @@ package compal.logic.commands;
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.RecurringTask;
+import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
@@ -81,12 +82,13 @@ public class RecurTaskCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
+            Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
             int rep = getRep(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, dateStr, time);
+                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, time);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

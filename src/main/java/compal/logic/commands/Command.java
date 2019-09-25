@@ -1,6 +1,7 @@
 package compal.logic.commands;
 
 import compal.compal.Compal;
+import compal.tasks.Task;
 
 import java.util.Calendar;
 import java.util.Scanner;
@@ -15,16 +16,19 @@ import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
 import static compal.compal.Messages.MESSAGE_MISSING_DESC;
 import static compal.compal.Messages.MESSAGE_MISSING_TIME;
 import static compal.compal.Messages.MESSAGE_MISSING_TIME_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
 
 /**
- * Extracts and formats user input string into description, date and time.
+ * Extracts and formats user input string into description, priority, date and time.
  * Includes input validations to ensure that user input string is in valid format.
  */
 public abstract class Command {
 
     public static final String TOKEN_SLASH = "/";
-    public static final String TIME_TOKEN = "/time";
-    public static final String DATE_TOKEN = "/date";
+    public static final String TOKEN_TIME = "/time";
+    public static final String TOKEN_DATE = "/date";
+    private static final String TOKEN_PRIORITY = "/priority";
     public Compal compal;
 
     /**
@@ -66,8 +70,8 @@ public abstract class Command {
      *                              date token (/date) is missing.
      */
     public String getDate(String restOfInput) throws Compal.DukeException {
-        if (restOfInput.contains(DATE_TOKEN)) {
-            int startPoint = restOfInput.indexOf(DATE_TOKEN);
+        if (restOfInput.contains(TOKEN_DATE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_DATE);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
@@ -110,8 +114,8 @@ public abstract class Command {
      * @throws Compal.DukeException If time field is empty or time token (/time) is missing.
      */
     public String getTime(String restOfInput) throws Compal.DukeException {
-        if (restOfInput.contains(TIME_TOKEN)) {
-            int startPoint = restOfInput.indexOf(TIME_TOKEN);
+        if (restOfInput.contains(TOKEN_TIME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_TIME);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
@@ -126,4 +130,31 @@ public abstract class Command {
             throw new Compal.DukeException(MESSAGE_MISSING_TIME_ARG);
         }
     }
+
+    /**
+     * Returns a priority string if specified in the task.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Priority of task.
+     * @throws Compal.DukeException If priority field is empty or priority token (/priority) is missing.
+     */
+    public Task.Priority getPriority(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_PRIORITY)) {
+            int startPoint = restOfInput.indexOf(TOKEN_PRIORITY);
+            String priorityStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(priorityStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_PRIORITY);
+                throw new Compal.DukeException(MESSAGE_MISSING_PRIORITY);
+            }
+            String priorityInput = scanner.next();
+            Task.Priority priority = Task.Priority.valueOf(priorityInput.toLowerCase());
+            return priority;
+        } else {
+            compal.ui.printg(MESSAGE_MISSING_PRIORITY_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_PRIORITY_ARG);
+        }
+    }
+
 }

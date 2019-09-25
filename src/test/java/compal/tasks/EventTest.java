@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,11 +15,12 @@ public class EventTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String time = "1230";
+    private Task.Priority priority = high;
     private Event event;
 
     @BeforeEach
     public void setup() {
-        event = new Event(description, date, time);
+        event = new Event(description, priority, date, time);
     }
 
     @Test
@@ -66,8 +68,8 @@ public class EventTest {
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, event.isHasReminder());
+    void hasReminder() {
+        assertEquals(false, event.hasReminder());
     }
 
     @Test
@@ -109,6 +111,6 @@ public class EventTest {
     void toStringTest() {
         assertEquals("[" + event.getSymbol() + "]" + "[" + event.getStatusIcon() + "] "
                 + event.getDescription() + " Date: " + event.getStringDate() + " Time: "
-                + event.getStringTime(), event.toString());
+                + event.getStringTime() + " Priority: " + event.getPriority(), event.toString());
     }
 }
