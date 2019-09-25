@@ -16,7 +16,7 @@ Run the Jar file in the [releases](https://github.com/AY1920S1-CS2113T-T12-2/mai
 <code>/event [task] /start [start_time] /end [end_time]</code> adds <code>task</code> the to do list that starts at <code>start_time</code> and <code>end_time</code>. <code>start_time</code> and <code>end_time</code> needs to be in <code>dd/mm/yyyy hhmm</code> format.
 
 ### Deleting tasks
-<code>/delete [i] [task]</code> deletes <code>i</code>'th' item of the list listed in <code>/list</code>
+<code>/delete [i] [task]</code> deletes <code>i</code>'th item of the list listed in <code>/list</code>
 
 
 ## Save file directory
