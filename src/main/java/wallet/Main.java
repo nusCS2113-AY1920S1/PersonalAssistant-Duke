@@ -11,10 +11,6 @@ public class Main {
      */
     private Ui ui;
     /**
-     * The Storage object that handles the read and write of text file from the local computer.
-     */
-    private Storage storage;
-    /**
      * The TaskList object that handles the list of task added by the user.
      */
     private LogicManager logicManager;
@@ -28,8 +24,7 @@ public class Main {
      */
     public Main() {
         ui = new Ui();
-        storage = new Storage();
-        logicManager = new LogicManager(storage);
+        logicManager = new LogicManager();
     }
 
     public static void main(String[] args) {

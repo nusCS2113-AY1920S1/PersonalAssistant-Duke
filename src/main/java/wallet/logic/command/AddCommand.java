@@ -6,6 +6,7 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
 import wallet.storage.Storage;
+import wallet.storage.StorageManager;
 
 /**
  * The AddCommand Class which extends Command.
@@ -69,11 +70,11 @@ public class AddCommand extends Command {
      * Add the Record objects into their respective lists and returns false.
      *
      * @param wallet  The Wallet object.
-     * @param storage The Storage object.
+     * @param storageManager The StorageManager object.
      * @return a boolean variable which indicates
      */
     @Override
-    public boolean execute(Wallet wallet, Storage storage) {
+    public boolean execute(Wallet wallet, StorageManager storageManager) {
         if (expense != null) {
             wallet.getExpenseList().addExpense(expense);
             wallet.getRecordList().addRecord(expense);
@@ -84,7 +85,7 @@ public class AddCommand extends Command {
             wallet.getTaskList().addTask(task);
             System.out.println(MESSAGE_SUCCESS_ADD_TASK);
             System.out.println(task.toString());
-            storage.writeFile(task);
+            storageManager.addTask(task);
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);
