@@ -23,8 +23,8 @@ public class RescheduleCommandTest {
         Storage storage = new Storage();
         ui.FullCommand = "deadline return book /by 2008-7-7 3:3:3";
         deadlineCommand.execute(tasks,ui,storage);
-        ui.FullCommand = "reschedule 1";
-        int index = Integer.parseInt(ui.FullCommand.substring(10).trim()) - 1;
+        ui.FullCommand = "reschedule 1 2019-9-18 5:5:5";
+        int index = Integer.parseInt(ui.FullCommand.split(" ")[1]) - 1;
         String Decription = tasks.get(index).description;
         ui.FullCommand="2019-9-18 5:5:5";
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

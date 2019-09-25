@@ -17,7 +17,7 @@ public class RescheduleCommand extends Command {
         if (ui.FullCommand.length() == 10) {
             throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
         } else {
-            int index = Integer.parseInt(ui.FullCommand.substring(10).trim()) - 1;
+            int index = Integer.parseInt(ui.FullCommand.split(" ")[1]) - 1;
             String Decription = list.get(index).description;;
             System.out.println("You are rescheduling this task: " + Decription);
             System.out.println("Please type in your new timeline");
