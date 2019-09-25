@@ -12,7 +12,6 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-    protected String doAfter; //Can extend to a list of tasks that have to be done before.
 
     /**
      * Task constructor sets a blank task by default.
@@ -41,10 +40,6 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
-    }
-
-    public void setDoAfter(String doAfter) {
-        this.doAfter = doAfter;
     }
 
     public void printTaskDetails() {
@@ -103,13 +98,7 @@ public class Task {
             taskType = "[E] ";
         }
 
-        String after;
-        if (!doAfter.equals("")) {
-            after = " (do after: " + doAfter + ")";
-        } else {
-            after = "";
-        }
 
-        return taskType + getStatusIcon() + description + after; //eg. [✓] read book
+        return taskType + getStatusIcon() + description; //eg. [✓] read book
     }
 }
