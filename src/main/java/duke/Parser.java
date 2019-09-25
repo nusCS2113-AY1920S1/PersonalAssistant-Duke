@@ -55,7 +55,7 @@ public class Parser {
      *
      * @param input User input with "event" token removed
      * @return Array of size 2. elem[0] is the description and elem[1] is the datetime in format of
-     * "dd/MM/YYYY HHmm to dd/MM/YYYY HHmm".
+     *      "dd/MM/YYYY HHmm to dd/MM/YYYY HHmm".
      * @throws InsufficientInfoException Thrown if user formatting is wrong.
      */
     private String[] addEvent(String input) throws InsufficientInfoException {

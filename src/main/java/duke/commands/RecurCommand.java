@@ -45,16 +45,15 @@ public class RecurCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Calendar startDate, endDate;
+        Calendar startDate;
+        Calendar endDate;
 
         if (type == CommandType.EVENT) {
             String[] eventDetails = details.split(" to ");
 
             startDate = new DateTime(eventDetails[0]).getCalendar();
             endDate = new DateTime(eventDetails[1]). getCalendar();
-        }
-
-        else {
+        } else {
             startDate = new DateTime(details).getCalendar();
 
             // This should not do anything, but intellij wants it to be initialised properly for the switch below

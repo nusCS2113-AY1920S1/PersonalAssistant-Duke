@@ -13,8 +13,6 @@ import duke.items.Task;
 import duke.items.Todo;
 import duke.enums.TaskType;
 
-import javax.swing.*;
-
 /**
  * Manages the list of (different types of classes),
  * including all the methods to modify the list:
@@ -61,88 +59,56 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Adds a ToDo item to the list.
+     * @param type TaskType enum MUST BE TODO.
+     * @param description User input description of task
+     * @param hrs Duration of task.
+     * @return true if item was added successfully.
+     */
     public boolean addItem(TaskType type, String description, int hrs) {
+        if (type != TaskType.TODO) {
+            return false;
+        }
         taskList.add(new Todo(description, hrs));
 
         return true;
     }
 
+    /**
+     * Adds a TODO, DEADLINE or EVENT item to the list.
+     * @param type TaskType enum of task to be added.
+     * @param description User input description of task.
+     * @param dateTimes Vararg of DateTimes that are to be added.
+     * @return true if item was added successfully.
+     */
     public boolean addItem(TaskType type, String description, DateTime... dateTimes) {
         try {
             switch (type) {
-                case TODO:
-                    taskList.add(new Todo(description));
-                    break;
+            case TODO:
+                taskList.add(new Todo(description));
+                break;
 
-                case DEADLINE:
-                    taskList.add(new Deadline(description, dateTimes[0]));
-                    break;
+            case DEADLINE:
+                taskList.add(new Deadline(description, dateTimes[0]));
+                break;
 
-                case EVENT:
-                    taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
-                    break;
+            case EVENT:
+                taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
+                break;
+
+            default:
+                return false;
             }
-        }
 
-        catch (BadInputException e) {
-                System.out.println(e);
+        } catch (BadInputException e) {
+            System.out.println(e);
         }
 
         return true;
     }
 
-//    /**
-//     * Adds a todo item to the list and prints a confirmation.
-//     *
-//     * @param todoitem the description of the task.
-//     */
-//    public void addTodoItem(String todoitem, String doAfter) {
-//        taskList.add(new Todo(todoitem, doAfter)); //Use the constructor to create a new Task.
-//        System.out.println("Todo item added: " + todoitem);
-//    }
-//
-//    /**
-//     * Adds a todo item to the list but with duration.
-//     * @param todoitem description of the task.
-//     * @param hours duration of task.
-//     */
-//    public void addTodoItem(String todoitem, String doAfter, int hours) {
-//        taskList.add(new Todo(todoitem, doAfter, hours)); //Use the constructor to create a new Task.
-//        System.out.println("Todo item added: " + todoitem);
-//        System.out.println("Hours needed: " + hours);
-//    }
-//
-//    /**
-//     * Adds a deadline item to the list and prints a confirmation.
-//     *
-//     * @param deadline the command with the description and deadline of the task.
-//     */
-//    public void addDeadlineItem(String description, String deadline, String doAfter) {
-//        try {
-//            //Use the constructor to create a new Task.
-//            taskList.add(new Deadline(description, deadline));
-//            System.out.println("Deadline item added: " + description);
-//            System.out.println("Deadline is: " + deadline);
-//        } catch (BadInputException e) {
-//            System.out.println(e);
-//        }
-//    }
-//
-//    /**
-//     * Adds an event item to the list and prints a confirmation.
-//     *
-//     * @param event the description of the task.
-//     * @param at the time the event happens.
-//     */
-//    public void addEventItem(String event, String at, String doAfter) {
-//        try {
-//            taskList.add(new Event(event, at, doAfter)); //Use the constructor to create a new Task.
-//            System.out.println("Event item added: " + event);
-//            System.out.println("Event happens at: " + at);
-//        } catch (BadInputException e) {
-//            System.out.println(e);
-//        }
-//    }
+
 
     /**
      * Prints the whole list of items with index numbers.

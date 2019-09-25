@@ -22,7 +22,7 @@ public class AddCommand extends Command {
      * @param type TaskType enum of what task class to add.
      * @param description User input description of the task to add.
      * @param details Formatted datetime of task.
-     * @throws BadInputException
+     * @throws BadInputException Thrown if user input is wrongly formatted.
      */
     public AddCommand(CommandType type, String description, String details) throws BadInputException {
         super(type);
@@ -30,27 +30,30 @@ public class AddCommand extends Command {
         this.details = details;
 
         switch (type) {
-            case TODO:
-                if (!details.equals("")) {
-                    dateTimes[0] = new DateTime(details);
-                }
-                break;
-
-            case DEADLINE:
+        case TODO:
+            if (!details.equals("")) {
                 dateTimes[0] = new DateTime(details);
-                break;
+            }
+            break;
 
-            case EVENT:
-                try {
-                    String[] startEndTime = details.split(" to ", 2);
-                    dateTimes[0] = new DateTime(startEndTime[0]);
-                    dateTimes[1] = new DateTime(startEndTime[1]);
-                } catch (Exception e) {
-                    throw new BadInputException("Improper datetime. "
-                            + "Correct format: event <event name> /at <event start time> to <event end time>");
-                }
+        case DEADLINE:
+            dateTimes[0] = new DateTime(details);
+            break;
 
-                break;
+        case EVENT:
+            try {
+                String[] startEndTime = details.split(" to ", 2);
+                dateTimes[0] = new DateTime(startEndTime[0]);
+                dateTimes[1] = new DateTime(startEndTime[1]);
+            } catch (Exception e) {
+                throw new BadInputException("Improper datetime. "
+                        + "Correct format: event <event name> /at <event start time> to <event end time>");
+            }
+
+            break;
+
+        default:
+            break;
 
         }
 
@@ -61,7 +64,7 @@ public class AddCommand extends Command {
      * @param list TaskList to add the item to.
      * @param ui Ui object to display output to.
      * @param storage Storage object to handle saving and loading of any data.
-     * @throws BadInputException
+     * @throws BadInputException Thrown if user input is wrongly formatted.
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {

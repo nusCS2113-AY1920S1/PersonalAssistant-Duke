@@ -66,7 +66,7 @@ public class Storage {
 
                 // Saved item is a completed task
                 if (item[1].equals("1")) {
-                    savedList.getTask(savedList.getSize()-1).markAsDone();
+                    savedList.getTask(savedList.getSize() - 1).markAsDone();
                 }
             }
         } catch (FileNotFoundException e) {
