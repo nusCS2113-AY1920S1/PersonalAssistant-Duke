@@ -13,6 +13,8 @@ import duke.items.Task;
 import duke.items.Todo;
 import duke.enums.TaskType;
 
+import javax.swing.*;
+
 /**
  * Manages the list of (different types of classes),
  * including all the methods to modify the list:
@@ -59,20 +61,32 @@ public class TaskList {
         return true;
     }
 
+    public boolean addItem(TaskType type, String description, int hrs) {
+        taskList.add(new Todo(description, hrs));
+
+        return true;
+    }
+
     public boolean addItem(TaskType type, String description, DateTime... dateTimes) {
         try {
             switch (type) {
+                case TODO:
+                    taskList.add(new Todo(description));
+                    break;
+
                 case DEADLINE:
                     taskList.add(new Deadline(description, dateTimes[0]));
+                    break;
 
+                case EVENT:
+                    taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
+                    break;
             }
         }
 
         catch (BadInputException e) {
                 System.out.println(e);
         }
-
-
 
         return true;
     }
