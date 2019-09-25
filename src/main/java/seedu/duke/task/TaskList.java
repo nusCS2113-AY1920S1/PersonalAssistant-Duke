@@ -87,11 +87,12 @@ public class TaskList {
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
                     LocalDateTime localDateTime = getDateTime(taskTime);
-                    if(!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list))
-                    list.add(new Deadline(taskDescription,localDateTime));
-                    checkAnomaly = false;
-                    if (Schedule.isValidDate(taskDateOnly)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list)) {
+                        list.add(new Deadline(taskDescription,localDateTime));
+                        checkAnomaly = false;
+                        if (Schedule.isValidDate(taskDateOnly)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                        }
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
@@ -99,7 +100,7 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
-            } else if (taskType.equals("doafter") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+            } else if (taskType.equals("doafter")) {
                 try {
                     checkAnomaly = false;
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
@@ -110,10 +111,11 @@ public class TaskList {
 
                     for (Task j: list) {
                         if (j.description.equals(after)) {
-                            LocalDateTime localDateTime = getDateTime(after);
-                            list.add(new DoAfter(taskDescription, localDateTime));
-                            taskFound = true;
-                            break;
+                            if (!DetectAnomalies.test(new DoAfter(taskDescription, after),list)) {
+                                list.add(new DoAfter(taskDescription, after));
+                                taskFound = true;
+                                break;
+                            }
                         }
                     }
                     if (!taskFound) {
@@ -129,38 +131,44 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            } else if (taskType.equals("event") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+            } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
                     LocalDateTime localDateTime = getDateTime(taskTime);
-                    list.add(new Event(taskDescription, localDateTime));
-                    if (Schedule.isValidDate(taskDateOnly)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    if (!DetectAnomalies.test(new Event(taskDescriptionFull,localDateTime), list)) {
+                        list.add(new Event(taskDescription, localDateTime));
+                        checkAnomaly = false;
+                        if (Schedule.isValidDate(taskDateOnly)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                        }
                     }
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
                 } catch (ParseException ignore) {
                     return;
                 }
-            } else if (taskType.equals("range") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-                checkAnomaly = false;
+            } else if (taskType.equals("range")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String[] dateTime = taskTime.split(" and ");
                     LocalDateTime from = getDateTime(dateTime[0]);
                     LocalDateTime by = getDateTime(dateTime[1]);
-                    list.add(new RangedTask(taskDescription, from, by));
+                    if (!DetectAnomalies.test(new RangedTask(taskDescription,from,by),list)) {
+                        list.add(new RangedTask(taskDescription, from, by));
+                        checkAnomaly = false;
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
                 }
             }
         }
-        if(!checkAnomaly) {
+        if (!checkAnomaly) {
             String output = "\t  " + list.get(list.size() - 1).toString();
             System.out.println("\t_____________________________________");
             System.out.println("\tGot it. I've added this task:");
@@ -168,8 +176,7 @@ public class TaskList {
             // Printing number of items in list
             System.out.println("\tNow you have " + list.size() + " tasks in the list.");
             System.out.println("\t_____________________________________\n\n");
-        }
-        else {
+        } else {
             System.out.println("Task clashes with another existing task in the list!");
         }
     }

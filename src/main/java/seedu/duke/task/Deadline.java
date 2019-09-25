@@ -71,6 +71,4 @@ public class Deadline extends Task {
         this.by = localDateTime;
     }
 
-
-
 }

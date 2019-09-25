@@ -12,7 +12,9 @@ public class Reminders {
 
     private static ArrayList<Task> overDueList = new ArrayList<>();
     private static ArrayList<Task> lastDayList = new ArrayList<>();
-    private static ArrayList<Task> lastThirtyMinsList = new ArrayList<>();
+    private static ArrayList<Task> lastThirtyMinutesList = new ArrayList<>();
+    private static final int TWENTY_FOUR_HOURS = 86400;
+    private static final int THIRTY_MINUTES = 1800;
 
     /**
      * List of overdue tasks.
@@ -24,7 +26,7 @@ public class Reminders {
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]")) {
+            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
                 if (duration <= 0) {
                     overDueList.add(list.get(i));
@@ -44,9 +46,9 @@ public class Reminders {
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]")) {
+            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
-                if (duration <= 86400 && duration > 1800) {
+                if (duration <= TWENTY_FOUR_HOURS && duration > THIRTY_MINUTES) {
                     lastDayList.add(list.get(i));
                 }
             }
@@ -60,18 +62,18 @@ public class Reminders {
      * @return a list of tasks that are due in 30 minutes or less.
      */
     public static ArrayList<Task> lastThirtyMins(TaskList list) {
-        lastThirtyMinsList.clear();
+        lastThirtyMinutesList.clear();
         for (int i = 0; i < list.size(); i++) {
             LocalDateTime currentTime = LocalDateTime.now();
             boolean done = list.get(i).isDone;
-            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]")) {
+            if (!done && list.get(i).toString().contains("[D]") || list.get(i).toString().contains("[E]") || list.get(i).toString().contains("[R]")) {
                 long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
-                if (duration <= 1800 && duration > 0) {
-                    lastThirtyMinsList.add(list.get(i));
+                if (duration <= THIRTY_MINUTES && duration > 0) {
+                    lastThirtyMinutesList.add(list.get(i));
                 }
             }
         }
-        return lastThirtyMinsList;
+        return lastThirtyMinutesList;
     }
 
     /**
@@ -102,18 +104,18 @@ public class Reminders {
                 }
             }
         }
-        if (!lastThirtyMinsList.isEmpty()) {
+        if (!lastThirtyMinutesList.isEmpty()) {
             System.out.println();
-            if (lastThirtyMinsList.size() == 1) {
+            if (lastThirtyMinutesList.size() == 1) {
                 System.out.println("The task below is due in 30 minutes or less!!!");
                 System.out.print("1.");
-                for (Task i : lastThirtyMinsList) {
+                for (Task i : lastThirtyMinutesList) {
                     System.out.println(i);
                 }
             } else {
                 System.out.println("The tasks below are due in 30 minutes or less!!!");
-                for (int i = 0; i < lastThirtyMinsList.size(); i++) {
-                    System.out.println(i + 1 + "." + lastThirtyMinsList.get(i));
+                for (int i = 0; i < lastThirtyMinutesList.size(); i++) {
+                    System.out.println(i + 1 + "." + lastThirtyMinutesList.get(i));
                 }
             }
         }
@@ -132,7 +134,18 @@ public class Reminders {
                 }
             }
         }
+    }
 
+    /**
+     * For testing, check if task that are overdue exist in overDueList.
+     * @return true if overDueList exist.
+     */
+    public static boolean exist() {
+        boolean check = false;
+        if (!overDueList.isEmpty()) {
+            check = true;
+        }
+        return check;
     }
 }
 
