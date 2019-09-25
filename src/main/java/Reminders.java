@@ -44,4 +44,10 @@ public class Reminders {
     public void printReminder(String[] reminderInfo) {
         System.out.println("You have tasks due!\n" + reminderInfo[0] + " by " + reminderInfo[1]);
     }
+
+    public void getUpcomingReminders() {
+        for (String[] x: reminderList) {
+            System.out.println(x[0]);
+        }
+    }
 }
