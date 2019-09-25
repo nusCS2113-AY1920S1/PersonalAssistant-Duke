@@ -13,7 +13,8 @@ We are a student team based in the http://www.comp.nus.edu.sg[School of Computin
 image::sfloydzy.png[width="150", align="left"]
 {empty}[https://github.com/AY1920S1-CS2113T-W13-1/main.git[homepage]] [https://github.com/sfloydzy[github]] [<<SfloydzyPortfolio#, Portfolio>>]
 
-Role: Developing Time Table Function
+Role: Team Lead
+Responsibilities: Checkstyle + Timetable Feature
 
 '''
 
@@ -21,8 +22,8 @@ Role: Developing Time Table Function
 image::danisheddie.png[width="150", align="left"]
 {empty}[http://github.com/danisheddie[github]] [<<portfolio#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI(TBC)
+Role: Developer
+Responsibilities: UI + Managing Students Feature
 
 '''
 
@@ -30,8 +31,8 @@ Responsibilities: UI(TBC)
 image::eujingsen.png[width="150", align="left"]
 {empty}[http://github.com/eujingsen[github]] [<<portfolio#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data(TBC)
+Role: Developer 
+Responsibilities: Training Circuits Feature
 
 '''
 
@@ -39,7 +40,7 @@ Responsibilities: Data(TBC)
 image::nottherealedmund.png[width="150", align="left"]
 {empty}[http://github.com/nottherealedmund[github]] [<<portfolio#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading(TBC)
+Role: Developer 
+Responsibilities: GUI + Sub-schedule Feature
 
 '''
