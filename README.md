@@ -1,3 +1,30 @@
+# Entertainment Pro
+
+* This is a desktop application for managing maker spaces. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
+* It is a Java application intended for displaying movies and TV shows related stuff such as reviews and ratings for movies.
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code that is based on https://github.com/se-edu/addressbook-level4[Address Book (level 4)].
+
+**Features:**
+* A GUI for displaying all available movies and TV shows.
+* Comes with a todo list that can store updates about movies and TV shows. 
+
+**Target user profile**:
+1. This desktop application is intended for users who
+
+* want to search about new and upcoming movies and TV shows
+* want to obtain other information reated to movies and TV shows such as ratings for a movie 
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+**Value proposition:**
+* Users will be able to save time and effort doing movies and/or TV show related stuff compared to a typical mouse/GUI driven app.
+* Furthermore, our app intends to provide various entertainment related functionalities all under one roof so that users will not have the need to install different entertainment related apps for different purposes.
+
+
+**Site Map**
+
+**Acknowledgements**
+
 # Setting up
 
 **Prerequisites**
@@ -33,7 +60,3 @@ Duke Increment | Tutorial
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
 
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.

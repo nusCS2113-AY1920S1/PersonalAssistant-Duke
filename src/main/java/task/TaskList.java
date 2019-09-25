@@ -20,7 +20,6 @@ public class TaskList {
 
     /**
      * Constructor for class.
-     *
      * @param tasks which is the tasks in the database.
      */
     public TaskList(List<Tasks> tasks) {
@@ -115,6 +114,9 @@ public class TaskList {
         return tasks.get(num);
     }
 
+    public static TreeMap<Date, Tasks> getTreeMap() {
+        return DE;
+    }
 
     /**
      * This function adds tasks into tree map.

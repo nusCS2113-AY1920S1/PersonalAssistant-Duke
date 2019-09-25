@@ -16,7 +16,8 @@ import task.Deadline;
 import task.Tasks;
 import task.Event;
 import task.ToDo;
-
+import task.FixedDuration;
+import task.Period;
 /**
  * This class deals with loading tasks from the file and saving tasks in the file.
  */
@@ -66,8 +67,12 @@ public class Storage {
                     tasks = new Event(taskMessage, "?][E", arr[3].strip(), arr[4].strip());
                 } else if (type.equals("A")) {
                     tasks = new DoAfter(taskMessage, "A", arr[3].strip());
-                } else {
+                } else if (type.equals("R")){
                     tasks = new Recurring(taskMessage, "R", arr[3].strip());
+                } else if (type.equals("F")) {
+                    tasks = new FixedDuration(taskMessage, "F", arr[3].strip());
+                } else {
+                    tasks = new Period(taskMessage, "P", arr[3].strip(), arr[4].strip());
                 }
                 if (done.equals("✓")) {
                     tasks.setDone(true);
@@ -104,9 +109,19 @@ public class Storage {
                     line = "?][E | " + task.getStatusIcon() + " | "
                         + task.getDescription() + " | " + ((Event) task).getDate().getStartDateStr()
                         + " | " + ((Event) task).getDate().getEndDateStr();
-                } else {
+                } else if (taskType == "R") {
                     line = "R | " + task.getStatusIcon() + " | "
                         + task.getDescription() + " | " + ((Recurring) task).getRecur();
+                } else if (taskType == "A") {
+                    line = "A | " + task.getStatusIcon() + " | "
+                            + task.getDescription() + " | " + ((DoAfter) task).getAfter();
+                } else if (taskType == "F"){
+                    line = "F | " + task.getStatusIcon() + " | "
+                            + task.getDescription() + " | " + ((FixedDuration) task).getDuration();
+                } else {
+                    line = "P | " + task.getStatusIcon() + " | "
+                            + task.getDescription() + " | " + ((Period) task).getDate().getStartDateStr() + " | "
+                            + ((Period)task).getDate().getEndDateStr();
                 }
                 fileWriter.write(line + "\n");
             }

@@ -9,6 +9,8 @@ import task.Tasks;
 import task.Event;
 import task.ToDo;
 import task.Recurring;
+import task.FixedDuration;
+import task.Period;
 import ui.Ui;
 import wrapper.TimeInterval;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * This class deals with making sense of the user command and doing the appropriate actions.
@@ -86,6 +89,18 @@ public class Parser {
                     break;
                 case "recur":
                     recurCommand(s);
+                    break;
+                case "reminder":
+                    reminderCommand(s);
+                    break;
+                case "fixed":
+                    fixedCommand(s);
+                    break;
+                case "schedule":
+                    scheduleCommand(s);
+                    break;
+                case "period":
+                    periodCommand(s);
                     break;
                 default:
                     throw DukeException.UNKNOWN_COMMAND;
@@ -266,21 +281,27 @@ public class Parser {
         for (int i = 0; i < userToDoList.size(); i++) {
             String message;
             switch (userToDoList.get(i).getType()) {
-            case "E":
-                message = ((Event) userToDoList.get(i)).getDescription();
-                break;
-            case "D":
-                message = ((Deadline) userToDoList.get(i)).toMessage();
-                break;
-            case "T":
-                message = ((ToDo) userToDoList.get(i)).toMessage();
-                break;
-            case "R":
-                message = ((Recurring)userToDoList.get(i)).toMessage();
-                break;
-            default:
-                message = (userToDoList.get(i)).getDescription();
-                break;
+                case "E":
+                    message = ((Event) userToDoList.get(i)).getDescription();
+                    break;
+                case "D":
+                    message = ((Deadline) userToDoList.get(i)).toMessage();
+                    break;
+                case "T":
+                    message = ((ToDo) userToDoList.get(i)).toMessage();
+                    break;
+                case "R":
+                    message = ((Recurring)userToDoList.get(i)).toMessage();
+                    break;
+                case "F":
+                    message = ((FixedDuration)userToDoList.get(i)).toMessage();
+                    break;
+                case "P":
+                    message = ((Period)userToDoList.get(i)).toMessage();
+                    break;
+                default:
+                    message = (userToDoList.get(i)).getDescription();
+                    break;
             }
             int j = i + 1;
             Ui.showListTask(userToDoList.get(i).getType(), userToDoList.get(i).getStatusIcon(),
@@ -350,7 +371,7 @@ public class Parser {
         try {
             String[] token = command.substring("recur".length()).strip().split("/frequency");
             if (token.length != 2 || token[1] == null) {
-                throw DukeException.EMPTY_TASK_IN_RECUR;
+                throw DukeException.EMPTY_TIME_IN_RECUR;
             }
             if (token[0].strip().isEmpty()) {
                 throw DukeException.EMPTY_TASK_IN_RECUR;
@@ -361,7 +382,55 @@ public class Parser {
                     TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
         } catch  (DukeException e) {
-            throw DukeException.EMPTY_TASK_IN_RECUR;
+            throw e;
+        }
+    }
+
+    /**
+     * Prints tasks that have to be done within a certain period of time
+     */
+    private static void periodCommand(String command) throws DukeException {
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
+        try {
+            String[] token = command.substring("period".length()).strip().split("/duration");
+            String[] dates = token[1].strip().split("to");
+            if (token.length != 2 || token[1] == null) {
+                throw DukeException.EMPTY_TIME_IN_PERIOD;
+            }
+            if (token[0].strip().isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_PERIOD;
+            }
+            TaskList.addTask(new Period(token[0].strip(), "P", dates[0].strip(), dates[1].strip()));
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                    TaskList.getTotalTasksNumber());
+            Storage.saveTask(TaskList.getList());
+        } catch  (DukeException e) {
+            throw e;
+        }
+    }
+
+
+    /**
+     * Prints tasks that have a fixed duration
+     */
+    private static void fixedCommand(String command) throws DukeException {
+        int todolistNumber = TaskList.getTotalTasksNumber() + 1;
+        try {
+            String[] token = command.substring("fixed".length()).strip().split("/duration");
+            if (token.length != 2 || token[1] == null) {
+                throw DukeException.EMPTY_TIME_IN_FIXED;
+            }
+            if (token[0].strip().isEmpty()) {
+                throw DukeException.EMPTY_TASK_IN_FIXED;
+            }
+            TaskList.addTask(new FixedDuration(token[0].strip(), "F", token[1].strip()));
+            Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
+                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                    TaskList.getTotalTasksNumber());
+            Storage.saveTask(TaskList.getList());
+        } catch  (DukeException e) {
+            throw e;
         }
     }
 
@@ -541,6 +610,58 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e1) {
             throw DukeException.EMPTY_TASK_IN_EVENT_TENTATIVE;
         }
+    }
+
+    /**
+     * Find all the deadlines/events on the user specified date
+     * Then print them out for user
+     * Command: schedule <date>
+     */
+    private static void scheduleCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showScheduleIntroMessage(tokens[1]);
+        tokens[1] = tokens[1] + " 00000";
+        int count = 1;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            if (TimeParser.getDateOnly(log.getKey()).equals(TimeParser.convertStringToDate(tokens[1]))) {
+                Ui.printScheduleTask(log);
+                count++;
+            }
+        }
+        Ui.showScheduleFinalMessage(count);
+        Ui.printLine();
+    }
+
+    /**
+     * Check for any incomplete events/deadlines since the user specified date
+     * The number of reminders is also specified by the user
+     * The reminders is then printed out
+     * Command: reminder <no. of reminders> <date>
+     */
+    private static void reminderCommand(String s) {
+        String[] tokens = s.split(Pattern.quote(" "));
+        Ui.showReminderIntroMessage(Integer.valueOf(tokens[1]), tokens[2]);
+        int count = 1;
+        Date startDate = TimeParser.convertToDate(tokens[2]);
+        Date previousDate = null;
+        for (Map.Entry<Date, Tasks> log : TaskList.getTreeMap().entrySet()) {
+            Date logDate = TimeParser.getDateOnly(log.getKey());
+            if (count > Integer.valueOf(tokens[1])) {
+                break;
+            }
+            if (logDate.equals(startDate) || logDate.after(startDate)){
+                if (!log.getValue().isDone()){
+                    if (!logDate.equals(previousDate)){
+                        Ui.printScheduleDate(TimeParser.getStringDate(logDate));
+                    }
+                    Ui.printScheduleTask(log);
+                    count++;
+                    previousDate = logDate;
+                }
+            }
+        }
+        Ui.showEmptyReminderMessage(count);
+        Ui.printLine();
     }
 }
 
