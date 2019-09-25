@@ -40,7 +40,7 @@ public class Reminders {
     }
 
     public void getRemindersList(Storage storage) {
-        reminderList = storage.loadReminderFile("/home/tessa/Documents/CS2113/main/data/reminders.txt");
+        reminderList = storage.loadReminderFile("src/main/data/reminders.txt");
     }
 
     public void printReminder(String[] reminderInfo) {

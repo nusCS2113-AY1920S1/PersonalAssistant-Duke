@@ -1,10 +1,7 @@
 import command.*;
 import exception.DukeException;
 import storage.Storage;
-import task.Deadline;
-import task.Recurring;
-import task.Todo;
-import task.Event;
+import task.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,6 +86,17 @@ public class Parser {
                     //create event object
                     Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
                     return new AddCommand(t);
+                }
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                    String lookUpDate = dateInfo;
+                    //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                    return new ViewSchedule(lookUpDate);
                 }
                 else {
                     try {
