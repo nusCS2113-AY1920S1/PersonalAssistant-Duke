@@ -11,7 +11,7 @@ For those who wish to modify the source files for their own project, or just to 
 * JDK 11
 * Recommended: IntelliJ IDE
 * Fork this repo to your GitHub account and clone the fork to your computer
-* Gradle integration (See Tutorials)
+* Gradle integration (Should be done automatically. If not, see Tutorials)
 
 **Importing the project into IntelliJ**
 
@@ -40,3 +40,17 @@ Duke Components | Tutorial
 [fx2]: <tutorials/javaFxTutorialPart2.md>
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
+
+# Gradle Usage
+
+This assumes the project has been imported as a gradle project. If not, follow the instructions at [Gradle Tutorial](tutorials/gradleTutorial.md).
+
+Gradle Commands | Usage
+-----------------|--------------------
+`gradlew build` | Runs all available gradle tasks
+`gradlew task`| Displays all runable gradle tasks
+`gradlew checkstyleMain` | Checks source code against a given code style
+`gradlew checkstyleTest` | Checks test code against a given code style
+`gradlew run` | Runs the main class as specified in gradle.build
+`gradlew properties` | Displays properties of this gradle project
+
