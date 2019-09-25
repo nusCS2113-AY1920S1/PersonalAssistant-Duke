@@ -45,7 +45,6 @@ public class ToDo extends Task {
                 this.datetime.setTime(date);
                 date = altparser.parse(inputEnd);
                 this.end.setTime(date);
-                System.out.println(this.datetime.get(Calendar.MONTH));
             } catch (ParseException f) {
                 this.datetime = null;
                 this.end = null;
@@ -70,6 +69,8 @@ public class ToDo extends Task {
         this.duration = Integer.parseInt(duration);
         super.type = "T";
         subtypes += "F";
+        this.datetime = null;
+        this.end = null;
     }
 
     /**
