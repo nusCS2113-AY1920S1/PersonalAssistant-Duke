@@ -33,6 +33,10 @@ JavaFX.Main.Duke Increment | Tutorial
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
 
+# Usage
+* For detailed instructions on the usage of Duke 2.0, please refer to the Developers' Guide:
+* <<Developers' Guide>>
+
 # Feedback, Bug Reports
 
 * If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
