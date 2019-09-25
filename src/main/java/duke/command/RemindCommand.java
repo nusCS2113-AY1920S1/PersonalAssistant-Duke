@@ -17,6 +17,7 @@ public class RemindCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+        int num = 1;
         LocalDate date = LocalDate.now();
         LocalDate endDate = date.plusDays(5);
 
@@ -29,11 +30,11 @@ public class RemindCommand extends Command{
         else {
             System.out.println("These are your Tasks in the next 5 days");
             for(int a = 0; a < taskList.size(); a++) {
-
                 Date TaskDate = taskList.getTask(a).getCurrentDate();
 
-                if(isWithinRange(TaskDate, EndDate, StartDate)) {
-                    System.out.println(taskList.getTask(a).toString());
+                if((isWithinRange(TaskDate, EndDate, StartDate))) {
+                    System.out.println(num + ": " + taskList.getTask(a).toString());
+                    num++;
                 }
             }
         }
