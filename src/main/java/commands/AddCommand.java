@@ -1,24 +1,24 @@
-package Commands;
+package commands;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.FixedDuration;
-import Tasks.Periods;
-import Tasks.MultipleEvent;
-import Tasks.ToDos;
-import Tasks.Task;
-import Tasks.TaskList;
-import ControlPanel.DukeException;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.FixedDuration;
+import tasks.Periods;
+import tasks.MultipleEvent;
+import tasks.ToDos;
+import tasks.Task;
+import tasks.TaskList;
+import controlpanel.DukeException;
+import controlpanel.Storage;
+import controlpanel.Ui;
 import javafx.util.Pair;
 
 /**
- * The command which aims to add a new task to the list
+ * The command which aims to add a new task to the list.
  */
 public class AddCommand extends Command {
 
@@ -28,9 +28,9 @@ public class AddCommand extends Command {
 
 
     /**
-     * The constructor to initialize a add command object
-     * @param string The type of the command
-     * @param cmd The content of the original text in input command
+     * The constructor to initialize a add command object.
+     * @param string The type of the command.
+     * @param cmd The content of the original text in input command.
      */
     public AddCommand(String string, String cmd) {
         type = string;
@@ -39,8 +39,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * This method labels whether this command means ceasing the overall program
-     * @return Whether this command means ceasing the overall program
+     * This method labels whether this command means ceasing the overall program.
+     * @return Whether this command means ceasing the overall program.
      */
     @Override
     public boolean isExit() {
@@ -49,13 +49,13 @@ public class AddCommand extends Command {
 
 
     /**
-     * The method execute the add command to add different types of task to the task list based on the
+     * The method execute the add command to add different types of task to the task list based on the.
      * task type which is specified in the input command.
-     * @param tasks The task list object to interact with the checklist
-     * @param ui To print something needed in user interface
-     * @param storage To re-save the data in local disk if necessary
-     * @throws ParseException When there is something wrong with the parsing
-     * @throws DukeException When the command line is not qualified
+     * @param tasks The task list object to interact with the checklist.
+     * @param ui To print something needed in user interface.
+     * @param storage To re-save the data in local disk if necessary.
+     * @throws ParseException When there is something wrong with the parsing.
+     * @throws DukeException When the command line is not qualified.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, DukeException {
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             String[] getDate2 = getDate1[1].split("/to ");
             Date date1 = simpleDateFormat.parse(getDate2[0]);
             Date date2 = simpleDateFormat.parse(getDate2[1]);
-            if (InvalidDuration(date1, date2)) {
+            if (invalidDuration(date1, date2)) {
                 throw new DukeException("OOPS!!! The period of this event is invalid.");
             }
             String formattedDate1 = simpleDateFormat.format(date1);
@@ -93,12 +93,12 @@ public class AddCommand extends Command {
             String[] startendDate = eventPeriod.split(" to ");
             Date startDate = simpleDateFormat.parse(startendDate[0]);
             Date endDate = simpleDateFormat.parse(startendDate[1]);
-            if (InvalidDuration(startDate, endDate)) {
+            if (invalidDuration(startDate, endDate)) {
                 throw new DukeException("OOPS!!! The period of this event is invalid.");
             }
             Task t = new Events(getDate[0].replaceFirst("event ", ""),
                     startDate, endDate);
-            if (ScheduleClashes(tasks, (Events) t)) {
+            if (scheduleClashes(tasks, (Events) t)) {
                 throw new DukeException("OOPS! There seems to be a clash in your schedule.");
             }
             tasks.addTask(t);
@@ -133,7 +133,7 @@ public class AddCommand extends Command {
                 String[] startendDate = choices.split("to ");
                 Date startDate = simpleDateFormat.parse(startendDate[0]);
                 Date endDate = simpleDateFormat.parse(startendDate[1]);
-                if (InvalidDuration(startDate, endDate)) {
+                if (invalidDuration(startDate, endDate)) {
                     throw new DukeException("OOPS!!! The period of this event is invalid.");
                 }
                 Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
@@ -153,13 +153,13 @@ public class AddCommand extends Command {
     }
 
     /**
-     * This method check that is there any time clash between the input event and
-     * the existing tasks
-     * @param tasks The task list object to interact with the checklist
-     * @param e The input event needs to be checked
-     * @return Is there any time clash between the input event an the existing tasks
+     * This method check that is there any time clash between the input event and.
+     * the existing tasks.
+     * @param tasks The task list object to interact with the checklist.
+     * @param e The input event needs to be checked.
+     * @return Is there any time clash between the input event an the existing tasks.
      */
-    public Boolean ScheduleClashes(TaskList tasks, Events e) {
+    public Boolean scheduleClashes(TaskList tasks, Events e) {
         for (Task t : tasks.getCheckList()) {
             if (t instanceof Events) {
                 if (((Events) t).getStartDateAt().compareTo(e.getEndDateAt()) <= 0
@@ -172,13 +172,13 @@ public class AddCommand extends Command {
     }
 
     /**
-     * This method compares the start date and the end date of one event
+     * This method compares the start date and the end date of one event.
      * to check whether it is a valid input duration.
-     * @param from The start date of a event
-     * @param to The end date of a event
-     * @return Whether it is a valid input duration
+     * @param from The start date of a event.
+     * @param to The end date of a event.
+     * @return Whether it is a valid input duration.
      */
-    public Boolean InvalidDuration(Date from, Date to) {
+    public Boolean invalidDuration(Date from, Date to) {
         return (from.compareTo(to) > 0);
     }
 }

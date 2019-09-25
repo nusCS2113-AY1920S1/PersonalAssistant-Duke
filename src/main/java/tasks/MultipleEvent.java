@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import javafx.util.Pair;
 
@@ -25,7 +25,8 @@ public class MultipleEvent extends Task {
     public String toString() {
         String possibleDates = "";
         for (Pair dates : dates) {
-            possibleDates += simpleDateFormat.format(dates.getKey()) + " to " + simpleDateFormat.format(dates.getValue()) + " or ";
+            possibleDates += simpleDateFormat.format(dates.getKey()) + " to "
+                    + simpleDateFormat.format(dates.getValue()) + " or ";
         }
         possibleDates = possibleDates.substring(0, possibleDates.length() - 3);
         return "[E]" + super.toString() + "(at: " +  possibleDates + ")";

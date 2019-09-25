@@ -1,4 +1,4 @@
-package ControlPanel;
+package controlpanel;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,19 +10,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.ToDos;
-import Tasks.Periods;
-import Tasks.FixedDuration;
-import Tasks.Task;
-import Tasks.MultipleEvent;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.ToDos;
+import tasks.Periods;
+import tasks.FixedDuration;
+import tasks.Task;
+import tasks.MultipleEvent;
 import javafx.util.Pair;
 
 public class Storage {
 
     private String fileName;
     private SimpleDateFormat simpleDateFormat;
+
     public Storage(String filePath) {
         fileName = filePath;
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");

@@ -1,11 +1,11 @@
-package Commands;
+package commands;
 
-import ControlPanel.DukeException;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.TaskList;
+import controlpanel.DukeException;
+import controlpanel.Storage;
+import controlpanel.Ui;
+import tasks.Events;
+import tasks.Task;
+import tasks.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,25 +20,25 @@ public class FreeTimeCommand extends Command {
     private SimpleDateFormat simpleDateFormat;
 
     /**
-     * This method returns a new date which is "N" hours after the "start"
-     *
-     * @param start input date (old date)
-     * @param N     the number of hours passed
-     * @return a new date which is "N" hours after the "start"
+     * computes a new date which is "n" hours after the "start".
+     * @param start input date (old date).
+     * @param n the number of hours passed.
+     * @return a new date which is "n" hours after the "start".
      */
-    private Date addNHours(Date start, int N) {
+
+    private Date addNHours(Date start, int n) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(start);
-        calendar.add(Calendar.HOUR, N);
+        calendar.add(Calendar.HOUR, n);
         return calendar.getTime();
     }
 
     /**
-     * The constructor which initializes a new free time command with date and duration time
+     * The constructor which initializes a new free time command with date and duration time.
      *
-     * @param specificDate the time would like to know is there free time
-     * @param time         the length of the desired duration
-     * @throws ParseException exception related to time parsing
+     * @param specificDate the time would like to know is there free time.
+     * @param time         the length of the desired duration.
+     * @throws ParseException exception related to time parsing.
      */
     public FreeTimeCommand(String specificDate, int time) throws ParseException {
         simpleDateFormat = new SimpleDateFormat("d/M/yyyy HHmm");
@@ -52,16 +52,16 @@ public class FreeTimeCommand extends Command {
     }
 
     /**
-     * This method execute the free-time command. Implements priority queue to store the start time and the end time of
-     * the events which happens after the given date (the time we need to get free time). Then, if the start
-     * time of one existing events is after the end time of the current desired duration, the system will show the
+     * This method execute the free-time command. Implements priority queue to store the start time and the end time of.
+     * the events which happens after the given date (the time we need to get free time). Then, if the start.
+     * time of one existing events is after the end time of the current desired duration, the system will show the.
      * desired duration as the available time slot.
      *
-     * @param tasks   task list
-     * @param ui      user interface
-     * @param storage read or write the local file which stores the task list
-     * @throws DukeException  any duke exception
-     * @throws ParseException any duke exception
+     * @param tasks   task list.
+     * @param ui      user interface.
+     * @param storage read or write the local file which stores the task list.
+     * @throws DukeException  any duke exception.
+     * @throws ParseException any duke exception.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
