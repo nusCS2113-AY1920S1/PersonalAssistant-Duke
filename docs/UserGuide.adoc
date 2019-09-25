@@ -138,9 +138,7 @@ Example:
 
 Reminders for upcoming payments.
 
-Format:
-
-`*reminder*`
+Format: `*reminder*`
 
 *NOTE*: Reminders will auto pop up with the greeting message.
 
@@ -152,9 +150,7 @@ Example:
 
 Set expense limit on particular types of spending.
 
-Format:
-
-`*set limit* /tag [TAG] [AMOUNT]`
+Format: `*set limit* /tag [TAG] [AMOUNT]`
 
 Example:
 
@@ -181,9 +177,7 @@ Examples:
 
 View spending statistics using histograms
 
-Format:
-
-`*stats*`
+Format: `*stats*`
 
 Example:
 
@@ -193,9 +187,7 @@ Example:
 
 Add a favourite product 
 
-Format:
-
-`*add favourite* [LIST NO.]`
+Format: `*add favourite* [LIST NO.]`
 
 Example:
 
