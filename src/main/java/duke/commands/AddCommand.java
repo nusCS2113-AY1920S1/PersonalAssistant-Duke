@@ -21,7 +21,7 @@ public class AddCommand extends Command {
      * Initialises all the attributes of the details of the task to be added.
      * @param type TaskType enum of what task class to add.
      * @param description User input description of the task to add.
-     * @param details Formatted datetime of task.
+     * @param details String describing todo duration (optional), deadline date, or event period.
      * @throws BadInputException Thrown if user input is wrongly formatted.
      */
     public AddCommand(CommandType type, String description, String details) throws BadInputException {
@@ -30,11 +30,6 @@ public class AddCommand extends Command {
         this.details = details;
 
         switch (type) {
-        case TODO:
-            if (!details.equals("")) {
-                dateTimes[0] = new DateTime(details);
-            }
-            break;
 
         case DEADLINE:
             dateTimes[0] = new DateTime(details);
