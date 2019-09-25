@@ -15,17 +15,15 @@ public class AddCommand extends Command {
 
     private String description;
     private String details;
-    private int afterIndex;
     private DateTime[] dateTimes = new DateTime[2];
 
     /**
      * Why does this require a javadoc comment.
      */
-    public AddCommand(CommandType type, String description, String details, int afterIndex) throws BadInputException {
+    public AddCommand(CommandType type, String description, String details) throws BadInputException {
         super(type);
         this.description = description;
         this.details = details;
-        this.afterIndex = afterIndex;
 
         switch (type) {
             case TODO:
@@ -56,15 +54,24 @@ public class AddCommand extends Command {
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
 
         int index = list.getListIndex(); //To assign the next task's index.
-        String doAfterWhat = "";
-        //Section for handling doAfters.
-        //Using the indexes presented to the user.
-        if (afterIndex > 0 && afterIndex > list.getSize()) { //Referring to a nonexistent task
-            throw new BadInputException("This is not a valid task. (to do after)");
-        } else if (afterIndex > 0) { //afterIndex is -1 if there is nothing to do before.
-            //Get description of task to doAfter.
-            doAfterWhat = list.getTaskList().get(afterIndex - 1).getDescription(); //0-indexed list!
+
+        if (super.type == CommandType.TODO) {
+            if (!details.equals("")) {
+                list.addItem(TaskType.TODO, description, Integer.parseInt(details));
+            } else {
+                list.addItem(TaskType.TODO,description);
+            }
+        } else if (super.type == CommandType.DEADLINE) {
+            list.addItem(TaskType.DEADLINE, description, dateTimes[0]);
+        } else { //Type is event
+            list.addItem(TaskType.EVENT, description, dateTimes[1], dateTimes[1]);
         }
+
+    }
+
+    public void execute(TaskList list) throws BadInputException {
+
+        int index = list.getListIndex(); //To assign the next task's index.
 
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
