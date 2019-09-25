@@ -1,6 +1,6 @@
-import duke.command.Schedule;
-import duke.command.ViewScheduleCommand;
-import duke.dukeexception.DukeException;
+import duchess.model.Schedule;
+import duchess.logic.commands.ViewScheduleCommand;
+import duchess.logic.commands.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

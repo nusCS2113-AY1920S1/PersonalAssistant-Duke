@@ -1,7 +1,7 @@
-package duke.command;
+package duchess.storage;
 
-import duke.dukeexception.DukeException;
-import duke.task.TaskList;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.TaskList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

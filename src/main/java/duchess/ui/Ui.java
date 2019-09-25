@@ -1,7 +1,8 @@
-package duke.command;
+package duchess.ui;
 
-import duke.task.Snoozeable;
-import duke.task.Task;
+import duchess.model.Schedule;
+import duchess.storage.task.Snoozeable;
+import duchess.storage.task.Task;
 
 import java.util.List;
 import java.util.Scanner;

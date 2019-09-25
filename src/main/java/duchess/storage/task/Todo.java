@@ -1,7 +1,7 @@
-package duke.task;
+package duchess.storage.task;
 
-import duke.dukeexception.DukeException;
-import duke.command.Schedule;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.model.Schedule;
 
 import java.util.Date;
 import java.util.List;

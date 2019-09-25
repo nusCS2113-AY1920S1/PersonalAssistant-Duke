@@ -1,21 +1,23 @@
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.ReminderCommand;
-import duke.command.SnoozeCommand;
-import duke.command.ViewScheduleCommand;
-import duke.dukeexception.DukeException;
+package duchess.logic.parser;
+
+import duchess.logic.commands.AddDeadlineCommand;
+import duchess.logic.commands.AddEventCommand;
+import duchess.logic.commands.AddTodoCommand;
+import duchess.logic.commands.ByeCommand;
+import duchess.logic.commands.Command;
+import duchess.logic.commands.DeleteCommand;
+import duchess.logic.commands.DoneCommand;
+import duchess.logic.commands.FindCommand;
+import duchess.logic.commands.ListCommand;
+import duchess.logic.commands.ReminderCommand;
+import duchess.logic.commands.SnoozeCommand;
+import duchess.logic.commands.ViewScheduleCommand;
+import duchess.logic.commands.exceptions.DukeException;
 
 import java.util.Arrays;
 import java.util.List;
 
-class Parser {
+public class Parser {
     /**
      * Returns the command to execute after parsing user input.
      *

@@ -1,8 +1,10 @@
-package duke.command;
+package duchess.logic.commands;
 
-import duke.dukeexception.DukeException;
-import duke.task.Event;
-import duke.task.TaskList;
+import duchess.storage.Storage;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.Event;
+import duchess.storage.task.TaskList;
+import duchess.ui.Ui;
 
 import java.util.List;
 

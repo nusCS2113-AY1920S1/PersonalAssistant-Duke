@@ -1,7 +1,7 @@
-import duke.dukeexception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.Task;
+import duchess.storage.task.TaskList;
+import duchess.storage.task.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

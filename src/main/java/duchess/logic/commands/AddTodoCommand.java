@@ -1,9 +1,12 @@
-package duke.command;
+package duchess.logic.commands;
 
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Task;
-import duke.dukeexception.DukeException;
+import duchess.storage.Storage;
+import duchess.storage.task.TaskList;
+import duchess.storage.task.Todo;
+import duchess.storage.task.Task;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.ui.Ui;
+
 import java.util.List;
 
 public class AddTodoCommand extends Command {

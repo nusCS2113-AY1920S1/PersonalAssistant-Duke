@@ -1,5 +1,5 @@
-import duke.dukeexception.DukeException;
-import duke.task.Deadline;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

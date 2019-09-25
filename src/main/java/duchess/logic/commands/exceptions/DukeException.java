@@ -1,4 +1,4 @@
-package duke.dukeexception;
+package duchess.logic.commands.exceptions;
 
 public class DukeException extends Exception {
     public DukeException(String message) {

@@ -1,6 +1,6 @@
-package duke.task;
+package duchess.storage.task;
 
-import duke.command.Schedule;
+import duchess.model.Schedule;
 
 import java.io.Serializable;
 import java.util.Date;

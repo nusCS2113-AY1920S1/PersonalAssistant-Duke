@@ -1,4 +1,4 @@
-package duke.command;
+package duchess.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

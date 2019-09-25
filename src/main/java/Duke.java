@@ -1,8 +1,9 @@
-import duke.command.Command;
-import duke.command.Storage;
-import duke.command.Ui;
-import duke.dukeexception.DukeException;
-import duke.task.TaskList;
+import duchess.logic.commands.Command;
+import duchess.logic.parser.Parser;
+import duchess.storage.Storage;
+import duchess.ui.Ui;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.TaskList;
 
 public class Duke {
 

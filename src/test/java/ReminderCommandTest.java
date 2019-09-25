@@ -1,9 +1,10 @@
-import duke.command.AddDeadlineCommand;
-import duke.command.ReminderCommand;
-import duke.command.Storage;
-import duke.command.Ui;
-import duke.dukeexception.DukeException;
-import duke.task.TaskList;
+import duchess.logic.commands.AddDeadlineCommand;
+import duchess.logic.commands.ReminderCommand;
+import duchess.logic.parser.Parser;
+import duchess.storage.Storage;
+import duchess.ui.Ui;
+import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
