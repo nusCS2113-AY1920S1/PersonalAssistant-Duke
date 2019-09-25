@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import duke.Data.Storage;
 import duke.GUI.ViewModules;
-import duke.Module.Schedule;
 import duke.Task.*;
 
 import javafx.application.Application;
@@ -39,7 +38,6 @@ public class Duke extends Application {
 
     /**
      * This program runs the main duke program
-     *
      * @param args expects array of string objects
      */
     public static void main(String[] args) throws FileNotFoundException {
@@ -65,7 +63,6 @@ public class Duke extends Application {
     /**
      * Upon running duke main, Start() will run.
      * Creates the initial layout for the GUI
-     *
      * @param stage
      */
     @Override
@@ -75,7 +72,7 @@ public class Duke extends Application {
 
         //Create buttons and add to layoutHome
         buttonSchedule = new Button();
-        buttonSchedule.setText("View Schedule");
+        buttonSchedule.setText("Manage Schedule");
         buttonStudents = new Button();
         buttonStudents.setText("Manage Students");
         buttonTraining = new Button();

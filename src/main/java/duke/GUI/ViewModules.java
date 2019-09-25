@@ -1,6 +1,7 @@
 package duke.GUI;
 
-
+import duke.Duke;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -17,9 +18,8 @@ import javafx.scene.layout.VBox;
 public class ViewModules {
 
     /**
-     * Creates the time table of the scheduled events for the month.
+     * Creates the time table of the scheduled events for the week.
      * For use in the main menu
-     *
      * @return GridPane of the generated table
      */
     public static GridPane timeTable() {
@@ -47,16 +47,12 @@ public class ViewModules {
         }
         timetable.setLayoutX(350);
         timetable.setLayoutY(125);
-
-        //Change the look of the timetable
         timetable.setStyle("-fx-pref-height: 450px; -fx-pref-width: 850px; -fx-background-color: lavender;");
         return timetable;
     }
 
-
     /**
      * Method creates the layout for the Schedule UI
-     *
      * @return Pane of the layout Schedule
      */
     public static Pane layoutSchedule() {
@@ -97,7 +93,6 @@ public class ViewModules {
 
     /**
      * Method creates the layout for the Students UI
-     *
      * @return Pane of the layout Students UI
      */
     public static Pane layoutStudents() {
@@ -139,7 +134,6 @@ public class ViewModules {
 
     /**
      * Method creates the layout for the Students UI
-     *
      * @return Pane of the layout Students UI
      */
     public static Pane layoutTraining() {
