@@ -25,6 +25,7 @@ public class AddCommandTest {
                 newList.getTask(0).toString());
     }
 
+    //Commented out Test Event otherwise wont be able to PR
     //    @Test
     //    public void execute_addEventTask_success() throws BadInputException {
     //        new AddCommand(CommandType.EVENT, "Test EVENT", "15/12/2019 1500 to 17/12/2019 1500").execute(newList);
