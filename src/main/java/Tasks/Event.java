@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 import UI.Ui;
 
@@ -33,6 +35,7 @@ public class Event extends Task {
         return "E"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "at: " + date + " " + start + "-" + end;
     }
     public String listFormat(){
+        String datestring = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));// You can change to this format
         return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + date + " " + start + "-" + end + ")";
     }
 
