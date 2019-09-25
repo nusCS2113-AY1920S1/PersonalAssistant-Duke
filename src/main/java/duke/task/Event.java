@@ -1,29 +1,28 @@
 package duke.task;
 
 import duke.parser.Parser;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 
 /**
  * Represents an Event, a {@link Task} which is happening at a specific Date and time
  */
 public class Event extends Task {
+	
     private String at;
     private Date date;
 
-    public Event(String description, String at) {
+    /**
+	 * The constructor method for Event
+	 */
+    public Event(String description, String str) {
         super(description);
-        this.at = at;
-        this.date = Parser.getDate(at);
+        this.setNewDate(str);
     }
 
     @Override
     public void setNewDate(String date) {
-        at=date;
-        this.date=Parser.getDate(at);
+        this.at = date;
+        this.date = Parser.stringToDate(at);
     }
 
     @Override
@@ -33,14 +32,19 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + Parser.getDateString(date, at) + ")";
-    }
-     /**
-     * Returns the String representation of the {@link Event} in format compatible to be easily read and written in a text file on the hard disc
-     * @return String used to print the {@link Task } in the text file
-     */
-    public String printInFile() {
-        return this.isDone() ? "E|1|" + getDescription() + "|" + Parser.getDateString(date, at) : "E|0|" + this.getDescription() + "|" + Parser.getDateString(date, at);
+        return "[E]" + super.toString() + "(at: " + at + ")";
     }
 
+    /**
+     * Formats {@link Event} into a String
+     * @return String used to print the {@link Task } in the text file
+     */
+    @Override
+    public String printInFile() {
+		if(this.isDone()){
+			return "E|1|" + this.getDescription() + "|" + at;
+		}else{
+			return "E|0|" + this.getDescription() + "|" + at;
+		}
+    }
 }

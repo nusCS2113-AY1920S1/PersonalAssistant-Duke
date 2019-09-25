@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.parser.Parser;
-
 import java.util.Date;
 
 /**
@@ -10,14 +9,18 @@ import java.util.Date;
 public class Todo extends Task {
 
     private Date date;
+	
+	/**
+	 * The constructor method for Todo
+	 */
     public Todo(String description) {
         super(description);
-        date=null;
+        date = null;
     }
 
     @Override
     public void setNewDate(String date) {
-        this.date= Parser.getDate(date);
+        this.date = Parser.stringToDate(date);
     }
 
     @Override
@@ -32,6 +35,10 @@ public class Todo extends Task {
 
     @Override
     public String printInFile() {
-        return this.isDone() ? "T|1|" + this.getDescription() : "T|0|" + this.getDescription();
+		if(this.isDone()){
+			return "T|1|" + this.getDescription();
+		}else{
+			return "T|0|" + this.getDescription();
+		}
     }
 }

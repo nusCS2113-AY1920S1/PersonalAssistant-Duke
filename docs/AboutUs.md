@@ -11,7 +11,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Hafidz Bin Hussain
 
-[photo here]
+![Hafidz](/docs/images/Hafidz.png)
 
 [[github](https://github.com/9hafidz6)] [profolio]
 
@@ -21,7 +21,7 @@ Responsibilities:
 
 ### Sara Djambazovska
 
-[photo here]
+![Sara](/docs/images/Sara.png)
 
 [[github](https://github.com/saradj/)] [profolio]
 
@@ -31,9 +31,9 @@ Responsibilities:
 
 ### Jiahan Yu
 
-[photo here]
+![Jiahan](/docs/images/Jiahan.png)
 
-[[github](https://github.com/saradj/)] [profolio]
+[[github](https://github.com/VirginiaYu)] [profolio]
 
 Role: Developer
 
@@ -41,7 +41,7 @@ Responsibilities:
 
 ### Goh Zhen Hao Joey
 
-[photo here]
+![Joey](/docs/images/Joey.png)
 
 [[github](https://github.com/x3chillax)] [profolio]
 
@@ -51,7 +51,7 @@ Responsibilities:
 
 ### Lincoln Lim
 
-[photo here]
+![Lincoln](/docs/images/Lincoln.png)
 
 [[github](https://github.com/CEGLincoln)] [profolio]
 

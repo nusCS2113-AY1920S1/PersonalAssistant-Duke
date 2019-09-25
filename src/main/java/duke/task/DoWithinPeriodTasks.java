@@ -1,23 +1,30 @@
 package duke.task;
 
 import duke.parser.Parser;
-
 import java.util.Date;
 
 public class DoWithinPeriodTasks extends Task{
 
-    private Date from;
-    private Date to;
+    private String from;
+    private String to;
 
+	/**
+	 * The constructor method for DoWithinPeriodTasks
+	 */
     public DoWithinPeriodTasks(String d, String f, String t) {
-        //CONSTRUCTOR
         super(d);
-        from = Parser.getDate(f);
-        to = Parser.getDate(t);
+        from = f;
+        to = t;
     }
 
-    public String printInFile(){
-        return this.toString();
+    @Override
+    public void setNewDate(String date) {
+        //which one?
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return null;
     }
 
     @Override
@@ -32,6 +39,15 @@ public class DoWithinPeriodTasks extends Task{
 
     @Override
     public String toString(){
-        return "[P]" + super.toString() + "(from: " + "TODO" + " to: " + "TODO";
+        return "[P]" + super.toString() + "(from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String printInFile(){
+        if(super.isDone()){
+            return "P|1|" + super.getDescription() + "|" + from + "|" + to;
+        } else {
+            return "P|0|" + super.getDescription() + "|" + from + "|" + to;
+        }
     }
 }

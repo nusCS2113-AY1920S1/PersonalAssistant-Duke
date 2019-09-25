@@ -1,0 +1,4 @@
+T|1|read book
+D|0|return book|Monday
+E|0|meeting|U-Town
+P|0|lecture|1600|1800
