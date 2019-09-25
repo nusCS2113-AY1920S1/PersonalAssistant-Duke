@@ -152,4 +152,8 @@ public class Ui {
     public void promptForTask() {
         System.out.println("now enter your desired task as usual!");
     }
+
+    public void showChangeInTaskList() {
+        System.out.println("You have some recurring tasks that need to be cleared, please check them:");
+    }
 }

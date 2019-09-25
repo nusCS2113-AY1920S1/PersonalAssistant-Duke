@@ -139,7 +139,7 @@ public class Storage {
         }
     }
 
-    private String convertForStorage(Task task) throws DukeException {
+    public String convertForStorage(Task task) throws DukeException {
         try {
             String type = String.valueOf(task.toString().charAt(1));
             String time = "";

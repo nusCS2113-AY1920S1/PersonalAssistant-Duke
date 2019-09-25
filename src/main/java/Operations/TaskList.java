@@ -84,4 +84,8 @@ public class TaskList {
     public static ArrayList<Task> currentList() {
         return tasks;
     }
+
+    public void replace(int index, Task replacement) {
+        tasks.set(index, replacement);
+    }
 }

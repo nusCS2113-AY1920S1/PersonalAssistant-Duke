@@ -2,11 +2,14 @@ package Operations;
 
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
+import Enums.RecurrenceScheduleType;
 import Enums.TaskType;
 import Model_Classes.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 public class RecurHandler {
@@ -97,10 +100,156 @@ public class RecurHandler {
         }
     }
 
-    public void checkRecurrence(TaskList taskList) {
+    public boolean checkRecurrence(TaskList taskList) {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        String time = now.format(dateTimeFormatter);
+        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String currentTime = now.format(dateTimeFormatterNow);
+        int index = 0;
+        boolean isEdited = false;
+        for (Task check : TaskList.currentList()) {
+            if (check.toString().contains("(R:")) {
+                String temp = check.toString();
+                String[] array = temp.split("\\s+");
+                String recurrenceSchedule;
+                RecurrenceScheduleType type;
+                Calendar calendar = Calendar.getInstance();
+                String description = check.getDescription();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy 18:00");
+                if (check.toString().contains("[T]")) {
+                    recurrenceSchedule = array[3].substring(0, array[3].length() - 1);
+                    type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
+                    switch (type) {
+                        case day:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                Date created = parser.formatDate(check.getCreated());
+                                calendar.setTime(created);
+                                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    RecurringToDo recurringToDo = new RecurringToDo(description, "day");
+                                    taskList.replace(index, recurringToDo);
+                                    isEdited = true;
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case week:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                Date created = parser.formatDate(check.getCreated());
+                                calendar.setTime(created);
+                                calendar.add(Calendar.DAY_OF_WEEK, 7);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    RecurringToDo recurringToDo = new RecurringToDo(description, "week");
+                                    taskList.replace(index, recurringToDo);
+                                    isEdited = true;
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case month:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                Date created = parser.formatDate(check.getCreated());
+                                calendar.setTime(created);
+                                calendar.add(Calendar.MONTH, 1);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    RecurringToDo recurringToDo = new RecurringToDo(description, "month");
+                                    taskList.replace(index, recurringToDo);
+                                    isEdited = true;
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                } else {
+                    recurrenceSchedule = array[10].substring(0, array[10].length() - 1);
+                    type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
+                    switch (type) {
+                        case week:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                String date = new Storage().convertForStorage(check);
+                                date = date.substring(0, 16);
+                                Date storedDate = parser.formatDate(date);
+                                calendar.setTime(storedDate);
+                                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    if (check.toString().contains("[D]")) {
+                                        RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "week");
+                                        taskList.replace(index, recurringDeadline);
+                                        isEdited = true;
+                                    } else {
+                                        RecurringEvent recurringEvent = new RecurringEvent(description, newDate, "week");
+                                        taskList.replace(index, recurringEvent);
+                                        isEdited = true;
+                                    }
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case day:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                String date = new Storage().convertForStorage(check);
+                                date = date.substring(0, 16);
+                                Date storedDate = parser.formatDate(date);
+                                calendar.setTime(storedDate);
+                                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    if (check.toString().contains("[D]")) {
+                                        RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "day");
+                                        taskList.replace(index, recurringDeadline);
+                                        isEdited = true;
+                                    } else {
+                                        RecurringEvent recurringEvent = new RecurringEvent(description, newDate, "day");
+                                        taskList.replace(index, recurringEvent);
+                                        isEdited = true;
+                                    }
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
 
+                        case month:
+                            try {
+                                Date current = parser.formatDate(currentTime);
+                                String date = new Storage().convertForStorage(check);
+                                date = date.substring(0, 16);
+                                Date storedDate = parser.formatDate(date);
+                                calendar.setTime(storedDate);
+                                calendar.add(Calendar.MONTH, 1);
+                                Date newDate = calendar.getTime();
+                                if (newDate.compareTo(current) > 0) {
+                                    if (check.toString().contains("[D]")) {
+                                        RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "month");
+                                        taskList.replace(index, recurringDeadline);
+                                        isEdited = true;
+                                    } else {
+                                        RecurringEvent recurringEvent = new RecurringEvent(description, newDate, "month");
+                                        taskList.replace(index, recurringEvent);
+                                        isEdited = true;
+                                    }
+                                }
+                            } catch (DukeException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                }
+            }
+            index += 1;
+        }
+        return isEdited;
     }
 }
