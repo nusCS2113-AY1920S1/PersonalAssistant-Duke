@@ -1,4 +1,4 @@
-package commands;
+package duke.commands;
 
 import duke.TaskList;
 import duke.commands.AddCommand;
