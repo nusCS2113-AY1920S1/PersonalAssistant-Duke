@@ -1,12 +1,14 @@
 import Commands.Command;
 
+import java.io.IOException;
+
 public class Farmio {
     private Storage storage;
     private Farmer farmer;
     private Ui ui;
     private Parser parser;
 
-    public Farmio() {
+    public Farmio() throws IOException {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage();
@@ -29,7 +31,7 @@ public class Farmio {
         }
     }
 
-    public static void main(String[] args) {    //TODO - configure both OS
+    public static void main(String[] args) throws IOException {    //TODO - configure both OS
         new Farmio().run();
     }
 
