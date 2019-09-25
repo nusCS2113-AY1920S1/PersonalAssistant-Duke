@@ -2,7 +2,6 @@ import command.*;
 import exception.DukeException;
 import storage.Storage;
 import task.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -126,8 +125,9 @@ public class Parser {
                 dateInfo.add(a[0].trim()); //description
                 dateInfo.add(b[0].trim()); //deadline date
                 dateInfo.add(b[1].trim()); //reminder date
-                String filePath = "src/main/data/reminders.txt";
-                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2) + System.lineSeparator();
+
+                String filePath = "/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt";
+                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2);
                 Storage.writeReminderFile(reminderInfo, filePath);
 
             } else {
