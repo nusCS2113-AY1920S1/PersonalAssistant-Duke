@@ -3,7 +3,7 @@ package Tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected Date by;
     private SimpleDateFormat simpleDateFormat;
@@ -20,13 +20,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + "(by: " + getBy() + ")";
     }
 
-    public String getBy(){
+    public String getBy() {
         return simpleDateFormat.format(by);
     }
 
-    public Date getDateBy(){
+    public Date getDateBy() {
         return by;
     }
-
-
 }

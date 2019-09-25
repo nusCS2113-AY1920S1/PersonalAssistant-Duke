@@ -9,7 +9,9 @@ import Tasks.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FreeTimeCommand extends Command {
 
@@ -103,6 +105,5 @@ public class FreeTimeCommand extends Command {
         }
         ui.appendToOutput("  The nearest time slot: \n" + "    " + simpleDateFormat.format(start) + " ~ "
                 + simpleDateFormat.format(end) + " is available\n");
-
-    }//execute
-}//class
+    } //execute
+} //class

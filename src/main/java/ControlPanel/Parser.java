@@ -1,6 +1,19 @@
 package ControlPanel;
 
-import Commands.*;
+import Commands.AddCommand;
+import Commands.ChooseEventTime;
+import Commands.Command;
+import Commands.DeleteCommand;
+import Commands.DoneCommand;
+import Commands.ExitCommand;
+import Commands.FreeTimeCommand;
+import Commands.RemindersCommand;
+import Commands.RescheduleCommand;
+import Commands.SearchCommand;
+import Commands.ViewCommand;
+import Commands.ViewScheduleCommand;
+
+
 
 import java.text.ParseException;
 
@@ -9,7 +22,8 @@ import java.text.ParseException;
  * according to its type
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {}
+    public Parser() throws DukeException, ParseException {
+    }
 
     /**
      * The constructor which runs the parser
@@ -17,7 +31,6 @@ public class Parser {
      * @return return a command object which is initialized based on its type
      * @throws DukeException if any exception is caught
      */
-
     public static Command parse(String cmd) throws DukeException, ParseException {
         Command command;
         if (cmd.equals("bye")) {
@@ -45,15 +58,17 @@ public class Parser {
             command  = new ViewScheduleCommand(cmd);
         } else if (cmd.startsWith("reschedule")) {
             command = new RescheduleCommand(cmd);
-        } else if(cmd.contains("choose")) {
+        } else if (cmd.contains("choose")) {
             command = new ChooseEventTime(cmd);
-        } else if(cmd.startsWith("free-time")){
+        } else if (cmd.startsWith("free-time")) {
             String[] words = cmd.split(" ");
             int duration = Integer.parseInt(words[1]);
-            command = new FreeTimeCommand(words[4]+" "+words[5], duration);
+            command = new FreeTimeCommand(words[4] + " " + words[5], duration);
         } else {
             String keyword = cmd.split(" ")[0];
-            if (!(keyword.equals("deadline") || keyword.equals("event") || keyword.equals("todo") || keyword.equals("period") ||keyword.equals("duration") || keyword.equals("multiEvent"))) {
+            if (!(keyword.equals("deadline") || keyword.equals("event")
+                    || keyword.equals("todo") || keyword.equals("period")
+                    || keyword.equals("duration") || keyword.equals("multiEvent"))) {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
             }
             command = new AddCommand(keyword, cmd);

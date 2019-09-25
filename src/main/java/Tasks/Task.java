@@ -11,7 +11,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone? "[\u2713]" : "[\u2718]"); //return tick or X symbols
+        return (isDone ? "[\u2713]" : "[\u2718]"); //return tick or X symbols
     }
 
     public void markAsDone() {
@@ -22,19 +22,20 @@ public class Task {
         return getStatusIcon() + " " + description;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return isDone;
     }
 
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
     public void chooseDate(int index) {
        // System.out.println("");
     }
-
 }
 
