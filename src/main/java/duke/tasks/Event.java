@@ -26,13 +26,13 @@ public class Event extends Task {
         try {
             date = dateparser.parse(at);
             this.datetime.setTime(date);
-            this.end.setTime(date);
+            this.end = this.datetime;
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
                 date = altparser.parse(at);
                 this.datetime.setTime(date);
-                this.end.setTime(date);
+                this.end = this.datetime;
             } catch (ParseException f) {
                 this.datetime = null;
                 this.end = null;
@@ -51,10 +51,6 @@ public class Event extends Task {
             this.datetime.setTime(date);
             date = dateparser.parse(inputEnd);
             this.end.setTime(date);
-            System.out.println("Creation");
-            System.out.println(this.datetime.get(Calendar.HOUR_OF_DAY));
-            System.out.println(this.end.get(Calendar.HOUR_OF_DAY));
-            System.out.println(this.duration);
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
@@ -63,14 +59,11 @@ public class Event extends Task {
                 date = altparser.parse(inputEnd);
                 this.end.setTime(date);
             } catch (ParseException f) {
-                System.out.println(inputStart);
-                System.out.println(inputEnd);
+
                 this.datetime = null;
                 this.end = null;
             }
         }
-        System.out.println(this.datetime);
-        System.out.println(this.end);
         if (this.datetime.after(this.end)) {
             Calendar temp = this.datetime;
             this.datetime = this.end;
@@ -88,16 +81,17 @@ public class Event extends Task {
     public String toString() {
         String text = "";
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
-        if (this.end != null) {
+        if (this.end != this.datetime) {
             text += "[E]" + super.toString() + " (From: " + dateFormat.format(this.datetime.getTime()) + " to "
-                    + dateFormat.format(this.end.getTime()) + ")\n";
+                    + dateFormat.format(this.end.getTime()) + ")";
         } else if (this.datetime != null) {
-            text +=  "[E]" + super.toString() + " (at: " + dateFormat.format(this.datetime.getTime()) + ")\n";
+            text +=  "[E]" + super.toString() + " (at: " + dateFormat.format(this.datetime.getTime()) + ")";
         } else {
-            text += "[E]" + super.toString() + " (at: " + at + ")\n";
+            text += "[E]" + super.toString() + " (at: " + at + ")";
         }
         for (int i = 0; i < this.doAfter.size(); i += 1) {
-            text += this.doAfter.get(i).toString() + "\n";
+            text += "\n";
+            text += this.doAfter.get(i).toString();
         }
         return text;
     }

@@ -57,9 +57,6 @@ public class Storage {
      */
     private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule, ArrayList<ToDo> doAfter) {
         String[] splitLine = line.split("\\|");
-        for (int i = 0; i < splitLine.length; i += 1) {
-            System.out.println(splitLine[i]);
-        }
         String taskType = splitLine[0];
         String subtypes = splitLine[1];
         boolean isDone = splitLine[2].equals("1");
@@ -71,13 +68,13 @@ public class Storage {
         }
         if (taskType.equals("T")) {
             if (subtypes.trim().length() == 0) {
-                loadToDo(tasks, isDone, subtypes, doAfter, description);
+                loadToDo(tasks, isDone, subtypes, schedule, doAfter, description);
             }
             if (subtypes.contains("P")) {
-                loadToDo(tasks, isDone, subtypes, doAfter, description, splitLine[5], splitLine[6]);
+                loadToDo(tasks, isDone, subtypes, schedule, doAfter, description, splitLine[5], splitLine[6]);
             }
             if (subtypes.contains("F")) {
-                loadToDo(tasks, isDone, subtypes, doAfter, description, splitLine[5]);
+                loadToDo(tasks, isDone, subtypes, schedule, doAfter, description, splitLine[5]);
             }
         } else if (taskType.equals("D")) {
             loadDeadline(tasks, description, timeFrame, isDone, schedule, doAfter);
@@ -99,7 +96,7 @@ public class Storage {
      */
     //TODO: make such that the loadFile only need to call one function only
     private static void loadToDo(ArrayList<Task> tasks, boolean isDone,
-                                 String subtypes, ArrayList<ToDo> doAfter, String...description) {
+                                 String subtypes, Schedule schedule, ArrayList<ToDo> doAfter, String...description) {
         if (subtypes.trim().length() == 0) {
             ToDo newToDo = new ToDo(description[0]);
             if (isDone) {
@@ -114,6 +111,7 @@ public class Storage {
                 newToDo.markAsDone();
             }
             newToDo.setDoAfter(doAfter);
+            schedule.update(newToDo);
             tasks.add(newToDo);
         }
         if (subtypes.contains("F")) {
