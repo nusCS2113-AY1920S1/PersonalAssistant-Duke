@@ -143,6 +143,15 @@ public class Duke {
                     timer.schedule(rt, duration * 1000);
                     break;
 
+                case snooze :
+                    int index = parser.getIndex();
+                    ui.showSnooze();
+                    int amount = parser.getAmount();
+                    TimeUnit timeUnit = parser.getTimeUnit();
+                    taskList.snooze(index, amount, timeUnit);
+                    ui.showSnoozeComplete();
+                    break;
+
                 default:
                     ui.showCommandError();
                     break;

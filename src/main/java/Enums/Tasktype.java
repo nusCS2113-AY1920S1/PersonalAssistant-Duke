@@ -1,5 +1,5 @@
 package Enums;
 
 public enum Tasktype {
-    todo, list, deadline, event, done, delete, find, bye, time
+    todo, list, deadline, event, done, delete, find, bye, time, snooze
 }
