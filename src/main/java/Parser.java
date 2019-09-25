@@ -1,10 +1,7 @@
 import command.*;
 import exception.DukeException;
 import storage.Storage;
-import task.Deadline;
-import task.Recurring;
-import task.Todo;
-import task.Event;
+import task.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,6 +87,17 @@ public class Parser {
                     Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
                     return new AddCommand(t);
                 }
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                    String lookUpDate = dateInfo;
+                    //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                    return new ViewSchedule(lookUpDate);
+                }
                 else {
                     try {
                         throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
@@ -118,7 +126,7 @@ public class Parser {
                 dateInfo.add(a[0].trim()); //description
                 dateInfo.add(b[0].trim()); //deadline date
                 dateInfo.add(b[1].trim()); //reminder date
-                String filePath = "/home/tessa/Documents/CS2113/main/data/reminders.txt";
+                String filePath = "src/main/data/reminders.txt";
                 String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2) + System.lineSeparator();
                 Storage.writeReminderFile(reminderInfo, filePath);
 
