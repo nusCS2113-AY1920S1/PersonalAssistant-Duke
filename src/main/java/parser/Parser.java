@@ -378,8 +378,8 @@ public class Parser {
             }
             TaskList.addTask(new Recurring(token[0].strip(), "R", token[1].strip()));
             Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
-                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
-                    TaskList.getTotalTasksNumber());
+                TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
         } catch  (DukeException e) {
             throw e;
@@ -409,7 +409,6 @@ public class Parser {
             throw e;
         }
     }
-
 
     /**
      * Prints tasks that have a fixed duration
@@ -617,8 +616,9 @@ public class Parser {
      * Then print them out for user
      * Command: schedule <date>
      */
-    private static void scheduleCommand(String s) {
+    private static void scheduleCommand(String s) throws DukeException {
         String[] tokens = s.split(Pattern.quote(" "));
+        DukeException.checkSchedule(tokens);
         Ui.showScheduleIntroMessage(tokens[1]);
         tokens[1] = tokens[1] + " 00000";
         int count = 1;
@@ -636,10 +636,12 @@ public class Parser {
      * Check for any incomplete events/deadlines since the user specified date
      * The number of reminders is also specified by the user
      * The reminders is then printed out
+<<<<<<< HEAD
      * Command: reminder <no. of reminders> <date>
      */
-    private static void reminderCommand(String s) {
+    private static void reminderCommand(String s) throws DukeException {
         String[] tokens = s.split(Pattern.quote(" "));
+        DukeException.checkReminder(tokens);
         Ui.showReminderIntroMessage(Integer.valueOf(tokens[1]), tokens[2]);
         int count = 1;
         Date startDate = TimeParser.convertToDate(tokens[2]);

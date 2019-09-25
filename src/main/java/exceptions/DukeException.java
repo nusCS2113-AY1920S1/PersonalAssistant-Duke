@@ -1,9 +1,60 @@
 package exceptions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * This class deals with all the exception messages.
  */
 public class DukeException extends Exception {
+
+    /**
+     * to check exceptions for when user input command for schedule
+     */
+    public static void checkSchedule(String[] tokens) throws DukeException{
+        if (tokens.length != 2){
+            throw new DukeException("☹ OOPS!!! Invalid format. Please key in the command in the correct structure, e.g. schedule <date>");
+        } else {
+            checkDateFormat(tokens[1], "☹ OOPS!!! Invalid date. Please key in the command using valid date format, e.g. schedule 1/12/2019");
+        }
+    }
+
+    /**
+     * to check exceptions for when user input command for reminder
+     */
+    public static void checkReminder(String[] tokens) throws DukeException {
+        if (tokens.length != 3) {
+            throw new DukeException("☹ OOPS!!! Invalid format. Please key in the command in the correct structure, e.g. reminder <no. of reminders> <starting date>");
+        } else {
+            try {
+                Integer.parseInt(tokens[1]);
+            } catch (NumberFormatException e) {
+                throw new DukeException("☹ OOPS!!! Invalid number. Please key in the command using numbers, e.g. reminder 3 <starting date>");
+            }
+            checkDateFormat(tokens[2], "☹ OOPS!!! Invalid date. Please key in the command using valid date format, e.g. reminder <no. of reminders> 1/12/2019");
+        }
+    }
+
+    /**
+     * to check whether date input by user is in right format for schedule and reminder
+     */
+    public static void checkDateFormat(String s, String e) throws DukeException {
+        boolean isValid = true;
+        try {
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("d/MM/yyyy");
+            sourceFormat.parse(s);
+        } catch (ParseException e1) {
+            try {
+                SimpleDateFormat sourceFormat = new SimpleDateFormat("d-MM-yyyy");
+                sourceFormat.parse(s);
+            } catch (ParseException e2) {
+                isValid = false;
+            }
+        }
+        if (!isValid) {
+            throw new DukeException(e);
+        }
+    }
 
     public static final DukeException UNKNOWN_COMMAND = new DukeException("☹ OOPS!!! I'm sorry, "
         + "but I don't understand what you mean :-(");

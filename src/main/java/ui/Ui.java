@@ -360,9 +360,9 @@ public class Ui {
      */
     public static void printScheduleTask(Map.Entry<Date, Tasks> task){
         if (task.getValue().getType().equals("E")){
-           // System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tevent: " + task.getValue().parseDescription());
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tevent: " + task.getValue().parseDescription());
         } else{
-            //System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
+            System.out.println(space + TimeParser.getStringTime(task.getKey()) + "\tdeadline: " + task.getValue().parseDescription());
         }
     }
 
@@ -396,5 +396,4 @@ public class Ui {
     public static void printScheduleDate(String date){
         System.out.println(space + date + ":");
     }
-
 }

@@ -1,5 +1,6 @@
 package parser;
 
+import exceptions.DukeException;
 import task.Event;
 import task.Tasks;
 
@@ -171,10 +172,11 @@ public class TimeParser {
     /**
      * Get time portion of Date object only and convert it to String
      */
-    public static String getStringTime(Date date){
+    public static String getStringTime(Date date) {
         SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aaa");
         return targetFormat.format(date);
     }
+
 
     public static String getStringDate(Date date){
         SimpleDateFormat targetFormat = new SimpleDateFormat("d/MM/yyy");
@@ -191,7 +193,6 @@ public class TimeParser {
         } catch (ParseException e){
             return null;
         }
-
     }
 
 
@@ -202,10 +203,14 @@ public class TimeParser {
         try {
             SimpleDateFormat sourceFormat = new SimpleDateFormat("d/MM/yyyy");
             return sourceFormat.parse(s);
-        } catch (ParseException e) {
-            return null;
+        } catch (ParseException e1) {
+            try {
+                SimpleDateFormat sourceFormat = new SimpleDateFormat("d-MM-yyyy");
+                return sourceFormat.parse(s);
+            } catch (ParseException e2) {
+                return null;
+            }
         }
     }
-
 }
 
