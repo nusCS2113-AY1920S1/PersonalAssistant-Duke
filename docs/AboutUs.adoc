@@ -33,6 +33,8 @@ Role: Project Coder
 '''
 
 === Gervaise Ang
+image::gervaiseang.png[width="150", align="left"]
+{empty}[https://github.com/gervaiseang[github]] [https://github.com/gervaiseang[portfolio]]
 
 Role: Project Coder
 
