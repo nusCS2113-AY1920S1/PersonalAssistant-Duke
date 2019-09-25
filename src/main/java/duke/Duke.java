@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Arrays;
-
 import duke.command.Command;
 import duke.exceptions.DukeException;
 import duke.util.Parser;

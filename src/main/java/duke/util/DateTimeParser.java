@@ -32,8 +32,10 @@ public class DateTimeParser {
                 .replaceAll(" *- *", "-")
                 .replaceAll(" *am *| *pm *", " ")
                 .trim();
-        List<String> dateFormatStrings = Arrays.asList("dd-MM-yyyy", "dd/MM/yyyy", "dd-MMM-yyyy", "dd/MMM/yyyy", "d/MM/yyyy", "d-MM-yyyy",
-                "dd MMM yyyy", "d MMM yyyy", "dd/M/yyyy", "dd-M-yyyy", "d-M-y", "d/M/y", "d/M", "d-M", "M/d", "M-d", "M/y", "M-y");
+        List<String> dateFormatStrings = Arrays.asList(
+                "dd-MM-yyyy", "dd/MM/yyyy", "dd-MMM-yyyy", "dd/MMM/yyyy", "d/MM/yyyy", "d-MM-yyyy",
+                "dd MMM yyyy", "d MMM yyyy", "dd/M/yyyy", "dd-M-yyyy", "d-M-y", "d/M/y", "d/M", "d-M",
+                "M/d", "M-d", "M/y", "M-y");
         List<String> hourFormatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "H", "HH", "H:mm", "H:m", "HH:m");
         LocalDateTime localDateTime = getLocalDateTime(dateFormatStrings, hourFormatStrings, dateAndTime);
         if (localDateTime == null) {
@@ -64,12 +66,16 @@ public class DateTimeParser {
                 DateTimeFormatter fmt = getFormatter("", hourFormatStrings.get(j));
                 localDateTime = LocalDateTime.of(currentDate, LocalTime.parse(" " + dateAndTime, fmt));
             } catch (DateTimeParseException e) {
+                continue;
             }
         }
         return localDateTime;
     }
 
-    private static LocalDateTime getLocalDateTime(List<String> dateFormatStrings, List<String> hourFormatStrings, String dateAndTime) {
+    private static LocalDateTime getLocalDateTime(
+            List<String> dateFormatStrings,
+            List<String> hourFormatStrings,
+            String dateAndTime) {
         LocalDateTime localDateTime = null;
         for (int i = 0; i < dateFormatStrings.size(); ++i) {
             for (int j = 0; j < hourFormatStrings.size(); ++j) {
@@ -80,6 +86,7 @@ public class DateTimeParser {
                     DateTimeFormatter fmt = getFormatter(dateFormatStrings.get(i), hourFormatStrings.get(j));
                     localDateTime = LocalDateTime.parse(dateAndTime, fmt);
                 } catch (DateTimeParseException e) {
+                    continue;
                 }
             }
         }

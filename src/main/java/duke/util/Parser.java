@@ -1,8 +1,28 @@
 package duke.util;
 
-import duke.command.*;
-import duke.exceptions.*;
-import duke.tasks.*;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.RescheduleCommand;
+import duke.command.ScheduleCommand;
+import duke.exceptions.DukeCommandException;
+import duke.exceptions.DukeEmptyCommandException;
+import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.DukeMissingArgumentException;
+import duke.exceptions.DukeMultipleValuesForSameArgumentException;
+import duke.exceptions.DukeScheduleException;
+import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
+import duke.tasks.Events;
+import duke.tasks.FixedDurationTasks;
+import duke.tasks.RecurringTask;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -44,7 +64,7 @@ public class Parser {
         }
     }
 
-    private static void checkContainRequiredArguments(LinkedHashMap <String, String> parsedArgs, String... args)
+    private static void checkContainRequiredArguments(LinkedHashMap<String, String> parsedArgs, String... args)
             throws DukeMissingArgumentException {
         for (String arg: args) {
             if (!parsedArgs.containsKey(arg) || parsedArgs.get(arg).isBlank()) {
@@ -86,13 +106,20 @@ public class Parser {
     }
 
     private static String[] testRegex(String inputs, String keyword) throws DukeEmptyCommandException {
-        if (keyword.equals("todo") && inputs.equals("todo")) {
+        if (keyword.equals("todo")
+                && inputs.equals("todo")) {
             throw new DukeEmptyCommandException();
-        } else if (keyword.equals("deadline") && inputs.startsWith("deadline ") && !inputs.contains("/by")) {
+        } else if (keyword.equals("deadline")
+                && inputs.startsWith("deadline ")
+                && !inputs.contains("/by")) {
             throw new DukeEmptyCommandException();
-        } else if (keyword.equals("event") && inputs.startsWith("event ") && !inputs.contains("/at")) {
+        } else if (keyword.equals("event")
+                && inputs.startsWith("event ")
+                && !inputs.contains("/at")) {
             throw new DukeEmptyCommandException();
-        } else if (keyword.equals("fixedDuration") && inputs.startsWith("fixedDuration") && !inputs.contains("/needs")) {
+        } else if (keyword.equals("fixedDuration")
+                && inputs.startsWith("fixedDuration")
+                && !inputs.contains("/needs")) {
             throw new DukeEmptyCommandException();
         } else {
             String[] res = inputs.split("/", 2);
@@ -168,80 +195,80 @@ public class Parser {
             DukeInvalidTimeException,
             DukeMultipleValuesForSameArgumentException,
             DukeMissingArgumentException,
-            DukeInvalidTimePeriodException, DukeScheduleException {
+            DukeInvalidTimePeriodException {
         //Checks every input for keyword command
         input = input.trim();
-            if (input.startsWith("todo ")) {
-                String[] temp = input.split("todo ");
-                String[] split = testRegex(temp[temp.length - 1]);
-                if (!temp[0].equals("")) {
-                    throw new DukeCommandException();
-                }
-                Task hold = new Todo(split);
-                return new AddCommand(hold);
-            } else if (input.startsWith("event ")) {
-                String[] temp = input.split("event");
-                String[] split = testRegex(temp[temp.length - 1]);
-                if (!temp[0].equals("")) {
-                    throw new DukeCommandException();
-                }
-                split[split.length - 1] = split[split.length - 1].trim();
-                split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
-                Task hold = new Events(split);
-                return new AddCommand(hold);
-            } else if (input.startsWith("deadline ")) {
-                String[] temp = input.split("deadline");
-                String[] split = testRegex(temp[temp.length - 1]);
-                if (!temp[0].equals("")) {
-                    throw new DukeCommandException();
-                }
-                split[split.length - 1] = split[split.length - 1].trim();
-                split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
-                Task hold = new Deadline(split);
-                return new AddCommand(hold);
-            } else if (input.startsWith("recurring ")) {
-                String[] temp = input.split("recurring ");
-                String[] split = testRegex(temp[temp.length - 1]);
-                if (!temp[0].equals("")) {
-                    throw new DukeCommandException();
-                }
-                split[split.length - 1] = split[split.length - 1].trim();
-                split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
-                Task hold = new RecurringTask(split);
-                return new AddCommand(hold);
-            } else if (input.startsWith("fixedDuration")) {
-                String[] temp = input.split("fixedDuration ");
-                String[] split = testRegex(temp[temp.length - 1]);
-                if (!temp[0].equals("")) {
-                    throw new DukeCommandException();
-                }
-                split[split.length - 1] = split[split.length - 1].trim();
-                split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
-                Task hold = new FixedDurationTasks(split);
-                return new AddCommand(hold);
-            } else if (input.startsWith("doWithin ")) {
-                LinkedHashMap<String, String> args = parse(input, true, true);
-                checkContainRequiredArguments(args, "/begin", "/end");
-                Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
-                return new AddCommand(hold);
-            } else if (input.equals("bye")) {
-                return new ByeCommand();
-            } else if (input.startsWith("done ")) {
-                return checkValidDoneIndex(input);
-            } else if (input.startsWith("delete ")) {
-                return deleteTask(input);
-            } else if (input.equals("list")) {
-                return new ListCommand();
-            } else if (input.startsWith("find ")) {
-                return parseFind(input);
-            } else if (input.startsWith("reschedule ")) {
-                return checkValidRescheduleIndex(input);
-            } else if (input.startsWith("schedule ")) {
-                return new ScheduleCommand(input);
-            } else {
-                //throws invalid command exception when user inputs non-keywords
+        if (input.startsWith("todo ")) {
+            String[] temp = input.split("todo ");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
                 throw new DukeCommandException();
             }
+            Task hold = new Todo(split);
+            return new AddCommand(hold);
+        } else if (input.startsWith("event ")) {
+            String[] temp = input.split("event");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
+            Task hold = new Events(split);
+            return new AddCommand(hold);
+        } else if (input.startsWith("deadline ")) {
+            String[] temp = input.split("deadline");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
+            Task hold = new Deadline(split);
+            return new AddCommand(hold);
+        } else if (input.startsWith("recurring ")) {
+            String[] temp = input.split("recurring ");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
+            Task hold = new RecurringTask(split);
+            return new AddCommand(hold);
+        } else if (input.startsWith("fixedDuration")) {
+            String[] temp = input.split("fixedDuration ");
+            String[] split = testRegex(temp[temp.length - 1]);
+            if (!temp[0].equals("")) {
+                throw new DukeCommandException();
+            }
+            split[split.length - 1] = split[split.length - 1].trim();
+            split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
+            Task hold = new FixedDurationTasks(split);
+            return new AddCommand(hold);
+        } else if (input.startsWith("doWithin ")) {
+            LinkedHashMap<String, String> args = parse(input, true, true);
+            checkContainRequiredArguments(args, "/begin", "/end");
+            Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        } else if (input.equals("bye")) {
+            return new ByeCommand();
+        } else if (input.startsWith("done ")) {
+            return checkValidDoneIndex(input);
+        } else if (input.startsWith("delete ")) {
+            return deleteTask(input);
+        } else if (input.equals("list")) {
+            return new ListCommand();
+        } else if (input.startsWith("find ")) {
+            return parseFind(input);
+        } else if (input.startsWith("reschedule ")) {
+            return checkValidRescheduleIndex(input);
+        } else if (input.startsWith("schedule ")) {
+            return new ScheduleCommand(input);
+        } else {
+            //throws invalid command exception when user inputs non-keywords
+            throw new DukeCommandException();
+        }
     }
 
     public static LinkedHashMap<String, String> parse(String command,
@@ -250,6 +277,17 @@ public class Parser {
             throws DukeMultipleValuesForSameArgumentException {
         return parse(command, includeCommand, includeArgs, "/", true);
     }
+
+    /**
+     * Overloaded function which returns a hash map.
+     * @param command Command desired.
+     * @param includeCommand Command to be executed.
+     * @param includeArgs Included parameters for command.
+     * @param delimiter user delimiter to split input.
+     * @param isTrim boolean result if the input has been trimmed.
+     * @return a Linked hash map of the input values.
+     * @throws DukeMultipleValuesForSameArgumentException if input contains too many arguments.
+     */
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs,
@@ -266,7 +304,7 @@ public class Parser {
             }
             return ret;
         }
-//        String[] commandComponents = command.split(" +");
+        // String[] commandComponents = command.split(" +");
         if (includeCommand) {
             ret.put("command", commandClean.substring(0, endCommandIndex++));
         }
@@ -284,8 +322,7 @@ public class Parser {
                 if (isTrim) {
                     ret.put(currArgument, commandClean.substring(currIndex, matcher.start()).trim());
                     currArgument = matcher.group().trim();
-                }
-                else {
+                } else {
                     ret.put(currArgument, commandClean.substring(currIndex, matcher.start()));
                     currArgument = matcher.group();
                 }

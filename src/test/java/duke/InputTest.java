@@ -3,7 +3,9 @@ package duke;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 /**
@@ -12,24 +14,38 @@ import java.io.PrintStream;
  */
 public class InputTest {
 
-    protected PrintStream originalSystemOut;
-    protected ByteArrayOutputStream systemOutContent;
+    protected final InputStream systemIn =  System.in;
+
+    protected ByteArrayInputStream testIn;
+    protected ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    protected ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    protected final InputStream originalIn = System.in;
+    protected final PrintStream originalOut = System.out;
+    protected final PrintStream originalErr = System.err;
+
 
     /**
      * Setting stream redirection for duke testing.
      */
     @BeforeEach
-    public void redirectSystemOutStream() {
-        originalSystemOut = System.out;
-        systemOutContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(systemOutContent));
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    protected void provideInput(String data) {
+        testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
     }
 
     /**
      * Restoring streams after testing.
      */
     @AfterEach
-    public void restoreSystemOutStream() {
-        System.setOut(originalSystemOut);
+    public void restoreStreams() {
+        System.setIn(originalIn);
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 }
