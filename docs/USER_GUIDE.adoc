@@ -1,0 +1,63 @@
+
+= Spongebob - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
+
+By: `Team F11-1/` +
+Updated As: `23/09/2019`
+
+== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/README.adoc[Introduction]
+
+SpongeBob is a command line based personal assistant.
+
+== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[Quick Start]
+
+* JDK 11
+* Recommended: IntelliJ IDE
+* Fork this repo to your GitHub account and clone the fork to your computer
+
+[[Features]]
+== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/COMMANDS.adoc[Features and Commands]
+Some example commands you can try:
+
+* *`event`* : xxxx
+* *`deadline`* : xxxx
+* *`doafter`* : xxxxx
+* *`dowithin`* : xxxx
+
+=== Adding a event: `event`
+Adds a event +
+Format: `xxxx...`
+
+Examples:
+
+* `event ...`
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/FAQ.adoc[FAQs]
+
+*Q*: qqqqqqq? +
+*A*: aaaaaaaa.
+
+== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/COMMANDS.adoc[Command Summary]
+
+* *`event`* : xxxxxxx
+* *`deadline`* : xxxx
+* *`doafter`* : xxxxx
+* *`dowithin`* : xxxx
