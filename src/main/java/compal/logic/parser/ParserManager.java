@@ -14,6 +14,7 @@ import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
 import compal.logic.commands.ReminderCommand;
 import compal.logic.commands.ViewCommand;
+import compal.logic.commands.RemindCommand;
 import compal.tasks.TaskList;
 
 import static compal.compal.Messages.MESSAGE_INVALID_COMMAND;
@@ -40,6 +41,7 @@ public class ParserManager {
     static final String CMD_VIEW = "view";
     static final String CMD_FIND = "find";
     static final String CMD_REMINDER = "reminder";
+    static final String CMD_REMIND = "remind";
 
     /*
      * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
@@ -148,6 +150,10 @@ public class ParserManager {
                 case CMD_REMINDER:
                     ReminderCommand reminderCommand = new ReminderCommand(compal);
                     reminderCommand.parseCommand(cmd);
+                    break;
+                case CMD_REMIND:
+                    RemindCommand remindCommand = new RemindCommand(compal);
+                    remindCommand.parseCommand(userInput);
                     break;
                 default:
                     compal.ui.printg(MESSAGE_INVALID_COMMAND);

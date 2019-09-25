@@ -3,6 +3,7 @@ package compal.logic.commands;
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.Event;
+import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
@@ -46,9 +47,10 @@ public class EventCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
+            Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
             String time = getTime(restOfInput);
-            taskList.addTask(new Event(description, date, time));
+            taskList.addTask(new Event(description, priority, date, time));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

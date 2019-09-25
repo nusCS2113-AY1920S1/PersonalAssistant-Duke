@@ -16,6 +16,7 @@ public class Messages {
             + "a value between 0 and 59 inclusive!";
     public static final String MESSAGE_INVALID_TASK_NUMBER = "TaskNumberError: You can only input "
             + "a valid task number!";
+    public static final String MESSAGE_INVALID_TASK = "TaskError: You can only input a task with a future due date!";
 
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
             + " Please enter a description";
@@ -25,10 +26,13 @@ public class Messages {
     public static final String MESSAGE_MISSING_INPUT = "Empty Input: Empty input detected!";
     public static final String MESSAGE_MISSING_TIME = "MissingTimeError: Time field cannot be empty."
             + " Please enter a valid time.";
+    public static final String MESSAGE_MISSING_PRIORITY = "MissingPriorityError: Priority "
+            + "field cannot be empty";
 
     public static final String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     public static final String MESSAGE_MISSING_TIME_ARG = "ArgumentError: Missing /time";
     public static final String MESSAGE_MISSING_HOUR_ARG = "ArgumentError: Missing /hour";
     public static final String MESSAGE_MISSING_MIN_ARG = "ArgumentError: Missing /min";
+    public static final String MESSAGE_MISSING_PRIORITY_ARG = "ArgumentError: Missing /priority";
     public static final String MESSAGE_MISSING_COMMAND_ARG = "ArgumentError: Missing argument detected!";
 }

@@ -11,8 +11,8 @@ public class Deadline extends Task {
      * @param description Description of deadline.
      * @param date        Due date of deadline.
      */
-    public Deadline(String description, String date) {
-        super(description);
+    public Deadline(String description, Priority priority, String date) {
+        super(description, priority);
         super.symbol = "D";
         super.setDate(date);
     }

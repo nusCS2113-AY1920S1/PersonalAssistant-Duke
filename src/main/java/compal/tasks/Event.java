@@ -12,8 +12,8 @@ public class Event extends Task {
      * @param date        Starting date of event.
      * @param time        Starting time of event.
      */
-    public Event(String description, String date, String time) {
-        super(description);
+    public Event(String description, Priority priority, String date, String time) {
+        super(description, priority);
         super.symbol = "E";
         super.setDate(date);
         super.setTime(time);

@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,11 +15,12 @@ public class DoAfterTasksTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private DoAfterTasks doAfterTasks;
+    private Task.Priority priority = high;
 
 
     @BeforeEach
     public void setup() {
-        doAfterTasks = new DoAfterTasks(description, date);
+        doAfterTasks = new DoAfterTasks(description, priority, date);
     }
 
     @Test
@@ -66,8 +68,8 @@ public class DoAfterTasksTest {
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, doAfterTasks.isHasReminder());
+    void hasReminder() {
+        assertEquals(false, doAfterTasks.hasReminder());
     }
 
     @Test
@@ -89,6 +91,7 @@ public class DoAfterTasksTest {
     @Test
     void toStringTest() {
         assertEquals("[" + doAfterTasks.getSymbol() + "]" + "[" + doAfterTasks.getStatusIcon() + "] "
-                + doAfterTasks.getDescription() + " Date: " + doAfterTasks.getStringDate(), doAfterTasks.toString());
+                + doAfterTasks.getDescription() + " Date: " + doAfterTasks.getStringDate()
+                + " Priority: " + doAfterTasks.getPriority(), doAfterTasks.toString());
     }
 }

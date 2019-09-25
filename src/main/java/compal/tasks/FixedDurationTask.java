@@ -15,8 +15,8 @@ public class FixedDurationTask extends Task {
      * @param hour        Hour duration of fixed duration task.
      * @param minute      Minute duration of fixed duration task.
      */
-    public FixedDurationTask(String description, String date, String time, int hour, int minute) {
-        super(description);
+    public FixedDurationTask(String description, Priority priority, String date, String time, int hour, int minute) {
+        super(description, priority);
         super.symbol = "FDT";
         super.setDate(date);
         super.setTime(time);
