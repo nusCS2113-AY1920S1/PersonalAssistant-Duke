@@ -3,7 +3,7 @@ import duchess.logic.parser.Parser;
 import duchess.storage.Storage;
 import duchess.ui.Ui;
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.storage.task.TaskList;
+import duchess.model.task.TaskList;
 
 public class Duke {
 

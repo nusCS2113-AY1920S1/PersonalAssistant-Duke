@@ -1,4 +1,4 @@
-package duchess.storage.task;
+package duchess.model.task;
 
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.Schedule;
@@ -35,5 +35,10 @@ public class Todo extends Task {
     @Override
     public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
         return null;
+    }
+
+    @Override
+    public void snooze() throws DukeException {
+        throw new DukeException("You can't snooze that task.");
     }
 }

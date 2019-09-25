@@ -1,4 +1,4 @@
-package duchess.storage.task;
+package duchess.model.task;
 
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.Schedule;
@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Deadline extends Task implements Snoozeable {
+public class Deadline extends Task {
     private String description;
     private Date deadline;
     private SimpleDateFormat formatter;

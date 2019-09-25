@@ -1,9 +1,9 @@
 package duchess.logic.commands;
 
 import duchess.storage.Storage;
-import duchess.storage.task.TaskList;
-import duchess.storage.task.Todo;
-import duchess.storage.task.Task;
+import duchess.model.task.TaskList;
+import duchess.model.task.Todo;
+import duchess.model.task.Task;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.ui.Ui;
 

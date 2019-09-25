@@ -1,5 +1,6 @@
-package duchess.storage.task;
+package duchess.model.task;
 
+import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.Schedule;
 
 import java.io.Serializable;
@@ -24,4 +25,6 @@ public abstract class Task implements Serializable {
     }
 
     public abstract Schedule isWithinTimeFrame(Date startDate, Date endDate);
+
+    public abstract void snooze() throws DukeException;
 }

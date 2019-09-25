@@ -1,4 +1,4 @@
-package duchess.storage.task;
+package duchess.model.task;
 
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.Schedule;
@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Event extends Task implements Snoozeable {
+public class Event extends Task {
     private String description;
     private Date end;
     private Date start;

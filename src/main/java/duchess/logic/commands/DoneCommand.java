@@ -1,9 +1,9 @@
 package duchess.logic.commands;
 
 import duchess.storage.Storage;
-import duchess.storage.task.TaskList;
+import duchess.model.task.TaskList;
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.storage.task.Task;
+import duchess.model.task.Task;
 import duchess.ui.Ui;
 
 import java.util.List;

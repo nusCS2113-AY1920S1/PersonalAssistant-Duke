@@ -1,4 +1,4 @@
-package duchess.storage.task;
+package duchess.model.task;
 
 import java.io.Serializable;
 import java.util.ArrayList;

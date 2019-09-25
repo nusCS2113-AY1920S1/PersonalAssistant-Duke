@@ -1,5 +1,5 @@
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.storage.task.Deadline;
+import duchess.model.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

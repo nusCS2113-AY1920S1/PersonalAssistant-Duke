@@ -1,7 +1,7 @@
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.storage.task.Task;
-import duchess.storage.task.TaskList;
-import duchess.storage.task.Todo;
+import duchess.model.task.Task;
+import duchess.model.task.TaskList;
+import duchess.model.task.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

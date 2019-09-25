@@ -1,8 +1,7 @@
 package duchess.ui;
 
 import duchess.model.Schedule;
-import duchess.storage.task.Snoozeable;
-import duchess.storage.task.Task;
+import duchess.model.task.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -152,7 +151,7 @@ public class Ui {
      *
      * @param task The task that was just snoozed
      */
-    public void showSnoozedTask(Snoozeable task) {
+    public void showSnoozedTask(Task task) {
         printIndented("Noted. I've snoozed this task:");
         printIndented("  " + task);
     }
