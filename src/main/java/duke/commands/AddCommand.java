@@ -30,6 +30,8 @@ public class AddCommand extends Command {
                 if (!details.equals("")) {
                     dateTimes[0] = new DateTime(details);
                 }
+                break;
+
             case DEADLINE:
                 dateTimes[0] = new DateTime(details);
                 break;
