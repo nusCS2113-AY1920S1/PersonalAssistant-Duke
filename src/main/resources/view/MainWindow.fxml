@@ -4,43 +4,110 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
     <children>
-        <JFXTextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0"
-                      prefWidth="338.0" promptText="Enter any duke.command to start" AnchorPane.bottomAnchor="6.0"
-                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-        <AnchorPane fx:id="orderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <JFXTextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0" prefWidth="338.0" promptText="Enter any duke.command to start" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <AnchorPane fx:id="orderPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="Orders" textFill="#96663b" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                     <font>
-                        <Font name="Arial Bold" size="36.0"/>
+                        <Font name="Arial Bold" size="36.0" />
                     </font>
                 </Label>
-                <Separator layoutX="56.0" layoutY="43.0" prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0"
-                           AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0"/>
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0"
-                            style="-fx-box-border: none; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="50.0">
+                <Separator layoutX="56.0" layoutY="43.0" prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-box-border: none; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                     <content>
-                        <VBox fx:id="orderList" alignment="TOP_CENTER" prefWidth="795.0"
-                              style="-fx-background-color: white; -fx-box-border: none;"/>
+                        <VBox fx:id="orderList" alignment="TOP_CENTER" prefWidth="795.0" style="-fx-background-color: white; -fx-box-border: none;" />
                     </content>
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <AnchorPane visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<!--        Recipe -->
+        <AnchorPane fx:id="recipePane" prefHeight="200.0" prefWidth="200.0" visible="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" minHeight="-Infinity"
-                            minWidth="-Infinity" prefHeight="324.0" prefWidth="268.0" styleClass="edge-to-edge"
-                            vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label text="Recipe" textFill="#96663b" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+                    <font>
+                        <Font name="Arial Bold" size="36.0" />
+                    </font>
+                </Label>
+                <Separator layoutX="56.0" layoutY="43.0" prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+            <Pane layoutX="194.0" layoutY="47.0" prefHeight="77.0" prefWidth="385.0">
+               <children>
+                  <Label fx:id="recipeName" alignment="CENTER" contentDisplay="CENTER" layoutY="6.0" prefHeight="37.0" prefWidth="385.0" text="RECIPE_NAME" textAlignment="CENTER" textFill="#96663b">
+                     <font>
+                        <Font name="Gabriola" size="30.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="-1.0" layoutY="76.0" prefHeight="3.0" prefWidth="385.0" />
+                  <HBox id="diffLevel" fx:id="diffLevel" alignment="CENTER" layoutX="-1.0" layoutY="39.0" opacity="0.17" prefHeight="33.0" prefWidth="385.0" />
+               </children>
+            </Pane>
+            <SplitPane dividerPositions="0.3701149425287356" layoutY="124.0" orientation="VERTICAL" prefHeight="437.0" prefWidth="770.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="768.0">
+                     <children>
+                        <HBox fx:id="ingredients" layoutX="293.0" prefHeight="158.0" prefWidth="768.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="260.0">
+                     <children>
+                        <VBox fx:id="steps" layoutX="2.0" prefHeight="271.0" prefWidth="768.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            </children>
+        </AnchorPane>
+<!--       End of Recipe-->
+
+<!--        <AnchorPane visible="true" fx:id="recipeListPane" prefHeight="200.0" prefWidth="200.0"-->
+<!--                     AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--            <children>-->
+<!--                <Label text="Recipe" textFill="#96663b" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">-->
+<!--                    <font>-->
+<!--                        <Font name="Arial Bold" size="36.0" />-->
+<!--                    </font>-->
+<!--                </Label>-->
+<!--                <Separator layoutX="56.0" layoutY="43.0" prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />-->
+<!--            <SplitPane dividerPositions="0.15655577299412915" layoutX="-7.0" layoutY="47.0" orientation="VERTICAL" prefHeight="513.0" prefWidth="770.0">-->
+<!--              <items>-->
+<!--                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="76.0" prefWidth="768.0">-->
+<!--                     <children>-->
+<!--                        <Label contentDisplay="CENTER" layoutX="293.0" layoutY="22.0" prefHeight="40.0" prefWidth="184.0" text="All Recipes" textFill="#96663b">-->
+<!--                           <font>-->
+<!--                              <Font name="Forte" size="35.0" />-->
+<!--                           </font>-->
+<!--                        </Label>-->
+<!--                     </children>-->
+<!--                  </AnchorPane>-->
+<!--                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="768.0">-->
+<!--                     <children>-->
+<!--                        <ScrollPane layoutX="6.0" prefHeight="428.0" prefWidth="768.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--                           <content>-->
+<!--                              <VBox fx:id="recipeList" prefHeight="200.0" prefWidth="774.0" />-->
+<!--                           </content>-->
+<!--                        </ScrollPane>-->
+<!--                     </children>-->
+<!--                  </AnchorPane>-->
+<!--              </items>-->
+<!--            </SplitPane>-->
+<!--            </children>-->
+<!--        </AnchorPane>-->
+<!--        Not sure what is taskList-->
+        <AnchorPane visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="268.0" styleClass="edge-to-edge" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
                         <JFXListView fx:id="taskList" prefHeight="401.0" prefWidth="413.0" />
                     </content>
@@ -50,14 +117,12 @@
                 </ScrollPane>
             </children>
         </AnchorPane>
-        <HBox fx:id="popUp" alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="523.0" maxHeight="30.0" prefHeight="30.0"
-              prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0"
-              AnchorPane.rightAnchor="10.0">
+
+<!--        For BH to validate command-->
+        <HBox fx:id="popUp" alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="523.0" maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Label fx:id="popUpLabel" alignment="CENTER" maxHeight="30.0" prefHeight="30.0"
-                       text="fvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfd"/>
-                <JFXButton fx:id="popUpButton" alignment="CENTER" defaultButton="true" minWidth="61.0"
-                           onAction="#handleOk" prefHeight="30.0" prefWidth="61.0" text="Okay"/>
+                <Label fx:id="popUpLabel" alignment="CENTER" maxHeight="30.0" prefHeight="30.0" text="fvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfd" />
+                <JFXButton fx:id="popUpButton" alignment="CENTER" defaultButton="true" minWidth="61.0" onAction="#handleOk" prefHeight="30.0" prefWidth="61.0" text="Okay" />
             </children>
         </HBox>
     </children>
