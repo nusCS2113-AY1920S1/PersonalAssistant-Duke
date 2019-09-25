@@ -1,12 +1,8 @@
 package seedu.duke.data;
 
 import java.text.ParseException;
-import seedu.duke.task.Task;
-import seedu.duke.task.ToDo;
-import seedu.duke.task.Event;
-import seedu.duke.task.RangedTask;
-import seedu.duke.task.Deadline;
-import seedu.duke.task.DoAfter;
+
+import seedu.duke.task.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,6 +69,10 @@ public class Storage {
                     list.add(new RangedTask(taskString[2], from, by));
                 } else if (taskString[0].equals("A")) {
                     list.add(new DoAfter(taskString[2], taskString[3]));
+                } else if (taskString[0].equals("RC")) {
+                    LocalDateTime on = getDateTime(taskString[3]);
+                    int periodInMin = Integer.parseInt(taskString[5]);
+                    list.add(new RecurringTask(taskString[2], on, taskString[4], periodInMin));
                 } else {
                     LocalDateTime at = getDateTime(taskString[3]);
                     list.add(new Event(taskString[2], at));
