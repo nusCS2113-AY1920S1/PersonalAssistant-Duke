@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -40,7 +39,7 @@ public class Reminders {
     }
 
     public void getRemindersList(Storage storage) {
-        reminderList = storage.loadReminderFile("/home/tessa/Documents/CS2113/main/data/reminders.txt");
+        reminderList = storage.loadReminderFile("data/reminders.txt");
     }
 
     public void printReminder(String[] reminderInfo) {

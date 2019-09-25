@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "src/main/data/duke.txt";
+    private static String FILE_PATH = "data/duke.txt";
 
     public Storage() {}
     public Storage(String filePath) {
