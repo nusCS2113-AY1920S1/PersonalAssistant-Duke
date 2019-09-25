@@ -153,6 +153,7 @@ public class Parser {
         }
         case "recur": {
             //Input format: recur 5 12 deadline description /by dd/mm/yyyy HHMM
+            //Event: recur 5 12 event description /at dd/mm/yyyy HHMM to dd/nn/yyyy HHMM
             String taskInput = keyword[1].trim();
             String[] newKeyword = taskInput.split(" ", 3);
             int recurInterval = Integer.parseInt(newKeyword[0]);
