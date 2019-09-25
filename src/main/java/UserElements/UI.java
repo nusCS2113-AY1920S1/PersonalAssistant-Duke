@@ -151,7 +151,7 @@ public class UI {
      * @param allFoundEvents string containing all the events found, separated by newline character
      * @param found         boolean signifying whether or not any events were found
      */
-    public void searchEvents(String allFoundEvents, boolean found) {
+    public void printFoundEvents(String allFoundEvents, boolean found) {
         if (found) {
             System.out.print(lineSeparation);
             System.out.println("Here are the matching events in your list:");
