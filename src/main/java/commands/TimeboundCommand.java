@@ -19,7 +19,7 @@ public class TimeboundCommand extends Command {
         String[] inputs = ui.FullCommand.split("/between");
         description = inputs[0];
         period = inputs[1];
-
+        
         Timebound tb = new Timebound(description, period);
         list.add(tb);
         System.out.println("Got it. I've added this task:");
