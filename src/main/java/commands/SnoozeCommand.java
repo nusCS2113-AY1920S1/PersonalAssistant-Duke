@@ -26,7 +26,7 @@ public class SnoozeCommand extends Command {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
         }else{
             int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-            String Decription=list.get(index).description;
+            String Description=list.get(index).description;
             System.out.println("Please indicate how much time you want to snooze");
             ui.ReadCommand();
             int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
@@ -46,7 +46,7 @@ public class SnoozeCommand extends Command {
                     Date after = rightNow.getTime();
 //                System.out.println("Success"+after);
 
-                Task snoozedDeadline = new Deadline(Decription,after);
+                Task snoozedDeadline = new Deadline(Description,after);
                 list.remove(index);
                 list.add(snoozedDeadline);
                 System.out.println("Okay. I've prolonged this task's deadline: ");
@@ -63,7 +63,7 @@ public class SnoozeCommand extends Command {
                 newEnd = newEnd.plusHours(hour);
 
                 String newAt = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+newStart.format(DateTimeFormatter.ofPattern("HH:mm:ss"))+"-"+newEnd.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                Event snoozedEvent = new Event(Decription,newAt);
+                Event snoozedEvent = new Event(Description,newAt);
                 System.out.println(snoozedEvent.listFormat());
                 list.remove(index);
                 list.add(snoozedEvent);
