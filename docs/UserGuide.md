@@ -3,9 +3,9 @@ By: `AY1920S1-CS2113T-W17-1` Last Updated: `25/9/2019` License: `MIT`
 
 We are still working on the User Guide. Stay tuned for newer features!
 
-1. [Introduction](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md##introduction)
-2. [Quick Start](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md##quick-start)
-3. [Features](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md##features)
+1. [Introduction](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md#introduction)
+2. [Quick Start](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md#quick-start)
+3. [Features](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md#features)
 
 ## Introduction
 Welcome to **COMPal**!
