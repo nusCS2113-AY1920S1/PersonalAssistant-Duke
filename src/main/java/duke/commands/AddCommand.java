@@ -69,8 +69,6 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
 
-        int index = list.getListIndex(); //To assign the next task's index.
-
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));
@@ -92,8 +90,6 @@ public class AddCommand extends Command {
      */
     public void execute(TaskList list) throws BadInputException {
 
-        int index = list.getListIndex(); //To assign the next task's index.
-
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));
@@ -103,7 +99,7 @@ public class AddCommand extends Command {
         } else if (super.type == CommandType.DEADLINE) {
             list.addItem(TaskType.DEADLINE, description, dateTimes[0]);
         } else { //Type is event
-            list.addItem(TaskType.EVENT, description, dateTimes[1], dateTimes[1]);
+            list.addItem(TaskType.EVENT, description, dateTimes[0], dateTimes[1]);
         }
     }
 }

@@ -21,15 +21,12 @@ import duke.enums.TaskType;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private int listIndex;
 
     public TaskList(ArrayList<Task> savedFile) {
         taskList = savedFile;
-        //listIndex = lastIndex;
     }
 
     public TaskList() {
-        listIndex = 0;
         taskList = new ArrayList<Task>();
     }
 
@@ -41,13 +38,6 @@ public class TaskList {
         return taskList.size();
     }
 
-    public void setListIndex(int index) {
-        listIndex = index;
-    }
-
-    public int getListIndex() {
-        return listIndex;
-    }
 
     /**
      * Adds a task to the tasklist.
