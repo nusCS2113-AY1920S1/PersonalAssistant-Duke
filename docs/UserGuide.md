@@ -14,7 +14,7 @@ Welcome to **COMPal**!
 
 Additionally, you can ***include non-academic activities*** along with your academic timetable, unlike other widely-used timetable tools. You also have the ***freedom to prioritise certain tasks*** over less important ones, and make use of ***timely reminders*** on pending tasks.
 
-Take Control. ***COMPal*** your life, today. Try it out at
+Take Control. ***COMPal*** your life, today. Start with our [Quick Start](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#quick-start) guide!
 
 ## Quick Start
 
