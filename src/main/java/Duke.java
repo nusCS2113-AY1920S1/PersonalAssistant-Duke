@@ -7,6 +7,8 @@ import Operations.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * main class of the Duke program
@@ -98,8 +100,9 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] deadlineArray = parser.getDescriptionWithDate();
-                        Date by = parser.formatDate(deadlineArray[1]);
-                        Deadline temp = new Deadline(deadlineArray[0], by);
+                        String[] ar = parser.getDate(deadlineArray);
+                        Date by = parser.formatDate(ar[1]);
+                        Deadline temp = new Deadline(ar[0], by);
                         taskList.add(temp);
                     } catch (DukeException e) {
                         ui.showDateError();
@@ -110,9 +113,10 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] eventArray = parser.getDescriptionWithDate();
-                        Date at = parser.formatDate(eventArray[1]);
+                        String[] ar = parser.getDate(eventArray);
+                        Date at = parser.formatDate(ar[1]);
                         if(CheckAnomaly.checkTime(at, TaskList.currentList())){
-                            Event temp = new Event(eventArray[0], at);
+                            Event temp = new Event(ar[0], at);
                             taskList.add(temp);
                         } else {
                             throw new DukeException(ExceptionType.timeClash);
@@ -121,7 +125,7 @@ public class Duke {
                         ui.showDateError();
                     }
                     break;
-
+                
                 case snooze :
                     int index = parser.getIndex();
                     ui.showSnooze();
@@ -130,6 +134,7 @@ public class Duke {
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete();
                     break;
+                
                 default:
                     ui.showCommandError();
                     break;
