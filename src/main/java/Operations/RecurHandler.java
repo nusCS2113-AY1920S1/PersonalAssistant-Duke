@@ -114,7 +114,6 @@ public class RecurHandler {
                 RecurrenceScheduleType type;
                 Calendar calendar = Calendar.getInstance();
                 String description = check.getDescription();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy 18:00");
                 if (check.toString().contains("[T]")) {
                     recurrenceSchedule = array[3].substring(0, array[3].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
@@ -126,7 +125,7 @@ public class RecurHandler {
                                 calendar.setTime(created);
                                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     RecurringToDo recurringToDo = new RecurringToDo(description, "day");
                                     taskList.replace(index, recurringToDo);
                                     isEdited = true;
@@ -142,7 +141,7 @@ public class RecurHandler {
                                 calendar.setTime(created);
                                 calendar.add(Calendar.DAY_OF_WEEK, 7);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     RecurringToDo recurringToDo = new RecurringToDo(description, "week");
                                     taskList.replace(index, recurringToDo);
                                     isEdited = true;
@@ -158,7 +157,7 @@ public class RecurHandler {
                                 calendar.setTime(created);
                                 calendar.add(Calendar.MONTH, 1);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     RecurringToDo recurringToDo = new RecurringToDo(description, "month");
                                     taskList.replace(index, recurringToDo);
                                     isEdited = true;
@@ -181,7 +180,7 @@ public class RecurHandler {
                                 calendar.setTime(storedDate);
                                 calendar.add(Calendar.DAY_OF_MONTH, 7);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     if (check.toString().contains("[D]")) {
                                         RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "week");
                                         taskList.replace(index, recurringDeadline);
@@ -205,7 +204,7 @@ public class RecurHandler {
                                 calendar.setTime(storedDate);
                                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     if (check.toString().contains("[D]")) {
                                         RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "day");
                                         taskList.replace(index, recurringDeadline);
@@ -230,7 +229,7 @@ public class RecurHandler {
                                 calendar.setTime(storedDate);
                                 calendar.add(Calendar.MONTH, 1);
                                 Date newDate = calendar.getTime();
-                                if (newDate.compareTo(current) > 0) {
+                                if (newDate.compareTo(current) < 0) {
                                     if (check.toString().contains("[D]")) {
                                         RecurringDeadline recurringDeadline = new RecurringDeadline(description, newDate, "month");
                                         taskList.replace(index, recurringDeadline);
@@ -250,6 +249,6 @@ public class RecurHandler {
             }
             index += 1;
         }
-        return false;
+        return isEdited;
     }
 }
