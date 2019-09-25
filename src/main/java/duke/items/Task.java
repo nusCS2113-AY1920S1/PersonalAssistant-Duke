@@ -83,8 +83,7 @@ public class Task {
 
 
     /**
-     * toString method overridden to return the a description string.
-     * This string presents the task information in a readable format.
+     * Formats all task details appropriately for Ui output.
      * @return the task details.
      */
     @Override

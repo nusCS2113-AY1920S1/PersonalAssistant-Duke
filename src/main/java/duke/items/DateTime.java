@@ -71,7 +71,7 @@ public class DateTime {
     }
 
     /**
-     * Returns the date in a friendlier format.
+     * Returns string of the stored date in the default Date.java format.
      */
     public String returnFormattedDate() {
         return ("" + at);
