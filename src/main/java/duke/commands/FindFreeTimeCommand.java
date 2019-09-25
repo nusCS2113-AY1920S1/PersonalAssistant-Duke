@@ -3,6 +3,7 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.enums.CommandType;
 
 public class FindFreeTimeCommand extends Command {
     int reqFreeHours;

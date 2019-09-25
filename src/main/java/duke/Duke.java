@@ -2,6 +2,7 @@ package duke;
 
 import duke.commands.Command;
 import duke.exceptions.BadInputException;
+import duke.enums.CommandType;
 
 /**
  * Duke is a task list that supports 3 types of classes - Todos, deadlines and events.
@@ -41,7 +42,7 @@ public class Duke {
             } catch (BadInputException e) {
                 System.out.println(e);
             }
-        } while (command.getType() != Command.CommandType.BYE);
+        } while (command.getType() != CommandType.BYE);
 
     }
 

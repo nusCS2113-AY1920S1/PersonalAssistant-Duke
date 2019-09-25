@@ -3,11 +3,13 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.enums.TaskType;
 import duke.exceptions.BadInputException;
 import duke.items.DateTime;
 import duke.items.Deadline;
 import duke.items.Event;
 import duke.items.Task;
+import duke.enums.CommandType;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,15 +45,34 @@ public class RecurCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Calendar startDate = new DateTime(details).getCalendar();
+        Calendar startDate;
+        Calendar endDate;
+
+        if (type == CommandType.EVENT) {
+            String[] eventDetails = details.split(" to ");
+
+            startDate = new DateTime(eventDetails[0]).getCalendar();
+            endDate = new DateTime(eventDetails[1]). getCalendar();
+        } else {
+            startDate = new DateTime(details).getCalendar();
+
+            // This should not do anything, but intellij wants it to be initialised properly for the switch below
+            endDate = new DateTime(details).getCalendar();
+        }
 
         for (int i = 0; i < numberOfRecur; ++i) {
+            DateTime doEnd;
+            DateTime doBy;
+
             startDate.add(Calendar.DATE, recurInterval);
-            String dt = sdf.format(startDate.getTime());
-            if (super.type == CommandType.DEADLINE) {
-                list.addDeadlineItem(description, dt, "");
-            } else { //Type is event
-                list.addEventItem(description, dt, "");
+            doBy = new DateTime(sdf.format(startDate.getTime()));
+
+            if (super.type == CommandType.EVENT) {
+                endDate.add(Calendar.DATE, recurInterval);
+                doEnd = new DateTime(sdf.format(endDate.getTime()));
+                list.addItem(TaskType.EVENT, description, doBy, doEnd);
+            } else {
+                list.addItem(TaskType.DEADLINE, description, doBy);
             }
         }
     }

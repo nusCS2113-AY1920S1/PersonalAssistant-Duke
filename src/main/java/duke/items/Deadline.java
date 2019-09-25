@@ -1,5 +1,6 @@
 package duke.items;
 
+import duke.enums.TaskType;
 import duke.exceptions.BadInputException;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,20 +13,14 @@ import java.util.Date;
 
 public class Deadline extends Task /*implements Snooze*/ {
 
-    private String doBy;
     private DateTime doByDate;
 
     /**
      * Deadline object has a "by" string as well as a Date object.
      */
-    public Deadline(String description, String by, String doAfter) throws BadInputException {
-        super(description, TaskType.DEADLINE, doAfter); //Using the Task constructor. isDone is set to false.
-        this.doBy = by;
-        this.doByDate = new DateTime(doBy);
-    }
-
-    public String getDoBy() {
-        return doBy;
+    public Deadline(String description, DateTime doByDate) throws BadInputException {
+        super(description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
+        this.doByDate =  doByDate;
     }
 
     public String getDoByDate() {
@@ -38,7 +33,7 @@ public class Deadline extends Task /*implements Snooze*/ {
 
     @Override
     public String saveDetailsString() {
-        return super.saveDetailsString() + "/" + doBy;
+        return super.saveDetailsString() + "/" + doByDate.toString();
     }
 
     @Override

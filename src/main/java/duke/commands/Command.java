@@ -4,6 +4,7 @@ import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
 import duke.exceptions.BadInputException;
+import duke.enums.CommandType;
 
 /**
  * This is an abstract class.
@@ -13,9 +14,6 @@ import duke.exceptions.BadInputException;
 
 public class Command {
 
-    public enum CommandType {
-        TODO, DEADLINE, EVENT, BYE, LIST, REMINDER, SNOOZE, DONE, DELETE, FIND, BAD, VIEW, FINDFREETIME
-    }
 
     protected CommandType type;
 
