@@ -31,6 +31,12 @@ public class Parser {
 
     }
 
+    /**
+     * Splits the user input and checks for formatting errors inside input string.
+     * @param input User input with "deadline" token removed
+     * @return Array of size 2 with elem[0] being the description and elem[1] the formatted datetime.
+     * @throws InsufficientInfoException Thrown if user formatting is wrong.
+     */
     private String[] addDeadline(String input) throws InsufficientInfoException {
         String[] deadline = input.split("/by ");
 
@@ -44,6 +50,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Splits the user input and checks for formatting error inside input string.
+     *
+     * @param input User input with "event" token removed
+     * @return Array of size 2. elem[0] is the description and elem[1] is the datetime in format of
+     * "dd/MM/YYYY HHmm to dd/MM/YYYY HHmm".
+     * @throws InsufficientInfoException Thrown if user formatting is wrong.
+     */
     private String[] addEvent(String input) throws InsufficientInfoException {
         String[] event = input.split("/at ");
 
