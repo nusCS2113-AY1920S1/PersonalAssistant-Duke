@@ -11,6 +11,7 @@ public class Task implements Serializable {
     protected String type;
     protected String by;
     protected String at;
+    protected String after;
 
     /**
      * Creates a Task instance and initialises the required attributes.
