@@ -1,0 +1,120 @@
+= Duke v1.1 - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-3/main
+
+By: `Team F10-3`      Since: `Aug 2019`
+
+== Introduction
+
+Duke is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
+
+== Quick Start
+.  Some example commands you can try:
+
+* *`list`* : lists all tasks
+* **`delete`**`3` : deletes the 3rd task shown in the current list
+* *`bye`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add TASK_CONTENT`, `TASK_CONTENT` is a parameter which can be used as `add submission`.
+
+====
+=== Adding a todo task: `todo`
+
+Adds a todo task in the task list +
+Format: `todo TASK_DESCRIPTION`
+
+[TIP]
+there can have spaces in the task description
+
+Examples:
+
+* `todo submit forms`
+* `todo return books`
+
+=== Adding a deadline task: `deadline`
+
+Adds a deadline task in the task list +
+Format: `deadline TASK_DESCRIPTION /by TIME`
+
+[TIP]
+there can have spaces in the task description
+[TIP]
+the format of time should be DD/MM/YYYY HHMM
+
+Examples:
+
+* `deadline return books /by 07/10/2019 1200`
+
+=== Adding a event task: `event`
+
+Adds a deadline task in the task list +
+Format: `event TASK_DESCRIPTION /at TIME`
+
+[TIP]
+there can have spaces in the task description
+[TIP]
+the format of time should be DD/MM/YYYY HHMM
+
+Examples:
+
+* `event group meeting /at 07/10/2019 1200`
+
+=== List out all current tasks: `list`
+
+List out all tasks in the task list +
+Format: `list`
+
+Examples:
+
+* `list`
+
+=== Delete a certain task: `delete`
+
+Delete a task from the task list +
+Format: `delete INDEX`
+
+[TIP]
+the index of the task should not be out of range
+
+Examples:
+* `delete 3`
+
+
+=== Saving the data
+
+Task List data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+== Command Summary
+
+* *Todo* `todo TASK_DESCRIPTION` +
+e.g. `todo submit forms`
+* *Deadline* : `deadline TASK_DESCRIPTION /by TIME`+
+e.g. `deadline return books /by 07/10/2019 1200`
+* *Event* : `event TASK_DESCRIPTION /at TIME` +
+e.g. `event group meeting /by 07/10/2019 1200`
+* *list* : `list` +
+* *delete* : `delete [INDEX]` +
+e.g. `delete 3`
+
