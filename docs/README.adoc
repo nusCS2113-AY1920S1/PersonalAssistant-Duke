@@ -3,7 +3,7 @@
 
 
 
-image::https://github.com/swang1997/main/blob/master/docs/images/test.png[width="600"]
+image::https://github.com/swang1997/main/blob/master/docs/images/test.png[width="400"]
 
 
 == Site Map
