@@ -27,6 +27,15 @@ public class Event extends Task {
 
     public Date checkDate() { return this.at; }
 
+    /**
+     * Returns a string that has the full description of the vent including the occurrence time
+     * @return A string indicating the task type, description and the occurrence of the task
+     */
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (on: " + at + ")";
+    }
+
     @Override
     public void snoozeYear(int amount) {
         this.at.setYear(this.at.getYear() + amount);;
@@ -50,15 +59,6 @@ public class Event extends Task {
     @Override
     public void snoozeMinute(int amount){
         this.at.setMinutes(this.at.getMinutes() + amount);
-    }
-
-    /**
-     * Returns a string that has the full description of the vent including the occurrence time
-     * @return A string indicating the task type, description and the occurrence of the task
-     */
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (on: " + at + ")";
     }
 
 }

@@ -1,5 +1,5 @@
 package Enums;
 
-public enum TimeType {
+public enum TimeUnit {
     year,month,day,hour,minute
 }

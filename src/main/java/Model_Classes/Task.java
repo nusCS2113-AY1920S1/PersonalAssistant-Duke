@@ -49,6 +49,14 @@ public class Task{
     }
 
     /**
+     * Returns both the status icon and the description of the task.
+     * @return
+     */
+    public String toString() {
+        return getStatusIcon() + getDescription();
+    }
+
+    /**
      * Snooze the task in year
      * @param amount number of years to snooze
      */
@@ -86,14 +94,6 @@ public class Task{
      */
     public void snoozeMinute(int amount) {
         return;
-    }
-
-    /**
-     * Returns both the status icon and the description of the task.
-     * @return
-     */
-    public String toString() {
-        return getStatusIcon() + getDescription();
     }
 
 }

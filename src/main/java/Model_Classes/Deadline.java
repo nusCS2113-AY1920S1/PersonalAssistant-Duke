@@ -25,6 +25,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the full description including the deadline of the task.
+     * @return A string indicating the task type, description, and when it should be done by.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
     @Override
     public void snoozeYear(int amount) {
         this.by.setYear(this.by.getYear() + amount);;
@@ -50,12 +59,4 @@ public class Deadline extends Task {
         this.by.setMinutes(this.by.getMinutes() + amount);
     }
 
-    /**
-     * Returns the full description including the deadline of the task.
-     * @return A string indicating the task type, description, and when it should be done by.
-     */
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
-    }
 }

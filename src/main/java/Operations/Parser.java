@@ -1,10 +1,8 @@
 package Operations;
 
 import CustomExceptions.DukeException;
-import Enums.TimeType;
+import Enums.TimeUnit;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +35,7 @@ public class Parser {
      * @return index Index the user wishes to perform operations on.
      */
     public Integer getIndex() {
-        String temp = scanner.next().trim();
+        String temp = scanner.nextLine().trim();
         int index = Integer.parseInt(temp);
         return index;
     }
@@ -90,16 +88,20 @@ public class Parser {
     }
 
     /**
-     * Returns the amount of time
-     * @return
+     * Returns the amount of time the customer request to snooze
+     * @return the amount of time the customer request to snooze
      */
     public int getAmount(){
         String temp = scanner.next().trim();
         return Integer.parseInt(temp);
     }
 
-    public TimeType getTimeType(){
+    /**
+     * Returns the unit of time the customer request to snooze
+     * @return the unit of time the customer request to snooze
+     */
+    public TimeUnit getTimeUnit(){
         String temp = scanner.next();
-        return TimeType.valueOf(temp);
+        return TimeUnit.valueOf(temp);
     }
 }
