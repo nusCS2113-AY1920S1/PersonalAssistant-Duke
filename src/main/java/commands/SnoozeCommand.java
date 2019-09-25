@@ -20,7 +20,6 @@ import java.util.Locale;
 public class SnoozeCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-
         try {
         if(ui.FullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
@@ -85,7 +84,8 @@ public class SnoozeCommand extends Command {
                 }
                 storage.Storages(sb.toString());
             }
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

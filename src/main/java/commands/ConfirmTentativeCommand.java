@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class ConfirmTentativeCommand extends Command{
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-
         try {
             if (ui.FullCommand.length() == 7) {
                 throw new DukeException("OOPS!!! The index of tentative event cannot be empty.");
@@ -54,10 +53,11 @@ public class ConfirmTentativeCommand extends Command{
 //        System.out.println(ev.listformat());
 //        System.out.println("Now you have " + list.size() + " tasks in the list.");
 
-            } catch (DukeException e) {
-            System.out.println(e.getMessage());
             }
+        catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
+    }
 
 
     @Override

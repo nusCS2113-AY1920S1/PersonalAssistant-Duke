@@ -15,7 +15,6 @@ public class TodoCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
-
         try {
             if (ui.FullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
@@ -51,7 +50,8 @@ public class TodoCommand extends Command {
             }
         }
         storage.Storages(sb.toString());
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

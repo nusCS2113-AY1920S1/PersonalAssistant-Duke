@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class DeleteCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-
         try {
             if (ui.FullCommand.length() == 6) {
                 throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");

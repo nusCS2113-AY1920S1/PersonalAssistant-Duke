@@ -57,7 +57,8 @@ public class RescheduleCommand extends Command {
                     System.out.println("It's fine. Nothing has been changed.");
                 }
             }
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

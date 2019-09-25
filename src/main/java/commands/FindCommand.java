@@ -27,9 +27,9 @@ public class FindCommand extends Command {
                 }
             }
 
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
-
         }
     }
     @Override

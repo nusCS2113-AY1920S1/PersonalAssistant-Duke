@@ -58,7 +58,8 @@ public class DoneCommand extends Command {
                 }
             }
             storage.Storages(sb.toString());
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

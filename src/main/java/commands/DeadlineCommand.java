@@ -14,7 +14,7 @@ public class DeadlineCommand extends Command
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
-       try {
+        try {
            if (ui.FullCommand.length() == 8) {
                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
            } else {

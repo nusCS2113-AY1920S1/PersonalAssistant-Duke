@@ -41,7 +41,8 @@ public class TentativeEventCommand extends Command{
             list.add(newtentative);
 
             }
-        } catch (DukeException e) {
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

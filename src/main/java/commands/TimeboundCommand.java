@@ -43,6 +43,7 @@ public class TimeboundCommand extends Command {
             }
             storage.Storages(sb.toString());
         }
+
         catch (DukeException e) {
             System.out.println(e.getMessage());
         }
