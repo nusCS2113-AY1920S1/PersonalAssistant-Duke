@@ -31,8 +31,8 @@ public class Event extends Task /*implements Snooze*/ {
         }
     }
 
-    public String getEventTime() {
-        return eventStartTime.returnFormattedDate();
+    public String getEventEndTime() {
+        return eventEndTime.returnFormattedDate();
     }
 
     public Date getDate() {
