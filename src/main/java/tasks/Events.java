@@ -9,6 +9,12 @@ public class Events extends Task {
     protected Date endAt;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * The constructor to initialize a Events object.
+     * @param description The description of the event.
+     * @param start The start date of the event
+     * @param end The end date of the event.
+     */
     public Events(String description, Date start, Date end) {
         super(description);
         this.startAt = start;

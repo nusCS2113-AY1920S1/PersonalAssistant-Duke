@@ -12,6 +12,11 @@ public class MultipleEvent extends Task {
     protected boolean beenChosen;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * The constructor to initialize a MultipleEvent object.
+     * @param description the description of the multiple event.
+     * @param dates the list of start and end date of these events.
+     */
     public MultipleEvent(String description, ArrayList<Pair<Date, Date>> dates) {
         super(description);
         this.dates = dates;

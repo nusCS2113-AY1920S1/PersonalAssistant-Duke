@@ -18,6 +18,10 @@ public class RemindersCommand extends Command {
     private SimpleDateFormat simpleDateFormat;
     private String keyword;
 
+    /**
+     * The constructor to initialize a Reminders command object.
+     * @param string The type of the command.
+     */
     public RemindersCommand(String string) {
         this.keyword = string;
         this.nowDate = new Date();

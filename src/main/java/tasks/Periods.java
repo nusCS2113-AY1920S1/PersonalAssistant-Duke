@@ -10,6 +10,12 @@ public class Periods extends Task {
     protected String to;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * The constructor to initialize a period object.
+     * @param description the description of these task within a period.
+     * @param from the start date of the task within a period.
+     * @param to the end date of the task within a period.
+     */
     public Periods(String description, String from, String to) {
         super(description);
         this.from = from;

@@ -55,6 +55,12 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+    /**
+     * This method give the GUI in the form of a Dialog Box.
+     * @param text string written on the GUI.
+     * @param img image show on the GUI.
+     * @return DialogBox a GUI to interact with the user.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
