@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+import Enums.TimeUnit;
 
 /**
  * A class for handling all parsing for Duke. Makes sure that inputs by the user

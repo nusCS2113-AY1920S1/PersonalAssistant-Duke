@@ -250,6 +250,6 @@ public class RecurHandler {
             }
             index += 1;
         }
-        return isEdited;
+        return false;
     }
 }
