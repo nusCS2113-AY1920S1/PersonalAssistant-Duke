@@ -20,7 +20,7 @@ public class TimeboundCommand extends Command {
         description = inputs[0];
         period = inputs[1];
 
-      Timebound tb = new Timebound(description, period);
+        Timebound tb = new Timebound(description, period);
         list.add(tb);
         System.out.println("Got it. I've added this task:");
         System.out.println(tb.listformat());
@@ -46,5 +46,4 @@ public class TimeboundCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }
