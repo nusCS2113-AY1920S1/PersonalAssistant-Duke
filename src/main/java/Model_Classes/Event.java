@@ -5,7 +5,6 @@ import Enums.ExceptionType;
 import Operations.CheckAnomaly;
 import Operations.TaskList;
 
-import java.util.Calendar;
 import java.util.Date;
 /**
  * An object class representing types of tasks that are events.
@@ -34,31 +33,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (on: " + at + ")";
-    }
-
-    @Override
-    public void snoozeYear(int amount) {
-        this.at.setYear(this.at.getYear() + amount);;
-    }
-
-    @Override
-    public void snoozeMonth(int amount) {
-        this.at.setMonth(this.at.getMonth() + amount);;
-    }
-
-    @Override
-    public void snoozeDay(int amount) {
-        this.at.setDate(this.at.getDate() + amount);;
-    }
-
-    @Override
-    public void snoozeHour(int amount){
-        this.at.setHours(this.at.getHours() + amount);
-    }
-
-    @Override
-    public void snoozeMinute(int amount){
-        this.at.setMinutes(this.at.getMinutes() + amount);
     }
 
 }
