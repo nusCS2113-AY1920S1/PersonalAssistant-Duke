@@ -25,7 +25,6 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> savedFile) {
         taskList = savedFile;
-        //listIndex = lastIndex;
     }
 
     public TaskList() {
@@ -41,9 +40,9 @@ public class TaskList {
         return taskList.size();
     }
 
-    public void setListIndex(int index) {
+    /*public void setListIndex(int index) {
         listIndex = index;
-    }
+    }*/
 
     public int getListIndex() {
         return listIndex;
