@@ -5,14 +5,18 @@ public class FixedDuration extends Task {
 
     public FixedDuration(String description, String needs) {
         super(description);
-        this .needs = needs;
+        this.needs = needs;
         super.type = "F";
     }
 
     @Override
-    public String toString() { return "[F]" + super.toString() + "(needs: " + getNeeds() + ")"; }
+    public String toString() {
+        return "[F]" + super.toString() + "(needs: " + getNeeds() + ")";
+    }
 
-    public String getNeeds() { return needs;}
+    public String getNeeds() {
+        return needs;
+    }
 
 }
 

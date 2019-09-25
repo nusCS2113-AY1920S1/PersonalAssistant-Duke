@@ -1,50 +1,58 @@
 package ControlPanel;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
 
     private Scanner scanner;
+    private static String outputString;
 
-    public Ui (){
+    public Ui() {
         scanner = new Scanner(System. in);
     }
 
-    public void showWelcome(){
+    public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________\n" +
-                "     Hello! I'm Duke\n" +
-                "     What can I do for you?\n" +
-                "____________________________________________________________\n");
+        String greeting = "____________________________________________________________\n"
+                + "     Hello! I'm Duke\n"
+                + "     What can I do for you?\n"
+                + "____________________________________________________________\n";
+        return ("Hello from\n" + logo + greeting);
     }
 
-    public String readCommand(){
+    public String readCommand() {
         return scanner.nextLine();
     }
 
-    public boolean inputStatus(){
+    public boolean inputStatus() {
         return scanner.hasNextLine();
     }
 
-
-
-    public void showLine(){
-        System.out.println("____________________________________________________________\n");
+    public String showLine() {
+        return ("____________________________________________________________\n");
     }
 
-    public void showLoadingError(){
+    public void showLoadingError() {
         System.out.println("This is not a valid input from the file!!!");
     }
 
-    public void showError(String message){
-        System.out.println(message);
+    public String showError(String message) {
+        return ("ERROR: " + message);
     }
 
+    public void appendToOutput(String msg) {
+        outputString += msg;
+    }
 
+    public String getOutputString() {
+        return outputString;
+    }
+
+    public void clearOutputString() {
+        outputString = "";
+    }
 }
