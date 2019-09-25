@@ -128,17 +128,17 @@ public class Parser {
         case "todo":
             String[] todoTemp = addTodo(keyword[1]);
             command = new AddCommand(CommandType.TODO, todoTemp[0],
-                    (todoTemp.length > 1) ? todoTemp[1] : "", afterIndex);
+                    (todoTemp.length > 1) ? todoTemp[1] : "");
             break;
 
         case "deadline": {
             String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1], afterIndex);
+            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1]);
             break;
         }
         case "event": {
             String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(CommandType.EVENT, temp[0], temp[1], afterIndex);
+            command = new AddCommand(CommandType.EVENT, temp[0], temp[1]);
             break;
         }
         case "find": {
