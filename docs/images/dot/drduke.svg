@@ -24,7 +24,7 @@
 <text text-anchor="start" x="337.5" y="-741.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; address : String</text>
 <text text-anchor="start" x="337.5" y="-726.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; history : String</text>
 <text text-anchor="start" x="337.5" y="-711.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; priDiagnosis : Diagnosis</text>
-<text text-anchor="start" x="337.5" y="-696.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; allergies : ArrayList&lt;Allergy&gt;</text>
+<text text-anchor="start" x="337.5" y="-696.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; allergies : String</text>
 <text text-anchor="start" x="337.5" y="-681.3" font-family="Times-Roman" font-size="14.00" fill="#000000"> &#45; impressions : ArrayList&lt;Impression&gt;</text>
 <polyline fill="none" stroke="#000000" points="329.5,-673.5 682.5,-673.5 "/>
 <text text-anchor="start" x="337.5" y="-658.3" font-family="Times-Roman" font-size="14.00" fill="#000000">+ discharge() : void</text>
