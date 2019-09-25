@@ -1,15 +1,29 @@
-package seedu.duke.command;
+package seedu.duke.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Handles LocalDateTime conversion to String and vice versa for each add command.
+ */
 public class DateTimeParser {
 
+    /**
+     * Date and time with format d/M/uuuu HHmm.
+     */
     private static final String DATE_TIME_FORMATTER = "d/M/uuuu HHmm";
+    /**
+     * Date with format d/M/uuuu HHmm.
+     */
     private static final String DATE_FORMATTER = "d/M/uuuu";
 
+    /**
+     * Convert type String to type LocalDateTime.
+     * @param dateTime date and time of type String.
+     * @return date and time of type LocalDateTime.
+     */
     public static LocalDateTime getDateTime(String dateTime) {
 
         LocalDateTime localDateTime;
@@ -24,6 +38,11 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Convert type String to type LocalDateTime.
+     * @param date date of type String.
+     * @return date of type LocalDateTime.
+     */
     public static LocalDateTime getDate(String date) {
 
         LocalDateTime localDate;
@@ -38,6 +57,11 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Convert type LocalDateTime to String.
+     * @param localDateTime date and time of type LocalDateTime.
+     * @return date and time of type String.
+     */
     public static String convertDateTime(LocalDateTime localDateTime) {
 
         String dateTime;
@@ -52,6 +76,11 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Convert type LocalDate to String.
+     * @param localDate date of type LocalDateTime.
+     * @return date of type String.
+     */
     public static String convertDate(LocalDateTime localDate) {
 
         String date;
@@ -75,18 +104,18 @@ public class DateTimeParser {
     public static String toDateTimeString(LocalDateTime dateTime) {
         String suffix;
         switch (dateTime.getDayOfMonth() % 10) {
-            case 1:
-                suffix = "st";
-                break;
-            case 2:
-                suffix = "nd";
-                break;
-            case 3:
-                suffix = "rd";
-                break;
-            default:
-                suffix = "th";
-                break;
+        case 1:
+            suffix = "st";
+            break;
+        case 2:
+            suffix = "nd";
+            break;
+        case 3:
+            suffix = "rd";
+            break;
+        default:
+            suffix = "th";
+            break;
         }
 
         if (dateTime.getDayOfMonth() > 3 && dateTime.getDayOfMonth() < 21) {

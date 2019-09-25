@@ -18,7 +18,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * A class that stores current task list and loads it on request from disc.
@@ -72,8 +72,7 @@ public class Storage {
                     LocalDateTime by = getDateTime(dateTime[1]);
                     list.add(new RangedTask(taskString[2], from, by));
                 } else if (taskString[0].equals("A")) {
-                    LocalDateTime localDateTime = getDateTime(taskString[3]);
-                    list.add(new DoAfter(taskString[2], localDateTime));
+                    list.add(new DoAfter(taskString[2], taskString[3]));
                 } else {
                     LocalDateTime at = getDateTime(taskString[3]);
                     list.add(new Event(taskString[2], at));
