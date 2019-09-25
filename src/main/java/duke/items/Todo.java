@@ -1,5 +1,7 @@
 package duke.items;
 
+import duke.enums.TaskType;
+
 /**
  * The least detailed task is the todo,
  * which consists of a deadline and done status.
@@ -10,12 +12,12 @@ public class Todo extends Task {
 
     private int duration = 0;
 
-    public Todo(String description, String doAfter) {
-        super(description, TaskType.TODO, doAfter); //Using the Task constructor. isDone is set to false.
+    public Todo(String description) {
+        super(description, TaskType.TODO); //Using the Task constructor. isDone is set to false.
     }
 
-    public Todo(String description, String doAfter, int duration) {
-        super(description, TaskType.TODO, doAfter);
+    public Todo(String description, int duration) {
+        super(description, TaskType.TODO);
         this.duration = duration;
     }
 
@@ -26,9 +28,12 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
+        String result;
         if (duration > 0) {
-            return  super.toString() + " (needs " + duration + " hours)";
+            result = super.toString() + " (needs " + duration + " hours)";
+        } else {
+            result = super.toString();
         }
-        return super.toString();
+        return result;
     }
 }

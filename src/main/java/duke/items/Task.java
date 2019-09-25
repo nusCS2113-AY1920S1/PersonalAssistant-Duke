@@ -1,6 +1,7 @@
 package duke.items;
 
 import java.util.Date;
+import duke.enums.TaskType;
 
 /**
  * Task is an abstract class that stores the description and done status of a task.
@@ -11,11 +12,6 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-    protected String doAfter; //Can extend to a list of tasks that have to be done before.
-
-    protected enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
 
     /**
      * Task constructor sets a blank task by default.
@@ -28,11 +24,10 @@ public class Task {
     /**
      * All tasks contain a description and isDone status, and also belong to a type.
      */
-    public Task(String description, TaskType type, String doAfter) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
         this.type = type;
-        this.doAfter = doAfter;
     }
 
     public String getDescription() {
@@ -45,10 +40,6 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
-    }
-
-    public void setDoAfter(String doAfter) {
-        this.doAfter = doAfter;
     }
 
     public void printTaskDetails() {
@@ -92,8 +83,7 @@ public class Task {
 
 
     /**
-     * toString method overridden to return the a description string.
-     * This string presents the task information in a readable format.
+     * Formats all task details appropriately for Ui output.
      * @return the task details.
      */
     @Override
@@ -107,13 +97,7 @@ public class Task {
             taskType = "[E] ";
         }
 
-        String after;
-        if (!doAfter.equals("")) {
-            after = " (do after: " + doAfter + ")";
-        } else {
-            after = "";
-        }
 
-        return taskType + getStatusIcon() + description + after; //eg. [✓] read book
+        return taskType + getStatusIcon() + description; //eg. [✓] read book
     }
 }
