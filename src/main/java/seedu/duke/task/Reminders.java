@@ -29,6 +29,7 @@ public class Reminders {
      *
      * @return an ArrayList of type Task.
      */
+<<<<<<< HEAD
     public ArrayList<Task> oneDay() {
         try {
             Scanner dukeTxt = new Scanner(new File(this.filePath));
@@ -61,6 +62,20 @@ public class Reminders {
                     if (checkYear && checkMonth && checkDay) {
                         lastDayList.add(new Event(taskString[2], localDateTime));
                     }
+=======
+    public static ArrayList<Task> overdue(TaskList list) {
+        overDueList.clear();
+        for (int i = 0; i < list.size(); i++) {
+            LocalDateTime currentTime = LocalDateTime.now();
+            boolean done = list.get(i).isDone;
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
+                long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
+                if (duration <= 0) {
+                    overDueList.add(list.get(i));
+>>>>>>> branch-DetectAnomalies
                 }
             }
         } catch (FileNotFoundException e) {
@@ -69,6 +84,29 @@ public class Reminders {
             System.out.println("\t_____________________________________");
         }
 
+<<<<<<< HEAD
+=======
+    /**
+     * List of tasks that are due in 24 hours or less.
+     * @param list current TaskList.
+     * @return a list of tasks that are due in 24 hours or less.
+     */
+    public static ArrayList<Task> lastDay(TaskList list) {
+        lastDayList.clear();
+        for (int i = 0; i < list.size(); i++) {
+            LocalDateTime currentTime = LocalDateTime.now();
+            boolean done = list.get(i).isDone;
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
+                long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
+                if (duration <= TWENTY_FOUR_HOURS && duration > THIRTY_MINUTES) {
+                    lastDayList.add(list.get(i));
+                }
+            }
+        }
+>>>>>>> branch-DetectAnomalies
         return lastDayList;
     }
 
@@ -76,7 +114,37 @@ public class Reminders {
      * Display the list of different reminders
      * and there is no reminders, no list will be displayed.
      */
+<<<<<<< HEAD
     public void displayReminder() {
+=======
+    public static ArrayList<Task> lastThirtyMins(TaskList list) {
+        lastThirtyMinutesList.clear();
+        for (int i = 0; i < list.size(); i++) {
+            LocalDateTime currentTime = LocalDateTime.now();
+            boolean done = list.get(i).isDone;
+            boolean checkDeadline = list.get(i).toString().contains("[D]");
+            boolean checkEvent = list.get(i).toString().contains("[E]");
+            boolean checkRange = list.get(i).toString().contains("[R]");
+            if (!done && checkDeadline || checkEvent || checkRange) {
+                long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
+                if (duration <= THIRTY_MINUTES && duration > 0) {
+                    lastThirtyMinutesList.add(list.get(i));
+                }
+            }
+        }
+        return lastThirtyMinutesList;
+    }
+
+    /**
+     * Runs all types of reminders list at once.
+     * @param list current TaskList.
+     */
+    public static void runAll(TaskList list) {
+        overdue(list);
+        lastThirtyMins(list);
+        lastDay(list);
+    }
+>>>>>>> branch-DetectAnomalies
 
         if (!lastDayList.isEmpty()) {
             System.out.println("\t_____________________________________");
