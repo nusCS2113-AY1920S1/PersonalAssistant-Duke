@@ -54,3 +54,6 @@ Gradle Commands | Usage
 `gradlew run` | Runs the main class as specified in gradle.build
 `gradlew properties` | Displays properties of this gradle project
 
+# UI
+
+<Insert mock up UI here>
