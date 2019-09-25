@@ -1,6 +1,9 @@
 # Dr. Duke
 
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113-T14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113-T14-1/main)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b8e345cbbcf4fd682c71bca9677f1be)](https://www.codacy.com/manual/gowgos5/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113-T14-1/main&amp;utm_campaign=Badge_Grade)
+
+
 
 <img src="docs/images/Logo.png" width=400>
 <img src="docs/images/Ui.png" width=600>
