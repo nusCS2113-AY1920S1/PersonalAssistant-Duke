@@ -4,11 +4,11 @@
 
 ![Screenshot of COMPal UI](/docs/images/Ui.png)
 
-**COMPal** is a Command Line Interface calendar application that targets students who prefer to use a desktop application for managing their busy student life. **COMPal** ***presents*** your timetable in a ***user-friendly layout*** that gives an ***informative overview*** of your schedule in just a brief glance. 
+**COMPal** is a Command Line Interface calendar application that targets students who prefer to use a desktop application for managing their busy student life. **COMPal** presents your timetable in a ***user-friendly layout*** that gives an ***informative overview*** of your schedule in just a brief glance. 
 
 A student’s life is busy – being students ourselves, we understand the daily pressure of handling a million and one assignments, as well as factoring in time for our friends and loved ones. **COMPal** tackles that problem by allowing the ***inclusion of non-academic activities*** along with class timings, unlike other widely-used timetable tools. This makes it more convenient for you to find a ***balance*** between the ***work*** you ***have*** to do, and the ***people*** you ***care*** about.
 
-In addition, **COMPal** offers you the ***freedom to prioritise certain tasks*** over others. Does a lecture timing clash with a pending meetup? Fret not! COMPal allows you to ***rank events according to importance***, so that you can ***adjust*** accordingly to any last-minute plans. Additionally, you can make use of ***timely*** reminders to keep track of any ***looming*** obligations.
+In addition, **COMPal** offers you the ***freedom to prioritise certain tasks*** over others. Does a lecture timing clash with a pending meetup? Fret not! **COMPal** allows you to ***rank events according to importance***, so that you can adjust accordingly to any last-minute plans. Additionally, you can make use of ***timely reminders*** to keep track of any looming obligations.
 
 **COMPal** relies on a Command Line Interface, perfect for the modern, fast-typing student. Take control. ***COMPal*** your life.
 
@@ -28,7 +28,7 @@ Visit our [Project Team page](docs/AboutUs.md) or any of our Github profiles to 
 Personal Assistant originally created by the [SE-EDU](https://github.com/se-edu) initiative. 
 * Libraries used: 
     * [JUnit 5](https://github.com/junit-team/junit5), to develop unit tests that were crucial to ensuring a smooth-running application 
-    * [Javafx](https://gluonhq.com/products/javafx/), to render a pleasant user interface
+    * [JavaFX](https://gluonhq.com/products/javafx/), to render a pleasant user interface
     
 ## Contact Us
 * Notice any bugs? Report it via our [issue tracker](https://github.com/AY1920S1-CS2113T-W17-1/main/issues) and 
