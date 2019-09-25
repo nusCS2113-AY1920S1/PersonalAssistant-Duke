@@ -63,19 +63,23 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
-
-        if (super.type == CommandType.TODO) {
+        switch (super.type) {
+        case TODO:
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));
             } else {
                 list.addItem(TaskType.TODO,description);
             }
-        } else if (super.type == CommandType.DEADLINE) {
+            break;
+        case DEADLINE:
             list.addItem(TaskType.DEADLINE, description, dateTimes[0]);
-        } else { //Type is event
+            break;
+        case EVENT:
             list.addItem(TaskType.EVENT, description, dateTimes[0], dateTimes[1]);
+            break;
+        default:
+            break;
         }
-
     }
 
     /**
