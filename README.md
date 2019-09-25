@@ -44,6 +44,7 @@ Duke Components | Tutorial
 [fx3]: <tutorials/javaFxTutorialPart3.md>
 [fx4]: <tutorials/javaFxTutorialPart4.md>
 
+
 ## Gradle Usage
 
 This assumes the project has been imported as a gradle project. If not, follow the instructions at [Gradle Tutorial](tutorials/gradleTutorial.md).
@@ -98,3 +99,4 @@ application {
 ## UI
 
 ![UI](docs/images/UI.png)
+
