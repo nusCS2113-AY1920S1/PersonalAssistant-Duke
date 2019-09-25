@@ -30,5 +30,8 @@ public class SearchCommand extends Command {
         if(this.command.matches("find")){
             tasks.find(this.arguments);
         }
+        if(this.command.matches("schedule")) {
+            tasks.view_schedule(this.arguments);
+        }
     }
 }

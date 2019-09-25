@@ -6,6 +6,7 @@ import Parser.Parser;
 
 import java.util.ArrayList;
 
+
 /**
  * Tasklist stores an arraylist of tasks and performs actions on tasks
  * Actions: Modify/Remove/Add Tasks
@@ -197,34 +198,34 @@ public class TaskList {
         Task temp;
         try {
             switch (type) {
-                case "todo":
-                    temp = new Todo(input);
-                    break;
-                case "deadline":
-                    temp = new Deadline(input);
-                    break;
-                case "event":
-                    temp = new Event(input);
-                    break;
-                case "recurring":
-                    temp = new Recurring(input);
-                    break;
-                case "after":
-                    temp = new After(input);
-                    break;
-                case "within":
-                    temp = new Within(input);
-                    break;
-                case "fixed":
-                    temp = new Fixed(input);
-                    break;
-                default:
-                    throw new DukeException("What the Hell happened here?\n"+
-                            "Command passed successfully to tasklist.add, not found in any case");
+            case "todo":
+                temp = new Todo(input);
+                break;
+            case "deadline":
+                temp = new Deadline(input);
+                break;
+            case "event":
+                temp = new Event(input);
+                break;
+            case "recurring":
+                temp = new Recurring(input);
+                break;
+            case "after":
+                temp = new After(input);
+                break;
+            case "within":
+                temp = new Within(input);
+                break;
+            case "fixed":
+                temp = new Fixed(input);
+                break;
+            default:
+                throw new DukeException("What the Hell happened here?\n"
+                            + "Command passed successfully to tasklist.add, not found in any case");
             }
             this.list.add(temp);
-            System.out.println("Got it. I've added this task:\n  " +
-                    temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n  "
+                    + temp.toList() + "\nNow you have "+ this.size() + " tasks in the list.");
         }
         catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
@@ -257,6 +258,49 @@ public class TaskList {
     }
 
     /**
+     * Shows the schedule if the input matches any of the dates in the tasklist
+     * @param input String to be matches to description/date
+     * @throws DukeException DukeException to be thrown when errors occur somehow
+     */
+
+    public void view_schedule(String input) throws DukeException {
+        ArrayList<Integer> foundDate = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++)
+        {
+            if (this.get(i).getDueDate().contains(input)) {
+                foundDate.add(i);
+            }
+        }
+        if(foundDate.isEmpty())
+            System.out.println("You have no tasks today. Enjoy!");
+        else
+        {
+            System.out.println("Here's what the day looks like:");
+            for (Integer found_date : foundDate) {
+                System.out.println((found_date + 1) + ". " + this.get(found_date).toList());
+            }
+        }
+    }
+
+    /**
+        *Checks if there is any event with the same start time, that could lead to a conflict
+        *The AddCommand class is classified to check for such instances when the type of task is an "Event"
+     */
+    public void conflict_check() throws DukeException {
+        ArrayList<String> check_conflict = new ArrayList<>();
+        for(int i = 0; i < list.size() - 1; i++) {
+           check_conflict.add(list.get(i).getDueDate());
+        }
+
+        for (int i = 0; i < check_conflict.size(); i++) {
+            if(check_conflict.get(i).equals(list.get(list.size() -1).getDueDate())) {
+                System.out.println("There is a conflict in the schedule!");
+                break;
+            }
+        }
+    }
+
+    /**
      * Prints out all tasks in list
      * If list is empty, prints out message stating that it is empty
      */
@@ -267,6 +311,58 @@ public class TaskList {
             int counter = 1;
             for (Task task : list) {
                 System.out.println(counter++ + ". " + task.toList());
+            }
+        }
+    }
+
+    /**
+     * Selects a Task from an Event with Tentative Dates
+     * @param input String which should contain two whitespace separated numbers
+     */
+    public void select(String input) throws DukeException {
+        String[] split = input.split("\\s+");
+        if(split.length != 2)
+        {
+            throw new DukeException("Incorrect number of arguments, Index + Index method expected");
+        }
+        else
+        {
+            try {
+                int index = Integer.parseInt(split[0]);
+                int dateIndex = Integer.parseInt(split[1]);
+                index -= 1;
+                dateIndex -= 1;
+                if (isOutOfRange(index))
+                {
+                    throw new DukeException("The index was not found within task range");
+                }
+                else if (!list.get(index).getType().equals("E"))
+                {
+                    throw new DukeException("The Task you chose is not the Event Type!");
+                }
+                else if (!list.get(index).tentativeExists())
+                {
+                    throw new DukeException("There are no Tentative Slots to be chosen from");
+                }
+                else if (list.get(index).outsideTentative(dateIndex))
+                {
+                    throw new DukeException("Not a valid Selection (out of range)");
+                }
+                else
+                {
+                    this.list.get(index).changeDueDate(this.list.get(index).getTentativeDate(dateIndex));
+                    this.list.get(index).clearTentative();
+                    System.out.println("Tentative Date selected successfully");
+                }
+
+            }
+            catch(DukeException e)
+            {
+                throw new DukeException(e.getLocalizedMessage());
+            }
+            catch(NumberFormatException e)
+            {
+                throw new DukeException("That is NOT a valid Integer");
             }
         }
     }

@@ -87,6 +87,7 @@ public class Deadline extends Task {
      * @return String consisting of a single Letter (for now)
      */
     @Override
-    public String getType(){ return type;}
+    public String getType(){ return "D";}
+
 
 }
