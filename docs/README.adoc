@@ -209,7 +209,7 @@ There is no need to save manually.
 
 === Auto suggests commands based on frequency
 
-Duke 2.0 will suggest commands based on the frequency you have used certain commands. Pressing :kbd["\u2192"]
+Duke 2.0 will suggest commands based on the frequency you have used certain commands. Pressing kbd:[&#8594;] will fill the rest of the displayed command.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
