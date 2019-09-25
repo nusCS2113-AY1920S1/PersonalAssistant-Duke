@@ -2,6 +2,7 @@ import CustomExceptions.DukeException;
 import Enums.ExceptionType;
 import Enums.RecurTaskType;
 import Enums.TaskType;
+import Enums.TimeUnit;
 import Model_Classes.*;
 import Operations.*;
 
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 /**
  * main class of the Duke program

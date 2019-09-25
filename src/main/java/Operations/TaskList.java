@@ -3,9 +3,9 @@ package Operations;
 import CustomExceptions.DukeException;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
-import Enums.TimeUnit;
 
 import java.util.ArrayList;
+import Enums.TimeUnit;
 
 /**
  * A class to perform operations on the task list in Duke
