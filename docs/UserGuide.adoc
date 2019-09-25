@@ -35,7 +35,6 @@ e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 [[Features]]
 == Features
 
-====
 *Command Format*
 
 * Uppercase word in square brackets are the parameter to be inputed by the you. +
@@ -55,7 +54,7 @@ Format: `*help*`
 === Adding expense/income: `add expense`, `add income`
 
 Add a expense or income on a particular date. +
-Format: + 
+Format: +
 `*add expense* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}`
 
@@ -120,7 +119,92 @@ Example:
 
 * `set limit $50 every week`
 
+=== Set target saving `set saving`
+
+Set target saving for a particular duration.
+
+Format:
+
+`*set saving* [AMOUNT] /for [DURATION]`
+
+*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
+
+Example:
+
+* `set saving $300 /for every month`
+
+=== Reminders `reminder`
+
+Reminders for upcoming payments.
+
+Format:
+
+`*reminder*`
+
+*NOTE*: Reminders will auto pop up with the greeting message.
+
+Example:
+
+* `reminder`
+
+=== Set expense limit `set limit`
+
+Set expense limit on particular types of spending.
+
+Format:
+
+`*set limit* /tag [TAG] [AMOUNT]`
+
+Example:
+
+* `set limit /tag bubble tea $20`
+
+
+=== Add loans an debts `owe` `borrow`
+
+Add loans and debts that are one off kind.
+
+Format:
+
+`*owe* [FRIEND] [AMOUNT] [DESCRIPTION]`
+
+`*borrow* [FRIEND] [AMOUNT] [DESCRIPTION]`
+
+Examples:
+
+* `owe xx $4 bubble tea`
+
+* `borrow xx $10 lunch`
+
+=== View statistics `stats`
+
+View spending statistics using histograms
+
+Format:
+
+`*stats*`
+
+Example:
+
+* `stats`
+
+=== Add to favourite `add favourite`
+
+Add a favourite product 
+
+Format:
+
+`*add favourite* [LIST NO.]`
+
+Example:
+
+* `add favourite 3`
+
 == FAQ
+
+*Q*: How do I transfer my data to another computer
+
+*A*: Install the app in the new computer and overwrite the empty data file it creates with the file that contains the data of your previous data folder.
 
 == Command Summary
 
@@ -135,3 +219,15 @@ e.g. `modify 4`
 e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
 e.g. `set limit $50 every week`
+* `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
+e.g. `set saving $300 /for every month`
+* `*reminder*` `reminder`
+* `*set limit*` `set limit /tag [TAG] [AMOUNT]` +
+e.g. `set limit /tag bubble tea $20`
+* `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
+e.g. `owe xx $4 bubble tea`
+* `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
+e.g. `borrow xx $10 lunch`
+* `*stats*` `stats`
+* `*add favourite*` `add favourite [LIST NO.]` +
+e.g. `add favourite 3`
