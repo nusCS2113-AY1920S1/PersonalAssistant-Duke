@@ -103,11 +103,11 @@ public class Command {
                 createNewEvent(events, ui, 'P');
                 break;
 
-//            case "view":
-//                viewEvents(events, ui);
-//                changesMade = false;
-//                break;
-//
+            case "view":
+                viewEvents(events, ui);
+                changesMade = false;
+                break;
+
 //            case "check":
 //                checkFreeDays(events, ui);
 //                changesMade = false;
