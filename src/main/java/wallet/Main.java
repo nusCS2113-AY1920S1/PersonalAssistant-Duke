@@ -1,7 +1,6 @@
 package wallet;
 
 import wallet.logic.LogicManager;
-import wallet.storage.Storage;
 import wallet.ui.Reminder;
 import wallet.ui.Ui;
 

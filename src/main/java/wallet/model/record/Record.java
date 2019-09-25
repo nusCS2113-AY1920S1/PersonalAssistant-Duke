@@ -56,4 +56,9 @@ public abstract class Record {
     public LocalDate getDate() {
         return this.date;
     }
+
+    /**
+     * Formats the record to write to save file.
+     */
+    public abstract String writeToFile();
 }

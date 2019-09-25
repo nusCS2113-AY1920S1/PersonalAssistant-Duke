@@ -33,7 +33,6 @@ public class TaskStorage extends Storage<Task> {
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
                 String[] strArr = str.split(",");
-                String[] info;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy h:mma");
                 if (strArr[0].trim().equals("T")) {
                     Todo todo = new Todo(strArr[2].trim());

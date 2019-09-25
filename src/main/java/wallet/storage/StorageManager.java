@@ -13,6 +13,9 @@ public class StorageManager {
     private TaskStorage taskStorage;
     private ExpenseStorage expenseStorage;
 
+    /**
+     * Constructs a new StorageManager object with all storage classes.
+     */
     public StorageManager() {
         createDir();
         this.taskStorage = new TaskStorage();
@@ -48,5 +51,9 @@ public class StorageManager {
 
     public ArrayList<Expense> loadExpense() {
         return expenseStorage.loadFile();
+    }
+
+    public void addExpense(Expense expense) {
+        expenseStorage.writeToFile(expense);
     }
 }

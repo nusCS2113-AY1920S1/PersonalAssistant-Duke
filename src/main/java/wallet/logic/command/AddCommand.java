@@ -78,14 +78,15 @@ public class AddCommand extends Command {
         if (expense != null) {
             wallet.getExpenseList().addExpense(expense);
             wallet.getRecordList().addRecord(expense);
+            storageManager.addExpense(expense);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             System.out.println(expense.toString());
         }
         if (task != null) {
             wallet.getTaskList().addTask(task);
+            storageManager.addTask(task);
             System.out.println(MESSAGE_SUCCESS_ADD_TASK);
             System.out.println(task.toString());
-            storageManager.addTask(task);
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);

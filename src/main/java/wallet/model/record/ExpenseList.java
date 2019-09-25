@@ -17,6 +17,13 @@ public class ExpenseList {
     }
 
     /**
+     * Constructs a new ExpenseList object with populated list.
+     */
+    public ExpenseList(ArrayList<Expense> expenseList) {
+        this.expenseList = expenseList;
+    }
+
+    /**
      * Returns the list of expenses.
      *
      * @return The list of expenses.

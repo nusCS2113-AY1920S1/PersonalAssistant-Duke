@@ -26,7 +26,7 @@ public class LogicManager {
      */
     public LogicManager() {
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(), new ContactList(),
+        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()), new ContactList(),
                 new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList());
         this.parserManager = new ParserManager();
     }
