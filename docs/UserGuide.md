@@ -7,7 +7,7 @@ We are still working on the User Guide. Stay tuned for newer features!
 2. [Quick Start](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md#quick-start)
 3. [Features](https://github.com/yueyeah/main/blob/master/docs/UserGuide.md#features)
 
-## Introduction
+## 1. Introduction
 Welcome to **COMPal**!
 
 **COMPal** is a Command Line Interface calendar application that targets students who prefer to use a desktop application for managing their busy student life. **COMPal** captures your timetable in a ***user-friendly layout***, giving you an ***informative overview*** of your schedule in a brief glance. 
@@ -16,9 +16,9 @@ Additionally, you can ***include non-academic activities*** along with your acad
 
 Take Control. ***COMPal*** your life, today. 
 
-## Quick Start
+## 2. Quick Start
 
-## Features 
+## 3. Features 
 
 ### Feature 1 
 Description of feature.
