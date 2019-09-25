@@ -2,14 +2,13 @@ package duke.GUI;
 
 import duke.Duke;
 import javafx.application.Application;
-import java.io.FileNotFoundException;
 
 /**
  * A launcher class to workaround classpath issues.
  */
 public class Launcher {
 
-    public Launcher() throws FileNotFoundException {
+    public Launcher() {
     }
 
     /**

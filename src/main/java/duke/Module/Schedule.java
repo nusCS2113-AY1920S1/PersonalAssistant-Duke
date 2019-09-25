@@ -8,16 +8,13 @@ import java.util.Calendar;
  * Class manages the timetable for the user.
  */
 public class Schedule {
-    /**
-     * Constructor.
-     */
+
     public Schedule() {
 
     }
 
     /**
      * Method will show the current days in the present week.
-     *
      * @return List of all days in the week in the format [index] DAY DATE MONTH
      */
     public String getWeek() {
