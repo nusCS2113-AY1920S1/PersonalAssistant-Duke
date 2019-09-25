@@ -18,7 +18,11 @@ public class AddCommand extends Command {
     private DateTime[] dateTimes = new DateTime[2];
 
     /**
-     * Why does this require a javadoc comment.
+     * Initialises all the attributes of the details of the task to be added.
+     * @param type TaskType enum of what task class to add.
+     * @param description User input description of the task to add.
+     * @param details Formatted datetime of task.
+     * @throws BadInputException
      */
     public AddCommand(CommandType type, String description, String details) throws BadInputException {
         super(type);
@@ -52,6 +56,13 @@ public class AddCommand extends Command {
 
     }
 
+    /**
+     * Executes the actual adding of task to the TaskList.
+     * @param list TaskList to add the item to.
+     * @param ui Ui object to display output to.
+     * @param storage Storage object to handle saving and loading of any data.
+     * @throws BadInputException
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
 
@@ -71,6 +82,11 @@ public class AddCommand extends Command {
 
     }
 
+    /**
+     * Executes the actual adding of task to the TaskList. Only to be used Storage.load().
+     * @param list TaskList to add the item to.
+     * @throws BadInputException If a record is badly formatted, it should be ignored.
+     */
     public void execute(TaskList list) throws BadInputException {
 
         int index = list.getListIndex(); //To assign the next task's index.
