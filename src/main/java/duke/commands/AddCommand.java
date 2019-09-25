@@ -75,7 +75,7 @@ public class AddCommand extends Command {
             list.addItem(TaskType.DEADLINE, description, dateTimes[0]);
             break;
         case EVENT:
-            list.addItem(TaskType.EVENT, description, dateTimes[1], dateTimes[1]);
+            list.addItem(TaskType.EVENT, description, dateTimes[0], dateTimes[1]);
             break;
         default:
             break;
