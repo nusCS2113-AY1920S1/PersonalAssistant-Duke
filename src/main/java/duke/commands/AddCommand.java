@@ -69,8 +69,6 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
 
-        int index = list.getListIndex(); //To assign the next task's index.
-
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));
@@ -91,8 +89,6 @@ public class AddCommand extends Command {
      * @throws BadInputException If a record is badly formatted, it should be ignored.
      */
     public void execute(TaskList list) throws BadInputException {
-
-        int index = list.getListIndex(); //To assign the next task's index.
 
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
