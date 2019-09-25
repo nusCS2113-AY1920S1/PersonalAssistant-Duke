@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
                 throw new DukeException(DukeException.ErrorType.INDEX_EXCEEDED);
             }
             ui.showDeleted(tasks.getTaskItem(index));
-            storage.deleteItemFromFile(tasks.getItemData(index));
+            storage.deleteItemFromFile(tasks.getItemData(index), "src/main/data/duke.txt");
             tasks.deleteItem(index);
         } catch (DukeException e) {
             e.showError();

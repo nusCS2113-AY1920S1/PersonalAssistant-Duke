@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RemindersTest {
 
-    @Test
-    void getCurrentTimeUsingCalendar() {
-        Reminders.getCurrentTimeUsingCalendar();
-    }
+//    @Test
+//    void getCurrentTimeUsingCalendar() {
+//        Reminders.getCurrentTimeUsingCalendar();
+//    }
 }

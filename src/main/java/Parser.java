@@ -1,11 +1,7 @@
 import command.*;
 import exception.DukeException;
 import storage.Storage;
-import task.Deadline;
-import task.Recurring;
-import task.Todo;
-import task.Event;
-
+import task.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -82,13 +78,25 @@ public class Parser {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
                     }
                     Date d = new Date();
+                    String temp = dateInfo.get(1);
                     dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
                     if (!dateInfo.get(1).equals("null")) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
                     }
                     //create event object
-                    Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
+                    Recurring t = new Recurring(dateInfo.get(0), temp);
                     return new AddCommand(t);
+                }
+                else if(taskInfo[0].equals("view")){
+                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
+                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    String dateInfo = taskInfo[1];
+                    if ((dateInfo.equals("[null]"))) { throw new DukeException(DukeException.ErrorType.FORMAT_VIEW); }
+                    Date d = new Date();
+                    dateInfo = d.convertDate(dateInfo);
+                    String lookUpDate = dateInfo;
+                    //System.out.println("lookUpDate after conversion is : " +lookUpDate);
+                    return new ViewSchedule(lookUpDate);
                 }
                 else {
                     try {
@@ -118,8 +126,9 @@ public class Parser {
                 dateInfo.add(a[0].trim()); //description
                 dateInfo.add(b[0].trim()); //deadline date
                 dateInfo.add(b[1].trim()); //reminder date
-                String filePath = "data/reminders.txt";
-                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2) + System.lineSeparator();
+
+                String filePath = "src/main/data/reminders.txt";
+                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2);
                 Storage.writeReminderFile(reminderInfo, filePath);
 
             } else {

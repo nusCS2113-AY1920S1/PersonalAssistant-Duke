@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "data/duke.txt";
+    private static String FILE_PATH = "src/main/data/duke.txt";
 
     public Storage() {}
     public Storage(String filePath) {
@@ -86,8 +86,8 @@ public class Storage {
         }
     }
 
-    public void writeFile(String s, boolean append) {
-        File file = new File(FILE_PATH);
+    public void writeFile(String s, boolean append, String filePath) {
+        File file = new File(filePath);
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
@@ -128,9 +128,8 @@ public class Storage {
         }
     }
 
-
-    public void deleteItemFromFile(String oldString) {
-        File file = new File(Storage.FILE_PATH);
+    public void deleteItemFromFile(String oldString, String filePath) {
+        File file = new File(filePath);
         FileReader fr = null;
         BufferedReader br = null;
         try {
@@ -146,7 +145,7 @@ public class Storage {
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
             Storage writer = new Storage();
-            writer.writeFile(newContent, false);
+            writer.writeFile(newContent,false, filePath);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -34,7 +34,7 @@ public class AddCommand extends Command {
         //add task to tasks
         //ask storage to write to file
         tasks.addItem(task);
-        storage.writeFile(task.toData(), true);
+        storage.writeFile(task.toData(), true, "src/main/data/duke.txt");
         ui.showAdded(task, tasks);
     }
 }

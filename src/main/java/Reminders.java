@@ -1,21 +1,8 @@
 import storage.Storage;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Reminders {
-    public static void getCurrentTimeUsingCalendar() {
-        Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        String formattedDate = dateFormat.format(date);
-        System.out.println(java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        System.out.println(java.time.LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm")));
-    }
 
     protected ArrayList<String[]> reminderList;
 
@@ -33,16 +20,30 @@ public class Reminders {
                 if (reminderInfo[2].equals(currentDateTime)) {
                     //time to remind
                     printReminder(reminderInfo);
+                    //delete reminder from list
+                    storage.deleteItemFromFile(convertToData(reminderInfo), "/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt");
                 }
             }
         }
     }
 
+    public String convertToData(String[] reminderInfo) {
+        return reminderInfo[0].trim() + " | " + reminderInfo[1].trim() + " | " + reminderInfo[2].trim();
+    }
+
     public void getRemindersList(Storage storage) {
-        reminderList = storage.loadReminderFile("data/reminders.txt");
+        reminderList = storage.loadReminderFile("src/main/data/reminders.txt");
     }
 
     public void printReminder(String[] reminderInfo) {
-        System.out.println("You have tasks due!\n" + reminderInfo[0] + " by " + reminderInfo[1]);
+        System.out.println("     You have tasks due!\n     " + reminderInfo[0] + "by " + reminderInfo[1]);
+        System.out.println("    ____________________________________________________________");
     }
+
+    public void getUpcomingReminders() {
+        for (String[] x: reminderList) {
+            System.out.println(x[0]);
+        }
+    }
+
 }
