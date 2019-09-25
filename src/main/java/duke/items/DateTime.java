@@ -2,6 +2,7 @@ package duke.items;
 
 import duke.exceptions.BadInputException;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 //TODO: Import an existing datetime class or write a better one.
@@ -74,6 +75,15 @@ public class DateTime {
      */
     public String returnFormattedDate() {
         return ("" + at);
+    }
+
+    /**
+     * Datetime in the format of "dd/MM/yyyy HHmm".
+     * @return
+     */
+    public String toString() {
+        SimpleDateFormat formatted = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        return formatted.format(at);
     }
 
 }
