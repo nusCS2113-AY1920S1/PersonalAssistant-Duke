@@ -21,15 +21,14 @@ public class Reminders {
                     //time to remind
                     printReminder(reminderInfo);
                     //delete reminder from list
-                    System.out.println("HERE IT IS" + convertToData(reminderInfo));
-                    storage.deleteReminderItemFromFile(convertToData(reminderInfo));
+                    storage.deleteItemFromFile(convertToData(reminderInfo), "/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt");
                 }
             }
         }
     }
 
     public String convertToData(String[] reminderInfo) {
-        return reminderInfo[0] + "| " + reminderInfo[1] + "| " + reminderInfo[2];
+        return reminderInfo[0].trim() + " | " + reminderInfo[1].trim() + " | " + reminderInfo[2].trim();
     }
 
     public void getRemindersList(Storage storage) {
@@ -37,7 +36,8 @@ public class Reminders {
     }
 
     public void printReminder(String[] reminderInfo) {
-        System.out.println("You have tasks due!\n" + reminderInfo[0] + " by " + reminderInfo[1]);
+        System.out.println("     You have tasks due!\n     " + reminderInfo[0] + "by " + reminderInfo[1]);
+        System.out.println("    ____________________________________________________________");
     }
 
     public void getUpcomingReminders() {

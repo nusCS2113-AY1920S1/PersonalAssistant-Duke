@@ -86,8 +86,8 @@ public class Storage {
         }
     }
 
-    public void writeFile(String s, boolean append) {
-        File file = new File(FILE_PATH);
+    public void writeFile(String s, boolean append, String filePath) {
+        File file = new File(filePath);
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
@@ -128,41 +128,8 @@ public class Storage {
         }
     }
 
-
-    public void deleteReminderItemFromFile(String oldString) {
-        File file = new File("/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt");
-        FileReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            String oldContent = "";
-            String line = br.readLine();
-
-            while (line != null) {
-                oldContent = oldContent + line + System.lineSeparator();
-                line = br.readLine();
-            }
-            oldContent = oldContent.substring(0, oldContent.length() - 1);
-            System.out.println("STRING TO BE DELETED IS " + oldString);
-            String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
-            Storage writer = new Storage();
-            writer.writeFile(newContent, false);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void deleteItemFromFile(String oldString) {
-        File file = new File("/home/tessa/Documents/CS2113/main/src/main/data/duke.txt");
+    public void deleteItemFromFile(String oldString, String filePath) {
+        File file = new File(filePath);
         FileReader fr = null;
         BufferedReader br = null;
         try {
@@ -178,7 +145,7 @@ public class Storage {
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
             Storage writer = new Storage();
-            writer.writeFile(newContent, false);
+            writer.writeFile(newContent,false, filePath);
 
         } catch (IOException e) {
             e.printStackTrace();
