@@ -4,8 +4,11 @@ import duke.TaskList;
 import duke.commands.AddCommand;
 import duke.enums.CommandType;
 import duke.exceptions.BadInputException;
+import duke.items.Deadline;
 import duke.items.Event;
 import org.junit.jupiter.api.Test;
+
+import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,16 +26,21 @@ public class AddCommandTest {
     public void execute_addDeadlineTask_success() throws BadInputException {
         TaskList newList = new TaskList();
         new AddCommand(CommandType.DEADLINE, "Test DEADLINE", "15/12/2019 1500").execute(newList);
+        SimpleDateFormat formatted = new SimpleDateFormat("EEE MMM d yyyy K:mm a");
+        String startDate = formatted.format(newList.getTask(0).getDate().getTime());
         assertEquals("Test DEADLINE", newList.getTask(0).getDescription());
-        assertEquals("Sun Dec 15 15:00:00 SGT 2019", newList.getTask(0).getDate().toString());
+        assertEquals("Sun Dec 15 2019 3:00 PM", startDate);
     }
 
     @Test
     public void execute_addEventTask_success() throws BadInputException {
         TaskList newList = new TaskList();
         new AddCommand(CommandType.EVENT, "Test EVENT", "15/12/2019 1500 to 17/12/2019 1500").execute(newList);
+        SimpleDateFormat formatted = new SimpleDateFormat("EEE MMM d yyyy K:mm a");
+        String startDate = formatted.format(newList.getTask(0).getDate().getTime());
+        String endDate = formatted.format(newList.getTask(0).getEndDate().getTime());
         assertEquals("Test EVENT", newList.getTask(0).getDescription());
-        assertEquals("Sun Dec 15 15:00:00 SGT 2019", newList.getTask(0).getDate().toString());
-        assertEquals("Tue Dec 17 15:00:00 SGT 2019", ((Event) newList.getTask(0)).getEventEndTime());
+        assertEquals("Sun Dec 15 2019 3:00 PM", startDate);
+        assertEquals("Tue Dec 17 2019 3:00 PM", endDate);
     }
 }

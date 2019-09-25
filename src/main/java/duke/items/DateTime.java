@@ -15,7 +15,6 @@ import java.util.Date;
 public class DateTime {
     private String dateAndTime;
     private boolean valid;
-    private Date at;
     private Calendar calendar;
 
     /**
@@ -42,7 +41,6 @@ public class DateTime {
             // set seconds to be 0 by default
             calendar.set(Calendar.SECOND, 0);
 
-            this.at = calendar.getTime();
             this.calendar = calendar;
         } catch (Exception e) {
             throw new BadInputException("Improper datetime. Correct format: dd/mm/yyyy hhmm.\nEnter task again.");
@@ -53,28 +51,26 @@ public class DateTime {
      * Returns the Date in the DateTime object.
      * @return Time in Calendar-Date format.
      */
-    public Date getAt() {
-        return at;
-    }
-
-    /**
-     * Sets the calendar date.
-     * @param date to be set.
-     */
-    public void setDate(Date date) {
-        at = (date);
-    }
-
-
-    public Calendar getCalendar() {
+    public Calendar getAt() {
         return calendar;
     }
+
+    //    /**
+    //     * Sets the calendar date.
+    //     * @param date to be set.
+    //     */
+    //    public void setDate(Date date) {
+    //        at = (date);
+    //    }
+
 
     /**
      * Returns string of the stored date in the default Date.java format.
      */
     public String returnFormattedDate() {
-        return ("" + at);
+        SimpleDateFormat formatted = new SimpleDateFormat("EEE MMM d yyyy K:mm a");
+        String output = formatted.format(calendar.getTime());
+        return (output);
     }
 
     /**
@@ -83,7 +79,7 @@ public class DateTime {
      */
     public String toString() {
         SimpleDateFormat formatted = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        return formatted.format(at);
+        return formatted.format(calendar.getTime());
     }
 
 }

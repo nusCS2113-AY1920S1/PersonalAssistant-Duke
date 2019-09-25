@@ -1,5 +1,6 @@
 package duke.items;
 
+import java.util.Calendar;
 import java.util.Date;
 import duke.enums.TaskType;
 
@@ -77,7 +78,15 @@ public class Task {
         this.isDone = true;
     }
 
-    public Date getDate() {
+    //    public Date getDate() {
+    //        return null;
+    //    }
+
+    public Calendar getDate() {
+        return null;
+    }
+
+    public Calendar getEndDate() {
         return null;
     }
 
@@ -96,7 +105,6 @@ public class Task {
         } else {
             taskType = "[E] ";
         }
-
 
         return taskType + getStatusIcon() + description; //eg. [✓] read book
     }

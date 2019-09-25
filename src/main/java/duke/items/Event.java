@@ -31,13 +31,18 @@ public class Event extends Task /*implements Snooze*/ {
         }
     }
 
-    public String getEventEndTime() {
-        return eventEndTime.returnFormattedDate();
+    @Override
+    public Calendar getEndDate() {
+        return eventEndTime.getAt();
     }
 
-    public Date getDate() {
+    @Override
+    public Calendar getDate() {
         return eventStartTime.getAt();
     }
+    //    public Date getDate() {
+    //        return eventStartTime.getAt();
+    //    }
 
 
     public DateTime getEventStartTimeObj() {

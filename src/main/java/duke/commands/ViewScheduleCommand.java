@@ -9,6 +9,7 @@ import duke.items.Task;
 import duke.enums.CommandType;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ViewScheduleCommand extends Command {
@@ -32,15 +33,22 @@ public class ViewScheduleCommand extends Command {
         ArrayList<Task> scheduledTasks = new ArrayList<>();
         ArrayList<Task> tasks = list.getTaskList();
 
-        Date dayDate = day.getAt();
+        Calendar dayDate = day.getAt();
 
         for (Task task : tasks) {
-            Date currTaskDate;
+            Calendar currTaskDate;
+
+            //            if ((currTaskDate = task.getDate()) != null) {
+            //                if (currTaskDate.getTime() == dayDate.getTime()){
+            //                    scheduledTasks.add(task);
+            //                    System.out.println("Something added");
+            //                }
+            //            }
 
             if ((currTaskDate = task.getDate()) != null) {
-                if (currTaskDate.getDate() == dayDate.getDate()
-                        && currTaskDate.getMonth() == dayDate.getMonth()
-                        && currTaskDate.getYear() == dayDate.getYear()) {
+                if (currTaskDate.getTime().getDate() == dayDate.getTime().getDate()
+                        && currTaskDate.getTime().getMonth() == dayDate.getTime().getMonth()
+                        && currTaskDate.getTime().getYear() == dayDate.getTime().getYear()) {
 
                     scheduledTasks.add(task);
                     System.out.println("Something added");
@@ -51,12 +59,12 @@ public class ViewScheduleCommand extends Command {
 
 
         if (scheduledTasks.size() > 0) {
-            System.out.println("Tasks scheduled for " + dayDate.getDate() + "/"
-                    + (dayDate.getMonth() + 1) + "/"
-                    + (dayDate.getYear() + 1900));
+            System.out.println("Tasks scheduled for " + dayDate.get(Calendar.DATE) + "/"
+                    + (dayDate.get(Calendar.MONTH) + 1) + "/"
+                    + (dayDate.get(Calendar.YEAR) + 1900));
 
             for (int i = 0; i < scheduledTasks.size(); i++) {
-                System.out.println(i + ". " + scheduledTasks.get(i).toString());
+                System.out.println(i + 1 + ". " + scheduledTasks.get(i).toString());
             }
         } else {
             System.out.println("Nothing is scheduled!");

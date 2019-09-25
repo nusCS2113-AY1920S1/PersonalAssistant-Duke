@@ -51,13 +51,13 @@ public class RecurCommand extends Command {
         if (type == CommandType.EVENT) {
             String[] eventDetails = details.split(" to ");
 
-            startDate = new DateTime(eventDetails[0]).getCalendar();
-            endDate = new DateTime(eventDetails[1]). getCalendar();
+            startDate = new DateTime(eventDetails[0]).getAt();
+            endDate = new DateTime(eventDetails[1]).getAt();
         } else {
-            startDate = new DateTime(details).getCalendar();
+            startDate = new DateTime(details).getAt();
 
             // This should not do anything, but intellij wants it to be initialised properly for the switch below
-            endDate = new DateTime(details).getCalendar();
+            endDate = new DateTime(details).getAt();
         }
 
         for (int i = 0; i < numberOfRecur; ++i) {

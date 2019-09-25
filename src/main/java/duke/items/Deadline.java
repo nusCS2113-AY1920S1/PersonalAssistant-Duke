@@ -27,7 +27,7 @@ public class Deadline extends Task /*implements Snooze*/ {
         return doByDate.returnFormattedDate();
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return doByDate.getAt();
     }
 

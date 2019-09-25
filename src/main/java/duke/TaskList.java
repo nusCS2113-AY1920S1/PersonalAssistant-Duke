@@ -202,7 +202,7 @@ public class TaskList {
         for (Task task: taskList) {
             if (task instanceof Deadline && !task.getIsDone()) {
                 Deadline deadline = (Deadline) task;
-                long timeDifference = deadline.getDate().getTime() - now.getTime();
+                long timeDifference = deadline.getDate().getTime().getTime() - now.getTime();
                 if (timeDifference <= millisInFiveDays && timeDifference > 0) {
                     task.printTaskDetails();
                 }
@@ -253,7 +253,11 @@ public class TaskList {
             // latestEndTime is earlier than nextStartTime
             if (compare < 0) {
                 // Getting number of hours between latestEndTime and nextStartTime
-                long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
+
+                long ms = nextStartTime.getAt().getTime().getTime() - latestEndTime.getAt().getTime().getTime();
+
+
+                //long ms = nextStartTime.getAt().getTime() - latestEndTime.getAt().getTime();
                 int potentialMaxFreeHours = Math.round((float)ms / (1000 * 60 * 60));
                 System.out.println(potentialMaxFreeHours);
 
@@ -278,7 +282,8 @@ public class TaskList {
 
                 // Assuming the (next) clashing event takes place perfectly within the current event
                 // we keep the value of latestEndTime untouched.
-                if (nextEndTime.getAt().getTime() <= latestEndTime.getAt().getTime()) {
+                if (nextEndTime.getAt().before(latestEndTime.getAt())
+                        || nextEndTime.getAt().equals(latestEndTime.getAt())) {
                     // Leave latestEndTime untouched.
                 } else {
                     // Else, if the clashing event happens to end after the current event, we need to update
