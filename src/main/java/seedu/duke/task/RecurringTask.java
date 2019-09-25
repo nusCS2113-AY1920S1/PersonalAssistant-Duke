@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import static seedu.duke.parser.DateTimeParser.convertDateTime;
 import static seedu.duke.parser.DateTimeParser.toDateTimeString;
 
+/**
+ * This task type inherits from Task.
+ * It specifies a RecurringTask on a particular time
+ * and recurs at a fixed period.
+ */
 public class RecurringTask extends Task {
     /**
      * LocalDateTime to store the RecurringTask's date and time.

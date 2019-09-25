@@ -173,7 +173,7 @@ public class TaskList {
                     LocalDateTime dateTime = getDateTime(taskTime);
                     String[] inputWords = taskDescriptionFull.split(" ");
                     int num = Integer.parseInt(inputWords[inputWords.length - 2]);
-                    String frequency = inputWords[inputWords.length- 1];
+                    String frequency = inputWords[inputWords.length - 1];
                     int periodInMin = 0;
 
                     switch (frequency) {
