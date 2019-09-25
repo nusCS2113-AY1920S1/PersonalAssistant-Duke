@@ -16,12 +16,7 @@ public class CommandParser {
     }
 
     public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
-        try {
-            int index = Integer.parseInt(params.get("i").get(0));
-            return new DeleteOrderCommand(index);
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index.");
-        }
+        return new DeleteOrderCommand(params);
     }
 
     public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {

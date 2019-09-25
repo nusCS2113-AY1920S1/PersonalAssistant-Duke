@@ -17,7 +17,6 @@ public class AddOrderCommand extends UndoableCommand {
 
     public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
-        checkParameters();
     }
 
     @Override
@@ -38,18 +37,18 @@ public class AddOrderCommand extends UndoableCommand {
 
     }
 
-    private void checkParameters() throws DukeException {
-        if (!params.containsKey("name") || !params.containsKey("contact")
-                || !params.containsKey("by") || !params.containsKey("item")) {
-            throw new DukeException("Must have name, contact, deadline & item.");
-        }
-    }
-
     private Order getOrder() throws DukeException {
-        Order order = new Order(params.get("name").get(0),
-                params.get("contact").get(0),
-                TimeParser.convertStringToDate(params.get("by").get(0)));
+        Order order = new Order();
 
+        if (params.containsKey("name")) {
+            order.setCustomerName(params.get("name").get(0));
+        }
+        if (params.containsKey("contact")) {
+            order.setCustomerContact(params.get("contact").get(0));
+        }
+        if (params.containsKey("by")) {
+            order.setDeliveryDate(TimeParser.convertStringToDate(params.get("by").get(0)));
+        }
         if (params.containsKey("rmk")) {
             order.setRemarks(params.get("rmk").get(0));
         }

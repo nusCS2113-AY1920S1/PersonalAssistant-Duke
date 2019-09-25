@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
+    private static final String COMMAND_UNDO = "undo";
+    private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_ORDER = "order";
     private static final String COMMAND_ORDER_ADD = "add";
     private static final String COMMAND_ORDER_DELETE = "remove";
@@ -37,6 +39,10 @@ public class Parser {
         switch (commandWord) {
         case COMMAND_ORDER:
             return parseOrder(line);
+            case COMMAND_UNDO:
+                return parseUndo(line);
+            case COMMAND_REDO:
+                return parseRedo(line);
         default:
             throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -45,8 +51,8 @@ public class Parser {
     private static Map<String, List<String>> parseCommandAndParams(String line) throws DukeException {
         Map<String, List<String>> params = new HashMap<>();
 
-        //Regex to get the command word and the primary command.
-        Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^-]+)?");
+        //Regex to get the command word and the sub command, and primary parameter.
+        Pattern commandWordPattern = Pattern.compile("^(\\w+)\\s*(\\w+)?\\s*([^-]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
         if (!commandWordMatcher.find()) {
             throw new DukeException("Please enter a command");
@@ -64,6 +70,14 @@ public class Parser {
                     add(commandWordMatcher.group(2).strip());
                 }
             });
+
+            if (commandWordMatcher.group(3) != null) {
+                params.put("secondary", new ArrayList<String>() {
+                    {
+                        add(commandWordMatcher.group(3).strip());
+                    }
+                });
+            }
         }
 
         //Regex to get each parameter block. e.g. "-at some place" is one command block.
