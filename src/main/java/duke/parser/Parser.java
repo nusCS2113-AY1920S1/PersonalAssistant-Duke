@@ -35,10 +35,10 @@ public class Parser {
         String commandWord = params.get("cmd").get(0);
 
         switch (commandWord) {
-            case COMMAND_ORDER:
-                return parseOrder(line);
-            default:
-                throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
+        case COMMAND_ORDER:
+            return parseOrder(line);
+        default:
+            throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

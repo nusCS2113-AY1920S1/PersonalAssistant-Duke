@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Order;
+import duke.parser.CommandParser;
 import duke.parser.TimeParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
@@ -11,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public class AddOrderCommand extends UndoableCommand {
-    Map<String, List<String>> params;
-    protected Order order;
+    private Map<String, List<String>> params;
+    private Order order;
 
-    public AddOrderCommand(Map<String, List<String>> params) {
+    public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
+        checkParameters();
     }
 
     @Override
@@ -36,12 +38,14 @@ public class AddOrderCommand extends UndoableCommand {
 
     }
 
-    private Order getOrder() throws DukeException {
+    private void checkParameters() throws DukeException {
         if (!params.containsKey("name") || !params.containsKey("contact")
                 || !params.containsKey("by") || !params.containsKey("item")) {
             throw new DukeException("Must have name, contact, deadline & item.");
         }
+    }
 
+    private Order getOrder() throws DukeException {
         Order order = new Order(params.get("name").get(0),
                 params.get("contact").get(0),
                 TimeParser.convertStringToDate(params.get("by").get(0)));
@@ -50,20 +54,8 @@ public class AddOrderCommand extends UndoableCommand {
             order.setRemarks(params.get("rmk").get(0));
         }
 
-        for (String item : params.get("item")) {
-            String[] itemAndQty = item.split(",");
-            if (itemAndQty.length < 2) {
-                throw new DukeException("Must have item name and quantity");
-            }
-            if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
-                throw new DukeException("Item name and quantity should not be empty");
-            }
-            try {
-                order.addItem(itemAndQty[0].strip(), Integer.parseInt(itemAndQty[1].strip()));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Quantity should be an integer");
-            }
-        }
+        CommandParser.addItemsToOrder(params, order);
+
         return order;
     }
 
