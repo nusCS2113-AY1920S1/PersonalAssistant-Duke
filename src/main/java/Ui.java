@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -5,14 +9,9 @@ public class Ui {
 
     public Ui() {}
 
-    public void showWelcome() {
-        System.out.println(
-                " _____               __            _     \n" +
-                "|   __|___ ___ _____|  |   ___ ___|_|___ \n" +
-                "|   __| .'|  _|     |  |__| . | . | |  _|\n" +
-                "|__|  |__,|_| |_|_|_|_____|___|_  |_|___|\n" +
-                "                              |___|      \n" +
-                "\n");
+    public void showWelcome() throws IOException {
+        String s = getAsciiArt("./src/main/resources/asciiArt/welcome.txt");
+        System.out.println(s);
     }
 
     public String getCommand() {
@@ -23,5 +22,23 @@ public class Ui {
 
     public String getSaveFile() {
         return null;
+    }
+
+    private String getAsciiArt(String filepath) throws IOException {
+        String output = "";
+        try {
+            BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
+            String line;
+            while ((line = bufferreader.readLine()) != null) {
+                output += line;
+                output += "\n";
+            }
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return output;
     }
 }
