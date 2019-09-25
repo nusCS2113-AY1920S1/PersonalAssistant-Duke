@@ -16,7 +16,7 @@ public class DoAfterTasks extends task.Task implements Serializable {
     }
 
     public String GiveTask() {
-        String var10000 = super.GiveTask();
+        String var10000 = super.giveTask();
         return "[A]" + var10000 + "(after: " + after + ")";
     }
 }
