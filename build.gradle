@@ -27,14 +27,13 @@ File runningDir = new File('../main/bin')
 runningDir.mkdirs()
 tasks.run.workingDir = runningDir
 
-
 repositories {
     mavenCentral()
 }
 
 application {
     // Change this to your main class.
-    mainClassName = "JavaFX.Launcher"
+    mainClassName = "javafx.Launcher"
 	//mainClassName = "Main.Duke"
 }
 
