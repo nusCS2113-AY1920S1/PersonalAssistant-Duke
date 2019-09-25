@@ -3,6 +3,10 @@ package command;
 import common.DukeException;
 import common.TaskList;
 import task.*;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -37,7 +41,6 @@ public class Parser {
             } else if (isList(input)) {
                 //print out current list
                 ui.printList(tasklist, "list");
-
             } else if (isDone(input)) {
                 processDone(input, tasklist, ui);
 
@@ -50,10 +53,30 @@ public class Parser {
                 storage.save(tasklist.returnArrayList());
 
             } else if (isEvent(input)) {
-                processEvent(input, tasklist, ui);
+                ProcessEvent(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+            } else if (IsDoAfter(input)) {
+                ProcessDoAfter(input, tasklist, ui);
+                Storage.save(tasklist.returnArrayList());
+            } else if (isDelete(input)) {
+                processDelete(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
-            } else if (isDelete(input)) {
+            } else if (isFind(input)) {
+                processFind(input, tasklist, ui);
+            } else if (isDone(input)) {
+                processDone(input, tasklist, ui);
+
+            } else if (isDeadline(input)) {
+                processDeadline(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+
+            } else if (isTodo(input)) {
+                processTodo(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());
+
+            }
+            else if (isDelete(input)) {
                 processDelete(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
@@ -185,7 +208,33 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void processEvent(String input, TaskList tasklist, Ui ui) {
+    private static void ProcessDoAfter(String input, TaskList tasklist, Ui ui){
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitslash = splitspace[1].split("/", 2);
+            String taskDescription = splitslash[0];
+            String[] splittime = splitslash[1].split(" ", 2);
+            String taskTime = splittime[1];
+            if (taskTime.contains("/")) {
+            Date formattedtime = dataformat.parse(taskTime);
+            DoAfterTasks After = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
+            tasklist.addTask(After);
+            ui.printAddedMessage(After, tasklist);
+            }
+            else{
+                DoAfterTasks After = new DoAfterTasks(taskDescription, taskTime);
+                tasklist.addTask(After);
+                ui.printAddedMessage(After, tasklist);
+            }
+            }
+        catch(ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     \u2639 OOPS!!! The description of a DoAfter cannot be empty.");
+        }
+        catch (ParseException e){
+            ui.exceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
+        }
+    }
+    private static void ProcessEvent(String input, TaskList tasklist, Ui ui){
         try {
             String[] splitspace = input.split(" ", 2);
             String[] splitslash = splitspace[1].split("/", 2);
@@ -193,7 +242,7 @@ public class Parser {
             String[] splittime = splitslash[1].split(" ", 2);
             String taskTime = splittime[1];
             Date formattedtime = dataformat.parse(taskTime);
-            Event event = new Event(taskDescription, dataformat.format(formattedtime));
+            Event event = new Event(input, dataformat.format(formattedtime));
             tasklist.addTask(event);
             ui.printAddedMessage(event, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -257,6 +306,7 @@ public class Parser {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to snooze.");
         }catch (ParseException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+
         }
     }
     /**
@@ -343,6 +393,9 @@ public class Parser {
         return input.startsWith("event");
     }
 
+    private static boolean IsDoAfter(String input){
+        return input.startsWith("DoAfter");
+    }
     private static boolean isDelete(String input) {
         return input.startsWith("delete");
     }
