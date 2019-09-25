@@ -88,4 +88,7 @@ public class Parser {
         return key;
     }
 
+    public String getRecurrence() {
+        return scanner.nextLine().trim().toLowerCase();
+    }
 }

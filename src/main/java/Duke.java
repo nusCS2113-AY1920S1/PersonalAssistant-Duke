@@ -15,7 +15,6 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private RecurList recurringTaskList;
     private Parser parser;
     private RecurHandler recurHandler;
     /**
@@ -28,20 +27,14 @@ public class Duke {
         storage = new Storage();
         parser = new Parser();
         try {
-            recurringTaskList = new RecurList(storage.loadFile("recurringData.txt"));
-        } catch (DukeException e) {
-            ui.showLoadError();
-            ArrayList<Task> emptyList = new ArrayList<>();
-            recurringTaskList = new RecurList(emptyList);
-        }
-        recurHandler = new RecurHandler(recurringTaskList);
-        try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (DukeException e) {
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
+        recurHandler = new RecurHandler(taskList);
+        recurHandler.checkRecurrence(taskList);
     }
 
     /**
@@ -68,11 +61,6 @@ public class Duke {
                     isExit = true;
                     try {
                         storage.writeFile(TaskList.currentList(), "data.txt");
-                    } catch (DukeException e) {
-                        ui.showWriteError();
-                    }
-                    try {
-                        storage.writeFile(RecurList.currentList(), "recurringData.txt");
                     } catch (DukeException e) {
                         ui.showWriteError();
                     }
@@ -152,9 +140,6 @@ public class Duke {
                             recurType = RecurTaskType.others;
                         }
                         switch (recurType) {
-                            case delete:
-                                recurHandler.deleteRecurring(parser.getIndex());
-                                break;
                             case list:
                                 recurHandler.listRecurring();
                                 break;

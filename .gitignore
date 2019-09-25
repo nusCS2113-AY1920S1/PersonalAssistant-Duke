@@ -16,5 +16,3 @@ bin/
 #data files from program
 /data.txt/
 data.txt
-/recurringData.txt/
-recurringData.txt

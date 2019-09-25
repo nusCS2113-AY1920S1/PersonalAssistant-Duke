@@ -141,4 +141,15 @@ public class Ui {
         System.out.println("\tE.g : find homework");
         System.out.println("\tE.g : list");
     }
+
+    public void promptForRecurrence() {
+        System.out.println("Please enter the recurrence of the task, either by day, week or month");
+        System.out.println("\tE.g : Day");
+        System.out.println("\tE.g : Week");
+        System.out.println("\tE.g : Month");
+    }
+
+    public void promptForTask() {
+        System.out.println("now enter your desired task as usual!");
+    }
 }
