@@ -12,6 +12,12 @@ In addition, **COMPal** offers you the ***freedom to prioritise certain tasks***
 
 **COMPal** relies on a Command Line Interface, perfect for the modern, fast-typing student. Take control. ***COMPal*** your life.
 
+## Useful Links
+It can be hard to navigate round new software, but we're happy to help:
+* [User Guide](docs/UserGuide.md), for a guiding hand to show you the ropes
+* [Developer Guide](docs/DeveloperGuide.md), to take a look backstage
+* [About Us](docs/AboutUs.md), to know more about the team pulling the strings
+
 ## Contributors
 **COMPal** is developed and maintained by a dedicated team of student developers. From our unique standpoint as both ***user*** and ***developer***, we strive to provide practical features that answer the needs of our target audience.
 
