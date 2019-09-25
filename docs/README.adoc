@@ -74,6 +74,11 @@ Examples:
 Shows a list of all tasks in the list currently. +
 Format: `list`
 
+=== Swapping tasks in the list: `swap`
+
+Swaps the position of two tasks in the list currently. +
+Format `swap INDEX INDEX`
+
 === Editing a task : `edit`
 
 Edits an existing task in the task list. +
@@ -181,6 +186,17 @@ Deletes the 2nd task in the task list.
 Clears all tasks from the task list. +
 Format: `clear`
 
+=== Custom user commands: `custom`
+
+User can customize a word to be evaluated as a phrase to be executed with additional parameters. +
+Format: `custom KEYWORD KEYPHRASE`
+
+Examples:
+* `custom s2 swap 1 2` +
+When `s2` is called, `swap 1 2` is returned and executed. +
+* `custom cC diff CEG` +
+When `cC EE` is called, `diff CEG EE` is returned and executed.
+
 === Exiting the program : `bye`
 
 Exits the program. +
@@ -188,8 +204,12 @@ Format: `bye`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Task data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Auto suggests commands based on frequency
+
+Duke 2.0 will suggest commands based on the frequency you have used certain commands. Pressing :kbd["\u2192"]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
