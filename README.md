@@ -98,4 +98,4 @@ application {
 
 ## UI
 
-Insert mock up UI here
+![UI](docs/images/UI.png)
