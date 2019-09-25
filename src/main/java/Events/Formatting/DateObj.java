@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Model_Class.DateObj object stores the input date and time as a java object.
@@ -50,9 +51,11 @@ public class DateObj {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
-                Date taskJavaDate = dateFormat.parse(splitDate);
+                Date taskJavaDateNoTime = dateFormat.parse(splitDate);
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH);
+                String taskDateFormatNoTime = formatter.format(taskJavaDateNoTime);
                 format = DATE;
-                return taskJavaDate.toString();
+                return taskDateFormatNoTime;
             } catch (ParseException pe2) {
                 return splitDate;
             }
@@ -79,19 +82,20 @@ public class DateObj {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
             dateFormat.setLenient(false);
             dateObject = dateFormat.parse(splitDate);
+            format = DATE_AND_TIME;
             return dateObject;
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
                 dateObject = dateFormat.parse(splitDate);
+                format = DATE;
                 return dateObject;
             } catch (ParseException pe2) {
                 return dateObject;
             }
         }
     }
-
     
     /**
      * Compares this dateObj with another input dateObj
