@@ -2,9 +2,9 @@
 = SpongeBob - SOC Club Manager
 
 
-ifndef::env-github[]
-image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/test.png[width="600"]
-endif::[]
+
+image::https://github.com/swang1997/main/blob/master/docs/images/test.png[width="600"]
+
 
 == Site Map
 
