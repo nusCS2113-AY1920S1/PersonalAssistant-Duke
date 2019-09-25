@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +10,8 @@ public class Periods extends Task {
     protected String to;
     private SimpleDateFormat simpleDateFormat;
 
-    public Periods(String Description, String from, String to) {
-        super(Description);
+    public Periods(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
         super.type = "P";

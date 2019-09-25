@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 public class FixedDuration extends Task {
     protected String needs;

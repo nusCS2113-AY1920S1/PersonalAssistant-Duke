@@ -1,12 +1,8 @@
-import Commands.Command;
-import Commands.RemindersCommand;
-import Commands.ViewScheduleCommand;
-import ControlPanel.DukeException;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
+import controlpanel.Storage;
+import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
 
-import Tasks.*;
+import tasks.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

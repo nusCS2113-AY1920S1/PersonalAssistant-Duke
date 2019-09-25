@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import ControlPanel.DukeException;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
-import Tasks.TaskList;
+import controlpanel.DukeException;
+import controlpanel.Storage;
+import controlpanel.Ui;
+import tasks.TaskList;
 
 import java.text.ParseException;
 

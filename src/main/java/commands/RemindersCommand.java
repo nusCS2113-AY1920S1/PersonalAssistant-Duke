@@ -1,13 +1,13 @@
-package Commands;
+package commands;
 
-import ControlPanel.Storage;
-import ControlPanel.Ui;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.Periods;
-import Tasks.Task;
-import Tasks.TaskList;
-import Tasks.ToDos;
+import controlpanel.Storage;
+import controlpanel.Ui;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.Periods;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

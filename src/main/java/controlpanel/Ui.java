@@ -1,4 +1,4 @@
-package ControlPanel;
+package controlpanel;
 
 import java.util.Scanner;
 

@@ -1,35 +1,35 @@
-package ControlPanel;
+package controlpanel;
 
-import Commands.AddCommand;
-import Commands.ChooseEventTime;
-import Commands.Command;
-import Commands.DeleteCommand;
-import Commands.DoneCommand;
-import Commands.ExitCommand;
-import Commands.FreeTimeCommand;
-import Commands.RemindersCommand;
-import Commands.RescheduleCommand;
-import Commands.SearchCommand;
-import Commands.ViewCommand;
-import Commands.ViewScheduleCommand;
+import commands.AddCommand;
+import commands.ChooseEventTime;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.ExitCommand;
+import commands.FreeTimeCommand;
+import commands.RemindersCommand;
+import commands.RescheduleCommand;
+import commands.SearchCommand;
+import commands.ViewCommand;
+import commands.ViewScheduleCommand;
 
 
 
 import java.text.ParseException;
 
 /**
- * The class which analyze the input command line and initialize a command
- * according to its type
+ * The class which analyze the input command line and initialize a command.
+ * according to its type.
  */
 public class Parser {
     public Parser() throws DukeException, ParseException {
     }
 
     /**
-     * The constructor which runs the parser
-     * @param cmd the original input string (command)
-     * @return return a command object which is initialized based on its type
-     * @throws DukeException if any exception is caught
+     * The constructor which runs the parser.
+     * @param cmd the original input string (command).
+     * @return return a command object which is initialized based on its type.
+     * @throws DukeException if any exception is caught.
      */
     public static Command parse(String cmd) throws DukeException, ParseException {
         Command command;

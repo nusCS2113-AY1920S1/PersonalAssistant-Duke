@@ -1,9 +1,9 @@
-import Commands.Command;
-import ControlPanel.DukeException;
-import ControlPanel.Parser;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
-import Tasks.TaskList;
+import commands.Command;
+import controlpanel.DukeException;
+import controlpanel.Parser;
+import controlpanel.Storage;
+import controlpanel.Ui;
+import tasks.TaskList;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
