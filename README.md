@@ -87,7 +87,7 @@ tasks.run.workingDir = runningDir
 
 This part of `build.gradle` determines which class is to be the main class of the project. 
 
-Using `javafx.Launcher` means Duke 2.0 will launch with a GUI, while using `Main.Duke` means Duke 2.0 will run in console mode only.
+Using `javafx.Launcher` means Duke 2.0 will launch with a GUI, while using `main.Duke` means Duke 2.0 will run in console mode only.
 ```
 application {
 	// Change this to your main class.
