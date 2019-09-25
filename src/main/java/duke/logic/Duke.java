@@ -3,14 +3,18 @@ package duke.logic;
 import duke.command.Command;
 import duke.commons.DukeException;
 import duke.parser.Parser;
+import duke.recipe.Recipe;
 import duke.storage.BakingList;
 import duke.storage.Storage;
+import duke.storage.recipe.RecipeList;
 import duke.ui.Ui;
 
 public class Duke {
 
     private static final Storage STORAGE = new Storage("baking.json");
     private static BakingList bakingList = new BakingList();
+    private static RecipeList recipeList = new RecipeList();
+  //  private static Recipe recipe;
     private Ui ui;
     private CommandManager commandManager;
 
@@ -18,12 +22,20 @@ public class Duke {
         this.ui = ui;
         try {
             bakingList = STORAGE.deserialize();
+            //////////
+            //For UI purpose, need to deserialize();
+            Recipe recipe = new Recipe("");
+            recipe.init();
+            recipeList.add(recipe);
+            /////////////
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             ui.disableInput();
         }
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        commandManager = new CommandManager(bakingList, STORAGE, ui);
+        //ui.refreshRecipeList(recipeList);
+        ui.showRecipePane();
+//        commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 
     public void executeInput(String input) {
@@ -36,4 +48,11 @@ public class Duke {
         }
     }
 
+    public Recipe getRecipe(int index) {
+        return recipeList.get(0);
+    }
+
+    public RecipeList getRecipeList() {
+        return recipeList;
+    }
 }

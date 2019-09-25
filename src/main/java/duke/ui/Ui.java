@@ -1,6 +1,7 @@
 package duke.ui;
-
 import duke.entities.Order;
+import duke.storage.recipe.RecipeList;
+
 
 import java.util.List;
 
@@ -24,10 +25,17 @@ public class Ui {
         mainWindow.showOrderPane();
     }
 
+    public void showRecipePane() {
+        mainWindow.showRecipePane();
+    }
+
     public void refreshOrderList(List<Order> orders, List<Order> all) {
         mainWindow.refreshOrderList(orders, all);
     }
 
+    public void refreshRecipeList(RecipeList recipeList) {
+        mainWindow.refreshRecipeList(recipeList);
+    }
     public void disableInput() {
         mainWindow.disableInput();
     }

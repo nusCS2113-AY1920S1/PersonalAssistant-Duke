@@ -4,6 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import duke.entities.Order;
 import duke.logic.Duke;
+
+///////////////////////////
+import duke.entities.recipe.Ingredient;
+import duke.entities.recipe.Recipe;
+import duke.entities.recipe.Step;
+import duke.storage.recipe.RecipeList;
+import duke.ui.recipe.IngredientBox;
+import duke.ui.recipe.RecipeBox;
+import duke.ui.recipe.RecipeMain;
+//>>>>>>> Recipe
+///////////////////////////
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,7 +22,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class MainWindow extends AnchorPane {
@@ -21,6 +36,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private AnchorPane orderPane;
+
     @FXML
     private HBox popUp;
     @FXML
@@ -34,10 +50,28 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox orderList;
 
+    @FXML
+    public RecipeMain recipeMain;
+
+    @FXML
+    private VBox recipeList;
+
+
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         popUp.setVisible(false);
+    }
+
+
+    //Change to refresh
+    void refreshRecipeList(RecipeList rpl) {
+        recipeList.getChildren().clear();
+        int index = 1;
+        for (Recipe recipe : rpl) {
+            recipeList.getChildren().add(new RecipeBox(recipe, index));
+            index++;
+        }
     }
 
     @FXML
@@ -82,11 +116,80 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+
     void showOrderPane() {
         orderPane.setVisible(true);
     }
 
+
     void disableInput() {
         userInput.setDisable(true);
     }
+
+
+    @FXML
+    private AnchorPane recipePane;
+
+    @FXML
+    private Label recipeName;
+    @FXML
+    private HBox diffLevel;
+    @FXML
+    private HBox ingredients;
+    @FXML
+    private VBox steps;
+
+    @FXML
+    private ImageView sstar;
+
+    private Recipe recipe = new Recipe("");
+
+    //public RecipeMain(Recipe recipe) {
+    //    this.recipe = recipe;
+    //}
+
+
+
+    public String getName() {
+        return recipe.getName();
+    }
+
+    public void showRecipePane() {
+        Recipe recipe = new Recipe("");
+        recipe.init();
+        recipePane.setVisible(true);
+        recipeName.setText(recipe.getName());
+
+        String currentDir = System.getProperty("user.dir");
+        try {
+            Image image1 = new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\star.png"));
+            diffLevel.getChildren().clear();
+            for (int i = 0; i < recipe.getDiffLevel(); i++) {
+                ImageView star = new ImageView();
+                star.setImage(image1);
+                star.setFitHeight(28);
+                star.setPreserveRatio(true);
+                diffLevel.getChildren().add(star);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        ingredients.getChildren().clear();
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            IngredientBox ingredientBox = new IngredientBox(ingredient);
+            ingredient.init();
+            ingredients.getChildren().add(ingredientBox);
+        }
+
+        steps.getChildren().clear();
+        int index = 1;
+        for (Step step: recipe.getSteps()) {
+            Label newLabel = new Label();
+            newLabel.setText("step " + index + step.getDescription());
+            steps.getChildren().add(newLabel);
+        }
+    }
+
 }
