@@ -1,6 +1,7 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
 import Enums.Tasktype;
+import Enums.TimeUnit;
 import Model_Classes.*;
 import Operations.*;
 
@@ -124,25 +125,16 @@ public class Duke {
                         ui.showDateError();
                     }
                     break;
-
-                case time :
-                    ui.showAdd();
-                    String[] ti = parser.getDescriptionWithDuration();
-                    String[] ar = parser.getDuration(ti);
-                    int duration = Integer.parseInt(ar[1]);
-                    FixedDuration fixedDuration = new FixedDuration(ar[0], ar[1]);
-                    taskList.add(fixedDuration);
-                    Timer timer = new Timer();
-                    class RemindTask extends TimerTask {
-                        public void run() {
-                            System.out.println(ar[0] + "is completed");
-                            timer.cancel();
-                        }
-                    }
-                    RemindTask rt = new RemindTask();
-                    timer.schedule(rt, duration * 1000);
+                
+                case snooze :
+                    int index = parser.getIndex();
+                    ui.showSnooze();
+                    int amount = parser.getAmount();
+                    TimeUnit timeUnit = parser.getTimeUnit();
+                    taskList.snooze(index, amount, timeUnit);
+                    ui.showSnoozeComplete();
                     break;
-
+                
                 default:
                     ui.showCommandError();
                     break;

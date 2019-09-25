@@ -1,9 +1,10 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.TimeUnit;
 import Model_Classes.Task;
+import Model_Classes.ToDo;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 
 /**
@@ -75,6 +76,36 @@ public class TaskList {
         }
         if (queryCount == 1) {
             System.out.println("    Your search returned no results.... Try searching with another keyword!");
+        }
+    }
+
+    /**
+     * Snooze a specific task indicated by user
+     * @param index the index of the task to be snoozed
+     * @param amount the amount of time to snooze
+     * @param timeUnit unit for snooze time: year, month, day, hour, minute
+     */
+    public void snooze (int index, int amount, TimeUnit timeUnit){
+        if (tasks.get(index - 1) instanceof ToDo){
+            System.out.println("Todo cannot be snoozed");
+            return;
+        }
+        switch (timeUnit) {
+            case year:
+                tasks.get(index - 1).snoozeYear(amount);
+                break;
+            case month:
+                tasks.get(index - 1).snoozeMonth(amount);
+                break;
+            case day:
+                tasks.get(index - 1).snoozeDay(amount);
+                break;
+            case hour:
+                tasks.get(index - 1).snoozeHour(amount);
+                break;
+            case minute:
+                tasks.get(index - 1).snoozeMinute(amount);
+                break;
         }
     }
 

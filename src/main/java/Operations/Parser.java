@@ -1,9 +1,8 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.TimeUnit;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -113,5 +112,23 @@ public class Parser {
     public String getKey() {
         String key = scanner.nextLine().toLowerCase();
         return key;
+    }
+
+    /**
+     * Returns the amount of time the customer request to snooze
+     * @return the amount of time the customer request to snooze
+     */
+    public int getAmount(){
+        String temp = scanner.next().trim();
+        return Integer.parseInt(temp);
+    }
+
+    /**
+     * Returns the unit of time the customer request to snooze
+     * @return the unit of time the customer request to snooze
+     */
+    public TimeUnit getTimeUnit(){
+        String temp = scanner.next();
+        return TimeUnit.valueOf(temp);
     }
 }

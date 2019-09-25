@@ -33,4 +33,30 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public void snoozeYear(int amount) {
+        this.by.setYear(this.by.getYear() + amount);;
+    }
+
+    @Override
+    public void snoozeMonth(int amount) {
+        this.by.setMonth(this.by.getMonth() + amount);;
+    }
+
+    @Override
+    public void snoozeDay(int amount) {
+        this.by.setDate(this.by.getDate() + amount);;
+    }
+
+    @Override
+    public void snoozeHour(int amount){
+        this.by.setHours(this.by.getHours() + amount);
+    }
+
+    @Override
+    public void snoozeMinute(int amount){
+        this.by.setMinutes(this.by.getMinutes() + amount);
+    }
+
 }
