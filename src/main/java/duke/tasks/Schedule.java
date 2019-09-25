@@ -106,7 +106,8 @@ public class Schedule {
     private boolean detectAnomalies(ArrayList<Task>[] activity, int start, int duration) {
         for (int i = 0; i < duration; i += 1) {
             for (int j = 0; j < activity[start + i].size(); j += 1) {
-                if (activity[start + i].get(j).getType().equals("E") || activity[start + i].get(j).getType().equals("T")) {
+                if (activity[start + i].get(j).getType().equals("E")
+                        || activity[start + i].get(j).getType().equals("T")) {
                     return true;
                 }
             }
