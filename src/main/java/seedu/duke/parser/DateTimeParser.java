@@ -10,7 +10,13 @@ import java.util.Locale;
  */
 public class DateTimeParser {
 
+    /**
+     * Date and time with format d/M/uuuu HHmm.
+     */
     private static final String DATE_TIME_FORMATTER = "d/M/uuuu HHmm";
+    /**
+     * Date with format d/M/uuuu HHmm.
+     */
     private static final String DATE_FORMATTER = "d/M/uuuu";
 
     /**
