@@ -62,18 +62,22 @@ public class Parser {
                 case "done":
                     doneCommand(s);
                     break;
+                    //================================================
                 case "delete":
                     deleteCommand(s);
                     break;
+                    //================================================
                 case "find":
                     findCommand(s);
                     break;
                 case "todo":
                     todoCommand(s);
                     break;
+                    //================================================
                 case "deadline":
                     deadlineCommand(s);
                     break;
+                    //================================================
                 case "event":
                     eventCommand(s);
                     break;
@@ -374,8 +378,8 @@ public class Parser {
             }
             TaskList.addTask(new Recurring(token[0].strip(), "R", token[1].strip()));
             Ui.showToDoSucess(TaskList.getType(todolistNumber - 1),
-                    TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
-                    TaskList.getTotalTasksNumber());
+                TaskList.getStatus(todolistNumber - 1), TaskList.getMessage(todolistNumber - 1),
+                TaskList.getTotalTasksNumber());
             Storage.saveTask(TaskList.getList());
         } catch  (DukeException e) {
             throw e;
@@ -405,7 +409,6 @@ public class Parser {
             throw e;
         }
     }
-
 
     /**
      * Prints tasks that have a fixed duration
@@ -633,7 +636,8 @@ public class Parser {
      * Check for any incomplete events/deadlines since the user specified date
      * The number of reminders is also specified by the user
      * The reminders is then printed out
-     * Command: reminder <no. of reminders> <starting date>
+<<<<<<< HEAD
+     * Command: reminder <no. of reminders> <date>
      */
     private static void reminderCommand(String s) throws DukeException {
         String[] tokens = s.split(Pattern.quote(" "));
