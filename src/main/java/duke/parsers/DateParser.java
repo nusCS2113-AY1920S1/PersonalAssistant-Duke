@@ -2,6 +2,8 @@ package duke.parsers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -29,6 +31,32 @@ public class DateParser {
         }
 
         return date;
+    }
+
+    /**
+     * Parse input as duration and return a Date object.
+     * @param durationStr input duration string.
+     * @return period object containing the periodic duration of event. 0 days implies non-recurring event.
+     */
+    public static Period parseDuration(String durationStr) {
+        // Format of input string: "P1Y2M21D" which implies 1 Year, 2 Months, 21 Days
+
+        Period duration;
+
+        if (durationStr.isBlank()) {
+            duration = Period.of(0,0,0);
+        } else {
+            try {
+                duration = Period.parse(durationStr);
+            } catch (DateTimeParseException pe) {
+                System.out.println(pe);
+                System.out.println("Incorrect format of recurring event, recurring format argument to be ignored");
+                duration = Period.of(0,0,0);
+            }
+        }
+
+
+        return duration;
     }
 
     public static boolean isSameDayMonthYear(Date date1, Date date2) {
