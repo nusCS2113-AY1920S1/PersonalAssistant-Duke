@@ -74,20 +74,6 @@ public class Ui {
     }
 
     /**
-     * tells the user to indicate the amount of time to snooze
-     */
-    public void showSnooze() {
-        System.out.println("Please indicate the amount of time you want to snooze this task");
-    }
-
-    /**
-     * tells the user that the requested task has been snoozed
-     */
-    public void showSnoozeComplete() {
-        System.out.println("Great I've snoozed your task");
-    }
-
-    /**
      * tells the user that there is an error in writing the data.txt file.
      */
     public void showWriteError() {
