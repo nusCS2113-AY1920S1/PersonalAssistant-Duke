@@ -1,10 +1,14 @@
 package UserElements;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubClasses.Concert;
+import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
+import Events.EventTypes.EventSubClasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Storage.Storage;
 import Events.Storage.EventList;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -53,7 +57,7 @@ public class Command {
     /**
      * Executes the command stored.
      *
-     * @param events   Class containing the list of events and all relevant methods.
+     * @param events  Class containing the list of events and all relevant methods.
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
@@ -69,26 +73,34 @@ public class Command {
 //                remindEvents(events, ui);
 //                changesMade = false;
 //                break;
-//
-//            case "done":
-//                markEventAsDone(events, ui);
-//                break;
-//
-//            case "delete":
-//                deleteEvent(events, ui);
-//                break;
-//
+
+            case "done":
+                markEventAsDone(events, ui);
+                break;
+
+            case "delete":
+                deleteEvent(events, ui);
+                break;
+
 //            case "find":
 //                searchEvents(events, ui);
 //                changesMade = false;
 //                break;
 //
-//            case "todo":
-//                createNewTodo(events, ui);
-//                break;
+            case "todo":
+                createNewTodo(events, ui);
+                break;
 
-            case "event":
-                createNewEvent(events, ui);
+            case "lesson":
+                createNewEvent(events, ui, 'L');
+                break;
+
+            case "concert":
+                createNewEvent(events, ui, 'C');
+                break;
+
+            case "practice":
+                createNewEvent(events, ui, 'P');
                 break;
 
 //            case "view":
@@ -116,15 +128,15 @@ public class Command {
         DateObj today = new DateObj(f.format(new Date()));
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
-        while(daysFree.size() <= 3) {
+        while (daysFree.size() <= 3) {
             boolean flagFree = true;
-            for(Event viewEvent : events.getEventArrayList()) {
-                if(viewEvent.toString().contains(today.formatDate())) {
+            for (Event viewEvent : events.getEventArrayList()) {
+                if (viewEvent.toString().contains(today.formatDate())) {
                     flagFree = false;
                     break;
                 }
             }
-            if(flagFree) {
+            if (flagFree) {
                 daysFree.add(today.formatDate());
             }
             today.addDaysAndSetMidnight(nextDays);
@@ -151,29 +163,48 @@ public class Command {
         }
     }
 
-    public void createNewEvent(EventList events, UI ui) {
+    public void createNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
         } else {
             int NO_PERIOD = -1;
 
             try {
-                EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
-                Event newEvent = new Lesson(entryForRecEvent.getDescription(), false, entryForRecEvent.getStartDate(),
-                        entryForRecEvent.getEndDate());
+                EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
+                Event newEvent = null;
+                switch (eventType) {
+                    case 'L':
+                        newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
+                    case 'C':
+                        newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
+                    case 'P':
+                        newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
+                    case 'E':
+
+
+                    case 'R':
+
+
+                }
                 boolean succeeded;
 
-                if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
+                if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
                     succeeded = events.addEvent(newEvent);
                 } else { //add recurring event
-                    succeeded = events.addRecurringEvent(newEvent, entryForRecEvent.getPeriod());
+                    succeeded = events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                 }
 
                 if (succeeded) {
-                    if (entryForRecEvent.getPeriod() == NO_PERIOD) {
+                    if (entryForEvent.getPeriod() == NO_PERIOD) {
                         ui.eventAdded(newEvent, events.getNumEvents());
                     } else {
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForRecEvent.getPeriod());
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                     }
                 } else {
                     ui.scheduleClash(newEvent);
@@ -184,14 +215,16 @@ public class Command {
         }
     }
 
-//    public void createNewTodo(EventList events, UI ui) {
-//        if (continuation.isEmpty()) {
-//            ui.eventDescriptionEmpty();
-//            return;
-//        }
-//        events.addEvent(new ToDo(continuation));
-//        ui.eventAdded(new ToDo(continuation), events.getNumEvents());
-//    }
+    public void createNewTodo(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+            return;
+        }
+        EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
+        Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
+        events.addEvent(newEvent);
+        ui.eventAdded(newEvent, events.getNumEvents());
+    }
 //
 //    public void searchEvents(EventList events, UI ui) {
 //        String searchFor = continuation;
@@ -207,35 +240,35 @@ public class Command {
 //        boolean eventsFound = !allEventsFound.isEmpty();
 //        ui.searchEvents(allEventsFound, eventsFound);
 //    }
-//
-//    public void deleteEvent(EventList events, UI ui) {
-//        try {
-//            int eventNo = Integer.parseInt(continuation);
-//            Event currEvent = events.getEvent(eventNo - 1);
-//            events.deleteEvent(eventNo - 1);
-//            ui.eventDeleted(currEvent);
-//        } catch (IndexOutOfBoundsException outOfBoundsE) {
-//            ui.noSuchEvent();
-//        } catch (NumberFormatException notInteger) {
-//            ui.notAnInteger();
-//        }
-//    }
 
-//    public void markEventAsDone(EventList events, UI ui) {
-//        try {
-//            int eventNo = Integer.parseInt(continuation);
-//            if (events.getEvent(eventNo - 1) instanceof ToDo) {
-//                events.getEvent(eventNo - 1).markAsDone();
-//                ui.eventDone(events.getEvent(eventNo - 1));
-//            } else {
-//                ui.noSuchEvent();
-//            }
-//        } catch (IndexOutOfBoundsException outOfBoundsE) {
-//            ui.noSuchEvent();
-//        } catch (NumberFormatException notInteger) {
-//            ui.notAnInteger();
-//        }
-//    }
+    public void deleteEvent(EventList events, UI ui) {
+        try {
+            int eventNo = Integer.parseInt(continuation);
+            Event currEvent = events.getEvent(eventNo - 1);
+            events.deleteEvent(eventNo - 1);
+            ui.eventDeleted(currEvent);
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
+    public void markEventAsDone(EventList events, UI ui) {
+        try {
+            int eventNo = Integer.parseInt(continuation);
+            if (events.getEvent(eventNo - 1) instanceof ToDo) {
+                events.getEvent(eventNo - 1).markAsDone();
+                ui.eventDone(events.getEvent(eventNo - 1));
+            } else {
+                ui.noSuchEvent();
+            }
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
 
 //    public void remindEvents(EventList events, UI ui) {
 //        ui.printReminder(events);
@@ -248,7 +281,7 @@ public class Command {
     /**
      * Contains all info concerning a new entry for a recurring event.
      */
-    private class EntryForRecEvent {
+    private class EntryForEvent {
         private String description;
         private String startDate;
         private String endDate;
@@ -272,39 +305,32 @@ public class Command {
 
         /**
          * contains all info regarding an entry for a non-recurring event
+         *
          * @return
          */
-        public EntryForRecEvent invoke() {
+        public EntryForEvent invoke() {
             int NON_RECURRING = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
 
-            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
-                String date = splitEvent[1];
-                String[] splitDate = date.split(" ");
+            String date = splitEvent[1];
+            String[] splitDate = date.split(" ");
 
-                if (splitDate.length == 3) {
-                    startDate = splitDate[0] + " " + splitDate[1];
-                    endDate = splitDate[0] + " " + splitDate[2];
-                } else {
-                    startDate = splitDate[0] + " " + splitDate[1];
-                    endDate = "";
-                }
-                period = NON_RECURRING;
-
+            if (splitDate.length == 3) {
+                startDate = splitDate[0] + " " + splitDate[1];
+                endDate = splitDate[0] + " " + splitDate[2];
+            } else if (splitDate.length == 2){
+                startDate = splitDate[0] + " " + splitDate[1];
+                endDate = "";
             } else {
-                String[] splitPeriod = splitEvent[2].split(" ");
-                period = Integer.parseInt(splitPeriod[1]);
-                String date = splitEvent[1];
-                String[] splitDate = date.split(" ");
+                startDate = splitDate[0];
+                endDate = "";
+            }
 
-                if (splitDate.length == 3) {
-                    startDate = splitDate[0] + splitDate[1];
-                    endDate = splitDate[0] + splitDate[2];
-                } else {
-                    startDate = splitDate[0] + splitDate[1];
-                    endDate = "";
-                }
+            if (splitEvent.length == 2) {//cant find period extension of command, event is non-recurring
+                period = NON_RECURRING;
+            } else {
+                period = Integer.parseInt(splitEvent[2]);
             }
 
             return this;

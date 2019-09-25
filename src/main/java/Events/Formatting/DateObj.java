@@ -26,8 +26,7 @@ public class DateObj {
 
     protected static int DATE_AND_TIME = 1;
     protected static int DATE = 2;
-    protected static int OTHER = 3;
-    
+
     /**
      * Creates a custom "date object".
      * If no parameters are passed in, a DateObj with the current date and time is created.
@@ -37,6 +36,7 @@ public class DateObj {
     	this.splitDate = splitDate;
     	this.dateObject = new Date();
     	this.format = 0;
+    	formatDate();
     }
 
     public String formatDate() {

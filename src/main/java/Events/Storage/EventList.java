@@ -50,25 +50,30 @@ public class EventList {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
 
-            String[] splitString = currLine.split(" ");
-            String description = splitString[1];
-            String startDateAndTime = splitString[2] + " " + splitString[3];
-            String endDateAndTime;
+            if(eventType == TODO) { //for special todo type event (single date string)
+                String[] splitString = currLine.split(" ");
+                String description = splitString[1];
+                String date = splitString[2];
+                eventArrayList.add(new ToDo(description, isDone, date));
+            } else { //for all other events
+                String[] splitString = currLine.split(" ");
+                String description = splitString[1];
+                String startDateAndTime = splitString[2] + " " + splitString[3];
+                String endDateAndTime;
 
-            if (splitString.length == 6) {
-                endDateAndTime = splitString[4] + " " + splitString[5];
-            } else {
-                endDateAndTime = "";
-            }
+                if (splitString.length == 6) {
+                    endDateAndTime = splitString[4] + " " + splitString[5];
+                } else {
+                    endDateAndTime = "";
+                }
 
-            if (eventType == TODO) { //todo type event
-                eventArrayList.add(new ToDo(description, isDone, startDateAndTime));
-            } else if (eventType == CONCERT) {
-                eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
-            } else if (eventType == LESSON) {
-                eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
-            } else if (eventType == PRACTICE) {
-                eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                if (eventType == CONCERT) {
+                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                } else if (eventType == LESSON) {
+                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                } else if (eventType == PRACTICE) {
+                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                }
             }
         }
     }
@@ -101,20 +106,13 @@ public class EventList {
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj eventDate = new DateObj(event.getStartDate().getSplitDate());
+        DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
+        DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(eventDate.getCurrentJavaDate());
+        calendar.setTime(eventStartDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            String timeString = null;
-            if (eventDate.getFormat() == 1) {
-                timeString = format1.format(calendar.getTime());
-            }
-            else if (eventDate.getFormat() == 2) {
-                timeString = format2.format(calendar.getTime());
-            }
-            this.eventArrayList.add(new Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson(event.getDescription(), timeString, ""));
+
+            this.eventArrayList.add(new Lesson(event.getDescription(), calendar.getTime().toString(), eventEndDate.getEventJavaDate().toString()));
             calendar.add(Calendar.DATE, period);
         }
         return true;
@@ -123,13 +121,13 @@ public class EventList {
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
-     * @param event newly added event
+     * @param checkingEvent newly added event
      * @return event that causes a clash
      */
-    private Event clashEvent(Event event) {
+    private Event clashEvent(Event checkingEvent) {
         for (Event currEvent : eventArrayList) {
             try {
-                if (currEvent.getStartDate().toString().equals(event.getStartDate().toString())) {
+                if (currEvent.toString().equals(checkingEvent.toString())) {
                     return currEvent;
                 }
             } catch (Exception e){
