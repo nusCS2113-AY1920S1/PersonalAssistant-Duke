@@ -23,14 +23,12 @@ public class SnoozeCommand extends Command {
         if(ui.FullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
         }else{
-            int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
+            int index = Integer.parseInt(ui.FullCommand.split(" ")[1]) - 1;
             String Decription=list.get(index).description;
-            System.out.println("Please indicate how much time you want to snooze");
-            ui.ReadCommand();
-            int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
-            int day = Integer.parseInt(ui.FullCommand.split(" ")[2]);
-            int month =Integer.parseInt(ui.FullCommand.split(" ")[1]);
-            int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
+            int year = Integer.parseInt(ui.FullCommand.split(" ")[2]);
+            int day = Integer.parseInt(ui.FullCommand.split(" ")[4]);
+            int month =Integer.parseInt(ui.FullCommand.split(" ")[3]);
+            int hour = Integer.parseInt(ui.FullCommand.split(" ")[5]);
             if (list.get(index).listFormat().contains("by")) {
                 SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
                 Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
