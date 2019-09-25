@@ -12,4 +12,6 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
-data/dukeData.text
+
+# Project data files
+/data/
