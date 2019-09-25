@@ -5,13 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-import seedu.duke.command.DateTimeParser;
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
 
 import seedu.duke.ui.Ui;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods
@@ -75,9 +74,11 @@ public class TaskList {
      * @param taskDescriptionFull the description that follows the task type.
      */
     public void add(String taskType, String taskDescriptionFull) {
+        boolean checkAnomaly = true;
         // if tasktype is not ToDo
-        if (taskType.equals("todo")) {
+        if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
             list.add(new ToDo(taskDescriptionFull));
+            checkAnomaly = false;
         } else {
             // Extract task time and task description and initialize as deadline
             if (taskType.equals("deadline")) {
@@ -86,8 +87,9 @@ public class TaskList {
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
                     LocalDateTime localDateTime = getDateTime(taskTime);
-
+                    if(!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list))
                     list.add(new Deadline(taskDescription,localDateTime));
+                    checkAnomaly = false;
                     if (Schedule.isValidDate(taskDateOnly)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
                     }
@@ -97,8 +99,9 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
-            } else if (taskType.equals("doafter")) {
+            } else if (taskType.equals("doafter") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
                 try {
+                    checkAnomaly = false;
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String indexString = taskDescriptionFull.split("/", 2)[1].substring(6);
                     int indexInt = Integer.parseInt(indexString) - 1;
@@ -126,7 +129,7 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
-            } else if (taskType.equals("event")) {
+            } else if (taskType.equals("event") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
@@ -142,7 +145,8 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
-            } else if (taskType.equals("range")) {
+            } else if (taskType.equals("range") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+                checkAnomaly = false;
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
@@ -156,14 +160,18 @@ public class TaskList {
                 }
             }
         }
-
-        String output = "\t  " + list.get(list.size() - 1).toString();
-        System.out.println("\t_____________________________________");
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println(output);
-        // Printing number of items in list
-        System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-        System.out.println("\t_____________________________________\n\n");
+        if(!checkAnomaly) {
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            // Printing number of items in list
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        }
+        else {
+            System.out.println("Task clashes with another existing task in the list!");
+        }
     }
 
     /**
