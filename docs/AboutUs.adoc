@@ -10,46 +10,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Jerry
-image::Jerry.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
+image::lucria.jpg[width="150", align="left"]
+{empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Team Lead +
+Responsibilities: Documentation, Implementation of Data Models, Unit Tests
 
 '''
 
 === Kee Hui (Dillen)
-image::KeeHui.jpg[width="150", align="left"]
+image::dkenobi.jpg[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Architecture Lead +
+Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models
 
 '''
 
 === Abhishek
-image::Abhishek.jpg[width="150", align="left"]
+image::iamabhishek98.jpg[width="150", align="left"]
 {empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Release and Tags Manager +
+Responsibilities: Documentation, Releases, Implementation of Domain Logic
 
 '''
 
 === Sean
-image::Sean.jpg[width="150", align="left"]
+image::seanlimhx.jpg[width="150", align="left"]
 {empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Tests Lead +
+Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation
 
 '''
 
 === Cynthia
-image::Cynthia.jpg[width="150", align="left"]
+image::sinteary.jpg[width="150", align="left"]
 {empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
 
-Role: Developer +
-Responsibilities: UI
+Role: UI Lead +
+Responsibilities: UI Design, Implementation of UI models, Documentation
 
 '''
