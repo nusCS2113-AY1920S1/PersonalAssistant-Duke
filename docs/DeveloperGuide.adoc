@@ -6,14 +6,374 @@
 :sectnums:
 
 
-By: `Team [no name]`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Dev Ops
 
-=== Target user Profile
+_{To be edited}_
 
-=== User Stories
 
-=== Use Cases
+[appendix]
+== Product Scope
 
-=== Non-functional Requirements
+*Target user profile*:
+
+* has a need to manage their expenditure
+* stays on NUS campus
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage expenses faster than a typical mouse/GUI driven app
+
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the app
+
+|`* * *` |user |track how much I have spent |be reminded not to overspend
+
+|`* * *` |user |add a new expense |keep track of my spending
+
+|`* * *` |user |add a new income |keep track of how much money I have to spend
+
+|`* * *` |careless user |modify the list |edit errors in the list
+
+|`* * *` |frequent spender |get reminders from the app |be notified when my budget is running low
+
+|`* * *` |forgetful user |look up my expenses history |keep track of what I have spent money on
+
+|`* *` |hall resident who buys groceries often |look at what groceries I have already bought during the week |not end up buying the same items
+
+|`* * *` |user who takes part in numerous hall activities|set aside money for different usage (such as supper, CCA) |not run out of money before the month ends
+
+|`* *` |RC resident who eats often on campus (mainly utown) |keep track of the amount of money I spend on food |not overspend my budget
+
+|`* *` |user who is planning for an overseas trip |set a goal of how much money I want to save for the trip |save up enough money for the trip
+
+|`* *` |hal resident who eats supper with my friends often |keep track of the amount of money I spend on supper |know when I should reduce my supper intake and watch my diet
+
+|`* * *` |user who buys certain items on a daily basis (ie. coffee)|add a favourite item |don't have to key in the same item each time
+
+|`* * *` |forgetful user |set a reminder to return the money I borrowed from my friends |pay back their money on time
+
+|`* *` |student receiving allowance from my parents |set a limit to the amount of money I spend daily/weekly |be notified when I am about to overspend my allowance
+
+|`* * *` |user who spends on many items |view my monthly spending record graphically |have a clear idea of my spending habits
+
+|`* * *` |unorganised user |filter out my expenses based on tags (food, drinks etc) |have a clearer view of my expenses
+
+|`* *` |unorganised user |sort my expenses according to input date/amount spent |view my expenses in a more systematic way
+
+|`* *` |user |keep track of recurring payments each month |allocate my budget efficiently
+
+|`* *` |user |get reminder notifications for my recurring payments |remember to pay them on time
+
+|`* *` |user who often orders delivery with hall friends |split the bill efficiently and keep track of who has not paid me back |remember who still owes me money
+
+|`* *` |spendthrift |get suggestions/reminders from the app |cut down on unnecessary expenditure
+
+|`* *` |user who dines out with friends often |split the bill efficiently |not waste time calculating the bill
+
+|`* *` |student doing a project that requires the purchase of project materials (ie architecture) |keep track of the money spent on the project |not overspend on my project allowance
+
+|`* *` |user paying for my own tuition and hall fees |get notified when the payment deadlines are near |pay on time and not have to pay late fees
+
+|`*` |student who likes to buy new IT gadgets |keep track of how much money I have saved for the items I want to buy |know when I have saved sufficient funds for the item
+
+|`* *` |user who buys groceries |keep track of the amount of money spent on groceries |plan my expenses in a more effective way
+
+|`*` |committee member who often buy items for my hall events |keep track of the amount of money I have spent for the events |remember to get my reimbursement
+
+|`*` |user |analyse my spending trends over a period of time |monitor my spending habits
+
+|`*` |user who loves to buy clothes |get reminders when i overspend on certain items |be reminded to cut down on my shopping
+
+|`*` |exchange student staying on campus |convert the prices of products into my home country’s currency |make better judgement with my purchases
+
+|`* *` |student who takes multiple freelance jobs |see the individual total income I’ve made |judge which jobs are more worth my time
+
+|`* * *` |teaching assistant |track the money I have earned |know my disposable income
+
+|`*` |avid gamer |track my monthly spending on the various gaming services I have subscribed to |not overspend my budget
+
+|`* * *` |clumsy user |edit or remove entries I’ve added |accurately track my finances
+
+|`*` |student who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
+
+|=======================================================================
+
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is `Dolla` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add a new income/expense entry.
+
+*MSS*
+
+1. User requests to add a new income/expense entry.
+2. Dolla adds new income/expense entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View a list of all expenses of a specific tag sorted by date.
+
+*MSS*
+
+1. User requests to list expenses entries stored in Dolla.
+2. Dolla shows a list of expenses entries, with the most recent additions on top.
+3. User requests to display expenses entries with a specified tag.
+4. Dolla shows a list of expenses entries with the specified tag.
+5. User requests to sort the list by date.
+6. Dolla sorts the list by date in ascending order. Expenses without dates are pushed to the bottom of the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. No entries correspond to the given tag.
++
+[none]
+** 3a1. Dolla shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Remove a recently added expense/income.
+
+*MSS*
+
+1. User requests to list expenses and income entries stored in Dolla.
+2. Dolla shows a list of expenses and income entries, with the most recent additions on top.
+3. User requests to remove the specific expense/income entry in the list.
+4. Dolla removes the expense/income.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Dolla shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Modify a particular income entry.
+
+*MSS*
+
+1. User requests to list income stored in Dolla.
+2. Dolla shows a list of income entries, with the most recent additions on top.
+3. User requests to list income entries with descriptions containing a specified string.
+4. Dolla shows a list of income entries with descriptions containing the given string.
+5. User requests to modify the specific income entry in the list.
+6. Dolla asks user to input corrected details.
+7. User inputs the corrected details.
+8. Dolla updates the modified income entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given string does not correspond to any entries.
++
+[none]
+** 3a1. Dolla shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. Dolla shows an error message.
++
+Use case resumes at step 4.
+
+[none]
+* 7a. The input format is invalid.
++
+[none]
+** 7a1. Dolla shows an error message.
++
+Use case resumes at step 6.
+
+[discrete]
+=== Use case: Set a new duration-based expense limit.
+
+*MSS*
+
+1. User requests to set a new expense limit.
+2. Dolla adds new expense limit for specified duration.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Set a new savings goal for each month.
+
+*MSS*
+
+1. User requests to set a new savings goal.
+2. Dolla adds new saving goal for specified duration.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View any important issues such as upcoming payments, limits that are about to be broken, or savings that might become unfulfillable soon.
+
+*MSS*
+
+1. User requests to view reminders
+2. Dolla shows a list of important reminders
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: Favourite certain expenses for quick entry additions and add that expense entry again.
+
+*MSS*
+
+1. User requests to list expenses entries stored in Dolla.
+2. Dolla shows a list of expenses entries, with the most recent additions on top.
+3. User requests to favourite the specific expense entry in the list.
+4. Dolla stores the expense in a favourites list.
+5. User requests to list favourites.
+6. Dolla shows a list of favourites.
+7. User requests to add the specific entry in the list.
+8. Dolla adds new expense entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Dolla shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 7a. The given index is invalid.
++
+[none]
+** 7a1. Dolla shows an error message.
++
+Use case resumes at step 6.
+
+[discrete]
+=== Use case: Track money borrowed to a friend, and check as done when money is returned.
+
+*MSS*
+
+1. User requests to add new ‘loan’ entry for a specific date.
+2. Dolla adds new ‘borrow’ entry and adds expense to given date..
+3. User requests to list all loans.
+4. Dolla shows a list of all loans, with incomplete ones at the top..
+5. User requests to mark the specific loan in the list as done.
+6. Dolla adds income to current date, and marks loan as done.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[none]
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. Dolla shows an error message.
++
+Use case resumes at step 2.
+
+_{More to be added}_
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should be able to hold up to 1000 logs of expenses and incomes without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+_{More to be added}_

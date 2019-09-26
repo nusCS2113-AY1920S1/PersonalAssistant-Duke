@@ -10,6 +10,11 @@ import duke.task.TaskList;
  */
 public class AddEventCommand extends AddCommand {
 
+    /**
+     * Instantiates a new Add event command.
+     *
+     * @param taskDescription the task description
+     */
     public AddEventCommand(String taskDescription) {
         super(taskDescription); // taskDescription includes the task info and date
         time = null;

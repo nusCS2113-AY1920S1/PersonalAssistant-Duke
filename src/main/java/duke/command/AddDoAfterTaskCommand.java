@@ -5,10 +5,18 @@ import duke.task.DoAfter;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * The type Add do after task command.
+ */
 public class AddDoAfterTaskCommand extends AddCommand {
     private int position;
     private String event;
 
+    /**
+     * Instantiates a new ddd do after task command.
+     *
+     * @param taskDescription the task description
+     */
     public AddDoAfterTaskCommand(String taskDescription) {
         super(taskDescription);
     }

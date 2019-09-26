@@ -10,6 +10,11 @@ import duke.task.TaskList;
  */
 public class AddDeadlineCommand extends AddCommand {
 
+    /**
+     * Instantiates a new Add deadline command.
+     *
+     * @param taskDescription the task description
+     */
     public AddDeadlineCommand(String taskDescription) {
         super(taskDescription); // taskDescription includes the task info and date
         time = null;

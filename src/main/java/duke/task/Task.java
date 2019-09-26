@@ -37,6 +37,11 @@ public class Task {
         return date;
     }
 
+    /**
+     * converts the time from LocalDateTime to string.
+     * @param time in LocalDateTime format
+     * @return timeStr in "dd/MM/yyyy HHmm" format
+     */
     public String timeToString(LocalDateTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
         String timeStr = time.format(formatter);
