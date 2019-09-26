@@ -108,7 +108,7 @@ public class TaskList {
         ArrayList searchList = new ArrayList<Task>();
         for (Task searchTask : items) {
             if (searchTask.toString().contains(keyDesc)) {
-                if (searchTask.getStatusIcon() == "[✓]") {
+                if (searchTask.getisDone()) {
                     return true;
                 }
             }
