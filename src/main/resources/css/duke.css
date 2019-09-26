@@ -11,18 +11,18 @@
 /*    -fx-max-width: 300;*/
 /*}*/
 
-/*.scroll-pane {*/
-/*    -fx-background-insets: 0;*/
-/*    -fx-padding: 0;*/
-/*}*/
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
 
-/*.scroll-pane:focused {*/
-/*    -fx-background-insets: 0;*/
-/*}*/
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
 
-/*.scroll-pane .corner {*/
-/*    -fx-background-insets: 0;*/
-/*}*/
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
 
 .jfx-list-view {
     -fx-background-insets: 0;

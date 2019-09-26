@@ -22,12 +22,13 @@ public class Duke {
             ui.showError(e.getMessage());
             ui.disableInput();
         }
+        ui.initializePages();
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        ui.showOrderPage();
         commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 
     public void executeInput(String input) {
-
         try {
             Command command = Parser.getCommand(input);
             commandManager.execute(command);
