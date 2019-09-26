@@ -1,5 +1,4 @@
 package commands;
-
 import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -32,7 +31,7 @@ public class ScheduleCommand extends Command {
             return;
         }
         ArrayList<Task> schedule = new ArrayList<Task>();
-        for (Task t : list) {
+        for (Task t: list) {
             LocalDate tDate = null;
             if (t.getClass().getName().equals("Tasks.Event")) {
                 tDate = ((Event) t).date;
@@ -51,6 +50,10 @@ public class ScheduleCommand extends Command {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
+    }
+    @Override
+    public boolean isExit() {
+        return false;
     }
 
 }

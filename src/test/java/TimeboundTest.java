@@ -7,13 +7,12 @@ public class TimeboundTest {
 
     @Test
     void getDescriptionTest() {
-            assertEquals ("[P][\u2718] task to be done (between: Jan 15th and Jan 25th)", timeboundTest.listFormat());
-        }
+        assertEquals ("[P][\u2718] task to be done (between: Jan 15th and Jan 25th)", timeboundTest.listFormat());
+    }
 
     @Test
     void getFormatTest() {
-            assertEquals("P | \u2718 | task to be done | Jan 15th and Jan 25th", timeboundTest.toString());
-        }
-
+        assertEquals("P | \u2718 | task to be done | Jan 15th and Jan 25th", timeboundTest.toString());
     }
 
+}

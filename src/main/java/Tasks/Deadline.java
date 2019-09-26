@@ -5,20 +5,21 @@ import java.util.Date;
 
 
 public class Deadline extends Task {
-    public Date by ;
+    public Date by;
 
     public Deadline(String description, Date by) {
         super(description);
         this.by = by;
     }
+
     @Override
     public String toString() {
-        return "D"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by;
-    }
-    @Override
-    public String listFormat(){
-        return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
+        return "D" + "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by;
     }
 
+    @Override
+    public String listFormat() {
+        return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by + ")";
+    }
 
 }

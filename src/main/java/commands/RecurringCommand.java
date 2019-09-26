@@ -27,23 +27,20 @@ public class RecurringCommand {
         if (list_description.contains("weekly")) {
             if (list_description.charAt(1) == 'E') {
                 splitstring = list_description.split("\\(at");
+                //splitstring[0] = :2019-10-10 03:03:03-04:04:04)x
                 String conc = "";
                 char a = splitstring[1].charAt(9);
                 char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc) + 7;
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]);
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(getdate);
-                int month = cal.get(Calendar.MONTH) + 1;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
+                String[] timing = splitstring[1].split(" ");
+                int year = Integer.parseInt(timing[0].substring(1,5));
+                int month = Integer.parseInt(timing[0].substring(6, 8));
+                String hour_min_sec = timing[1].substring(0,17);
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Event new_weeklyEvent = new Event(description, fmt.parse(conc_time));
+                System.out.println(description);
+                Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");
@@ -127,7 +124,7 @@ public class RecurringCommand {
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Event new_weeklyEvent = new Event(description, fmt.parse(conc_time));
+                Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this monthly task again:");
@@ -211,7 +208,7 @@ public class RecurringCommand {
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Event new_weeklyEvent = new Event(description, fmt.parse(conc_time));
+                Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this yearly task again:");

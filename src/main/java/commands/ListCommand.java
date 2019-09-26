@@ -16,4 +16,9 @@ public class ListCommand extends Command {
             System.out.println(i + 1 + "." + list.get(i).listFormat());
         }
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
 }

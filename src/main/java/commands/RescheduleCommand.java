@@ -5,12 +5,9 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
-
 import java.io.IOException;
 import java.text.ParseException;
-
 import Exception.DukeException;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -21,8 +18,7 @@ public class RescheduleCommand extends Command {
             throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
         } else {
             int index = Integer.parseInt(ui.FullCommand.substring(10).trim()) - 1;
-            String Decription = list.get(index).description;
-            ;
+            String Decription = list.get(index).description;;
             System.out.println("You are rescheduling this task: " + Decription);
             System.out.println("Please type in your new timeline");
             ui.ReadCommand();
@@ -51,12 +47,6 @@ public class RescheduleCommand extends Command {
                         sb.append(list.get(i).toString() + "\n");
                     } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
                         sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                        sb.append(list.get(i).toString() + "\n");
                     } else {
                         sb.append(list.get(i).toString() + "\n");
                     }
@@ -65,8 +55,10 @@ public class RescheduleCommand extends Command {
             } else {
                 System.out.println("It's fine. Nothing has been changed.");
             }
-
         }
     }
-
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

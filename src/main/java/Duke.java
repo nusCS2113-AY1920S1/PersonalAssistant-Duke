@@ -26,13 +26,14 @@ public class Duke {
 
         try {
             list = store.Readfile();
+            System.out.println("ENTERED");
             ui.UpcomingTask(list);
-            ui.ReadCommand();
-            String command = "";
-            while(!command.equals("bye")) {
-                command = ui.FullCommand;
+            while(!isExit) {
+                ui.ReadCommand();
+                String command = ui.FullCommand;
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store);
+                isExit = c.isExit();
             }
         }
         catch (DukeException | ParseException | IOException | NullPointerException e){
