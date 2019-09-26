@@ -1,7 +1,7 @@
 # FarmLogic
 ##### A fun and interactive game that aims to introduce programming concepts to children aged 11 - 14 years old
 
-![Ui.png](https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/Ui.png)
+![UserInterfaces.Ui.png](https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/UserInterfaces.Ui.png)
 
 # Key Features
 - **Gamified Learning**  

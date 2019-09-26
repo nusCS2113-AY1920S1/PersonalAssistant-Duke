@@ -1,6 +1,7 @@
 import Commands.Command;
 import Commands.ExitCommand;
 import Commands.StartCommand;
+import Commands.TestCommand;
 
 public class Parser {
     public Command parse(String fullCommand) {
@@ -10,6 +11,9 @@ public class Parser {
         }
         if (fullCommand.equals("start")) {
             return new StartCommand();
+        }
+        if (fullCommand.equals("test")) {
+            return new TestCommand();
         }
         return new ExitCommand();
     }

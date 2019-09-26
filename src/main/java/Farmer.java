@@ -1,6 +1,6 @@
-import Farms.ChickenFarm;
-import Farms.CowFarm;
-import Farms.WheatFarm;
+import Places.ChickenFarm;
+import Places.CowFarm;
+import Places.WheatFarm;
 import Task.TaskList;
 
 public class Farmer {

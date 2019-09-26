@@ -1,4 +1,6 @@
 import Commands.Command;
+import FarmioExceptions.FarmioException;
+import UserInterfaces.Ui;
 
 import java.io.IOException;
 
@@ -40,8 +42,12 @@ public class Farmio {
         boolean isExit = false;
         while (!isStart) {
             String fullCommand = ui.getCommand();
-            Command c = parser.parse(fullCommand);
-            c.execute();
+            try {
+                Command c = parser.parse(fullCommand);
+                c.execute();
+            } catch (FarmioException e) {
+                //handle
+            }
             isStart = true;//c.getIsStart();
             isExit = true;//c.getIsExit();
         }

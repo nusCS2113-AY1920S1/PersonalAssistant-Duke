@@ -1,5 +1,7 @@
 package Commands;
 
+import FarmioExceptions.FarmioException;
+
 public abstract class Command {
     protected boolean isExit = false;
     protected boolean isStart = false;
@@ -8,5 +10,5 @@ public abstract class Command {
         return isExit;
     }
     public boolean getIsStart() { return isStart; }
-    public abstract void execute();
+    public abstract void execute() throws FarmioException;
 }
