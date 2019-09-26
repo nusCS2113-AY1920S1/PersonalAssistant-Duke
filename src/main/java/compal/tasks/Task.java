@@ -11,8 +11,7 @@ import java.util.Date;
  */
 public abstract class Task implements Serializable {
 
-    public enum Priority
-    {
+    public enum Priority {
         high, medium, low;
     }
 
@@ -88,11 +87,11 @@ public abstract class Task implements Serializable {
      * @return Date of task.
      */
     public Date getDate() {
-        Calendar calendar = Calendar.getInstance();
+        /*Calendar calendar = Calendar.getInstance();
         calendar.setTime(this.date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
-        this.date = calendar.getTime();
+        this.date = calendar.getTime();*/
         return this.date;
     }
 
@@ -172,7 +171,7 @@ public abstract class Task implements Serializable {
      * Gets hasReminder of task.
      *
      * @return whether the task has reminder. If task has reminder, return true.
-     * If task has no reminder, return false.
+     *     If task has no reminder, return false.
      */
     public boolean hasReminder() {
         return hasReminder;

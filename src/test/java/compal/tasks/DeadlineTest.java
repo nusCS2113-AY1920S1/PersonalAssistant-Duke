@@ -3,6 +3,7 @@ package compal.tasks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,11 +15,12 @@ class DeadlineTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private Deadline deadline;
+    private Task.Priority priority = high;
 
 
     @BeforeEach
     public void setup() {
-        deadline = new Deadline(description, date);
+        deadline = new Deadline(description, priority, date);
     }
 
     @Test
@@ -66,8 +68,8 @@ class DeadlineTest {
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, deadline.isHasReminder());
+    void hasReminder() {
+        assertEquals(false, deadline.hasReminder());
     }
 
     @Test
@@ -89,6 +91,7 @@ class DeadlineTest {
     @Test
     void toStringTest() {
         assertEquals("[" + deadline.getSymbol() + "]" + "[" + deadline.getStatusIcon() + "] "
-                + deadline.getDescription() + " Date: " + deadline.getStringDate(), deadline.toString());
+                + deadline.getDescription() + " Date: " + deadline.getStringDate()
+                + " Priority: " + deadline.getPriority(), deadline.toString());
     }
 }
