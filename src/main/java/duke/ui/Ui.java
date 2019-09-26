@@ -1,12 +1,12 @@
 package duke.ui;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.PrintStream;
-
 import duke.task.Task;
 import duke.task.TaskList;
+
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a ui that informs the user.
@@ -270,5 +270,9 @@ public class Ui {
      */
     public static String showErrorMsgGui(String message) {
         return message + "\n";
+    }
+
+    public void showDuplicateMsg(){
+        out.println("     The same task is already in the list!");
     }
 }

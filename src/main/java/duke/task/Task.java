@@ -148,4 +148,9 @@ public class Task {
         return null;
     }
 
+    public boolean contains(String arr1) {
+        if(arr1.equalsIgnoreCase(description))
+            return true;
+        return false;
+    }
 }
