@@ -51,7 +51,7 @@ class NumCommandTest {
             newList.addItem(TaskType.DEADLINE, "Test DEADLINE /by 15/12/2019 1500");
             newList.markTaskAsDone(1);
         } catch (IndexOutOfBoundsException e) {
-            assertEquals("Index 1 out of bounds for length 1", e.getMessage() );
+            assertEquals("Index 1 out of bounds for length 1", e.getMessage());
         }
     }
 }

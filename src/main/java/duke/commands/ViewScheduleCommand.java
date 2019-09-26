@@ -41,13 +41,14 @@ public class ViewScheduleCommand extends Command {
             if ((currTaskDate = task.getDate()) != null) {
                 if (currTaskDate.get(Calendar.DATE) == dayDate.get(Calendar.DATE)
                         && currTaskDate.get(Calendar.MONTH) == dayDate.get(Calendar.DAY_OF_MONTH)
-                        && currTaskDate.get(Calendar.YEAR) == dayDate.get(Calendar.YEAR))
+                        && currTaskDate.get(Calendar.YEAR) == dayDate.get(Calendar.YEAR)) {
 
                     scheduledTasks.add(task);
                     System.out.println("Something added");
-
                 }
+
             }
+        }
 
         if (scheduledTasks.size() > 0) {
             System.out.println("Tasks scheduled for " + dayDate.get(Calendar.DATE) + "/"
