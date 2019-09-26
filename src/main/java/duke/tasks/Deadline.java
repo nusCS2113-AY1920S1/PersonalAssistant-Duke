@@ -28,12 +28,14 @@ public class Deadline extends Task {
         Date date;
         try {
             date = dateparser.parse(by);
-            datetime.setTime(date);
+            this.datetime.setTime(date);
+            this.end = this.datetime;
         } catch (ParseException e) {
             SimpleDateFormat altparser = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
             try {
                 date = altparser.parse(by);
-                datetime.setTime(date);
+                this.datetime.setTime(date);
+                this.end =  this.datetime;
             } catch (ParseException f) {
                 datetime = null;
             }
@@ -57,9 +59,9 @@ public class Deadline extends Task {
         String text = "";
         if (datetime != null) {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy hh.mm a");
-            text += "[D]" + super.toString() + " (by: " + dateFormat.format(datetime.getTime()) + ")\n";
+            text += "[D]" + super.toString() + " (by: " + dateFormat.format(datetime.getTime()) + ")";
         } else {
-            text += "[D]" + super.toString() + " (by: " + by + ")\n";
+            text += "[D]" + super.toString() + " (by: " + by + ")";
         }
         // recurring event
         if (!this.recurringDuration.isZero()) {
@@ -69,7 +71,8 @@ public class Deadline extends Task {
         }
 
         for (int i = 0; i < this.doAfter.size(); i += 1) {
-            text += this.doAfter.get(i).toString() + "\n";
+            text += "\n";
+            text += this.doAfter.get(i).toString();
         }
 
 
