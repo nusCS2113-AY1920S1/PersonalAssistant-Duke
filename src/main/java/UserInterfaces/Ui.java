@@ -9,25 +9,30 @@ import java.util.Scanner;
 public class Ui {
     Scanner scanner = new Scanner(System.in);
     private final String CLEAR_SCREEN = (char)27 + "[2J";
-    public Ui() {}
 
-    public void showWelcome() throws IOException {
-        String s = getAsciiArt("./src/main/resources/asciiArt/welcome.txt");
-        System.out.println(s);
+    public Ui() {
+        this.scanner = new Scanner(System.in);
     }
 
-    public String getCommand() {
-        System.out.println("Listening for command: ");
-        String s = scanner.nextLine();
-        return s;
+    public void show(String message) {
+        System.out.println(message);
+    }
+
+    public void showError(String message) {
+        show("Error: " + message);
+    }
+
+    public void showWarning(String message) {
+        show("Warning: " + message);
     }
     public void clearScreen() {
         System.out.println(CLEAR_SCREEN);
     }
 
-    public String getSaveFile() {
-        return null;
+    public void showInfo(String message) {
+        show("Info: " + message);
     }
+
     private String getAsciiArt(String filepath) throws IOException {
         String output = "";
         try {
@@ -44,6 +49,18 @@ public class Ui {
             ex.printStackTrace();
         }
         return output;
+    }
+    public void showMenu(boolean hasSave) {
+        show("Menu:");
+        if(hasSave){
+            show("\t\u2022 Load Save\n");
+        }
+        show("\t\u2022 New Game\n\t\u2022 Quit");
+    }
+
+    public String getInput() {
+        show("Input: ");
+        return scanner.nextLine();
     }
     public String showAsciiArt(String filepath) throws IOException {
         String output = getAsciiArt(filepath);
