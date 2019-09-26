@@ -54,4 +54,64 @@ public class MyClass extends Item {
         return this.trainings;
     }
 
+    /**
+     * Add a training programme to the sports class.
+     * @param training The training programme to add.
+     */
+    public void addTraining(MyTraining training) {
+        trainings.add(training);
+    }
+
+    /**
+     * Edit a training programme for a sports class. (The name)
+     * @param training The name of the training programme to edit.
+     * @param newName New name to change to.
+     */
+    public void editTrainingName(String training, String newName) {
+        for (MyTraining x : trainings) {
+            if (x.getName().equals(training)) {
+                x.changeName(newName);
+            }
+        }
+    }
+
+    /**
+     * Edit a training programme for a sports class. (The number of sets)
+     * @param training The name of the training programme to edit.
+     * @param newSets New number of sets to change to.
+     */
+    public void editTrainingSets(String training, int newSets) {
+        for (MyTraining x : trainings) {
+            if (x.getName().equals(training)) {
+                x.changeSets(newSets);
+            }
+        }
+    }
+
+    /**
+     * Edit a training programme for a sports class. (The number of reps)
+     * @param training The name of the training programme to edit.
+     * @param newReps New number of reps to change to.
+     */
+    public void editTrainingReps(String training, int newReps) {
+        for (MyTraining x : trainings) {
+            if (x.getName().equals(training)) {
+                x.changeReps(newReps);
+            }
+        }
+    }
+
+    /**
+     * Edit a training programme for a sports class. (The intensity)
+     * @param training The name of the training programme to edit.
+     * @param newIntensity New intensity to change to.
+     */
+    public void editTrainingIntensity(String training, String newIntensity) {
+        for (MyTraining x : trainings) {
+            if (x.getName().equals(training)) {
+                x.changeIntensity(newIntensity);
+            }
+        }
+    }
+
 }
