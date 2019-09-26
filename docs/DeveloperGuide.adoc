@@ -318,7 +318,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 *Target user profile*:
 
-// * has a need to manage a significant number of contacts
+* Team leaders of group projects
 // * prefer desktop apps over other types
 // * can type fast
 // * prefers typing over mouse input
@@ -329,7 +329,7 @@ _{Explain here how the data encryption feature will be implemented}_
 [appendix]
 == User Stories
 
-// Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 // [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 // |=======================================================================
@@ -352,33 +352,166 @@ _{To be edited}_
 [appendix]
 == Use Cases
 
-// (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-// [discrete]
-// === Use case: Delete person
+[discrete]
+=== Use case: Create project (UC01) `create`
 
-// *MSS*
+*MSS*
 
-// 1.  User requests to list persons
-// 2.  AddressBook shows a list of persons
-// 3.  User requests to delete a specific person in the list
-// 4.  AddressBook deletes the person
-// +
-// Use case ends.
+1.  User requests to create project with desired project name and number of members
+2.  ArchDuke creates a project named after desired project name and number of members
++
+Use case ends.
 
-// *Extensions*
+*Extensions*
 
-// [none]
-// * 2a. The list is empty.
-// +
-// Use case ends.
+[none]
+* 1a. The given input is wrong.
+** 1a1. ArchDuke shows an error message.
++
+Use case ends.
 
-// * 3a. The given index is invalid.
-// +
-// [none]
-// ** 3a1. AddressBook shows an error message.
-// +
-// Use case resumes at step 2.
+[discrete]
+=== Use case: View all projects (UC02) `view`
+
+*MSS*
+
+1.  User requests to view all projects.
+2.  ArchDuke shows a list of all projects with their respective details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given input is wrong.
+** 1a1. ArchDuke shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Manage a project (UC03) `manage`
+
+*MSS*
+
+1.  User requests to view all projects.
+2.  ArchDuke shows a list of all projects with their respective details.
+3.  User requests to manage a project specified in the list.
+4.  ArchDuke opens up the specified project.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. ArchDuke shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add members to a specific project (UC04) `add member`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to add member specifying name, phone number and email address.
+3.  ArchDuke adds specified member into current project.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 2a. The given information is invalid.
+** 2a1. ArchDuke shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit members in a specific project (UC05) `edit member`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to edit member specifying member index and fields that require editing
+3.  ArchDuke edits specified fields of specified member in current project.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
+** 2a1. ArchDuke shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add task in a specific project (UC06) `add task`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to add task.
+3.  ArchDuke adds task to current project.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit task in a specific project (UC07) `edit task`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to edit task specifying task index and fields that require editing
+3.  ArchDuke edits specified fields of specified task in current project.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
+** 2a1. ArchDuke shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Assign tasks to members (UC08) `assign`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to assign a specific task to one or several members.
+3.  ArchDuke assigns specified members to specified task in current project.
++
+Use case ends.
+
+[discrete]
+=== Use case: Complete tasks in a specific project (UC09) `done`
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to mark a specific task as completed.
+3.  ArchDuke marks specified task in current project as completed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
+** 2a1. ArchDuke shows an error message.
++
+Use case resumes at step 1.
 
 // _{More to be added}_
 
