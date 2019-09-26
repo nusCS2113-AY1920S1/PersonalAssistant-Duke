@@ -46,20 +46,28 @@ Format: `help`
 Automatically displays the list of tasks over the next three days immediately after the program launches. +
 Format: `reminder`
 
-=== Adding a to-do task : `todo`
+=== Adding a to-do event : `todo`
 
 Adds a task defined by the user to the to-do list. +
 Format: `todo <task name>`
 
-=== Adding a concert task : ``
+=== Adding a concert event : ``
 
-=== Adding an exam task : ``
+=== Adding an assessment event :
 
-=== Adding a recital task : ``
+. Examinations: `exam` +
+Format: `exam /dd-MM-yyyy HHmm HHmm`
++
+. Recitals: `recital` +
+Format: ``
 
-=== Adding a lesson task : ``
+=== Adding recurring events :
 
-=== Adding a practice task : ``
+. Lessons: `lesson` +
+Format: ``
++
+. Practice sessions: `practice` +
+Format: `practice /dd-MM-yyyy HHmm HHmm`
 
 === Finding a task: `find`
 
@@ -103,9 +111,13 @@ Format: `bye`
 
 Each time the task list is modified, the task list is saved into a text file on the hard drive.
 
-=== Detect anomalies when tasks clash
+=== Detect clashes
 
 When the tasks are clash, the task list will not add the clash task.
+
+=== Checking for free days: `check`
+
+Check the schedule and give the next 3 free days.
 
 == FAQ
 *Q:* How do I transfer my data to another Computer? +
