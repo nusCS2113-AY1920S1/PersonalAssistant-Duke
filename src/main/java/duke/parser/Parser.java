@@ -55,7 +55,7 @@ public class Parser {
                             tempString = tempString.split(": ", 2)[1];
                             tempString = tempString.split("\\)")[0];
 
-                            if (!items.getTaskStatus(tempString)) {
+                            if (!items.isTaskDone(tempString)) {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
                                         + " please complete task [" + tempString + "] before marking this as done!");
                             }
@@ -115,7 +115,7 @@ public class Parser {
                 }
 
                 for (int i = 0; i < items.size(); i++) {
-                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).getisDone()) {
+                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).isDone()) {
                         throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                 + arr[0] + " clashes with " + items.get(i).toString()
                                 + "\n     Please choose another date/time! Or mark the above task as Done first!");
@@ -199,7 +199,7 @@ public class Parser {
                     repeatList.add(taskObj);
 
                     for (int j = 0; j < items.size(); j++) {
-                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).getisDone()) {
+                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).isDone()) {
                             throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                     + arr[0] + " clashes with " + items.get(j).toString()
                                     + "\n     Please choose another date/time! Or mark the above task as Done first!");

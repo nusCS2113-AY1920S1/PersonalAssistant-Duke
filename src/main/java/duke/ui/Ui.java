@@ -67,11 +67,14 @@ public class Ui {
      */
     public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
-        System.out.println("You currently have these upcoming tasks:\n");
+        System.out.println("     You currently have these upcoming tasks:\n");
+        int currentIndex = 1;
         for (Task remaining: taskList) {
-            remaining.triggerReminder();
-            System.out.println(remaining.toString());
+            remaining.isTriggerReminder();
+            System.out.println("     " + currentIndex + "." + remaining.toString());
+            currentIndex += 1;
         }
+        System.out.println(line);
     }
 
     /**
