@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
 /**
  * Represents user.
  */
@@ -179,7 +180,7 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n");
-            compal.parser.processCmd("reminder");
+            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
     }
 
