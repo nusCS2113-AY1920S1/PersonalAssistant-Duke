@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class UpcomingCommand extends Command {
     /**
-     * Based on current CPU Date, search for any tasks due in 7 days
+     * Based on current CPU Date, search for any tasks due in 7 days.
      * @param tasks
      */
     @Override
@@ -50,19 +50,21 @@ public class UpcomingCommand extends Command {
                     Date dateBefore = sdf.parse(formattedDate);
                     Date dateAfter = sdf.parse(formattedNextDay);
                     long difference = dateAfter.getTime() - dateBefore.getTime();
-                    long daysTo = (difference/(1000*60*60*24));
-
+                    long daysTo = (difference / (1000 * 60 * 60 * 24));
                     counter++;
-                    if (daysTo == 0)
-                        System.out.println("    " + counter + ". " + tasks.get(j).toString() + " -> [Due TODAY]") ;
-                    else
-                        System.out.println("    " + counter + ". " + tasks.get(j).toString() + " -> [Due in: " + daysTo + " Day(s)]") ;
+                    if (daysTo == 0) {
+                        System.out.println("    " + counter + ". " + tasks.get(j).toString() + " -> [Due TODAY]");
+                    } else {
+                        System.out.println("    " + counter + ". " + tasks.get(j).toString()
+                                + " -> [Due in: " + daysTo + " Day(s)]");
+                    }
                 }
             }
         }
-        if (counter == 0)
+        if (counter == 0) {
             System.out.println("You have 0 tasks due in the upcoming week");
-        else
+        } else {
             System.out.println("You have " + counter + " tasks due in the upcoming week.");
+        }
     }
 }

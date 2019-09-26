@@ -34,7 +34,7 @@ public class Event extends Task {
      * @param description of event
      * @param at event date and time
      */
-    public Event (String i, String description, String at, String Snooze) {
+    public Event(String i, String description, String at, String snooze) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
@@ -44,11 +44,13 @@ public class Event extends Task {
         }
         this.at = at;
         this.isDone = i.equals("1");
-        this.isSnooze= Snooze.equals("1");
+        this.isSnooze = snooze.equals("1");
     }
 
     @Override
-    public boolean containsDate(String s) { return this.at.contains(s); }
+    public boolean containsDate(String s) {
+        return this.at.contains(s);
+    }
 
     @Override
     public String toString() {

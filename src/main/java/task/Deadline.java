@@ -36,7 +36,7 @@ public class Deadline extends Task {
      * @param description of deadline
      * @param by deadline date and time
      */
-    public Deadline(String i, String description, String by, String Snooze) {
+    public Deadline(String i, String description, String by, String snooze) {
         super(description);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -47,7 +47,7 @@ public class Deadline extends Task {
         }
         this.by = by;
         this.isDone = i.equals("1");
-        this.isSnooze = Snooze.equals("1");
+        this.isSnooze = snooze.equals("1");
     }
 
     @Override
