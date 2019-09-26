@@ -41,7 +41,7 @@ public class Parser {
         boolean getDate = false;
         if (sentence.equals("list")) {
             return new ListCommand();
-        } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete"))) {
+        } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete") || arr[0].equals("del"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
@@ -87,7 +87,7 @@ public class Parser {
                 Task taskObj = new Todo(taskDesc);
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("event"))) {
+        } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("dl") || arr[0].equals("event"))) {
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
@@ -108,7 +108,7 @@ public class Parser {
                         + arr[0] + " cannot be empty.");
             } else {
                 Task taskObj;
-                if (arr[0].equals("deadline")) {
+                if (arr[0].equals("deadline") || arr[0].equals("dl")) {
                     taskObj = new Deadline(taskDesc, dateDesc);
                 } else {
                     taskObj = new Event(taskDesc, dateDesc);
@@ -123,7 +123,7 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > 0 && arr[0].equals("doafter")) {
+        } else if (arr.length > 0 && (arr[0].equals("doafter") || arr[0].equals("da"))) {
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
             for (int i = 1; i < arr.length; i++) {
@@ -155,7 +155,7 @@ public class Parser {
                             + arr[0] + " task for a task that is not in the list!");
                 }
             }
-        } else if (arr.length > 0 && arr[0].equals("repeat")) {
+        } else if (arr.length > 0 && (arr[0].equals("repeat") || arr[0].equals("rep"))) {
             //repeat <task> /from <date time> /for 3 <day/week/month>
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
@@ -208,7 +208,7 @@ public class Parser {
                 }
                 return new AddMultipleCommand(repeatList);
             }
-        } else if (arr.length > 0 && arr[0].equals("fixedduration")) {
+        } else if (arr.length > 0 && (arr[0].equals("fixedduration") || arr[0].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
             String durDesc;
