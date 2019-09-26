@@ -64,7 +64,7 @@ public class RecurCommand extends Command {
             DateTime doEnd;
             DateTime doBy;
 
-            startDate.add(Calendar.DATE, recurInterval);
+            startDate.add(Calendar.DATE, recurInterval * i);
             doBy = new DateTime(sdf.format(startDate.getTime()));
 
             if (super.type == CommandType.EVENT) {
