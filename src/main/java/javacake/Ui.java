@@ -13,7 +13,7 @@ public class Ui {
     }
 
     /**
-     * The message that pops up when first starting the program
+     * The message that pops up when first starting the program.
      * @param isFirstTime true for first time users
      * @param userName The name of the user using JavaCake
      * @param progress The progress of the user in viewing the whole content

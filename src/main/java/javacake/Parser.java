@@ -47,40 +47,40 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
-//        } else if (input.equals("reminder")) {
-//            return new ReminderCommand();
-//        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
-//            return new ViewScheduleCommand(input);
-//        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
-//            return new FreeTimeCommand(input);
-//        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
-//            return new FindCommand(input);
-//        } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
-//            return new DoneCommand(input);
-//        } else if (input.length() > 6 && input.substring(0,6).equals("delete")) {
-//            return new DeleteCommand(input);
-//        } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
-//            if (input.contains("/daily")) {
-//                return new AddCommand(Command.CmdType.DAILY, input);
-//            } else if (input.contains("/weekly")) {
-//                return new AddCommand(Command.CmdType.WEEKLY, input);
-//            } else if (input.contains("/monthly")) {
-//                return new AddCommand(Command.CmdType.MONTHLY, input);
-//            }
-//            return new AddCommand(Command.CmdType.TODO, input);
-//        } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
-//            return new AddCommand(Command.CmdType.EVENT, input);
-//        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
-//            return new AddCommand(Command.CmdType.DEADLINE, input);
-//        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
-//            return new EditCommand(input);
-//        } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
-//            return new TentativeCommand(input, true);
-//        } else if (input.equals("tentative list")) {
-//            return new TentativeCommand(input, false);
-//        } else if (input.length() >= 7 && input.substring(0,7).equals("confirm")) {
-//            return new ConfirmCommand(input);
-//        }
+        //        } else if (input.equals("reminder")) {
+        //            return new ReminderCommand();
+        //        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
+        //            return new ViewScheduleCommand(input);
+        //        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
+        //            return new FreeTimeCommand(input);
+        //        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
+        //            return new FindCommand(input);
+        //        } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
+        //            return new DoneCommand(input);
+        //        } else if (input.length() > 6 && input.substring(0,6).equals("delete")) {
+        //            return new DeleteCommand(input);
+        //        } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
+        //            if (input.contains("/daily")) {
+        //                return new AddCommand(Command.CmdType.DAILY, input);
+        //            } else if (input.contains("/weekly")) {
+        //                return new AddCommand(Command.CmdType.WEEKLY, input);
+        //            } else if (input.contains("/monthly")) {
+        //                return new AddCommand(Command.CmdType.MONTHLY, input);
+        //            }
+        //            return new AddCommand(Command.CmdType.TODO, input);
+        //        } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
+        //            return new AddCommand(Command.CmdType.EVENT, input);
+        //        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
+        //            return new AddCommand(Command.CmdType.DEADLINE, input);
+        //        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
+        //            return new EditCommand(input);
+        //        } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
+        //            return new TentativeCommand(input, true);
+        //        } else if (input.equals("tentative list")) {
+        //            return new TentativeCommand(input, false);
+        //        } else if (input.length() >= 7 && input.substring(0,7).equals("confirm")) {
+        //            return new ConfirmCommand(input);
+        //        }
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
         }

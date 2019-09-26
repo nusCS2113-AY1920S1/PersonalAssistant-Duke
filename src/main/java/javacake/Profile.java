@@ -14,6 +14,12 @@ public class Profile {
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
+    /**
+     * Constructor for profile.
+     * @param filename String of filepath
+     * @param ui the Ui
+     * @throws DukeException when unable to create profile
+     */
     public Profile(String filename, Ui ui) throws DukeException {
         filepath = filename;
         try {
@@ -83,16 +89,30 @@ public class Profile {
         return username;
     }
 
+    /**
+     * Method to overwrite Username.
+     * @param oldname old username
+     * @throws DukeException when unable to write progress
+     */
     public void overwriteName(String oldname) throws DukeException {
         username = oldname;
         writeProgress();
     }
 
+    /**
+     * Method to set topic as Done.
+     * @param contentIdx idx of content
+     * @throws DukeException when unable to write progress
+     */
     public void setAsDone(int contentIdx) throws DukeException {
         topicsDone.set(contentIdx, 1);
         writeProgress();
     }
 
+    /**
+     * Method to get total progress.
+     * @return total progress status
+     */
     public int getTotalProgress() {
         int count = 0;
         for (int i : topicsDone) {
