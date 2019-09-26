@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FixedDurationTaskTest {
@@ -15,12 +16,13 @@ public class FixedDurationTaskTest {
     private String time = "1230";
     private int hour = 2;
     private int minute = 25;
+    private Task.Priority priority = high;
     private FixedDurationTask fixedDurationTask;
 
 
     @BeforeEach
     public void setup() {
-        fixedDurationTask = new FixedDurationTask(description, date, time, hour, minute);
+        fixedDurationTask = new FixedDurationTask(description, priority, date, time, hour, minute);
     }
 
     @Test
@@ -80,8 +82,8 @@ public class FixedDurationTaskTest {
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, fixedDurationTask.isHasReminder());
+    void hasReminder() {
+        assertEquals(false, fixedDurationTask.hasReminder());
     }
 
     @Test
@@ -122,8 +124,11 @@ public class FixedDurationTaskTest {
     @Test
     void toStringTest() {
         assertEquals("[" + fixedDurationTask.getSymbol() + "]"
-                + "[" + fixedDurationTask.getStatusIcon() + "] " + fixedDurationTask.getDescription()
-                + " Date: " + fixedDurationTask.getStringDate() + " Hour: " + fixedDurationTask.getDurationHour()
-                + " Min: " + fixedDurationTask.getDurationMinute(), fixedDurationTask.toString());
+                        + "[" + fixedDurationTask.getStatusIcon() + "] "
+                        + fixedDurationTask.getDescription()
+                        + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
+                        + fixedDurationTask.getDurationHour()
+                        + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
+                        + fixedDurationTask.getPriority(), fixedDurationTask.toString());
     }
 }
