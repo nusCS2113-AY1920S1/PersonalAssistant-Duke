@@ -1,11 +1,8 @@
 package duke.commands;
 
 import duke.TaskList;
-import duke.commands.AddCommand;
 import duke.enums.CommandType;
 import duke.exceptions.BadInputException;
-import duke.items.Deadline;
-import duke.items.Event;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;

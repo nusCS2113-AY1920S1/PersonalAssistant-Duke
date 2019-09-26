@@ -38,25 +38,16 @@ public class ViewScheduleCommand extends Command {
         for (Task task : tasks) {
             Calendar currTaskDate;
 
-            //            if ((currTaskDate = task.getDate()) != null) {
-            //                if (currTaskDate.getTime() == dayDate.getTime()){
-            //                    scheduledTasks.add(task);
-            //                    System.out.println("Something added");
-            //                }
-            //            }
-
             if ((currTaskDate = task.getDate()) != null) {
-                if (currTaskDate.getTime().getDate() == dayDate.getTime().getDate()
-                        && currTaskDate.getTime().getMonth() == dayDate.getTime().getMonth()
-                        && currTaskDate.getTime().getYear() == dayDate.getTime().getYear()) {
+                if (currTaskDate.get(Calendar.DATE) == dayDate.get(Calendar.DATE)
+                        && currTaskDate.get(Calendar.MONTH) == dayDate.get(Calendar.DAY_OF_MONTH)
+                        && currTaskDate.get(Calendar.YEAR) == dayDate.get(Calendar.YEAR))
 
                     scheduledTasks.add(task);
                     System.out.println("Something added");
 
                 }
             }
-        }
-
 
         if (scheduledTasks.size() > 0) {
             System.out.println("Tasks scheduled for " + dayDate.get(Calendar.DATE) + "/"
