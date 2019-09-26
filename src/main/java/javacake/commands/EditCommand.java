@@ -1,13 +1,10 @@
 
-package duke.commands;
+package javacake.commands;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.tasks.Task;
-
-import java.util.Date;
+import javacake.DukeException;
+import javacake.Storage;
+import javacake.TaskList;
+import javacake.Ui;
 
 /**
  * EDIT commands should be of the following format:

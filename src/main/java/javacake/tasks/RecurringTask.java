@@ -1,6 +1,6 @@
-package duke.tasks;
+package javacake.tasks;
 
-import duke.DukeException;
+import javacake.DukeException;
 
 import java.util.Calendar;
 import java.util.Date;

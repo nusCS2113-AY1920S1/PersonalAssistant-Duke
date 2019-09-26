@@ -1,10 +1,10 @@
-package duke.commands;
+package javacake.commands;
 
-import duke.DukeException;
-import duke.Parser;
-import duke.Ui;
-import duke.Storage;
-import duke.TaskList;
+import javacake.DukeException;
+import javacake.Parser;
+import javacake.Ui;
+import javacake.Storage;
+import javacake.TaskList;
 
 public class AddCommand extends Command {
     /**

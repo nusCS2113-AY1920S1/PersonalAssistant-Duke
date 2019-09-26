@@ -1,9 +1,9 @@
-package duke.commands;
+package javacake.commands;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.tasks.Task;
+import javacake.Storage;
+import javacake.TaskList;
+import javacake.Ui;
+import javacake.tasks.Task;
 
 public class ListCommand extends Command {
     public ListCommand() {

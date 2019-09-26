@@ -1,35 +1,45 @@
-package duke.tasks;
+package javacake.tasks;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import duke.DukeException;
+import javacake.DukeException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Deadline extends Task {
-    private String by;
+public class Event extends Task {
+    private String at;
     private Date dateNow;
 
     /**
      * Initialises the description of the task.
      * @param description String containing description
      *                    of the task inputted by user
-     * @param by The details of when task is to be done
+     * @param at The details of when task is to be done
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Event(String description, String at) throws DukeException {
         super(description);
-        this.by = by;
-        taskType = TaskType.DEADLINE;
+        this.at = at;
+        taskType = TaskType.EVENT;
         try {
             Parser parser = new Parser();
-            List<DateGroup> groups = parser.parse(by);
+            List<DateGroup> groups = parser.parse(at);
             dateNow = groups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new DukeException("   Date cannot be parsed: " + by);
+            throw new DukeException("   Date cannot be parsed: " + at);
         }
+    }
+
+    /**
+     * Initialises the description of the task.
+     * @param description String containing description
+     *                    of the task inputted by user
+     * @param date The date of the task to be done
+     */
+    public Event(String description, Date date) {
+        super(description);
+        this.at = date.toString();
+        this.dateNow = date;
     }
 
     /**
@@ -39,12 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + description + " (by: " + by + ")";
-    }
-
-    @Override
-    public String getFullString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[E]" + description + " (at: " + at + ")";
     }
 
     /**
@@ -56,20 +61,24 @@ public class Deadline extends Task {
         return dateNow;
     }
 
+    @Override
+    public String getFullString() {
+        return "[E][" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+    }
+
     /**
      * Method to get details of extra details
      * concerning the task.
      * @return String containing details of when task
-     *         is to be done by
+     *         is to be done at
      */
     @Override
     public String getExtra() {
-        return this.by;
+        return this.at;
     }
-
+    
     @Override
-    public void changeDate(String newDate) { 
-        this.by = newDate; 
+    public void changeDate(String newDate) {
+        this.at = newDate;
     }
-
 }

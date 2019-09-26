@@ -1,27 +1,27 @@
-package duke;
+package javacake;
 
-import duke.commands.AddCommand;
-import duke.commands.Command;
-import duke.commands.ConfirmCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.EditCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.ListCommand;
-import duke.commands.ReminderCommand;
-import duke.commands.TentativeCommand;
-import duke.commands.ViewScheduleCommand;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.TentativeEvent;
-import duke.tasks.RecurringTask;
-import duke.tasks.DoAfterTask;
-import duke.tasks.FixedDurationTask;
-import duke.tasks.WithinPeriodTask;
+import javacake.commands.AddCommand;
+import javacake.commands.Command;
+import javacake.commands.ConfirmCommand;
+import javacake.commands.DeleteCommand;
+import javacake.commands.DoneCommand;
+import javacake.commands.EditCommand;
+import javacake.commands.ExitCommand;
+import javacake.commands.FindCommand;
+import javacake.commands.FreeTimeCommand;
+import javacake.commands.ListCommand;
+import javacake.commands.ReminderCommand;
+import javacake.commands.TentativeCommand;
+import javacake.commands.ViewScheduleCommand;
+import javacake.tasks.Task;
+import javacake.tasks.ToDo;
+import javacake.tasks.Deadline;
+import javacake.tasks.Event;
+import javacake.tasks.TentativeEvent;
+import javacake.tasks.RecurringTask;
+import javacake.tasks.DoAfterTask;
+import javacake.tasks.FixedDurationTask;
+import javacake.tasks.WithinPeriodTask;
 import com.joestelmach.natty.DateGroup;
 
 import java.util.ArrayList;
@@ -47,39 +47,40 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
-        } else if (input.equals("reminder")) {
-            return new ReminderCommand();
-        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
-            return new ViewScheduleCommand(input);
-        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
-            return new FreeTimeCommand(input);
-        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
-            return new FindCommand(input);
-        } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
-            return new DoneCommand(input);
-        } else if (input.length() > 6 && input.substring(0,6).equals("delete")) {
-            return new DeleteCommand(input);
-        } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
-            if (input.contains("/daily")) {
-                return new AddCommand(Command.CmdType.DAILY, input);
-            } else if (input.contains("/weekly")) {
-                return new AddCommand(Command.CmdType.WEEKLY, input);
-            } else if (input.contains("/monthly")) {
-                return new AddCommand(Command.CmdType.MONTHLY, input);
-            }
-            return new AddCommand(Command.CmdType.TODO, input);
-        } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
-            return new AddCommand(Command.CmdType.EVENT, input);
-        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
-            return new AddCommand(Command.CmdType.DEADLINE, input);
-        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
-            return new EditCommand(input);
-        } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
-            return new TentativeCommand(input, true);
-        } else if (input.equals("tentative list")) {
-            return new TentativeCommand(input, false);
-        } else if (input.length() >= 7 && input.substring(0,7).equals("confirm")) {
-            return new ConfirmCommand(input);
+//        } else if (input.equals("reminder")) {
+//            return new ReminderCommand();
+//        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
+//            return new ViewScheduleCommand(input);
+//        } else if (input.length() >= 8 && input.substring(0, 8).equals("freetime")) {
+//            return new FreeTimeCommand(input);
+//        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
+//            return new FindCommand(input);
+//        } else if (input.length() > 4 && input.substring(0, 4).equals("done")) {
+//            return new DoneCommand(input);
+//        } else if (input.length() > 6 && input.substring(0,6).equals("delete")) {
+//            return new DeleteCommand(input);
+//        } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
+//            if (input.contains("/daily")) {
+//                return new AddCommand(Command.CmdType.DAILY, input);
+//            } else if (input.contains("/weekly")) {
+//                return new AddCommand(Command.CmdType.WEEKLY, input);
+//            } else if (input.contains("/monthly")) {
+//                return new AddCommand(Command.CmdType.MONTHLY, input);
+//            }
+//            return new AddCommand(Command.CmdType.TODO, input);
+//        } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
+//            return new AddCommand(Command.CmdType.EVENT, input);
+//        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
+//            return new AddCommand(Command.CmdType.DEADLINE, input);
+//        } else if (input.length() >= 4 && input.substring(0, 4).equals("edit")) {
+//            return new EditCommand(input);
+//        } else if (input.length() >= 15 && input.substring(0,15).equals("tentative event")) {
+//            return new TentativeCommand(input, true);
+//        } else if (input.equals("tentative list")) {
+//            return new TentativeCommand(input, false);
+//        } else if (input.length() >= 7 && input.substring(0,7).equals("confirm")) {
+//            return new ConfirmCommand(input);
+//        }
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
         }

@@ -1,12 +1,12 @@
-package duke.commands;
+package javacake.commands;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.tasks.Task;
+import javacake.DukeException;
+import javacake.Storage;
+import javacake.TaskList;
+import javacake.Ui;
+import javacake.tasks.Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

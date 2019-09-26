@@ -1,16 +1,15 @@
-import duke.DukeException;
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.commands.Command;
+import javacake.DukeException;
+import javacake.Parser;
+import javacake.Storage;
+import javacake.TaskList;
+import javacake.Ui;
+import javacake.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 

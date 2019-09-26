@@ -1,4 +1,4 @@
-package duke;
+package javacake;
 
 public class DukeException extends Exception {
     /**

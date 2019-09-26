@@ -1,11 +1,11 @@
-package duke.commands;
+package javacake.commands;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.DukeException;
-import duke.Parser;
-import duke.tasks.TentativeEvent;
+import javacake.TaskList;
+import javacake.Ui;
+import javacake.Storage;
+import javacake.DukeException;
+import javacake.Parser;
+import javacake.tasks.TentativeEvent;
 
 public class ConfirmCommand extends Command {
     public ConfirmCommand(String str) {

@@ -1,4 +1,4 @@
-package duke.tasks;
+package javacake.tasks;
 
 public class FixedDurationTask extends ToDo {
 

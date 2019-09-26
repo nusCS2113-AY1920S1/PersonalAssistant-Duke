@@ -1,9 +1,9 @@
-import duke.DukeException;
-import duke.Parser;
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.commands.Command;
+import javacake.DukeException;
+import javacake.Parser;
+import javacake.TaskList;
+import javacake.Ui;
+import javacake.Storage;
+import javacake.commands.Command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

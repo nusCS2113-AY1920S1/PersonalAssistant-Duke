@@ -1,6 +1,6 @@
-package duke;
+package javacake;
 
-import duke.tasks.Task;
+import javacake.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
