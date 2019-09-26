@@ -5,7 +5,7 @@ import java.util.Date;
 public class RecurringDeadline extends Deadline {
     private String recurrence;
     /**
-     * Constructor for the Deadline object.
+     * Constructor for the RecurringDeadline object.
      * Takes in inputs for description and date/time the tasks should be done by.
      *
      * @param description Description of the task
@@ -16,6 +16,13 @@ public class RecurringDeadline extends Deadline {
         this.recurrence = recurrence;
     }
 
+    /**
+     * Returns the full descriptor of the task
+     * will show the type of task, whether it has been done,
+     * the description of the task, the time it should be done by,
+     * and the recurrence schedule of the task
+     * @return A String with all the information listed above.
+     */
     @Override
     public String toString() {
         return super.toString() + " (R: " + recurrence + ")";

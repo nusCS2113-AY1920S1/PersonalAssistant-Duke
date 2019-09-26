@@ -37,7 +37,7 @@ public class Duke {
             taskList = new TaskList(emptyList);
         }
         recurHandler = new RecurHandler(taskList);
-        if (recurHandler.checkRecurrence(taskList)) {
+        if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list();
         }
