@@ -8,10 +8,7 @@ import duke.tasks.FixedDurationTasks;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.util.TaskList;
-import duke.util.TimePeriod;
-import duke.util.Ui;
-import duke.util.Storage;
+import duke.util.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -38,7 +35,7 @@ public class AddCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeScheduleException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeScheduleException {
         if (task instanceof Todo || task instanceof RecurringTask) {
             tasks.add(task);
         } else {
@@ -104,6 +101,7 @@ public class AddCommand extends Command {
         ui.printTask(task);
         ui.currentTaskListSizeMsg(tasks.getSize());
         store.writeData(tasks.getTasks());
+        reminder.forceCheckReminder();
     }
 
     @Override

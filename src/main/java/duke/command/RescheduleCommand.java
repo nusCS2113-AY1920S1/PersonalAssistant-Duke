@@ -7,10 +7,7 @@ import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.Task;
-import duke.util.DateTimeParser;
-import duke.util.TaskList;
-import duke.util.Storage;
-import duke.util.Ui;
+import duke.util.*;
 import duke.exceptions.DukeInvalidIndexException;
 
 import java.util.Objects;
@@ -49,7 +46,7 @@ public class RescheduleCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws
             DukeInvalidIndexException,
             DukeInvalidTimeException,
             DukeNoTimeException,

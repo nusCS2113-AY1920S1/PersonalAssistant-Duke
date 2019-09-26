@@ -74,6 +74,14 @@ public class Ui {
         }
     }
 
+    public void printUpcomingTasks(List<Task> upcomingTasksList) {
+        if (upcomingTasksList.size() > 0) {
+            System.out.println(LINE + "You have " + upcomingTasksList.size() + " upcoming tasks!\nHere's the list:");
+            this.printTaskList(upcomingTasksList);
+            System.out.println(LINE);
+        }
+    }
+
     public void printTask(Task task) {
         System.out.println(task);
     }
