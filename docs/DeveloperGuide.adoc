@@ -29,10 +29,10 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Documentation
 
 
-== User Stories
+== Appendix A: User Stories
 
 
-== Use Cases
+== Appendix B: Use Cases
 
 
-== Non-Functional Requirements
+== Appendix C: Non-Functional Requirements
