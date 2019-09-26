@@ -36,6 +36,12 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * This method prints the strings of text from 's' with the proper format. Each element
+     * from 's' is a line of text to be printed.
+     *
+     * @param s containing the messages to be printed.
+     */
     public static void printMsg(String... s) {
         final StringBuilder messageAccumulator = new StringBuilder();
         for (String str: s) {
@@ -65,18 +71,27 @@ public class Ui {
         printMsg(msg);
     }
 
+    /**
+     * Prints an error message when date in not in the format 'DD/MM/YYYY HHmm'.
+     */
     public static void printDateTimeFormatError() {
         System.out.println(line);
         System.out.println("Please use the format 'DD/MM/YYYY HHmm'!");
         System.out.println(line);
     }
 
+    /**
+     * Prints an error message when date in not in the format 'DD/MM/YYYY'.
+     */
     public static void printDateFormatError() {
         System.out.println(line);
         System.out.println("\tPlease use the format 'DD/MM/YYYY'!");
         System.out.println(line);
     }
 
+    /**
+     * Prints an error message when fixed duration entered is invalid.
+     */
     public static void printFixDurationTaskError() {
         System.out.println(line);
         System.out.println("\tSorry, please enter a valid fixed duration task.");
@@ -169,7 +184,7 @@ public class Ui {
      */
     public static void printInvalidNumberError(String str) {
         System.out.println(line);
-        System.out.println(str + " is not a number. Please use a number instead!");
+        System.out.println("\t" + str + " is not a number. Please use a number instead!");
         System.out.println(line);
     }
 
@@ -182,6 +197,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message when command given is invalid.
+     */
     public static void printInvalidCommandError() {
         System.out.println("\tOOPS! The command is invalid. Please enter a valid command");
     }
