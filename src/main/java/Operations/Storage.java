@@ -139,7 +139,16 @@ public class Storage {
         }
     }
 
-    public String convertForStorage(Task task) throws DukeException {
+    /**
+     * Extracts and converts all the information in the task object for storage
+     * will format the time information for deadline and event tasks
+     * Additional formatting will be done for recurring tasks to include recurrence schedule
+     * returns a string with all the relevant information.
+     * @param task task object to be converted
+     * @return time A String containing all the relevant information
+     * @throws DukeException If there is any error in parsing the Date information.
+     */
+    String convertForStorage(Task task) throws DukeException {
         try {
             String type = String.valueOf(task.toString().charAt(1));
             String time = "";
