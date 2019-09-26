@@ -5,3 +5,4 @@ R|0|meet Christian|11/05/2019 1234
 R|1|meet Christian|12/05/2019 1234
 A|0|swim|new things
 F|0|read|3 hours
+T|0|something

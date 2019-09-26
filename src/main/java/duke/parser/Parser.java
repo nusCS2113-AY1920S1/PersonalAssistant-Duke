@@ -1,23 +1,8 @@
 package duke.parser;
 
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.RemindCommand;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Repeat;
-import duke.task.DoAfter;
-import duke.task.FixedDuration;
+import duke.command.*;
 import duke.dukeexception.DukeException;
+import duke.task.*;
 
 import java.util.ArrayList;
 
@@ -77,16 +62,23 @@ public class Parser {
                 }
             }
         } else if (arr.length > 0 && arr[0].equals("todo")) {
-            for (int i = 1; i < arr.length; i++) {
-                taskDesc += arr[i] + " ";
+            String[] getDescription = sentence.split(" ", 2);
+            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
+            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])){
+                return new DuplicateFoundCommand();
+            } else{
+                for (int i = 1; i < arr.length; i++) {
+                    taskDesc += arr[i] + " ";
+                }
+                taskDesc = taskDesc.trim();
+                if (taskDesc.isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    Task taskObj = new Todo(taskDesc);
+                    return new AddCommand(taskObj);
+                }
             }
-            taskDesc = taskDesc.trim();
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                Task taskObj = new Todo(taskDesc);
-                return new AddCommand(taskObj);
-            }
+
         } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("event"))) {
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
