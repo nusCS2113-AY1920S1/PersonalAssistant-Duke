@@ -3,12 +3,12 @@ package duke.Sports;
 /**
  * Represents a student.
  */
-public class MyStudents {
+public class MyStudent {
 
     private String name;
     private int age;
 
-    public MyStudents(String name, int age) {
+    public MyStudent(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -30,4 +30,3 @@ public class MyStudents {
     }
 
 }
-
