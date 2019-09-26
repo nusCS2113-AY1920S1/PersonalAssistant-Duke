@@ -64,7 +64,7 @@ public class Storage {
 
         String timeFrame = "";
         if (taskType.equals("D") || taskType.equals("E")) {
-            timeFrame = splitLine[4];
+            timeFrame = splitLine[5];
         }
         if (taskType.equals("T")) {
             if (subtypes.trim().length() == 0) {
