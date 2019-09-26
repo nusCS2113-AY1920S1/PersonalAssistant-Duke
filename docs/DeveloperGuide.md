@@ -4,17 +4,17 @@
 Welcome to the **Compal** Developer Guide! This Developer Guide is still being worked on for now!
 
 # Table of Contents
-> 1. [Introduction](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#user-stories)
- >2. Setting Up
- >3. Design
- >4. Implementation
- >5. Documentation
- >6. Testing
- >7. DevOps
-  >[**Appendix C: User Stories**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#appendix-c:-user-stories)
- > [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
- > [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
-  > [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
+1. [Introduction](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#user-stories)
+ 2. Setting Up
+ 3. Design
+ 4. Implementation
+ 5. Documentation
+ 6. Testing
+ 7. DevOps
+ 	* [**Appendix C: User Stories**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#appendix-c:-user-stories)
+	* [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
+	* [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
+	* [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
 
 
 
