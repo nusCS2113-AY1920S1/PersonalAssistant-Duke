@@ -33,9 +33,8 @@ public class Storage {
 
     /**
      * This function clears the content of the file and write all the information of the tasks in the task
-     * list
-     * to that file. This file follows similar structure as the user input and can be used to re-construct the
-     * task list later.
+     * list to that file. This file follows similar structure as the user input and can be used to
+     * re-construct the task list later.
      *
      * @param taskList the list of task that is to be written to the file
      */
