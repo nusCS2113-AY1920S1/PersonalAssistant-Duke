@@ -12,9 +12,11 @@ import java.net.InetSocketAddress;
 //code adapted from https://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java
 // -se-api
 public class SimpleServer {
+    private static HttpServer server;
+
     public static void startServer() {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(3000), 0);
+            server = HttpServer.create(new InetSocketAddress(3000), 0);
             server.createContext("/", new MyHandler());
             server.setExecutor(null); // creates a default executor
             server.start();
@@ -22,6 +24,7 @@ public class SimpleServer {
             Duke.getUI().showError("Server setup failed...");
         }
     }
+
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -30,8 +33,8 @@ public class SimpleServer {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
-            //Duke.getUI().showError(exchange.getRequestBody().readAllBytes().toString());
             parseAuthCode(exchange.getRequestURI().getQuery());
+            server.stop(200);
         }
     }
 

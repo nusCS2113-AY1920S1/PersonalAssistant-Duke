@@ -19,7 +19,7 @@ public class ToDo extends Task {
      * Instantiates the ToDo class, which only takes in the name and set isDone flag to false like all tasks.
      * This method also allows a doAfter task to be entered.
      *
-     * @param name name of the task
+     * @param name    name of the task
      * @param doAfter task to be done after the main task
      */
     public ToDo(String name, String doAfter) {

@@ -23,7 +23,6 @@ public class Duke {
     public static void main(String[] args) {
         ui = new UI();
         ui.setDebug(true);
-        SimpleServer.startServer();
         Http.getAuth();
         run();
     }

@@ -128,8 +128,8 @@ public class Task {
     }
 
     /**
-     * The default function determining whether the deadline or event is near enough. It will be overridden
-     * in deadline or event, but not todo.
+     * The default function determining whether the deadline or event is near enough. It will be overridden in
+     * deadline or event, but not todo.
      *
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      * @return whether the task is near enough
