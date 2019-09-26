@@ -1,4 +1,5 @@
 import Commands.Command;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -8,17 +9,15 @@ public class Farmio {
     private Ui ui;
     private Parser parser;
 
-    public Farmio() throws IOException {
+    private Farmio() {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage();
-        ui.showWelcome();
-        String filepath;
-        this.farmer = new Farmer(); //load savefile if it exists
-        //storage.load(ui.getSaveFile());
     }
 
-    public void run() {
+    private void run() {
+        displayWelcome();
+        displayMenu();
         boolean isExit = false;
         while(!isExit) {
             //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
@@ -26,12 +25,18 @@ public class Farmio {
             //create the new task, and add to the tasklist or do whatever
             isExit = getUserActions(farmer, ui, parser);
             farmer.startDay();
-            Storage.save(farmer);
+            //TODO: Maybe another method?
+            try {
+                Storage.storeFarmer(farmer);
+            } catch (IOException e) {
+                ui.showError("Unsuccessful game save.");
+                ui.showInfo("No gave save was done.");
+            }
             checkObjectives(farmer);
         }
     }
 
-    public static void main(String[] args) throws IOException {    //TODO - configure both OS
+    public static void main(String[] args) {    //TODO - configure both OS
         new Farmio().run();
     }
 
@@ -39,7 +44,7 @@ public class Farmio {
         boolean isStart = false;
         boolean isExit = false;
         while (!isStart) {
-            String fullCommand = ui.getCommand();
+            String fullCommand = ui.getInput();
             Command c = parser.parse(fullCommand);
             c.execute();
             isStart = true;//c.getIsStart();
@@ -48,6 +53,47 @@ public class Farmio {
         return  isExit;
     }
 
+    private void displayArt(String name) {
+        try{
+            ui.show(storage.getAsciiArt(name));
+        } catch (IOException e) {
+            ui.showWarning(name.substring(0, 1).toUpperCase() + name.substring(1) + " ascii art missing!");
+        }
+    }
+
+    private void displayWelcome() {
+        displayArt("welcome");
+        ui.show("Press ENTER to continue.");
+        ui.getInput();
+    }
+
+    private void displayMenu(){
+        displayArt("menu");
+        ui.showMenu(storage.getFarmerExist());
+        //TODO: convert swtich into parser
+        while(true){
+            switch(ui.getInput().toLowerCase()){
+                case "load save":
+                    try {
+                        this.farmer = storage.loadFarmer();
+                        return;
+                    } catch (ParseException e) {
+                        ui.showWarning("Game save is corrupted!");
+                        ui.showInfo("Farmio starting a new game.");
+                    } catch (IOException e) {
+                        ui.showWarning("No game save detected!");
+                        ui.showInfo("Farmio starting a new game.");
+                    }
+                case "new game":
+                    this.farmer = new Farmer();
+                    return;
+                case "quit":
+                    System.exit(0);
+                default:
+                    ui.showWarning("Unknown command.");
+            }
+        }
+    }
 
     private static void loadLevel(Farmer farmer) {
 
