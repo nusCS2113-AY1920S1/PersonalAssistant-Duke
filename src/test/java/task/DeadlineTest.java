@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeadlineTest {
 
-    Deadline testDeadline = new Deadline("Sleep /by 01-01-1970 2200");
-    Deadline testDeadlineOverload = new Deadline("0", "Sleep", "01-01-1970 2200");
+    private Deadline testDeadline = new Deadline("Sleep /by 01-01-1970 2200");
+    private Deadline testDeadlineOverload = new Deadline("0", "Sleep", "01-01-1970 2200");
 
     DeadlineTest() throws DukeException {
     }
@@ -76,10 +76,28 @@ class DeadlineTest {
     void testGetStatusIcon() throws DukeException {
         assertEquals("N", testDeadline.getStatusIcon());
         assertEquals("N", testDeadlineOverload.getStatusIcon());
+        assertFalse(testDeadline.checkCompletion());
+        assertFalse(testDeadlineOverload.checkCompletion());
         testDeadline.markDone();
         testDeadlineOverload.markDone();
+        assertTrue(testDeadline.checkCompletion());
+        assertTrue(testDeadlineOverload.checkCompletion());
         assertEquals("Y", testDeadline.getStatusIcon());
         assertEquals("Y", testDeadlineOverload.getStatusIcon());
+
+        try {
+            testDeadline.markDone();
+            fail();
+        } catch (Exception e) {
+            assertEquals("But good sir, this task is already done!", e.getMessage());
+        }
+
+        try {
+            testDeadlineOverload.markDone();
+            fail();
+        } catch (Exception e) {
+            assertEquals("But good sir, this task is already done!", e.getMessage());
+        }
     }
 
 

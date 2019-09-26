@@ -50,7 +50,7 @@ public class Event extends Task {
     @Override
     public String toList() {
         return "[E][" + this.getStatusIcon() + "] " + this.getDescription()
-                + " (at: " + this.getDueDate() + ")";
+                + " (At: " + this.getDueDate() + ")";
     }
 
     /**
