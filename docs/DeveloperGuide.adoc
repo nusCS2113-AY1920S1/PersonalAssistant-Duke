@@ -22,6 +22,39 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 * Java Development Kit '11'
 * Intellij IDE
 
+=== Setup on local Computer
+
+
+*Manual Import:*
+
+. `Fork` this Repository and `Clone` your remote repository locally to your computer
+. Open *Intellij IDE* and set up JDK `11`
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` > `JDK` and select the path of the installed JDK `11`
+.. Click `OK`
+. Click `Import Project`
+. Locate project directory of the cloned repository
+. Click `Next`
+. Ensure that the `src folder` is checked ✅, and Click `Next` until the `Finish` button appears
+. Click the `Finish` button
+
+
+*Automatic Import using Intellij Check Out:*
+
+. `Fork` this Repository
+. Open *Intellij IDE* and set up JDK `11`
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` > `JDK` and select the path of the installed JDK `11`
+.. Click `OK`
+. Click `Check out from Version Control` > `Git`
+. Enter URL of your remote repository > Click `Clone`
+. Wait for Intellij to Set Up the project
+
+
+=== Verifying Setup
+. Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
+. Test out basic Duke 2.0 commands by referring to the User Guide 
+
 
 == Design
 
