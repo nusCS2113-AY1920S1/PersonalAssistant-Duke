@@ -15,7 +15,7 @@ public class Time {
     /**
      * Returns a LocalDateTime variable converted from the specified String timeStr that
      * was in the format 'dd/MM/yyyy HHmm'.
-     * @param timeStr String that should be converted into DateTImeFormatter type.
+     * @param timeStr String to be converted into DateTimeFormatter type.
      * @return A LocalDateTime variable that the computer can understand as time.
      */
     public static LocalDateTime readDateTime(String timeStr) {
@@ -24,6 +24,12 @@ public class Time {
         return time;
     }
 
+    /**
+     * Returns a LocalDateTime variable converted from the specified String timeStr that
+     * was in the format 'dd/MM/yyyy'.
+     * @param timeStr String to be converted into DateTimeFormatter type.
+     * @return A LocalDateTime variable that the computer can understand as time.
+     */
     public static LocalDate readDate(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
         LocalDate time = LocalDate.parse(timeStr, formatter);
