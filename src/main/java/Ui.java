@@ -5,40 +5,38 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner;
 
-    public Ui() {}
-
-    public void showWelcome() throws IOException {
-        String s = getAsciiArt("./src/main/resources/asciiArt/welcome.txt");
-        System.out.println(s);
+    public Ui() {
+        this.scanner = new Scanner(System.in);
     }
 
-    public String getCommand() {
-        System.out.println("Listening for command: ");
-        String s = scanner.nextLine();
-        return s;
+    public void show(String message) {
+        System.out.println(message);
     }
 
-    public String getSaveFile() {
-        return null;
+    public void showError(String message) {
+        show("Error: " + message);
     }
 
-    private String getAsciiArt(String filepath) throws IOException {
-        String output = "";
-        try {
-            BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
-            String line;
-            while ((line = bufferreader.readLine()) != null) {
-                output += line;
-                output += "\n";
-            }
+    public void showWarning(String message) {
+        show("Warning: " + message);
+    }
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    public void showInfo(String message) {
+        show("Info: " + message);
+    }
+
+    public void showMenu(boolean hasSave) {
+        show("Menu:");
+        if(hasSave){
+            show("\t\u2022 Load Save\n");
         }
-        return output;
+        show("\t\u2022 New Game\n\t\u2022 Quit");
+    }
+
+    public String getInput() {
+        show("Input: ");
+        return scanner.nextLine();
     }
 }
