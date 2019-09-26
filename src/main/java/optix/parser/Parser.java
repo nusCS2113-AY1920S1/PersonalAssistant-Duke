@@ -8,28 +8,41 @@ import optix.commands.DeleteOneCommand;
 
 
 import optix.commands.ListCommand;
+import optix.commands.ListShowCommand;
 import optix.commands.PostponeCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) {
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
-
-        switch (splitStr[0].toLowerCase()) {
-        case "postpone":
-            return parsePostpone(splitStr[1]);
-        case "list":
-            return new ListCommand();
-        case "bye":
-            return new ByeCommand();
-        case "add":
-            return parseAddShow(splitStr[1]);
-        case "delete-all": // e.g. delete-all poto|lion king
-            return parseDeleteAllOfShow(splitStr[1]);
-        case "delete-one": // e.g. delete-one 2/10/2019|poto
-            return parseDeleteOneOfShow(splitStr[1]);
-        default:
-            return null;
+      
+        if (splitStr.length == 1) {
+            switch (splitStr[0].toLowerCase()) {
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            default:
+                return null;
+            }
+        } else {
+            // There will definitely be exceptions thrown here. Need to stress test and then categorise
+            switch (splitStr[0].toLowerCase()) {
+            case "postpone":
+                return parsePostpone(splitStr[1]);
+            case "list":
+                return new ListShowCommand(splitStr[1]);
+            case "bye":
+                return new ByeCommand();
+            case "add":
+                return parseAddShow(splitStr[1]);
+            case "delete-all": // e.g. delete-all poto|lion king
+                return parseDeleteAllOfShow(splitStr[1]);
+            case "delete-one": // e.g. delete-one 2/10/2019|poto
+                return parseDeleteOneOfShow(splitStr[1]);
+            default:
+                return null;
+            }
         }
     }
 
@@ -52,8 +65,8 @@ public class Parser {
         double showCost = Double.parseDouble(splitStr[2]);
 
         return new AddCommand(showName, showDate, showCost);
-    }
 
+    }
 
     // delete a single show on a particular date
     private static Command parseDeleteOneOfShow(String showDetails) {
@@ -66,7 +79,7 @@ public class Parser {
 
     // delete all instances of shows with specified name. Can contain multiple names, separated by pipe.
     private static Command parseDeleteAllOfShow(String deleteDetails) {
-        String[] splitStr = deleteDetails.trim().split("\\|", 3);
+        String[] splitStr = deleteDetails.trim().split("\\|");
 
         return new DeleteAllCommand(splitStr);
     }

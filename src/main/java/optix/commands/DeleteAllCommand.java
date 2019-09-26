@@ -28,7 +28,7 @@ public class DeleteAllCommand extends Command {
             boolean isFound = false;
             ArrayList<Map.Entry<LocalDate, Show>> entryArrayList = new ArrayList<>();
             for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-                if (entry.getValue().toString().equals(show)) {
+                if (entry.getValue().hasSameName(show.trim())) {
                     String showDescription = entry.getKey().toString() + ' ' + entry.getValue().toString();
                     entryArrayList.add(entry);
                     deletedShows.add(showDescription);
@@ -57,9 +57,5 @@ public class DeleteAllCommand extends Command {
             }
         }
         ui.setMessage(message.toString());
-
     }
-
-
-
 }

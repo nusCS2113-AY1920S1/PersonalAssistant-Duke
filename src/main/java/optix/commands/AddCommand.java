@@ -26,7 +26,6 @@ public class AddCommand extends Command {
         Show show = new Show(name, cost);
         LocalDate today = storage.getToday();
 
-
         if (date.compareTo(today) <= 0) {
             ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
         } else if (shows.containsKey(date)) {
