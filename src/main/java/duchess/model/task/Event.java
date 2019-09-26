@@ -5,6 +5,7 @@ import duchess.model.Schedule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -89,6 +90,11 @@ public class Event extends Task {
         date.setTime(end);
         date.add(Calendar.DAY_OF_MONTH, 7);
         end.setTime(date.getTimeInMillis());
+    }
+
+    @Override
+    public List<Task> getReminders() {
+        return new ArrayList<>();
     }
 
     @Override

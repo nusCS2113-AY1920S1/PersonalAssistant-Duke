@@ -8,7 +8,9 @@ import duchess.model.task.TaskList;
 import duchess.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Searches Tasklist and filters out deadline objects.
@@ -36,13 +38,10 @@ public class ReminderCommand extends Command {
      * @param taskList of user inputs
      */
     private List<Task> addDeadlines(TaskList taskList) {
-        ArrayList<Task> reminderList = new ArrayList<>();
-        for (Task task : taskList.getTasks()) {
-            if (task instanceof Deadline) {
-                reminderList.add(task);
-            }
-        }
-        return reminderList;
+        return taskList.getTasks().stream()
+                .map(task -> task.getReminders())
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     /**

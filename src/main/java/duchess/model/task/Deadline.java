@@ -5,6 +5,7 @@ import duchess.model.Schedule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,13 @@ public class Deadline extends Task {
         date.setTime(deadline);
         date.add(Calendar.DAY_OF_MONTH, 7);
         deadline.setTime(date.getTimeInMillis());
+    }
+
+    @Override
+    public List<Task> getReminders() {
+        List<Task> list = new ArrayList<>();
+        list.add(this);
+        return list;
     }
 
     @Override

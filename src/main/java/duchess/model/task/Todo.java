@@ -3,6 +3,7 @@ package duchess.model.task;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.Schedule;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,5 +41,10 @@ public class Todo extends Task {
     @Override
     public void snooze() throws DukeException {
         throw new DukeException("You can't snooze that task.");
+    }
+
+    @Override
+    public List<Task> getReminders() {
+        return new ArrayList<>();
     }
 }
