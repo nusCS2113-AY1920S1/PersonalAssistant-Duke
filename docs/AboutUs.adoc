@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Fei Dong
-image::shannonlee98.png[width="150", align="left"]
+image::dng132fei.png[width="150", align="left"]
 {empty}[https://github.com/Dng132FEI[github]]
 
 Role: Developer
@@ -27,7 +27,7 @@ Role: Developer
 '''
 
 === Yen Pei Chih
-image::joshtam.png[width="150", align="left"]
+image::yenpeichih.png[width="150", align="left"]
 {empty}[https://github.com/yenpeichih[github]]
 
 Role: Developer
