@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import Enums.TimeUnit;
 
 /**
  * A class for handling all parsing for Duke. Makes sure that inputs by the user
@@ -113,5 +114,27 @@ public class Parser {
     public String getKey() {
         String key = scanner.nextLine().toLowerCase();
         return key;
+    }
+
+    public String getRecurrence() {
+        return scanner.nextLine().trim().toLowerCase();
+    }
+
+    /**
+     * Returns the amount of time the customer request to snooze
+     * @return the amount of time the customer request to snooze
+     */
+    public int getAmount(){
+        String temp = scanner.next().trim();
+        return Integer.parseInt(temp);
+    }
+
+    /**
+     * Returns the unit of time the customer request to snooze
+     * @return the unit of time the customer request to snooze
+     */
+    public TimeUnit getTimeUnit(){
+        String temp = scanner.next();
+        return TimeUnit.valueOf(temp);
     }
 }
