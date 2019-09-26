@@ -1,18 +1,6 @@
 = Duke 2.0 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
