@@ -13,7 +13,7 @@ Welcome to the **Compal** Developer Guide! This Developer Guide is still being w
  7. DevOps
 
  	* [**Appendix A: User Profile**]( https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-a-user-profile)
- 	* [**Appendix C: User Stories**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#appendix-c:-user-stories)
+ 	* [**Appendix C: User Stories**](https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-c-user-stories)
 	* [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
 	* [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
 	* [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
