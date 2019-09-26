@@ -2,8 +2,6 @@ package Operations;
 
 import CustomExceptions.DukeException;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,7 +72,6 @@ public class Parser {
      * Returns an array with the task description stored as well as the duration of the task
      * @return array An array of Strings with description and duration both in index 0 of the array
      */
-
     public String[] getDescriptionWithDuration() {
         String[] array = scanner.nextLine().split(" ", 1);
         return array;
