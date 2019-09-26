@@ -2,19 +2,25 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import duke.entities.Order;
 import duke.logic.Duke;
-import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Ui ui;
+
+    @FXML
+    private AnchorPane orderPane;
     @FXML
     private HBox popUp;
     @FXML
@@ -25,11 +31,13 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private JFXListView<DialogBox> taskList;
-
     @FXML
+    private VBox orderList;
+
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
+        popUp.setVisible(false);
     }
 
     @FXML
@@ -65,11 +73,17 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(true);
     }
 
-    void refreshTaskList(TaskList tasks, TaskList all) {
-        taskList.getItems().clear();
-        for (int i = 0; i < tasks.size(); i++) {
-            taskList.getItems().add(new DialogBox(tasks.get(i), all));
+    void refreshOrderList(List<Order> orders, List<Order> all) {
+        orderList.getChildren().clear();
+        int index = 1;
+        for (Order order : orders) {
+            orderList.getChildren().add(new OrderCard(order, index));
+            index++;
         }
+    }
+
+    void showOrderPane() {
+        orderPane.setVisible(true);
     }
 
     void disableInput() {

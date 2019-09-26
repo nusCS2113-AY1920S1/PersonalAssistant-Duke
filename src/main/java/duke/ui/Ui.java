@@ -1,6 +1,8 @@
 package duke.ui;
 
-import duke.task.TaskList;
+import duke.entities.Order;
+
+import java.util.List;
 
 public class Ui {
 
@@ -18,8 +20,12 @@ public class Ui {
         mainWindow.showErrorPopUp(message);
     }
 
-    public void refreshTaskList(TaskList tasks, TaskList all) {
-        mainWindow.refreshTaskList(tasks, all);
+    public void showOrderPane() {
+        mainWindow.showOrderPane();
+    }
+
+    public void refreshOrderList(List<Order> orders, List<Order> all) {
+        mainWindow.refreshOrderList(orders, all);
     }
 
     public void disableInput() {

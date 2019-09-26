@@ -3,28 +3,27 @@ package duke.logic;
 import duke.command.Command;
 import duke.commons.DukeException;
 import duke.parser.Parser;
+import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class Duke {
 
-    private static final Storage STORAGE = new Storage("duke.dat");
-    private static TaskList tasks = new TaskList();
+    private static final Storage STORAGE = new Storage("baking.json");
+    private static BakingList bakingList = new BakingList();
     private Ui ui;
     private CommandManager commandManager;
 
     public Duke(Ui ui) {
         this.ui = ui;
         try {
-            tasks = STORAGE.deserialize();
+            bakingList = STORAGE.deserialize();
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             ui.disableInput();
         }
-        ui.refreshTaskList(tasks, tasks);
-
-        commandManager = new CommandManager(tasks, STORAGE, ui);
+        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 
     public void executeInput(String input) {

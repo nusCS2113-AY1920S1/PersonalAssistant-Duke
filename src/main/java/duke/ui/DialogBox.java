@@ -43,6 +43,13 @@ public class DialogBox extends AnchorPane {
         } else if (task instanceof Deadline) {
             typeLabel.setText(task.toString());
             typeLabel.getStyleClass().add("deadline-label");
+        } else if (task instanceof RecurringTask) {
+            typeLabel.setText(task.toString());
+            if (((RecurringTask) task).getTask() instanceof Deadline) {
+                typeLabel.getStyleClass().add("deadline-label");
+            } else {
+                typeLabel.getStyleClass().add("event-label");
+            }
         }
 
         this.description.setText(task.getDescription());

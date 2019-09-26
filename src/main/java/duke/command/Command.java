@@ -1,8 +1,8 @@
 package duke.command;
 
 import duke.commons.DukeException;
+import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
@@ -11,12 +11,12 @@ import duke.ui.Ui;
 public abstract class Command {
 
     /**
-     * Execute the duke.command.
+     * Execute the command.
      *
-     * @param tasks   A TaskList containing all tasks.
+     * @param bakingList   A BakingList.
      * @param storage A Storage object which specifies the location of the data.
      * @param ui A Ui object capable of controlling GUI.
      * @throws DukeException If the execution fails.
      */
-    abstract public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException;
+    public abstract void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
 }

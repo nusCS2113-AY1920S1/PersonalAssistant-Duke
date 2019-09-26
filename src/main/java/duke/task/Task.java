@@ -15,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Deadline.class),
         @JsonSubTypes.Type(value = Todo.class),
         @JsonSubTypes.Type(value = Event.class),
-        @JsonSubTypes.Type(value = FixedDurationTask.class)
+        @JsonSubTypes.Type(value = FixedDurationTask.class),
+        @JsonSubTypes.Type(value = RecurringTask.class)
 }
 )
 //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
@@ -76,5 +77,6 @@ public abstract class Task {
     public String toString() {
         return "%1$s " + getStatusIcon() + " " + description;
     }
+
 
 }
