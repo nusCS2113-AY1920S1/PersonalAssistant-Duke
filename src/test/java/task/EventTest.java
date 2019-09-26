@@ -23,7 +23,7 @@ class EventTest {
             assertEquals("Error! Please enter date in the format DD-MM-YYYY 2359.", e.getMessage());
         }
 
-        //Test too many /at
+        //Test too many /at without a date following
         try {
             assertEquals("Buffer", new Event("Deadline /at /at 01-01-1970 2200"));
             fail();
@@ -119,18 +119,22 @@ class EventTest {
         assertEquals("01-01-1970 2200", testEventOverload.getDueDate());
     }
 
-    /*
     @Test
     void testTentative() throws DukeException {
         Event testTentativeEvent = new Event("Sleep /at 01-01-1970 2200 "
-                                                                + "[/at 02-02-1971 2200] "
-                                                                + "[/at 03-03-1972 2200] "
-                                                                + "[/at 04-04-1973 2200]");
+                                                                + "/at 02-02-1971 2200 "
+                                                                + "/at 03-03-1972 2200 "
+                                                                + "/at 04-04-1973 2200");
         assertTrue(testTentativeEvent.tentativeExists());
-        assertEquals("01-01-1970 2200", testEvent.getDueDate());
-        assertEquals("02-02-1971 2200", testEvent.getTentativeDate(1));
-        assertEquals("03-03-1972 2200", testEvent.getTentativeDate(2));
-        assertEquals("04-04-1973 2200", testEvent.getTentativeDate(3));
+        assertEquals("01-01-1970 2200 OR 02-02-1971 2200 OR 03-03-1972 2200 "
+                + "OR 04-04-1973 2200", testTentativeEvent.getDueDate());
+        assertEquals("Tue Feb 02 22:00:00 SGT 1971", testTentativeEvent.getTentativeDate(1).toString());
+        assertEquals("Fri Mar 03 22:00:00 SGT 1972", testTentativeEvent.getTentativeDate(2).toString());
+        assertEquals("Wed Apr 04 22:00:00 SGT 1973", testTentativeEvent.getTentativeDate(3).toString());
+        assertFalse(testTentativeEvent.outsideTentative(2)); //Check if a request is outside tentative index
+        assertTrue(testTentativeEvent.outsideTentative(26));
+        testTentativeEvent.clearTentative();
+        assertFalse(testTentativeEvent.tentativeExists());
     }
-    */
+
 }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecurringTest {
     private Recurring testRecurring = new Recurring("Sleep /every 16 hours");
-    private Recurring testRecurringOverload = new Recurring("Sleep /every 16 hours");
+    private Recurring testRecurringOverload = new Recurring("0", "Sleep","16 hours");
 
     RecurringTest() throws DukeException {
     }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FixedTest {
     private Fixed testFixed = new Fixed("Sleep /need 8 hours");
-    private Fixed testFixedOverload = new Fixed("Sleep /need 8 hours");
+    private Fixed testFixedOverload = new Fixed("0", "Sleep","8 hours");
 
     FixedTest() throws DukeException {
     }
