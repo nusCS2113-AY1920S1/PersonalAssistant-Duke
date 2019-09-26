@@ -8,8 +8,8 @@ import ui.Ui;
 
 public class RescheduleCommand extends Command {
 
-    public RescheduleCommand(CommandParams commandParams) {
-        super(commandParams);
+    public RescheduleCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -20,8 +20,7 @@ public class RescheduleCommand extends Command {
      * @param storage The storage of Duke.
      * @throws DukeException if the task cannot be found, or does not contain
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to reschedule!");
         }

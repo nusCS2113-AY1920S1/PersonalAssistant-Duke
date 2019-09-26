@@ -15,11 +15,9 @@ import java.util.ArrayList;
 public class RemindCommand extends Command {
     /**
      * Constructs a {@code RemindCommand} object.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public RemindCommand(CommandParams commandParams) {
-        super(commandParams);
+    public RemindCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -29,8 +27,7 @@ public class RemindCommand extends Command {
      * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) {
         int count = 0;
         ArrayList<String> toPrint = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {

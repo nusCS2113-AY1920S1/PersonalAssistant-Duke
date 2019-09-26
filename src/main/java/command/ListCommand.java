@@ -13,11 +13,9 @@ import ui.Ui;
 public class ListCommand extends Command {
     /**
      * Constructs a {@code ListCommand} object.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public ListCommand(CommandParams commandParams) {
-        super(commandParams);
+    public ListCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -27,8 +25,7 @@ public class ListCommand extends Command {
      * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) {
         if (tasks.getSize() == 0) {
             ui.println("Ops, you haven't added any task!");
         } else {

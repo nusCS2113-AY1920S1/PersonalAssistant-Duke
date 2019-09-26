@@ -12,11 +12,9 @@ public class ConflictCommand extends Command {
 
     /**
      * Constructs a {@code Command} object with commandType.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public ConflictCommand(CommandParams commandParams) {
-        super(commandParams);
+    public ConflictCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -27,7 +25,7 @@ public class ConflictCommand extends Command {
      * @throws DukeException If the index given is out of range, invalid, does not exist, or not an Event class.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to search conflicts for!");
         } else {

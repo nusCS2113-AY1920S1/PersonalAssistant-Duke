@@ -1,3 +1,4 @@
+import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
 import task.TaskList;
@@ -5,7 +6,9 @@ import exception.DukeException;
 import command.Command;
 import parser.Parser;
 
+import java.io.File;
 import java.text.ParseException;
+import java.util.StringJoiner;
 
 /**
  * Represents our Duke and contains the main program of Duke.
@@ -37,15 +40,14 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        while (true) {
             String fullCommand = ui.readCommand();
             try {
-                Command packagedCommand = Parser.parse(fullCommand);
-                packagedCommand.execute(tasks, ui, storage);
-                isExit = packagedCommand.isExit();
+                CommandParams commandParams = new CommandParams(fullCommand);
+                Command command = Parser.getCommand(commandParams.getCommandName());
+                command.execute(commandParams, tasks, ui, storage);
             } catch (DukeException e) {
-                ui.showError((DukeException) e);
+                ui.showError(e);
             }
         }
     }
@@ -53,10 +55,15 @@ public class Duke {
     /**
      * Runs the main program of the Duke.
      *
-     * @param args necessary arguments demanded by the main method.
+     * @param args additional arguments provided by the user from the command line. Currently unused.
      */
     public static void main(String[] args) {
-        new Duke(System.getProperty("user.dir") + "/data/TaskListStorage.txt").run();
+        String storageFile = new StringJoiner(File.separator)
+                .add(System.getProperty("user.dir"))
+                .add("data")
+                .add("TaskListStorage.txt")
+                .toString();
+        new Duke(storageFile).run();
     }
 
 }
