@@ -1,16 +1,15 @@
 .root {
     -fx-background-color: WHITE;
     -fx-font-size: 10pt;
-    -fx-padding: 10;
 }
 
-.jfx-text-field, .jfx-password-field {
-    -fx-font-weight: BOLD;
-    -fx-prompt-text-fill: #808080;
-    -jfx-focus-color: #4059A9;
-    -jfx-unfocus-color: #4d4d4d;
-    -fx-max-width: 300;
-}
+/*.jfx-text-field {*/
+/*    -fx-font-weight: BOLD;*/
+/*    -fx-prompt-text-fill: #808080;*/
+/*    -jfx-focus-color: #4059A9;*/
+/*    -jfx-unfocus-color: #4d4d4d;*/
+/*    -fx-max-width: 300;*/
+/*}*/
 
 /*.scroll-pane {*/
 /*    -fx-background-insets: 0;*/
