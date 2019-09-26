@@ -12,8 +12,21 @@ class AfterTest {
     }
 
     @Test
-    void testToList() {
-        assertEquals("[A][N] Sleep (After: Work)", testAfter.toList());
+    void testExceptionThrown() {
+        try {
+            assertEquals("/ast", new After("Sleep /after /after Work"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too many /after in String", e.getMessage());
+        }
+
+        try {
+            assertEquals("/ast", new After("Sleep Work"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Please use /after to indicate what needs to be done before doing "
+                    + "this task", e.getMessage());
+        }
     }
 
     @Test
@@ -31,5 +44,15 @@ class AfterTest {
         assertEquals("N", testAfter.getStatusIcon());
         testAfter.markDone();
         assertEquals("Y", testAfter.getStatusIcon());
+    }
+
+    @Test
+    void testToList() {
+        assertEquals("[A][N] Sleep (After: Work)", testAfter.toList());
+    }
+
+    @Test
+    void testGetDescription() {
+        assertEquals("Sleep", testAfter.getDescription());
     }
 }
