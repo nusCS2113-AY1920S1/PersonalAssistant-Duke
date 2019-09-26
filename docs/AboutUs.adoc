@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Aik Peng
-image::omupenguin.png[width="150", align="left"]
+image::omupenguin.jpg[width="150", align="left"]
 {empty}[https://github.com/omupenguin[github]]
 
 Role: Team Lead +
@@ -18,7 +18,7 @@ Responsibilities: -
 '''
 
 === Ye Tong
-image::yetong1895.png[width="150", align="left"]
+image::yetong1895.jpg[width="150", align="left"]
 {empty}[http://github.com/yetong1895[github]]
 
 Role: Code Quality IC +
@@ -27,7 +27,7 @@ Responsibilities: -
 '''
 
 === Xiao Xue
-image::tatayu.png[width="150", align="left"]
+image::tatayu.jpg[width="150", align="left"]
 {empty}[http://github.com/tatayu[github]]
 
 Role: Testing IC +
@@ -36,7 +36,7 @@ Responsibilities: -
 '''
 
 === Kexin
-image::weng-kexin.png[width="150", align="left"]
+image::weng-kexin.jpg[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
