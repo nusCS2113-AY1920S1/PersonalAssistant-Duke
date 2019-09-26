@@ -13,13 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeExtractor {
 
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
-    private static LocalDateTime dateEvent = nullDate;
-    private static LocalDateTime dateDeadline = nullDate;
-    private static LocalDateTime datePostpone = nullDate;
-    private static LocalDateTime dateTodo = nullDate;
-    private static LocalDateTime dateView = nullDate;
-    private static final LocalDateTime dateError = nullDate;
+    public static final LocalDateTime NULL_DATE = LocalDateTime.of(1,1,1,1,1,1,1);
+    private static LocalDateTime dateEvent = NULL_DATE;
+    private static LocalDateTime dateDeadline = NULL_DATE;
+    private static LocalDateTime datePostpone = NULL_DATE;
+    private static LocalDateTime dateTodo = NULL_DATE;
+    private static LocalDateTime dateView = NULL_DATE;
+    private static final LocalDateTime dateError = NULL_DATE;
 
     /**
      * This function appends the end time of an event to provide a standardised output of date and time.

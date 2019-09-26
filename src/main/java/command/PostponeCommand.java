@@ -40,7 +40,7 @@ public class PostponeCommand extends  Command {
 
         if(taskToBeChanged.toString().contains("[E]")){
             Task checkTask = new Event(description,toDate,fromDate);
-            if(tasks.isClash(checkTask,"event")){
+            if(tasks.isClash(checkTask)){
                 throw new DukeException(DukeException.TaskClash());
             }
             else{
@@ -52,7 +52,7 @@ public class PostponeCommand extends  Command {
         }
         else if(taskToBeChanged.toString().contains("[D]")){
             Task checkTask = new Deadline(description,atDate);
-            if(tasks.isClash(checkTask,"deadline")){
+            if(tasks.isClash(checkTask)){
                 throw new DukeException(DukeException.TaskClash());
             }
             else{

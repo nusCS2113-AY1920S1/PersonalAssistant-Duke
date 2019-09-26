@@ -4,6 +4,8 @@ import parser.DateTimeExtractor;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import static parser.DateTimeExtractor.NULL_DATE;
+
 /**
  * This extension of the task class will allow the user to add a task of event type.
  *
@@ -40,5 +42,16 @@ public class Event extends Task implements Serializable, Comparable<Event>{
                 + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-" +
                 this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
+
+    @Override
+    boolean checkForClash(Task taskToCheck) {
+        if (taskToCheck.endDate.isEqual(NULL_DATE)) {
+            return (this.startDate.isBefore(taskToCheck.startDate) && this.endDate.isAfter(taskToCheck.startDate));
+        }
+        else {
+            return this.startDate.isBefore(taskToCheck.endDate) && this.endDate.isAfter(taskToCheck.startDate);
+        }
+    }
+
 
 }

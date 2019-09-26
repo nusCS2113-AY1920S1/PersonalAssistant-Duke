@@ -58,13 +58,13 @@ public class AddCommand extends Command {
             break;
         case "deadline":
             task = new Deadline(taskFeatures, formattedAtDate);
-            if (tasks.isClash(task, "deadline")) {
+            if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.TaskClash());
             }
             break;
         case "event":
             task = new Event(taskFeatures, formattedToDate, formattedFromDate);
-            if (tasks.isClash(task, "event")) {
+            if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.TaskClash());
             }
             break;

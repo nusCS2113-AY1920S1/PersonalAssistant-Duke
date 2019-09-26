@@ -73,33 +73,10 @@ public class TaskList {
      * @param command contains the command type of the task to determine the action to perform.
      * @return boolean true if there is a clash, false if there is not clash.
      */
-    public boolean isClash(Task taskToCheck, String command) {
-        if (command.contains("event")) {
-            for (Task task : listOfTasks) {
-                if ((task.toString()).contains("[E]")) {
-                    if (task.startDate.isBefore(taskToCheck.endDate) && task.endDate.isAfter(taskToCheck.startDate)) { //check for intersections at two points
-                        return true;
-                    }
-                }
-                else if ((task.toString()).contains("[D]")){
-                    if (taskToCheck.startDate.isBefore(task.startDate) && taskToCheck.endDate.isAfter(task.startDate)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        else{
-            for (Task task : listOfTasks) {
-                if ((task.toString()).contains("[E]")) {
-                    if (task.startDate.isBefore(taskToCheck.startDate) && task.endDate.isAfter(taskToCheck.startDate)) {
-                        return true;
-                    }
-                }
-                else if ((task.toString()).contains("[D]")){
-                    if (task.startDate == taskToCheck.startDate) {
-                        return true;
-                    }
-                }
+    public boolean isClash(Task taskToCheck) {
+        for (Task task: listOfTasks) {
+            if(task.checkForClash(taskToCheck)) {
+                return true;
             }
         }
         return false;

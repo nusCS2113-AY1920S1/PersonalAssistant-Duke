@@ -16,7 +16,8 @@ public class RemindCommand extends Command {
     }
 
     public void execute(TaskList tasks, Storage storage) throws DukeException{
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
+        boolean outOfBound = indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1);
+        if (outOfBound) {
             throw new DukeException(DukeException.TASK_DOES_NOT_EXIST());
         }
 

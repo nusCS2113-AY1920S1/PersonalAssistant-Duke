@@ -3,6 +3,7 @@ import command.RemindCommand;
 import exception.DukeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import parser.Parser;
 import storage.Storage;
 import task.Deadline;
 import task.Task;
@@ -33,5 +34,12 @@ public class RemindCommandTest {
         }
         Assertions.assertEquals(testTask.remindInHowManyDays, 5);
         Assertions.assertTrue(testTask.checkReminderTrigger());
+    }
+
+    @Test
+    public void whenExceptionThrown(){
+        Assertions.assertThrows(DukeException.class, () -> {
+            Parser.parse("remind");
+        });
     }
 }
