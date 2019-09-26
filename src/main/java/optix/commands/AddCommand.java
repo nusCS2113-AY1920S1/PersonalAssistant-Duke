@@ -26,6 +26,7 @@ public class AddCommand extends Command {
         Show show = new Show(name, cost);
         LocalDate today = storage.getToday();
 
+
         if (date.compareTo(today) <= 0) {
             ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
         } else if (shows.containsKey(date)) {
@@ -41,6 +42,7 @@ public class AddCommand extends Command {
 
     private String getFormat(String date) {
         int padCount = 0;
+
         StringBuilder format = new StringBuilder();
         String[] timeType = {"d","M","y","H","H","m","m"};
         for (int i = 0; i < date.length(); i += 1) {
@@ -54,11 +56,13 @@ public class AddCommand extends Command {
             }
         }
         return format.toString();
+
     }
 
     //TODO create a date formatter class
     /**
      * function to convert String to localDate
+
      * note that currently the format is fixed 1/1/1997
      * @param dateString
      * @return

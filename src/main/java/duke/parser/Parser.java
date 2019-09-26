@@ -83,6 +83,7 @@ public class Parser {
     }
 
 
+
     /**
      * find free time according to period desired
      * @param s String containing details like amount of time . e.g. 5 min
@@ -95,8 +96,10 @@ public class Parser {
         String units = details[1];
         return new FindFreeTimeCommand(value, units);
     }
-/**
- * Return the correct command given by user, Class method.
+
+    /**
+     * Return the correct command given by user, Class method.
+
      * @param fullCommand command input by user to be parse
      * @return The correct command class as defined by first word
      * @throws NumberFormatException if command has characters.
