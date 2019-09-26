@@ -1,17 +1,46 @@
 
-
-
 # Compal - Developer Guide
 
-Welcome to the **compal** Developer Guide! This Developer Guide is still being worked on for now!
+Welcome to the **Compal** Developer Guide! This Developer Guide is still being worked on for now!
 
-**Appendix A**
- - [User Stories](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#user-stories)
- - [Use Case](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#use-case)
- - [Non-Functional Requirements](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
+# Table of Contents
+> 1. [Introduction](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#user-stories)
+ >2. Setting Up
+ >3. Design
+ >4. Implementation
+ >5. Documentation
+ >6. Testing
+ >7. DevOps
+  >[**Appendix C: User Stories**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#appendix-c:-user-stories)
+ > [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
+ > [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
+  > [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
 
 
-# User Stories
+
+# Introduction
+ComPal is a desktop application specifically designed with busy, disorganized students in mind. It is catered to student-users who prefer to use and are adept at using a Command-Line Interface (CLI), while still having a clean Graphical User Interface (GUI) to properly visualize schedules and organize tasks better.
+
+
+## Appendix A: User Profile
+
+**System**: ComPal
+
+**Target User Profile**: Students who
+-   want to better organize their time not just according to deadlines but by perceived priorities
+-   prefer interacting with a CLI
+-   prefers typing over mouse input
+
+**Persons that can play this role** : undergraduate student, graduate student, a staff member doing a part-time course, exchange student
+
+**Value Proposition**: Students wanting to be more organized without going through too much of a hassle can now better manage their schedules and tasks with Compal’s clean and intuitive user-interface and user-defined priority-based organization.
+
+
+## Appendix C: User Stories
+
+
+
+
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | As a ...|      I want to...     |  So that I can ... | Priority |
@@ -47,13 +76,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |Student| Edit the result/grade of module assignment, attendance, midterm results| Estimate the grade that I will receive|*
 |Student| Track my cumulative GPA| Work towards the GPA I aim for|*
 
-# Use Cases
 
-System: NUSPal
 
-**Actors:** Student
 
-**Persons that can play this role** : undergraduate student, graduate student, a staff member doing a part-time course, exchange student
+## Appendix D: Use Cases
+
 
 
 **Use case 1: Store Academic Timetable**
@@ -160,25 +187,25 @@ System: NUSPal
     
 4.  compal reflects search results
 
-# Non-Functional Requirements
+## Appendix E: Non-Functional Requirements
 1.  ComPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
     
 2.  ComPal prompts for academic time table at the beginning of every semester.
     
-3.  compal can store up to 1,000,000 tasks in a clear text file.
+3.  Compal can store up to 1,000,000 tasks in a clear text file.
     
-4.  compal must respond fast, within 2 seconds so that the user does not have to wait too long.
+4.  Compal must respond fast, within 2 seconds so that the user does not have to wait too long.
     
-5.  compal system application does not take up much space on the local machine.
+5.  Compal system application does not take up much space on the local machine.
     
 6.  ComPal’s GUI must be intuitive and pleasant to the eyes
     
-7.  compal consistently performs specified function without failure
+7.  Compal consistently performs specified function without failure
     
-8.  The user’s OS must provide the correct time and date for compal.
+8.  The user’s OS must provide the correct time and date for Compal.
 
 
 
-# Glossary
-**Task**: 
+## Appendix F: Glossary
+**Task**:  A generic term used to refer to any instance of an object in the user's schedule
 **View**: The layout in which the schedule is displayed to the user (Daily/Weekly/Monthly)
