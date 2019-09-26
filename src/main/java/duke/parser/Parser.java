@@ -1,6 +1,16 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.FindCommand;
+import duke.commands.FindFreeTimeCommand;
+import duke.commands.ListCommand;
+import duke.commands.RemindersCommand;
+import duke.commands.SnoozeCommand;
+import duke.commands.ViewCommand;
 import duke.exception.DukeException;
 
 public class Parser {
@@ -72,19 +82,19 @@ public class Parser {
         return new SnoozeCommand(index, value, units);
     }
 
-/**
- * find free time according to period desired
- * @param s String containing details like amount of time . e.g. 5 min
- * @return FindFreeTimeCommand a command to find the time
- * @throws DukeException when s is invalid.
- */
-private static Command parseFindFreeTime(String s) throws DukeException {
-    String[] details = s.split(" ");
-    int value = Integer.parseInt(details[0]);
-    String units = details[1];
-    return new FindFreeTimeCommand(value, units);
-}
 
+    /**
+     * find free time according to period desired
+     * @param s String containing details like amount of time . e.g. 5 min
+     * @return FindFreeTimeCommand a command to find the time
+     * @throws DukeException when s is invalid.
+     */
+    private static Command parseFindFreeTime(String s) throws DukeException {
+        String[] details = s.split(" ");
+        int value = Integer.parseInt(details[0]);
+        String units = details[1];
+        return new FindFreeTimeCommand(value, units);
+    }
 /**
  * Return the correct command given by user, Class method.
      * @param fullCommand command input by user to be parse
