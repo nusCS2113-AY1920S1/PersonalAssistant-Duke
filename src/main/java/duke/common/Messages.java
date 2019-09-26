@@ -52,6 +52,7 @@ public class Messages {
             + "     Tasks to be completed within a time period should be entered in this format:\n"
             + "     period [task description] /between [start date] /and [end date]";
     public static final String ERROR_MESSAGE_PERIOD2 = "     Please provide both the start and end date for the task.";
+    public static final String ERROR_MESSAGE_VIEWSCHEDULE = "     Please specify date [day/month/year] in this format.         ";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_DELETE = "delete";
@@ -63,6 +64,7 @@ public class Messages {
     public static final String COMMAND_DURATION = "fixed";
     public static final String COMMAND_PERIOD = "period";
     public static final String COMMAND_REMIND = "reminders";
+    public static final String COMMAND_VIEWSCHEDULE = "viewschedule";
 
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

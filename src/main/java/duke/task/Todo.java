@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 /**
  * Represent a todo task and inherits all the fields and methods of Task parent class.
  */
@@ -29,5 +31,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    public Date getDateTime() {
+        return null;
     }
 }

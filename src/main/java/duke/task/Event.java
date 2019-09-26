@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 /**
  * Represent an event task and inherits all the fields and methods of Task parent class.
  */
@@ -33,5 +35,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
+    }
+
+    public Date getDateTime() {
+        return null;
     }
 }

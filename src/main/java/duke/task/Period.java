@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 public class Period extends Task {
 
     protected String startDate;
@@ -33,5 +35,9 @@ public class Period extends Task {
     @Override
     public String toString() {
         return "[P]" + super.toString() + " (between: " + startDate + " and " + endDate + ")";
+    }
+
+    public Date getDateTime() {
+        return null;
     }
 }

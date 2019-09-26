@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 /**
  * Represent a fixed duration task and inherits all the fields and methods of Task parent class.
  */
@@ -33,5 +35,9 @@ public class Duration extends Task {
     @Override
     public String toString() {
         return "[F]" + super.toString() + " (need: " + need + ")";
+    }
+
+    public Date getDateTime() {
+        return null;
     }
 }

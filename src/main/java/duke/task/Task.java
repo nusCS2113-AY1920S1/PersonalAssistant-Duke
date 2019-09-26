@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 /**
  * Abstract class to represent task.
  */
@@ -67,4 +69,5 @@ public abstract class Task {
     public TaskType getTaskType() {
         return taskType;
     }
+    public abstract Date getDateTime();
 }
