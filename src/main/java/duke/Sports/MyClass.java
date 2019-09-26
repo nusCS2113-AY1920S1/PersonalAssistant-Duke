@@ -17,7 +17,12 @@ public class MyClass extends Item {
     /**
      * A list of students attending this sports class.
      */
-    private ArrayList<MyStudents> students = new ArrayList<>();
+    private ArrayList<MyStudent> students = new ArrayList<>();
+
+    /**
+     * A list of training programmes for this sports class.
+     */
+    private ArrayList<MyTraining> trainings = new ArrayList<>();
 
     /**
      * Constructor method for MyClass.
@@ -31,6 +36,22 @@ public class MyClass extends Item {
         super(info, status);
         super.setType("C");     //Has its own item type "C"
         this.day = day;
+    }
+
+    /**
+     * Get the list of students attending this sports class.
+     * @return an arraylist of MyStudent objects
+     */
+    public ArrayList<MyStudent> getStudents() {
+        return this.students;
+    }
+
+    /**
+     * Get the list of training programmes for this sports class.
+     * @return an arraylist of MyTraining objects
+     */
+    public ArrayList<MyTraining> getTrainings() {
+        return this.trainings;
     }
 
 }
