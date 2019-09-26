@@ -69,10 +69,17 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 == Appendix A: User Stories
 
-1. As a student entering NUS, I can view all the details of the course and their modules in one place rather than going through multiple websites so that I can avoid confusion
-2. As a student applying to NUS, I wish to be able to save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for.
-3. As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential. 
-4. As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most 
+User Stories | Priority
+-----------------|--------------------
+As a student entering NUS, I can view all the details of the course and their modules in one place rather than going through multiple websites so that I can avoid confusion | `High`
+As a student applying to NUS, I wish to be able to save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for| `High`
+As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential | `Medium`
+As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most  | `Medium`
+
+
+
+ 
+
 
 
 
