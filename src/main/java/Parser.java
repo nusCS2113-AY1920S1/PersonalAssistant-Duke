@@ -1,4 +1,17 @@
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.FixedDurationCommand;
+import command.ListCommand;
+import command.SnoozeCommand;
+import command.TodoCommand;
+import command.UnSnoozeCommand;
+import command.UpcomingCommand;
+import command.ViewScheduleCommand;
 import exception.DukeException;
 
 import java.text.ParseException;
@@ -6,8 +19,15 @@ import java.text.ParseException;
 /**
  * Parse input and execute respective user command.
  */
-public class Parser{
-    public static Command parse(String input) throws DukeException, ParseException {
+public class Parser {
+
+    /**
+     * Converts user input into commands for Duke.
+     * @param input from user
+     * @return Command to be executed
+     * @throws DukeException if user enters wrong input format
+     */
+    public static Command parse(String input) throws DukeException {
         String[] splitStr = input.split(" ");
         switch (splitStr[0]) {
         case "list":

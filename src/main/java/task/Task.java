@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Class from which task.Todo, task.Deadline and task.Event are extended from
+ * Class from which task.Todo, task.Deadline and task.Event are extended from.
  */
 public abstract class Task {
     protected Date dateTime;
@@ -21,11 +21,15 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Whether task is active or snooze
+     * Whether task is active or snooze.
      */
     protected boolean isSnooze;
 
-    public Task (String description) {
+    /**
+     * Create task with a description.
+     * @param description of task.
+     */
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.isSnooze = false;
@@ -40,11 +44,11 @@ public abstract class Task {
     }
 
     /**
-     *
+     * Get icon of snooze status.
      * @return String snooze status icon of task
      */
     public String getActiveIcon() {
-        return (isSnooze ? "S" : "A"); //return tick or X symbols
+        return (isSnooze ? "S" : "A");
     }
 
     /**
@@ -57,7 +61,7 @@ public abstract class Task {
     }
 
     /**
-     * Mark task as snooze
+     * Mark task as snooze.
      */
     public void markAsSnooze() {
         this.isSnooze = true;
@@ -66,7 +70,7 @@ public abstract class Task {
     }
 
     /**
-     * Mark task as active
+     * Mark task as active.
      */
     public void markAsUnSnooze() {
         this.isSnooze = false;
@@ -84,7 +88,9 @@ public abstract class Task {
         return this.description.contains(s);
     }
 
-    public boolean containsDate(String s) { return this.description.contains(s); }
+    public boolean containsDate(String s) {
+        return this.description.contains(s);
+    }
 
 
     @Override
