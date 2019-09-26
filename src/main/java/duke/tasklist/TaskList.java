@@ -9,6 +9,7 @@ import duke.task.Period;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
@@ -102,9 +103,8 @@ public class TaskList {
      * @param description String containing the description of the task
      * @param by String containing the date and time of the deadline for the task
      */
-    public void addDeadlineTask(String description, String by) {
-        String date = new Deadline(description, by).convertDate(by);
-        taskList.add(new Deadline(description, date));
+    public void addDeadlineTask(String description, String by) throws ParseException {
+        taskList.add(new Deadline(description, by));
         int index = taskList.size();
         if (index == 1) {
             msg = " task in the list.";

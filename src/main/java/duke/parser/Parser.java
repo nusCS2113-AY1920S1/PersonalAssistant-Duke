@@ -12,6 +12,7 @@ import duke.command.ListCommand;
 import duke.command.PeriodCommand;
 import duke.command.RemindCommand;
 import duke.command.TodoCommand;
+import duke.command.ViewScheduleCommand;
 
 import duke.exception.DukeException;
 
@@ -27,6 +28,7 @@ import static duke.common.Messages.COMMAND_LIST;
 import static duke.common.Messages.COMMAND_PERIOD;
 import static duke.common.Messages.COMMAND_REMIND;
 import static duke.common.Messages.COMMAND_TODO;
+import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
 
 
 /**
@@ -98,8 +100,13 @@ public class Parser {
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
+        } else if (userInputCommand.contains(COMMAND_VIEWSCHEDULE)) {
+            if (userInputCommand.trim().substring(0, 12).equals(COMMAND_VIEWSCHEDULE)) {
+                return new ViewScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
         } else {
-
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }

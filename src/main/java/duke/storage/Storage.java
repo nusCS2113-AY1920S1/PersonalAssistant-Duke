@@ -14,6 +14,7 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -99,7 +100,7 @@ public class Storage {
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             System.out.println("Error reading file '" + filePath + "'");
         }
         return arrTaskList;

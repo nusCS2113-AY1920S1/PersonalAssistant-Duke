@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Date;
+
 public class DoAfter extends Task {
 
     protected String after;
@@ -30,5 +32,9 @@ public class DoAfter extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString() + " (after: " + after + ")";
+    }
+
+    public Date getDateTime() {
+        return null;
     }
 }
