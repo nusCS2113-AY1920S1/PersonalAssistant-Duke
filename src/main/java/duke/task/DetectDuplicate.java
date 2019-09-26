@@ -4,16 +4,10 @@ package duke.task;
  * Finds duplicated tasks and alerts the user.
  */
 public class DetectDuplicate {
-    protected String command;
-    protected String description;
     protected TaskList items;
 
     public DetectDuplicate(TaskList items) {
         this.items = items;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public boolean isDuplicate(String command, String description){
@@ -31,9 +25,8 @@ public class DetectDuplicate {
         return false;
     }
 
-    public void showList(){
-        for(int i=0; i<items.size(); i++){
-            System.out.println(items.get(i));
-        }
+    @Override
+    public String toString() {
+        return "     The same task is already in the list!";
     }
 }
