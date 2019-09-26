@@ -1,4 +1,3 @@
-import duke.*;
 import duke.command.CompleteCommand;
 import duke.task.Task;
 import duke.task.TaskList;
