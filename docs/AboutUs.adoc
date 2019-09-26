@@ -1,10 +1,6 @@
 = About Us
 :imagesDir: images
-////
 :site-section: AboutUs
-:relfileprefix: team/
-:stylesDir: stylesheets
-////
 
 Duchess was developed by the T09-2 Team. +
 We are a Chess team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].

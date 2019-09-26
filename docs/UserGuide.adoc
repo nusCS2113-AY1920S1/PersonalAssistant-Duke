@@ -1,0 +1,230 @@
+= Duchess - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T09-2/main
+
+By: `CS2113T-T09-2`
+
+== Introduction
+
+Duchess is a Command Line Interface (CLI) calendar. It provides an interface for students to manage both their school timetable and commitments schedule while providing useful contextual information and features.
+
+== Quick Start
+
+image::Ui.png[]
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `duchess.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Calander.
+.  Double-click the file to start the app.
+
+[[Features]]
+== Features 
+
+=== Adding todo task: `todo <task>`
+
+Adds a todo task to the task list. The todo task is initially marked as undone.
+
+Example of usage: 
+
+`todo go buy running shoes`
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+  [T][✘] go buy running shoes
+Now you have 1 task in the list.
+```
+
+=== Adding an event task: `event <event> /at <start datetime> to <end datetime>`
+
+Adds an event to the task list. The event is initially marked as undone.
+
+Example of usage: 
+
+`event student life fair /at 10/9/2019 1400 to 10/9/2019 1750`
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+  [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
+Now you have 1 task in your list.
+```
+
+=== Adding a deadline task: `deadline <task> /by <deadline>`
+
+Adds a deadline to the task list. The deadline is initially marked as undone.
+
+Example of usage: 
+
+`deadline geh1049 essay /by 20/9/2019 1800`
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+  [D][✘] geh1049 essay (by: 20/9/2019 1800)
+Now you have 1 task in your list.
+```
+
+=== Display task list: `list`
+
+Displays task list in numbered bullet point format.
+
+Example of usage: 
+
+`list`
+
+Expected outcome:
+
+```
+Here are the tasks in your list:
+1. [T][✘] go buy running shoes
+2. [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
+3. [D][✘] geh1049 essay (by: 20/9/2019 1800)
+```
+
+=== Mark task as done: `done <task number>`
+
+Marks a task in the task list as done.
+
+Example of usage: 
+
+`done 1`
+
+Expected outcome:
+
+```
+Nice! I've marked this task as done:
+  [T][✓] go buy running shoes
+```
+
+=== Remove task from task list: `delete <task number>`
+
+Removes task from task list.
+
+Example of usage: 
+
+`delete 1`
+
+Expected outcome:
+
+```
+Noted. I've removed this task:
+  [T][✓] go buy running shoes
+Now you have 2 tasks in the list.
+```
+
+=== Find tasks containing keyword: `find <keyword>`
+
+Displays list of tasks containing keyword.
+
+Example of usage: 
+
+`find geh1049`
+
+Expected outcome:
+
+```
+Here are the matching tasks in your list:
+1. [T][✓] geh1049 readings
+2. [D][✘] geh1049 essay (by: 20/9/2019 1800)
+```
+
+=== Display schedule for a paticular date: `schedule <date>`
+
+Displays the schedule for a specific day. Time and task details are printed in a timetable. Ongoing events beginning before or lasting past the date are indicated below the timetable.
+
+Example of usage: 
+
+`schedule 17/9/2019`
+
+Expected outcome:
+
+```
+Here is your schedule:
+-----------------------------------------------------
+|                   17/9/2019                       |
+-----------------------------------------------------
+|   Time    |                  Task                 |
+-----------------------------------------------------
+|   1400    |       [E][Γ✘] student life fair       |
+-----------------------------------------------------
+Here are your ongoing tasks:
+1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)
+```
+
+=== Display tasks with deadlines: `reminder`
+
+Display all tasks with deadlines.
+
+Example of usage: 
+
+`reminder`
+
+Expected outcome:
+
+```
+You currently have these deadlines.
+1. [D][✘] health and wellness transcript (by: 19/09/2019 0800)
+```
+
+=== Push back time bound tasks: `snooze <task number>`
+
+Adds a week to time bound task. Deadline and event timings are pushed back by a week.
+
+Example of usage: 
+
+`snooze 1`
+
+Expected outcome:
+
+```
+Noted. I've snoozed this task:
+  [D][✘] health and wellness transcript (by: 26/09/2019 0800)
+```
+
+=== Exiting the program: `bye`
+
+Exits the program.
+
+Example of usage: 
+
+`bye`
+
+Expected outcome:
+
+```
+Bye. Hope to see you again soon!
+```
+
+== FAQ
+
+*Q*: Am I able to export my schedule from command line? +
+*A*: All schedules are saved in a text file which can be accessed outside of CLI.
+
+== Command Summary
+
+. Add todo: `todo <task>`
+. Add event: `event <event> /at <start datetime> to <end datetime>`
+. Add deadline: `deadline <task> /by <deadline>`
+. Display tasks: `list`
+. Mark as done: `done <task number>`
+. Remove task: `delete <task number>`
+. Find task: `find <keyword>`
+. Display schedule: `schedule <date>`
+. Display deadlines: `reminder`
+. Snooze task: `snooze <task number>`
+. Exit: `bye`
