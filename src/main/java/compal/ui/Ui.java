@@ -3,6 +3,8 @@ package compal.ui;
 import compal.compal.Compal;
 import compal.tasks.Task;
 
+import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
+
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
+
 /**
  * Represents user.
  */
