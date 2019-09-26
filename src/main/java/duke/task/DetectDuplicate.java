@@ -26,7 +26,7 @@ public class DetectDuplicate {
         switch (command){
             case "todo":
                 for(int i=0; i<items.size(); i++){
-                    if(items.get(i).contains(description)) //contains, is implemented in Task.java
+                    if(items.get(i).isContain(description)) //contains, is implemented in Task.java
                         return true;
                 }
                 break;

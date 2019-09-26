@@ -154,7 +154,7 @@ public class Task {
      * @param arr1 Input from user.
      * @return Boolean that states if the input is a duplicate.
      */
-    public boolean contains(String arr1) {
+    public boolean isContain(String arr1) {
         if(arr1.equalsIgnoreCase(description))
             return true;
         return false;
