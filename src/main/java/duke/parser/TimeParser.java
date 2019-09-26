@@ -7,6 +7,7 @@ import duke.task.TaskList;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class TimeParser {
     private static PrettyTime prettyTime = new PrettyTime();
     private static PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
 
     /**
      * Converts a Date object to a String representing the date.
@@ -25,7 +27,11 @@ public class TimeParser {
      * @return a String representing the date.
      */
     public static String convertDateToString(Date date) {
-        return prettyTime.format(date);
+        if (date.getTime() - System.currentTimeMillis() > 1000 * 3600 * 24 * 5) {
+            return dateFormat.format(date);
+        } else {
+            return prettyTime.format(date);
+        }
     }
 
     /**
@@ -36,7 +42,7 @@ public class TimeParser {
      */
     public static Date convertStringToDate(String str) throws DukeException {
         List<Date> dates = prettyTimeParser.parse(str);
-        if (dates.size() == 0) {
+        if (dates.isEmpty()) {
             throw new DukeException("Invalid date");
         }
         return dates.get(0);
