@@ -331,28 +331,78 @@ _{Explain here how the data encryption feature will be implemented}_
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-// [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-// |=======================================================================
-// |Priority |As a ... |I want to ... |So that I can...
-// |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |project leader |be able to track deadlines for each project |prioritize which project to be completed earlier
 
-// |`* * *` |user |add a new person |
+|`* * *` |project leader |indicate the weightage of each task |track the level of contribution by each member
 
-// |`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |project leader |view a progress bar for each project |have a clearer view of the total progress for each project
 
-// |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |project leader |track the status of every task |track the progress of each project
 
-// |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |project leader |manage my team members |assign different roles to team members so that they are clear of their relevant roles
 
-// |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-// |=======================================================================
+|`* * *` |project leader |manage my team members |assign different tasks to team members so that they will be clear of the work that they are supposed to do
+
+|`* * *` |project leader |assign one task to multiple students |more than one student can contribute to the task
+
+|`* * *` |project leader |import files from other sources |track all my projects from different workstations or work environments
+
+|`* * *` |project leader |keep track of each member’s progress and contributions |ensure all students contribute to their respective tasks sufficiently
+
+|`* * *` |project leader |generate a report of the contributions of the members |credit can be rightfully assigned to the respective members
+
+|`* * *` |project leader |be able to edit and read the exported file |have other people can add in details as well into the file and send back
+
+|`* * *` |project leader |find a person by name |locate details of persons without having to go through the entire list
+
+|`* * *` |project leader |have a good overview of all the projects I am managing |I can distribute my resources appropriately
+
+|`* * *` |project leader |indicate the priority of the tasks |ensure members know what order to be done
+
+|`* * *` |project leader |define a clear end goal/target for the project |that we stay on the right track
+
+|`* * *` |project leader |input the requirements of the tasks I have been assigned |ensure needs members are clear about what needs to be done
+
+|`* * *` |project leader |I can view the tasks and roles that I have assigned |ensure members can complete them
+
+|`* * *` |project leader |be able to track deadlines for each task |I will know if a group member is slacking.
+
+|`* * *` |project leader |keep track of the contributions of members |ensure everyone does his/her fair share
+
+|`* * *` |project leader |create task dependencies |members can complete tasks in a certain order
+
+|`* * *` |project leader |be able to manage multiple projects and view all the task delegations of my team members in them |distribute my resources appropriately
+
+|`* * *` |project leader |calculate the total weightage of tasks done by each member |keep track of the amount of contributions done by each member
+
+|`* *` |project leader |schedule project meet-ups |group members can meet at a stipulated date and time
+
+|`* *` |project leader |be able to export the relevant details for each project |send it to other people for viewing
+
+|`* *` |project leader |be able to export the details for each project in different formats |avoid compatibility issues with a specific file format
+
+|`* *` |project leader |view a calendar with all tasks, milestones and deadlines |easily visualise the progress of the project
+
+|`* *` |project leader |have a more intuitive way to view the current task and role assigned to a particular team member |better manage their well being
+
+|`* *` |project leader |be able to track the technical and non-technical roles assigned to my team members |I can keep track of the overall progress of the project
+
+|`* *` |project leader |define milestones to track the progress of the entire project |have users work towards each milestone sequentially
+
+|`*` |project leader |save time managing my team members from the manual way of tracking my group progress |make this group can be as efficient as possible
+
+|`*` |project leader |change the assignment of tasks halfway through the project |cater to different needs and schedules of team members
+|=======================================================================
 
 _{To be edited}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ArchDuke` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Create project (UC01) `create`
