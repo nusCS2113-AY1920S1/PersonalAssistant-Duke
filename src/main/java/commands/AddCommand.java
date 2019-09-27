@@ -162,8 +162,8 @@ public class AddCommand extends Command {
     public Boolean scheduleClashes(TaskList tasks, Events e) {
         for (Task t : tasks.getCheckList()) {
             if (t instanceof Events) {
-                if (((Events) t).getStartDateAt().compareTo(e.getEndDateAt()) <= 0
-                    && ((Events) t).getEndDateAt().compareTo(e.getEndDateAt()) >= 0) {
+                if (e.getStartDateAt().compareTo(((Events) t).getEndDateAt()) <= 0
+                    && e.getEndDateAt().compareTo(((Events) t).getStartDateAt()) >= 0) {
                     return true;
                 }
             }
