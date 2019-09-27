@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,6 +20,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
+/**
+ * A class containing helper functions related to Http request of calling Email API.
+ */
 public class Http {
     private static String authCode = null;
     private static String accessToken = null;
@@ -27,12 +30,22 @@ public class Http {
     private static String clientSecret = "8dhu0-v80Ic-ZrQpACgWLEPg:??1MGkc";
     private static String redirect = "http://localhost:3000";
 
+    /**
+     * Sets the Authorization Code and then call the function to get the Access Token from Outlook.
+     *
+     * @param code teh new authentication code
+     */
     public static void setAuthCode(String code) {
         Duke.getUI().showDebug("Auth Code Set: " + code);
         authCode = code;
         getAccess();
     }
 
+    /**
+     * Sets the Access Token and call the fetch email API.
+     *
+     * @param token the new access token
+     */
     private static void setAccessToken(String token) {
         Duke.getUI().showDebug("Access Token Set: " + token);
         accessToken = token;
@@ -40,14 +53,18 @@ public class Http {
         JSONObject apiParams = new JSONObject();
         try {
             apiParams.put("select", "subject,from,body,receivedDateTime");
-            apiParams.put("top","25");
-            apiParams.put("orderby","receivedDateTime");
+            apiParams.put("top", "25");
+            apiParams.put("orderby", "receivedDateTime");
         } catch (JSONException e) {
             Duke.getUI().showError("Api parameter error...");
         }
         Duke.getUI().showDebug(callEmailApi(apiParams));
     }
 
+    /**
+     * Fetches a new Authorization Code from Outlook. It also calls to start the server to prepare receiving
+     * the code from Outlook redirection.
+     */
     public static void getAuth() {
         SimpleServer.startServer();
         openBrowser("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="
@@ -55,6 +72,9 @@ public class Http {
                 + "&redirect_uri=" + redirect + "&scope=openid+Mail.Read");
     }
 
+    /**
+     * Fetches the Access Token from Outlook.
+     */
     //function adapted from https://stackoverflow
     // .com/questions/40574892/how-to-send-post-request-with-x-www-form-urlencoded-body
     public static void getAccess() {
@@ -75,6 +95,12 @@ public class Http {
         }
     }
 
+    /**
+     * Calls the respective Email API based on the parameters given.
+     *
+     * @param params the parameters regarding the specification of this email api call in JSON form
+     * @return the result of email api call in string
+     */
     //This function is adapted from code on https://www.baeldung.com/java-http-request
     public static String callEmailApi(JSONObject params) {
         String url = "";
@@ -97,11 +123,12 @@ public class Http {
         return "";
     }
 
+    //convert the parameters for email api call in json to a url in string
     private static String getApiUrl(JSONObject params) throws JSONException {
         String url = "https://graph.microsoft.com/v1.0/me/mailfolders/inbox/messages?";
         Iterator<String> keys = params.keys();
 
-        while(keys.hasNext()) {
+        while (keys.hasNext()) {
             String key = keys.next();
             url += "$" + key + "=" + params.getString(key);
             if (keys.hasNext()) {
@@ -163,6 +190,12 @@ public class Http {
         return content;
     }
 
+    /**
+     * Opens the system browser for user authorization process.
+     *
+     * @param link a url to which the browser will be directed
+     * @return a flag whether the operation is successfully executed
+     */
     //This function is adapted from https://stackoverflow
     // .com/questions/10967451/open-a-link-in-browser-with-java-button
     public static boolean openBrowser(String link) {

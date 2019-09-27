@@ -9,11 +9,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
+/**
+ * A simple local server designed to receive authorization code from Outlook through redirect.
+ */
 //code adapted from https://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java
 // -se-api
 public class SimpleServer {
     private static HttpServer server;
 
+    /**
+     * Starts the server on port 3000.
+     */
     public static void startServer() {
         try {
             server = HttpServer.create(new InetSocketAddress(3000), 0);
@@ -25,7 +31,17 @@ public class SimpleServer {
         }
     }
 
+    /**
+     * Handler used to handle the response of the http request from Outlook.
+     */
     static class MyHandler implements HttpHandler {
+        /**
+         * Handles the exchange/response of the http request from Outlook, which contains the authorization
+         * code. Stops the server once received the code.
+         *
+         * @param exchange incoming exchange from the Outlook
+         * @throws IOException exception if the exchange fails to receive the information from request
+         */
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Authorization/Authentication finished";
