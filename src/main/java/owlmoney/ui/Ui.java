@@ -20,7 +20,7 @@ public class Ui {
      * Prints a greeting message to the user, which happens at startup.
      */
     public void greet() {
-        printMessage("Hello! I'm Duke");
+        printMessage("Hello! I'm OwlMoney");
         printMessage("What can I do for you?");
     }
 
