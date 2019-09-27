@@ -61,7 +61,7 @@ public class TaskList {
     public ArrayList<Task> getSameDayTasks(Date taskDate) {
         ArrayList<Task> sameDayTasks = new ArrayList<Task>();
         for (Task task : tasks) {
-            if (DateParser.isSameDayMonthYear(taskDate, task.getDate().getTime())) {
+            if (task.getDate() != null && DateParser.isSameDayMonthYear(taskDate, task.getDate().getTime())) {
                 sameDayTasks.add(task);
             }
         }
