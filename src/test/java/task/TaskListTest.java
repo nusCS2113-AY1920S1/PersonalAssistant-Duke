@@ -223,7 +223,13 @@ class TaskListTest {
     }
 
     @Test
-    void testConflictCheck() {
+    void testConflictCheck() throws DukeException {
+        ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
+        testTaskListSave.add("event", "Sleep /at 01-01-1970 2200");
+        testTaskListSave.add("event", "Work /at 01-01-1970 2200");
+        System.setOut(new PrintStream(freshOutput)); //sets the system output to a different stream
+        testTaskListSave.conflict_check();
+        assertEquals("There is a conflict in the schedule!\r\n", freshOutput.toString());
     }
 
     @Test
@@ -244,6 +250,51 @@ class TaskListTest {
     }
 
     @Test
-    void testSelect() {
+    void testSelect() throws DukeException {
+        ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
+        testTaskListSave.add("event", "Sleep /at 01-01-1970 2200 "
+                                                        + "/at 02-02-1971 2200 "
+                                                        + "/at 03-03-1972 2200 "
+                                                        + "/at 04-04-1973 2200");
+        System.setOut(new PrintStream(freshOutput)); //sets the system output to a different stream
+        testTaskListSave.select("5 1");
+        assertEquals("Tentative Date selected successfully\r\n", freshOutput.toString());
+
+        try {
+            testTaskListSave.select("5 1");
+            fail();
+        } catch (Exception e) {
+            assertEquals("There are no Tentative Slots to be chosen from", e.getMessage());
+        }
+    }
+
+    @Test
+    void testSelectFail() throws DukeException {
+        testTaskListSave.add("event", "Sleep /at 01-01-1970 2200 "
+                                                        + "/at 02-02-1971 2200 "
+                                                        + "/at 03-03-1972 2200 "
+                                                        + "/at 04-04-1973 2200");
+
+
+        try {
+            testTaskListSave.select("100 1");
+            fail();
+        } catch (Exception e) {
+            assertEquals("The index was not found within task range", e.getMessage());
+        }
+
+        try {
+            testTaskListSave.select("3 1");
+            fail();
+        } catch (Exception e) {
+            assertEquals("The Task you chose is not the Event Type!", e.getMessage());
+        }
+
+        try {
+            testTaskListSave.select("5 10");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Not a valid Selection (out of range)", e.getMessage());
+        }
     }
 }

@@ -32,7 +32,7 @@ public class ExitCommand extends Command {
             storage.store(tasks);
         } catch (DukeException e) {
             isClose = false;
-            throw new DukeException("Exit Error:" + e.getLocalizedMessage());
+            throw new DukeException("Exit Error: " + e.getLocalizedMessage());
         } finally {
             ui.hastaLaVista();
             if (isClose) {
