@@ -95,10 +95,6 @@ public class Task {
         return this.end;
     }
 
-    public int getDuration() {
-        return this.duration;
-    }
-
     public void setDoAfter(ArrayList<ToDo> doAfter) {
         this.doAfter = doAfter;
     }
@@ -113,6 +109,14 @@ public class Task {
 
     public void setRecurringDuration(Period recurringDuration) {
         this.recurringDuration = recurringDuration;
+    }
+
+    public Period getRecurringDuration() {
+        return this.recurringDuration;
+    }
+
+    public boolean isRecurringTask() {
+        return !this.recurringDuration.isZero();
     }
 
     /**

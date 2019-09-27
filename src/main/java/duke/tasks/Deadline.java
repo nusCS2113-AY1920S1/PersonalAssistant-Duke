@@ -64,10 +64,18 @@ public class Deadline extends Task {
             text += "[D]" + super.toString() + " (by: " + by + ")";
         }
         // recurring event
-        if (!this.recurringDuration.isZero()) {
-            text += "Recurring event, once every ";
-            text += String.format("%d years, %d months, %d days", recurringDuration.getYears(),
-                    recurringDuration.getMonths(), recurringDuration.getDays()) + "\n";
+        if (this.isRecurringTask()) {
+            text += " ( Recurring event, once every ";
+            if (recurringDuration.getYears() != 0) {
+                text += recurringDuration.getYears() + " years ";
+            }
+            if (recurringDuration.getMonths() != 0) {
+                text += recurringDuration.getMonths() + " months ";
+            }
+            if (recurringDuration.getDays() != 0) {
+                text += recurringDuration.getDays() + " days ";
+            }
+            text += ")";
         }
 
         for (int i = 0; i < this.doAfter.size(); i += 1) {
