@@ -19,6 +19,11 @@ public class Email {
         this.filepath = getEmailFilePath();
     }
 
+    /**
+     * Get title of this email.
+     *
+     * @return title of this email.
+     */
     public String getTitle() {
         return this.title;
     }
@@ -27,16 +32,31 @@ public class Email {
         this.tag = tag;
     }
 
+    /**
+     * Get the pathname for this email.
+     *
+     * @return pathname for this email.
+     */
     public String getEmailFilePath() {
         return getFolderDir() + File.separator + this.title;
     }
 
-    // To be replaced by JavaFx code for UI display.
+    /**
+     * Show this email on browser.
+     * To be replaced by JavaFx code for UI display.
+     *
+     * @throws IOException if fails to load the filepath or open the browser.
+     */
     public void showEmail() throws IOException {
         File emailFile = new File(this.filepath);
         Desktop.getDesktop().browse(emailFile.toURI());
     }
 
+    /**
+     * Get the pathname of the data/emails folder.
+     *
+     * @return the pathname of the data/emails folder.
+     */
     private static String getFolderDir() {
         String dir;
         String workingDir = System.getProperty("user.dir");
@@ -50,6 +70,11 @@ public class Email {
         return dir;
     }
 
+    /**
+     * Outputs a string with all the information of this email to be stored in a file for future usage.
+     *
+     * @return a string with all the information of this email.
+     */
     public String toFileString() {
         String filestring = this.title + " | ";  // to add on info such as tags.
         return filestring;
