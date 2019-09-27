@@ -26,7 +26,7 @@ public class ExpenseStorage extends Storage<Expense> {
                 Expense expense = null;
                 if (data.length == 4) {
                     expense = new Expense(data[0], LocalDate.parse(data[2], formatter), Double.parseDouble(data[1]),
-                            data[3], false, "NULL");
+                            data[3], false, null);
                 } else {
                     expense = new Expense(data[0], LocalDate.parse(data[2], formatter), Double.parseDouble(data[1]),
                             data[3], true, data[4]);

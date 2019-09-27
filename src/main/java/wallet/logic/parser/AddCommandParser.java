@@ -108,6 +108,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             cat = arguments[1].trim();
         }
         Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
+
         return expense;
     }
 

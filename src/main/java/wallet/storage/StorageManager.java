@@ -30,7 +30,6 @@ public class StorageManager {
         if (!file.exists()) {
             try {
                 file.mkdir();
-                System.out.println("Directory created.");
             } catch (SecurityException se) {
                 System.out.println(MESSAGE_ERROR_MKDIR);
             }

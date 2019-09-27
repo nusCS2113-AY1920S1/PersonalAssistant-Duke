@@ -1,5 +1,7 @@
 package wallet.model.record;
 
+import wallet.logic.command.ListCommand;
+
 import java.util.ArrayList;
 
 /**
@@ -87,5 +89,31 @@ public class ExpenseList {
      */
     public int getSize() {
         return expenseList.size();
+    }
+
+    /**
+     * Lists all expenses in the expense list.
+     */
+    public void listExpenseList() {
+        int counter = 1;
+        System.out.println(ListCommand.MESSAGE_LIST_EXPENSES);
+        for (Expense e : this.expenseList) {
+            System.out.println(counter + ". " + e.toString());
+            counter++;
+        }
+    }
+
+    /**
+     * Lists all recurring expenses in the expense list.
+     */
+    public void listRecurringExpense() {
+        int counter = 1;
+        System.out.println(ListCommand.MESSAGE_LIST_RECURRING_EXPENSES);
+        for (Expense e : this.expenseList) {
+            if (e.isRecurring()) {
+                System.out.println(counter + ". " + e.toString());
+                counter++;
+            }
+        }
     }
 }

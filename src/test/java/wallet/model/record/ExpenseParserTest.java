@@ -1,28 +1,29 @@
 package wallet.model.record;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import wallet.model.Wallet;
+import wallet.storage.StorageManager;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseParserTest {
-    @Test
-    public void parseInput_recurringExpense_success() {
-        Expense e = ExpenseParser.parseInput("Dinner $10 /on 10/10/2019 /cat Food /r daily");
-        assertEquals("Dinner", e.getDescription());
-        assertEquals("2019-10-10", e.getDate().toString());
-        assertEquals(10.0, e.getAmount());
-        assertEquals("Food", e.getCategory());
-        assertEquals(true, e.isRecurring());
-        assertEquals("DAILY", e.getRecFrequency());
+    private static Wallet testWallet;
+    private static StorageManager storageManager;
+
+    @BeforeAll
+    public static void setUp() {
+        testWallet = new Wallet();
+        storageManager = new StorageManager();
     }
 
     @Test
     public void getRecurringRecords_populatedList_success() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(new Expense("Lunch", LocalDate.now(), 5, "Food", false, "NULL"));
-        expenseList.addExpense(new Expense("Dinner", LocalDate.now(), 10, "Food", false, "NULL"));
+        expenseList.addExpense(new Expense("Lunch", LocalDate.now(), 5, "Food", false, null));
+        expenseList.addExpense(new Expense("Dinner", LocalDate.now(), 10, "Food", false, null));
         expenseList.addExpense(new Expense("Breakfast", LocalDate.now(), 3, "Food", true, "WEEKLY"));
 
         for (Expense e : ExpenseParser.getRecurringRecords(expenseList)) {
@@ -36,13 +37,12 @@ public class ExpenseParserTest {
     }
 
     @Test
-    public void populateRecurringRecords_dailyRecurring_success() {
+    public void updateRecurringRecords_dailyRecurring_success() {
+        ExpenseParser.updateRecurringRecords(testWallet, storageManager);
         LocalDate currentDate = LocalDate.now();
         LocalDate expenseDate = currentDate.minusDays(5);
-        ExpenseList expenseList = new ExpenseList();
+        ExpenseList expenseList = testWallet.getExpenseList();
         expenseList.addExpense(new Expense("Breakfast", expenseDate, 3, "Food", true, "DAILY"));
-
-        ExpenseParser.populateRecurringRecords(expenseList);
 
         for (int i = 0; i < expenseList.getSize(); i++) {
             Expense e = expenseList.getExpense(i);
@@ -52,7 +52,7 @@ public class ExpenseParserTest {
                 assertEquals(3.0, e.getAmount());
                 assertEquals("Food", e.getCategory());
                 assertEquals(false, e.isRecurring());
-                assertEquals("NULL", e.getRecFrequency());
+                assertEquals(null, e.getRecFrequency());
             } else {
                 assertEquals("Breakfast", e.getDescription());
                 assertEquals(expenseDate, e.getDate());

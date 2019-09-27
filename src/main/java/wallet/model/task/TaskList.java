@@ -13,6 +13,10 @@ public class TaskList {
      */
     private ArrayList<Task> taskList;
 
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+
     /**
      * Constructs a new taskList object.
      *

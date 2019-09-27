@@ -49,14 +49,7 @@ public class ListCommand extends Command {
         int counter;
         switch (record) {
         case "recurring":
-            counter = 1;
-            System.out.println(MESSAGE_LIST_RECURRING_EXPENSES);
-            for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                if (e.isRecurring()) {
-                    System.out.println(counter + ". " + e.toString());
-                    counter++;
-                }
-            }
+            wallet.getExpenseList().listRecurringExpense();
             break;
 
         case "all":
@@ -88,12 +81,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "expense":
-            counter = 1;
-            System.out.println(MESSAGE_LIST_EXPENSES);
-            for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                System.out.println(counter + ". " + e.toString());
-                counter++;
-            }
+            wallet.getExpenseList().listExpenseList();
             if (!isListAll) {
                 break;
             }

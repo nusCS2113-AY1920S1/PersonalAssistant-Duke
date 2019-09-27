@@ -5,6 +5,7 @@ import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
 import wallet.model.record.ExpenseList;
+import wallet.model.record.ExpenseParser;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.storage.Storage;
@@ -41,6 +42,7 @@ public class LogicManager {
         try {
             Command command = parserManager.parseCommand(fullCommand);
             isExit = command.execute(wallet, storageManager);
+            ExpenseParser.updateRecurringRecords(wallet, storageManager);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error encountered while executing command.");

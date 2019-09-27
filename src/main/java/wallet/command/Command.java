@@ -170,13 +170,13 @@ public class Command {
             }
         } else if (command[0].equals("expense")) {
             try {
-                Expense expense = ExpenseParser.parseInput(command[1]);
+                /*Expense expense = ExpenseParser.parseInput(command[1]);
                 if (expense != null) {
                     expenseList.addExpense(expense);
                     System.out.println("Got it. I've added this expense:");
                     System.out.println(expense.toString());
-                    ExpenseParser.populateRecurringRecords(expenseList);
-                }
+                    //ExpenseParser.updateRecurringRecords(expenseList);
+                }*/
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The format of adding expense is "
                                     + "\"\"");
