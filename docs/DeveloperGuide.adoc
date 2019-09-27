@@ -40,7 +40,7 @@ The program is designed to automate and streamline most of the process in schedu
 . User responds to the prompt accordingly.
 . System adds practice session to a stored list and saves it to a file on the user’s hard drive.
 
-===Entering the details of a recital into the system
+=== Entering the details of a recital into the system
 . User choose to enter a recital.
 . System requires details of the recital.
 . User enters date, time, venue, the pieces to be performed, and a description if needed.
