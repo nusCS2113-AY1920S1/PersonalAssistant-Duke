@@ -4,9 +4,9 @@ import duke.commons.DukeException;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
+import org.ocpsoft.prettytime.PrettyTime;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +16,9 @@ import java.util.List;
  * Parse time. Convert between date object and String date.
  */
 public class TimeParser {
+    private static PrettyTime prettyTime = new PrettyTime();
+    private static PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
 
     /**
      * Converts a Date object to a String representing the date.
@@ -24,8 +27,11 @@ public class TimeParser {
      * @return a String representing the date.
      */
     public static String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        return dateFormat.format(date);
+        if (date.getTime() - System.currentTimeMillis() > 1000 * 3600 * 24 * 5) {
+            return dateFormat.format(date);
+        } else {
+            return prettyTime.format(date);
+        }
     }
 
     /**
@@ -35,12 +41,11 @@ public class TimeParser {
      * @throws DukeException if the String is of incorrect format.
      */
     public static Date convertStringToDate(String str) throws DukeException {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        try {
-            return dateFormat.parse(str);
-        } catch (ParseException e) {
-            throw new DukeException("Please enter date in correct format: dd/mm/yyyy hhmm. e.g. 18/12/1999 18:00.");
+        List<Date> dates = prettyTimeParser.parse(str);
+        if (dates.isEmpty()) {
+            throw new DukeException("Invalid date");
         }
+        return dates.get(0);
     }
 
     public static List<Task> detectConflict(Task task, TaskList taskList) {

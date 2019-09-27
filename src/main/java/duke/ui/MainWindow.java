@@ -1,7 +1,6 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import duke.entities.Order;
 import duke.logic.Duke;
 
@@ -10,9 +9,9 @@ import duke.entities.recipe.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
 import duke.storage.recipe.RecipeList;
-import duke.ui.recipe.IngredientBox;
 import duke.ui.recipe.RecipeBox;
 import duke.ui.recipe.RecipeMain;
+import duke.ui.recipe.IngredientBox;
 //>>>>>>> Recipe
 ///////////////////////////
 import javafx.fxml.FXML;
@@ -34,9 +33,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Ui ui;
 
-    @FXML
-    private AnchorPane orderPane;
-
+    //Popup box
     @FXML
     private HBox popUp;
     @FXML
@@ -45,10 +42,25 @@ public class MainWindow extends AnchorPane {
     JFXButton popUpButton;
     @FXML
     private TextField userInput;
+
+    //Main page
     @FXML
-    private JFXListView<DialogBox> taskList;
+    private Label currentPage;
     @FXML
-    private VBox orderList;
+    private AnchorPane pagePane;
+
+    //Sidebar
+    @FXML
+    private JFXButton recipeButton;
+    @FXML
+    private JFXButton orderButton;
+    @FXML
+    private JFXButton inventoryButton;
+    @FXML
+    private JFXButton salesButton;
+
+    private OrderPage orderPage;
+    private RecipePage recipePage;
 
     @FXML
     public RecipeMain recipeMain;
@@ -87,6 +99,41 @@ public class MainWindow extends AnchorPane {
         popUp.setVisible(false);
     }
 
+    @FXML
+    private void handleShowRecipe() {
+        System.out.println("!!!");
+        showRecipePage();
+    }
+
+    @FXML
+    private void handleShowOrder() {
+        showOrderPage();
+    }
+
+    @FXML
+    private void handleShowInventory() {
+
+    }
+
+    @FXML
+    private void handleShowSales() {
+
+    }
+
+    void initializePages() {
+        orderPage = new OrderPage();
+        AnchorPane.setLeftAnchor(orderPage, 0.0);
+        AnchorPane.setRightAnchor(orderPage, 0.0);
+        AnchorPane.setTopAnchor(orderPage, 0.0);
+        AnchorPane.setBottomAnchor(orderPage, 4.0);
+
+        recipePage = new RecipePage();
+        AnchorPane.setLeftAnchor(recipePage, 0.0);
+        AnchorPane.setRightAnchor(recipePage, 0.0);
+        AnchorPane.setTopAnchor(recipePage, 0.0);
+        AnchorPane.setBottomAnchor(recipePage, 4.0);
+    }
+
     void showMessage(String message) {
         popUpLabel.setText(message);
         popUpLabel.setTextFill(Color.valueOf("#000000"));
@@ -108,17 +155,32 @@ public class MainWindow extends AnchorPane {
     }
 
     void refreshOrderList(List<Order> orders, List<Order> all) {
-        orderList.getChildren().clear();
-        int index = 1;
-        for (Order order : orders) {
-            orderList.getChildren().add(new OrderCard(order, index));
-            index++;
-        }
+        this.orderPage.refreshOrderList(orders, all);
     }
 
 
-    void showOrderPane() {
-        orderPane.setVisible(true);
+    void showOrderPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(orderPage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.RAISED);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Orders");
+    }
+
+    void showRecipePage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(recipePage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Recipes");
     }
 
 

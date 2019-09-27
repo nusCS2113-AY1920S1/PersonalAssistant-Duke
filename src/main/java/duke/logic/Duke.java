@@ -3,7 +3,7 @@ package duke.logic;
 import duke.command.Command;
 import duke.commons.DukeException;
 import duke.parser.Parser;
-import duke.recipe.Recipe;
+import duke.entities.recipe.Recipe;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.storage.recipe.RecipeList;
@@ -32,14 +32,13 @@ public class Duke {
             ui.showError(e.getMessage());
             ui.disableInput();
         }
+        ui.initializePages();
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        //ui.refreshRecipeList(recipeList);
-        ui.showRecipePane();
-//        commandManager = new CommandManager(bakingList, STORAGE, ui);
+        ui.showOrderPage();
+        commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 
     public void executeInput(String input) {
-
         try {
             Command command = Parser.getCommand(input);
             commandManager.execute(command);

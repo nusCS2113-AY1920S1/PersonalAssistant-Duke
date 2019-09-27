@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
-<fx:root maxHeight="1.7976931348623157E308" minHeight="230.0" prefHeight="200.0" prefWidth="800.0"
-         style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
-         xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="130.0" minHeight="120.0" prefHeight="123.0" prefWidth="800.0" style="-fx-background-color: white;"
+         type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="innerPane" prefHeight="200.0" prefWidth="200.0"
+        <AnchorPane fx:id="innerPane" prefHeight="104.0" prefWidth="700.0"
                     style="-fx-background-color: white; -fx-border-color: #CCCCCC; -fx-effect: dropshadow(three-pass-box, grey, 10.0,0, 0, 0);"
-                    AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
-                    AnchorPane.topAnchor="15.0">
+                    AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
+                    AnchorPane.topAnchor="5.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox layoutX="4.0" layoutY="3.0" prefHeight="105.0" prefWidth="694.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" spacing="10.0"
-                              style="-fx-background-color: #5086ec;">
+                              style="-fx-background-color: #96663b;">
                             <children>
                                 <Label fx:id="index" text="#14g4ar" textFill="WHITE">
                                     <font>
@@ -30,7 +31,7 @@
                                 </Label>
                                 <Label fx:id="deadline" alignment="CENTER"
                                        style="-fx-background-color: white; -fx-background-radius: 5; -fx-padding: 4;"
-                                       text="March 18" textAlignment="CENTER" textFill="#5086ec">
+                                       text="March 18" textAlignment="CENTER" textFill="#96663b">
                                     <font>
                                         <Font name="Arial" size="18.0"/>
                                     </font>
@@ -46,9 +47,11 @@
                                         </ImageView>
                                     </graphic>
                                 </Label>
+                                <Circle fill="WHITE" radius="13.0" stroke="WHITE" strokeType="INSIDE"/>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0"
+                              prefWidth="200.0">
                             <children>
                                 <Label alignment="CENTER">
                                     <font>
@@ -125,28 +128,12 @@
                             </children>
                         </HBox>
                         <Separator prefWidth="200.0"/>
-                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0"
-                                            style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-                                    <content>
-                                        <FlowPane fx:id="itemFlow" alignment="CENTER_LEFT" columnHalignment="CENTER"
-                                                  hgap="10.0" prefHeight="200.0" prefWidth="200.0"
-                                                  style="-fx-background-color: white;" vgap="10.0">
-                                            <padding>
-                                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
-                                </ScrollPane>
-                            </children>
-                        </HBox>
-                        <Separator prefWidth="200.0"/>
-                        <HBox alignment="TOP_RIGHT" prefHeight="18.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0"
+                              prefWidth="200.0">
                             <children>
                                 <Label alignment="CENTER" text="Order ID:">
                                     <font>
-                                        <Font name="Arial" size="12.0"/>
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
                                         <Insets left="10.0"/>
@@ -154,7 +141,7 @@
                                 </Label>
                                 <Label fx:id="id" alignment="CENTER" text="Jiajun" textFill="#96663b">
                                     <font>
-                                        <Font name="Arial" size="12.0"/>
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
                                         <Insets left="5.0" right="20.0"/>
@@ -162,7 +149,7 @@
                                 </Label>
                                 <Label alignment="CENTER" text="Created on:">
                                     <font>
-                                        <Font name="Arial" size="12.0"/>
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
                                         <Insets left="20.0"/>
@@ -171,7 +158,7 @@
                                 <Label fx:id="creationDate" alignment="CENTER" text="01/01/1999 18:00"
                                        textFill="#96663b">
                                     <font>
-                                        <Font name="Arial" size="12.0"/>
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
                                         <Insets left="5.0" right="20.0"/>

@@ -15,6 +15,7 @@ public class Launcher extends Application {
         launch(Launcher.class, args);
     }
 
+    @Override
     public void start(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
         try {

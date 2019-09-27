@@ -2,17 +2,22 @@ package duke.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
-    private long id;
-    private String customerName;
-    private String customerContact;
-    private Date deliveryDate;
+    private long id = System.currentTimeMillis();
+    private String customerName = "customer";
+    private String customerContact = "N/A";
+    private Date deliveryDate = Calendar.getInstance().getTime();
     private Map<String, Integer> items = new HashMap<>();
     private String remarks = "N/A";
+
+    public Order() {
+
+    }
 
     public Order(@JsonProperty("customerName") String customerName,
                  @JsonProperty("customerContact") String customerContact,
@@ -20,7 +25,6 @@ public class Order {
         this.customerName = customerName;
         this.customerContact = customerContact;
         this.deliveryDate = deliveryDate;
-        this.id = System.currentTimeMillis();
     }
 
     public void addItem(String itemName, int quantity) {

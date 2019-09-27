@@ -1,9 +1,9 @@
 package duke.ui.recipe;
 
 import com.jfoenix.controls.JFXListView;
-import duke.recipe.Ingredient;
-import duke.recipe.Recipe;
-import duke.recipe.Step;
+import duke.entities.recipe.Ingredient;
+import duke.entities.recipe.Recipe;
+import duke.entities.recipe.Step;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;

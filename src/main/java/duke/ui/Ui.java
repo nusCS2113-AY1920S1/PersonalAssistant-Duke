@@ -21,8 +21,12 @@ public class Ui {
         mainWindow.showErrorPopUp(message);
     }
 
-    public void showOrderPane() {
-        mainWindow.showOrderPane();
+    public void showOrderPage() {
+        mainWindow.showOrderPage();
+    }
+
+    public void initializePages() {
+        mainWindow.initializePages();
     }
 
     public void showRecipePane() {

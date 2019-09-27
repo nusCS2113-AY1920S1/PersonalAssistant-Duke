@@ -51,7 +51,8 @@ public class CommandManager {
         if (redoStack.size() == 0) {
             throw new DukeException("No task to be redone.");
         }
-        redoStack.get(redoStack.size() - 1).execute(bakingList, storage, ui);
+        redoStack.get(redoStack.size() - 1).redo(bakingList, storage, ui);
+        undoStack.add(redoStack.get(redoStack.size() - 1));
         redoStack.remove(redoStack.size() - 1);
     }
 }
