@@ -116,9 +116,9 @@ Extensions 5.1: User inputs an invalid rating.
 . Visually pleasing display
 
 [[Design]]
-== Design
+==Design
 
-===Architecture
+===Overall Architecture
 
 There are three main components in the overall architecture of the application.
 
