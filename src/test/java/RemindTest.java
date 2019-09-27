@@ -10,6 +10,8 @@ import tasks.*;
 
 import java.text.ParseException;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +29,9 @@ public class RemindTest {
     public void testRemindersUpcoming()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
         System.setOut(new PrintStream(outContent));
@@ -38,7 +42,7 @@ public class RemindTest {
                 + " 1.[D][?] Duke Documentation (by: 17/9/2019 2359)\n" + System.getProperty("line.separator")
                 + " 2.[T][?] some stuff\n" + System.getProperty("line.separator")
                 + " 3.[P][?] IPPT (from: 18/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
+                , ui.getOutputString());
         System.setOut(originalOut);
     }
 
@@ -56,7 +60,7 @@ public class RemindTest {
         assertEquals(" Got it. Your Past Reminders: \n" + System.getProperty("line.separator")
                         + " 1.[E][?] code jam (at: 6/6/2011 1100 to 7/7/2011 1400)\n" + System.getProperty("line.separator")
                         + " 2.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
+                , ui.getOutputString());
         System.setOut(originalOut);
     }
 
@@ -73,7 +77,7 @@ public class RemindTest {
         //System.out.println("hello");
         assertEquals(" Got it. Today's Reminders: \n" + System.getProperty("line.separator")
                         + " 1.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
+                , ui.getOutputString());
         System.setOut(originalOut);
     }
 
@@ -91,7 +95,7 @@ public class RemindTest {
         assertEquals(" Got it. Your schedule for 14/09/2019: \n" + System.getProperty("line.separator")
                         + " 1.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
                         + " 2.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
+                , ui.getOutputString());
         System.setOut(originalOut);
     }
 

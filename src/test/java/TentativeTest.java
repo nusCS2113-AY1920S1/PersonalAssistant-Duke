@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import tasks.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.io.*;
 
@@ -21,7 +23,9 @@ public class TentativeTest {
 
     public TentativeTest() {
         ui = new Ui();
-        storage = new Storage("/Users/chengweixuanmacbook/Desktop/School/CS2113/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }
 
