@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.email;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -27,7 +27,7 @@ public class Email {
         this.tag = tag;
     }
 
-    public String getEmailFilePath () {
+    public String getEmailFilePath() {
         return getFolderDir() + File.separator + this.title;
     }
 

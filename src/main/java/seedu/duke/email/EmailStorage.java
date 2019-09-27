@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.duke.email;
 
-import seedu.duke.command.Command;
-import seedu.duke.emailCommand.ListEmailCommand;
+import seedu.duke.Duke;
+import seedu.duke.Storage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,7 +42,7 @@ public class EmailStorage {
         ArrayList<String> listOfHtml = new ArrayList<String>();
         File emailFolder = new File(getFolderDir());
         for (File fileEntry : emailFolder.listFiles()) {
-            if(fileEntry.isFile()) {
+            if (fileEntry.isFile()) {
                 String emailFileName = fileEntry.getName();
                 listOfHtml.add(emailFileName);
             }
@@ -85,7 +85,7 @@ public class EmailStorage {
         //This boolean array will auto-initialize to false since boolean's default value is false.
         boolean[] inEmailList = new boolean[htmlList.size()];
 
-        for(Email email : emailList) {
+        for (Email email : emailList) {
             String title = email.getTitle();
             for (int j = 0; j < htmlList.size(); j++) {
                 if (htmlList.get(j).equals(title)) {
@@ -112,7 +112,7 @@ public class EmailStorage {
         EmailList emailList = new EmailList();
         File emailFolder = new File(getFolderDir());
         for (File fileEntry : emailFolder.listFiles()) {
-            if(fileEntry.isFile()) {
+            if (fileEntry.isFile()) {
                 String emailFileName = fileEntry.getName();
                 Email email = new Email(emailFileName);
                 emailList.add(email);
