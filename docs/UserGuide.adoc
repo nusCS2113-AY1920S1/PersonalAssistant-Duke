@@ -110,10 +110,10 @@ Examples:
 * `find event` +
 Returns `event` and `this event`
 
-=== Rescheduling tasks: 'reschedule'
+=== Rescheduling tasks: `reschedule`
 
 Reschedules a certain task to a different date and time. + 
-Format: 'reschedule INDEX DATE TIME'
+Format: `reschedule INDEX DATE TIME`
 
 ****
 * The index of the task must be valid (i.e the task's index must be in the task list).
@@ -121,17 +121,17 @@ Format: 'reschedule INDEX DATE TIME'
 * The date and time inputted must be an open timing, if there are clashes the program will warn the user about the clashing timing.
 ****
 
-=== Schedule of the day: 'schedule'
+=== Schedule of the day: `schedule`
 
 Lists the schedule one has for a specific date. +
-Format: 'schedule DATE'
+Format: `schedule DATE`
 
 ****
 * A valid date must be inputted in the format that the program understands.
 * The list will be sorted from earliest to latest.
 ****
 
-=== Reminders: 'reminder'
+=== Reminders: `reminder`
 
 Reminds the user upon startup of the program of any upcoming tasks.
 
@@ -143,7 +143,7 @@ Reminds the user upon startup of the program of any upcoming tasks.
 === Exiting the program : `bye`
 
 ****
-*Typing 'bye into the command line shows a goodbye message, saves the task list, and closes the program.
+*Typing `bye` into the command line shows a goodbye message, saves the task list, and closes the program.
 ****
 
 Exits the program. +
