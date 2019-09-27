@@ -4,6 +4,8 @@ package parsers;
 import commands.*;
 import Exception.DukeException;
 
+import java.sql.SQLOutput;
+
 public class Parser {
     public static Command parse(String command) throws DukeException {
         if (command.contains("list")) {
@@ -38,9 +40,11 @@ public class Parser {
             return new TentativeEventCommand();
         } else if (command.contains("confirm")) {
             return new ConfirmTentativeCommand();
-        } else {
+        } else if (command.contains("undo")) {
+            return new UndoCommand();
+        }
+        else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
 }

@@ -15,11 +15,12 @@ public class TodoCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
-        if(ui.FullCommand.length() <= 4) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        }
-        else{
-            description = ui.FullCommand.substring(5);
+        try {
+            if (ui.FullCommand.length() <= 4) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            } else {
+                description = ui.FullCommand.substring(5);
+
         }
         Todo to = new Todo(description);
         list.add(to);
@@ -31,7 +32,7 @@ public class TodoCommand extends Command {
             if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
                 sb.append(list.get(i).toString()+"\n");
             }
-            else if(list.get(i).getClass().getName().equals("Tasks.Event")){
+            else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
                 sb.append(list.get(i).toString()+"\n");
             }
             else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
@@ -39,14 +40,20 @@ public class TodoCommand extends Command {
             }
             else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
                 sb.append(list.get(i).toString()+"\n");
+
             }
-            else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
+            else if (list.get(i).getClass().getName().equals("Tasks.Timebound")) {
                 sb.append(list.get(i).toString() + "\n");
-            } else{
-                sb.append(list.get(i).toString()+"\n");
+            }
+            else {
+                sb.append(list.get(i).toString() + "\n");
             }
         }
         storage.Storages(sb.toString());
+        }
+        catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
     @Override
     public boolean isExit() {
