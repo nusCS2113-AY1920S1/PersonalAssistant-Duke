@@ -10,6 +10,7 @@ public class Recipe {
     private List<Step> steps;
     private double cost;
     private int diffLevel;
+    private int time;
 
     public Recipe(String name) {
         this.name = name;
@@ -25,6 +26,7 @@ public class Recipe {
         ingredients = step1.getIngredients();
         cost = 20.22;
         diffLevel = 5;
+        time = 40;
         return this;
     }
     public String getName() {

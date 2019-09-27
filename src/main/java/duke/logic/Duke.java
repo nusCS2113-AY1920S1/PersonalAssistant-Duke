@@ -35,6 +35,10 @@ public class Duke {
         ui.initializePages();
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
         ui.showOrderPage();
+
+        //////////
+        ui.showRecipePage();
+        //////////
         commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 
@@ -45,13 +49,5 @@ public class Duke {
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
-    }
-
-    public Recipe getRecipe(int index) {
-        return recipeList.get(0);
-    }
-
-    public RecipeList getRecipeList() {
-        return recipeList;
     }
 }
