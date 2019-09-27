@@ -32,7 +32,7 @@ The program is designed to automate and streamline most of the process in schedu
 . As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.
 
 [[Use cases]]
-== Use cases
+==Use cases
 
 ===Entering a practice schedule into the system
 . User enters a command to add a practice followed by a date, and the details of the intended practice. 
