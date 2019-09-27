@@ -1,5 +1,5 @@
 package duke.commands;
-import duke.tasks.meal;
+import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
-        ArrayList<meal> currentMeals = tasks.getMeals();
+        ArrayList<Meal> currentMeals = tasks.getMeals();
         ui.showList(currentMeals);
     }
 }

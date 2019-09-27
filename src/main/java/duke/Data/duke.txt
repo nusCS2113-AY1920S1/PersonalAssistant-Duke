@@ -1,1 +1,3 @@
 B|0|borgar|sodium|100|calcium|100|calories|100
+B|0|borgar|sodium|100|calcium|100|calories|100
+L|0|borgar|sodium|200|calcium|200

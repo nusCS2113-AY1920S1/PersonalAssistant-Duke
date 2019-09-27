@@ -1,5 +1,5 @@
 package duke.commands;
-import duke.tasks.meal;
+import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -28,9 +28,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
-        ArrayList<meal> matchingMeals = new ArrayList<>();
-        ArrayList<meal> currentMeals = tasks.getMeals();
-        for (meal element: currentMeals) {
+        ArrayList<Meal> matchingMeals = new ArrayList<>();
+        ArrayList<Meal> currentMeals = tasks.getMeals();
+        for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {
                 matchingMeals.add(element);

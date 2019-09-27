@@ -1,9 +1,9 @@
 package duke.parsers;
 import duke.commands.*;
 import duke.exceptions.DukeException;
-import duke.tasks.dinner;
-import duke.tasks.breakfast;
-import duke.tasks.lunch;
+import duke.tasks.Dinner;
+import duke.tasks.Breakfast;
+import duke.tasks.Lunch;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user.
@@ -44,13 +44,13 @@ public class Parser {
                 return new ExitCommand();
             case "breakfast":
                 splitString = description.split(" ", 2);
-                return new AddCommand(new breakfast(splitString[0], splitString[1]));
+                return new AddCommand(new Breakfast(splitString[0], splitString[1]));
             case "lunch":
                 splitString = description.split(" ", 2);
-                return new AddCommand(new lunch(splitString[0], splitString[1]));
+                return new AddCommand(new Lunch(splitString[0], splitString[1]));
             case "dinner":
                 splitString = description.split(" ", 2);
-                return new AddCommand(new dinner(splitString[0], splitString[1]));
+                return new AddCommand(new Dinner(splitString[0], splitString[1]));
             case "list":
                 return new ListCommand();
             case "done":

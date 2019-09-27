@@ -7,13 +7,13 @@ import java.util.ArrayList;
  * A TaskList object encapsulates the ArrayList of tasks.
  */
 public class mealList {
-    private ArrayList<meal> meals;
+    private ArrayList<Meal> meals;
 
     /**
      * This is the constructor of TaskList object.
      * @param meals the array list of tasks to be assigned
      */
-    public mealList(ArrayList<meal> meals) {
+    public mealList(ArrayList<Meal> meals) {
         this.meals = meals;
     }
 
@@ -21,7 +21,7 @@ public class mealList {
      * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task.
      */
-    public mealList() {this.meals = new ArrayList<meal>();}
+    public mealList() {this.meals = new ArrayList<Meal>();}
 
 
     /**
@@ -30,7 +30,7 @@ public class mealList {
      */
     public void delete(int index) { (this.meals).remove(index - 1);}
 
-    public ArrayList<meal> getMeals() {
+    public ArrayList<Meal> getMeals() {
         return meals;
     }
 

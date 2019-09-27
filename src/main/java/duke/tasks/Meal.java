@@ -8,7 +8,7 @@ import java.util.HashMap;
  * A task object encapsulates the description of the task, the type of task it is, and whether
  * the task is done.
  */
-public class meal {
+public class Meal {
     protected String description;
     protected String type = "";
     protected boolean isDone;
@@ -19,7 +19,7 @@ public class meal {
      * This is the constructor of Task object.
      * @param description the description of the task
      */
-    public meal(String description) {
+    public Meal(String description) {
         this.description = description;
         this.isDone = false;
     }

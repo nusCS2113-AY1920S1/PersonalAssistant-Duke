@@ -1,5 +1,5 @@
 package duke.commands;
-import duke.tasks.meal;
+import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -29,8 +29,8 @@ public class MarkDoneCommand extends Command{
      */
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
-        ArrayList<meal> currentMeals = tasks.getMeals();
-        meal currentMeal = currentMeals.get(index - 1);
+        ArrayList<Meal> currentMeals = tasks.getMeals();
+        Meal currentMeal = currentMeals.get(index - 1);
         currentMeal.markAsDone();
         storage.updateFile(currentMeals);
         ui.showDone(currentMeal);

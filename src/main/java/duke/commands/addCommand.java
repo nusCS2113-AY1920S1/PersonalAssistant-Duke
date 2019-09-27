@@ -1,6 +1,7 @@
 package duke.commands;
 import java.util.ArrayList;
 
+import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -11,14 +12,14 @@ import duke.storage.Storage;
  * @author Ivan Andika Lie
  */
 public class AddCommand extends Command {
-    private duke.tasks.meal meal;
+    private Meal meal;
 
     /**
      * This is a constructor for AddCommand which create a new AddCommand object with
      * the task specified as the instance field task.
      * @param meal The task to be added.
      */
-    public AddCommand(duke.tasks.meal meal) {
+    public AddCommand(Meal meal) {
         this.meal = meal;
     }
 
@@ -30,10 +31,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(mealList meals, Ui ui, Storage storage) {
-        ArrayList<duke.tasks.meal> currentMeals = meals.getMeals();
+        ArrayList<Meal> currentMeals = meals.getMeals();
         currentMeals.add(meal);
         ui.showAdded(meal, currentMeals);
         storage.updateFile(currentMeals);
     }
-
 }

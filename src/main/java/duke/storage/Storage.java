@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import duke.exceptions.DukeException;
-import duke.tasks.dinner;
-import duke.tasks.lunch;
-import duke.tasks.meal;
-import duke.tasks.breakfast;
+import duke.tasks.Dinner;
+import duke.tasks.Lunch;
+import duke.tasks.Meal;
+import duke.tasks.Breakfast;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
@@ -27,8 +27,8 @@ public class Storage {
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public ArrayList<meal> load() throws DukeException {
-        ArrayList<meal> meals = new ArrayList<>();
+    public ArrayList<Meal> load() throws DukeException {
+        ArrayList<Meal> meals = new ArrayList<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                             + sep + "Data" + sep + "duke.txt");
@@ -56,7 +56,7 @@ public class Storage {
      * @param line the line input from the input file
      * @param meals the task arraylist that will store the tasks from the input file
      */
-    private static void loadFile(String line, ArrayList<meal> meals) {
+    private static void loadFile(String line, ArrayList<Meal> meals) {
         String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -64,9 +64,9 @@ public class Storage {
         if (taskType.equals("B")) {
             loadBreakfast(meals, description, isDone, splitLine[3]);
         } else if (taskType.equals("L")) {
-            loadBreakfast(meals, description, isDone, splitLine[3]);
+            loadLunch(meals, description, isDone, splitLine[3]);
         } else if (taskType.equals("D")) {
-            loadBreakfast(meals, description, isDone, splitLine[3]);
+            loadDinner(meals, description, isDone, splitLine[3]);
         }
 
     }
@@ -78,9 +78,9 @@ public class Storage {
      * @param isDone whether the meal is completed
      */
     //TODO: make such that the loadFile only need to call one function only
-    private static void loadBreakfast(ArrayList<meal> meals, String description, boolean isDone, String data) {
+    private static void loadBreakfast(ArrayList<Meal> meals, String description, boolean isDone, String data) {
         String[] nutritionalValue = data.split("\\|");
-        breakfast newBreakfast = new breakfast(description, nutritionalValue);
+        Breakfast newBreakfast = new Breakfast(description, nutritionalValue);
         if (isDone) {
             newBreakfast.markAsDone();
         }
@@ -93,9 +93,9 @@ public class Storage {
      * @param data the deadline of the deadline task
      * @param isDone whether the deadline task is done
      */
-    private static void loadLunch(ArrayList<meal> meals, String description, boolean isDone, String data) {
+    private static void loadLunch(ArrayList<Meal> meals, String description, boolean isDone, String data) {
         String[] nutritionalValue = data.split("\\|");
-        lunch newLunch = new lunch(description, nutritionalValue);
+        Lunch newLunch = new Lunch(description, nutritionalValue);
         if (isDone) {
             newLunch.markAsDone();
         }
@@ -109,9 +109,9 @@ public class Storage {
      * @param data the duration of the event
      * @param isDone
      */
-    private static void loadDinner(ArrayList<meal> meals, String description, boolean isDone, String data) {
+    private static void loadDinner(ArrayList<Meal> meals, String description, boolean isDone, String data) {
         String[] nutritionalValue = data.split("\\|");
-        dinner newDinner = new dinner(description, nutritionalValue);
+        Dinner newDinner = new Dinner(description, nutritionalValue);
         if (isDone) {
             newDinner.markAsDone();
         }
@@ -123,7 +123,7 @@ public class Storage {
      * @param meals the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(ArrayList<meal> meals) {
+    public void updateFile(ArrayList<Meal> meals) {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class Storage {
         }
         try {
             for (int i = 0; i < meals.size(); i++) {
-                meal currentMeal = meals.get(i);
+                Meal currentMeal = meals.get(i);
                 String currentLine = currentMeal.toString();
                 if (i > 0) {
                     bufferedWriter.newLine();
