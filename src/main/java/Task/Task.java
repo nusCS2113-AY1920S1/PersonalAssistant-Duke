@@ -1,19 +1,23 @@
 package Task;
 
-public class Task {
-    protected String condition; //may change to enum in the future
-    protected String task; //may change to enum in the future
+import Actions.Action;
+import Places.Farm;
+import UserInterfaces.Ui;
 
-    public Task(String condition, String task) {
+public class Task {
+    protected Condition condition;
+    protected Action action;
+
+    public Task(Condition condition, Action action) {
         this.condition = condition;
-        this.task = task;
+        this.action = action;
     }
 
     boolean checkCondition() {
         return false;
     }
 
-    public void execute() {
-
+    public int execute() {
+        return action.execute();
     }
 }

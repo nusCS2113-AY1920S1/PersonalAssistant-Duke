@@ -31,7 +31,7 @@ public class Farmer {
 
     public void startDay() {
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).execute();
+            money += tasks.get(i).execute();
         }
     }
 }

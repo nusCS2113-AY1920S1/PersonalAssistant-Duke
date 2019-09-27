@@ -13,19 +13,22 @@ public class Farmio {
 
     private Farmio() {
         this.ui = new Ui();
-        this.parser = new Parser();
         this.storage = new Storage();
     }
 
     private void run() {
         displayWelcome();
         displayMenu();
+        this.parser = new Parser(ui, farmer.tasks, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
         boolean isExit = false;
         while(!isExit) {
             //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
             loadLevel(farmer);
             //create the new task, and add to the tasklist or do whatever
             isExit = getUserActions(farmer, ui, parser);
+            if (isExit) {
+                break;
+            }
             farmer.startDay();
             //TODO: Maybe another method?
             try {
@@ -45,16 +48,16 @@ public class Farmio {
     public boolean getUserActions(Farmer farmer, Ui ui, Parser parser) {
         boolean isStart = false;
         boolean isExit = false;
-        while (!isStart) {
+        while (!isStart && !isExit) {
             String fullCommand = ui.getInput();
             try {
                 Command c = parser.parse(fullCommand);
                 c.execute();
+                isStart =  c.getIsStart();
+                isExit = c.getIsExit();
             } catch (FarmioException e) {
-                //handle
+                e.getMessage();
             }
-            isStart = true;//c.getIsStart();
-            isExit = true;//c.getIsExit();
         }
         return isExit;
     }
