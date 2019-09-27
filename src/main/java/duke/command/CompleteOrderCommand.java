@@ -10,36 +10,29 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class DeleteOrderCommand extends UndoableCommand {
-
-    private Order order;
-    private int index;
+public class CompleteOrderCommand extends UndoableCommand {
+    private Order.Status status;
     private Map<String, List<String>> params;
 
-    public DeleteOrderCommand(Map<String, List<String>> params) throws DukeException {
+    public CompleteOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
     }
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        bakingList.getOrderList().add(index, order);
-        storage.serialize(bakingList);
-        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+
     }
 
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        execute(bakingList, storage, ui);
+
     }
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        this.order = CommandParser.getOrderByIndexOrId(bakingList.getOrderList(), params);
-        this.index = CommandParser.getOrderIndex(bakingList.getOrderList(), params);
-        bakingList.getOrderList().remove(order);
+        Order order = CommandParser.getOrderByIndexOrId(bakingList.getOrderList(), params);
+        order.setStatus(Order.Status.COMPLETED);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
-
-
 }
