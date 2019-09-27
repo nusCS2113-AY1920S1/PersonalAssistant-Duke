@@ -1,9 +1,12 @@
 package javacake.commands;
 
 import javacake.DukeException;
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
+
+import java.io.PrintWriter;
 
 public abstract class Command {
     protected CmdType type;
@@ -18,7 +21,7 @@ public abstract class Command {
 
     }
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException;
 
     /**
      * Method to get the type of command.

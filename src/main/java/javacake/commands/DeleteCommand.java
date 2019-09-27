@@ -1,6 +1,7 @@
 package javacake.commands;
 
 import javacake.DukeException;
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
@@ -19,7 +20,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException Shows error when deletion is not possible
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(7);
         try {
             int num = Integer.parseInt(input);

@@ -3,6 +3,7 @@ package javacake.commands;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import javacake.DukeException;
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
@@ -32,7 +33,7 @@ public class TentativeCommand extends Command {
      * @param storage d
      * @throws DukeException e
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (isAdd && TentativeEvent.dates.isEmpty()) {
             executeAdd(ui);
         } else if (isAdd) {

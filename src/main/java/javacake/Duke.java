@@ -39,10 +39,13 @@ public class Duke {
      */
     private void run() {
         userName = ui.showWelcome(isFirstTimeUser, userName, userProgress);
-        try {
-            profile.overwriteName(userName);
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
+        //TO OVERWRITE "NEW_USER_!@# with new inputted username if needed
+        if (isFirstTimeUser) {
+            try {
+                profile.overwriteName(userName);
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
         }
         boolean isExit = false;
         while (!isExit) {
@@ -50,7 +53,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, ui, storage, profile);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
