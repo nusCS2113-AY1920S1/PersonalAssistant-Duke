@@ -28,38 +28,7 @@ public class Recurring extends Task {
         this.day = day;
         this.time = time;
         this.type = 'R';
-        Date todayDate = new Date(System.currentTimeMillis());
-        new SimpleDateFormat("EEEEE, ");
-        boolean validDay = false;
-        for (int i = 0; i < 7; i++) {
-            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)) {
-                if ((new SimpleDateFormat("HHmm").format(todayDate)).compareTo(time) < 0) {
-                    validDay = true;
-                    this.date = todayDate;
-                    String todayStringDate = getDateToSave();
-                    todayStringDate = todayStringDate.substring(0, todayStringDate.length() - 4);
-                    todayStringDate += time;
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date dateValue = formatter.parse(todayStringDate);
-                    this.date = dateValue;
-                }
-                else {
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(todayDate);
-                    cal.add(Calendar.DATE, 1);
-                    todayDate = cal.getTime();
-                }
-            }
-            else {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(todayDate);
-                cal.add(Calendar.DATE, 1);
-                todayDate = cal.getTime();
-            }
-        }
-        if (!(validDay)) {
-            throw new DukeException("Please enter a valid day / time.");
-        }
+        findNextAvailableDate();
     }
 
     /**
@@ -75,27 +44,22 @@ public class Recurring extends Task {
         this.day = day;
         this.time = time;
         this.type = 'R';
+        findNextAvailableDate();
+    }
+
+    public void findNextAvailableDate() throws DukeException, ParseException {
         Date todayDate = new Date(System.currentTimeMillis());
-        new SimpleDateFormat("EEEEE, ");
         boolean validDay = false;
         for (int i = 0; i < 7; i++) {
-            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)) {
-                if ((new SimpleDateFormat("HHmm").format(todayDate)).compareTo(time) < 0) {
-                    validDay = true;
-                    this.date = todayDate;
-                    String todayStringDate = getDateToSave();
-                    todayStringDate = todayStringDate.substring(0, todayStringDate.length() - 4);
-                    todayStringDate += time;
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date dateValue = formatter.parse(todayStringDate);
-                    this.date = dateValue;
-                }
-                else {
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(todayDate);
-                    cal.add(Calendar.DATE, 1);
-                    todayDate = cal.getTime();
-                }
+            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day) && !(i == 0 && (new SimpleDateFormat("HHmm").format(todayDate)).compareTo(time) > 0)) {
+                validDay = true;
+                this.date = todayDate;
+                String todayStringDate = getDateToSave();
+                todayStringDate = todayStringDate.substring(0, todayStringDate.length() - 4);
+                todayStringDate += time;
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                Date dateValue = formatter.parse(todayStringDate);
+                this.date = dateValue;
             }
             else {
                 Calendar cal = Calendar.getInstance();
