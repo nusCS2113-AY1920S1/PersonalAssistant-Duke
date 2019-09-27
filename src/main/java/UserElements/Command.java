@@ -10,7 +10,7 @@ import Events.Storage.EventList;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -69,10 +69,10 @@ public class Command {
                 changesMade = false;
                 break;
 
-//            case "reminder":
-//                remindEvents(events, ui);
-//                changesMade = false;
-//                break;
+            case "reminder":
+                remindEvents(events, ui);
+                changesMade = false;
+                break;
 
             case "done":
                 markEventAsDone(events, ui);
@@ -108,10 +108,10 @@ public class Command {
                 changesMade = false;
                 break;
 
-//            case "check":
-//                checkFreeDays(events, ui);
-//                changesMade = false;
-//                break;
+            case "check":
+                checkFreeDays(events, ui);
+                changesMade = false;
+                break;
 
             default:
                 ui.printInvalidCommand();
@@ -142,22 +142,24 @@ public class Command {
     }
 
     public void checkFreeDays(EventList events, UI ui) {
-        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-        DateObj today = new DateObj(f.format(new Date()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar dayToCheckIfFree = Calendar.getInstance();
+        DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean flagFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(today.formatDate())) {
+                if (viewEvent.toString().contains(dayToCheckIfFreeObject.formatDate())) {
                     flagFree = false;
                     break;
                 }
             }
             if (flagFree) {
-                daysFree.add(today.formatDate());
+                daysFree.add(dayToCheckIfFreeObject.formatDate());
             }
-            today.addDaysAndSetMidnight(nextDays);
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
+            nextDays += 1;
         }
         ui.printFreeDays(daysFree);
     }
@@ -288,9 +290,9 @@ public class Command {
         }
     }
 
-//    public void remindEvents(EventList events, UI ui) {
-//        ui.printReminder(events);
-//    }
+    public void remindEvents(EventList events, UI ui) {
+        ui.printReminder(events);
+    }
 
     public void listEvents(EventList events, UI ui) {
         ui.printListOfEvents(events);

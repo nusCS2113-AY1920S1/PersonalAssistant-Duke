@@ -43,16 +43,18 @@ public class DateObj {
     public String formatDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             dateFormat.setLenient(false);
             Date taskJavaDate = dateFormat.parse(splitDate);
+            String taskDateFormat = formatter.format(taskJavaDate);
             format = DATE_AND_TIME;
-            return taskJavaDate.toString();
+            return taskDateFormat;
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
                 Date taskJavaDateNoTime = dateFormat.parse(splitDate);
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
                 String taskDateFormatNoTime = formatter.format(taskJavaDateNoTime);
                 format = DATE;
                 return taskDateFormatNoTime;
@@ -135,6 +137,8 @@ public class DateObj {
             c.set(Calendar.MINUTE, 59);
             c.set(Calendar.SECOND, 59);
             dateObject = c.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            splitDate = formatter.format(dateObject);
     	}
     }
   }

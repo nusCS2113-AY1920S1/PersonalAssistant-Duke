@@ -6,6 +6,7 @@ import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubClasses.ToDo;
 import Events.Formatting.DateObj;
+import Events.Formatting.Predicate;
 import UserElements.Parser;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class EventList {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
 
-            if(eventType == TODO) { //for special todo type event (single date string)
+            if (eventType == TODO) { //for special todo type event (single date string)
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String date = splitString[2];
@@ -115,9 +116,12 @@ public class EventList {
         calendarEndDate.setTime(eventEndDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
             if (event.getStartDate().getFormat() == 1) {
-                this.eventArrayList.add(new Lesson(event.getDescription(), calendarStartDate.getTime().toString(), calendarEndDate.getTime().toString()));
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+                String taskStartDateFormat = formatter.format(calendarStartDate.getTime());
+                String taskEndDateFormat = formatter.format(calendarEndDate.getTime());
+                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormat, taskEndDateFormat));
             } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE MM dd yyyy", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
                 String taskStartDateFormatNoTime = formatter.format(calendarStartDate.getTime());
                 String taskEndDateFormatNoTime = formatter.format(calendarEndDate.getTime());
                 this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
@@ -202,28 +206,28 @@ public class EventList {
      * Gets a filtered list of events based on a predicate.
      * @return String containing the filtered list of events, separated by a newline.
      */
-//    public String filteredList(Predicate<Object> predicate, int filterCode) {
-//        String filteredEvents = "";
-//        int j = 1;
-//        for (int i = 0; i < eventArrayList.size(); ++i) {
-//            if (eventArrayList.get(i) == null) {
-//            	continue;
-//            } else if (filterCode == DATE) {
-//                if (eventArrayList.get(i) instanceof Event || eventArrayList.get(i) instanceof Deadline) {
-//                	if (!predicate.check(eventArrayList.get(i).getStartDateObj())) {
-//                		continue;
-//                	}
-//                } else {
-//                	continue;
-//                }
-//            } else if (filterCode == TYPE) {
-//                if (!predicate.check(eventArrayList.get(i).getType())) {
-//                	continue;
-//                }
-//            }
-//            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
-//            j++;
-//        }
-//        return filteredEvents;
-//    }
+    public String filteredList(Predicate<Object> predicate, int filterCode) {
+        String filteredEvents = "";
+        int j = 1;
+        for (int i = 0; i < eventArrayList.size(); ++i) {
+            if (eventArrayList.get(i) == null) {
+            	continue;
+            } else if (filterCode == DATE) {
+                if (eventArrayList.get(i) != null) {
+                	if (!predicate.check(eventArrayList.get(i).getStartDate())) {
+                		continue;
+                	}
+                } else {
+                	continue;
+                }
+            } else if (filterCode == TYPE) {
+                if (!predicate.check(eventArrayList.get(i).getType())) {
+                	continue;
+                }
+            }
+            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
+            j++;
+        }
+        return filteredEvents;
+    }
 }
