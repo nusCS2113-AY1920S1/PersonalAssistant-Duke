@@ -2,28 +2,28 @@ package optix.commands;
 
 import optix.Ui;
 import optix.constant.OptixResponse;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AddCommand extends Command {
-    private String name;
+    private String showName;
     private LocalDate date;
     private double cost;
 
-    public AddCommand(String name, String date, double cost) {
+    public AddCommand(String showName, String date, double cost) {
         // need to check if it is a valid date if not need to throw exception
-        this.name = name;
+        this.showName = showName;
         this.date = toLocalDate(date);
         this.cost = cost;
     }
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
-        Show show = new Show(name, cost);
+        Theatre theatre = new Theatre(showName, cost);
         LocalDate today = storage.getToday();
 
         if (date.compareTo(today) <= 0) {
@@ -33,8 +33,8 @@ public class AddCommand extends Command {
             ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
                     + "Please try again. \n");
         } else {
-            shows.put(date, show);
-            ui.setMessage(new OptixResponse().ADD + show.toString() + " at: " + this.date + "\n");
+            shows.put(date, theatre);
+            ui.setMessage(new OptixResponse().ADD + theatre.getShowName() + " at: " + this.date + "\n");
         }
 
     }

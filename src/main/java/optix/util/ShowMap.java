@@ -1,14 +1,14 @@
 package optix.util;
 
-import optix.core.Show;
+import optix.core.Theatre;
 
 import java.time.LocalDate;
 import java.util.TreeMap;
 
-public class ShowMap extends TreeMap<LocalDate, Show> {
+public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
-    public Show removeShow(Object key) {
-        Show show = this.get(key);
+    public Theatre removeShow(Object key) {
+        Theatre show = this.get(key);
         this.remove(key);
 
         return show;
