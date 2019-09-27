@@ -4,9 +4,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.util.Locale;
-
-import UI.Ui;
 
 public class Event extends Task {
     public LocalDate date;

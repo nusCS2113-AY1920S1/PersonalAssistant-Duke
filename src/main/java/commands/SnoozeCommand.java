@@ -76,14 +76,7 @@ public class SnoozeCommand extends Command {
             }
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                    sb.append(list.get(i).toString() + "\n");
-                } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                    sb.append(list.get(i).toString() + "\n");
-
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
+                sb.append(list.get(i).toString() + "\n");
                 }
                 storage.Storages(sb.toString());
             }

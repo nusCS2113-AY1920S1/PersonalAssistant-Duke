@@ -5,17 +5,12 @@ import Storage.Storage;
 import Exception.DukeException;
 import java.io.IOException;
 import Tasks.*;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.zip.DataFormatException;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException, NullPointerException {
         String description;
         try {
             if (ui.FullCommand.length() == 5) {
