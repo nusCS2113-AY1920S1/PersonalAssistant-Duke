@@ -11,7 +11,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving of emails from local storage.
+ */
 public class EmailStorage {
+
+    /**
+     * Get the pathname of the data/email.txt.
+     *
+     * @return  pathname of the email.txt file.
+     */
     private static String getSaveEmailDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
@@ -25,6 +34,11 @@ public class EmailStorage {
         return dir;
     }
 
+    /**
+     * Get the pathname of the data/emails/ folder, in which all the html files are saved.
+     *
+     * @return  pathname of the data/emails/ folder.
+     */
     private static String getFolderDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
@@ -38,6 +52,11 @@ public class EmailStorage {
         return dir;
     }
 
+    /**
+     * Get the list of html filenames currently saved in the data/emails folder.
+     *
+     * @return an array list of strings of html filenames.
+     */
     public static ArrayList<String> getHtmlList() {
         ArrayList<String> listOfHtml = new ArrayList<String>();
         File emailFolder = new File(getFolderDir());
@@ -50,13 +69,22 @@ public class EmailStorage {
         return listOfHtml;
     }
 
-    // To implement with code to fetch emails from online server to local storage.
-    // May need to sync the current email list with local storage after that using syncEmailListWithHtml().
+    /**
+     * To implement with code to fetch emails from online server to local storage.
+     * May need to sync the current email list with local storage after that by calling
+     * syncEmailListWithHtml().
+     */
     public static void syncWithServer() {
     }
 
-    // To save the information for the emailList including title and tags(not implemented yet) for each email
-    // before exiting the app.
+    //
+
+    /**
+     * To save the information for the emailList including title and tags(not implemented yet) for each
+     * email before exiting the app.
+     *
+     * @param emailList the emailList to be saved before exiting the app.
+     */
     public static void saveEmails(EmailList emailList) {
         FileOutputStream out;
         try {
@@ -75,9 +103,18 @@ public class EmailStorage {
         }
     }
 
-    // To sync the emailList with email html files saved in local storage.
-    // To prevent mismatch between emailList and existing emails in local storage.
-    // Can be executed after fetching html files from server, to keep emailList updated.
+
+
+    /**
+     * To sync the emailList with email html files saved in local storage.
+     * To prevent mismatch between emailList and existing emails in local storage.
+     * To be called for execution after fetching html files from server, to keep emailList updated.
+     * Creates a new emailList, which only adds email object from the input emailList that are present in
+     * the html lists, and html files that are not included in the input emailList.
+     *
+     * @param emailList is the current emailList from Duke to be synced with the html files in local storage.
+     * @return the synced emailList.
+     */
     public static EmailList syncEmailListWithHtml(EmailList emailList) {
         ArrayList<String> htmlList = getHtmlList();
         EmailList syncedEmailList = new EmailList();
@@ -107,7 +144,14 @@ public class EmailStorage {
         return syncedEmailList;
     }
 
-    // Get emailList according to html files present in local storage.
+    //
+
+    /**
+     * Get emailList according to html files present in local storage.
+     * This method is not being used, but may be useful someday so it is kept here.
+     *
+     * @return EmailList created by according to html files present in local storage.
+     */
     public static EmailList readEmailFromHtml() {
         EmailList emailList = new EmailList();
         File emailFolder = new File(getFolderDir());
@@ -121,8 +165,12 @@ public class EmailStorage {
         return emailList;
     }
 
-    // Get emailList according to previously saved information about emails from local storage at the start
-    // of the app.
+    /**
+     * Get emailList according to previously saved information about emails from the data/email.txt at the
+     * start of the app.
+     *
+     * @return EmailList created from data/email.txt.
+     */
     public static EmailList readEmailFromFile() {
         EmailList emailList = new EmailList();
         try {
@@ -154,8 +202,12 @@ public class EmailStorage {
         return emailList;
     }
 
-    // Executed at the start of the app, first to retrieve previously saved information about emails from
-    // saved text file, then sync the emailList with html files in present in local storage.
+    /**
+     * Executed at the start of the app, first to retrieve previously saved information about emails from
+     * data/email.txt, then sync the emailList with html files in present in data/emails.
+     *
+     * @return EmailList created from data/emails.txt and synced with data/emails.
+     */
     public static EmailList readEmails() {
         EmailList emailList = readEmailFromFile();
         EmailList syncedEmailList = syncEmailListWithHtml(emailList);;
