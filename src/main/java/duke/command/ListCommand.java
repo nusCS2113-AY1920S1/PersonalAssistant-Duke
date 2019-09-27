@@ -20,6 +20,6 @@ public class ListCommand extends Command {
      * @param tasks The TaskList, containing all the created Tasks thus far.
      */
     public void execute(Ui ui, Storage storage, TaskList tasks) {
-        ui.printTaskArray("Here are the tasks in your list", tasks.generateList());
+        ui.printTaskArray("Here are the tasks in your list:", tasks.generateList());
     }
 }
