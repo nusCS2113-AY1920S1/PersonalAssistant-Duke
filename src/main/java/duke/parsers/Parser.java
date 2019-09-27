@@ -37,33 +37,32 @@ public class Parser {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
-        if (command.equals("bye")) {
-            return new ExitCommand();
-        } else if (command.equals("breakfast")) {
-            //todo: exception will arise if there is no info after the description of the meal
-            String SplitString[] = description.split(" ",2);
-            return new AddCommand(new breakfast(SplitString[0],SplitString[1]));
-        } else if (command.equals("lunch")) {
-            String SplitString[] = description.split(" ",2);
-            return new AddCommand(new lunch(SplitString[0],SplitString[1]));
-        } else if (command.equals("dinner")) {
-            String SplitString[] = description.split(" ",2);
-            return new AddCommand(new dinner(SplitString[0],SplitString[1]));
-        } else if (command.equals("list")) {
-            return new ListCommand();
-        } else if (command.equals("done")) {
-            int index = Integer.parseInt(description);
-            return (new MarkDoneCommand(index));
-        } else if (command.equals("find")) {
-            return new FindCommand(description);
-        } else if (command.equals("delete")) {
-            int index = Integer.parseInt(description);
-            return new DeleteCommand(index);
-        } else {
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+        String[] splitString;
+        int index;
+        switch (command) {
+            case "bye":
+                return new ExitCommand();
+            case "breakfast":
+                splitString = description.split(" ", 2);
+                return new AddCommand(new breakfast(splitString[0], splitString[1]));
+            case "lunch":
+                splitString = description.split(" ", 2);
+                return new AddCommand(new lunch(splitString[0], splitString[1]));
+            case "dinner":
+                splitString = description.split(" ", 2);
+                return new AddCommand(new dinner(splitString[0], splitString[1]));
+            case "list":
+                return new ListCommand();
+            case "done":
+                index = Integer.parseInt(description);
+                return (new MarkDoneCommand(index));
+            case "find":
+                return new FindCommand(description);
+            case "delete":
+                index = Integer.parseInt(description);
+                return new DeleteCommand(index);
+            default:
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
-
-
 }
