@@ -1,6 +1,8 @@
 package duke.storage;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +21,7 @@ public class Storage {
     private File file = null;
     private BufferedReader bufferedReader = null;
     private BufferedWriter bufferedWriter = null;
-
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
@@ -141,7 +143,8 @@ public class Storage {
                 if (currentMeal.getIsDone()) {
                     status = "1";
                 }
-                String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription();
+                String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
+                        + "|date|" + dateFormat.format(currentMeal.getDate().getTime());
                 HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
                 if (nutritionData.size() != 0) {
                     toWrite += "|";

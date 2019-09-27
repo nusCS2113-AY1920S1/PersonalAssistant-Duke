@@ -1,6 +1,8 @@
 package duke.tasks;
 
 
+import java.util.Date;
+
 /**
  * lunch is a public class that inherits form abstract class meal.
  * A lunch object encapsulates the String that expresses the duration of the lunch
@@ -12,19 +14,8 @@ public class Lunch extends Meal {
      * @param description the description of the lunch object
      */
     public Lunch(String description, String details) {
-        super(description);
+        super(description, details);
         super.type = "L";
-        if (details.trim().length() != 0) {
-            String[] chunk = details.split("/");
-            for (String data : chunk) {
-                if (data.trim().length() != 0) {
-                    String[] partitionedData = data.split(" ", 2);
-                    String nutrient = partitionedData[0];
-                    int value = Integer.valueOf(partitionedData[1].trim());
-                    nutritionValue.put(nutrient, value);
-                }
-            }
-        }
     }
 
     /**
@@ -32,11 +23,8 @@ public class Lunch extends Meal {
      * @param description the description of the lunch object
      */
     public Lunch(String description, String[] details) {
-        super(description);
+        super(description, details);
         super.type = "L";
-        for (int i = 0; i < details.length; i += 2) {
-            nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
-        }
     }
 
     /**

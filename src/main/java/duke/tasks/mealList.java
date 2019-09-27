@@ -1,12 +1,15 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * TaskList is a public class that represents the list of tasks under duke.
  * A TaskList object encapsulates the ArrayList of tasks.
  */
 public class mealList {
+    private HashMap<Calendar, ArrayList<Meal>> mealTracker = new HashMap<Calendar, ArrayList<Meal>>();
     private ArrayList<Meal> meals;
 
     /**

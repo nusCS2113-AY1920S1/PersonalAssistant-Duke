@@ -4,12 +4,15 @@ import duke.exceptions.DukeException;
 import duke.tasks.Dinner;
 import duke.tasks.Breakfast;
 import duke.tasks.Lunch;
+import java.util.Calendar;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user.
  * And generate the appropriate command with their appropriate arguments
  */
 public class Parser {
+    private static Calendar currentDate = Calendar.getInstance();
+
     /**
      * This is the main function that parse the command inputted by the user.
      * @param fullCommand the string the user input in the CLI

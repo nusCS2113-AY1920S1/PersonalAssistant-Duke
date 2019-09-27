@@ -1,3 +1,2 @@
-B|0|borgar|sodium|100|calcium|100|calories|100
-B|0|borgar|sodium|100|calcium|100|calories|100
-L|0|borgar|sodium|200|calcium|200
+B|0|borgar|date|27/09/2019|sodium|100|calcium|100|calories|100
+B|0|borgar|date|29/10/2020|sodium|100|calcium|100|calories|100
