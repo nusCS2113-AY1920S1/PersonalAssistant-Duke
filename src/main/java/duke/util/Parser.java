@@ -8,12 +8,14 @@ import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.RescheduleCommand;
+import duke.command.ScheduleCommand;
 import duke.exceptions.DukeCommandException;
 import duke.exceptions.DukeEmptyCommandException;
 import duke.exceptions.DukeInvalidTimeException;
 import duke.exceptions.DukeInvalidTimePeriodException;
 import duke.exceptions.DukeMissingArgumentException;
 import duke.exceptions.DukeMultipleValuesForSameArgumentException;
+import duke.exceptions.DukeScheduleException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
@@ -198,7 +200,7 @@ public class Parser {
         input = input.trim();
         if (input.startsWith("todo ")) {
             String[] temp = input.split("todo ");
-            String [] split = testRegex(temp[temp.length - 1]);
+            String[] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();
             }
@@ -206,7 +208,7 @@ public class Parser {
             return new AddCommand(hold);
         } else if (input.startsWith("event ")) {
             String[] temp = input.split("event");
-            String [] split = testRegex(temp[temp.length - 1]);
+            String[] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();
             }
@@ -216,7 +218,7 @@ public class Parser {
             return new AddCommand(hold);
         } else if (input.startsWith("deadline ")) {
             String[] temp = input.split("deadline");
-            String [] split = testRegex(temp[temp.length - 1]);
+            String[] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();
             }
@@ -226,7 +228,7 @@ public class Parser {
             return new AddCommand(hold);
         } else if (input.startsWith("recurring ")) {
             String[] temp = input.split("recurring ");
-            String [] split = testRegex(temp[temp.length - 1]);
+            String[] split = testRegex(temp[temp.length - 1]);
             if (!temp[0].equals("")) {
                 throw new DukeCommandException();
             }
@@ -261,6 +263,8 @@ public class Parser {
             return parseFind(input);
         } else if (input.startsWith("reschedule ")) {
             return checkValidRescheduleIndex(input);
+        } else if (input.startsWith("schedule ")) {
+            return new ScheduleCommand(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new DukeCommandException();
