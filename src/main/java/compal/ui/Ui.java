@@ -3,6 +3,8 @@ package compal.ui;
 import compal.compal.Compal;
 import compal.tasks.Task;
 
+import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
+
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+
 
 /**
  * Represents user.
@@ -179,7 +182,7 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n");
-            compal.parser.processCmd("reminder");
+            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
     }
 
