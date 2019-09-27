@@ -23,6 +23,7 @@ public class ViewScheduleCommand extends Command {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             dateToView = sdf.parse(date);
+            dateToView.setTime(0);
         } catch (ParseException e) {
             throw new DukeException("Please enter date time format correctly: dd/mm/yyyy");
         }
@@ -31,7 +32,8 @@ public class ViewScheduleCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         for (Task i : tasks) {
-            if (i.getClass() == Event.class || i.getClass() == Deadline.class) {
+            if ((i.getClass() == Event.class || i.getClass() == Deadline.class)
+                && i.getDateTime().getTime() - dateToView.getTime() > 0) {
                 scheduleList.add(i);
             }
         }
