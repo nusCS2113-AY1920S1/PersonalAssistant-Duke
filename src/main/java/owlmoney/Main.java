@@ -1,12 +1,7 @@
 package owlmoney;
 
-import java.io.FileNotFoundException;
-
-import owlmoney.logic.command.Command;
-import owlmoney.logic.exception.DukeException;
-import owlmoney.logic.parser.Parser;
-import owlmoney.storage.Storage;
-import owlmoney.model.task.TaskList;
+import owlmoney.logic.parser.ParseCommand;
+import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.ui.Ui;
 
 /**
@@ -16,23 +11,22 @@ import owlmoney.ui.Ui;
 class Main {
 
     private Ui ui;
-    private Parser parser;
-    private TaskList tasks;
-    private Storage storage;
+    private ParseCommand parser;
+    //private Storage storage;
 
     /**
      * Initializes a new Duke session.
      */
     private Main() {
         ui = new Ui();
-        parser = new Parser();
-        storage = new Storage("data/tasks.txt");
+        parser = new ParseCommand();
+        /*storage = new Storage("data/data.txt");
         try {
             tasks = new TaskList(storage.readFile());
         } catch (FileNotFoundException e) {
             ui.printError("Could not read tasks from disk, will start with empty file");
             tasks = new TaskList();
-        }
+        }*/
     }
 
     /**
@@ -41,12 +35,10 @@ class Main {
     private void run() {
         boolean hasExited = false;
         ui.greet();
-        while (!hasExited && parser.hasNextLine()) {
+        while (parser.hasNextLine()) {
             try {
-                Command command = parser.parseLine();
-                command.execute(tasks, ui, storage);
-                hasExited = command.isExit();
-            } catch (DukeException exceptionMessage) {
+                parser.parseLine();
+            } catch (ParserException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

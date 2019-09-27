@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::shamussy.png[width="150", align="left"]
 {empty}[https://github.com/shamussy[github]] [<<shamussy#, portfolio>>]
 
-Role: Team Lead + Git Expert + AsciiDoc Expert
+Role: Team Lead + Git Expert + AsciiDoc Expert +
 Responsibilities: Model + Logic
 
 '''
