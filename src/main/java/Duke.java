@@ -7,17 +7,15 @@ import Exception.DukeException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 public class Duke {
     /**
-     * Returns void main function for duke.
+     * Returns main function for duke.
      *
-     * @param args
-     * @return Void.
+     * @param args a String array that takes in input from the command line
      * @throws DukeException | ParseException | IOException | NullPointerException
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ArrayList<Task> list;
         Storage store = new Storage();
         boolean isExit = false;
@@ -25,8 +23,7 @@ public class Duke {
         ui.showWelcome();
 
         try {
-            list = store.Readfile();
-            System.out.println("ENTERED");
+            list = store.ReadFile();
             ui.UpcomingTask(list);
             while(!isExit) {
                 ui.ReadCommand();
