@@ -17,16 +17,16 @@ import java.util.Date;
 /**
  * Executes user command "reminder".
  */
-public class ReminderCommand extends Command implements CommandParser {
+public class ViewReminderCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
     /**
-     * Constructs ReminderCommand object.
+     * Constructs ViewReminderCommand object.
      *
      * @param d Compal.
      */
-    public ReminderCommand(Compal d) {
+    public ViewReminderCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }

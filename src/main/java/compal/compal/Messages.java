@@ -35,4 +35,6 @@ public class Messages {
     public static final String MESSAGE_MISSING_MIN_ARG = "ArgumentError: Missing /min";
     public static final String MESSAGE_MISSING_PRIORITY_ARG = "ArgumentError: Missing /priority";
     public static final String MESSAGE_MISSING_COMMAND_ARG = "ArgumentError: Missing argument detected!";
+
+    public static final String MESSAGE_INIT_REMINDER = "view-reminder";
 }
