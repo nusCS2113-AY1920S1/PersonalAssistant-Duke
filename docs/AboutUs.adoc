@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Aik Peng
-image::omupenguin.jpg[width="150", align="left"]
+image::omupenguin.png[width="150", align="left"]
 {empty}[https://github.com/omupenguin[github]]
 
 Role: Team Lead +
