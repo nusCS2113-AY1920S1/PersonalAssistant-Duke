@@ -4,15 +4,15 @@ import duke.parser.Parser;
 import java.util.Date;
 
 /**
- * Represents a specific {@link Task} todo, not necessarily indicating a deadline or a specific date
+ * Represents a specific {@link Task} todo, not necessarily indicating a deadline or a specific date.
  */
 public class Todo extends Task {
 
     private Date date;
-	
-	/**
-	 * The constructor method for Todo
-	 */
+
+    /**
+     * The constructor method for Todo.
+     */
     public Todo(String description) {
         super(description);
         date = null;
@@ -35,10 +35,10 @@ public class Todo extends Task {
 
     @Override
     public String printInFile() {
-		if(this.isDone()){
-			return "T|1|" + this.getDescription();
-		}else{
-			return "T|0|" + this.getDescription();
-		}
+        if (this.isDone()) {
+            return "T|1|" + this.getDescription();
+        } else {
+            return "T|0|" + this.getDescription();
+        }
     }
 }

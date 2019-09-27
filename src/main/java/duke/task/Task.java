@@ -4,15 +4,16 @@ import duke.Duke;
 import java.util.Date;
 
 /**
- * Represents a general Task to be added by {@link Duke}
+ * Represents a general Task to be added by {@link Duke}.
  */
 public abstract class Task {
-	
+
     private String description;
     private boolean isDone;
 
     /**
-     * The constructor method for Task
+     * The constructor method for Task.
+     *
      * @param description of the task
      */
     public Task(String description) {
@@ -21,19 +22,23 @@ public abstract class Task {
     }
 
     public abstract void setNewDate(String date);
+
     public abstract Date getCurrentDate();
+
     public abstract String printInFile();
 
     /**
-     * Returns a String representation of the status icon, tick or cross, indicating whether the {@link Task} was done
-     * @return a String representation of a tick or a cross, representing a done, respectively not yet finished {@link Task}
+     * Returns a String representation of the status icon, indicating whether the {@link Task} was done.
+     *
+     * @return a tick or a cross
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
     /**
-     * Returns the String description of the {@link Task}
+     * Returns the String description of the {@link Task}.
+     *
      * @return String description of the Task
      */
     public String getDescription() {
@@ -41,7 +46,7 @@ public abstract class Task {
     }
 
     /**
-     * Used to mark the {@link Task} as finished
+     * Used to mark the {@link Task} as finished.
      */
     public void markAsDone() {
         isDone = true;
@@ -52,7 +57,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a boolean indicating whether the {@link Task} was completed
+     * Returns a boolean indicating whether the {@link Task} was completed.
+     *
      * @return boolean true if the task was marked as done, false otherwise
      */
     public boolean isDone() {
