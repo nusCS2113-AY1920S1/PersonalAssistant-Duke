@@ -124,6 +124,7 @@ public class Parser {
                 return new AddCommand(taskObj);
             }
         } else if (arr.length > 0 && (arr[0].equals("doafter") || arr[0].equals("da"))) {
+            //doafter <task> /after <pre-requisite task>
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
             for (int i = 1; i < arr.length; i++) {
