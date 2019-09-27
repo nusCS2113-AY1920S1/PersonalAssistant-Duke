@@ -255,7 +255,7 @@ public class Parser {
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
-        } else if (sentence.equals("bye")) {
+        } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");
