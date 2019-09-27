@@ -45,6 +45,8 @@ public class MainWindow extends AnchorPane {
 
     private OrderPage orderPage;
     private RecipePage recipePage;
+    private InventoryPage inventoryPage;
+    private SalesPage salesPage;
 
     public void initialize() {
         Ui ui = new Ui(this);
@@ -67,7 +69,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowRecipe() {
-        System.out.println("!!!");
         showRecipePage();
     }
 
@@ -78,26 +79,26 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowInventory() {
-
+        showInventoryPage();
     }
 
     @FXML
     private void handleShowSales() {
-
+        showSalesPage();
     }
 
     void initializePages() {
         orderPage = new OrderPage();
-        AnchorPane.setLeftAnchor(orderPage, 0.0);
-        AnchorPane.setRightAnchor(orderPage, 0.0);
-        AnchorPane.setTopAnchor(orderPage, 0.0);
-        AnchorPane.setBottomAnchor(orderPage, 4.0);
+        setPageAnchor(orderPage);
 
         recipePage = new RecipePage();
-        AnchorPane.setLeftAnchor(recipePage, 0.0);
-        AnchorPane.setRightAnchor(recipePage, 0.0);
-        AnchorPane.setTopAnchor(recipePage, 0.0);
-        AnchorPane.setBottomAnchor(recipePage, 4.0);
+        setPageAnchor(recipePage);
+
+        inventoryPage = new InventoryPage();
+        setPageAnchor(inventoryPage);
+
+        salesPage = new SalesPage();
+        setPageAnchor(salesPage);
     }
 
     void showMessage(String message) {
@@ -148,7 +149,38 @@ public class MainWindow extends AnchorPane {
         currentPage.setText("Recipes");
     }
 
+    void showInventoryPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(inventoryPage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Inventory");
+    }
+
+    void showSalesPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(salesPage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        currentPage.setText("Sales");
+    }
+
     void disableInput() {
         userInput.setDisable(true);
+    }
+
+    private void setPageAnchor(AnchorPane page) {
+        AnchorPane.setLeftAnchor(page, 0.0);
+        AnchorPane.setRightAnchor(page, 0.0);
+        AnchorPane.setTopAnchor(page, 0.0);
+        AnchorPane.setBottomAnchor(page, 4.0);
     }
 }
