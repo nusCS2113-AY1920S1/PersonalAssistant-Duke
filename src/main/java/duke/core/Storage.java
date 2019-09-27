@@ -22,7 +22,7 @@ public class Storage {
      * readFromFile() to convert the text representation of tasks into an actual array of Tasks.
      * @param filename the file path where the text version of tasks are stored.
      */
-    public Storage(String filename) throws FileNotFoundException, ParseException {
+    public Storage(String filename) throws DukeException, FileNotFoundException, ParseException {
         file = new File(filename);
         readFromFile();
     }
@@ -33,14 +33,20 @@ public class Storage {
      * @throws FileNotFoundException if file path does not exist
      * @throws ParseException if any saved data is un-parsable
      */
-    public void readFromFile() throws FileNotFoundException, ParseException {
+    public void readFromFile() throws DukeException, FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(file);
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split("`");
             boolean isDone = (Integer.parseInt(line[2]) == 1);
             if (line[0].equals("T")) {
-                Todo newTodo = new Todo(line[1], isDone);
-                items.add(newTodo);
+                if (line.length == 4){
+                    Todo newTodo = new Todo(line[1], line[3], isDone);
+                    items.add(newTodo);
+                }
+                else {
+                    Todo newTodo = new Todo(line[1], isDone);
+                    items.add(newTodo);
+                }
             }
             else if (line[0].equals("D")) {
                 Deadline newDeadline = new Deadline(line[1], line[3], isDone);
@@ -50,6 +56,10 @@ public class Storage {
                 Event newEvent = new Event(line[1], line[3], isDone);
                 items.add(newEvent);
             }
+            else if (line[0].equals("R")) {
+                Recurring newRecurring = new Recurring(line[1], line[3], line[4], isDone);
+                items.add(newRecurring);
+            }
         }
     }
 
@@ -57,7 +67,7 @@ public class Storage {
      * Takes in the array of Tasks thus far, converts it to text format and saves it
      * in the provided file path.
      * @param tasks the tasks created thus far.
-     * @throws ParseException if any Task data is un-parsable
+     * @throws ParseException if any Task data is un-parseble
      * @throws IOException if there is an error in writing data to the file.
      */
     public void saveToFile(ArrayList<Task> tasks) throws ParseException, IOException {
@@ -69,6 +79,16 @@ public class Storage {
             if (thisTask.getType() == 'D' || thisTask.getType() == 'E') {
                 line += "`";
                 line += thisTask.getDateToSave();
+            }
+            if (!thisTask.getAfter().equals("")) {
+                line += "`";
+                line += thisTask.getAfter();
+            }
+            else if (thisTask.getType() == 'R') {
+                line += '`';
+                line += thisTask.getDayString();
+                line += '`';
+                line += thisTask.getTimeString();
             }
             fileWriter.write(line);
             fileWriter.newLine();

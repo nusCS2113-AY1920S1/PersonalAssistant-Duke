@@ -12,7 +12,6 @@ import java.text.*;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of Duke.
  */
-
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -26,11 +25,11 @@ public class Duke {
      * @throws FileNotFoundException if file path is invalid
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
-    public Duke(String filePath) throws FileNotFoundException, ParseException {
+    public Duke(String filePath) throws DukeException, FileNotFoundException, ParseException {
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.getItems());
-        parser = new Parser();
         ui = new Ui();
+        tasks = new TaskList(storage.getItems(), ui);
+        parser = new Parser();
     }
 
     /**

@@ -15,6 +15,7 @@ import java.text.*;
 public class TodoCommand extends Command {
     protected Todo newTodo;
 
+
     /**
      * Constructor for a TodoCommand. Creates a new Todo based on the input
      * provided by the user.
@@ -22,6 +23,10 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(String description) {
         newTodo = new Todo(description);
+
+    }
+    public TodoCommand(String description, String after){
+        newTodo = new Todo(description, after);
     }
 
     /**

@@ -4,10 +4,12 @@ import duke.command.*;
 import duke.core.*;
 import duke.exception.*;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents an instance of a Task. Contains a description, the type of Task (Event, Deadline or Todo)
@@ -20,6 +22,12 @@ public class Task {
     protected char type;
     protected Date date;
 
+    protected String stringDate;
+    protected String after;
+    protected String day;
+    protected String time;
+
+
     /**
      * Constructor for a new basic Task.
      * @param description the description of the Task
@@ -27,6 +35,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.after = "";
     }
 
     /**
@@ -37,8 +46,19 @@ public class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.after = "";
     }
 
+    public Task (String description, String after){
+        this.description = description;
+        this.after = after;
+    }
+
+    public Task (String description, String after, boolean isDone){
+        this.description = description;
+        this.isDone = isDone;
+        this.after = after;
+    }
     /**
      * Returns the description of the Task.
      * @return the description of the Task.
@@ -78,6 +98,18 @@ public class Task {
         return isDone;
     }
 
+
+    public String getDateAsString(){ return stringDate; }
+  
+    public String getDayString() {
+        return day;
+    }
+
+    public String getTimeString() {
+        return time;
+    }
+
+
     /**
      * Converts the saved Date of the Task to a String format, and returns it.
      * @return a String version of the saved Date.
@@ -105,11 +137,16 @@ public class Task {
      * Converts the stored Date of the Task to a readable String for output to the CLI.
      * @return a String version of the stored Date.
      */
-    @Override
-    public String toString() {
-        return "[" + getType() + "][" + getStatusIcon() + "] " + description;
-    }
 
+    @Override
+    public String toString(){
+        if (!this.after.equals("")){
+            return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription() + " (after "+ getAfter() + ")";
+        }
+        else{
+            return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription();
+        }
+    }
     /**
      * Converts the input String as typed by the user into a Date to be saved.
      * @param stringDate a String version of the date we want.
@@ -120,4 +157,29 @@ public class Task {
         Date dateValue = formatter.parse(stringDate);
         return dateValue;
     }
+
+    /**
+     * Checks if Task is due today.
+     * @return true if deadline is today's date.
+     */
+    public boolean isDueToday() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = format.format(Calendar.getInstance().getTime()); //Declaration of a new Date object has default value of today's date
+        return (format.format(date).equals(currentDate));
+    }
+
+    public int isDueInDays(int givenDaysToDue) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = Calendar.getInstance().getTime(); //Declaration of a new Date object has default value of today's date
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((date.getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0)){
+            return -1; //Not due yet or overdue
+        } else { //daysLeftToDue <= givenDaysToDue
+            return daysLeftToDue;
+        }
+    }
+    public String getAfter () {
+        return after;
+    }
+
 }

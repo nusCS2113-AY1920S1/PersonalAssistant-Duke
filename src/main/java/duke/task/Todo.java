@@ -16,7 +16,15 @@ public class Todo extends Task {
         super(description);
         this.type = 'T';
     }
+    public Todo(String description, String after) {
+        super(description,after);
+        this.type = 'T';
+    }
 
+    public Todo (String description, String after, Boolean isDone){
+        super(description,after, isDone);
+        this.type = 'T';
+    }
     /**
      * Constructor for an existing Todo from our saved tasks. Called to
      * create saved tasks.

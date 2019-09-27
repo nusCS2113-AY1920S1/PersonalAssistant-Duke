@@ -21,8 +21,14 @@ public class TaskList {
      * and saves it.
      * @param items the array of Tasks, as converted from text in the save-file by the Storage instance
      */
-    public TaskList(ArrayList<Task> items) {
+    public TaskList(ArrayList<Task> items, Ui ui) {
         this.items = items;
+        int daysDue = 4;
+        if ((searchItemsDue(daysDue).isEmpty())) {
+            ui.print("No tasks due today!");
+        } else {
+            ui.printTaskArray("REMINDER - The following deadlines below are due soon:", searchItemsDue(daysDue));
+        }
     }
 
     /**
@@ -104,6 +110,41 @@ public class TaskList {
     }
 
     /**
+     * Searches items, specifically deadlines, that are due today.
+     * @return an ArrayList of String-ified Tasks that are due today.
+     */
+    public ArrayList<String> searchItemsDue() {
+        ArrayList<String> results = new ArrayList<String>();
+        int index = 1;
+        for (Task thisTask : items) {
+            if ((thisTask instanceof Deadline) && (thisTask.isDueToday())) {
+                results.add((index) + ". " + thisTask.toString());
+                index++;
+            }
+        }
+        return results;
+    }
+
+    /**
+     * Searches items, specifically deadlines, that are due in a specified number of days.
+     * @param daysDue Maximum number of days left for a Task to be valid for reminder.
+     * @return an ArrayList of String-ified Tasks that are due in specified number of days.
+     */
+    public ArrayList<String> searchItemsDue(int daysDue) {
+        ArrayList<String> results = new ArrayList<String>();
+        for (int j = 0; j < items.size(); j++) {
+            Task thisTask = items.get(j);
+            if (thisTask instanceof Deadline) {
+                int actualDaysLeft = thisTask.isDueInDays(daysDue);
+                if (actualDaysLeft != -1) {
+                    results.add((j) + ". " + thisTask.toString() + " -- " + actualDaysLeft + " days left");
+                }
+            }
+        }
+        return results;
+    }
+
+    /**
      * Converts the TaskList to an array of String versions of the Tasks, to be printed.
      * @return an ArrayList of String-ified Tasks.
      */
@@ -115,4 +156,16 @@ public class TaskList {
         }
         return list;
     }
+
+    public ArrayList<String> generateListByDate(String dateEntered) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < items.size(); i++) {
+            Task thisTask = items.get(i);
+            if(thisTask.getDateAsString().contains(dateEntered)){
+                list.add((i+1) + ". " + thisTask.toString());
+            }
+        }
+        return list;
+    }
+
 }

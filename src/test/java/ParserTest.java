@@ -1,6 +1,11 @@
+import duke.core.Parser;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 
+
+
+import java.text.ParseException;
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -18,21 +23,22 @@ public class ParserTest {
     public ParserTest() {
         parser = new Parser();
     }
-
     /**
      * Tests the Parser by feeding it a String input to create a Deadline, and comparing it
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testDeadline() {
+    public void testDeadline() throws ParseException {
         try {
             testOutput.add("deadline");
             testOutput.add("cry");
             testOutput.add("23/01/2019 1800");
             assertEquals(testOutput, parser.parseInput("deadline cry /by 23/01/2019 1800"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
+        }
+        catch (ParseException e){
+            e.getErrorOffset();
         }
     }
 
@@ -41,15 +47,17 @@ public class ParserTest {
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testEvent() {
+    public void testEvent() throws ParseException{
         try {
             testOutput.add("event");
             testOutput.add("cry");
             testOutput.add("23/01/2019 1800");
             assertEquals(testOutput, parser.parseInput("event cry /at 23/01/2019 1800"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
+        }
+        catch (ParseException e){
+           e.getErrorOffset();
         }
     }
 
@@ -58,14 +66,16 @@ public class ParserTest {
      * against the ArrayList of String commands that we should obtain.
      */
     @Test
-    public void testTodo() {
+    public void testTodo() throws ParseException{
         try {
             testOutput.add("todo");
             testOutput.add("cry");
             assertEquals(testOutput, parser.parseInput("todo cry"));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.showError();
+        }
+        catch (ParseException e) {
+            e.getErrorOffset();
         }
     }
 }
