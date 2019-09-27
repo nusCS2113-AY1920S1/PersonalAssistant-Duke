@@ -1,15 +1,12 @@
 package duke.tasks;
 
-/**
- * Task is a public class that extends from Task
- */
-public class ToDo extends Task {
+public class ToDoPeriod extends Task {
 
     /**
      * This is the constructor of ToDo object
      * @param description the description of the todo object
      */
-    public ToDo(String description) {
+    public ToDoPeriod(String begin, String end) {
         super(description);
         super.type = "T";
     }
@@ -22,4 +19,4 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-}
+

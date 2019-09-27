@@ -14,8 +14,8 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
-    public Scanner in = new Scanner(System.in);
 
+    public Scanner in = new Scanner(System.in);
     public void showWelcome() {
         System.out.println("Hello from\n" + logo);
         System.out.println(boundary);
@@ -43,22 +43,6 @@ public class Ui {
         for (int i = 1; i <= tasks.size(); i++) {
             Task currentTask = tasks.get(i - 1);
             showPadding();
-            String[] toPrint = currentTask.toString().split("\n");
-            System.out.println(i + ". " + toPrint[0]);
-            for (int j = 1; j < toPrint.length; j += 1) {
-                showPadding();
-                showPadding();
-                System.out.println(i + "." + j + toPrint[j]);
-            }
-        }
-    }
-
-    public void showRemind(ArrayList<Task> tasks) {
-        showPadding();
-        System.out.println("Here are the upcoming tasks: ");
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
-            showPadding();
             System.out.println(i + ". " + currentTask);
         }
     }
@@ -75,26 +59,10 @@ public class Ui {
         System.out.println(padding + currentTask);
         System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
     }
-
     public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
         System.out.println(padding + "Noted. I've removed this task:");
         System.out.println(padding + currentTask);
         System.out.println(padding + "Now you have " + tasks.size()  + " tasks in the list.");
-    }
-
-    public void showSchedule(ArrayList<Task> tasks, String day) {
-        System.out.println(padding + "These are the tasks for " + day);
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
-            showPadding();
-            String[] toPrint = currentTask.toString().split("\n");
-            System.out.println(i + ". " + toPrint[0]);
-            for (int j = 1; j < toPrint.length; j += 1) {
-                showPadding();
-                showPadding();
-                System.out.println(i + "." + j + toPrint[j]);
-            }
-        }
     }
 
     public String readCommand(Scanner in) {
@@ -104,12 +72,6 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println(padding + message);
-    }
-
-    public void showDoAfter(ArrayList<Task> task) {
-        for (int i = 0; i < task.size(); i += 1) {
-            System.out.println(task.get(i));
-        }
     }
 
     public void showLoadingError() {

@@ -11,7 +11,7 @@ Hello from
     ____________________________________________________________
 
     ____________________________________________________________
-     Here are the tasks in your list: 
+     Here are the foods in your list:
      1. [T][?] read book
      2. [D][?] return book (by: June 6th)
      3. [T][?] finish assignment
@@ -24,28 +24,28 @@ Hello from
      10. [E][?] hackathon (at: Fri 8am-5pm)
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
+     Nice! I've marked this food as done:
        [D][?] return book (by: June 6th)
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this food:
        [T][?] finish assignment
-     Now you have 11 tasks in the list.
+     Now you have 11 foods in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this food:
        [D][?] do chores (by: Saturday)
-     Now you have 12 tasks in the list.
+     Now you have 12 foods in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this food:
        [E][?] hackathon (at: Fri 8am-5pm)
-     Now you have 13 tasks in the list.
+     Now you have 13 foods in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Noted. I've removed this task:
+     Noted. I've removed this food:
        [T][?] finish assignment
-     Now you have 11 tasks in the list.
+     Now you have 11 foods in the list.
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!
