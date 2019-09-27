@@ -8,11 +8,11 @@ https://www.codacy.com/manual/Jefferson111/main?utm_source=github.com&amp;utm_me
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/Ui.PNG[width="230" height="400"]
+image::docs/images/Ui.PNG[width="600" height="400"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.PNG[width="230" height="400"]
+image::images/Ui.PNG[width="600" height="400"]
 endif::[]
 
 * The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.
