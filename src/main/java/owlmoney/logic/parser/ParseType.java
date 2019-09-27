@@ -1,6 +1,8 @@
 package owlmoney.logic.parser;
 
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.saving.ParseAddSaving;
+import owlmoney.logic.parser.saving.ParseEditSaving;
 
 class ParseType extends Parser {
     void parseData(String command, String data) throws ParserException {
@@ -25,6 +27,16 @@ class ParseType extends Parser {
         case "/savings":
             System.out.println("You are at savings");
             System.out.println(rawData);
+            if ("/add".equals(command)) {
+                ParseAddSaving parseAddSaving = new ParseAddSaving(rawData);
+                parseAddSaving.fillHashTable();
+                parseAddSaving.checkParameter();
+            } else if ("/edit".equals(command)) {
+                ParseEditSaving parseEditSaving = new ParseEditSaving(rawData);
+                parseEditSaving.fillHashTable();
+                parseEditSaving.checkParameter();
+            }
+
             break;
         case "/investment":
             System.out.println("You are at investment");
@@ -33,6 +45,10 @@ class ParseType extends Parser {
         case "/expenditure":
             System.out.println("You are at expenditure");
             System.out.println(rawData);
+
+            String[] expenditureArguments = new String[] {"/amount", "/from", "/date", "/category", "/description"};
+            ParseRawData anythingFirst = new ParseRawData();
+            System.out.println(anythingFirst.extractParameter(rawData,"/amount", expenditureArguments));
             break;
         case "/card":
             System.out.println("You are at card");

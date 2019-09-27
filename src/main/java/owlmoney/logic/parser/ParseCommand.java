@@ -38,6 +38,7 @@ public class ParseCommand extends Parser {
             break;
         case "/edit":
             System.out.println("You edited");
+            parseType.parseData(command, data);
             break;
         case "/exit":
             System.exit(0);
