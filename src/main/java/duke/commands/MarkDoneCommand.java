@@ -3,6 +3,7 @@ import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class MarkDoneCommand extends Command{
      */
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
-        ArrayList<Meal> currentMeals = tasks.getMeals();
+        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         currentMeal.markAsDone();
         storage.updateFile(currentMeals);

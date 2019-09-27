@@ -15,7 +15,7 @@ public class Meal {
     protected String type = "";
     protected boolean isDone;
     protected SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
-    protected Calendar date = Calendar.getInstance();
+    protected String date = dateparser.format(Calendar.getInstance().getTime());
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
 
     /**
@@ -30,7 +30,7 @@ public class Meal {
             try {
                 Date day;
                 day = dateparser.parse(splitString[1]);
-                this.date.setTime(day);
+                this.date = dateparser.format(day);
             } catch (Exception e) {
                 //todo something here
             }
@@ -54,7 +54,7 @@ public class Meal {
         try {
             Date day;
             day = dateparser.parse(details[1]);
-            this.date.setTime(day);
+            this.date = dateparser.format(day);
         } catch (Exception e) {
             //todo do something
         }
@@ -107,7 +107,7 @@ public class Meal {
      * This is a getter for the date.
      * @return date of the meal
      */
-    public Calendar getDate() {
+    public String getDate() {
         return this.date;
     }
 

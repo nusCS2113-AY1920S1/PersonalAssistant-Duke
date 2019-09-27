@@ -3,6 +3,7 @@ import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = tasks.getMeals();
+        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {

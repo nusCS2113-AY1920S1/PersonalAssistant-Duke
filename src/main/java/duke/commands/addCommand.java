@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(mealList meals, Ui ui, Storage storage) {
-        ArrayList<Meal> currentMeals = meals.getMeals();
+        ArrayList<Meal> currentMeals = meals.getMeals(meal.getDate());
         currentMeals.add(meal);
         ui.showAdded(meal, currentMeals);
         storage.updateFile(currentMeals);

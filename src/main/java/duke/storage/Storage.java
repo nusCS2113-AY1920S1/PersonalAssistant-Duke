@@ -76,7 +76,7 @@ public class Storage {
         if (isDone) {
             newMeal.markAsDone();
         }
-        String mealDate = dateFormat.format(newMeal.getDate().getTime());
+        String mealDate = newMeal.getDate();
         if (!mealTracker.containsKey(mealDate)) {
             mealTracker.put(mealDate, new ArrayList<Meal>());
             mealTracker.get(mealDate).add(newMeal);
@@ -110,7 +110,7 @@ public class Storage {
                     status = "1";
                 }
                 String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
-                        + "|date|" + dateFormat.format(currentMeal.getDate().getTime());
+                        + "|date|" + currentMeal.getDate();
                 HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
                 if (nutritionData.size() != 0) {
                     toWrite += "|";

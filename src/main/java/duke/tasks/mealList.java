@@ -39,7 +39,11 @@ public class mealList {
         this.mealTracker.get(currentDate).remove(index - 1);
     }
 
-    public ArrayList<Meal> getMeals() {
-        return mealTracker.get(currentDate);
+    public ArrayList<Meal> getMeals(String inputDate) {
+        return mealTracker.get(inputDate);
+    }
+
+    public HashMap<String, ArrayList<Meal>> getMealTracker() {
+        return mealTracker;
     }
 }

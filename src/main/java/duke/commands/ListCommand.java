@@ -3,6 +3,7 @@ import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  * @author Ivan Andika Lie
  */
 public class ListCommand extends Command {
+
     /**
      * The object will execute the "list" command.
      * @param tasks the TaskList object in which the task(s) is supposed to be listed
@@ -18,7 +20,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(mealList tasks, Ui ui, Storage storage) {
-        ArrayList<Meal> currentMeals = tasks.getMeals();
+        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         ui.showList(currentMeals);
     }
 }
