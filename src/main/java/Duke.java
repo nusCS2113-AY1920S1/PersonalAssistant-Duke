@@ -8,10 +8,9 @@ import ui.Ui;
 import java.io.File;
 import java.util.ArrayList;
 
-
 /**
- * The main project class.
- * Initializes a simple task list manager 'Duke' which helps users curate and manage a task list.
+ * The main project class. Initializes a simple task list manager 'Duke' which
+ * helps users curate and manage a task list.
  *
  * @author Sai Ganesh Suresh
  * @version v3.0
@@ -25,20 +24,20 @@ public class Duke {
     private File file = new File(filePath);
     private boolean isExit = false;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Duke().run();
     }
 
     /**
-     * This constructor creates a new instance of vital classes and also loads tasks if any from persistent storage.
+     * This constructor creates a new instance of vital classes and also loads tasks
+     * if any from persistent storage.
      */
 
-    public Duke(){
+    public Duke() {
         try {
             storage = new Storage(file);
             tasks = new TaskList(storage.loadFile(file));
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             tasks = new TaskList(new ArrayList<>());
             Ui.printMessage(e.getMessage());
         }
@@ -48,7 +47,7 @@ public class Duke {
      * This method runs the main program.
      */
 
-    public void run(){
+    public void run() {
         Ui.printGreeting();
         Ui.printReminder(tasks);
 
@@ -58,10 +57,8 @@ public class Duke {
                 Command command = Parser.parse(userInput);
                 command.execute(tasks, storage);
                 isExit = command.isExit();
-            }
-            catch (DukeException e)
-            {
-              Ui.printMessage(e.getMessage());
+            } catch (DukeException e) {
+                Ui.printMessage(e.getMessage());
             }
         } while (!isExit);
     }

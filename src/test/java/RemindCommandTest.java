@@ -22,8 +22,8 @@ public class RemindCommandTest {
     Command reminder = new RemindCommand(0, 5);
 
     @Test
-    public void testReminder(){
-        Task testTask = new Deadline("test", LocalDateTime.of(2019,8,1,12,0));
+    public void testReminder() {
+        Task testTask = new Deadline("test", LocalDateTime.of(2019, 8, 1, 12, 0));
         list.add(testTask);
         TaskList tasks = new TaskList(list);
 
@@ -37,7 +37,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void whenExceptionThrown(){
+    public void whenExceptionThrown() {
         Assertions.assertThrows(DukeException.class, () -> {
             Parser.parse("remind");
         });

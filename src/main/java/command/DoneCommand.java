@@ -20,16 +20,17 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and save to persistent storage.
+     * This execute function is used to add the respective tasks to the TaskList and
+     * save to persistent storage.
      *
-     * @param tasks this string holds command type determinant to decide how to process the user input.
-     * @param ui this string holds the description of the task provided by the user.
-     * @param storage this parameter provides the execute function the storage to allow the saving of the file.
+     * @param tasks   this string holds command type determinant to decide how to
+     *                process the user input.
+     * @param storage this parameter provides the execute function the storage to
+     *                allow the saving of the file.
      */
-    @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
-            throw new DukeException(DukeException.TASK_DOES_NOT_EXIST());
+            throw new DukeException(DukeException.taskDoesNotExist());
         }
 
         Task task = tasks.markAsDone(indexOfTask);
@@ -39,4 +40,3 @@ public class DoneCommand extends Command {
         Ui.printMessage("  " + task.toString());
     }
 }
-

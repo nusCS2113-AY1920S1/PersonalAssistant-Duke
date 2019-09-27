@@ -1,4 +1,5 @@
 package task;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -6,13 +7,13 @@ import java.time.Period;
 import static parser.DateTimeExtractor.NULL_DATE;
 
 /**
- * This Task class is extended by the other tasks and serves as a template for all tasks.
+ * This Task class is extended by the other tasks and serves as a template for
+ * all tasks.
  *
- * @serial
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public abstract class Task implements Serializable{
+public abstract class Task implements Serializable {
 
     public String description; // basically similar to describing features of the class
     protected boolean isDone;
@@ -23,7 +24,8 @@ public abstract class Task implements Serializable{
     public int remindInHowManyDays = 0;
 
     /**
-     * This task constructor is used to obtain the parameters required by the task class.
+     * This task constructor is used to obtain the parameters required by the task
+     * class.
      *
      * @param description This string holds the description provided by the user.
      */
@@ -34,12 +36,14 @@ public abstract class Task implements Serializable{
     }
 
     /**
-     * This getStatusIcon function returns the tick or cross symbols to be printed as output
+     * This getStatusIcon function returns the tick or cross symbols to be printed
+     * as output.
      *
      * @return This function returns either a tick or a cross.
      */
     public String getStatusIcon() { // return tick or X symbols
-        return (isDone ? "\u2713" : "\u2718");
+        // return (isDone ? "\u2713" : "\u2718");
+        return (isDone ? "✓" : "✘");
     }
 
     /**
@@ -50,19 +54,25 @@ public abstract class Task implements Serializable{
     }
 
     /**
-     * This toString function of the task class etches the different portions of the user input into a
-     * single string.
+     * This toString function of the task class etches the different portions of the
+     * user input into a single string.
      *
-     * @return This function returns a string of the required task in the desired output format of string type.
+     * @return This function returns a string of the required task in the desired
+     *         output format of string type.
      */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public void setReminder(int days){
+    public void setReminder(int days) {
         this.remindInHowManyDays = days;
     }
 
+    /**
+     * check if any task reminders are triggered.
+     * 
+     * @return if triggered
+     */
     public boolean checkReminderTrigger() {
         if (!startDate.isEqual(NULL_DATE)) {
             LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
