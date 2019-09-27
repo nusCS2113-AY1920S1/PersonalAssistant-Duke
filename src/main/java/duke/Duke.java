@@ -3,9 +3,11 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+import java.io.IOException;
+
 /**
- * Represents a Personal Assistant bot. A <code>Duke</code> object corresponds to three other classes
- * , namely called <code>Storage</code>, <code>Ui</code> and <code>TaskList</code>.
+ * Represents a Personal Assistant bot. A Duke object corresponds to three other classes,
+ * namely called Storage, Ui and TaskList.
  */
 public class Duke {
 
@@ -15,8 +17,7 @@ public class Duke {
     private Reminder reminder;
 
     /**
-     * Constructor for <code>Duke</code> for instantiation of other classes <code>Ui</code>
-     * , <code>Storage</code> and <code>Tasklist</code>.
+     * Constructor for Duke for instantiation of other classes Ui, Storage and TaskList.
      */
     public Duke() {
         ui = new Ui();
@@ -24,8 +25,7 @@ public class Duke {
         reminder = new Reminder();
         try {
             arr = new TaskList(storage.readFromFile());
-        } catch (DukeException exception) {
-            ui.showLoadingError(exception);
+        } catch (IOException e) {
             arr = new TaskList();
         }
     }
@@ -52,6 +52,7 @@ public class Duke {
 
     /**
      * This is the main method which makes use of run method.
+     *
      * @param args Unused.
      */
     public static void main(String[] args) {

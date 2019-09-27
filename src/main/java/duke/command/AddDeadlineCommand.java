@@ -8,15 +8,16 @@ import duke.task.Deadline;
 import duke.task.Task;
 
 /**
- * Represents a <code>Command</code> that appends a new <code>Deadline</code>
- * object to the <code>TaskList</code>.
+ * Represents a Command that appends a new Deadline
+ * object to the TaskList.
  */
 public class AddDeadlineCommand extends Command {
 
     private String line;
 
     /**
-     * Constructor for <code>AddDeadlineCommand</code>.
+     * Constructor for AddDeadlineCommand.
+     *
      * @param line Command inputted by user for processing.
      */
     public AddDeadlineCommand(String line) {
@@ -26,24 +27,25 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Performs a series of three main tasks.
-     * Processes the Command inputted by user into <code>description</code> and <code>date</code>.
-     * Checks for the validity of the format of <code>date</code>.
-     * Adds a <code>Deadline</code> object to the <code>TaskList</code>
-     * and prints the object added before calling methods in <code>Storage</code> to
-     * store the object added in the harddisk.
-     * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
+     * Processes the Command inputted by user into description and date.
+     * Checks for the validity of the format of date.
+     * Adds a Deadline object to the TaskList
+     * and prints the object added before calling methods in Storage to
+     * store the object added in the hard disk.
+     *
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to harddisk.
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
-        String[] linesplit = line.split("/by");
-        if (linesplit.length == 1) {
+        String[] lineSplit = line.split("/by");
+        if (lineSplit.length == 1) {
             throw new DukeException("OOPS!!! The description of a deadline needs a due date.");
         }
-        String description = linesplit[0].trim();
-        String date = linesplit[1].trim();
+        String description = lineSplit[0].trim();
+        String date = lineSplit[1].trim();
         if (date.length() == 0) {
             throw new DukeException("OOPS!!! The datetime of a deadline cannot be empty.");
         } else {
@@ -58,8 +60,8 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
      * @return false.
      */
     public boolean isExit() {

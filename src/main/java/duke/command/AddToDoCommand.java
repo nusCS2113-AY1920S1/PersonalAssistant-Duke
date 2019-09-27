@@ -8,15 +8,15 @@ import duke.task.Task;
 import duke.task.Todo;
 
 /**
- * Represents a <code>Command</code> to add <code>Todo</code> objects
- * to <code>TaskList</code>.
+ * Represents a Command to add Todo objects to TaskList.
  */
 public class AddToDoCommand extends Command {
 
     private String line;
 
     /**
-     * Constructor for <code>AddTodoCommand</code>.
+     * Constructor for AddTodoCommand.
+     *
      * @param line Command inputted by user.
      */
     public AddToDoCommand(String line) {
@@ -27,12 +27,13 @@ public class AddToDoCommand extends Command {
     /**
      * Performs a series of three main tasks.
      * Processes the Command inputted by user.
-     * Adds the <code>Todo</code> object to <code>TaskList</code>
-     * Stores the object in harddisk by calling <code>Storage</code> before printing the object added.
-     * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *      *         objects to harddisk.
+     * Adds the Todo object to TaskList
+     * Stores the object in hard disk by calling Storage before printing the object added.
+     *
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
@@ -47,8 +48,8 @@ public class AddToDoCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
      * @return false.
      */
     public boolean isExit() {

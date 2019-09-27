@@ -13,27 +13,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a <code>Command</code> object that corresponds to specific commands
+ * Represents a Command object that corresponds to specific commands
  * defined by the user.
- * Abstract parent of all other <code>Command</code> subclasses.
+ * Abstract parent of all other Command subclasses.
  */
 public abstract class Command {
 
     /**
-     * Invokes other <code>Command</code> subclasses based on the input given by the user.
-     * @param tasks Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *      *         objects to harddisk.
+     * Invokes other Command subclasses based on the input given by the user.
+     *
+     * @param tasks   Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      * @throws DukeException Catches invalid commands given by user.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
-     * Parses the <code>Timestamp</code> given by the user and returns the parsed
-     * <code>date</code> as a string if the <code>date</code> is valid.
-     * @param date <code>Timestamp</code> supplied by user.
-     * @return Parsed <code>Timestamp</code> if the <code>Timestamp</code> is valid.
+     * Parses the Timestamp given by the user and returns the parsed
+     * date as a string if the date is valid.
+     *
+     * @param date Timestamp supplied by user.
+     * @return Parsed Timestamp if the Timestamp is valid.
      */
     public String parseTimeStamp(String date) {
         String str = "failed";
@@ -54,9 +56,9 @@ public abstract class Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
-     * @return true if <code>ExitCommand</code> is called, false otherwise.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
+     * @return true if ExitCommand is called, false otherwise.
      */
     public abstract boolean isExit();
 }

@@ -7,15 +7,15 @@ import duke.task.Deadline;
 
 public class ScheduleCommand extends Command {
     private String line;
-    TaskList list;
+    private TaskList list;
 
 
     /**
      * Constructor for ScheduleCommand.
+     *
      * @param line String containing date.
      */
     public ScheduleCommand(String line) {
-        // Constructor
         super();
         this.line = line;
     }
@@ -23,7 +23,8 @@ public class ScheduleCommand extends Command {
 
     /**
      * Checks TaskList for Tasks associated to indicated date.
-     * @param arr Arraylist of Task objects.
+     *
+     * @param arr  ArrayList of Task objects.
      * @param date to display schedule for.
      * @return ArrayList of Task objects associated to given date.
      */
@@ -41,11 +42,12 @@ public class ScheduleCommand extends Command {
 
 
     /**
-     * Execute Schedule Command.
-     * @param arr ArrayList of Task objects.
+     * Executes Schedule Command.
+     *
+     * @param arr     ArrayList of Task objects.
      * @param ui      Instance of <code>Ui</code> that is responsible for visual feedback.
      * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *                *         objects to harddisk.
+     *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
         list = scheduleByDate(arr, line);

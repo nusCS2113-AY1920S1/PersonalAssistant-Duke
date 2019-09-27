@@ -5,31 +5,32 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * Represents a <code>Command</code> to terminate <code>Duke</code>.
+ * Represents a Command to terminate Duke.
  */
 public class ExitCommand extends Command {
 
     /**
-     * Constructor for <code>ExitCommand</code>.
+     * Constructor for ExitCommand.
      */
     public ExitCommand() {
         super();
     }
 
     /**
-     * Exits the <code>Duke</code> program.
-     * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *      *         objects to harddisk.
+     * Exits the Duke program.
+     *
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
         ui.sayBye();
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
      * @return true.
      */
     public boolean isExit() {

@@ -1,23 +1,23 @@
 package duke.task;
 
 /**
- * Represents a <code>Task</code> object. A <code>Todo</code>
- * object is a type of <code>Task</code>.
+ * A Todo object is a type of Task.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor for <code>Todo</code>.
-     * @param description Description of the <code>Todo</code> object.
+     * Constructor for Todo.
+     *
+     * @param description Description of the Todo object.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Customises the <code>toString()</code> method to print
-     * the <code>Todo</code> object.
-     * @return Customised String for <code>Todo</code> object.
+     * Customises the toString() method to print the Todo object.
+     *
+     * @return Customised String for Todo object.
      */
     @Override
     public String toString() {

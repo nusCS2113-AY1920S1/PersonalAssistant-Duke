@@ -5,24 +5,24 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * Represents a <code>Command</code> to list all <code>Tasks</code>
- * in the <code>TaskList</code>.
+ * Represents a Command to list all Tasks in the TaskList.
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructor for <code>ListCommand</code>.
+     * Constructor for ListCommand.
      */
     public ListCommand() {
         super();
     }
 
     /**
-     * Lists all the <code>Tasks</code> present in the <code>TaskList</code>.
-     * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *      *         objects to harddisk.
+     * Lists all the Tasks present in the TaskList.
+     *
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
         ui.showLine();
@@ -34,8 +34,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
      * @return false.
      */
     public boolean isExit() {

@@ -1,17 +1,17 @@
 package duke.task;
 
 /**
- * Represents a <code>Task</code> object. A <code>Deadline</code>
- * object is a type of <code>Task</code>.
+ * Represents a Task object. A Deadline object is a type of Task.
  */
 public class Deadline extends Task {
 
     protected String by;
 
     /**
-     * Constructor for <code>Deadline</code>.
-     * @param description Details of the <code>Task</code>.
-     * @param by Due date and time of the <code>Deadline</code>.
+     * Constructor for Deadline.
+     *
+     * @param description Details of the Task.
+     * @param by          Due date and time of the Deadline.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -23,9 +23,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Customises the <code>toString()</code> method to print
-     * the <code>Deadline</code> object.
-     * @return Customised String for <code>Deadline</code> object.
+     * Customises the toString() method to print the Deadline object.
+     *
+     * @return Customised String for Deadline object.
      */
     @Override
     public String toString() {

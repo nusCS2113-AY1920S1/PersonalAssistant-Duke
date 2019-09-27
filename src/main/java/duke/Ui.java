@@ -6,7 +6,7 @@ import duke.task.Task;
 import java.util.Scanner;
 
 /**
- * Represents a <code>Ui</code> class that is responsible for Input/Output operations.
+ * Represents a Ui class that is responsible for Input/Output operations.
  */
 public class Ui {
 
@@ -14,6 +14,7 @@ public class Ui {
 
     /**
      * Scans for a line of user input.
+     *
      * @return Scanner to scan for next line of user input.
      */
     public String scanLine() {
@@ -21,7 +22,7 @@ public class Ui {
     }
 
     /**
-     * Shows the welcome logo and message for <code>Duke</code>.
+     * Shows the welcome logo and message for Duke.
      */
     public void showWelcome() {
         String logo = " ____        _        \n"
@@ -33,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Shows preceding welcome messages after <code>showWelcome()</code> function.
+     * Shows preceding welcome messages after showWelcome() function.
      */
     public void hello() {
         showLine();
@@ -43,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Shows termination message before <code>Duke</code> exits.
+     * Shows termination message before Duke exits.
      */
     public void sayBye() {
         System.out.println("\tBye. Hope to see you again soon!");
@@ -57,9 +58,10 @@ public class Ui {
     }
 
     /**
-     * Prints the <code>Task</code> object that was added and its relevant messages.
-     * @param task <code>Task</code> object that was added.
-     * @param size Number of <code>Task</code> objects in the <code>TaskList</code>.
+     * Prints the Task object that was added and its relevant messages.
+     *
+     * @param task Task object that was added.
+     * @param size Number of Task objects in the TaskList.
      */
     public void addTaskMessage(Task task, int size) {
         showLine();
@@ -74,8 +76,9 @@ public class Ui {
     }
 
     /**
-     * Shows the <code>Task</code> object that has been marked as done and its relevant messages.
-     * @param task <code>Task</code> object that was marked as done.
+     * Shows the Task object that has been marked as done and its relevant messages.
+     *
+     * @param task Task object that was marked as done.
      */
     public void completeMessage(Task task) {
         showLine();
@@ -85,9 +88,10 @@ public class Ui {
     }
 
     /**
-     * Shows the <code>Task</code> object that has been deleted and its relevant messages.
-     * @param task <code>Task</code> object that was deleted.
-     * @param size Number of <code>Task</code> objects in the <code>TaskList</code>.
+     * Shows the Task object that has been deleted and its relevant messages.
+     *
+     * @param task Task object that was deleted.
+     * @param size Number of Task objects in the TaskList.
      */
     public void deleteMessage(Task task, int size) {
         showLine();
@@ -103,6 +107,7 @@ public class Ui {
 
     /**
      * Shows the error message.
+     *
      * @param exception Exception encountered.
      */
     public void showLoadingError(DukeException exception) {
@@ -112,8 +117,9 @@ public class Ui {
     }
 
     /**
-     * Displays the <code>Task</code> to be snoozed.
-     * @param task <code>Task</code> to be snoozed.
+     * Displays the Task to be snoozed.
+     *
+     * @param task Task to be snoozed.
      */
     public void snoozeMessage(Task task) {
         showLine();
@@ -123,18 +129,19 @@ public class Ui {
     }
 
     /**
-     * Retrieves a new <code>Timestmp</code> from the user for the <code>Task</code>
+     * Retrieves a new Timestamp from the user for the Task
      * to be snoozed.
-     * @return <code>Timestamp</code> input by user.
+     *
+     * @return Timestamp input by user.
      */
     public String getTimeStamp() {
         System.out.print("\tPlease enter the new date: ");
-        String timestamp = scanLine();
-        return timestamp;
+        return scanLine();
     }
 
     /**
      * Prints a continue prompt and waits for user input.
+     *
      * @return true if user inputs "Y", false if user inputs "N"
      */
     public boolean continuePrompt() {
@@ -144,7 +151,7 @@ public class Ui {
             input = scanLine();
             if (input.equals("Y")) {
                 return true;
-            }  else if (input.equals("N")) {
+            } else if (input.equals("N")) {
                 return false;
             }
         }

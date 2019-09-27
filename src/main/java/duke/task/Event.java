@@ -1,8 +1,7 @@
 package duke.task;
 
 /**
- * Represents a <code>Task</code> object. An <code>Event</code>
- * object is a type of <code>Task</code>.
+ * An Event object is a type of Task.
  */
 public class Event extends Task {
 
@@ -10,10 +9,11 @@ public class Event extends Task {
     private String endTiming;
 
     /**
-     * Constructor for <code>Event</code>.
-     * @param description Details of the <code>Task</code>.
-     * @param startTiming Starting date and time of the <code>Event</code>.
-     * @param endTiming Ending date and time of the Event.
+     * Constructor for Event.
+     *
+     * @param description Details of the Task.
+     * @param startTiming Starting date and time of the Event.
+     * @param endTiming   Ending date and time of the Event.
      */
     public Event(String description, String startTiming, String endTiming) {
         super(description);
@@ -30,9 +30,10 @@ public class Event extends Task {
     }
 
     /**
-     * Customises the <code>toString()</code> method to print
-     * the <code>Event</code> object.
-     * @return Customised String for <code>Event</code> object.
+     * Customises the toString() method to print
+     * the Event object.
+     *
+     * @return Customised String for Event object.
      */
     @Override
     public String toString() {

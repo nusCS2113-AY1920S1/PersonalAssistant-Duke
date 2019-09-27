@@ -9,16 +9,15 @@ import duke.task.Event;
 import duke.task.Task;
 
 /**
- * Represents a <code>Command</code> to snooze a <code>Task</code>.
+ * Represents a Command to snooze a Task.
  */
 public class SnoozeCommand extends Command {
 
-    String index;
+    private String index;
 
     /**
-     * Constructor for <code>SnoozeCommand</code>.
-     *
-     * @param index Index of <code>Task</code> to be snoozed.
+     * Constructor for SnoozeCommand.
+     * @param index Index of Task to be snoozed.
      */
     public SnoozeCommand(String index) {
         super();
@@ -26,17 +25,16 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Replaces the timestamp of an <code>Event</code> or <code>Deadline</code>
+     * Replaces the timestamp of an Event or Deadline
      * after checking the validity of the task selected as well as the new
-     * <code>Timestamp</code> before performing the replacement.
+     * Timestamp before performing the replacement.
      *
-     * @param arr     Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui      Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *                *         objects to harddisk.
-     * @throws DukeException Catches invalid commands given by user.
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {
@@ -49,10 +47,10 @@ public class SnoozeCommand extends Command {
                 if (date.equals("failed")) {
                     return;
                 } else {
-                    Task newtask = new Deadline(description, date);
+                    Task newTask = new Deadline(description, date);
                     arr.deleteTask(num);
-                    arr.addTaskToIndex(num, newtask);
-                    ui.snoozeMessage(newtask);
+                    arr.addTaskToIndex(num, newTask);
+                    ui.snoozeMessage(newTask);
                 }
             } else if (storage.taskHasTimestamp(num).equals("event")) {
                 Task task = arr.getTask(num);
@@ -64,10 +62,10 @@ public class SnoozeCommand extends Command {
                 if (startDate.equals("failed") || endDate.equals("failed")) {
                     return;
                 } else {
-                    Task newtask = new Event(description, startDate, endDate);
+                    Task newTask = new Event(description, startDate, endDate);
                     arr.deleteTask(num);
-                    arr.addTaskToIndex(num, newtask);
-                    ui.snoozeMessage(newtask);
+                    arr.addTaskToIndex(num, newTask);
+                    ui.snoozeMessage(newTask);
                 }
             } else {
                 throw new DukeException("OOPS!!! Task does not have a timestamp!");
@@ -78,9 +76,7 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
-     *
+     * Checks if ExitCommand is called for Duke to terminate.
      * @return false.
      */
     public boolean isExit() {
