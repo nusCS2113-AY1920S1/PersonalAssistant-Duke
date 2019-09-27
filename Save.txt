@@ -1,6 +1,1 @@
-D|?| weekly activity|by: Thu Aug 20 03:03:03 SGT 2020
-E|?| lol weekly|at: 2019-10-10 03:03:03-04:04:04
-E|?| aksjgiwe|at: 2011-11-12 13:09:09-14:10:10
-T|?| borrow
-DA|?| return| borrow
-T|?| lol
+D|?| return book |by: Mon Jul 07 03:03:03 SGT 2008
