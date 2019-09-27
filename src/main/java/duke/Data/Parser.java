@@ -1,5 +1,6 @@
 package duke.Data;
 
+import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
 
@@ -138,6 +139,24 @@ public class Parser {
                     System.out.println("Please enter input in the form: date dd/MM/YYYY");
                 } else {
                     tasks.findDate(searchDate);
+                }
+                break;
+
+            /**
+             * Command should be in the form: class swimming /every monday
+             * It will be stored as type [C].
+             */
+            case "class":
+                try {
+                    index = input.indexOf("/every");
+                    String info = input.substring(6, index);
+                    String day = input.substring(index + 7);
+                    MyClass myclass = new MyClass(info, false, day);
+                    tasks.addTask(myclass, "C");
+                    storage.saveFile("C",myclass,myclass.getDay());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
                 }
                 break;
 
