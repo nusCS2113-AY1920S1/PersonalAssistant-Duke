@@ -3,6 +3,7 @@ import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.dinner;
 import duke.tasks.breakfast;
+import duke.tasks.lunch;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
@@ -31,7 +32,7 @@ public class Parser {
         if (splitCommand.length >= 2) {
             description = splitCommand[1];
         }
-        if (command.equals("done") || command.equals("breakfast") || command.equals("event") || command.equals("deadline")) {
+        if (command.equals("done") || command.equals("breakfast") || command.equals("lunch") || command.equals("dinner")) {
             if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -42,21 +43,12 @@ public class Parser {
             //todo: exception will arise if there is no info after the description of the meal
             String SplitString[] = description.split(" ",2);
             return new AddCommand(new breakfast(SplitString[0],SplitString[1]));
-        } else if (command.equals("deadline")) {
-            try {
-                String SplitString[] = description.split(" /by ");
-                return new AddCommand(new dinner(SplitString[0], SplitString[1]));
-            } catch (Exception e) {
-                throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
-            }
-        } else if (command.equals("event")) {
-            String SplitString[];
-            try {
-                SplitString = description.split(" /at ");
-                return new AddCommand(new dinner(SplitString[0], SplitString[1]));
-            } catch (Exception e) {
-                throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
-            }
+        } else if (command.equals("lunch")) {
+            String SplitString[] = description.split(" ",2);
+            return new AddCommand(new lunch(SplitString[0],SplitString[1]));
+        } else if (command.equals("dinner")) {
+            String SplitString[] = description.split(" ",2);
+            return new AddCommand(new dinner(SplitString[0],SplitString[1]));
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("done")) {
