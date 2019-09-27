@@ -65,31 +65,6 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
 // tag::delete[]
 === Deleting a person : `delete`
 
@@ -113,14 +88,70 @@ Deletes the 1st person in the results of the `find` command.
 
 // end::delete[]
 
-=== Exiting the program : `exit`
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+=== Locating tasks in the list by name: `find`
+
+Finds tasks from the task list whose description or date/time contain any of the given keywords. +
+Format: `find KEYWORD`
+
+****
+* The search is case insensitive. e.g `event` will match `Event`
+* Part of the description will also be searched. e.g 'as' will match 'has', 'class' etc.
+* Searching for the full date/time must be done in the dd-mm-yyyy format to match the task list.
+****
+
+Examples:
+
+* `find event` +
+Returns `event` and `this event`
+
+=== Rescheduling tasks: 'reschedule'
+
+Reschedules a certain task to a different date and time. + 
+Format: 'reschedule INDEX DATE TIME'
+
+****
+* The index of the task must be valid (i.e the task's index must be in the task list).
+* A valid date and time must be inputted in the format that the program understands.
+* The date and time inputted must be an open timing, if there are clashes the program will warn the user about the clashing timing.
+****
+
+=== Schedule of the day: 'schedule'
+
+Lists the schedule one has for a specific date. +
+Format: 'schedule DATE'
+
+****
+* A valid date must be inputted in the format that the program understands.
+* The list will be sorted from earliest to latest.
+****
+
+=== Reminders: 'reminder'
+
+Reminds the user upon startup of the program of any upcoming tasks.
+
+****
+* Notifies for any task due within the next 6 hours.
+* Rechecks every hour for new upcoming tasks.
+****
+
+=== Exiting the program : `bye`
+
+****
+*Typing 'bye into the command line shows a goodbye message, saves the task list, and closes the program.
+****
 
 Exits the program. +
-Format: `exit`
+Format: `bye`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Task list data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
