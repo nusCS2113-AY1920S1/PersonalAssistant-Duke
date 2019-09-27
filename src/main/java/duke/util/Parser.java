@@ -74,7 +74,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Checks user input for deletion command,
      * and returns deletion command with the intended index.
@@ -181,7 +180,7 @@ public class Parser {
             throws DukeCommandException, DukeEmptyCommandException,
             DukeInvalidTimeException, DukeMultipleValuesForSameArgumentException,
             DukeMissingArgumentException, DukeInvalidTimePeriodException {
-        //Checks every input for keyword command
+        // Checks every input for keywords
         input = input.trim();
         if (input.startsWith("todo ")) {
             String[] split = parseAdding(input, "todo");
@@ -261,7 +260,6 @@ public class Parser {
             }
             return ret;
         }
-        // String[] commandComponents = command.split(" +");
         if (includeCommand) {
             ret.put("command", commandClean.substring(0, endCommandIndex++));
         }
