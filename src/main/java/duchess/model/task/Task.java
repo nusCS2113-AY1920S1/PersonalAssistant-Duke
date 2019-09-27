@@ -30,4 +30,8 @@ public abstract class Task implements Serializable {
     public abstract void snooze() throws DukeException;
 
     public abstract List<Task> getReminders();
+
+    public abstract List<Task> getClashables();
+
+    public abstract boolean clashesWith(Task task);
 }

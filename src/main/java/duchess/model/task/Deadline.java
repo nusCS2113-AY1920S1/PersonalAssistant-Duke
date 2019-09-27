@@ -59,6 +59,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    public List<Task> getClashables() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean clashesWith(Task task) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
     }
@@ -70,4 +80,5 @@ public class Deadline extends Task {
         }
         return null;
     }
+
 }

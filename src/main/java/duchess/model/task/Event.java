@@ -48,14 +48,15 @@ public class Event extends Task {
     }
 
     /**
-     * Checks if the event being added clashes with this instance of event.
+     * Checks if the task being added clashes with this instance of event.
      *
-     * @param event the event task to be added
+     * @param task the task to be added
      * @return true if the event clashes, false otherwise
      */
-    public boolean clashesWith(Event event) {
-        return (startClashes(event) || endClashes(event)
-                || entireEventClashes(event) || isStartOrEndEqual(event));
+    @Override
+    public boolean clashesWith(Task task) {
+        return (startClashes((Event) task) || endClashes((Event) task)
+                || entireEventClashes((Event) task) || isStartOrEndEqual((Event) task));
     }
 
     private boolean startClashes(Event event) {
@@ -95,6 +96,13 @@ public class Event extends Task {
     @Override
     public List<Task> getReminders() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public List<Task> getClashables() {
+        List<Task> list = new ArrayList<>();
+        list.add(this);
+        return list;
     }
 
     @Override

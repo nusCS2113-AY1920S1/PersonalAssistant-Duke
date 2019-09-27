@@ -2,6 +2,7 @@ package duchess.model.task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TaskList implements Serializable {
@@ -32,20 +33,15 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Checks if a new event clashes with any existing events in tasklist.
+     * Checks if a new task clashes with any existing tasks in tasklist.
      *
-     * @param newEvent the new event to be added
-     * @return true if event is clashing, false otherwise
+     * @param newTask the new task to be added
+     * @return true if task is clashing, false otherwise
      */
-    public boolean isClashing(Event newEvent) {
-        List<Event> events = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task instanceof Event) {
-                events.add((Event) task);
-            }
-        }
-        return events.stream().anyMatch(event -> event.clashesWith(newEvent));
+    public boolean isClashing(Task newTask) {
+        return this.getTasks().stream()
+                .map(Task::getClashables)
+                .flatMap(Collection::stream)
+                .anyMatch(task -> task.clashesWith(newTask));
     }
-
-
 }

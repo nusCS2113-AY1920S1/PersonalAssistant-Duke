@@ -47,4 +47,14 @@ public class Todo extends Task {
     public List<Task> getReminders() {
         return new ArrayList<>();
     }
+
+    @Override
+    public List<Task> getClashables() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean clashesWith(Task task) {
+        return false;
+    }
 }
