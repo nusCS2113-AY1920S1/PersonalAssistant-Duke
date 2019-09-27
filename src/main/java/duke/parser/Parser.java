@@ -77,15 +77,21 @@ public class Parser {
                 }
             }
         } else if (arr.length > 0 && arr[0].equals("todo")) {
-            for (int i = 1; i < arr.length; i++) {
-                taskDesc += arr[i] + " ";
-            }
-            taskDesc = taskDesc.trim();
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                Task taskObj = new Todo(taskDesc);
-                return new AddCommand(taskObj);
+            String[] getDescription = sentence.split(" ", 2);
+            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
+            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])){
+                return new DuplicateFoundCommand();
+            } else{
+                for (int i = 1; i < arr.length; i++) {
+                    taskDesc += arr[i] + " ";
+                }
+                taskDesc = taskDesc.trim();
+                if (taskDesc.isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    Task taskObj = new Todo(taskDesc);
+                    return new AddCommand(taskObj);
+                }
             }
         } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("dl") || arr[0].equals("event"))) {
             for (int i = 1; i < arr.length; i++) {
