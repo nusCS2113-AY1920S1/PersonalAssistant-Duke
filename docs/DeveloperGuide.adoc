@@ -1,0 +1,493 @@
+= Hall Facility Booking System - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W12-3/main
+
+By: `AY1920S1-CS2113T-W12-3`      Since: `Aug 2019`
+
+== Setting up
+
+Refer to the guide <<UserGuide#, here>>.
+
+== Design
+
+
+== Implementation
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |Hall resident |book study or meeting rooms |have a room for studies and consultations
+
+|`* * *` |Hall resident |cancel any booking I have made |free up the room for others if I do not want to use it
+
+|`* * *` |Hall resident |view room layouts |can view the features of the facility without having to be present
+
+|`* * *` |Hall resident |view the inventory of the room/facility |top up the facility in preparation for use
+
+|`* * *` |Hall resident |view if my booking has been accepted/denied |proceed with using the room or finding another place
+
+|`* *` |Frequent user |view my personal booking history |book the same room again
+
+|`* *` |Hall resident |be reminded of upcoming bookings |I do not miss any rooms I have booked
+
+|`* *` |Hall resident |view room recommendations for a given number of people participating |easily choose which rooms are suitable for use
+
+|`*` |Hall resident| check the booking balance remaining in my account |receive booking recommendations based on my balance
+
+|=======================================================================
+
+_{More to be added}_
+
+[appendix]
+== Use Cases
+
+=== Use case: UC01 Add Booking
+Actor: Hall Resident
+
+*MSS*
+
+1. User chooses to add booking.
+2. HFBS prompts for date and time.
+3. User enters the time e.g. `10/10/2019 1700`
+4. HFBS prompts for details.
+5. User enters requested details.
+6. HFBS requests for confirmation.
+7. HFBS adds booking and shows schedule (UC05).
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User inputs wrong time format
+** 3a1. HFBS requests for correct time format
+** 3a2. User enters correct time format
++
+Repeat steps 3a1 and 3a2 until correct data is entered
++
+Use case resumes from step 4
+
+* *a. At any time, User chooses to cancel the booking
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+=== Use case: UC02 Edit Booking
+Actor: Hall Resident
+
+*MSS*
+
+1. User chooses to edit booking.
+2. HFBS prompts for booking details.
+3. User inputs details.
+4. HFBS prompts for new time.
+5. User inputs new time.
+6. HFBS prompts for new details.
+7. User inputs new details.
+8. HFBS requests for confirmation.
+9. HFBS adds booking and shows schedule.
++
+Use case ends.
+
+*Extensions*
+
+* 5a. User inputs wrong time format.
+** 5a1. HFBS requests for correct time format.
+** 5a2. User enters correct time format.
++
+Repeat steps 5a1 and 5a2 until correct data is entered.
++
+Use case resumes from step 4.
+
+* *a. At any time, User chooses to cancel the edit.
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+
+=== Use case: UC03 Delete Booking
+
+*MSS*
+
+1. User chooses to delete booking.
+2. HFBS prompts for index of booking.
+3. User inputs index.
+4. HFBS show booking time/details and requests confirmation to delete booking.
+5. HFBS deletes booking.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User inputs index out of bounds.
+** 3a1. HFBS shows warning and prompts for correct booking index.
+** 3a2. User inputs correct index.
+Repeat steps 3a1 and 3a2 until correct index is entered.
+Use case resumes from step 4.
+
+* 3b. User does not input an integer.
+** 3b1. HFBS shows warning and prompts for integer index.
+** 3b2. User inputs correct index.
+Repeat steps 3b1 and 3b2 until correct index is entered.
+Use case resumes from step 4.
+
+* *a. At any time, User chooses to cancel the edit.
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+=== Use case: UC04 View Room List
+Actor: Hall Resident
+
+*MSS*
+
+1. User chooses to see list of rooms.
+2. HFBS shows list of rooms.
++
+Use case ends.
+
+=== Use case: UC05 View Future Booking -- Personal
+Actor: Hall Resident
+
+*MSS*
+
+1. User chooses to view list of all personal bookings.
+2. HFBS shows all upcoming bookings -- list format with all booking times.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. There are no bookings.
+** 2a1. HFBS shows an error message that no bookings have been made.
++
+Use case ends.
+
+=== Use Case: UC06 View Booking -- Month
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to view all bookings of a certain month (for all users).
+2. HFBS shows all bookings in the chosen month in calendar format -- does not show booking timings.
++
+Use case ends.
+
+=== Use Case: UC07 View Booking -- Day
+Actor: Hall Resident
+
+*MSS*
+
+1. User chooses to view a certain day’s booking schedule (for all users).
+2. HFBS shows all bookings -- list format with booking times.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. There are no bookings.
+** 2a1. HFBS shows message that there are no bookings for the day.
++
+Use case ends.
+
+=== Use Case: UC08 Appeal Booking
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to appeal booking time
+2. HFBS prompts for booking time
+3. User inputs date/time
+4. HFBS prompts for booking details
+5. User inputs booking details
+6. HFBS prompts for confirmation
+7. HFBS adds appealed booking to main booking schedule
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User enters incorrect date/time format
+** 3a1. HFBS requests for correct date/time format.
+** 3a2. User enters correct date/time format
++
+Repeat Steps 3a1 and 3a2 until correct date/time format is entered
++
+Use case resumes from step 4.
+
+* 3b. There are no bookings at the date/time the user requests.
+** 3b1. HFBS prompts user to add booking instead (UC01).
++
+Use case ends.
+
+* *a. At any time, User chooses to cancel the process.
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+=== Use Case: UC09 View Past Bookings
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to view past bookings.
+2. System shows all past bookings -- list format with date/time.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list of past bookings is empty.
+** 2a1. System shows an error message.
++
+Use case ends.
+
+=== Use Case: UC10 View Room Inventory
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to view room list (UC04).
+2. HFBS shows list of rooms and prompts the user to input room name.
+3. User enters the specific room.
+4. HFBS shows the room inventory of specified room.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User enters a facility name that does not exist in the list.
+** 3a1. System informs User that the facility is not in the list.
++
+Use case resumes at step 2.
+
+=== Use Case: UC 11 View Room Layout
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to view room list (UC04).
+2. HFBS shows list of rooms.
+3. User chooses the specific room.
+4. HFBS shows a photo of the room layout.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User enters a facility name that does not exist in the list.
+** 3a1. System informs User that the facility is not in the list.
++
+Use case resumes at step 2.
+
+=== Use Case: UC12 View Room Capacity
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to view room list (UC04).
+2. HFBS shows list of rooms.
+3. User chooses the specific room.
+4. HFBS shows the room capacity.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User enters a facility name that does not exist in the list.
+** 3a1. System informs User that the facility is not in the list.
++
+Use case resumes at step 2.
+
+=== Use Case: UC13 One Touch Booking
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to make one touch booking
+2. HFBS creates booking form based on past frequent bookings
+3. User inputs any changes
+4. HFBS requests for confirmation
+5. HFBS adds booking and shows personal schedule (UC05).
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User does not have any previous bookings
+** 2a1. System informs user there are no previous bookings and prompts to add booking (UC01).
++
+Use case ends.
+
+* *a. At any time, User chooses to cancel the booking
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+=== Use Case: UC14 Create Account
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to create a new account
+2. HFBS prompts for NUS email
+3. User inputs NUS email
+4. HFBS prompts for alphanumeric password
+5. User inputs password
+6. HFBS prompts to re-confirm password
+7. User inputs password again
+8. HFBS confirms account creation and sends confirmation email
+9. User acknowledges
+10. HFBS directs user to login page
+11. Use case ends.
+
+*Extensions*
+
+* 3a. User input invalid email format
+** 3a1. System shows an error message informs user correct email format “xxx@u.nus.edu”.
++
+Use case resumes at step 2.
+
+* 4a. User inputs password without a number or letter or both.
+** 4a1. System shows error message to include at least one number and at least one letter and prompts User to enter new alphanumeric password again.
++
+Use case resumes at step 5.
+
+* 7a. User inputs a password that does not match the original password.
+** 7a1. System informs user that the passwords do not match
++
+Use case resumes at 5.
+
+* *a. At any time, User chooses to cancel account creation.
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+=== Use Case: UC15 Login system
+Actor: Hall Resident
+
+*MSS*
+1. HFBS prompts for NUS email for login
+2. User inputs NUS email for login
+3. HFBS prompts for password for login
+4. User inputs password then requests for login
+5. HFBS verifies the login info
+6. User is logged in
+7. HFBS directs user to main page.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User input invalid email format.
+** 2a1. System shows an error message informs user correct email format “xxx@u.nus.edu”.
++
+Use case resumes at step 2.
+
+* 2b.User input unregistered email.
+** 2b1. System shows an error message that there is no account under the specified email.
++
+Use case resumes at step 2.
+
+* 4a. User input password that does not match the password under registered email.
+** 4a1. System shows an error message that the password is incorrect.
++
+Use case resumes at 4.
+
+* *a. At any time, User chooses to cancel login.
+** *a1. HFBS requests to confirm the cancellation.
+** *a1. User confirms the cancellation.
++
+Use case ends.
+
+=== Use Case: UC16 Reminder
+Actor: Hall Resident
+
+*MSS*
+
+1. User requests to be reminded of booking made
+2. HFBS prompts for reminder time eg. 12hrs, 24hrs, 48hrs prior
+3. User inputs chosen reminder time
+4. HFBS confirms the selection and shows the email that the reminder will be sent to
+5. User acknowledges
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User enters a reminder time that does not exist
+** 3a1. HFBS shows error message and informs user that specified reminder time does not exist.
++
+Use case resumes at step 2.
+
+* *a. At any time, User chooses to cancel reminder setting.
+** *a1. HFBS requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
+
+[appendix]
+== Non Functional Requirements
+
+.  Technical requirements:
+..  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+..  Should be able to hold up to 1000 listings of facilities.
+..  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+..  Should come with automated unit tests and open source code.
+..  Should favor DOS style commands over Unix-style commands.
+.  Accessibility:
+..  Different levels of access for students, club heads and staff.
+.  Performance:
+..  The system should respond within two seconds after each command is input
+.  Security:
+..  The system should be password locked and accessible using an account
+.  Data:
+..  Data should persist, and not be volatile.
+..  Data should be recoverable from last save point.
+.  Process:
+..  App should launch with booking and view your current bookings.
+..  Monthly update to add new features or fix bugs.
+
+_{More to be added}_
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
