@@ -17,7 +17,7 @@ public class Duke {
      * @return Void.
      * @throws DukeException | ParseException | IOException | NullPointerException
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ArrayList<Task> list;
         Storage store = new Storage();
         boolean isExit = false;
