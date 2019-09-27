@@ -20,7 +20,7 @@ public class AddSaleCommand extends Command {
         this.params = params;
     }
 
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {}
+
 
     public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {
         sale = getSale();
@@ -28,6 +28,8 @@ public class AddSaleCommand extends Command {
         storage.serializeSaleList(saleList);
         ui.refreshSaleList(saleList.getSaleList(), saleList.getSaleList());
     }
+
+    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {}
 
     private Sale getSale() throws DukeException {
         Sale sale = new Sale();

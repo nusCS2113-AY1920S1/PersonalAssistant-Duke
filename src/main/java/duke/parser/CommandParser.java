@@ -1,9 +1,6 @@
 package duke.parser;
 
-import duke.command.AddOrderCommand;
-import duke.command.Command;
-import duke.command.DeleteOrderCommand;
-import duke.command.EditOrderCommand;
+import duke.command.*;
 import duke.commons.DukeException;
 import duke.entities.Order;
 
@@ -15,12 +12,24 @@ public class CommandParser {
         return new AddOrderCommand(params);
     }
 
+    public static Command parseSaleAdd(Map<String, List<String>> params) throws DukeException {
+        return new AddSaleCommand(params);
+    }
+
     public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
         return new DeleteOrderCommand(params);
     }
 
+    public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
+        return new DeleteSaleCommand(params);
+    }
+
     public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
         return new EditOrderCommand(params);
+    }
+
+    public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
+        return new EditSaleCommand(params);
     }
 
     public static void addItemsToOrder(Map<String, List<String>> params, Order order) throws DukeException {
