@@ -140,7 +140,7 @@ public class TaskList {
      * @param num This parameter is the number taken
      * @return String of the input number with the ordinal attached to the end of the number
      */
-    public static String numOrdinal(int num) {
+    public String numOrdinal(int num) {
         String[] suffix = new String[] {"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
         switch (num) {
         case 11:
