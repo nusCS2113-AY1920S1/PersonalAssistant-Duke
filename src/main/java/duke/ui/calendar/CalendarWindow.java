@@ -39,13 +39,13 @@ public class CalendarWindow extends UiPart<Stage> {
     private GridPane gridCalendar;
 
     @FXML
-    void previousMonth() {
+    private void previousMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
         refreshCalendar();
     }
 
     @FXML
-    void nextMonth() {
+    private void nextMonth() {
         currentYearMonth = currentYearMonth.plusMonths(1);
         refreshCalendar();
     }

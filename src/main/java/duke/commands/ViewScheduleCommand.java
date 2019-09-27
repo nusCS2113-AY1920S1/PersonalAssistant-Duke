@@ -34,12 +34,11 @@ public class ViewScheduleCommand extends Command {
         UniqueTaskList result = new UniqueTaskList();
 
         for (Task task : tasks) {
-            if (((TaskWithDates) task).getStartDate() != null) {
-                if (((TaskWithDates) task).getStartDate().toString().substring(0,
+            if (((TaskWithDates) task).getStartDate() != null
+                    && ((TaskWithDates) task).getStartDate().toString().substring(0,
                         ((TaskWithDates) task).getStartDate().toString().indexOf("T"))
                         .equals(date.toString().substring(0, date.toString().indexOf("T")))) {
-                    result.add(task);
-                }
+                result.add(task);
             }
         }
         ui.showList(result);

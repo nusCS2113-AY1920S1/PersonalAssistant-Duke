@@ -38,13 +38,11 @@ public class FreeTimeCommand extends Command {
         for (int i = 1; i < tasks.size(); ++i) {
             LocalDateTime prev = ((TaskWithDates) tasks.get(i - 1)).getStartDate();
             LocalDateTime now = ((TaskWithDates) tasks.get(i)).getStartDate();
-            if (LocalDateTime.now().compareTo(prev) < 0) {
-                if (prev.plusHours(duration).compareTo(now) <= 0) {
-                    ui.show(prev.toString());
-                    storage.getTasks().remove(primalTask);
-                    storage.getTasks().remove(worldEndTask);
-                    return;
-                }
+            if (LocalDateTime.now().compareTo(prev) < 0 && prev.plusHours(duration).compareTo(now) <= 0) {
+                ui.show(prev.toString());
+                storage.getTasks().remove(primalTask);
+                storage.getTasks().remove(worldEndTask);
+                return;
             }
         }
         //change to time not found later, but this line of code should nvr be executed
