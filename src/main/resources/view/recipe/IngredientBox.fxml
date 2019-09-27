@@ -6,8 +6,8 @@
 <?import javafx.scene.text.Font?>
 
 <fx:root
-         style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
-         xmlns:fx="http://javafx.com/fxml/1">
+         style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
     <AnchorPane prefHeight="187.0" prefWidth="201.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
        <children>
           <ImageView fx:id="ingredientPic" fitHeight="144.0" fitWidth="200.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />

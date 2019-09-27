@@ -45,6 +45,8 @@ public class MainWindow extends AnchorPane {
 
     private OrderPage orderPage;
     private RecipePage recipePage;
+    private InventoryPage inventoryPage;
+    private SalesPage salesPage;
 
     public void initialize() {
         Ui ui = new Ui(this);
@@ -67,7 +69,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowRecipe() {
-        System.out.println("!!!");
         showRecipePage();
     }
 
@@ -78,7 +79,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowInventory() {
-
+        showInventoryPage();
     }
 
     @FXML
@@ -94,6 +95,12 @@ public class MainWindow extends AnchorPane {
         AnchorPane.setBottomAnchor(orderPage, 4.0);
 
         recipePage = new RecipePage();
+        AnchorPane.setLeftAnchor(recipePage, 0.0);
+        AnchorPane.setRightAnchor(recipePage, 0.0);
+        AnchorPane.setTopAnchor(recipePage, 0.0);
+        AnchorPane.setBottomAnchor(recipePage, 4.0);
+
+        inventoryPage = new InventoryPage();
         AnchorPane.setLeftAnchor(recipePage, 0.0);
         AnchorPane.setRightAnchor(recipePage, 0.0);
         AnchorPane.setTopAnchor(recipePage, 0.0);
@@ -146,6 +153,18 @@ public class MainWindow extends AnchorPane {
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Recipes");
+    }
+
+    void showInventoryPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(inventoryPage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Inventory");
     }
 
     void disableInput() {
