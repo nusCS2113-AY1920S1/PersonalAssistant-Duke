@@ -18,12 +18,12 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
 
-==Target User Profile
+== Target User Profile
 <NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
 
-==User Stories
+== User Stories
 . As a busy music student with multiple classes, I want to be able to track my practice sessions so that I won’t miss any trainings.
 . As a music student with a heavy workload, I want to be able to track my upcoming recitals and their details so I can prioritize which pieces/what techniques to practice and focus on.
 . As a music student with a tendency to procrastinate in things I need to do, I want to be constantly reminded of my examination dates so i do not wait till the last minute to prepare for them.
@@ -32,9 +32,9 @@ The program is designed to automate and streamline most of the process in schedu
 . As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.
 
 [[Use cases]]
-==Use cases
+== Use cases
 
-===Entering a practice schedule into the system
+=== Entering a practice schedule into the system
 . User enters a command to add a practice followed by a date, and the details of the intended practice. 
 . System prompts user about whether or not he wishes to make this a recurring practice (e.g every Tuesday).
 . User responds to the prompt accordingly.
@@ -57,7 +57,7 @@ Extension 3.2: System detects a clash with another recital or an examination at 
 3.2.3. System updates the stored list and saves it to the file on the user’s hard disk.
 Use case ends
 
-===Making notes    
+=== Making notes    
 . User chooses to enter a command to start a note-taking/viewing session
 . System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one, or create a new file.
 . User makes a choice to enter a category directory or create a new one.
@@ -70,7 +70,7 @@ Extension 3.1: System detects there is no category file that user commands to ed
 3.1.2. User responds to the warning, and choose to add a new category
 3.1.3. System adds and opens a new category file with the name given by user
 
-===Viewing upcoming events
+=== Viewing upcoming events
 . User enters command “list” followed by an integer N representing the number of weeks in advance he would like to view his schedule.
 . System responds by showing the user a list of events in the next N weeks.
 . User may enter a command to remove specific tasks from the list, to have a cleaner viewing experience.
@@ -83,7 +83,7 @@ Extension: 3.2. System can allow the user to only view a specific type of event.
 3.2.1. User can also enter commands “show examinations” for example, to only show examinations in the list of events.
 3.2.2. System will respond accordingly, displaying only type of event that the user specified.
 
-===Entering the examination details
+=== Entering the examination details
 . User enters command “examination”, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
 . The system adds the examination to the list of events.
 
@@ -92,7 +92,7 @@ Extension 1.1: System detects a clash with the examination date entered and anot
 1.1.2. User reschedules the specified event by entering a date and time. The user is also able to delete an event with the delete command to free up the schedule if he wishes to do so.
 1.1.3. System once again checks for clashes and repeats the process of rescheduling if necessary.
 
-===Rate and comment on the efficiency of practice sessions 
+=== Rate and comment on the efficiency of practice sessions 
 . User enters a command to rate a practice session
 . System brings up a list of practice sessions that the user has already completed
 . User selects a practice session
@@ -108,7 +108,7 @@ Extensions 4.1: Selected practice session has already been rated.
 Extensions 5.1: User inputs an invalid rating.
 5.1.1. System displays an error message to inform the user of the correct rating format until a valid input is detected.
 
-==Non-functional requirements
+== Non-functional requirements
 . System should work on windows and linux.
 . System response within 1 second.
 . Usable by non tech-savvy individuals.
@@ -116,9 +116,9 @@ Extensions 5.1: User inputs an invalid rating.
 . Visually pleasing display
 
 [[Design]]
-==Design
+== Design
 
-===Overall Architecture
+=== Overall Architecture
 
 There are three main components in the overall architecture of the application.
 
