@@ -1,10 +1,15 @@
 package compal.tasks;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents task with description, status and reminder.
@@ -16,19 +21,18 @@ public abstract class Task implements Serializable {
     }
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    public boolean isDone;
-    protected String symbol;
-    private int id;
 
-    //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details.
-    private Date date;
-    private Date time;
-    private String taskType;
+    protected String symbol;
     private String description;
-    private Integer durationHour;
-    private Integer durationMinute;
+    public boolean isDone;
+
+    private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
+    private Date time;
+    private Integer durationHour = 0;
+    private Integer durationMinute = 0;
     private boolean hasReminder;
     private Priority priority;
+    private long priorityScore;
     //----------------------->
 
 
@@ -46,12 +50,9 @@ public abstract class Task implements Serializable {
         this.priority = priority;
         this.isDone = false;
         hasReminder = false;
+
     }
     //----------------------->
-
-    //***GETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
 
     /**
@@ -70,6 +71,24 @@ public abstract class Task implements Serializable {
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String getisDone() {
+        return (isDone ? "true" : "false");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String gethasReminder() {
+        return (hasReminder ? "true" : "false");
     }
 
     /**
@@ -170,17 +189,12 @@ public abstract class Task implements Serializable {
     /**
      * Gets hasReminder of task.
      *
-     * @return whether the task has reminder. If task has reminder, return true.
-     *     If task has no reminder, return false.
+     * @return whether the task has reminder. If task has reminder, return true. Else false.
      */
     public boolean hasReminder() {
         return hasReminder;
     }
-    //----------------------->
 
-    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * Gets time of task in date format.
@@ -214,8 +228,11 @@ public abstract class Task implements Serializable {
      */
     public String getStringTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
-        String stringDate = formatter.format(this.time);
-        return stringDate;
+        if (this.time == null) {
+            return "-";
+        } else {
+            return formatter.format(this.time);
+        }
     }
 
     /**
@@ -225,6 +242,15 @@ public abstract class Task implements Serializable {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Gets priorityScore.
+     *
+     * @return priority score
+     */
+    public long getPriorityScore() {
+        return priorityScore;
     }
 
     /**
@@ -261,5 +287,63 @@ public abstract class Task implements Serializable {
         }
         return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " Date: " + getStringDate() + " Time: " + getStringTime() + " Priority: " + getPriority();
+    }
+
+
+    /**
+     * Gets all the details of the task as a string, for saving into the text file.
+     * @return saveString
+     * @author jaedonkey
+     */
+    public String getAllDetailsAsString() {
+        StringBuilder list = new StringBuilder();
+        list.append(getSymbol());
+        list.append(" ");
+        list.append(getDescription());
+        list.append(" ");
+        list.append(getisDone());
+        list.append(" ");
+        list.append(getPriority().toString());
+        list.append(" ");
+        list.append(getStringDate());
+        list.append(" ");
+        list.append(getStringTime());
+        list.append(" ");
+        list.append(getDurationHour().toString());
+        list.append(" ");
+        list.append(getDurationMinute().toString());
+        list.append(" ");
+        list.append(gethasReminder());
+        return list.toString();
+    }
+
+    /**
+     * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
+     * the time remaining until the date set for the task.
+     * @author jaedonkey
+     */
+    public void calculateAndSetPriorityScore() {
+        long score = 0;
+        switch (priority) {
+        case high:
+            score = 70;
+            break;
+        case medium:
+            score = 50;
+            break;
+        case low:
+            score = 30;
+            break;
+        default:
+            score = 0;
+        }
+
+
+        Date d = new Date();
+        long diff = d.getTime() - this.date.getTime();
+        System.out.println("Task:LOG: Difference is " + diff);
+        score += diff;
+        priorityScore = score;
+
     }
 }

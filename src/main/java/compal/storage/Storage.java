@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public interface Storage {
 
+
     ArrayList<Task> loadCompal();
 
     String getUserName();
@@ -19,7 +20,7 @@ public interface Storage {
 
     void storeUserName(String name);
 
-    String generateStorageString(String... properties);
+
 
 
 }
