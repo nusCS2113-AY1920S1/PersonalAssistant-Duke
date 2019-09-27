@@ -141,6 +141,11 @@ public class Parser {
                 }
                 break;
 
+            case "view":
+                System.out.println("Viewing plan [number]: Please wait until the features are finalised");
+                System.out.println("Commands to be added: view plan [num], edit plan > do whatever with current plan");
+                break;
+
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;

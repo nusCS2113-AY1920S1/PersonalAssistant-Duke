@@ -107,10 +107,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * This function locates all tasks on a certain date as defined by the user
+     *
+     * @param word This parameter is the defined date that much be searched for
+     */
+
     public void findDate(String word) {
         int index = 1;
         String[] temp = word.split("/");
-        String dd = this.numOrdinal(Integer.parseInt(temp[0]));
+        String dd = numOrdinal(Integer.parseInt(temp[0]));
         Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;
@@ -134,7 +140,7 @@ public class TaskList {
      * @param num This parameter is the number taken
      * @return String of the input number with the ordinal attached to the end of the number
      */
-    public String numOrdinal(int num) {
+    public static String numOrdinal(int num) {
         String[] suffix = new String[] {"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
         switch (num) {
         case 11:
