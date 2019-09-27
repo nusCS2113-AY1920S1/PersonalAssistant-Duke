@@ -35,8 +35,8 @@ public class Event extends Task {
         return "E"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "at: " + date + " " + start + "-" + end;
     }
     public String listFormat(){
-        String datestring = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));// You can change to this format
-        return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + date + " " + start + "-" + end + ")";
+        String datestring = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + datestring + " " + start + "-" + end + ")";
     }
 
 }

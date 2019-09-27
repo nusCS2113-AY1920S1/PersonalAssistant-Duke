@@ -72,12 +72,15 @@ public class Storage {
                     }
                     tlist.add(FD);
                 } else if(details[0].equals("DA")) {
+                    System.out.println("ENTERED");
                     DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                     if(details[1].equals("\u2713")) {
                         DA.isDone = true;
                     }
-                    else
+                    else {
                         DA.isDone = false;
+                    }
+                    tlist.add(DA);
                 }
                 else {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());

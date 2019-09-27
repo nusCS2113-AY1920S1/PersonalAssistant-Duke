@@ -26,20 +26,21 @@ public class RecurringCommand {
         int date;
         if (list_description.contains("weekly")) {
             if (list_description.charAt(1) == 'E') {
-                splitstring = list_description.split("\\(at");
-                //splitstring[0] = :2019-10-10 03:03:03-04:04:04)x
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b; //get the date in string form
+                splitstring = list_description.split("\\(at:");
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc) + 7;
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(getdate);
+                int month = cal.get(Calendar.MONTH) + 1;
+                int year = Integer.parseInt(splitstring[1].substring(7,11));
                 String[] timing = splitstring[1].split(" ");
-                int year = Integer.parseInt(timing[0].substring(1,5));
-                int month = Integer.parseInt(timing[0].substring(6, 8));
-                String hour_min_sec = timing[1].substring(0,17);
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
-                System.out.println(description);
+
                 Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
@@ -65,27 +66,25 @@ public class RecurringCommand {
                 storage.Storages(sb.toString());
             } else if (list_description.charAt(1) == 'D') {
                 splitstring = list_description.split("by");
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc) + 7;
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]);
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(getdate);
                 int month = cal.get(Calendar.MONTH) + 1;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
-                String description = splitstring[0].substring(6, splitstring[0].length() - 1);
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Deadline new_weeklyDeadline = new Deadline(description, fmt.parse(conc_time));
-                list.add(new_weeklyDeadline);
+                int year = Integer.parseInt(splitstring[1].substring(7,11));
+                String[] timing = splitstring[1].split(" ");
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
+                String description = splitstring[0].substring(6, splitstring[0].length());
+
+                Event new_weeklyEvent = new Event(description, (conc_time));
+                list.add(new_weeklyEvent);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_weeklyDeadline.listFormat());
+                System.out.println(new_weeklyEvent.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
@@ -107,23 +106,21 @@ public class RecurringCommand {
             }
         } else if (list_description.contains("monthly")) {
             if (list_description.charAt(1) == 'E') {
-                splitstring = list_description.split("\\(at");
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                splitstring = list_description.split("\\(at:");
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc);
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]);
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(getdate);
                 int month = cal.get(Calendar.MONTH) + 2;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
+                int year = Integer.parseInt(splitstring[1].substring(7,11));
+                String[] timing = splitstring[1].split(" ");
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                 Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
@@ -149,27 +146,25 @@ public class RecurringCommand {
                 storage.Storages(sb.toString());
             } else if (list_description.charAt(1) == 'D') {
                 splitstring = list_description.split("by");
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc);
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]);
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(getdate);
                 int month = cal.get(Calendar.MONTH) + 2;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
-                String description = splitstring[0].substring(6, splitstring[0].length() - 1);
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Deadline new_weeklyDeadline = new Deadline(description, fmt.parse(conc_time));
-                list.add(new_weeklyDeadline);
+                int year = Integer.parseInt(splitstring[1].substring(7,11));
+                String[] timing = splitstring[1].split(" ");
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
+                String description = splitstring[0].substring(6, splitstring[0].length());
+
+                Event new_weeklyEvent = new Event(description, (conc_time));
+                list.add(new_weeklyEvent);
                 System.out.println("");
-                System.out.println("I've automatically added this monthly task again:");
-                System.out.println(new_weeklyDeadline.listFormat());
+                System.out.println("I've automatically added this weekly task again:");
+                System.out.println(new_weeklyEvent.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
@@ -191,27 +186,25 @@ public class RecurringCommand {
             }
         } else if (list_description.contains("yearly")) {
             if (list_description.charAt(1) == 'E') {
-                splitstring = list_description.split("\\(at");
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                splitstring = list_description.split("\\(at:");
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc);
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]) + 1;
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(getdate);
                 int month = cal.get(Calendar.MONTH) + 1;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
+                int year = Integer.parseInt(splitstring[1].substring(7,11)) + 1;
+                String[] timing = splitstring[1].split(" ");
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length());
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                 Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
                 System.out.println("");
-                System.out.println("I've automatically added this yearly task again:");
+                System.out.println("I've automatically added this weekly task again:");
                 System.out.println(new_weeklyEvent.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
@@ -233,27 +226,24 @@ public class RecurringCommand {
                 storage.Storages(sb.toString());
             } else if (list_description.charAt(1) == 'D') {
                 splitstring = list_description.split("by");
-                String conc = "";
-                char a = splitstring[1].charAt(9);
-                char b = splitstring[1].charAt(10);
-                conc = "" + a + b;
+                char a = splitstring[1].charAt(0);
+                char b = splitstring[1].charAt(1);
+                String conc = "" + a + b; //get the date in string form
                 date = Integer.parseInt(conc);
-                String[] timing = splitstring[1].split(" SGT ");
-                timing[1] = timing[1].substring(0, 4);
-                int year = Integer.parseInt(timing[1]) + 1;
-                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(timing[0].substring(5, 8));
+                Date getdate = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(splitstring[1].substring(3, 6));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(getdate);
                 int month = cal.get(Calendar.MONTH) + 1;
-                String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
-                String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
-                String description = splitstring[0].substring(6, splitstring[0].length() - 1);
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Deadline new_weeklyDeadline = new Deadline(description, fmt.parse(conc_time));
-                list.add(new_weeklyDeadline);
+                int year = Integer.parseInt(splitstring[1].substring(7,11)) + 1;
+                String[] timing = splitstring[1].split(" ");
+                String hour_min_sec = timing[3].substring(0,17);
+                String conc_time =  year + "-" + month + "-" + date + " " + hour_min_sec;
+                String description = splitstring[0].substring(6, splitstring[0].length());
+                Event new_weeklyEvent = new Event(description, (conc_time));
+                list.add(new_weeklyEvent);
                 System.out.println("");
-                System.out.println("I've automatically added this yearly task again:");
-                System.out.println(new_weeklyDeadline.listFormat());
+                System.out.println("I've automatically added this weekly task again:");
+                System.out.println(new_weeklyEvent.listFormat());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
