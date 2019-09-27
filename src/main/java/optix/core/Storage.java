@@ -49,8 +49,8 @@ public class Storage {
                     double cost = Double.parseDouble(arrStr[3]);
                     double revenue = Double.parseDouble(arrStr[4]);
 
-                    Show show = new Show(showName, cost, revenue);
-                    shows.put(date, show);
+                    Theatre theatre = new Theatre(showName, cost, revenue);
+                    shows.put(date, theatre);
                 }
 
                 counter++;
@@ -73,11 +73,11 @@ public class Storage {
             filePath.createNewFile();
             FileWriter wr = new FileWriter(filePath, true);
 
-            for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-                Show show = entry.getValue();
+            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
+                Theatre theatre = entry.getValue();
                 LocalDate date = entry.getKey();
 
-                wr.write(String.format("S | %s | %s", date, show.writeToFile()));
+                wr.write(String.format("S | %s | %s", date, theatre.writeToFile()));
             }
             wr.close();
         } catch (IOException e) {

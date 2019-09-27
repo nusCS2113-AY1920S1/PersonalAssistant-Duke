@@ -1,8 +1,8 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -26,8 +26,8 @@ public class DeleteAllCommand extends Command {
         ArrayList<String> missingShows = new ArrayList<>();
         for (String show: this.showNames) {
             boolean isFound = false;
-            ArrayList<Map.Entry<LocalDate, Show>> entryArrayList = new ArrayList<>();
-            for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
+            ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
+            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
                 if (entry.getValue().hasSameName(show.trim())) {
                     String showDescription = entry.getKey().toString() + ' ' + entry.getValue().toString();
                     entryArrayList.add(entry);
@@ -40,7 +40,7 @@ public class DeleteAllCommand extends Command {
                 missingShows.add(show);
             }
             // remove entry from shows.
-            for (Map.Entry<LocalDate,Show> entry: entryArrayList) {
+            for (Map.Entry<LocalDate, Theatre> entry: entryArrayList) {
                 shows.remove(entry.getKey(), entry.getValue());
             }
         }

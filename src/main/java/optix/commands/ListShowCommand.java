@@ -1,8 +1,8 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class ListShowCommand extends Command {
 
         int counter = 1;
 
-        for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
+        for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
             String showDate = entry.getKey().toString();
 
             if(showDate.compareTo(today) <= 0) {

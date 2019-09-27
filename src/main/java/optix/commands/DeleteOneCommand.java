@@ -1,8 +1,8 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -22,9 +22,9 @@ public class DeleteOneCommand extends Command {
 	public void execute(ShowMap shows, Ui ui, Storage storage) {
 		StringBuilder message = new StringBuilder();
 		LocalDate showLocalDate = toLocalDate(showDate);
-		Show showToDelete = shows.get(showLocalDate);
-		if (showToDelete != null && showToDelete.toString().equals(showName)) {
-			shows.remove(showLocalDate,showToDelete);
+		Theatre showToDelete = shows.get(showLocalDate);
+		if (showToDelete != null && showToDelete.hasSameName(showName)) {
+			shows.remove(showLocalDate, showToDelete);
 			message.append(String.format("Noted. The show <%s> scheduled on <%s> has been removed.\n", showName, showDate));
 		} else {
 			message.append(String.format("Unable to find show called <%s> schedule on <%s>\n", showName, showDate));

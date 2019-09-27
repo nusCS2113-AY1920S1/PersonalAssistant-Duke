@@ -2,8 +2,8 @@ package optix.commands;
 
 import optix.Ui;
 import optix.constant.OptixResponse;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -20,12 +20,12 @@ public class ListCommand extends Command {
 
         if (!shows.isEmpty()) {
             message.append(new OptixResponse().LIST_FOUND);
-            for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-                Show show = entry.getValue();
+            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
+                Theatre show = entry.getValue();
                 LocalDate showDate = entry.getKey();
 
                 if (showDate.compareTo(today) > 0) {
-                    message.append(String.format("%d. %s (on: %s)\n", counter, show.toString(), showDate));
+                    message.append(String.format("%d. %s (on: %s)\n", counter, show.getShowName(), showDate));
                     counter++;
                 }
             }

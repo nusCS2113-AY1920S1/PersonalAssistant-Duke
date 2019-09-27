@@ -1,8 +1,8 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -39,7 +39,7 @@ public class PostponeCommand extends Command {
                 message = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
                         + "Try again!\n";
             } else {
-                Show postponedShow = shows.removeShow(oldDate);
+                Theatre postponedShow = shows.removeShow(oldDate);
                 shows.put(newDate, postponedShow);
 
                 message = String.format("%s has been postponed from %s to %s\n", showName, oldDate, newDate);
