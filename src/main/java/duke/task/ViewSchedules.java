@@ -6,9 +6,9 @@ import java.util.Date;
 
 //import static duke.task.Task.getDate;
 
-public class ViewSchedules extends TaskList
-{
+public class ViewSchedules extends TaskList {
     private Date when;
+
     public ViewSchedules(String when) {
         this.when = Parser.stringToDate(when);
     }

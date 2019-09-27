@@ -8,16 +8,16 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * MAIN CLASS DUKE, start from main function
+ * MAIN CLASS DUKE, start from main function.
  */
 public class Duke {
-	
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * The constructor method for Duke
+     * The constructor method for Duke.
      * @param filePath used to specify the location of the file in the hard disc.
      */
     public Duke(String filePath) {
@@ -32,7 +32,7 @@ public class Duke {
     }
 
     /**
-     * The execution core of the Duke class
+     * The execution core of the Duke class.
      */
     public void run() {
         ui.showWelcome();
@@ -53,8 +53,8 @@ public class Duke {
     }
 
     /**
-	 * =============== MAIN FUNCTION ===============
-	 */
+     * =============== MAIN FUNCTION ===============.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
