@@ -1,5 +1,6 @@
 package Commands;
 
+import Task.TaskList;
 import Actions.Action;
 import Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
@@ -13,8 +14,9 @@ import UserInterfaces.Ui;
 
 public class TestCommand extends Command {
 
-    public TestCommand(Ui ui, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
+    public TestCommand(Ui ui, TaskList tasks, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.ui = ui;
+        this.tasks = tasks;
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
@@ -26,7 +28,8 @@ public class TestCommand extends Command {
             Condition c = Condition.hasSeeds;
             Action plantSeedAction = new plantSeedAction(ui, wheatFarm, chickenFarm, cowFarm);
             Task task = new Task(c, plantSeedAction);
-            task.execute(); //should be adding it into the tasklist actually
+            tasks.addTask(task);
+            //task.execute(); //should be adding it into the tasklist actually
         } catch (Exception e) {
             e.getMessage();
         }
