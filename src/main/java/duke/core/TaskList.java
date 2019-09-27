@@ -21,8 +21,14 @@ public class TaskList {
      * and saves it.
      * @param items the array of Tasks, as converted from text in the save-file by the Storage instance
      */
-    public TaskList(ArrayList<Task> items) {
+    public TaskList(ArrayList<Task> items, Ui ui) {
         this.items = items;
+        int daysDue = 4;
+        if ((searchItemsDue(daysDue).isEmpty())) {
+            ui.print("No tasks due today!");
+        } else {
+            ui.printTaskArray("REMINDER - The following deadlines below are due soon:", searchItemsDue(daysDue));
+        }
     }
 
     /**
