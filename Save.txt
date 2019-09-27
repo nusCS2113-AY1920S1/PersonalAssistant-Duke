@@ -1,12 +1,2 @@
-T|?| lol
-E|?| eat|at: Mon Dec 02 12:02:12 SGT 2019
-E|?| sleep|at: Mon Dec 02 12:02:12 SGT 2019
-D|?| walk dog|by: Mon Apr 04 04:04:04 SGT 2016
-D|?| go school|by: Mon Apr 04 04:04:04 SGT 2016
-E|?| basketball finals|at: Wed Jan 22 12:12:12 SGT 2020
-E|?| golf finals|at: Mon Jan 13 12:12:12 SGT 2020
-E|?| hookok finals|at: Mon Jan 01 02:02:02 SGT 2018
-D|?| ask question|by: Mon Apr 04 04:04:04 SGT 2016
-E|?| wow weekly|at: Mon Nov 11 06:06:06 SGT 2019
-E|?| lol weekly|at: Wed Oct 17 05:05:05 SGT 2018
-D|?| wow weekly |by: Tue Apr 10 02:02:02 SGT 2018
+T|✘| project meeting
+T|✓| meeting
