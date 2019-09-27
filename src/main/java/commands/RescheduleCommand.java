@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class RescheduleCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+        try {
         if (ui.FullCommand.length() == 10) {
             throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
         } else {
@@ -47,14 +48,18 @@ public class RescheduleCommand extends Command {
                         sb.append(list.get(i).toString() + "\n");
                     } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
                         sb.append(list.get(i).toString() + "\n");
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
+                        } else {
+                            sb.append(list.get(i).toString() + "\n");
+                        }
                     }
+                    storage.Storages(sb.toString());
+                } else {
+                    System.out.println("It's fine. Nothing has been changed.");
                 }
-                storage.Storages(sb.toString());
-            } else {
-                System.out.println("It's fine. Nothing has been changed.");
             }
+        }
+        catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
     @Override
