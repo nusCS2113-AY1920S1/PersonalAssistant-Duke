@@ -5,6 +5,7 @@ import duke.entities.Order;
 import duke.parser.CommandParser;
 import duke.parser.TimeParser;
 import duke.storage.BakingList;
+import duke.storage.SaleList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -40,6 +41,9 @@ public class EditOrderCommand extends UndoableCommand {
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
+
+    @Override
+    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {}
 
     private Order getOrder(BakingList bakingList) throws DukeException {
         if (params.containsKey(("i"))) {

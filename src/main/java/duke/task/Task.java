@@ -62,11 +62,11 @@ public abstract class Task {
 
     /**
      * Returns an icon indicating if the duke.task is done.
-     * @return "✅" if the duke.task is done; otherwise "❌"
+     * @return "✓" if the duke.task is done; otherwise "✘"
      */
     @JsonIgnore
     public String getStatusIcon() {
-        return (done ? "✅" : "❌"); //return tick or X symbols
+        return (done ? "✓" : "✘"); //return tick or X symbols
     }
 
     /**

@@ -2,6 +2,7 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import duke.entities.Order;
+import duke.entities.Sale;
 import duke.logic.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -45,6 +46,7 @@ public class MainWindow extends AnchorPane {
 
     private OrderPage orderPage;
     private RecipePage recipePage;
+    private SalePage salePage;
 
     public void initialize() {
         Ui ui = new Ui(this);
@@ -98,6 +100,12 @@ public class MainWindow extends AnchorPane {
         AnchorPane.setRightAnchor(recipePage, 0.0);
         AnchorPane.setTopAnchor(recipePage, 0.0);
         AnchorPane.setBottomAnchor(recipePage, 4.0);
+
+        salePage = new SalePage();
+        AnchorPane.setLeftAnchor(salePage, 0.0);
+        AnchorPane.setRightAnchor(salePage, 0.0);
+        AnchorPane.setTopAnchor(salePage, 0.0);
+        AnchorPane.setBottomAnchor(salePage, 4.0);
     }
 
     void showMessage(String message) {
@@ -134,6 +142,22 @@ public class MainWindow extends AnchorPane {
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Orders");
+    }
+
+    void refreshSaleList(List<Sale> sales, List<Sale> all) {
+        this.salePage.refreshSaleList(sales, all);
+    }
+
+    void showSalePage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(salePage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.RAISED);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Sales");
     }
 
     void showRecipePage() {

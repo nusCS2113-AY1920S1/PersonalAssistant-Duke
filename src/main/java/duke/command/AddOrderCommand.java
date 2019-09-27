@@ -2,9 +2,11 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Order;
+import duke.entities.Sale;
 import duke.parser.CommandParser;
 import duke.parser.TimeParser;
 import duke.storage.BakingList;
+import duke.storage.SaleList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -19,13 +21,14 @@ public class AddOrderCommand extends UndoableCommand {
         this.params = params;
     }
 
-    @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         order = getOrder();
         addOrder(order, bakingList);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
+
+    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException { }
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {

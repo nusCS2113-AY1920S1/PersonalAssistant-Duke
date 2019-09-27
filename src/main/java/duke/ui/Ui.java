@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.entities.Order;
+import duke.entities.Sale;
 
 import java.util.List;
 
@@ -24,12 +25,20 @@ public class Ui {
         mainWindow.showOrderPage();
     }
 
+    public void showSalePage() {
+        mainWindow.showSalePage();
+    }
+
     public void initializePages() {
         mainWindow.initializePages();
     }
 
     public void refreshOrderList(List<Order> orders, List<Order> all) {
         mainWindow.refreshOrderList(orders, all);
+    }
+
+    public void refreshSaleList(List<Sale> sale, List<Sale> all) {
+        mainWindow.refreshSaleList(sale, all);
     }
 
     public void disableInput() {
