@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a specific {@link Command} used to delete a {@link Task} from the {@link TaskList}
+ * Represents a specific {@link Command} used to delete a {@link Task} from the {@link TaskList}.
  */
 public class DeleteCommand extends Command {
     private int taskNb;
@@ -35,7 +35,8 @@ public class DeleteCommand extends Command {
                 throw new DukeException("Error while deleting the task from the had disc");
             }
             ui.showRemovedTask(removed.toString(), taskList.size());
-        } else
+        } else {
             throw new DukeException("Enter a valid task number after delete, between 1 and " + taskList.size());
+        }
     }
 }
