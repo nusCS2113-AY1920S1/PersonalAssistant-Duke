@@ -140,7 +140,7 @@ public class TaskList {
     /**
      * passes a new date into the event or deadline class.
      *
-     * @param input User input of the date as a string.
+     * @param input User input of the command to snooze a task as a string.
      * @throws DukeException throws when incorrect range or format was passed.
      */
     public void snoozeTask(String input) throws DukeException {
@@ -151,7 +151,7 @@ public class TaskList {
             if (split.length < 2) {
                 throw new DukeException("Please use /to to indicate date");
             } else if (isOutOfRange(request)) {
-                throw new DukeException("The index was not found withing range");
+                throw new DukeException("The index was not found within range");
             } else if (!(list.get(request).getType().matches("E") | list.get(request).getType().matches("D"))) {
                 throw new DukeException("Only Events and Deadlines can be snoozed");
             } else {

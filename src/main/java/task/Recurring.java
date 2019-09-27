@@ -17,7 +17,7 @@ public class Recurring extends Task {
         String[] split = description.split(Parser.recurring);
         if (split.length < 2) {
             System.out.println("I threw exception");
-            throw new DukeException("Please use /every to indicate recurrence of task");
+            throw new DukeException("Please use /every to indicate frequency of task");
         } else if (split.length > 2) {
             throw new DukeException("Too many /every in String");
         } else {

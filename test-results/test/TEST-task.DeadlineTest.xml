@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="task.DeadlineTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.022">
+  <properties/>
+  <testcase name="testExceptions()" classname="task.DeadlineTest" time="0.001"/>
+  <testcase name="testGetDueDate()" classname="task.DeadlineTest" time="0.001"/>
+  <testcase name="testGetType()" classname="task.DeadlineTest" time="0.001"/>
+  <testcase name="testGetDescription()" classname="task.DeadlineTest" time="0.002"/>
+  <testcase name="testSnooze()" classname="task.DeadlineTest" time="0.004"/>
+  <testcase name="testToList()" classname="task.DeadlineTest" time="0.0"/>
+  <testcase name="testGetStatusIcon()" classname="task.DeadlineTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

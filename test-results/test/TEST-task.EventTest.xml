@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="task.EventTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.03">
+  <properties/>
+  <testcase name="testExceptions()" classname="task.EventTest" time="0.001"/>
+  <testcase name="testGetDueDate()" classname="task.EventTest" time="0.001"/>
+  <testcase name="testTentative()" classname="task.EventTest" time="0.019"/>
+  <testcase name="testGetType()" classname="task.EventTest" time="0.0"/>
+  <testcase name="testGetDescription()" classname="task.EventTest" time="0.001"/>
+  <testcase name="testSnooze()" classname="task.EventTest" time="0.001"/>
+  <testcase name="testToList()" classname="task.EventTest" time="0.001"/>
+  <testcase name="testGetStatusIcon()" classname="task.EventTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

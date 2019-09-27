@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="task.AfterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.008">
+  <properties/>
+  <testcase name="testExceptionThrown()" classname="task.AfterTest" time="0.001"/>
+  <testcase name="testGetAfter()" classname="task.AfterTest" time="0.001"/>
+  <testcase name="testGetType()" classname="task.AfterTest" time="0.001"/>
+  <testcase name="testGetDescription()" classname="task.AfterTest" time="0.0"/>
+  <testcase name="testToList()" classname="task.AfterTest" time="0.001"/>
+  <testcase name="testGetStatusIcon()" classname="task.AfterTest" time="0.003"/>
+  <system-out><![CDATA[I threw exception
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
