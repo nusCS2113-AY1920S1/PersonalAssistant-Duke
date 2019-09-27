@@ -6,12 +6,15 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:experimental:
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-W12-3/main
+
+By: `AY1920S1-CS2113T-W12-3`      Since: `Aug 2019`
 
 == Setting up
 
