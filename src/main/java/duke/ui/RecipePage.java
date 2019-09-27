@@ -52,9 +52,7 @@ public class RecipePage extends AnchorPane {
     @FXML
     private TableView<Recipe> recipeTable;
 
-    private Recipe recipe = new Recipe("");
-
-
+    private Recipe rcp;
     public RecipePage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/RecipePage.fxml"));
@@ -64,11 +62,19 @@ public class RecipePage extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Recipe recipe = new Recipe("");
+        recipe.init();
+        RecipeList rpl = new RecipeList();
+        rpl.add(recipe);
+        showRecipeListPage(rpl);
+
+
     }
 
 
     public String getName() {
-        return recipe.getName();
+        return rcp.getName();
     }
 
     public void showRecipeShowPane() {
