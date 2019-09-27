@@ -141,6 +141,16 @@ public class Parser {
         return Integer.parseInt(splited[1]) - 1;
     }
 
+    /**
+     * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
+     * returns an email-relevant Command.
+     *
+     * @param emailList target email list from Duke.
+     * @param input user/file input ready to be parsed.
+     * @return an email-relevant Command.
+     * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
+     *                            input
+     */
     public static Command parseEmail(EmailList emailList, String input) throws UserInputException {
         if (input.length() <= 7) {
             throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
@@ -171,6 +181,7 @@ public class Parser {
                     + "email.");
         }
     }
+
     /**
      * Parses the specific part of a user/file input that is relevant to a task. A successful parsing always
      * returns an AddCommand, as it is assumed that an input starting with a task name is an add command.
