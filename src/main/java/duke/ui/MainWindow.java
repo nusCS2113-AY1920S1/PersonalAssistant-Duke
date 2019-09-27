@@ -92,6 +92,7 @@ public class MainWindow extends AnchorPane {
         setPageAnchor(orderPage);
 
         recipePage = new RecipePage();
+
         setPageAnchor(recipePage);
 
         inventoryPage = new InventoryPage();

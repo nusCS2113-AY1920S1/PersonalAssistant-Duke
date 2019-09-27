@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <fx:root maxHeight="1.7976931348623157E308" minHeight="230.0" prefHeight="200.0" prefWidth="800.0"
-         style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
-         xmlns:fx="http://javafx.com/fxml/1">
+         style="-fx-background-color: white;" type="AnchorPane" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
     <children>
         <AnchorPane fx:id="innerPane" prefHeight="200.0" prefWidth="200.0"
                     style="-fx-background-color: white; -fx-border-color: #CCCCCC; -fx-effect: dropshadow(three-pass-box, grey, 10.0,0, 0, 0);"

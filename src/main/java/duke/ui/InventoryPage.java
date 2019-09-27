@@ -18,3 +18,4 @@ public class InventoryPage extends AnchorPane {
         }
     }
 }
+
