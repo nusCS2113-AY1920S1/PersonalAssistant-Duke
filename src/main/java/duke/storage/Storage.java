@@ -1,13 +1,14 @@
 package duke.storage;
 
 import java.io.*;
+import java.time.Period;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
 import duke.tasks.*;
 
 /**
- * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
+ * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  * @author Ivan Andika Lie
  */
 public class Storage {
@@ -54,6 +55,8 @@ public class Storage {
      * This function acts as a line by line parser from the text file which is used to load a particular type of task.
      * @param line the line input from the input file
      * @param tasks the task arraylist that will store the tasks from the input file
+     * @param schedule object to store list of objects in chronological order by month
+     * @param doAfter arraylist of ToDo tasks that will be done after this event
      */
     private static void loadFile(String line, ArrayList<Task> tasks, Schedule schedule, ArrayList<ToDo> doAfter) {
         String[] splitLine = line.split("\\|");
@@ -64,7 +67,11 @@ public class Storage {
 
         String timeFrame = "";
         if (taskType.equals("D") || taskType.equals("E")) {
-            timeFrame = splitLine[4];
+            timeFrame = splitLine[5];
+        }
+        String recurringDuration = "";
+        if (splitLine.length > 6) {
+            recurringDuration = splitLine[6];
         }
         if (taskType.equals("T")) {
             if (subtypes.trim().length() == 0) {
@@ -77,7 +84,7 @@ public class Storage {
                 loadToDo(tasks, isDone, subtypes, schedule, doAfter, description, splitLine[5]);
             }
         } else if (taskType.equals("D")) {
-            loadDeadline(tasks, description, timeFrame, isDone, schedule, doAfter);
+            loadDeadline(tasks, description, timeFrame, isDone, schedule, doAfter, recurringDuration);
         } else if (taskType.equals("E")) {
             if (subtypes.trim().length() == 0) {
                 loadEvent(tasks, description, isDone, subtypes, doAfter, schedule, splitLine[5]);
@@ -91,8 +98,11 @@ public class Storage {
     /**
      * This function will load a todo line and push it to the task arraylist.
      * @param tasks the task arraylist that will store the tasks from the input file
-     * @param description the task specified
      * @param isDone whether the todo task is done
+     * @param subtypes whether todo task is at a single duration or between 2 times
+     * @param schedule object to store list of objects in chronological order by month
+     * @param doAfter arraylist of ToDo tasks that will be done after this event
+     * @param description description of the task and duration or start and end timings depending on subtypes
      */
     //TODO: make such that the loadFile only need to call one function only
     private static void loadToDo(ArrayList<Task> tasks, boolean isDone,
@@ -129,11 +139,22 @@ public class Storage {
      * @param description the task specified
      * @param by the deadline of the deadline task
      * @param isDone whether the deadline task is done
+     * @param doAfter arraylist of ToDo tasks that will be done after this event
+     * @param schedule object to store list of objects in chronological order by month
+     * @param recurringDuration string containing how often this task repeats
      */
     private static void loadDeadline(ArrayList<Task> tasks, String description,
-                                     String by, boolean isDone, Schedule schedule, ArrayList<ToDo> doAfter) {
+                                     String by, boolean isDone, Schedule schedule, ArrayList<ToDo> doAfter,
+                                     String recurringDuration) {
         boolean toAdd;
-        Deadline newDeadline = new Deadline(description, by);
+        Deadline newDeadline;
+
+        if (recurringDuration.isBlank()) {
+            newDeadline = new Deadline(description, by);
+        } else {
+            newDeadline = new Deadline(description, by, Period.parse(recurringDuration));
+        }
+
         if (isDone) {
             newDeadline.markAsDone();
         }
@@ -148,8 +169,11 @@ public class Storage {
      * This function will load a event line and push it to the task arraylist.
      * @param tasks the task arraylist that will store the tasks from the input file
      * @param description the event specified
-     * @param duration the duration of the event
      * @param isDone whether the event is completed
+     * @param subtypes whether event is at a single time or between 2 times
+     * @param doAfter arraylist of ToDo tasks that will be done after this event
+     * @param schedule object to store list of objects in chronological order by month
+     * @param timeFrame either 1 or 2 date strings depending on subtypes
      */
     private static void loadEvent(ArrayList<Task> tasks, String description,
                                   boolean isDone, String subtypes, ArrayList<ToDo> doAfter,
@@ -222,7 +246,13 @@ public class Storage {
                     }
                 } else if ((currentTask.getType()).equals("D")) {
                     String timeFrame = (currentLine.split("by: ", 2))[1].split("\n")[0];
-                    bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
+                    if (timeFrame.contains(" ( Recurring")) {
+                        timeFrame = timeFrame.split(" Recurring")[0];
+                        bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 3));
+                        bufferedWriter.write("|" + currentTask.getRecurringDuration().toString());
+                    } else {
+                        bufferedWriter.write("|" + timeFrame.substring(0, timeFrame.length() - 1));
+                    }
                 }
                 for (int j = 0; j < currentTask.getDoAfter().size(); j += 1) {
                     bufferedWriter.newLine();

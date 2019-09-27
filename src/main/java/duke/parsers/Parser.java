@@ -7,6 +7,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
+import java.time.Period;
 import java.util.Date;
 
 
@@ -64,7 +65,18 @@ public class Parser {
         } else if (command.equals("deadline")) {
             try {
                 String[] splitString = description.split(" /by ");
-                return new AddCommand(new Deadline(splitString[0], splitString[1]));
+                String taskDescriptionString = splitString[0];
+                String deadlineString = splitString[1];
+                if (splitString[1].contains(" /every ")) {
+                    String recurringString = "";
+                    String[] splitString2 = splitString[1].split(" /every ");
+                    deadlineString = splitString2[0];
+                    recurringString = splitString2[1];
+                    Period recurringDuration = DateParser.parseDuration(recurringString);
+                    return new AddCommand(new Deadline(taskDescriptionString, deadlineString, recurringDuration));
+                } else {
+                    return new AddCommand(new Deadline(taskDescriptionString, deadlineString));
+                }
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
             }

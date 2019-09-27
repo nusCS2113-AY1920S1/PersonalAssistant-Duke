@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -16,6 +17,7 @@ public class Task {
     protected int duration;
     protected Calendar datetime = Calendar.getInstance();
     protected Calendar end = Calendar.getInstance();
+    protected Period recurringDuration;
     protected ArrayList<ToDo> doAfter = new ArrayList();
     private static final String padding = "     ";
 
@@ -24,7 +26,12 @@ public class Task {
      * @param description the description of the task
      */
     public Task(String description) {
+        this(description, Period.of(0,0,0));
+    }
+
+    public Task(String description, Period recurringDuration) {
         this.description = description;
+        this.recurringDuration = recurringDuration;
         this.isDone = false;
     }
 
@@ -88,10 +95,6 @@ public class Task {
         return this.end;
     }
 
-    public int getDuration() {
-        return this.duration;
-    }
-
     public void setDoAfter(ArrayList<ToDo> doAfter) {
         this.doAfter = doAfter;
     }
@@ -102,6 +105,18 @@ public class Task {
 
     public void setDate(Calendar datetime) {
         this.datetime = datetime;
+    }
+
+    public void setRecurringDuration(Period recurringDuration) {
+        this.recurringDuration = recurringDuration;
+    }
+
+    public Period getRecurringDuration() {
+        return this.recurringDuration;
+    }
+
+    public boolean isRecurringTask() {
+        return !this.recurringDuration.isZero();
     }
 
     /**
