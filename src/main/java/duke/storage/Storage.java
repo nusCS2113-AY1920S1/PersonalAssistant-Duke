@@ -91,7 +91,7 @@ public class Storage {
      * @param meals the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(ArrayList<Meal> meals) {
+    public void updateFile(HashMap<String, ArrayList<Meal>> meals) {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -99,27 +99,29 @@ public class Storage {
             e.printStackTrace();
         }
         try {
-            for (int i = 0; i < meals.size(); i++) {
-                Meal currentMeal = meals.get(i);
-                String currentLine = currentMeal.toString();
-                if (i > 0) {
-                    bufferedWriter.newLine();
-                }
-                String status = "0";
-                if (currentMeal.getIsDone()) {
-                    status = "1";
-                }
-                String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
-                        + "|date|" + currentMeal.getDate();
-                HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
-                if (nutritionData.size() != 0) {
-                    toWrite += "|";
-                    for (String j : nutritionData.keySet()) {
-                        toWrite += j + "|" + nutritionData.get(j) + "|";
+            for (String i : meals.keySet()) {
+                ArrayList<Meal> mealsInDay = meals.get(i);
+                for (int j = 0; j < meals.size(); j++) {
+                    Meal currentMeal = mealsInDay.get(j);
+                    if (j > 0) {
+                        bufferedWriter.newLine();
                     }
-                    toWrite = toWrite.substring(0, toWrite.length() - 1);
+                    String status = "0";
+                    if (currentMeal.getIsDone()) {
+                        status = "1";
+                    }
+                    String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
+                            + "|date|" + currentMeal.getDate();
+                    HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
+                    if (nutritionData.size() != 0) {
+                        toWrite += "|";
+                        for (String k : nutritionData.keySet()) {
+                            toWrite += k + "|" + nutritionData.get(k) + "|";
+                        }
+                        toWrite = toWrite.substring(0, toWrite.length() - 1);
+                    }
+                    bufferedWriter.write(toWrite);
                 }
-                bufferedWriter.write(toWrite);
             }
             bufferedWriter.close();
         } catch (IOException e) {
