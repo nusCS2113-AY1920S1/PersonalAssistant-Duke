@@ -1,10 +1,14 @@
 package compal.tasks;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents task with description, status and reminder.
@@ -16,17 +20,15 @@ public abstract class Task implements Serializable {
     }
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    public boolean isDone;
-    protected String symbol;
-    private int id;
 
-    //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details.
-    private Date date;
-    private Date time;
-    private String taskType;
+    protected String symbol;
     private String description;
-    private Integer durationHour;
-    private Integer durationMinute;
+    public boolean isDone;
+
+    private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
+    private Date time;
+    private Integer durationHour = 0;
+    private Integer durationMinute = 0;
     private boolean hasReminder;
     private Priority priority;
     //----------------------->
@@ -54,6 +56,9 @@ public abstract class Task implements Serializable {
     //----------------------------------------------------------------------------------------------------------------->
 
 
+
+
+
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
      *
@@ -70,6 +75,24 @@ public abstract class Task implements Serializable {
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String getisDone() {
+        return (isDone ? "true" : "false");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String gethasReminder() {
+        return (hasReminder ? "true" : "false");
     }
 
     /**
@@ -261,5 +284,40 @@ public abstract class Task implements Serializable {
         }
         return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " Date: " + getStringDate() + " Time: " + getStringTime() + " Priority: " + getPriority();
+    }
+
+
+    /**
+     *   public boolean isDone;
+     *
+     *     private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
+     *     private Date time;
+     *     private SimpleStringProperty testString;
+     *     private Integer durationHour;
+     *     private Integer durationMinute;
+     *     private boolean hasReminder;
+     *     private Priority priority;
+     * @return
+     */
+    public String getAllDetailsAsString(){
+        StringBuilder list = new StringBuilder();
+        list.append(getSymbol());
+        list.append(" ");
+        list.append(getDescription());
+        list.append(" ");
+        list.append(getisDone());
+        list.append(" ");
+        list.append(getPriority().toString());
+        list.append(" ");
+        list.append(getStringDate());
+        list.append(" ");
+        list.append(getStringTime());
+        list.append(" ");
+        list.append(getDurationHour().toString());
+        list.append(" ");
+        list.append(getDurationMinute().toString());
+        list.append(" ");
+        list.append(gethasReminder());
+        return list.toString();
     }
 }

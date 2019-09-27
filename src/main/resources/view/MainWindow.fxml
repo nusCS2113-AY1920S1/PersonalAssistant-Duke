@@ -35,58 +35,53 @@
         <Label layoutX="515.0" layoutY="56.0" text="Upcoming Tasks" />
         <Label layoutX="14.0" layoutY="56.0" text="ComPAL" />
         <Label fx:id="date" layoutX="210.0" layoutY="56.0" text="Label" />
-      <TabPane layoutX="8.0" layoutY="388.0" prefHeight="300.0" prefWidth="790.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="14.0" layoutY="387.0" prefHeight="300.0" prefWidth="787.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Monthly">
+          <Tab text="Weekly">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="784.0">
-                     <children>
-                        <TableView prefHeight="267.0" prefWidth="790.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Mon" />
-                            <TableColumn prefWidth="75.0" text="Tues" />
-                              <TableColumn prefWidth="75.0" text="Wed" />
-                              <TableColumn prefWidth="75.0" text="Thurs" />
-                              <TableColumn prefWidth="75.0" text="Fri" />
-                              <TableColumn prefWidth="75.0" text="Sat" />
-                              <TableColumn prefWidth="75.0" text="Sun" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-          <Tab text="Weekly">
+          <Tab text="Daily">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="268.0" prefWidth="784.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
+                        <ScrollPane prefHeight="270.0" prefWidth="787.0">
+                           <content>
+                              <TableView fx:id="tableView" prefHeight="0.0">
+                                <columns>
+                                    <TableColumn prefWidth="75.0" text="12am" />
+                                    <TableColumn prefWidth="75.0" text="1am" />
+                                    <TableColumn prefWidth="75.0" text="2am" />
+                                    <TableColumn prefWidth="75.0" text="3am" />
+                                    <TableColumn prefWidth="75.0" text="4am" />
+                                    <TableColumn prefWidth="75.0" text="5am" />
+                                    <TableColumn prefWidth="75.0" text="6am" />
+                                    <TableColumn prefWidth="75.0" text="7am" />
+                                    <TableColumn prefWidth="75.0" text="8am" />
+                                    <TableColumn prefWidth="75.0" text="9am" />
+                                    <TableColumn prefWidth="75.0" text="10am" />
+                                    <TableColumn prefWidth="75.0" text="11am" />
+                                    <TableColumn prefWidth="75.0" text="12pm" />
+                                    <TableColumn prefWidth="75.0" text="1pm" />
+                                    <TableColumn prefWidth="75.0" text="2pm" />
+                                    <TableColumn prefWidth="75.0" text="3pm" />
+                                    <TableColumn prefWidth="75.0" text="4pm" />
+                                    <TableColumn prefWidth="75.0" text="5pm" />
+                                    <TableColumn prefWidth="75.0" text="6pm" />
+                                    <TableColumn prefWidth="75.0" text="7pm" />
+                                    <TableColumn prefWidth="75.0" text="8pm" />
+                                    <TableColumn prefWidth="75.0" text="9pm" />
+                                    <TableColumn prefWidth="75.0" text="10pm" />
+                                    <TableColumn prefWidth="75.0" text="11pm" />
+                                </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Daily">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView prefHeight="268.0" prefWidth="784.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
         </tabs>
       </TabPane>
     </children>

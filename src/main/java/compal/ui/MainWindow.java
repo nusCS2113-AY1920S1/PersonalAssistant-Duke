@@ -2,11 +2,23 @@ package compal.ui;
 
 import compal.compal.Compal;
 
+import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import compal.tasks.Event;
+import compal.tasks.Task;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -17,6 +29,14 @@ public class MainWindow extends AnchorPane {
     //Class Properties/Variables
     @FXML
     private TextField userInput;
+
+    @FXML
+    private TableView<Task> tableView;
+    @FXML
+    private TableColumn<Task,String> midnight;
+
+
+
     @FXML
     private Label date;
     private Compal compal;
@@ -49,4 +69,8 @@ public class MainWindow extends AnchorPane {
         compal.parser.processCmd(cmd);
         userInput.clear();
     }
+
+
+
+    private ObservableList<Task> testList = FXCollections.observableArrayList(new Event("Hello",Task.Priority.high,"08/09/2019","0600"));
 }

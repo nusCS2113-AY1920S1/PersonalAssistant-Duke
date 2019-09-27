@@ -146,24 +146,6 @@ public class Ui {
      * @throws Compal.DukeException If an error is encountered.
      */
     public void checkInit() throws ParseException, Compal.DukeException {
-        //print the changelog for developers. todo: Remove when releasing build.
-        printSecondaryg("CHANGELOG V1.1:\n (REMOVE BEFORE PACKAGING AS JAR)");
-        printSecondaryg("\n+ viewing of tasks on a specific date\n"
-                + "   displays the tasks for that date\n"
-                + "   usage: view <dd/mm/yyyy>\n\n\n"
-                + "+ reminders\n"
-                + "   ComPAL shows reminders of tasks due within a week and tasks with reminders set\n"
-                + "   NOTE: setting reminders is not yet implemented\n\n\n"
-                + "+ new task type added: doaftertask\n"
-                + "   task that can be done only after a certain date\n"
-                + "   usage: doaftertask < descriptive name> /after <dd/mm/yyyy hhmm>\n\n\n"
-                + "+ clearing terminal\n"
-                + "   clears Compal's primary terminal\n"
-                + "   usage: clear\n\n\n"
-                + "+ new task type added: fixeddurationtask\n"
-                + "  task that have a fixed duration\n"
-                + "   usage: fixeddurationtask < descriptive name> /on <dd/mm/yyyy hhmm> /for "
-                + "< number of hours> hours < number of minutes> minutes");
 
         File tmpDir = new File("./prefs.txt");
         boolean saveFileExists = tmpDir.exists();
