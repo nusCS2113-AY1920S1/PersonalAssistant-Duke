@@ -31,7 +31,7 @@ The program is designed to automate and streamline most of the process in schedu
 . As a student who wants to categorize what I learn in classes, I want to be able to take notes and organize them into different categories, so that I can easily review it anytime.
 . As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.
 
-[[User cases]]
+[[Use cases]]
 == Use cases
 
 ===Entering a practice schedule into the system
@@ -115,13 +115,20 @@ Extensions 5.1: User inputs an invalid rating.
 . Clear user prompts 
 . Visually pleasing display
 
-[[Description of classes]]
-== Description of classes
+[[Design]]
+== Design
 
-== Duke
-Contains the main() class which is run when the programme starts.
+===Architecture
 
-=== Events Package
-There are three types of Events: 
+There are three main components in the overall architecture of the application.
+
+`Duke` class: contains the `main()` class of the application.
+* Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
+* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
+
+`Events` Package: contains classes pertaining to the events.
+
+`UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
+
 
 
