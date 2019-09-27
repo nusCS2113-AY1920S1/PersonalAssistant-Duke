@@ -5,11 +5,11 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class InventoryPage extends AnchorPane {
+public class SalesPage extends AnchorPane {
 
-    public InventoryPage() {
+    public SalesPage() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/InventoryPage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/SalesPage.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -18,4 +18,3 @@ public class InventoryPage extends AnchorPane {
         }
     }
 }
-
