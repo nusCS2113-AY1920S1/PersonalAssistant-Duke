@@ -1,6 +1,6 @@
 package duke.commands;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.tasks.meal;
+import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import java.util.ArrayList;
@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        Task currentTask = currentTasks.get(index - 1);
+    public void execute(mealList tasks, Ui ui, Storage storage) {
+        ArrayList<meal> currentMeals = tasks.getMeals();
+        meal currentMeal = currentMeals.get(index - 1);
         tasks.delete(index);
-        ui.showDeleted(currentTask, currentTasks);
-        storage.updateFile(currentTasks);
+        ui.showDeleted(currentMeal, currentMeals);
+        storage.updateFile(currentMeals);
     }
 }

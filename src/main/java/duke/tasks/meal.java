@@ -1,23 +1,25 @@
 package duke.tasks;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Task is a public class that represents the tasks in duke
  * A task object encapsulates the description of the task, the type of task it is, and whether
  * the task is done
  */
-public class Task {
+public class meal {
     protected String description;
     protected String type = "";
     protected boolean isDone;
     protected Calendar datetime = Calendar.getInstance();
+    protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
 
     /**
      * This is the constructor of Task object
      * @param description the description of the task
      */
-    public Task(String description) {
+    public meal(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -50,7 +52,7 @@ public class Task {
      * This is a getter for isDone
      * @return isDone status of the task
      */
-    public boolean getisDone() {
+    public boolean getIsDone() {
         return this.isDone;
     }
 
@@ -62,13 +64,18 @@ public class Task {
         return this.type;
     }
 
+    public HashMap<String, Integer> getNutritionalValue() { return this.nutritionValue; }
     /**
      * This function overrides the toString() function in the object class
      * @return the status icon and the description of the task
      */
     @Override
     public String toString() {
-        return this.getStatusIcon() + " " + this.description;
+        String temp = "";
+        for (String i : nutritionValue.keySet()) {
+            temp += i + ":" + nutritionValue.get(i) + " ";
+        }
+        return this.getStatusIcon() + " " + this.description + " " + temp;
         //TODO: refactor this by using type also
     }
 

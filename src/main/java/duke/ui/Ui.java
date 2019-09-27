@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.tasks.Task;
+import duke.tasks.meal;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -37,32 +37,32 @@ public class Ui {
         System.out.println("     " + "Bye. Hope to see you again soon!");
     }
 
-    public void showList(ArrayList<Task> tasks) {
+    public void showList(ArrayList<meal> meals) {
         showPadding();
         System.out.println("Here are the tasks in your list: ");
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
+        for (int i = 1; i <= meals.size(); i++) {
+            meal currentMeal = meals.get(i - 1);
             showPadding();
-            System.out.println(i + ". " + currentTask);
+            System.out.println(i + ". " + currentMeal);
         }
     }
 
-    public void showDone(Task currentTask) {
+    public void showDone(meal currentMeal) {
         showPadding();
         System.out.println("Nice! I've marked this task as done:");
         showPadding();
-        System.out.println("  " + currentTask);
+        System.out.println("  " + currentMeal);
     }
 
-    public void showAdded(Task currentTask, ArrayList<Task> tasks) {
+    public void showAdded(meal currentMeal, ArrayList<meal> meals) {
         System.out.println(padding + "Got it. I've added this task:");
-        System.out.println(padding + currentTask);
-        System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(padding + currentMeal);
+        System.out.println(padding + "Now you have " + meals.size() + " tasks in the list.");
     }
-    public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
+    public void showDeleted(meal currentMeal, ArrayList<meal> meals) {
         System.out.println(padding + "Noted. I've removed this task:");
-        System.out.println(padding + currentTask);
-        System.out.println(padding + "Now you have " + tasks.size()  + " tasks in the list.");
+        System.out.println(padding + currentMeal);
+        System.out.println(padding + "Now you have " + meals.size()  + " tasks in the list.");
     }
 
     public String readCommand(Scanner in) {

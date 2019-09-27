@@ -2,12 +2,13 @@ package duke.storage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import duke.tasks.dinner;
+import duke.tasks.lunch;
+import duke.tasks.meal;
+import duke.tasks.breakfast;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to
@@ -26,8 +27,8 @@ public class Storage {
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public ArrayList<Task> load() throws DukeException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public ArrayList<meal> load() throws DukeException {
+        ArrayList<meal> meals = new ArrayList<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                             + sep + "Data" + sep + "duke.txt");
@@ -39,7 +40,7 @@ public class Storage {
         try {
             while((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, tasks);
+                loadFile(line, meals);
         }
         bufferedReader.close();
         } catch(FileNotFoundException e) {
@@ -47,84 +48,82 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
-        return tasks;
+        return meals;
     }
 
     /**
      * This function acts as a line by line parser from the text file which is used to load a particular type of task
      * @param line the line input from the input file
-     * @param tasks the task arraylist that will store the tasks from the input file
+     * @param meals the task arraylist that will store the tasks from the input file
      */
-    private static void loadFile(String line, ArrayList<Task> tasks) {
-        String[] splitLine = line.split(" \\| ");
+    private static void loadFile(String line, ArrayList<meal> meals) {
+        String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
         String description = splitLine[2];
-
-        String timeFrame = "";
-        if (taskType.equals("D") || taskType.equals("E")) {
-            timeFrame = splitLine[3];
-        }
-        if (taskType.equals("T")) {
-            loadToDo(tasks, description, isDone);
+        if (taskType.equals("B")) {
+            loadBreakfast(meals, description, isDone, splitLine[3]);
+        } else if (taskType.equals("L")) {
+            loadBreakfast(meals, description, isDone, splitLine[3]);
         } else if (taskType.equals("D")) {
-            loadDeadline(tasks, description, timeFrame, isDone);
-        } else if (taskType.equals("E")) {
-            loadEvent(tasks, description, timeFrame, isDone);
+            loadBreakfast(meals, description, isDone, splitLine[3]);
         }
 
     }
 
     /**
-     * This function will load a todo line and push it to the task arraylist
-     * @param tasks the task arraylist that will store the tasks from the input file
-     * @param description the task specified
-     * @param isDone whether the todo task is done
+     * This function will load a breakfast item and push it to the meal arraylist
+     * @param meals the meal arraylist that will store the meals from the input file
+     * @param description the meal specified
+     * @param isDone whether the meal is completed
      */
     //TODO: make such that the loadFile only need to call one function only
-    private static void loadToDo(ArrayList<Task> tasks, String description, boolean isDone) {
-        ToDo newToDo = new ToDo(description);
+    private static void loadBreakfast(ArrayList<meal> meals, String description, boolean isDone, String data) {
+        String[] nutritionalValue = data.split("\\|");
+        breakfast newBreakfast = new breakfast(description, nutritionalValue);
         if (isDone) {
-            newToDo.markAsDone();
+            newBreakfast.markAsDone();
         }
-        tasks.add(newToDo);
+        meals.add(newBreakfast);
     }
 
     /** This function will load a deadline line and push it to the task arraylist
-     * @param tasks the task arraylist that will store the tasks from the input file
+     * @param meals the task arraylist that will store the tasks from the input file
      * @param description the task specified
-     * @param by the deadline of the deadline task
+     * @param data the deadline of the deadline task
      * @param isDone whether the deadline task is done
      */
-    private static void loadDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone) {
-        Deadline newDeadline = new Deadline(description, by);
+    private static void loadLunch(ArrayList<meal> meals, String description, boolean isDone, String data) {
+        String[] nutritionalValue = data.split("\\|");
+        lunch newLunch = new lunch(description, nutritionalValue);
         if (isDone) {
-            newDeadline.markAsDone();
+            newLunch.markAsDone();
         }
-        tasks.add(newDeadline);
+        meals.add(newLunch);
     }
 
     /**
      * This function will load a event line and push it to the task arraylist
-     * @param tasks the task arraylist that will store the tasks from the input file
+     * @param meals the task arraylist that will store the tasks from the input file
      * @param description the event specified
-     * @param duration the duration of the event
+     * @param data the duration of the event
      * @param isDone
      */
-    private static void loadEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone) {
-        Event newEvent = new Event(description, duration);
+    private static void loadDinner(ArrayList<meal> meals, String description, boolean isDone, String data) {
+        String[] nutritionalValue = data.split("\\|");
+        dinner newDinner = new dinner(description, nutritionalValue);
         if (isDone) {
-            newEvent.markAsDone();
+            newDinner.markAsDone();
         }
-        tasks.add(newEvent);
+        meals.add(newDinner);
     }
 
     /**
      * This is a function that will update the input/output file from the current arraylisto of tasks
-     * @param tasks the task arraylist that will store the tasks from the input file
+     * @param meals the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(ArrayList<Task> tasks) {
+    public void updateFile(ArrayList<meal> meals) {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -132,25 +131,26 @@ public class Storage {
             e.printStackTrace();
         }
         try {
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currentTask = tasks.get(i);
-                String currentLine = currentTask.toString();
+            for (int i = 0; i < meals.size(); i++) {
+                meal currentMeal = meals.get(i);
+                String currentLine = currentMeal.toString();
                 if (i > 0) {
                     bufferedWriter.newLine();
                 }
                 String status = "0";
-                if (currentTask.getisDone()) {
+                if (currentMeal.getIsDone()) {
                     status = "1";
                 }
-                bufferedWriter.write(currentTask.getType() + " | " + status + " | " + currentTask.getDescription());
-                if ((currentTask.getType()).equals("E")) {
-                    String timeFrame = (currentLine.split("at: ", 2))[1];
-                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                String toWrite = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription();
+                HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
+                if (nutritionData.size() != 0) {
+                    toWrite += "|";
+                    for (String j : nutritionData.keySet()) {
+                        toWrite += j + "|" + nutritionData.get(j) + "|";
+                    }
+                    toWrite = toWrite.substring(0, toWrite.length() - 1);
                 }
-                else if ((currentTask.getType()).equals("D")) {
-                    String timeFrame = (currentLine.split("by: ", 2))[1];
-                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
-                }
+                bufferedWriter.write(toWrite);
             }
             bufferedWriter.close();
         } catch (IOException e) {

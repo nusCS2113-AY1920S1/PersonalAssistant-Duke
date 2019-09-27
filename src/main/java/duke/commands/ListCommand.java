@@ -1,6 +1,6 @@
 package duke.commands;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.tasks.meal;
+import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ public class ListCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        ui.showList(currentTasks);
+    public void execute(mealList tasks, Ui ui, Storage storage) {
+        ArrayList<meal> currentMeals = tasks.getMeals();
+        ui.showList(currentMeals);
     }
 }

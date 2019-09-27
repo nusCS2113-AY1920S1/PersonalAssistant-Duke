@@ -1,9 +1,8 @@
 package duke.parsers;
 import duke.commands.*;
 import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.ToDo;
+import duke.tasks.dinner;
+import duke.tasks.breakfast;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user
@@ -32,19 +31,21 @@ public class Parser {
         if (splitCommand.length >= 2) {
             description = splitCommand[1];
         }
-        if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline")) {
+        if (command.equals("done") || command.equals("breakfast") || command.equals("event") || command.equals("deadline")) {
             if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
         if (command.equals("bye")) {
             return new ExitCommand();
-        } else if (command.equals("todo")) {
-            return new AddCommand(new ToDo(description));
+        } else if (command.equals("breakfast")) {
+            //todo: exception will arise if there is no info after the description of the meal
+            String SplitString[] = description.split(" ",2);
+            return new AddCommand(new breakfast(SplitString[0],SplitString[1]));
         } else if (command.equals("deadline")) {
             try {
                 String SplitString[] = description.split(" /by ");
-                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+                return new AddCommand(new dinner(SplitString[0], SplitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The deadline command does not seem to be valid.");
             }
@@ -52,7 +53,7 @@ public class Parser {
             String SplitString[];
             try {
                 SplitString = description.split(" /at ");
-                return new AddCommand(new Deadline(SplitString[0], SplitString[1]));
+                return new AddCommand(new dinner(SplitString[0], SplitString[1]));
             } catch (Exception e) {
                 throw new DukeException("\u2639 OOPS!!! The event command does not seem to be valid.");
             }

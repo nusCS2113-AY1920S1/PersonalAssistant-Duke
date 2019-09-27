@@ -1,7 +1,7 @@
 package duke.commands;
 import java.util.ArrayList;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+
+import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
@@ -11,29 +11,29 @@ import duke.storage.Storage;
  * @author Ivan Andika Lie
  */
 public class AddCommand extends Command {
-    private Task task;
+    private duke.tasks.meal meal;
 
     /**
      * This is a constructor for AddCommand which create a new AddCommand object with
      * the task specified as the instance field task.
-     * @param task The task to be added.
+     * @param meal The task to be added.
      */
-    public AddCommand(Task task) {
-        this.task = task;
+    public AddCommand(duke.tasks.meal meal) {
+        this.meal = meal;
     }
 
     /**
      * The object will execute the "add" command, updating the current tasks, ui, and storage in the process.
-     * @param tasks the TaskList object in which the task is supposed to be added
+     * @param meals the TaskList object in which the task is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        currentTasks.add(task);
-        ui.showAdded(task, currentTasks);
-        storage.updateFile(currentTasks);
+    public void execute(mealList meals, Ui ui, Storage storage) {
+        ArrayList<duke.tasks.meal> currentMeals = meals.getMeals();
+        currentMeals.add(meal);
+        ui.showAdded(meal, currentMeals);
+        storage.updateFile(currentMeals);
     }
 
 }
