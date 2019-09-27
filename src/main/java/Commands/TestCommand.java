@@ -29,7 +29,6 @@ public class TestCommand extends Command {
             Action plantSeedAction = new plantSeedAction(ui, wheatFarm, chickenFarm, cowFarm);
             Task task = new Task(c, plantSeedAction);
             tasks.addTask(task);
-            //task.execute(); //should be adding it into the tasklist actually
         } catch (Exception e) {
             e.getMessage();
         }
