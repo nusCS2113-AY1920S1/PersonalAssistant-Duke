@@ -31,6 +31,6 @@ public class Timebound extends Task {
     @Override
 
     public String listFormat(){
-        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + " (between: " + dateStart + " and " + dateEnd + ")";
+        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + "(between: " + dateStart + " and " + dateEnd + ")";
     }
 }
