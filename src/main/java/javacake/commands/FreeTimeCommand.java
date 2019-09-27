@@ -1,6 +1,7 @@
 package javacake.commands;
 
 import javacake.DukeException;
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
@@ -21,7 +22,7 @@ public class FreeTimeCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 8) {
             throw new DukeException("     ☹ OOPS!!! The description of a freetime cannot be empty.");
         }

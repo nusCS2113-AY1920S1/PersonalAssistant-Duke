@@ -2,6 +2,7 @@ package javacake.commands;
 
 import javacake.DukeException;
 import javacake.Parser;
+import javacake.Profile;
 import javacake.Ui;
 import javacake.Storage;
 import javacake.TaskList;
@@ -39,7 +40,7 @@ public class AddCommand extends Command {
      * @throws DukeException Shows error when deletion is not possible
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         switch (type) {
         case TODO:

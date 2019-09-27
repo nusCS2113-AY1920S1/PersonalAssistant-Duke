@@ -1,5 +1,6 @@
 package javacake.commands;
 
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
@@ -13,7 +14,7 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) {
         ArrayList<Task> deadlineList = new ArrayList<>();
         for (Task task : tasks.getData()) {
             if (task.getTaskType() == Task.TaskType.DEADLINE) {

@@ -1,5 +1,6 @@
 package javacake.commands;
 
+import javacake.Profile;
 import javacake.TaskList;
 import javacake.Ui;
 import javacake.Storage;
@@ -14,7 +15,7 @@ public class ConfirmCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
         ui.showMessage(Parser.runConfirm(tasks.getData(), input, Parser.TaskState.NOT_DONE));
         storage.write(tasks.getData());
         // null the tentative event object

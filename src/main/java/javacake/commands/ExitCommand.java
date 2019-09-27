@@ -1,5 +1,6 @@
 package javacake.commands;
 
+import javacake.Profile;
 import javacake.Storage;
 import javacake.TaskList;
 import javacake.Ui;
@@ -16,7 +17,7 @@ public class ExitCommand extends Command {
      * @param storage Storage needed to write the updated data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) {
         ui.showMessage("\nBye. Hope to see you again soon!\n");
     }
 }
