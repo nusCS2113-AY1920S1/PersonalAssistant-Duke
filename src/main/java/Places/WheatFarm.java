@@ -3,9 +3,9 @@ package Places;
 import Simulate.PlantSeedSimulation;
 
 public class WheatFarm extends Farm {
-    private int seeds = 0;
-    private int greenWheat = 0;
-    private int ripeWheat = 0;
+    private int seeds;
+    private int greenWheat;
+    private int ripeWheat;
     public boolean hasSeeds() {
         return seeds > 0;
     }
@@ -15,6 +15,13 @@ public class WheatFarm extends Farm {
     public boolean hasRipened() {
         return ripeWheat > 0;
     }
+
+    public WheatFarm() {
+        seeds = 1;
+        greenWheat = 0;
+        ripeWheat = 0;
+    }
+
     public void plantSeeds() {
         greenWheat += seeds;
         seeds = 0;
