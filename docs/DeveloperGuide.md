@@ -33,14 +33,12 @@ ComPal is a desktop application specifically designed with busy, disorganized st
 -   prefer interacting with a CLI
 -   prefers typing over mouse input
 
-**Persons that can play this role** : undergraduate student, graduate student, a staff member doing a part-time course, exchange student
+**Persons that can play this role** : Undergraduate student, graduate student, a staff member doing a part-time course, exchange student
 
 **Value Proposition**: Students wanting to be more organized without going through too much of a hassle can now better manage their schedules and tasks with Compal’s clean and intuitive user-interface and user-defined priority-based organization.
 
 
 ## Appendix C: User Stories
-
-
 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
