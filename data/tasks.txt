@@ -1,7 +1,3 @@
-T | 1 | some stuff
-P | 1 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
-P | 1 | hackathon  | 12/9/2019 1400 | 19/9/2019 1800
-T | 1 | reading
 T | 0 | sleep before midnight
 T | 0 | travel around the world
 D | 0 | Duke Documentation  | 17/9/2019 2359
