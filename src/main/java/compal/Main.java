@@ -50,7 +50,7 @@ public class Main extends Application {
             //Sets up primary stage --------------------------------------------------------------->
             primaryStage.setScene(s1);
             primaryStage.setTitle("ComPAL");
-            primaryStage.setOpacity(0.98);
+            primaryStage.setOpacity(0.96);
             primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
             //----------------------------------------------------------------------------------------------->
 

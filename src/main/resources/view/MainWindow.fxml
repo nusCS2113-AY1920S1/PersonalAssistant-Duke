@@ -11,14 +11,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="814.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compal.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="699.0" prefWidth="814.0" style="-fx-background-color: #a3cde3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compal.ui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="117.0" layoutY="5.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="675.0" promptText="Enter command here..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="5.0" />
-        <Button fx:id="sendButton" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Enter" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="5.0" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="7.0" layoutY="78.0" prefHeight="300.0" prefWidth="385.0" style="-fx-background-color: #faf0e6; -fx-border-color: #faf0e6;">
+        <TextField fx:id="userInput" layoutX="125.0" layoutY="65.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="704.0" promptText="Enter command here..." style="-fx-background-radius: 10 10 10 10;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="65.0" />
+        <Button fx:id="sendButton" layoutX="7.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleUserInput" opacity="0.9" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #cedae0; -fx-border-color: #cedae0; -fx-border-radius: 10 10 10 10;" text="Enter" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="65.0">
+         <effect>
+            <Glow level="0.46" />
+         </effect></Button>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="7.0" layoutY="134.0" prefHeight="309.0" prefWidth="463.0">
             <content>
                 <VBox fx:id="dialogContainer" maxWidth="-Infinity" prefWidth="360.0">
                     <rotationAxis>
@@ -27,15 +33,15 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <ScrollPane layoutX="442.0" layoutY="78.0" prefHeight="300.0" prefWidth="358.0">
+        <ScrollPane layoutX="486.0" layoutY="134.0" prefHeight="309.0" prefWidth="314.0">
             <content>
                 <VBox fx:id="secondaryContainer" />
             </content>
         </ScrollPane>
-        <Label layoutX="515.0" layoutY="56.0" text="Upcoming Tasks" />
-        <Label layoutX="14.0" layoutY="56.0" text="ComPAL" />
-        <Label fx:id="date" layoutX="210.0" layoutY="56.0" text="Label" />
-      <TabPane layoutX="14.0" layoutY="387.0" prefHeight="300.0" prefWidth="787.0" tabClosingPolicy="UNAVAILABLE">
+        <Label layoutX="486.0" layoutY="118.0" text="Upcoming Tasks" textFill="WHITE" />
+        <Label layoutX="7.0" layoutY="118.0" text="Terminal" textFill="WHITE" />
+        <Label fx:id="date" layoutX="250.0" layoutY="118.0" text="Label" textFill="WHITE" />
+      <TabPane layoutX="14.0" layoutY="457.0" prefHeight="230.0" prefWidth="787.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Weekly">
             <content>
@@ -84,6 +90,11 @@
           </Tab>
         </tabs>
       </TabPane>
+      <Text fill="WHITE" layoutX="324.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ComPal V1.1">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
     </children>
     <effect>
         <Bloom threshold="1.0" />

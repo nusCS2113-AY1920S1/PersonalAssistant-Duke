@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents task with description, status and reminder.
@@ -31,6 +32,7 @@ public abstract class Task implements Serializable {
     private Integer durationMinute = 0;
     private boolean hasReminder;
     private Priority priority;
+    private long priorityScore;
     //----------------------->
 
 
@@ -48,15 +50,9 @@ public abstract class Task implements Serializable {
         this.priority = priority;
         this.isDone = false;
         hasReminder = false;
+
     }
     //----------------------->
-
-    //***GETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
-
-
 
 
     /**
@@ -193,17 +189,12 @@ public abstract class Task implements Serializable {
     /**
      * Gets hasReminder of task.
      *
-     * @return whether the task has reminder. If task has reminder, return true.
-     * If task has no reminder, return false.
+     * @return whether the task has reminder. If task has reminder, return true. Else false.
      */
     public boolean hasReminder() {
         return hasReminder;
     }
-    //----------------------->
 
-    //***SETTER FUNCTIONS***--------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * Gets time of task in date format.
@@ -237,8 +228,11 @@ public abstract class Task implements Serializable {
      */
     public String getStringTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
-        String stringDate = formatter.format(this.time);
-        return stringDate;
+        if (this.time == null) {
+            return "-";
+        } else {
+            return formatter.format(this.time);
+        }
     }
 
     /**
@@ -248,6 +242,15 @@ public abstract class Task implements Serializable {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Gets priorityScore.
+     *
+     * @return priority score
+     */
+    public long getPriorityScore() {
+        return priorityScore;
     }
 
     /**
@@ -288,18 +291,11 @@ public abstract class Task implements Serializable {
 
 
     /**
-     *   public boolean isDone;
-     *
-     *     private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
-     *     private Date time;
-     *     private SimpleStringProperty testString;
-     *     private Integer durationHour;
-     *     private Integer durationMinute;
-     *     private boolean hasReminder;
-     *     private Priority priority;
-     * @return
+     * Gets all the details of the task as a string, for saving into the text file.
+     * @return saveString
+     * @author jaedonkey
      */
-    public String getAllDetailsAsString(){
+    public String getAllDetailsAsString() {
         StringBuilder list = new StringBuilder();
         list.append(getSymbol());
         list.append(" ");
@@ -319,5 +315,35 @@ public abstract class Task implements Serializable {
         list.append(" ");
         list.append(gethasReminder());
         return list.toString();
+    }
+
+    /**
+     * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
+     * the time remaining until the date set for the task.
+     * @author jaedonkey
+     */
+    public void calculateAndSetPriorityScore() {
+        long score = 0;
+        switch (priority) {
+        case high:
+            score = 70;
+            break;
+        case medium:
+            score = 50;
+            break;
+        case low:
+            score = 30;
+            break;
+        default:
+            score = 0;
+        }
+
+
+        Date d = new Date();
+        long diff = d.getTime() - this.date.getTime();
+        System.out.println("Task:LOG: Difference is " + diff);
+        score += diff;
+        priorityScore = score;
+
     }
 }

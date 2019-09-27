@@ -71,6 +71,4 @@ public class MainWindow extends AnchorPane {
     }
 
 
-
-    private ObservableList<Task> testList = FXCollections.observableArrayList(new Event("Hello",Task.Priority.high,"08/09/2019","0600"));
 }
