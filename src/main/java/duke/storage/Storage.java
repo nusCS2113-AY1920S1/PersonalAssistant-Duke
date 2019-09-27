@@ -11,7 +11,7 @@ import duke.tasks.meal;
 import duke.tasks.breakfast;
 
 /**
- * Storage is a public class, a storage class encapsulates the filePath to read from and write to
+ * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
  * @author Ivan Andika Lie
  */
 public class Storage {
@@ -23,7 +23,7 @@ public class Storage {
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     *     to be added in that TaskList
+     * to be added in that TaskList.
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
@@ -52,7 +52,7 @@ public class Storage {
     }
 
     /**
-     * This function acts as a line by line parser from the text file which is used to load a particular type of task
+     * This function acts as a line by line parser from the text file which is used to load a particular type of task.
      * @param line the line input from the input file
      * @param meals the task arraylist that will store the tasks from the input file
      */
@@ -72,7 +72,7 @@ public class Storage {
     }
 
     /**
-     * This function will load a breakfast item and push it to the meal arraylist
+     * This function will load a breakfast item and push it to the meal arraylist.
      * @param meals the meal arraylist that will store the meals from the input file
      * @param description the meal specified
      * @param isDone whether the meal is completed
@@ -87,7 +87,7 @@ public class Storage {
         meals.add(newBreakfast);
     }
 
-    /** This function will load a deadline line and push it to the task arraylist
+    /** This function will load a deadline line and push it to the task arraylist.
      * @param meals the task arraylist that will store the tasks from the input file
      * @param description the task specified
      * @param data the deadline of the deadline task
@@ -103,7 +103,7 @@ public class Storage {
     }
 
     /**
-     * This function will load a event line and push it to the task arraylist
+     * This function will load a event line and push it to the task arraylist.
      * @param meals the task arraylist that will store the tasks from the input file
      * @param description the event specified
      * @param data the duration of the event
@@ -119,7 +119,7 @@ public class Storage {
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylisto of tasks
+     * This is a function that will update the input/output file from the current arraylist of tasks.
      * @param meals the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file

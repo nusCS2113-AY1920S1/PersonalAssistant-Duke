@@ -1,13 +1,13 @@
 package duke.tasks;
 
 /**
- * dinner is a public class that inherits from abstract class meal
- * A dinner object encapsulates the String that express deadline date
+ * dinner is a public class that inherits from abstract class meal.
+ * A dinner object encapsulates the String that express deadline date.
  */
 public class dinner extends meal {
 
     /**
-     * This is the constructor of dinner object
+     * This is the constructor of dinner object.
      * @param description the description of the dinner object
      */
     public dinner(String description, String details) {
@@ -27,7 +27,7 @@ public class dinner extends meal {
     }
 
     /**
-     * This is the secondary constructor of dinner object for storage parsing
+     * This is the secondary constructor of dinner object for storage parsing.
      * @param description the description of the breakfast object
      */
     public dinner(String description, String[] details){
@@ -39,7 +39,7 @@ public class dinner extends meal {
     }
 
     /**
-     * this function overrides the toString() function in meal to represent the full description of a dinner object
+     * this function overrides the toString() function in meal to represent the full description of a dinner object.
      * @return <code>"[D]" + super.toString()</code>
      */
     @Override

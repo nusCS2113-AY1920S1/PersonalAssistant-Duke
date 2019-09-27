@@ -6,12 +6,12 @@ import duke.tasks.breakfast;
 import duke.tasks.lunch;
 
 /**
- * Parser is a public class that help to parse the command that is inputted from the user
+ * Parser is a public class that help to parse the command that is inputted from the user.
  * And generate the appropriate command with their appropriate arguments
  */
 public class Parser {
     /**
-     * This is the main function that parse the command inputted by the user
+     * This is the main function that parse the command inputted by the user.
      * @param fullCommand the string the user input in the CLI
      * @return <code>new ExitCommand()</code> if the user input "bye"
      *         <code>new AddCommand(new ToDo())</code> if the user input "todo" followed by the description of the activity

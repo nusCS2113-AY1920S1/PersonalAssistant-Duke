@@ -7,13 +7,13 @@ import java.util.Date;
 
 
 /**
- * lunch is a public class that inherits form abstract class meal
+ * lunch is a public class that inherits form abstract class meal.
  * A lunch object encapsulates the String that expresses the duration of the lunch
  */
 public class lunch extends meal {
 
     /**
-     * This is the constructor of lunch object
+     * This is the constructor of lunch object.
      * @param description the description of the lunch object
      */
     public lunch(String description, String details) {
@@ -33,7 +33,7 @@ public class lunch extends meal {
     }
 
     /**
-     * This is the secondary constructor of lunch object for storage parsing
+     * This is the secondary constructor of lunch object for storage parsing.
      * @param description the description of the lunch object
      */
     public lunch(String description, String[] details){
@@ -45,7 +45,7 @@ public class lunch extends meal {
     }
 
     /**
-     * this function overrides the toString() function in meal to represent the full description of a lunch object
+     * this function overrides the toString() function in meal to represent the full description of a lunch object.
      * @return <code>"[L]" + super.toString()</code>
      */
     @Override

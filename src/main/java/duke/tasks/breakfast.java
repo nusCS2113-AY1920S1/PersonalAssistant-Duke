@@ -1,12 +1,12 @@
 package duke.tasks;
 
 /**
- * breakfast is a public class that extends from meal
+ * breakfast is a public class that extends from meal.
  */
 public class breakfast extends meal {
 
     /**
-     * This is the constructor of breakfast object
+     * This is the constructor of breakfast object.
      * @param description the description of the breakfast object
      */
     public breakfast(String description, String details) {
@@ -25,7 +25,7 @@ public class breakfast extends meal {
         }
     }
     /**
-     * This is the secondary constructor of breakfast object for storage parsing
+     * This is the secondary constructor of breakfast object for storage parsing.
      * @param description the description of the breakfast object
      */
     public breakfast(String description, String[] details){
@@ -37,7 +37,7 @@ public class breakfast extends meal {
     }
 
     /**
-     * this function overrides the toString() function in meal to represent the full description of a breakfast object
+     * this function overrides the toString() function in meal to represent the full description of a breakfast object.
      * @return <code>"[B]" + super.toString()</code>
      */
     @Override

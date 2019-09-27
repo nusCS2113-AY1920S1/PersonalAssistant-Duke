@@ -6,7 +6,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 /**
- * AddCommand is a public class that inherits from abstract class Command
+ * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current task that is to be added.
  * @author Ivan Andika Lie
  */
