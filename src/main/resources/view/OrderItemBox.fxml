@@ -5,13 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <fx:root maxHeight="100.0" minWidth="100.0" prefHeight="80.0"
+<<<<<<< HEAD
          style="-fx-background-radius: 5; -fx-background-color: rgb(228,220,213);" type="AnchorPane"
          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+=======
+         style="-fx-background-radius: 5; -fx-background-color: #00bfa5;" type="AnchorPane"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+>>>>>>> upstream/master
     <children>
         <VBox alignment="CENTER" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label fx:id="itemName" alignment="CENTER" text="White bread" textAlignment="CENTER" textFill="#96663b">
+                <Label fx:id="itemName" alignment="CENTER" text="White bread" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="24.0"/>
                     </font>
@@ -20,9 +25,9 @@
                     </VBox.margin>
                 </Label>
                 <Label fx:id="itemQuantity" alignment="CENTER" text="5 pieces" textAlignment="CENTER"
-                       textFill="#797474">
+                       textFill="#ebebeb">
                     <font>
-                        <Font name="Arial" size="20.0"/>
+                        <Font name="Arial" size="18.0"/>
                     </font>
                 </Label>
             </children>
