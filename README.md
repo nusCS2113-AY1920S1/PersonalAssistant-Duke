@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F11-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F11-3/main)
 # Duke Email Manager
 
 ![GUI Mockup](./docs/images/Ui.png)
