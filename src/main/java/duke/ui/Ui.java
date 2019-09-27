@@ -278,7 +278,7 @@ public class Ui {
     /**
      * Outputs an alert when a duplicated inout is detected.
      */
-    public void showDuplicateMsg(){
+    public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
 }

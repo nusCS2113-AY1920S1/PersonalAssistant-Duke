@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Representing a command that states a task is duplicated.
  */
-public class DuplicateFoundCommand extends Command{
+public class DuplicateFoundCommand extends Command {
     /**
      * Outputs the alert when duplicated task is detected.
      *

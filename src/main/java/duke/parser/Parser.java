@@ -9,6 +9,7 @@ import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.RemindCommand;
+import duke.command.DuplicateFoundCommand;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -17,6 +18,7 @@ import duke.task.Task;
 import duke.task.Repeat;
 import duke.task.DoAfter;
 import duke.task.FixedDuration;
+import duke.task.DetectDuplicate;
 import duke.dukeexception.DukeException;
 
 import java.util.ArrayList;
@@ -79,9 +81,9 @@ public class Parser {
         } else if (arr.length > 0 && arr[0].equals("todo")) {
             String[] getDescription = sentence.split(" ", 2);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
-            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])){
+            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])) {
                 return new DuplicateFoundCommand();
-            } else{
+            } else {
                 for (int i = 1; i < arr.length; i++) {
                     taskDesc += arr[i] + " ";
                 }
