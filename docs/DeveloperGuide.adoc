@@ -18,12 +18,12 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
 
-== Target User Profile
+==Target User Profile
 <NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
 
-== User Stories
+==User Stories
 . As a busy music student with multiple classes, I want to be able to track my practice sessions so that I won’t miss any trainings.
 . As a music student with a heavy workload, I want to be able to track my upcoming recitals and their details so I can prioritize which pieces/what techniques to practice and focus on.
 . As a music student with a tendency to procrastinate in things I need to do, I want to be constantly reminded of my examination dates so i do not wait till the last minute to prepare for them.
