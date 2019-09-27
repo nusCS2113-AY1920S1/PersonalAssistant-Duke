@@ -1,5 +1,6 @@
 package duke.Data;
 
+import duke.Sports.MyClass;
 import duke.Task.*;
 
 import java.io.File;
@@ -78,6 +79,11 @@ public class Storage {
                     oldList.add(after);
                     break;
 
+                case "C":
+                    Item myclass = new MyClass(data[2], stat, data[3]);
+                    oldList.add(myclass);
+                    break;
+
                 default:
                     System.out.println("No data");
                 }
@@ -102,6 +108,10 @@ public class Storage {
             if (type.equals("T")) {
                 FileWriter fileWriter = new FileWriter(filePath, true);
                 fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "\n");
+                fileWriter.close();
+            } else if (type.equals("C")) {
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "-" + date + "\n");
                 fileWriter.close();
             } else {
                 FileWriter fileWriter = new FileWriter(filePath, true);
