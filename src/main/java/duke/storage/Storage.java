@@ -4,6 +4,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import duke.exceptions.DukeException;
@@ -29,8 +30,8 @@ public class Storage {
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public ArrayList<Meal> load() throws DukeException {
-        ArrayList<Meal> meals = new ArrayList<>();
+    public HashMap<String, ArrayList<Meal>> load() throws DukeException {
+        HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                             + sep + "Data" + sep + "duke.txt");
@@ -42,7 +43,7 @@ public class Storage {
         try {
             while((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, meals);
+                loadFile(line, mealTracker);
         }
         bufferedReader.close();
         } catch(FileNotFoundException e) {
@@ -50,7 +51,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
-        return meals;
+        return mealTracker;
     }
 
     /**
@@ -58,66 +59,31 @@ public class Storage {
      * @param line the line input from the input file
      * @param meals the task arraylist that will store the tasks from the input file
      */
-    private static void loadFile(String line, ArrayList<Meal> meals) {
+    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker) {
         String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
         String description = splitLine[2];
+        String[] nutritionalValue = splitLine[3].split("\\|");
+        Meal newMeal = null;
         if (taskType.equals("B")) {
-            loadBreakfast(meals, description, isDone, splitLine[3]);
+            newMeal = new Breakfast(description, nutritionalValue);
         } else if (taskType.equals("L")) {
-            loadLunch(meals, description, isDone, splitLine[3]);
+            newMeal = new Lunch(description, nutritionalValue);
         } else if (taskType.equals("D")) {
-            loadDinner(meals, description, isDone, splitLine[3]);
+            newMeal = new Dinner(description, nutritionalValue);
         }
-
-    }
-
-    /**
-     * This function will load a breakfast item and push it to the meal arraylist.
-     * @param meals the meal arraylist that will store the meals from the input file
-     * @param description the meal specified
-     * @param isDone whether the meal is completed
-     */
-    //TODO: make such that the loadFile only need to call one function only
-    private static void loadBreakfast(ArrayList<Meal> meals, String description, boolean isDone, String data) {
-        String[] nutritionalValue = data.split("\\|");
-        Breakfast newBreakfast = new Breakfast(description, nutritionalValue);
         if (isDone) {
-            newBreakfast.markAsDone();
+            newMeal.markAsDone();
         }
-        meals.add(newBreakfast);
-    }
+        String mealDate = dateFormat.format(newMeal.getDate().getTime());
+        if (!mealTracker.containsKey(mealDate)) {
+            mealTracker.put(mealDate, new ArrayList<Meal>());
+            mealTracker.get(mealDate).add(newMeal);
+        } else {
+            mealTracker.get(mealDate).add(newMeal);
+        }
 
-    /** This function will load a deadline line and push it to the task arraylist.
-     * @param meals the task arraylist that will store the tasks from the input file
-     * @param description the task specified
-     * @param data the deadline of the deadline task
-     * @param isDone whether the deadline task is done
-     */
-    private static void loadLunch(ArrayList<Meal> meals, String description, boolean isDone, String data) {
-        String[] nutritionalValue = data.split("\\|");
-        Lunch newLunch = new Lunch(description, nutritionalValue);
-        if (isDone) {
-            newLunch.markAsDone();
-        }
-        meals.add(newLunch);
-    }
-
-    /**
-     * This function will load a event line and push it to the task arraylist.
-     * @param meals the task arraylist that will store the tasks from the input file
-     * @param description the event specified
-     * @param data the duration of the event
-     * @param isDone
-     */
-    private static void loadDinner(ArrayList<Meal> meals, String description, boolean isDone, String data) {
-        String[] nutritionalValue = data.split("\\|");
-        Dinner newDinner = new Dinner(description, nutritionalValue);
-        if (isDone) {
-            newDinner.markAsDone();
-        }
-        meals.add(newDinner);
     }
 
     /**

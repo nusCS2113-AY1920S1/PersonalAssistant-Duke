@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,32 +11,35 @@ import java.util.HashMap;
  * A TaskList object encapsulates the ArrayList of tasks.
  */
 public class mealList {
-    private HashMap<Calendar, ArrayList<Meal>> mealTracker = new HashMap<Calendar, ArrayList<Meal>>();
-    private ArrayList<Meal> meals;
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar calendarDate = Calendar.getInstance();
+    private String currentDate = dateFormat.format(calendarDate.getTime());
+    private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
 
     /**
      * This is the constructor of TaskList object.
      * @param meals the array list of tasks to be assigned
      */
-    public mealList(ArrayList<Meal> meals) {
-        this.meals = meals;
+    public mealList(HashMap<String, ArrayList<Meal>> mealTracker) {
+        this.mealTracker = mealTracker;
     }
 
     /**
      * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task.
      */
-    public mealList() {this.meals = new ArrayList<Meal>();}
+    public mealList() {}
 
 
     /**
      * This function is used to delete the task of a particular index.
      * @param index the index of task to be deleted
      */
-    public void delete(int index) { (this.meals).remove(index - 1);}
-
-    public ArrayList<Meal> getMeals() {
-        return meals;
+    public void delete(int index) {
+        this.mealTracker.get(currentDate).remove(index - 1);
     }
 
+    public ArrayList<Meal> getMeals() {
+        return mealTracker.get(currentDate);
+    }
 }
