@@ -1,4 +1,4 @@
-package duke.recipe;
+package duke.entities.recipe;
 
 import java.util.ArrayList;
 import java.util.List;

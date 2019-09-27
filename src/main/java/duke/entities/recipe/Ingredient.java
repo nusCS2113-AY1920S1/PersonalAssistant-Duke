@@ -1,10 +1,9 @@
-package duke.recipe;
+package duke.entities.recipe;
 
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Date;
 
 public class Ingredient {
     private String name;
