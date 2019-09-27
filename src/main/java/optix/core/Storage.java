@@ -48,8 +48,9 @@ public class Storage {
                     String showName = arrStr[2].trim();
                     double cost = Double.parseDouble(arrStr[3]);
                     double revenue = Double.parseDouble(arrStr[4]);
+                    double seatBasePrice = Double.parseDouble(arrStr[5]);
 
-                    Theatre theatre = new Theatre(showName, cost, revenue);
+                    Theatre theatre = new Theatre(showName, cost, revenue, seatBasePrice);
                     shows.put(date, theatre);
                 }
 

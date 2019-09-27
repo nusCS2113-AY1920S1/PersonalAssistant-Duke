@@ -1,6 +1,7 @@
 package optix.core;
 
 public class Seat {
+    private double ticketPrice;
     private String buyerName;
     private String seatTier;
     private boolean isBooked;
@@ -19,12 +20,9 @@ public class Seat {
         isBooked = booked;
     }
 
-    public String getName() {
-        return buyerName;
-    }
-
-    public String getSeatTier() {
-        return seatTier;
+    //store this in case of refund.
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 
     public boolean isBooked() {
@@ -37,5 +35,23 @@ public class Seat {
 
     public String getSeat() {
         return "[" + getStatusIcon() + "]";
+    }
+
+    public String getSeatTier() {
+        return seatTier;
+    }
+
+    // need to make sure that there are anomalous data here
+    public double getSeatPrice(double basePrice) {
+        if (seatTier.equals("1")) {
+            ticketPrice = basePrice * 1.5;
+        }
+        if (seatTier.equals("2")) {
+            ticketPrice = basePrice * 1.2;
+        }
+        if (seatTier.equals("3")) {
+            ticketPrice = basePrice;
+        }
+        return ticketPrice;
     }
 }
