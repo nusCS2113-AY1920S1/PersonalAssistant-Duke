@@ -40,11 +40,6 @@ public class Parser {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("todo")) {
-            if (description.contains("between ")) {
-                description = description.replaceAll("between ", "");
-                String SplitString[] = description.split(",", 2);
-                return new AddCommand(new ToDoPeriod(description));
-            }
             return new AddCommand(new ToDo(description));
         } else if (command.equals("deadline")) {
             try {
