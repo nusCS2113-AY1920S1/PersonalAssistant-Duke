@@ -15,21 +15,17 @@ public abstract class Simulation {
     public Simulation(Ui userInterface) {
         ui = userInterface;
     }
-    protected void nextFrame(String statusBar,String filePath) throws FarmioException {
+    protected void nextFrame(String statusBar,String filePath) {
         try {
             TimeUnit.MILLISECONDS.sleep((int) (1000 / framePerSecond) );
         } catch (InterruptedException e) {
-            throw new FarmioException("sleep");
+            //we'll handle this later
         }
         ui.clearScreen();
         ui.showStatusbar();
-        try {
-            ui.showAsciiArt(filePath);
-        } catch (IOException e) {
-            throw new FarmioException("IO");
-        }
+        ui.showAsciiArt(filePath);
     }
-    public void simulate() throws FarmioException {
+    public void simulate() {
         for (int i=0; i<numberOfFrames; i++) {
             nextFrame("statusBar", basepath + i + ".txt");
         }

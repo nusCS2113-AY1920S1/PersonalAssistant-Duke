@@ -1,11 +1,18 @@
 package Commands;
 
 import FarmioExceptions.FarmioException;
+import Places.ChickenFarm;
+import Places.CowFarm;
+import Places.WheatFarm;
+import UserInterfaces.Ui;
 
 public abstract class Command {
     protected boolean isExit = false;
     protected boolean isStart = false;
-
+    Ui ui;
+    WheatFarm wheatFarm;
+    ChickenFarm chickenFarm;
+    CowFarm cowFarm;
     public boolean getIsExit() {
         return isExit;
     }

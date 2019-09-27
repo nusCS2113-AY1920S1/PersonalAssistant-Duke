@@ -13,13 +13,13 @@ public class Farmio {
 
     private Farmio() {
         this.ui = new Ui();
-        this.parser = new Parser();
         this.storage = new Storage();
     }
 
     private void run() {
         displayWelcome();
         displayMenu();
+        this.parser = new Parser(ui, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
         boolean isExit = false;
         while(!isExit) {
             //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
@@ -51,7 +51,7 @@ public class Farmio {
                 Command c = parser.parse(fullCommand);
                 c.execute();
             } catch (FarmioException e) {
-                //handle
+                e.getMessage();
             }
             isStart = true;//c.getIsStart();
             isExit = true;//c.getIsExit();

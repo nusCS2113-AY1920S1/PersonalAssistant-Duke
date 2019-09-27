@@ -33,7 +33,7 @@ public class Ui {
         show("Info: " + message);
     }
 
-    private String getAsciiArt(String filepath) throws IOException {
+    private String getAsciiArt(String filepath) {
         String output = "";
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
@@ -62,7 +62,7 @@ public class Ui {
         show("Input: ");
         return scanner.nextLine();
     }
-    public String showAsciiArt(String filepath) throws IOException {
+    public String showAsciiArt(String filepath) {
         String output = getAsciiArt(filepath);
         System.out.println(output);
         return output;
