@@ -34,29 +34,29 @@ public class DateParser {
     }
 
     /**
-     * Parse input as duration and return a Date object.
-     * @param durationStr input duration string.
+     * Parse input as period string and return a Date object.
+     * @param periodStr input period string.
      * @return period object containing the periodic duration of event. 0 days implies non-recurring event.
      */
-    public static Period parseDuration(String durationStr) {
+    public static Period parsePeriod(String periodStr) {
         // Format of input string: "P1Y2M21D" which implies 1 Year, 2 Months, 21 Days
 
-        Period duration;
+        Period period;
 
-        if (durationStr.isBlank()) {
-            duration = Period.of(0,0,0);
+        if (periodStr.isBlank()) {
+            period = Period.of(0,0,0);
         } else {
             try {
-                duration = Period.parse(durationStr);
+                period = Period.parse(periodStr);
             } catch (DateTimeParseException pe) {
                 System.out.println(pe);
                 System.out.println("Incorrect format of recurring event, recurring format argument to be ignored");
-                duration = Period.of(0,0,0);
+                period = Period.of(0,0,0);
             }
         }
 
 
-        return duration;
+        return period;
     }
 
     public static boolean isSameDayMonthYear(Date date1, Date date2) {

@@ -72,7 +72,7 @@ public class Parser {
                     String[] splitString2 = splitString[1].split(" /every ");
                     deadlineString = splitString2[0];
                     recurringString = splitString2[1];
-                    Period recurringDuration = DateParser.parseDuration(recurringString);
+                    Period recurringDuration = DateParser.parsePeriod(recurringString);
                     return new AddCommand(new Deadline(taskDescriptionString, deadlineString, recurringDuration));
                 } else {
                     return new AddCommand(new Deadline(taskDescriptionString, deadlineString));
