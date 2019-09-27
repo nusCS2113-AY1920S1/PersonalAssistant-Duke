@@ -30,7 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Parser {
+public class DukeParser {
 
     /**
      * Checks if the index input when using the done command
