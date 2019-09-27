@@ -1,12 +1,13 @@
 package duke.exception;
 
 /**
- * Represents a newly specified <code>Exception</code>.
+ * Represents a newly specified Exception.
  */
 public class DukeException extends Exception {
 
     /**
-     * Constructor for <code>DukeException</code>.
+     * Constructor for DukeException.
+     *
      * @param error Error message.
      */
     public DukeException(String error) {

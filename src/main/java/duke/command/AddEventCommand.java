@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Represents a <code>Command</code> to add <code>Event</code> objects
- * to the <code>TaskList</code>.
+ * Represents a Command to add Event objects
+ * to the TaskList.
  */
 public class AddEventCommand extends Command {
 
     private String line;
 
     /**
-     * Constructor for <code>AddEventCommand</code>.
+     * Constructor for AddEventCommand.
      *
      * @param line Command inputted by user.
      */
@@ -32,16 +32,16 @@ public class AddEventCommand extends Command {
 
     /**
      * Performs a series of three main tasks.
-     * Processes the Command inputted by user into <code>description</code> and <code>date</code>.
-     * Checks for the validity of the format of <code>date</code>.
-     * Adds an <code>Event</code> object to the <code>TaskList</code>
-     * and prints the object added before calling methods in <code>Storage</code> to
+     * Processes the Command inputted by user into description and date.
+     * Checks for the validity of the format of date.
+     * Adds an Event object to the TaskList
+     * and prints the object added before calling methods in Storage to
      * store the object added in the harddisk.
      *
-     * @param arr     Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui      Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *                objects to harddisk.
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      * @throws DukeException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
@@ -99,8 +99,7 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
      *
      * @return false.
      */

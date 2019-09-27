@@ -18,12 +18,11 @@ import duke.exception.DukeException;
  */
 public class ChooseCommand {
     /**
-     * Main method of the <code>ChooseCommand</code> class.
-     * Parses the input given by user and calls specific <code>Commands</code>
+     * Parses the input given by user and calls specific Commands
      * after checking the validity of the input.
      *
      * @param line Command inputted by user.
-     * @return <code>Command</code> based on the user input.
+     * @return Command based on the user input.
      * @throws DukeException Catches invalid commands given by user.
      */
     public static Command choose(String line) throws DukeException {

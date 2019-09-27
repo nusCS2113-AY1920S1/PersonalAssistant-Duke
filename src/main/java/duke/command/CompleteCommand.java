@@ -7,15 +7,16 @@ import duke.exception.DukeException;
 import duke.task.Task;
 
 /**
- * Represents a <code>Command</code> to mark <code>Task</code> as done.
+ * Represents a Command to mark Task as done.
  */
 public class CompleteCommand extends Command {
 
     private String index;
 
     /**
-     * Constructor for <code>CompleteCommand</code>.
-     * @param index Represents the index of the <code>Task</code> to be marked as done.
+     * Constructor for CompleteCommand.
+     *
+     * @param index Represents the index of the Task to be marked as done.
      */
     public CompleteCommand(String index) {
         super();
@@ -23,12 +24,13 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Marks the specific <code>Task</code> defined by the user as done
+     * Marks the specific Task defined by the user as done
      * after confirming the validity of the Command inputted by the user.
-     * @param arr Instance of <code>TaskList</code> that stores <code>Task</code> objects.
-     * @param ui Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
-     *      *         objects to harddisk.
+     *
+     * @param arr     Instance of TaskList that stores Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
@@ -46,8 +48,8 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Checks if <code>ExitCommand</code> is called for <code>Duke</code>
-     * to terminate.
+     * Checks if ExitCommand is called for Duke to terminate.
+     *
      * @return false.
      */
     public boolean isExit() {

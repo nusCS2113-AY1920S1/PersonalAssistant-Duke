@@ -9,13 +9,14 @@ import java.time.DateTimeException;
 import java.util.Date;
 
 /**
- * Represents a <code>Reminder</code> class to remind user on upcoming deadlines.
+ * Represents a Reminder class to remind user on upcoming deadlines.
  */
 public class Reminder {
     /**
-     * Checks <code>Task</code> objects dates to determine if it is due soon.
-     * @param taskList <code>TaskList</code> that contains <code>Task</code> objects.
-     * @param ui <code>Ui</code> that is responsible for visual feedback.
+     * Checks Task objects dates to determine if it is due soon.
+     *
+     * @param taskList TaskList that contains Task objects.
+     * @param ui       Ui that is responsible for visual feedback.
      */
     public void checkDeadline(TaskList taskList, Ui ui) {
         try {
@@ -24,8 +25,8 @@ public class Reminder {
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
                 if (task.toString().startsWith("[D]")) {
-                    String[] linesplit = task.toString().split("by:");
-                    String result = linesplit[1].substring(0, linesplit[1].length() - 1); // remove closing bracket
+                    String[] lineSplit = task.toString().split("by:");
+                    String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
                     result = result.trim();
                     Date dueDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(result);
                     Date now = new Date(); // current date time
@@ -38,7 +39,7 @@ public class Reminder {
                 }
             }
             ui.showLine();
-        }   catch (ParseException | DateTimeException e) {
+        } catch (ParseException | DateTimeException e) {
             System.out.println("Timestamp given is invalid! Please try again.");
         }
     }
