@@ -63,7 +63,7 @@ class TaskListTest {
         assertEquals("[T][N] Send even more Help", testTaskListSave.get(0).toList());
         testTaskListSave.banishDelete("1");
         assertEquals("Noted. I've removed this task:\n"
-                +"  [T][N] Send even more Help\r\n"
+                + "  [T][N] Send even more Help\r\n"
                 + "Now you have 3 tasks in the list.\r\n", systemOutput.toString());
         assertEquals(3, testTaskListSave.size());
         assertEquals("[R][N] Deliver Help (Every: Day)", testTaskListSave.get(0).toList());

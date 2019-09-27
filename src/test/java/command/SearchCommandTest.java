@@ -11,7 +11,7 @@ import ui.UI;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SearchCommandTest {
 
@@ -50,7 +50,7 @@ class SearchCommandTest {
 
     @Test
     void testSchedule() throws DukeException {
-        testCommand = new SearchCommand("schedule", "01-01-1970 2200");
+        testCommand = new SearchCommand("schedule", "01-01-1970");
         testCommand.execute(testTaskList, testUi, testStorage);
         assertEquals("Here's what the day looks like:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());

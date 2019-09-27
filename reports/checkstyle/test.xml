@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.23">
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\DeadlineTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\AddCommandTest.java">
+<error line="14" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="45" severity="error" message="Distance between variable &apos;freshOutput&apos; declaration and its first usage is 4, but allowed 3.  Consider making that variable final if you still need to store its value in advance (before method calls that might have side effects on the original value)." source="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\DialogBoxTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\BadCommandTest.java">
+<error line="9" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\DukeTest.java">
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\ExitCommandTest.java">
+<error line="14" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\EventTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\ModCommandTest.java">
+<error line="14" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\LauncherTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\PrintCommandTest.java">
+<error line="14" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\MainTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\command\SearchCommandTest.java">
+<error line="14" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\MainWindowTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\parser\ParserTest.java">
+<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - command.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="15" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\ParserTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\StorageTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\TaskListTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\TaskTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\TodoTest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\test\java\UITest.java">
-<error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-<error line="5" severity="error" message="Abbreviation in name &apos;UITest&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\storage\StorageTest.java">
+<error line="5" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
 <file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\AfterTest.java">
 <error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\DeadlineTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\EventTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\FixedTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\RecurringTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\TaskListTest.java">
+<error line="4" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="9" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="66" column="17" severity="error" message="WhitespaceAround: &apos;+&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\TodoTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\WithinTest.java">
+<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="C:\Users\zhenyu\Desktop\main\src\test\java\ui\UITest.java">
+<error line="10" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="12" severity="error" message="Abbreviation in name &apos;UITest&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 </file>
 </checkstyle>

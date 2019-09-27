@@ -11,7 +11,7 @@ import ui.UI;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddCommandTest {
 
@@ -42,10 +42,10 @@ class AddCommandTest {
 
     @Test
     void testAddEvent() throws DukeException {
-        ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
         testCommand = new AddCommand("event", "Sleep /at 01-01-1970 2200");
         testCommand.execute(testTaskList, testUi, testStorage);
         testCommand = new AddCommand("event", "Work /at 01-01-1970 2200");
+        ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(freshOutput)); //sets the system output to a different stream
         testCommand.execute(testTaskList, testUi, testStorage);
         assertEquals("Got it. I've added this task:\n"

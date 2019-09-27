@@ -6,7 +6,7 @@ import storage.Storage;
 import task.TaskList;
 import ui.UI;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BadCommandTest {
 
