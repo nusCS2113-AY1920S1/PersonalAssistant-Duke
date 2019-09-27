@@ -18,9 +18,9 @@ public class TaskList extends ArrayList<Task> {
     @Override
     public String toString() {
         if (this.size() == 0) {
-            return "There is nothing in your list.";
+            return "There is nothing in your task list.";
         }
-        String msg = "Here are the tasks in your list:";
+        String msg = "Here are the tasks in your task list:";
         for (int i = 0; i < this.size(); i++) {
             msg += "\n" + (i + 1);
             msg += ". " + this.get(i);
