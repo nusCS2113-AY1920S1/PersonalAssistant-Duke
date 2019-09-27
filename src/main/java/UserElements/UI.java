@@ -60,18 +60,18 @@ public class UI {
      * @param events the EventList used in the Duke function.
      */
 
-//    public void printReminder(EventList events) {
-//        String systemDateAndTime = new Date().toString();
-//    	DateObj limit = new DateObj(systemDateAndTime);
-//    	limit.addDaysAndSetMidnight(3);
-//    	String reminderDeadline = limit.getCurrentJavaDate().toString();
-//    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-//    	System.out.print(lineSeparation);
-//    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-//    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-//    	System.out.print(events.filteredList(pred, DATE));
-//    	System.out.print(lineSeparation);
-//    }
+    public void printReminder(EventList events) {
+        String systemDateAndTime = new Date().toString();
+    	DateObj limit = new DateObj(systemDateAndTime);
+    	limit.addDaysAndSetMidnight(3);
+    	String reminderDeadline = limit.getCurrentJavaDate().toString();
+    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
+    	System.out.print(lineSeparation);
+    	System.out.print("The time now is " + systemDateAndTime + ".\n");
+    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
+    	System.out.print(events.filteredList(pred, DATE));
+    	System.out.print(lineSeparation);
+    }
 
     /**
      * Prints a message when an invalid command is entered.
