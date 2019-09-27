@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import exception.DukeException;
 import parser.DateTimeExtractor;
-import task.*;
+import task.Todo;
+
 /**
  * This class implements the unit testing code for the To-do class.
  *
@@ -18,10 +19,10 @@ public class TodoTest {
     Todo todo = new Todo("testing todo");
 
     @Test
-    public void testTodoCreation(){
+    public void testTodoCreation() {
         String title = todo.description;
         Assertions.assertEquals(title, "testing todo");
-        Assertions.assertEquals(todo.toString(), "[T][" + "\u2718" + "] testing todo");
+        Assertions.assertEquals(todo.toString(), "[T][" + "✘" + "] testing todo");
     }
 
     @Test
@@ -34,7 +35,7 @@ public class TodoTest {
             Todo newTodo = new Todo("testTodo", from, to);
             Assertions.assertEquals(newTodo.startDate, from);
         } catch (ParseException e) {
-            throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
+            throw new DukeException(DukeException.wrongDateOrTime());
         }
     }
 }

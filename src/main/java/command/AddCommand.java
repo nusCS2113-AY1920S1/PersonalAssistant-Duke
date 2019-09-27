@@ -12,7 +12,8 @@ import ui.Ui;
 import java.time.LocalDateTime;
 
 /**
- * The AddCommand class is used when the user has input a command which requires a task to be added to the TaskList
+ * The AddCommand class is used when the user has input a command which requires
+ * a task to be added to the TaskList.
  *
  * @author Sai Ganesh Suresh
  * @version v1.0
@@ -21,21 +22,28 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private final LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
+    private final LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
     private LocalDateTime formattedToDate = nullDate;
     private LocalDateTime formattedAtDate = nullDate;
     private LocalDateTime formattedFromDate = nullDate;
+
     /**
-     * This AddCommand function is used to assign the different parameters required when adding a task.
+     * This AddCommand function is used to assign the different parameters required
+     * when adding a task.
      *
-     * @param command this string holds command type determinant to decide how to process the user input.
-     * @param taskFeatures this string holds the description of the task provided by the user.
-     * @param atDate string contains the formatted user input that has the desired date time format.
-     * @param toDate string contains the formatted user input that has the desired date time format.
-     * @param fromDate string contains the formatted user input that has the desired date time format.
+     * @param command      this string holds command type determinant to decide how
+     *                     to process the user input.
+     * @param taskFeatures this string holds the description of the task provided by
+     *                     the user.
+     * @param atDate       string contains the formatted user input that has the
+     *                     desired date time format.
+     * @param toDate       string contains the formatted user input that has the
+     *                     desired date time format.
+     * @param fromDate     string contains the formatted user input that has the
+     *                     desired date time format.
      */
-    public AddCommand(String command, String taskFeatures,
-                       LocalDateTime atDate, LocalDateTime toDate, LocalDateTime fromDate) {
+    public AddCommand(String command, String taskFeatures, LocalDateTime atDate, LocalDateTime toDate,
+            LocalDateTime fromDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.formattedFromDate = fromDate;
@@ -44,12 +52,16 @@ public class AddCommand extends Command {
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and save to persistent storage.
+     * This execute function is used to add the respective tasks to the TaskList and
+     * save to persistent storage.
      *
-     * @param tasks this string holds command type determinant to decide how to process the user input.
-     * @param storage this parameter provides the execute function the storage to allow the saving of the file.
+     * @param tasks   this string holds command type determinant to decide how to
+     *                process the user input.
+     * @param storage this parameter provides the execute function the storage to
+     *                allow the saving of the file.
      *
      */
+    @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         Task task;
         switch (command) {
@@ -59,22 +71,22 @@ public class AddCommand extends Command {
         case "deadline":
             task = new Deadline(taskFeatures, formattedAtDate);
             if (tasks.isClash(task)) {
-                throw new DukeException(DukeException.TaskClash());
+                throw new DukeException(DukeException.taskClash());
             }
             break;
         case "event":
             task = new Event(taskFeatures, formattedToDate, formattedFromDate);
             if (tasks.isClash(task)) {
-                throw new DukeException(DukeException.TaskClash());
+                throw new DukeException(DukeException.taskClash());
             }
             break;
         default:
-            throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
+            throw new DukeException(DukeException.unknownUserCommand());
         }
 
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
-        Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() +"\nNow you have " +
-                        tasks.getSize() + " task(s) in the list.");
+        Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have " + tasks.getSize()
+                + " task(s) in the list.");
     }
 }

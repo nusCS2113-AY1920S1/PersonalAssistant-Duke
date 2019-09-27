@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * The TaskList class handles all operations performed on the TaskList as well as stores the TaskList.
+ * The TaskList class handles all operations performed on the TaskList as well
+ * as stores the TaskList.
  *
  * @author Sai Ganesh Suresh
  * @version v1.0
@@ -25,14 +26,15 @@ public class TaskList {
      * @param task contains the task that needs to be added.
      */
     public static final Comparator<Task> DateComparator = (firstDate, secondDate) -> {
-        LocalDateTime localDateTime = LocalDateTime.of(1,1,1,1,1,
-                1,1);
-        if (firstDate.startDate.isBefore(secondDate.startDate)){ return -1; }
-        else{ return 1; }
+        if (firstDate.startDate.isBefore(secondDate.startDate)) {
+            return -1;
+        } else {
+            return 1;
+        }
     };
 
     /**
-     * This function allows the use to delete a particular task.
+     * This function allows the use to add a particular task.
      *
      * @param task contains the task that needs to be added.
      */
@@ -42,7 +44,7 @@ public class TaskList {
 
     /**
      * This function allows the use to delete a particular task.
-     *
+     * 
      * @param indexOfTask this is the index of the task which needs to be deleted.
      */
     public Task delete(int indexOfTask) {
@@ -59,32 +61,35 @@ public class TaskList {
     public ArrayList<Task> find(String keyWord) {
         ArrayList<Task> holdFoundTasks = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            String find_match = listOfTasks.get(i).toString();
-            if (find_match.contains(keyWord)) {
+            String findMatch = listOfTasks.get(i).toString();
+            if (findMatch.contains(keyWord)) {
                 holdFoundTasks.add(listOfTasks.get(i));
             }
         }
         return holdFoundTasks;
     }
+
     /**
-     * Performs a check as to determine if the task being added has a clash with another task already scheduled.
+     * Performs a check as to determine if the task being added has a clash with
+     * another task already scheduled.
      *
      * @param taskToCheck the task trying to be added by the user.
-     * @param command contains the command type of the task to determine the action to perform.
      * @return boolean true if there is a clash, false if there is not clash.
      */
     public boolean isClash(Task taskToCheck) {
-        for (Task task: listOfTasks) {
-            if(task.checkForClash(taskToCheck)) {
+        for (Task task : listOfTasks) {
+            if (task.checkForClash(taskToCheck)) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * This function allows the user to mark a particular task as done.
      *
-     * @param indexOfTask this is the index of the task which needs to be marked as done.
+     * @param indexOfTask this is the index of the task which needs to be marked as
+     *                    done.
      */
     public Task markAsDone(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
@@ -92,31 +97,42 @@ public class TaskList {
         return task;
     }
 
-    public void updateDate(Task taskToBeChanged, String command,LocalDateTime atDate, LocalDateTime fromDate, LocalDateTime toDate){
+    /**
+     * updates the timing of a particular task.
+     * 
+     * @param taskToBeChanged task to be updated
+     * @param command         task type to be updated
+     * @param atDate          new start time of task
+     * @param toDate          new end time of task
+     */
+    public void updateDate(Task taskToBeChanged, String command, LocalDateTime atDate, LocalDateTime toDate) {
 
-        if("event".equals(command)){
+        if ("event".equals(command)) {
             taskToBeChanged.startDate = atDate;
             taskToBeChanged.endDate = toDate;
-        }
-        else {
+        } else {
             taskToBeChanged.startDate = atDate;
         }
 
     }
+
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
-     * @param dayToFind is of String type which contains the desired date of schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     * @param dayToFind is of String type which contains the desired date of
+     *                  schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular
+     *         date.
      */
-    public ArrayList<Task> schedule(String dayToFind){
+    public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if(!(listOfTasks.get(i).getClass() == task.Todo.class) && listOfTasks.get(i).toString().contains(dayToFind)) {
+            if (!(listOfTasks.get(i).getClass() == task.Todo.class)
+                    && listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
-        Collections.sort(sortedDateList,DateComparator);
+        Collections.sort(sortedDateList, DateComparator);
         return sortedDateList;
     }
 
