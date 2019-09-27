@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -90,8 +93,42 @@ public class DukeTest {
         }
         assertEquals(4, taskFound);
     }
+
+    @Test
+    public void checkFreeDaysTest() {
+        ArrayList<String> taskListString = new ArrayList<>();
+        TaskList testList = new TaskList(taskListString);
+        Task toDoTest = new ToDo("B-extensions");
+        testList.addTask(toDoTest);
+        Task deadlineTest1 = new Deadline("finish extension", "21/09/2019 1900");
+        testList.addTask(deadlineTest1);
+        Task deadlineTest2 = new Deadline("submit report", "22/09/2019 2000");
+        testList.addTask(deadlineTest2);
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        DateObj today = new DateObj(f.format(new Date()));
+        Queue<String> daysFree = new LinkedList<String>();
+        int nextDays = 1;
+        while (daysFree.size() <= 3) {
+            boolean flagFree = true;
+            for (Task viewTask : testList.getTaskArrayList()) {
+                if (viewTask.toString().contains(today.toOutputString())) {
+                    flagFree = false;
+                    break;
+                }
+            }
+            if (flagFree) {
+                daysFree.add(today.toOutputString());
+            }
+            today.addDays(nextDays);
+        }
+        boolean checkFreeFlag = false;
+        if (daysFree.poll().equals("19 SEP 2019")) {
+            checkFreeFlag = true;
+        }
+        assertEquals(true, checkFreeFlag);
+    }
     
-    @test
+    @Test
     public void reminderTest () {
     	
     	ArrayList<String> testcase = new ArrayList<String>();

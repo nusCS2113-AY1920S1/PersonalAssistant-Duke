@@ -153,36 +153,30 @@ public class Command {
                     ui.taskDescriptionEmpty();
                     break;
                 }
-                if (continuation.contains("/every")) {
-                    try {
-                        int datePos = continuation.indexOf("/at"); //to find index of position and date
-                        int periodPos = continuation.indexOf("/every"); //to find index of position and period
-                        String description = continuation.substring(0, datePos);
-                        String date = continuation.substring(datePos + 4, periodPos);
-                        int period = Integer.parseInt(continuation.substring(periodPos + 7));
-                        boolean succeeded = tasks.addRecurringEvent(new Event(description, date), period);
-                        if (succeeded) {
-                            ui.recurringTaskAdded(new Event(description, date), tasks.getNumTasks(), period);
-                        } else {
-                            ui.scheduleClash(new Event(description, date));
-                        }
-                        break;
-                    } catch (StringIndexOutOfBoundsException outOfBoundsE) {
-                        ui.recursionFormatWrong();
-                        break;
-                    }
-                }
+                int NO_PERIOD = -1;
+
                 try {
-                    int slashPos = continuation.indexOf("/at"); //to find index of position and date
-                    String date = continuation.substring(slashPos + 4);
-                    String description = continuation.substring(0, slashPos);
-                    boolean succeeded = tasks.addTask(new Event(description, date));
+                    EntryForRecEvent entryForRecEvent = new EntryForRecEvent().invoke(); //separate all info into relevant details
+                    Event newEvent = new Event(entryForRecEvent.getDescription(), entryForRecEvent.getDate());
+                    boolean succeeded;
+
+                    if (entryForRecEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
+                        succeeded = tasks.addTask(newEvent);
+                    } else { //add recurring event
+                        succeeded = tasks.addRecurringEvent(newEvent, entryForRecEvent.getPeriod());
+                    }
+
                     if (succeeded) {
-                        ui.taskAdded(new Event(description, date), tasks.getNumTasks());
+                        if (entryForRecEvent.getPeriod() == NO_PERIOD) {
+                            ui.taskAdded(newEvent, tasks.getNumTasks());
+                        } else {
+                            ui.recurringTaskAdded(newEvent, tasks.getNumTasks(), entryForRecEvent.getPeriod());
+                        }
                     } else {
-                        ui.scheduleClash(new Event(description, date));
+                        ui.scheduleClash(newEvent);
                     }
                     break;
+
                 } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                     ui.eventFormatWrong();
                     break;
@@ -198,7 +192,7 @@ public class Command {
                 int viewIndex = 1;
                 DateObj findDate = new DateObj(dateToView);
                 for (Task viewTask : tasks.getTaskArrayList()) {
-                    if (viewTask.toString().contains(findDate.toOutputString())) {
+                    if (viewTask.toString().contains(findDate.formatDate())) {
                         foundTask += viewIndex + ". " + viewTask.toString() + "\n";
                         viewIndex++;
                     }
@@ -209,22 +203,22 @@ public class Command {
                 break;
 
             case "check":
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
                 DateObj today = new DateObj(f.format(new Date()));
                 Queue<String> daysFree = new LinkedList<String>();
                 int nextDays = 1;
                 while(daysFree.size() <= 3) {
                     boolean flagFree = true;
                     for(Task viewTask : tasks.getTaskArrayList()) {
-                        if(viewTask.toString().contains(today.toOutputString())) {
+                        if(viewTask.toString().contains(today.formatDate())) {
                             flagFree = false;
                             break;
                         }
                     }
                     if(flagFree) {
-                        daysFree.add(today.toOutputString());
+                        daysFree.add(today.formatDate());
                     }
-                    today.addDays(nextDays);
+                    today.addDaysAndSetMidnight(nextDays);
                 }
                 ui.printFreeDays(daysFree);//print out the 3 free days
                 break;
@@ -235,6 +229,47 @@ public class Command {
         }
         if (changesMade) {
             storage.saveToFile(tasks, ui);
+        }
+    }
+
+    /**
+     * Contains all info concerning a new entry for a recurring event.
+     */
+    private class EntryForRecEvent {
+        private String description;
+        private String date;
+        private int period;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public int getPeriod() {
+            return period;
+        }
+
+        /**
+         * contains all info regarding an entry for a non-recurring event
+         * @return
+         */
+        public EntryForRecEvent invoke() {
+            int NON_RECURRING = -1;
+            String[] splitEvent = continuation.split("/");
+            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
+                date = splitEvent[1];
+                period = NON_RECURRING;
+            } else {
+                String[] splitPeriod = splitEvent[2].split(" ");
+                period = Integer.parseInt(splitPeriod[1]);
+                date = splitEvent[1];
+            }
+            description = splitEvent[0];
+
+            return this;
         }
     }
 }
