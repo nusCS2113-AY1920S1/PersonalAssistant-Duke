@@ -42,16 +42,13 @@ Icon                 | What does it mean?
 3. Copy the `COMPal.jar` file to the folder that you want to use as the home folder for **COMPal**.
 
 4. Double-click the `COMPal.jar` file to start the application. The **COMPal** GUI should appear in a few seconds.
-    
     <img src="images/UIInit.png" alt="Initialisation before entering name" width="800"/>
 
 5. As this is your first time starting **COMPal**, **COMPal** will ask for your name, like any new friend. You can type your name in the **command box** and press the <button>Enter</button> key.
-    
-    <img src="images/UIInitConfirmation.png" alt="Initialisation after entering name" width="800"/>
+    <img src="images/UIInitNameConfirmation.png" alt="Initialisation after entering name" width="800"/>
     
 6. **COMPal** will then ask if you have entered your name correctly. If you have, then type `Yes` in the **command box** and press the <button>Enter</button> key. If not, please type `No` and press the <button>Enter</button> key, and **COMPal** will repeat step 5.
-    
-    <img src="images/UIInitConfirmed.png" alt="Name confirmed" width="800"/>
+    <img src="images/UIInitNameConfirmed.png" alt="Name confirmed" width="800"/>
 
 7. And that's it! Initialisation is complete and **COMPal** just became your newest friend / most awesome assistant. You can now try entering commands in the **command box** and press <button>Enter</button> to execute it. 
 
