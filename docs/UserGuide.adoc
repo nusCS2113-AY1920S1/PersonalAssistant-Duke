@@ -143,7 +143,7 @@ Reminds the user upon startup of the program of any upcoming tasks.
 === Exiting the program : `bye`
 
 ****
-*Typing `bye` into the command line shows a goodbye message, saves the task list, and closes the program.
+* Typing `bye` into the command line shows a goodbye message, saves the task list, and closes the program.
 ****
 
 Exits the program. +
@@ -153,6 +153,45 @@ Format: `bye`
 
 Task list data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+[[Errors]]
+== Errors
+*Error Handling*
+* When the user inputs commands or parameters in a way that the program does not understand, errors will be thrown, which let the user know what is wrong.
+
+[TIP]
+If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
+
+=== `DukeInvalidIndexException`
+This error appears when the user inputs a number that is out of bounds of the task list.
+(add screenshot here)
+
+****
+* Example:  `delete -1`
+****
+
+=== `DukeInvalidTimeException`
+This error appears when the user inputs a date or time that is not of an acceptable format. +
+(add screenshot here)
+
+****
+* Example: `deadline assignment /by 30/9/2019 12 o'clock` + Here 12 o'clock is not an acceptable format, instead use 1200.
+****
+=== `DukeInvalidTimePeriodException`
+This error appears when the use inputs a time period that is not of an acceptable range. +
+(add screenshot here)
+
+****
+* Currently only available for DoWithin tasks
+****
+
+=== `DukeMissingArgumentException`
+This error appears when the user does not input valid parameters into the command line. +
+(add screenshot here)
+****
+* Example: `deadline /by 30/9/2019 1245` + 
+Here the description is missing for the Deadline task, and the error message is shown.
+****
 
 == FAQ
 
