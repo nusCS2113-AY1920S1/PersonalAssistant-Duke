@@ -19,8 +19,6 @@ public class TaskTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-
-
     @Test
     public void dummyTest(){
         assertEquals(2, 2);

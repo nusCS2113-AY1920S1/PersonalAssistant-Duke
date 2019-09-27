@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         }
         ui.appendToOutput(" Noted. I've removed this task:\n");
         ui.appendToOutput("  " + tasks.getTask(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (tasks.lengthOfList() - 1) + " tasks in the list.\n");
+        ui.appendToOutput(" Now you have 5 " + (tasks.lengthOfList() - 1) + " tasks in the list.\n");
         tasks.removeTask(serialNo - 1);
         storage.writeTheFile(tasks.getCheckList());
     }
