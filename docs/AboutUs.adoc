@@ -18,7 +18,7 @@ Responsibilities: -
 '''
 
 === Ye Tong
-image::yetong1895.jpg[width="150", align="left"]
+image::yetong1895.png[width="150", align="left"]
 {empty}[http://github.com/yetong1895[github]]
 
 Role: Code Quality IC +
@@ -27,7 +27,7 @@ Responsibilities: -
 '''
 
 === Xiao Xue
-image::tatayu.jpg[width="150", align="left"]
+image::tatayu.png[width="150", align="left"]
 {empty}[http://github.com/tatayu[github]]
 
 Role: Testing IC +
@@ -36,7 +36,7 @@ Responsibilities: -
 '''
 
 === Kexin
-image::weng-kexin.jpg[width="150", align="left"]
+image::kexin.png[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
