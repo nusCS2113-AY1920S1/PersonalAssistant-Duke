@@ -5,11 +5,10 @@ import optix.commands.ByeCommand;
 import optix.commands.Command;
 import optix.commands.DeleteAllCommand;
 import optix.commands.DeleteOneCommand;
-
-
 import optix.commands.ListCommand;
 import optix.commands.ListShowCommand;
 import optix.commands.PostponeCommand;
+import optix.commands.ViewSeatsCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) {
@@ -28,6 +27,8 @@ public class Parser {
         } else {
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
             switch (splitStr[0].toLowerCase()) {
+            case "view":
+                return parseViewSeating(splitStr[1]);
             case "postpone":
                 return parsePostpone(splitStr[1]);
             case "list":
@@ -82,5 +83,13 @@ public class Parser {
         String[] splitStr = deleteDetails.trim().split("\\|");
 
         return new DeleteAllCommand(splitStr);
+    }
+
+    private static Command parseViewSeating(String showDetails) {
+        String[] splitStr = showDetails.trim().split("\\|");
+        String showName = splitStr[0].trim();
+        String showDate = splitStr[1].trim();
+
+        return new ViewSeatsCommand(showName, showDate);
     }
 }

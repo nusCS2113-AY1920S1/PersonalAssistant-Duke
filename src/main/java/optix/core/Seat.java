@@ -15,10 +15,6 @@ public class Seat {
         this.buyerName = name;
     }
 
-    public void setSeatTier(String seatTier) {
-        this.seatTier = seatTier;
-    }
-
     public void setBooked(boolean booked) {
         isBooked = booked;
     }
@@ -33,5 +29,13 @@ public class Seat {
 
     public boolean isBooked() {
         return isBooked;
+    }
+
+    private String getStatusIcon() {
+        return isBooked ?  "\u2713" : "\u2718";
+    }
+
+    public String getSeat() {
+        return "[" + getStatusIcon() + "]";
     }
 }

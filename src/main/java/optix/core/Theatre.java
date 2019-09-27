@@ -1,6 +1,9 @@
 package optix.core;
 
 public class Theatre {
+    private final String SPACES = "  ";
+    private final String STAGE = "                |STAGE|           \n";
+
     private Seat[][] seats = new Seat[6][10];
     private int tierOneSeats;
     private int tierTwoSeats;
@@ -81,5 +84,19 @@ public class Theatre {
 
     public boolean hasSameName(String checkName) {
         return showName.toLowerCase().equals(checkName.toLowerCase());
+    }
+
+    public String getSeatingArrangement() {
+        StringBuilder seatingArrangement = new StringBuilder(STAGE);
+
+        for (int i = 0; i < seats.length; i++) {
+            seatingArrangement.append(SPACES);
+            for (int j = 0; j < seats[i].length; j++) {
+                seatingArrangement.append(seats[i][j].getSeat());
+            }
+            seatingArrangement.append("\n");
+        }
+
+        return seatingArrangement.toString();
     }
 }
