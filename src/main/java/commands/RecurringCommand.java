@@ -26,7 +26,7 @@ public class RecurringCommand {
         if(list_description.contains("weekly")) {
             if(list_description.charAt(1) == 'E') {
                 splitstring = list_description.split("at");
-                String conc = "";
+                String conc;
                 char a = splitstring[1].charAt(9);
                 char b = splitstring[1].charAt(10);
                 conc = "" + a + b;
@@ -50,29 +50,13 @@ public class RecurringCommand {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else{
-                        sb.append(list.get(i).toString()+"\n");
-                    }
+                    sb.append(list.get(i).toString()+"\n");
                 }
                 storage.Storages(sb.toString());
             }
             else if(list_description.charAt(1) == 'D') {
                 splitstring = list_description.split("by");
-                String conc = "";
+                String conc;
                 char a = splitstring[1].charAt(9);
                 char b = splitstring[1].charAt(10);
                 conc = "" + a + b;
@@ -87,8 +71,7 @@ public class RecurringCommand {
                 String hour_min_sec = timing[0].substring(timing[0].length()-8,timing[0].length());
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6,splitstring[0].length()-1);
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Deadline new_weeklyDeadline = new Deadline(description,fmt.parse(conc_time));
+                Deadline new_weeklyDeadline = new Deadline(description,conc_time);
                 list.add(new_weeklyDeadline);
                 System.out.println("");
                 System.out.println("I've automatically added this weekly task again:");
@@ -96,30 +79,14 @@ public class RecurringCommand {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
-                        sb.append(list.get(i).toString()+"\n");
-                    }
-                    else if(list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else{
-                        sb.append(list.get(i).toString()+"\n");
-                    }
+                    sb.append(list.get(i).toString()+"\n");
                 }
                 storage.Storages(sb.toString());
             }
         } else if(list_description.contains("monthly")) {
             if (list_description.charAt(1) == 'E') {
                 splitstring = list_description.split("at");
-                String conc = "";
+                String conc;
                 char a = splitstring[1].charAt(9);
                 char b = splitstring[1].charAt(10);
                 conc = "" + a + b;
@@ -143,24 +110,12 @@ public class RecurringCommand {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
+                    sb.append(list.get(i).toString()+"\n");
                 }
                 storage.Storages(sb.toString());
             } else if (list_description.charAt(1) == 'D') {
                 splitstring = list_description.split("by");
-                String conc = "";
+                String conc;
                 char a = splitstring[1].charAt(9);
                 char b = splitstring[1].charAt(10);
                 conc = "" + a + b;
@@ -175,8 +130,7 @@ public class RecurringCommand {
                 String hour_min_sec = timing[0].substring(timing[0].length() - 8, timing[0].length());
                 String conc_time = year + "-" + month + "-" + date + " " + hour_min_sec;
                 String description = splitstring[0].substring(6, splitstring[0].length() - 1);
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Deadline new_monthlyDeadline = new Deadline(description, fmt.parse(conc_time));
+                Deadline new_monthlyDeadline = new Deadline(description, conc_time);
                 list.add(new_monthlyDeadline);
                 System.out.println("");
                 System.out.println("I've automatically added this monthly task again:");
@@ -184,19 +138,7 @@ public class RecurringCommand {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.FixedDuration")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.DoAfter")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Timebound")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
+                    sb.append(list.get(i).toString()+"\n");
                 }
                 storage.Storages(sb.toString());
             }

@@ -28,7 +28,6 @@ public class Storage {
     }
     public ArrayList<Task> Readfile() throws IOException, ParseException {
         ArrayList<Task> tlist = new ArrayList<Task>();
-        SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         if(new File(absolutePath).exists()) {
             File file = new File(absolutePath);
             Scanner sc = new Scanner(file);
@@ -44,7 +43,7 @@ public class Storage {
                     }
                     tlist.add(t);
                 } else if (details[0].equals("D")) {
-                    Deadline d = new Deadline(details[2].trim(), fmt.parse(details[3].substring(3).trim()));
+                    Deadline d = new Deadline(details[2].trim(), details[3].substring(3).trim());
                     if(details[1].equals("\u2713")){
                         d.isDone = true;
                     }

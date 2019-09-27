@@ -32,13 +32,12 @@ public class Ui {
             return logo;
         }
         public void UpcomingTask (ArrayList < Task > list) throws ParseException {
-            SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
             ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
             ArrayList<Event> EventList = new ArrayList<Event>();
 
             for (Task task : list) {
                 if (task.getClass().getName().equals("Tasks.Deadline")) {
-                    Deadline deadline = new Deadline(task.description, fmt.parse(task.toString().split("by:")[1].trim()));
+                    Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                     DeadlineList.add(deadline);
                 } else if (task.getClass().getName().equals("Tasks.Event")) {
                     Event event = new Event(task.description, task.toString().split("at:")[1].trim());
@@ -59,12 +58,19 @@ public class Ui {
         public void showDateFormatError () {
             System.err.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
         }
+
+        public static void showDeadlineDateFormatError() {
+            System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
+        }
+
         public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
         }
+
         public void showIOErrorMessage (Exception e){
             System.err.println("An IOException was caught :" + e.getMessage());
         }
+
         public void showErrorMessage (Exception e){
             System.err.println(e.getMessage());
         }

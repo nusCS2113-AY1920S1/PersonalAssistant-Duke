@@ -9,7 +9,9 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.zip.DataFormatException;
 
 public class EventCommand extends Command {
     @Override
@@ -55,6 +57,8 @@ public class EventCommand extends Command {
         }
         catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException a) {
+            Ui.showEventDateFormatError();
         }
     }
 
