@@ -69,10 +69,10 @@ public class Command {
                 changesMade = false;
                 break;
 
-//            case "reminder":
-//                remindEvents(events, ui);
-//                changesMade = false;
-//                break;
+            case "reminder":
+                remindEvents(events, ui);
+                changesMade = false;
+                break;
 
             case "done":
                 markEventAsDone(events, ui);
@@ -108,10 +108,10 @@ public class Command {
                 changesMade = false;
                 break;
 
-//            case "check":
-//                checkFreeDays(events, ui);
-//                changesMade = false;
-//                break;
+            case "check":
+                checkFreeDays(events, ui);
+                changesMade = false;
+                break;
 
             default:
                 ui.printInvalidCommand();
@@ -143,9 +143,9 @@ public class Command {
 
     public void checkFreeDays(EventList events, UI ui) {
         SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-        DateObj today = new DateObj(f.format(new Date()));
+        String systemDateAndTime = new Date().toString();
+        DateObj today = new DateObj(systemDateAndTime);
         Queue<String> daysFree = new LinkedList<String>();
-        int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean flagFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
@@ -157,7 +157,9 @@ public class Command {
             if (flagFree) {
                 daysFree.add(today.formatDate());
             }
-            today.addDaysAndSetMidnight(nextDays);
+//            System.out.println(today.formatDate());
+            today.addDaysAndSetMidnight(1);
+//            System.out.println(today.formatDate());
         }
         ui.printFreeDays(daysFree);
     }
@@ -288,9 +290,9 @@ public class Command {
         }
     }
 
-//    public void remindEvents(EventList events, UI ui) {
-//        ui.printReminder(events);
-//    }
+    public void remindEvents(EventList events, UI ui) {
+        ui.printReminder(events);
+    }
 
     public void listEvents(EventList events, UI ui) {
         ui.printListOfEvents(events);

@@ -6,6 +6,7 @@ import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubClasses.ToDo;
 import Events.Formatting.DateObj;
+import Events.Formatting.Predicate;
 import UserElements.Parser;
 
 import java.text.SimpleDateFormat;
@@ -202,28 +203,28 @@ public class EventList {
      * Gets a filtered list of events based on a predicate.
      * @return String containing the filtered list of events, separated by a newline.
      */
-//    public String filteredList(Predicate<Object> predicate, int filterCode) {
-//        String filteredEvents = "";
-//        int j = 1;
-//        for (int i = 0; i < eventArrayList.size(); ++i) {
-//            if (eventArrayList.get(i) == null) {
-//            	continue;
-//            } else if (filterCode == DATE) {
-//                if (eventArrayList.get(i) instanceof Event || eventArrayList.get(i) instanceof Deadline) {
-//                	if (!predicate.check(eventArrayList.get(i).getStartDateObj())) {
-//                		continue;
-//                	}
-//                } else {
-//                	continue;
-//                }
-//            } else if (filterCode == TYPE) {
-//                if (!predicate.check(eventArrayList.get(i).getType())) {
-//                	continue;
-//                }
-//            }
-//            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
-//            j++;
-//        }
-//        return filteredEvents;
-//    }
+    public String filteredList(Predicate<Object> predicate, int filterCode) {
+        String filteredEvents = "";
+        int j = 1;
+        for (int i = 0; i < eventArrayList.size(); ++i) {
+            if (eventArrayList.get(i) == null) {
+            	continue;
+            } else if (filterCode == DATE) {
+                if (eventArrayList.get(i) instanceof Event) {
+                	if (!predicate.check(eventArrayList.get(i).getStartDate())) {
+                		continue;
+                	}
+                } else {
+                	continue;
+                }
+            } else if (filterCode == TYPE) {
+                if (!predicate.check(eventArrayList.get(i).getType())) {
+                	continue;
+                }
+            }
+            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
+            j++;
+        }
+        return filteredEvents;
+    }
 }
