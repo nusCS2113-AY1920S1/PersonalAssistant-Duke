@@ -21,7 +21,7 @@ public class TaskList extends ArrayList<Task> {
                 this.add(new Todo(splitStr[1], splitStr[2], splitStr[3]));
                 break;
             case "E":
-                this.add(new Event(splitStr[1], splitStr[2], splitStr[3], splitStr[4]));
+                this.add(new Event(splitStr[1], splitStr[2], splitStr[3], splitStr[4], splitStr[5]));
                 break;
             case "D":
                 this.add(new Deadline(splitStr[1], splitStr[2], splitStr[3], splitStr[4]));
