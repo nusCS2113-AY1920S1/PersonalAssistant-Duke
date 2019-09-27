@@ -1,35 +1,56 @@
-Since there is a lot of fairly complex data to manage, I think the input system will have to be stateful. If user input is ambiguous, we can show a window of possible options to disambiguate between. The disambiguation window and code can be reused - create an abstract DukeObject class for our data items.
+= Dr Duke User Guide
 
-[] -> optional element of a command
-<> -> variable input, specified within bracket
-(a|b|c) -> input that can be one of several possible options
+
+# Usage
+
+Since there is a lot of fairly complex data to manage, I think the input system will have to be stateful - different commands mean different things based on the current context. This would require some tracking and interfacing between the UI and the Logic (e.g. the internal logic needs to know which patient is being displayed as patient #1). If user input is ambiguous, we can show a window of possible options to disambiguate between. The disambiguation window and code can be reused - create an abstract DukeObject class for our data items.
+
+Specification syntax:
+
+* `[]` -> optional element of a command
+* `<>` -> variable input, specified within bracket
+* `(a|b|c)` -> input that can be one of several possible options
 
 Reused patterns:
-_patient_id_: (<patient index>|”<part of name>”|-b <bed number>)
-_impression_id_: (<impression index>|”<part of name>”)
 
-## Home Page: show several (10?) numbered panels displaying a summary of the critical details of some patients
+* _patient_id_: (<patient index>|"part of name>"|-b <bed number>)
+* _impression_id_: (<impression index>|"part of name>")
 
-### `help` - Display a context-specific list of commands and options
+## Contexts
+
+### Home Page: show several (10?) numbered panels displaying a summary of the critical details of some patients
+
+#### `help` - Display a context-specific list of commands and options
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-### `next` - Display next page of patients
-### `prev` - Display next page of patients
-### `critical` - Display all critical observations and plans of all patients
+#### `next` - Display next page of patients
+#### `prev` - Display next page of patients
+#### `critical` - Display all critical observations and plans of all patients
 
 We can probably cheat and use the disambiguation engine to pull up a window of all critical dukeobjects, giving the user the choice to navigate to any particular one, or to close the window
 
-### `discharge _patient_id_ [-s[ummary] <summary>]` - Generate a discharge report for the patient and delete him from the system
+#### `discharge _patient_id_ [-s[ummary] <summary>]` - Generate a discharge report for the patient and delete him from the system
 
 In v1.4, patients will simply be deleted after the report is generated. In v2.0, they will be archived.
 
-### `archive` - Display discharged patients  [v2.0]
-### `open _patient_id_ [-i[mpression] [<impression index>]]` - Go to a more detailed view of a particular patient
+#### `archive` - Display discharged patients  [v2.0]
+#### `open _patient_id_ [-i[mpression] [<impression index>]]` - Go to a more detailed view of a particular patient
 
 If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular patient if no index is specified. 
 
-### `clerk -n[ame] "<name>" -b[ed] <bed number> -a[llergies] <allergies> [-g[o] -h[eight] <height> -w[eight] <weight> -ag[e] <age> -num[ber] <number> -ad[dress] <address> -hi[story] "<history>"]`
+#### `clerk -n[ame] "<name>" -b[ed] <bed number> -a[llergies] <allergies> [<optional switches>]` - Add a new patient to the system
 
-Add a new patient to the system. The patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-go` switch goes to the patient's page after it is created.
+Optional switches:
 
+* `-g[o]`
+* `-h[eight] <height>` 
+* `-w[eight] <weight>` 
+* `-ag[e] <age>`
+* `-num[ber] <number>`
+* `-ad[dress] "<address>"`
+* `-hi[story] "<history>"`
+
+The patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-go` switch goes to the patient's page after it is created.
+
+### Patient Page: show...
