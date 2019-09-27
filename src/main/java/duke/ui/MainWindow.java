@@ -3,6 +3,8 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import duke.entities.Order;
 import duke.logic.Duke;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -48,11 +50,15 @@ public class MainWindow extends AnchorPane {
     private InventoryPage inventoryPage;
     private SalesPage salesPage;
 
+
+
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         popUp.setVisible(false);
     }
+
+
 
     @FXML
     private void handleUserInput() {
@@ -126,6 +132,7 @@ public class MainWindow extends AnchorPane {
         this.orderPage.refreshOrderList(orders, all);
     }
 
+
     void showOrderPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage);
@@ -149,6 +156,7 @@ public class MainWindow extends AnchorPane {
 
         currentPage.setText("Recipes");
     }
+
 
     void showInventoryPage() {
         pagePane.getChildren().clear();
