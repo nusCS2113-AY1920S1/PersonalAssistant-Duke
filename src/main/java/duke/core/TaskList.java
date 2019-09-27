@@ -23,7 +23,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> items, Ui ui) {
         this.items = items;
-        int daysDue = 4;
+        int daysDue = 100;
         if ((searchItemsDue(daysDue).isEmpty())) {
             ui.print("No tasks due today!");
         } else {
