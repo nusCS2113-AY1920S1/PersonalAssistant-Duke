@@ -1,6 +1,8 @@
 import CustomExceptions.DukeException;
 import Enums.ExceptionType;
-import Enums.Tasktype;
+import Enums.RecurTaskType;
+import Enums.TaskType;
+import Enums.TimeUnit;
 import Model_Classes.*;
 import Operations.*;
 
@@ -17,7 +19,7 @@ public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
-
+    private RecurHandler recurHandler;
     /**
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
@@ -28,12 +30,18 @@ public class Duke {
         storage = new Storage();
         parser = new Parser();
         try {
-            taskList = new TaskList(storage.loadFile());
+            taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (DukeException e) {
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
+        recurHandler = new RecurHandler(taskList);
+        if (recurHandler.checkRecurrence()) {
+            ui.showChangeInTaskList();
+            taskList.list();
+        }
+
     }
 
     /**
@@ -41,9 +49,15 @@ public class Duke {
      */
     public void run() {
         boolean isExit = false;
+        boolean isExitRecur = false;
         while (!isExit) {
             String command = parser.getCommand();
-            Tasktype type = Tasktype.valueOf(command);
+            TaskType type;
+            try {
+                type = TaskType.valueOf(command);
+            } catch (IllegalArgumentException e) {
+                type = TaskType.others;
+            }
             switch (type) {
                 case list :
                     ui.showList();
@@ -53,12 +67,11 @@ public class Duke {
                 case bye :
                     isExit = true;
                     try {
-                        storage.writeFile(taskList.currentList());
-                        ui.showBye();
+                        storage.writeFile(TaskList.currentList(), "data.txt");
                     } catch (DukeException e) {
                         ui.showWriteError();
-                        ui.showBye();
                     }
+                    ui.showBye();
                     break;
 
                 case done :
@@ -125,6 +138,38 @@ public class Duke {
                     }
                     break;
 
+                case recur:
+                    ui.promptRecurringActions();
+                    while (!isExitRecur) {
+                        String temp = parser.getCommand();
+                        RecurTaskType recurType;
+                        try {
+                            recurType = RecurTaskType.valueOf(temp);
+                        } catch (IllegalArgumentException e) {
+                            recurType = RecurTaskType.others;
+                        }
+                        switch (recurType) {
+                            case list:
+                                recurHandler.listRecurring();
+                                break;
+                            case find:
+                                recurHandler.findRecurring(parser.getKey());
+                                break;
+                            case exit:
+                                isExitRecur = true;
+                                ui.showExit();
+                                break;
+                            case add:
+                                recurHandler.addBasedOnOperation();
+                                break;
+                            default:
+                                ui.showCommandError();
+                                break;
+                        }
+                    }
+                    isExitRecur = false;
+                    break;
+
                 case time :
                     ui.showAdd();
                     String[] ti = parser.getDescriptionWithDuration();
@@ -141,6 +186,15 @@ public class Duke {
                     }
                     RemindTask rt = new RemindTask();
                     timer.schedule(rt, duration * 1000);
+                    break;
+
+                case snooze :
+                    int index = parser.getIndex();
+                    ui.showSnooze();
+                    int amount = parser.getAmount();
+                    TimeUnit timeUnit = parser.getTimeUnit();
+                    taskList.snooze(index, amount, timeUnit);
+                    ui.showSnoozeComplete();
                     break;
 
                 default:

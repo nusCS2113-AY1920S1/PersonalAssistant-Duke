@@ -2,12 +2,11 @@ package Operations;
 
 import CustomExceptions.DukeException;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import Enums.TimeUnit;
 
 /**
  * A class for handling all parsing for Duke. Makes sure that inputs by the user
@@ -73,7 +72,6 @@ public class Parser {
      * Returns an array with the task description stored as well as the duration of the task
      * @return array An array of Strings with description and duration both in index 0 of the array
      */
-
     public String[] getDescriptionWithDuration() {
         String[] array = scanner.nextLine().split(" ", 1);
         return array;
@@ -113,5 +111,27 @@ public class Parser {
     public String getKey() {
         String key = scanner.nextLine().toLowerCase();
         return key;
+    }
+
+    public String getRecurrence() {
+        return scanner.nextLine().trim().toLowerCase();
+    }
+
+    /**
+     * Returns the amount of time the customer request to snooze
+     * @return the amount of time the customer request to snooze
+     */
+    public int getAmount(){
+        String temp = scanner.next().trim();
+        return Integer.parseInt(temp);
+    }
+
+    /**
+     * Returns the unit of time the customer request to snooze
+     * @return the unit of time the customer request to snooze
+     */
+    public TimeUnit getTimeUnit(){
+        String temp = scanner.next();
+        return TimeUnit.valueOf(temp);
     }
 }
