@@ -1,7 +1,6 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
 import optix.util.ShowMap;
@@ -9,37 +8,32 @@ import optix.util.ShowMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class AddCommand extends Command {
+public class ViewSeatsCommand extends Command {
     private String showName;
-    private LocalDate date;
-    private double cost;
-    private double seatBasePrice;
+    private LocalDate showDate;
 
-
-    public AddCommand(String showName, String date, double cost, double seatBasePrice) {
-        // need to check if it is a valid date if not need to throw exception
+    public ViewSeatsCommand(String showName, String showDate) {
         this.showName = showName;
-        this.date = toLocalDate(date);
-        this.cost = cost;
-        this.seatBasePrice = seatBasePrice;
+        this.showDate = toLocalDate(showDate);
     }
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
-        Theatre theatre = new Theatre(showName, cost, seatBasePrice);
-        LocalDate today = storage.getToday();
+        StringBuilder message = new StringBuilder("Here is the layout of the theatre for " + showName + " on " + showDate + ": \n");
 
-        if (date.compareTo(today) <= 0) {
-            ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
-        } else if (shows.containsKey(date)) {
-            // to abstract the  date formatting in the future extensions
-            ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
-                    + "Please try again. \n");
+        if (!shows.isEmpty() && shows.get(showDate).hasSameName(showName)) {
+            Theatre theatre = shows.get(showDate);
+            message.append(theatre.getSeatingArrangement());
         } else {
-            shows.put(date, theatre);
-            ui.setMessage(new OptixResponse().ADD + theatre.getShowName() + " at: " + this.date + "\n");
+            message = new StringBuilder("☹ OOPS!!! Sorry the show " + showName + " cannot be found.");
         }
 
+        ui.setMessage(message.toString());
+    }
+
+    @Override
+    public boolean isExit() {
+        return super.isExit();
     }
 
     private String getFormat(String date) {
@@ -74,10 +68,5 @@ public class AddCommand extends Command {
         //Convert string to localdate
         LocalDate localDate = LocalDate.parse(dateString,formatter);
         return localDate;
-    }
-
-    @Override
-    public boolean isExit() {
-        return super.isExit();
     }
 }

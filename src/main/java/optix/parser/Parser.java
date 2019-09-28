@@ -5,11 +5,11 @@ import optix.commands.ByeCommand;
 import optix.commands.Command;
 import optix.commands.DeleteAllCommand;
 import optix.commands.DeleteOneCommand;
-
-
 import optix.commands.ListCommand;
 import optix.commands.ListShowCommand;
 import optix.commands.PostponeCommand;
+import optix.commands.SellSeatCommand;
+import optix.commands.ViewSeatsCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) {
@@ -28,6 +28,10 @@ public class Parser {
         } else {
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
             switch (splitStr[0].toLowerCase()) {
+            case "sell":
+                return parseSellSeats(splitStr[1]);
+            case "view":
+                return parseViewSeating(splitStr[1]);
             case "postpone":
                 return parsePostpone(splitStr[1]);
             case "list":
@@ -57,14 +61,15 @@ public class Parser {
     }
 
     private static Command parseAddShow(String showDetails) {
-        String[] splitStr = showDetails.trim().split("\\|", 3);
+        String[] splitStr = showDetails.trim().split("\\|", 4);
         // need to check if size of array is 3, if not throw exception
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
         // need to add a NumberFormatException here
         double showCost = Double.parseDouble(splitStr[2]);
+        double seatBasePrice = Double.parseDouble(splitStr[3]);
 
-        return new AddCommand(showName, showDate, showCost);
+        return new AddCommand(showName, showDate, showCost, seatBasePrice);
 
     }
 
@@ -82,5 +87,23 @@ public class Parser {
         String[] splitStr = deleteDetails.trim().split("\\|");
 
         return new DeleteAllCommand(splitStr);
+    }
+
+    private static Command parseViewSeating(String showDetails) {
+        String[] splitStr = showDetails.trim().split("\\|");
+        String showName = splitStr[0].trim();
+        String showDate = splitStr[1].trim();
+
+        return new ViewSeatsCommand(showName, showDate);
+    }
+
+    private static Command parseSellSeats(String details) {
+        String[] splitStr = details.trim().split("\\|");
+        String showName = splitStr[0].trim();
+        String showDate = splitStr[1].trim();
+        String buyerName = splitStr[2].trim();
+        String seats = splitStr[3].trim();
+
+        return new SellSeatCommand(showName, showDate, buyerName, seats);
     }
 }
