@@ -568,11 +568,12 @@ Use case resumes at step 1.
 [appendix]
 == Non Functional Requirements
 
-// .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-// .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-// .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-// _{More to be added}_
+1. ArchDuke should be able to run on any machine with Java Development Kit (JDK 11) installed.
+2. ArchDuke should be able to handle up to a thousand tasks and projects.
+3. ArchDuke should be secure, to prevent unauthorised modification.
+4. ArchDuke should not save passwords in plain text.
+5. ArchDuke should be smooth and fast to view and edit.
+6. ArchDuke output should be organised clearly with proper tabbing.
 
 [appendix]
 == Glossary
