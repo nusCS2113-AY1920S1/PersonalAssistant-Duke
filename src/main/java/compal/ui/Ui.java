@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -237,6 +238,7 @@ public class Ui {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
+    public TabPane TabRef;
     private ArrayList<Task> arrlist;
     private Compal compal;
     private String username;

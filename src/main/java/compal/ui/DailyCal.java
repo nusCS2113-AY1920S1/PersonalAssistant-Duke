@@ -9,15 +9,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 public class DailyCal {
@@ -39,7 +34,7 @@ public class DailyCal {
     private double timeYLayout = -5;
 
 
-    private int[] Timing = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
+    private int[] Timing = {0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
 
     private int startTime = 8;
     private int endTime = 19;
@@ -69,9 +64,12 @@ public class DailyCal {
         ArrayList<Task> arrList = compal.tasklist.arrlist;
         for(int i = 0; i < arrList.size();i++){
             if(arrList.get(i).getStringDate().equals(dateInString)){
-                int tempStarTime = Integer.parseInt(arrList.get(i).getStringTime().substring(0,2));
-                if(tempStarTime < startTime){
-                    startTime = tempStarTime;
+                int tempTime = Integer.parseInt(arrList.get(i).getStringTime().substring(0,2));
+                if(tempTime < startTime){
+                    startTime = tempTime;
+                }
+                if(tempTime>endTime){
+                    endTime=tempTime;
                 }
             }
         }
@@ -88,9 +86,13 @@ public class DailyCal {
                     int hour = arrList.get(i).getDurationHour();
                     int min = arrList.get(i).getDurationMinute();
 
+                    if(hour == 0 && min == 0){
+                        continue;
+                    }
+
                     String desc = arrList.get(i).getDescription();
                     //Drawing a Rectangle
-                    double heightY = 1;
+                    double heightY = 1.7;
                     double heightYMin= heightY * min;
                     double heightYHour = 100 * hour;
 
@@ -101,7 +103,7 @@ public class DailyCal {
                     final Text text = new Text (desc);
                     stack.getChildren().addAll(rectangle, text);
                     stack.setLayoutX(horizontalXLayout+80);
-                    stack.setLayoutY(horizontalYLayout);
+                    stack.setLayoutY(horizontalYLayout+50);
                     groupRoot.getChildren().add(stack);
                 }
             }
@@ -137,25 +139,26 @@ public class DailyCal {
         for (int i = 0; i < Timing.length; i++) {
             makeASlot(i);
         }
+        makeHorizontalLines(horizontalLineCounter++);
         makeHeaderVerticalLines(0);
     }
 
     public void makeASlot(int i) {
         int temp = horizontalLineCounter;
-        if (Timing[i] < startTime || Timing[i] >= endTime) {
+        if (Timing[i] < startTime || Timing[i] > endTime) {
             return;
         } else if (Timing[i] < 12) {
             makeTimeAM(i);
             drawScheduleSquare(Timing[i]);
             for (int x = temp; x < temp + 2; x++) {
-                makeVertLines(x);
+                makeHorizontalLines(x);
                 horizontalLineCounter++;
             }
         } else {
             makeTimePM(i);
             drawScheduleSquare(Timing[i]);
             for (int x = temp; x < temp + 2; x++) {
-                makeVertLines(x);
+                makeHorizontalLines(x);
                 horizontalLineCounter++;
             }
         }
@@ -182,7 +185,7 @@ public class DailyCal {
         groupRoot.getChildren().add(timePM[i]);
     }
 
-    public void makeVertLines(int i) {
+    public void makeHorizontalLines(int i) {
         if (i == 0) {
             drawHeaderHorizontalLines(i);
         } else {

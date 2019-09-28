@@ -49,6 +49,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
 
             TabPane tabReference = (TabPane) ap.getChildren().get(2);
+            compal.ui.TabRef =tabReference;
 
             //Create MainWindow Pane
             VBox root = new VBox();
@@ -68,7 +69,6 @@ public class Main extends Application {
             dailyTab.setText("Daily Window");
             dailyTab.setContent(dailyPane);
             tabReference.getTabs().add(1,dailyTab);
-
 
             compal.ui.mainWindow = mainPane; //gets a reference to the main display viewport
             compal.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
