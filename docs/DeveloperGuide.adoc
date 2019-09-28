@@ -68,3 +68,59 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 * is extremely comfortable with the usage of CLI apps
 
 *Value proposition*: manage `patients` faster than a typical mouse/GUI driven app
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="100%",cols="10%,30%,30%,30%",options="header"]
+|=======================================================================
+| Priority | As a ... | I want to ... | So that I can...
+| `* * *` | house officer | check my patients’ allergies | issue them with the appropriate medicine
+
+| `* * *` | house officer who has to manage a lot of information | flag and view the critical issues to
+follow up for each patient | complete the follow-up(s) as soon as possible
+
+| `* * *` | house officer who has to manage many patients | view the previous medical history of my patients
+| understand what has been done to manage/treat their conditions
+
+| `* * *` | house officer who needs to input a lot of data quickly and is prone to mistyping | be able to make typing
+errors but still have my input recognised | avoid having to waste time to retype my command
+
+| `* * *` | house officer who needs to input a lot of data quickly and is prone to mistyping | confirm my input type and
+modify it quickly if it is incorrect | avoid having to retype or tediously transfer entries that were input in the
+wrong place
+
+| `* * *` | house officer who needs to upload records into the hospital’s health system | generate unified reports that
+are fully compatible with the system | avoid having to manually input those records
+
+| `* * *` | house officer keeping track of information for my consultant | keep track of whether or not I’ve checked
+for the results of certain investigations | make sure the consultant is kept up-to-date
+
+| `* * *` | house officer who has to manage a lot of information | easily link new information and follow-up items to
+particular conditions | have a clearer picture of each condition and its corresponding management plan
+
+| `* *` | house officer with a consultant that talks too fast | differentiate the types of input with just a single
+control character | avoid having to waste time switching between windows
+
+| `* *` | house officer who has to manage a lot of information | easily view and navigate through data associated with
+particular conditions that particular patients have | have a clearer view of what that particular condition is
+
+| `* *` | house officer who needs to input a lot of data quickly and is prone to mistyping | undo my previous commands |
+quickly rectify mistakes made when inputting data
+
+| `*` | house officer who has to manage a lot of information | search through all of the records of a patient | find all
+the details relevant to a particular aspect of his/her care plan
+
+| `*` | house officer who has to manage many patients | easily view all critical issues all my patients are facing by
+level of importance | address them as soon as possible
+
+| `*` | house officer who needs to input a lot of data quickly and is prone to mistyping | have my input automatically
+checked to ensure it is of the right format | always be assured that I am inputting the right commands.
+|=======================================================================
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
