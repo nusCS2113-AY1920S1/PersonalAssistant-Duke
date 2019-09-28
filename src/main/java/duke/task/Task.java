@@ -59,6 +59,15 @@ public class Task {
     }
 
     /**
+     * Returns the status icon of a task (GUI).
+     *
+     * @return String of the status icon.
+     */
+    public String getTasks() {
+        return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
+    }
+
+    /**
      * Sets the status icon of a task to true/false.
      *
      * @param setDone The boolean of the task.
@@ -82,13 +91,16 @@ public class Task {
      * @return boolean that triggers the reminder
      */
     public boolean triggerReminder(){
-        if (dueDate != null) {
-            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
-        }
-        if (currentDate != null) {
-            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
+//        if (dueDate != null) {
+//            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
+//            return LocalDateTime.now().isAfter(reminderDate);
+//        }
+//        if (currentDate != null) {
+//            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
+//            return LocalDateTime.now().isAfter(reminderDate);
+//        }
+        if (getisDone()==false) {
+            System.out.println("High priority: ");
         }
         return false;
     }
