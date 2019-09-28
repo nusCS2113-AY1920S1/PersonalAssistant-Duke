@@ -12,6 +12,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A command to set a new shortcut.
+ * A shortcut is a set of user-defined commands that can be executed by entering the shortcut keyword.
+ */
 public class SetShortcutCommand extends UndoableCommand {
     private String name;
     private ExecuteShortcutCommand unmodifiedExecuteShortCutCommand;
@@ -20,6 +24,13 @@ public class SetShortcutCommand extends UndoableCommand {
             "undo", "redo", "order", "recipe", "add", "remove", "edit", "done"
     );
 
+
+    /**
+     * Class constructor.
+     *
+     * @param line A line of user input.
+     * @throws DukeException if shortcut name contains the application's reserved words.
+     */
     public SetShortcutCommand(String line) throws DukeException {
         splitIntoLines(line);
         if (containsReservedWords(name)) {

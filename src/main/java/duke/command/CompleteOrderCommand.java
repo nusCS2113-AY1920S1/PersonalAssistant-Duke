@@ -10,11 +10,19 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to set the status of an <code>Order</code> object to <code>COMPLETED</code>.
+ */
 public class CompleteOrderCommand extends UndoableCommand {
     private Order.Status status;
     private Map<String, List<String>> params;
 
-    public CompleteOrderCommand(Map<String, List<String>> params) throws DukeException {
+    /**
+     * Class constructor.
+     *
+     * @param params the parameters specifying details of the order.
+     */
+    public CompleteOrderCommand(Map<String, List<String>> params) {
         this.params = params;
     }
 

@@ -6,16 +6,16 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a duke.command that can be executed by the user.
+ * A command that is executable by the user.
  */
 public abstract class Command {
 
     /**
-     * Execute the command.
+     * Executes the command.
      *
-     * @param bakingList   A BakingList.
-     * @param storage A Storage object which specifies the location of the data.
-     * @param ui A Ui object capable of controlling GUI.
+     * @param bakingList A BakingList object containing application data.
+     * @param storage A Storage object specifying the location of the data.
+     * @param ui A UI controller object.
      * @throws DukeException If the execution fails.
      */
     public abstract void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
