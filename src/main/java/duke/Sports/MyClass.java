@@ -30,12 +30,26 @@ public class MyClass extends Item {
      * @param status This shows whether the sports class has been held this week or not.
      * @param day  When it will be held. (i.e. Monday, Tuesday)
      */
-    public MyClass(final String info,
-                    final Boolean status,
-                    final String day) {
+    public MyClass(final String info, final Boolean status, final String day) {
         super(info, status);
         super.setType("C");     //Has its own item type "C"
         this.day = day;
+    }
+
+    /**
+     * Get the day of the week this sports class is held.
+     */
+    public String getDay() {
+        return this.day;
+    }
+
+    /**
+     * Gets all the info of the sports class.
+     * @return A string phrase containing all the details of the sports class.
+     */
+    @Override
+    public String toString() {
+        return "[C]" + super.toString() + " (every: " + getDay() + ")";
     }
 
     /**
