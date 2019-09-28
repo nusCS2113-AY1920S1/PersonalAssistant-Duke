@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,6 +27,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,7 +48,7 @@ public class RecipePage extends AnchorPane {
     @FXML
     private HBox ingredients;
     @FXML
-    private VBox steps;
+    private ListView<String> steps;
     @FXML
     private VBox recipeList;
     @FXML
@@ -106,19 +110,35 @@ public class RecipePage extends AnchorPane {
             ingredient.init();
             ingredients.getChildren().add(ingredientBox);
         }
-
-        steps.getChildren().clear();
-        steps.setSpacing(10);
+        steps.getItems().clear();
         int index = 1;
+        //Solution taken from: https://stackoverflow.com/questions/13869013/how-to-automatically-wrap-javafx-2-listview
+        {steps.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> list) {
+                final ListCell cell = new ListCell() {
+                    private Text text;
+
+                    @Override
+                    public void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!isEmpty()) {
+                            text = new Text(item.toString());
+                            text.setWrappingWidth(steps.getPrefWidth());
+                            setGraphic(text);
+                            setFont(new Font("Arial", 15));
+                        }
+                    }
+                };
+                return cell;
+            }
+        });}
+
         for (Step step: recipe.getSteps()) {
-            Label newLabel = new Label();
-            newLabel.setText("Step " + index + ". " + step.getDescription());
-            newLabel.setWrapText(true);
-            newLabel.setFont(new Font("Arial", 20));
-            newLabel.setBackground(new Background(new BackgroundFill(Color.web("#96663b20"),null, null)));
-            steps.getChildren().add(newLabel);
+            steps.getItems().add("Step " + index++ + ". " + step.getDescription());
         }
         timeLabel.setText(recipe.getTime() + " mins");
+        timeLabel.setFont(new Font("Gabriola", 20));
     }
 
 
