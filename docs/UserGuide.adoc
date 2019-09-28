@@ -1,4 +1,5 @@
 = Dr Duke User Guide
+:toc:
 
 App-Specific Terms:
 
@@ -111,7 +112,7 @@ Optional switches:
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
 
-The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch goes to the Patient's page after it is created.
+The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch opens the Patient's context after the Patient is created.
 
 #### `undo` - Undo the previous command [[home-undo]]
 
@@ -158,7 +159,9 @@ This will go to the context hierarchically above the user's context. In this cas
 
 #### `new` - Add a new Impression to this Patient
 
-Format: `new -n[ame] "<name>" -d[escription] "<description>"`
+Format: `new -n[ame] "<name>" -d[escription] "<description>" [-g[o]]`
+
+Opens the new Impression's context if `-g[o]` is specified.
 
 #### `open` - Open a critical or Investigation item listed on the page, or an Impression
 
@@ -181,6 +184,14 @@ Switches and corresponding new value format:
 * `-num[ber] <number>`
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
+
+#### `delete` - Delete a critical or Investigation item listed on the page, or an Impression
+
+Format: `delete ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)] _string_or_idx_|-im[pression] _string_or_idx_)`
+
+#### `primary` - Set a particular Impression as the primary Impression for the Patient
+
+Format: `primary -im[pression] _string_or_idx_`
 
 #### `find` - Find items matching certain criteria
 
@@ -221,9 +232,11 @@ Show a detailed view of an Impression, displaying in separate panels:
 
 Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
-#### `new` - Add a new Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item to this Impression
+#### `new` - Add a new Treatment or Evidence item to this Impression
 
-Format: `new _type_ <relevant switches>`
+Format: `new _type_ <relevant switches> [-g[o]]`
+
+Opens the new Treatment or Evidence item's context if `-g[o]` is specified. Relevant switches for various types are as follows.
 
 [[type-table]]
 [cols=2*,options="header"]
@@ -256,16 +269,15 @@ a|
 
 |`-o[bservation]`
 a| 
-* `-n[ame] "<name>"` 
-* `-sum[mary] "<summary>"`
-* `-subj[ective]`
-* `-obj[ective]` - Default: objective observations
-* `-pri[ority] <priority idx>`
+* `-n[ame] "<name>"` - Required
+* `-sum[mary] "<summary>"` - Default: ""
+* `-(subj[ective]|obj[ective])` - Default: objective observations
+* `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-r[esult]`
 a| 
-* `-n[ame] "<name>"`
-* `-sum[mary] "<summary>"`
+* `-n[ame] "<name>"` - Required
+* `-sum[mary] "<summary>"` - Default: ""
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |===
@@ -290,6 +302,14 @@ Switches and corresponding new value formats:
 * `-d[escription] "<description>"`
 
 With this aditional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
+
+#### `delete` - Delete a Treatment or Evidence item listed on this page
+
+Format: `delete ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_)`
+
+#### `primary` - Set this Impression as the primary Impression for the Patient
+
+Format: `primary`
 
 #### `move` - Move a Treatment or Evidence to a different Impression
 

@@ -8,73 +8,88 @@ digraph main {
     shape = "record"
   ]
 
+  //Duke itself needs a search function for Patients
+
   //ancestor for all objects
+  //toString() for data format
+  //toDataString() for display format (GUI)
+  //toReportString() for hospital report format
   DukeObj [
     label = "{\{abstract\} DukeObj
     |- name : String\l
     |+ toString() : String \{abstract\}\l
     + toDisplayString() : String \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
     }"
   ]
 
-  //data indexed by integers for quick, unambiguous access
-  //provide the ability to find Impressions by field content
-  //discharge() to archive
-  //toString() for data format
-  //toDataString() for display format (GUI)
-  Patient [
-    label = "{Patient
-    |- name : String\l
-    - bedNo : int\l
-    - height : int\l
-    - weight : int\l
-    - age : int\l
-    - number : int\l
-    - address : String\l
-    - history : String\l
-    - priDiagnosis : Impression\l
-    - allergies : String\l
-    - impressions : ArrayList\<Impression\>\l
-    |+ discharge() : void\l
-    + addNewImpression() : void\l
-    + toString() : String\l
-    + toDisplayString() : String\l
-    \<functions for private data structures\>\l
-    \<getters and setters\>\l
-    }"
-  ]
+  subgraph top {
 
+      //data indexed by integers for quick, unambiguous access
+      //provide the ability to find Impressions by field content
+      //discharge() to archive
+      Patient [
+        label = "{Patient
+        |- name : String\l
+        - bedNo : int\l
+        - height : int\l
+        - weight : int\l
+        - age : int\l
+        - number : int\l
+        - address : String\l
+        - history : String\l
+        - priDiagnosis : Impression\l
+        - allergies : String\l
+        - impressions : ArrayList\<Impression\>\l
+        |+ discharge() : void\l
+        + addNewImpression(newImpression: Impression)\l
+        + deleteImpression(idx: int)\l
+        + getImpression(idx: int)\l
+        + setPriDiagnosis(idx: int)\l
+        + find(searchTerm: String) : ArrayList\<DukeObj\>\l
+        + toString() : String\l
+        + toDisplayString() : String\l
+        + report() : void\l
+        + \<getters and setters for non-ArrayList members\>\l
+        }"
+      ]
 
-  //treatments and evidence should all be associated with an Impression, even if
-  //the Impression is not definite yet, or just consists of a symptom
+      //treatments and evidence should all be associated with an Impression, even if
+      //the Impression is not definite yet, or just consists of a symptom
+      Impression [
+        label = "{Impression
+        |- name : String\l
+        - description : String\l
+        - evidence : ArrayList\<Evidence\>\l
+        - treatments : ArrayList\<Treatment\>\l
+        - patient : Patient\l
+        |+ toString() : String\l
+        + toDisplayString() : String\l
+        + toReportString() : String\l
+        + find(searchTerm: String) : ArrayList\<DukeObj\>\l
+        + addNewEvidence(newEvidence: Evidence)\l
+        + deleteEvidence(idx: int)\l
+        + getEvidence(idx: int)\l
+        + addNewTreatment(newTreatment: Treatment)\l
+        + deleteTreatment(idx: int)\l
+        + getTreatment(idx: int)\l
+        + \<getters and setters for non-ArrayList members\>\l
+        }"
+      ]
 
-  //function to consolidate e.g. observations to generate reports to upload to 
-  //regular system?
-  Impression [
-    label = "{Impression
-    |- name : String\l
-    - description : String\l
-    - evidence : ArrayList\<Evidence\>\l
-    - treatments : ArrayList\<Treatment\>\l
-    - patient : Patient\l
-    + toString() : String\l
-    |+ toDisplayString() : String\l
-    \<getters and setters\>\l
-    \<CRUD for evidence/treatments\>\l
-    }"
-  ]
-
-  DukeData [
-    label = "{\{abstract\} DukeData
-    |- name : String\l
-    - impression : Impression\l
-    - priority : int\l
-    |+ toString() : String \{abstract\}\l
-    + toDisplayString() : String \{abstract\}\l
-    + updatePriority() : void \{abstract\}\l
-    }"
-  ]
-
+      //abstract class for evidence and treatments
+      DukeData [
+        label = "{\{abstract\} DukeData
+        |- name : String\l
+        - impression : Impression\l
+        - priority : int\l
+        |+ toString() : String \{abstract\}\l
+        + toDisplayString() : String \{abstract\}\l
+        + toReportString() : String \{abstract\}\l
+        + updatePriority() : void \{abstract\}\l
+        }"
+      ]
+  }
 
   //evidence: observations, results - support this impression
   Evidence [
@@ -84,7 +99,9 @@ digraph main {
     - priority : int\l
     |+ toString() : String \{abstract\}\l
     + toDisplayString() : String \{abstract\}\l
-    + updatePriority() : void \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
+    + updatePriority(priorityVal: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -101,7 +118,10 @@ digraph main {
     - priority : int\l
     |+ toString() : String \{abstract\}\l
     + toDisplayString() : String \{abstract\}\l
-    + updatePriority() : void \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -113,8 +133,10 @@ digraph main {
     - priority : int\l
     |+ toString() : String\l
     + toDisplayString() : String\l
-    + updatePriority() : void\l
-    \<getters and setters\>\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -130,8 +152,10 @@ digraph main {
     - priority : int\l
     |+ toString() : String\l
     + toDisplayString() : String\l
-    + updatePriority() : void\l
-    \<getters and setters\>\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -146,8 +170,11 @@ digraph main {
     - priority : int\l
     |+ toString() : String\l
     + toDisplayString() : String\l
-    + updatePriority() : void\l
-    \<getters and setters\>\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + toResult() : Result\l
+    + \<getters and setters\>\l
     }"
   ]
   
@@ -165,8 +192,10 @@ digraph main {
     - priority : int\l
     |+ toString() : String\l
     + toDisplayString() : String\l
-    + updatePriority() : void\l
-    \<getters and setters\>\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -181,8 +210,10 @@ digraph main {
     - priority : int\l
     |+ toString() : String\l
     + toDisplayString() : String\l
-    + updatePriority() : void\l
-    \<getters and setters\>\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
     }"
   ]
 
@@ -200,7 +231,6 @@ digraph main {
   ]
 
   Patient -> Impression
-
   Impression -> Evidence [label = "supports"]
   Impression -> Treatment [label = "treats"]
 
