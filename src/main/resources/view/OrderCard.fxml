@@ -28,6 +28,15 @@
                                         <Insets left="10.0"/>
                                     </HBox.margin>
                                 </Label>
+                                <Label fx:id="status" alignment="CENTER" text="active" textAlignment="CENTER"
+                                       textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="18.0"/>
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </Label>
                                 <Label fx:id="deadline" alignment="CENTER"
                                        style="-fx-background-color: white; -fx-background-radius: 5; -fx-padding: 4;"
                                        text="March 18" textAlignment="CENTER" textFill="#5086ec">
@@ -45,16 +54,6 @@
                                             </image>
                                         </ImageView>
                                     </graphic>
-                                </Label>
-                                <Label fx:id="status" alignment="CENTER"
-                                       style="-fx-background-color: rgb(101,203,87); -fx-background-radius: 5; -fx-padding: 4;"
-                                       text="active" textAlignment="CENTER" textFill="WHITE">
-                                    <font>
-                                        <Font name="Arial" size="18.0"/>
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets/>
-                                    </opaqueInsets>
                                 </Label>
                             </children>
                         </HBox>

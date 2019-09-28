@@ -48,11 +48,15 @@ public class MainWindow extends AnchorPane {
     private InventoryPage inventoryPage;
     private SalesPage salesPage;
 
+
+
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         popUp.setVisible(false);
     }
+
+
 
     @FXML
     private void handleUserInput() {
@@ -104,7 +108,7 @@ public class MainWindow extends AnchorPane {
 
     void showMessage(String message) {
         popUpLabel.setText(message);
-        popUpLabel.setTextFill(Color.valueOf("#000000"));
+        popUpLabel.setTextFill(Color.valueOf("#ffffff"));
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("message-popup");
         popUp.getStyleClass().clear();
@@ -125,6 +129,7 @@ public class MainWindow extends AnchorPane {
     void refreshOrderList(List<Order> orders, List<Order> all) {
         this.orderPage.refreshOrderList(orders, all);
     }
+
 
     void showOrderPage() {
         pagePane.getChildren().clear();
@@ -149,6 +154,7 @@ public class MainWindow extends AnchorPane {
 
         currentPage.setText("Recipes");
     }
+
 
     void showInventoryPage() {
         pagePane.getChildren().clear();
