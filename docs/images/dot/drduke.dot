@@ -23,7 +23,7 @@ digraph main {
     - number : int\l
     - address : String\l
     - history : String\l
-    - priDiagnosis : Diagnosis\l
+    - priDiagnosis : Impression\l
     - allergies : String\l
     - impressions : ArrayList\<Impression\>\l
     |+ discharge() : void\l
@@ -47,6 +47,7 @@ digraph main {
     - description : String\l
     - evidence : ArrayList\<Evidence\>\l
     - treatments : ArrayList\<Treatment\>\l
+    - patient : Patient\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     \<CRUD for evidence/treatments\>\l
@@ -152,14 +153,14 @@ digraph main {
     arrowhead = "vee"
   ]
 
-  Patient -> Impression
-
   //two-way navigability
 
   edge [
     arrowtail = "vee"
     dir = "both"
   ]
+
+  Patient -> Impression
 
   Impression -> Evidence [label = "supports"]
   Impression -> Treatment [label = "treats"]

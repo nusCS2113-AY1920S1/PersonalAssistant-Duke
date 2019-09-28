@@ -1,6 +1,5 @@
 = Dr Duke User Guide
 
-
 # Usage
 
 Since there is a lot of fairly complex data to manage, I think the input system will have to be stateful - different commands mean different things based on the current context. This would require some tracking and interfacing between the UI and the Logic (e.g. the internal logic needs to know which patient is being displayed as patient #1). If user input is ambiguous, we can show a window of possible options to disambiguate between. The disambiguation window and code can be reused - create an abstract DukeObject class for our data items.
@@ -13,14 +12,25 @@ Specification syntax:
 
 Reused patterns:
 
-* _patient_id_: (<patient index>|"part of name>"|-b <bed number>)
-* _impression_id_: (<impression index>|"part of name>")
+* _patient_id_: `(<patient index>|"part of name>"|-b <bed number>)`
+* _string_or_idx_: `(<index>|"<part of name>")`
+
+Parsing rules:
+
+* Switches can be in any order
+* Switches with optional parts of their names can be recognised with any portion of the optional part
 
 ## Contexts
 
-### Home Page: show several (10?) numbered panels displaying a summary of the critical details of some patients
+Commands that are present in multiple contexts will be mentioned in just one context, and all contexts in which they are available will be listed.
+
+### Home 
+
+Show several (10?) numbered panels displaying a summary of the critical details of some patients: name, bed number, primary diagnosis, and number of critical issues.
 
 #### `help` - Display a context-specific list of commands and options
+
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
@@ -39,7 +49,7 @@ In v1.4, patients will simply be deleted after the report is generated. In v2.0,
 
 If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular patient if no index is specified. 
 
-#### `clerk -n[ame] "<name>" -b[ed] <bed number> -a[llergies] <allergies> [<optional switches>]` - Add a new patient to the system
+#### `new -n[ame] "<name>" -b[ed] <bed number> -a[llergies] <allergies> [<optional switches>]` - Add a new Patient to the system
 
 Optional switches:
 
@@ -51,6 +61,22 @@ Optional switches:
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
 
-The patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-go` switch goes to the patient's page after it is created.
+The patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch goes to the patient's page after it is created.
 
-### Patient Page: show...
+### Patient 
+
+Show a detailed view of a patient, displaying in separate panels:
+
+* All personal details
+* A list of critical Observations and Plan items
+* A list of Investigations to follow up on
+
+#### `back` - Go back to previous context
+
+_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+
+This will be present in every context. A context stack will be maintained.
+
+#### `new -n[ame] "<name>" -d[escription] "<description>"` - Add a new Impression to this patient
+
+#### `open (<search string>|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)` - Open a critical or investigation item listed on the page, or an Impression
