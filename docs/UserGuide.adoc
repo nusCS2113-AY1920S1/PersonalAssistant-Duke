@@ -93,7 +93,7 @@ Format: `archive`
 
 #### `open` - Go to a more detailed view of a particular Patient
 
-Format: `open _patient_id_ [-i[mpression] [<impression index>]]`
+Format: `open _patient_id_ [-im[pression] [<impression index>]]`
 
 If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
 
@@ -162,7 +162,7 @@ Format: `new -n[ame] "<name>" -d[escription] "<description>"`
 
 #### `open` - Open a critical or Investigation item listed on the page, or an Impression
 
-Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)`
+Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)] _string_or_idx_|-im[pression] _string_or_idx_)`
 
 #### `edit` - Edit one of the details of the Patient [[patient-edit]]
 
@@ -181,6 +181,12 @@ Switches and corresponding new value format:
 * `-num[ber] <number>`
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
+
+#### `find` - Find items matching certain criteria
+
+Format: `find ["<search string>"][-im[pressions]] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>"|<status idx>)]`
+
+Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search. If none of the `_type_` or `im[pression]` switches are used, all types of objects will be listed. If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
 #### `discharge` - Generate a discharge report for the Patient and delete him from the system
 
@@ -285,6 +291,12 @@ Switches and corresponding new value formats:
 
 With this aditional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
 
+#### `move` - Move a Treatment or Evidence to a different Impression
+
+Format: `move ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_) [-im[pression] "<search string>"]`
+
+If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command. If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
+
 #### `priority` - Mark a Treatment or Evidence as a certain priority level
 
 Format: `priority ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_) -s <new priority>`
@@ -307,7 +319,7 @@ _idx_ in this scope will refer to an index in the Treatment list. The result sum
 
 Format: `find ["<search string>"] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>"|<status idx>)]`
 
-Display a list of all Treatments and Evidence matching the criteria specified in the search.
+Display a list of all Treatments and Evidence matching the criteria specified in the search. If none of the `_type_` switches are used, all types of objects will be listed. If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
 ### Treatment and Evidence
 
@@ -320,6 +332,12 @@ Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<pa
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
 
 The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new` in the Impression context.
+
+#### `move` - Move a Treatment or Evidence to a different Impression
+
+Format: `move [-im[pression] "<search string>"]`
+
+If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command. If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
 
 #### `priority` - Mark the Treatment or Evidence as a certain priority level
 

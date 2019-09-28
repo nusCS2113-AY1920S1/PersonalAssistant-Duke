@@ -8,6 +8,15 @@ digraph main {
     shape = "record"
   ]
 
+  //ancestor for all objects
+  DukeObj [
+    label = "{\{abstract\} DukeObj
+    |- name : String\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    }"
+  ]
+
   //data indexed by integers for quick, unambiguous access
   //provide the ability to find Impressions by field content
   //discharge() to archive
@@ -27,7 +36,7 @@ digraph main {
     - allergies : String\l
     - impressions : ArrayList\<Impression\>\l
     |+ discharge() : void\l
-    + addNew\<impression/treatment/evidence\>() : void\l
+    + addNewImpression() : void\l
     + toString() : String\l
     + toDisplayString() : String\l
     \<functions for private data structures\>\l
@@ -48,11 +57,24 @@ digraph main {
     - evidence : ArrayList\<Evidence\>\l
     - treatments : ArrayList\<Treatment\>\l
     - patient : Patient\l
+    + toString() : String\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     \<CRUD for evidence/treatments\>\l
     }"
   ]
+
+  DukeData [
+    label = "{\{abstract\} DukeData
+    |- name : String\l
+    - impression : Impression\l
+    - priority : int\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + updatePriority() : void \{abstract\}\l
+    }"
+  ]
+
 
   //evidence: observations, results - support this impression
   Evidence [
@@ -60,7 +82,9 @@ digraph main {
     |- name : String\l
     - impression : Impression\l
     - priority : int\l
-    |+ toDisplayString() : String \{abstract\}\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + updatePriority() : void \{abstract\}\l
     }"
   ]
 
@@ -75,8 +99,9 @@ digraph main {
     - status : int\l
     - statusArr : String[]\l
     - priority : int\l
-    |+ toDisplayString() : String \{abstract\}\l
-    + updateStatus() : void\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + updatePriority() : void \{abstract\}\l
     }"
   ]
 
@@ -86,7 +111,9 @@ digraph main {
     - impression : Impression\l
     - summary : String\l
     - priority : int\l
-    |+ toDisplayString() : String\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + updatePriority() : void\l
     \<getters and setters\>\l
     }"
   ]
@@ -101,7 +128,9 @@ digraph main {
     - summary : String\l
     - isObjective : bool\l
     - priority : int\l
-    |+ toDisplayString() : String\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + updatePriority() : void\l
     \<getters and setters\>\l
     }"
   ]
@@ -115,8 +144,9 @@ digraph main {
     - statusArr : String[]\l
     - summary : String\l
     - priority : int\l
-    |+ toDisplayString() : String\l
-    + toResult(String) : Result\l 
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + updatePriority() : void\l
     \<getters and setters\>\l
     }"
   ]
@@ -133,7 +163,9 @@ digraph main {
     - startDate : String\l
     - duration : String\l
     - priority : int\l
-    |+ toDisplayString() : String\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + updatePriority() : void\l
     \<getters and setters\>\l
     }"
   ]
@@ -147,7 +179,9 @@ digraph main {
     - statusArr : String[]\l
     - summary : String\l
     - priority : int\l
-    |+ toDisplayString() : String\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + updatePriority() : void\l
     \<getters and setters\>\l
     }"
   ]
@@ -176,6 +210,13 @@ digraph main {
     arrowtail = "empty"
     dir = "back"
   ]
+
+  DukeObj -> Patient
+  DukeObj -> Impression
+  DukeObj -> DukeData
+
+  DukeData -> Treatment
+  DukeData -> Evidence
 
   Treatment -> Investigation 
   Treatment -> Plan
