@@ -1,4 +1,4 @@
-package Events.EventTypes.EventSubclasses.AssessmentSubclasses;
+package Events.EventTypes.EventSubClasses.AssessmentSubclasses;
 
 public class Recital {
 }
