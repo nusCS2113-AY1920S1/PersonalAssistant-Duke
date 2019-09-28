@@ -17,6 +17,12 @@ public class FreeTimeTest {
     private TaskList tasks;
     private Storage storage;
 
+    public FreeTimeTest() {
+        ui = new Ui();
+        storage = new Storage("D:/main/data/tasks-test.txt");
+        tasks = new TaskList(storage.load());
+    }
+
     @Test
     public void testIsExit() throws ParseException {
         Command freeTimeCmd = new FreeTimeCommand("2/2/2019 1400", 3);
@@ -26,10 +32,7 @@ public class FreeTimeTest {
 
     @Test
     public void testFindFreeTime() throws ParseException, DukeException {
-        ui = new Ui();
-        storage = new Storage("D:/main/data/tasks-test.txt");
-        tasks = new TaskList(storage.load());
-
+        ui.clearOutputString();
         Command freeTimeCmd = new FreeTimeCommand("1/1/2020 0000", 2);
         freeTimeCmd.execute(tasks, ui, storage);
         assertEquals("  The nearest time slot: \n" +

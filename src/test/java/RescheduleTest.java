@@ -17,6 +17,12 @@ public class RescheduleTest {
     private TaskList tasks;
     private Storage storage;
 
+    public RescheduleTest() {
+        ui = new Ui();
+        storage = new Storage("D:/main/data/tasks.txt");
+        tasks = new TaskList(storage.load());
+    }
+
     @Test
     public void testIsExit() {
         Command rescheduleCmd = new
@@ -26,16 +32,15 @@ public class RescheduleTest {
 
     @Test
     public void testRescheduleOutput() throws ParseException, DukeException {
-        ui = new Ui();
-        storage = new Storage("D:/main/data/tasks.txt");
-        tasks = new TaskList(storage.load());
+
         Command rescheduleCmd = new
                 RescheduleCommand("reschedule deadline 4 /by 16/9/2019 1800");
+        ui.clearOutputString();
         rescheduleCmd.execute(tasks, ui, storage);
         assertEquals(" Noted. I've removed this task:\n"
-                        + "  " + tasks.getCheckList().get(7).toString() + "\n"
+                        + "  " + tasks.getCheckList().get(4-1).toString() + "\n"
                         + " Now you have 7 tasks in the list.\n" + " Got it. I've added this task: \n"
-                        + "     " + tasks.getCheckList().get(7).toString() + "\n"
+                        + "     " + tasks.getCheckList().get(8-1).toString() + "\n"
                         + " Now you have 8 tasks in the list.\n"
                 , ui.getOutputString());
     }
