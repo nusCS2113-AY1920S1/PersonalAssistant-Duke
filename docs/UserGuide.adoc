@@ -8,18 +8,20 @@ Specification syntax:
 
 * `[]` -> optional element of a command
 * `<>` -> variable input, specified within bracket
-* `(a|b|c)` -> input that can be one of several possible options
-* "" -> string, must be surrounded by quotes if it contains a space
+* `(a|b|c)` -> input that can be one of several possible options, in this case `a`, `b` or `c`
+* `"<>"` -> string, must be surrounded by quotes if it contains a space, and cannot start with a -
+* `[]*` -> 0 or more of the contents of [], separated by spaces
 
 Reused patterns:
 
 * _patient_id_: `(<patient index>|"part of name>"|-b <bed number>)`
 * _string_or_idx_: `(<index>|"<search string>")`
+** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
 
 Parsing rules:
 
 * Switches can be in any order
-* Switches with optional parts of their names can be recognised with any portion of the optional part
+* Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`
 
 ## Contexts
 
@@ -27,7 +29,7 @@ Commands that are present in multiple contexts will be mentioned in just one con
 
 ### Home 
 
-Show several (10?) numbered panels displaying a summary of the critical details of some patients: name, bed number, primary diagnosis, and number of critical issues.
+Show several (10?) numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
 #### `help` - Display a context-specific list of commands and options
 
@@ -37,39 +39,39 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Result>>, <<Observation
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-#### `next` - Display next page of patients
+#### `next` - Display next page of Patients
 
 Format: `next`
 
-#### `prev` - Display next page of patients
+#### `prev` - Display next page of Patients
 
 Format: `prev`
 
-#### `critical` - Display all critical observations and plans of all patients
+#### `critical` - Display all critical observations and plans of all Patients
 
 Format: `critical`
 
 We can probably cheat and use the disambiguation engine to pull up a window of all critical dukeobjects, giving the user the choice to navigate to any particular one, or to close the window
 
-#### `discharge` - Generate a discharge report for the patient and delete him from the system
+#### `discharge` - Generate a discharge report for the Patient and delete him from the system [[home-discharge]] 
 
-Format: `discharge _patient_id_ [-s[ummary] <summary>]`
+Format: `discharge _patient_id_ [-s[ummary] <discharge summary>]`
 
-In v1.4, patients will simply be deleted after the report is generated. In v2.0, they will be archived.
+The discharge report will contain all information being tracked regarding the Patient, and an optional discharge summary that can be specified in the command. In v1.4, Patients will simply be deleted after the report is generated. In v2.0, they will be archived.
 
-#### `archive` - Display discharged patients  [v2.0]
+#### `archive` - Display discharged Patients  [v2.0]
 
 Format: `archive`
 
-#### `open` - Go to a more detailed view of a particular patient
+#### `open` - Go to a more detailed view of a particular Patient
 
 Format: `open _patient_id_ [-i[mpression] [<impression index>]]`
 
-If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular patient if no index is specified. 
+If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
 
 #### `new` - Add a new Patient to the system
 
-Format: `new -n[ame] "<name>" -b[ed] <bed number> -a[llergies] <allergies> [<optional switches>]`
+Format: `new -n[ame] "<name>" -b[ed] <bed number> -a[llergies] "<allergies>" [<optional switches>]`
 
 Optional switches:
 
@@ -81,11 +83,11 @@ Optional switches:
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
 
-The patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch goes to the patient's page after it is created.
+The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch goes to the Patient's page after it is created.
 
 ### Patient 
 
-Show a detailed view of a patient, displaying in separate panels:
+Show a detailed view of a Patient, displaying in separate panels:
 
 * All personal details
 * A list of critical Observations and Plan items
@@ -97,12 +99,47 @@ Format: `back`
 
 _Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
 
-This will be present in every context. A context stack will be maintained.
+This will go back to the context that the user came from. A context stack will be maintained.
 
-#### `new` - Add a new Impression to this patient
+
+#### `up` - Go up to next-higher context
+
+Format: `up`
+
+_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+
+This will go to the context hierarchically above the user's context. In this case, it will go back to <<Home>>. From an <<Impression>>, it would come here, to the corresponding <<Parient>>.
+
+#### `new` - Add a new Impression to this Patient
 
 Format: `new -n[ame] "<name>" -d[escription] "<description>"`
 
 #### `open` - Open a critical or investigation item listed on the page, or an Impression
 
 Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)`
+
+### `edit` - Edit one of the details of the Patient
+
+Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
+
+If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-a` will append `<new value>` to the current value for string-valued fields. 
+
+Switches and corresponding new value format:
+
+* `-n[ame] "<name>"`
+* `-b[ed] <bed number>`
+* `-a[llergies] "<allergies>"`
+* `-h[eight] <height>` 
+* `-w[eight] <weight>` 
+* `-ag[e] <age>`
+* `-num[ber] <number>`
+* `-ad[dress] "<address>"`
+* `-hi[story] "<history>"`
+
+#### `discharge` - Generate a discharge report for the Patient and delete him from the system
+
+Format: `discharge [-s[ummary] <discharge summary>]`
+
+Functionally the same as <<home-discharge,`discharge` in the Home context>>.
+
+## Impression
