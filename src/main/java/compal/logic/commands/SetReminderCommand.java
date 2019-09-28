@@ -55,7 +55,7 @@ public class SetReminderCommand extends Command implements CommandParser {
                 } else {
                     taskList.arrlist.get(toMark).setHasReminder();
                     String desc = taskList.arrlist.get(toMark).toString();
-                    compal.ui.printg("Nice! I've marked this task as has reminder: \n"
+                    compal.ui.printg("Okay! I've set a reminder for this task: \n"
                             + desc);
                     compal.storage.saveCompal(taskList.arrlist);
                 }
