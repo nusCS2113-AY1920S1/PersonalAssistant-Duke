@@ -35,7 +35,7 @@ public class TentativeTest {
         assertEquals(" Got it. I've added this task: \n" + System.getProperty("line.separator") +
                 "     [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 or 2/12/2009 2232 to 2/12/2009 2234 )\n"
              + System.getProperty("line.separator") +
-                " Now you have 7 tasks in the list." + System.getProperty("line.separator"), outContent.toString());
+                " Now you have 7 tasks in the list." + System.getProperty("line.separator"), ui.getOutputString());
         System.setOut(originalOut);
     }
 
@@ -47,7 +47,7 @@ public class TentativeTest {
 
         assertEquals(" Noted. The following timing has been chosen:\n" +
                 "\n" +
-                " [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 )\n" + System.getProperty("line.separator"), outContent.toString());
+                " [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 )\n" + System.getProperty("line.separator"), ui.getOutputString());
         System.setOut(originalOut);
 
         Command clearChanges = new DeleteCommand(7);
