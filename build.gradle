@@ -13,8 +13,8 @@ repositories {
 }
 
 shadowJar {
-    archiveBaseName = "mid-v1.1"
-    archiveVersion = "1.1"
+    archiveBaseName = "mid"
+    archiveVersion = "v1.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -25,7 +25,7 @@ checkstyle {
 
 application {
     // Change this to your main class.
-    mainClassName = "src/main/java/duke/Duke"
+    mainClassName = "duke/Duke"
 }
 
 run {

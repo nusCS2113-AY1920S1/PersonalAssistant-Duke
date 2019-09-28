@@ -34,7 +34,7 @@ public class Duke {
     /**
      * The execution core of the Duke class.
      */
-    public void run() {
+    public void run() throws DukeException {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -55,8 +55,8 @@ public class Duke {
     /**
      * =============== MAIN FUNCTION ===============.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke("data/tasks.txt").run();
+
     }
 }
-

@@ -65,8 +65,14 @@ public class Parser {
                 checkLength(splitted);
                 return new FindCommand(splitted[1]);
             case "delete":
-                checkLength(splitted);
-                return new DeleteCommand(checkNumber(splitted[1], size));
+                if (splitted.length == 2) {
+                    int taskNb = Integer.parseInt(splitted[1]);
+                    return new DeleteCommand(taskNb - 1);
+                } else throw new DukeException("Need a task number after done!");
+            case "remind":
+                if (splitted.length == 1) {
+                    return new RemindCommand();
+                }else throw new DukeException("no parameters after 'remind'");
             case "snooze":
                 checkLength(splitted);
                 String[] getUntil = splitAndCheck(splitted[1], " /until ");
