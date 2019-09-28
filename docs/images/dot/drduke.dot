@@ -9,11 +9,10 @@ digraph main {
   ]
 
   //data indexed by integers for quick, unambiguous access
-  //provide the ability to search by various fields separately
+  //provide the ability to find Impressions by field content
   //discharge() to archive
   //toString() for data format
   //toDataString() for display format (GUI)
-  //Allergy may be a simple String or index (int) if no complexity is required
   Patient [
     label = "{Patient
     |- name : String\l
@@ -23,8 +22,9 @@ digraph main {
     - age : int\l
     - number : int\l
     - address : String\l
-    - priDiagnosis : Diagnosis\l
-    - allergies : ArrayList\<Allergy\>\l
+    - history : String\l
+    - priDiagnosis : Impression\l
+    - allergies : String\l
     - impressions : ArrayList\<Impression\>\l
     |+ discharge() : void\l
     + addNew\<impression/treatment/evidence\>() : void\l
@@ -47,6 +47,7 @@ digraph main {
     - description : String\l
     - evidence : ArrayList\<Evidence\>\l
     - treatments : ArrayList\<Treatment\>\l
+    - patient : Patient\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     \<CRUD for evidence/treatments\>\l
@@ -67,11 +68,11 @@ digraph main {
   //various status codes
   //treatments should be sortable by their status of completion
   Treatment [
-    label = "{\{abstract\} Treatment
+   label = "{\{abstract\} Treatment
     |- name : String\l
+    - impression : Impression\l
     - status : int\l
     - statusArr : String[]\l
-    - impression : Impression\l
     |+ toDisplayString() : String \{abstract\}\l
     + updateStatus() : void\l
     }"
@@ -79,7 +80,9 @@ digraph main {
 
   Result [
     label = "{Result
-    |- summary : String\l
+    |- name : String\l
+    - impression : Impression\l
+    - summary : String\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
@@ -90,7 +93,9 @@ digraph main {
   //priority to address the most worrying ones
   Observation [
     label = "{Observation
-    |- data : String\l
+    |- name : String\l
+    - impression : Impression\l
+    - data : String\l
     - isObjective : bool\l
     - priority : int\l
     |+ toDisplayString() : String\l
@@ -101,7 +106,11 @@ digraph main {
   //when an investigation is completed, it becomes a result
   Investigation [
     label = "{Investigation
-    |- summary : String\l
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - summary : String\l
     |+ toDisplayString() : String\l
     + toResult(String) : Result\l 
     \<getters and setters\>\l
@@ -112,11 +121,14 @@ digraph main {
   //Sort by completion status
   Medicine [
     label = "{Medicine
-    |- dose : String\l
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - dose : String\l
     - startDate : String\l
     - duration : String\l
     |+ toDisplayString() : String\l
-    + toResult(String) : Result\l 
     \<getters and setters\>\l
     }"
   ]
@@ -124,10 +136,13 @@ digraph main {
   //Sort by priority and completion status
   Plan [
     label = "{Plan
-    |- summary : String\l
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - summary : String\l
     - priority : int\l
     |+ toDisplayString() : String\l
-    + toResult(String) : Result\l 
     \<getters and setters\>\l
     }"
   ]
@@ -138,14 +153,14 @@ digraph main {
     arrowhead = "vee"
   ]
 
-  Patient -> Impression
-
   //two-way navigability
 
   edge [
     arrowtail = "vee"
     dir = "both"
   ]
+
+  Patient -> Impression
 
   Impression -> Evidence [label = "supports"]
   Impression -> Treatment [label = "treats"]
