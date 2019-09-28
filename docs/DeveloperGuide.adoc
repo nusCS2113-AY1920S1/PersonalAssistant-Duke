@@ -135,7 +135,6 @@ above installed.
 typical usage.
 .  A user with an above average typing speed for regular English text should be able to accomplish most of the intended
 tasks faster using commands than using the mouse.
-.  Users should be forced to change their password if they have not changed it in the last 6 months.
 
 // TODO: Remove for final version
 References: https://requirementsquest.com/wp-content/uploads/2017/01/Nonfunctional-Requirement-EXAMPLES.pdf
