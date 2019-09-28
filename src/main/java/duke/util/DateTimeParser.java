@@ -10,9 +10,36 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.ParseLocation;
+import com.joestelmach.natty.Parser;
 
 public class DateTimeParser {
+
+    /**
+     * Testing Natty library.
+     */
+    public static void nattyTrials() {
+        Parser parser = new Parser();
+        List<DateGroup> groups = parser.parse("the day before next thursday");
+        for (DateGroup group : groups) {
+            List dates = group.getDates();
+            int line = group.getLine();
+            int column = group.getPosition();
+            String matchingValue = group.getText();
+            String syntaxTree = group.getSyntaxTree().toStringTree();
+            Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
+            boolean isRecurring = group.isRecurring();
+            Date recursUntil = group.getRecursUntil();
+            System.out.println(recursUntil);
+        }
+    }
+
 
     /**
      * Parser for date with or without time inputs for deadline and event tasks.
