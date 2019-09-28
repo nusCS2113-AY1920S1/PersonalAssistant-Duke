@@ -34,7 +34,7 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-   ![UI](/docs/images/chef Duke 1.png)
+   ![UI](https://github.com/9hafidz6/main/blob/master/docs/images/UI.png)
 
 5. Type into the INPUT box some commands and press ENTER to execute 
 
