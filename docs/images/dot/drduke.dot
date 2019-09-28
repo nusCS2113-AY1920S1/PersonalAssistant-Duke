@@ -59,6 +59,7 @@ digraph main {
     label = "{\{abstract\} Evidence
     |- name : String\l
     - impression : Impression\l
+    - priority : int\l
     |+ toDisplayString() : String \{abstract\}\l
     }"
   ]
@@ -73,6 +74,7 @@ digraph main {
     - impression : Impression\l
     - status : int\l
     - statusArr : String[]\l
+    - priority : int\l
     |+ toDisplayString() : String \{abstract\}\l
     + updateStatus() : void\l
     }"
@@ -83,6 +85,7 @@ digraph main {
     |- name : String\l
     - impression : Impression\l
     - summary : String\l
+    - priority : int\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
@@ -111,6 +114,7 @@ digraph main {
     - status : int\l
     - statusArr : String[]\l
     - summary : String\l
+    - priority : int\l
     |+ toDisplayString() : String\l
     + toResult(String) : Result\l 
     \<getters and setters\>\l
@@ -128,6 +132,7 @@ digraph main {
     - dose : String\l
     - startDate : String\l
     - duration : String\l
+    - priority : int\l
     |+ toDisplayString() : String\l
     \<getters and setters\>\l
     }"
