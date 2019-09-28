@@ -20,20 +20,6 @@ public class FreeTimeCommand extends Command {
     private SimpleDateFormat simpleDateFormat;
 
     /**
-     * computes a new date which is "n" hours after the "start".
-     * @param start input date (old date).
-     * @param n the number of hours passed.
-     * @return a new date which is "n" hours after the "start".
-     */
-
-    private Date addNHours(Date start, int n) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(start);
-        calendar.add(Calendar.HOUR, n);
-        return calendar.getTime();
-    }
-
-    /**
      * The constructor which initializes a new free time command with date and duration time.
      *
      * @param specificDate the time would like to know is there free time.
@@ -49,6 +35,19 @@ public class FreeTimeCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * computes a new date which is "n" hours after the "start".
+     * @param start input date (old date).
+     * @param n the number of hours passed.
+     * @return a new date which is "n" hours after the "start".
+     */
+    private Date addNHours(Date start, int n) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(start);
+        calendar.add(Calendar.HOUR, n);
+        return calendar.getTime();
     }
 
     /**
@@ -69,7 +68,6 @@ public class FreeTimeCommand extends Command {
         ArrayList<Date> endTime = new ArrayList<>();
         for (Task t : tasks.getCheckList()) {
             if (t instanceof Events) {
-
                 Date eventStartDate = simpleDateFormat.parse(((Events) t).getStartAt());
                 Date eventEndDate = simpleDateFormat.parse(((Events) t).getEndAt());
                 if (!startTime.isEmpty() && eventStartDate.before(startTime.get(startTime.size() - 1))) {

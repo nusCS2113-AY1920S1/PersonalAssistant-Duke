@@ -69,6 +69,11 @@ public class Duke {
             ui.appendToOutput(ui.showLine());
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+
+            if (c.isExit()) {
+                System.exit(0);
+            }
+
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));
@@ -78,5 +83,4 @@ public class Duke {
         }
         return ui.getOutputString();
     }
-
 }

@@ -5,10 +5,11 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
-    private static String outputString;
+    private static String outputString = "";
 
     public Ui() {
         scanner = new Scanner(System. in);
+        outputString = "";
     }
 
     /**
