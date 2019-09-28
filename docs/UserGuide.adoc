@@ -133,7 +133,7 @@ Format: `new -n[ame] "<name>" -d[escription] "<description>"`
 
 Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)`
 
-#### `edit` - Edit one of the details of the Patient
+#### `edit` - Edit one of the details of the Patient [[patient-edit]]
 
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
 
@@ -172,26 +172,70 @@ Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<pa
 
 Format: `new <type> <type switches>`
 
-#### `open` - Open a Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item on this page
+[cols=2*,options="header"]
+|===
+|Type
+|Type Switches
 
-Format: `open ("<search string>"|-m[edicine] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-p[lan] _string_or_idx_|-o[bservation] _string_or_idx_|-r[esult] _string_or_idx_)`
+|`-m[edicine]`
+a| 
+* `-n[ame] "<name>"`
+* `-s[tatus] ("<status name>"\|<status idx>)`
+* `-d[ose] "<dose>"`
+* `-da[te] "<start date>"`
+* `-du[ration] "<duration of course>"`
 
-#### `edit` - Edit one of the details of the Patient
+|`-i[nv(x\|estigation)]`
+a| 
+* `-n[ame] "<name>"`
+* `-s[tatus] ("<status name>"\|<status idx>)`
+* `-d[ose] "<dose>"`
+* `-da[te] "<start date>"`
+* `-du[ration] "<duration of course>"`
+
+|`-p[lan]`
+a| 
+* `-n[ame] "<name>"`
+* `-s[tatus] ("<status name>"\|<status idx>)`
+* `-d[ose] "<dose>"`
+* `-da[te] "<start date>"`
+* `-du[ration] "<duration of course>"`
+
+
+|`-o[bservation]`
+a| 
+* `-n[ame] "<name>"`
+* `-s[tatus] ("<status name>"\|<status idx>)`
+* `-d[ose] "<dose>"`
+* `-da[te] "<start date>"`
+* `-du[ration] "<duration of course>"`
+
+
+|`-r[esult]`
+a| 
+* `-n[ame] "<name>"`
+* `-s[tatus] ("<status name>"\|<status idx>)`
+* `-d[ose] "<dose>"`
+* `-da[te] "<start date>"`
+* `-du[ration] "<duration of course>"`
+
+|===
+
+`<status name>` is a case-insensitive substring of the `statusArr` entry of that particular object, while `<status idx>` is its numerical representation.
+
+#### `open` - Open a Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item listed on this page
+
+Format: `open ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_)`
+
+#### `edit` - Edit one of the details of the Impression
 
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
 
-If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-a` will append `<new value>` to the current value for string-valued fields. 
+Functionally the same as <<patient-edit,`edit` for Patients>>, but with different possible switches.
 
 Switches and corresponding new value format:
 
 * `-n[ame] "<name>"`
-* `-b[ed] <bed number>`
-* `-a[llergies] "<allergies>"`
-* `-h[eight] <height>` 
-* `-w[eight] <weight>` 
-* `-ag[e] <age>`
-* `-num[ber] <number>`
-* `-ad[dress] "<address>"`
-* `-hi[story] "<history>"`
+* `-d[escription] "<description>"`
 
 

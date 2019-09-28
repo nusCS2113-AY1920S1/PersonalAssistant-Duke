@@ -95,7 +95,7 @@ digraph main {
     label = "{Observation
     |- name : String\l
     - impression : Impression\l
-    - data : String\l
+    - summary : String\l
     - isObjective : bool\l
     - priority : int\l
     |+ toDisplayString() : String\l
