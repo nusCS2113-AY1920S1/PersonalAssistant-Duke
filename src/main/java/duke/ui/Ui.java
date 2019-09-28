@@ -1,22 +1,23 @@
 package duke.ui;
 
 import duke.tasks.Meal;
+import duke.user.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
+    private static final String logo = padding + " ____        _        \n"
+            + padding + "|  _ \\ _   _| | _____ \n"
+            + padding + "| | | | | | | |/ / _ \\\n"
+            + padding + "| |_| | |_| |   <  __/\n"
+            + padding + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String boundary = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println(padding + "Hello from\n" + logo);
         System.out.println(boundary);
         System.out.println(padding + "Hello! I'm Duke");
         System.out.println(padding + "What can I do for you?");
@@ -78,5 +79,22 @@ public class Ui {
         System.out.println(padding + "Failed to load file.");
     }
 
+    public void showUserLoadingError() {
+        System.out.println(padding + "Unable to load user file.");
+    }
 
+    public void showWelcomeNew() {
+        System.out.println(padding + "Welcome!");
+        System.out.println(padding + "I see that you're new.");
+        System.out.println(padding + "Please enter your particulars to get started!");
+    }
+
+    public void showWelcomeBack(User user) {
+        System.out.println(padding + "Welcome back, "  + user.getName());
+    }
+
+    public void showUserSetupDone(User user) {
+        System.out.println(padding + "Thanks, " + user.getName() + "!");
+        System.out.println(padding + "We are done setting up!");
+    }
 }

@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;

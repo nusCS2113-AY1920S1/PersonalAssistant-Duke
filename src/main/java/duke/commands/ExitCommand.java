@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -6,9 +7,9 @@ import duke.storage.Storage;
 /**
  * ExitCommand is a public class that extends from the abstract class Command.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
-     * isExit() is a function that will return true if called, to indicate the the program is going to exit
+     * isExit() is a function that will return true if called, to indicate the the program is going to exit.
      * @return <code>true</code> if the function is called
      */
     public boolean isExit() {
