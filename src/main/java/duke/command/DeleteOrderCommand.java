@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Order;
+import duke.parser.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.SaleList;
 import duke.storage.Storage;
@@ -18,7 +19,6 @@ public class DeleteOrderCommand extends UndoableCommand {
 
     public DeleteOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
-        checkParameters();
     }
 
     @Override
@@ -35,14 +35,15 @@ public class DeleteOrderCommand extends UndoableCommand {
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        this.order = getOrder(bakingList.getOrderList());
+        this.order = CommandParser.getOrderByIndexOrId(bakingList.getOrderList(), params);
+        this.index = CommandParser.getOrderIndex(bakingList.getOrderList(), params);
         bakingList.getOrderList().remove(order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
-
+  
     @Override
-    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException { }
+    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {}
 
     private void checkParameters() throws DukeException {
         if (!(params.containsKey("secondary")
