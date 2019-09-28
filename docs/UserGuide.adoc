@@ -1,0 +1,151 @@
+= NAME - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-4/main
+
+By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+
+<NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
+The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
+
+== Quick Start
+
+. Ensure you have Java `11` or above installed in your computer
+. Download the latest `NAME.jar`
+. Copy the file to the folder you want to use as the home folder for your NAME
+. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing `help` and pressing kbd:[Enter] will open the help window.
++
+. Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+=== Help list : `help`
+
+Brings up a list of available commands that the user can input.
+It also displays a brief version of this user guide. +
+Format: `help`
+
+=== Reminders
+
+Automatically displays the list of tasks over the next three days immediately after the program launches. +
+Format: `reminder`
+
+=== Adding a to-do event : `todo`
+
+Adds a task defined by the user to the to-do list. +
+Format: `todo <task name>`
+
+=== Adding a concert event : ``
+
+=== Adding an assessment event :
+
+. Examinations: `exam` +
+Format: `exam /dd-MM-yyyy HHmm HHmm`
++
+. Recitals: `recital` +
+Format: ``
+
+=== Adding recurring events :
+
+. Lessons: `lesson` +
+Format: ``
++
+. Practice sessions: `practice` +
+Format: `practice /dd-MM-yyyy HHmm HHmm`
+
+=== Finding a task: `find`
+
+Searches the list of stored tasks for keywords specified by the user.
+Any tasks containing said specified keywords will be displayed for the user. +
+
+Format: `find <keyword(s)>` +
+e.g. find concert
+
+=== View all tasks on a particular: `view`
+
+Brings up a list of tasks for a particular date. +
+
+Format: `view dd/MM/yyyy` +
+e.g. “view 18/09/2019” displays all events/deadlines on/by the date 18 September 2019.
+
+
+=== Deleting a task: `delete`
+
+Requests for the deletion of a task in the program’s stored list. +
+
+Format: `delete <task index>` +
+e.g. “delete 5” deletes the task indexed as 5. in the list.
+
+
+=== Marking a task as done: `done`
+
+Marks a task in the list as completed, denoted by a tick when displaying the task. +
+
+Format: `done <task index>` +
+e.g. “done 5” marks task number 5 as done.
+
+
+=== Exiting the program: `bye`
+
+Exits the program. +
+
+Format: `bye`
+
+=== Saving the task list
+
+Each time the task list is modified, the task list is saved into a text file on the hard drive.
+
+=== Detect clashes
+
+When the tasks are clash, the task list will not add the clash task.
+
+=== Checking for free days: `check`
+
+Check the schedule and give the next 3 free days.
+
+== FAQ
+*Q:* How do I transfer my data to another Computer? +
+*A:* Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Bye :* `bye`
++
+* *Check :* `check`
++
+* *Delete :* `delete` +
+e.g. `delete 2`
++
+* *Done :* `done INDEX` +
+e.g. `done 1`
++
+* *Find :* `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find CS Project`
++
+* *Help :* `help`
++
+* *List :* `list`
++
+* *Reminder :* `reminder`
++
+* *Todo :* `todo NAME` +
+e.g. `todo CG homework`
++
+* *View :* `view dd/MM/yyyy` +
+e.g. `view 25/09/2019`
