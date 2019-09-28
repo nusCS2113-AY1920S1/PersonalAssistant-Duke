@@ -276,7 +276,7 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        if (getDurationHour() != null && getDurationMinute() != null) {
+        if (getDurationHour() != 0 && getDurationMinute() != 0) {
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nHour: " + getDurationHour() + " \nMin: "
                     + getDurationMinute() + " \nPriority: " + getPriority()
