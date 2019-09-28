@@ -23,7 +23,7 @@ class ReminderTest {
      * object created in this JUnit class. Expect both objects to be equal.
      */
     @Test
-    void testGetDatetime_datetimeNow_correctDatetime() {
+    public void testGetDatetime_datetimeNow_correctDatetime() {
         assertEquals(reminder.getDateTime(), reminderDateTime);
     }
 
@@ -32,7 +32,7 @@ class ReminderTest {
      * Expect them to be equal.
      */
     @Test
-    void testToString_datetimeNow_correctOutput() {
+    public void testToString_datetimeNow_correctOutput() {
         assertEquals(reminder.toString(), "[R: " + reminderDateTime.format(PAT_DATETIME_DISPLAY) + "]");
     }
 
@@ -41,7 +41,7 @@ class ReminderTest {
      * Expect them to be equal.
      */
     @Test
-    void testToData_datetimeNow_correctOutput() {
+    public void testToData_datetimeNow_correctOutput() {
         assertEquals(reminder.toData(), reminderDateTime.format(PAT_DATETIME));
     }
 }

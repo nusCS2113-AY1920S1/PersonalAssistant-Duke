@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public class NewFixedDurationCommand extends MultiArgCommand {
 
-    Duration period;
+    private Duration period;
     /**
      * Creates a new Command object that can be executed to create a new FixedDuration task.
      * argc will throw an error if the number of arguments is less than 2.

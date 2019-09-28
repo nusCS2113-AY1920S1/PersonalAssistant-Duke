@@ -1,25 +1,12 @@
-import duke.DukeContext;
 import duke.command.NewRecurringTaskCommand;
-import duke.command.Ui;
 import duke.exception.DukeException;
-import duke.exception.DukeFatalException;
-import duke.task.Storage;
-import duke.task.TaskList;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class NewRecurringTaskCommandTest extends CommandTest {
-    //TODO create abstract superclass CommandTest
     private static String successStr =
             "    ________________________________________________________________________________"
                     + System.lineSeparator() + "    Got it, I've added these 10 tasks:"
@@ -36,7 +23,6 @@ public class NewRecurringTaskCommandTest extends CommandTest {
                     + System.lineSeparator() + "    Now you have 10 tasks in the list." + System.lineSeparator()
                     + "    ________________________________________________________________________________"
                     + System.lineSeparator() + System.lineSeparator();
-    //NOTE: something might not be right here, dates generated the other time were off by 1 day
 
     @Test
     public void addRecurringTasks_countNumber_successMessageReturned() {

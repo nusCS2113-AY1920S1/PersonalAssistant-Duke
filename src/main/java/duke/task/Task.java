@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Highest-level abstract class for Task objects.
  */
 public abstract class Task {
-    char type;
+    protected char type;
     private String name;
     private Boolean isDone;
     private Reminder reminder;
