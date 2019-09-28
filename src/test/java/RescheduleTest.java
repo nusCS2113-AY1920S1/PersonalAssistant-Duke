@@ -6,8 +6,6 @@ import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
 import tasks.TaskList;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +16,12 @@ public class RescheduleTest {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+
+    public RescheduleTest() {
+        ui = new Ui();
+        storage = new Storage("D:/main/data/tasks.txt");
+        tasks = new TaskList(storage.load());
+    }
 
     @Test
     public void testIsExit() {
@@ -30,18 +32,16 @@ public class RescheduleTest {
 
     @Test
     public void testRescheduleOutput() throws ParseException, DukeException {
-        ui = new Ui();
-        storage = new Storage("D:/main/data/tasks-test.txt");
-        tasks = new TaskList(storage.load());
+
         Command rescheduleCmd = new
                 RescheduleCommand("reschedule deadline 4 /by 16/9/2019 1800");
-        System.setOut(new PrintStream(outContent));
+        ui.clearOutputString();
         rescheduleCmd.execute(tasks, ui, storage);
         assertEquals(" Noted. I've removed this task:\n"
-                        + "  [D][?] Duke Documentation (by: 17/9/2019 2359)\n"
-                        + " Now you have 5 tasks in the list.\n" + " Got it. I've added this task: \n"
-                        + "  [D][?] Duke Documentation (by: 16/9/2019 1800)\n"
-                        + " Now you have 6 tasks in the list.\n"
-                , outContent.toString());
+                        + "  " + tasks.getCheckList().get(4-1).toString() + "\n"
+                        + " Now you have 7 tasks in the list.\n" + " Got it. I've added this task: \n"
+                        + "     " + tasks.getCheckList().get(8-1).toString() + "\n"
+                        + " Now you have 8 tasks in the list.\n"
+                , ui.getOutputString());
     }
 }

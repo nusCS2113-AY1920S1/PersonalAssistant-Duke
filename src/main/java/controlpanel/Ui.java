@@ -9,6 +9,7 @@ public class Ui {
 
     public Ui() {
         scanner = new Scanner(System. in);
+        outputString = "";
     }
 
     /**
