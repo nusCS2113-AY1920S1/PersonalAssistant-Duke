@@ -1,6 +1,6 @@
 # Restaurant Manager - User Guide
 
-1.  [Introduction](https://github.com/9hafidz6/main/blob/master/docs/README.md#introduction)
+1.  Introduction
 2. Quick Start 
 3. Features
    - bye: Exit the program. [Level-1]
@@ -22,14 +22,29 @@
 
 ## 1. Introduction
 
-Duke is targeted towards restaurant managers who wants to be able to consolidate most of the things happening in their restaurant from a single interface.  
+Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc.
 
 ## 2. Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
+
 2. Download the latest Duke.jar [here](https://github.com/AY1920S1-CS2113-T14-2/main/releases).
+
 3. Copy the file to the folder you want to use as the home folder for your Duke application.
+
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
+
+   ![](C:\Users\s1014\Google Drive\semester 3\Duke_Project\docs\images\chef Duke 1.png)
+
+5. Type into the INPUT box some commands and press ENTER to execute 
+
+6. Some example commands
+
+   1. **list**: lists out all the tasks 
+   2. **deadline** prepare new recipe **/by** 1/1/2019: adds a deadline task "prepare new recipe" into your list by "1/1/2019" 
+   3. **bye**: exits the program
+
+7. Refer to Section 4 for the full list of features 
 
 ## 3. Features 
 
