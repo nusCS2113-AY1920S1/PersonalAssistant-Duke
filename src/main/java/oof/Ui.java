@@ -1,7 +1,7 @@
-package duke;
+package oof;
 
-import duke.exception.DukeException;
-import duke.task.Task;
+import oof.exception.OofException;
+import oof.task.Task;
 
 import java.util.Scanner;
 
@@ -22,14 +22,16 @@ public class Ui {
     }
 
     /**
-     * Shows the welcome logo and message for Duke.
+     * Shows the welcome logo and message for Oof.
      */
     public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " ________  ________  ________ \n"
+                + "|\\   __  \\|\\   __  \\|\\  _____\\\n"
+                + "\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
+                + " \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
+                + "  \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
+                + "   \\ \\_______\\ \\_______\\ \\__\\ \n"
+                + "    \\|_______|\\|_______|\\|__|\n";
         System.out.println("Hello from\n" + logo);
     }
 
@@ -38,13 +40,13 @@ public class Ui {
      */
     public void hello() {
         showLine();
-        System.out.println("\tHello! I'm duke.Duke");
+        System.out.println("\tHello! I'm OOF");
         System.out.println("\tWhat can I do for you?");
         showLine();
     }
 
     /**
-     * Shows termination message before Duke exits.
+     * Shows termination message before Oof exits.
      */
     public void sayBye() {
         System.out.println("\tBye. Hope to see you again soon!");
@@ -110,7 +112,7 @@ public class Ui {
      *
      * @param exception Exception encountered.
      */
-    public void showLoadingError(DukeException exception) {
+    public void showLoadingError(OofException exception) {
         showLine();
         System.out.println("\t" + exception.getMessage());
         showLine();

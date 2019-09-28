@@ -1,11 +1,11 @@
-package duke.command;
+package oof.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import oof.Storage;
+import oof.TaskList;
+import oof.Ui;
 
 /**
- * Represents a Command to terminate Duke.
+ * Represents a Command to terminate Oof.
  */
 public class ExitCommand extends Command {
 
@@ -17,7 +17,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Exits the Duke program.
+     * Exits the Oof program.
      *
      * @param arr     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
@@ -29,7 +29,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return true.
      */

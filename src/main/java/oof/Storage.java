@@ -1,9 +1,9 @@
-package duke;
+package oof;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import oof.task.Deadline;
+import oof.task.Event;
+import oof.task.Task;
+import oof.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

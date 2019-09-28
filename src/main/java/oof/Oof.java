@@ -1,15 +1,15 @@
-package duke;
+package oof;
 
-import duke.command.Command;
-import duke.exception.DukeException;
+import oof.command.Command;
+import oof.exception.OofException;
 
 import java.io.IOException;
 
 /**
- * Represents a Personal Assistant bot. A Duke object corresponds to three other classes,
+ * Represents a Personal Assistant bot. An Oof object corresponds to three other classes,
  * namely called Storage, Ui and TaskList.
  */
-public class Duke {
+public class Oof {
 
     private Storage storage;
     private TaskList arr;
@@ -17,9 +17,9 @@ public class Duke {
     private Reminder reminder;
 
     /**
-     * Constructor for Duke for instantiation of other classes Ui, Storage and TaskList.
+     * Constructor for Oof for instantiation of other classes Ui, Storage and TaskList.
      */
-    public Duke() {
+    public Oof() {
         ui = new Ui();
         storage = new Storage();
         reminder = new Reminder();
@@ -44,7 +44,7 @@ public class Duke {
                 Command command = ChooseCommand.choose(line);
                 command.execute(arr, ui, storage);
                 isExit = command.isExit();
-            } catch (DukeException exception) {
+            } catch (OofException exception) {
                 ui.showLoadingError(exception);
             }
         }
@@ -56,6 +56,6 @@ public class Duke {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Oof().run();
     }
 }

@@ -124,7 +124,7 @@ Add a new method to handle user input:
 ```java
 /**
  * Iteration 2:
- * Creates two dialog boxes, one echoing user input and the other containing duke.Duke's reply and then appends them to
+ *oof
  * the dialog container. Clears the user input after processing.
  */
 private void handleUserInput() {

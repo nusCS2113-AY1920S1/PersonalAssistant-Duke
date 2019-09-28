@@ -1,10 +1,10 @@
-package duke.command;
+package oof.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.exception.DukeException;
-import duke.task.Task;
+import oof.TaskList;
+import oof.Ui;
+import oof.Storage;
+import oof.exception.OofException;
+import oof.task.Task;
 
 /**
  * Represents a Command to mark Task as done.
@@ -36,7 +36,7 @@ public class CompleteCommand extends Command {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {
-                throw new DukeException("OOPS!!! Invalid number!");
+                throw new OofException("OOPS!!! Invalid number!");
             } else {
                 Task task = arr.getTask(num);
                 task.setStatus();
@@ -48,7 +48,7 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return false.
      */

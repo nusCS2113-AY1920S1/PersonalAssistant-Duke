@@ -1,10 +1,10 @@
-package duke.command;
+package oof.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.exception.DukeException;
-import duke.task.Task;
+import oof.TaskList;
+import oof.Ui;
+import oof.Storage;
+import oof.exception.OofException;
+import oof.task.Task;
 
 /**
  * Represents a Command to delete a specific Task.
@@ -31,11 +31,11 @@ public class DeleteCommand extends Command {
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
-     * @throws DukeException Catches invalid commands given by user.
+     * @throws OofException Catches invalid commands given by user.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
         if (index >= arr.getSize() || index < 0) {
-            throw new DukeException("OOPS!!! Invalid number!");
+            throw new OofException("OOPS!!! Invalid number!");
         } else {
             Task task = arr.getTask(index);
             arr.deleteTask(index);
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke
+     * Checks if ExitCommand is called for Oof
      * to terminate.
      *
      * @return false.

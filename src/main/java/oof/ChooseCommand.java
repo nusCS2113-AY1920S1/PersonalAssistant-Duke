@@ -1,17 +1,17 @@
-package duke;
+package oof;
 
-import duke.command.Command;
-import duke.command.CompleteCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.AddToDoCommand;
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.SnoozeCommand;
-import duke.command.ScheduleCommand;
-import duke.exception.DukeException;
+import oof.command.Command;
+import oof.command.CompleteCommand;
+import oof.command.ExitCommand;
+import oof.command.ListCommand;
+import oof.command.AddToDoCommand;
+import oof.command.AddDeadlineCommand;
+import oof.command.AddEventCommand;
+import oof.command.DeleteCommand;
+import oof.command.FindCommand;
+import oof.command.SnoozeCommand;
+import oof.command.ScheduleCommand;
+import oof.exception.OofException;
 
 /**
  * Represents a parser to process the commands inputted by the user.
@@ -23,9 +23,9 @@ public class ChooseCommand {
      *
      * @param line Command inputted by user.
      * @return Command based on the user input.
-     * @throws DukeException Catches invalid commands given by user.
+     * @throws OofException Catches invalid commands given by user.
      */
-    public static Command choose(String line) throws DukeException {
+    public static Command choose(String line) throws OofException {
         if (line.equals("bye")) {
             return new ExitCommand();
         } else if (line.equals("list")) {
@@ -33,7 +33,7 @@ public class ChooseCommand {
         } else if (line.startsWith("done")) {
             String[] arr = line.split(" ");
             if (arr.length == 1) {
-                throw new DukeException("OOPS!!! Please enter a number!");
+                throw new OofException("OOPS!!! Please enter a number!");
             }
             String num = arr[1];
             return new CompleteCommand(num);
@@ -54,7 +54,7 @@ public class ChooseCommand {
         } else if (line.startsWith("snooze")) {
             String[] arr = line.split(" ");
             if (arr.length == 1) {
-                throw new DukeException("OOPS!!! Please enter a number!");
+                throw new OofException("OOPS!!! Please enter a number!");
             }
             String num = arr[1];
             return new SnoozeCommand(num);
@@ -63,7 +63,7 @@ public class ChooseCommand {
             line = line.replaceFirst("schedule", "");
             return new ScheduleCommand(line);
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
