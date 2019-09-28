@@ -5,7 +5,7 @@ This is a group project as part of this module. We are an egoless team.
 
 ## Project Team
 ### Kennedy Oung
-![oungkennedy](images/oungkennedy.png)
+[https://github.com/AY1920S1-CS2113T-T12-1/main/blob/master/docs/images/oungkennedy.png]
 
 Role: Developer
 Responsibilities: Detail Design & Implementation
