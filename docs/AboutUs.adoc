@@ -23,7 +23,10 @@ Role: Developer
 
 Responsibilities: Detail Design & Implementation
 
-### Bryan
+### Brian
 Role: Developer
+
+image::images/BrianLim.png[width ="150", align="left"]
+{empty}[https://https://github.com/CheeSengg[github]]
 
 Responsibilities: UI

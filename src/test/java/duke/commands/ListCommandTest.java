@@ -4,9 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 import duke.task.Todo;
-
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class ListCommandTest {
