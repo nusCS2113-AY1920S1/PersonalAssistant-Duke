@@ -7,10 +7,10 @@ import duke.exception.DukeException;
  */
 public abstract class MultiArgCommand extends ArgCommand {
     //TODO: figure out the proper Javadoc for these parameters
-    String[] argv; //array to store multiple arguments
-    int argc; //minimum number of arguments expected
-    String delim; //delimiter to split arguments by, may be a regex
-    String invalidArgMsg; //message to display if insufficient arguments are supplied
+    protected String[] argv; //array to store multiple arguments
+    protected int argc; //minimum number of arguments expected
+    protected String delim; //delimiter to split arguments by, may be a regex
+    protected String invalidArgMsg; //message to display if insufficient arguments are supplied
 
     /**
      * Splits the input string into the argv array based on the common delimiter delim, stripping the strings in argv.
