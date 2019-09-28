@@ -1,10 +1,10 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.EventSubclasses.Concert;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubclasses.ToDo;
+import Events.EventTypes.EventSubClasses.Concert;
+import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
+import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
+import Events.EventTypes.EventSubClasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;

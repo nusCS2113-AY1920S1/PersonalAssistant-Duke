@@ -1,6 +1,6 @@
-package Events.EventTypes.EventSubclasses.RecurringEventSubclasses;
+package Events.EventTypes.EventSubClasses.RecurringEventSubclasses;
 
-import Events.EventTypes.EventSubclasses.RecurrentEvent;
+import Events.EventTypes.EventSubClasses.RecurrentEvent;
 
 public class Lesson extends RecurrentEvent {
     /**
