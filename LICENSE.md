@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2016 Software Engineering Education - FOSS Resources
+Copyright (c) 2019 CS2113-T14-1
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
