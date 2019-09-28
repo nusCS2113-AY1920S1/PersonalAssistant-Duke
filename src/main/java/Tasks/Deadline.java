@@ -10,14 +10,15 @@ public class Deadline extends Task {
         super(description);
         this.by = LocalDateTime.parse(by, fmtD);
     }
+
     @Override
     public String toString() {
-        return "D"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "by: " + by.format(fmtD);
+        return "D"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + "by: " + by.format(fmtD);
     }
+
     @Override
     public String listFormat(){
         return "[D]" + "[" + super.getStatusIcon() + "]" + super.description + "(by:" + by.format(DateTimeFormatter.ofPattern("dd LLL yyyy HH:mm:ss")) + ")";
     }
-
 
 }

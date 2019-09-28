@@ -4,6 +4,7 @@ import Storage.Storage;
 import commands.Command;
 import parsers.*;
 import Exception.DukeException;
+
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -25,26 +26,22 @@ public class Duke {
         try {
             list = store.ReadFile();
             ui.UpcomingTask(list);
-            while(!isExit) {
+            while (!isExit) {
                 ui.ReadCommand();
                 String command = ui.FullCommand;
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store);
                 isExit = c.isExit();
             }
-        }
-        catch (DukeException | ParseException | IOException | NullPointerException e){
-            if(e instanceof ParseException){
+        } catch (DukeException | ParseException | IOException | NullPointerException e) {
+            if (e instanceof ParseException) {
                 ui.showDateFormatError();
-            }
-            else if (e instanceof IOException){
+            } else if (e instanceof IOException) {
                 ui.showIOErrorMessage(e);
-            }
-            else{
+            } else {
                 ui.showErrorMessage(e);
             }
-        }
-        finally{
+        } finally {
             System.out.println("System exiting");
         }
     }

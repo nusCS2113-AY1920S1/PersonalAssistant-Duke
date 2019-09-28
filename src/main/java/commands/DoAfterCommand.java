@@ -1,15 +1,17 @@
 package commands;
+
 import Storage.Storage;
 import Tasks.DoAfter;
 import Tasks.Task;
 import UI.Ui;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DoAfterCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws  ParseException, IOException, NullPointerException{
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws ParseException, IOException, NullPointerException {
         String before = "";
         String after = "";
         String[] splitstring = ui.FullCommand.split("/after");
@@ -26,6 +28,7 @@ public class DoAfterCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
+
     @Override
     public boolean isExit() {
         return false;

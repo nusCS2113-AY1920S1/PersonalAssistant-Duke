@@ -1,10 +1,11 @@
 package Storage;
 
-
 import java.io.File;
+
 import Tasks.Task;
 import Tasks.*;
 import commands.FixDurationCommand;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Storage {
 
     private String absolutePath = "Save.txt";
 
-    public void Storages(String fileContent) throws IOException{
+    public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -29,13 +30,13 @@ public class Storage {
         if (new File(absolutePath).exists()) {
             File file = new File(absolutePath);
             Scanner sc = new Scanner(file);
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 String[] details = sc.nextLine().split("\\|");
                 if (details[0].equals("T")) {
                     Todo t = new Todo(details[2].trim());
                     if (details[1].equals("\u2713")) {
                         t.isDone = true;
-                    } else{
+                    } else {
                         t.isDone = false;
                     }
                     tList.add(t);
@@ -43,7 +44,7 @@ public class Storage {
                     Deadline d = new Deadline(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("\u2713")) {
                         d.isDone = true;
-                    } else{
+                    } else {
                         d.isDone = false;
                     }
                     tList.add(d);
@@ -73,7 +74,7 @@ public class Storage {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("\u2713")) {
                         e.isDone = true;
-                    } else{
+                    } else {
                         e.isDone = false;
                     }
                     tList.add(e);

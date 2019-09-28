@@ -24,7 +24,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "E"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "at: " + fmtED.format(date)
+        return "E"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + "at: " + fmtED.format(date)
                 + " " + this.start.format(fmtET) + "-" + this.end.format(fmtET);
     }
     public String listFormat(){
@@ -34,5 +34,3 @@ public class Event extends Task {
     }
 
 }
-
-

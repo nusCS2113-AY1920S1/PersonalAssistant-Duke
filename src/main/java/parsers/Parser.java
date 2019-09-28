@@ -42,8 +42,7 @@ public class Parser {
             return new ConfirmTentativeCommand();
         } else if (command.contains("undo")) {
             return new UndoCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
