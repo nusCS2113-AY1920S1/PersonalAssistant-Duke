@@ -4,6 +4,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:imagesDir: images
+:xrefstyle: full
 :repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
 
 By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
@@ -43,3 +45,13 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
