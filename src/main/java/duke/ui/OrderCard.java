@@ -45,6 +45,9 @@ public class OrderCard extends AnchorPane {
         name.setText(order.getCustomerName());
         contact.setText(order.getCustomerContact());
         remarks.setText(order.getRemarks());
+        status.setText(order.getStatus().toString().toLowerCase());
+        status.getStyleClass().clear();
+        status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
         for (String itemName : order.getItems().keySet()) {
             itemFlow.getChildren().add(new OrderItemBox(itemName, order.getItems().get(itemName)));
         }

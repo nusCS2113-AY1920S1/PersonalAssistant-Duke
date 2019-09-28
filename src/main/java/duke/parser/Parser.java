@@ -1,9 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.CompleteOrderCommand;
-import duke.command.RedoCommand;
-import duke.command.UndoCommand;
+import duke.command.*;
 import duke.commons.DukeException;
 import duke.commons.Message;
 
@@ -26,6 +23,7 @@ public class Parser {
     private static final String COMMAND_ORDER_DELETE = "remove";
     private static final String COMMAND_ORDER_EDIT = "edit";
     private static final String COMMAND_ORDER_COMPLETE = "done";
+    private static final String COMMAND_SHORTCUT = "shortcut";
 
     /**
      * Parses user input into a command.
@@ -34,17 +32,24 @@ public class Parser {
      * @return the command from user input.
      * @throws DukeException if it is not valid command or command parameters are invalid.
      */
-    public static Command getCommand(String line) throws DukeException {
+    public static Command getCommand(String line, Map<String, ExecuteShortcutCommand> shortcuts) throws DukeException {
+
+        if (shortcuts.containsKey(line.strip())) {
+            return shortcuts.get(line.strip());
+        }
+
         Map<String, List<String>> params = parseCommandAndParams(line);
         String commandWord = params.get("cmd").get(0);
 
         switch (commandWord) {
-        case COMMAND_ORDER:
-            return parseOrder(line);
+            case COMMAND_ORDER:
+                return parseOrder(line);
             case COMMAND_UNDO:
                 return parseUndo(line);
             case COMMAND_REDO:
                 return parseRedo(line);
+            case COMMAND_SHORTCUT:
+                return new AddShortcutCommand(line);
         default:
             throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -52,6 +57,12 @@ public class Parser {
 
     private static Map<String, List<String>> parseCommandAndParams(String line) throws DukeException {
         Map<String, List<String>> params = new HashMap<>();
+
+        params.put("line", new ArrayList<String>() {
+            {
+                add(line);
+            }
+        });
 
         //Regex to get the command word and the sub command, and primary parameter.
         Pattern commandWordPattern = Pattern.compile("^(\\w+)\\s*(\\w+)?\\s*([^-]+)?");
