@@ -4,20 +4,26 @@ We are a team from the National University of Singapore, taking CS2113T in AY19/
 This is a group project as part of this module. We are an egoless team.
 
 ## Project Team
-### Kennedy Oung
-[https://github.com/AY1920S1-CS2113T-T12-1/main/blob/master/docs/images/oungkennedy.png]
+### Kennedy Oung  
+
+image::images/oungkennedy.png[width="150", align="left"]
+{empty}[https://https://github.com/OungKennedy[github]]
 
 Role: Developer
+
 Responsibilities: Detail Design & Implementation
+
 ### Nicholas Liu
-
 Role: Developer
+
 Responsibilities: Detail Design & Implementation
+
 ### Tian Chang
-
 Role: Developer
+
 Responsibilities: Detail Design & Implementation
-### Bryan 
 
+### Bryan
 Role: Developer
+
 Responsibilities: UI
