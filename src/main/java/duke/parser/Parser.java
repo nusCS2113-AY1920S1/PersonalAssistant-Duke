@@ -1,8 +1,25 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.RemindCommand;
+import duke.command.DuplicateFoundCommand;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Repeat;
+import duke.task.DoAfter;
+import duke.task.FixedDuration;
+import duke.task.DetectDuplicate;
 import duke.dukeexception.DukeException;
-import duke.task.*;
 
 import java.util.ArrayList;
 
@@ -26,7 +43,7 @@ public class Parser {
         boolean getDate = false;
         if (sentence.equals("list")) {
             return new ListCommand();
-        } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete"))) {
+        } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete") || arr[0].equals("del"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
@@ -40,7 +57,7 @@ public class Parser {
                             tempString = tempString.split(": ", 2)[1];
                             tempString = tempString.split("\\)")[0];
 
-                            if (!items.getTaskStatus(tempString)) {
+                            if (!items.isTaskDone(tempString)) {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
                                         + " please complete task [" + tempString + "] before marking this as done!");
                             }
@@ -64,9 +81,9 @@ public class Parser {
         } else if (arr.length > 0 && arr[0].equals("todo")) {
             String[] getDescription = sentence.split(" ", 2);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
-            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])){
+            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])) {
                 return new DuplicateFoundCommand();
-            } else{
+            } else {
                 for (int i = 1; i < arr.length; i++) {
                     taskDesc += arr[i] + " ";
                 }
@@ -78,8 +95,7 @@ public class Parser {
                     return new AddCommand(taskObj);
                 }
             }
-
-        } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("event"))) {
+        } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("dl") || arr[0].equals("event"))) {
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
@@ -100,14 +116,14 @@ public class Parser {
                         + arr[0] + " cannot be empty.");
             } else {
                 Task taskObj;
-                if (arr[0].equals("deadline")) {
+                if (arr[0].equals("deadline") || arr[0].equals("dl")) {
                     taskObj = new Deadline(taskDesc, dateDesc);
                 } else {
                     taskObj = new Event(taskDesc, dateDesc);
                 }
 
                 for (int i = 0; i < items.size(); i++) {
-                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).getisDone()) {
+                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).isDone()) {
                         throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                 + arr[0] + " clashes with " + items.get(i).toString()
                                 + "\n     Please choose another date/time! Or mark the above task as Done first!");
@@ -115,7 +131,8 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > 0 && arr[0].equals("doafter")) {
+        } else if (arr.length > 0 && (arr[0].equals("doafter") || arr[0].equals("da"))) {
+            //doafter <task> /after <pre-requisite task>
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
             for (int i = 1; i < arr.length; i++) {
@@ -147,7 +164,7 @@ public class Parser {
                             + arr[0] + " task for a task that is not in the list!");
                 }
             }
-        } else if (arr.length > 0 && arr[0].equals("repeat")) {
+        } else if (arr.length > 0 && (arr[0].equals("repeat") || arr[0].equals("rep"))) {
             //repeat <task> /from <date time> /for 3 <day/week/month>
             for (int i = 1; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
@@ -191,7 +208,7 @@ public class Parser {
                     repeatList.add(taskObj);
 
                     for (int j = 0; j < items.size(); j++) {
-                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).getisDone()) {
+                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).isDone()) {
                             throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                     + arr[0] + " clashes with " + items.get(j).toString()
                                     + "\n     Please choose another date/time! Or mark the above task as Done first!");
@@ -200,7 +217,7 @@ public class Parser {
                 }
                 return new AddMultipleCommand(repeatList);
             }
-        } else if (arr.length > 0 && arr[0].equals("fixedduration")) {
+        } else if (arr.length > 0 && (arr[0].equals("fixedduration") || arr[0].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
             String durDesc;
@@ -247,7 +264,7 @@ public class Parser {
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
-        } else if (sentence.equals("bye")) {
+        } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {
             throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");

@@ -22,16 +22,16 @@ public class DetectDuplicate {
      * @param description The input keyed in by the user.
      * @return Boolean that states if the input is a duplicate.
      */
-    public boolean isDuplicate(String command, String description){
-        switch (command){
-            case "todo":
-                for(int i=0; i<items.size(); i++){
-                    if(items.get(i).isContain(description)) //contains, is implemented in Task.java
-                        return true;
+    public boolean isDuplicate(String command, String description) {
+        if ("todo".equals(command)) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).isContain(description)) {
+                    //contains, is implemented in Task.java
+                    return true;
                 }
-                break;
-            default:
-                return false;
+            }
+        } else {
+            return false;
         }
         return false;
     }

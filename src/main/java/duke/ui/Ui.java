@@ -67,11 +67,14 @@ public class Ui {
      */
     public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
-        System.out.println("You currently have these upcoming tasks:\n");
+        System.out.println("     You currently have these upcoming tasks:\n");
+        int currentIndex = 1;
         for (Task remaining: taskList) {
-            remaining.triggerReminder();
-            System.out.println(remaining.toString());
+            remaining.isTriggerReminder();
+            System.out.println("     " + currentIndex + "." + remaining.toString());
+            currentIndex += 1;
         }
+        System.out.println(line);
     }
 
     /**
@@ -275,7 +278,7 @@ public class Ui {
     /**
      * Outputs an alert when a duplicated inout is detected.
      */
-    public void showDuplicateMsg(){
+    public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
 }

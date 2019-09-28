@@ -36,7 +36,7 @@ public class Task {
      *
      * @return Boolean of isDone.
      */
-    public boolean getisDone() {
+    public boolean isDone() {
         return isDone;
     }
 
@@ -90,7 +90,7 @@ public class Task {
      *
      * @return boolean that triggers the reminder.
      */
-    public boolean triggerReminder() {
+    public boolean isTriggerReminder() {
         /*if (dueDate != null) {
             LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
             return LocalDateTime.now().isAfter(reminderDate);
@@ -99,8 +99,8 @@ public class Task {
             LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
             return LocalDateTime.now().isAfter(reminderDate);
         }*/
-        if (getisDone() == false) {
-            System.out.println("High priority: ");
+        if (isDone() == false) {
+            System.out.println("     High priority: ");
         }
         return false;
     }
@@ -155,8 +155,10 @@ public class Task {
      * @return Boolean that states if the input is a duplicate.
      */
     public boolean isContain(String arr1) {
-        if(arr1.equalsIgnoreCase(description))
+        if (arr1.equalsIgnoreCase(description)) {
             return true;
+        }
+
         return false;
     }
 }
