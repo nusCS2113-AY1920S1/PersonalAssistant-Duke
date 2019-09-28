@@ -405,7 +405,7 @@ _{To be edited}_
 (For all use cases below, the *System* is the `ArchDuke` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Create project (UC01) `create`
+=== Use case: Create project (UC01)
 
 *MSS*
 
@@ -423,7 +423,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View all projects (UC02) `view`
+=== Use case: View all projects (UC02)
 
 *MSS*
 
@@ -441,7 +441,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Manage a project (UC03) `manage`
+=== Use case: Manage a project (UC03)
 
 *MSS*
 
@@ -465,7 +465,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add members to a specific project (UC04) `add member`
+=== Use case: Add members to a specific project (UC04)
 
 *MSS*
 
@@ -485,7 +485,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Edit members in a specific project (UC05) `edit member`
+=== Use case: Edit members in a specific project (UC05)
 
 *MSS*
 
@@ -504,7 +504,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Add task in a specific project (UC06) `add task`
+=== Use case: Add task in a specific project (UC06)
 
 *MSS*
 
@@ -515,7 +515,7 @@ Use case resumes at step 1.
 Use case ends.
 
 [discrete]
-=== Use case: Edit task in a specific project (UC07) `edit task`
+=== Use case: Edit task in a specific project (UC07)
 
 *MSS*
 
@@ -534,7 +534,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Assign tasks to members (UC08) `assign`
+=== Use case: Assign tasks to members (UC08)
 
 *MSS*
 
@@ -545,7 +545,7 @@ Use case resumes at step 1.
 Use case ends.
 
 [discrete]
-=== Use case: Complete tasks in a specific project (UC09) `done`
+=== Use case: Complete tasks in a specific project (UC09)
 
 *MSS*
 
