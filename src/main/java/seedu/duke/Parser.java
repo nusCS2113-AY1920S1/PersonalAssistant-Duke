@@ -205,7 +205,7 @@ public class Parser {
             }
             name = input.substring(5);
             if (input.contains(" /doafter ")) {
-                name = name.split(" /doafter ",2)[0];
+                name = name.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
         } else if (input.startsWith("deadline")) {
@@ -221,7 +221,7 @@ public class Parser {
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
             if (input.contains(" /doafter ")) {
-                timeString = timeString.split(" /doafter ",2)[0];
+                timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
             try {
@@ -242,7 +242,7 @@ public class Parser {
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
             if (input.contains(" /doafter ")) {
-                timeString = timeString.split(" /doafter ",2)[0];
+                timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
             try {

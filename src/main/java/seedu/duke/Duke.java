@@ -1,10 +1,13 @@
 package seedu.duke;
 
+import seedu.duke.client.Http;
+import seedu.duke.client.SimpleServer;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -22,6 +25,8 @@ public class Duke {
      */
     public static void main(String[] args) {
         ui = new UI();
+        ui.setDebug(true);
+        Http.getAuth();
         run();
     }
 

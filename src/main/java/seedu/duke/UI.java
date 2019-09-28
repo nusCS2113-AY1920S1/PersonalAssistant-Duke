@@ -10,6 +10,7 @@ public class UI {
     private static final String ANSI_PURPLE = "\u001B[35m";
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
+    private static boolean debug = false;
 
     /**
      * Instantiates the UI component, which also display the welcoming message.
@@ -23,6 +24,10 @@ public class UI {
         logo = "Hello from\n" + logo + "\n";
         logo += "What can I do for you?";
         showMessage(logo);
+    }
+
+    public void setDebug(boolean flag) {
+        debug = flag;
     }
 
     /**
@@ -52,6 +57,17 @@ public class UI {
      */
     public void showError(String msg) {
         System.out.println(ANSI_RED + msg + ANSI_RESET);
+    }
+
+    /**
+     * Shows a debug message when debug flag is on in yellow color.
+     *
+     * @param msg the debug message that is to be shown
+     */
+    public void showDebug(String msg) {
+        if (debug) {
+            System.out.println(ANSI_YELLOW + msg + ANSI_RESET);
+        }
     }
 
 }
