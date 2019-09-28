@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
 
     private OrderPage orderPage;
     private RecipePage recipePage;
+    private InventoryPage inventoryPage;
     private SalePage salePage;
 
     public void initialize() {
@@ -69,7 +70,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowRecipe() {
-        System.out.println("!!!");
         showRecipePage();
     }
 
@@ -80,32 +80,34 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowInventory() {
-
+        showInventoryPage();
     }
 
     @FXML
-    private void handleShowSales() {
-
+    private void handleShowSale() {
+        showSalePage();
     }
 
     void initializePages() {
         orderPage = new OrderPage();
-        AnchorPane.setLeftAnchor(orderPage, 0.0);
-        AnchorPane.setRightAnchor(orderPage, 0.0);
-        AnchorPane.setTopAnchor(orderPage, 0.0);
-        AnchorPane.setBottomAnchor(orderPage, 4.0);
+        setPageAnchor(orderPage);
 
         recipePage = new RecipePage();
         AnchorPane.setLeftAnchor(recipePage, 0.0);
         AnchorPane.setRightAnchor(recipePage, 0.0);
         AnchorPane.setTopAnchor(recipePage, 0.0);
         AnchorPane.setBottomAnchor(recipePage, 4.0);
+        setPageAnchor(recipePage);
+
+        inventoryPage = new InventoryPage();
+        setPageAnchor(inventoryPage);
 
         salePage = new SalePage();
         AnchorPane.setLeftAnchor(salePage, 0.0);
         AnchorPane.setRightAnchor(salePage, 0.0);
         AnchorPane.setTopAnchor(salePage, 0.0);
         AnchorPane.setBottomAnchor(salePage, 4.0);
+        setPageAnchor(salePage);
     }
 
     void showMessage(String message) {
@@ -148,18 +150,6 @@ public class MainWindow extends AnchorPane {
         this.salePage.refreshSaleList(sales, all);
     }
 
-    void showSalePage() {
-        pagePane.getChildren().clear();
-        pagePane.getChildren().add(salePage);
-
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
-        orderButton.setButtonType(JFXButton.ButtonType.RAISED);
-        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
-
-        currentPage.setText("Sales");
-    }
-
     void showRecipePage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(recipePage);
@@ -172,7 +162,38 @@ public class MainWindow extends AnchorPane {
         currentPage.setText("Recipes");
     }
 
+    void showInventoryPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(inventoryPage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Inventory");
+    }
+
+    void showSalePage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(salePage);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        currentPage.setText("Sales");
+    }
+
     void disableInput() {
         userInput.setDisable(true);
+    }
+
+    private void setPageAnchor(AnchorPane page) {
+        AnchorPane.setLeftAnchor(page, 0.0);
+        AnchorPane.setRightAnchor(page, 0.0);
+        AnchorPane.setTopAnchor(page, 0.0);
+        AnchorPane.setBottomAnchor(page, 4.0);
     }
 }

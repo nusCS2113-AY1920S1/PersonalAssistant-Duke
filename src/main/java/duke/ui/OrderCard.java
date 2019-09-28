@@ -27,6 +27,8 @@ public class OrderCard extends AnchorPane {
     private Label contact;
     @FXML
     private Label remarks;
+    @FXML
+    private Label status;
 
     public OrderCard(Order order, int indexNumber) {
         try {

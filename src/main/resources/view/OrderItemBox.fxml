@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <fx:root maxHeight="100.0" minWidth="100.0" prefHeight="80.0"
          style="-fx-background-radius: 5; -fx-background-color: #00bfa5;" type="AnchorPane"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
         <VBox alignment="CENTER" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
