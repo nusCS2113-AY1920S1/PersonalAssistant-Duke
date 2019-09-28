@@ -6,7 +6,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
-
+import duke.user.User;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage) {
+    public void execute(mealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         tasks.delete(index);

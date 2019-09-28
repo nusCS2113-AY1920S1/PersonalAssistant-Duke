@@ -5,6 +5,7 @@ import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.exceptions.DukeException;
+import duke.user.User;
 
 import java.util.ArrayList;
 
@@ -31,11 +32,13 @@ public class ListCommand extends Command {
      */
 
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(mealList tasks, Ui ui, Storage storage, User user) throws DukeException {
+        ui.showCalorie(user);
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         if (!tasks.checkDate(currentDate)) {
             throw new DukeException("There isn't any food on " + currentDate);
         }
         ui.showList(currentMeals);
+        ui.showRemainingCalorie(currentMeals, user);
     }
 }

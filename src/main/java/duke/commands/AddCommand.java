@@ -6,6 +6,7 @@ import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.user.User;
 
 /**
  * AddCommand is a public class that inherits from abstract class Command.
@@ -31,14 +32,14 @@ public class AddCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(mealList meals, Ui ui, Storage storage) {
+    public void execute(mealList meals, Ui ui, Storage storage, User user) {
         if (!meals.checkDate(this.meal.getDate())) {
             meals.setMeals(this.meal.getDate());
         }
         ArrayList<Meal> currentMeals = meals.getMeals(this.meal.getDate());
         System.out.println(this.meal.getDate());
         currentMeals.add(this.meal);
-        ui.showAdded(this.meal, currentMeals);
+        ui.showAdded(this.meal, currentMeals, user, this.meal.getDate());
         storage.updateFile(meals.getMealTracker());
     }
 }

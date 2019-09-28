@@ -6,7 +6,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
-
+import duke.user.User;
 /**
  * The FindCommand is a public class that extends from the abstract class Command.
  * It encapsulates the String to find in the current TaskList
@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage) {
+    public void execute(mealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         for (Meal element: currentMeals) {
