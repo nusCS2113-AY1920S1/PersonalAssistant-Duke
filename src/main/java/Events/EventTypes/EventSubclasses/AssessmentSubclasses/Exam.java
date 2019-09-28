@@ -1,4 +1,4 @@
-package Events.EventTypes.EventSubClasses.AssessmentSubclasses;
+package Events.EventTypes.EventSubclasses.AssessmentSubclasses;
 
 public class Exam {
 }
