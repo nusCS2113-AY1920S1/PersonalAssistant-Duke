@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.dukeexception.DukeException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -32,6 +34,15 @@ public class Task {
     }
 
     /**
+     * Sets the description of a task.
+     *
+     * @param description String of the description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Returns a boolean of the task being done or not.
      *
      * @return Boolean of isDone.
@@ -50,6 +61,15 @@ public class Task {
     }
 
     /**
+     * Sets the status icon of a task to true/false.
+     *
+     * @param setDone The boolean of the task.
+     */
+    public void setStatusIcon(boolean setDone) {
+        isDone = setDone;
+    }
+
+    /**
      * Returns the status icon of a task (GUI).
      *
      * @return String of the status icon.
@@ -65,15 +85,6 @@ public class Task {
      */
     public String getTasks() {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
-    }
-
-    /**
-     * Sets the status icon of a task to true/false.
-     *
-     * @param setDone The boolean of the task.
-     */
-    public void setStatusIcon(boolean setDone) {
-        isDone = setDone;
     }
 
     /**
@@ -144,8 +155,18 @@ public class Task {
      *
      * @return String of Date (Only in Deadline and Event)
      */
-    public String getDateString() {
+    public String getDateTime() {
         return null;
+    }
+
+    /**
+     * Set the date of the task.
+     *
+     * @param dateTime String of the date/time.
+     * @throws Exception  If there is an error interpreting the user input
+     */
+    public void setDateTime(String dateTime) throws Exception {
+        throw new DukeException("     Error! This task does not have date/time.");
     }
 
     /**

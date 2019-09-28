@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.command.UpdateCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
@@ -123,7 +124,7 @@ public class Parser {
                 }
 
                 for (int i = 0; i < items.size(); i++) {
-                    if (taskObj.getDateString().equals(items.get(i).getDateString()) && !items.get(i).isDone()) {
+                    if (taskObj.getDateTime().equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {
                         throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                 + arr[0] + " clashes with " + items.get(i).toString()
                                 + "\n     Please choose another date/time! Or mark the above task as Done first!");
@@ -208,7 +209,7 @@ public class Parser {
                     repeatList.add(taskObj);
 
                     for (int j = 0; j < items.size(); j++) {
-                        if (taskObj.getDateString().equals(items.get(j).getDateString()) && !items.get(j).isDone()) {
+                        if (taskObj.getDateTime().equals(items.get(j).getDateTime()) && !items.get(j).isDone()) {
                             throw new DukeException("     (>_<) OOPS!!! The date/time for "
                                     + arr[0] + " clashes with " + items.get(j).toString()
                                     + "\n     Please choose another date/time! Or mark the above task as Done first!");
@@ -264,6 +265,50 @@ public class Parser {
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
+        } else if (arr.length > 0 && (arr[0].equals("update"))) { /////HERE
+            if (arr.length == 1) {
+                throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
+            } else {
+                int tasknum = Integer.parseInt(arr[1]) - 1;
+                if (tasknum < 0 || tasknum >= items.size()) {
+                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                } else if (arr.length < 4) {
+                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters."
+                            + "Format: update <tasknum> <type> <desc or date>");
+                } else {
+                    int typeOfUpdate = -1;
+                    for (int i = 2; i < arr.length; i++) {
+                        if (i == 2) {
+                            if (arr[i].trim().isEmpty() || (!arr[i].equals("/desc") && !arr[i].equals("/date"))) {
+                                throw new DukeException("     (>_<) OOPS!!! Unable to find either /date or /desc.");
+                            } else {
+                                if (arr[i].equals("/desc")) {
+                                    typeOfUpdate = 1;
+                                } else { //equals /date
+                                    typeOfUpdate = 2;
+                                }
+                            }
+                        } else {
+                            if (typeOfUpdate == 1) {
+                                taskDesc += arr[i] + " ";
+                            } else { //type of update is number 2
+                                dateDesc += arr[i] + " ";
+                            }
+                        }
+                    }
+                    taskDesc = taskDesc.trim();
+                    dateDesc = dateDesc.trim();
+                    if (typeOfUpdate == 1 && taskDesc.isEmpty()) {
+                        throw new DukeException("     (>_<) OOPS!!! The description of a "
+                                + arr[0] + " cannot be empty.");
+                    } else if (typeOfUpdate == 2 && dateDesc.isEmpty()) {
+                        throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
+                                + arr[0] + " cannot be empty.");
+                    } else {
+                        return new UpdateCommand(taskDesc, dateDesc, typeOfUpdate, tasknum);
+                    }
+                }
+            }
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {

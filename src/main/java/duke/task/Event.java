@@ -118,8 +118,23 @@ public class Event extends Task {
      * @return String of Date.
      */
     @Override
-    public String getDateString() {
+    public String getDateTime() {
         String datetimeStr = datetimeFormat.format(at);
         return datetimeStr;
+    }
+
+    /**
+     * Sets the date of the task.
+     */
+    @Override
+    public void setDateTime(String at) throws Exception {
+        Date dateTime;
+        try {
+            dateTime = datetimeFormat.parse(at);
+            this.at = dateTime;
+        } catch (ParseException e) {
+            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            throw e;
+        }
     }
 }
