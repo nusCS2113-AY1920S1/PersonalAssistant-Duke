@@ -56,7 +56,6 @@ public class Meal {
             day = dateparser.parse(details[1]);
             this.date = dateparser.format(day);
         } catch (Exception e) {
-            //todo do something
         }
         for (int i = 2; i < details.length; i += 2) {
             nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
@@ -116,6 +115,7 @@ public class Meal {
      * This function overrides the toString() function in the object class.
      * @return the status icon and the description of the task
      */
+
     @Override
     public String toString() {
         String temp = "";

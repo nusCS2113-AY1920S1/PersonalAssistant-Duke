@@ -45,10 +45,10 @@ public class User {
             throw new DukeException(e.getMessage());
         }
         System.out.println("Input gender(Male/Female)");
-        String sex = in.nextLine();
         this.name = name;
         this.weight.add(weight);
         this.height = height;
+        String sex = in.nextLine();
         if (sex.charAt(0) == 'M') {
             this.sex = gender.MALE;
         } else {

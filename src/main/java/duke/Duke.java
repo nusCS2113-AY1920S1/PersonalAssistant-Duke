@@ -12,8 +12,8 @@ import duke.user.gender;
 import java.util.Scanner;
 
 /**
- * Duke is a public class that contains the main function to drive the program
- * It encapsulates a Storage object, a TaskList object, and an Ui object
+ * Duke is a public class that contains the main function to drive the program.
+ * It encapsulates a Storage object, a TaskList object, and an Ui object.
  */
 public class Duke {
 
@@ -47,7 +47,6 @@ public class Duke {
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
     public void run() {
-        boolean isExit = false;
         if (user.getIsSetup() == false) {
             ui.showWelcomeNew();
         } else {
@@ -62,6 +61,7 @@ public class Duke {
                 ui.showError(e.getMessage());
             }
         }
+        boolean isExit = false;
         ui.showWelcome();
         while (!isExit) {
             try {
@@ -80,7 +80,6 @@ public class Duke {
 
     /**
      * This is the main function.
-     * @param args
      */
     public static void main(String[] args) {
         new Duke().run();

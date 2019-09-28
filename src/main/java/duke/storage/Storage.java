@@ -32,6 +32,7 @@ public class Storage {
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
+
     public HashMap<String, ArrayList<Meal>> load() throws DukeException {
         HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
         String sep = System.getProperty("file.separator");
@@ -43,12 +44,12 @@ public class Storage {
             throw new DukeException("Unable to access file");
         }
         try {
-            while((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
                 loadFile(line, mealTracker);
-        }
+            }
         bufferedReader.close();
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
             throw new DukeException("Error reading file");
@@ -103,7 +104,7 @@ public class Storage {
         try {
             for (String i : meals.keySet()) {
                 ArrayList<Meal> mealsInDay = meals.get(i);
-                for (int j = 0; j < mealsInDay.size() ; j++) {
+                for (int j = 0; j < mealsInDay.size(); j++) {
                     Meal currentMeal = mealsInDay.get(j);
                     if (j > 0) {
                         bufferedWriter.newLine();
@@ -152,8 +153,7 @@ public class Storage {
             String sex = splitLine[3];
             if (sex.equals("M")) {
                 return new User(name, weight, height, gender.MALE);
-            }
-            else {
+            } else {
                 return new User(name, weight, height, gender.FEMALE);
             }
         } catch (Exception e) {
@@ -163,10 +163,9 @@ public class Storage {
 
     public void saveUser(User user) throws DukeException {
         String toWrite = user.getName() + "|" + user.getWeight() + "|" + user.getHeight() + "|";
-        if (user.getSex() == gender.MALE){
+        if (user.getSex() == gender.MALE) {
             toWrite += "M";
-        }
-        else {
+        } else {
             toWrite += "F";
         }
         try {

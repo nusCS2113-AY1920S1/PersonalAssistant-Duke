@@ -18,7 +18,6 @@ public class mealList {
 
     /**
      * This is the constructor of TaskList object.
-     * @param meals the array list of tasks to be assigned
      */
     public mealList(HashMap<String, ArrayList<Meal>> mealTracker) {
         this.mealTracker = mealTracker;
@@ -28,7 +27,8 @@ public class mealList {
      * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task.
      */
-    public mealList() {}
+    public mealList() {
+    }
 
 
     /**
@@ -39,7 +39,9 @@ public class mealList {
         this.mealTracker.get(currentDate).remove(index - 1);
     }
 
-    public void setMeals (String inputDate) { mealTracker.put(inputDate, new ArrayList<Meal>()); }
+    public void setMeals(String inputDate) {
+        mealTracker.put(inputDate, new ArrayList<Meal>());
+    }
 
     public ArrayList<Meal> getMeals(String inputDate) {
         return mealTracker.get(inputDate);
@@ -49,5 +51,7 @@ public class mealList {
         return mealTracker;
     }
 
-    public boolean checkDate(String date) { return mealTracker.containsKey(date); }
+    public boolean checkDate(String date) {
+        return mealTracker.containsKey(date);
+    }
 }

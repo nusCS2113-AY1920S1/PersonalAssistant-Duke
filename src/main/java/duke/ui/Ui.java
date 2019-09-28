@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String padding = "     ";
-    private static final String logo = padding +" ____        _        \n"
+    private static final String logo = padding + " ____        _        \n"
             + padding + "|  _ \\ _   _| | _____ \n"
             + padding + "| | | | | | | |/ / _ \\\n"
             + padding + "| |_| | |_| |   <  __/\n"
@@ -79,7 +79,9 @@ public class Ui {
         System.out.println(padding + "Failed to load file.");
     }
 
-    public void showUserLoadingError() { System.out.println(padding + "Unable to load user file."); }
+    public void showUserLoadingError() {
+        System.out.println(padding + "Unable to load user file.");
+    }
 
     public void showWelcomeNew() {
         System.out.println(padding + "Welcome!");
