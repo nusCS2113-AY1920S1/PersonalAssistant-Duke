@@ -1,10 +1,14 @@
 package commands;
+
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import Exception.DukeException;
+
 import java.io.IOException;
+
 import Tasks.*;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -49,8 +53,7 @@ public class EventCommand extends Command {
                 sb.append(list.get(i).toString() + "\n");
             }
             storage.Storages(sb.toString());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException a) {
             Ui.showEventDateFormatError();

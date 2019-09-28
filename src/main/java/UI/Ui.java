@@ -22,7 +22,7 @@ public class Ui {
         FullCommand = reader.readLine();
     }
 
-    public String showWelcome () {
+    public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -31,7 +31,8 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
         return logo;
     }
-    public void UpcomingTask (ArrayList < Task > list) throws ParseException {
+
+    public void UpcomingTask(ArrayList<Task> list) throws ParseException {
         ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
         ArrayList<Event> EventList = new ArrayList<Event>();
 
@@ -55,7 +56,8 @@ public class Ui {
             System.out.println(i + 1 + "." + EventList.get(i).listFormat());
         }
     }
-    public void showDateFormatError () {
+
+    public void showDateFormatError() {
         System.err.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
 
@@ -67,11 +69,11 @@ public class Ui {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
-    public void showIOErrorMessage (Exception e){
+    public void showIOErrorMessage(Exception e) {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 
-    public void showErrorMessage (Exception e){
+    public void showErrorMessage(Exception e) {
         System.err.println(e.getMessage());
     }
 

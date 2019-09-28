@@ -33,7 +33,6 @@ public class DoneCommand extends Command {
                     System.out.println(temp[0].substring(7));
                 }
             }
-
             /**
              * Add some weekly task
              */

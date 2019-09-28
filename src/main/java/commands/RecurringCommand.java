@@ -26,7 +26,7 @@ public class RecurringCommand {
             if (list_description.charAt(0) == 'E') {
                 splitstring = list_description.split("\\|at: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(0).plusMonths(0).plusDays(7);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;
@@ -47,7 +47,7 @@ public class RecurringCommand {
             } else if (list_description.charAt(0) == 'D') {
                 splitstring = list_description.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(0).plusMonths(0).plusDays(7);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;
@@ -69,7 +69,7 @@ public class RecurringCommand {
             if (list_description.charAt(0) == 'E') {
                 splitstring = list_description.split("\\|at: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(0).plusMonths(1).plusDays(0);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;
@@ -89,7 +89,7 @@ public class RecurringCommand {
             } else if (list_description.charAt(0) == 'D') {
                 splitstring = list_description.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(0).plusMonths(1).plusDays(0);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;
@@ -111,7 +111,7 @@ public class RecurringCommand {
             if (list_description.charAt(0) == 'E') {
                 splitstring = list_description.split("\\|at: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(1).plusMonths(0).plusDays(0);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;
@@ -132,7 +132,7 @@ public class RecurringCommand {
             } else if (list_description.charAt(0) == 'D') {
                 splitstring = list_description.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
-                LocalDate newDate = LocalDate.parse(datesplitstring[0],DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate newDate = LocalDate.parse(datesplitstring[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 newDate = newDate.plusYears(1).plusMonths(0).plusDays(0);
                 String hour_min_sec = datesplitstring[1];
                 String conc_time = newDate + " " + hour_min_sec;

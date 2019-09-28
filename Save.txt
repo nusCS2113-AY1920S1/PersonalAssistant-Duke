@@ -1,12 +1,8 @@
 E|?|hello|at: 2019-12-12 12:00:00-12:00:00
-T|?| eat
 E|?|hello|at: 2019-12-12 12:00:00-12:00:00
-D|?|sleep|by: 2019-02-02 04:04:04
-D|?|hw|by: 2019-10-11 12:04:02
 D|?|monthly susbmission|by: 2019-10-10 03:03:03
 E|?|bball yearly|at: 2020-02-02 03:03:03-04:04:04
-D|?|yearly assignment |by: 2019-01-01 01:01:01
-D|?|yearly assignment |by: 2020-01-01 01:01:01
+D|?|yearly assignment|by: 2019-01-01 01:01:01
+D|?|yearly assignment|by: 2020-01-01 01:01:01
 T|?| borrow
-DA|?| return |  borrow
-T|?| fanefnafe
+FD|?| my current homework|2 hours
