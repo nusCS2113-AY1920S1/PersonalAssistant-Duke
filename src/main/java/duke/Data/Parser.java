@@ -18,7 +18,6 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
-     *
      * @param io
      */
     public void parseInput(String io, TaskList tasks, Storage storage) {
@@ -64,7 +63,7 @@ public class Parser {
             case "deadline":
                 try {
                     index = input.indexOf("/by");
-                    String info = input.substring(9, index);
+                    String info = input.substring(9, index-1);
                     String endDate = input.substring(index + 4);
                     Deadline deadline = new Deadline(info, false, endDate);
                     tasks.addTask(deadline, "D");
@@ -78,7 +77,7 @@ public class Parser {
             case "event":
                 try {
                     index = input.indexOf("/at");
-                    String info = input.substring(6, index);
+                    String info = input.substring(6, index-1);
                     String endDate = input.substring(index + 4);
                     Event event = new Event(info, false, endDate);
                     tasks.addTask(event, "E");
@@ -111,7 +110,7 @@ public class Parser {
             case "aftertask":
                 try {
                     index = input.indexOf("/after");
-                    String info = input.substring(10, index);
+                    String info = input.substring(10, index-1);
                     String endDate = input.substring(index + 7);
                     After after = new After(info, false, endDate);
                     tasks.addTask(after, "A");
@@ -149,7 +148,7 @@ public class Parser {
             case "class":
                 try {
                     index = input.indexOf("/every");
-                    String info = input.substring(6, index);
+                    String info = input.substring(6, index-1);
                     String day = input.substring(index + 7);
                     MyClass myclass = new MyClass(info, false, day);
                     tasks.addTask(myclass, "C");

@@ -17,7 +17,6 @@ import java.util.Scanner;
  * Storage handles all the loading and saving of data
  * from and into the duke.txt file respectively.
  */
-
 public class Storage {
     private String filePath;
     private Scanner fileInput;
@@ -42,13 +41,11 @@ public class Storage {
 
     /**
      * This function parses the info of the duke.txt into an ArrayList.
-     *
      * @return ArrayList containing all the parsed data from the duke.txt file
      * @throws FileNotFoundException          e
      * @throws ArrayIndexOutOfBoundsException e
      */
     public ArrayList<Item> loadFile() {
-
         try {
             while (fileInput.hasNextLine()) { //do something
                 String type, info;
@@ -97,7 +94,6 @@ public class Storage {
 
     /**
      * This function saves the newly created task into duke.txt.
-     *
      * @param type The type of task created
      * @param e    The task created to be saved
      * @param date The date of the task created
@@ -127,7 +123,6 @@ public class Storage {
     /**
      * This function updates the list of tasks.
      * Erases the entire list that exists presently and rewrites the file.
-     *
      * @param up The updated ArrayList that must be used to recreate the updated duke.txt
      * @throws IOException io
      */
@@ -139,7 +134,6 @@ public class Storage {
         } catch (IOException io) {
             System.out.println("File not found:" + io.getMessage());
         }
-
 
         for (Item i : up) {
             try {
