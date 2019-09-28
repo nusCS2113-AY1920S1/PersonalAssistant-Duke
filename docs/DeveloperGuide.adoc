@@ -1,1 +1,21 @@
-Work in progress
+= Dr. Duke - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
+
+By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+*Dr. Duke* is a command-line based personal assistant for doctors to manage their patients' data.
+
+It provides house officers with a streamlined notebook environment, which allows them to concentrate on the recording of
+patient data with a pre-defined structure.
+
+In order to be a successful *Dr. Duke* developer, you need a general understanding of: +
+
+*  *Dr. Duke*’s architecture and object model
+*  The Java framework on which *Dr. Duke* builds on
