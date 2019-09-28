@@ -34,7 +34,7 @@ public class Oof {
      * Runs the Personal Assistant.
      */
     public void run() {
-        ui.showWelcome();
+        ui.printWelcomeMessage();
         ui.hello();
         reminder.checkDeadline(arr, ui);
         boolean isExit = false;
@@ -45,7 +45,7 @@ public class Oof {
                 command.execute(arr, ui, storage);
                 isExit = command.isExit();
             } catch (OofException exception) {
-                ui.showLoadingError(exception);
+                ui.printOofException(exception);
             }
         }
     }

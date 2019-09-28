@@ -6,18 +6,16 @@ import oof.Ui;
 import oof.task.Deadline;
 
 public class ScheduleCommand extends Command {
-    private String line;
-    private TaskList list;
-
+    private String date;
 
     /**
      * Constructor for ScheduleCommand.
      *
-     * @param line String containing date.
+     * @param date String containing date.
      */
-    public ScheduleCommand(String line) {
+    public ScheduleCommand(String date) {
         super();
-        this.line = line;
+        this.date = date;
     }
 
 
@@ -29,15 +27,16 @@ public class ScheduleCommand extends Command {
      * @return ArrayList of Task objects associated to given date.
      */
     public TaskList scheduleByDate(TaskList arr, String date) {
+        TaskList scheduledTasks = new TaskList();
         for (int i = 0; i < arr.getSize(); i++) {
             if (arr.getTask(i) instanceof Deadline) {
                 Deadline d = (Deadline) arr.getTask(i);
                 if (d.getBy().equals(date)) {
-                    list.addTask(arr.getTask(i));
+                    scheduledTasks.addTask(arr.getTask(i));
                 }
             }
         }
-        return list;
+        return scheduledTasks;
     }
 
 
@@ -45,18 +44,13 @@ public class ScheduleCommand extends Command {
      * Executes Schedule Command.
      *
      * @param arr     ArrayList of Task objects.
-     * @param ui      Instance of <code>Ui</code> that is responsible for visual feedback.
-     * @param storage Instance of <code>Storage</code> that enables the reading and writing of <code>Task</code>
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
-        list = scheduleByDate(arr, line);
-        ui.showLine();
-        System.out.println("\t Here are your tasks for" + line + ": ");
-        for (int i = 0; i < list.getSize(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + list.getTask(i));
-        }
-        ui.showLine();
+        TaskList scheduledTasks = scheduleByDate(arr, this.date);
+        ui.printScheduledTasks(scheduledTasks, this.date);
     }
 
     @Override

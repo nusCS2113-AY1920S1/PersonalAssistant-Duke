@@ -17,6 +17,7 @@ public class SnoozeCommand extends Command {
 
     /**
      * Constructor for SnoozeCommand.
+     *
      * @param index Index of Task to be snoozed.
      */
     public SnoozeCommand(String index) {
@@ -45,12 +46,12 @@ public class SnoozeCommand extends Command {
                 String date = ui.getTimeStamp();
                 date = parseTimeStamp(date);
                 if (date.equals("failed")) {
-                    return;
+                    throw new OofException("Timestamp given is invalid! Please try again.");
                 } else {
                     Task newTask = new Deadline(description, date);
                     arr.deleteTask(num);
                     arr.addTaskToIndex(num, newTask);
-                    ui.snoozeMessage(newTask);
+                    ui.printSnoozeMessage(newTask);
                 }
             } else if (storage.taskHasTimestamp(num).equals("event")) {
                 Task task = arr.getTask(num);
@@ -60,23 +61,24 @@ public class SnoozeCommand extends Command {
                 startDate = parseTimeStamp(startDate);
                 endDate = parseTimeStamp(endDate);
                 if (startDate.equals("failed") || endDate.equals("failed")) {
-                    return;
+                    throw new OofException("Timestamp given is invalid! Please try again.");
                 } else {
                     Task newTask = new Event(description, startDate, endDate);
                     arr.deleteTask(num);
                     arr.addTaskToIndex(num, newTask);
-                    ui.snoozeMessage(newTask);
+                    ui.printSnoozeMessage(newTask);
                 }
             } else {
                 throw new OofException("OOPS!!! Task does not have a timestamp!");
             }
-        } catch (Exception e) {
-            System.out.println("OOPS!!! Invalid number!");
+        } catch (OofException e) {
+            ui.printOofException(e);
         }
     }
 
     /**
      * Checks if ExitCommand is called for Oof to terminate.
+     *
      * @return false.
      */
     public boolean isExit() {

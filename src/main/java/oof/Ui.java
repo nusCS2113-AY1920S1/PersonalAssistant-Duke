@@ -3,6 +3,7 @@ package oof;
 import oof.exception.OofException;
 import oof.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -24,7 +25,7 @@ public class Ui {
     /**
      * Shows the welcome logo and message for Oof.
      */
-    public void showWelcome() {
+    public void printWelcomeMessage() {
         String logo = " ________  ________  ________ \n"
                 + "|\\   __  \\|\\   __  \\|\\  _____\\\n"
                 + "\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
@@ -36,26 +37,26 @@ public class Ui {
     }
 
     /**
-     * Shows preceding welcome messages after showWelcome() function.
+     * Shows preceding welcome messages after printWelcomeMessage() function.
      */
     public void hello() {
-        showLine();
+        printLine();
         System.out.println("\tHello! I'm OOF");
         System.out.println("\tWhat can I do for you?");
-        showLine();
+        printLine();
     }
 
     /**
      * Shows termination message before Oof exits.
      */
-    public void sayBye() {
+    public void printByeMessage() {
         System.out.println("\tBye. Hope to see you again soon!");
     }
 
     /**
      * Prints lines.
      */
-    public void showLine() {
+    public void printLine() {
         System.out.println("\t____________________________________________________________");
     }
 
@@ -66,7 +67,7 @@ public class Ui {
      * @param size Number of Task objects in the TaskList.
      */
     public void addTaskMessage(Task task, int size) {
-        showLine();
+        printLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task);
         if (size > 1) {
@@ -74,7 +75,7 @@ public class Ui {
         } else {
             System.out.println("\tNow you have " + size + " task in the list.");
         }
-        showLine();
+        printLine();
     }
 
     /**
@@ -83,10 +84,10 @@ public class Ui {
      * @param task Task object that was marked as done.
      */
     public void completeMessage(Task task) {
-        showLine();
+        printLine();
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t\t" + task);
-        showLine();
+        printLine();
     }
 
     /**
@@ -96,7 +97,7 @@ public class Ui {
      * @param size Number of Task objects in the TaskList.
      */
     public void deleteMessage(Task task, int size) {
-        showLine();
+        printLine();
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t\t" + task);
         if (size > 1) {
@@ -104,7 +105,7 @@ public class Ui {
         } else {
             System.out.println("\tNow you have " + size + " task in the list.");
         }
-        showLine();
+        printLine();
     }
 
     /**
@@ -112,10 +113,10 @@ public class Ui {
      *
      * @param exception Exception encountered.
      */
-    public void showLoadingError(OofException exception) {
-        showLine();
+    public void printOofException(OofException exception) {
+        printLine();
         System.out.println("\t" + exception.getMessage());
-        showLine();
+        printLine();
     }
 
     /**
@@ -123,11 +124,11 @@ public class Ui {
      *
      * @param task Task to be snoozed.
      */
-    public void snoozeMessage(Task task) {
-        showLine();
+    public void printSnoozeMessage(Task task) {
+        printLine();
         System.out.println("\tI have changed the date of this task!");
         System.out.println("\t\t" + task);
-        showLine();
+        printLine();
     }
 
     /**
@@ -146,7 +147,7 @@ public class Ui {
      *
      * @return true if user inputs "Y", false if user inputs "N"
      */
-    public boolean continuePrompt() {
+    public boolean printContinuePrompt() {
         String input = "";
         while (true) {
             System.out.println("Continue anyway? (Y/N)");
@@ -164,5 +165,69 @@ public class Ui {
      */
     public void printClashWarning() {
         System.out.println("Warning! Event being added clashes with the following events:");
+    }
+
+    /**
+     * Prints a reminder regarding upcoming deadlines.
+     */
+    public void printReminder() {
+        System.out.println("\tReminder these tasks have upcoming deadlines:");
+    }
+
+    /**
+     * Prints the details of an upcoming deadline.
+     *
+     * @param count Position of upcoming deadline in reminder list.
+     * @param task  Task object of upcoming deadline.
+     */
+    public void printUpcomingDeadline(int count, Task task) {
+        System.out.println("\t" + count + "." + task);
+    }
+
+    /**
+     * Prints all tasks scheduled on the provided date.
+     *
+     * @param scheduledTasks List of all Tasks scheduled on the date provided.
+     * @param date           Date parameter provided by user.
+     */
+    public void printScheduledTasks(TaskList scheduledTasks, String date) {
+        printLine();
+        System.out.println("\t Here are your tasks for" + date + ": ");
+        for (int i = 0; i < scheduledTasks.getSize(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + scheduledTasks.getTask(i));
+        }
+        printLine();
+    }
+
+    /**
+     * Prints list of matching tasks.
+     *
+     * @param matchedTasks ArrayList containing matching tasks.
+     */
+    public void printMatchingTasks(ArrayList<Task> matchedTasks) {
+        if (matchedTasks.size() == 0) {
+            System.out.println("\tThere are no matching tasks in your list!");
+        } else {
+            printLine();
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < matchedTasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + matchedTasks.get(i));
+            }
+            printLine();
+        }
+    }
+
+    /**
+     * Prints all tasks in TaskList.
+     *
+     * @param arr TaskList containing saved tasks.
+     */
+    public void printTaskList(TaskList arr) {
+        printLine();
+        System.out.println("\t Here are the tasks in your list:");
+        for (int i = 0; i < arr.getSize(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + arr.getTask(i));
+        }
+        printLine();
     }
 }

@@ -45,8 +45,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Oof
-     * to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return false.
      */

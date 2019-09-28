@@ -35,10 +35,9 @@ public abstract class Command {
      * date as a string if the date is valid.
      *
      * @param date Timestamp supplied by user.
-     * @return Parsed Timestamp if the Timestamp is valid.
+     * @return Parsed Timestamp if the Timestamp is valid, else returns "failed".
      */
     public String parseTimeStamp(String date) {
-        String str = "failed";
         try {
             SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
             format.parse(date);
@@ -47,11 +46,9 @@ public abstract class Command {
             LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(date));
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
             DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-            str = formatter2.format(timestamp.toLocalDateTime());
-            return str;
+            return formatter2.format(timestamp.toLocalDateTime());
         } catch (ParseException | DateTimeException e) {
-            System.out.println("Timestamp given is invalid! Please try again.");
-            return str;
+            return "failed";
         }
     }
 

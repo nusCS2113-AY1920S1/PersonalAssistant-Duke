@@ -42,8 +42,8 @@ public class CompleteCommand extends Command {
                 task.setStatus();
                 ui.completeMessage(task);
             }
-        } catch (Exception e) {
-            System.out.println("OOPS!!! Invalid number!");
+        } catch (OofException e) {
+            ui.printOofException(e);
         }
     }
 

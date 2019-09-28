@@ -3,7 +3,7 @@ package oof.task;
 /**
  * Abstract parent class of all subclasses of Task.
  */
-public class Task {
+public abstract class Task {
 
     protected String line;
     protected boolean status;
@@ -44,8 +44,7 @@ public class Task {
     }
 
     /**
-     * Customises the toString() method to print
-     * the Task object.
+     * Customises the toString() method to print the Task object.
      *
      * @return Customised String for Task object.
      */

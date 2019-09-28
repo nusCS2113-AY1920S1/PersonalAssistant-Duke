@@ -25,7 +25,7 @@ public class ExitCommand extends Command {
      *                objects to hard disk.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
-        ui.sayBye();
+        ui.printByeMessage();
     }
 
     /**
