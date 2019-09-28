@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::Kenlhc.png[width="150", align="left"]
 {empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
 
-Role: Team lead + Time Keeper
+Role: Team lead + Time Keeper +
 Responsibilities: Storage + Guides
 
 '''
@@ -23,7 +23,7 @@ Responsibilities: Storage + Guides
 image::jasperosy.png[width="150", align="left"]
 {empty}[https://github.com/jasperosy[github]] [<<jasperosy#, portfolio>>]
 
-Role: Developer 
+Role: Developer +
 Responsibilities: Pull Requests maintainer + code maintainer
 
 '''
@@ -32,7 +32,7 @@ Responsibilities: Pull Requests maintainer + code maintainer
 image::KahLokKee.png[width="150", align="left"]
 {empty}[http://github.com/KahLokKee[github]] [<<KahLokKee#, portfolio>>]
 
-Role: Developer 
+Role: Developer +
 Responsibilities: code maintainer + logic + Quality Control
 
 '''
@@ -41,6 +41,6 @@ Responsibilities: code maintainer + logic + Quality Control
 image::debbiextan.png[width="150", align="left"]
 {empty}[http://github.com/debbiextan[github]] [<<debbiextan#, portfolio>>]
 
-Role: Developer 
+Role: Developer +
 Responsibilities: Ui + design
 
