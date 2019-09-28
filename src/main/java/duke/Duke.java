@@ -53,8 +53,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Upon running duke main, start() will run.
-     * @param stage
+     * Upon running launcher main, start() will run.
      */
     @Override
     public void start(Stage stage) {
