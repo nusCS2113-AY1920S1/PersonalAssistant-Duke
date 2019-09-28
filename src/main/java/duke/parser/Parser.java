@@ -23,7 +23,7 @@ public class Parser {
     private static final String COMMAND_ORDER_DELETE = "remove";
     private static final String COMMAND_ORDER_EDIT = "edit";
     private static final String COMMAND_ORDER_COMPLETE = "done";
-    private static final String COMMAND_SHORTCUT = "shortcut";
+    private static final String COMMAND_SHORTCUT = "short";
 
     /**
      * Parses user input into a command.
@@ -49,7 +49,7 @@ public class Parser {
             case COMMAND_REDO:
                 return parseRedo(line);
             case COMMAND_SHORTCUT:
-                return new AddShortcutCommand(line);
+                return new SetShortcutCommand(line);
         default:
             throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

@@ -58,8 +58,8 @@
 
 .message-popup {
     -fx-background-radius: 25;
-    -fx-background-color: #f3f3f3;
-    -fx-text-fill: #000000;
+    -fx-background-color: #00bfa5;
+    -fx-text-fill: #ffffff;
 }
 
 
