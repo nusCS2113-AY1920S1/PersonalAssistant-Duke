@@ -15,16 +15,16 @@ import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 /**
  * Executes user command "remind".
  */
-public class RemindCommand extends Command implements CommandParser {
+public class SetReminderCommand extends Command implements CommandParser {
 
     private TaskList taskList;
 
     /**
-     * Constructs RemindCommand object.
+     * Constructs SetReminderCommand object.
      *
      * @param d Compal
      */
-    public RemindCommand(Compal d) {
+    public SetReminderCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
     }
@@ -55,7 +55,7 @@ public class RemindCommand extends Command implements CommandParser {
                 } else {
                     taskList.arrlist.get(toMark).setHasReminder();
                     String desc = taskList.arrlist.get(toMark).toString();
-                    compal.ui.printg("Nice! I've marked this task as has reminder: \n"
+                    compal.ui.printg("Okay! I've set a reminder for this task: \n"
                             + desc);
                     compal.storage.saveCompal(taskList.arrlist);
                 }

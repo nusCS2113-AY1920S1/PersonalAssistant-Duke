@@ -1,5 +1,10 @@
 package compal.storage;
 
+import compal.tasks.FixedDurationTask;
+import compal.tasks.Deadline;
+import compal.tasks.DoAfterTasks;
+import compal.tasks.Event;
+import compal.tasks.RecurringTask;
 import compal.tasks.Task;
 
 import java.io.BufferedReader;
@@ -20,7 +25,6 @@ import java.util.ArrayList;
 public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./Compal.txt";
-    private static final String binarySaveFilePath = "binary";
     private static final String userPreferencesFilePath = "./prefs.txt";
 
     /**
@@ -32,20 +36,72 @@ public class StorageFile implements Storage {
 
 
     /**
-     * Loads the arrayList as a binary stream.
+     * Creates and loads task objects based on save text file into arraylist, then returns arraylist.
      *
      * @return ArrayList of stored item found in file.
+     * @author jaedonkey
      */
     @Override
     public ArrayList<Task> loadCompal() {
-        ArrayList<Task> tempList = null;
+        ArrayList<Task> tempList = new ArrayList<>();
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(binarySaveFilePath));
-            tempList = (ArrayList<Task>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Storage:WARNING: Binary save-file not found");
+            File f = new File("duke.txt");
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String st;
+            while ((st = br.readLine()) != null) {
+                Task t;
+                System.out.println("StorageFile:LOG: Task read:" + st);
+                String[] parts = st.split(" ");
+                String taskType = parts[0];
+                switch (taskType) {
+                case "D":
+                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4]);
+                    break;
+                case "DAT":
+                    t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
+                    break;
+                case "RT":
+                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                    break;
+                case "E":
+                    t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                    break;
+                case "FDT":
+                    t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],
+                            Integer.parseInt(parts[6]),Integer.parseInt(parts[7]));
+                    break;
+                default:
+                    System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
+                    return tempList;
+
+                }
+
+                //set tasks completion and reminder status
+                if (parts[2].equals("true")) {
+                    t.markAsDone();
+                }
+                if (parts[8].equals("true")) {
+                    t.setHasReminder();
+                }
+
+                //add created task to list
+                tempList.add(t);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return tempList;
+    }
+
+    /**
+     * Returns Priority from a String describing the priority level.
+     * @param priority task priority string
+     * @return Priority enum
+     */
+    public Task.Priority stringToPriority(String priority) {
+        return Task.Priority.valueOf(priority.toLowerCase());
     }
 
     /**
@@ -63,23 +119,23 @@ public class StorageFile implements Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Unknown User";
+        return "";
     }
 
     /**
      * Saves ArrayList of tasks into file.
      *
      * @param tasks ArrayList of task stored.
+     * @author jaedonkey
      */
     @Override
     public void saveCompal(ArrayList<Task> tasks) {
-        try {
-            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(binarySaveFilePath));
-            ois.writeObject(tasks);
-            ois.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        StringBuilder sb = new StringBuilder();
+        for (Task t:tasks) {
+            sb.append(t.getAllDetailsAsString());
+            sb.append("\n");
         }
+        saveString(sb.toString(),"duke.txt");
     }
 
     /**
@@ -87,6 +143,7 @@ public class StorageFile implements Storage {
      *
      * @param toSave   String to save into file.
      * @param filePath File path of file.
+     * @author jaedonkey
      */
     @Override
     public void saveString(String toSave, String filePath) {
@@ -105,26 +162,12 @@ public class StorageFile implements Storage {
      * File is prefs.txt.
      *
      * @param name Username to store into file.
+     * @author jaedonkey
      */
     @Override
     public void storeUserName(String name) {
         saveString(name, userPreferencesFilePath);
     }
 
-    /**
-     * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
-     * Returns a fully joined string (each component string is joined by underscores).
-     *
-     * @param properties Varargs strings that contain different properties of a task.
-     * @return Joined string of all properties.
-     */
-    @Override
-    public String generateStorageString(String... properties) {
-        StringBuilder sb = new StringBuilder();
-        for (String property : properties) {
-            sb.append("_");
-            sb.append(property);
-        }
-        return sb.toString();
-    }
+
 }
