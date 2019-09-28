@@ -51,7 +51,7 @@ public class StorageFile implements Storage {
             while ((st = br.readLine()) != null) {
                 Task t;
                 System.out.println("StorageFile:LOG: Task read:" + st);
-                String[] parts = st.split(" ");
+                String[] parts = st.split("_");
                 String taskType = parts[0];
                 switch (taskType) {
                 case "D":

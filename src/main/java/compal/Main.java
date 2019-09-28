@@ -49,7 +49,7 @@ public class Main extends Application {
 
             //Sets up primary stage --------------------------------------------------------------->
             primaryStage.setScene(s1);
-            primaryStage.setTitle("ComPAL");
+            primaryStage.setTitle("ComPAL - Compile Your Life!");
             primaryStage.setOpacity(0.96);
             primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
             //----------------------------------------------------------------------------------------------->
@@ -60,7 +60,7 @@ public class Main extends Application {
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
             Date d = new Date();
 
-            date.setText("Today's Date:" + formatter.format(d));
+            date.setText("Today's Date: " + formatter.format(d));
             //------------------------------------------------------------------------------------------------->
 
             //Passes the initialized Compal object to the controller class to link them up

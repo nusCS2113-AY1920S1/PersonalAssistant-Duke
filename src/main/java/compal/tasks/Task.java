@@ -277,16 +277,19 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         if (getDurationHour() != null && getDurationMinute() != null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " Date: " + getStringDate() + " Hour: " + getDurationHour() + " Min: "
-                    + getDurationMinute() + " Priority: " + getPriority();
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nHour: " + getDurationHour() + " \nMin: "
+                    + getDurationMinute() + " \nPriority: " + getPriority()
+                    + "\n***************";
         }
         if (getTime() == null) {
-            return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " Date: " + getStringDate() + " Priority: " + getPriority();
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nPriority: " + getPriority()
+                    + "\n***************";
         }
-        return "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " Date: " + getStringDate() + " Time: " + getStringTime() + " Priority: " + getPriority();
+        return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " \nDate: " + getStringDate() + " \nTime: " + getStringTime() + " \nPriority: " + getPriority()
+                + "\n***************";
     }
 
 
@@ -298,21 +301,21 @@ public abstract class Task implements Serializable {
     public String getAllDetailsAsString() {
         StringBuilder list = new StringBuilder();
         list.append(getSymbol());
-        list.append(" ");
+        list.append("_");
         list.append(getDescription());
-        list.append(" ");
+        list.append("_");
         list.append(getisDone());
-        list.append(" ");
+        list.append("_");
         list.append(getPriority().toString());
-        list.append(" ");
+        list.append("_");
         list.append(getStringDate());
-        list.append(" ");
+        list.append("_");
         list.append(getStringTime());
-        list.append(" ");
+        list.append("_");
         list.append(getDurationHour().toString());
-        list.append(" ");
+        list.append("_");
         list.append(getDurationMinute().toString());
-        list.append(" ");
+        list.append("_");
         list.append(gethasReminder());
         return list.toString();
     }
