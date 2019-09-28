@@ -3,8 +3,6 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import duke.entities.Order;
 import duke.logic.Duke;
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -110,7 +108,7 @@ public class MainWindow extends AnchorPane {
 
     void showMessage(String message) {
         popUpLabel.setText(message);
-        popUpLabel.setTextFill(Color.valueOf("#000000"));
+        popUpLabel.setTextFill(Color.valueOf("#ffffff"));
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("message-popup");
         popUp.getStyleClass().clear();

@@ -8,12 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
+
+    public static enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
+    }
+
     private long id = System.currentTimeMillis();
     private String customerName = "customer";
     private String customerContact = "N/A";
     private Date deliveryDate = Calendar.getInstance().getTime();
     private Map<String, Integer> items = new HashMap<>();
     private String remarks = "N/A";
+    private Status status = Status.ACTIVE;
 
     public Order() {
 
@@ -77,5 +85,13 @@ public class Order {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
