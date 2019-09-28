@@ -25,6 +25,10 @@ public class Parser {
     private static final String COMMAND_ORDER_DELETE = "remove";
     private static final String COMMAND_ORDER_EDIT = "edit";
 
+    ///////////////////////////////////////////////////////////
+    private static final String COMMAND_RECIPE = "recipe";
+    private static final String COMMAND_RECIPE_ADD = "recipeAdd";
+
     /**
      * Parses user input into a command.
      *
@@ -39,10 +43,14 @@ public class Parser {
         switch (commandWord) {
         case COMMAND_ORDER:
             return parseOrder(line);
-            case COMMAND_UNDO:
-                return parseUndo(line);
-            case COMMAND_REDO:
-                return parseRedo(line);
+        case COMMAND_UNDO:
+            return parseUndo(line);
+        case COMMAND_REDO:
+            return parseRedo(line);
+
+        case COMMAND_RECIPE:
+            return parseRecipe(line);
+
         default:
             throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -137,6 +145,17 @@ public class Parser {
                 return CommandParser.parseOrderEdit(params);
             default:
                 throw new DukeException("Invalid command");
+        }
+    }
+
+    private static Command parseRecipe(String line) throws DukeException {
+        Map<String, List<String>> params = parseCommandAndParams(line);
+        assert params.size() > 0;
+        switch (params.get("primary").get(0)) {
+        case COMMAND_ORDER_DELETE:
+            return CommandParser.parseRecipeDelete(params);
+        default:
+            throw new DukeException("Invalid command");
         }
     }
 

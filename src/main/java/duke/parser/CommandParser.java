@@ -4,6 +4,7 @@ import duke.command.AddOrderCommand;
 import duke.command.Command;
 import duke.command.DeleteOrderCommand;
 import duke.command.EditOrderCommand;
+import duke.command.recipe.DeleteRecipeCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
 
@@ -42,5 +43,11 @@ public class CommandParser {
                 throw new DukeException("Quantity should be an integer");
             }
         }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+    public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
+        return new DeleteRecipeCommand(params);
     }
 }
