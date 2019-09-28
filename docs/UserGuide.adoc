@@ -31,7 +31,7 @@ Commands that are present in multiple contexts will be mentioned in just one con
 
 Show several (10?) numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
-#### `help` - Display a context-specific list of commands and options
+#### `help` - Display a context-specific list of commands and options [[home-help]]
 
 Format: `help`
 
@@ -39,15 +39,27 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Result>>, <<Observation
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-#### `next` - Display next page of Patients
+#### `next` - Display next page of Patients [[home-next]]
 
-Format: `next`
+_Remove if we can have a scrolling display of Patients instead_
 
-#### `prev` - Display next page of Patients
+Format: `next` 
+
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>> 
+
+#### `prev` - Display next page of Patients [[home-prev]]
+
+_Remove if we can have a scrolling display of Patients instead_
+
+For different contexts, scrolls forward in all lists that can be scrolled.
 
 Format: `prev`
 
-#### `critical` - Display all critical observations and plans of all Patients
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>
+
+For different contexts, scrolls backward in all lists that can be scrolled.
+
+#### `critical` - Display all critical observations and plans of all Patients [v2.0?]
 
 Format: `critical`
 
@@ -92,8 +104,11 @@ Show a detailed view of a Patient, displaying in separate panels:
 * All personal details
 * A list of critical Observations and Plan items
 * A list of Investigations to follow up on
+* Each Impression, with its name and an excerpt of its description
 
-#### `back` - Go back to previous context
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>
+
+#### `back` - Go back to previous context [[patient-back]]
 
 Format: `back`
 
@@ -102,13 +117,13 @@ _Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Inve
 This will go back to the context that the user came from. A context stack will be maintained.
 
 
-#### `up` - Go up to next-higher context
+#### `up` - Go up to next-higher context [[patient-up]]
 
 Format: `up`
 
 _Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
 
-This will go to the context hierarchically above the user's context. In this case, it will go back to <<Home>>. From an <<Impression>>, it would come here, to the corresponding <<Parient>>.
+This will go to the context hierarchically above the user's context. In this case, it will go back to <<Home>>. For an <<Impression>>, it would go back to the <<Patient>> associated with it.
 
 #### `new` - Add a new Impression to this Patient
 
@@ -118,7 +133,7 @@ Format: `new -n[ame] "<name>" -d[escription] "<description>"`
 
 Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)`
 
-### `edit` - Edit one of the details of the Patient
+#### `edit` - Edit one of the details of the Patient
 
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
 
@@ -142,4 +157,13 @@ Format: `discharge [-s[ummary] <discharge summary>]`
 
 Functionally the same as <<home-discharge,`discharge` in the Home context>>.
 
-## Impression
+### Impression
+
+Show a detailed view of an Impression, displaying in separate panels:
+
+* The name and full description of the Impression
+* A list of Evidence for the Impression, sorted by default with critical items first
+* A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
+* The patient's allergies
+
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>
