@@ -99,6 +99,30 @@ public class Ui {
     }
 
     /**
+     * Outputs task that is updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showUpdate(TaskList items, int index) {
+        out.println("     Nice! I've updated this task ^^:");
+        out.println("       " + (index + 1) + "." + items.get(index).toString());
+    }
+
+    /**
+     * Outputs task that is updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of the task that is updated.
+     */
+    public static String showUpdateGui(TaskList items, int index) {
+        String str = "     Nice! I've updated this task ^^:\n"
+                + "       " + (index + 1) + "." + items.get(index).toString();
+        return str;
+    }
+
+    /**
      * Outputs task that is completed to the user.
      *
      * @param items The task list that contains a list of tasks.
