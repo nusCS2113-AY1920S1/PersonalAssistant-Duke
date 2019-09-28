@@ -17,14 +17,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="699.0" prefWidth="814.0" style="-fx-background-color: #a3cde3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compal.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="871.0" prefWidth="1228.0" style="-fx-background-color: #a3cde3; -fx-background-image: url('file:C:\Users\Jaedon\IdeaProjects\main\cloud.jpg');" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compal.ui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="125.0" layoutY="65.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="704.0" promptText="Enter command here..." style="-fx-background-radius: 10 10 10 10;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="65.0" />
-        <Button fx:id="sendButton" layoutX="7.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleUserInput" opacity="0.9" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #cedae0; -fx-border-color: #cedae0; -fx-border-radius: 10 10 10 10;" text="Enter" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="65.0">
+        <TextField fx:id="userInput" layoutX="104.0" layoutY="68.0" onAction="#handleUserInput" prefHeight="47.0" prefWidth="1115.0" promptText="Enter command here..." style="-fx-background-radius: 10 10 10 10;" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="68.0" />
+        <Button fx:id="sendButton" layoutX="7.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleUserInput" opacity="0.9" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: #cedae0; -fx-border-color: #cedae0; -fx-border-radius: 10 10 10 10;" text="Enter" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="68.0">
          <effect>
             <Glow level="0.46" />
          </effect></Button>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="7.0" layoutY="134.0" prefHeight="309.0" prefWidth="463.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="7.0" layoutY="150.0" prefHeight="440.0" prefWidth="782.0">
             <content>
                 <VBox fx:id="dialogContainer" maxWidth="-Infinity" prefWidth="360.0">
                     <rotationAxis>
@@ -33,15 +33,24 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <ScrollPane layoutX="486.0" layoutY="134.0" prefHeight="309.0" prefWidth="314.0">
+        <ScrollPane layoutX="818.0" layoutY="150.0" prefHeight="440.0" prefWidth="400.0">
             <content>
                 <VBox fx:id="secondaryContainer" />
             </content>
         </ScrollPane>
-        <Label layoutX="486.0" layoutY="118.0" text="Upcoming Tasks" textFill="WHITE" />
-        <Label layoutX="7.0" layoutY="118.0" text="Terminal" textFill="WHITE" />
-        <Label fx:id="date" layoutX="250.0" layoutY="118.0" text="Label" textFill="WHITE" />
-      <TabPane layoutX="14.0" layoutY="457.0" prefHeight="230.0" prefWidth="787.0" tabClosingPolicy="UNAVAILABLE">
+        <Label layoutX="818.0" layoutY="124.0" text="Upcoming Tasks" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+        <Label layoutX="9.0" layoutY="124.0" text="Terminal" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+        <Label fx:id="date" layoutX="8.0" layoutY="29.0" text="Label" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <TabPane layoutX="9.0" layoutY="599.0" prefHeight="268.0" prefWidth="1209.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Weekly">
             <content>
@@ -50,9 +59,9 @@
           </Tab>
           <Tab text="Daily">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="183.0" prefWidth="1209.0">
                      <children>
-                        <ScrollPane prefHeight="270.0" prefWidth="787.0">
+                        <ScrollPane prefHeight="237.0" prefWidth="1209.0">
                            <content>
                               <TableView fx:id="tableView" prefHeight="0.0">
                                 <columns>
@@ -90,9 +99,9 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Text fill="WHITE" layoutX="324.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ComPal V1.1">
+      <Text fill="WHITE" layoutX="530.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ComPal V1.1">
          <font>
-            <Font size="26.0" />
+            <Font size="30.0" />
          </font>
       </Text>
     </children>
@@ -100,6 +109,6 @@
         <Bloom threshold="1.0" />
     </effect>
     <cursor>
-        <Cursor fx:constant="OPEN_HAND" />
+        <Cursor fx:constant="DEFAULT" />
     </cursor>
 </AnchorPane>

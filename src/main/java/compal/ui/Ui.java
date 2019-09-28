@@ -288,9 +288,9 @@ public class Ui {
      * @param text Input object received to be print on gui. Any object type can be used, as long as
      *             it has a 'toString()' function defined.
      */
-    public void printSecondaryg(Object text) {
+    public void printSecondaryg(Object text, String font, int size, Color color) {
         VBox vbox = (VBox) secondaryWindow.getContent();
-        vbox.getChildren().addAll(getDialogLabel(text.toString()));
+        vbox.getChildren().addAll(getDialogLabel(text.toString(),font,size,color));
     }
 
     /**
@@ -376,6 +376,8 @@ public class Ui {
                     + "! "
                     +
                     "Here are your tasks that are due within a week: \n","verdana",15,Color.BLACK);
+
+            //initiate the showing of reminders
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
     }
