@@ -189,35 +189,27 @@ a|
 a| 
 * `-n[ame] "<name>"`
 * `-s[tatus] ("<status name>"\|<status idx>)`
-* `-d[ose] "<dose>"`
-* `-da[te] "<start date>"`
-* `-du[ration] "<duration of course>"`
+* `-sum[mary] "<summary>"`
 
 |`-p[lan]`
 a| 
 * `-n[ame] "<name>"`
 * `-s[tatus] ("<status name>"\|<status idx>)`
-* `-d[ose] "<dose>"`
-* `-da[te] "<start date>"`
-* `-du[ration] "<duration of course>"`
-
+* `-sum[mary] "<summary>"`
+* `-p[riority] <priority idx>`
 
 |`-o[bservation]`
 a| 
 * `-n[ame] "<name>"`
-* `-s[tatus] ("<status name>"\|<status idx>)`
-* `-d[ose] "<dose>"`
-* `-da[te] "<start date>"`
-* `-du[ration] "<duration of course>"`
-
+* `-sum[mary] "<summary>"`
+* `-subj[ective]`
+* `-obj[ective]` - default to objective observations
+* `-p[riority] <priority idx>`
 
 |`-r[esult]`
 a| 
 * `-n[ame] "<name>"`
-* `-s[tatus] ("<status name>"\|<status idx>)`
-* `-d[ose] "<dose>"`
-* `-da[te] "<start date>"`
-* `-du[ration] "<duration of course>"`
+* `-sum[mary] "<summary>"`
 
 |===
 
