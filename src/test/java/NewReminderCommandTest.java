@@ -1,4 +1,3 @@
-import duke.command.Command;
 import duke.command.NewReminderCommand;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
