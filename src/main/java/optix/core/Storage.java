@@ -50,7 +50,9 @@ public class Storage {
                     double revenue = Double.parseDouble(arrStr[4]);
                     double seatBasePrice = Double.parseDouble(arrStr[5]);
 
+
                     Theatre theatre = new Theatre(showName, cost, revenue, seatBasePrice);
+
                     shows.put(date, theatre);
                 }
 

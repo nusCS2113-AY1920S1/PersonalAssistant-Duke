@@ -15,6 +15,7 @@ public class AddCommand extends Command {
     private double cost;
     private double seatBasePrice;
 
+
     public AddCommand(String showName, String date, double cost, double seatBasePrice) {
         // need to check if it is a valid date if not need to throw exception
         this.showName = showName;

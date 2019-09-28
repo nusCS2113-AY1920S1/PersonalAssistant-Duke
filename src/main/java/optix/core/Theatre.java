@@ -1,6 +1,7 @@
 package optix.core;
 
 public class Theatre {
+
     private final String SPACES = "  ";
     private final String STAGE = "                |STAGE|           \n";
 
@@ -32,6 +33,7 @@ public class Theatre {
     }
 
     // can have multiple layouts to be added for future extensions.
+
     private void initializeLayout() {
         tierOneSeats = 0;
         tierTwoSeats = 0;
@@ -184,5 +186,23 @@ public class Theatre {
         default:
             return -1;
         }
+
+    public int getTierOneSeats() {
+        return tierOneSeats;
+    }
+
+    public int getTierTwoSeats() {
+        return tierTwoSeats;
+    }
+
+    public int getTierThreeSeats() {
+        return tierThreeSeats;
+    }
+
+    private int decreaseSeats(int numSeats) {
+        return numSeats--;
+    }
+
+
     }
 }
