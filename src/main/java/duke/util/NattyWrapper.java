@@ -3,11 +3,11 @@ package duke.util;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
+
 import duke.exceptions.DukeInvalidTimeException;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -44,4 +44,16 @@ public class NattyWrapper {
         }
         return dates.get(0);
     }
+
+    /**
+     * Main entry for LocalDateTime conversion.
+     * @param input User input of date/time information.
+     * @return Valid time based on user input.
+     * @throws DukeInvalidTimeException if user inputs an invalid date/time.
+     */
+    public LocalDateTime dateToLocalDateTime(String input) throws DukeInvalidTimeException {
+        Date date = runParser(input);
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
 }

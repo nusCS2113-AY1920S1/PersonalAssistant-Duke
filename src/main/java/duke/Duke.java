@@ -22,7 +22,6 @@ public class Duke {
     // Testing Natty Wrapper:
     private NattyWrapper natty;
 
-
     /**
      * Constructor for Duke class.
      */
