@@ -129,7 +129,7 @@ This will go to the context hierarchically above the user's context. In this cas
 
 Format: `new -n[ame] "<name>" -d[escription] "<description>"`
 
-#### `open` - Open a critical or investigation item listed on the page, or an Impression
+#### `open` - Open a critical or Investigation item listed on the page, or an Impression
 
 Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-i[mpression] _string_or_idx_)`
 
@@ -167,3 +167,31 @@ Show a detailed view of an Impression, displaying in separate panels:
 * The patient's allergies
 
 Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>
+
+#### `new` - Add a new Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item to this Impression
+
+Format: `new <type> <type switches>`
+
+#### `open` - Open a Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item on this page
+
+Format: `open ("<search string>"|-m[edicine] _string_or_idx_|-in[v(x|estigation)] _string_or_idx_|-p[lan] _string_or_idx_|-o[bservation] _string_or_idx_|-r[esult] _string_or_idx_)`
+
+#### `edit` - Edit one of the details of the Patient
+
+Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
+
+If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-a` will append `<new value>` to the current value for string-valued fields. 
+
+Switches and corresponding new value format:
+
+* `-n[ame] "<name>"`
+* `-b[ed] <bed number>`
+* `-a[llergies] "<allergies>"`
+* `-h[eight] <height>` 
+* `-w[eight] <weight>` 
+* `-ag[e] <age>`
+* `-num[ber] <number>`
+* `-ad[dress] "<address>"`
+* `-hi[story] "<history>"`
+
+
