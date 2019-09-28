@@ -27,13 +27,13 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 .  Copy the file to the folder you want to use as the home folder for your Duke.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="230" height="400"]
+image::Ui.PNG[width="600" height="400"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks
-* **`todo`**`Catch Fish` : adds a task named `Catch Fish` to Duke.
+* **`todo`**`Go Malaysia` : adds a task named `Go Malaysia` to Duke.
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
@@ -45,7 +45,7 @@ image::Ui.PNG[width="230" height="400"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo Catch Fish`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo Go Malaysia`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` (i.e. 0 times), `friend`, `friend family fish` etc.
 ====
 
@@ -56,7 +56,7 @@ Format: `todo TASK`
 
 Examples:
 
-* `todo Catch Fish`
+* `todo Go Malaysia`
 
 === Adding a deadline: `deadline`
 
@@ -65,7 +65,7 @@ Format: `deadline TASK /by DESCRIPTOR`
 
 Examples:
 
-* `deadline Individual Project /by 09/09/2019 0900`
+* `deadline Buy plane ticket /by 09/09/2019 0900`
 
 === Adding an event: `event`
 
@@ -74,44 +74,46 @@ Format: `event TASK /at DESCRIPTOR`
 
 Examples:
 
-* `event EXAM /at MPSH tomorrow`
+* `event Ferris wheel /at London Eye tomorrow`
 
-=== Adding a weekly: `weekly`
+=== Adding a recurring: `recurring`
 
-Adds a weekly recurring task to Duke +
-Format: `weekly TASK /on DAY_OF_THE_WEEK`
-
-Examples:
-
-* `weekly Project Meeting /on Monday`
-
-=== Listing all persons : `list`
-
-Shows a list of all the tasks in Duke. +
-Format: `list`
-
-=== Locating tasks by name: `find`
-
-Finds tasks whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case sensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* The entire task is searched e.g `T` will match `T` in the task type: `**[T]**`
-* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Adds a recurring task to Duke +
+Format: `repeat TASK /at DATE /every INTERVAL`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any tasks containing names `Betsy`, `Tim`, or `John`
+* `repeat Shopping at Bangkok /at 28/09/19 /every 7`
 
-=== Deleting a task : `delete`
+=== Adding a destination: `dest`
 
-Deletes the specified task from Duke. +
+Adds a destination location to Duke +
+Format: `dest LOCATION`
+
+Examples:
+
+* `dest Siberia`
+
+=== Updating a destination: `update`
+
+Duke updates a destination location +
+Format: `update INDEX LOCATION`
+
+****
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`update 2 Italy` +
+Marks the 2nd destination to Italy in Duke.
+
+=== Deleting a task/destination : `delete`
+
+Deletes the specified task/destination from Duke. +
 Format: `delete INDEX`
 
 ****
@@ -124,7 +126,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd task in Duke.
+Deletes the 2nd task/destination in Duke.
 
 === Marking a task : `done`
 
@@ -142,6 +144,66 @@ Examples:
 * `list` +
 `done 2` +
 Marks the 2nd task as done in Duke.
+
+=== Listing all tasks/destinations : `list`
+
+Shows a list of all the tasks/destinations in Duke. +
+Format: `list`
+
+=== Locating tasks/destinations by name: `find`
+
+Finds tasks/destinations whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case sensitive. e.g `China` will match `China`
+* The order of the keywords does not matter. e.g. `China Bo` will match `Bo China`
+* The entire task is searched e.g `T` will match `T` in the task type: `**[T]**`
+* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find Singapore` +
+Returns `Singapore` and `Singapore Bishan`
+* `find Mexico Laos Singapore` +
+Returns any tasks containing names `Mexico`, `Laos`, or `Singapore`
+
+=== Listing popular places of a destination: `recommend`
+
+Duke recommend popular places of visit at a given location +
+Format: `recommend LOCATION`
+
+Examples:
+
+* `recommend Toronto`
+
+=== Listing flight information from home location to destination: `flight`
+
+Duke recommend flights from current home location to the given destination +
+Format: `flight LOCATION`
+
+Examples:
+
+* `flight Los Angeles`
+
+=== Create a travel plan for user: `tour`
+
+Duke recommends a travelling plan (short path) based on the user's input of destination +
+Format: `tour`
+
+Examples:
+
+* `tour`
+
+=== Weather forecast of destinations: `weather`
+
+Duke provides weather forecast for all destinations user have added +
+Format: `weather`
+
+Examples:
+
+* `weather`
 
 === Exiting the program : `bye`
 
@@ -161,17 +223,27 @@ There is no need to save manually.
 == Command Summary
 
 * *Todo* `todo TASK` +
-e.g. `todo Catch Fish`
+e.g. `todo Go Malaysia`
 * *Deadline* `deadline TASK /by DESCRIPTOR` +
-e.g. `deadline Individual Project /by 09/09/2019 0900`
+e.g. `deadline Buy plane ticket /by 09/09/2019 0900`
 * *Event* `event TASK /at DESCRIPTOR` +
-e.g. `event EXAM /at MPSH tomorrow`
-* *Weekly* `weekly TASK /on DAY_OF_THE_WEEK` +
-e.g. `weekly Project Meeting /on Monday`
+e.g. `event Ferris wheel /at London Eye tomorrow`
+* *Recurring* `repeat TASK /at DATE /every INTERVAL` +
+e.g. `repeat Shopping at Bangkok /at 28/09/19 /every 7`
+* *Destination* : `dest LOCATION` +
+e.g. `dest Philippines`
+* *Update* : `update INDEX LOCATION` +
+e.g. `update 3 Taiwan`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Done* : `done INDEX` +
 e.g. `done 2`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `find Singapore Korea`
 * *List* : `list`
+* *Recommend* : `recommend LOCATION` +
+e.g. `recommend Germany`
+* *Flight info* : `flight LOCATION` +
+e.g. `flight Iceland`
+* *Tour* : `tour`
+* *Weather* : `weather`
