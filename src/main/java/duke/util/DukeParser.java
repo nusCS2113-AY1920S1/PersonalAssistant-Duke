@@ -15,7 +15,6 @@ import duke.exceptions.DukeInvalidTimeException;
 import duke.exceptions.DukeInvalidTimePeriodException;
 import duke.exceptions.DukeMissingArgumentException;
 import duke.exceptions.DukeMultipleValuesForSameArgumentException;
-import duke.exceptions.DukeScheduleException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
