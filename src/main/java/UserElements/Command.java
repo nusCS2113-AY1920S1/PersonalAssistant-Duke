@@ -1,13 +1,13 @@
 package UserElements;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.EventSubClasses.Concert;
-import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubClasses.ToDo;
+import Events.EventTypes.EventSubclasses.Concert;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
+import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
-import Events.Storage.Storage;
 import Events.Storage.EventList;
-import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
+import Events.Storage.Storage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
