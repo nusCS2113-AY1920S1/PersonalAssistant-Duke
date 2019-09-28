@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.exception.DukeResetException;
 
 import java.io.InputStream;
 import java.io.PrintStream;

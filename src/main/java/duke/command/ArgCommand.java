@@ -7,8 +7,8 @@ import duke.exception.DukeException;
  * Abstract class for commands that involve an argument.
  */
 public abstract class ArgCommand extends Command {
-    String arg; //argument supplied to the command
-    String emptyArgMsg; //error message if the argument is empty
+    protected String arg; //argument supplied to the command
+    protected String emptyArgMsg; //error message if the argument is empty
 
     /**
      * Parse the input string entered by the user.

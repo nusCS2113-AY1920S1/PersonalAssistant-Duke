@@ -10,7 +10,7 @@ public class Message {
     public static final String MESSAGE_LIST_EMPTY = "You have currently no tasks in your list.";
     public static final String MESSAGE_LIST_NON_EMPTY = "Here are the task(s) in your list:";
 
-    static final String MESSAGE_WELCOME_GREET = "Hello! I'm Duke.";
-    static final String MESSAGE_WELCOME_QUESTION = "What can I do for you?";
-    static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!";
+    public static final String MESSAGE_WELCOME_GREET = "Hello! I'm Duke.";
+    public static final String MESSAGE_WELCOME_QUESTION = "What can I do for you?";
+    public static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!";
 }

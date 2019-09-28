@@ -1,3 +1,4 @@
+import duke.command.Command;
 import duke.command.NewReminderCommand;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @author Pang Jia Jun Vernon
  */
-public class NewReminderCommandTest {
+public class NewReminderCommandTest extends CommandTest {
     /**
      * Tests parse() with valid input. Except test to be successful.
      *
@@ -18,6 +19,7 @@ public class NewReminderCommandTest {
     @Test
     public void parseInputs_validInputs_success() throws DukeException {
         new NewReminderCommand().parse("remind 1 /after 18/09/2019 0200");
+        //TODO: assert
     }
 
     /**

@@ -14,10 +14,9 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class CommandTest {
-
-    static DukeContext ctx;
-    static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
-    static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
+    protected static DukeContext ctx;
+    protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
+    protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
 
     /**
      * Create data directory if necessary and use a test task file to create test DukeContext, with output directed to
@@ -26,11 +25,10 @@ public abstract class CommandTest {
     @BeforeAll
     public static void setupCtx() {
         File dataDir = new File("data");
-        if (!dataDir.exists()) {
-            if (!dataDir.mkdir()) {
-                fail("Could not create data directory!");
-            }
+        if (!dataDir.exists() && !dataDir.mkdir()) {
+            fail("Could not create data directory!");
         }
+
         Ui ui = new Ui(System.in, testPrint);
         try {
             ctx = new DukeContext(new Storage("data" + File.separator + "test.tsv"), ui);

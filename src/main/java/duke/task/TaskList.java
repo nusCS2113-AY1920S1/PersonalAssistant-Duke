@@ -268,12 +268,10 @@ public class TaskList {
         for (Task currTask : taskArrList) {
             Reminder currReminder = currTask.getReminder();
 
-            if (currReminder != null) {
-                if (currReminder.getDateTime().isBefore(LocalDateTime.now())) {
-                    reminderCount = reminderCount + 1;
-                    reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
-                            .append(currTask.toString());
-                }
+            if (currReminder != null && currReminder.getDateTime().isBefore(LocalDateTime.now())) {
+                reminderCount = reminderCount + 1;
+                reminderListBuilder.append(System.lineSeparator()).append(reminderCount).append(".")
+                        .append(currTask.toString());
             }
         }
 
