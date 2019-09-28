@@ -10,12 +10,20 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to edit the properties of an <code>Order</code> object.
+ */
 public class EditOrderCommand extends UndoableCommand {
 
     private Map<String, List<String>> params;
     private Order order;
     private Order unmodifiedOrder = new Order();
 
+    /**
+     * Class constructor.
+     *
+     * @param params the parameters specifying details of the order.
+     */
     public EditOrderCommand(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("i") == !params.containsKey("id"))) {
             throw new DukeException("Please specify order ID or index");

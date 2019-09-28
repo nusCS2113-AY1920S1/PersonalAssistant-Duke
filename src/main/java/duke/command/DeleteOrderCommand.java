@@ -10,12 +10,20 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
+ */
 public class DeleteOrderCommand extends UndoableCommand {
 
     private Order order;
     private int index;
     private Map<String, List<String>> params;
 
+    /**
+     * Class constructor.
+     *
+     * @param params the parameters specifying details of the order.
+     */
     public DeleteOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
     }

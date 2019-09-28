@@ -10,11 +10,19 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
+ */
 public class AddOrderCommand extends UndoableCommand {
     private Map<String, List<String>> params;
     private Order order;
 
-    public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
+    /**
+     * Class constructor.
+     *
+     * @param params the parameters specifying details of the order.
+     */
+    public AddOrderCommand(Map<String, List<String>> params) {
         this.params = params;
     }
 
