@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class NewTimedTaskCommand extends MultiArgCommand {
 
-    LocalDateTime taskDateTime;
+    protected LocalDateTime taskDateTime;
 
     /**
      * Split the input string into the elements of the argv array using MultiArgCommand's parse, then load the task

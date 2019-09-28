@@ -33,7 +33,7 @@ public abstract class TimedTask extends Task implements Comparable<TimedTask> {
         return super.toData() + "\t" + time.format(PAT_DATETIME);
     }
 
-    String getTime() throws DateTimeException {
+    protected String getTime() throws DateTimeException {
         return time.format(PAT_DATETIME_DISPLAY);
     }
 

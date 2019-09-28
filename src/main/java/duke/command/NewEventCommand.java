@@ -12,8 +12,7 @@ import java.time.format.DateTimeParseException;
  * Class responsible for executing Command to create a new Event task.
  */
 public class NewEventCommand extends NewTimedTaskCommand {
-
-    LocalDateTime endDatetime;
+    private LocalDateTime endDatetime;
 
     /**
      * Creates a new Command object that can be executed to create a new Event task.

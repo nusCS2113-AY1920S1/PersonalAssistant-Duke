@@ -5,7 +5,6 @@ import duke.task.Reminder;
 import duke.task.TaskList;
 import duke.task.TimedTask;
 import duke.task.ToDoTask;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     private TaskList taskList;
-
-
 
     /**
      * Adds tasks to an empty TaskList. This is executed before each JUnit test.
