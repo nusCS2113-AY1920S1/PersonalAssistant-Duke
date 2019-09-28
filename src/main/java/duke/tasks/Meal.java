@@ -29,7 +29,7 @@ public class Meal {
             String[] splitString = details.split("/date", 2);
             try {
                 Date day;
-                day = dateparser.parse(splitString[1]);
+                day = dateparser.parse(splitString[1].trim());
                 this.date = dateparser.format(day);
             } catch (Exception e) {
                 //todo something here

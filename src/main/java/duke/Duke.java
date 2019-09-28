@@ -6,6 +6,8 @@ import duke.storage.Storage;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;
+import duke.user.User;
+import duke.user.gender;
 
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ public class Duke {
     private mealList tasks;
     private Ui ui;
     private Scanner in = new Scanner(System.in);
+    private User user;
 
     /**
      * This is a constructor of Duke to start the program.
@@ -26,11 +29,17 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
+        user = new User();
         try {
             tasks = new mealList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new mealList();
+        }
+        try {
+            user = storage.loadUser();
+        } catch (DukeException e) {
+            ui.showUserLoadingError();
         }
     }
 
@@ -38,8 +47,22 @@ public class Duke {
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
     public void run() {
-        ui.showWelcome();
         boolean isExit = false;
+        if (user.getIsSetup() == false) {
+            ui.showWelcomeNew();
+        } else {
+            ui.showWelcomeBack(user);
+        }
+        while (user.getIsSetup() == false) {
+            try {
+                user.setup();
+                ui.showUserSetupDone(user);
+                storage.saveUser(user);
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showWelcome();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(in);

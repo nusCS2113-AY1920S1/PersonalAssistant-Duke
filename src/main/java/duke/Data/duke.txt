@@ -1,2 +1,3 @@
-B|0|borgar|date|27/09/2019|sodium|100|calcium|100|calories|100
-B|0|borgar|date|30/09/2019|sodium|100|calcium|100|calories|100
+B|0|kaya |date|28/09/2019|calorie|300
+D|0|kaya toast  |date|28/09/2019|calcium|3000|calorie|300
+D|0|kaya toast  |date|29/09/2019|calcium|3000|calorie|300

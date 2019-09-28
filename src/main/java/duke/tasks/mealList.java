@@ -39,6 +39,8 @@ public class mealList {
         this.mealTracker.get(currentDate).remove(index - 1);
     }
 
+    public void setMeals (String inputDate) { mealTracker.put(inputDate, new ArrayList<Meal>()); }
+
     public ArrayList<Meal> getMeals(String inputDate) {
         return mealTracker.get(inputDate);
     }
@@ -46,4 +48,6 @@ public class mealList {
     public HashMap<String, ArrayList<Meal>> getMealTracker() {
         return mealTracker;
     }
+
+    public boolean checkDate(String date) { return mealTracker.containsKey(date); }
 }

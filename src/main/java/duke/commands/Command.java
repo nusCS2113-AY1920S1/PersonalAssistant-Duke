@@ -2,6 +2,7 @@ package duke.commands;
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.exceptions.DukeException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ public abstract class Command {
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
-    public abstract void execute(mealList tasks, Ui ui, Storage storage);
+    public abstract void execute(mealList tasks, Ui ui, Storage storage) throws DukeException;
 
     public boolean isExit() {
         return false;

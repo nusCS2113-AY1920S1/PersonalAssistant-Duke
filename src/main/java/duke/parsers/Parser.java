@@ -40,21 +40,28 @@ public class Parser {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
-        String[] splitString;
+        String name;
+        String info;
         int index;
         switch (command) {
             case "bye":
                 return new ExitCommand();
             case "breakfast":
-                splitString = description.split(" ", 2);
-                return new AddCommand(new Breakfast(splitString[0], splitString[1]));
+                name = description.split("/", 2)[0];
+                info = "/" + description.split("/", 2)[1];
+                return new AddCommand(new Breakfast(name, info));
             case "lunch":
-                splitString = description.split(" ", 2);
-                return new AddCommand(new Lunch(splitString[0], splitString[1]));
+                name = description.split("/", 2)[0];
+                info = "/" + description.split("/", 2)[1];
+                return new AddCommand(new Lunch(name, info));
             case "dinner":
-                splitString = description.split(" ", 2);
-                return new AddCommand(new Dinner(splitString[0], splitString[1]));
+                name = description.split("/", 2)[0];
+                info = "/" + description.split("/", 2)[1];
+                return new AddCommand(new Dinner(name, info));
             case "list":
+                if (splitCommand.length > 1) {
+                    return new ListCommand(splitCommand[1]);
+                }
                 return new ListCommand();
             case "done":
                 index = Integer.parseInt(description);
