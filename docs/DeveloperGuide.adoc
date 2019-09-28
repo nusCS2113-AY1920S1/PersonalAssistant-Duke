@@ -55,3 +55,16 @@ This will generate all resources required by the application and tests.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* has a need to manage a significant number of `patients`
+* prefer desktop apps over other types
+* prefers typing over mouse input
+* can type fast
+* is extremely comfortable with the usage of CLI apps
+
+*Value proposition*: manage `patients` faster than a typical mouse/GUI driven app
