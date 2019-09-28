@@ -8,12 +8,14 @@ import java.util.Objects;
 public class Task {
 
     /**
-     * Task is the string value of the task name.
-     * Done is the active status of the task.
+     * task is the string value of the task name.
+     * done is the active status of the task.
+     * dateTime is the date and time information if the task requires.
      */
     private String task;
     private Boolean done;
     protected LocalDateTime dateTime;
+
 
     /**
      * Constructor to Task class.
