@@ -1,12 +1,12 @@
-package duke.command;
+package oof.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
+import oof.Storage;
+import oof.TaskList;
+import oof.Ui;
+import oof.exception.OofException;
+import oof.task.Deadline;
+import oof.task.Event;
+import oof.task.Task;
 
 /**
  * Represents a Command to snooze a Task.
@@ -38,7 +38,7 @@ public class SnoozeCommand extends Command {
         try {
             int num = Integer.parseInt(index) - 1;
             if (num >= arr.getSize() || num < 0) {
-                throw new DukeException("\u2639 OOPS!!! Invalid number!"); //u2639 is a sad face emoticon
+                throw new OofException("\u2639 OOPS!!! Invalid number!"); //u2639 is a sad face emoticon
             } else if (storage.taskHasTimestamp(num).equals("deadline")) {
                 Task task = arr.getTask(num);
                 String description = task.getLine();
@@ -68,7 +68,7 @@ public class SnoozeCommand extends Command {
                     ui.snoozeMessage(newTask);
                 }
             } else {
-                throw new DukeException("OOPS!!! Task does not have a timestamp!");
+                throw new OofException("OOPS!!! Task does not have a timestamp!");
             }
         } catch (Exception e) {
             System.out.println("OOPS!!! Invalid number!");
@@ -76,7 +76,7 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      * @return false.
      */
     public boolean isExit() {

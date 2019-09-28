@@ -1,4 +1,4 @@
-package duke.task;
+package oof.task;
 
 /**
  * An Event object is a type of Task.

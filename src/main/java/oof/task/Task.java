@@ -1,4 +1,4 @@
-package duke.task;
+package oof.task;
 
 /**
  * Abstract parent class of all subclasses of Task.

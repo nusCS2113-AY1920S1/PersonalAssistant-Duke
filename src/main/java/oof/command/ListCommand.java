@@ -1,8 +1,8 @@
-package duke.command;
+package oof.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import oof.Storage;
+import oof.TaskList;
+import oof.Ui;
 
 /**
  * Represents a Command to list all Tasks in the TaskList.
@@ -34,7 +34,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return false.
      */

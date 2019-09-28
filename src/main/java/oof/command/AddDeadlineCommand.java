@@ -1,11 +1,11 @@
-package duke.command;
+package oof.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Task;
+import oof.TaskList;
+import oof.Ui;
+import oof.Storage;
+import oof.exception.OofException;
+import oof.task.Deadline;
+import oof.task.Task;
 
 /**
  * Represents a Command that appends a new Deadline
@@ -37,17 +37,17 @@ public class AddDeadlineCommand extends Command {
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to harddisk.
-     * @throws DukeException Catches invalid commands given by user.
+     * @throws OofException Catches invalid commands given by user.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split("/by");
         if (lineSplit.length == 1) {
-            throw new DukeException("OOPS!!! The description of a deadline needs a due date.");
+            throw new OofException("OOPS!!! The description of a deadline needs a due date.");
         }
         String description = lineSplit[0].trim();
         String date = lineSplit[1].trim();
         if (date.length() == 0) {
-            throw new DukeException("OOPS!!! The datetime of a deadline cannot be empty.");
+            throw new OofException("OOPS!!! The datetime of a deadline cannot be empty.");
         } else {
             date = parseTimeStamp(date);
             if (!date.equals("failed")) {
@@ -60,7 +60,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for OofException to terminate.
      *
      * @return false.
      */

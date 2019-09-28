@@ -1,9 +1,9 @@
-package duke.command;
+package oof.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.task.Deadline;
+import oof.Storage;
+import oof.TaskList;
+import oof.Ui;
+import oof.task.Deadline;
 
 public class ScheduleCommand extends Command {
     private String line;

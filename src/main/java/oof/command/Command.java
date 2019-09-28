@@ -1,9 +1,9 @@
-package duke.command;
+package oof.command;
 
-import duke.exception.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import oof.exception.OofException;
+import oof.Storage;
+import oof.TaskList;
+import oof.Ui;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -26,9 +26,9 @@ public abstract class Command {
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
-     * @throws DukeException Catches invalid commands given by user.
+     * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed
@@ -56,7 +56,7 @@ public abstract class Command {
     }
 
     /**
-     * Checks if ExitCommand is called for Duke to terminate.
+     * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return true if ExitCommand is called, false otherwise.
      */

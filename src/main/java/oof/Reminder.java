@@ -1,7 +1,7 @@
-package duke;
+package oof;
 
 
-import duke.task.Task;
+import oof.task.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
