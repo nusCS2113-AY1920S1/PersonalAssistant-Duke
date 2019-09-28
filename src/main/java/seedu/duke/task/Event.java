@@ -32,8 +32,8 @@ public class Event extends Task {
      * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
      * cannot be changed later. Supports adding a task to be done after the first main task.
      *
-     * @param name name of the Event
-     * @param time time of the Event that is going to happen
+     * @param name    name of the Event
+     * @param time    time of the Event that is going to happen
      * @param doAfter task to be done after the main task
      */
     public Event(String name, Date time, String doAfter) {

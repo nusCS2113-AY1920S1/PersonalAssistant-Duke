@@ -117,7 +117,7 @@ public class TaskList extends ArrayList<Task> {
         if (index < 0 || index >= this.size()) {
             throw new Parser.UserInputException("Invalid index");
         }
-        Task task =  this.get(index);
+        Task task = this.get(index);
         String msg = "";
         if (task.getTaskType() != Task.TaskType.ToDo) {
             task.snooze();
