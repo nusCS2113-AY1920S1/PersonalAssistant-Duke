@@ -25,11 +25,15 @@ public class TaskTest {
     }
 
     @Test
-    public void testgetByAt()throws ParseException {
+    public void testGetByAtFromToNeeds()throws ParseException {
 
         SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
         Date startDate = simpleDateFormat.parse("3/2/2019 1300");
         Date endDate = simpleDateFormat.parse("6/2/2019 1300");
+        String from = simpleDateFormat.format(startDate);
+        String to = simpleDateFormat.format(endDate);
+        String needs = "2 hours";
+
         assertEquals("3/2/2019 1300",
 
                 new Deadline("do assignments", startDate).getBy());
@@ -42,8 +46,15 @@ public class TaskTest {
 
                 new Events("marquee", startDate,endDate).getStartAt());
 
+        assertEquals("3/2/2019 1300",
+
+                new Periods("zouk", from,to).getFrom());
+
+        assertEquals("6/2/2019 1300",
+
+                new Periods("zouk", from, to).getTo());
+
+        assertEquals("2 hours",
+                new FixedDuration("zoukout", needs).getNeeds());
     }
-
-
-
 }
