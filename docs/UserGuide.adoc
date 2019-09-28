@@ -2,6 +2,8 @@
 
 App-Specific Terms:
 
+* This app manages multiple Patients. Each Patient has one or more Impressions (diagnoses), and each Impression is supported by Evidence and treated by Treatments. Evidence consists of Observations and Results. Treatments consist of Plans, Investigations and Medicine. 
+* The user navigates between different contexts. Each context is associated with a particular set of data to display - a particular display screen.
 * `priority` refers to how critical a Treatment or Evidence is. 0 means not urgent, excluding the item from the criticality system, 1 means critical. The other values are not defined specifically but the greater they are, the lower the priority. These lower priority levels are meant to remain flexible for the user to provide his desired level of fine-graining and task management.
 ** `priority` 1 generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` 1 items will be displayed prominently to remind the user to respond to it when treating the patient. 
 * `status` refers to the stage of completion of a Treatment. The textual descriptions for each stage of completion are stored in the `statusArr` (and referred to as `<status name>`). 
@@ -10,7 +12,7 @@ App-Specific Terms:
 
 Comments/Notes:
 
-* Since there is a lot of fairly complex data to manage, I think the input system will have to be stateful - different commands mean different things based on the current context. 
+* Since there is a lot of fairly complex data to manage, the input system is stateful - different commands mean different things based on the current context. 
 * This would require some tracking and interfacing between the UI and the Logic (e.g. the internal logic needs to know which patient is being displayed as patient #1). This can be done by creating an array of integers mapping the on-screen indices to the internal ArrayList indices.
 * If user input is ambiguous, we can show a window of possible options to disambiguate between, or give the user the option to edit the text in a buffer. The disambiguation window and code can be reused - create an abstract DukeObject class for our data items.
 
@@ -47,7 +49,7 @@ Show several (10?) numbered panels displaying a summary of the critical details 
 
 Format: `help`
 
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
@@ -111,6 +113,22 @@ Optional switches:
 
 The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch goes to the Patient's page after it is created.
 
+#### `undo` - Undo the previous command [[home-undo]]
+
+Format: `undo <number of commands>`
+
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
+
+You can undo up to the last 10? commands. Only commands that affect the state of the system count against this limit.
+
+#### `redo` - Redo a command that has been undone [[home-redo]]
+
+Format: `redo <number of commands>`
+
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
+
+After undoing some commands, sending any command other than `undo` or `redo` will clear the redo stack. The undone commands cannot be redone from that point onwards.
+
 ### Patient 
 
 Show a detailed view of a Patient, displaying in separate panels:
@@ -120,13 +138,13 @@ Show a detailed view of a Patient, displaying in separate panels:
 * A list of Investigations to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
 * Each Impression, with its name and an excerpt of its description
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 #### `back` - Go back to previous context [[patient-back]]
 
 Format: `back`
 
-_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+_Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will go back to the context that the user came from. A context stack will be maintained.
 
@@ -134,7 +152,7 @@ This will go back to the context that the user came from. A context stack will b
 
 Format: `up`
 
-_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+_Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will go to the context hierarchically above the user's context. In this case, it will go back to <<Home>>. For an <<Impression>>, it would go back to the <<Patient>> associated with it.
 
@@ -176,13 +194,13 @@ Format: `report`
 
 Report will be generated in the format required by the hospital's internal systems. In v2.0, the hospital's required format can be specified.
 
-_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+_Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
-#### `round` - Ward round mode [v2.0]
+#### `round` - Ward round mode [v2.0] 
 
 Format: `round`
 
-_Available in:_ <<Patient>>, <<Impression>>, <<Result>>, <<Observation>>, <<Investigation>>, <<Medicine>>, <<Plan>>
+_Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>> [v2.0]
 
 An input mode designed for maximum speed input. Only the first word of the input, which should be a sequence of control characters, will determine where the input is directed. Everything else will be treated as input. 
 
@@ -195,7 +213,7 @@ Show a detailed view of an Impression, displaying in separate panels:
 * A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
 * A small panel with the patient's allergies
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 #### `new` - Add a new Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item to this Impression
 
@@ -248,17 +266,19 @@ a|
 
 `<status name>` is a case-insensitive substring of the `statusArr` entry of that particular object, while `<status idx>` is its numerical representation.
 
-#### `open` - Open a Treatment (Investigation, Medicine or Plan) or Evidence (Observation or Result) item listed on this page
+#### `open` - Open a Treatment or Evidence item listed on this page
 
 Format: `open ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_)`
+
+This will open a new context for the specific Treatment or Evidence identified.
 
 #### `edit` - Edit one of the details of the Impression
 
 Format: `edit [-a[ppend]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
 
-If input without `_type_ _string_or_idx_` unctionally the same as <<patient-edit,`edit` for Patients>>, but with different possible switches.
+If input without `_type_ _string_or_idx_`, it is functionally the same as <<patient-edit,`edit` for Patients>>, but with different possible switches.
 
-Switches and corresponding new value format:
+Switches and corresponding new value formats:
 
 * `-n[ame] "<name>"`
 * `-d[escription] "<description>"`
@@ -288,3 +308,41 @@ _idx_ in this scope will refer to an index in the Treatment list. The result sum
 Format: `find ["<search string>"] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>"|<status idx>)]`
 
 Display a list of all Treatments and Evidence matching the criteria specified in the search.
+
+### Treatment and Evidence
+
+All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full. This section will list the commands that they have in common. Each individual Treatment and Evidence context is assumed to have all these commands, and all the commands in this inheritance list.
+
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+
+#### `edit` - Edit one of the details of the Treatment or Evidence
+
+Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
+
+The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new` in the Impression context.
+
+#### `priority` - Mark the Treatment or Evidence as a certain priority level
+
+Format: `priority <new priority>`
+
+`<new priority>` must be a non-negative integer.
+
+### Treatment
+
+Contains everything in <<Treatment and Evidence>>.
+
+#### `status` - Update the completion status of a Treatment
+
+Format: `status [("<status name>"|<status idx>)]`
+
+If no `<status name>` or `<status idx>` is specified, `status` will be incremented by 1, unless it is at the maximum value.
+
+### Investigation
+
+Contains everything in <<Treatment and Evidence>>.
+
+#### `result` - Convert the Investigation into a Result after completion
+
+Format: `result -sum[mary] "<result summary>"`
+
+The result summary will be appended to the Investigation summary.
