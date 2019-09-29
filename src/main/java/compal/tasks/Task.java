@@ -16,16 +16,11 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Task implements Serializable {
 
-    public enum Priority {
-        high, medium, low;
-    }
-
-    //***Class Properties/Variables***--------------------------------------------------------------------------------->
-
-    protected String symbol;
-    private String description;
     public boolean isDone;
 
+    //***Class Properties/Variables***--------------------------------------------------------------------------------->
+    protected String symbol;
+    private String description;
     private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
     private Date time;
     private Integer durationHour = 0;
@@ -33,13 +28,6 @@ public abstract class Task implements Serializable {
     private boolean hasReminder;
     private Priority priority;
     private long priorityScore;
-    //----------------------->
-
-
-    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
-
     /**
      * Constructs Task object.
      *
@@ -55,6 +43,10 @@ public abstract class Task implements Serializable {
     //----------------------->
 
 
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------->
+
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
      *
@@ -62,6 +54,16 @@ public abstract class Task implements Serializable {
      */
     public Priority getPriority() {
         return priority;
+    }
+    //----------------------->
+
+    /**
+     * Sets priority of task as HIGH, MEDIUM or LOW.
+     *
+     * @param priority Priority of task.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**
@@ -112,15 +114,6 @@ public abstract class Task implements Serializable {
         calendar.set(Calendar.MINUTE, 59);
         this.date = calendar.getTime();*/
         return this.date;
-    }
-
-    /**
-     * Sets priority of task as HIGH, MEDIUM or LOW.
-     *
-     * @param priority Priority of task.
-     */
-    public void setPriority(Priority priority) {
-        this.priority = priority;
     }
 
     /**
@@ -195,7 +188,6 @@ public abstract class Task implements Serializable {
         return hasReminder;
     }
 
-
     /**
      * Gets time of task in date format.
      *
@@ -266,7 +258,6 @@ public abstract class Task implements Serializable {
     public void setHasReminder() {
         this.hasReminder = true;
     }
-    //----------------------->
 
     /**
      * Returns the task as a formatted string.
@@ -276,25 +267,45 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        if (getDurationHour() != null && getDurationMinute() != null) {
+        int strCase = 0;
+        if (getTime() != null && (getDurationHour() != 0 || getDurationMinute() != 0)) {
+            strCase = 1;
+        } else if (getDurationHour() != 0 && getDurationMinute() != 0) {
+            strCase = 2;
+        } else if (getTime() == null) {
+            strCase = 3;
+        }
+
+        switch (strCase) {
+        case 1:
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nTime: " + getStringTime()
+                    + " \nHour: " + getDurationHour() + " \nMin: "
+                    + getDurationMinute() + " \nPriority: " + getPriority()
+                    + "\n***************";
+        case 2:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nHour: " + getDurationHour() + " \nMin: "
                     + getDurationMinute() + " \nPriority: " + getPriority()
                     + "\n***************";
-        }
-        if (getTime() == null) {
+        case 3:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nPriority: " + getPriority()
                     + "\n***************";
+        default:
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nTime: " + getStringTime()
+                    + " \nPriority: " + getPriority()
+                    + "\n***************";
         }
-        return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " \nDate: " + getStringDate() + " \nTime: " + getStringTime() + " \nPriority: " + getPriority()
-                + "\n***************";
-    }
 
+
+    }
+    //----------------------->
 
     /**
      * Gets all the details of the task as a string, for saving into the text file.
+     *
      * @return saveString
      * @author jaedonkey
      */
@@ -323,6 +334,7 @@ public abstract class Task implements Serializable {
     /**
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
+     *
      * @author jaedonkey
      */
     public void calculateAndSetPriorityScore() {
@@ -348,5 +360,9 @@ public abstract class Task implements Serializable {
         score += diff;
         priorityScore = score;
 
+    }
+
+    public enum Priority {
+        high, medium, low
     }
 }
