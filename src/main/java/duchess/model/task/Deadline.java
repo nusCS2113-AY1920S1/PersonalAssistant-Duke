@@ -59,26 +59,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public List<Task> getClashables() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public boolean clashesWith(Task task) {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
     }
 
     @Override
-    public TimeFrame getTimeFrame(Date startDate, Date endDate) {
-        if (deadline.compareTo(startDate) >= 0 && deadline.compareTo(endDate) <= 0) {
-            return new TimeFrame(deadline, String.format("[D]%s %s", super.toString(), this.description));
-        }
-        return null;
+    public TimeFrame getTimeFrame() {
+        return TimeFrame.ofInstantaneousTask(this.deadline);
     }
-
 }

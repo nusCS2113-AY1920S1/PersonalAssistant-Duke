@@ -40,8 +40,6 @@ public class TaskList implements Serializable {
      */
     public boolean isClashing(Task newTask) {
         return this.getTasks().stream()
-                .map(Task::getClashables)
-                .flatMap(Collection::stream)
                 .anyMatch(task -> task.clashesWith(newTask));
     }
 }

@@ -1,63 +1,98 @@
 package duchess.model;
 
-import java.text.SimpleDateFormat;
+import duchess.logic.commands.exceptions.DukeException;
+
 import java.util.Date;
 
 public class TimeFrame implements Comparable<TimeFrame> {
-    private Date time;
-    private String task;
-    private boolean isOngoing;
+    /**
+     * Start and end points of the timeframe.
+     */
+    private Date start;
+    private Date end;
 
     /**
-     * Constructor for schedule.
-     *
-     * @param time     time to be shown in timetable
-     * @param toString task details
+     * Marks timeframe as indefinite, i.e. things that
+     * don't have a definite start or end time.
      */
-    public TimeFrame(Date time, String toString) {
-        this.time = time;
-        this.task = toString;
-        this.isOngoing = false;
+    private boolean isIndefinite;
+
+    /**
+     * Marks time frame as instantaneous.
+     */
+    private boolean isInstantaneous;
+
+    /**
+     * Creates a TimeFrame that represents an interval in time.
+     *
+     * @param start Starting time
+     * @param end   Ending time
+     */
+    public TimeFrame(Date start, Date end) {
+        this.start = start;
+        this.end = end;
+        this.isIndefinite = false;
+        this.isInstantaneous = false;
+    }
+
+    private TimeFrame(Date time) {
+        this.start = time;
+        this.end = time;
+        this.isIndefinite = false;
+        this.isInstantaneous = true;
+    }
+
+    private TimeFrame() {
+        this.isIndefinite = true;
+        this.isInstantaneous = false;
+    }
+
+    public static TimeFrame ofInstantaneousTask(Date time) {
+        return new TimeFrame(time);
+    }
+
+    public static TimeFrame ofTimelessTask() {
+        return new TimeFrame();
     }
 
     /**
-     * Constructor for schedule. Tracks ongoing events.
+     * Returns true if this TimeFrame lies within the other TimeFrame.
      *
-     * @param time     time to be shown in timetable
-     * @param toString task details
-     * @param ongoing  event ongoing
+     * @param that the other TimeFrame
      */
-    public TimeFrame(Date time, String toString, boolean ongoing) {
-        this.time = time;
-        this.task = toString;
-        this.isOngoing = ongoing;
-    }
+    public boolean fallsWithin(TimeFrame that) {
+        if (this.isIndefinite || that.isIndefinite) {
+            return false;
+        }
 
-    public Date getStart() {
-        return time;
+        return !(this.end.before(that.start) || that.end.before(this.start));
     }
 
     /**
-     * Changes Date to String.
+     * Returns true if this TimeFrame clashes with the other TimeFrame.
      *
-     * @return string containing time of task
+     * @param that the other TimeFrame
      */
-    public String getStartString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
-        formatter.setLenient(false);
-        return formatter.format(time);
-    }
+    public boolean clashesWith(TimeFrame that) {
+        if (this.isInstantaneous || that.isInstantaneous) {
+            return false;
+        }
 
-    public String getTask() {
-        return task;
-    }
-
-    public boolean getOngoing() {
-        return isOngoing;
+        return this.fallsWithin(that);
     }
 
     @Override
-    public int compareTo(TimeFrame timeFrame) {
-        return time.compareTo(timeFrame.time);
+    public int compareTo(TimeFrame that) {
+        if (this.isIndefinite && that.isIndefinite) {
+            return 0;
+        } else if (this.isIndefinite) {
+            return -1;
+        } else if (that.isIndefinite) {
+            return 1;
+        } else if (!this.start.equals(that.start)) {
+            return this.start.compareTo(that.start);
+        } else {
+            return this.end.compareTo(that.end);
+        }
     }
 }

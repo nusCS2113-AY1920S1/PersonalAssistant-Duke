@@ -4,7 +4,6 @@ import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Todo extends Task {
@@ -34,8 +33,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public TimeFrame getTimeFrame(Date startDate, Date endDate) {
-        return null;
+    public TimeFrame getTimeFrame() {
+        return TimeFrame.ofTimelessTask();
     }
 
     @Override
@@ -46,15 +45,5 @@ public class Todo extends Task {
     @Override
     public List<Task> getReminders() {
         return new ArrayList<>();
-    }
-
-    @Override
-    public List<Task> getClashables() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public boolean clashesWith(Task task) {
-        return false;
     }
 }

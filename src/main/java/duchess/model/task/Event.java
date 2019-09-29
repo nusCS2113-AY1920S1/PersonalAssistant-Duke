@@ -47,18 +47,6 @@ public class Event extends Task {
         }
     }
 
-    /**
-     * Checks if the task being added clashes with this instance of event.
-     *
-     * @param task the task to be added
-     * @return true if the event clashes, false otherwise
-     */
-    @Override
-    public boolean clashesWith(Task task) {
-        return (startClashes((Event) task) || endClashes((Event) task)
-                || entireEventClashes((Event) task) || isStartOrEndEqual((Event) task));
-    }
-
     private boolean startClashes(Event event) {
         return event.start.after(this.start) && event.start.before(this.end);
     }
@@ -99,26 +87,13 @@ public class Event extends Task {
     }
 
     @Override
-    public List<Task> getClashables() {
-        List<Task> list = new ArrayList<>();
-        list.add(this);
-        return list;
-    }
-
-    @Override
     public String toString() {
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                 formatter.format(this.start), formatter.format(this.end));
     }
 
     @Override
-    public TimeFrame getTimeFrame(Date startDate, Date endDate) {
-        if (start.compareTo(startDate) < 0 && end.compareTo(startDate) >= 0) { // starts before ends after that date
-            return new TimeFrame(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
-                    formatter.format(this.start), formatter.format(this.end)),true);
-        } else if (start.compareTo(startDate) >= 0 && start.compareTo(endDate) <= 0) { // starts during date
-            return new TimeFrame(start, String.format("[E]%s %s", super.toString(), this.description));
-        }
-        return null;
+    public TimeFrame getTimeFrame() {
+        return new TimeFrame(this.start, this.end);
     }
 }

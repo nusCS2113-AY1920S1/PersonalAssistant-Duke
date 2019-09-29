@@ -4,10 +4,9 @@ import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-public abstract class Task implements Serializable {
+public abstract class Task implements Serializable, Comparable<Task> {
     private boolean isDone;
 
     public Task() {
@@ -18,20 +17,25 @@ public abstract class Task implements Serializable {
         this.isDone = true;
     }
 
-    public abstract boolean containsKeyword(String keyword);
-
     @Override
     public String toString() {
         return "[" + (this.isDone ? "✓" : "✘") + "]";
     }
 
-    public abstract TimeFrame getTimeFrame(Date startDate, Date endDate);
+    @Override
+    public int compareTo(Task that) {
+        return this.getTimeFrame().compareTo(that.getTimeFrame());
+    }
+
+    public final boolean clashesWith(Task that) {
+        return this.getTimeFrame().clashesWith(that.getTimeFrame());
+    }
+
+    public abstract TimeFrame getTimeFrame();
 
     public abstract void snooze() throws DukeException;
 
     public abstract List<Task> getReminders();
 
-    public abstract List<Task> getClashables();
-
-    public abstract boolean clashesWith(Task task);
+    public abstract boolean containsKeyword(String keyword);
 }

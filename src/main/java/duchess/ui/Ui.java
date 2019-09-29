@@ -1,6 +1,5 @@
 package duchess.ui;
 
-import duchess.model.TimeFrame;
 import duchess.model.task.Task;
 
 import java.util.List;
@@ -91,59 +90,19 @@ public class Ui {
         showTasks(tasks);
     }
 
-    private String taskPadding(String task) { // total 58 spaces
-        if (task.length() > 30) {
-            task = task.substring(0, 30);
-            task += "...";
-        }
-        int taskLength = task.length();
-        StringBuilder taskBuilder = new StringBuilder();
-        for (int i = 0; i < Math.ceil((39 - taskLength) / (double) 2); i++) {
-            taskBuilder.append(" ");
-        }
-        taskBuilder.append(task);
-        for (int i = 0; i < Math.floorDiv(39 - taskLength, 2); i++) {
-            taskBuilder.append(" ");
-        }
-        taskBuilder.append("|");
-        return taskBuilder.toString();
-    }
-
     /**
      * Displays schedule of a single day to user.
      * Informs user if there are ongoing events.
      *
-     * @param schedules Schedule list with start and task details
-     * @param date      Date of choice
+     * @param tasks List of tasks to show
+     * @param date  Date of choice
      */
-    public void showScheduleResult(List<TimeFrame> schedules, String date) {
-        boolean hasOngoing = false;
-        printIndented("Here is your schedule:");
-        printScheduleRow("|\t\t\t" + date + "\t\t\t|"); // 4 tab + 2 spaces including date
-        printScheduleRow("|\tTime\t|\t\t   Task   \t\t|");
-        for (TimeFrame s : schedules) {
-            if (!s.getOngoing()) {
-                printScheduleRow("|\t" + s.getStartString() + "\t|" + taskPadding(s.getTask()));
-            } else {
-                hasOngoing = true;
-            }
-        }
-        printIndented("-----------------------------------------------------");
-        if (hasOngoing) {
-            printIndented("Here are your ongoing tasks:");
-        }
+    public void showScheduleResult(List<Task> tasks, String date) {
+        printIndented("Here is your schedule for " + date + ":");
         int counter = 1;
-        for (TimeFrame s : schedules) {
-            if (s.getOngoing()) {
-                printIndented(counter + ". " + s.getTask());
-                counter++;
-            }
+        for (Task t : tasks) {
+            printIndented(counter++ + ". " + t.toString());
         }
-    }
-
-    private void printScheduleRow(String string) {
-        printIndented("-----------------------------------------------------");
-        printIndented(string);
     }
 
     /**
