@@ -21,7 +21,7 @@ Responsibilities: In charge of `command`
 image::danielcyc.jpg[width="150", align="left"]
 {empty}[http://github.com/danielcyc[github]]  
 
-Role: IJ expert, Documentation +
+Role: Intellij expert, Documentation +
 Responsibilities: In charge of `task`
 
 
