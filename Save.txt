@@ -1,2 +1,1 @@
-T|✘| project meeting
-T|✓| meeting
+T|✘| tui
