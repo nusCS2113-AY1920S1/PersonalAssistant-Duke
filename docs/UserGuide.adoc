@@ -13,7 +13,7 @@ By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 image::Ui.png[align="center"]
 
-+{nbsp} 
+{nbsp}+
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
 more interactive and interesting user experience. Dolla will help the user to keep track of their spendings and incomes, set reminders, give suggestions
 or many more other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
@@ -49,12 +49,12 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 ====
-+{nbsp}
+{nbsp}+
 
 === Viewing help: `help`
 
 Format: `*help*`
-+{nbsp}
+{nbsp}+
 
 === Adding expense/income: `add expense`, `add income`
 
