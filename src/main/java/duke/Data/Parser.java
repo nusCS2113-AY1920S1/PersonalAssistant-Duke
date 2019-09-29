@@ -1,8 +1,10 @@
 package duke.Data;
 
+import Menu.ManageStudents;
 import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
+import duke.Ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,10 +143,6 @@ public class Parser {
                 }
                 break;
 
-<<<<<<< HEAD
-            case "Add Category":
-                // code of adding category
-=======
             /**
              * Command should be in the form: class swimming /every monday
              * It will be stored as type [C].
@@ -163,7 +161,40 @@ public class Parser {
                 }
                 break;
 
->>>>>>> upstream/master
+            /**
+             *  Cmd "home" will list the menu items;
+             *  1. View Schedule
+             *  2. Manage Students
+             *  3. Training Circuits
+             */
+            case "home":
+                Ui viewMenu = new Ui();
+                viewMenu.mainMenu();
+                break;
+
+            /**
+             // Choosing Option 1 wil direct to "Training Schedule"
+             */
+            case "1":
+                // Write go to direct to View Schedule (Scott)
+                break;
+
+            /**
+             * Choosing option 2 will direct to "Manage Students"
+             */
+            case "2":
+                ManageStudents viewCategory = new ManageStudents();
+                viewCategory.manageStudentsCategory();
+                // Write Code to direct to manage Students (Danish)
+                break;
+
+            /**
+             * Choosing 3 will direct to "Training Circuit"
+             */
+
+            case "3":
+                //Write Code to direct to Training Circuits (JingSen)
+
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
