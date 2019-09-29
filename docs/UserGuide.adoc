@@ -1,5 +1,6 @@
 = Dolla - User Guide
 :site-section: UserGuide
+:imagesDir: images
 :toc:
 :toc-title:
 :toc-placement: preamble
