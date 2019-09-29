@@ -45,6 +45,11 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.toString();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 }
