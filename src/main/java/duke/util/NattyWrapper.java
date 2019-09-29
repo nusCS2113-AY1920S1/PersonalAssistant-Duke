@@ -28,7 +28,7 @@ public class NattyWrapper {
     }
 
     /**
-     * Main parser for Natty library. With reference to sample code below.
+     * Main parser for Natty library, with reference to sample code below.
      * https://www.programcreek.com/java-api-examples/?api=com.joestelmach.natty.Parser.
      * @param input User date input.
      * @return Date of the user input if valid, null if invalid.

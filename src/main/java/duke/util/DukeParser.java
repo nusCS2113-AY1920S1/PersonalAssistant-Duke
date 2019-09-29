@@ -40,7 +40,7 @@ public class DukeParser {
      * @return DoneCommand indicating which task to be marked as completed.
      * @throws DukeEmptyCommandException when the index cannot be parsed to an integer.
      */
-    private static Command checkValidDoneIndex(String input) throws DukeEmptyCommandException {
+    public static Command checkValidDoneIndex(String input) throws DukeEmptyCommandException {
         String[] hold = input.split(" ");
         int test = hold.length;
         int index = Integer.parseInt(hold[1]);
@@ -57,7 +57,7 @@ public class DukeParser {
      * @return Tasked to be reschedule.
      * @throws DukeCommandException When user inputs an invalid command.
      */
-    private static Command checkValidRescheduleIndex(String input) throws DukeCommandException {
+    public static Command checkValidRescheduleIndex(String input) throws DukeCommandException {
         String[] hold = input.replaceAll(" {2,}", " ").split(" ");
         int test = hold.length;
         if (test > 3) {
@@ -76,7 +76,7 @@ public class DukeParser {
      * @param args The specified arguments for command.
      * @throws DukeMissingArgumentException when user inputs command with missing arguments.
      */
-    private static void checkContainRequiredArguments(LinkedHashMap<String, String> parsedArgs, String... args)
+    public static void checkContainRequiredArguments(LinkedHashMap<String, String> parsedArgs, String... args)
             throws DukeMissingArgumentException {
         for (String arg: args) {
             if (!parsedArgs.containsKey(arg) || parsedArgs.get(arg).isBlank()) {
@@ -93,7 +93,7 @@ public class DukeParser {
      * @throws DukeEmptyCommandException when user inputs delete command without any index.
      * @throws DukeCommandException when user inputs delete command with an invalid index.
      */
-    private static Command deleteTask(String input)
+    public static Command deleteTask(String input)
             throws DukeEmptyCommandException,
             DukeCommandException {
         String[] split = input.split(" ", 2);
@@ -114,7 +114,7 @@ public class DukeParser {
      * @param input User when when find command is detected.
      * @return FindCommand initialized with the String to search for in taskList.
      */
-    private static Command parseFind(String input) {
+    public static Command parseFind(String input) {
         String[] split = input.split(" ", 2);
         return new FindCommand(split[split.length - 1]);
     }
@@ -126,7 +126,7 @@ public class DukeParser {
      * @return String array of adding command parsed by keywords.
      * @throws DukeEmptyCommandException when user inputs failed input parsing.
      */
-    private static String[] testRegex(String inputs, String keyword) throws DukeEmptyCommandException {
+    public static String[] testRegex(String inputs, String keyword) throws DukeEmptyCommandException {
         if (keyword.equals("todo")
                 && inputs.equals("todo")) {
             throw new DukeEmptyCommandException();
@@ -162,7 +162,7 @@ public class DukeParser {
      * @return String array containing parsed user input.
      * @throws DukeEmptyCommandException When user inputs an empty command.
      */
-    private static String[] parseAdding(String input, String keyword) throws DukeEmptyCommandException {
+    public static String[] parseAdding(String input, String keyword) throws DukeEmptyCommandException {
         String[] split = testRegex(input, keyword);
         if (!split[0].equals("")) {
             throw new DukeEmptyCommandException();
