@@ -10,7 +10,7 @@ public class Ui {
      * This function prints out the welcome message of Duke
      */
     public void welcome() {
-        System.out.println("Hello! I'm Duke\n" +
+        System.out.println("Hello! I'm Duke, your personal sports manager!\n" +
                 "What can I do for you?");
     }
 
