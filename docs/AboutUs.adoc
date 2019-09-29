@@ -36,7 +36,7 @@ Responsibilities: -
 '''
 
 === Kexin
-image::weng-kexin.png[width="150", align="left"]
+image::kexin.png[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
