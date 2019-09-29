@@ -1,21 +1,32 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Duration;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 import duke.tasklist.TaskList;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
- * Handles the ability to read and write to the storage location
+ * Handles the ability to read and write to the storage location.
  */
 public class Storage {
     private static final ArrayList<Task> arrTaskList = new ArrayList<>();
     private final String filePath;
 
     /**
-     * Constructor for the class Storage
+
+     * Constructor for the class Storage.
      *
      * @param filePath String containing the directory in which the tasks are to be stored
      */
@@ -24,7 +35,8 @@ public class Storage {
     }
 
     /**
-     * Writing to file to save the task to file
+
+     * Writing to file to save the task to file.
      *
      * @param taskList contains the task list
      */
@@ -42,7 +54,7 @@ public class Storage {
     }
 
     /**
-     * Load all the save tasks in the file
+     * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
@@ -88,7 +100,7 @@ public class Storage {
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             System.out.println("Error reading file '" + filePath + "'");
         }
         return arrTaskList;

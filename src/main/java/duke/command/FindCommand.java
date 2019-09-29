@@ -5,15 +5,19 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.MESSAGE_FIND;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.COMMAND_FIND;
 
 /**
- * Handles the find command and inherits all the fields and methods of Command parent class
+ * Handles the find command and inherits all the fields and methods of Command parent class.
  */
 public class FindCommand extends Command {
 
     /**
-     * Constructor for class FindCommand
+     * Constructor for class FindCommand.
      * @param userInputCommand String containing input command from user
      */
     public FindCommand(String userInputCommand) {
@@ -21,7 +25,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Processes the find command to search for tasks in task list
+     * Processes the find command to search for tasks in task list.
      * @param taskList contains the task list
      * @param ui deals with interactions with the user
      * @param storage deals with loading tasks from the file and saving tasks in the file
@@ -29,15 +33,15 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if(userInputCommand.trim().equals(COMMAND_FIND)){
+        if (userInputCommand.trim().equals(COMMAND_FIND)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-        }else if(userInputCommand.trim().charAt(4) == ' ') {
-            String description = userInputCommand.trim().split("\\s", 2)[1];
+        } else if (userInputCommand.trim().charAt(4) == ' ') {
+            String description = userInputCommand.split("\\s", 2)[1].trim();
             System.out.println(MESSAGE_FIND);
-            for (int i = 0; i < taskList.findTask(description).size(); i++){
+            for (int i = 0; i < taskList.findTask(description).size(); i++) {
                 System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
             }
-        }else{
+        } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }

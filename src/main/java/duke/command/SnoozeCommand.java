@@ -47,7 +47,7 @@ public class SnoozeCommand extends Command {
      *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
         if (userInputCommand.trim().equals(COMMAND_SNOOZE)) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
         } else if (userInputCommand.trim().charAt(6) == ' ') {

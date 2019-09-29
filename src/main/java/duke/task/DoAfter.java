@@ -2,21 +2,18 @@ package duke.task;
 
 import java.util.Date;
 
-/**
- * Represent an event task and inherits all the fields and methods of Task parent class.
- */
-public class Event extends Task {
+public class DoAfter extends Task {
 
-    protected String at;
+    protected String after;
 
     /**
-     * Constructor for class Event.
+     * Constructor for class DoAfter.
      * @param description String containing the description of the task
-     * @param at String containing the venue of the event
+     * @param after String containing the time or tasks to be met or done
      */
-    public Event(String description, String at) {
-        super(description);
-        this.at = at;
+    public DoAfter(String description, String after) {
+        super(description);//super class constructor call to the Task(description) constructor
+        this.after = after;
     }
 
     /**
@@ -25,7 +22,7 @@ public class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return "E" + super.toSaveString() + " | " + at;
+        return "T" + super.toSaveString() + " | " + after;
     }
 
     /**
@@ -34,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[T]" + super.toString() + " (after: " + after + ")";
     }
 
     public Date getDateTime() {
