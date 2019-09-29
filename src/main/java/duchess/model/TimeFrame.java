@@ -1,7 +1,5 @@
 package duchess.model;
 
-import duchess.logic.commands.exceptions.DukeException;
-
 import java.util.Date;
 
 public class TimeFrame implements Comparable<TimeFrame> {

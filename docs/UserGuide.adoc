@@ -17,59 +17,33 @@ By: `CS2113T-T09-2`
 
 == Introduction
 
-Duchess is a Command Line Interface (CLI) calendar. It provides an interface for students to manage both their school timetable and commitments schedule while providing useful contextual information and features.
+Duchess is a calendar application tailor-made for NUS students. Duchess closes the gap between NUSMODS and generic calendar applications by providing a unified interface for students to manage both their school timetable and commitments schedule while providing academic contextual information and features.
 
 == Quick Start
 
-image::Ui.PNG[]
-
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `duchess.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Calander.
+.  Copy the file to the folder you want to use as the home folder for your Calendar.
 .  Double-click the file to start the app.
++
+image::Ui.PNG[]
++
+.  Type a command in the input field and press kbd:[Enter] to execute it.
+.  Refer to <<Features>> for details of all commands.
 
 [[Features]]
 == Features 
 
-=== Adding todo task: `todo <task>`
-
-Adds a todo task to the task list. The todo task is initially marked as undone.
-
-Example of usage: 
-
-`todo go buy running shoes`
-
-Expected outcome:
-
-```
-Got it. I've added this task:
-  [T][✘] go buy running shoes
-Now you have 1 task in the list.
-```
-
-=== Adding an event task: `event <event> /at <start datetime> to <end datetime>`
-
-Adds an event to the task list. The event is initially marked as undone.
-
-Example of usage: 
-
-`event student life fair /at 10/9/2019 1400 to 10/9/2019 1750`
-
-Expected outcome:
-
-```
-Got it. I've added this task:
-  [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
-Now you have 1 task in your list.
-```
-
 === Adding a deadline task: `deadline <task> /by <deadline>`
 
-Adds a deadline to the task list. The deadline is initially marked as undone.
+Adds a deadline to the task list.
 
-Example of usage: 
+* The deadline is initially marked as undone.
 
-`deadline geh1049 essay /by 20/9/2019 1800`
+Example of usage:
+
+* `deadline get1004 slides /by 8/10/2019 0900`
+* `deadline geh1049 essay /by 20/9/2019 1800`
 
 Expected outcome:
 
@@ -79,13 +53,82 @@ Got it. I've added this task:
 Now you have 1 task in your list.
 ```
 
+=== Adding an event task: `event <event> /at <start datetime> to <end datetime>`
+
+Adds an event to the task list.
+
+* The event is initially marked as undone.
+
+Example of usage:
+
+* `event welcome dinner /at 22/9/2019 1800 to 22/9/2019 2200`
+* `event student life fair /at 10/9/2019 1400 to 10/9/2019 1750`
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+  [E][✘] student life fair (at: 10/09/2019 1400 to 10/09/2019 1750)
+Now you have 1 task in your list.
+```
+
+=== Adding todo task: `todo <task>`
+
+Adds a todo task to the task list.
+
+* The todo task is initially marked as undone.
+
+Example of usage:
+
+* `todo fix bugs in code`
+* `todo go buy running shoes`
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+  [T][✘] go buy running shoes
+Now you have 1 task in the list.
+```
+
+=== Display tasks with deadlines: `reminder`
+
+Display all tasks with deadlines.
+
+Example of usage:
+
+* `reminder`
+
+Expected outcome:
+
+```
+You currently have these deadlines.
+1. [D][✘] health and wellness transcript (by: 19/09/2019 0800)
+```
+
+=== Display schedule for a particular date: `schedule /for <date>`
+
+Displays the schedule for a specific day.
+
+Example of usage:
+
+* `schedule /for 12/12/2019`
+
+Expected outcome:
+
+```
+Here is your schedule for 12/12/2019:
+1. [E][✘] NUSMUN (at: 10/12/2019 0900 to 13/12/2019 1900)
+2. [D][✘] geh1049 essay (by: 12/12/2019 1800)
+```
+
 === Display task list: `list`
 
 Displays task list in numbered bullet point format.
 
-Example of usage: 
+Example of usage:
 
-`list`
+* `list`
 
 Expected outcome:
 
@@ -96,13 +139,50 @@ Here are the tasks in your list:
 3. [D][✘] geh1049 essay (by: 20/9/2019 1800)
 ```
 
+=== Exiting the program: `bye`
+
+Exits the program.
+
+Example of usage:
+
+* `bye`
+
+Expected outcome:
+
+```
+Bye. Hope to see you again soon!
+```
+
+=== Find tasks containing keyword: `find <keyword>`
+
+Displays list of tasks containing keyword.
+
+* The search is case sensitive. eg `find geh1049` will not match `GEH1049`
+* The order of the keywords matter. eg `find essay geh1049` will not match `geh1049 essay`
+* If there is only one keyword, partial words will be matched. eg `find geh` will match `geh1049 essay`
+* If there is more than one keyword, tasks matching all input keywords will be matched. eg `find geh essay` will match `geh essay on dengue` but not `geh1049 essay`.
+
+Example of usage:
+
+* `find geh1049`
+
+Expected outcome:
+
+```
+Here are the matching tasks in your list:
+1. [T][✓] geh1049 readings
+2. [D][✘] geh1049 essay (by: 20/9/2019 1800)
+```
+
 === Mark task as done: `done <task number>`
 
-Marks a task in the task list as done.
+Marks task numbered `<task number>` in task list as done.
 
-Example of usage: 
+* Task number in task list can be retrieved using `list` command.
 
-`done 1`
+Example of usage:
+
+* `done 1`
 
 Expected outcome:
 
@@ -113,11 +193,13 @@ Nice! I've marked this task as done:
 
 === Remove task from task list: `delete <task number>`
 
-Removes task from task list.
+Removes task numbered `<task number>` in task list.
 
-Example of usage: 
+* Task number in task list can be retrieved using `list` command.
 
-`delete 1`
+Example of usage:
+
+* `delete 1`
 
 Expected outcome:
 
@@ -127,87 +209,22 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-=== Find tasks containing keyword: `find <keyword>`
-
-Displays list of tasks containing keyword.
-
-Example of usage: 
-
-`find geh1049`
-
-Expected outcome:
-
-```
-Here are the matching tasks in your list:
-1. [T][✓] geh1049 readings
-2. [D][✘] geh1049 essay (by: 20/9/2019 1800)
-```
-
-=== Display schedule for a paticular date: `schedule <date>`
-
-Displays the schedule for a specific day. Time and task details are printed in a timetable. Ongoing events beginning before or lasting past the date are indicated below the timetable.
-
-Example of usage: 
-
-`schedule 17/9/2019`
-
-Expected outcome:
-
-```
-Here is your schedule:
------------------------------------------------------
-|                   17/9/2019                       |
------------------------------------------------------
-|   Time    |                  Task                 |
------------------------------------------------------
-|   1400    |       [E][Γ✘] student life fair       |
------------------------------------------------------
-Here are your ongoing tasks:
-1. [E][✘] health and wellness forum (at: 14/09/2019 1500 to 18/09/2019 1200)
-```
-
-=== Display tasks with deadlines: `reminder`
-
-Display all tasks with deadlines.
-
-Example of usage: 
-
-`reminder`
-
-Expected outcome:
-
-```
-You currently have these deadlines.
-1. [D][✘] health and wellness transcript (by: 19/09/2019 0800)
-```
-
 === Push back time bound tasks: `snooze <task number>`
 
-Adds a week to time bound task. Deadline and event timings are pushed back by a week.
+Adds a week to time bound task.
 
-Example of usage: 
+* Deadline and event timings are pushed back by a week.
+* Task number in task list can be retrieved using `list` command.
 
-`snooze 1`
+Example of usage:
+
+* `snooze 1`
 
 Expected outcome:
 
 ```
 Noted. I've snoozed this task:
   [D][✘] health and wellness transcript (by: 26/09/2019 0800)
-```
-
-=== Exiting the program: `bye`
-
-Exits the program.
-
-Example of usage: 
-
-`bye`
-
-Expected outcome:
-
-```
-Bye. Hope to see you again soon!
 ```
 
 == FAQ
@@ -217,14 +234,14 @@ Bye. Hope to see you again soon!
 
 == Command Summary
 
-. Add todo: `todo <task>`
-. Add event: `event <event> /at <start datetime> to <end datetime>`
 . Add deadline: `deadline <task> /by <deadline>`
+. Add event: `event <event> /at <start datetime> to <end datetime>`
+. Add todo: `todo <task>`
+. Display deadlines: `reminder`
+. Display schedule: `schedule <date>`
 . Display tasks: `list`
+. Exit: `bye`
+. Find task: `find <keyword>`
 . Mark as done: `done <task number>`
 . Remove task: `delete <task number>`
-. Find task: `find <keyword>`
-. Display schedule: `schedule <date>`
-. Display deadlines: `reminder`
 . Snooze task: `snooze <task number>`
-. Exit: `bye`

@@ -9,6 +9,7 @@ import duchess.ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,8 +40,11 @@ public class ViewScheduleCommand extends Command {
      */
     private Date processDate(String time) throws DukeException {
         try {
-            // todo fix bug which allows input 'schedule 12/12/2019' without /for
-            String dateString = words.get(words.indexOf("/for") + 1) + time;
+            int index = words.indexOf("/for");
+            if (index == -1) {
+                throw new DukeException("Format for viewing schedule: schedule /for <date>");
+            }
+            String dateString = words.get(index + 1) + time;
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
             return formatter.parse(dateString);
@@ -55,14 +59,14 @@ public class ViewScheduleCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         List<Task> tasksForToday =
                 taskList.getTasks().stream()
-                    .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))
-                    .collect(Collectors.toList());
+                        .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))
+                        .collect(Collectors.toList());
 
         if (tasksForToday.size() <= 0) {
             throw new DukeException("There are no tasks in the schedule.");
         }
 
-        tasksForToday.sort((a, b) -> a.getTimeFrame().compareTo(b.getTimeFrame()));
+        Collections.sort(tasksForToday);
         ui.showScheduleResult(tasksForToday, words.get(words.indexOf("/for") + 1));
     }
 }

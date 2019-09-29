@@ -1,3 +1,4 @@
+
 package duchess.ui;
 
 import duchess.model.task.Task;
@@ -172,7 +173,7 @@ public class Ui {
      *
      * @param tasks List containing user tasks
      */
-    public void showTasks(List<Task> tasks) {
+    private void showTasks(List<Task> tasks) {
         int counter = 1;
         for (Task task : tasks) {
             printIndented(counter++ + ". " + task);
