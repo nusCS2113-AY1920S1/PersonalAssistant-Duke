@@ -1,6 +1,7 @@
 package duke.Data;
 
 import duke.Module.Schedule;
+import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
 
@@ -18,7 +19,6 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
-     *
      * @param io
      */
     public void parseInput(String io, TaskList tasks, Storage storage) {
@@ -45,109 +45,124 @@ public class Parser {
         /**
          * TODO Fix saving of ToDo class, is causing the load file error due to save formatting
          */
-        case "todo":
-            try {
-                String[] tempString = input.split(" ");
-                List<String> listString = new ArrayList<String>(Arrays.asList(tempString));
-                listString.remove(0);
-                String info1 = String.join(" ", listString);
-                String[] parseString = info1.split("/in");
-                ToDo todo = new ToDo(parseString[0], false, parseString[1]);
-                tasks.addTask(todo, "T");
-                storage.saveFile("T", todo, todo.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
-            }
-            break;
 
-        case "deadline":
-            try {
-                index = input.indexOf("/by");
-                String info = input.substring(9, index);
-                String endDate = input.substring(index + 4);
-                Deadline deadline = new Deadline(info, false, endDate);
-                tasks.addTask(deadline, "D");
-                storage.saveFile("D", deadline, deadline.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The task needs a deadline");
-            }
-            break;
+            case "todo":
+                try {
+                    String[] tempString = input.split(" ");
+                    List<String> listString = new ArrayList<String>(Arrays.asList(tempString));
+                    listString.remove(0);
+                    String info1 = String.join(" ", listString);
+                    String[] parseString = info1.split("/in");
+                    ToDo todo = new ToDo(parseString[0], false, parseString[1]);
+                    tasks.addTask(todo, "T");
+                    storage.saveFile("T",todo,todo.getDate());
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                }
+                break;
 
-        case "event":
-            try {
-                index = input.indexOf("/at");
-                String info = input.substring(6, index);
-                String endDate = input.substring(index + 4);
-                Event event = new Event(info, false, endDate);
-                tasks.addTask(event, "E");
-                storage.saveFile("E", event, event.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The task needs a deadline");
-            }
-            break;
-        /**
-         * Command should be in the form: reminder deadlines before 18/09/2019 1900
-         * Push date before date into
-         */
-        case "reminder":
-            try {
-                index = input.indexOf("before");
-                Date date = tasks.dateConvert(input.substring(index + 7));
-                Reminder reminder = new Reminder(date);
-                reminder.getReminders(tasks);
-            } catch (StringIndexOutOfBoundsException e) {
-                System.err.println("Incorrect format");
-            }
-            break;
+            case "deadline":
+                try {
+                    index = input.indexOf("/by");
+                    String info = input.substring(9, index-1);
+                    String endDate = input.substring(index + 4);
+                    Deadline deadline = new Deadline(info, false, endDate);
+                    tasks.addTask(deadline, "D");
+                    storage.saveFile("D",deadline,deadline.getDate());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! The task needs a deadline");
+                }
+                break;
 
-        /**
-         * Command should be in the form: aftertask return book /after exam
-         * It will be stored as type [A].
-         */
-        case "aftertask":
-            try {
-                index = input.indexOf("/after");
-                String info = input.substring(10, index);
-                String endDate = input.substring(index + 7);
-                After after = new After(info, false, endDate);
-                tasks.addTask(after, "A");
-                storage.saveFile("A", after, after.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
-            }
-            break;
+            case "event":
+                try {
+                    index = input.indexOf("/at");
+                    String info = input.substring(6, index-1);
+                    String endDate = input.substring(index + 4);
+                    Event event = new Event(info, false, endDate);
+                    tasks.addTask(event, "E");
+                    storage.saveFile("E",event,event.getDate());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! The task needs a deadline");
+                }
+                break;
+            /**
+             * Command should be in the form: reminder deadlines before 18/09/2019 1900
+             * Push date before date into
+             */
+            case "reminder":
+                try{
+                    index = input.indexOf("before");
+                    Date date = tasks.dateConvert(input.substring(index + 7));
+                    Reminder reminder = new Reminder(date);
+                    reminder.getReminders(tasks);
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.err.println("Incorrect format");
+                }
+                break;
 
-        case "delete":
-            index = Integer.parseInt(input.substring(7)) - 1;
-            tasks.deleteTask(index);
-            storage.updateFile(tasks.getList());
-            break;
+            /**
+             * Command should be in the form: aftertask return book /after exam
+             * It will be stored as type [A].
+             */
+            case "aftertask":
+                try {
+                    index = input.indexOf("/after");
+                    String info = input.substring(10, index-1);
+                    String endDate = input.substring(index + 7);
+                    After after = new After(info, false, endDate);
+                    tasks.addTask(after, "A");
+                    storage.saveFile("A",after,after.getDate());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
+                }
+                break;
 
-        case "find":
-            String searchWord = input.substring(5);
-            tasks.findTask(searchWord);
-            break;
+            case "delete":
+                index = Integer.parseInt(input.substring(7)) - 1;
+                tasks.deleteTask(index);
+                storage.updateFile(tasks.getList());
+                break;
 
-        case "date":
-            String searchDate = input.substring(5);
-            if (searchDate.length() < 10) {
-                System.out.println("Please enter input in the form: date dd/MM/YYYY");
-            } else {
-                tasks.findDate(searchDate);
-            }
-            break;
+            case "find":
+                String searchWord = input.substring(5);
+                tasks.findTask(searchWord);
+                break;
 
-        case "schedule":
-            Schedule schedule = new Schedule();
-            System.out.println(schedule.getMonth());
-//            if (word[1].info.equalties) {
-//
-//        }
-            break;
+            case "date":
+                String searchDate = input.substring(5);
+                if (searchDate.length() < 10) {
+                    System.out.println("Please enter input in the form: date dd/MM/YYYY");
+                } else {
+                    tasks.findDate(searchDate);
+                }
+                break;
 
-        default:
-            System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
-            break;
+            /**
+             * Command should be in the form: class swimming /every monday
+             * It will be stored as type [C].
+             */
+            case "class":
+                try {
+                    index = input.indexOf("/every");
+                    String info = input.substring(6, index-1);
+                    String day = input.substring(index + 7);
+                    MyClass myclass = new MyClass(info, false, day);
+                    tasks.addTask(myclass, "C");
+                    storage.saveFile("C",myclass,myclass.getDay());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
+                }
+                break;
+
+            default:
+                System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                break;
         }
 
     }
