@@ -1,10 +1,8 @@
 package javacake.commands;
 
-import javacake.Profile;
-import javacake.Storage;
-import javacake.TaskList;
-import javacake.Ui;
+import javacake.*;
 import javacake.tasks.Task;
+import javacake.topics.MainList;
 
 public class ListCommand extends Command {
     public ListCommand() {
@@ -18,7 +16,8 @@ public class ListCommand extends Command {
      * @param storage Storage needed to write the updated data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) {
-
+    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
+        MainList ml = new MainList();
+        ml.printList();
     }
 }

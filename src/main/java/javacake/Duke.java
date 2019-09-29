@@ -11,12 +11,13 @@ public class Duke {
     private static boolean isFirstTimeUser;
     private static String userName = "Glen";
     private static int userProgress = 0;
-    
+    private static boolean isAtMainList = false;
+    private static boolean isAtSubList = false;
 
     /**
      * Constructor for main class to initialise the settings.
      */
-    private Duke(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         try {
             //storage = new Storage(filePath);
@@ -33,6 +34,7 @@ public class Duke {
             ui.showLoadingError();
         }
     }
+
 
     /**
      * Run the rest of the code here.
