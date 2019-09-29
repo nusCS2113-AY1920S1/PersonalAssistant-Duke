@@ -51,6 +51,12 @@ public class DukeParser {
         }
     }
 
+    /**
+     * Checks task index for valid task reschedule.
+     * @param input User input.
+     * @return Tasked to be reschedule.
+     * @throws DukeCommandException When user inputs an invalid command.
+     */
     private static Command checkValidRescheduleIndex(String input) throws DukeCommandException {
         String[] hold = input.replaceAll(" {2,}", " ").split(" ");
         int test = hold.length;
@@ -64,6 +70,12 @@ public class DukeParser {
         }
     }
 
+    /**
+     * Checks user input for required arguments.
+     * @param parsedArgs LinkedHashMap of parsed arguments and their values.
+     * @param args The specified arguments for command.
+     * @throws DukeMissingArgumentException when user inputs command with missing arguments.
+     */
     private static void checkContainRequiredArguments(LinkedHashMap<String, String> parsedArgs, String... args)
             throws DukeMissingArgumentException {
         for (String arg: args) {
@@ -143,22 +155,37 @@ public class DukeParser {
         }
     }
 
+    /**
+     * Helper functions for creating new tasks.
+     * @param input Raw user input.
+     * @param keyword Command keyword based user input.
+     * @return String array containing parsed user input.
+     * @throws DukeEmptyCommandException When user inputs an empty command.
+     */
     private static String[] parseAdding(String input, String keyword) throws DukeEmptyCommandException {
         String[] split = testRegex(input, keyword);
         if (!split[0].equals("")) {
             throw new DukeEmptyCommandException();
         }
         split[split.length - 1] = split[split.length - 1].trim();
-        if (keyword.equals("deadline")) {
-            split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
-        } else if (keyword.equals("event")) {
-            split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
-        } else if (keyword.equals("fixedDuration")) {
-            split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
-        } else if (keyword.equals("recurring")) {
-            split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
+        switch (keyword) {
+            case "todo":
+                break;
+            case "deadline":
+                split[split.length - 1] = split[split.length - 1].replaceFirst("by ", "");
+                break;
+            case "event":
+                split[split.length - 1] = split[split.length - 1].replaceFirst("at ", "");
+                break;
+            case "fixedDuration":
+                split[split.length - 1] = split[split.length - 1].replaceFirst("needs ", "");
+                break;
+            case "recurring":
+                split[split.length - 1] = split[split.length - 1].replaceFirst("every ", "");
+                break;
+            default:
+                throw new DukeEmptyCommandException();
         }
-
         String[] ret = Arrays.copyOfRange(split, 1, split.length);
         if (ret.length == 1) {
             return ret[0].split("/", 2);

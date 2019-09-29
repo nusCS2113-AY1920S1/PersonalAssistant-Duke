@@ -3,7 +3,6 @@ package duke;
 import duke.command.Command;
 import duke.exceptions.DukeException;
 import duke.util.DukeParser;
-import duke.util.NattyWrapper;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -18,9 +17,6 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
 
-    // Testing Natty Wrapper:
-    private NattyWrapper natty;
-
     /**
      * Constructor for Duke class.
      */
@@ -28,7 +24,6 @@ public class Duke {
         store = new Storage();
         ui = new Ui();
         tasks = new TaskList(store);
-        natty = new NattyWrapper();
     }
 
     /**
