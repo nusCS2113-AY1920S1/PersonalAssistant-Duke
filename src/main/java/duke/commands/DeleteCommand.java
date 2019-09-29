@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
@@ -16,7 +17,7 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * This is a constructor DeleteCommand
+     * This is a constructor DeleteCommand.
      * @param index the index of task to be deleted
      */
     public DeleteCommand(int index) {

@@ -7,3 +7,4 @@ B|0|borgar|date|29/09/2019|sodium|100|calcium|100|calories|100
 B|0|borgar|date|29/09/2019|sodium|100|calcium|100|calories|100
 B|0|borgar|date|29/09/2019|sodium|100|calcium|100|calories|100
 B|0|borgar|date|29/09/2019|sodium|100|calcium|100|calories|100
+

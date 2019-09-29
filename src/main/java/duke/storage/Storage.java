@@ -12,6 +12,8 @@ import duke.tasks.Dinner;
 import duke.tasks.Lunch;
 import duke.tasks.Meal;
 import duke.tasks.Breakfast;
+import duke.user.User;
+import duke.user.gender;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
@@ -23,13 +25,14 @@ public class Storage {
     private BufferedReader bufferedReader = null;
     private BufferedWriter bufferedWriter = null;
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
+    private File nameFile = null;
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that TaskList.
      * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
+
     public HashMap<String, ArrayList<Meal>> load() throws DukeException {
         HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
         String sep = System.getProperty("file.separator");
@@ -41,12 +44,12 @@ public class Storage {
             throw new DukeException("Unable to access file");
         }
         try {
-            while((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
                 loadFile(line, mealTracker);
-        }
+            }
         bufferedReader.close();
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
             throw new DukeException("Error reading file");
@@ -122,6 +125,51 @@ public class Storage {
             }
             bufferedWriter.close();
         } catch (IOException e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+    }
+
+    public User loadUser() throws DukeException {
+        String sep = System.getProperty("file.separator");
+        nameFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                + sep + "Data" + sep + "user.txt");
+
+        if (nameFile.length() == 0) {
+            return new User();
+        }
+
+        try {
+            bufferedReader = new BufferedReader(new FileReader(nameFile));
+            String line =  bufferedReader.readLine();
+            bufferedReader.close();
+            String[] splitLine = line.split("\\|");
+            String name = splitLine[0];
+            int weight = Integer.parseInt(splitLine[1]);
+            int height = Integer.parseInt(splitLine[2]);
+            String sex = splitLine[3];
+            if (sex.equals("M")) {
+                return new User(name, weight, height, gender.MALE);
+            } else {
+                return new User(name, weight, height, gender.FEMALE);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Unable to access file");
+        }
+    }
+
+    public void saveUser(User user) throws DukeException {
+        String toWrite = user.getName() + "|" + user.getWeight() + "|" + user.getHeight() + "|";
+        if (user.getSex() == gender.MALE) {
+            toWrite += "M";
+        } else {
+            toWrite += "F";
+        }
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(nameFile));
+            bufferedWriter.write(toWrite);
+            bufferedWriter.close();
+        } catch (Exception e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
         }

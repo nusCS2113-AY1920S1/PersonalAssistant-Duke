@@ -1,4 +1,5 @@
 package duke.commands;
+
 import java.util.ArrayList;
 
 import duke.tasks.Meal;
@@ -32,7 +33,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(mealList meals, Ui ui, Storage storage) {
         meals.getMeals(meal.getDate()).add(meal);
-        ui.showAdded(meal, meals.getMeals(meal.getDate()));
+        ui.showAdded(meal, meals.getMeals(meal.getDate()))
         storage.updateFile(meals.getMealTracker());
     }
 }

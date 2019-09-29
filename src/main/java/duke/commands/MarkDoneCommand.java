@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.tasks.Meal;
 import duke.tasks.mealList;
 import duke.ui.Ui;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * A MarkDoneCommand object encapsulates the index of task to be marked as done.
  * @author Ivan Andika Lie
  */
-public class MarkDoneCommand extends Command{
+public class MarkDoneCommand extends Command {
     private int index;
 
     /**

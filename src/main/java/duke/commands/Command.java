@@ -1,7 +1,9 @@
 package duke.commands;
+
 import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.exceptions.DukeException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,12 +19,13 @@ public abstract class Command {
     protected Calendar calendarDate = Calendar.getInstance();
     protected String currentDate = dateFormat.format(calendarDate.getTime());
     /**
-     * this class is an abstract class the will the specific command specified
+     * this class is an abstract class the will the specific command specified.
      * @param tasks the TaskList object in which the task is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
-    public abstract void execute(mealList tasks, Ui ui, Storage storage);
+
+    public abstract void execute(mealList tasks, Ui ui, Storage storage) throws DukeException;
 
     public boolean isExit() {
         return false;
