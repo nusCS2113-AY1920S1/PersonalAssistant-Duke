@@ -2,6 +2,7 @@ package compal.logic.commands;
 
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
+import compal.logic.parser.ParserManager;
 import compal.tasks.RecurringTask;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
@@ -12,16 +13,27 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.*;
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_REP;
+import static compal.compal.Messages.MESSAGE_MISSING_REP_ARG;
 
 /**
- * Executes user command "recurtask".
+ * Executes user command for recurring tasks, lectures, tutorials,
+ * sectionals and labs.
  */
 public class RecurTaskCommand extends Command implements CommandParser {
-    // Todo: new keyword /freq, determines whether weekly, monthly, daily
     private static final String TOKEN_REP = "/rep";
     private static final String TOKEN_FREQ = "/freq";
     private static final int DEFAULT_FREQ_NUM = 7;
+    private static final String CMD_LECT = "lect";
+    private static final String CMD_TUT = "tut";
+    private static final String CMD_SECT = "sect";
+    private static final String CMD_LAB = "lab";
+    private static final String SYMBOL_LECT = "LECT";
+    private static final String SYMBOL_TUT = "TUT";
+    private static final String SYMBOL_SECT = "SECT";
+    private static final String SYMBOL_LAB = "LAB";
+    private static final String SYMBOL_DEFAULT = "RT";
     private TaskList taskList;
 
     /**
@@ -39,7 +51,8 @@ public class RecurTaskCommand extends Command implements CommandParser {
      *
      * @param restOfUserInput User input string.
      * @return Number of repetitions of the recurring task.
-     * @throws Compal.DukeException
+     * @throws Compal.DukeException If rep field is empty or rep token
+     *                              (/rep) is missing.
      */
     public int getRep(String restOfUserInput) throws Compal.DukeException {
         if (restOfUserInput.contains(TOKEN_REP)) {
@@ -62,11 +75,11 @@ public class RecurTaskCommand extends Command implements CommandParser {
     /**
      * Returns the number of days between the recurring task in an integer form.
      *
-     * @param restOfUserInput
+     * @param restOfUserInput User input string.
      * @return Number of days between each recurring task.
-     * Will default to DEFAULT_FREQ_NUM.
+     *         Will default to DEFAULT_FREQ_NUM.
      */
-    public static int getFreq(String restOfUserInput) {
+    public int getFreq(String restOfUserInput) {
         int freqNum = DEFAULT_FREQ_NUM;
         if (restOfUserInput.contains(TOKEN_FREQ)) {
             int splitPoint = restOfUserInput.indexOf(TOKEN_FREQ);
@@ -91,7 +104,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @param freqNum The number of days between each task.
      * @return Final incremented date.
      */
-    public static String incrementDate(String dateString, int freqNum) {
+    public String incrementDate(String dateString, int freqNum) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -106,6 +119,30 @@ public class RecurTaskCommand extends Command implements CommandParser {
     }
 
     /**
+     * Determines the type of recurring task - normal recurring task,
+     * lecture, tutorial, sectional or lab, based on the first command
+     * keyword entered by the user. Returns the type of symbol used for
+     * that type of task.
+     *
+     * @param userCmd The first command keyword entered by the user.
+     * @return The symbol for that type of task.
+     */
+    public String getSymbol(String userCmd) {
+        switch (userCmd) {
+        case CMD_LECT:
+            return SYMBOL_LECT;
+        case CMD_TUT:
+            return SYMBOL_TUT;
+        case CMD_SECT:
+            return SYMBOL_SECT;
+        case CMD_LAB:
+            return SYMBOL_LAB;
+        default:
+            return SYMBOL_DEFAULT;
+        }
+    }
+
+    /**
      * Adds multiple RecurringTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user string input.
@@ -114,7 +151,8 @@ public class RecurTaskCommand extends Command implements CommandParser {
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
-        String recurtask = scanner.next();
+        String userCmd = scanner.next();
+        String symbol = getSymbol(userCmd);
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
@@ -125,7 +163,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
             int freq = getFreq(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, time);
+                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, time, symbol);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

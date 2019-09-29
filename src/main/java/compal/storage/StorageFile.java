@@ -26,6 +26,15 @@ public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./Compal.txt";
     private static final String userPreferencesFilePath = "./prefs.txt";
+    private static final String SYMBOL_LECT = "LECT";
+    private static final String SYMBOL_TUT = "TUT";
+    private static final String SYMBOL_SECT = "SECT";
+    private static final String SYMBOL_LAB = "LAB";
+    private static final String SYMBOL_RECUR = "RT";
+    private static final String SYMBOL_DEADLINE = "D";
+    private static final String SYMBOL_DOAFTER = "DAT";
+    private static final String SYMBOL_EVENT = "E";
+    private static final String SYMBOL_FIXEDD = "FDT";
 
     /**
      * Prints message of storage initialized.
@@ -54,19 +63,23 @@ public class StorageFile implements Storage {
                 String[] parts = st.split("_");
                 String taskType = parts[0];
                 switch (taskType) {
-                case "D":
+                case SYMBOL_DEADLINE:
                     t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4]);
                     break;
-                case "DAT":
+                case SYMBOL_DOAFTER:
                     t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
                     break;
-                case "RT":
-                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                case SYMBOL_RECUR:
+                case SYMBOL_LECT:
+                case SYMBOL_TUT:
+                case SYMBOL_SECT:
+                case SYMBOL_LAB:
+                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],taskType);
                     break;
-                case "E":
+                case SYMBOL_EVENT:
                     t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
                     break;
-                case "FDT":
+                case SYMBOL_FIXEDD:
                     t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],
                             Integer.parseInt(parts[6]),Integer.parseInt(parts[7]));
                     break;
