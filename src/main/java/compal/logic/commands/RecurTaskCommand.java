@@ -158,7 +158,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String date = getDate(restOfInput);
             String sTime = getStartTime(restOfInput);
             String eTime = getEndTime(restOfInput);
-            
+
             if(Integer.parseInt(sTime)>Integer.parseInt(eTime)){
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
                 throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
