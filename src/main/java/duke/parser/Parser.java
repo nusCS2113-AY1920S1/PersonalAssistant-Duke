@@ -26,11 +26,11 @@ public class Parser {
     private static final String COMMAND_SHORTCUT = "short";
 
     /**
-     * Parses user input into a command.
+     * Parses user input into a <code>Command</code> object.
      *
      * @param line the user input.
      * @return the command from user input.
-     * @throws DukeException if it is not valid command or command parameters are invalid.
+     * @throws DukeException if input is not valid command or command parameters are invalid.
      */
     public static Command getCommand(String line, Map<String, ExecuteShortcutCommand> shortcuts) throws DukeException {
 
@@ -71,6 +71,7 @@ public class Parser {
             throw new DukeException("Please enter a command");
         }
 
+        //In "order remove 1", "order" is "cmd".
         params.put("cmd", new ArrayList<String>() {
             {
                 add(commandWordMatcher.group(1).strip());
@@ -78,6 +79,8 @@ public class Parser {
         });
 
         if (commandWordMatcher.group(2) != null) {
+
+            //In "order remove 1", "remove" is "primary".
             params.put("primary", new ArrayList<String>() {
                 {
                     add(commandWordMatcher.group(2).strip());
@@ -85,6 +88,8 @@ public class Parser {
             });
 
             if (commandWordMatcher.group(3) != null) {
+
+                //In "order remove 1", "1" is "secondary".
                 params.put("secondary", new ArrayList<String>() {
                     {
                         add(commandWordMatcher.group(3).strip());
