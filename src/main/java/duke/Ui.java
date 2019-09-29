@@ -14,6 +14,13 @@ public class Ui {
                 "What can I do for you?");
     }
 
+    public void mainMenu() {
+        System.out.println("SPORTS MANAGER\n" +
+                "1. View Training Schedule\n" +
+                "2. Manage Students\n" +
+                "3. Training Circuits");
+    }
+
     /**
      * This function prints out the goodbye message of Duke
      */
