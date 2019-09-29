@@ -122,7 +122,7 @@ Format: `budget reset`
 Delets the budget that is currently stored
 Format: `budget delete`
 
-=== On-App Guide *(Not finalised)*
+=== On-App Guide *(Coming in v2.0)*
 
 ==== Opens the interface guide : `help`
 Shows a tutorial for DUKE Manager
@@ -132,7 +132,7 @@ Format : `help`
 Shows the command overview of the various capabilities of DUKE Manager
 Format: `help --c`
 
-=== Module Structure *(Not finalised)*
+=== Module Structure *(Coming in v2.0)*
 
 ==== Storing of modules `storemods` 
 - Stores the module into DUKE Manager 
@@ -140,7 +140,7 @@ Format: `help --c`
 ==== Shows modules `viewmods`
 Views the module that are stored in DUKE Manager
 
-=== Contacts *(Not finalised)*
+=== Contacts *(Coming in v2.0)*
 
 ==== Stores contacts `storecontact`
 Stores the contacts inside DUKE Manager
@@ -263,3 +263,24 @@ There is no need to save manually. *However, if the program is exited by any oth
 == FAQs
 
 == Command Summary
+* *List* : `list`
+* *Done* : `done INDEX` +
+e.g. `done 1`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find meeting Christian`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Todo* : `todo [TASK]` +
+e.g. `todo CS2113 assignment`
+* *Deadline* : `deadline [TASK] /by [DD/MM/YYYY HHMM]` +
+e.g. `deadline finish reading book /by 27/10/2019 2359`
+* *Event* : `event [EVENT] /at [DD/MM/YYYY HHMM]` +
+e.g. `event attend recruitment talk /at 1/10/2019 1300`
+* *DoAfter* : `doafter [NEWTASK] / [EXISITINGTASK]`
+e.g. `doafter buy food / CS2113 assignment`
+* *FixedDuration* : `fixedduration [TASK] /for [DURATION][UNITS]`
+e.g. `fixedduration build a robot /for 3hrs`
+* *Repeat* : `repeat [TASK] /from [DD/MM/YYYY HHMM] /for [INDEX] [DAY/WEEK/MONTH]`
+e.g. `repeat meeting /from 01/04/2019 1100 /for 2 day`
+* *Remind* : `remind [INDEX] /in [DAYSTOREMINDER]`
+e.g. `remind 1 /in 3`
