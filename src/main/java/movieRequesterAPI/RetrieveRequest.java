@@ -34,6 +34,8 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String MOVIE_SEARCH_URL = "search/movie?api_key=";
     private static final String GENRE_LIST_URL = "genre/movie/list?api_key=";
     private static final String TV_SHOWS = "tv/popular?api_key=";
+    private static final String LIST = "/lists?api_key=";
+
 
     // Movie Data Keys
     private static final String kMOVIE_TITLE = "title";
@@ -90,6 +92,16 @@ public class RetrieveRequest implements InfoFetcher {
     public void beginSearchRequest(String movieTitle) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            fetchJSONData(url);
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void beginSearchGenre (String genre) {
+        try{
+            String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
+                + API_KEY + "&language=en-US&page=1";
             fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();

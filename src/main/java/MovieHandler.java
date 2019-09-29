@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
@@ -23,10 +25,26 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private VBox mMovieTypeVBox;
 
-    private FlowPane mMoviesFlowPane;
+    @FXML
+    private Label titleLabel;
 
     @FXML
-    private ListView<String> mMovieTypeListView;
+    private Label titleLabel2;
+
+    @FXML
+    private Text ageText;
+
+    @FXML
+    private Text genreText;
+
+    @FXML
+    private Text text;
+
+
+    private FlowPane mMoviesFlowPane;
+
+    //@FXML
+    //private ListView<String> mMovieTypeListView;
 
     @FXML
     private Label mStatusLabel;
@@ -37,11 +55,11 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private TextField mSearchTextField;
 
-    @FXML
-    private Button mSearchButton;
+    //@FXML
+    //private Button mSearchButton;
 
-    @FXML
-    private Button mClearSearchButton;
+    //@FXML
+    //private Button mClearSearchButton;
 
     private ArrayList<MovieInfoObject> mMovies;
     private double[] mImagesLoadingProgress;
@@ -52,19 +70,24 @@ public class MovieHandler extends Controller implements RequestListener{
     {
         mMovieRequest = new RetrieveRequest(this);
 
+        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
 
-        mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
-        mMovieTypeListView.getSelectionModel().select(0);
+
+
+
+
+        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
+        //mMovieTypeListView.getSelectionModel().select(0);
 
 
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
 
 
-        mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-        mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
 
 
-        mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+       // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
 
     // Called when the fetch request for the movie data is completed
@@ -210,7 +233,15 @@ public class MovieHandler extends Controller implements RequestListener{
     }
 
     @FXML private void searchButtonClicked() {
-        if (!mSearchTextField.getText().isEmpty()) {
+        if (mSearchTextField.getText().equals("show current movie")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
+        } else if (mSearchTextField.getText().equals("show upcoming movie")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
+        } else if (mSearchTextField.getText().equals("show popular movie")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
+        } else if (mSearchTextField.getText().equals("show current tv")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
+        } else if (!mSearchTextField.getText().isEmpty()) {
             mMovieRequest.beginSearchRequest(mSearchTextField.getText());
         }
     }
