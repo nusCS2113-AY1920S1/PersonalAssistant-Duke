@@ -115,6 +115,8 @@ public class TaskList implements Serializable {
     public boolean detectAnomalies(ITask newTask) {
         if (newTask instanceof ToDos) {
             return false;
+        } else if (newTask instanceof PeriodTask) {
+            return false;
         } else if (newTask.getDateTime().equals("")) {
             return false;
         }
