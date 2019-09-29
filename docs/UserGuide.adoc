@@ -167,7 +167,7 @@ Below is a list of command parameters that you can expect to use for the command
 | Indicates your name used in *OwlMoney*
 | `YOUR_NAME` should contain alphabetic characters and spaces. +
 Take note that there is a maximum 30 character limit.
-`BANK_NAME` is case-insensitive.
+`YOUR_NAME` is case-insensitive.
 | `BANK_NAME`
 | Indicates the bank name of the bank account you are adding +
 (e.g. `JunBank Savings Account`).
@@ -299,17 +299,34 @@ Spending is a daily affair and it is difficult to keep track of so many of them.
 
 *Command Syntax*
 
-`/add /expenditure /amount 1.20 /from BANK_NAME /date DATE /description DESCRIPTION /category [CATEGORY]`
+`/add /expenditure /amount AMOUNT /from BANK_NAME /date DATE /description DESCRIPTION /category [CATEGORY]`
 
 *Example*
 
-`/add /expenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category food`
+`/add /expenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category Dining`
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
-the description of `bubble tea` and category of `food`.
+the description of `bubble tea` and category of `Dining`.
 
 ===== `/recurexpenditure`
-===== `/recurincome`
+
+Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
+
+*Command Syntax*
+
+`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /in DAYS /description DESCRIPTION /category [CATEGORY]`
+
+*Example*
+
+`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /in 30 /description Telco Bills /category Bills`
+
+Adds a recurring expenditure that deducts $`72.90` every `30` days to pay `Telco Bills` charged to `JunBank Savings Account`
+categorised under the `Bills` category.
+
+`/add /recurexpenditure /amount 2000 /from POBB Vickers Account /in 30 /description AAB Bonds /category Investments`
+
+Adds a recurring expenditure that deducts $`2000` every `30` days to buy `AAB Bonds` charged to `POBB Vickers Account`
+categorised under the `Investments` category.
 
 ==== /edit `/edit`
 ===== `/savings`
@@ -318,7 +335,6 @@ the description of `bubble tea` and category of `food`.
 ===== `/goals`
 ===== `/expenditure`
 ===== `/recurexpenditure`
-===== `/recurincome`
 
 ==== /delete `/delete`
 ===== `/savings`
@@ -327,7 +343,6 @@ the description of `bubble tea` and category of `food`.
 ===== `/goals`
 ===== `/expenditure`
 ===== `/recurexpenditure`
-===== `/recurincome`
 
 === Utility Commands
 ==== /find `/find`
