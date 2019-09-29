@@ -5,7 +5,6 @@ import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class FixedDurationTasks extends Task {
     private LocalDateTime dateTime;
