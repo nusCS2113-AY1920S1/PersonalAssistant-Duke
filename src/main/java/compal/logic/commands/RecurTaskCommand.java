@@ -12,9 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_REP;
-import static compal.compal.Messages.MESSAGE_MISSING_REP_ARG;
+import static compal.compal.Messages.*;
+import static compal.compal.Messages.MESSAGE_INVALID_TIME_RANGE;
 
 /**
  * Executes user command for recurring tasks, lectures, tutorials,
@@ -159,6 +158,12 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String date = getDate(restOfInput);
             String sTime = getStartTime(restOfInput);
             String eTime = getEndTime(restOfInput);
+            
+            if(Integer.parseInt(sTime)>Integer.parseInt(eTime)){
+                compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
+            }
+
             int rep = getRep(restOfInput);
             int freq = getFreq(restOfInput);
             String dateStr = date;

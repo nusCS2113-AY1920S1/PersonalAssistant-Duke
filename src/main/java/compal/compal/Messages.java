@@ -17,6 +17,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_NUMBER = "TaskNumberError: You can only input "
             + "a valid task number!";
     public static final String MESSAGE_INVALID_TASK = "TaskError: You can only input a task with a future due date!";
+    public static final String MESSAGE_INVALID_TIME_RANGE = "TimeRangeError: End time is before start time!";
 
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
             + " Please enter a description";
