@@ -1,7 +1,7 @@
 package duchess.model.task;
 
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.model.Schedule;
+import duchess.model.TimeFrame;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -112,12 +112,12 @@ public class Event extends Task {
     }
 
     @Override
-    public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
+    public TimeFrame getTimeFrame(Date startDate, Date endDate) {
         if (start.compareTo(startDate) < 0 && end.compareTo(startDate) >= 0) { // starts before ends after that date
-            return new Schedule(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
+            return new TimeFrame(start, String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
                     formatter.format(this.start), formatter.format(this.end)),true);
         } else if (start.compareTo(startDate) >= 0 && start.compareTo(endDate) <= 0) { // starts during date
-            return new Schedule(start, String.format("[E]%s %s", super.toString(), this.description));
+            return new TimeFrame(start, String.format("[E]%s %s", super.toString(), this.description));
         }
         return null;
     }

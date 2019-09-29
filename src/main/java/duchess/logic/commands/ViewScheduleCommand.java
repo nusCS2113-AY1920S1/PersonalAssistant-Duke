@@ -1,24 +1,24 @@
 package duchess.logic.commands;
 
-import duchess.model.Schedule;
-import duchess.storage.Storage;
 import duchess.logic.commands.exceptions.DukeException;
+import duchess.model.TimeFrame;
 import duchess.model.task.Task;
 import duchess.model.task.TaskList;
+import duchess.storage.Storage;
 import duchess.ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class ViewScheduleCommand extends Command {
     private List<String> words;
-    private List<Schedule> schedules;
+    private List<TimeFrame> schedules;
     private Date start;
-    private Date end; // will be changed to more days but for now one day start end only HAHAHAH
+    private Date end;
 
     /**
      * Constructor for class.
@@ -41,6 +41,7 @@ public class ViewScheduleCommand extends Command {
      */
     private Date returnDate(String time) throws DukeException {
         try {
+            // todo fix bug which allows input 'schedule 12/12/2019' without /for
             String dateString = words.get(words.indexOf("/for") + 1) + time;
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
@@ -55,16 +56,16 @@ public class ViewScheduleCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         for (Task t : taskList.getTasks()) {
-            Schedule tempSchedule = t.isWithinTimeFrame(start, end);
+            TimeFrame tempSchedule = t.getTimeFrame(start, end);
             if (tempSchedule != null) {
                 (this.schedules).add(tempSchedule);
             }
         }
-        if (schedules.size() > 0) {
-            schedules.sort(Comparator.comparing(Schedule::getStart));
-            ui.showScheduleResult(schedules, words.get(words.indexOf("/for") + 1));
-        } else {
+        if (schedules.size() <= 0) {
             throw new DukeException("There are no tasks in the schedule.");
+        } else {
+            Collections.sort(schedules);
+            ui.showScheduleResult(schedules, words.get(words.indexOf("/for") + 1));
         }
     }
 }

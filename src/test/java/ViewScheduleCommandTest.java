@@ -1,6 +1,6 @@
-import duchess.model.Schedule;
 import duchess.logic.commands.ViewScheduleCommand;
 import duchess.logic.commands.exceptions.DukeException;
+import duchess.model.TimeFrame;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -20,7 +20,7 @@ public class ViewScheduleCommandTest {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date time = formatter.parse(dateString);
         String toString = "[D][✘] test";
-        assertEquals("1400", new Schedule(time, toString).getStartString());
+        assertEquals("1400", new TimeFrame(time, toString).getStartString());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ViewScheduleCommandTest {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date time = formatter.parse(dateString);
         String toString = "[D][✘] test";
-        assertEquals("[D][✘] test", new Schedule(time, toString).getTask());
+        assertEquals("[D][✘] test", new TimeFrame(time, toString).getTask());
     }
 
     @Test

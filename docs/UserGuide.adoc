@@ -21,7 +21,7 @@ Duchess is a Command Line Interface (CLI) calendar. It provides an interface for
 
 == Quick Start
 
-image::Ui.png[]
+image::Ui.PNG[]
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `duchess.jar` link:{repoURL}/releases[here].

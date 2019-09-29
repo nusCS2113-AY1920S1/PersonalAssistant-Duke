@@ -1,6 +1,6 @@
 package duchess.ui;
 
-import duchess.model.Schedule;
+import duchess.model.TimeFrame;
 import duchess.model.task.Task;
 
 import java.util.List;
@@ -116,12 +116,12 @@ public class Ui {
      * @param schedules Schedule list with start and task details
      * @param date      Date of choice
      */
-    public void showScheduleResult(List<Schedule> schedules, String date) {
+    public void showScheduleResult(List<TimeFrame> schedules, String date) {
         boolean hasOngoing = false;
         printIndented("Here is your schedule:");
         printScheduleRow("|\t\t\t" + date + "\t\t\t|"); // 4 tab + 2 spaces including date
         printScheduleRow("|\tTime\t|\t\t   Task   \t\t|");
-        for (Schedule s : schedules) {
+        for (TimeFrame s : schedules) {
             if (!s.getOngoing()) {
                 printScheduleRow("|\t" + s.getStartString() + "\t|" + taskPadding(s.getTask()));
             } else {
@@ -133,7 +133,7 @@ public class Ui {
             printIndented("Here are your ongoing tasks:");
         }
         int counter = 1;
-        for (Schedule s : schedules) {
+        for (TimeFrame s : schedules) {
             if (s.getOngoing()) {
                 printIndented(counter + ". " + s.getTask());
                 counter++;

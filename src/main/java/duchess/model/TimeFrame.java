@@ -3,34 +3,34 @@ package duchess.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Schedule {
+public class TimeFrame implements Comparable<TimeFrame> {
     private Date time;
     private String task;
-    private boolean ongoing;
+    private boolean isOngoing;
 
     /**
      * Constructor for schedule.
      *
-     * @param time time to be shown in timetable
+     * @param time     time to be shown in timetable
      * @param toString task details
      */
-    public Schedule(Date time, String toString) {
+    public TimeFrame(Date time, String toString) {
         this.time = time;
         this.task = toString;
-        this.ongoing = false;
+        this.isOngoing = false;
     }
 
     /**
      * Constructor for schedule. Tracks ongoing events.
      *
-     * @param time time to be shown in timetable
+     * @param time     time to be shown in timetable
      * @param toString task details
-     * @param ongoing event ongoing
+     * @param ongoing  event ongoing
      */
-    public Schedule(Date time, String toString, boolean ongoing) {
+    public TimeFrame(Date time, String toString, boolean ongoing) {
         this.time = time;
         this.task = toString;
-        this.ongoing = ongoing;
+        this.isOngoing = ongoing;
     }
 
     public Date getStart() {
@@ -38,7 +38,7 @@ public class Schedule {
     }
 
     /**
-     * Change Date to String.
+     * Changes Date to String.
      *
      * @return string containing time of task
      */
@@ -53,6 +53,11 @@ public class Schedule {
     }
 
     public boolean getOngoing() {
-        return ongoing;
+        return isOngoing;
+    }
+
+    @Override
+    public int compareTo(TimeFrame timeFrame) {
+        return time.compareTo(timeFrame.time);
     }
 }

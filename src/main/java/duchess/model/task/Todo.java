@@ -1,7 +1,7 @@
 package duchess.model.task;
 
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.model.Schedule;
+import duchess.model.TimeFrame;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +34,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public Schedule isWithinTimeFrame(Date startDate, Date endDate) {
+    public TimeFrame getTimeFrame(Date startDate, Date endDate) {
         return null;
     }
 
