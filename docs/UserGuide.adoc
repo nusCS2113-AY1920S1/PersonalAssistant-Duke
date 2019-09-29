@@ -114,8 +114,42 @@ Format: `budget + <amount>`
 Shows the user the current available budget, as well as the total earnings and expenses recorded.
 Format: `budget view`
 
-=== On-App Guide
-=== Module Structure
+==== Resets budget : `reset`
+Resets the budget available to the amount that it was initially created
+Format: `budget reset`
+
+==== Delete budget : `delete`
+Delets the budget that is currently stored
+Format: `budget delete`
+
+=== On-App Guide *(Not finalised)*
+
+==== Opens the interface guide : `help`
+Shows a tutorial for DUKE Manager
+Format : `help`
+
+==== Opens the command overview : `help --c`
+Shows the command overview of the various capabilities of DUKE Manager
+Format: `help --c`
+
+=== Module Structure *(Not finalised)*
+
+==== Storing of modules `storemods` 
+- Stores the module into DUKE Manager 
+
+==== Shows modules `viewmods`
+Views the module that are stored in DUKE Manager
+
+=== Contacts *(Not finalised)*
+
+==== Stores contacts `storecontact`
+Stores the contacts inside DUKE Manager
+Format: `storecontact <name> / <contact> / <Details>
+
+==== View contacts `viewcontact`
+Views the contacts inside DUKE Manager
+Format: `viewcontact`
+
 === Generic Task Management
 
 ==== Listing all tasks : `list`
