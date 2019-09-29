@@ -1,11 +1,6 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.Parser;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
-import javacake.TaskList;
+import javacake.*;
 
 public class AddCommand extends Command {
     /**
@@ -34,41 +29,41 @@ public class AddCommand extends Command {
 
     /**
      * Execute addition of tasks.
-     * @param tasks TaskList containing current tasks
+     * @param progressStack TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @throws DukeException Shows error when deletion is not possible
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
 
-        switch (type) {
+        /*switch (type) {
         case TODO:
-            ui.showMessage(Parser.runTodo(tasks.getData(), input, Parser.TaskState.NOT_DONE));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runTodo(progressStack.getData(), input, Parser.TaskState.NOT_DONE));
+            storage.write(progressStack.getData());
             break;
         case DEADLINE:
-            ui.showMessage(Parser.runDeadline(tasks.getData(), input, Parser.TaskState.NOT_DONE));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runDeadline(progressStack.getData(), input, Parser.TaskState.NOT_DONE));
+            storage.write(progressStack.getData());
             break;
         case EVENT:
-            ui.showMessage(Parser.runEvent(tasks.getData(), input, Parser.TaskState.NOT_DONE));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runEvent(progressStack.getData(), input, Parser.TaskState.NOT_DONE));
+            storage.write(progressStack.getData());
             break;
         case DAILY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "daily"));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runRecurring(progressStack.getData(), input, Parser.TaskState.NOT_DONE, "daily"));
+            storage.write(progressStack.getData());
             break;
         case WEEKLY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "weekly"));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runRecurring(progressStack.getData(), input, Parser.TaskState.NOT_DONE, "weekly"));
+            storage.write(progressStack.getData());
             break;
         case MONTHLY:
-            ui.showMessage(Parser.runRecurring(tasks.getData(), input, Parser.TaskState.NOT_DONE, "monthly"));
-            storage.write(tasks.getData());
+            ui.showMessage(Parser.runRecurring(progressStack.getData(), input, Parser.TaskState.NOT_DONE, "monthly"));
+            storage.write(progressStack.getData());
             break;
         default:
             throw new DukeException("     [Unknown COMMAND TYPE]");
-        }
+        }*/
     }
 }

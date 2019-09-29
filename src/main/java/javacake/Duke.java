@@ -6,7 +6,7 @@ public class Duke {
     private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
     private static Storage storage;
-    private static TaskList tasks;
+    private static ProgressStack progressStack;
     private static Profile profile;
     private static boolean isFirstTimeUser;
     private static String userName = "Glen";
@@ -19,6 +19,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
+        progressStack = new ProgressStack();
         try {
             //storage = new Storage(filePath);
             //tasks = new TaskList(storage.load());
@@ -55,8 +56,9 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage, profile);
+                c.execute(progressStack, ui, storage, profile);
                 isExit = c.isExit();
+                System.out.println("Current progress is " + progressStack.checkProgress());
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {

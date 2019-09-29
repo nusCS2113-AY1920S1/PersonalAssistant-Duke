@@ -1,10 +1,6 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.Profile;
-import javacake.Storage;
-import javacake.TaskList;
-import javacake.Ui;
+import javacake.*;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
@@ -22,7 +18,7 @@ public class FreeTimeCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 8) {
             throw new DukeException("     ☹ OOPS!!! The description of a freetime cannot be empty.");
         }
@@ -40,11 +36,11 @@ public class FreeTimeCommand extends Command {
             ui.showMessage("Current Date: " + currDate.toString());
 
             ArrayList<Task> eventList = new ArrayList<>();
-            for (Task task : tasks.getData()) {
+            /*for (Task task : progressStack.getData()) {
                 if (task.getTaskType() == Task.TaskType.EVENT) {
                     eventList.add(task);
                 }
-            }
+            }*/
             ViewScheduleCommand.sortTasksByDate(eventList);
 
             for (Task task : eventList) {
