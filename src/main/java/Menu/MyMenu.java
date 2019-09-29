@@ -1,4 +1,4 @@
-package duke.Task;
+package Menu;
 
 /*
 * To add al the main menu list
@@ -8,17 +8,18 @@ package duke.Task;
 *
  */
 public class MyMenu {
-    private String subMenuDescription;
+    private String myCategory;
     private String menu;
 
 
-    public MyMenu(String subMenuDescription, String menu) {
-        this.subMenuDescription = subMenuDescription;
+    public MyMenu(String myCategory, String menu) {
+        this.myCategory = myCategory;
         this.menu = menu;
     }
 
-    public String getSubMenuDescription() {
-        return subMenuDescription;
+
+    public String getMyCategory() {
+        return myCategory;
     }
 
     public String getMenu() {
