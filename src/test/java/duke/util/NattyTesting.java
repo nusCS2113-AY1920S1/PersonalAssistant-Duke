@@ -1,16 +1,21 @@
 package duke.util;
 
+import duke.exceptions.DukeInvalidTimeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.ParseLocation;
@@ -19,26 +24,27 @@ import com.joestelmach.natty.Parser;
 
 public class NattyTesting {
 
+    private NattyWrapper natty = new NattyWrapper();
+
     @Test
-    public void nattyTrials() {
-        Parser parser = new Parser();
-        List<DateGroup> groups = parser.parse("the day before next thursday");
-        for (DateGroup group : groups) {
-            List dates = group.getDates();
-            int line = group.getLine();
-            int column = group.getPosition();
-            String matchingValue = group.getText();
-            String syntaxTree = group.getSyntaxTree().toStringTree();
-            Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
-            boolean isRecurring = group.isRecurring();
-            Date recursUntil = group.getRecursUntil();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date date = format.parse("2009-12-31");
-                assertEquals(recursUntil, recursUntil);
-            } catch (ParseException e) {
-                System.out.println(e.toString());
-            }
+    public void nattyDateTest() {
+        try {
+            Date first = natty.runParser("today");
+            Date second = Calendar.getInstance().getTime();
+            assertTrue(first.before(second));
+        } catch (DukeInvalidTimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void nattyLocalDateTimeTest() {
+        try {
+            LocalDateTime before = natty.dateToLocalDateTime("today");
+            LocalDateTime after = LocalDateTime.now();
+            assertTrue(before.isBefore(after));
+        } catch (DukeInvalidTimeException e) {
+            System.out.println(e.getMessage());
         }
     }
 

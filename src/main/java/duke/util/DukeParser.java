@@ -253,6 +253,14 @@ public class DukeParser {
         }
     }
 
+    /**
+     * Returns LinkedHashMap of command and included args.
+     * @param command Command input.
+     * @param includeCommand Check for included command.
+     * @param includeArgs Check for included arguments.
+     * @return LinkedHashMap of Command and args to values input by user.
+     * @throws DukeMultipleValuesForSameArgumentException When user inputs too many arguments.
+     */
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs)
