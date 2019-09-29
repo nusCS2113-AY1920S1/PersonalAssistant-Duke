@@ -115,7 +115,7 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     private void retrieveList() throws IOException, ParseException {
-        storage = new Storage(System.getProperty("user.dir") + "\\data\\duke.txt");
+        storage = new Storage();
         TaskList taskList = new TaskList();
         storage.readFile(taskList);
         ArrayList<Task> tempList = taskList.getList();

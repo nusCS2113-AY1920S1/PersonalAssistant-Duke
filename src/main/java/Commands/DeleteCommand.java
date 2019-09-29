@@ -7,29 +7,38 @@ import Interface.*;
 public class DeleteCommand extends Command {
 
     private int index;
+    private String list;
+    private TaskList listToChange;
 
     /**
      * Creates a DeleteCommand object.
      * @param index The index representing the task number in the TaskList object
      */
-    public DeleteCommand(int index){
+    public DeleteCommand(int index, String list){
         this.index = index;
+        this.list = list;
     }
 
     /**
      * Executes the deletion of a task inside the TaskList object with the given index.
-     * @param list The TaskList object to delete the task from
      * @param ui The Ui object to display the delete task message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display delete task message
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        if(index >= 0 && index < list.taskListSize()) {
-            Task task = list.getTask(index);
-            list.removeTask(this.index);
-            return ui.showDelete(task, list.taskListSize());
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+        if(list.equals("todo")) {
+            listToChange = todos;
+        } else if(list.equals("event")) {
+            listToChange = events;
+        } else if(list.equals("deadline")){
+            listToChange = deadlines;
+        }
+        if(index >= 0 && index < listToChange.taskListSize()) {
+            Task task = listToChange.getTask(index);
+            listToChange.removeTask(this.index);
+            return ui.showDelete(task, listToChange.taskListSize());
         } else throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
     }
 }

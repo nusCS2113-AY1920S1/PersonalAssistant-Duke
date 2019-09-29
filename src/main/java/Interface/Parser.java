@@ -23,7 +23,7 @@ public class Parser {
         try {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
-            } else if (fullCommand.trim().equals("list")) {
+            } else if (fullCommand.trim().substring(0, 4).equals("list")) {
                 return new ListCommand();
             } else if (fullCommand.trim().substring(0, 4).equals("done")) {
                 try {

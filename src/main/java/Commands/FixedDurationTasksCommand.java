@@ -37,17 +37,16 @@ public class FixedDurationTasksCommand extends Command {
 
     /**
      * Executes the finding of multiple available block period inside the TaskList object with the given duration.
-     * @param list The TaskList object used to find free time with the given duration
      * @param ui The Ui object to display the find free time message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the message to display find free time chosen
      * @throws Exception Throws parse exception when there is an error parsing data
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
         try {
-            ArrayList<Pair<Date, Date>>  data = list.findFreeTimes(duration, MAX_NO_OF_SLOTS);
+            ArrayList<Pair<Date, Date>>  data = events.findFreeTimes(duration, MAX_NO_OF_SLOTS);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/FixedDurationTask.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();

@@ -17,7 +17,7 @@ public class FixedDurationTask {
     private static final String NO_FIELD = new String ("void");
     private static final String CROSS = new String ("[\u2718]");
     @FXML
-    private ChoiceBox TaskTypeChoiceBox;
+    private ChoiceBox<String> TaskTypeChoiceBox;
     @FXML
     private TextField TaskDescriptionTextField;
     @FXML

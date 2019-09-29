@@ -34,7 +34,7 @@
                   <VBox prefHeight="161.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
                   <VBox prefHeight="183.0" prefWidth="175.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="deadlineLabel" alignment="CENTER" prefHeight="17.0" prefWidth="276.0" text="Label" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="deadlineLabel" alignment="CENTER" prefHeight="17.0" prefWidth="418.0" text="Label" VBox.vgrow="ALWAYS" />
                         <TableView fx:id="deadlineTable" VBox.vgrow="ALWAYS">
                           <columns>
                             <TableColumn fx:id="deadlineTimeColumn" prefWidth="118.0" style="-fx-alignment: center;" text="Due Date" />
@@ -55,7 +55,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </DatePicker>
-                  <Region prefHeight="35.0" prefWidth="430.0" />
+                  <Region prefHeight="35.0" prefWidth="430.0" HBox.hgrow="ALWAYS" />
                   <Button fx:id="cmdButton" mnemonicParsing="false" onAction="#openCommandScene" prefHeight="35.0" prefWidth="88.0" text="Command" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>

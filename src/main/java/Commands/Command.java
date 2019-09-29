@@ -6,5 +6,5 @@ import Interface.*;
  * carried out when an input is entered by the user.
  */
 public abstract class Command {
-    public abstract String execute(TaskList list, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception;
 }
