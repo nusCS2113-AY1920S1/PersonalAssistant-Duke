@@ -35,7 +35,8 @@ Responsibilities: In charge of `exception`
 
 === Aarushi Singh
 image::aarushisingh1.jpg[width="150", align="left"]
-{empty}[http://github.com/aarushisingh1[github]]  
+{empty}[http://github.com/aarushisingh1[github]] 
+
 Role: Scheduling and tracking +
 Responsibilities: In charge of `task`
 
