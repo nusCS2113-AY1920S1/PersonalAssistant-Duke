@@ -11,7 +11,7 @@ By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-image::Ui.png[align="center"]
+image::Ui.png[width="800", align="center"]
 
 {nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
@@ -54,7 +54,6 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 === Viewing help: `help`
 
 Format: `*help*`
-{nbsp} +
 
 === Adding expense/income: `add expense`, `add income`
 
