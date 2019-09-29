@@ -100,15 +100,16 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . As this is your first time starting up this program, you have to create a profile by
-typing *`/create /profile /user_name USER_NAME /add /bank_name BANK_NAME /type SAVINGS`* and pressing kbd:[Enter]
+typing *`/add /profile /name USER_NAME `* and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
-* **`add`** `/bank_name DBB Multi-Currency Account /type savings /amount 8000` `: adds a new `DBB Multi-Currency Account`,
-which has an initial amount of `8000` dollars.
-* **`delete`** `/bank_name POSBkids`: deletes DBB Multi-Currency Account
-* **`list`** `bank`: lists all bank accounts
-* **`bye`**: exits the app
+* **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000` `: adds a new `JunBank Savings
+Account`,
+which has an initial amount of `$4719.90` dollars.
+* **`/delete`** `/savings /name JunBank Savings Account`: deletes JunBank Savings Account
+* **`/list`** `/savings`: lists all bank accounts
+* **`/exit`**: exits the app
 
 .  Refer to, <<Features>> for details of each command.
 
@@ -124,14 +125,16 @@ There are plentiful examples provided to aid your understanding of the commands'
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
-** e.g. in `/add /bank_name BANK_NAME`, `BANK_NAME` is a parameter
+** e.g. in `/add /savings /name BANK_NAME`, `BANK_NAME` is a parameter
 which can be used as:
-.. `/add /bank_name JunBank Savings Account /type savings`
-.. `/add /bank_name Standard Bank Investment Account /type investment`
+.. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0`
+.. `/add /savings /name Standard Bank Investment Account /amount 123.45 /income 5678`
 * Items in square brackets are optional parameters
 ** e.g. `/category [/category TAG]` can be used as:
-.. `/transaction_add /amount 13.50 /category entertainment` (with optional `category` parameter)
-.. `/transaction_add /amount 13.50` (without optional `category` parameter)
+.. `/add /expenditure /savings /amount 13.50 /from JunBank Savings Account [/category entertainment]` (with optional
+`category`
+parameter)
+.. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
 [WARNING]
 ====
 Parameter values cannot be empty (unless otherwise stated).
@@ -161,20 +164,18 @@ Below is a list of command parameters that you can expect to use for commands in
 Take note that there is a maximum 15 character limit.
 `BANK_NAME` is case-sensitive.
 | `BANK_NAME` | Indicates the bank name of the bank account you are adding +
-(e.g. `POBB Kids Savings Account`). | `BANK_NAME` should contain alphabets, spaces and dashes only
+(e.g. `JunBank Savings Account`). | `BANK_NAME` should contain alphabets, spaces and dashes only
 `BANK_NAME` is case-insensitive.
 | `CATEGORY` | Indicates the category of spending +
 (e.g. `Entertainment`). |
 `CATEGORY` should only contain alphabetic characters and spaces.
 |======
-==== /create `/create`
 ==== /add `/add`
-==== /delete `/delete`
-==== /edit `/edit`
-==== /transaction_add `/transaction_add`
-==== /transaction_delete `/transaction_delete`
-==== /transaction_edit `/transaction_edit`
 
+===== /savings `/savings`
+
+==== /edit `/edit`
+==== /delete `/delete`
 
 === Utility Commands
 
