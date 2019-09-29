@@ -4,44 +4,45 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Duke project team information +
+RIMS was developed by the CS2113T-W12-1 team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Sean Chan Hin
-image::hin1.jpg[width="150", align="left"]
+image::hin1.png[width="150", align="left"]
 {empty}[https://github.com/hin1[github]]
 
-Role:Team Lead, testing +
-Component IC: command
+Role: Team Lead, Testing +
+Responsibilities: In charge of `command`
 
 
 === Daniel Chan 
-image::danielcyc.jpg[width="150", align="left"]
+image::danielcyc.png[width="150", align="left"]
 {empty}[http://github.com/danielcyc[github]]  
 
-Role:Documentation, IJ expert +
-Component IC: task
+Role: Intellij expert, Documentation +
+Responsibilities: In charge of `task`
 
 
 === Cai Rong
-image::isbobby.jpg[width="150", align="left"]
+image::isbobby.png[width="150", align="left"]
 {empty}[http://github.com/isbobby[github]]  
 
-Role:Git Expert +
-Component IC: exception
+Role: Git Expert +
+Responsibilities: In charge of `exception`
 
 
 === Aarushi Singh
-image::aarushisingh1.jpg[width="150", align="left"]
-{empty}[http://github.com/aarushisingh1[github]]  
-Role:Scheduling and tracking +
-Component IC: task
+image::aarushisingh1.png[width="150", align="left"]
+{empty}[http://github.com/aarushisingh1[github]] 
+
+Role: Scheduling and tracking +
+Responsibilities: In charge of `task`
 
 === Abhijit Ravichandran
-image::rabhijit.jpg[width="150", align="left"]
+image::rabhijit.png[width="150", align="left"]
 {empty}[http://github.com/rabhijit[github]] 
 
-Role: Deliverables and Deadlines, code Quality +
-Component IC: task
+Role: Deliverables and Deadlines, Code quality +
+Responsibilities: In charge of `core`
