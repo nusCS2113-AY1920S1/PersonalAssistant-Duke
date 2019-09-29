@@ -4,7 +4,7 @@ import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
-import Events.Storage.TaskList;
+import Events.Storage.EventList;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class DukeTest {
         fileContent = "[E][✘] apfiejpawi (at: 2/12/2019 1800)";
         readFromFile.add(fileContent);
 
-        TaskList tasksTest = new TaskList(readFromFile);
+        EventList tasksTest = new EventList(readFromFile);
         Task testTask = new Event("hello", "2/12/2019 1800");
         assertEquals(false, tasksTest.addTask(testTask));
     }
@@ -47,7 +47,7 @@ public class DukeTest {
     @Test
     public void viewScheduleTest() {
         ArrayList<String> testListString = new ArrayList<>();
-        TaskList testList = new TaskList(testListString);
+        EventList testList = new EventList(testListString);
         Task toDoTest = new ToDo("cheese");
         testList.addTask(toDoTest);
         Task deadlineTest1 = new Deadline("eat cheese", "19/09/2019 1900");
@@ -75,7 +75,7 @@ public class DukeTest {
     @Test
     public void addRecurringEventTest() {
         ArrayList<String> taskListString = new ArrayList<>();
-        TaskList testList = new TaskList(taskListString);
+        EventList testList = new EventList(taskListString);
         testList.addRecurringEvent(new Event("recurring event", "12/08/2019"), 100);
         testList.addRecurringEvent(new Event("Recurring event", "12/09/2019 2359"), 80);
         Event expectedEvent1 = new Event("recurring event", "12/08/2019");
@@ -97,7 +97,7 @@ public class DukeTest {
     @Test
     public void checkFreeDaysTest() {
         ArrayList<String> taskListString = new ArrayList<>();
-        TaskList testList = new TaskList(taskListString);
+        EventList testList = new EventList(taskListString);
         Task toDoTest = new ToDo("B-extensions");
         testList.addTask(toDoTest);
         Task deadlineTest1 = new Deadline("finish extension", "21/09/2019 1900");
@@ -179,8 +179,8 @@ public class DukeTest {
     	Task dueTenDays = new Deadline("tenDays", tenDaysStr);
     	all.add(dueTenDays.toString());
     	
-    	TaskList expected = new TaskList(testcase);
-    	TaskList allitms = new TaskList(all);
+    	EventList expected = new EventList(testcase);
+    	EventList allitms = new EventList(all);
     	
     	DateObj limit = new DateObj();
     	limit.addDays(4);

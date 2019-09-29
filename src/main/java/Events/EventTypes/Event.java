@@ -6,37 +6,42 @@ import Events.Formatting.DateObj;
  * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
-public class Event extends Task {
-    /**
-     * Contains the date and time in a DateObj.
-     */
-    protected String date;
+public abstract class Event {
+    protected String description;
+    protected boolean isDone;
+    protected DateObj startDateObj;
+    protected DateObj endDateObj;
+    protected char eventType;
 
-    protected DateObj dateObj;
-
     /**
-     * Creates event
+     * Creates event with one date input (e.g todo)
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
+     * @param description event description
+     * @param isDone      boolean representing state of event completion
+     * @param dateAndTime string representing date of event
      */
-    public Event(String description, String date) {
-        super(description);
-        this.date = new DateObj(date).formatDate();
-        this.dateObj = new DateObj(date);
+    public Event(String description, boolean isDone, String dateAndTime) {
+        this.description = description;
+        this.isDone = isDone;
+        this.startDateObj = new DateObj(dateAndTime);
+        this.endDateObj = null; //no end date, set to null
+        this.eventType = 'T'; //event with no end date can only be todo type
     }
 
     /**
-     * Creates event with boolean attached, so as to read from file correctly.
+     * Creates event with two date input
      *
-     * @param description Description of task.
-     * @param date        Event date and time.
-     * @param isDone      Boolean defining if the task is completed.
+     * @param description event description
+     * @param isDone      boolean representing state of event completion
+     * @param startDateAndTime string representing start date of event
+     * @param endDateAndTime string representing end date of event
      */
-    public Event(String description, String date, boolean isDone) {
-        super(description, isDone);
-        this.date = new DateObj(date).formatDate();
-        this.dateObj = new DateObj(date);
+    public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
+        this.description = description;
+        this.isDone = isDone;
+        this.startDateObj = new DateObj(startDateAndTime);
+        this.endDateObj = new DateObj(endDateAndTime);
+        this.eventType = eventType;
     }
 
     /**
@@ -44,26 +49,46 @@ public class Event extends Task {
      *
      * @return Formatted string representing the event, whether or not it is completed and its date.
      */
-    @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + date + ")";
+        if (getType() == 'T') { //if todo, then only one date entry
+            return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().formatDate();
+        } else { //multiple date entries
+            return "[" + getDoneSymbol() + "][" + getType() + "] " +
+                    getDescription() + " START: " + this.getStartDate().formatDate() +
+                    " END: " + this.getEndDate().formatDate();
+        }
     }
 
-    public String getDate() {
-        return date;
+    public String toStringForFile() { //string that is to be saved to file.
+        if (getEndDate() == null) {
+            return getDoneSymbol() + getType() + " " + getDescription() + " " +
+                    getStartDate().getSplitDate();
+        }
+        return getDoneSymbol() + getType() + " " + getDescription() + " " +
+                getStartDate().getSplitDate() + " " + getEndDate().getSplitDate();
     }
     
-    @Override
-    public String getType() {
-    	return "Event";
+    public char getType() {
+    	return eventType;
     }
-    
-    /**
-     * Returns the DateObj stored in the Event object. This is to facilitate comparison of dates.
-     * @return the DateObj stored in the Event object.
-     */
-    @Override
-    public DateObj getDateObj() {
-    	return this.dateObj;
+
+    public DateObj getStartDate() {
+        return startDateObj;
+    }
+
+    public DateObj getEndDate() {
+        return endDateObj;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getDoneSymbol() {
+        return (isDone) ? "✓" : "✗";
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
     }
 }

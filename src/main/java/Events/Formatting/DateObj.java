@@ -2,11 +2,11 @@ package Events.Formatting;
 
 import UserElements.UI;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Model_Class.DateObj object stores the input date and time as a java object.
@@ -27,8 +27,7 @@ public class DateObj {
 
     protected static int DATE_AND_TIME = 1;
     protected static int DATE = 2;
-    protected static int OTHER = 3;
-    
+
     /**
      * Creates a custom "date object".
      * If no parameters are passed in, a DateObj with the current date and time is created.
@@ -38,26 +37,35 @@ public class DateObj {
     	this.splitDate = splitDate;
     	this.dateObject = new Date();
     	this.format = 0;
+    	formatDate();
     }
 
     public String formatDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             dateFormat.setLenient(false);
             Date taskJavaDate = dateFormat.parse(splitDate);
+            String taskDateFormat = formatter.format(taskJavaDate);
             format = DATE_AND_TIME;
-            return taskJavaDate.toString();
+            return taskDateFormat;
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
-                Date taskJavaDate = dateFormat.parse(splitDate);
+                Date taskJavaDateNoTime = dateFormat.parse(splitDate);
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+                String taskDateFormatNoTime = formatter.format(taskJavaDateNoTime);
                 format = DATE;
-                return taskJavaDate.toString();
+                return taskDateFormatNoTime;
             } catch (ParseException pe2) {
                 return splitDate;
             }
         }
+    }
+
+    public int getFormat() {
+        return format;
     }
 
     /** Getter to obtain the stored built-in Java date object.
@@ -67,24 +75,29 @@ public class DateObj {
         return dateObject;
     }
 
-    public Date getTaskJavaDate() {
+    public String getSplitDate() {
+        return splitDate;
+    }
+
+    public Date getEventJavaDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
             dateFormat.setLenient(false);
             dateObject = dateFormat.parse(splitDate);
+            format = DATE_AND_TIME;
             return dateObject;
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
                 dateObject = dateFormat.parse(splitDate);
+                format = DATE;
                 return dateObject;
             } catch (ParseException pe2) {
                 return dateObject;
             }
         }
     }
-
     
     /**
      * Compares this dateObj with another input dateObj
@@ -97,10 +110,10 @@ public class DateObj {
      * @return Output the result of the comparison according to the algorithm stated above. 
      */
     public int compare(DateObj other) {
-    	if (dateObject == null || other.getTaskJavaDate() == null) {
+    	if (dateObject == null || other.getEventJavaDate() == null) {
     		return 2;
     	} else {
-    		Date otherDate = other.getTaskJavaDate();
+    		Date otherDate = other.getEventJavaDate();
     		if (dateObject.compareTo(otherDate) > 0) {
     			return 1;
     		} else if (dateObject.compareTo(otherDate) == 0) {
@@ -124,6 +137,8 @@ public class DateObj {
             c.set(Calendar.MINUTE, 59);
             c.set(Calendar.SECOND, 59);
             dateObject = c.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            splitDate = formatter.format(dateObject);
     	}
     }
   }
