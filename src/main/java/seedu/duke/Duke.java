@@ -43,4 +43,8 @@ public class Duke {
         Storage.saveTasks(taskList);
         ui.showMessage("Bye. Hope to see you again!");
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
