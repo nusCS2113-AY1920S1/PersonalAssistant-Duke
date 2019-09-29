@@ -3,13 +3,13 @@ By: `AY1920S1-CS2113T-W17-1` Last Updated: `26/09/2019` License: `MIT`
 
 We are still working on the User Guide. Stay tuned as we roll out more new features!
 
-[1. Introduction](/docs/UserGuide.md#1-introduction)
+[**1. Introduction**](/docs/UserGuide.md#1-introduction)
 
-[2. Understanding This User Guide](/docs/UserGuide.md#2-understanding-this-user-guide) 
+[**2. Understanding This User Guide**](/docs/UserGuide.md#2-understanding-this-user-guide) 
 
-[3. Quick Start](/docs/UserGuide.md#3-quick-start)
+[**3. Quick Start**](/docs/UserGuide.md#3-quick-start)
 
-[4. Features](/docs/UserGuide.md#4-features)
+[**4. Features**](/docs/UserGuide.md#4-features)
 
 ## 1. Introduction
 Welcome to **COMPal**!
@@ -18,7 +18,7 @@ Welcome to **COMPal**!
 
 Additionally, you can ***include non-academic activities*** along with your academic timetable, unlike other widely-used timetable tools. You also have the ***freedom to prioritise certain tasks*** over less important ones, and make use of ***timely reminders*** on pending tasks.
 
-Take control with our [Quick Start](/docs/UserGuide.md#3-quick-start) guide. ***COMPal*** your life, today.
+Take control with our [**Quick Start**](/docs/UserGuide.md#3-quick-start) guide. ***COMPal*** your life, today.
 
 ## 2. Understanding This User Guide
 ### 2.1 Basic Information
