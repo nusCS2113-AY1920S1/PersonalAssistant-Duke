@@ -42,22 +42,13 @@ public class FindCommand extends Command {
             throw new OofException("OOPS!!! The description of a find cannot be empty.");
         }
         String item = lineSplit[1].trim();
-        ArrayList<Task> foundArr = new ArrayList<>();
+        ArrayList<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < arr.getSize(); i++) {
             if (arr.getTask(i).getLine().contains(item)) {
-                foundArr.add(arr.getTask(i));
+                matchedTasks.add(arr.getTask(i));
             }
         }
-        if (foundArr.size() == 0) {
-            System.out.println("\tThere are no matching tasks in your list!");
-        } else {
-            ui.showLine();
-            System.out.println("\tHere are the matching tasks in your list:");
-            for (int i = 0; i < foundArr.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + foundArr.get(i));
-            }
-            ui.showLine();
-        }
+        ui.printMatchingTasks(matchedTasks);
     }
 
     /**

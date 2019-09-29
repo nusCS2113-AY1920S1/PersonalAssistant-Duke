@@ -19,28 +19,29 @@ public class Reminder {
      * @param ui       Ui that is responsible for visual feedback.
      */
     public void checkDeadline(TaskList taskList, Ui ui) {
-        try {
-            System.out.println("\tReminder these tasks have upcoming deadlines:");
-            int count = 1;
-            for (int i = 0; i < taskList.getSize(); i++) {
-                Task task = taskList.getTask(i);
-                if (task.toString().startsWith("[D]")) {
-                    String[] lineSplit = task.toString().split("by:");
-                    String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
-                    result = result.trim();
+        ui.printReminder();
+        int count = 1;
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.toString().startsWith("[D]")) {
+                String[] lineSplit = task.toString().split("by:");
+                String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
+                result = result.trim();
+                try {
                     Date dueDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(result);
                     Date now = new Date(); // current date time
                     long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
                     long diffHours = diff / (60 * 60 * 1000);
                     if (diffHours <= 24) {
-                        System.out.println("\t" + count + "." + taskList.getTask(i));
+                        ui.printUpcomingDeadline(count, taskList.getTask(i));
                         count++;
                     }
+                } catch (ParseException | DateTimeException e) {
+                    System.out.println("Timestamp given is invalid! Please try again.");
                 }
+
             }
-            ui.showLine();
-        } catch (ParseException | DateTimeException e) {
-            System.out.println("Timestamp given is invalid! Please try again.");
         }
+        ui.printLine();
     }
 }

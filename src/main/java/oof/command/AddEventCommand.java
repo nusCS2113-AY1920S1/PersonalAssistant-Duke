@@ -83,12 +83,12 @@ public class AddEventCommand extends Command {
                         for (Event e : eventClashes) {
                             System.out.println(e.toString());
                         }
-                        if (!ui.continuePrompt()) {
+                        if (!ui.printContinuePrompt()) {
                             return;
                         }
                     }
                 } catch (ParseException e) {
-                    System.out.println("Timestamp given is invalid! Please try again.");
+                    throw new OofException("Timestamp given is invalid! Please try again.");
                 }
                 Task task = new Event(description, dateSplit[0], dateSplit[1]);
                 arr.addTask(task);
