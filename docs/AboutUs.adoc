@@ -45,4 +45,4 @@ image::rabhijit.jpg[width="150", align="left"]
 {empty}[http://github.com/rabhijit[github]] 
 
 Role: Deliverables and Deadlines, Code quality +
-Responsibilities: In charge of `task`
+Responsibilities: In charge of `core`
