@@ -102,13 +102,13 @@ The budget tracker has to be initiated with the `budget` command.
 Creates a new budget if there is no budget created. 
 Format: `budget new <amount>` 
 
-==== Add expenses to budget : `used`
+==== Add expenses to budget : `-`
 Deducts the expenses from current available budget.
-Format: `budget used <amount> 
+Format: `budget - <amount>`
 
-==== Add earnings to budget : `bank`
+==== Add earnings to budget : `+`
 Adds the earnings to the current available budget
-Format: `budget bank <amount> 
+Format: `budget + <amount>`
 
 ==== View currently available budget : `view` 
 Shows the user the current available budget, as well as the total earnings and expenses recorded.
@@ -167,7 +167,6 @@ Format: `update <task number> <type of update> <description to be updated>`
 * Updates the task at the specified `<task number>`.
 * The task number refers to the index number shown in the displayed task list.
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The duration in days refers to the length of time in days.
 * The type of update refers to either `/desc` or `/date`.
 * `/desc` represents updating the task description.
 * `/date` represents updating the date and time of the task.
@@ -213,16 +212,21 @@ Format: `exit`
 Duke Manager data is saved in the hard disk automatically upon exiting. +
 There is no need to save manually. *However, if the program is exited by any other means and not through the `exit` command, any unsaved progress will be lost*.
 
+== Additional Features (v2.0) 
+
+=== Term Calender 
+==== Semester Calender (~3 months)
+==== Academic Year Calender 
+
+=== System Management 
+==== Login / Password 
+
+=== Better Expenses Record
+==== List of expenses with description
+==== Deletion of expenses from records 
+
 == FAQs
 
 == Command Summary
 
-== Additional Features (v2.0) 
-=== Term Calender 
-==== Semester Calender (~3 months)
-==== Academic Year Calender 
-=== System Management 
-==== Login / Password 
-=== Better Expenses Record
-==== List of expenses with description
-==== Deletion of expenses 
+
