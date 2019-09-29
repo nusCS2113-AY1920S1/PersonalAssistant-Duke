@@ -138,7 +138,7 @@ public class CommandParser {
         List<Integer> result = new ArrayList<>();
         for (String indexString : indexStrings) {
             try {
-                result.add(Integer.parseInt(indexString));
+                result.add(Integer.parseInt(indexString) - 1);
             } catch (NumberFormatException e) {
                 throw new DukeException("Wrong number format");
             }
