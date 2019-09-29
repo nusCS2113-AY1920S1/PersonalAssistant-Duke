@@ -1,11 +1,8 @@
 package duke.util;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
-import duke.Duke;
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
@@ -39,7 +36,6 @@ public class ParserWrapper {
     private String formatInputToStringDate(String date) throws DukeInvalidTimeException {
         return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
-
 
     /**
      * Parsing date arguments.
@@ -76,6 +72,10 @@ public class ParserWrapper {
         } else if (input.startsWith("doWithin ")) {
             LinkedHashMap<String, String> args = DukeParser.parse(input, true, true);
             DukeParser.checkContainRequiredArguments(args, "/begin", "/end");
+            String nattyBegin = formatInputToStringDate(args.get("/begin"));
+            String nattyEnd = formatInputToStringDate(args.get("/end"));
+            args.put("/begin", nattyBegin);
+            args.put("/end", nattyEnd);
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
             return new AddCommand(hold);
         } else if (input.equals("bye")) {

@@ -8,7 +8,7 @@ import duke.exceptions.DukeInvalidTimeException;
 public class TasksTest {
 
     @Test
-    public void testTask()  {
+    public void testTaskPrint()  {
         String taskLabel = "Items to be tested";
         Task test = new Task(taskLabel);
         assertEquals(taskLabel, test.getTask());
@@ -81,5 +81,8 @@ public class TasksTest {
             System.out.println(e.getMessage());
         }
     }
+
+
+
 
 }
