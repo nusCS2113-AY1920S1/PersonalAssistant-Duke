@@ -263,5 +263,3 @@ There is no need to save manually. *However, if the program is exited by any oth
 == FAQs
 
 == Command Summary
-
-
