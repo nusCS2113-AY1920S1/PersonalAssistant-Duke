@@ -12,6 +12,9 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manager class of commands. An undo stack and redo stack is managed by CommandManager.
+ */
 public class CommandManager {
     private List<UndoableCommand> undoStack = new ArrayList<>();
     private List<UndoableCommand> redoStack = new ArrayList<>();
@@ -25,6 +28,11 @@ public class CommandManager {
         this.ui = ui;
     }
 
+    /*
+     * Runs a command. If the command is a subclass of <code>UndoableCommand<code>, puts it in undo stack.
+     * @param command The command to be executed.
+     * @throws DukeException if execution fails.
+     */
     public void execute(Command command) throws DukeException {
         if (command instanceof UndoCommand) {
             undo();
