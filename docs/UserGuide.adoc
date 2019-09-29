@@ -171,12 +171,18 @@ Take note that there is a maximum 30 character limit.
 | `BANK_NAME`
 | Indicates the bank name of the bank account you are adding +
 (e.g. `JunBank Savings Account`).
-| `BANK_NAME` should contain alphabets, spaces and dashes only
-`BANK_NAME` is case-insensitive.
+| `BANK_NAME` should contain alphabetic characters, spaces and dashes only
+`BANK_NAME` is case-insensitive. +
+Take note that there is a maximum 30 character limit.
+| `CARD_NAME`
+| Indicates the name of the credit card you have
+(e.g. `POBB Tomorrow Card`).
+| `CARD_NAME` should contain alphabetic characters, spaces and dashes only +
+Take note that there is a maximum 30 character limit.
 | `CATEGORY`
 | Indicates the category of spending +
 (e.g. `Entertainment`).
-| `CATEGORY` should only contain alphabetic characters and spaces.
+| `CATEGORY` should contain alphabetic characters and spaces only.
 | `AMOUNT`
 | Indicates the amount of money that you are adding or spending +
 (e.g. `2113.30`)
@@ -190,11 +196,29 @@ Take note that there is a maximum 30 character limit.
 | `CASHBACK_RATE`
 | Indicates the cashback rate of the credit card
 | `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of 20.00
+| `CARD_LIMIT`
+| Indicates the credit limit of the credit card
+(e.g `3000`)
+| `CARD_LIMIT` should contain only digits and up to 2 decimal places up to a maximum of 200 000 dollars
+| `GOAL_NAME`
+| Indicates the name of the goal you are setting.
+| `GOAL_NAME` should contain alphabetic characters and spaces only. +
+Take note that there is a maximum 50 character limit.
+| `TARGET_AMOUNT`
+| Indicates the amount that you wish to achieve at the end of your goal.
+| `TARGET_AMOUNT` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
+| `DATE`
+| Indicates the date you wish to achieve your goal by.
+| `DATE` should be in `DD/MM/YYYY` format and can only be in the future
+| `DAYS`
+| Indicates the number of days you wish to achieve your goal by.
+| `DAYS` should contain digits up to 365 only.
 |======
 ==== /add `/add`
 ===== `/savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
-It's easy to add a savings account! Here's how you can use the `/add /savings` command.
+It's easy to add a savings account! +
+Here's how you can use the `/add /savings` command.
 
 *Command Syntax*
 
@@ -203,6 +227,8 @@ It's easy to add a savings account! Here's how you can use the `/add /savings` c
 [WARNING]
 ====
 A profile needs to be created first before you are eligible to add an account
+
+A savings account is compulsory as most features in *OwlMoney* requires it
 ====
 
 *Example*
@@ -215,7 +241,7 @@ every start of the month.
 
 ===== `/investment`
 Want to start *investing* to grow your wealth? No problem!
-All you need to do is to add an investment account!
+All you need to do is to add an investment account! +
 Here's how you can use the `/add /investment` command.
 
 *Command Syntax*
@@ -224,14 +250,64 @@ Here's how you can use the `/add /investment` command.
 
 *Example*
 
-`/add /investment /name DBB Vickers Account /amount 10000`
+* `/add /investment /name DBB Vickers Account /amount 10000`
 
 Adds an investment account named `DBB Vickers Account` which has an initial amount
 of $`10000` inside that you can start investing with.
 
 ===== `/card`
+Have a credit card? We can help you track your spending and cashback rebates with it! +
+Here's how you can use the `/add /card` command.
+
+*Command Syntax*
+
+`/add /card /name CARD_NAME /amount CARD_LIMIT /rebate CASHBACK_RATE`
+
+*Example*
+
+* `/add /card /name POBB Tomorrow Card /amount 10000 /rebate 1.5`
+
+Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
+cashback rate of `1.5`%
+
 ===== `/goals`
+
+Have financial goals that you want to achieve? We can certainly help you with that!
+Regardless of it being short term goals like saving for a holiday or long term goals
+like saving for your wedding or retirement, we got you covered!
+
+*Command Syntax*
+
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+
+*Example*
+
+* `/add /goals /name Delicious Dinner at WAA COW /amount 50 /in 15`
+
+Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15` days.
+
+* `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+
+Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
+
 ===== `/expenditure`
+
+Spending is a daily affair and it is difficult to keep track of so many of them. Fret not!
+`OwlMoney` allows you to keep track of your spending and categorise them as well!
+
+*Command Syntax*
+
+`/add /expenditure /amount 1.20 /from BANK_NAME /date DATE /description DESCRIPTION /category [CATEGORY]`
+
+*Example*
+
+`/add /expenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category food`
+
+Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
+the description of `bubble tea` and category of `food`.
+
 ===== `/recurexpenditure`
 ===== `/recurincome`
 
