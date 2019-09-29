@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="parser.ParserTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.023">
+  <properties/>
+  <testcase name="testScheduleCommand()" classname="parser.ParserTest" time="0.002"/>
+  <testcase name="testFindCommand()" classname="parser.ParserTest" time="0.001"/>
+  <testcase name="testTaskInputFail()" classname="parser.ParserTest" time="0.005"/>
+  <testcase name="testModCommand()" classname="parser.ParserTest" time="0.003"/>
+  <testcase name="testSingleInput()" classname="parser.ParserTest" time="0.003"/>
+  <testcase name="testAnotherModCommand()" classname="parser.ParserTest" time="0.001"/>
+  <testcase name="testAddCommand()" classname="parser.ParserTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

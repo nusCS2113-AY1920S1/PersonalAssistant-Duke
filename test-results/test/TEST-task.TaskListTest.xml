@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="task.TaskListTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.036">
+  <properties/>
+  <testcase name="testNotFound()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testEmptyPrint()" classname="task.TaskListTest" time="0.002"/>
+  <testcase name="testAdd()" classname="task.TaskListTest" time="0.01"/>
+  <testcase name="testGet()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testPrint()" classname="task.TaskListTest" time="0.003"/>
+  <testcase name="testConflictCheck()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testFind()" classname="task.TaskListTest" time="0.0"/>
+  <testcase name="testSize()" classname="task.TaskListTest" time="0.0"/>
+  <testcase name="testNoSchedule()" classname="task.TaskListTest" time="0.0"/>
+  <testcase name="testViewSchedule()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testBanishDelete()" classname="task.TaskListTest" time="0.0"/>
+  <testcase name="testSnoozeTask()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testMarkDone()" classname="task.TaskListTest" time="0.0"/>
+  <testcase name="testSelect()" classname="task.TaskListTest" time="0.001"/>
+  <testcase name="testSelectFail()" classname="task.TaskListTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

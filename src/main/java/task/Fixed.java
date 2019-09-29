@@ -17,7 +17,7 @@ public class Fixed extends Task {
         String[] split = description.split(Parser.fixed);
         if (split.length < 2) {
             System.out.println("I threw exception");
-            throw new DukeException("Please use /need to indicate the window to complete this task");
+            throw new DukeException("Please use /need to indicate the duration needed to complete this task");
         } else if (split.length > 2) {
             throw new DukeException("Too many /need in String");
         } else {
@@ -32,11 +32,11 @@ public class Fixed extends Task {
      *
      * @param bool        String should be 1 or 0, describes if the Task is done or not
      * @param description String contains description of Task
-     * @param between     String contains duration for the task
+     * @param duration     String contains duration for the task
      */
-    public Fixed(String bool, String description, String between) throws DukeException {
+    public Fixed(String bool, String description, String duration) throws DukeException {
         this.description = description;
-        this.duration = between;
+        this.duration = duration;
         this.isDone = (1 == Integer.parseInt(bool));
     }
 

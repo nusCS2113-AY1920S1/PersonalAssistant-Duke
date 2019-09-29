@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="command.ModCommandTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.017">
+  <properties/>
+  <testcase name="testDone()" classname="command.ModCommandTest" time="0.002"/>
+  <testcase name="testDelete()" classname="command.ModCommandTest" time="0.009"/>
+  <testcase name="testSelect()" classname="command.ModCommandTest" time="0.001"/>
+  <testcase name="testSnooze()" classname="command.ModCommandTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

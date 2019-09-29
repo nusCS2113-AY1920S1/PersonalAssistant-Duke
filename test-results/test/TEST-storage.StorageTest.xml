@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="storage.StorageTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.005">
+  <properties/>
+  <testcase name="testStore()" classname="storage.StorageTest" time="0.0"/>
+  <testcase name="testLoad()" classname="storage.StorageTest" time="0.005"/>
+  <system-out><![CDATA[file not found
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="task.TodoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.003">
+  <properties/>
+  <testcase name="testExceptionThrown()" classname="task.TodoTest" time="0.001"/>
+  <testcase name="testGetType()" classname="task.TodoTest" time="0.0"/>
+  <testcase name="testGetDescription()" classname="task.TodoTest" time="0.001"/>
+  <testcase name="testToList()" classname="task.TodoTest" time="0.0"/>
+  <testcase name="testGetStatusIcon()" classname="task.TodoTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

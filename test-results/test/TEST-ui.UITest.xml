@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ui.UITest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-09-27T13:38:18" hostname="Zhenyulee-PC" time="0.012">
+  <properties/>
+  <testcase name="testCloseFailure()" classname="ui.UITest" time="0.001"/>
+  <testcase name="testShowError()" classname="ui.UITest" time="0.006"/>
+  <testcase name="testShowLoadingError()" classname="ui.UITest" time="0.001"/>
+  <testcase name="testShowLine()" classname="ui.UITest" time="0.0"/>
+  <testcase name="testShowWelcome()" classname="ui.UITest" time="0.0"/>
+  <testcase name="testHastaLaVista()" classname="ui.UITest" time="0.001"/>
+  <testcase name="testCloseSuccess()" classname="ui.UITest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
