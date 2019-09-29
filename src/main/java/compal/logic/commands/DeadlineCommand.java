@@ -42,7 +42,8 @@ public class DeadlineCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            taskList.addTask(new Deadline(description, priority, date));
+            String eTime = getEndTime(restOfInput);
+            taskList.addTask(new Deadline(description, priority, date,eTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

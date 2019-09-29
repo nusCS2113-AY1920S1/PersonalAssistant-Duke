@@ -268,10 +268,12 @@ public abstract class Task implements Serializable {
             strCase = 1;
         } else if (getDurationHour() != 0 && getDurationMinute() != 0) {
             strCase = 2;
-        } else if (getStartTime() == null) {
+        } else if (getStartTime() == null && getEndTime() == null) {
             strCase = 3;
         } else if (getStartTime() != null && getEndTime() != null) {
             strCase = 4;
+        }else if (getStartTime() == null && getEndTime() != null) {
+            strCase = 5;
         }
 
         switch (strCase) {

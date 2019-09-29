@@ -64,7 +64,7 @@ public class StorageFile implements Storage {
                 String taskType = parts[0];
                 switch (taskType) {
                 case SYMBOL_DEADLINE:
-                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4]);
+                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
                     break;
                 case SYMBOL_DOAFTER:
                     t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
