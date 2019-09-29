@@ -20,7 +20,7 @@ public class AddOrderCommand extends UndoableCommand {
     /**
      * Class constructor.
      *
-     * @param params the parameters specifying details of the order.
+     * @param params The parameters specifying details of the order.
      */
     public AddOrderCommand(Map<String, List<String>> params) {
         this.params = params;
@@ -33,6 +33,7 @@ public class AddOrderCommand extends UndoableCommand {
         addOrder(order, bakingList);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        ui.showMessage("Order added");
     }
 
     @Override
@@ -40,11 +41,13 @@ public class AddOrderCommand extends UndoableCommand {
         bakingList.getOrderList().remove(order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        ui.showMessage("Undo: Add order");
     }
 
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         execute(bakingList, storage, ui);
+        ui.showMessage("Redo: Add order");
     }
 
     private void addOrder(Order order, BakingList bakingList) {
