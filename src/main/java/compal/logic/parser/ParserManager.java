@@ -43,6 +43,10 @@ public class ParserManager {
     static final String CMD_FIND = "find";
     static final String CMD_SET_REMINDER = "set-reminder";
     static final String CMD_VIEW_REMIND = "view-reminder";
+    static final String CMD_LECT = "lect";
+    static final String CMD_TUT = "tut";
+    static final String CMD_SECT = "sect";
+    static final String CMD_LAB = "lab";
 
     /*
      * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
@@ -137,6 +141,10 @@ public class ParserManager {
                     fixedduration.parseCommand(userInput);
                     break;
                 case CMD_RECUR_TASK:
+                case CMD_LECT:
+                case CMD_TUT:
+                case CMD_SECT:
+                case CMD_LAB:
                     RecurTaskCommand recurTask = new RecurTaskCommand(compal);
                     recurTask.parseCommand(userInput);
                     break;

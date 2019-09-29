@@ -152,8 +152,10 @@ public abstract class Command {
             Task.Priority priority = Task.Priority.valueOf(priorityInput.toLowerCase());
             return priority;
         } else {
-            compal.ui.printg(MESSAGE_MISSING_PRIORITY_ARG);
-            throw new Compal.DukeException(MESSAGE_MISSING_PRIORITY_ARG);
+            /* compal.ui.printg(MESSAGE_MISSING_PRIORITY_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_PRIORITY_ARG); */
+            Task.Priority priority = Task.Priority.low;
+            return priority;
         }
     }
 

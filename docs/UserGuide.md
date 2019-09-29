@@ -44,21 +44,21 @@ Icon                 | What does it mean?
 4. Double-click the `COMPal.jar` file to start the application. The **COMPal** GUI should appear in a few seconds.
     <img src="images/UIInit.png" alt="Initialisation before entering name" width="800"/>
 
-5. As this is your first time starting **COMPal**, **COMPal** will ask for your name, like any new friend. You can type your name in the **command box** and press the <button>Enter</button> key.
+5. As this is your first time starting **COMPal**, **COMPal** will ask for your name, like any new friend. You can type your name in the **command box** and press the `Enter` key.
     <img src="images/UIInitNameConfirmation.png" alt="Initialisation after entering name" width="800"/>
     
-6. **COMPal** will then ask if you have entered your name correctly. If you have, then type `Yes` in the **command box** and press the <button>Enter</button> key. If not, please type `No` and press the <button>Enter</button> key, and **COMPal** will repeat step 5.
+6. **COMPal** will then ask if you have entered your name correctly. If you have, then type `Yes` in the **command box** and press the `Enter` key. If not, please type `No` and press the `Enter` key, and **COMPal** will repeat **Step 5**.
     <img src="images/UIInitNameConfirmed.png" alt="Name confirmed" width="800"/>
 
-7. And that's it! Initialisation is complete and **COMPal** just became your newest friend / most awesome assistant. You can now try entering commands in the **command box** and press <button>Enter</button> to execute it. 
+7. And that's it! Initialisation is complete and **COMPal** just became your newest friend / most awesome assistant. You can now try entering commands in the **command box** and press `Enter` to execute it. 
 
 8. Some example commands you can try:
-    * `clear` : clears all output in the **output box**. Use this if the **output box** becomes too cluttered after typing too many commands.
-    * `deadline <task description> /date <date of deadline>` : adds a task with a deadline 
-    * `event <task description> /date <date of event> /time <time of event>` : adds an event that occurs at a specific time on a specific date
-    * `find <search term>` : find a certain task related to a search term.
-    * `list` : displays the entire list of tasks stored in **COMPal**'s massive memory. However, if you have just downloaded **COMPal**, it's likely that **COMPal** will not display any tasks. 
-    * `bye` : bid goodbye to **COMPal** and exit the program. See you soon!!
+    * `clear` : **clears** all output in the **output box**. Use this if the **output box** becomes too cluttered after typing too many commands.
+    * `deadline <task description> /date <date of deadline>` : **adds** a task with a **deadline** 
+    * `event <task description> /date <date of event> /time <time of event>` : **adds** an **event** that occurs at a specific time on a specific date
+    * `find <search term>` : **find** a certain task related to a **search term**.
+    * `list` : **displays the entire list of tasks** stored in **COMPal**'s massive memory. However, if you have just downloaded **COMPal**, it's likely that **COMPal** will not display any tasks. 
+    * `bye` : **bid goodbye** to **COMPal** and exit the program. See you soon!!
 
 This is the end of the **Quick Start** guide. Please refer to [4. Features](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
 
