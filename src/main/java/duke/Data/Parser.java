@@ -141,6 +141,10 @@ public class Parser {
                 }
                 break;
 
+<<<<<<< HEAD
+            case "Add Category":
+                // code of adding category
+=======
             /**
              * Command should be in the form: class swimming /every monday
              * It will be stored as type [C].
@@ -159,6 +163,7 @@ public class Parser {
                 }
                 break;
 
+>>>>>>> upstream/master
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
