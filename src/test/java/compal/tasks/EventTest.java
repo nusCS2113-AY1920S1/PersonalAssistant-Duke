@@ -81,19 +81,19 @@ public class EventTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, event.getTime());
+        assertEquals(t, event.getStartTime());
     }
 
     @Test
     void setTimeTest() {
-        Date t = event.getTime();
-        event.setTime(time);
-        assertEquals(t, event.getTime());
+        Date t = event.getStartTime();
+        event.setStartTime(time);
+        assertEquals(t, event.getStartTime());
     }
 
     @Test
     void getStringTime() {
-        assertEquals(time, event.getStringTime());
+        assertEquals(time, event.getStringStartTime());
     }
 
     @Test
@@ -111,6 +111,6 @@ public class EventTest {
     void toStringTest() {
         assertEquals("[" + event.getSymbol() + "]" + "[" + event.getStatusIcon() + "] "
                 + event.getDescription() + " Date: " + event.getStringDate() + " Time: "
-                + event.getStringTime() + " Priority: " + event.getPriority(), event.toString());
+                + event.getStringStartTime() + " Priority: " + event.getPriority(), event.toString());
     }
 }

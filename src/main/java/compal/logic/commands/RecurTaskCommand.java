@@ -2,7 +2,6 @@ package compal.logic.commands;
 
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.logic.parser.ParserManager;
 import compal.tasks.RecurringTask;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
@@ -158,7 +157,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getTime(restOfInput);
+            String time = getStartTime(restOfInput);
             int rep = getRep(restOfInput);
             int freq = getFreq(restOfInput);
             String dateStr = date;

@@ -16,7 +16,6 @@ import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
 import static compal.compal.Messages.MESSAGE_MISSING_DESC;
 import static compal.compal.Messages.MESSAGE_MISSING_TIME;
 import static compal.compal.Messages.MESSAGE_MISSING_TIME_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY_ARG;
 import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
 
 /**
@@ -26,7 +25,8 @@ import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
 public abstract class Command {
 
     public static final String TOKEN_SLASH = "/";
-    public static final String TOKEN_TIME = "/time";
+    public static final String TOKEN_START_TIME = "/sTime";
+    public static final String TOKEN_END_TIME = "/eTime";
     public static final String TOKEN_DATE = "/date";
     private static final String TOKEN_PRIORITY = "/priority";
     public Compal compal;
@@ -113,9 +113,27 @@ public abstract class Command {
      * @return Time in the form of a string.
      * @throws Compal.DukeException If time field is empty or time token (/time) is missing.
      */
-    public String getTime(String restOfInput) throws Compal.DukeException {
-        if (restOfInput.contains(TOKEN_TIME)) {
-            int startPoint = restOfInput.indexOf(TOKEN_TIME);
+    public String getStartTime(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_START_TIME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_START_TIME);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_TIME);
+                throw new Compal.DukeException(MESSAGE_MISSING_TIME);
+            }
+            String timeInput = scanner.next();
+            return timeInput;
+        } else {
+            compal.ui.printg(MESSAGE_MISSING_TIME_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_TIME_ARG);
+        }
+    }
+
+    public String getEndTime(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_END_TIME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_END_TIME);
             String dateStartInput = restOfInput.substring(startPoint);
             Scanner scanner = new Scanner(dateStartInput);
             scanner.next();
