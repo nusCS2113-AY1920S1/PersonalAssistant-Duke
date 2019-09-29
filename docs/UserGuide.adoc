@@ -3,8 +3,9 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
-:toclevels: 3
+:toclevels: 4
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -104,12 +105,14 @@ typing *`/add /profile /name USER_NAME `* and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
-* **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000` `: adds a new `JunBank Savings
-Account`,
-which has an initial amount of `$4719.90` dollars.
-* **`/delete`** `/savings /name JunBank Savings Account`: deletes JunBank Savings Account
-* **`/list`** `/savings`: lists all bank accounts
-* **`/exit`**: exits the app
+* **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000`
+: adds a new `JunBank Savings Account`, which has an initial amount of `$4719.90` dollars.
+* **`/delete`** `/savings /name JunBank Savings Account`
+: deletes JunBank Savings Account
+* **`/list`** `/savings`
+: lists all bank accounts
+* **`/exit`**
+: exits the app
 
 .  Refer to, <<Features>> for details of each command.
 
@@ -156,28 +159,104 @@ Hope you had a wonderful experience using *OwlMoney*. Do come back to manage you
 === Detailed Management Commands
 In this section, you'll be introduced to commands that helps you to manage your account in *OwlMoney*.
 
-Below is a list of command parameters that you can expect to use for commands in this section.
+Below is a list of command parameters that you can expect to use for the commands in this section.
 [cols="18%,37%,45%"]
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
-| `YOUR_NAME` | Indicates your name used in *OwlMoney* | `YOUR_NAME` should contain alphabets and spaces. +
-Take note that there is a maximum 15 character limit.
-`BANK_NAME` is case-sensitive.
-| `BANK_NAME` | Indicates the bank name of the bank account you are adding +
-(e.g. `JunBank Savings Account`). | `BANK_NAME` should contain alphabets, spaces and dashes only
+| `YOUR_NAME`
+| Indicates your name used in *OwlMoney*
+| `YOUR_NAME` should contain alphabetic characters and spaces. +
+Take note that there is a maximum 30 character limit.
 `BANK_NAME` is case-insensitive.
-| `CATEGORY` | Indicates the category of spending +
-(e.g. `Entertainment`). |
-`CATEGORY` should only contain alphabetic characters and spaces.
+| `BANK_NAME`
+| Indicates the bank name of the bank account you are adding +
+(e.g. `JunBank Savings Account`).
+| `BANK_NAME` should contain alphabets, spaces and dashes only
+`BANK_NAME` is case-insensitive.
+| `CATEGORY`
+| Indicates the category of spending +
+(e.g. `Entertainment`).
+| `CATEGORY` should only contain alphabetic characters and spaces.
+| `AMOUNT`
+| Indicates the amount of money that you are adding or spending +
+(e.g. `2113.30`)
+| `AMOUNT` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
+| `INCOME`
+| Indicates the amount of money coming in per month from *any sources*
+| `INCOME` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
+| `INTEREST_RATE`
+| Indicates the bond's coupon interest annually
+| `INTEREST_RATE` should contain only digits and up to 2 decimal places up to a maximum of 100.00
+| `CASHBACK_RATE`
+| Indicates the cashback rate of the credit card
+| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of 20.00
 |======
 ==== /add `/add`
+===== `/savings`
+Before you can add any *expenditures*, you will need to add a savings account first.
+It's easy to add a savings account! Here's how you can use the `/add /savings` command.
 
-===== /savings `/savings`
+*Command Syntax*
+
+`/add /savings /name BANK_NAME /amount AMOUNT /income INCOME`
+
+[WARNING]
+====
+A profile needs to be created first before you are eligible to add an account
+====
+
+*Example*
+
+* `/add /savings /name JunBank Savings Account /amount 218.90 /income 2000`
+
+Adds a savings account named `JunBank Savings Account` which has an initial amount
+of $`218.90` inside with a monthly income of `2000` automatically credited into the account
+every start of the month.
+
+===== `/investment`
+Want to start *investing* to grow your wealth? No problem!
+All you need to do is to add an investment account!
+Here's how you can use the `/add /investment` command.
+
+*Command Syntax*
+
+`/add /investment /name BANK_NAME /amount AMOUNT`
+
+*Example*
+
+`/add /investment /name DBB Vickers Account /amount 10000`
+
+Adds an investment account named `DBB Vickers Account` which has an initial amount
+of $`10000` inside that you can start investing with.
+
+===== `/card`
+===== `/goals`
+===== `/expenditure`
+===== `/recurexpenditure`
+===== `/recurincome`
 
 ==== /edit `/edit`
+===== `/savings`
+===== `/investment`
+===== `/card`
+===== `/goals`
+===== `/expenditure`
+===== `/recurexpenditure`
+===== `/recurincome`
+
 ==== /delete `/delete`
+===== `/savings`
+===== `/investment`
+===== `/card`
+===== `/goals`
+===== `/expenditure`
+===== `/recurexpenditure`
+===== `/recurincome`
 
 === Utility Commands
+==== /find `/find`
+==== /list `/list`
+==== /transfer `/transfer`
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
