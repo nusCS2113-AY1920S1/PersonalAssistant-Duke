@@ -2,8 +2,11 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.ui.DialogBox;
+import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import javafx.scene.control.ListView;
@@ -12,15 +15,25 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
+    private Duke duke;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -33,15 +46,16 @@ public class MainWindow extends AnchorPane {
     private TextArea resultDisplay;
 
     @FXML
-    private ListView<String> listView;
+    private AnchorPane root;
 
-    private Duke duke;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    @FXML
+    private ListView listView;
 
     @FXML
     public void initialize() {
+        if (!Main.isScreenLoaded) {
+            loadStartingScreen();
+        }
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -57,6 +71,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        resultDisplay.setText(input);
         for (int i = 0; i < duke.getList().size(); i++) {
             listView.getItems().add(duke.getList().get(i));
         }
@@ -69,7 +84,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleExit() {
-        System.exit(0);
+        ExitWindow exitWindow = new ExitWindow();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(exitWindow));
+        stage.setTitle("Help");
+        stage.setWidth(480);
+        stage.setHeight(100);
+        stage.show();
     }
 
     @FXML
@@ -83,8 +104,42 @@ public class MainWindow extends AnchorPane {
         stage.show();
     }
 
-    @FXML
-    public void handleError(String text) {
-        resultDisplay.setText(text);
+    public void loadStartingScreen() {
+        try {
+            Main.isScreenLoaded = true;
+
+            StackPane pane = FXMLLoader.load(getClass().getResource(("/view/WelcomeScreen.fxml")));
+            root.getChildren().setAll(pane);
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), pane);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.setCycleCount(1);
+
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), pane);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.setCycleCount(1);
+
+            fadeIn.play();
+
+            fadeIn.setOnFinished((e) -> {
+                fadeOut.play();
+            });
+
+            fadeOut.setOnFinished((e) -> {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+                    AnchorPane ap = fxmlLoader.load();
+//                    AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("/view/MainWindow.fxml")));
+                    root.getChildren().setAll(ap);
+                    fxmlLoader.<MainWindow>getController().setDuke(duke);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -20,12 +20,12 @@ public class Ui {
      */
     public void showWelcome() {
         String logo =
-            "      ___         _        \n"
-            + "     |  _ \\ _   _| | _____ \n"
-            + "     | | | | | | | |/ / _ \\\n"
-            + "     | |_| | |_| |   <  __/\n"
-            + "     |____/ \\__,_|_|\\_\\___|\n"
-            + "\n";
+                "      ___         _        \n"
+                        + "     |  _ \\ _   _| | _____ \n"
+                        + "     | | | | | | | |/ / _ \\\n"
+                        + "     | |_| | |_| |   <  __/\n"
+                        + "     |____/ \\__,_|_|\\_\\___|\n"
+                        + "\n";
 
         System.out.println(DIVIDER + logo + "     Hello! I'm Duke\n" + "     What can I do for you?\n" + DIVIDER);
     }

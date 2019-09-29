@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="BASELINE_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="400.0" HBox.hgrow="NEVER">
+        <children>
+            <Label fx:id="exitMessage" text="Label" wrapText="true" HBox.hgrow="NEVER">
+                <HBox.margin>
+                    <Insets right="5.0" />
+                </HBox.margin>
+            </Label>
+
+            <Button fx:id="yesButton" cancelButton="true" mnemonicParsing="false" onAction="#confirmExit" text="YES" HBox.hgrow="NEVER">
+                <HBox.margin>
+                    <Insets left="5.0" />
+                </HBox.margin>
+            </Button>
+
+            <Button fx:id="noButton" mnemonicParsing="false" onAction="#notConfirmExit" text="NO" HBox.hgrow="NEVER">
+                <HBox.margin>
+                    <Insets left="5.0" />
+                </HBox.margin>
+            </Button>
+        </children>
+
+        <opaqueInsets>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+        </opaqueInsets>
+
+        <padding>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+        </padding>
+    </HBox>
+</fx:root>
