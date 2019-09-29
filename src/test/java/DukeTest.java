@@ -55,18 +55,4 @@ public class DukeTest {
             assertEquals(e.getMessage(),e.getMessage());
         }
     }
-
-    DoAfter testdoAfter = new DoAfter("read book","read book","return book");
-    @Test
-    void testDoAfter() {
-        assertEquals("DA|\u2718| return book|/after read book", testdoAfter.toString());
-    }
-
-    FixedDuration testFD = new FixedDuration("playing basketball", "4 hours");
-    @Test
-    void testFixedD() {
-        assertEquals("FD|\u2718| playing basketball|4 hours", testFD.toString());
-    }
-
-
 }
