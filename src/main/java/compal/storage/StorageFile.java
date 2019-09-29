@@ -74,7 +74,7 @@ public class StorageFile implements Storage {
                 case SYMBOL_TUT:
                 case SYMBOL_SECT:
                 case SYMBOL_LAB:
-                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],taskType);
+                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6],taskType);
                     break;
                 case SYMBOL_EVENT:
                     t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6]);

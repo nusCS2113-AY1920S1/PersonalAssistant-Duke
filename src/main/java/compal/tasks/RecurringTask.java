@@ -12,10 +12,11 @@ public class RecurringTask extends Task {
      * @param date        Starting date of recurring task.
      * @param sTime        Starting time of recurring task.
      */
-    public RecurringTask(String description, Priority priority, String date, String sTime, String symbol) {
+    public RecurringTask(String description, Priority priority, String date, String sTime,String eTime, String symbol) {
         super(description, priority);
         super.symbol = symbol;
         super.setDate(date);
         super.setStartTime(sTime);
+        super.setEndTime(eTime);
     }
 }

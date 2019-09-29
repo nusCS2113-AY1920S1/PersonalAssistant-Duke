@@ -157,12 +157,13 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getStartTime(restOfInput);
+            String sTime = getStartTime(restOfInput);
+            String eTime = getEndTime(restOfInput);
             int rep = getRep(restOfInput);
             int freq = getFreq(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, time, symbol);
+                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, sTime,eTime, symbol);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

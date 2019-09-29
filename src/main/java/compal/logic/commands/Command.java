@@ -8,15 +8,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_INVALID_DATE_FORMATTING;
-import static compal.compal.Messages.MESSAGE_INVALID_YEAR;
-import static compal.compal.Messages.MESSAGE_MISSING_DATE;
-import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_DESC;
-import static compal.compal.Messages.MESSAGE_MISSING_TIME;
-import static compal.compal.Messages.MESSAGE_MISSING_TIME_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
+import static compal.compal.Messages.*;
 
 /**
  * Extracts and formats user input string into description, priority, date and time.
@@ -126,8 +118,8 @@ public abstract class Command {
             String timeInput = scanner.next();
             return timeInput;
         } else {
-            compal.ui.printg(MESSAGE_MISSING_TIME_ARG);
-            throw new Compal.DukeException(MESSAGE_MISSING_TIME_ARG);
+            compal.ui.printg(MESSAGE_MISSING_START_TIME_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_START_TIME_ARG);
         }
     }
 
@@ -144,8 +136,8 @@ public abstract class Command {
             String timeInput = scanner.next();
             return timeInput;
         } else {
-            compal.ui.printg(MESSAGE_MISSING_TIME_ARG);
-            throw new Compal.DukeException(MESSAGE_MISSING_TIME_ARG);
+            compal.ui.printg(MESSAGE_MISSING_END_TIME_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_END_TIME_ARG);
         }
     }
 
