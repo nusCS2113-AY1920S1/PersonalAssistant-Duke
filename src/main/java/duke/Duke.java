@@ -7,6 +7,8 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.text.ParseException;
+
 import static duke.common.Messages.filePath;
 
 /**
@@ -46,7 +48,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DukeException | ParseException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

@@ -1,8 +1,15 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.DoAfter;
+import duke.task.Duration;
+import duke.task.Event;
+import duke.task.Period;
+import duke.task.Task;
+import duke.task.Todo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
@@ -70,6 +77,20 @@ public class TaskList {
     }
 
     /**
+     * Searches for deadline type task in taskList.
+     * @return list of deadlines
+     */
+    public ArrayList<String> remindDeadlineTask() {
+        ArrayList<String> arrRemind = new ArrayList<>();
+        for (int i = 0; i < getSize(); i++) {
+            if (taskList.get(i).getTaskType() == Task.TaskType.DEADLINE) {
+                arrRemind.add(taskList.get(i).toString());
+            }
+        }
+        return arrRemind;
+    }
+
+    /**
      * Get number of tasks in taskList.
      * @return Integer corresponding to the number of tasks in taskList
      */
@@ -82,9 +103,8 @@ public class TaskList {
      * @param description String containing the description of the task
      * @param by String containing the date and time of the deadline for the task
      */
-    public void addDeadlineTask(String description, String by) {
-        String date = new Deadline(description, by).convertDate(by);
-        taskList.add(new Deadline(description, date));
+    public void addDeadlineTask(String description, String by) throws ParseException {
+        taskList.add(new Deadline(description, by));
         int index = taskList.size();
         if (index == 1) {
             msg = " task in the list.";
@@ -126,12 +146,29 @@ public class TaskList {
     }
 
     /**
-     * Adds fixed duration task to taskList
+     * Adds fixed duration task to taskList.
      * @param description String containing the description of the task
      * @param need String containing time needed for the task
      */
     public void addDurationTask(String description, String need) {
         taskList.add(new Duration(description, need));
+        int index = taskList.size();
+        if (index == 1) {
+            msg = " task in the list.";
+        } else {
+            msg = MESSAGE_ITEMS2;
+        }
+        System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+    }
+
+    /**
+     * Adds fixed duration task to taskList.
+     * @param description String containing the description of the task
+     * @param startDate String containing the start date of the period to complete the task.
+     * @param endDate String containing the end date of the period to complete the task.
+     */
+    public void addPeriodTask(String description, String startDate, String endDate) {
+        taskList.add(new Period(description, startDate, endDate));
         int index = taskList.size();
         if (index == 1) {
             msg = " task in the list.";

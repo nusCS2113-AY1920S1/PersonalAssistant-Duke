@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_FIND)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(4) == ' ') {
-            String description = userInputCommand.trim().split("\\s", 2)[1];
+            String description = userInputCommand.split("\\s", 2)[1].trim();
             System.out.println(MESSAGE_FIND);
             for (int i = 0; i < taskList.findTask(description).size(); i++) {
                 System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
