@@ -42,11 +42,13 @@ public class DeadlineCommand extends Command {
                 String date = description.trim().split(" /by ", 2)[1];
                 if(details == null || date == null) {
                     throw new DukeException(ERROR_MESSAGE_DEADLINE);
-                }else{
+                }
+                else {
                     if(isParseDate(date)) {
                         taskList.addDeadlineTask(details, date);
                         storage.saveFile(taskList);
-                    }else{
+                    }
+                    else {
                         throw new DukeException(ERROR_MESSAGE_INVALID_DATE);
                     }
                 }

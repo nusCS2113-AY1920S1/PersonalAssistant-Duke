@@ -159,10 +159,23 @@ public class TaskList {
     }
 
     /**
+     * Delete task in taskList
+     * @param i index of the task in taskList
+     */
+    public void snoozeTask(int i) {
+        System.out.println(MESSAGE_SNOOZE + "       " + taskList.get(i));
+        taskList.remove(taskList.get(i));
+    }
+
+    /**
      * Get the current taskList in file
      * @return ArrayList containing tasks
      */
     public ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public Task getTask(int i) {
+        return taskList.get(i);
     }
 }

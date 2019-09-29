@@ -9,15 +9,13 @@ import static duke.common.Messages.*;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 public class DurationCommand extends Command {
-
     /**
-     * Constructor for class TodoCommand
+     * Constructor for class DurationCommand
      * @param userInputCommand String containing input command from user
      */
     public DurationCommand(String userInputCommand) {
         this.userInputCommand = userInputCommand;
     }
-
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {

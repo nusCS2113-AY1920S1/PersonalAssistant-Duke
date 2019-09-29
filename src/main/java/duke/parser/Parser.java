@@ -19,43 +19,49 @@ public class Parser {
     public static Command parse(String userInputCommand) throws DukeException {
         if (userInputCommand.trim().equals(COMMAND_LIST)) {
             return new ListCommand(userInputCommand);
-        }else if (userInputCommand.trim().equals(COMMAND_BYE)) {
+        } else if (userInputCommand.trim().equals(COMMAND_BYE)) {
             return new ByeCommand();
-        }else if (userInputCommand.contains(COMMAND_DONE)) {
+        } else if (userInputCommand.contains(COMMAND_DONE)) {
             return new DoneCommand(userInputCommand);
-        }else if (userInputCommand.contains(COMMAND_DEADLINE)) {
+        } else if (userInputCommand.contains(COMMAND_DEADLINE)) {
             if (userInputCommand.trim().substring(0, 8).equals(COMMAND_DEADLINE)) {
                 return new DeadlineCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }else if (userInputCommand.contains(COMMAND_DELETE)) {
+        } else if (userInputCommand.contains(COMMAND_DELETE)) {
             if (userInputCommand.trim().substring(0, 6).equals(COMMAND_DELETE)) {
                 return new DeleteCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }else if (userInputCommand.contains(COMMAND_EVENT)) {
-                if (userInputCommand.trim().substring(0, 5).equals(COMMAND_EVENT)) {
+        } else if (userInputCommand.contains(COMMAND_EVENT)) {
+            if (userInputCommand.trim().substring(0, 5).equals(COMMAND_EVENT)) {
                 return new EventCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }else if (userInputCommand.contains(COMMAND_TODO)) {
+        } else if (userInputCommand.contains(COMMAND_TODO)) {
             if (userInputCommand.trim().substring(0, 4).equals(COMMAND_TODO)) {
                 return new TodoCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }else if (userInputCommand.contains(COMMAND_FIND)) {
+        } else if (userInputCommand.contains(COMMAND_FIND)) {
             if (userInputCommand.trim().substring(0, 4).equals(COMMAND_FIND)) {
                 return new FindCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
         } else if (userInputCommand.contains(COMMAND_DURATION)) {
-            if (userInputCommand.trim().substring(0, 5).equals(COMMAND_DURATION)) {
+            if (userInputCommand.trim().substring(0, 8).equals(COMMAND_DURATION)) {
                 return new DurationCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_SNOOZE)) {
+            if (userInputCommand.trim().substring(0, 6).equals(COMMAND_SNOOZE)) {
+                return new SnoozeCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }

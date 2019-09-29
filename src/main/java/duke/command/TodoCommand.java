@@ -29,9 +29,10 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
-        if(userInputCommand.trim().equals(COMMAND_TODO)){
+        if(userInputCommand.trim().equals(COMMAND_TODO)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-        }else if(userInputCommand.trim().charAt(4) == ' '){
+        }
+        else if(userInputCommand.trim().charAt(4) == ' ') {
             String description = userInputCommand.trim().split("\\s",2)[1];
             taskList.addTodoTask(description);
             storage.saveFile(taskList);
