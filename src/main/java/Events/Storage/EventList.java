@@ -119,12 +119,22 @@ public class EventList {
                 SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
                 String taskStartDateFormat = formatter.format(calendarStartDate.getTime());
                 String taskEndDateFormat = formatter.format(calendarEndDate.getTime());
-                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormat, taskEndDateFormat));
+                if (event.getType() == 'L') {
+                    this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormat, taskEndDateFormat));
+                }
+                else if (event.getType() == 'P') {
+                    this.eventArrayList.add(new Practice(event.getDescription(), taskStartDateFormat, taskEndDateFormat));
+                }
             } else {
                 SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
                 String taskStartDateFormatNoTime = formatter.format(calendarStartDate.getTime());
                 String taskEndDateFormatNoTime = formatter.format(calendarEndDate.getTime());
-                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
+                if (event.getType() == 'L') {
+                    this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
+                }
+                else if (event.getType() == 'P') {
+                    this.eventArrayList.add(new Practice(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
+                }
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
