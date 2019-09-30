@@ -43,6 +43,7 @@
         </AnchorPane>
     </center>
     <bottom>
+
         <HBox alignment="BOTTOM_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="mStatusLabel" />
@@ -70,18 +71,20 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <HBox alignment="BASELINE_LEFT" spacing="20.0">
-                    <children>
-                        <Label prefHeight="16.0" prefWidth="0.0" text="" />
-                        <TextField fx:id="mSearchTextField" onAction="#searchButtonClicked" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="mSearchButton" mnemonicParsing="false" onAction="#searchButtonClicked" prefWidth="70.0" text="Search" />
-                        <Button fx:id="mClearSearchButton" minWidth="70.0" mnemonicParsing="false" onAction="#clearSearchButtonClicked" prefWidth="70.0" text="Clear" />
-                    </children>
-                    <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
-                    </padding>
-                </HBox>
+
             </children>
+            <HBox alignment="BASELINE_LEFT" spacing="20.0">
+                <children>
+                    <Label prefHeight="16.0" prefWidth="0.0" text="" />
+                    <TextField fx:id="mSearchTextField" onAction="#searchButtonClicked" HBox.hgrow="ALWAYS" />
+                    <Button fx:id="mSearchButton" mnemonicParsing="false" onAction="#searchButtonClicked" prefWidth="70.0" text="Search" />
+                    <Button fx:id="mClearSearchButton" minWidth="70.0" mnemonicParsing="false" onAction="#clearSearchButtonClicked" prefWidth="70.0" text="Clear" />
+                </children>
+                <padding>
+                    <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
+                </padding>
+            </HBox>
+
         </VBox>
     </top>
 </BorderPane>

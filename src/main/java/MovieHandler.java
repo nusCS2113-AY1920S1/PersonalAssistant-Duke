@@ -1,18 +1,23 @@
+import Contexts.CommandContext;
+import Contexts.SearchResultContext;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
+import parser.CommandParser;
 import ui.Ui;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,6 +67,51 @@ public class MovieHandler extends Controller implements RequestListener{
 
         mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
         mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+
+        //Real time changes to text field
+        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+        });
+
+        //Enter is Pressed
+        mSearchTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.ENTER)) {
+//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
+                    // do something
+                    System.out.println("Hello");
+                    CommandParser.parseCommands(mSearchTextField.getText());
+                }else if(event.getCode().equals(KeyCode.TAB)){
+                    System.out.println("Tab presjenksjessed");
+
+                }
+            }
+        });
+
+        //Consumes Tab navigation
+        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                System.out.println("TAB pressed");
+                ArrayList<String> hints = SearchResultContext.getPossibilities(mSearchTextField.getText());
+                if(hints.size()==0){
+                    System.out.println("No Hints");
+                }else if(hints.size()==1){
+                    mSearchTextField.setText(mSearchTextField.getText() + hints.get(0));
+                }else{
+                    String options = "";
+                    for(String a: hints){
+                        options += a;
+                        options += " ";
+                    }
+                    mSearchTextField.setText(mSearchTextField.getText() + "\n" + options + "\n");
+                }
+
+                event.consume();
+            }
+        });
+
 
 
         mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
