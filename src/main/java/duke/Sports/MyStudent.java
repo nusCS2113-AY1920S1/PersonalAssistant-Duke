@@ -3,7 +3,7 @@ package duke.Sports;
 /**
  * Represents a student.
  */
-public class MyStudent {
+public class MyStudent{
 
     private String name;
     private int age;
