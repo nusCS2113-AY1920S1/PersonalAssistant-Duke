@@ -344,11 +344,89 @@ categorised under the `Investments` category.
 
 ==== /delete `/delete`
 ===== `/savings`
+Closed your savings bank account? You can reflect it on `OwlMoney` as well!
+
+*Command Syntax*
+
+`/delete /savings /name BANK_NAME`
+
+[WARNING]
+====
+All transactions related to the bank account will be deleted.
+====
+
+*Example*
+
+* `/delete /savings /name JunBank Savings Account`
+
+Deletes a savings account named `JunBank Savings Account``
+
 ===== `/investment`
+You can also close your investment bank account on `OwlMoney` as well!
+
+*Command Syntax*
+
+`/delete /investment /name BANK_NAME`
+
+[WARNING]
+====
+All transactions related to the bank account will be deleted.
+====
+
+*Example*
+
+* `/delete /investment /name POBB Vickers Account`
+
+Deletes an investment account named `POBB Vickers Account`
+
 ===== `/card`
+
+Cancelled your credit card as well, you can delete them here too!
+
+*Command Syntax*
+
+`/delete /card /name CARD_NAME`
+
+[WARNING]
+====
+All transactions related to the credit card will be deleted.
+====
+
+*Example*
+
+* `/delete /card /name POBB Tomorrow Card`
+
+Deletes a credit card named `POBB Tomorrow Card`
+
 ===== `/goals`
+
+Achieved your goals? You can safely delete them!
+
+*Command Syntax*
+
+`/delete /goals /name GOAL_NAME`
+
+*Example*
+
+* `/delete /goals /name BTO at Punggol Downpayment`
+
+Deletes a goal named `BTO at Punggol Downpayment`
+
 ===== `/expenditure`
+
+*Command Syntax*
+
+`/delete /expenditure /from JunBank Savings Account /expno EXPENDITURE_NUMBER`
+
+*Example*
+
 ===== `/recurexpenditure`
+
+*Command Syntax*
+
+`/delete /recurexpenditure /from JunBank Savings Account /expno EXPENDITURE_NUMBER`
+
+*Example*
 
 === Utility Commands
 ==== /find `/find`
@@ -358,8 +436,11 @@ Searching for a transaction in the past? *OwlMoney* helps you by providing you v
 *Command Syntax*
 
 `/find /savings /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+
 `/find /investment /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+
 `/find /card /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+
 `/find /bonds /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
 *Example*
