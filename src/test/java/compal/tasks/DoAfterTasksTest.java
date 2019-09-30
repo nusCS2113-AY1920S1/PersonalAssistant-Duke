@@ -74,7 +74,7 @@ public class DoAfterTasksTest {
 
     @Test
     void getTime() {
-        assertNull(doAfterTasks.getTime());
+        assertNull(doAfterTasks.getStartTime());
     }
 
     @Test

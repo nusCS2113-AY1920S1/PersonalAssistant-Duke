@@ -50,7 +50,7 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getTime(restOfInput);
+            String time = getStartTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
             taskList.addTask(new FixedDurationTask(description, priority, date, time, hour, minute));
