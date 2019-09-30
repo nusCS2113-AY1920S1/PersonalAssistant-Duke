@@ -38,11 +38,11 @@ public class Parser {
                 return new ListShowCommand(splitStr[1]);
             case "bye":
                 return new ByeCommand();
-            case "add":
+            case "add": // add poto|5/10/2020|2000|20
                 return parseAddShow(splitStr[1]);
             case "delete-all": // e.g. delete-all poto|lion king
                 return parseDeleteAllOfShow(splitStr[1]);
-            case "delete-one": // e.g. delete-one 2/10/2019|poto
+            case "delete": // e.g. delete 2/10/2019|poto
                 return parseDeleteOneOfShow(splitStr[1]);
             default:
                 return null;

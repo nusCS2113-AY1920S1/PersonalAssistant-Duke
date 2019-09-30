@@ -15,7 +15,7 @@ class ListCommandTest {
     Storage storage;
     ListCommand listCommand = new ListCommand();
 
-    @Test
+    @org.junit.Test
     void testExecute() {
         tasks.add(new Todo("test1"));
         tasks.add(new Todo("test2"));
