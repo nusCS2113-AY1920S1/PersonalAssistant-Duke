@@ -2,13 +2,14 @@ package controllers;
 
 import exceptions.DukeException;
 import exceptions.InvalidInputException;
-import exceptions.NoCommandDetailsException;
 import java.util.Scanner;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
-import models.tasks.IRecurring;
+
 import models.commands.RescheduleCommand;
+import models.tasks.IRecurring;
 import models.tasks.ITask;
+import models.tasks.PeriodTask;
 import models.tasks.Recurring;
 import models.tasks.TaskList;
 import views.CLIView;
@@ -24,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ConsoleInputController implements IViewController {
@@ -32,6 +32,7 @@ public class ConsoleInputController implements IViewController {
     private CLIView consoleView;
     private TaskFactory taskFactory;
     private RecurringFactory recurringFactory;
+    private PeriodTaskFactory periodTaskFactory;
     private TaskList taskList;
     private String filePath = "src/main/saves/savefile.txt";
 
@@ -44,6 +45,7 @@ public class ConsoleInputController implements IViewController {
         this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
         this.recurringFactory = new RecurringFactory();
+        this.periodTaskFactory = new PeriodTaskFactory();
     }
 
     private void checkRecurring() {
@@ -166,6 +168,16 @@ public class ConsoleInputController implements IViewController {
                 Recurring newRecurringTask = recurringFactory.createTask(input);
                 boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
                 consoleView.addMessage(newRecurringTask, taskList, anomaly);
+                saveData();
+            } catch (DukeException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+            break;
+        case "period":
+            try {
+                PeriodTask newPeriodTask = periodTaskFactory.createTask(input);
+                boolean anomaly = taskList.addToList(newPeriodTask);
+                consoleView.addMessage(newPeriodTask, taskList, anomaly);
                 saveData();
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
