@@ -15,8 +15,8 @@ public class EmailParser {
                     .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
                     .withResolverStyle(ResolverStyle.STRICT);;
 
-    public static ArrayList<Email> parseFetchResponse(String response) throws EmailParsingException {
-        ArrayList<Email> emailList = new ArrayList<>();
+    public static EmailList parseFetchResponse(String response) throws EmailParsingException {
+        EmailList emailList = new EmailList();
         try {
             JSONObject responseJson = new JSONObject(response);
             JSONArray emailJsonArray = responseJson.getJSONArray("value");
