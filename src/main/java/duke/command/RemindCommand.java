@@ -40,7 +40,7 @@ public class RemindCommand extends Command{
                 }
             }
         } catch ( Exception e) {
-            //
+            System.out.println(e.getMessage());
         }
 
     }
