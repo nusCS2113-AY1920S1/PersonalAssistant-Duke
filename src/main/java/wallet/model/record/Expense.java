@@ -100,4 +100,16 @@ public class Expense extends Record {
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         }
     }
+
+
+    @Override
+    public String writeToFile() {
+        if (isRecurring) {
+            return getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category + "," + recFrequency;
+        } else {
+            return getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category;
+        }
+    }
 }

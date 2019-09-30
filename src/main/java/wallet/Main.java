@@ -1,7 +1,6 @@
 package wallet;
 
 import wallet.logic.LogicManager;
-import wallet.storage.Storage;
 import wallet.ui.Reminder;
 import wallet.ui.Ui;
 
@@ -10,10 +9,6 @@ public class Main {
      * The Ui object that handles input and output of the application.
      */
     private Ui ui;
-    /**
-     * The Storage object that handles the read and write of text file from the local computer.
-     */
-    private Storage storage;
     /**
      * The TaskList object that handles the list of task added by the user.
      */
@@ -28,8 +23,7 @@ public class Main {
      */
     public Main() {
         ui = new Ui();
-        storage = new Storage();
-        logicManager = new LogicManager(storage);
+        logicManager = new LogicManager();
     }
 
     public static void main(String[] args) {
@@ -47,7 +41,6 @@ public class Main {
             String fullCommand = ui.readLine();
             ui.printLine();
             isExit = logicManager.execute(fullCommand);
-            //isExit = Command.parse(cmd, taskList, storage, scheduleList, contactList, recordList, expenseList);
             ui.printLine();
         }
         ui.byeMsg();
