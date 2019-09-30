@@ -314,18 +314,24 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 
 *Command Syntax*
 
-`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /in DAYS /description DESCRIPTION /category [CATEGORY]`
+`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /description DESCRIPTION
+/category
+[CATEGORY]`
 
 *Example*
 
-`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /in 30 /description Telco Bills /category Bills`
+`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /description Telco Bills /category
+Bills`
 
-Adds a recurring expenditure that deducts $`72.90` every `30` days to pay `Telco Bills` charged to `JunBank Savings Account`
+Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
+Account`
 categorised under the `Bills` category.
 
-`/add /recurexpenditure /amount 2000 /from POBB Vickers Account /in 30 /description AAB Bonds /category Investments`
+`/add /recurexpenditure /amount 2000 /from POBB Vickers Account /frequency month /description AAB Bonds /category
+Investments`
 
-Adds a recurring expenditure that deducts $`2000` every `30` days to buy `AAB Bonds` charged to `POBB Vickers Account`
+Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `POBB Vickers
+Account`
 categorised under the `Investments` category.
 
 ==== /edit `/edit`
@@ -346,8 +352,66 @@ categorised under the `Investments` category.
 
 === Utility Commands
 ==== /find `/find`
+
+Searching for a transaction in the past? *OwlMoney* helps you by providing you various ways to do it!
+
+*Command Syntax*
+
+`/find /savings /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /investment /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /card /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /bonds /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+
+*Example*
+
+`/find /savings /name JunBank Savings Account /description bubble tea`
+
+Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`
+
+`/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to /to 7/1/2019`
+
+Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
+and `7/1/2019`
+
 ==== /list `/list`
+
+Curious to find out your transactions for your accounts? Let us show you how it can be done!
+
+*Command Syntax*
+
+`/list /savings /name BANK_NAME [/num NUMBER]`
+`/list /investment /name BANK_NAME [/num NUMBER]`
+`/list /card /name CARD_NAME [/num NUMBER]`
+
+*Example*
+
+* /list /name JunBank Savings Account /num 60
+
+Lists the most recent 60 transactions linked to JunBank Savings Account
+
+* /list /name POBB Tomorrow Card
+
+Lists the most recent 30 transactions tied to the POBB Tomorrow Card
+
 ==== /transfer `/transfer`
+
+Transferred money between accounts? We can do that too.
+
+*Command Syntax*
+
+`/transfer /savings /from BANK_NAME /to BANK_NAME /amount AMOUNT`
+
+`/transfer /investment /from BANK_NAME /to BANK_NAME /amount AMOUNT`
+
+*Example*
+
+* `/transfer /savings /from JunBank Savings Account /to POBB Savings Account /amount 500`
+
+Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`
+
+* `/transfer /investment /from POBB Vickers Account /to JunBank Savings Account /amount 250`
+
+Transfers $`250` from `POBB Vickers Account` to `JunBank Savings Account`
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
