@@ -9,20 +9,26 @@ import java.util.Scanner;
 public class User {
     private ArrayList<Integer> weight = new ArrayList();
     private int height = 0;
+    private int age;
     private gender sex;
     private boolean isSetup;
     private String name;
+    private int activityLevel;
+    private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
+    private boolean loseWeight;
 
     public User() {
         this.isSetup = false;
     }
 
-    public User(String name, int weight, int height, gender sex) {
+    public User(String name, int age, int weight, int height, gender sex, int activityLevel, boolean loseWeight) {
         this.name = name;
         this.weight.add(weight);
         this.height = height;
         this.sex = sex;
         this.isSetup = true;
+        this.activityLevel = activityLevel;
+        this.loseWeight = loseWeight;
     }
 
     public void setup() throws DukeException {
@@ -30,25 +36,54 @@ public class User {
         String name;
         int weight = 0;
         int height = 0;
-        System.out.println("Input name");
+        int activityLevel = 5;
+        System.out.println("     Input name");
         name = in.nextLine();
         try {
-            System.out.println("Input weight");
+            System.out.println("     Input age");
+            height = Integer.parseInt(in.nextLine());
+        } catch (NumberFormatException e) {
+            throw new DukeException(e.getMessage());
+        }
+        try {
+            System.out.println("     Input weight");
             weight = Integer.parseInt(in.nextLine());
         } catch (NumberFormatException e) {
             throw new DukeException(e.getMessage());
         }
         try {
-            System.out.println("Input height");
+            System.out.println("     Input height");
             height = Integer.parseInt(in.nextLine());
         } catch (NumberFormatException e) {
             throw new DukeException(e.getMessage());
         }
-        System.out.println("Input gender(Male/Female)");
+        System.out.println("     Input gender(Male/Female)");
+        String sex = in.nextLine();
+        while (activityLevel > 4 || activityLevel < 0) {
+            System.out.println("     Input Activity Level");
+            System.out.println("     1) Sedentary (Little or no exercise, desk job");
+            System.out.println("     2) Lightly active (Light exercise/ sports 1-3 days/week");
+            System.out.println("     3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
+            System.out.println("     4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
+            System.out.println("     5) Extra active (Hard exercise 2 or more times per day, or training for\n" +
+                    "marathon, or triathlon, etc. )");
+            try {
+                activityLevel = Integer.parseInt(in.nextLine()) - 1;
+            } catch (NumberFormatException e) {
+                throw new DukeException(e.getMessage());
+            }
+        }
+        System.out.println("     Would you like to lose weight?(Y/N)");
+        String choice = in.nextLine();
+        if (choice.charAt(0) == 'Y') {
+            this.loseWeight = true;
+        } else {
+            this.loseWeight = false;
+        }
         this.name = name;
         this.weight.add(weight);
         this.height = height;
-        String sex = in.nextLine();
+        this.activityLevel = activityLevel;
         if (sex.charAt(0) == 'M') {
             this.sex = gender.MALE;
         } else {
@@ -65,13 +100,34 @@ public class User {
         this.height = height;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setActivityLevel(int activityLevel) {
+        this.activityLevel = activityLevel;
+    }
+
+    public void setLoseWeight() {
+        this.loseWeight = true;
+    }
+
+    public void setMaintainWeight() {
+        this.loseWeight = true;
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public int getAge() {
+        return this.age;
     }
 
     public int getWeight() {
         return this.weight.get(this.weight.size() - 1);
     }
+
 
     public ArrayList<Integer> getAllWeight() {
         return this.weight;
@@ -79,6 +135,24 @@ public class User {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public int getActivityLevel() {
+        return this.activityLevel;
+    }
+
+    public int getDailyCalorie() {
+        double calorie;
+        if (this.sex == gender.MALE) {
+            calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() + 5;
+        } else {
+            calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() - 161;
+        }
+        return (int)(((this.loseWeight)? 0.8 : 1) * this.factor[this.activityLevel] * calorie);
+    }
+
+    public boolean getLoseWeight() {
+        return this.loseWeight;
     }
 
     public gender getSex() {

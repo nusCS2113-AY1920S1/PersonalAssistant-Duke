@@ -54,10 +54,14 @@ public class Ui {
         System.out.println("  " + currentMeal);
     }
 
-    public void showAdded(Meal currentMeal, ArrayList<Meal> meals) {
-        System.out.println(padding + "Got it. I've added this task:");
+    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String date) {
+        System.out.println(padding + "Got it. I've added this meal:");
         System.out.println(padding + currentMeal);
-        System.out.println(padding + "Now you have " + meals.size() + " tasks in the list.");
+        int totalConsume = 0;
+        for (int i = 0; i < meals.size(); i += 1) {
+            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+        }
+        System.out.println(padding + "Now you have " + (user.getDailyCalorie() - totalConsume) + " calories left on " + date);
     }
 
     public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {
@@ -96,5 +100,20 @@ public class Ui {
     public void showUserSetupDone(User user) {
         System.out.println(padding + "Thanks, " + user.getName() + "!");
         System.out.println(padding + "We are done setting up!");
+    }
+
+    public void showCalorie(User user) {
+        System.out.println(padding + "This is your daily limit");
+        System.out.println(padding + user.getDailyCalorie());
+    }
+
+    public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user) {
+        System.out.println(padding + "You can consume this many calorie today");
+        int limit = user.getDailyCalorie();
+        int consumeTotal = 0;
+        for (int i = 0; i < mealsOfDay.size(); i += 1) {
+            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+        }
+        System.out.println(padding + Integer.toString(limit - consumeTotal));
     }
 }

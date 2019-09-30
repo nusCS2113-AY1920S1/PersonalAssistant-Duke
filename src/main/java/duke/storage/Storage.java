@@ -122,6 +122,7 @@ public class Storage {
                     }
                     bufferedWriter.write(toWrite);
                 }
+                bufferedWriter.newLine();
             }
             bufferedWriter.close();
         } catch (IOException e) {
@@ -145,13 +146,16 @@ public class Storage {
             bufferedReader.close();
             String[] splitLine = line.split("\\|");
             String name = splitLine[0];
-            int weight = Integer.parseInt(splitLine[1]);
-            int height = Integer.parseInt(splitLine[2]);
-            String sex = splitLine[3];
+            int age = Integer.parseInt(splitLine[1]);
+            int weight = Integer.parseInt(splitLine[2]);
+            int height = Integer.parseInt(splitLine[3]);
+            int activityLevel = Integer.parseInt(splitLine[4]);
+            boolean loseWeight = Boolean.parseBoolean(splitLine[5]);
+            String sex = splitLine[6];
             if (sex.equals("M")) {
-                return new User(name, weight, height, gender.MALE);
+                return new User(name, age, weight, height, gender.MALE, activityLevel, loseWeight);
             } else {
-                return new User(name, weight, height, gender.FEMALE);
+                return new User(name, age, weight, height, gender.FEMALE, activityLevel, loseWeight);
             }
         } catch (Exception e) {
             throw new DukeException("Unable to access file");
@@ -159,7 +163,8 @@ public class Storage {
     }
 
     public void saveUser(User user) throws DukeException {
-        String toWrite = user.getName() + "|" + user.getWeight() + "|" + user.getHeight() + "|";
+        String toWrite = user.getName() + "|" + user.getAge() + "|" + user.getWeight() + "|" + user.getHeight() + "|" + user.getActivityLevel() + "|"
+                + user.getLoseWeight() + "|";
         if (user.getSex() == gender.MALE) {
             toWrite += "M";
         } else {

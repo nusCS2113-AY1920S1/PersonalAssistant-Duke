@@ -4,6 +4,7 @@ import duke.tasks.mealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.exceptions.DukeException;
+import duke.user.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public abstract class Command {
      * @param storage the storage object that stores the list of tasks
      */
 
-    public abstract void execute(mealList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(mealList tasks, Ui ui, Storage storage, User user) throws DukeException;
 
     public boolean isExit() {
         return false;
