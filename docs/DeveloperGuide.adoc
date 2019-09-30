@@ -488,7 +488,7 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-. Should work on any standard OS as long as it has Java 11 or above installed 
+. Should work on any mainstream OS as long as it has Java 11 or above installed 
 . Should be able to hold up to 200 tasks/events without performance deterioration 
 . A user with above average typing speed for regular English Text should be able to store their tasks faster using commands than using the mouse
 
