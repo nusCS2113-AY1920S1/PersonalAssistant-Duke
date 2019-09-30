@@ -1,8 +1,23 @@
+
 plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.jfoenix:jfoenix:9.0.8'
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 shadowJar {
@@ -19,15 +34,22 @@ checkstyle {
 group 'duke'
 version '0.1.0'
 
-repositories {
-    mavenCentral()
-}
-
 application {
     // Change this to your main class.
-    mainClassName = "Optix"
+    mainClassName = "Main"
 }
 
 run {
     standardInput = System.in
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+        resources {
+            srcDirs = ["src/main/resource"]
+        }
+    }
 }
