@@ -17,11 +17,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -64,9 +67,12 @@ public class MainWindow extends BorderPane implements Initializable {
     private DatePicker datePicker;
     private Duke duke;
     private Storage storage;
-    private ArrayList<Task> todo;
-    private ArrayList<Task> event;
-    private ArrayList<Task> deadline;
+    private ArrayList<Task> todos;
+    private ArrayList<Task> events;
+    private ArrayList<Task> deadlines;
+    private TaskList todosList;
+    private TaskList eventsList;
+    private TaskList deadlinesList;
     private Ui ui = new Ui();
 
     /**
@@ -75,9 +81,10 @@ public class MainWindow extends BorderPane implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            event = new ArrayList<>();
-            todo = new ArrayList<>();
-            deadline = new ArrayList<>();
+            events = new ArrayList<>();
+            todos = new ArrayList<>();
+            deadlines = new ArrayList<>();
+            datePicker = new DatePicker(LocalDate.now());
             todoLabel.setText("To-Do");
             deadlineLabel.setText("Deadline");
             setClock();
@@ -116,18 +123,15 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void retrieveList() throws IOException, ParseException {
         storage = new Storage();
-        TaskList taskList = new TaskList();
-        storage.readFile(taskList);
-        ArrayList<Task> tempList = taskList.getList();
-        for(Task task : tempList) {
-            if(task.toString().contains("[T]")) {
-                todo.add(task);
-            } else if (task.toString().contains("[D]")) {
-                deadline.add(task);
-            } else {
-                event.add(task);
-            }
-        }
+        todosList = new TaskList();
+        eventsList = new TaskList();
+        deadlinesList = new TaskList();
+        storage.readTodoList(todosList);
+        storage.readEventList(eventsList);
+        storage.readDeadlineList(deadlinesList);
+        todos = todosList.getList();
+        events = eventsList.getList();
+        deadlines = deadlinesList.getList();
     }
 
     private ObservableList<TimetableView> setEventTable() throws ParseException {
@@ -136,7 +140,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String description;
         String activity;
         ObservableList<TimetableView> timetables = FXCollections.observableArrayList();
-        for(Task task : event){
+        for(Task task : events){
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("HH:mm");
@@ -153,25 +157,25 @@ public class MainWindow extends BorderPane implements Initializable {
         String to;
         String description;
         String activity;
-        ObservableList<DeadlineView> deadlines = FXCollections.observableArrayList();
-        for(Task task : deadline){
+        ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
+        for(Task task : deadlines){
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
             Date date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
             to = timeFormat.format(date);
             description = task.getDescription();
-            deadlines.add(new DeadlineView(to, description));
+            deadlineViews.add(new DeadlineView(to, description));
         }
-        return deadlines;
+        return deadlineViews;
     }
 
     private ObservableList<TodoView> setTodoTable() {
         String description;
         String done;
         String activity;
-        ObservableList<TodoView> todos = FXCollections.observableArrayList();
-        for(Task task : todo){
+        ObservableList<TodoView> todoViews = FXCollections.observableArrayList();
+        for(Task task : todos){
             activity = task.toString();
             description = activity.substring(7);
             if (activity.contains("[\u2713[")) {
@@ -179,9 +183,9 @@ public class MainWindow extends BorderPane implements Initializable {
             } else {
                 done = "\u2718";
             }
-            todos.add(new TodoView(description, done));
+            todoViews.add(new TodoView(description, done));
         }
-        return todos;
+        return todoViews;
     }
     @FXML
     private void openCommandScene() {

@@ -1,10 +1,13 @@
 package Commands;
 import Tasks.*;
 import Interface.*;
+
+import java.io.FileNotFoundException;
+
 /**
  * Represents the command to add a Task object to a TaskList object.
  */
-public class AddCommand extends Command {
+public class  AddCommand extends Command {
 
     private Task task;
 
@@ -24,7 +27,7 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws FileNotFoundException {
         String out = "";
         if (task.getType().equals("[E]")) {
             int size = events.taskListSize();
@@ -40,7 +43,7 @@ public class AddCommand extends Command {
             if (con == 0) {
                 events.addTask(this.task);
                 out = ui.showAdd(this.task, events.taskListSize());
-
+                storage.updateEventList(events);
             } else {
                 out = "Sorry, you have similar events at the same time and on the same day \n";
                 for (int i = 0; i < size; i++) {
@@ -54,9 +57,11 @@ public class AddCommand extends Command {
             if(task.getType().equals("[T]")) {
                 todos.addTask(this.task);
                 out = ui.showAdd(this.task, todos.taskListSize());
+                storage.updateTodoList(todos);
             } else {
                 deadlines.addTask(this.task);
                 out = ui.showAdd(this.task, deadlines.taskListSize());
+                storage.updateDeadlineList(deadlines);
             }
         }
         return  out;
