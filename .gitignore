@@ -15,5 +15,5 @@ bin/
 /duke.txt
 /wallet.txt
 /data/
-/build/
+/build/*
 !/build/libs
