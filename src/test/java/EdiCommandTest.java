@@ -43,8 +43,6 @@ public class EdiCommandTest {
         EditCommand test = new EditCommand();
         ArrayList<Task> tasks = storage.ReadFile();
 
-
-
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
         tasks.add(testd);
         ui.FullCommand = "edit 9 monthly assign /by 2019-12-12 10:10:10";
