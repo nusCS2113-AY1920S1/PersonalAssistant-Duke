@@ -4,13 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import Interface.DukeException;
 import javafx.util.Pair;
-import java.util.ArrayList;
 
 /**
  * To keep track of the list of task input by user.
  */
 public class TaskList {
-    private static final String NO_FIELD = new String ("void");
+    private static final String NO_FIELD = "void";
+    private static final int HALF_HOUR_MARK = 30;
+    private static final int HOUR_MARK = 60;
 
     private ArrayList<Task> list;
     private ArrayList<String> todoArrList = new ArrayList<>();
@@ -104,22 +105,20 @@ public class TaskList {
      * @param duration The duration given
      * @return The new dateTime after increasing the inDate
      */
-    public Date increaseDateTime(Date inDate, int duration){
+    private Date increaseDateTime(Date inDate, int duration){
         Calendar c = Calendar.getInstance();
         c.setTime(inDate);
         c.add(Calendar.HOUR, duration);
-        Date outDate = c.getTime();
-
-        return outDate;
+        return c.getTime();
     }
 
     /**
      * This method sort and removes duplicated Dates of the list
      * @param date The current datetime instance which locks the time
      * @return A list of dates combining data from taskList
-     * @throws ParseException
+     * @throws ParseException e
      */
-    public Set<Date> sortAndRemoveDuplicatedDates(Date date) throws ParseException {
+    private Set<Date> sortAndRemoveDuplicatedDates(Date date) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
 
         Set<Date> dateTime = new HashSet<>();
@@ -127,14 +126,11 @@ public class TaskList {
 
         for (Task task : list) {
             if(!task.getDateTime().equals(NO_FIELD)) {
-                Date dateFromList = dateFormat.parse(task.getDateTime()); // string -> date
-
-                if (!task.getDateTime().equals(NO_FIELD) && (dateFromList.compareTo(date) > 0)) //check if date from list after current(getDateTime) date time
-                    dateTime.add(dateFromList);
+                Date dateFromList = dateFormat.parse(task.getDateTime());
+                if (dateFromList.compareTo(date) > 0) dateTime.add(dateFromList);
             }
         }
-        Set<Date> sortedDateTime = new TreeSet<>(dateTime);
-        return sortedDateTime;
+        return new TreeSet<>(dateTime);
     }
 
 
@@ -142,19 +138,13 @@ public class TaskList {
      * This method retrieves the earliest possible block period with the duration given.
      * @param duration The period indicated by the user
      * @return This returns a pair in the format datetime then datetime plus duration
-     * @throws ParseException
+     * @throws ParseException e
      */
     public Pair<Date, Date> findEarliestFreeTime (String duration) throws ParseException {
         int intDuration = Integer.parseInt(duration);
-
-        //Date pattern formats
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        //SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
-
         Date date = new Date();
-        if (list.size() == 0) return new Pair <Date, Date> (date, increaseDateTime(date, intDuration));
-        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList< Pair<Date, Date>>();
+        if (list.size() == 0) return new Pair <> (date, increaseDateTime(date, intDuration));
+        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList<>();
 
         Set<Date> sortedDateTime = sortAndRemoveDuplicatedDates(date);
 
@@ -164,45 +154,36 @@ public class TaskList {
             if (i.hasNext()) {
                 Date Date2 = (Date) (i.next());
                 long diff = Date2.getTime() - Date1.getTime();
-
-                //long diffSeconds = diff / 1000 % 60;
-                //long diffMinutes = diff / (60 * 1000) % 60;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
                 long diffDays = diff / (24 * 60 * 60 * 1000);
 
                 if ((diffDays > 0 || diffHours >= (long) intDuration)) {
                     Date2 = increaseDateTime(Date1, intDuration);
-                    return new Pair <Date,Date>(Date1, Date2);
+                    return new Pair <>(Date1, Date2);
                 }
             }
         }
         if(availableTimeSlot.size() == 0) {
             Date date1 = ((TreeSet<Date>) sortedDateTime).last();
             Date date2 = increaseDateTime(date1, intDuration);
-            return new Pair<Date, Date> (date1, date2);
+            return new Pair<> (date1, date2);
         }
-        return new Pair<Date, Date> (date, increaseDateTime(date, intDuration));
+        return new Pair<> (date, increaseDateTime(date, intDuration));
     }
 
     /**
      * This method retrieves the 5 earliest possible block period with the duration given
      * @param duration The period indicated by the user
      * @return This returns a ArrayList of pair in the format datetime then datetime plus duration
-     * @throws ParseException
+     * @throws ParseException e
      */
     public ArrayList <Pair<Date, Date>> findFreeTimes(String duration, int numOfTimeSlot) throws ParseException {
         int intDuration = Integer.parseInt(duration);
-
-        //Date pattern formats
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        //SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
-
         Date date = new Date();
-        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList< Pair<Date, Date>>();
-        availableTimeSlot.add(new Pair <Date, Date> (date, increaseDateTime(date, intDuration)));
+        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList<>();
+        availableTimeSlot.add(new Pair <> (date, increaseDateTime(date, intDuration)));
         if (list.size() == 0) return availableTimeSlot;
-        availableTimeSlot = new ArrayList< Pair<Date, Date>>();
+        availableTimeSlot = new ArrayList<>();
 
         Set<Date> sortedDateTime = sortAndRemoveDuplicatedDates(date);
 
@@ -212,30 +193,23 @@ public class TaskList {
             if (i.hasNext()) {
                 Date Date2 = (Date) (i.next());
                 long diff = Date2.getTime() - Date1.getTime();
-
-                //long diffSeconds = diff / 1000 % 60;
-                //long diffMinutes = diff / (60 * 1000) % 60;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
                 long diffDays = diff / (24 * 60 * 60 * 1000);
 
                 if ((diffDays > 0 || diffHours >= (long) intDuration) && numOfTimeSlot>0) {
                     numOfTimeSlot--;
                     Date2 = increaseDateTime(Date1, intDuration);
-
-                    //return (dateFormat.format(Date1) + " for " + duration + "hours.");
-                     availableTimeSlot.add(new Pair<Date, Date> (Date1, Date2));
+                    availableTimeSlot.add(new Pair<> (Date1, Date2));
                 }
-
             }
         }
-        if(availableTimeSlot.size() == 0) {
+        if(availableTimeSlot.size() >= 0) {
             Date date1 = ((TreeSet<Date>) sortedDateTime).last();
             Date date2 = increaseDateTime(date1, intDuration);
             for(int k = 0; k < numOfTimeSlot; k++) {
-                availableTimeSlot.add(new Pair<Date, Date>(increaseDateTime(date1, k),increaseDateTime(date2, k)));
+                availableTimeSlot.add(new Pair<>(increaseDateTime(date1, k),increaseDateTime(date2, k)));
             }
         }
-
         return availableTimeSlot;
     }
 
@@ -243,7 +217,7 @@ public class TaskList {
     /**
      * This method sort the tasks according to their categories.
      */
-    public void sortList() {
+    private void sortList() {
         for (int i = 0; i < list.size(); i++) {
             String description = list.get(i).toString();
             if (list.get(i).getType().equals("[T]")) {
@@ -304,21 +278,21 @@ public class TaskList {
     /**
      * @return the TodoArrayList
      */
-    public ArrayList<String> getTodoArrList() {
+    private ArrayList<String> getTodoArrList() {
         return this.todoArrList;
     }
 
     /**
      * @return the DeadlineArrayList
      */
-    public ArrayList<String> getDeadlineArrList() {
+    private ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
     /**
      * @return the EventArrayList
      */
-    public ArrayList<String> getEventArrList() {
+    private ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }
 
