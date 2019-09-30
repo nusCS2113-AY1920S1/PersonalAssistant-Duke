@@ -2,6 +2,7 @@ package seedu.duke.email;
 
 import seedu.duke.Duke;
 import seedu.duke.Storage;
+import seedu.duke.client.Http;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,6 +76,19 @@ public class EmailStorage {
      * syncEmailListWithHtml().
      */
     public static void syncWithServer() {
+        EmailList serverEmailList = Http.fetchEmail(2);
+        for (Email serverEmail : serverEmailList) {
+            boolean exist = false;
+            for (Email localEmail : Duke.getEmailList()) {
+                if (localEmail.getSubject() == serverEmail.getSubject()) {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist) {
+                Duke.getEmailList().add(serverEmail);
+            }
+        }
     }
 
     //
@@ -88,22 +102,30 @@ public class EmailStorage {
     public static void saveEmails(EmailList emailList) {
         FileOutputStream out;
         try {
-            String dir = getSaveEmailDir();
-            File file = new File(dir);
-            file.createNewFile();
-            out = new FileOutputStream(file, false);
+            String folderDir = getFolderDir();
+            String indexDir = getSaveEmailDir();
+            File indexFile = new File(indexDir);
+            indexFile.createNewFile();
+            out = new FileOutputStream(indexFile, false);
             String content = "";
             for (Email email : emailList) {
                 content += email.toFileString() + "\n";
+                if (email.getBody() != null) {
+                    File emailSource = new File(folderDir + File.separator + email.getSubject() + ".htm");
+                    Duke.getUI().showDebug(folderDir + File.separator + email.getSubject() + ".htm");
+                    emailSource.createNewFile();
+                    FileOutputStream emailOut = new FileOutputStream(emailSource, false);
+                    emailOut.write(email.getBody().getBytes());
+                    emailOut.close();
+                }
             }
             out.write(content.getBytes());
             out.close();
         } catch (IOException e) {
+            e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");
         }
     }
-
-
 
     /**
      * To sync the emailList with email html files saved in local storage.

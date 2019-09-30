@@ -5,7 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.Email;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailParser;
+import seedu.duke.email.EmailStorage;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -39,7 +41,7 @@ public class Http {
      * @param code teh new authentication code
      */
     public static void setAuthCode(String code) {
-        Duke.getUI().showDebug("Auth Code Set: " + code);
+        //Duke.getUI().showDebug("Auth Code Set: " + code);
         authCode = code;
         getAccess();
     }
@@ -50,26 +52,30 @@ public class Http {
      * @param token the new access token
      */
     private static void setAccessToken(String token) {
-        Duke.getUI().showDebug("Access Token Set: " + token);
+        //Duke.getUI().showDebug("Access Token Set: " + token);
         accessToken = token;
+        EmailStorage.syncWithServer();
+    }
 
+    public static EmailList fetchEmail(int limit) {
         JSONObject apiParams = new JSONObject();
         try {
             apiParams.put("select", "subject,from,body,receivedDateTime");
-            apiParams.put("top", "2");
+            apiParams.put("top", Integer.toString(limit));
             apiParams.put("orderby", "receivedDateTime");
         } catch (JSONException e) {
             Duke.getUI().showError("Api parameter error...");
         }
         try {
-            ArrayList<Email> emailList = EmailParser.parseFetchResponse(callEmailApi(apiParams));
+            EmailList emailList = EmailParser.parseFetchResponse(callEmailApi(apiParams));
             for (Email email : emailList) {
                 Duke.getUI().showMessage(email.toCliString());
             }
+            return emailList;
         } catch (EmailParser.EmailParsingException e) {
             Duke.getUI().showError(e.toString());
         }
-        //Duke.getUI().showDebug(callEmailApi(apiParams));
+        return new EmailList();
     }
 
     /**
@@ -94,7 +100,7 @@ public class Http {
             HttpURLConnection conn = setupAccessConnection(request);
 
             StringBuffer content = getConnectionResponse(conn);
-            Duke.getUI().showDebug(content.toString());
+            //Duke.getUI().showDebug(content.toString());
             JSONObject json = new JSONObject(content.toString());
             setAccessToken(json.getString("access_token"));
         } catch (MalformedURLException e) {
@@ -117,7 +123,7 @@ public class Http {
         String url = "";
         try {
             url = getApiUrl(params);
-            Duke.getUI().showDebug(url);
+            //Duke.getUI().showDebug(url);
             HttpURLConnection conn = setupEmailConnection(url);
 
             StringBuffer content = getConnectionResponse(conn);
