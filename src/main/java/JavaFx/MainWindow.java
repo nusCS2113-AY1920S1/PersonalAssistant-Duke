@@ -82,6 +82,7 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlineLabel.setText("Deadline");
             setClock();
             retrieveList();
+            openReminderBox();
 
             eventToColumn.setCellValueFactory(new PropertyValueFactory<>("to"));
             eventFromColumn.setCellValueFactory(new PropertyValueFactory<>("from"));
@@ -197,4 +198,34 @@ public class MainWindow extends BorderPane implements Initializable {
             e.printStackTrace();
         }
     }
+
+     private void openReminderBox() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        for (int i = 0; i < todo.size(); i++) {
+            if (todo.get(i).getDescription().contains("(from") && todo.get(i).getDescription().contains("to")) {
+                String description = todo.get(i).getDescription();
+                int index = description.indexOf("(from");
+                String taskDescription = description.substring(0, index);
+                description = description.replace(taskDescription, "");
+                description = description.replace("(from", "").trim();
+                String[] dateString = description.split(" to ", 2);
+                String startDate = dateString[0];
+                String endDate = dateString[1].replace(")", "").trim();
+
+                if (formatter.format(date).equals(startDate)) {
+                    AlertBox.display("Reminder Alert", " To Do Within Period Task: " + taskDescription,
+                            "Reminder starts today. On: " + startDate, Alert.AlertType.INFORMATION);
+
+                } else if(formatter.format(date).equals(endDate)) {
+                    AlertBox.display("Reminder Alert", "To Do Within Period Task: " + taskDescription,
+                            "Reminder ends today. On: " + endDate, Alert.AlertType.INFORMATION);
+
+                }
+            }
+        }
+    }
+
+
+
 }

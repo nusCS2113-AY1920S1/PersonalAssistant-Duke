@@ -1,6 +1,9 @@
 package Interface;
 import Commands.*;
+import JavaFx.AlertBox;
 import Tasks.*;
+import javafx.scene.control.Alert;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -137,7 +140,7 @@ public class Parser {
                             "For example: snooze 2 /to 2/12/2019 1800");
                 }
             } else if(!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
-                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")){
+                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")) {
                 try{
                     int index = fullCommand.indexOf(" hours");
                     fullCommand = fullCommand.substring(0,index); // e.g., reading the sales report (needs 2 hours) removes " hours"
@@ -149,6 +152,35 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Fixed Duration Task as follows:\n" +
                             "'Task Description' ' (needs x hours)'\n" +
                             "reading the sales report (needs 2 hours)");
+                }
+            } else if (fullCommand.contains("(from") && fullCommand.contains("to")) {
+                try {
+                    boolean isValid = true;
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String currentDate = formatter.format(date);
+                    int index = fullCommand.indexOf("(from");
+                    String taskDescription = fullCommand.substring(0, index);
+                    fullCommand = fullCommand.replace(taskDescription, "");
+                    fullCommand = fullCommand.replace("(from", "").trim();
+                    String[] startAndEndDate = fullCommand.split(" to ", 2);
+                    String startDate = startAndEndDate[0];
+                    String endDate = startAndEndDate[1].replace(")", "").trim();
+                    Date beginDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+                    Date newCurrentDate = new SimpleDateFormat("dd/MM/yyyy").parse(currentDate);
+
+                    if (beginDate.compareTo(newCurrentDate) < 0) { //date is wrong
+                        AlertBox.display("Warning message", "Invalid date", "Please enter another valid date",
+                                Alert.AlertType.WARNING);
+                        isValid = false;
+
+                    }
+                    System.out.println("value of isValid: " + isValid);
+                    System.out.println("start date: " + startDate + " Current date: " + currentDate);
+                    return new DoWithinPeriodTasksCommand(taskDescription, startDate, endDate, isValid);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
+                            " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
             }
 

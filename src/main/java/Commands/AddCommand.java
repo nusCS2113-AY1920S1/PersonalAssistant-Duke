@@ -50,12 +50,10 @@ public class AddCommand extends Command {
                     }
                 }
             }
-        }
-        else {
+        } else {
             list.addTask(this.task);
             out = ui.showAdd(this.task, list.taskListSize());
         }
         return  out;
-
     }
 }

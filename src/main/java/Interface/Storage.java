@@ -71,14 +71,12 @@ public class Storage {
         Task line;
         if(string.contains("[T]")){
             line = new Todo(string.substring(7));
-        }
-        else if(string.contains("[D]")) {
+        } else if(string.contains("[D]")) {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
             String dateString = format.format(date);
             line = new Deadline(string.substring(7, string.indexOf("by:") - 2), dateString);
-        }
-        else {
+        } else {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
             String dateString = format.format(date);

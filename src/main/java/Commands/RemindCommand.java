@@ -30,8 +30,7 @@ public class RemindCommand extends Command {
         Date startOfFollowingWeek = new Date(startOfWeek.getTime()+7*24*60*60*1000);
         if (date.after(startOfWeek) && date.before(startOfFollowingWeek)) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     /**
@@ -49,15 +48,13 @@ public class RemindCommand extends Command {
         for(Task task : temp){
             if(task.toString().contains("[T]") && task.toString().contains("\u2718")){
                 reminder.addTask(task);
-            }
-            else if(task.toString().contains("[D]") && task.toString().contains("\u2718")){
+            } else if(task.toString().contains("[D]") && task.toString().contains("\u2718")){
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                 Date currentDate = format.parse(task.toString().substring(task.toString().indexOf("by:") + 4, task.toString().indexOf(')')).trim());
                 if(withinWeek(currentDate)){
                     reminder.addTask(task);
                 }
-            }
-            else if(task.toString().contains("[E]") && task.toString().contains("\u2718")) {
+            } else if(task.toString().contains("[E]") && task.toString().contains("\u2718")) {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                 Date currentDate = format.parse(task.toString().substring(task.toString().indexOf("at:") + 4, task.toString().indexOf(')')).trim());
                 if(withinWeek(currentDate)){
