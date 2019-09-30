@@ -20,7 +20,7 @@ Role: Project Advisor
 
 === Jason Lee
 image::JasonLeeWeiHern.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JasonLeeWeiHern[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
