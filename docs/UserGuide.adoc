@@ -352,6 +352,7 @@ At least one of /newname, /amount or /income must be used.
 ====
 
 *Example*
+
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
@@ -413,6 +414,11 @@ Change in your credit card rebates rate? You can change them here as well!
 
 `/edit /card /name CARD_NAME [/newname BANK_NAME] [/amount AMOUNT] [/rebate REBATE]`
 
+[WARNING]
+====
+At least one of /newname, /amount or /rebate must be used.
+====
+
 *Example*
 
 * `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
@@ -434,6 +440,11 @@ Changing your life goals? We can certainly help you with that!
 *Command Syntax*
 
 `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+
+[WARNING]
+====
+At least one of /newname, /amount, /in or /by must be used.
+====
 
 *Example*
 
@@ -458,6 +469,11 @@ Spent lesser than you initially recorded? You can edit them here!
 `/edit /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
 AMOUNT] [/date DATE]`
 
+[WARNING]
+====
+At least one of /desc, /category, /amount ,/date must be used.
+====
+
 *Example*
 
 * `/edit /expenditure /from JunBank Savings Account /expno 2 /desc Uniwlo Shirt`
@@ -478,6 +494,11 @@ Changes expenditure `5` that was charged to `JunBank Savings Account` to a amoun
 
 `/edit /recurexpenditure /from BANK_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
 AMOUNT] [/frequency MONTH/WEEK/YEAR]`
+
+[WARNING]
+====
+At least one of /desc, /category, /amount ,/frequency must be used.
+====
 
 *Example*
 
