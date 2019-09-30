@@ -6,6 +6,8 @@ package Tasks;
 public class Event extends Task {
 
     private String by;
+    private String start;
+    private String end;
 
     @Override
     public String getType() {
@@ -15,11 +17,15 @@ public class Event extends Task {
     /**
      * Creates an Event object.
      * @param description Description of a task
-     * @param by Date of when a task is on
+     * @param by Date of task
+     * @param start Time of when a task starts
+     * @param end Time of when a task ends
      */
-    public Event(String description, String by) {
+    public Event(String description, String by, String start, String end) {
         super(description);
         this.by = by;
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -28,11 +34,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + by + ")";
+        return "[E]" + super.toString() + " (at: " + by + " time: " + start + " to " + end + ")";
     }
 
     @Override
     public String getDateTime() {
-        return by;
+        return by + " " + start + " to " + end;
     }
 }

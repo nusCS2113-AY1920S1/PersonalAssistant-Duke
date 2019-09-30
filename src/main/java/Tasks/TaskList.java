@@ -287,23 +287,20 @@ public class TaskList {
      * @return This returns the ArrayList
      * @throws DukeException On invalid input or when wrong input format is entered
      */
-    public ArrayList<Task> snoozeTask(int index, String dateString) throws DukeException {
+    public ArrayList<Task> snoozeTask(ArrayList<Task> list, int index, String dateString, String start, String end) throws DukeException {
         try {
-            TaskList temp1 = new TaskList();
-            for (Task task : list) {
-                temp1.addTask(task);
-            }
-            Task temp = temp1.getTask(index);
-            if (temp.toString().startsWith("[D]")) {
-                this.list.add(new Deadline(temp.getDescription(), dateString));
-                this.list.remove(index);
+            if (end == dateString) {
+                Task temp = list.get(index);
+                list.add(new Deadline(temp.getDescription(), dateString));
+                list.remove(index);
             } else {
-                this.list.add(new Event(temp.getDescription(), dateString));
-                this.list.remove(index);
+                Task temp = list.get(index);
+                list.add(new Event(temp.getDescription(), dateString, start, end));
+                list.remove(index);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(" OOPS!!! Please check that you only snoozed deadlines and events");
         }
-        return this.list;
+        return list;
     }
 }
