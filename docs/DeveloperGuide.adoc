@@ -1,10 +1,47 @@
 = Duke - Developer Guide
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main
 
 By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 
-== Setting up
+== Preface
+=== About ArchDuke
+Team leaders often face problems managing multiple projects, especially software development projects where the usage of a Kanban board is common.
 
-=== Prerequisites
+Having to manage multiple Kanban boards for each individual project is a huge hassle for team leaders.
+As such, ArchDuke solves this issue by allowing team leaders to manage
+
+. Team members
+
+* ArchDuke allows users to assign tasks to team members, and track their workload, progress on tasks, and contributions.
+
+. Tasks in a group project
+
+* ArchDuke allows users to track multiple tasks within a project. Tasks can be created and assigned to members.
+* ArchDuke tracks the deadlines and priority levels of tasks, to help the user organise which tasks should be assigned
+and completed.
+
+. Multiple group projects
+
+* ArchDuke allows users to track multiple group projects. New group projects can be created and a default Kanban board will be created for users to start adding tasks.
+
+=== Document Change History
+[width="100%",cols="25%, <75%", options="header"]
+|=======================================================================
+| Revision Date | Summary of Changes
+| 30 September 2019 | Version 0.6: Added table of contents, preface and document history
+| 26 September 2019 | Version 0.5: Updated use cases for a cleaner look
+| 24 September 2019 | Version 0.4: Added Non-functional Requirements to DeveloperGuide
+| 23 September 2019 | Version 0.3: Added user stories to DeveloperGuide
+| 22 September 2019 | Version 0.2: Added use cases to DeveloperGuide
+| 18 September 2019 | Version 0.1: Creation of DeveloperGuide based on template
+|=======================================================================
+
+== 1. Setting up
+
+=== 1.1. Prerequisites
 
 . *JDK `11`* or above
 . *IntelliJ* IDE (Recomended)
@@ -13,7 +50,7 @@ By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 // IntelliJ by default has Gradle and JavaFx plugins installed. +
 // Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-=== Setting up the project in your computer
+=== 1.2. Setting up the project in your computer
 
 . Fork this repo, and clone the forked repo from your account to your local machine
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -25,12 +62,12 @@ By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 . Click `Open as Project`
 . Click `OK` to accept the default settings.
 
-=== Verifying the setup
+=== 1.3. Verifying the setup
 
 . Run the `src/java/Duke.java` and try a few commands
 // . <<Testing#,Run the tests>> to ensure they all pass.
 
-=== Configurations to do before writing code
+=== 1.4. Configurations to do before writing code
 
 // ==== Configuring the coding style
 
@@ -63,9 +100,9 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, Duke's architecture>>.
 
-== Design
+== 2. Design
 
-=== Architecture
+=== 2.1. Architecture
 
 .Architecture Diagram
 // image::ArchitectureDiagram.png[]
@@ -110,7 +147,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 The sections below give more details of each component.
 
 // [[Design-Ui]]
-=== UI component
+=== 2.2. UI component
 
 .Structure of the UI Component
 // image::UiClassDiagram.png[]
@@ -127,7 +164,7 @@ The sections below give more details of each component.
 // * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== 2.3. Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -150,7 +187,7 @@ The sections below give more details of each component.
 // NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 // [[Design-Model]]
-=== Model component
+=== 2.4. Model component
 
 .Structure of the Model Component
 // image::ModelClassDiagram.png[]
@@ -170,7 +207,7 @@ The sections below give more details of each component.
 // image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== 2.5. Storage component
 
 .Structure of the Storage Component
 // image::StorageClassDiagram.png[]
@@ -184,16 +221,16 @@ The `Storage` component,
 // * can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== 2.6. Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-== Implementation
+== 3. Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== 3.1. [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
 // The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -275,13 +312,13 @@ This section describes some noteworthy details on how certain features are imple
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== 3.2. [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+=== 3.3. Logging
 
 // We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -297,19 +334,19 @@ _{Explain here how the data encryption feature will be implemented}_
 // * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+=== 3.4. Configuration
 
 // Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
+== 4. Documentation
 
 // Refer to the guide <<Documentation#, here>>.
 
-== Testing
+== 5. Testing
 
 // Refer to the guide <<Testing#, here>>.
 
-== Dev Ops
+== 6. Dev Ops
 
 // Refer to the guide <<DevOps#, here>>.
 
@@ -609,7 +646,7 @@ Cons:
 // [NOTE]
 // These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== G.1. Launch and Shutdown
 
 // . Initial launch
 
@@ -626,7 +663,7 @@ Cons:
 _{ more test cases ... }_
 
 
-=== Saving data
+=== G.2. Saving data
 
 // . Dealing with missing/corrupted data files
 
