@@ -13,6 +13,7 @@ import duke.command.PeriodCommand;
 import duke.command.RemindCommand;
 import duke.command.TodoCommand;
 import duke.command.ViewScheduleCommand;
+import duke.command.SnoozeCommand;
 
 import duke.exception.DukeException;
 
@@ -29,6 +30,7 @@ import static duke.common.Messages.COMMAND_PERIOD;
 import static duke.common.Messages.COMMAND_REMIND;
 import static duke.common.Messages.COMMAND_TODO;
 import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
+import static duke.common.Messages.COMMAND_SNOOZE;
 
 
 /**
@@ -81,12 +83,17 @@ public class Parser {
             }
 
         } else if (userInputCommand.contains(COMMAND_DURATION)) {
-            if (userInputCommand.trim().substring(0, 5).equals(COMMAND_DURATION)) {
+            if (userInputCommand.trim().substring(0, 8).equals(COMMAND_DURATION)) {
                 return new DurationCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-
+        } else if (userInputCommand.contains(COMMAND_SNOOZE)) {
+            if (userInputCommand.trim().substring(0, 6).equals(COMMAND_SNOOZE)) {
+                return new SnoozeCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
         } else if (userInputCommand.contains(COMMAND_PERIOD)) {
             if (userInputCommand.trim().substring(0, 6).equals(COMMAND_PERIOD)) {
                 return new PeriodCommand(userInputCommand);

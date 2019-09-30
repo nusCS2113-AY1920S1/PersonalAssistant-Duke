@@ -18,6 +18,7 @@ import static duke.common.Messages.MESSAGE_DELETE;
 import static duke.common.Messages.MESSAGE_ITEMS1;
 import static duke.common.Messages.MESSAGE_ITEMS2;
 import static duke.common.Messages.MESSAGE_MARKED;
+import static duke.common.Messages.MESSAGE_SNOOZE;
 import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
 
 /**
@@ -218,11 +219,20 @@ public class TaskList {
         taskList.remove(taskList.get(i));
     }
 
+    public void snoozeTask(int i) {
+        System.out.println(MESSAGE_SNOOZE + "       " + taskList.get(i));
+        taskList.remove(taskList.get(i));
+    }
+
     /**
-     * Get the current taskList in file.
+     * Get the current taskList in file
      * @return ArrayList containing tasks
      */
     public ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public Task getTask(int i) {
+        return taskList.get(i);
     }
 }
