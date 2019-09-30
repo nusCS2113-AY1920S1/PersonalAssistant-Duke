@@ -6,3 +6,6 @@ D|?|yearly assignment|by: 2019-01-01 01:01:01
 D|?|yearly assignment|by: 2020-01-01 01:01:01
 T|?| borrow
 FD|?| my current homework|2 hours
+D|?|monthly assign |by: 2019-12-12 10:10:10
+D|?|tutorial homework|by: 2019-12-12 10:10:10
+D|?|tutorial homework|by: 2019-12-12 10:10:10

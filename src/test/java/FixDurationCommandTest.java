@@ -8,11 +8,11 @@ public class FixDurationCommandTest {
     FixedDuration testFD = new FixedDuration("playing basketball", "4 hours");
     @Test
     void testtoString() {
-        assertEquals("FD|\u2718|playing basketball|4 hours", testFD.toString());
+        assertEquals("FD|\u2718| playing basketball|4 hours", testFD.toString());
     }
 
     @Test
     void testlistformat() {
-        assertEquals("[FD][\u2718]playing basketball (requires: 4 hours)", testFD.listFormat());
+        assertEquals("[FD][\u2718]playing basketball(requires:4 hours)", testFD.listFormat());
     }
 }
