@@ -34,28 +34,60 @@ public class ProgressStack {
         if (checkProgress() == 1) currentProgress.push(3);
     }
 
-    public void listIndex1ToMainList() {
+    public void listIndexToMainList() {
         if (checkProgress() == 2) currentProgress.pop();
     }
 
-    public void listIndex2ToMainList() {
-        if (checkProgress() == 2) currentProgress.pop();
+    public void listIndex3ToSubList1() {
+        if (checkProgress() == 2) currentProgress.push(1);
     }
 
-    public void listIndex3ToMainList() {
-        if (checkProgress() == 2) currentProgress.pop();
+    public void listIndex3ToSubList2() {
+        if (checkProgress() == 2) currentProgress.push(1);
     }
 
-    public void mainListToMainScreen() {
-        if (checkProgress() == 1) currentProgress.pop();
+    public void listIndex3ToSubList3() {
+        if (checkProgress() == 2) currentProgress.push(1);
     }
 
     public void forceClearProgress() {
         currentProgress.pop();
     }
 
+    /**
+     * Checks the current location in the programme stack.
+     * @return the size of the stack which indicates the location.
+     */
     public int checkProgress() {
         return currentProgress.size();
+    }
+
+    /**
+     * Checks for the specific branch in the programme stack.
+     * Each number indicates a branch based on the index of the list.
+     * @return the number of the branch or the index of a particular list.
+     */
+    public int checkProgressState() {
+        return currentProgress.peek();
+    }
+
+    /**
+     * Used only for BACK command.
+     * To check for the previous state stored in the stack.
+     * @return the number of the branch or the index of a particular list
+     * in the previous state.
+     */
+    public int checkPreviousState() {
+        clearCurrentState();
+        return checkProgressState();
+    }
+
+    /**
+     * Used only for BACK command.
+     * To clear the current state of the stack.
+     */
+    public void clearCurrentState() {
+        currentProgress.pop();
     }
 
 }

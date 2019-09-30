@@ -2,6 +2,9 @@ package javacake.commands;
 
 import javacake.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public abstract class Command {
     protected CmdType type;
     protected String input;
@@ -15,7 +18,7 @@ public abstract class Command {
 
     }
 
-    public abstract void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException;
+    public abstract void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException;
 
     /**
      * Method to get the type of command.

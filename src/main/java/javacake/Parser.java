@@ -37,13 +37,8 @@ public class Parser {
             return new ListCommand();
         } else if (input.equals("back")) {
             return new BackCommand();
-        } else if (input.substring(0,4).equals("goto")) {
+        } else if (input.length() > 4 && input.substring(0,4).equals("goto")) {
             return new GoToCommand(input);
-
-        //        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
-        //            return new ViewScheduleCommand(input);
-        //        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
-        //            return new FindCommand(input);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
         }

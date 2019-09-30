@@ -1,5 +1,7 @@
 package javacake;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -103,5 +105,17 @@ public class Ui {
      */
     public void showMessage(String m) {
         System.out.println(m);
+    }
+
+    public void displayTextFile(BufferedReader reader) throws DukeException {
+        String lineBuffer;
+        try {
+            while ((lineBuffer = reader.readLine()) != null) {
+                System.out.println(lineBuffer);
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new DukeException("File not found!");
+        }
     }
 }
