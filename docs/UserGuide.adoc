@@ -479,6 +479,8 @@ Changing your life goals? We can certainly help you with that!
 [WARNING]
 ====
 At least one of /newname, /amount, /in or /by must be used.
+
+/in and /by cannot be used together at the same time
 ====
 
 *Example*
@@ -506,7 +508,7 @@ AMOUNT] [/date DATE]`
 
 [WARNING]
 ====
-At least one of /desc, /category, /amount ,/date must be used.
+At least one of /desc, /category, /amount, /date must be used.
 ====
 
 *Example*
@@ -532,7 +534,7 @@ AMOUNT] [/frequency MONTH/WEEK/YEAR]`
 
 [WARNING]
 ====
-At least one of /desc, /category, /amount ,/frequency must be used.
+At least one of /category, /amount, /frequency must be used.
 ====
 
 *Example*
