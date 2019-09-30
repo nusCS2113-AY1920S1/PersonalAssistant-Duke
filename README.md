@@ -33,50 +33,50 @@ The trainer is able to navigate across the different features of the app easily.
 
 **Command Summary**
 
-*`e/` represents event
+* `e/` represents event
 
-*`c/` represents class
+* `c/` represents class
 
-*`d/` represents day
+* `d/` represents day
 
-*`loc/` represents location of class
+* `loc/` represents location of class
 
-*`stu/` represents name of student
+* `stu/` represents name of student
 
-*`det/` represents details of student
+* `det/` represents details of student
 
-*`|` represents a delimiter between every usage of the command
+* `|` represents a delimiter between every usage of the command
 
 
 
 **View**
-*`Schedule`: e/competition | d/monday c/beginner-swimming | d/monday c/beginner-swimming stu/Scott
+* `Schedule`: e/competition | d/monday c/beginner-swimming | d/monday c/beginner-swimming stu/Scott
 
 **Edit**
-*`Class`: edit d/monday c/beginner-swimming
+* `Class`: edit d/monday c/beginner-swimming
 
-*`Student Details`: edit d/monday c/beginner-swimming stu/Scott det/now-engineering-student
+* `Student Details`: edit d/monday c/beginner-swimming stu/Scott det/now-engineering-student
 
 **Add**
-*`Class`: add d/monday c/beginner-swimming
+* `Class`: add d/monday c/beginner-swimming
 
-*`Location`: add d/monday c/beginner-swimming loc/swimming-pool
+* `Location`: add d/monday c/beginner-swimming loc/swimming-pool
 
-*`Student`: add d/monday c/beginner-swimming stu/Scott
+* `Student`: add d/monday c/beginner-swimming stu/Scott
 
-*`Student Details`: add d/monday c/beginner-swimming stu/Scott det/computing-student
+* `Student Details`: add d/monday c/beginner-swimming stu/Scott det/computing-student
 
 **Delete**
-*`Class`: delete d/monday c/beginner-swimming
+* `Class`: delete d/monday c/beginner-swimming
 
-*`Student`: delete d/monday c/beginner-swimming stu/Scott
+* `Student`: delete d/monday c/beginner-swimming stu/Scott
 
-*`Student Details`: delete d/monday c/beginner-swimming stu/Scott det/no-longer-engineer
+* `Student Details`: delete d/monday c/beginner-swimming stu/Scott det/no-longer-engineer
 
 **Menu**
 
-*`Home`: menu home
+* `Home`: menu home
 
-*`List`: menu list
+* `List`: menu list
 
-*`Help`: menu help
+* `Help`: menu help
