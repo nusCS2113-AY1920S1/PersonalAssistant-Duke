@@ -17,7 +17,7 @@ endif::[]
 By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
-image::Ui.png[width="790"]
+image::Ui.png[width="490"]
 *OOF* is catered towards NUS computing students who want to use a desktop application to manage their tasks to be done.
 
 *OOF* is optimized for users who prefer to work with the Command Line Interface (CLI) while still reaping the benefits of a Graphical User Interface (GUI).
@@ -32,7 +32,7 @@ Jump to <<Quick Start>> to get started! Enjoy!
 .  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
 .  Run the command “java -jar oof.jar”. The application should load within a few seconds.
 +
-image::Mockup.png[width="790"]
+image::Mockup.png[width="490"]
 +
 .  Type a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
