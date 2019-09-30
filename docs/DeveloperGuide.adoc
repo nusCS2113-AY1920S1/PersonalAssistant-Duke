@@ -50,18 +50,57 @@ This will generate all resources required by the application and tests.
 === Configurations to do before writing code
 
 == Design
-
+=== Architecture
+=== UI Component
+=== Logic Component
+=== Model Component
+=== Storage Component
+=== Common Classes
 
 == Implementation
+=== Undo/Redo feature
 
 == Documentation
+=== Editing Documentation
+=== Publishing Documentation
+=== Converting to PDF format
+=== Site-wide Documentation Settings
+=== Per-file Documentation Settings
+=== Site Template
 
 == Testing
+=== Running Tests
+=== Types of Tests
+=== Troubleshooting Tests
 
 == Dev Ops
+=== Build Automation
+=== Continuous Integration
+=== Coverage Reporting
+=== Documentation Previews
+=== Making a Release
+=== Managing Dependencies
 
 [appendix]
 == Product Scope
+*Target User Profile:*
+
+* Undergraduates and fresh graduates
+* Have some form of income in terms of allowance, pocket money or salary
+* Has interest in managing his finances
+* Prefers desktop applications over other types
+* Able to type fast
+* Prefers typing over other means of input
+* Is reasonably comfortable using CLI applications
+
+*Value Proposition:*
+
+* Helps the target user manage their finances as they start to take charge of more money
+* Helps the target user budget their expenses based on their goals
+* Automatically reminds you of upcoming bills that are due to pay
+* Automatically deducts or credit to account based on recurring income and expenses monthly
+* See everything from account balances and expenses to give target users a full picture of their financial health.
+* Works offline
 
 [appendix]
 == User Stories
