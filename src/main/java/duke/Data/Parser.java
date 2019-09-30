@@ -1,7 +1,10 @@
 package duke.Data;
 
+import Menu.ManageStudents;
+import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
+import duke.Ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +20,6 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
-     *
      * @param io
      */
     public void parseInput(String io, TaskList tasks, Storage storage) {
@@ -63,7 +65,7 @@ public class Parser {
             case "deadline":
                 try {
                     index = input.indexOf("/by");
-                    String info = input.substring(9, index);
+                    String info = input.substring(9, index-1);
                     String endDate = input.substring(index + 4);
                     Deadline deadline = new Deadline(info, false, endDate);
                     tasks.addTask(deadline, "D");
@@ -77,7 +79,7 @@ public class Parser {
             case "event":
                 try {
                     index = input.indexOf("/at");
-                    String info = input.substring(6, index);
+                    String info = input.substring(6, index-1);
                     String endDate = input.substring(index + 4);
                     Event event = new Event(info, false, endDate);
                     tasks.addTask(event, "E");
@@ -110,7 +112,7 @@ public class Parser {
             case "aftertask":
                 try {
                     index = input.indexOf("/after");
-                    String info = input.substring(10, index);
+                    String info = input.substring(10, index-1);
                     String endDate = input.substring(index + 7);
                     After after = new After(info, false, endDate);
                     tasks.addTask(after, "A");
@@ -141,10 +143,58 @@ public class Parser {
                 }
                 break;
 
-            case "view":
-                System.out.println("Viewing plan [number]: Please wait until the features are finalised");
-                System.out.println("Commands to be added: view plan [num], edit plan > do whatever with current plan");
+
+            /**
+             * Command should be in the form: class swimming /every monday
+             * It will be stored as type [C].
+             */
+            case "class":
+                try {
+                    index = input.indexOf("/every");
+                    String info = input.substring(6, index-1);
+                    String day = input.substring(index + 7);
+                    MyClass myclass = new MyClass(info, false, day);
+                    tasks.addTask(myclass, "C");
+                    storage.saveFile("C",myclass,myclass.getDay());
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
+                }
                 break;
+
+            /**
+             *  Cmd "home" will list the menu items;
+             *  1. View Schedule
+             *  2. Manage Students
+             *  3. Training Circuits
+             */
+            case "home":
+                Ui viewMenu = new Ui();
+                viewMenu.mainMenu();
+                break;
+
+            /**
+             // Choosing Option 1 wil direct to "Training Schedule"
+             */
+            case "1":
+                // Write go to direct to View Schedule (Scott)
+                break;
+
+            /**
+             * Choosing option 2 will direct to "Manage Students"
+             */
+            case "2":
+                ManageStudents viewCategory = new ManageStudents();
+                viewCategory.manageStudentsCategory();
+                // Write Code to direct to manage Students (Danish)
+                break;
+
+            /**
+             * Choosing 3 will direct to "Training Circuit"
+             */
+
+            case "3":
+                //Write Code to direct to Training Circuits (JingSen)
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");

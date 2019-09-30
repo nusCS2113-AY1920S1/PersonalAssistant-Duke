@@ -45,7 +45,7 @@ public class Duke extends Application {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
                     ui.goodbye();
-                    break;
+                    System.exit(0);
                 }
                 ui.readCommand(input, tasks, storage);
             }
@@ -53,8 +53,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Upon running duke main, start() will run.
-     * @param stage
+     * Upon running launcher main, start() will run.
      */
     @Override
     public void start(Stage stage) {
