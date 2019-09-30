@@ -1,10 +1,49 @@
+import Tasks.Task;
+import UI.Ui;
+import Storage.Storage;
+import commands.Command;
+import parsers.*;
+import Exception.DukeException;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.ArrayList;
+
 public class Duke {
+    /**
+     * Returns main function for duke.
+     *
+     * @param args a String array that takes in input from the command line
+     * @throws DukeException | ParseException | IOException | NullPointerException
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        ArrayList<Task> list;
+        Storage store = new Storage();
+        boolean isExit = false;
+        Ui ui = new Ui();
+        ui.showWelcome();
+
+        try {
+            list = store.ReadFile();
+            ui.UpcomingTask(list);
+            while (!isExit) {
+                ui.ReadCommand();
+                String command = ui.FullCommand;
+                Command c = Parser.parse(command);
+                c.execute(list, ui, store);
+                isExit = c.isExit();
+            }
+        } catch (DukeException | ParseException | IOException | NullPointerException e) {
+            if (e instanceof ParseException) {
+                ui.showDateFormatError();
+            } else if (e instanceof IOException) {
+                ui.showIOErrorMessage(e);
+            } else {
+                ui.showErrorMessage(e);
+            }
+        } finally {
+            System.out.println("System exiting");
+        }
     }
+
 }
