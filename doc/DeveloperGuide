@@ -63,7 +63,16 @@ Coach selects “Create Training Plan” under the sub-menu.
 Coach input details for the training plans: activity(push-ups, sit-ups, running etc), time frame, intensity, general flow of training plan.
 Extensions
 
-B.6. Use Case: View schedule
+B.6. Use Case: Edit training plans
+MSS
+Sports MAnager shows Main Menu.
+Coach selects "Training Schedule".
+Coach selects "Edit Existing Training Plan" under sub-menu.
+Coach chooses a training plan to edit.
+Coach chooses an action: change activity name, repetitions, switch activity positions.
+
+
+B.7. Use Case: View schedule
 MSS
 Sports Manager shows Main Menu.
 Coach selects “Training Schedule”
