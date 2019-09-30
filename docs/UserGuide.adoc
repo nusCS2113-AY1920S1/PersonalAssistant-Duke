@@ -106,7 +106,7 @@ typing *`/add /profile /name USER_NAME `* and pressing kbd:[Enter]
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
 * **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000`
-: adds a new `JunBank Savings Account`, which has an initial amount of `$4719.90` dollars.
+: adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90` dollars.
 * **`/delete`** `/savings /name JunBank Savings Account`
 : deletes JunBank Savings Account
 * **`/list`** `/savings`
@@ -138,20 +138,24 @@ which can be used as:
 `category`
 parameter)
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
+
 [WARNING]
 ====
 Parameter values cannot be empty (unless otherwise stated).
 ====
+
 === General Commands
 ==== Viewing help: `/help`
 Don't worry if you are feeling lost! You can use this User Guide document to gain a better understanding of
 *OwlMoney*'s commands.
 
 To see a list of commands available, simply enter `/help` in the *command box*.
+
 [TIP]
 ====
 Alternatively, you can access this User Guide document by clicking link:{repoURL}/blob/master/docs/UserGuide.adoc[here].
 ====
+
 ==== Exiting OwlMoney : `/exit`
 If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
 Hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
@@ -335,11 +339,151 @@ categorised under the `Investments` category.
 
 ==== /edit `/edit`
 ===== `/savings`
+
+Changes made to your savings account? Reflect them on *OwlMoney* as well!
+
+*Command Syntax*
+
+`/edit /savings /name BANK_NAME [/newname BANK_NAME] [/amount AMOUNT] [/income INCOME]`
+
+[WARNING]
+====
+At least one of /newname, /amount or /income must be used.
+====
+
+*Example*
+* `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
+
+Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
+
+* `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
+
+Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`.
+
+* `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25 /income 5000`
+
+Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`
+with new income of $`5000`.
+
+* `/edit /savings /name JunBank Savings Account /amount 2000.25`.
+
+Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25`
+
+* `/edit /savings /name JunBank Savings Account /amount 2000.25 /income 5000`
+
+Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25` with income of $`5000`.
+
+* `/edit /savings /name JunBank Savings Account /income 5000`
+
+Edits `JunBank Savings Account` by setting the income to $`5000`.
+
 ===== `/investment`
+
+Want changes made to your investment account? Here is how you can do it!
+
+*Command Syntax*
+
+`/edit /investment /name BANK_NAME [/newname BANK_NAME] [/amount AMOUNT]`
+
+[WARNING]
+====
+At least one of /newname, /amount must be used.
+====
+
+*Example*
+
+* `/edit /investment /name POBB Vickers Account /newname OBOB Securities Account`
+
+Changes the name of the account from `POBB Vickers Account` to `OBOB Securities Account`.
+
+* `/edit /investment /name POBB Vickers Account /amount 50000`
+
+Changes the amount in `POBB Vickers Account` to $`50 000`.
+
+* `/edit /investment /name POBB Vickers Account /newname OBOB Securities Account /amount 50000`
+
+Changes the name of the account from `POBB Vickers Account` to `OBOB Securities Account` and the amount in the account
+to $`50 000`.
+
 ===== `/card`
+
+Change in your credit card rebates rate? You can change them here as well!
+
+*Command Syntax*
+
+`/edit /card /name CARD_NAME [/newname BANK_NAME] [/amount AMOUNT] [/rebate REBATE]`
+
+*Example*
+
+* `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
+
+Changes the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
+
+* `/edit /card /name POBB Tomorrow Card /amount 10 000`
+
+Changes the credit limit of `POBB Tomorrow Card` to $`10 000`.
+
+* `/edit /card /name POBB Tomorrow Card /rebate 2.05`
+
+Changes the cashback rate of `POBB Tomorrow Card` to `2.05`%.
+
 ===== `/goals`
+
+Changing your life goals? We can certainly help you with that!
+
+*Command Syntax*
+
+`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+
+*Example*
+
+* `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
+
+Changes the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
+
+Changes the goals of `BTO at Punggol Downpayment` amount to $`27500`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
+
+Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+
 ===== `/expenditure`
+
+Spent lesser than you initially recorded? You can edit them here!
+
+*Command Syntax*
+
+`/edit /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+
+*Example*
+
+* `/edit /expenditure /from JunBank Savings Account /expno 2 /desc Uniwlo Shirt`
+
+Changes expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
+
+* `/edit /expenditure /from JunBank Savings Account /expno 4 /category miscellaneous`
+
+Changes expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
+
+* `/edit /expenditure /from JunBank Savings Account /expno 5 /amount 3.50`
+
+Changes expenditure `5` that was charged to `JunBank Savings Account` to a amount of $`3.50`.
+
 ===== `/recurexpenditure`
+
+*Command Syntax*
+
+`/edit /recurexpenditure /from BANK_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
+AMOUNT] [/frequency MONTH/WEEK/YEAR]`
+
+*Example*
+
+* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
+
+Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
 
 ==== /delete `/delete`
 ===== `/savings`
@@ -358,7 +502,7 @@ All transactions related to the bank account will be deleted.
 
 * `/delete /savings /name JunBank Savings Account`
 
-Deletes a savings account named `JunBank Savings Account`
+Deletes a savings account named `JunBank Savings Account`.
 
 ===== `/investment`
 You can also close your investment bank account on `OwlMoney` as well!
@@ -376,7 +520,7 @@ All transactions related to the bank account will be deleted.
 
 * `/delete /investment /name POBB Vickers Account`
 
-Deletes an investment account named `POBB Vickers Account`
+Deletes an investment account named `POBB Vickers Account`.
 
 ===== `/card`
 
@@ -395,7 +539,7 @@ All transactions related to the credit card will be deleted.
 
 * `/delete /card /name POBB Tomorrow Card`
 
-Deletes a credit card named `POBB Tomorrow Card`
+Deletes a credit card named `POBB Tomorrow Card`.
 
 ===== `/goals`
 
@@ -409,7 +553,7 @@ Achieved your goals? You can safely delete them!
 
 * `/delete /goals /name BTO at Punggol Downpayment`
 
-Deletes a goal named `BTO at Punggol Downpayment`
+Deletes a goal named `BTO at Punggol Downpayment`.
 
 ===== `/expenditure`
 
@@ -421,14 +565,14 @@ Accidentally added a transaction that did not happen? You can delete it!
 
 [TIP]
 ====
-To find out which expenditure to delete, use the /list or /find function to find the expenditure number
+To find out which expenditure to delete, use the /list or /find function to find the expenditure number.
 ====
 
 *Example*
 
 * `/delete /expenditure /from /JunBank Savings Account /expno 1`
 
-Deletes an expenditure from `JunBank Savings Account with expenditure number `1`
+Deletes an expenditure from `JunBank Savings Account with expenditure number `1`.
 
 ===== `/recurexpenditure`
 
@@ -440,14 +584,14 @@ Cancelled your recurring bill? You can delete it!
 
 [TIP]
 ====
-To find out which recurring expenditure to delete, use the /list or /find function to find the description
+To find out which recurring expenditure to delete, use the /list or /find function to find the description.
 ====
 
 *Example*
 
 * `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
 
-Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`
+Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
 
 === Utility Commands
 ==== /find `/find`
@@ -468,12 +612,12 @@ Searching for a transaction in the past? *OwlMoney* helps you by providing you v
 
 `/find /savings /name JunBank Savings Account /description bubble tea`
 
-Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`
+Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
 
 `/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
-and `7/1/2019`
+and `7/1/2019`.
 
 ==== /list `/list`
 
@@ -492,11 +636,11 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 * /list /name JunBank Savings Account /num 60
 
-Lists the most recent 60 transactions linked to JunBank Savings Account
+Lists the most recent 60 transactions linked to JunBank Savings Account.
 
 * /list /name POBB Tomorrow Card
 
-Lists the most recent 30 transactions tied to the POBB Tomorrow Card
+Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
 ==== /transfer `/transfer`
 
@@ -512,11 +656,11 @@ Transferred money between accounts? We can do that too.
 
 * `/transfer /savings /from JunBank Savings Account /to POBB Savings Account /amount 500`
 
-Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`
+Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
 
 * `/transfer /investment /from POBB Vickers Account /to JunBank Savings Account /amount 250`
 
-Transfers $`250` from `POBB Vickers Account` to `JunBank Savings Account`
+Transfers $`250` from `POBB Vickers Account` to `JunBank Savings Account`.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
