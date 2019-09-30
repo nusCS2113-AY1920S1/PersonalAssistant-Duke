@@ -104,11 +104,8 @@ public class Storage {
         try {
             for (String i : meals.keySet()) {
                 ArrayList<Meal> mealsInDay = meals.get(i);
-                for (int j = 0; j < mealsInDay.size(); j++) {
+                for (int j = 0; j < meals.get(i).size(); j++) {
                     Meal currentMeal = mealsInDay.get(j);
-                    if (j > 0) {
-                        bufferedWriter.newLine();
-                    }
                     String status = "0";
                     if (currentMeal.getIsDone()) {
                         status = "1";
@@ -121,7 +118,7 @@ public class Storage {
                         for (String k : nutritionData.keySet()) {
                             toWrite += k + "|" + nutritionData.get(k) + "|";
                         }
-                        toWrite = toWrite.substring(0, toWrite.length() - 1);
+                        toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
                     }
                     bufferedWriter.write(toWrite);
                 }

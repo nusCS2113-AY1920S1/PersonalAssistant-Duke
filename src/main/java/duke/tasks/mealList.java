@@ -44,7 +44,12 @@ public class mealList {
     }
 
     public ArrayList<Meal> getMeals(String inputDate) {
-        return mealTracker.get(inputDate);
+        if (mealTracker.containsKey(inputDate)) {
+            return mealTracker.get(inputDate);
+        } else {
+            mealTracker.put(inputDate, new ArrayList<>());
+            return mealTracker.get(inputDate);
+        }
     }
 
     public HashMap<String, ArrayList<Meal>> getMealTracker() {

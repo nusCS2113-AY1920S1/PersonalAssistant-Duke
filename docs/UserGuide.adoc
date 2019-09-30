@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 3
 :toc-placement: preamble
 :sectnums:
 :imagesDir: Images
@@ -248,35 +249,54 @@ Examples:
 * Dates should be entered in the following format: day/month/year.
 ====
 
+==== Editing a food item: `edit`
 
-=== Recalling all tasks within X hours: `remindme`
-(this should be morphed to a function that reminds you how much nutrition u should intake to reach the target nutrient intake for the month)
+Format: `edit DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
 
-Finds all deadline and event tasks that are scheduled within NUMBER_OF_HOURS of the current system time. +
-Format: `remindme NUMBER_OF_HOURS`
+Accidentally entered the wrong details for a meal item? Use the `edit` command! Simply enter the description of the meal that you wish to edit
+after the edit command, along with the tagged values that you wish to edit.
+
+The command also supports the editing of data in other dates: simply specify the date after adding a /date flag at the end of the statement
 
 Examples:
 
-* `remindme 20` +
-Prints to the screen the list of events and deadlines that are scheduled for the next 20 hours, in chronological order
+* You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50`
+** You want to change the value of fats and calcium to 50g
+*** `edit hamburger /fats 50 /calcium 50`
+* You want to change the nutritional value of a hamburger you ate on 1st of January, 2019 with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50 /date 1/1/2019`
+** You want to change the value of fats and calcium to 50g
+*** `edit hamburger /fats 50 /calcium 50 /date 1/1/2019`
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
 
-=== Locating a task by keyword: `find`
-(this should be morphed to a function???)
+=== Displaying nutrition track record: `stats`
+Want to know if you are meeting your nutritional quota for the month? Your average nutrient intake across each of your
+three meals for the past month, or what is the average nutritional intake you will need to maintain in order to hit your set quota for the month?
+Simply enter the `stats` command, and our application will compute all the necessary data for you, and display them to you in a clear and
+concise manner
 
-Finds tasks whose descriptions contain any of the given keywords. +
-Format: `find KEYWORD`
+=== Locating a meal by keyword: `find`
+Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
+Simply enter the `find` command, followed by the description of the meal you had. Our application will automatically sieve through
+all your past meals, and present you with all the results that are relevant to the description you have provided
 
 ****
-* The search is case sensitive. e.g `hans` will not match `Hans`
-* The order of the keywords does matter. e.g. `Hans Bo` will not match `Bo Hans`
-* Only the description is searched.
+* The search is case sensitive. e.g `Ham` will not match `ham`
+* Only the description of the meal is searched.
 * Substrings will be matched e.g. `Han` will match `Hans`
 ****
 
 Examples:
 
-* `find hello` +
-Returns `hello world` and `helloworld`
+* `find fish` +
+Returns meals with possible descriptions `steamed fish` and `fish and chips`
 
 // tag::delete[]
 === Deleting a task : `delete`
