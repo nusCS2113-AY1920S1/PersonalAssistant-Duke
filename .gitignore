@@ -11,8 +11,8 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+/build/
 
 /duke.txt
 /wallet.txt
 /data/
-/build/
