@@ -1,0 +1,3 @@
+[E][✘] proj (at: Mon 04/02/2019 time: 08:00 AM to 09:00 AM)
+[E][✘] cooking (at: Sun 03/02/2019 time: 07:00 PM to 08:00 PM)
+[E][✘] helloworld (at: Sat 09/02/2019 time: 07:00 PM to 09:00 PM)

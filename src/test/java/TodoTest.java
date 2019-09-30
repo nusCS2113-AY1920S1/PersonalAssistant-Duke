@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest {
     @Test
     public void stringConversionTest(){
-        assertEquals("[T][\u2718] Test Todo", (new Todo("Test Todo").toString()));
+        String w1 = "[T][\u2718] test todo borrow book";
+        String w2 = new Todo("test todo borrow book").toString();
+        assertEquals(w1, w2);
     }
 }
