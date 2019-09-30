@@ -273,8 +273,10 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringDate());
         list.append("_");
-        list.append(getStringStartTime());
-        list.append("_");
+        if(!getStringStartTime().equals("")){
+            list.append(getStringStartTime());
+            list.append("_");
+        }
         list.append(getStringEndTime());
         list.append("_");
         list.append(gethasReminder());

@@ -180,8 +180,9 @@ public class DailyCal {
                     int sMin = sTime - sHour;
                     int eHour = eTime % 100;
                     int eMin = eTime - eHour;
-                    int hour ;
-                    int min ;
+                    System.out.println();
+                    int hour =0 ;
+                    int min =0;
                     if (eMin >= sMin) {
                         min = eMin - sMin;
                         hour = eHour - sHour;
@@ -231,8 +232,8 @@ public class DailyCal {
                     int sMin = sTime - sHour;
                     int eHour = eTime % 100;
                     int eMin = eTime - eHour;
-                    int hour ;
-                    int min ;
+                    int hour = 0 ;
+                    int min = 0;
                     if (eMin >= sMin) {
                         min = eMin - sMin;
                         hour = eHour - sHour;
