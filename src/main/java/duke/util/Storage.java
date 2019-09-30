@@ -1,7 +1,9 @@
 package duke.util;
 
 import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.DukeInvalidTimePeriodException;
 import duke.tasks.Deadline;
+import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -75,6 +77,18 @@ public class Storage {
                     }
                     list.add(tempTodo);
                     break;
+                }
+                case "W": {
+                    try {
+                        DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                        if (hold[2].equals("1")) {
+                            tempTodo.setTaskDone();
+                        }
+                        list.add(tempTodo);
+                        break;
+                    } catch (DukeInvalidTimePeriodException ex) {
+                        break;
+                    }
                 }
                 default: {
                     continue;
