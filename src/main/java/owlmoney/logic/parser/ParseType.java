@@ -2,13 +2,16 @@ package owlmoney.logic.parser;
 
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.parser.saving.ParseAddSaving;
+import owlmoney.logic.parser.saving.ParseDeleteSaving;
 import owlmoney.logic.parser.saving.ParseEditSaving;
+import owlmoney.model.profile.Profile;
 
 class ParseType extends Parser {
-    void parseData(String command, String data) throws ParserException {
+    //added profile
+    void parseData(String command, String data, Profile profile) throws ParserException {
         String type = parseFirstField(data);
         String rawData = removeFirstField(data, type);
-        parseTypeMenu(command, type, rawData);
+        parseTypeMenu(command, type, rawData, profile);
     }
 
     private void isDeleteProfile(String command) throws ParserException {
@@ -16,8 +19,8 @@ class ParseType extends Parser {
             throw new ParserException("Profile cannot be deleted");
         }
     }
-
-    private void parseTypeMenu(String command, String type, String rawData) throws ParserException {
+    //added profile to pass to command
+    private void parseTypeMenu(String command, String type, String rawData, Profile profile) throws ParserException {
         switch (type) {
         case "/profile":
             isDeleteProfile(command);
@@ -31,10 +34,16 @@ class ParseType extends Parser {
                 ParseAddSaving parseAddSaving = new ParseAddSaving(rawData);
                 parseAddSaving.fillHashTable();
                 parseAddSaving.checkParameter();
+                parseAddSaving.passToCommand(profile); //placeholder name to run the command
             } else if ("/edit".equals(command)) {
                 ParseEditSaving parseEditSaving = new ParseEditSaving(rawData);
                 parseEditSaving.fillHashTable();
                 parseEditSaving.checkParameter();
+            } else if ("/delete".equals(command)) {
+                ParseDeleteSaving parseDeleteSaving = new ParseDeleteSaving(rawData);
+                parseDeleteSaving.fillHashTable();
+                parseDeleteSaving.checkParameter();
+                parseDeleteSaving.passToCommand(profile);
             }
 
             break;

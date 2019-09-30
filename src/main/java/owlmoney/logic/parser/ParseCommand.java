@@ -3,6 +3,7 @@ package owlmoney.logic.parser;
 import java.util.Scanner;
 
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.model.profile.Profile;
 
 public class ParseCommand extends Parser {
     ParseType parseType = new ParseType();
@@ -12,12 +13,12 @@ public class ParseCommand extends Parser {
         return scanner.hasNextLine();
     }
 
-    public void parseLine() throws ParserException {
+    public void parseLine(Profile profile) throws ParserException {
         String input = scanner.nextLine();
         parseIsBlank(input);
         String command = parseFirstField(input);
         String data = removeFirstField(input,command);
-        parseCommandMenu(command, data);
+        parseCommandMenu(command, data, profile);
     }
 
     private void parseIsBlank(String input) throws ParserException {
@@ -26,19 +27,23 @@ public class ParseCommand extends Parser {
         }
     }
 
-    private void parseCommandMenu(String command, String data) throws ParserException{
+    //for now is pass profile all the way in. Double check if is correct structure
+    private void parseCommandMenu(String command, String data, Profile profile) throws ParserException{
         switch (command) {
         case "/add":
             System.out.println("You added");
-            parseType.parseData(command, data);
+            parseType.parseData(command, data, profile);
             break;
         case "/delete":
             System.out.println("You deleted");
-            parseType.parseData(command, data);
+            parseType.parseData(command, data, profile);
             break;
         case "/edit":
             System.out.println("You edited");
-            parseType.parseData(command, data);
+            parseType.parseData(command, data, profile);
+            break;
+        case "/test": //for testing of output
+            profile.listBanks();
             break;
         case "/exit":
             System.exit(0);
