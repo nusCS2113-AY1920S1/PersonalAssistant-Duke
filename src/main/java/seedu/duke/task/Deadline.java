@@ -2,14 +2,13 @@ package seedu.duke.task;
 
 import seedu.duke.Duke;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Deadline is a type of task with a date/time which is the deadline time.
  */
 public class Deadline extends Task {
-    private Date time;
+    private LocalDateTime time;
     private String doAfter;
 
     /**
@@ -19,13 +18,13 @@ public class Deadline extends Task {
      * @param name name of the Deadline
      * @param time time of the Deadline
      */
-    public Deadline(String name, Date time) {
+    public Deadline(String name, LocalDateTime time) {
         super(name);
         this.time = time;
         this.taskType = TaskType.Deadline;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -37,7 +36,7 @@ public class Deadline extends Task {
      * @param time    time of the Deadline
      * @param doAfter task to be done after main task
      */
-    public Deadline(String name, Date time, String doAfter) {
+    public Deadline(String name, LocalDateTime time, String doAfter) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
@@ -94,12 +93,9 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isNear(int dayLimit) {
-        Date now = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(now);
+        LocalDateTime now = LocalDateTime.now();
         if (this.time.compareTo(now) >= 0) {
-            c.add(Calendar.DATE, dayLimit);
-            if (this.time.compareTo(c.getTime()) <= 0) {
+            if (now.compareTo(this.time.minusDays(dayLimit)) >= 0) {
                 return true;
             }
         }
@@ -108,10 +104,7 @@ public class Deadline extends Task {
 
     @Override
     public void snooze() {
-        Calendar date = Calendar.getInstance();
-        date.setTime(time);
-        date.add(Calendar.DAY_OF_MONTH, 3);
-        time.setTime(date.getTimeInMillis());
+        time = time.plusDays(3);
     }
 
     /**

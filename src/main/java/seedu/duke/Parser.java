@@ -18,6 +18,7 @@ import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -195,7 +196,7 @@ public class Parser {
     public static Command parseTask(TaskList taskList, String input) throws UserInputException {
         Task.TaskType taskType;
         String name;
-        Date time = new Date();
+        LocalDateTime time = null;
         String doAfter = null;
 
         if (input.startsWith("todo")) {
@@ -224,12 +225,7 @@ public class Parser {
                 timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
-            try {
-                time = Task.parseDate(timeString);
-            } catch (ParseException e) {
-                throw new Parser.UserInputException("Wrong date/time format. Write date/time in dd/MM/yyyy "
-                        + "HHmm format.");
-            }
+            time = Task.parseDate(timeString);
         } else if (input.startsWith("event")) {
             taskType = Task.TaskType.Event;
             if (input.length() <= 6) {
@@ -245,12 +241,7 @@ public class Parser {
                 timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
-            try {
-                time = Task.parseDate(timeString);
-            } catch (ParseException e) {
-                throw new Parser.UserInputException("Wrong date/time format. Write date/time in dd/MM/yyyy "
-                        + "HHmm format.");
-            }
+            time = Task.parseDate(timeString);
         } else {
             throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -279,6 +270,7 @@ public class Parser {
          *
          * @return the message of the exception
          */
+        @Override
         public String toString() {
             return msg;
         }

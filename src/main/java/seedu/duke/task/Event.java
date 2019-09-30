@@ -2,6 +2,7 @@ package seedu.duke.task;
 
 import seedu.duke.Duke;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  * Event class is a typ of task with a date/time when the event is going to happen.
  */
 public class Event extends Task {
-    private Date time;
+    private LocalDateTime time;
 
     /**
      * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
@@ -18,13 +19,13 @@ public class Event extends Task {
      * @param name name of the Event
      * @param time time of the Event that is going to happen
      */
-    public Event(String name, Date time) {
+    public Event(String name, LocalDateTime time) {
         super(name);
         this.time = time;
         this.taskType = TaskType.Event;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -36,7 +37,7 @@ public class Event extends Task {
      * @param time    time of the Event that is going to happen
      * @param doAfter task to be done after the main task
      */
-    public Event(String name, Date time, String doAfter) {
+    public Event(String name, LocalDateTime time, String doAfter) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
@@ -93,12 +94,9 @@ public class Event extends Task {
      */
     @Override
     public boolean isNear(int dayLimit) {
-        Date now = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(now);
+        LocalDateTime now = LocalDateTime.now();
         if (this.time.compareTo(now) >= 0) {
-            c.add(Calendar.DATE, dayLimit);
-            if (this.time.compareTo(c.getTime()) <= 0) {
+            if (now.compareTo(this.time.minusDays(dayLimit)) >= 0) {
                 return true;
             }
         }
@@ -107,10 +105,7 @@ public class Event extends Task {
 
     @Override
     public void snooze() {
-        Calendar date = Calendar.getInstance();
-        date.setTime(time);
-        date.add(Calendar.DAY_OF_MONTH, 3);
-        time.setTime(date.getTimeInMillis());
+        time = time.plusDays(3);
     }
 
     /**
