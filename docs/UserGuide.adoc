@@ -45,7 +45,7 @@ image::Ui.PNG[width="600" height="400"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo Go Malaysia`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo Go Geylang`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` (i.e. 0 times), `friend`, `friend family fish` etc.
 ====
 
@@ -56,7 +56,7 @@ Format: `todo TASK`
 
 Examples:
 
-* `todo Go Malaysia`
+* `todo Go Geylang`
 
 === Adding a deadline: `deadline`
 
@@ -74,7 +74,7 @@ Format: `event TASK /at DESCRIPTOR`
 
 Examples:
 
-* `event Ferris wheel /at London Eye tomorrow`
+* `event Ferris wheel /at Singapore Flyer tomorrow`
 
 === Adding a recurring: `recurring`
 
@@ -83,7 +83,7 @@ Format: `repeat TASK /at DATE /every INTERVAL`
 
 Examples:
 
-* `repeat Shopping at Bangkok /at 28/09/19 /every 7`
+* `repeat Shopping at Jewel /at 28/09/19 /every 7`
 
 === Adding a destination: `dest`
 
@@ -92,7 +92,7 @@ Format: `dest LOCATION`
 
 Examples:
 
-* `dest Siberia`
+* `dest City Hall`
 
 === Updating a destination: `update`
 
@@ -108,7 +108,7 @@ Format: `update INDEX LOCATION`
 Examples:
 
 * `list` +
-`update 2 Italy` +
+`update 2 Chinatown` +
 Marks the 2nd destination to Italy in Duke.
 
 === Deleting a task/destination : `delete`
@@ -169,50 +169,42 @@ Returns `Singapore` and `Singapore Bishan`
 * `find Mexico Laos Singapore` +
 Returns any tasks containing names `Mexico`, `Laos`, or `Singapore`
 
-=== Listing popular places of a destination: `recommend`
+=== List nearby bus stops of destination: `busstop`
 
-Duke recommend popular places of visit at a given location. +
-Format: `recommend LOCATION`
-
-Examples:
-
-* `recommend Toronto`
-
-=== Listing flight information from home location to destination: `flight`
-
-Duke recommend flights from current home location to the given destination. +
-Format: `flight LOCATION`
+Duke recommends nearby bus stops of a certain location. +
+Format: `busstop LOCATION`
 
 Examples:
 
-* `flight Los Angeles`
+* `busstop Sentosa`
+* `busstop J-Cube`
 
-=== Create a travel plan for user: `tour`
+=== Shows the bus route of a bus service: `busroute`
+
+Duke finds the bus route of a given bus service given the bus service number. +
+Format: `busroute BUS_NUMBER`
+
+Examples:
+
+* `busroute 96`
+* `busroute 193`
+
+=== Create a bus travel plan for user: `bustour`
 
 Duke recommends a travelling plan (short path) based on the user's input of destination. +
-Format: `tour`
+Format: `bustour`
 
 Examples:
 
-* `tour`
+* `bustour`
 
-=== Weather forecast of destinations: `weather`
+=== Train alerts: `train`
 
-Duke provides weather forecast for all destinations user have added. +
-Format: `weather`
-
-Examples:
-
-* `weather`
-
-=== Exchange rate: `rate`
-
-Duke provides the currency exchange rate of the 2 currency user stated. +
-Format: `rate CURRENCY /to CURRENCY`
+Duke informs user of train services that are not in operation due to track faults and other incidents. +
 
 Examples:
 
-* `rate SGD /to RMB`
+* `train`
 
 === Help: `help`
 
@@ -233,6 +225,54 @@ Format: `bye`
 Duke data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+
+== Features that are coming in version 2.0!
+
+=== Create a travel plan for user: `tour`
+
+Duke recommends a travelling plan (short path) based on the user's input of destination. +
+Format: `tour`
+
+Examples:
+
+* `tour`
+
+=== Weather forecast of destinations: `weather`
+
+Duke provides weather forecast for all destinations (including outside of Singapore) user have added. +
+Format: `weather`
+
+Examples:
+
+* `weather`
+
+=== Exchange rate: `rate`
+
+Duke provides the currency exchange rate of the 2 currency user stated. +
+Format: `rate CURRENCY /to CURRENCY`
+
+Examples:
+
+* `rate SGD /to RMB`
+
+=== Listing popular places of a destination: `recommend`
+
+Duke recommends popular places of visit at a given location. +
+Format: `recommend LOCATION`
+
+Examples:
+
+* `recommend Toronto`
+
+=== Listing flight information from home location to destination: `flight`
+
+Duke recommends flights from current home location to the given destination. +
+Format: `flight LOCATION`
+
+Examples:
+
+* `flight Los Angeles`
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -241,17 +281,17 @@ There is no need to save manually.
 == Command Summary
 
 * *Todo* `todo TASK` +
-e.g. `todo Go Malaysia`
+e.g. `todo Go Jurong Point`
 * *Deadline* `deadline TASK /by DESCRIPTOR` +
 e.g. `deadline Buy plane ticket /by 09/09/2019 0900`
 * *Event* `event TASK /at DESCRIPTOR` +
-e.g. `event Ferris wheel /at London Eye tomorrow`
+e.g. `event Ferris wheel /at Singapore Flyer tomorrow`
 * *Recurring* `repeat TASK /at DATE /every INTERVAL` +
-e.g. `repeat Shopping at Bangkok /at 28/09/19 /every 7`
+e.g. `repeat Shopping at Jewel /at 28/09/19 /every 7`
 * *Destination* : `dest LOCATION` +
-e.g. `dest Philippines`
+e.g. `dest Raffles Place`
 * *Update* : `update INDEX LOCATION` +
-e.g. `update 3 Taiwan`
+e.g. `update 3 UTown`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Done* : `done INDEX` +
