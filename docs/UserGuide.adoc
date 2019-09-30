@@ -88,15 +88,17 @@ Example:
 
 === Modify a expense/income : `modify`
 
-Modify the details of a particular entry in the list. +
-Format: `*modify* [LIST NO.]`
+Modify the whole or a component of a particular entry in the list.
+
+Format: `*modify* [LIST NO.] {COMPONENT}`
 
 [TIP]
 Try using the same method as `*remove*` to find `*[LIST NO.]*`.
 
-Example:
+Examples:
 
 * `modify 4`
+* `modify 3 tag`
 
 === Add recurring expenses or income : `add recurring expense`, `add recurring income`
 
@@ -176,25 +178,45 @@ Examples:
 
 * `borrow xx $10 lunch`
 
-=== View statistics `stats`
+=== View statistics `stats` `view`
 
-View spending statistics using histograms
+View spending statistics on a specific tag for a specified duration.
 
-Format: `*stats*`
+Format: `*stats* [TAG] [DURATION] [CHART_TYPE]`
+
+View spending on specific date/month/year for different tags.
+
+Format: `*stats* [DATE/MONTH/YEAR]`
+
+View spending on specific date/month/year in a list form.
+
+Format: `*view* [DATE/MONTH/YEAR]`
+
+Examples:
+
+* `stats Food September histogram`
+
+* `stats today`
+
+* `view 11/11/2011`
+
+=== Add to shortcut `create shortcut`
+
+Add an existing entry to the shortcut
+
+Format: `*create shortcut* [LIST NO.]`
+
+Add a new entry to the shortcut
+
+Format: `*create expense/income shortcut* [DESCRIPTION] [AMOUNT] {TAG}`
 
 Example:
 
-* `stats`
+* `create shortcut 3`
 
-=== Add to favourite `add favourite`
+* `create expense shortcut ice-cream $5 Food`
 
-Add a favourite product 
-
-Format: `*add favourite* [LIST NO.]`
-
-Example:
-
-* `add favourite 3`
+* `create income shortcut tuition $100`
 
 == FAQ
 
