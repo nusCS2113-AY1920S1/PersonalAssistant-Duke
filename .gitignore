@@ -5,7 +5,6 @@
 
 # Gradle build files
 /.gradle/
-/build/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
