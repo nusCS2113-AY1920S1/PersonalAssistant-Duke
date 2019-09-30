@@ -39,7 +39,7 @@ Expected Outcome:
 
 >Got it. I've added this show:
 
->Phantom of the Opera at 5/5/2020
+>Phantom of the Opera at: 5/5/2020
 
 # Format for future features
 ### Feature  : Adding a show
