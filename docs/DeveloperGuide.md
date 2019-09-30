@@ -1,7 +1,7 @@
 
 # Compal - Developer Guide
 
-Welcome to the **Compal** Developer Guide! This Developer Guide is still being worked on for now!
+Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
 
 # Table of Contents
 [**1. Introduction**](/docs/DeveloperGuide.md#1-introduction)
@@ -57,9 +57,18 @@ Icon                 | Description
 1. [**JDK 11**](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase11-5116896.html) or later
 2. [**IntelliJ** IDE](https://www.jetbrains.com/store/?fromNavMenu#personal?billing=yearly)
 
-:information_source: | **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+|-|-|
+|---------------------|-----------------------------|
+|:information_source: | **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.|
+
+> :information source: : **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 ### 3.2. Setting up the Project in your Computer
+1. Fork this repo, and clone the fork to your computer. 
+2. Open **IntelliJ** (if you are not in the welcome screen, click `File` > `Close Project` to close your existing project dialogue first)
+3. Set up the correct **JDK** version for Gradle
+    1. Click `Configure` > `Project Defaults` > `Project Structure`
+    2. Click `New...` and find the directory 
 ### 3.3. Verifying the Setup
 ### 3.4. Configurations to do before Writing Code
 
