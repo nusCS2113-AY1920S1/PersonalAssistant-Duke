@@ -32,7 +32,7 @@ Expenses and loans can then be efficiently managed via the intuitive category sy
 
 == Acknowledgements
 
-* *WalletCLi* is built upon https://github.com/se-edu/duke[Duke] Application created by the https://github.com/se-edu/[SE-EDU] initiative.
+* WalletCLi is built upon https://github.com/se-edu/duke[Duke] Application created by the https://github.com/se-edu/[SE-EDU] initiative.
 * Librarie(s) used: https://github.com/junit-team/junit5[JUnit5]
 
 == Contact Us
