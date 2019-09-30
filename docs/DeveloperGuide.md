@@ -4,29 +4,68 @@
 Welcome to the **Compal** Developer Guide! This Developer Guide is still being worked on for now!
 
 # Table of Contents
-1. [Introduction](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#user-stories)
- 2. Setting Up
- 3. Design
- 4. Implementation
- 5. Documentation
- 6. Testing
- 7. DevOps
+[**1. Introduction**](/docs/DeveloperGuide.md#1-introduction)
 
- 	* [**Appendix A: User Profile**]( https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-a-user-profile)
- 	* [**Appendix C: User Stories**](https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-c-user-stories)
-	* [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
-	* [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
-	* [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
+[**2. About this Developer Guide**](/docs/DeveloperGuide.md#2-about-this-developer-guide)
+
+[**3. Setting Up**](/docs/DeveloperGuide.md#3-setting-up)
++ [3.1 Prerequisites](/docs/DeveloperGuide.md#31-prerequisites)
++ [3.2 Setting up the Project in your Computer](/docs/DeveloperGuide.md#32-setting-up-the-project-in-your-computer)
++ [3.3 Verifying the Setup](/docs/DeveloperGuide.md#33-verifying-the-setup)
++ [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
+
+**4. Design**
+
+**5. Implementation**
+
+**6. Documentation**
+
+**7. Testing**
+
+**8. DevOps**
+
+* [**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile)
+* [**Appendix C: User Stories**](/docs/DeveloperGuide.md#appendix-c-user-stories)
+* [**Appendix D: Use Cases**](/docs/DeveloperGuide.md#appendix-d-use-cases)
+* [**Appendix E: Non-Functional Requirements**](/docs/DeveloperGuide.md#appendix-e-non-functional-requirements)
+* [**Appendix F: Glossary**](/docs/DeveloperGuide.md#appendix-f-glossary)
 
 
+## 1. Introduction
+**COMPal** is a desktop application specifically designed for the **hectic schedule** for the **modern student** in mind. It is catered to student-users who prefer to use and are adept at using a **Command-Line Interface (CLI)**, while still having a clean **Graphical User Interface (GUI)** to properly **visualize schedules** and **organize tasks** better.
 
-# Introduction
-ComPal is a desktop application specifically designed with busy, disorganized students in mind. It is catered to student-users who prefer to use and are adept at using a Command-Line Interface (CLI), while still having a clean Graphical User Interface (GUI) to properly visualize schedules and organize tasks better.
+## 2. About This Developer Guide
 
+This **Developer Guide** provides a detailed documentation on the implementation of all the time-management tools of **COMPal**. To navigate between the different sections, you could use the [**Table of Contents**](/docs/DeveloperGuide.md#table-of-contents) above.
+
+For ease of communication, tbe following **terminology** will be used:
+
+Term                 | Definition
+---------------------|-----------------------------
+Task                 | The general term that is used to describe an action that has to be done by the user. 
+ 
+Additionally, throughout this **Developer Guide**, there will be various **icons** used as described below.
+
+Icon                 | Description
+---------------------|-----------------
+:information_source: | Additional important information about a term/concept
+:bulb:               | A tip that can improve your understanding about a term/concept
+:warning:            | A warning that you should take note of  
+
+## 3. Setting Up
+### 3.1. Prerequisites
+1. [**JDK 11**](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase11-5116896.html) or later
+2. [**IntelliJ** IDE](https://www.jetbrains.com/store/?fromNavMenu#personal?billing=yearly)
+
+:information_source: : **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+### 3.2. Setting up the Project in your Computer
+### 3.3. Verifying the Setup
+### 3.4. Configurations to do before Writing Code
 
 ## Appendix A: User Profile
 
-**System**: ComPal
+**System**: **COMPal**
 
 **Target User Profile**: Students who
 -   want to better organize their time not just according to deadlines but by perceived priorities
