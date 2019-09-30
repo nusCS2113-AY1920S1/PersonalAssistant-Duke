@@ -1,6 +1,6 @@
 package compal.ui;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 
 
 import java.text.ParseException;

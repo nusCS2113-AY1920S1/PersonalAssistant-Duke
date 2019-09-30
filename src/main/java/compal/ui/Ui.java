@@ -1,9 +1,9 @@
 package compal.ui;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 
-import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
+import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
 import java.io.File;
 import java.text.ParseException;

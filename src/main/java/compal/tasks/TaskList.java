@@ -1,13 +1,9 @@
 package compal.tasks;
 
-import compal.compal.Compal;
-import compal.ui.DailyCal;
-import javafx.scene.control.Tab;
+import compal.commons.Compal;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TaskList {

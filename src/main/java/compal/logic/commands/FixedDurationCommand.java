@@ -1,6 +1,6 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.FixedDurationTask;
 import compal.tasks.Task;
@@ -8,13 +8,13 @@ import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_INVALID_MINUTE;
-import static compal.compal.Messages.MESSAGE_INVALID_TIME_RANGE;
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_HOUR;
-import static compal.compal.Messages.MESSAGE_MISSING_HOUR_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_MIN;
-import static compal.compal.Messages.MESSAGE_MISSING_MIN_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_MINUTE;
+import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_HOUR;
+import static compal.commons.Messages.MESSAGE_MISSING_HOUR_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_MIN;
+import static compal.commons.Messages.MESSAGE_MISSING_MIN_ARG;
 
 /**
  * Executes user command "fixeddurationtask".

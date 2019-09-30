@@ -1,6 +1,6 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 
 import java.util.Calendar;
@@ -8,16 +8,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static compal.compal.Messages.MESSAGE_INVALID_DATE_FORMATTING;
-import static compal.compal.Messages.MESSAGE_INVALID_YEAR;
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_DATE;
-import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_DESC;
-import static compal.compal.Messages.MESSAGE_MISSING_END_TIME_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
-import static compal.compal.Messages.MESSAGE_MISSING_START_TIME_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_TIME;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_DESC;
+import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_PRIORITY;
+import static compal.commons.Messages.MESSAGE_MISSING_START_TIME_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_TIME;
 
 /**
  * Extracts and formats user input string into description, priority, date and time.

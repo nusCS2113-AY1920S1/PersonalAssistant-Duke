@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 import javafx.scene.paint.Color;

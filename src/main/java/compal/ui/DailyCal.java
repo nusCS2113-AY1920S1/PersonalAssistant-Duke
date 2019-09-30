@@ -1,6 +1,6 @@
 package compal.ui;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
@@ -9,8 +9,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

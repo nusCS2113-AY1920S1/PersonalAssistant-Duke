@@ -1,6 +1,6 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.TaskList;
 
@@ -8,9 +8,9 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_INVALID_TASK_NUMBER;
-import static compal.compal.Messages.MESSAGE_INVALID_TASK;
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_TASK_NUMBER;
+import static compal.commons.Messages.MESSAGE_INVALID_TASK;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "remind".
