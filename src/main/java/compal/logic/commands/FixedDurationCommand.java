@@ -50,10 +50,11 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getStartTime(restOfInput);
+            String sTime = getStartTime(restOfInput);
+            String eTime = getEndTime(restOfInput);
             int hour = getHour(restOfInput);
             int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, priority, date, time, hour, minute));
+            taskList.addTask(new FixedDurationTask(description, priority, date,sTime,eTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);
