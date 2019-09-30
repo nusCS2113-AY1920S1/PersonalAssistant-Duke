@@ -36,6 +36,7 @@ public class Seat {
 
     public String getSeat() {
         return "[" + getStatusIcon() + "]";
+    }
 
     public void setSeatTier(String seatTier) {
         this.seatTier = seatTier;
