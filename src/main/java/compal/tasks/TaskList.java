@@ -1,13 +1,9 @@
 package compal.tasks;
 
-import compal.compal.Compal;
-import compal.ui.DailyCal;
-import javafx.scene.control.Tab;
+import compal.commons.Compal;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TaskList {
@@ -51,19 +47,10 @@ public class TaskList {
      * @return Size of arrayList.
      */
     public int addTask(Task task) {
-        String pattern = "dd/MM/yyyy";
-        String todayDate = new SimpleDateFormat(pattern).format(new Date());
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
+        compal.ui.dateViewRefresh(task.getStringDate());
         compal.ui.showSize();
-        if(task.getStringDate().equals(todayDate)){
-            DailyCal dc = new DailyCal();
-            compal.ui.TabRef.getTabs().remove(1);
-            Tab dailyTab = new Tab();
-            dailyTab.setText("Daily Window");
-            dailyTab.setContent(dc.init());
-            compal.ui.TabRef.getTabs().add(1,dailyTab);
-        }
         return arrlist.size();
     }
 

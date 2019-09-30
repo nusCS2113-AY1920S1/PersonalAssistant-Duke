@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
 
@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "view".

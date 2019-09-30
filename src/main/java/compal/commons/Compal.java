@@ -1,4 +1,4 @@
-package compal.compal;
+package compal.commons;
 
 import compal.ui.Ui;
 import compal.logic.parser.ParserManager;

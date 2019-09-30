@@ -1,9 +1,9 @@
 package compal.ui;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
 
-import static compal.compal.Messages.MESSAGE_INIT_REMINDER;
+import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
 import java.io.File;
 import java.text.ParseException;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -238,7 +239,7 @@ public class Ui {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
-    public TabPane TabRef;
+    public TabPane tabWindow;
     private ArrayList<Task> arrlist;
     private Compal compal;
     private String username;
@@ -275,12 +276,13 @@ public class Ui {
     /**
      * Overloaded version of printg which allows you to customize style of text.
      * e.g usage; printg("hello world!", "verdana", 12, Color.RED);
+     *
      * @param text Input object received to be print on gui. Any object type can be used, as long as
      *             it has a 'toString()' function defined.
      */
     public void printg(Object text, String font, int size, Color color) {
         VBox vbox = (VBox) mainWindow.getContent();
-        vbox.getChildren().addAll(getDialogLabel(text.toString(),font,size,color));
+        vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
     }
 
     /**
@@ -292,7 +294,7 @@ public class Ui {
      */
     public void printSecondaryg(Object text, String font, int size, Color color) {
         VBox vbox = (VBox) secondaryWindow.getContent();
-        vbox.getChildren().addAll(getDialogLabel(text.toString(),font,size,color));
+        vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
     }
 
     /**
@@ -369,7 +371,7 @@ public class Ui {
 
         if (!saveFileExists) {
             compal.parser.setStatus("init");
-            printg("Hello! I'm Compal!!","verdana",23,Color.BLACK);
+            printg("Hello! I'm Compal!!", "verdana", 23, Color.BLACK);
             printg("What is your name?");
         } else {
             username = compal.storage.getUserName();
@@ -377,7 +379,7 @@ public class Ui {
                     + username
                     + "! "
                     +
-                    "Here are your tasks that are due within a week: \n","verdana",15,Color.BLACK);
+                    "Here are your tasks that are due within a week: \n", "verdana", 15, Color.BLACK);
 
             //initiate the showing of reminders
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
@@ -412,6 +414,20 @@ public class Ui {
         default:
             System.out.println("Unknown init stage");
         }
+    }
+
+    /**
+     * Refresh view date.
+     *
+     * @param dateToStore date to view of daily calender
+     */
+    public void dateViewRefresh(String dateToStore) {
+        DailyCal dc = new DailyCal();
+        compal.ui.tabWindow.getTabs().remove(1);
+        Tab dailyTab = new Tab();
+        dailyTab.setText("Daily Window");
+        dailyTab.setContent(dc.init(dateToStore));
+        compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }
     //----------------------->
 }

@@ -18,8 +18,6 @@ public abstract class Task implements Serializable {
     private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
     private Date startTime;
     private Date endTime;
-    private Integer durationHour = 0;
-    private Integer durationMinute = 0;
     private boolean hasReminder;
     private Priority priority;
     private long priorityScore;
@@ -144,36 +142,7 @@ public abstract class Task implements Serializable {
      *
      * @return Hour duration of task.
      */
-    public Integer getDurationHour() {
-        return durationHour;
-    }
 
-    /**
-     * Sets durationHour as input durationHour.
-     *
-     * @param durationHour Input duration hour.
-     */
-    public void setDurationHour(Integer durationHour) {
-        this.durationHour = durationHour;
-    }
-
-    /**
-     * Gets durationMinute of task.
-     *
-     * @return Minute duration of task.
-     */
-    public Integer getDurationMinute() {
-        return durationMinute;
-    }
-
-    /**
-     * Sets durationMinute as input durationMinute.
-     *
-     * @param durationMinute Input duration minute.
-     */
-    public void setDurationMinute(Integer durationMinute) {
-        this.durationMinute = durationMinute;
-    }
 
     /**
      * Gets hasReminder of task.
@@ -264,43 +233,19 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         int strCase = 0;
-        if (getStartTime() != null && (getDurationHour() != 0 || getDurationMinute() != 0)) {
+        if (getStartTime() == null && getEndTime() != null) {
             strCase = 1;
-        } else if (getDurationHour() != 0 && getDurationMinute() != 0) {
-            strCase = 2;
-        } else if (getStartTime() == null && getEndTime() == null) {
-            strCase = 3;
-        } else if (getStartTime() != null && getEndTime() != null) {
-            strCase = 4;
-        }else if (getStartTime() == null && getEndTime() != null) {
-            strCase = 5;
         }
 
         switch (strCase) {
         case 1:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nHour: " + getDurationHour() + " \nMin: "
-                    + getDurationMinute() + " \nPriority: " + getPriority()
-                    + "\n***************";
-        case 2:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nHour: " + getDurationHour() + " \nMin: "
-                    + getDurationMinute() + " \nPriority: " + getPriority()
-                    + "\n***************";
-        case 3:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nPriority: " + getPriority()
-                    + "\n***************";
-        case 4:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nEnd Time: " + getStringEndTime() +" \nPriority: " + getPriority()
-                    + "\n***************";
+                    + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
+                    + " \nPriority: " + getPriority() + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nPriority: " + getPriority()
+                    + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                     + "\n***************";
         }
 
@@ -326,15 +271,11 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringDate());
         list.append("_");
-        list.append(getStringStartTime());
-        list.append("_");
-        if(getStringEndTime().equals("")){
-            list.append(getStringEndTime());
+        if (!getStringStartTime().equals("")) {
+            list.append(getStringStartTime());
             list.append("_");
         }
-        list.append(getDurationHour().toString());
-        list.append("_");
-        list.append(getDurationMinute().toString());
+        list.append(getStringEndTime());
         list.append("_");
         list.append(gethasReminder());
         return list.toString();

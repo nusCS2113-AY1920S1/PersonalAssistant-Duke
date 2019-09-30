@@ -1,6 +1,6 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.RecurringTask;
 import compal.tasks.Task;
@@ -12,8 +12,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.*;
-import static compal.compal.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_REP;
+import static compal.commons.Messages.MESSAGE_MISSING_REP_ARG;
 
 /**
  * Executes user command for recurring tasks, lectures, tutorials,
@@ -72,10 +74,9 @@ public class RecurTaskCommand extends Command implements CommandParser {
 
     /**
      * Returns the number of days between the recurring task in an integer form.
-     *
+     * Will default to DEFAULT_FREQ_NUM.
      * @param restOfUserInput User input string.
      * @return Number of days between each recurring task.
-     *         Will default to DEFAULT_FREQ_NUM.
      */
     public int getFreq(String restOfUserInput) {
         int freqNum = DEFAULT_FREQ_NUM;
@@ -99,7 +100,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * Increases the date by the number of days specified by the user.
      *
      * @param dateString The date to increment.
-     * @param freqNum The number of days between each task.
+     * @param freqNum    The number of days between each task.
      * @return Final incremented date.
      */
     public String incrementDate(String dateString, int freqNum) {
@@ -156,10 +157,10 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String sTime = getStartTime(restOfInput);
-            String eTime = getEndTime(restOfInput);
+            String startTime = getStartTime(restOfInput);
+            String endTime = getEndTime(restOfInput);
 
-            if(Integer.parseInt(sTime)>Integer.parseInt(eTime)){
+            if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
                 throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
             }
@@ -168,7 +169,8 @@ public class RecurTaskCommand extends Command implements CommandParser {
             int freq = getFreq(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, sTime,eTime, symbol);
+                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr,
+                        startTime, endTime, symbol);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();
