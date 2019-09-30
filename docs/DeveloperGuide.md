@@ -24,10 +24,14 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 
 [**8. DevOps**](/docs/DeveloperGuide.md#8-dev-ops)
 
-[**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile)  
+[**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile) 
+ 
 [**Appendix B: User Stories**](/docs/DeveloperGuide.md#appendix-b-user-stories)  
+
 [**Appendix C: Use Cases**](/docs/DeveloperGuide.md#appendix-c-use-cases)  
+
 [**Appendix D: Non-Functional Requirements**](/docs/DeveloperGuide.md#appendix-d-non-functional-requirements)  
+
 [**Appendix E: Glossary**](/docs/DeveloperGuide.md#appendix-e-glossary)  
 
 
