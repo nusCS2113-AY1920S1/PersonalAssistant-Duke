@@ -60,7 +60,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(progressStack, ui, storage, profile);
                 isExit = c.isExit();
-                System.out.println("Current progress is " + progressStack.checkProgress());
+                //System.out.println("Current progress is " + progressStack.checkProgress());
             } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {

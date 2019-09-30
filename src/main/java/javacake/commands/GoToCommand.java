@@ -11,7 +11,6 @@ import java.io.IOException;
 public class GoToCommand extends Command {
 
     private String index;
-    private String lineBuffer;
 
     public GoToCommand(String inputCommand) {
         String buffer[] = inputCommand.split("\\s+");
