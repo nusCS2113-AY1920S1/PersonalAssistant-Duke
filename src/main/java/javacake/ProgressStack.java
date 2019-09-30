@@ -50,6 +50,18 @@ public class ProgressStack {
         if (checkProgress() == 1) currentProgress.pop();
     }
 
+    public void listIndex3ToSubList1() {
+        if (checkProgress() == 2) currentProgress.push(1);
+    }
+
+    public void listIndex3ToSubList2() {
+        if (checkProgress() == 2) currentProgress.push(1);
+    }
+
+    public void listIndex3ToSubList3() {
+        if (checkProgress() == 2) currentProgress.push(1);
+    }
+
     public void forceClearProgress() {
         currentProgress.pop();
     }
