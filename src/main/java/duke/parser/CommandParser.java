@@ -32,7 +32,7 @@ public class CommandParser {
             order.setCustomerContact(params.get("contact").get(0));
         }
         if (params.containsKey("rmk")) {
-            order.setCustomerContact(params.get("rmk").get(0));
+            order.setRemarks(params.get("rmk").get(0));
         }
         if (params.containsKey("by")) {
             order.setDeliveryDate(TimeParser.convertStringToDate(params.get("by").get(0)));
