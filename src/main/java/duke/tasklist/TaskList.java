@@ -181,7 +181,7 @@ public class TaskList {
     }
 
     /**
-     * Adds tasks that will recur daily, weekly, month or yearly.
+     * Adds tasks that will recur daily, weekly, monthly or yearly.
      * @param description String containing the description of the task
      * @param frequency String containing the frequency of recurrence of the task.
      * @param dayOrDate String containing either the day of the date of the recurring task.

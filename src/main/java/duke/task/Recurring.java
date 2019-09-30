@@ -14,12 +14,14 @@ public class Recurring extends Task {
     /**
      * Constructor for class Period.
      * @param description String containing the description of the task
+     * @param frequency String containing the frequency at which the task is recurring at.
+     *                  Duke supports daily, weekly and monthly recurring tasks.
      * @param dayOrDate String containing the day or date that a task should be done.
      */
     public Recurring(String description, String frequency, String dayOrDate) throws ParseException {
         super(description); //super class constructor call to the Task(description) constructor
         this.frequency = frequency;
-        // parseAndFormat() method.
+        // refactor with parseAndFormat() method.
         if (frequency.equals("weekly")) {
             date = new SimpleDateFormat("EEEE").parse(dayOrDate);
             dateFormatter = new SimpleDateFormat("EEEE");
@@ -29,6 +31,7 @@ public class Recurring extends Task {
             dateFormatter = new SimpleDateFormat("d");
             formattedDate = dateFormatter.format(date);
         }
+        // include support for yearly recurring tasks.
         /*
         else if (frequency.equals("yearly")) {
             date = new SimpleDateFormat("dd/MM").parse(dayOrDate); // ParseException here.

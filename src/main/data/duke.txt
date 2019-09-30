@@ -6,3 +6,4 @@ T | + | 3
 D | - | assignment | 12/11/2011 2359
 T | - | 6
 T | - | 6
+R | - | work | daily
