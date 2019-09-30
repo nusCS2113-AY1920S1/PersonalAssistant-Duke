@@ -39,17 +39,15 @@ public class EdiCommandTest {
     public void testexecute() throws ParseException, IOException {
         Ui ui = new Ui();
         Storage storage = new Storage();
-        String input = ui.FullCommand;
         EditCommand test = new EditCommand();
-        ArrayList<Task> tasks = storage.ReadFile();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
         tasks.add(testd);
-        ui.FullCommand = "edit 9 monthly assign /by 2019-12-12 10:10:10";
+        ui.FullCommand = "edit 1 monthly assign /by 2019-12-12 10:10:10";
         test.execute(tasks,ui,storage);
-        assertEquals("Ok, have edited your Deadline description and time.\n\tFrom: [D][?]monthly assig(by:12 Dec 2019 10:10:10)\n\tTo:   [D][?]monthly assig (by:12 Dec 2019 10:10:10)",
+        assertEquals("Ok, have edited your Deadline description and time.\n\tFrom: [D][?]tutorial homework(by:12 Dec 2019 10:10:10)\n\tTo:   [D][?]monthly assign (by:12 Dec 2019 10:10:10)",
                 output.toString());
-
     }
 
 }
