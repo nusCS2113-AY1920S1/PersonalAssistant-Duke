@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Gazeeebo was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+Gazeeebo was developed by the https://github.com/AY1920S1-CS2113T-F10-4/main/tree/master/docs/team[F10-4] team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +15,7 @@ image::e0309463.png[width="150", align="left"]
 {empty} [https://github.com/e0309463[github]]
 
 Role: Integration +
-Responsibilities: UI/UX
+Responsibilities: Integrate the different functions together.
 
 '''
 
@@ -24,7 +24,7 @@ image::JasonLeeWeiHern.png[width="150", align="left"]
 {empty}[https://github.com/JasonLeeWeiHern[github]]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: UI/UX designer
 
 '''
 
@@ -33,7 +33,7 @@ image::e0323290.png[width="150", align="left"]
 {empty}[http://github.com/e0323290[github]]
 
 Role: Testing, Scheduling and Tracking +
-Responsibilities: Data
+Responsibilities: Data Handling and regular testing of functions
 
 '''
 
@@ -48,9 +48,9 @@ Responsibilities: Dev Ops + Threading
 
 === Lee Yueyu
 image::yueyuu.png[width="150", align="left"]
-{empty}[http://github.com/yueyuu[github]]
+{empty}[https://github.com/yueyuu[github]]
 
-Role: Code Quality +
-Responsibilities: UI
+Role: Code quality +
+Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
 '''
