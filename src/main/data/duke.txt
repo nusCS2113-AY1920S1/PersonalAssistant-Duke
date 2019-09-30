@@ -1,6 +1,8 @@
 T | - | homework
-D | - | assignment | 22/11/2011 2359
 P | - | sleep | this | then
-R | + | sleep | daily
 R | + | assignment | weekly | Thursday
 R | + | exams | monthly | 21
+T | + | 3
+D | - | assignment | 12/11/2011 2359
+T | - | 6
+T | - | 6

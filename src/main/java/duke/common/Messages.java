@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_ITEMS2 = " tasks in the list.";
     public static final String MESSAGE_MARKED = "     Nice! I've marked this task as done:\n";
     public static final String MESSAGE_TASKED = "     Here are the tasks in your list:";
+    public static final String MESSAGE_SNOOZE = "     Noted. I've rescheduled this task:\n";
     public static final String MESSAGE_REMIND = "     Here are your upcoming deadlines:";
 
     public static final String ERROR_MESSAGE_DEADLINE = "       "
@@ -61,6 +62,7 @@ public class Messages {
             // + "     4. recurring [task description] /yearly [date of year 'dd/mm']";
     public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     Please provide the task description and day or date of recurrence.";
 
+
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_DELETE = "delete";
@@ -70,6 +72,7 @@ public class Messages {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DURATION = "fixed";
+    public static final String COMMAND_SNOOZE = "snooze";
     public static final String COMMAND_PERIOD = "period";
     public static final String COMMAND_REMIND = "reminders";
     public static final String COMMAND_VIEWSCHEDULE = "viewschedule";
