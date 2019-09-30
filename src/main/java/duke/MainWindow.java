@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.ui.DialogBox;
 import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
+import duke.ui.Ui;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static duke.common.Messages.ERROR_MESSAGE_LOADING;
+import static duke.common.Messages.filePath;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -56,6 +60,8 @@ public class MainWindow extends AnchorPane {
         if (!Main.isScreenLoaded) {
             loadStartingScreen();
         }
+        Ui ui = new Ui(this);
+        duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -70,6 +76,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
+//        duke.runProgram(input);
         String response = duke.getResponse(input);
         resultDisplay.setText(input);
         for (int i = 0; i < duke.getList().size(); i++) {
@@ -77,9 +84,19 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog("hi", dukeImage)
         );
         userInput.clear();
+    }
+
+    public void handleListTask() {
+        for (int i = 0; i < duke.getList().size(); i++) {
+            listView.getItems().add(duke.getList().get(i));
+        }
+    }
+
+    public void handleLoadingError() {
+        resultDisplay.setText(ERROR_MESSAGE_LOADING + filePath);
     }
 
     @FXML

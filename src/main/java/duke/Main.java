@@ -1,5 +1,6 @@
 package duke;
 
+import duke.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,9 @@ import static duke.common.Messages.filePath;
  */
 public class Main extends Application {
     public static Boolean isScreenLoaded = false;
-    private Duke duke = new Duke(filePath);
+    private MainWindow mainWindow;
+    private Ui ui = new Ui(mainWindow);
+    private Duke duke = new Duke(ui);
 
     @Override
     public void start(Stage stage) throws Exception {

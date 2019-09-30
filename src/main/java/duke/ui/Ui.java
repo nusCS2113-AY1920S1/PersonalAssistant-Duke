@@ -1,5 +1,7 @@
 package duke.ui;
 
+import duke.MainWindow;
+
 import java.util.Scanner;
 
 import static duke.common.Messages.filePath;
@@ -10,10 +12,15 @@ import static duke.common.Messages.DIVIDER;
 public class Ui {
 
     private Scanner scanner;
+    private MainWindow mainWindow;
 
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    public Ui(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
+
+//    public Ui() {
+//        this.scanner = new Scanner(System.in);
+//    }
 
     /**
      * Display welcome message of the program.
@@ -43,10 +50,14 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println(ERROR_MESSAGE_LOADING + filePath);
+        mainWindow.handleLoadingError();
     }
 
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public void showListTask() {
+        mainWindow.handleListTask();
     }
+
+//    public void showError(String errorMessage) {
+//        System.out.println(errorMessage);
+//    }
 }
