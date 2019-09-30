@@ -78,12 +78,13 @@ public class Parser {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
                     }
                     Date d = new Date();
+                    String temp = dateInfo.get(1);
                     dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
                     if (!dateInfo.get(1).equals("null")) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
                     }
                     //create event object
-                    Recurring t = new Recurring(dateInfo.get(0), dateInfo.get(1));
+                    Recurring t = new Recurring(dateInfo.get(0), temp);
                     return new AddCommand(t);
                 }
                 else if(taskInfo[0].equals("view")){
@@ -126,7 +127,7 @@ public class Parser {
                 dateInfo.add(b[0].trim()); //deadline date
                 dateInfo.add(b[1].trim()); //reminder date
 
-                String filePath = "/home/tessa/Documents/CS2113/main/src/main/data/reminders.txt";
+                String filePath = "src/main/data/reminders.txt";
                 String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2);
                 Storage.writeReminderFile(reminderInfo, filePath);
 

@@ -40,7 +40,7 @@ public class DoneCommand extends Command {
         try {
             if (index > tasks.getSize() || tasks.getList().isEmpty()) { throw new DukeException(DukeException.ErrorType.INDEX_EXCEEDED); }
             tasks.markItemDone(index);
-            storage.writeFile(tasks.getArrayData(), false, "/home/tessa/Documents/CS2113/main/src/main/data/duke.txt");
+            storage.writeFile(tasks.getArrayData(), false, "src/main/data/duke.txt");
             ui.showDone(tasks.getTaskItem(index));
         } catch (DukeException e) {
             e.showError();
