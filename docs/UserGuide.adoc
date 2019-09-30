@@ -13,7 +13,7 @@ By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-Duke is for those who *prefer to use a desktop app for scheduling tasks*. More importantly, Duke is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Duke can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Duke is for those who *prefer to use a desktop app for scheduling tasks*. Duke is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, Duke is the best application for planning your vacation plans in Singapore! More importantly, Duke is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Duke can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -33,7 +33,7 @@ image::Ui.PNG[width="600" height="400"]
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks
-* **`todo`**`Go Malaysia` : adds a task named `Go Malaysia` to Duke.
+* **`todo`**`Go Jurong Regional Library` : adds a task named `Go Jurong Regional Library` to Duke.
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
@@ -302,6 +302,16 @@ Format: `bye`
 
 Duke data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Viewing calendar
+
+Duke will automatically display calendar when the relevant commands are invoke. +
+There is also a button located at the top left corner of the application to call the calendar manually.
+
+=== Viewing Singapore map
+
+Duke will automatically display Singapore map when the relevant commands are invoke. +
+There is also a button located at the top left corner of the application to call the map manually.
 
 == Features that are coming in version 2.0!
 
