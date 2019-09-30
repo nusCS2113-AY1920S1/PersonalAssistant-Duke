@@ -174,8 +174,23 @@ public class DailyCal {
         for (Task task : arrList) {
             if (task.getStringDate().equals(todayDate)) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == Time) {
-                    int hour = task.getDurationHour();
-                    int min = task.getDurationMinute();
+                    int sTime = Integer.parseInt(task.getStringStartTime());
+                    int eTime = Integer.parseInt(task.getStringEndTime());
+                    int sHour = sTime % 100;
+                    int sMin = sTime - sHour;
+                    int eHour = eTime % 100;
+                    int eMin = eTime - eHour;
+                    int hour ;
+                    int min ;
+                    if (eMin >= sMin) {
+                        min = eMin - sMin;
+                        hour = eHour - sHour;
+                    } else {
+                        eHour--;
+                        min = eMin + 60 - sMin;
+                        hour = eHour - sHour;
+                    }
+
                     if (hour == 0 && min == 0) {
                         continue;
                     }
@@ -210,8 +225,23 @@ public class DailyCal {
             if (task.getStringDate().equals(todayDate)) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == Time) {
                     int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
-                    int hour = task.getDurationHour();
-                    int min = task.getDurationMinute();
+                    int sTime = Integer.parseInt(task.getStringStartTime());
+                    int eTime = Integer.parseInt(task.getStringEndTime());
+                    int sHour = sTime % 100;
+                    int sMin = sTime - sHour;
+                    int eHour = eTime % 100;
+                    int eMin = eTime - eHour;
+                    int hour ;
+                    int min ;
+                    if (eMin >= sMin) {
+                        min = eMin - sMin;
+                        hour = eHour - sHour;
+                    } else {
+                        eHour--;
+                        min = eMin + 60 - sMin;
+                        hour = eHour - sHour;
+                    }
+
                     if (hour == 0 && min == 0) {
                         continue;
                     }

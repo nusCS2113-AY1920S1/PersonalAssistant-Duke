@@ -92,7 +92,7 @@ public class StorageFile implements Storage {
                 if (parts[2].equals("true")) {
                     t.markAsDone();
                 }
-                if (parts[8].equals("true")) {
+                if (parts[7].equals("true")) {
                     t.setHasReminder();
                 }
 
