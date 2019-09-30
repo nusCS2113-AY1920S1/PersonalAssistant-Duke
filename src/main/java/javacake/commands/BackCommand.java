@@ -17,7 +17,7 @@ public class BackCommand extends Command {
             ListCommand listCommand = new ListCommand();
             listCommand.execute(progressStack, ui, storage, profile);
         } else if (progressStack.checkProgress() == 3 && progressStack.checkPreviousState() == 3) {
-            progressStack.clearPreviousState();
+            progressStack.clearCurrentState();
             GoToCommand goToCommand = new GoToCommand("goto 3");
             goToCommand.execute(progressStack, ui, storage, profile);
         }
