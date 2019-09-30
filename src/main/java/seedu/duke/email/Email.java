@@ -104,4 +104,8 @@ public class Email {
                 + "...\n";
         return output;
     }
+
+    public String getBody() {
+        return body;
+    }
 }
