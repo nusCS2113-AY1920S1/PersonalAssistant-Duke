@@ -11,7 +11,6 @@ public class DoAfterTasks extends Task {
      * @param description Description of do after task.
      * @param date        Starting date of do after task.
      * @param priority    priority level of task type
-
      */
     public DoAfterTasks(String description, Priority priority, String date) {
         super(description, priority);

@@ -33,8 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<Task> tableView;
     @FXML
-    private TableColumn<Task,String> midnight;
-
+    private TableColumn<Task, String> midnight;
 
 
     @FXML

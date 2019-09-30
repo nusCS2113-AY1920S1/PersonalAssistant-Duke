@@ -144,8 +144,6 @@ public abstract class Task implements Serializable {
      */
 
 
-
-
     /**
      * Gets hasReminder of task.
      *
@@ -243,11 +241,11 @@ public abstract class Task implements Serializable {
         case 1:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
-                    +" \nPriority: " + getPriority() + "\n***************";
+                    + " \nPriority: " + getPriority() + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                     + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nEnd Time: " + getStringEndTime() +" \nPriority: " + getPriority()
+                    + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                     + "\n***************";
         }
 
@@ -273,7 +271,7 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringDate());
         list.append("_");
-        if(!getStringStartTime().equals("")){
+        if (!getStringStartTime().equals("")) {
             list.append(getStringStartTime());
             list.append("_");
         }

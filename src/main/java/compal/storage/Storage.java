@@ -21,6 +21,4 @@ public interface Storage {
     void storeUserName(String name);
 
 
-
-
 }

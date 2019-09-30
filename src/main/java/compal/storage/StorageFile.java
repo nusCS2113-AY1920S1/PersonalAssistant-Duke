@@ -64,23 +64,23 @@ public class StorageFile implements Storage {
                 String taskType = parts[0];
                 switch (taskType) {
                 case SYMBOL_DEADLINE:
-                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[5]);
                     break;
                 case SYMBOL_DOAFTER:
-                    t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
+                    t = new DoAfterTasks(parts[1], stringToPriority(parts[3]), parts[4]);
                     break;
                 case SYMBOL_RECUR:
                 case SYMBOL_LECT:
                 case SYMBOL_TUT:
                 case SYMBOL_SECT:
                 case SYMBOL_LAB:
-                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6],taskType);
+                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
                     break;
                 case SYMBOL_EVENT:
-                    t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6]);
+                    t = new Event(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
                     break;
                 case SYMBOL_FIXEDD:
-                    t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5], parts[6]);
+                    t = new FixedDurationTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
                     break;
                 default:
                     System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
@@ -109,6 +109,7 @@ public class StorageFile implements Storage {
 
     /**
      * Returns Priority from a String describing the priority level.
+     *
      * @param priority task priority string
      * @return Priority enum
      */
@@ -143,11 +144,11 @@ public class StorageFile implements Storage {
     @Override
     public void saveCompal(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        for (Task t:tasks) {
+        for (Task t : tasks) {
             sb.append(t.getAllDetailsAsString());
             sb.append("\n");
         }
-        saveString(sb.toString(),"duke.txt");
+        saveString(sb.toString(), "duke.txt");
     }
 
     /**

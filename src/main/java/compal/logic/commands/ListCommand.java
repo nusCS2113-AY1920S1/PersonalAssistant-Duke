@@ -40,7 +40,7 @@ public class ListCommand extends Command implements CommandParser {
         Collections.sort(toList, compareByDateTime);
         int count = 1;
         compal.ui.clearPrimary();
-        compal.ui.printg("Here are the tasks in your list:","verdana",15, Color.BLUEVIOLET);
+        compal.ui.printg("Here are the tasks in your list:", "verdana", 15, Color.BLUEVIOLET);
         for (Task t : toList) {
             compal.ui.printg(count++ + "." + t.toString());
         }

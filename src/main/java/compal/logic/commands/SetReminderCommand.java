@@ -31,11 +31,11 @@ public class SetReminderCommand extends Command implements CommandParser {
 
     /**
      * Marks task as has reminder based on user task number input and
-     *      * prints confirmation message to user.
+     * * prints confirmation message to user.
      *
      * @param userIn Entire user input string.
      * @throws Compal.DukeException If user task number input is invalid or missing.
-     * @throws ParseException If date is in invalid format.
+     * @throws ParseException       If date is in invalid format.
      */
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException, ParseException {

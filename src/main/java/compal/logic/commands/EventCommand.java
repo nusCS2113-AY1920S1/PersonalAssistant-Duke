@@ -50,15 +50,15 @@ public class EventCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String sTime = getStartTime(restOfInput);
-            String eTime = getEndTime(restOfInput);
+            String startTime = getStartTime(restOfInput);
+            String endTime = getEndTime(restOfInput);
 
-            if(Integer.parseInt(sTime)>Integer.parseInt(eTime)){
+            if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
                 throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
             }
 
-            taskList.addTask(new Event(description, priority, date, sTime,eTime));
+            taskList.addTask(new Event(description, priority, date, startTime, endTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

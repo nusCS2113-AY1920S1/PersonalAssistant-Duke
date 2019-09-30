@@ -55,15 +55,15 @@ public class TaskList {
         String todayDate = new SimpleDateFormat(pattern).format(new Date());
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
-        compal.ui.showSize();
-        if(task.getStringDate().equals(todayDate)){
+        if (task.getStringDate().equals(todayDate)) {
             DailyCal dc = new DailyCal();
-            compal.ui.TabRef.getTabs().remove(1);
+            compal.ui.tabWindow.getTabs().remove(1);
             Tab dailyTab = new Tab();
             dailyTab.setText("Daily Window");
             dailyTab.setContent(dc.init());
-            compal.ui.TabRef.getTabs().add(1,dailyTab);
+            compal.ui.tabWindow.getTabs().add(1, dailyTab);
         }
+        compal.ui.showSize();
         return arrlist.size();
     }
 

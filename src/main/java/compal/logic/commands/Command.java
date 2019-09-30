@@ -8,7 +8,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static compal.compal.Messages.*;
+import static compal.compal.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.compal.Messages.MESSAGE_INVALID_YEAR;
+import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_DATE;
+import static compal.compal.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_DESC;
+import static compal.compal.Messages.MESSAGE_MISSING_END_TIME_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_PRIORITY;
+import static compal.compal.Messages.MESSAGE_MISSING_START_TIME_ARG;
+import static compal.compal.Messages.MESSAGE_MISSING_TIME;
 
 /**
  * Extracts and formats user input string into description, priority, date and time.
@@ -99,11 +108,11 @@ public abstract class Command {
     }
 
     /**
-     * Returns a time string if specified in the task.
+     * Returns start time string if specified in the task.
      *
      * @param restOfInput Input description after initial command word.
      * @return Time in the form of a string.
-     * @throws Compal.DukeException If time field is empty or time token (/time) is missing.
+     * @throws Compal.DukeException If time field is empty or time token (/sTime) is missing.
      */
     public String getStartTime(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_START_TIME)) {
@@ -123,6 +132,13 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Returns end time string if specified in the task.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Time in the form of a string.
+     * @throws Compal.DukeException If time field is empty or time token (/eTime) is missing.
+     */
     public String getEndTime(String restOfInput) throws Compal.DukeException {
         if (restOfInput.contains(TOKEN_END_TIME)) {
             int startPoint = restOfInput.indexOf(TOKEN_END_TIME);

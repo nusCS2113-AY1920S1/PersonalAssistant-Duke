@@ -72,16 +72,16 @@ public class ViewReminderCommand extends Command implements CommandParser {
         //display the results
         if (reminder.isEmpty()) {
             compal.ui.printg("You currently have no tasks that have reminders set or are due within a week!",
-                    "verdana",15, Color.DARKGREEN);
+                    "verdana", 15, Color.DARKGREEN);
         } else {
             int counter = 1;
             for (Task t : reminder) {
                 if (t.getPriority().equals(Task.Priority.high)) {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.RED);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.RED);
                 } else if (t.getPriority().equals(Task.Priority.medium)) {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.ORANGE);
                 } else {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.GREEN);
                 }
                 counter++;
 

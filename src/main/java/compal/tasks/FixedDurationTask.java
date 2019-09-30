@@ -11,14 +11,14 @@ public class FixedDurationTask extends Task {
      *
      * @param description Description of fixed duration task.
      * @param date        Starting date of fixed duration task.
-     * @param sTime        Starting time of fixed duration task.
-     * @param eTime       End time
+     * @param startTime       Starting time of fixed duration task.
+     * @param endTime       End time
      */
-    public FixedDurationTask(String description, Priority priority, String date, String sTime,String eTime){
+    public FixedDurationTask(String description, Priority priority, String date, String startTime, String endTime) {
         super(description, priority);
         super.symbol = "FDT";
         super.setDate(date);
-        super.setStartTime(sTime);
-        super.setEndTime(eTime);
+        super.setStartTime(startTime);
+        super.setEndTime(endTime);
     }
 }
