@@ -10,11 +10,13 @@ public class Ingredient {
     private Image picture;
     private int expiryPeriod;
     private double cost;
+    private int quantity;
 
     public Ingredient (String name) {
         this.name = name;
     }
 
+    public Ingredient (String name, )
     /////////////
     //For UI design purpose
     /////////////
@@ -27,6 +29,10 @@ public class Ingredient {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getExpiryPeriod() {
@@ -58,5 +64,13 @@ public class Ingredient {
 
     public Image getPicture() {
         return this.picture;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
