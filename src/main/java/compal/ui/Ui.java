@@ -425,7 +425,7 @@ public class Ui {
         DailyCal dc = new DailyCal();
         compal.ui.tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
-        dailyTab.setText("Daily Window");
+        dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }

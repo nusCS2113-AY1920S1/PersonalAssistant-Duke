@@ -75,6 +75,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
     /**
      * Returns the number of days between the recurring task in an integer form.
      * Will default to DEFAULT_FREQ_NUM.
+     *
      * @param restOfUserInput User input string.
      * @return Number of days between each recurring task.
      */

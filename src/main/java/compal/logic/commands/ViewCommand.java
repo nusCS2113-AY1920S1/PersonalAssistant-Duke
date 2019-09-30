@@ -58,6 +58,8 @@ public class ViewCommand extends Command implements CommandParser {
 
             if (isEmpty) {
                 compal.ui.printg("No task found on " + dateInput);
+            } else {
+                compal.ui.dateViewRefresh(dateInput);
             }
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);

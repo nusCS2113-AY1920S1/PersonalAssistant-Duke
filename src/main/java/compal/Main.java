@@ -69,7 +69,7 @@ public class Main extends Application {
             ScrollPane dailyPane = dc.init(todayDate);
 
             Tab dailyTab = new Tab();
-            dailyTab.setText("Daily Window");
+            dailyTab.setText(todayDate);
             dailyTab.setContent(dailyPane);
             tabReference.getTabs().add(1, dailyTab);
 
