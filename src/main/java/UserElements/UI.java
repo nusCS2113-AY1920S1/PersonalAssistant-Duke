@@ -114,8 +114,12 @@ public class UI {
      * @param numEvents  total number of events
      */
     public void eventAdded(Event eventAdded, int numEvents) {
+        eventAdded.getStartDate().formatDate();
+        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added this event:");
-        System.out.println(eventAdded.toString());
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                " END: " + eventAdded.getEndDate().getFormattedDateString());
         System.out.println("Now you have " + numEvents + " events in the list.");
         System.out.print(lineSeparation);
     }
@@ -194,9 +198,9 @@ public class UI {
     /**
      * prints message when format of input is wrong for adding new deadline
      */
-    public void deadlineFormatWrong() {
+    public void dateFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the name of the event followed by the deadline, separated by /by");
+        System.out.println("Sorry, please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'");
         System.out.print(lineSeparation);
     }
 
@@ -220,8 +224,12 @@ public class UI {
      * prints message when recurring events are added to the list successfully
      */
     public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
+        eventAdded.getStartDate().formatDate();
+        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
-        System.out.println(eventAdded.toString() + " (every " + period + " days)");
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                " END: " + eventAdded.getEndDate().getFormattedDateString() + " (every " + period + " days)");
         System.out.println("Now you have " + numEvents + " events in the list.");
         System.out.print(lineSeparation);
     }

@@ -9,10 +9,8 @@ import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
@@ -89,13 +87,19 @@ public class EventList {
      */
     public boolean addEvent(Event event) {
         if (event.getType() == 'T') {
-            this.eventArrayList.add(event);
+            DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
+            eventStartDate.formatDate();
+            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                this.eventArrayList.add(event);
+                DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
+                DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
+                eventStartDate.formatDate();
+                eventEndDate.formatDate();
+                this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(),eventEndDate.getFormattedDateString()));
                 return true;
             } else return false;
         }
@@ -110,22 +114,22 @@ public class EventList {
     public boolean addRecurringEvent(Event event, int period) {
         DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
         DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
+        eventStartDate.formatDate();
+        eventEndDate.formatDate();
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
         calendarStartDate.setTime(eventStartDate.getEventJavaDate());
         calendarEndDate.setTime(eventEndDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            if (event.getStartDate().getFormat() == 1) {
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
-                String taskStartDateFormat = formatter.format(calendarStartDate.getTime());
-                String taskEndDateFormat = formatter.format(calendarEndDate.getTime());
-                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormat, taskEndDateFormat));
-            } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
-                String taskStartDateFormatNoTime = formatter.format(calendarStartDate.getTime());
-                String taskEndDateFormatNoTime = formatter.format(calendarEndDate.getTime());
-                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
-            }
+            DateObj dateObjForFormattingStartDate = new DateObj(calendarStartDate.getTime().toString());
+            DateObj dateObjForFormattingEndDate = new DateObj(calendarEndDate.getTime().toString());
+            String toFormatStart = dateObjForFormattingStartDate.formatToString(calendarStartDate.getTime());
+            String toFormatEnd = dateObjForFormattingEndDate.formatToString(calendarEndDate.getTime());
+            DateObj formattingStartDate = new DateObj(toFormatStart);
+            formattingStartDate.formatDate();
+            DateObj formattingEndDate = new DateObj(toFormatEnd);
+            formattingEndDate.formatDate();
+            this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
         }
