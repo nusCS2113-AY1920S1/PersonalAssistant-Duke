@@ -47,9 +47,9 @@ Responsibilities: Dev Ops + Threading
 
 === Lee Yueyu
 image::yueyuu.png[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yueyuu[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Code quality +
+Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
 '''
