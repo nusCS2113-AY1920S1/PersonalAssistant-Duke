@@ -299,7 +299,7 @@ Spending is a daily affair and it is difficult to keep track of so many of them.
 
 *Command Syntax*
 
-`/add /expenditure /amount AMOUNT /from BANK_NAME /date DATE /description DESCRIPTION /category [CATEGORY]`
+`/add /expenditure /amount AMOUNT /from BANK_NAME /date DATE /description DESCRIPTION [/category CATEGORY]`
 
 *Example*
 
@@ -314,9 +314,8 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 
 *Command Syntax*
 
-`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /description DESCRIPTION
-/category
-[CATEGORY]`
+`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /description DESCRIPTION [/category
+ CATEGORY]`
 
 *Example*
 
@@ -359,7 +358,7 @@ All transactions related to the bank account will be deleted.
 
 * `/delete /savings /name JunBank Savings Account`
 
-Deletes a savings account named `JunBank Savings Account``
+Deletes a savings account named `JunBank Savings Account`
 
 ===== `/investment`
 You can also close your investment bank account on `OwlMoney` as well!
@@ -414,19 +413,41 @@ Deletes a goal named `BTO at Punggol Downpayment`
 
 ===== `/expenditure`
 
+Accidentally added a transaction that did not happen? You can delete it!
+
 *Command Syntax*
 
-`/delete /expenditure /from JunBank Savings Account /expno EXPENDITURE_NUMBER`
+`/delete /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER`
+
+[TIP]
+====
+To find out which expenditure to delete, use the /list or /find function to find the expenditure number
+====
 
 *Example*
+
+* `/delete /expenditure /from /JunBank Savings Account /expno 1`
+
+Deletes an expenditure from `JunBank Savings Account with expenditure number `1`
 
 ===== `/recurexpenditure`
 
+Cancelled your recurring bill? You can delete it!
+
 *Command Syntax*
 
-`/delete /recurexpenditure /from JunBank Savings Account /expno EXPENDITURE_NUMBER`
+`/delete /recurexpenditure /from BANK_NAME /desc DESCRIPTION`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the /list or /find function to find the description
+====
 
 *Example*
+
+* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
+
+Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`
 
 === Utility Commands
 ==== /find `/find`
@@ -449,7 +470,7 @@ Searching for a transaction in the past? *OwlMoney* helps you by providing you v
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`
 
-`/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to /to 7/1/2019`
+`/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
 and `7/1/2019`
@@ -461,8 +482,11 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 *Command Syntax*
 
 `/list /savings /name BANK_NAME [/num NUMBER]`
+
 `/list /investment /name BANK_NAME [/num NUMBER]`
+
 `/list /card /name CARD_NAME [/num NUMBER]`
+
 
 *Example*
 
