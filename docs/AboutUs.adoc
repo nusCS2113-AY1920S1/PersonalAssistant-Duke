@@ -4,27 +4,27 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Duke was developed by the https://github.com/AY1920S1-CS2113T-W17-4/main team. +
+OOF (Outstanding Organisation Friend) was developed by the https://github.com/AY1920S1-CS2113T-W17-4/main team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
+
+=== Kenneth Lee
+image::Kenlhc.png[width="150", align="left"]
+{empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
+
+Role: Team lead + Time Keeper +
+Responsibilities: Storage + Guides
+
+'''
 
 === Jasper Ong
 image::jasperosy.png[width="150", align="left"]
 {empty}[https://github.com/jasperosy[github]] [<<jasperosy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops
-
-'''
-
-=== Kenneth Lee
-image::Kenlhc.png[width="150", align="left"]
-{empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops
+Responsibilities: Pull Requests maintainer + code maintainer
 
 '''
 
@@ -33,7 +33,7 @@ image::KahLokKee.png[width="150", align="left"]
 {empty}[http://github.com/KahLokKee[github]] [<<KahLokKee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops
+Responsibilities: code maintainer + logic + Quality Control
 
 '''
 
@@ -42,5 +42,5 @@ image::debbiextan.png[width="150", align="left"]
 {empty}[http://github.com/debbiextan[github]] [<<debbiextan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops
+Responsibilities: Ui + design
 

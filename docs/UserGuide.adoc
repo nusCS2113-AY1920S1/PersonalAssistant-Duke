@@ -1,0 +1,214 @@
+﻿= OOF (Outstanding Organisation Friend) - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W17-4/main
+
+By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+image::Ui.png[width="390"]
+*OOF* is catered towards NUS computing students who want to use a desktop application to manage their tasks to be done.
+
+*OOF* is optimized for users who prefer to work with the Command Line Interface (CLI) while still reaping the benefits of a Graphical User Interface (GUI).
+
+Interested in using *OOF* to plan your timetable more effectively?
+Jump to <<Quick Start>> to get started! Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java 11 or above installed on your computer.
+.  Download the latest `oof.jar` and `save file`  link:{repoURL}/releases[here].
+.  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
+.  Run the command “java -jar oof.jar”. The application should load within a few seconds.
++
+image::Mockup.png[width="390"]
++
+.  Type a task description in the terminal and press kbd:[Enter] to run it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
+.  Some example commands you can try: 
+
+* *`deadline homework /by 12-34-56 11:11`* : adds a task called `homework` to the saved tasks with the deadline `12-34-56 11:11`.
+* *`viewCalendar`* : displays all saved tasks in a calendar view.
+* *`Bye`* : exits the application.
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user
+e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+[NOTE]
+
+Don't worry if you do not understand everything at once. +
+There are plentiful examples provided to aid your understanding of the commands' usage.
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Adding a task: `deadline`
+Adds a task with a deadline to be completed by. +
+
+Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `deadline homework /by 2019 20-09-2019 13:00` +
+Adds a task with description and datetime to be `homework` and `2019 20-09-2019 13:00` respectively.
+
+=== Adding a task: `event`
+Adds an event with a scheduled time. +
+
+Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` +
+Adds an event with description, start and end time to be `project meeting`, `20-09-2019 13:00` and `20-09-2019 17:00` respectively.
+
+=== Adding a task: `todo`
+Adds a task to be done.
+
+Format: `todo DESCRIPTION`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `todo withdraw money` + 
+Adds a task called `withdraw money`.
+
+=== Listing tasks: `list`
+Lists all the tasks that are currently saved in *OOF*.
+
+Format: `list`
+
+=== Marking task as done: `done`
+Marks a task as complete.
+
+Format: `done INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+
+Examples:
+
+* `done 1` +
+Deletes the 1st task in the list of tasks.
+
+=== Deleting a task: `delete`
+Deletes a task in the list of tasks.
+
+Format: `delete INDEX`
+
+The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+
+Examples:
+* `delete 1` +
+Deletes the 1st task in the list of tasks.
+
+
+=== Finding a task: `find`
+Finds tasks that match the description given.
+
+Format: `find DESCRIPTION`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `find withdraw money` +
+Finds tasks with `withdraw money` in the description.
+
+=== Viewing a summary of the next day’s task: `summary`
+Gives a summary of all the tasks to be done for the next day.
+
+Format: `summary`
+
+=== Sorting deadlines in chronological order: `sort`
+Sorts and displays all current deadlines recorded by chronological order.
+
+Format: `sort`
+
+===  Viewing all tasks in calendar view: `viewCalendar`
+Transforms all current tasks recorded into a calendar view for easy time management. 
+
+Format: `viewCalendar`
+
+=== Setting reminders for upcoming deadlines: `reminder`
+Reminders will be given when the application is launched if deadlines are due in less than 24 hours.
+
+Format: `reminder`
+
+=== Exiting the program: `bye`
+Exits the program.
+
+Format: `bye`
+
+== FAQ
+
+*Q*: How do I view my tasks on the Calendar? +
+*A*: Use the `viewCalendar` command.
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Copy the `output.txt` into the same directory as `oof.jar`.
+
+*Q*: How do I save my tasks in *OOF*? +
+*A*: There is no need to explicitly save the tasks as *OOF* will automatically saved all tasks that are added during runtime.
+
+== Command Summary
+
+* *Help*: `help`
+
+* *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM` +
+e.g. `deadline homework /by 2019 20-09-2019 13:00`
+
+* *Event*: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` 
+
+* *Todo*: `todo DESCRIPTION` +
+e.g. `todo withdraw money`
+
+* *List*: `list` 
+
+* *Done*: `done INDEX` +
+e.g. `done 1` 
+
+* *Delete*: `delete INDEX` +
+e.g. `delete 1` 
+
+* *Find*: `find DESCRIPTION` +
+e.g. `find withdraw money`  
+
+* *Summary*: `summary` 
+
+* *Sort*: `sort` 
+
+* *ViewCalendar*: `viewCalendar`
+
+* *Reminder*: `reminder` 
+
+* *Bye*: `bye` 
+
