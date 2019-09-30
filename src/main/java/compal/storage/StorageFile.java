@@ -80,8 +80,7 @@ public class StorageFile implements Storage {
                     t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6]);
                     break;
                 case SYMBOL_FIXEDD:
-                    t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],
-                            Integer.parseInt(parts[6]),Integer.parseInt(parts[7]));
+                    t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5], parts[6]);
                     break;
                 default:
                     System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
@@ -93,7 +92,7 @@ public class StorageFile implements Storage {
                 if (parts[2].equals("true")) {
                     t.markAsDone();
                 }
-                if (parts[8].equals("true")) {
+                if (parts[7].equals("true")) {
                     t.setHasReminder();
                 }
 
