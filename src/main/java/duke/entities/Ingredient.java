@@ -1,7 +1,5 @@
-package duke.entities.recipe;
-
+package duke.entities;
 import javafx.scene.image.Image;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -10,13 +8,16 @@ public class Ingredient {
     private Image picture;
     private int expiryPeriod;
     private double cost;
-    private int quantity;
 
     public Ingredient (String name) {
         this.name = name;
     }
 
-    public Ingredient (String name, )
+    public Ingredient (String name, double cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
     /////////////
     //For UI design purpose
     /////////////
@@ -64,13 +65,5 @@ public class Ingredient {
 
     public Image getPicture() {
         return this.picture;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }
