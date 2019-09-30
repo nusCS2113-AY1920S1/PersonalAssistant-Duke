@@ -12,6 +12,8 @@ import java.util.Date;
 public class Parser {
     private static String[] arr;
     private static String[] arr1;
+    private static String[] arr2;
+    private static String[] arr3;
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.
@@ -71,21 +73,29 @@ public class Parser {
                     return new AddCommand(new Todo(activity));
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("event")) {
-                try {
+                try { //event description /at date from time to time
                     String activity = fullCommand.trim().substring(5);
-                    arr = activity.split("/at");
+                    arr = activity.split("/at"); //arr[0] is "description", arr[1] is "date from time to time"
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date date = formatter.parse(arr[1].trim());
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                    Date date = formatter.parse(arr1[0].trim());
+                    arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                    SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                    Date startTime = formatter1.parse(arr2[0].trim());
+                    Date endTime = formatter1.parse(arr2[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Event(arr[0].trim(), dateString));
+                    String startTimeString = timeFormat.format(startTime);
+                    String endTimeString = timeFormat.format(endTime);
+                    return new AddCommand(new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
-                            "event name_of_event /at dd/MM/yyyy HHmm\n" +
-                            "For example: event project meeting /at 1/1/2020 1500");
+                            "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                            "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
                 }
             } else if (fullCommand.trim().substring(0,6).equals("remind")){
                 return new RemindCommand();
@@ -145,20 +155,37 @@ public class Parser {
                 try {
                     String activity = fullCommand.trim().substring(6);
                     arr = activity.split("/to");
-                    arr1 = arr[0].split(" ");
-                    int index = Integer.parseInt(arr1[1].trim()) - 1;
-                    if (arr[0].trim().isEmpty()) {
+                    arr1 = arr[0].trim().split(" ");
+                    int index = Integer.parseInt(arr1[1]) - 1;
+                    if (arr1[1].isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The index of a snooze cannot be empty.");
                     }
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date date = formatter.parse(arr[1].trim());
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-                    String dateString = dateFormat.format(date);
-                    return new SnoozeCommand(index, dateString);
+                    if (arr1[0].contains("deadline")) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                        Date date = formatter.parse(arr[1].trim());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                        String dateString = dateFormat.format(date);
+                        return new SnoozeCommand(index, dateString, dateString, dateString);
+                    } else {
+                        arr2 = arr[1].trim().split("to");
+                        arr3 = arr2[0].trim().split(" ");
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = formatter.parse(arr3[0].trim());
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                        Date startTime = formatter1.parse(arr3[1].trim());
+                        Date endTime = formatter1.parse(arr2[1].trim());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                        String dateString = dateFormat.format(date);
+                        String startTimeString = timeFormat.format(startTime);
+                        String endTimeString = timeFormat.format(endTime);
+                        return new SnoozeCommand(index, dateString, startTimeString, endTimeString);
+                    }
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException(" OOPS!!! Please enter snooze as follows:\n" +
-                            "snooze index /to dd/MM/yyyy HHmm\n" +
-                            "For example: snooze 2 /to 2/12/2019 1800");
+                    throw new DukeException(" OOPS!!! Please enter snooze as follows respectively:\n" +
+                            "To snooze deadlines: snooze deadline index /to dd/MM/yyyy HHmm\n" +
+                            "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
+                            "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
             } else if(!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
                     fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")){
