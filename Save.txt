@@ -1,3 +1,1 @@
-T|?| blah blah
-E|?| asdasd |at: 2019-12-12 12:12:12-01:01:01
-D|?| qweqwqwe|by: Thu Dec 12 12:12:12 SGT 2019
+D|✘|monthly assign |by: 2019-12-12 10:10:10

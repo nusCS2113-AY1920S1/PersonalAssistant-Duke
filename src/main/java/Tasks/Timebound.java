@@ -26,8 +26,9 @@ public class Timebound extends Task {
     }
     @Override
     public String toString() {
-
-        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + "between: " + dateStart + " and " + dateEnd;
+        String dateStartString = dateStart.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        String dateEndString = dateEnd.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + "between: " + dateStartString + " and " + dateEndString;
     }
 
     @Override

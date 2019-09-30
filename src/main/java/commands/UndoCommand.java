@@ -4,11 +4,12 @@ import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
 import Exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class UndoCommand extends Command{
+public class UndoCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
         try {
@@ -29,11 +30,11 @@ public class UndoCommand extends Command{
                 sb.append(list.get(i).toString() + "\n");
             }
             storage.Storages(sb.toString());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
+
     @Override
     public boolean isExit() {
         return false;
