@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Jess Teo
 image::e0309463.png[width="150", align="left"]
-{empty} [https://github.com/e0309463[github]]
+{empty} [https://github.com/e0309463[github]] [<<JessTeo#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Integrate the different functions together.
@@ -21,7 +21,7 @@ Responsibilities: Integrate the different functions together.
 
 === Jason Lee
 image::JasonLeeWeiHern.png[width="150", align="left"]
-{empty}[https://github.com/JasonLeeWeiHern[github]]
+{empty}[https://github.com/JasonLeeWeiHern[github]][<<JasonLeeWeiHern#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI/UX designer
@@ -30,7 +30,7 @@ Responsibilities: UI/UX designer
 
 === Janel Ang
 image::e0323290.png[width="150", align="left"]
-{empty}[http://github.com/e0323290[github]]
+{empty}[http://github.com/e0323290[github]][<<JanelAng#, portfolio>>]
 
 Role: Testing, Scheduling and Tracking +
 Responsibilities: Data Handling and regular testing of functions
@@ -39,7 +39,7 @@ Responsibilities: Data Handling and regular testing of functions
 
 === Ren Hao
 image::mononokehime14.png[width="150", align="left"]
-{empty}[http://github.com/mononokehime14[github]]
+{empty}[http://github.com/mononokehime14[github]][<<RenHao#, portfolio>>]
 
 Role: Deliverable and Deadlines, Documentation +
 Responsibilities: Dev Ops + Threading
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 
 === Lee Yueyu
 image::yueyuu.png[width="150", align="left"]
-{empty}[https://github.com/yueyuu[github]]
+{empty}[https://github.com/yueyuu[github]][<<LeeYueYu#, portfolio>>]
 
 Role: Code quality +
 Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
