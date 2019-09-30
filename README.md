@@ -1,4 +1,4 @@
-# University Life Planner - User Guide
+# Sports Manager
 By: `W13-1`   Since: `16 September 2019`
 
 ## Introduction
