@@ -235,6 +235,33 @@ Examples:
 
 * `buscome 83139`
 
+=== List the fastest bus route, time and cost from a given location to destination: `busride`
+
+Duke provides fastest bus route, time and cost to destination. +
+Format: `busride START DESTINATION`
+
+Examples:
+
+* `busride J-Cube Sentosa`
+
+=== List the fastest mrt route, time and cost from a given location to destination: `mrtride`
+
+Duke provides fastest mrt route, time and cost to destination. +
+Format: `mrtride START DESTINATION`
+
+Examples:
+
+* `mrtride J-Cube Sentosa`
+
+=== List the fare and time taken for a taxi ride to destination: `taxiride`
+
+Duke provides cost of taxi trip amd time taken for the ride to destination. +
+Format: `taxiride DESTINATION`
+
+Examples:
+
+* `taxiride Sentosa`
+
 === List all the available taxis nearby: `taxi`
 
 Duke provides taxi information of nearby taxis. +
