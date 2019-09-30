@@ -82,19 +82,19 @@ public class RecurringTaskTesting {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, recurringTask.getTime());
+        assertEquals(t, recurringTask.getStartTime());
     }
 
     @Test
     void setTimeTest() {
-        Date t = recurringTask.getTime();
-        recurringTask.setTime(time);
-        assertEquals(t, recurringTask.getTime());
+        Date t = recurringTask.getStartTime();
+        recurringTask.setStartTime(time);
+        assertEquals(t, recurringTask.getStartTime());
     }
 
     @Test
     void getStringTime() {
-        assertEquals(time, recurringTask.getStringTime());
+        assertEquals(time, recurringTask.getStringStartTime());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class RecurringTaskTesting {
                 + "[" + recurringTask.getStatusIcon() + "] "
                 + recurringTask.getDescription() + " Date: "
                 + recurringTask.getStringDate() + " Time: "
-                + recurringTask.getStringTime() + " Priority: "
+                + recurringTask.getStringStartTime() + " Priority: "
                 + recurringTask.getPriority(), recurringTask.toString());
     }
 }

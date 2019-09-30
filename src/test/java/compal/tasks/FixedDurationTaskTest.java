@@ -95,19 +95,19 @@ public class FixedDurationTaskTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, fixedDurationTask.getTime());
+        assertEquals(t, fixedDurationTask.getStartTime());
     }
 
     @Test
     void setTimeTest() {
-        Date t = fixedDurationTask.getTime();
-        fixedDurationTask.setTime(time);
-        assertEquals(t, fixedDurationTask.getTime());
+        Date t = fixedDurationTask.getStartTime();
+        fixedDurationTask.setStartTime(time);
+        assertEquals(t, fixedDurationTask.getStartTime());
     }
 
     @Test
     void getStringTime() {
-        assertEquals(time, fixedDurationTask.getStringTime());
+        assertEquals(time, fixedDurationTask.getStringStartTime());
     }
 
     @Test

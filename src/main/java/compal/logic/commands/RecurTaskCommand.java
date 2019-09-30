@@ -2,7 +2,6 @@ package compal.logic.commands;
 
 import compal.compal.Compal;
 import compal.logic.parser.CommandParser;
-import compal.logic.parser.ParserManager;
 import compal.tasks.RecurringTask;
 import compal.tasks.Task;
 import compal.tasks.TaskList;
@@ -13,9 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_REP;
-import static compal.compal.Messages.MESSAGE_MISSING_REP_ARG;
+import static compal.compal.Messages.*;
+import static compal.compal.Messages.MESSAGE_INVALID_TIME_RANGE;
 
 /**
  * Executes user command for recurring tasks, lectures, tutorials,
@@ -158,12 +156,19 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getTime(restOfInput);
+            String sTime = getStartTime(restOfInput);
+            String eTime = getEndTime(restOfInput);
+
+            if(Integer.parseInt(sTime)>Integer.parseInt(eTime)){
+                compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
+            }
+
             int rep = getRep(restOfInput);
             int freq = getFreq(restOfInput);
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
-                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, time, symbol);
+                RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr, sTime,eTime, symbol);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

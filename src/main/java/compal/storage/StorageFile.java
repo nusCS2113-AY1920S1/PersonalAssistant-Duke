@@ -64,7 +64,7 @@ public class StorageFile implements Storage {
                 String taskType = parts[0];
                 switch (taskType) {
                 case SYMBOL_DEADLINE:
-                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4]);
+                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
                     break;
                 case SYMBOL_DOAFTER:
                     t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
@@ -74,10 +74,10 @@ public class StorageFile implements Storage {
                 case SYMBOL_TUT:
                 case SYMBOL_SECT:
                 case SYMBOL_LAB:
-                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],taskType);
+                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6],taskType);
                     break;
                 case SYMBOL_EVENT:
-                    t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                    t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5],parts[6]);
                     break;
                 case SYMBOL_FIXEDD:
                     t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],
