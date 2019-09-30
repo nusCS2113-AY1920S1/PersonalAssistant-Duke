@@ -5,7 +5,6 @@
 
 # Gradle build files
 /.gradle/
-/build/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
@@ -15,4 +14,9 @@ bin/
 
 /duke.txt
 /wallet.txt
-/data
+/data/
+/build/classes/
+/build/generated/
+/build/reports/
+/build/test-results/
+/build/tmp/
