@@ -3,7 +3,7 @@ package duke.commands;
 import java.util.ArrayList;
 
 import duke.tasks.Meal;
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.user.User;
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
      */
   
     @Override
-    public void execute(mealList meals, Ui ui, Storage storage, User user) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user) {
         if (!meals.checkDate(this.meal.getDate())) {
             meals.setMeals(this.meal.getDate());
         }

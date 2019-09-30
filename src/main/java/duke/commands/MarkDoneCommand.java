@@ -1,12 +1,13 @@
 package duke.commands;
 
 import duke.tasks.Meal;
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
 import duke.user.User;
+
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
  * A MarkDoneCommand object encapsulates the index of task to be marked as done.
@@ -29,9 +30,8 @@ public class MarkDoneCommand extends Command {
      * @param ui the ui object to display the user interface of an "mark done" command
      * @param storage the storage object that stores the list of tasks
      */
-
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage, User user) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         currentMeal.markAsDone();

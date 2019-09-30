@@ -1,7 +1,6 @@
 package duke.user;
 
 import duke.exceptions.DukeException;
-import duke.user.gender;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ public class User {
     private ArrayList<Integer> weight = new ArrayList();
     private int height = 0;
     private int age;
-    private gender sex;
+    private Gender sex;
     private boolean isSetup;
     private String name;
     private int activityLevel;
@@ -21,7 +20,7 @@ public class User {
         this.isSetup = false;
     }
 
-    public User(String name, int age, int weight, int height, gender sex, int activityLevel, boolean loseWeight) {
+    public User(String name, int age, int weight, int height, Gender sex, int activityLevel, boolean loseWeight) {
         this.name = name;
         this.weight.add(weight);
         this.height = height;
@@ -36,7 +35,6 @@ public class User {
         String name;
         int weight = 0;
         int height = 0;
-        int activityLevel = 5;
         System.out.println("     Input name");
         name = in.nextLine();
         try {
@@ -59,14 +57,20 @@ public class User {
         }
         System.out.println("     Input gender(Male/Female)");
         String sex = in.nextLine();
+        if (sex.charAt(0) == 'M') {
+            this.sex = Gender.MALE;
+        } else {
+            this.sex = Gender.FEMALE;
+        }
+        int activityLevel = 5;
         while (activityLevel > 4 || activityLevel < 0) {
             System.out.println("     Input Activity Level");
             System.out.println("     1) Sedentary (Little or no exercise, desk job");
             System.out.println("     2) Lightly active (Light exercise/ sports 1-3 days/week");
             System.out.println("     3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
             System.out.println("     4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
-            System.out.println("     5) Extra active (Hard exercise 2 or more times per day, or training for\n" +
-                    "marathon, or triathlon, etc. )");
+            System.out.println("     5) Extra active (Hard exercise 2 or more times per day, or training for\n"
+                    + "marathon, or triathlon, etc. )");
             try {
                 activityLevel = Integer.parseInt(in.nextLine()) - 1;
             } catch (NumberFormatException e) {
@@ -84,11 +88,6 @@ public class User {
         this.weight.add(weight);
         this.height = height;
         this.activityLevel = activityLevel;
-        if (sex.charAt(0) == 'M') {
-            this.sex = gender.MALE;
-        } else {
-            this.sex = gender.FEMALE;
-        }
         this.isSetup = true;
     }
 
@@ -143,19 +142,19 @@ public class User {
 
     public int getDailyCalorie() {
         double calorie;
-        if (this.sex == gender.MALE) {
+        if (this.sex == Gender.MALE) {
             calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() + 5;
         } else {
             calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() - 161;
         }
-        return (int)(((this.loseWeight)? 0.8 : 1) * this.factor[this.activityLevel] * calorie);
+        return (int)(((this.loseWeight) ? 0.8 : 1) * this.factor[this.activityLevel] * calorie);
     }
 
     public boolean getLoseWeight() {
         return this.loseWeight;
     }
 
-    public gender getSex() {
+    public Gender getSex() {
         return this.sex;
     }
 

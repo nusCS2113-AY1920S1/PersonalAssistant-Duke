@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.tasks.Meal;
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage, User user) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         tasks.delete(index);

@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.exceptions.DukeException;
@@ -26,7 +26,7 @@ public abstract class Command {
      * @param storage the storage object that stores the list of tasks
      */
 
-    public abstract void execute(mealList tasks, Ui ui, Storage storage, User user) throws DukeException;
+    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException;
 
     public boolean isExit() {
         return false;

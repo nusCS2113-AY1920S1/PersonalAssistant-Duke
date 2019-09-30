@@ -1,6 +1,6 @@
 package duke.user;
 
-public enum gender {
+public enum Gender {
     MALE,
     FEMALE;
 }

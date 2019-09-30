@@ -61,7 +61,8 @@ public class Ui {
         for (int i = 0; i < meals.size(); i += 1) {
             totalConsume += meals.get(i).getNutritionalValue().get("calorie");
         }
-        System.out.println(padding + "Now you have " + (user.getDailyCalorie() - totalConsume) + " calories left on " + date);
+        System.out.println(padding + "Now you have " + (user.getDailyCalorie()
+                - totalConsume) + " calories left on " + date);
     }
 
     public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {

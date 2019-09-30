@@ -10,7 +10,7 @@ import java.util.HashMap;
  * TaskList is a public class that represents the list of tasks under duke.
  * A TaskList object encapsulates the ArrayList of tasks.
  */
-public class mealList {
+public class MealList {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private Calendar calendarDate = Calendar.getInstance();
     private String currentDate = dateFormat.format(calendarDate.getTime());
@@ -19,7 +19,7 @@ public class mealList {
     /**
      * This is the constructor of TaskList object.
      */
-    public mealList(HashMap<String, ArrayList<Meal>> mealTracker) {
+    public MealList(HashMap<String, ArrayList<Meal>> mealTracker) {
         this.mealTracker = mealTracker;
     }
 
@@ -27,7 +27,7 @@ public class mealList {
      * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task.
      */
-    public mealList() {
+    public MealList() {
     }
 
 

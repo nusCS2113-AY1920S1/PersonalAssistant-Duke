@@ -4,7 +4,6 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import duke.exceptions.DukeException;
@@ -13,7 +12,7 @@ import duke.tasks.Lunch;
 import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
-import duke.user.gender;
+import duke.user.Gender;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
@@ -48,7 +47,7 @@ public class Storage {
                 //TODO: Parse the line
                 loadFile(line, mealTracker);
             }
-        bufferedReader.close();
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
@@ -153,9 +152,9 @@ public class Storage {
             boolean loseWeight = Boolean.parseBoolean(splitLine[5]);
             String sex = splitLine[6];
             if (sex.equals("M")) {
-                return new User(name, age, weight, height, gender.MALE, activityLevel, loseWeight);
+                return new User(name, age, weight, height, Gender.MALE, activityLevel, loseWeight);
             } else {
-                return new User(name, age, weight, height, gender.FEMALE, activityLevel, loseWeight);
+                return new User(name, age, weight, height, Gender.FEMALE, activityLevel, loseWeight);
             }
         } catch (Exception e) {
             throw new DukeException("Unable to access file");
@@ -163,9 +162,9 @@ public class Storage {
     }
 
     public void saveUser(User user) throws DukeException {
-        String toWrite = user.getName() + "|" + user.getAge() + "|" + user.getWeight() + "|" + user.getHeight() + "|" + user.getActivityLevel() + "|"
-                + user.getLoseWeight() + "|";
-        if (user.getSex() == gender.MALE) {
+        String toWrite = user.getName() + "|" + user.getAge() + "|" + user.getWeight() + "|"
+                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
+        if (user.getSex() == Gender.MALE) {
             toWrite += "M";
         } else {
             toWrite += "F";

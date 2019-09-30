@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.tasks.Meal;
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.exceptions.DukeException;
@@ -32,7 +32,7 @@ public class ListCommand extends Command {
      */
 
     @Override
-    public void execute(mealList tasks, Ui ui, Storage storage, User user) throws DukeException {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException {
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         if (!tasks.checkDate(currentDate)) {

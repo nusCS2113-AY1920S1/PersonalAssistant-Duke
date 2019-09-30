@@ -56,6 +56,7 @@ public class Meal {
             day = dateparser.parse(details[1]);
             this.date = dateparser.format(day);
         } catch (Exception e) {
+            //toDo exception catching added here
         }
         for (int i = 2; i < details.length; i += 2) {
             nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
@@ -110,12 +111,14 @@ public class Meal {
         return this.date;
     }
 
-    public HashMap<String, Integer> getNutritionalValue() { return this.nutritionValue; }
+    public HashMap<String, Integer> getNutritionalValue() {
+        return this.nutritionValue;
+    }
+
     /**
      * This function overrides the toString() function in the object class.
      * @return the status icon and the description of the task
      */
-
     @Override
     public String toString() {
         String temp = "";

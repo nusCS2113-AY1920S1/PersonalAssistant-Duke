@@ -3,11 +3,10 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import duke.tasks.mealList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;
 import duke.user.User;
-import duke.user.gender;
 
 import java.util.Scanner;
 
@@ -18,7 +17,7 @@ import java.util.Scanner;
 public class Duke {
 
     private Storage storage;
-    private mealList tasks;
+    private MealList tasks;
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;
@@ -31,10 +30,10 @@ public class Duke {
         storage = new Storage();
         user = new User();
         try {
-            tasks = new mealList(storage.load());
+            tasks = new MealList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new mealList();
+            tasks = new MealList();
         }
         try {
             user = storage.loadUser();
