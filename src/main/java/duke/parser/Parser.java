@@ -4,10 +4,7 @@ import duke.command.*;
 import duke.commons.DukeException;
 import duke.commons.Message;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +12,9 @@ import java.util.regex.Pattern;
  * Parse user input into commands.
  */
 public class Parser {
-
+    private static final Set<String> reservedParameters = new HashSet<>(Arrays.asList(
+            "line", "primary", "secondary", "cmd"
+    ));
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_ORDER = "order";
@@ -26,11 +25,11 @@ public class Parser {
     private static final String COMMAND_SHORTCUT = "short";
 
     /**
-     * Parses user input into a command.
+     * Parses user input into a <code>Command</code> object.
      *
      * @param line the user input.
      * @return the command from user input.
-     * @throws DukeException if it is not valid command or command parameters are invalid.
+     * @throws DukeException if input is not valid command or command parameters are invalid.
      */
     public static Command getCommand(String line, Map<String, ExecuteShortcutCommand> shortcuts) throws DukeException {
 
@@ -58,12 +57,15 @@ public class Parser {
     private static Map<String, List<String>> parseCommandAndParams(String line) throws DukeException {
         Map<String, List<String>> params = new HashMap<>();
 
-        params.put("line", new ArrayList<String>() {
-            {
-                add(line);
-            }
-        });
+        addToParameter("line", line, params);
+        parseCommandAndPrimaryAndSecondary(line, params);
+        parseParameterBlocks(line, params);
 
+        return params;
+    }
+
+    private static void parseCommandAndPrimaryAndSecondary(String line, Map<String, List<String>> params)
+            throws DukeException {
         //Regex to get the command word and the sub command, and primary parameter.
         Pattern commandWordPattern = Pattern.compile("^(\\w+)\\s*(\\w+)?\\s*([^-]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
@@ -71,28 +73,22 @@ public class Parser {
             throw new DukeException("Please enter a command");
         }
 
-        params.put("cmd", new ArrayList<String>() {
-            {
-                add(commandWordMatcher.group(1).strip());
-            }
-        });
+        //In "order remove 1", "order" is "cmd".
+        addToParameter("cmd", commandWordMatcher.group(1).strip(), params);
 
         if (commandWordMatcher.group(2) != null) {
-            params.put("primary", new ArrayList<String>() {
-                {
-                    add(commandWordMatcher.group(2).strip());
-                }
-            });
+
+            //In "order remove 1", "remove" is "primary".
+            addToParameter("primary", commandWordMatcher.group(2).strip(), params);
 
             if (commandWordMatcher.group(3) != null) {
-                params.put("secondary", new ArrayList<String>() {
-                    {
-                        add(commandWordMatcher.group(3).strip());
-                    }
-                });
+                //In "order remove 1", "1" is "secondary".
+                addToParameter("secondary", commandWordMatcher.group(3).strip(), params);
             }
         }
+    }
 
+    private static void parseParameterBlocks(String line, Map<String, List<String>> params) throws DukeException {
         //Regex to get each parameter block. e.g. "-at some place" is one command block.
         Pattern paramsPattern = Pattern.compile("(-\\w+ [^-]+|-\\w+)");
         Matcher paramsMatcher = paramsPattern.matcher(line);
@@ -113,31 +109,35 @@ public class Parser {
             }
 
             if (attrAndValueMatcher.group(2) == null) {
+                if (reservedParameters.contains(attrAndValueMatcher.group(3))) {
+                    throw new DukeException("Parameters contain reserved words");
+                }
                 if (!params.containsKey(attrAndValueMatcher.group(3))) {
-                    params.put(attrAndValueMatcher.group(3), new ArrayList<>() {
-                        {
-                            add("");
-                        }
-                    });
+                    addToParameter(attrAndValueMatcher.group(3), "", params);
                 } else {
                     params.get(attrAndValueMatcher.group(3)).add("");
                 }
             } else {
+                if (reservedParameters.contains(attrAndValueMatcher.group(1))) {
+                    throw new DukeException("Parameters contain reserved words");
+                }
                 if (!params.containsKey(attrAndValueMatcher.group(1))) {
-                    params.put(attrAndValueMatcher.group(1).strip(), new ArrayList<>() {
-                        {
-                            add(attrAndValueMatcher.group(2));
-                        }
-                    });
+                    addToParameter(attrAndValueMatcher.group(1).strip(), attrAndValueMatcher.group(2), params);
                 } else {
                     params.get(attrAndValueMatcher.group(1).strip()).add(attrAndValueMatcher.group(2));
                 }
             }
         }
 
-        return params;
     }
 
+    private static void addToParameter(String key, String value, Map<String, List<String>> params) {
+        params.put(key, new ArrayList<String>() {
+            {
+                add(value);
+            }
+        });
+    }
     private static Command parseOrder(String line) throws DukeException {
         Map<String, List<String>> params = parseCommandAndParams(line);
         assert params.size() > 0;

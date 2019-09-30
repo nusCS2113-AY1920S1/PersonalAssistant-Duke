@@ -1,7 +1,6 @@
 package duke.ui;
-import duke.entities.Order;
-import duke.storage.recipe.RecipeList;
 
+import duke.entities.Order;
 
 import java.util.List;
 
@@ -33,8 +32,6 @@ public class Ui {
         mainWindow.initializePages();
     }
 
-
-
     public void refreshOrderList(List<Order> orders, List<Order> all) {
         mainWindow.refreshOrderList(orders, all);
     }
@@ -46,7 +43,4 @@ public class Ui {
         mainWindow.disableInput();
     }
 
-//    public void showPopUp(String message, boolean isDisappearAfterInput) {
-//        mainWindow.showPopUp(message, isDisappearAfterInput);
-//    }
 }

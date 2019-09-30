@@ -16,7 +16,7 @@ public class StorageTest {
         bakingList.getOrderList().add(order);
         Storage storage = new Storage("baking.json");
         storage.serialize(bakingList);
-        BakingList deserilizedBakingList = storage.deserialize();
-        assertEquals("jj", deserilizedBakingList.getOrderList().get(0).getCustomerName());
+        BakingList deserializedBakingList = storage.deserialize();
+        assertEquals("jj", deserializedBakingList.getOrderList().get(0).getCustomerName());
     }
 }

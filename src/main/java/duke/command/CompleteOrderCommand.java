@@ -10,11 +10,19 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to set the status of an <code>Order</code> object to <code>COMPLETED</code>.
+ */
 public class CompleteOrderCommand extends UndoableCommand {
-    private Order.Status status;
+    private List<Order> orders;
     private Map<String, List<String>> params;
 
-    public CompleteOrderCommand(Map<String, List<String>> params) throws DukeException {
+    /**
+     * Class constructor.
+     *
+     * @param params The parameters specifying details of the order.
+     */
+    public CompleteOrderCommand(Map<String, List<String>> params) {
         this.params = params;
     }
 
@@ -30,8 +38,10 @@ public class CompleteOrderCommand extends UndoableCommand {
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        Order order = CommandParser.getOrderByIndexOrId(bakingList.getOrderList(), params);
-        order.setStatus(Order.Status.COMPLETED);
+        orders = CommandParser.getOrders(bakingList.getOrderList(), params);
+        for (Order order : orders) {
+            order.setStatus(Order.Status.COMPLETED);
+        }
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }

@@ -12,11 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * A command to execute a user-defined set of commands.
+ */
 public class ExecuteShortcutCommand extends UndoableCommand {
 
     private List<String> lines = new ArrayList<>();
     private List<Command> commands = new ArrayList<>();
 
+    /**
+     * Class constructor.
+     *
+     * @param lines A list containing user inputs.
+     *              Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     * @throws DukeException if fails to convert any line into a <code>Command</code> object.
+     */
     public ExecuteShortcutCommand(@JsonProperty("lines") List<String> lines) throws DukeException {
         this.lines = lines;
         for (String line : lines) {
@@ -57,10 +67,20 @@ public class ExecuteShortcutCommand extends UndoableCommand {
         ui.showMessage("Shortcut executed successfully");
     }
 
+    /**
+     * Returns a list containing user inputs.
+     * @return A list containing user inputs.
+     *         Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     */
     public List<String> getLines() {
         return lines;
     }
 
+    /**
+     * Sets a set of inputs to be converted to <code>Command</code> objects.
+     * @param lines A list containing user inputs.
+     *        Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     */
     public void setLines(List<String> lines) {
         this.lines = lines;
     }
