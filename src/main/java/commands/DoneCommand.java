@@ -23,11 +23,13 @@ public class DoneCommand extends Command {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(list.get(numbercheck).listFormat());
 
+
             /**
              * Print out the task to do after
              */
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).description.contains(list.get(numbercheck).description) && list.get(i).listFormat().contains("/after") && i != numbercheck) {
+
                     System.out.println("OK! Now you need to do the following:");
                     String[] temp = list.get(i).listFormat().split("\\(/after");
                     System.out.println(temp[0].substring(7));
@@ -36,6 +38,7 @@ public class DoneCommand extends Command {
             /**
              * Add some weekly task
              */
+
             RecurringCommand rc = new RecurringCommand();
             rc.AddRecurring(list, list.get(numbercheck).toString(), storage);
 
