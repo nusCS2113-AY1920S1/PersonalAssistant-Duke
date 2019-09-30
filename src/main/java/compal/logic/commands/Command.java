@@ -26,8 +26,8 @@ import static compal.commons.Messages.MESSAGE_MISSING_TIME;
 public abstract class Command {
 
     public static final String TOKEN_SLASH = "/";
-    public static final String TOKEN_START_TIME = "/sTime";
-    public static final String TOKEN_END_TIME = "/eTime";
+    public static final String TOKEN_START_TIME = "/start";
+    public static final String TOKEN_END_TIME = "/end";
     public static final String TOKEN_DATE = "/date";
     private static final String TOKEN_PRIORITY = "/priority";
     public Compal compal;
