@@ -33,41 +33,50 @@ The trainer is able to navigate across the different features of the app easily.
 
 **Command Summary**
 
-`e/` represents event
+*`e/` represents event
 
-`c/` represents class
+*`c/` represents class
 
-`d/` represents day
+*`d/` represents day
 
-`loc/` represents location of class
+*`loc/` represents location of class
 
-`stu/` represents name of student
+*`stu/` represents name of student
 
-`det/` represents details of student
+*`det/` represents details of student
 
-`|` represents a delimiter between every usage of the command
+*`|` represents a delimiter between every usage of the command
 
 
-`Create User` - Define the user's profile name and password
 
-`Login`- enter app
+**View**
+*`Schedule`: e/competition | d/monday c/beginner-swimming | d/monday c/beginner-swimming stu/Scott
 
-`Logout` - exit app
+**Edit**
+*`Class`: edit d/monday c/beginner-swimming
 
-`Forget password [USER]` - Answer security code to gain access to your account if you forget password
+*`Student Details`: edit d/monday c/beginner-swimming stu/Scott det/now-engineering-student
 
-`Add/Delete/Modify [MOD CODE]` - Control what modules are added to your schedule
+**Add**
+*`Class`: add d/monday c/beginner-swimming
 
-`View [ACAD YEAR]` - View grade by acad year and semester
+*`Location`: add d/monday c/beginner-swimming loc/swimming-pool
 
-`Plan [module] [activity:project meeting/consultation] [duration forecast]` - Create additional tasks in your schedule
+*`Student`: add d/monday c/beginner-swimming stu/Scott
 
-`Set goal [CAP]` - Set desired CAP
+*`Student Details`: add d/monday c/beginner-swimming stu/Scott det/computing-student
 
-`View [CAP]` - View current cap
+**Delete**
+*`Class`: delete d/monday c/beginner-swimming
 
-`CAP Grades Required` - See grades per mod in order to get desired cap
+*`Student`: delete d/monday c/beginner-swimming stu/Scott
 
-`Save [module] [grade] [Year _ Sem _]` - Saved the grades obtained for the mod
+*`Student Details`: delete d/monday c/beginner-swimming stu/Scott det/no-longer-engineer
 
-`Edit [module] [grade] [Year_Sem_]` - Edit the previous grades saved
+**Menu**
+
+*`Home`: menu home
+
+*`List`: menu list
+
+*`Help`: menu help
