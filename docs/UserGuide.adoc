@@ -201,12 +201,30 @@ Examples:
 
 === Create a bus travel plan for user: `bustour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destination. +
+Duke recommends a travelling plan (short path) based on the user's input of destinations. +
 Format: `bustour`
 
 Examples:
 
 * `bustour`
+
+=== Create a mrt travel plan for user: `mrttour`
+
+Duke recommends a travelling plan (short path) based on the user's input of destinations. +
+Format: `mrttour`
+
+Examples:
+
+* `mrttour`
+
+=== Create a travel plan for user: `tour`
+
+Duke recommends a travelling plan (short path) based on the user's input of destinations which may include both bus and train services. +
+Format: `tour`
+
+Examples:
+
+* `tour`
 
 === Bus arrivals of queried bus stop: `buscome`
 
@@ -285,17 +303,16 @@ Format: `bye`
 Duke data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-
 == Features that are coming in version 2.0!
 
-=== Create a travel plan for user: `tour`
+=== Create a travel plan for user: `worldtour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destination. +
-Format: `tour`
+Duke recommends a travelling plan (short path) based on the user's input of destinations. +
+Format: `worldtour`
 
 Examples:
 
-* `tour`
+* `worldtour`
 
 === Weather forecast of destinations: `weather`
 
@@ -323,6 +340,15 @@ Format: `recommend LOCATION`
 Examples:
 
 * `recommend Toronto`
+
+=== Listing nearby hotels of a destination: `recommendhotel`
+
+Duke recommends hotels to stay at a given location. +
+Format: `recommendhotel LOCATION`
+
+Examples:
+
+* `recommendhotel Disneyland Tokyo`
 
 === Listing flight information from home location to destination: `flight`
 
