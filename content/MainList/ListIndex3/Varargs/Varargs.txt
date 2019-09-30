@@ -1,0 +1,1 @@
+Variable Arguments is a syntactic sugar type feature that allows writing a methods that can take a variable number of arguments.
