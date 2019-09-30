@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <fx:root prefHeight="591.0" prefWidth="877.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
     <children>
 
             <AnchorPane fx:id="recipeShowPane" layoutX="193.0" layoutY="47.0" visible="false"

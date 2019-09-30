@@ -6,43 +6,53 @@
 
 BakingHome was developed by the https://github.com/AY1920S1-CS2113T-T12-3[AY1920S1-CS2113T-T12-3] team. +
 _{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+{empty} + 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Liu Jia Jun
 image::liujiajun.png[width="150", align="left"]
-{empty}[http://github.com/liujiajun[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/liujiajun[github]] [<<liujiajun#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role and responsibilities: 
+Team Leader 
+In charge of parser and storage 
+Java and Intellij expert
+
+Feature: Order management
 
 '''
 
 === Liu Shiru
 image::liushiru.png[width="150", align="left"]
-{empty}[http://github.com/liushiru[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/liushiru[github]] [<<liushiru#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Roles and responsibilities: 
+In charge of deliverables and deadlines
+
+Feature: Recipe management
 
 '''
 
 === Lim Wen Han Eugene
 image::eugenelim97.png[width="150", align="left"]
-{empty}[http://github.com/eugenelim97[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/eugenelim97[github]] [<<eugenelim97#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role and responsibilities: 
+In charge of code quality and documentation
+
+Feature: Inventory management
 
 '''
 
 === Lim Chek Jun
 image::chekjun.png[width="150", align="left"]
-{empty}[http://github.com/chekjun[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/chekjun[github]] [<<chekjun#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role and responsibilities: 
+In charge of testing
+
+Feature: Sales management
 
 '''

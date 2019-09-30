@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
-         xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <SplitPane dividerPositions="0.5" layoutX="185.0" layoutY="111.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-            <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <children>
-                        <ListView layoutX="48.0" layoutY="66.0" prefHeight="368.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <children>
-                        <ListView layoutX="39.0" layoutY="77.0" prefHeight="368.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-        <HBox layoutX="2.0" layoutY="-2.0" prefHeight="43.0" prefWidth="600.0">
-            <children>
-                <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="Inventory">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                    <font>
-                        <Font name="Calibri Bold" size="24.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="Shopping List">
-                    <font>
-                        <Font name="Calibri Bold" size="24.0" />
-                    </font>
-                </Label>
-            </children>
-        </HBox>
-    </children>
+
+<fx:root prefHeight="591.0" prefWidth="857.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TitledPane fx:id="inventoryListPane" animated="false" prefHeight="211.0" prefWidth="600.0" text="Inventory List" textFill="#c51a1a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="inventoryTable" prefHeight="162.0" prefWidth="594.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                <columns>
+                                    <TableColumn fx:id="inventoryListNum" prefWidth="75.0" text="S/N" />
+                                  <TableColumn fx:id="inventoryListIngredient" prefWidth="425.0" text="Ingredient" />
+                                  <TableColumn fx:id="inventoryListQuantity" minWidth="0.0" prefWidth="300.0" text="Quantity" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TitledPane fx:id="shoppingListPane" animated="false" prefWidth="598.0" text="Shopping List" textFill="#c51a1a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="shoppingTable" prefHeight="165.33333333333334" prefWidth="596.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                <columns>
+                                    <TableColumn fx:id="shoppingListNum" prefWidth="75.0" text="S/N" />
+                                  <TableColumn fx:id="shoppingListIngredient" prefWidth="325.0" text="Ingredient" />
+                                  <TableColumn fx:id="shoppingListQuantity" minWidth="0.0" prefWidth="200.0" text="Quantity" />
+                                    <TableColumn fx:id="shoppingListPrice" prefWidth="200.0" text="Price" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </fx:root>

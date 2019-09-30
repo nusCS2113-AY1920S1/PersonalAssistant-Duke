@@ -1,5 +1,7 @@
 package duke.entities.recipe;
 
+import duke.entities.Ingredient;
+
 import java.util.ArrayList;
 import java.util.List;
 
