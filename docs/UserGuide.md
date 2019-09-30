@@ -3,10 +3,13 @@ By: `AY1920S1-CS2113T-W17-1` Last Updated: `26/09/2019` License: `MIT`
 
 We are still working on the User Guide. Stay tuned as we roll out more new features!
 
-1. [Introduction](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#1-introduction)
-2. [Understanding This User Guide](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#2-understanding-this-user-guide) 
-3. [Quick Start](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#3-quick-start)
-4. [Features](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#4-features)
+[**1. Introduction**](/docs/UserGuide.md#1-introduction)
+
+[**2. Understanding This User Guide**](/docs/UserGuide.md#2-understanding-this-user-guide) 
+
+[**3. Quick Start**](/docs/UserGuide.md#3-quick-start)
+
+[**4. Features**](/docs/UserGuide.md#4-features)
 
 ## 1. Introduction
 Welcome to **COMPal**!
@@ -15,7 +18,7 @@ Welcome to **COMPal**!
 
 Additionally, you can ***include non-academic activities*** along with your academic timetable, unlike other widely-used timetable tools. You also have the ***freedom to prioritise certain tasks*** over less important ones, and make use of ***timely reminders*** on pending tasks.
 
-Take control with our [Quick Start](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#3-quick-start) guide. ***COMPal*** your life, today.
+Take control with our [**Quick Start**](/docs/UserGuide.md#3-quick-start) guide. ***COMPal*** your life, today.
 
 ## 2. Understanding This User Guide
 ### 2.1 Basic Information
@@ -60,7 +63,7 @@ Icon                 | What does it mean?
     * `list` : **displays the entire list of tasks** stored in **COMPal**'s massive memory. However, if you have just downloaded **COMPal**, it's likely that **COMPal** will not display any tasks. 
     * `bye` : **bid goodbye** to **COMPal** and exit the program. See you soon!!
 
-This is the end of the **Quick Start** guide. Please refer to [4. Features](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
+This is the end of the **Quick Start** guide. Please refer to [4. Features](/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
 
 ## 4. Features 
 
