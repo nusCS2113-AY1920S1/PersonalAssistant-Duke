@@ -1,5 +1,7 @@
 package Interface;
 import Tasks.*;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +17,20 @@ import java.util.Date;
  * Deals with loading or saving tasks to and from a file.
  */
 public class Storage {
-    private String filePath;
+    private File filePath;
+    private String filePathEvent;
+    private String filePathTodo;
+    private String filePathDeadline;
 
     /**
      * Creates Storage object.
-     * @param filePath String of the file's filepath
      */
-    public Storage(String filePath){
-        this.filePath = filePath;
+    public Storage(){
+        filePath = new File(System.getProperty("user.dir") + "\\data");
+        filePath.mkdir();
+        filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
+        filePathTodo = System.getProperty("user.dir") + "\\data\\todo.txt";
+        filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
     }
 
     /**
@@ -32,7 +40,7 @@ public class Storage {
      * @throws FileNotFoundException On file not found error using filepath
      */
     public void updateFile(TaskList list) throws FileNotFoundException {
-        PrintWriter outputStream = new PrintWriter(filePath);
+        PrintWriter outputStream = new PrintWriter(System.getProperty("user.dir") + "\\data\\duke.txt");
         String textUiFilePath = System.getProperty("user.dir") + "\\text-ui-test\\data\\duke.txt";
         PrintWriter outputStreamTextUi = new PrintWriter(textUiFilePath);
         ArrayList<Task> temp = list.getList();
@@ -51,7 +59,55 @@ public class Storage {
      * @throws ParseException On conversion error from string to Task object
      */
     public void readFile(TaskList list) throws IOException, ParseException {
-        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePath)));
+        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(System.getProperty("user.dir") + "\\data\\duke.txt")));
+        for(String string : temp){
+            list.addTask(stringToTask(string));
+        }
+    }
+
+    public void updateTodoList(TaskList list) throws FileNotFoundException {
+        PrintWriter outputStream = new PrintWriter(filePathTodo);
+        ArrayList<Task> temp = list.getList();
+        for(Task task : temp){
+            outputStream.println(task.toString());
+        }
+        outputStream.close();
+    }
+
+    public void readTodoList(TaskList list) throws IOException, ParseException {
+        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathTodo)));
+        for(String string : temp){
+            list.addTask(stringToTask(string));
+        }
+    }
+
+    public void updateEventList(TaskList list) throws FileNotFoundException {
+        PrintWriter outputStream = new PrintWriter(filePathEvent);
+        ArrayList<Task> temp = list.getList();
+        for(Task task : temp){
+            outputStream.println(task.toString());
+        }
+        outputStream.close();
+    }
+
+    public void readEventList(TaskList list) throws IOException, ParseException {
+        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
+        for(String string : temp){
+            list.addTask(stringToTask(string));
+        }
+    }
+
+    public void updateDeadlineList(TaskList list) throws FileNotFoundException {
+        PrintWriter outputStream = new PrintWriter(filePathDeadline);
+        ArrayList<Task> temp = list.getList();
+        for(Task task : temp){
+            outputStream.println(task.toString());
+        }
+        outputStream.close();
+    }
+
+    public void readDeadlineList(TaskList list) throws IOException, ParseException {
+        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         for(String string : temp){
             list.addTask(stringToTask(string));
         }
