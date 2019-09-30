@@ -24,7 +24,6 @@ public class Event extends Task {
         super(description);
         this.date = stringToDate(at);
         this.type = 'E';
-        this.stringDate = at;
     }
 
     /**
@@ -39,7 +38,6 @@ public class Event extends Task {
         super(description, isDone);
         this.date = stringToDate(at);
         this.type = 'E';
-        this.stringDate = at;
     }
 
     /**
@@ -48,6 +46,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (at: " + getDate() + ")";
+        return super.toString() + " (at: " + getDateToPrint() + ")";
     }
 }

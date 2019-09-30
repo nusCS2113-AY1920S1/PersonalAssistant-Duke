@@ -78,7 +78,7 @@ public class Storage {
             line += (thisTask.getDoneStatus() == true ? 1 : 0);
             if (thisTask.getType() == 'D' || thisTask.getType() == 'E') {
                 line += "`";
-                line += thisTask.getDateToSave();
+                line += thisTask.getDateAsString();
             }
             if (!thisTask.getAfter().equals("")) {
                 line += "`";

@@ -54,7 +54,7 @@ public class Recurring extends Task {
             if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day) && !(i == 0 && (new SimpleDateFormat("HHmm").format(todayDate)).compareTo(time) > 0)) {
                 validDay = true;
                 this.date = todayDate;
-                String todayStringDate = getDateToSave();
+                String todayStringDate = getDateAsString();
                 todayStringDate = todayStringDate.substring(0, todayStringDate.length() - 4);
                 todayStringDate += time;
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -79,6 +79,6 @@ public class Recurring extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (next: " + getDate() + ")";
+        return super.toString() + " (next: " + getDateToPrint() + ")";
     }
 }
