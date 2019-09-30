@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -413,6 +414,20 @@ public class Ui {
         default:
             System.out.println("Unknown init stage");
         }
+    }
+
+    /**
+     * Refresh view date
+     *
+     * @param dateToStore date to view of daily calender
+     */
+    public void dateViewRefresh(String dateToStore) {
+        DailyCal dc = new DailyCal();
+        compal.ui.tabWindow.getTabs().remove(1);
+        Tab dailyTab = new Tab();
+        dailyTab.setText("Daily Window");
+        dailyTab.setContent(dc.init(dateToStore));
+        compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }
     //----------------------->
 }

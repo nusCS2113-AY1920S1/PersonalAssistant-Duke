@@ -44,6 +44,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -63,7 +64,9 @@ public class Main extends Application {
 
             //Create DailyCal Pane
             DailyCal dc = new DailyCal();
-            ScrollPane dailyPane = dc.init();
+            String datePattern = "dd/MM/yyyy";
+            String todayDate = new SimpleDateFormat(datePattern).format(new Date());
+            ScrollPane dailyPane = dc.init(todayDate);
 
             Tab dailyTab = new Tab();
             dailyTab.setText("Daily Window");

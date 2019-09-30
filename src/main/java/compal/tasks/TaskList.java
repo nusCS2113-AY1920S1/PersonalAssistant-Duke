@@ -51,18 +51,9 @@ public class TaskList {
      * @return Size of arrayList.
      */
     public int addTask(Task task) {
-        String pattern = "dd/MM/yyyy";
-        String todayDate = new SimpleDateFormat(pattern).format(new Date());
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
-        if (task.getStringDate().equals(todayDate)) {
-            DailyCal dc = new DailyCal();
-            compal.ui.tabWindow.getTabs().remove(1);
-            Tab dailyTab = new Tab();
-            dailyTab.setText("Daily Window");
-            dailyTab.setContent(dc.init());
-            compal.ui.tabWindow.getTabs().add(1, dailyTab);
-        }
+        compal.ui.dateViewRefresh(task.getStringDate());
         compal.ui.showSize();
         return arrlist.size();
     }

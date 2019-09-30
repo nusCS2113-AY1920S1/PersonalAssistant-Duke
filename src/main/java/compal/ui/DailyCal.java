@@ -8,9 +8,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Collections;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 
 public class DailyCal {
 
+    String dateToDisplay;
     private Compal compal = new Compal();
     private ScrollPane sp = new ScrollPane();
     private Group groupRoot = new Group();
@@ -29,9 +30,7 @@ public class DailyCal {
     private Line[] verticalLines = new Line[50];
     private Text[] timeAM = new Text[50];
     private Text[] timePM = new Text[50];
-
     private int[] clockTime = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
-
     private double colOneXLayout = 0;
     private double colOneYLayout = 0;
     private int horizontalLineCounter = 0;
@@ -39,15 +38,12 @@ public class DailyCal {
     private double verticalXLayout = 50;
     private double horizontalYLayout = 0;
     private double horizontalXLayout = 0;
-
-    private double[][] storedXAxis = new double[25][10];
-    private double[][] storedYAxis = new double[25][10];
-
+    private double[][] storedXAxis = new double[25][5];
+    private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
     private int endTime = 19;
+    private ArrayList<Task> arrList = compal.tasklist.arrlist;
 
-    private String pattern = "dd/MM/yyyy";
-    private String todayDate = new SimpleDateFormat(pattern).format(new Date());
 
     public DailyCal() {
     }
@@ -57,10 +53,12 @@ public class DailyCal {
      *
      * @return scrollPane final object state
      */
-    public ScrollPane init() {
+    public ScrollPane init(String givenDate) {
+        dateToDisplay = givenDate;
         sp = buildTimeTable();
         return sp;
     }
+
 
     /**
      * Call the require functions to create final state of timetable.
@@ -74,7 +72,6 @@ public class DailyCal {
         for (int i = startTime; i < endTime; i++) {
             drawScheduleSquare(i);
         }
-
         sp.setContent(groupRoot);
         return sp;
     }
@@ -86,9 +83,8 @@ public class DailyCal {
      * @return scrollPane final object state
      */
     private void setTime() {
-        ArrayList<Task> arrList = compal.tasklist.arrlist;
         for (Task task : arrList) {
-            if (task.getStringDate().equals(todayDate)) {
+            if (task.getStringDate().equals(dateToDisplay)) {
                 int tempTime = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                 if (tempTime < startTime) {
                     startTime = tempTime;
@@ -107,10 +103,8 @@ public class DailyCal {
      * @return scrollPane final object state
      */
     private void genDateSLot() {
-        String pattern = "dd/MM/yyyy";
-        String dateInString = new SimpleDateFormat(pattern).format(new Date());
         Text date = new Text();
-        date.setText(dateInString);
+        date.setText(dateToDisplay);
         date.setY(colOneYLayout);
         date.setX(colOneXLayout);
         colOneYLayout += 50;
@@ -169,43 +163,45 @@ public class DailyCal {
      * Create a square block of schedule depending on the duration of the event.
      */
     private void drawScheduleSquare(int currentTime) {
-        int tempCounter = 0;
-        ArrayList<Task> arrList = compal.tasklist.arrlist;
+        int eventCounter = 0;
+        int hourInMin = 60;
+        double pixelBlock = 100;
         for (Task task : arrList) {
-            if (task.getStringDate().equals(todayDate)) {
+            if (task.getStringDate().equals(dateToDisplay) && eventCounter < 5) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
                     int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                     int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
                     int endHour = Integer.parseInt(task.getStringEndTime().substring(0, 2));
                     int endMin = Integer.parseInt(task.getStringEndTime().substring(2, 4));
-                    int hour = 0;
-                    int min = 0;
+
+                    int totalHour;
+                    int totalMin;
                     if (endMin >= startMin) {
-                        min = endMin - startMin;
-                        hour = endHour - startHour;
+                        totalMin = endMin - startMin;
+                        totalHour = endHour - startHour;
                     } else {
                         endHour--;
-                        min = endMin + 60 - startMin;
-                        hour = endHour - startHour;
+                        totalMin = endMin + hourInMin - startMin;
+                        totalHour = endHour - startHour;
                     }
 
-                    if (hour == 0 && min == 0) {
+                    if (totalHour == 0 && totalMin == 0) {
                         continue;
                     }
                     String desc = task.getDescription();
                     //Drawing a Rectangle
                     double heightY = 1.7;
-                    double heightYMin = heightY * min;
-                    double heightYHour = 100 * hour;
-                    Rectangle rectangle = new Rectangle(100, heightYHour + heightYMin);
+                    double heightYMin = heightY * totalMin;
+                    double heightYHour = pixelBlock * totalHour;
+                    Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
                     rectangle.setFill(Color.CADETBLUE);
                     rectangle.setStroke(Color.BLACK);
                     final StackPane stack = new StackPane();
                     final Text text = new Text(desc);
                     stack.getChildren().addAll(rectangle, text);
-                    stack.setLayoutX(storedXAxis[currentTime][tempCounter]);
-                    stack.setLayoutY(storedYAxis[currentTime][tempCounter]);
-                    tempCounter++;
+                    stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
+                    stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
+                    eventCounter++;
                     groupRoot.getChildren().add(stack);
                 }
             }
@@ -216,37 +212,38 @@ public class DailyCal {
      * Store schedule axis of current time.
      */
     private void storeScheduleAxis(int currentTime) {
-        int tempCounter = 0;
+        int eventCounter = 0;
         int moveRight = 50;
-        ArrayList<Task> arrList = compal.tasklist.arrlist;
+        double pixelBlock = 100.00;
+        int hourInMin = 60;
         for (Task task : arrList) {
-            if (task.getStringDate().equals(todayDate)) {
+            if (task.getStringDate().equals(dateToDisplay) && eventCounter < 5) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
                     int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                     int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
                     int endHour = Integer.parseInt(task.getStringEndTime().substring(0, 2));
                     int endMin = Integer.parseInt(task.getStringEndTime().substring(2, 4));
-                    int hour;
-                    int min;
+                    int totalHour;
+                    int totalMin;
                     if (endMin >= startMin) {
-                        min = endMin - startMin;
-                        hour = endHour - startHour;
+                        totalMin = endMin - startMin;
+                        totalHour = endHour - startHour;
                     } else {
                         endHour--;
-                        min = endMin + 60 - startMin;
-                        hour = endHour - startHour;
+                        totalMin = endMin + hourInMin - startMin;
+                        totalHour = endHour - startHour;
                     }
 
-                    if (hour == 0 && min == 0) {
+                    if (totalHour == 0 && totalMin == 0) {
                         continue;
                     }
-                    double pxPerMin = (100.00 / 60.00);
+                    double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
                     double downPX = pxPerMin * startMin;
-                    //Drawing a Rectangle
-                    storedXAxis[currentTime][tempCounter] = horizontalXLayout + moveRight;
-                    storedYAxis[currentTime][tempCounter] = horizontalYLayout + downPX;
+                    //store a Rectangle location.
+                    storedXAxis[currentTime][eventCounter] += horizontalXLayout + moveRight;
+                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX;
                     moveRight += 100;
-                    tempCounter += 1;
+                    eventCounter += 1;
                 }
             }
         }
