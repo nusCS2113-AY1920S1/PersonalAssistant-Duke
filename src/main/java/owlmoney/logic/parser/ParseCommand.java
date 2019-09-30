@@ -42,9 +42,14 @@ public class ParseCommand extends Parser {
             System.out.println("You edited");
             parseType.parseData(command, data, profile);
             break;
-        case "/test": //for testing of output
+       /* case "/test": //for testing of output
             profile.listBanks();
             break;
+        */
+        /*case "/test": //for testing of output
+            profile.listMyExpenditure();
+            break;
+         */
         case "/exit":
             System.exit(0);
             break;
