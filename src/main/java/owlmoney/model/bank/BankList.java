@@ -2,6 +2,7 @@ package owlmoney.model.bank;
 
 import java.util.ArrayList;
 
+import owlmoney.model.expenditure.Expenditure;
 import owlmoney.ui.Ui;
 
 public class BankList {
@@ -42,6 +43,22 @@ public class BankList {
                     break;
                 }
             }
+        }
+    }
+
+    public void addExpenditure(String accName, Expenditure exp) {
+        for (int i = 0; i < bankLists.size(); i++)
+        {
+            if(bankLists.get(i).getAccountName().equals(accName)) {
+                bankLists.get(i).addInExpenditure(exp);
+                break;
+            }
+        }
+    }
+
+    public void listBankExpenditure() {
+        for(int i = 0; i < bankLists.size(); i++) {
+            bankLists.get(i).listAllExpenditure();
         }
     }
 }

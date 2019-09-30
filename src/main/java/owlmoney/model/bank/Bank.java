@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import owlmoney.model.expenditure.Expenditure;
+
 public abstract class Bank {
     private String accountName;
     private double currentAmount;
@@ -20,4 +22,8 @@ public abstract class Bank {
     public void getDescription() {
         System.out.println(accountName + "\n" + currentAmount);
     }
+
+    public abstract void addInExpenditure(Expenditure exp);
+
+    public abstract void listAllExpenditure();
 }
