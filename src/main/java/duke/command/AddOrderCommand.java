@@ -1,21 +1,23 @@
 package duke.command;
 
 import duke.commons.DukeException;
+import duke.commons.Utility;
 import duke.entities.Order;
 import duke.parser.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
  */
 public class AddOrderCommand extends UndoableCommand {
-    private static final Set<String> acceptedParameters = new HashSet<>(Arrays.asList(
-            "line", "primary", "secondary", "cmd", "item", "name", "contact", "rmk", "by", "status"
-    ));
+    private final String[] acceptedParameters = {
+            "item", "name", "contact", "rmk", "by", "status"
+    };
     private final Map<String, List<String>> params;
     private Order order;
 
@@ -26,7 +28,7 @@ public class AddOrderCommand extends UndoableCommand {
      */
     public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
-        checkParameters();
+        Utility.checkParameters(params, acceptedParameters, true, false);
     }
 
     @Override
@@ -57,11 +59,4 @@ public class AddOrderCommand extends UndoableCommand {
         bakingList.getOrderList().add(0, order);
     }
 
-    private void checkParameters() throws DukeException {
-        for (String key : params.keySet()) {
-            if (!acceptedParameters.contains(key)) {
-                throw new DukeException("Invalid parameter: " + key);
-            }
-        }
-    }
 }

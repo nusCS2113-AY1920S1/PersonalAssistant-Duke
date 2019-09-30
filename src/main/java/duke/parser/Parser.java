@@ -109,12 +109,18 @@ public class Parser {
             }
 
             if (attrAndValueMatcher.group(2) == null) {
+                if (reservedParameters.contains(attrAndValueMatcher.group(3))) {
+                    throw new DukeException("Parameters contain reserved words");
+                }
                 if (!params.containsKey(attrAndValueMatcher.group(3))) {
                     addToParameter(attrAndValueMatcher.group(3), "", params);
                 } else {
                     params.get(attrAndValueMatcher.group(3)).add("");
                 }
             } else {
+                if (reservedParameters.contains(attrAndValueMatcher.group(1))) {
+                    throw new DukeException("Parameters contain reserved words");
+                }
                 if (!params.containsKey(attrAndValueMatcher.group(1))) {
                     addToParameter(attrAndValueMatcher.group(1).strip(), attrAndValueMatcher.group(2), params);
                 } else {
@@ -125,10 +131,7 @@ public class Parser {
 
     }
 
-    private static void addToParameter(String key, String value, Map<String, List<String>> params) throws DukeException {
-        if (reservedParameters.contains(key)) {
-            throw new DukeException("Parameters contain reserved words");
-        }
+    private static void addToParameter(String key, String value, Map<String, List<String>> params) {
         params.put(key, new ArrayList<String>() {
             {
                 add(value);
