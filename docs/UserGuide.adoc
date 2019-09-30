@@ -179,6 +179,16 @@ Examples:
 * `busstop Sentosa`
 * `busstop J-Cube`
 
+=== List nearby MRT stops of destination: `mrtstop`
+
+Duke recommends nearby MRT stops of a certain location. +
+Format: `mrtstop LOCATION`
+
+Examples:
+
+* `mrtstop Sentosa`
+* `mrtstop J-Cube`
+
 === Shows the bus route of a bus service: `busroute`
 
 Duke finds the bus route of a given bus service given the bus service number. +
@@ -198,6 +208,24 @@ Examples:
 
 * `bustour`
 
+=== Bus arrivals of queried bus stop: `buscome`
+
+Duke provides bus arrival information of a given bus stop provided by user. +
+Format: `buscome BUS_STOP`
+
+Examples:
+
+* `buscome 83139`
+
+=== List all the available taxis nearby: `taxi`
+
+Duke provides taxi information of nearby taxis. +
+Format: `taxi`
+
+Examples:
+
+* `taxi`
+
 === Train alerts: `train`
 
 Duke informs user of train services that are not in operation due to track faults and other incidents. +
@@ -205,6 +233,38 @@ Duke informs user of train services that are not in operation due to track fault
 Examples:
 
 * `train`
+
+=== PSI alerts: `psi`
+
+Duke provides user with information on PSI-levels of all destinations in Singapore. +
+
+Examples:
+
+* `psi`
+
+=== UVI alerts: `uvi`
+
+Duke provides user with information on Ultra-violet Index of Singapore. +
+
+Examples:
+
+* `uvi`
+
+=== PM2.5 alerts: `pm2.5`
+
+Duke provides user with information on PM2.5-levels of all destinations in Singapore. +
+
+Examples:
+
+* `pm2.5`
+
+=== Weather alerts: `weather`
+
+Duke provides user with information on weather of all destinations in Singapore. +
+
+Examples:
+
+* `weather`
 
 === Help: `help`
 
