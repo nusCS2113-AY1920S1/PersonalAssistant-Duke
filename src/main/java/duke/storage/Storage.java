@@ -13,6 +13,7 @@ import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
 import duke.user.Gender;
+import duke.user.tuple;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
@@ -121,7 +122,6 @@ public class Storage {
                     }
                     bufferedWriter.write(toWrite);
                 }
-                bufferedWriter.newLine();
             }
             bufferedWriter.close();
         } catch (IOException e) {
@@ -131,6 +131,7 @@ public class Storage {
     }
 
     public User loadUser() throws DukeException {
+        User tempUser;
         String sep = System.getProperty("file.separator");
         nameFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                 + sep + "Data" + sep + "user.txt");
@@ -142,32 +143,43 @@ public class Storage {
         try {
             bufferedReader = new BufferedReader(new FileReader(nameFile));
             String line =  bufferedReader.readLine();
-            bufferedReader.close();
             String[] splitLine = line.split("\\|");
             String name = splitLine[0];
             int age = Integer.parseInt(splitLine[1]);
-            int weight = Integer.parseInt(splitLine[2]);
-            int height = Integer.parseInt(splitLine[3]);
-            int activityLevel = Integer.parseInt(splitLine[4]);
-            boolean loseWeight = Boolean.parseBoolean(splitLine[5]);
-            String sex = splitLine[6];
+            int height = Integer.parseInt(splitLine[2]);
+            int activityLevel = Integer.parseInt(splitLine[3]);
+            boolean loseWeight = Boolean.parseBoolean(splitLine[4]);
+            String sex = splitLine[5];
             if (sex.equals("M")) {
-                return new User(name, age, weight, height, Gender.MALE, activityLevel, loseWeight);
+                tempUser = new User(name, age, height, Gender.MALE, activityLevel, loseWeight);
             } else {
-                return new User(name, age, weight, height, Gender.FEMALE, activityLevel, loseWeight);
+                tempUser = new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight);
             }
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] splitWeightInfo = line.split("\\|");
+                tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
+            }
+            bufferedReader.close();
+            return tempUser;
         } catch (Exception e) {
-            throw new DukeException("Unable to access file");
+            throw new DukeException(e.getMessage());
         }
     }
 
     public void saveUser(User user) throws DukeException {
-        String toWrite = user.getName() + "|" + user.getAge() + "|" + user.getWeight() + "|"
+        String toWrite = user.getName() + "|" + user.getAge() + "|"
                 + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
         if (user.getSex() == Gender.MALE) {
             toWrite += "M";
         } else {
             toWrite += "F";
+        }
+        ArrayList<tuple> allWeight = user.getAllWeight();
+        for (int i = 0; i < user.getAllWeight().size(); i += 1) {
+            toWrite += "\n";
+            String date = allWeight.get(i).date;
+            int weight = allWeight.get(i).weight;
+            toWrite += date + "|" + weight;
         }
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(nameFile));

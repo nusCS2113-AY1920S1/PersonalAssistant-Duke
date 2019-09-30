@@ -7,6 +7,8 @@ import duke.storage.Storage;
 import duke.exceptions.DukeException;
 import duke.user.User;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -20,8 +22,14 @@ public class ListCommand extends Command {
     public ListCommand() {
     }
 
-    public ListCommand(String date) {
-        currentDate = date;
+    public ListCommand(String date) throws DukeException {
+        Date temp;
+        try {
+            temp = dateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new DukeException(e.getMessage());
+        }
+        currentDate = dateFormat.format(temp);
     }
 
     /**

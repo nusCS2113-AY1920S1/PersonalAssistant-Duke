@@ -2,11 +2,16 @@ package duke.user;
 
 import duke.exceptions.DukeException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class User {
-    private ArrayList<Integer> weight = new ArrayList();
+    private ArrayList<tuple> weight = new ArrayList();
     private int height = 0;
     private int age;
     private Gender sex;
@@ -20,9 +25,8 @@ public class User {
         this.isSetup = false;
     }
 
-    public User(String name, int age, int weight, int height, Gender sex, int activityLevel, boolean loseWeight) {
+    public User(String name, int age, int height, Gender sex, int activityLevel, boolean loseWeight) {
         this.name = name;
-        this.weight.add(weight);
         this.height = height;
         this.sex = sex;
         this.isSetup = true;
@@ -85,14 +89,29 @@ public class User {
             this.loseWeight = false;
         }
         this.name = name;
-        this.weight.add(weight);
+        setWeight(weight);
         this.height = height;
         this.activityLevel = activityLevel;
         this.isSetup = true;
     }
 
     public void setWeight(int weight) {
-        this.weight.add(weight);
+        Calendar calendarDate = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(calendarDate.getTime());
+        this.weight.add(new tuple(currentDate, weight));
+    }
+
+    public void setWeight(int weight, String date) throws DukeException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date temp;
+        try {
+            temp = dateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new DukeException(e.getMessage());
+        }
+        String currentDate = dateFormat.format(temp.getTime());
+        this.weight.add(new tuple(currentDate, weight));
     }
 
     public void setHeight(int height) {
@@ -124,11 +143,10 @@ public class User {
     }
 
     public int getWeight() {
-        return this.weight.get(this.weight.size() - 1);
+        return this.weight.get(this.weight.size() - 1).weight;
     }
 
-
-    public ArrayList<Integer> getAllWeight() {
+    public ArrayList<tuple> getAllWeight() {
         return this.weight;
     }
 

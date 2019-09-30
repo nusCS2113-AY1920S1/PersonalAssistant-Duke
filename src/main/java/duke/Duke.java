@@ -38,6 +38,7 @@ public class Duke {
         try {
             user = storage.loadUser();
         } catch (DukeException e) {
+            ui.showError(e.getMessage());
             ui.showUserLoadingError();
         }
     }
