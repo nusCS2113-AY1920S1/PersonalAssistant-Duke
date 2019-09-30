@@ -50,7 +50,7 @@
             </HBox>
             <HBox prefHeight="21.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                <children>
-                  <DatePicker fx:id="datePicker" onAction="#handleDateInput" prefHeight="35.0" prefWidth="184.0" HBox.hgrow="ALWAYS">
+                  <DatePicker fx:id="datePicker" prefHeight="35.0" prefWidth="184.0" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
