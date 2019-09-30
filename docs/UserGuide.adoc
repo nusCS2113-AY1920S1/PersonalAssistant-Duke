@@ -156,6 +156,10 @@ To see a list of commands available, simply enter `/help` in the *command box*.
 Alternatively, you can access this User Guide document by clicking link:{repoURL}/blob/master/docs/UserGuide.adoc[here].
 ====
 
+==== Undo Commands: `/undo`
+Accidentally typed a wrong command? Don't worry, simply type the `/undo` command and you will be back to where you
+started!
+
 ==== Exiting OwlMoney : `/exit`
 If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
 Hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
@@ -259,6 +263,24 @@ Here's how you can use the `/add /investment` command.
 Adds an investment account named `DBB Vickers Account` which has an initial amount
 of $`10000` inside that you can start investing with.
 
+==== `/bonds`
+Signed up for a bond? Finding it difficult to keep up with the interest?
+No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
+
+*Command Syntax*
+`/add /bonds /from BANK_NAME /name BOND_NAME /amount AMOUNT /rate RATE`
+
+[WARNING]
+====
+An investment account needs to be created first to add bonds.
+====
+
+*Example*
+
+* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+
+Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`%/
+
 ===== `/card`
 Have a credit card? We can help you track your spending and cashback rebates with it! +
 Here's how you can use the `/add /card` command.
@@ -330,10 +352,10 @@ Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Tel
 Account`
 categorised under the `Bills` category.
 
-`/add /recurexpenditure /amount 2000 /from POBB Vickers Account /frequency month /description AAB Bonds /category
+`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /description AAB Bonds /category
 Investments`
 
-Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `POBB Vickers
+Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
 Account`
 categorised under the `Investments` category.
 
@@ -393,18 +415,31 @@ At least one of /newname, /amount must be used.
 
 *Example*
 
-* `/edit /investment /name POBB Vickers Account /newname OBOB Securities Account`
+* `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account`
 
-Changes the name of the account from `POBB Vickers Account` to `OBOB Securities Account`.
+Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account`.
 
-* `/edit /investment /name POBB Vickers Account /amount 50000`
+* `/edit /investment /name DBB Vickers Account /amount 50000`
 
-Changes the amount in `POBB Vickers Account` to $`50 000`.
+Changes the amount in `DBB Vickers Account` to $`50 000`.
 
-* `/edit /investment /name POBB Vickers Account /newname OBOB Securities Account /amount 50000`
+* `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account /amount 50000`
 
-Changes the name of the account from `POBB Vickers Account` to `OBOB Securities Account` and the amount in the account
+Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
 to $`50 000`.
+
+==== `/bonds`
+Change in your investment details? Edit them here!
+
+*Command Syntax*
+`/edit /bonds /from BANK_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate RATE]`
+
+*Example*
+
+* `/edit /bonds /from DBB Vickers Account /name June SSB /amount 5000 /rate 1.98`
+
+Changes the bond named `June SSB` charged to `DBB Vickers Account` to a new amount of $`5000` with new interest rate
+of `1.98`%.
 
 ===== `/card`
 
@@ -539,9 +574,21 @@ All transactions related to the bank account will be deleted.
 
 *Example*
 
-* `/delete /investment /name POBB Vickers Account`
+* `/delete /investment /name DB Vickers Account`
 
-Deletes an investment account named `POBB Vickers Account`.
+Deletes an investment account named `DBB Vickers Account`.
+
+==== `/bonds`
+Sold your bonds? Delete it from `OwlMoney`!
+
+*Command Syntax*
+`/delete /bonds /from BANK_NAME /name BOND_NAME`
+
+*Example*
+
+* `/delete /bonds /from DBB Vickers Account /name June SSB`
+
+Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
 
 ===== `/card`
 
@@ -679,9 +726,9 @@ Transferred money between accounts? We can do that too.
 
 Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
 
-* `/transfer /investment /from POBB Vickers Account /to JunBank Savings Account /amount 250`
+* `/transfer /investment /from DBB Vickers Account /to JunBank Savings Account /amount 250`
 
-Transfers $`250` from `POBB Vickers Account` to `JunBank Savings Account`.
+Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
