@@ -16,6 +16,18 @@ public class Wallet {
     private LoanList loanList;
 
     /**
+     * Default constructor with no data.
+     */
+    public Wallet() {
+        this.recordList = new RecordList();
+        this.expenseList = new ExpenseList();
+        this.contactList = new ContactList();
+        this.taskList = new TaskList();
+        this.scheduleList = new ScheduleList();
+        this.loanList = new LoanList();
+    }
+
+    /**
      * Constructs a Wallet object.
      * @param recordList The RecordList object.
      * @param expenseList The ExpenseList object.

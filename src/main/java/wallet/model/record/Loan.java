@@ -96,4 +96,9 @@ public class Loan extends Record {
                     + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate());
         }
     }
+
+    @Override
+    public String writeToFile() {
+        return null;
+    }
 }

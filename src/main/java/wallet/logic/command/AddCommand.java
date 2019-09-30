@@ -6,16 +6,24 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
 import wallet.storage.Storage;
+import wallet.storage.StorageManager;
 
 /**
  * The AddCommand Class which extends Command.
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
+    public static final String MESSAGE_USAGE = "Usage for add command."
+            + "\nThe options for recurrence rate (/r) are \\\"daily, weekly or monthly\\\""
+            + "\nExample: " + COMMAND_WORD + "expense lunch $5 Food /on 20/02/2019"
+            + "\nExample: " + COMMAND_WORD + "expense phone bills $100 bills /on 10/10/2019 /r monthly"
+            + "\nExample: " + COMMAND_WORD + "expense dinner $10 Food";
     public static final String MESSAGE_SUCCESS_ADD_TASK = "Got it. I've added this task:";
     public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
+    public static final String MESSAGE_ERROR_ADD_EXPENSE = "Error in format when adding expense.\n"
+                                                            + MESSAGE_USAGE;
 
     private Expense expense = null;
     private Task task = null;
@@ -62,22 +70,23 @@ public class AddCommand extends Command {
      * Add the Record objects into their respective lists and returns false.
      *
      * @param wallet  The Wallet object.
-     * @param storage The Storage object.
+     * @param storageManager The StorageManager object.
      * @return a boolean variable which indicates
      */
     @Override
-    public boolean execute(Wallet wallet, Storage storage) {
+    public boolean execute(Wallet wallet, StorageManager storageManager) {
         if (expense != null) {
             wallet.getExpenseList().addExpense(expense);
             wallet.getRecordList().addRecord(expense);
+            storageManager.addExpense(expense);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             System.out.println(expense.toString());
         }
         if (task != null) {
             wallet.getTaskList().addTask(task);
+            storageManager.addTask(task);
             System.out.println(MESSAGE_SUCCESS_ADD_TASK);
             System.out.println(task.toString());
-            storage.writeFile(task);
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);

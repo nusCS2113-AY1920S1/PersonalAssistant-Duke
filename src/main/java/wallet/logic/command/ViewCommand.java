@@ -2,8 +2,7 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
-import wallet.model.record.Loan;
-import wallet.storage.Storage;
+import wallet.storage.StorageManager;
 import wallet.ui.Ui;
 
 import java.time.LocalDate;
@@ -27,7 +26,7 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet, Storage storage) {
+    public boolean execute(Wallet wallet, StorageManager storageManager) {
         Ui ui = new Ui();
         if (type.equals("all")) {
             if (wallet.getExpenseList().getSize() != 0) {

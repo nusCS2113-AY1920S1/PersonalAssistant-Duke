@@ -5,27 +5,30 @@ import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
 import wallet.model.record.ExpenseList;
+import wallet.model.record.ExpenseParser;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.storage.Storage;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
+import wallet.storage.StorageManager;
+import wallet.storage.TaskStorage;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
  */
 public class LogicManager {
-    private final Storage storage;
+    private final StorageManager storageManager;
     private final ParserManager parserManager;
     private final Wallet wallet;
 
     /**
      * Constructs a LogicManager object.
      */
-    public LogicManager(Storage storage) {
-        this.storage = storage;
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(), new ContactList(),
-                new TaskList(storage.loadFile()), new ScheduleList(), new LoanList());
+    public LogicManager() {
+        this.storageManager = new StorageManager();
+        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()), new ContactList(),
+                new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList());
         this.parserManager = new ParserManager();
     }
 
@@ -38,7 +41,8 @@ public class LogicManager {
         boolean isExit = false;
         try {
             Command command = parserManager.parseCommand(fullCommand);
-            isExit = command.execute(wallet, storage);
+            isExit = command.execute(wallet, storageManager);
+            ExpenseParser.updateRecurringRecords(wallet, storageManager);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error encountered while executing command.");

@@ -14,6 +14,7 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListCommand(input);
         }
 
+        System.out.println(ListCommand.MESSAGE_USAGE);
         return null;
     }
 }
