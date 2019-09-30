@@ -2,6 +2,7 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.storage.StorageManager;
 import wallet.ui.Ui;
 
