@@ -1,6 +1,6 @@
-T | + | text ui testing
-D | - | watch movie | 69/9/2019 1830
-E | - | go run | track
-D | + | buy book | 12/12/2019 1800
-D | + | sell ipad | 26/9/2019 1230
-D | - | buy phone | 8/11/2019 2300
+T | - | homework
+D | - | assignment | 22/11/2011 2359
+P | - | sleep | this | then
+R | + | sleep | daily
+R | + | assignment | weekly | Thursday
+R | + | exams | monthly | 21
