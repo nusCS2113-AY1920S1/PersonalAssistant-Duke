@@ -95,12 +95,14 @@ public class DailyCal {
     private void setTime() {
         for (Task task : arrList) {
 
-            int tempTime = Integer.parseInt(task.getStringStartTime().substring(0, 2));
-            if (tempTime < startTime) {
-                startTime = tempTime;
+            int tempStartTime = Integer.parseInt(task.getStringStartTime().substring(0, 2));
+            if (tempStartTime < startTime) {
+                startTime = tempStartTime;
             }
-            if (tempTime > endTime) {
-                endTime = tempTime;
+
+            int tempEndTime = Integer.parseInt(task.getStringEndTime().substring(0, 2));
+            if (tempEndTime > endTime) {
+                endTime = tempEndTime;
             }
         }
 
@@ -204,7 +206,7 @@ public class DailyCal {
                     double heightYMin = heightY * totalMin;
                     double heightYHour = pixelBlock * totalHour;
                     Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
-                    rectangle.setFill(Color.FIREBRICK);
+                    rectangle.setFill(colorFill(task));
                     rectangle.setStroke(Color.CORNFLOWERBLUE);
                     final StackPane stack = new StackPane();
                     final Text text = new Text(desc);
@@ -219,13 +221,29 @@ public class DailyCal {
     }
 
     /**
+     * Set color of rectangle to depending on the scenario below.
+     * If task is done, color is set to DARKSEAGREEN.
+     * if is off school related event, color is set to DEEPPINK.
+     */
+    private Color colorFill(Task t) {
+        if (t.getisDone().equals("true")) {
+            return Color.DARKSEAGREEN;
+        } else if (t.getSymbol().matches("LECT|TUT|SECT|LAB|RT")) {
+            return Color.DEEPPINK;
+        } else if (t.getSymbol().equals("E")) {
+            return Color.GOLDENROD;
+        }
+        return Color.BLUE;
+    }
+
+    /**
      * Store schedule axis of current time.
      */
     private void storeScheduleAxis(int currentTime) {
         int eventCounter = 0;
         int moveRight = 100;
         double prevX = 0;
-        double prexY = 0;
+        double prevY = 0;
         double pixelBlock = 100.00;
         int hourInMin = 60;
         for (Task task : arrList) {
@@ -251,20 +269,33 @@ public class DailyCal {
                 double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
                 double downPX = pxPerMin * startMin;
                 //store a Rectangle location.
-                if (prevX == 0 && prexY == 0) {
+                if (prevX == 0 && prevY == 0) {
                     storedXAxis[currentTime][eventCounter] += horizontalXLayout + moveRight;
-                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX;
+                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX -50;
+                    prevX = horizontalXLayout + moveRight;
+                    prevY = horizontalYLayout + downPX ;
                 } else {
+                    System.out.println("TESTR");
                     storedXAxis[currentTime][eventCounter] += prevX + moveRight;
-                    storedYAxis[currentTime][eventCounter] += prexY + downPX;
+                    storedYAxis[currentTime][eventCounter] += prevY  - 50;
+                    prevX = horizontalXLayout + moveRight;
+                    prevY = horizontalYLayout + downPX ;
                 }
 
                 int futureEndTime = Integer.parseInt(task.getStringEndTime().substring(0, 2));
+                System.out.println(currentTime);
+                System.out.println(futureEndTime);
                 for (int futureTime = currentTime + 1; futureTime < futureEndTime; futureTime++) {
+                    System.out.println(futureTime);
                     storedXAxis[futureTime][eventCounter] += 100;
                 }
-                prevX = horizontalXLayout + moveRight;
-                prexY = horizontalYLayout + downPX;
+
+
+                if(currentTime==13){
+                    System.out.println(storedXAxis[currentTime][eventCounter]);
+                    System.out.println(storedYAxis[currentTime][eventCounter]);
+                    System.out.println();
+                }
                 moveRight += 100;
                 eventCounter += 1;
             }
