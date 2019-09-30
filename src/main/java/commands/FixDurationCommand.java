@@ -4,15 +4,24 @@ import Storage.Storage;
 import Tasks.FixedDuration;
 import Tasks.Task;
 import UI.Ui;
+
 import java.io.IOException;
+
 import Exception.DukeException;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
 public class FixDurationCommand extends Command {
+    /**
+     * @param list    task list
+     * @param ui      the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data to the Save.txt file.
+     * @throws IOException
+     * @throws NullPointerException if tDate doesn't get updated.
+     */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException, NullPointerException {
         String description = "";
         String duration = "";
         String[] splitstring;
@@ -32,6 +41,11 @@ public class FixDurationCommand extends Command {
         storage.Storages(sb.toString());
     }
 
+    /**
+     * Tells the main Duke class that the system should not exit and continue running
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;

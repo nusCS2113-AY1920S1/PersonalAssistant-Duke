@@ -29,6 +29,11 @@ public class DoAfterCommand extends Command {
         storage.Storages(sb.toString());
     }
 
+    /**
+     * Tells the main Duke class that the system should not exit and continue running
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
