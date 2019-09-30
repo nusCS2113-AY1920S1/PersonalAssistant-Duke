@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
+import seedu.duke.email.Email;
+import seedu.duke.email.EmailParser;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -18,6 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -53,12 +56,20 @@ public class Http {
         JSONObject apiParams = new JSONObject();
         try {
             apiParams.put("select", "subject,from,body,receivedDateTime");
-            apiParams.put("top", "25");
+            apiParams.put("top", "2");
             apiParams.put("orderby", "receivedDateTime");
         } catch (JSONException e) {
             Duke.getUI().showError("Api parameter error...");
         }
-        Duke.getUI().showDebug(callEmailApi(apiParams));
+        try {
+            ArrayList<Email> emailList = EmailParser.parseFetchResponse(callEmailApi(apiParams));
+            for (Email email : emailList) {
+                Duke.getUI().showMessage(email.toCliString());
+            }
+        } catch (EmailParser.EmailParsingException e) {
+            Duke.getUI().showError(e.toString());
+        }
+        //Duke.getUI().showDebug(callEmailApi(apiParams));
     }
 
     /**

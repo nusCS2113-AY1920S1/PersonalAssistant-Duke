@@ -80,7 +80,7 @@ public class EmailStorage {
     //
 
     /**
-     * To save the information for the emailList including title and tags(not implemented yet) for each
+     * To save the information for the emailList including subject and tags(not implemented yet) for each
      * email before exiting the app.
      *
      * @param emailList the emailList to be saved before exiting the app.
@@ -123,9 +123,9 @@ public class EmailStorage {
         boolean[] inEmailList = new boolean[htmlList.size()];
 
         for (Email email : emailList) {
-            String title = email.getTitle();
+            String subject = email.getSubject();
             for (int j = 0; j < htmlList.size(); j++) {
-                if (htmlList.get(j).equals(title)) {
+                if (htmlList.get(j).equals(subject)) {
                     inEmailList[j] = true;
                     // Add the email to syncedEmailList if the email has html file in local storage.
                     // So email without its html file will not be added.
@@ -135,9 +135,9 @@ public class EmailStorage {
         }
         for (int j = 0; j < htmlList.size(); j++) {
             if (!inEmailList[j]) {
-                String title = htmlList.get(j);
+                String subject = htmlList.get(j);
                 // Add the email(previously not in emailList) to syncedEmailList.
-                syncedEmailList.add(new Email(title));
+                syncedEmailList.add(new Email(subject));
             }
         }
         emailList = null; // it will be automatically deleted by the garbage collector.
@@ -184,8 +184,8 @@ public class EmailStorage {
                 if (input.length() <= 2) {
                     throw new Storage.StorageException("Invalid Save File!");
                 }
-                String title = input.split("\\|")[0].strip();
-                Email email = new Email(title);
+                String subject = input.split("\\|")[0].strip();
+                Email email = new Email(subject);
                 emailList.add(email);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");

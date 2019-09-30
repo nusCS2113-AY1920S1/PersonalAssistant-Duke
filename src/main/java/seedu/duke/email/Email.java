@@ -1,22 +1,36 @@
 package seedu.duke.email;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class Email {
     protected String filepath;
-    protected String title;
-    protected String sender;
+    protected String subject;
+    protected EmailParser.Sender from;
+    protected LocalDateTime receivedDateTime;
+    protected String body;
     protected Boolean hasHtml;
     protected String tag;
-    protected static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
-    public Email(String title) {
-        this.title = title;
+    public Email(String subject) {
+        this.subject = subject;
         this.filepath = getEmailFilePath();
+    }
+
+    public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
+        this.subject = subject;
+        this.from = from;
+        this.receivedDateTime = receivedDateTime;
+        this.body = body;
     }
 
     /**
@@ -24,8 +38,8 @@ public class Email {
      *
      * @return title of this email.
      */
-    public String getTitle() {
-        return this.title;
+    public String getSubject() {
+        return this.subject;
     }
 
     public void setTag(String tag) {
@@ -38,7 +52,7 @@ public class Email {
      * @return pathname for this email.
      */
     public String getEmailFilePath() {
-        return getFolderDir() + File.separator + this.title;
+        return getFolderDir() + File.separator + this.subject;
     }
 
     /**
@@ -76,7 +90,18 @@ public class Email {
      * @return a string with all the information of this email.
      */
     public String toFileString() {
-        String filestring = this.title + " | ";  // to add on info such as tags.
+        String filestring = this.subject + " | ";  // to add on info such as tags.
         return filestring;
+    }
+
+    private String getDateTimeString() {
+        return EmailParser.formatEmailDateTime(receivedDateTime);
+    }
+
+    public String toCliString() {
+        String output = this.subject + "\n\t" + "From: " + this.from.toString() + "\n\t" +
+                "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
+                + "...\n";
+        return output;
     }
 }
