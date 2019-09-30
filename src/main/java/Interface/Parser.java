@@ -23,8 +23,25 @@ public class Parser {
         try {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
-            } else if (fullCommand.trim().equals("list")) {
-                return new ListCommand();
+            } else if (fullCommand.trim().substring(0, 4).equals("list")) {
+                try {
+                    String list = fullCommand.trim().substring(5);
+                    if (list.trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! Please do not leave name of list blank.");
+                    } else if (list.trim().equals("todo")) {
+                        return new ListCommand(list);
+                    } else if (list.trim().equals("event")) {
+                        return new ListCommand(list);
+                    } else if (list.trim().equals("deadline")) {
+                        return new ListCommand(list);
+                    } else {
+                        throw new DukeException("\u2639" + " OOPS!!! Please enter name of list");
+                    }
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please enter list as follows:\n" +
+                            "list name_of_list_to_view\n" +
+                            "For example: list todo");
+                }
             } else if (fullCommand.trim().substring(0, 4).equals("done")) {
                 try {
                     arr = fullCommand.split(" ");
@@ -51,7 +68,6 @@ public class Parser {
                 if (activity.isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                 } else {
-
                     return new AddCommand(new Todo(activity));
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("event")) {
@@ -75,13 +91,21 @@ public class Parser {
                 return new RemindCommand();
             } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
-                    arr = fullCommand.split(" ");
+                    arr = fullCommand.trim().substring(7).split(" ");
+                    String list = arr[0].trim();
                     int index = Integer.parseInt(arr[1]) - 1;
-                    return new DeleteCommand(index);
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The name of list cannot be empty.");
+                    } else if (!list.trim().equals("todo") && !list.trim().equals("event") && !list.trim().equals("deadline")) {
+                        throw new DukeException("OOPS!!! Please enter delete as follows:\n" +
+                                "delete name_of_list task_number\n" +
+                                "For example: delete todo 1");
+                    }
+                    return new DeleteCommand(index, arr[0]);
                 } catch (NumberFormatException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please enter a valid task number.");
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
+                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number or list name blank.");
                 }
             } else if (fullCommand.trim().substring(0, 8).equals("deadline")) {
                 try {

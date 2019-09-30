@@ -23,15 +23,14 @@ public class FindEarliestFreeTimesCommand extends Command {
 
     /**
      * Executes the finding of earliest available block period inside the TaskList object with the given duration.
-     * @param list The TaskList object used to find the earliest free time with the given duration
      * @param ui The Ui object to display the earliest free time message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display find free time message
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
-        Pair<Date, Date> freeTime = list.findEarliestFreeTime(duration);
+        Pair<Date, Date> freeTime = events.findEarliestFreeTime(duration);
         String message = dateFormat.format(freeTime.getKey()) + " until " + dateFormat.format(freeTime.getValue());
         return ui.showFreeTimes(message);
     }

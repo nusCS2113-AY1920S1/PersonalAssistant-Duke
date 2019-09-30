@@ -84,21 +84,6 @@ public class TaskList {
     }
 
     /**
-     * This method finds the tasks in the ArrayList that contains the keyword.
-     * @param key The keyword input by the user
-     * @return This returns a TaskList object containing all the tasks with the keyword
-     */
-    public TaskList findTask(String key) {
-        TaskList temp = new TaskList();
-        for (Task task : list) {
-            if (task.getDescription().contains(key)) {
-                temp.addTask(task);
-            }
-        }
-        return temp;
-    }
-
-    /**
      * This method generates a increased a dateTime given and a given duration and returns the new dateTime
      * @param inDate The dateTime given
      * @param duration The duration given
