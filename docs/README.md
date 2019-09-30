@@ -1,7 +1,7 @@
 # Restaurant Manager - User Guide
 
 1.  Introduction
-2. Quick Start 
+2. Quick Start
 3. Features
    - bye: Exit the program. [Level-1]
    - list: Show all the tasks. [Level-2]
@@ -17,7 +17,7 @@
 
 ## 1. Introduction
 
-Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc. By using this product, you are able to order all the ingredients needed for your kitchen. Additionally, you can try out new recipes and save it in Duke. you can also view customer feedback. 
+Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc. By using this product, you are able to order all the ingredients needed for your kitchen. Additionally, you can try out new recipes and save it in Duke. you can also view customer feedback.
 
 ## 2. Quick Start
 
@@ -31,22 +31,22 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
    ![UI](https://github.com/9hafidz6/main/blob/master/docs/images/UI.png)
 
-5. Type into the INPUT box some commands and press ENTER to execute 
+5. Type into the INPUT box some commands and press ENTER to execute
 
 6. Some example commands
 
-   1. **list**: lists out all the tasks 
-   2. **deadline** prepare new recipe **/by** 1/1/2019: adds a deadline task "prepare new recipe" into your list by "1/1/2019" 
+   1. **list**: lists out all the tasks
+   2. **deadline** prepare new recipe **/by** 1/1/2019: adds a deadline task "prepare new recipe" into your list by "1/1/2019"
    3. **bye**: exits the program
 
-7. Refer to Section 4 for the full list of features 
+7. Refer to Section 4 for the full list of features
 
-## 3. Features 
+## 3. Features
 
 **command format**
 
 - commands are in `UPPER_CASE` are to be provided by the user eg. `todo d/DESC`, `DESC` is a parameter which can be used as `todo d/buy groceries`
-- 
+-
 
 ### 3.1 bye: Exit the program. [Level-1]
 
@@ -56,7 +56,7 @@ Format: `bye` 
 
 ### 3.2 list: Show all the tasks. [Level-2]
 
-Shows all the task marked done/undone to the user 
+Shows all the task marked done/undone to the user
 
 Format: `list`
 
@@ -82,9 +82,9 @@ creates  a new task, todo where user enters the description of the task that nee
 
 Format: `todo` <desc>
 
-eg. `todo order eggs`, stores T|0|order eggs, outputs [ T ] [ ✘ ] order eggs 
+eg. `todo order eggs`, stores T|0|order eggs, outputs [ T ] [ ✘ ] order eggs
 
-	 Got it. I've added this task: 
+	 Got it. I've added this task:
 	 [T][✘] order eggs
 	 Now you have 6 tasks in the list.
 ### 3.5 deadline: Create a new deadline task. [Level-4]
@@ -95,7 +95,7 @@ Format: `deadline` <desc> `/by` <desc>
 
 eg. `deadline submit review /by 1/1/2019`, stores D|0|submit review|1/1/2019 , outputs [ D ] [ ✘ ] submit review (/by: 1/1/2019)
 
-	 Got it. I've added this task: 
+	 Got it. I've added this task:
 	 [D][✘ ] submit review(by: 1/1/2019)
 	 Now you have 5 tasks in the list.
 ### 3.6 event: Create a new event task. [Level-4]
@@ -106,7 +106,7 @@ Format: `event`<desc> `/at` <desc>
 
 eg. `event birthday /at multi purpose hall`, stores E|0|submit review|multi purpose hall , outputs       [ED ] [ ✘ ] birthday (/at: multi purpose hall)
 
-	 Got it. I've added this task: 
+	 Got it. I've added this task:
 	 [E][✘] birthday(at: multi purpose hall)
 	 Now you have 4 tasks in the list.
 ### 3.8 Load and save tasks to hard disk. [Level-7]
@@ -128,9 +128,9 @@ eg. `delete 1`, deletes the first task that is stored in Duke, if task does not 
 
 finds a task in Duke which contains a specific word or description
 
-Format: `find` <desc> 
+Format: `find` <desc>
 
-eg. `find eggs`, iterates through all the task in Duke and if any of the tasks contains the description, output the task to the user 
+eg. `find eggs`, iterates through all the task in Duke and if any of the tasks contains the description, output the task to the user
 
 	 	Here are the matching tasks in your list:
 	 1.[T][✘] stock up on eggs
@@ -150,4 +150,4 @@ Index | Keyword  | Usage
 6     | event    | event \<desc\> /at \<date\>
 7     | delete   | delete \<indx\>
 8     | find     | find \<desc\>
-9 | remind | remind 
+9 | remind | remind
