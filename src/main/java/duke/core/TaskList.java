@@ -161,8 +161,10 @@ public class TaskList {
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < items.size(); i++) {
             Task thisTask = items.get(i);
-            if(thisTask.getDateAsString().contains(dateEntered)){
-                list.add((i+1) + ". " + thisTask.toString());
+            if (thisTask.getDate() != null) {
+                if (thisTask.getDateAsString().contains(dateEntered)){
+                    list.add((i+1) + ". " + thisTask.toString());
+                }
             }
         }
         return list;
