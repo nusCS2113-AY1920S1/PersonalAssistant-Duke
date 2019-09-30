@@ -417,7 +417,7 @@ public class Ui {
     }
 
     /**
-     * Refresh view date
+     * Refresh view date.
      *
      * @param dateToStore date to view of daily calender
      */
