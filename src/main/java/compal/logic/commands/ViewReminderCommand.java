@@ -6,9 +6,7 @@ import compal.tasks.Task;
 import compal.tasks.TaskList;
 import javafx.scene.paint.Color;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;

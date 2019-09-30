@@ -13,7 +13,6 @@ import compal.logic.commands.FixedDurationCommand;
 import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
 import compal.logic.commands.SetReminderCommand;
-import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
 import compal.logic.commands.ViewReminderCommand;
 import compal.tasks.TaskList;
