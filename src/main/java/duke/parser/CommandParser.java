@@ -72,11 +72,11 @@ public class CommandParser {
         if (!(params.containsKey("secondary")
                 || params.containsKey("i"))
                 && !params.containsKey("id")) {
-            throw new DukeException("Too few parameters");
+            throw new DukeException("must contain ids or indexes or both");
         }
 
-        if (params.containsKey("secondary") == params.containsKey("i")) {
-            throw new DukeException("Too many parameters");
+        if (params.containsKey("secondary") && (params.containsKey("i") || params.containsKey("id"))) {
+            throw new DukeException("Primary parameter cannot co-exist with -i or -id.");
         }
     }
 
