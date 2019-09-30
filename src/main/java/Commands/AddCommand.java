@@ -64,7 +64,7 @@ public class  AddCommand extends Command {
                 storage.updateDeadlineList(deadlines);
             }
         }
-        return  out;
+        return out;
 
     }
 }
