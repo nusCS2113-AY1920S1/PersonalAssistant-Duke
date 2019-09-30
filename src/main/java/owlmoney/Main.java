@@ -2,7 +2,11 @@ package owlmoney;
 
 import owlmoney.logic.parser.ParseCommand;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
+
+import java.util.Scanner;
+
 
 /**
  * The main class.
@@ -12,6 +16,7 @@ class Main {
 
     private Ui ui;
     private ParseCommand parser;
+    private Profile profile;
     //private Storage storage;
 
     /**
@@ -34,10 +39,16 @@ class Main {
      */
     private void run() {
         boolean hasExited = false;
-        ui.greet();
+        //Temporary do this chunk
+        ui.firstTimeRun();
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
+        profile = new Profile(username);
+        // until above this line
+        ui.greet(profile.getUsername());
         while (parser.hasNextLine()) {
             try {
-                parser.parseLine();
+                parser.parseLine(profile);
             } catch (ParserException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }

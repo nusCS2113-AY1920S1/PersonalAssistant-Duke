@@ -19,9 +19,14 @@ public class Ui {
     /**
      * Prints a greeting message to the user, which happens at startup.
      */
-    public void greet() {
+    public void greet(String username) {
+        printMessage("Welcome " + username + "!");
         printMessage("Hello! I'm OwlMoney");
         printMessage("What can I do for you?");
+    }
+
+    public void firstTimeRun() {
+        printMessage("Please enter a username:");
     }
 
     /**

@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Map;
 
+import owlmoney.model.profile.Profile;
+
+import owlmoney.logic.command.bank.AddSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddSaving extends ParseSaving {
@@ -19,10 +22,11 @@ public class ParseAddSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (NEW_NAME.equals(key)) {
+            if (NEW_NAME.equals(key) && !savingsParameters.get(key).isEmpty()
+                    && !savingsParameters.get(key).isBlank()) {
                 throw new ParserException("/newname parameter cannot be used for adding.");
             }
-            if (value.isBlank() || value.isEmpty()) {
+            if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
             if (INCOME.equals(key) || AMOUNT.equals(key)) {
@@ -31,5 +35,13 @@ public class ParseAddSaving extends ParseSaving {
         }
     }
 
+    //current name is just a place holder. This is to create the command and execute it
+    //might need to restructure in future
+    public void passToCommand(Profile profile) {
+        AddSavingsCommand newAddSavingsCommand = new AddSavingsCommand(savingsParameters.get(NAME),
+                Double.parseDouble(savingsParameters.get(INCOME)),
+                Double.parseDouble(savingsParameters.get(AMOUNT)));
+        newAddSavingsCommand.execute(profile);
+    }
 
 }
