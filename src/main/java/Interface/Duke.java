@@ -3,8 +3,10 @@ import Tasks.*;
 import Commands.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * A program that manages tasks input by user
@@ -14,23 +16,33 @@ import java.text.ParseException;
 public class Duke extends Application {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList events;
+    private TaskList todos;
+    private TaskList deadlines;
     private Ui ui;
 
     /**
      * Creates Duke object.
      */
     public Duke() {
-        String filePath = System.getProperty("user.dir") + "\\data\\duke.txt";
+
         ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList();
+        storage = new Storage();
+        todos = new TaskList();
+        events = new TaskList();
+        deadlines = new TaskList();
         try {
-            storage.readFile(tasks);
+            storage.readTodoList(todos);
+            storage.readDeadlineList(deadlines);
+            storage.readEventList(events);
         } catch (IOException | ParseException e) {
             ui.showLoadingError(e);
-            tasks = new TaskList();
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        //...
     }
 
     /**
@@ -41,18 +53,13 @@ public class Duke extends Application {
     private String run(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(todos, events, deadlines, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e);
         } catch (Exception e) {
             return e.getMessage();
         }
    }
-
-    @Override
-    public void start(Stage stage) {
-        //...
-    }
 
     /**
      * This method is to get the response to the user's input.

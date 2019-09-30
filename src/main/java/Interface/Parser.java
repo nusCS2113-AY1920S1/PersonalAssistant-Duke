@@ -3,7 +3,6 @@ import Commands.*;
 import Tasks.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 /**
@@ -24,13 +23,26 @@ public class Parser {
         try {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
-            }
-
-            else if (fullCommand.trim().equals("list")) {
-                return new ListCommand();
-            }
-
-            else if (fullCommand.trim().substring(0, 4).equals("done")) {
+            } else if (fullCommand.trim().substring(0, 4).equals("list")) {
+                try {
+                    String list = fullCommand.trim().substring(5);
+                    if (list.trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! Please do not leave name of list blank.");
+                    } else if (list.trim().equals("todo")) {
+                        return new ListCommand(list);
+                    } else if (list.trim().equals("event")) {
+                        return new ListCommand(list);
+                    } else if (list.trim().equals("deadline")) {
+                        return new ListCommand(list);
+                    } else {
+                        throw new DukeException("\u2639" + " OOPS!!! Please enter name of list");
+                    }
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please enter list as follows:\n" +
+                            "list name_of_list_to_view\n" +
+                            "For example: list todo");
+                }
+            } else if (fullCommand.trim().substring(0, 4).equals("done")) {
                 try {
                     arr = fullCommand.split(" ");
                     int index = Integer.parseInt(arr[1]) - 1;
@@ -40,9 +52,7 @@ public class Parser {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
                 }
-            }
-
-            else if (fullCommand.trim().substring(0, 4).equals("find")) {
+            } else if (fullCommand.trim().substring(0, 4).equals("find")) {
                 try {
                     String key = fullCommand.trim().substring(5);
                     if (key.trim().isEmpty()) {
@@ -53,19 +63,14 @@ public class Parser {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please enter keyword.");
                 }
-            }
-
-            else if (fullCommand.trim().substring(0, 4).equals("todo")) {
+            } else if (fullCommand.trim().substring(0, 4).equals("todo")) {
                 String activity = fullCommand.trim().substring(4).trim();
                 if (activity.isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                 } else {
-
                     return new AddCommand(new Todo(activity));
                 }
-            }
-
-            else if (fullCommand.trim().substring(0, 5).equals("event")) {
+            } else if (fullCommand.trim().substring(0, 5).equals("event")) {
                 try {
                     String activity = fullCommand.trim().substring(5);
                     arr = activity.split("/at");
@@ -82,25 +87,27 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 1500");
                 }
-            }
-
-            else if (fullCommand.trim().substring(0,6).equals("remind")){
+            } else if (fullCommand.trim().substring(0,6).equals("remind")){
                 return new RemindCommand();
-            }
-
-            else if (fullCommand.trim().substring(0, 6).equals("delete")) {
+            } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
-                    arr = fullCommand.split(" ");
+                    arr = fullCommand.trim().substring(7).split(" ");
+                    String list = arr[0].trim();
                     int index = Integer.parseInt(arr[1]) - 1;
-                    return new DeleteCommand(index);
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The name of list cannot be empty.");
+                    } else if (!list.trim().equals("todo") && !list.trim().equals("event") && !list.trim().equals("deadline")) {
+                        throw new DukeException("OOPS!!! Please enter delete as follows:\n" +
+                                "delete name_of_list task_number\n" +
+                                "For example: delete todo 1");
+                    }
+                    return new DeleteCommand(index, arr[0]);
                 } catch (NumberFormatException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please enter a valid task number.");
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
+                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number or list name blank.");
                 }
-            }
-
-            else if (fullCommand.trim().substring(0, 8).equals("deadline")) {
+            } else if (fullCommand.trim().substring(0, 8).equals("deadline")) {
                 try {
                     String activity = fullCommand.trim().substring(8);
                     arr = activity.split("/by");
@@ -117,8 +124,7 @@ public class Parser {
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
                             "For example: deadline return book /by 2/12/2019 1800");
                 }
-            }
-            else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
+            } else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
                 try {
                     String duration = fullCommand;
                     duration = duration.replaceFirst("when is the nearest day in which I have a ", "");
@@ -127,17 +133,15 @@ public class Parser {
                     //duration = duration.replaceAll(".$", "");
                     duration = duration.substring(0, duration.indexOf('?'));
 
-                    return new FindFreeTimesCommand(duration);
+                    return new FindEarliestFreeTimesCommand(duration);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter find free time as follows:\n" +
                             " when is the nearest day in which I have a X hour free slot?\n" +
                             "For example:  when is the nearest day in which I have a 4.5 hour free slot?");
                 }
-            }
-            else if (fullCommand.equals("show schedule")) {
+            } else if (fullCommand.equals("show schedule")) {
                 return new ViewSchedulesCommand();
-            }
-            else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+            } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
                     arr = activity.split("/to");
@@ -155,6 +159,20 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter snooze as follows:\n" +
                             "snooze index /to dd/MM/yyyy HHmm\n" +
                             "For example: snooze 2 /to 2/12/2019 1800");
+                }
+            } else if(!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
+                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")){
+                try{
+                    int index = fullCommand.indexOf(" hours");
+                    fullCommand = fullCommand.substring(0,index); // e.g., reading the sales report (needs 2 hours) removes " hours"
+                    index = fullCommand.indexOf("(needs ");
+                    String taskDescription = fullCommand.substring(0, index).trim();
+                    String duration = fullCommand.substring(index+7).trim();
+                    return new FixedDurationTasksCommand(taskDescription, duration);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter Fixed Duration Task as follows:\n" +
+                            "'Task Description' ' (needs x hours)'\n" +
+                            "reading the sales report (needs 2 hours)");
                 }
             }
 

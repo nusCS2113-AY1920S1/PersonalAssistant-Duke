@@ -6,15 +6,27 @@ import Interface.*;
  */
 public class ListCommand extends Command {
 
+    private String list;
+    private TaskList listToView;
+
+    public ListCommand(String list){
+        this.list = list;
+    }
     /**
      * Executes the display of all the task in the TaskList object
-     * @param list The TaskList object to retrieve the contents from
      * @param ui The Ui object to display the list message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) {
-        return ui.showList(list);
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+        if(list.equals("todo")) {
+            listToView = todos;
+        } else if(list.equals("event")) {
+            listToView = events;
+        } else if(list.equals("deadline")){
+            listToView = deadlines;
+        }
+        return ui.showList(listToView);
     }
 }

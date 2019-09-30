@@ -36,16 +36,21 @@ public class RemindCommand extends Command {
 
     /**
      * Finds the tasks that are not done and within the current week.
-     * @param list The TaskList object used to check date of task
      * @param ui The Ui object to display the done task message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display remind message
      * @throws ParseException On date parsing error
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws ParseException {
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
         TaskList reminder = new TaskList();
-        ArrayList<Task> temp = list.getList();
+        ArrayList<Task> todosList = todos.getList();
+        ArrayList<Task> eventsList = events.getList();
+        ArrayList<Task> deadlinesList = deadlines.getList();
+        ArrayList<Task> temp = new ArrayList<>();
+        temp.addAll(todosList);
+        temp.addAll(eventsList);
+        temp.addAll(deadlinesList);
         for(Task task : temp){
             if(task.toString().contains("[T]") && task.toString().contains("\u2718")){
                 reminder.addTask(task);
