@@ -1,0 +1,131 @@
+= NAME - Developer Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-4/main
+
+By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
+
+
+
+== Target User Profile
+<NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
+The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
+
+== User Stories
+. As a busy music student with multiple classes, I want to be able to track my practice sessions so that I won’t miss any trainings.
+. As a music student with a heavy workload, I want to be able to track my upcoming recitals and their details so I can prioritize which pieces/what techniques to practice and focus on.
+. As a music student with a tendency to procrastinate in things I need to do, I want to be constantly reminded of my examination dates so i do not wait till the last minute to prepare for them.
+. As a student who wants to maximize my efficiency in practice sessions (performer), I want to be able to rate and comment on the efficiency of my practice sessions and be able to review them to make sure that I learn and improve faster.
+. As a student who wants to categorize what I learn in classes, I want to be able to take notes and organize them into different categories, so that I can easily review it anytime.
+. As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.
+
+== Use cases
+
+=== Entering a practice schedule into the system
+. User enters a command to add a practice followed by a date, and the details of the intended practice. 
+. System prompts user about whether or not he wishes to make this a recurring practice (e.g every Tuesday).
+. User responds to the prompt accordingly.
+. System adds practice session to a stored list and saves it to a file on the user’s hard drive.
+
+=== Entering the details of a recital into the system
+. User choose to enter a recital.
+. System requires details of the recital.
+. User enters date, time, venue, the pieces to be performed, and a description if needed.
+. System adds recital to a stored list and saves it to a file on the user’s hard drive.
+
+Extension 3.1: System detects there is a clash with a concert/practice session at step 3.
+3.1.1.  System generates warnings and ask user to delete the corresponding entry and forgo that event.
+3.1.2.  User responds to the warning, deleting or rescheduling one of the events in a clash if necessary.
+3.1.3. System updates the stored list and saves it to the file on the user’s hard disk.
+
+Extension 3.2: System detects a clash with another recital or an examination at step 3.
+3.2.1.  System generates warnings and ask user to reschedule and re-enter one of the events that clash.
+3.2.2.  User responds to the warning, rescheduling and re-entering one of the events in a clash.
+3.2.3. System updates the stored list and saves it to the file on the user’s hard disk.
+Use case ends
+
+=== Making notes    
+. User chooses to enter a command to start a note-taking/viewing session
+. System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one, or create a new file.
+. User makes a choice to enter a category directory or create a new one.
+. System shows the user a list of files containing notes, each file is named with the corresponding date, and a description of the file decided by the user. System also prompts the user if he wants to create a new file or enter an existing one.
+. User selects a file to enter, or chooses to create a new file.
+. System opens the file for viewing and editing, and the user can choose to make changes to the notes using commands: delete, add and move to delete, add or move notes around the file accordingly.
+
+Extension 3.1: System detects there is no category file that user commands to edit on
+3.1.1. System generates warnings and ask the user whether or not he wishes to add a new category and take notes in
+3.1.2. User responds to the warning, and choose to add a new category
+3.1.3. System adds and opens a new category file with the name given by user
+
+=== Viewing upcoming events
+. User enters command “list” followed by an integer N representing the number of weeks in advance he would like to view his schedule.
+. System responds by showing the user a list of events in the next N weeks.
+. User may enter a command to remove specific tasks from the list, to have a cleaner viewing experience.
+
+Extension 3.1: System can remove types of events from list at user’s command
+3.1.1. User can enter commands “remove examinations” for example, to remove the examinations from the display.
+3.1.2. System responds accordingly, removing the type of event from the list and altering the list of events displayed.
+
+Extension: 3.2. System can allow the user to only view a specific type of event.
+3.2.1. User can also enter commands “show examinations” for example, to only show examinations in the list of events.
+3.2.2. System will respond accordingly, displaying only type of event that the user specified.
+
+=== Entering the examination details
+. User enters command “examination”, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
+. The system adds the examination to the list of events.
+
+Extension 1.1: System detects a clash with the examination date entered and another event.
+1.1.1. System will prompt the user to reschedule the event of lower priority. (examinations and recitals are of highest priority, followed by concerts and then practices). If the clash is with an event of the same priority, the user is prompted to choose which one to reschedule(simple y/n response).
+1.1.2. User reschedules the specified event by entering a date and time. The user is also able to delete an event with the delete command to free up the schedule if he wishes to do so.
+1.1.3. System once again checks for clashes and repeats the process of rescheduling if necessary.
+
+=== Rate and comment on the efficiency of practice sessions 
+. User enters a command to rate a practice session
+. System brings up a list of practice sessions that the user has already completed
+. User selects a practice session
+. System displays the details of the selected practice session and prompts the user to select an efficiency rating along with any additional notes
+. User rates the efficiency of the practice session and takes down any notes or feedback from their instructor
+. System saves the entry onto the hard disk
+
+Extensions 4.1: Selected practice session has already been rated.
+4.1.1. If the selected practice session has already been rated, the system notifies the user and allows them to edit.
+4.1.2. The user edits the rating and notes of the practice session accordingly
+4.1.3. System saves the changes onto the hard disk
+
+Extensions 5.1: User inputs an invalid rating.
+5.1.1. System displays an error message to inform the user of the correct rating format until a valid input is detected.
+
+== Non-functional requirements
+. System should work on windows and linux.
+. System response within 1 second.
+. Usable by non tech-savvy individuals.
+. Clear user prompts 
+. Visually pleasing display
+
+== Design
+
+=== Overall Architecture
+
+There are three main components in the overall architecture of the application.
+
+`Duke` class: contains the `main()` class of the application.
+* Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
+* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
+
+`Events` Package: contains classes pertaining to the events.
+
+`UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
+
+
+
