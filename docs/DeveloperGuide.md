@@ -61,7 +61,14 @@ Icon                 | Description
 |---------------------|-----------------------------|
 |:information_source: | **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.|
 
-> :information source: : **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+> :information_source: : **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+--------------------- ------------------------------------
+:information_source: \  Table multiline text bla bla bla bla
+                        bla bla bla bla bla bla bla ... the
+                        blank line below is important 
+                        
+----------------------------------------------------------------
 
 ### 3.2. Setting up the Project in your Computer
 1. Fork this repo, and clone the fork to your computer. 
