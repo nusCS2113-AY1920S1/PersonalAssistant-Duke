@@ -15,6 +15,7 @@ public class UndoCommand extends Command{
             if (ui.FullCommand.equals("undo")) {
                 throw new DukeException("The undo task number cannot be empty.");
             }
+
             int numberCheck = Integer.parseInt(ui.FullCommand.substring(5)) - 1;
             if (list.get(numberCheck).isDone == true) {
                 list.get(numberCheck).isDone = false;
@@ -22,7 +23,6 @@ public class UndoCommand extends Command{
 
             System.out.println("Nice! I've marked this task as UNDONE: ");
             System.out.println(list.get(numberCheck).listFormat());
-
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
@@ -38,5 +38,4 @@ public class UndoCommand extends Command{
     public boolean isExit() {
         return false;
     }
-
 }
