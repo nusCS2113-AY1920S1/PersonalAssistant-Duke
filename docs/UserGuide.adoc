@@ -171,7 +171,7 @@ Returns any tasks containing names `Mexico`, `Laos`, or `Singapore`
 
 === Listing popular places of a destination: `recommend`
 
-Duke recommend popular places of visit at a given location +
+Duke recommend popular places of visit at a given location. +
 Format: `recommend LOCATION`
 
 Examples:
@@ -180,7 +180,7 @@ Examples:
 
 === Listing flight information from home location to destination: `flight`
 
-Duke recommend flights from current home location to the given destination +
+Duke recommend flights from current home location to the given destination. +
 Format: `flight LOCATION`
 
 Examples:
@@ -189,7 +189,7 @@ Examples:
 
 === Create a travel plan for user: `tour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destination +
+Duke recommends a travelling plan (short path) based on the user's input of destination. +
 Format: `tour`
 
 Examples:
@@ -198,12 +198,30 @@ Examples:
 
 === Weather forecast of destinations: `weather`
 
-Duke provides weather forecast for all destinations user have added +
+Duke provides weather forecast for all destinations user have added. +
 Format: `weather`
 
 Examples:
 
 * `weather`
+
+=== Exchange rate: `rate`
+
+Duke provides the currency exchange rate of the 2 currency user stated. +
+Format: `rate CURRENCY /to CURRENCY`
+
+Examples:
+
+*`rate SGD /to RMB`
+
+=== Help: `help`
+
+Duke shows this page to the user. +
+Format: `help`
+
+Examples:
+
+*`help`
 
 === Exiting the program : `bye`
 
