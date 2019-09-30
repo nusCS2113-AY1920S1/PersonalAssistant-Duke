@@ -1,5 +1,6 @@
 = Dolla - User Guide
 :site-section: UserGuide
+:imagesDir: images
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,19 +11,20 @@ By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
+image::Ui.png[width="800", align="center"]
+
+{nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
 more interactive and interesting user experience. Dolla will help the user to keep track of their spendings and incomes, set reminders, give suggestions
 or many more other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
 <<Quick Start>> to get started!
-
-<< insert GUI mockup here >>
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest Dolla.jar link:{repoURL}/release[here]. (change to release URL in the future)
 .  Copy the file to the folder you want to use as the home folder for your Dolla.
-.  Double-click the file to start the app.
+.  Double-click the file to start the app.The GUI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 .  Here are some example command you can try:
@@ -47,6 +49,7 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 ====
+{nbsp} +
 
 === Viewing help: `help`
 
