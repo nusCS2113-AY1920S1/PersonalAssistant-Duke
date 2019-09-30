@@ -12,15 +12,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Jess Teo
 image::e0309463.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/e0309463[github]]
 
-Role: Project Advisor
+Role: Integration +
+Responsibilities: UI/UX
 
 '''
 
 === Jason Lee
 image::JasonLeeWeiHern.png[width="150", align="left"]
-{empty}[https://github.com/JasonLeeWeiHern[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JasonLeeWeiHern[github]]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -29,27 +30,27 @@ Responsibilities: UI
 
 === Janel Ang
 image::e0323290.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/e0323290[github]]
 
-Role: Developer +
+Role: Testing, Scheduling and Tracking +
 Responsibilities: Data
 
 '''
 
 === Ren Hao
 image::mononokehime14.png[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/mononokehime14[github]]
 
-Role: Developer +
+Role: Deliverable and Deadlines, Documentation +
 Responsibilities: Dev Ops + Threading
 
 '''
 
 === Lee Yueyu
 image::yueyuu.png[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yueyuu[github]]
 
-Role: Developer +
+Role: Code Quality +
 Responsibilities: UI
 
 '''
