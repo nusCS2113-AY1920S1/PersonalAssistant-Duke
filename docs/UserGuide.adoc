@@ -263,7 +263,7 @@ Here's how you can use the `/add /investment` command.
 Adds an investment account named `DBB Vickers Account` which has an initial amount
 of $`10000` inside that you can start investing with.
 
-==== `/bonds`
+===== `/bonds`
 Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
 
@@ -428,7 +428,7 @@ Changes the amount in `DBB Vickers Account` to $`50 000`.
 Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
 to $`50 000`.
 
-==== `/bonds`
+===== `/bonds`
 Change in your investment details? Edit them here!
 
 *Command Syntax*
@@ -578,7 +578,7 @@ All transactions related to the bank account will be deleted.
 
 Deletes an investment account named `DBB Vickers Account`.
 
-==== `/bonds`
+===== `/bonds`
 Sold your bonds? Delete it from `OwlMoney`!
 
 *Command Syntax*
