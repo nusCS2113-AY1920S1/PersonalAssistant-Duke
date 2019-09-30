@@ -137,8 +137,8 @@ public class Ui {
      * @param list The ArrayList
      * @return This returns the snooze message with the task and size of ArrayList after snoozing
      */
-    public String showSnooze(int index, int listSize, TaskList list) {
-        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.getTask(listSize-1) + "\n" +
+    public String showSnooze(int index, int listSize, ArrayList<Task> list) {
+        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 }
