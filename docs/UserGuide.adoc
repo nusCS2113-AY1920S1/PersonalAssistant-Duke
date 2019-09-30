@@ -212,7 +212,7 @@ Format: `rate CURRENCY /to CURRENCY`
 
 Examples:
 
-*`rate SGD /to RMB`
+* `rate SGD /to RMB`
 
 === Help: `help`
 
@@ -221,7 +221,7 @@ Format: `help`
 
 Examples:
 
-*`help`
+* `help`
 
 === Exiting the program : `bye`
 
