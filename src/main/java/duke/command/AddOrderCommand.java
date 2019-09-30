@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.commons.DukeException;
+import duke.commons.Utility;
 import duke.entities.Order;
 import duke.parser.CommandParser;
 import duke.storage.BakingList;
@@ -14,7 +15,10 @@ import java.util.Map;
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
  */
 public class AddOrderCommand extends UndoableCommand {
-    private Map<String, List<String>> params;
+    private final String[] acceptedParameters = {
+            "item", "name", "contact", "rmk", "by", "status"
+    };
+    private final Map<String, List<String>> params;
     private Order order;
 
     /**
@@ -22,8 +26,9 @@ public class AddOrderCommand extends UndoableCommand {
      *
      * @param params The parameters specifying details of the order.
      */
-    public AddOrderCommand(Map<String, List<String>> params) {
+    public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
+        Utility.checkParameters(params, acceptedParameters, true, false);
     }
 
     @Override
@@ -53,4 +58,5 @@ public class AddOrderCommand extends UndoableCommand {
     private void addOrder(Order order, BakingList bakingList) {
         bakingList.getOrderList().add(0, order);
     }
+
 }

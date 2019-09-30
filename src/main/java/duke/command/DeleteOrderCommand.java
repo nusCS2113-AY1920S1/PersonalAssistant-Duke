@@ -48,7 +48,6 @@ public class DeleteOrderCommand extends UndoableCommand {
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         this.orders = CommandParser.getOrders(bakingList.getOrderList(), params);
         this.indexes = CommandParser.getOrderIndexes(params);
-        System.out.println(orders.size());
         bakingList.getOrderList().removeAll(orders);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
