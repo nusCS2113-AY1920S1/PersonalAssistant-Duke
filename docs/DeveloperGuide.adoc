@@ -28,7 +28,16 @@ and completed.
 * ArchDuke allows users to track multiple group projects. New group projects can be created and a default Kanban board will be created for users to start adding tasks.
 
 === Document Change History
-
+[width="100%",cols="25%, <75%", options="header"]
+|=======================================================================
+| Revision Date | Summary of Changes
+| 30 September 2019 | Version 0.6: Added table of contents, preface and document history
+| 26 September 2019 | Version 0.5: Updated use cases for a cleaner look
+| 24 September 2019 | Version 0.4: Added Non-functional Requirements to DeveloperGuide
+| 23 September 2019 | Version 0.3: Added user stories to DeveloperGuide
+| 22 September 2019 | Version 0.2: Added use cases to DeveloperGuide
+| 18 September 2019 | Version 0.1: Creation of DeveloperGuide based on template
+|=======================================================================
 
 == 1. Setting up
 
