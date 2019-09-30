@@ -1,9 +1,6 @@
 package javacake.commands;
 
-import javacake.Profile;
-import javacake.Storage;
-import javacake.TaskList;
-import javacake.Ui;
+import javacake.*;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
@@ -14,13 +11,13 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
         ArrayList<Task> deadlineList = new ArrayList<>();
-        for (Task task : tasks.getData()) {
+        /*for (Task task : progressStack.getData()) {
             if (task.getTaskType() == Task.TaskType.DEADLINE) {
                 deadlineList.add(task);
             }
-        }
+        }*/
         ViewScheduleCommand.sortTasksByDate(deadlineList);
         int idx = 1;
         if (deadlineList.size() > 0) {

@@ -2,11 +2,7 @@ package javacake.commands;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import javacake.DukeException;
-import javacake.Profile;
-import javacake.Storage;
-import javacake.TaskList;
-import javacake.Ui;
+import javacake.*;
 import javacake.tasks.Task;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +19,7 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 12) {
             throw new DukeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }
@@ -36,7 +32,7 @@ public class ViewScheduleCommand extends Command {
         int currYear = calendar.get(Calendar.YEAR);
 
         ArrayList<Task> scheduleList = new ArrayList<>();
-        for (Task task : tasks.getData()) {
+        /*for (Task task : progressStack.getData()) {
             if (task.getTaskType() == Task.TaskType.EVENT || task.getTaskType() == Task.TaskType.DEADLINE) {
                 calendar.setTime(task.getDateTime());
                 int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -46,7 +42,7 @@ public class ViewScheduleCommand extends Command {
                     scheduleList.add(task);
                 }
             }
-        }
+        }*/
         sortTasksByDate(scheduleList);
         String outputDate = new SimpleDateFormat("dd MMM yyyy").format(currDate);
         if (scheduleList.isEmpty()) {

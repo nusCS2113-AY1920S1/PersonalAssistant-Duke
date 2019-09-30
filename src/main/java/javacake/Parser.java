@@ -1,18 +1,6 @@
 package javacake;
 
-import javacake.commands.AddCommand;
-import javacake.commands.Command;
-import javacake.commands.ConfirmCommand;
-import javacake.commands.DeleteCommand;
-import javacake.commands.DoneCommand;
-import javacake.commands.EditCommand;
-import javacake.commands.ExitCommand;
-import javacake.commands.FindCommand;
-import javacake.commands.FreeTimeCommand;
-import javacake.commands.ListCommand;
-import javacake.commands.ReminderCommand;
-import javacake.commands.TentativeCommand;
-import javacake.commands.ViewScheduleCommand;
+import javacake.commands.*;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;
@@ -47,6 +35,11 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
+        } else if (input.equals("back")) {
+            return new BackCommand();
+        } else if (input.substring(0,4).equals("goto")) {
+            return new GoToCommand(input);
+
         //        } else if (input.length() >= 12 && input.substring(0, 12).equals("viewschedule")) {
         //            return new ViewScheduleCommand(input);
         //        } else if (input.length() > 4 && input.substring(0, 4).equals("find")) {
