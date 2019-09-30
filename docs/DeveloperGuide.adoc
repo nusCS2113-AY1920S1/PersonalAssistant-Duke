@@ -125,6 +125,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |26||* * *|Computing Student|Add a tentative task|Can confirm it at a later date 
 |27||* * *|Computing Student|View all commands|Do not need to memorise all the commands 
 |28||* * *|Computing Student|Get warnings if an event I add clashes with an existing event|Will not have multiple events at the same time 
+|29||*|Computing Student|Sync my tasks to my phone via bluetooth|Can view my tasks on the go and not just on my laptop
+|30||**|Computing Student|Print out my tasks stored|Can view my tasks even if my laptop runs out of battery
 |===
 
 [appendix]
