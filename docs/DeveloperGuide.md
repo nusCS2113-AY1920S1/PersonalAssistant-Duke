@@ -24,11 +24,11 @@ Welcome to the **Compal** Developer Guide! This Developer Guide is still being w
 
 **8. DevOps**
 
-* [**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile)
-* [**Appendix C: User Stories**](/docs/DeveloperGuide.md#appendix-c-user-stories)
-* [**Appendix D: Use Cases**](/docs/DeveloperGuide.md#appendix-d-use-cases)
-* [**Appendix E: Non-Functional Requirements**](/docs/DeveloperGuide.md#appendix-e-non-functional-requirements)
-* [**Appendix F: Glossary**](/docs/DeveloperGuide.md#appendix-f-glossary)
+[**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile)  
+[**Appendix B: User Stories**](/docs/DeveloperGuide.md#appendix-b-user-stories)  
+[**Appendix C: Use Cases**](/docs/DeveloperGuide.md#appendix-c-use-cases)  
+[**Appendix D: Non-Functional Requirements**](/docs/DeveloperGuide.md#appendix-d-non-functional-requirements)  
+[**Appendix E: Glossary**](/docs/DeveloperGuide.md#appendix-e-glossary)  
 
 
 ## 1. Introduction
@@ -57,7 +57,8 @@ Icon                 | Description
 1. [**JDK 11**](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase11-5116896.html) or later
 2. [**IntelliJ** IDE](https://www.jetbrains.com/store/?fromNavMenu#personal?billing=yearly)
 
-:information_source: : **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+:information_source: | **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+---------------------|----------------------------------------------------------------------------------
 
 ### 3.2. Setting up the Project in your Computer
 ### 3.3. Verifying the Setup
@@ -77,7 +78,7 @@ Icon                 | Description
 **Value Proposition**: Students wanting to be more organized without going through too much of a hassle can now better manage their schedules and tasks with Compal’s clean and intuitive user-interface and user-defined priority-based organization.
 
 
-## Appendix C: User Stories
+## Appendix B: User Stories
 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -118,7 +119,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 
-## Appendix D: Use Cases
+## Appendix C: Use Cases
 
 
 
@@ -226,7 +227,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 4.  compal reflects search results
 
-## Appendix E: Non-Functional Requirements
+## Appendix D: Non-Functional Requirements
 1.  ComPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
     
 2.  ComPal prompts for academic time table at the beginning of every semester.
@@ -245,6 +246,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 
-## Appendix F: Glossary
-**Task**:  A generic term used to refer to any instance of an object in the user's schedule
+## Appendix E: Glossary
+**Task**:  A generic term used to refer to any instance of an object in the user's schedule  
 **View**: The layout in which the schedule is displayed to the user (Daily/Weekly/Monthly)
