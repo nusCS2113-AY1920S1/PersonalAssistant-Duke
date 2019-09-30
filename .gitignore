@@ -12,7 +12,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/build/
+/build/*
+!/build/libs
 /duke.txt
 /wallet.txt
 /data/
