@@ -2,7 +2,6 @@ package leduc.task;
 
 import leduc.Date;
 import leduc.exception.DateComparisonEventException;
-import leduc.exception.PostponeDeadlineException;
 
 import java.time.LocalDateTime;
 
@@ -40,6 +39,21 @@ public class EventsTask extends Task {
         this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond =dateSecond;
+    }
+    /**
+     * Setter of dateFirst.
+     * @param dateFirst the new first date of period of the task.
+     */
+    public void setDateFirst(Date dateFirst){
+        this.dateFirst = dateFirst;
+    }
+
+    /**
+     * Setter of dateSecond.
+     * @param dateSecond the new second date of period of the task.
+     */
+    public void setDateSecond(Date dateSecond){
+        this.dateSecond = dateSecond;
     }
 
     /**

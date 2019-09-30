@@ -17,6 +17,14 @@ public abstract class Task {
     }
 
     /**
+     * Setter of the task description of the leduc.task.Task.
+     * @param taskDescription String corresponding to the new task description;
+     */
+    public void setTask(String taskDescription){
+        this.task= taskDescription;
+    }
+
+    /**
      * Setter of the mark of the leduc.task.Task ( done or not).
      * @param mark String ( "[✓]" or "[✗]");
      */
