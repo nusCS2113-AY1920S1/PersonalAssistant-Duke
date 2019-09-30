@@ -1,10 +1,11 @@
 = RIMS
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-image::docs/images/ui.jpeg[width="600"]
+image::docs/images/Ui.png[width="600"]
 
 * RIMS (Resource and Inventory Management System) is a logistic management system designed to manage an organisation’s facilities and inventory.
-* It is a command-line Java application which takes in user commands to keep track of and organise assets, thus streamlining user inventory.
+* It is a command-line Java application, written in OOP fashion. 
+* The application takes in user commands to keep track of the booking, loaning out and reservation of items, rooms and resources in the user's inventory.
 
 == Site Map
 

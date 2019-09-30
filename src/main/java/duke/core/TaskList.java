@@ -23,11 +23,11 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> items, Ui ui) {
         this.items = items;
-        int daysDue = 4;
+        int daysDue = 100;
         if ((searchItemsDue(daysDue).isEmpty())) {
             ui.print("No tasks due today!");
         } else {
-            ui.printTaskArray("REMINDER - The following deadlines below are due soon:", searchItemsDue(daysDue));
+            ui.printTaskArray("REMINDER - The following tasks are due to occur soon:", searchItemsDue(daysDue));
         }
     }
 
@@ -134,10 +134,11 @@ public class TaskList {
         ArrayList<String> results = new ArrayList<String>();
         for (int j = 0; j < items.size(); j++) {
             Task thisTask = items.get(j);
-            if (thisTask instanceof Deadline) {
+            if (thisTask instanceof Deadline || thisTask instanceof Event || thisTask instanceof Recurring) {
                 int actualDaysLeft = thisTask.isDueInDays(daysDue);
                 if (actualDaysLeft != -1) {
-                    results.add((j) + ". " + thisTask.toString() + " -- " + actualDaysLeft + " days left");
+                    String dayWord = actualDaysLeft == 1 ? " day " : " days ";
+                    results.add((j+1) + ". " + thisTask.toString() + " -- " + actualDaysLeft + dayWord + "left");
                 }
             }
         }
@@ -161,8 +162,10 @@ public class TaskList {
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < items.size(); i++) {
             Task thisTask = items.get(i);
-            if(thisTask.getDateAsString().contains(dateEntered)){
-                list.add((i+1) + ". " + thisTask.toString());
+            if (thisTask.getDate() != null) {
+                if (thisTask.getDateAsString().contains(dateEntered)){
+                    list.add((i+1) + ". " + thisTask.toString());
+                }
             }
         }
         return list;

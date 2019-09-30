@@ -24,7 +24,6 @@ public class Deadline extends Task {
         super(description);
         this.date = stringToDate(by);
         this.type = 'D';
-        this.stringDate = by;
     }
 
     /**
@@ -39,7 +38,6 @@ public class Deadline extends Task {
         super(description, isDone);
         this.date = stringToDate(by);
         this.type = 'D';
-        this.stringDate = by;
     }
 
     /**
@@ -48,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by: " + getDate() + ")";
+        return super.toString() + " (by: " + getDateToPrint() + ")";
     }
 
 }

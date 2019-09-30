@@ -17,6 +17,6 @@ public class ViewScheduleCommand extends Command{
     }
 
     public void execute(Ui ui, Storage storage, TaskList tasks) {
-        ui.printScheduleArray("Here are the tasks for this day", tasks.generateListByDate(strDate));
+        ui.printScheduleArray("Here are the tasks for this date:", tasks.generateListByDate(strDate));
     }
 }

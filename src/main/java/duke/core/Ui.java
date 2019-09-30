@@ -61,6 +61,7 @@ public class Ui {
         }
         System.out.println("\t" + line);
     }
+
     public void printScheduleArray(String command, ArrayList<String> inputs) {
         System.out.println("\t____________________________________________________________");
         System.out.println("\t" + command);

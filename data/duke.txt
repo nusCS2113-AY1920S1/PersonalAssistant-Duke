@@ -9,3 +9,6 @@ D`lion safari`0`31/08/2020 0300
 T`abc`1`def
 R`Duke meeting`1`Tuesday`1500
 R`wibble`0`Wednesday`2300
+D`where is Daniel?`0`29/09/2019 1800
+D`checky checky`0`01/10/2019 2300
+E`Sean's birthday party`0`05/10/2019 1500
