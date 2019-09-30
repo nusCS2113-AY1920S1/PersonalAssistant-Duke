@@ -172,7 +172,7 @@ public class Task {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = Calendar.getInstance().getTime(); //Declaration of a new Date object has default value of today's date
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((date.getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
-        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0)){
+        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0) || (daysLeftToDue == 0 && (date.getTime() - currentDate.getTime() < 0))) {
             return -1; //Not due yet or overdue
         } else { //daysLeftToDue <= givenDaysToDue
             return daysLeftToDue;
