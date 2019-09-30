@@ -32,7 +32,7 @@ public class EditCommand extends Command {
         if(break_list_words[0].equals("T")) {
 //            System.out.println("Please input your new ToDo description:");
             Todo newtodo = new Todo(newChangeString);
-            System.out.println("Ok, we have edited your ToDo description. \n\tFrom: " + list.get(num_in_list-1).listFormat() +
+            System.out.print("Ok, we have edited your ToDo description. \n\tFrom: " + list.get(num_in_list-1).listFormat() +
             "\n\tTo:   " + newtodo.listFormat());
             list.set(num_in_list-1, newtodo);
         }
@@ -42,7 +42,7 @@ public class EditCommand extends Command {
             String description = break_deadline[0];
             String by = break_deadline[1];
             Deadline newdeadline = new Deadline(description, by);
-            System.out.println("Ok, we have edited your Deadline description and time. \n\tFrom: " + list.get(num_in_list-1).listFormat()  +
+            System.out.print("Ok, we have edited your Deadline description and time. \n\tFrom: " + list.get(num_in_list-1).listFormat()  +
                     "\n\tTo:   " + newdeadline.listFormat());
             list.set(num_in_list-1, newdeadline);
         }
@@ -53,7 +53,7 @@ public class EditCommand extends Command {
             String description = break_event[0];
             String at = break_event[1];
             Event newEvent = new Event(description, at);
-            System.out.println("Ok, we have edited your Event description and time. \n\tFrom: " + list.get(num_in_list-1).listFormat()  +
+            System.out.print("Ok, we have edited your Event description and time. \n\tFrom: " + list.get(num_in_list-1).listFormat()  +
                     "\n\tTo:   " + newEvent.listFormat());
             list.set(num_in_list-1, newEvent);
         }
