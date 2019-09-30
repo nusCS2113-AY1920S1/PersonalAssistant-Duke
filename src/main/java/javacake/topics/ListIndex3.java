@@ -15,7 +15,7 @@ public class ListIndex3 extends ListFormat {
         int indexCount = 1;
         System.out.println("Here are the " + listIndex3SubList.size() + " subtopics available.");
         for (String topicsInMainList : listIndex3SubList) {
-            System.out.print(indexCount + ".");
+            System.out.print("3." + indexCount + " ");
             System.out.println(topicsInMainList);
             indexCount++;
         }

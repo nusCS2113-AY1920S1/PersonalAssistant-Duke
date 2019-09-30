@@ -7,15 +7,15 @@ public class ListIndex1 extends ListFormat {
     public ArrayList<String> listIndex1SubList = new ArrayList<String>();
 
     public ListIndex1() {
-        listIndex1SubList.add("Enumerations");
-        listIndex1SubList.add("Varargs");
-        listIndex1SubList.add("Exceptions");
+        listIndex1SubList.add("Print");
+        listIndex1SubList.add("Read");
+        listIndex1SubList.add("Classes and Objects");
     }
     public void printList() {
         int indexCount = 1;
         System.out.println("Here are the " + listIndex1SubList.size() + " subtopics available.");
         for (String topicsInMainList : listIndex1SubList) {
-            System.out.print(indexCount + ".");
+            System.out.print("1." + indexCount + " ");
             System.out.println(topicsInMainList);
             indexCount++;
         }
