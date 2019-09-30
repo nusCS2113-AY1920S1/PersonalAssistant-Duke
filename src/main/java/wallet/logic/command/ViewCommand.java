@@ -2,6 +2,7 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.storage.StorageManager;
 import wallet.ui.Ui;
 
@@ -37,10 +38,10 @@ public class ViewCommand extends Command {
                 ui.printLine();
             }
 
-            /*if (wallet.getLoanList().getSize() != 0) {
+            if (wallet.getLoanList().getSize() != 0) {
                 System.out.println(MESSAGE_VIEW_LOANS);
                 ui.printLine();
-            }*/
+            }
             return false;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -57,12 +58,12 @@ public class ViewCommand extends Command {
             }
             ui.printLine();
 
-            /*System.out.println(MESSAGE_VIEW_LOANS_SPECIFIED + date);
-            for (Loan l : wallet.().getLoanList().getLoanList()) {
+            System.out.println(MESSAGE_VIEW_LOANS_SPECIFIED + date);
+            for (Loan l : wallet.getLoanList().getLoanList()) {
                 if (l.getDate().equals(date)) {
                     System.out.println(l.toString());
                 }
-            }*/
+            }
 
         } else {
             System.out.println(MESSAGE_USAGE);

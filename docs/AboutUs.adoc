@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Matthew Ng 
-//-image::matthewng.jpg[width="150", align="left"]
+image::matthewng.jpg[width="150", align="left"]
 {empty}[https://github.com/matthewng1996[Github]] [<<matthewng#, Portfolio>>] [http://mattgeraldcomputingjourney.wordpress.com/[Personal Website]] 
 
 Role: Developer + 
@@ -19,8 +19,8 @@ Responsibilities: View Expenses and Loans, User Guide, Developer Guide
 '''
 
 === Gerald Lim
-//-image::geraldlim.jpg[width="150", align="left"]
-{empty}[https://github.com/A0171206R[Github]] [<<geraldlim#, portfolio>>]
+image::geraldlim.jpg[width="150", align="left"]
+{empty}[https://github.com/A0171206R[Github]] [<<geraldlim#, Portfolio>>]
 
 Role: Developer +
 Responsibilities: LoanList
@@ -28,8 +28,8 @@ Responsibilities: LoanList
 '''
 
 === Annette
-//-image::annette.jpg[width="150", align="left"]
-{empty}[https://github.com/Xdecosee[github]] [<<annette#, portfolio>>]
+image::annette.jpg[width="150", align="left"]
+{empty}[https://github.com/Xdecosee[github]] [<<annette#, Portfolio>>]
 
 Role: Developer +
 Responsibilities: 
@@ -37,7 +37,7 @@ Responsibilities:
 '''
 
 === Kiang Yang
-//-image::kiangyang.jpg[width="150", align="left"]
+image::kiangyang.jpg[width="150", align="left"]
 {empty}[https://github.com/kyang96[github]] [<<kiangyang#, portfolio>>]
 
 Role: Developer +
