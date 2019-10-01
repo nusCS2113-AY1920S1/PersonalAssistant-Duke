@@ -9,10 +9,10 @@ public class Recipe {
 
 
     private String name;
-    private List<Ingredient> ingredients;
-    private List<Step> steps;
+    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<Step> steps = new ArrayList<>();
     private double cost;
-    private int diffLevel;
+    private int difficultyLevel;
     private int time;
 
     public Recipe(@JsonProperty String name) {
@@ -26,12 +26,19 @@ public class Recipe {
         step1.init();
         stepList.add(step1);
         this.steps = stepList;
-        ingredients = step1.getIngredients();
+        ingredients.add(new Ingredient("cream"));
+        ingredients.add(new Ingredient("cheese"));
         cost = 20.22;
-        diffLevel = 5;
+        difficultyLevel = 5;
         time = 40;
         return this;
     }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,15 +52,23 @@ public class Recipe {
     }
 
     public int getDiffLevel() {
-        return diffLevel;
+        return difficultyLevel;
     }
     public double getCost() {
-        return 20.21;
+        return cost;
     }
     public List<Ingredient> getIngredients() {
         return this.ingredients;
     }
     public List<Step> getSteps() {
         return this.steps;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+    }
+
+    public void addStep(Step step) {
+        steps.add(step);
     }
 }

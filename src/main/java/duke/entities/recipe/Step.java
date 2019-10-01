@@ -7,12 +7,10 @@ import java.util.List;
 
 public class Step {
     private String description;
-    private List<Ingredient> ingredients;
     private int time; //in minutes
 
     public Step (@JsonProperty String description) {
         this.description = description;
-        ingredients = parseIngredient(description);
         time = parseTime(description);
     }
 
@@ -26,13 +24,7 @@ public class Step {
     }
 
     public Step init () {
-        Ingredient ingt1 = new Ingredient("cream");
-        Ingredient ingt2 = new Ingredient("cheese");
-        ArrayList<Ingredient> ingts = new ArrayList<>();
-        ingts.add(ingt1);
-        ingts.add(ingt2);
         description = "add cream to cheese";
-        ingredients = ingts;
         time = 30;
         return this;
     }
@@ -42,10 +34,6 @@ public class Step {
     }
     public int getTime() {
         return time;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return this.ingredients;
     }
 
 }

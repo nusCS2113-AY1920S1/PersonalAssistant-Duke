@@ -53,6 +53,6 @@ public class CommandParser {
     }
 
     public static Command parseRecipeAdd(Map<String, List<String>> params) {
-        return new AddRecipeCommand();
+        return new AddRecipeCommand(params);
     }
 }
