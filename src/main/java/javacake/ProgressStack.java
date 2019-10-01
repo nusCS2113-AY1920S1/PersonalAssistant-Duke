@@ -9,10 +9,14 @@ public class ProgressStack {
 
     }
 
+    /**
+     * Forces the progress to MainList.
+     */
     public void forceToMainList() {
-        if (checkProgress() == 0) currentProgress.push(1);
-        // only push progress when current screen is at main screen.
-        else {
+        if (checkProgress() == 0) {
+            currentProgress.push(1);
+        } else {
+            // only push progress when current screen is at main screen.
             while (checkProgress() > 1) {
                 forceClearProgress();
                 // when list command is entered, progress is automatically cleared to main list.
@@ -22,34 +26,72 @@ public class ProgressStack {
 
     }
 
+    /**
+     * Goes to List Index 1.
+     */
     public void mainListToListIndex1() {
-        if (checkProgress() == 1) currentProgress.push(1);
+        if (checkProgress() == 1) {
+            currentProgress.push(1);
+        }
     }
 
+    /**
+     * Goes to List Index 2.
+     */
     public void mainListToListIndex2() {
-        if (checkProgress() == 1) currentProgress.push(2);
+        if (checkProgress() == 1) {
+            currentProgress.push(2);
+        }
     }
 
+    /**
+     * Goes to List Index 3.
+     */
     public void mainListToListIndex3() {
-        if (checkProgress() == 1) currentProgress.push(3);
+        if (checkProgress() == 1) {
+            currentProgress.push(3);
+        }
     }
 
+    /**
+     * Goes to Main List.
+     */
     public void listIndexToMainList() {
-        if (checkProgress() == 2) currentProgress.pop();
+        if (checkProgress() == 2) {
+            currentProgress.pop();
+        }
     }
 
+    /**
+     * Goes to Sub List Index 1.
+     */
     public void listIndex3ToSubList1() {
-        if (checkProgress() == 2) currentProgress.push(1);
+        if (checkProgress() == 2) {
+            currentProgress.push(1);
+        }
     }
 
+    /**
+     * Goes to Sub List Index 2.
+     */
     public void listIndex3ToSubList2() {
-        if (checkProgress() == 2) currentProgress.push(1);
+        if (checkProgress() == 2) {
+            currentProgress.push(1);
+        }
     }
 
+    /**
+     * Goes to Sub List Index 3.
+     */
     public void listIndex3ToSubList3() {
-        if (checkProgress() == 2) currentProgress.push(1);
+        if (checkProgress() == 2) {
+            currentProgress.push(1);
+        }
     }
 
+    /**
+     * Clears progress from the stack.
+     */
     public void forceClearProgress() {
         currentProgress.pop();
     }
@@ -75,7 +117,7 @@ public class ProgressStack {
      * Used only for BACK command.
      * To check for the previous state stored in the stack.
      * @return the number of the branch or the index of a particular list
-     * in the previous state.
+     *         in the previous state.
      */
     public int checkPreviousState() {
         clearCurrentState();

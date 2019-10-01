@@ -1,7 +1,11 @@
 
 package javacake.commands;
 
-import javacake.*;
+import javacake.DukeException;
+import javacake.ProgressStack;
+import javacake.Profile;
+import javacake.Ui;
+import javacake.Storage;
 
 /**
  * EDIT commands should be of the following format:

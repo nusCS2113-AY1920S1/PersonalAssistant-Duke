@@ -107,6 +107,11 @@ public class Ui {
         System.out.println(m);
     }
 
+    /**
+     * Method to display text from file.
+     * @param reader BufferedReader to read in text from file
+     * @throws DukeException Error thrown when unable to close reader
+     */
     public void displayTextFile(BufferedReader reader) throws DukeException {
         String lineBuffer;
         try {

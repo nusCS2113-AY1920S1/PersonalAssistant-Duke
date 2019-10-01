@@ -1,6 +1,9 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.ProgressStack;
+import javacake.Profile;
+import javacake.Ui;
+import javacake.Storage;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
