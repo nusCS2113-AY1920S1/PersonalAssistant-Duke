@@ -1,6 +1,7 @@
 package duke.Data;
 
 import Menu.ManageStudents;
+import duke.Module.Schedule;
 import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
@@ -20,6 +21,7 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
+     *
      * @param io
      */
     public void parseInput(String io, TaskList tasks, Storage storage) {
@@ -30,23 +32,23 @@ public class Parser {
 
         switch (cmd) {
 
-            case "list":
-                tasks.showList();
-                break;
+        case "list":
+            tasks.showList();
+            break;
 
-            case "done":
-                try {
-                    index = Integer.parseInt(input.substring(5)) - 1;
-                    tasks.doneTask(index);
-                    storage.updateFile(tasks.getList());
-                }
-                catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("\u2639 OOPS!!! The following task does not exist!");
-                }
-                break;
+        case "done":
+            try {
+                index = Integer.parseInt(input.substring(5)) - 1;
+                tasks.doneTask(index);
+                storage.updateFile(tasks.getList());
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                System.out.println("\u2639 OOPS!!! The following task does not exist!");
+            }
+            break;
         /**
          * TODO Fix saving of ToDo class, is causing the load file error due to save formatting
          */
+            
             case "todo":
                 try {
                     String[] tempString = input.split(" ");
@@ -161,6 +163,23 @@ public class Parser {
                     System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
                 }
                 break;
+            
+            /**
+            * Command should be in form schedule view-day|month|year.
+            */
+            case "schedule":
+            Schedule schedule = new Schedule();
+            if (word[1].equals("view-week")) {
+                System.out.println(schedule.getWeek());
+            }
+            else if (word[1].equals("view-month")) {
+                System.out.println(schedule.getMonth());
+            }
+
+            else if (word[1].equals("view-day")) {
+                System.out.println(schedule.getDay());
+            }
+            break;
 
             /**
              *  Cmd "home" will list the menu items;
@@ -172,7 +191,7 @@ public class Parser {
                 Ui viewMenu = new Ui();
                 viewMenu.mainMenu();
                 break;
-
+            
             /**
              // Choosing Option 1 wil direct to "Training Schedule"
              */
@@ -200,6 +219,5 @@ public class Parser {
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
         }
-
     }
 }
