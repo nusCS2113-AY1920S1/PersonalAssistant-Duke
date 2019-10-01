@@ -11,15 +11,15 @@ import java.util.Date;
  * Tasks which have a deadline.
  * Lists the task name and stores the deadline in Date format.
  */
-public class Deadline extends Task {
+public class Recurring extends Task {
     protected String by;
 
     /**
      * task.Deadline Constructor.
-     * @param description task descriprtion
+     * @param description task description
      * @param by task deadline
      */
-    public Deadline(String description, String by) {
+    public Recurring(String description, String by, String frequency) {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
@@ -28,15 +28,18 @@ public class Deadline extends Task {
             System.out.println("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
         this.by = by;
+        this.frequency = frequency;
     }
 
     /**
-     * task.Deadline Constructor from text file.
+     *
      * @param i isDone status
-     * @param description of deadline
-     * @param by deadline date and time
+     * @param description of recurring task
+     * @param by dateTime of recurring task
+     * @param Snooze isSnooze status
+     * @param frequency of recurrence
      */
-    public Deadline(String i, String description, String by, String snooze) {
+    public Recurring(String i, String description, String by, String Snooze, String frequency) {
         super(description);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -47,17 +50,12 @@ public class Deadline extends Task {
         }
         this.by = by;
         this.isDone = i.equals("1");
-        this.isSnooze = snooze.equals("1");
-    }
-
-    @Override
-    public boolean containsDate(String s) {
-        return this.by.contains(s);
+        this.isSnooze = Snooze.equals("1");
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dateTime + ")";
+        return "[R]" + " [" + frequency + "] " + super.toString() + " (at: " + this.dateTime + ")";
     }
 
     /**
@@ -68,6 +66,19 @@ public class Deadline extends Task {
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
         int snoozebooltoInt = this.isSnooze ? 1 : 0;
-        return "D | " + boolToInt + " | " + this.description + " | " + this.by + " | " + snoozebooltoInt + "\n";
+        return "R | " + frequency + " | " + boolToInt + " | " + this.description + " | " + this.by + " | " + snoozebooltoInt + "\n";
+    }
+
+    @Override
+    public Date getBy() {
+        return this.dateTime;
+    }
+    @Override
+    public String getDesc() {
+        return description;
+    }
+    @Override
+    public String getFreq(){
+        return frequency;
     }
 }

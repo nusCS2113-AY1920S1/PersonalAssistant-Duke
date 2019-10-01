@@ -9,13 +9,23 @@ import task.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 
 public class ViewScheduleCommand extends Command {
-    TaskList scheduleList;
+    private TaskList scheduleList;
+    Date dateToView;
 
-    public ViewScheduleCommand() {
+    public ViewScheduleCommand(String date) throws DukeException {
         scheduleList = new TaskList();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateToView = sdf.parse(date);
+        } catch (ParseException e) {
+            throw new DukeException("Please enter date time format correctly: dd/mm/yyyy");
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@ public class FixedDurationCommand extends Command {
     String[] splitD;
 
     /**
-     * Create new To Do with fixed duration
+     * Create new To Do with fixed duration.
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException if description empty or format not followed
@@ -37,8 +37,8 @@ public class FixedDurationCommand extends Command {
         FixedDuration duration = new FixedDuration(splitD[0], splitD[1]);
         tasks.add(duration);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n" +
-                duration.toString() + "\n" +
-                "Now you have " + tasks.size() + " task(s) in the list");
+        ui.showString("Got it. I've added this task:\n"
+                + duration.toString() + "\n"
+                + "Now you have " + tasks.size() + " task(s) in the list");
     }
 }

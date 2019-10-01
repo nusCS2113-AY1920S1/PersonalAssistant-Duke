@@ -5,19 +5,26 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
-import java.io.*;
+import java.io.IOException;
 
 
-public class UnSnoozeCommand extends Command{
-    private int n;
+public class UnSnoozeCommand extends Command {
+    private int num;
+
+    /**
+     *
+     * @param splitStr
+     * @throws DukeException
+     */
     public UnSnoozeCommand(String[] splitStr) throws DukeException {
-        if (splitStr.length == 1)
+        if (splitStr.length == 1) {
             throw new DukeException("☹ OOPS!!! Please add the index of the task you want to remove");
-        this.n = Integer.parseInt(splitStr[1]);
+        }
+        this.num = Integer.parseInt(splitStr[1]);
     }
 
     /**
-     * Run the command
+     * Run the command.
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
@@ -26,11 +33,10 @@ public class UnSnoozeCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        if (this.n < 1 || this.n > tasks.size()) throw new DukeException("☹ OOPS!!! That task is not in your list");
-        //ui.showString("Got it. I've deactivated this task:\n" +
-        //      tasks.get(this.n - 1).toString());
-        tasks.get(this.n - 1).markAsUnSnooze();
-        //tasks.remove(this.n -1);
+        if (this.num < 1 || this.num > tasks.size()) {
+            throw new DukeException("☹ OOPS!!! That task is not in your list");
+        }
+        tasks.get(this.num - 1).markAsUnSnooze();
         storage.saveToFile(tasks);
         int activeTasks = tasks.size() + 1;
         ui.showString("Now you have " + activeTasks + " active task(s) in the list.");

@@ -1,5 +1,7 @@
 package task;
 
+import exception.DukeException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,49 +12,61 @@ import java.util.Date;
  * Events are tasks with a start and end time.
  */
 public class Event extends Task {
-    protected String at;
+    protected String atStart;
+    protected String atEnd;
+    protected Date dateTimeEnd;
 
     /**
      * task.Event Constructor
      * @param description task description
-     * @param at task time period
+     * @param atStart task time start
+     * @param atEnd task time end
      */
-    public Event(String description, String at) {
+    public Event(String description, String atStart, String atEnd) throws DukeException {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(at);
+            this.dateTime = sdf.parse(atStart);
+            this.dateTimeEnd = sdf.parse(atEnd);
         } catch (ParseException e) {
-            System.out.println("Please enter date time format correctly: dd/mm/yyyy hhmm");
+            throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
-        this.at = at;
+        this.atStart = atStart;
+        this.atEnd = atEnd;
     }
 
     /**
      * task.Event Constructor from text file
      * @param i isDone status
      * @param description of event
-     * @param at event date and time
+     * @param atStart event date and time start
+     * @param atEnd event date and time end
+     * @param snooze snooze status
      */
-    public Event (String i, String description, String at, String Snooze) {
+    public Event(String i, String description, String atStart, String atEnd, String snooze) throws DukeException {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(at);
+            this.dateTime = sdf.parse(atStart);
+            this.dateTimeEnd = sdf.parse(atEnd);
         } catch (ParseException e) {
-            System.out.println("Please enter date time format correctly: dd/mm/yyyy hhmm");
+            throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
-        this.at = at;
+        this.atStart = atStart;
+        this.atEnd = atEnd;
         this.isDone = i.equals("1");
-        this.isSnooze= Snooze.equals("1");
+        this.isSnooze = snooze.equals("1");
     }
 
     @Override
-    public boolean containsDate(String s) { return this.at.contains(s); }
+    public boolean containsDate(String s) {
+        return this.atStart.contains(s);
+    }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + dateTime + ")";
+        return "[E]" + super.toString() + " (at: " + dateTime
+                + " to " + dateTimeEnd + ")";
     }
 
     /**
@@ -63,6 +77,7 @@ public class Event extends Task {
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
         int snoozebooltoInt = this.isSnooze ? 1 : 0;
-        return "E | " + boolToInt + " | " + this.description + " | " + this.at + " | " + snoozebooltoInt + "\n";
+        return "E | " + boolToInt + " | " + this.description + " | " + this.atStart + " | "
+                + this.atEnd + " | " + snoozebooltoInt + "\n";
     }
 }
