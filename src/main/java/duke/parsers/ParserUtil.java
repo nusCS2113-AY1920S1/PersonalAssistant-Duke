@@ -149,8 +149,8 @@ public class ParserUtil {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
 
-
     }
+
     /**
      * Parses the userInput and return an index extracted from it.
      *
