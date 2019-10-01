@@ -77,12 +77,6 @@ public class Duke extends Application {
         }
    }
 
-    /**
-     * This method is to get the response to the user's input.
-     * When called, it calls on the run() method to run the Duke program.
-     * @param input The user's input to the Duke program
-     * @return It returns the result of the run() method
-     */
     public String getResponse(String input) {
         return run(input);
     }

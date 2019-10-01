@@ -5,12 +5,9 @@ public class TimetableView {
     private String from;
     private String task;
 
-    public TimetableView(){
-        this.to = "";
-        this.from = "";
-        this.task = "";
-    }
-
+    /**
+     * This creates TimetableView object.
+     */
     public TimetableView(String time, String event, String task){
         this.to = time;
         this.from = event;
