@@ -8,6 +8,7 @@ import duke.task.Event;
 import duke.task.Period;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.task.Recurring;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -163,13 +164,30 @@ public class TaskList {
     }
 
     /**
-     * Adds fixed duration task to taskList.
+     * Adds task that has to be done within a certain period of time.
      * @param description String containing the description of the task
      * @param startDate String containing the start date of the period to complete the task.
      * @param endDate String containing the end date of the period to complete the task.
      */
     public void addPeriodTask(String description, String startDate, String endDate) {
         taskList.add(new Period(description, startDate, endDate));
+        int index = taskList.size();
+        if (index == 1) {
+            msg = " task in the list.";
+        } else {
+            msg = MESSAGE_ITEMS2;
+        }
+        System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+    }
+
+    /**
+     * Adds tasks that will recur daily, weekly, monthly or yearly.
+     * @param description String containing the description of the task
+     * @param frequency String containing the frequency of recurrence of the task.
+     * @param dayOrDate String containing either the day of the date of the recurring task.
+     */
+    public void addRecurringTask(String description, String frequency, String dayOrDate) throws ParseException {
+        taskList.add(new Recurring(description, frequency, dayOrDate));
         int index = taskList.size();
         if (index == 1) {
             msg = " task in the list.";

@@ -13,6 +13,7 @@ import duke.command.PeriodCommand;
 import duke.command.RemindCommand;
 import duke.command.TodoCommand;
 import duke.command.ViewScheduleCommand;
+import duke.command.RecurringCommand;
 import duke.command.SnoozeCommand;
 
 import duke.exception.DukeException;
@@ -30,8 +31,8 @@ import static duke.common.Messages.COMMAND_PERIOD;
 import static duke.common.Messages.COMMAND_REMIND;
 import static duke.common.Messages.COMMAND_TODO;
 import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
+import static duke.common.Messages.COMMAND_RECURRING;
 import static duke.common.Messages.COMMAND_SNOOZE;
-
 
 /**
  * Making sense of the user input command.
@@ -110,6 +111,12 @@ public class Parser {
         } else if (userInputCommand.contains(COMMAND_VIEWSCHEDULE)) {
             if (userInputCommand.trim().substring(0, 12).equals(COMMAND_VIEWSCHEDULE)) {
                 return new ViewScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_RECURRING)) {
+            if (userInputCommand.trim().substring(0, 9).equals(COMMAND_RECURRING)) {
+                return new RecurringCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }

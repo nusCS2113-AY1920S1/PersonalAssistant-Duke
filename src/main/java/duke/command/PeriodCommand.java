@@ -22,6 +22,14 @@ public class PeriodCommand extends Command {
         this.userInputCommand = userInputCommand;
     }
 
+    /**
+     * Processes the period command to add period task to task list.
+     * @param taskList contains the task list
+     * @param ui deals with interactions with the user
+     * @param storage deals with loading tasks from the file and saving tasks in the file
+     * @throws DukeException if Duke cannot recognize the user input or user inputs a wrong format for the date and time
+     */
+    // Can refactor deep if-else nesting.
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (userInputCommand.trim().equals(COMMAND_PERIOD)) {
