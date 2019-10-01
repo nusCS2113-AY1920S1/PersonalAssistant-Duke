@@ -217,14 +217,14 @@ Updates date and time of the 5th task in the tasklist.
 
 ==== Detecting duplicates in task list
 
-Detects tasks that are duplicated in Duke Manager. +
+Detects tasks that are duplicated in Duke Manager. 
 
 * Alerts user that a task has already been added.
 * If task is duplicated, the program returns `The same task is already in the list!` and prevents an additional task added to the tasklist.
 
 ==== Detecting anomalies in task list
 
-Detects tasks that clash with the same date and time when adding a new task in Duke Manager. +
+Detects tasks that clash with the same date and time when adding a new task in Duke Manager. 
 
 * Alerts user that an existing task has the same date and time.
 * Prompts the user to either pick a different date and time, or mark the existing task as done.
