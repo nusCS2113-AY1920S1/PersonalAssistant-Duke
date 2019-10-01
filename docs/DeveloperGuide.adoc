@@ -158,9 +158,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . System requests personal details.
 . User enters personal details.
 . System requests for bank account details.
-. User +++<u>+++enters bank account details <<UC-2,(UC-2)>>.+++</u>+++
+. User enters bank account details <<UC-2,(UC-2)>>.
 . System requests for income details.
-. User +++<u>+++enters income details <<UC-3,(UC-3)>>.+++</u>+++
+. User enters income details <<UC-3,(UC-3)>>.
 . System will setup a profile tied to new bank account with the details specified.
 +
 Use case ends.
@@ -668,7 +668,7 @@ Use case ends.
 
 *Main success scenario:*
 
-. User +++<u>+++adds expenditure <<UC-7,(UC-7)>>.+++</u>+++
+. User adds expenditure <<UC-7,(UC-7)>>.
 . System warns user if total expenditure is exceeding or have exceeded budget.
 +
 Use case ends.

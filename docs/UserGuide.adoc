@@ -695,20 +695,26 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 *Command Syntax*
 
-`/list /savings /name BANK_NAME [/num NUMBER]`
+`/list /savings`
 
-`/list /investment /name BANK_NAME [/num NUMBER]`
+`/list /expenditure /from BANK_NAME [/num NUMBER]`
 
-`/list /card /name CARD_NAME [/num NUMBER]`
+`/list /bonds /from BANK_NAME [/num NUMBER]`
+
+`/list /expenditure /from CARD_NAME [/num NUMBER]`
 
 
 *Example*
 
-* /list /name JunBank Savings Account /num 60
+* `/list /savings`
+
+Lists all savings accounts
+
+* `/list /expenditure /from JunBank Savings Account /num 60`
 
 Lists the most recent 60 transactions linked to JunBank Savings Account.
 
-* /list /name POBB Tomorrow Card
+* `/list /expenditure /from POBB Tomorrow Card`
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
