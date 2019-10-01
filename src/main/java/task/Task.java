@@ -1,11 +1,9 @@
 package task;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 
 /**
- * Class from which task.Todo, task.Deadline and task.Event are extended from.
+ * Class from which task. To do, task.Deadline and task.Event are extended from.
  */
 public abstract class Task {
     protected Date dateTime;
@@ -26,6 +24,7 @@ public abstract class Task {
     protected boolean isSnooze;
 
     /**
+
      * Create task with a description.
      * @param description of task.
      */
@@ -57,7 +56,7 @@ public abstract class Task {
     public void markAsDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
+        System.out.println("    " + this.toString());
     }
 
     /**
@@ -92,7 +91,6 @@ public abstract class Task {
         return this.description.contains(s);
     }
 
-
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + "[" + this.getActiveIcon() + "] " + this.description;
@@ -108,5 +106,29 @@ public abstract class Task {
 
     public Date getDateTime() {
         return this.dateTime;
+    }
+
+    /**
+     *
+     * @param description of recurring task
+     * @param dateTime of recurring task
+     * @param frequency of recurrence
+     * @return
+     */
+    public Recurring recreate(String description, String dateTime, String frequency){
+        Recurring recurring = new Recurring(description, dateTime, frequency);
+        return recurring;
+    }
+
+    public Date getBy() {
+        return this.dateTime;
+    }
+
+    public String getDesc() {
+        return description;
+    }
+
+    public String getFreq(){
+        return frequency;
     }
 }
