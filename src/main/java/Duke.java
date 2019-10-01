@@ -212,16 +212,26 @@ public class Duke {
                     break;
 
 
-                case snooze:
-                    int index = parser.getIndex();
-                    ui.showSnooze();
-                    int amount = parser.getAmount();
-                    TimeUnit timeUnit = parser.getTimeUnit();
-                    taskList.snooze(index, amount, timeUnit);
-                    ui.showSnoozeComplete();
+                case snooze :
+                    try {
+                        int index = parser.getIndex();
+                        TaskList.currentList().get(index - 1);
+                        ui.showSnooze();
+                        int amount = parser.getAmount();
+                        TimeUnit timeUnit = parser.getTimeUnit();
+                        taskList.snooze(index, amount, timeUnit);
+                        ui.showSnoozeComplete();
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        ui.showIndexError();
+                    }
+                    catch (IllegalArgumentException e){
+                        ui.showTimeError();
+                    }
+
                     break;
 
-                default:
+                    default:
                     ui.showCommandError();
                     break;
             }

@@ -197,4 +197,10 @@ public class Ui {
     public void promptForReply() {
         System.out.println("Does this task have a duration? (yes/no)");
     }
+
+     * tells the user to input valid amount of time
+     */
+    public void showTimeError(){
+        System.out.println("Please indicate a valid amount of time");
+    }
 }
