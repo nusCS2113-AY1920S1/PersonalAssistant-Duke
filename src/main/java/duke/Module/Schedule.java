@@ -1,10 +1,11 @@
 package duke.Module;
 
-import java.util.HashMap;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Class manages the timetable for the user.
@@ -18,6 +19,12 @@ public class Schedule {
     }
 
 
+
+    /**
+     * Function gets the month of the current year.
+     *
+     * @return String of all the days in the month
+     */
     public String getMonth() {
         StringBuilder week = new StringBuilder();
         Calendar cal = Calendar.getInstance();
@@ -57,20 +64,31 @@ public class Schedule {
         return week.toString();
     }
 
-    public String getDay() {
+    /**
+     * Function gets all the hours in the selected day.
+     * Will load events if events have been allocated.
+     *
+     * @param day The selected day of the month.
+     * @return String of every hour from 8am inside the day.
+     */
+    public String getDay(int day) {
+//        Date date = new Date();
+//        date = new SimpleDateFormat("dd MM yy ").parse(day);
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 8);
-        HashMap<Date, Integer> dailySchedule = new HashMap<>();
-        DateFormat df = new SimpleDateFormat("HH:MM");
-        for (int i = 0; i < 12; i++) {
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.DATE, day);
+        Map<Date, Integer> dailySchedule = new TreeMap<>();
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        for (int i = 0; i < 16; i++) {
             dailySchedule.put(cal.getTime(), i);
             cal.add(Calendar.HOUR, 1);
         }
         for (Date d: dailySchedule.keySet()) {
-            System.out.println(d);
+            System.out.println(df.format(d));
         }
 
 
-        return "Map of the days events";
+        return "Map of the day's events";
     }
 }
