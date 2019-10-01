@@ -18,11 +18,9 @@ public class FindCommand extends Command {
     /**
      * Constructs a {@code FindCommand} object
      * with given searched keyword.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public FindCommand(CommandParams commandParams) {
-        super(commandParams);
+    public FindCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -34,8 +32,7 @@ public class FindCommand extends Command {
      * @param storage The storage of Duke.
      * @throws DukeException if a search string was not given.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't what to find.");
         }

@@ -5,45 +5,56 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
-/**
- * Represents a command packaged by class {@code Parser}.
- * Works as a parent class of more specified command classes in the package.
- */
-public class Command {
-    protected CommandParams commandParams;
+import java.util.Map;
 
-    /**
-     * Constructs a {@code Command} object with commandType.
-     *
-     * @param commandParams parameters used to invoke the command.
-     */
-    protected Command(CommandParams commandParams) {
-        this.commandParams = commandParams;
+/**
+ * Acts as the parent class of all commands in the command package, with fields meant to be
+ * populated by the individual commands.
+ */
+public abstract class Command {
+    private String name;
+    private String description;
+    private String usage;
+    private Map<String, String> secondaryParams;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUsage() {
+        return usage;
+    }
+
+    public Map<String, String> getSecondaryParams() {
+        return secondaryParams;
     }
 
     /**
-     * Executes the command.
-     * Works as an empty method of parent class to be overridden.
+     * Creates a new command object, with its name, description, usage and secondary parameters.
      *
+     * @param name the name of the command to create.
+     * @param description the description of the command to create.
+     * @param usage the usage of the command to create.
+     * @param secondaryParams the secondary parameters of the command to create.
+     */
+    protected Command(String name, String description, String usage, Map<String, String> secondaryParams) {
+        this.name = name;
+        this.description = description;
+        this.usage = usage;
+        this.secondaryParams = secondaryParams;
+    }
+
+    /**
+     * Executes the command with parameters given by the user.
+     *
+     * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
      * @param tasks The taskList of Duke.
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // to be overridden
-    }
-
-    /**
-     * Returns true if commandType is "exit" and false otherwise.
-     * Decides whether the loop in {@code main} method of Duke terminates.
-     *
-     * @return The boolean indicating whether quit the loop in {@code main} method.
-     */
-    public boolean isExit() {
-        if (commandParams.getCommandType().equals("bye")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public abstract void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage);
 }

@@ -16,11 +16,9 @@ public class DoneCommand extends Command {
     /**
      * Constructs a {@code DoneCommand} object
      * given the index of the task to be marked as done.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public DoneCommand(CommandParams commandParams) {
-        super(commandParams);
+    public DoneCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -33,8 +31,7 @@ public class DoneCommand extends Command {
      * @param storage The storage of Duke.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to set as done!");
         }

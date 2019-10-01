@@ -16,7 +16,7 @@ public class CommandParamsTest {
     @Test
     public void testCorrectParamValues() {
         CommandParams testParams = new CommandParams("name description goes here /a is a /b is b /c is c");
-        assertEquals(testParams.getCommandType(), "name");
+        assertEquals(testParams.getCommandName(), "name");
         assertEquals(testParams.getMainParam(), "description goes here");
         assertEquals(testParams.getParam("a"), "is a");
         assertEquals(testParams.getOptionalParam("a"), "is a");

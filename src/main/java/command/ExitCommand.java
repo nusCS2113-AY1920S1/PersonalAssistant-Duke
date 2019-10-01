@@ -13,11 +13,9 @@ import ui.Ui;
 public class ExitCommand extends Command {
     /**
      * Constructs an {@code ExitCommand} object.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public ExitCommand(CommandParams commandParams) {
-        super(commandParams);
+    public ExitCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -27,8 +25,7 @@ public class ExitCommand extends Command {
      * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) {
         ui.println("Bye. Hope to see you again soon!");
         System.exit(0);
     }

@@ -19,11 +19,9 @@ public class ScheduleCommand extends Command {
 
     /**
      * Constructs a {@code Command} object with commandType.
-     *
-     * @param commandParams parameters used to invoke the command.
      */
-    public ScheduleCommand(CommandParams commandParams) {
-        super(commandParams);
+    public ScheduleCommand() {
+        super(null, null, null, null);
     }
 
     /**
@@ -32,8 +30,7 @@ public class ScheduleCommand extends Command {
      * @param ui      The ui of Duke.
      * @param storage The storage of Duke.
      */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't which day's schedule to display.");
         }

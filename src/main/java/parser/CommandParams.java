@@ -11,10 +11,10 @@ import java.util.Map;
  */
 public class CommandParams {
     // Internal map that stores all secondary parameters
-    private Map<String, String> paramMap;
+    private Map<String, String> secondaryParams;
 
     // The command type i.e. the first word in the command
-    private String commandType;
+    private String commandName;
 
     // The main parameter value i.e. everything after the first word, before any secondary parameters are declared
     private String mainParam;
@@ -39,14 +39,14 @@ public class CommandParams {
      * @throws DukeException if the user specified a parameter twice.
      */
     public CommandParams(String fullCommand) throws DukeException {
-        paramMap = new HashMap<String, String>();
+        secondaryParams = new HashMap<String, String>();
 
         // Split the input into an array of Strings, containing concatenated parameter names and values
         String[] nameValueStrings = PARAM_INDICATOR_REGEX.split(fullCommand);
 
         // Get commandType and mainParam first
         String[] typeAndMainParam = SPACE_REGEX.split(nameValueStrings[0], 2);
-        commandType = typeAndMainParam[0];
+        commandName = typeAndMainParam[0];
         if (typeAndMainParam.length == 2) { // has main param
             mainParam = typeAndMainParam[1];
         } else {
@@ -56,14 +56,14 @@ public class CommandParams {
         // Get all the others
         for (int i = 1; i < nameValueStrings.length; i++) {
             String[] nameValuePair = SPACE_REGEX.split(nameValueStrings[i], 2);
-            if (paramMap.containsKey(nameValuePair[0])) { // can't contain the same key twice
+            if (secondaryParams.containsKey(nameValuePair[0])) { // can't contain the same key twice
                 throw new DukeException(String.format("☹ OOPS!!! You specified %1$s twice!", nameValuePair[0]));
             }
 
             if (nameValuePair.length == 2) {
-                paramMap.put(nameValuePair[0], nameValuePair[1]);
+                secondaryParams.put(nameValuePair[0], nameValuePair[1]);
             } else {
-                paramMap.put(nameValuePair[0], null);
+                secondaryParams.put(nameValuePair[0], null);
             }
         }
     }
@@ -73,8 +73,8 @@ public class CommandParams {
      *
      * @return {@code commandType}.
      */
-    public String getCommandType() {
-        return commandType;
+    public String getCommandName() {
+        return commandName;
     }
 
     /**
@@ -95,7 +95,7 @@ public class CommandParams {
      * @throws DukeException if the parameter does not exist, or is null.
      */
     public String getParam(String paramName) throws DukeException {
-        String paramValue = paramMap.get(paramName);
+        String paramValue = secondaryParams.get(paramName);
         if (paramValue == null) {
             throw new DukeException(String.format("☹ OOPS!!! You need to give me a value for %1$s!", paramName));
         } else {
@@ -111,7 +111,7 @@ public class CommandParams {
      * @return the value of the requested parameter. May be null.
      */
     public String getOptionalParam(String paramName) {
-        return paramMap.get(paramName);
+        return secondaryParams.get(paramName);
     }
 
     /**
@@ -125,7 +125,7 @@ public class CommandParams {
      */
     public boolean containsParams(String... paramNames) {
         for (String paramName : paramNames) {
-            if (!paramMap.containsKey(paramName)) {
+            if (!secondaryParams.containsKey(paramName)) {
                 return false;
             }
         }
