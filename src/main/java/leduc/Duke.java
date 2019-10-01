@@ -2,6 +2,7 @@ package leduc;
 
 import leduc.command.Command;
 import leduc.exception.DukeException;
+import leduc.exception.FileException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
@@ -44,7 +45,12 @@ public class Duke {
      * Method which run the duke program.
      */
     public void run() {
-        this.ui.showWelcome();
+        try {
+            this.ui.showWelcome();
+        }
+        catch (DukeException e){
+            ui.showError(e);
+        }
         boolean isExit = false;
         while (!isExit){
             try {
