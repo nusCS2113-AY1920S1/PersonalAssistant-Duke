@@ -1,19 +1,10 @@
 package duke;
 
 import java.io.FileNotFoundException;
-/**
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
- */
 import java.util.Scanner;
 
 import duke.Data.Storage;
 import duke.GUI.ViewModules;
-/**
-import duke.Sports.Day.Day;
-import duke.Sports.Day.Monday;
- */
 import duke.Task.*;
 
 import javafx.application.Application;
@@ -26,9 +17,6 @@ public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     public static Stage window;
-    /**
-    private Day d;
-     */
 
     public Duke() {
 
@@ -51,11 +39,6 @@ public class Duke extends Application {
     public void run() {
         ui.welcome();
         tasks.addAllList(storage);
-        /**
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = simpleDateFormat.parse("10/10/2019");
-        d = new Monday(date);
-         */
         while (true) {
             Scanner sc = new Scanner(System.in);
             if (sc.hasNextLine()) {
