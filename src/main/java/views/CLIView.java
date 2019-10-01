@@ -54,7 +54,9 @@ public class CLIView {
      * Method to be called when user says bye to exit the program.
      */
     public void end() {
+        System.out.println(horiLine);
         System.out.println("\t Bye. Hope to see you again soon!");
+        System.out.println(horiLine);
         System.exit(0);
     }
 
