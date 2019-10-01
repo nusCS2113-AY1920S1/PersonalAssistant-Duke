@@ -143,6 +143,7 @@ public class Parser {
                 }
                 break;
 
+
             /**
              * Command should be in the form: class swimming /every monday
              * It will be stored as type [C].
