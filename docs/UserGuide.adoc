@@ -53,7 +53,9 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 === Viewing help: `help`
 
-Format: `*help*`
+Format:
+
+`*help*`
 
 === Adding expense/income: `add expense`, `add income`
 
@@ -70,13 +72,17 @@ Examples:
 === List all expenses and income : `list`
 
 List all the expenses and income that you have stored in Dolla. +
-Format: `*list*`
+Format:
+
+`*list*`
 
 === Change the page of the list: 'page'
 
 Each page of the list will only show 10 different tasks at a time. User can change the page of the list to check their tasks.
 
-Format: `*page* [PAGE NO.]`
+Format:
+
+`*page* [PAGE NO.]`
 
 Example:
 
@@ -100,7 +106,9 @@ Example:
 
 Modify the whole or a component of a particular entry in the list.
 
-Format: `*modify* [LIST NO.] {COMPONENT}`
+Format:
+
+`*modify* [LIST NO.] {COMPONENT}`
 
 [TIP]
 Try using the same method as `*remove*` to find `*[LIST NO.]*`.
@@ -163,7 +171,9 @@ Examples:
 === Add duration-based expenses limit : `set limit`
 
 Set the limit on the amount you can spend within the time period you have input. +
-Format: `*set limit* [AMOUNT] /every [DURATION]`
+Format:
+
+`*set limit* [AMOUNT] /every [DURATION]`
 
 *NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
 
@@ -187,9 +197,11 @@ Example:
 
 === Reminders `reminder`
 
-Reminders for upcoming payments.
+Reminders for upcoming payments and limits that are about to be broken.
 
-Format: `*reminder*`
+Format:
+
+`*reminder*`
 
 *NOTE*: Reminders will auto pop up with the greeting message.
 
@@ -201,12 +213,13 @@ Example:
 
 Set expense limit on particular types of spending.
 
-Format: `*set limit* /tag [TAG] [AMOUNT]`
+Format:
+
+`*set limit* /tag [TAG] [AMOUNT]`
 
 Example:
 
 * `set limit /tag bubble tea $20`
-
 
 === Add loans an debts `owe` `borrow`
 
@@ -228,15 +241,21 @@ Examples:
 
 View spending statistics on a specific tag for a specified duration.
 
-Format: `*stats* [TAG] [DURATION] [CHART_TYPE]`
+Format:
+
+`*stats* [TAG] [DURATION] [CHART_TYPE]`
 
 View spending on specific date/month/year for different tags.
 
-Format: `*stats* [DATE/MONTH/YEAR]`
+Format:
+
+`*stats* [DATE/MONTH/YEAR]`
 
 View spending on specific date/month/year in a list form.
 
-Format: `*view* [DATE/MONTH/YEAR]`
+Format:
+
+`*view* [DATE/MONTH/YEAR]`
 
 Examples:
 
@@ -250,7 +269,9 @@ Examples:
 
 Add an existing entry to the shortcut
 
-Format: `*create shortcut* [LIST NO.]`
+Format:
+
+`*create shortcut* [LIST NO.]`
 
 Example:
 
@@ -260,7 +281,9 @@ Example:
 
 Add a new expense or income to the shortcut `create shortcut expense/income`
 
-Format: `*create shortcut expense/income* [DESCRIPTION] [AMOUNT] {TAG}`
+Format:
+
+`*create shortcut expense/income* [DESCRIPTION] [AMOUNT] {TAG}`
 
 Examples:
 
@@ -270,7 +293,9 @@ Examples:
 
 === Add from a shortcut to expense/income list `add shortcut`
 
-Format: `*add shortcut* [SHORTCUT NO.]`
+Format:
+
+`*add shortcut* [SHORTCUT NO.]`
 
 Example:
 
@@ -278,7 +303,9 @@ Example:
 
 === Modify a shortcut 'shortcut modify'
 
-Format: '*shortcut modify* [SHORTCUT NO.] {COMPONENT}'
+Format:
+
+'*shortcut modify* [SHORTCUT NO.] {COMPONENT}'
 
 Examples:
 
@@ -288,7 +315,9 @@ Examples:
 
 === Remove a shortcut `shortcut remove`
 
-Format: `*shortcut remove* [SHORTCUT NO.]`
+Format:
+
+`*shortcut remove* [SHORTCUT NO.]`
 
 Example:
 
