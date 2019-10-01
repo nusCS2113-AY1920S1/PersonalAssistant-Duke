@@ -183,4 +183,11 @@ public class Ui {
         System.out.println("Great I've snoozed your task");
     }
 
+    /**
+     * tells the user to input valid amount of time
+     */
+    public void showTimeError(){
+        System.out.println("Please indicate a valid amount of time");
+    }
+
 }
