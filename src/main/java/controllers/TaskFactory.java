@@ -3,13 +3,15 @@ package controllers;
 import exceptions.DukeException;
 import exceptions.InvalidDateTimeException;
 import exceptions.NoTaskDetailsException;
-import java.lang.annotation.IncompleteAnnotationException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import models.tasks.Deadline;
-import models.tasks.Event;
+
 import models.tasks.ITask;
+import models.tasks.Deadline;
 import models.tasks.ToDos;
+import models.tasks.Event;
+import models.tasks.DoAfter;
+
 
 import java.awt.image.ImagingOpException;
 import java.text.ParseException;
@@ -74,6 +76,15 @@ public class TaskFactory {
                 throw new InvalidDateTimeException();
             } catch (ImagingOpException e) {
                 throw new DukeException("OOPS! Please remember your /at flag!");
+            }
+        case "doafter":
+            System.out.println(taskDetails);
+            try {
+                String doBeforeTask = taskDetails.split("/after")[1];
+                String doAfterTask = taskDetails.split("/after")[0];
+                return new DoAfter(doAfterTask, doBeforeTask);
+            } catch (Exception e) {
+                throw new DukeException("OOPS! The format of the doAfter task was incorrect!");
             }
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
