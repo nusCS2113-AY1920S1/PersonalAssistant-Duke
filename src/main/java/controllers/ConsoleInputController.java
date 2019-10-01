@@ -186,6 +186,7 @@ public class ConsoleInputController implements IViewController {
         case "event":
         case "todo":
         case "deadline":
+        case "doafter":
             try {
                 ITask newTask = taskFactory.createTask(input);
                 boolean anomaly = taskList.addToList(newTask);
