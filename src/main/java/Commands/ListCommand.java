@@ -6,7 +6,7 @@ import Interface.*;
  */
 public class ListCommand extends Command {
 
-    private String list;
+    private final String list;
     private TaskList listToView;
 
     public ListCommand(String list){

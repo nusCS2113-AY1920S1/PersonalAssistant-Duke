@@ -152,7 +152,7 @@ public class MainWindow extends BorderPane implements Initializable {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat endTimeFormat = new SimpleDateFormat("hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("HH:mm");
-            String arr[] = task.getDateTime().split("to");
+            String[] arr = task.getDateTime().split("to");
             to = timeFormat.format(endTimeFormat.parse(arr[1].trim()));
             from = timeFormat.format(dateFormat.parse(arr[0].trim()));
             description = task.getDescription();

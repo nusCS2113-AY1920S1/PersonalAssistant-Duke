@@ -5,9 +5,9 @@ package Tasks;
  */
 public class Event extends Task {
 
-    private String by;
-    private String start;
-    private String end;
+    private final String by;
+    private final String start;
+    private final String end;
 
     /**
      * Creates an Event object.

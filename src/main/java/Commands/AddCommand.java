@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
  */
 public class  AddCommand extends Command {
 
-    private Task task;
+    private final Task task;
 
     /**
      * Creates an AddCommand object.
@@ -58,7 +58,7 @@ public class  AddCommand extends Command {
                         out += events.getTask(i).toString() + "\n";
                     }
                 }
-                isOK = AB.display("Warning", "Clash in events", out, Alert.AlertType.WARNING);
+                AB.display("Warning", "Clash in events", out, Alert.AlertType.WARNING);
 
             }
         } else if (task.getType().equals("[T]")) {
