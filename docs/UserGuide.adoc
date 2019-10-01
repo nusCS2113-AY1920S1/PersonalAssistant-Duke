@@ -85,6 +85,15 @@ Examples:
 
 * `repeat Shopping at Jewel /at 28/09/19 /every 7`
 
+=== Adding a Do Within: `within`
+
+Adds a task that has to do be done over a period of time to Duke. +
+Format: `within TASK between DATE and DATE`
+
+Examples:
+
+* `within Go North Point between 1200 and 1800`
+
 === Adding a destination: `dest`
 
 Adds a destination location to Duke +
@@ -144,6 +153,24 @@ Examples:
 * `list` +
 `done 2` +
 Marks the 2nd task as done in Duke.
+
+=== Reminder of upcoming events/deadline : `reminder`
+
+Duke shows a list of upcoming events, deadlines & tasks including destinations. +
+Format: `reminder`
+
+Examples:
+
+* `reminder`
+
+=== Find available time slots: `findtime`
+
+Duke searches for free time in the current list of destinations/tasks to allow users to schedule their trips. +
+Format: `findtime DURATION`
+
+Examples:
+
+* `findtime 24`
 
 === Listing all tasks/destinations : `list`
 
@@ -421,10 +448,34 @@ e.g. `delete 3`
 e.g. `done 2`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find Singapore Korea`
+* *Reminder* : `reminder`
+* *Findtime* : `find DURATION` +
+e.g. `findtime 16`
 * *List* : `list`
+* *Bus Stop* : `busstop LOCATION` +
+e.g. `busstop West Mall`
+* *MRT Stop* : `mrtstop LOCATION` +
+e.g. `mrtstop Marina Square`
+* *Bus Route* : `busroute BUS_NUMBER` +
+e.g. `busroute 975`
+* *Bus Tour* : `bustour`
+* *MRT Tour* : `mrttour`
+* *Tour* : `tour`
+* *Bus come* : `buscome BUS_STOP` +
+e.g. `buscome 81024`
+* *Bus Ride* : `busride START DEST` +
+e.g. `busride Paragon Clarke Quay`
+* *MRT Ride* : `mrtride START DEST` +
+e.g. `mrtride Causeway Point Netwon Circus`
+* *Taxi Ride* : `taxiride DEST` +
+e.g. `taxiride Harbourfront`
+* *Taxi* : `taxi`
+* *Train* : `train`
+* *Weather* : `weather`
+* *Help* : `help`
+* *Bye* : `bye`
 * *Recommend* : `recommend LOCATION` +
 e.g. `recommend Germany`
 * *Flight info* : `flight LOCATION` +
 e.g. `flight Iceland`
 * *Tour* : `tour`
-* *Weather* : `weather`
