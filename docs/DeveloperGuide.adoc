@@ -12,7 +12,7 @@ By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-*Dr. Duke* is a command-line based personal assistant for house officers to quikcly and efficiently manage their patients' data.
+*Dr. Duke* is a command-line based personal assistant for house officers to quickly and efficiently manage their patients' data.
 
 It provides house officers with a streamlined notebook environment, which allows them to concentrate on the recording of
 patient data with a pre-defined structure.
