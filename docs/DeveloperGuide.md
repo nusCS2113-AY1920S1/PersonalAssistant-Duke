@@ -1,32 +1,125 @@
 
-# Compal - Developer Guide
+# COMPal - Developer Guide
 
-Welcome to the **Compal** Developer Guide! This Developer Guide is still being worked on for now!
+Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
 
 # Table of Contents
-1. [Introduction](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#user-stories)
- 2. Setting Up
- 3. Design
- 4. Implementation
- 5. Documentation
- 6. Testing
- 7. DevOps
+[**1. Introduction**](/docs/DeveloperGuide.md#1-introduction)
 
- 	* [**Appendix A: User Profile**]( https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-a-user-profile)
- 	* [**Appendix C: User Stories**](https://github.com/jaedonkey/main/blob/master/docs/DeveloperGuide.md#appendix-c-user-stories)
-	* [**Appendix D: Use Cases**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#use-case)
-	* [**Appendix E: Non-Functional Requirements**](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/DeveloperGuide.md#non-functional-requirements)
-	* [**Appendix F: Glossary**](https://github.com/AY1920S1-CS2113T-W17->1/main/blob/master/docs/DeveloperGuide.md#glossary)
+[**2. About this Developer Guide**](/docs/DeveloperGuide.md#2-about-this-developer-guide)
+
+[**3. Setting Up**](/docs/DeveloperGuide.md#3-setting-up)
++ [3.1 Prerequisites](/docs/DeveloperGuide.md#31-prerequisites)
++ [3.2 Setting up the Project in your Computer](/docs/DeveloperGuide.md#32-setting-up-the-project-in-your-computer)
++ [3.3 Verifying the Setup](/docs/DeveloperGuide.md#33-verifying-the-setup)
++ [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
+
+[**4. Design**](/docs/DeveloperGuide.md#4-design)
+
+[**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
+
+[**6. Documentation**](/docs/DeveloperGuide.md#6-documentation)
+
+[**7. Testing**](/docs/DeveloperGuide.md#7-testing)
+
+[**8. DevOps**](/docs/DeveloperGuide.md#8-dev-ops)
+
+[**Appendix A: User Profile**](/docs/DeveloperGuide.md#appendix-a-user-profile) 
+ 
+[**Appendix B: User Stories**](/docs/DeveloperGuide.md#appendix-b-user-stories)  
+
+[**Appendix C: Use Cases**](/docs/DeveloperGuide.md#appendix-c-use-cases)  
+
+[**Appendix D: Non-Functional Requirements**](/docs/DeveloperGuide.md#appendix-d-non-functional-requirements)  
+
+[**Appendix E: Glossary**](/docs/DeveloperGuide.md#appendix-e-glossary)  
 
 
+## 1. Introduction
+**COMPal** is a desktop application specifically designed for the **hectic schedule** for the **modern student** in mind. It is catered to student-users who prefer to use and are adept at using a **Command-Line Interface (CLI)**, while still having a clean **Graphical User Interface (GUI)** to properly **visualize schedules** and **organize tasks** better.
 
-# Introduction
-ComPal is a desktop application specifically designed with busy, disorganized students in mind. It is catered to student-users who prefer to use and are adept at using a Command-Line Interface (CLI), while still having a clean Graphical User Interface (GUI) to properly visualize schedules and organize tasks better.
+## 2. About This Developer Guide
 
+This **Developer Guide** provides a detailed documentation on the implementation of all the time-management tools of **COMPal**. To navigate between the different sections, you could use the [**Table of Contents**](/docs/DeveloperGuide.md#table-of-contents) above.
+
+For ease of communication, tbe following **terminology** will be used:
+
+Term                 | Definition
+---------------------|-----------------------------
+Task                 | The general term that is used to describe an action that has to be done by the user. 
+ 
+Additionally, throughout this **Developer Guide**, there will be various **icons** used as described below.
+
+Icon                 | Description
+---------------------|-----------------
+:information_source: | Additional important information about a term/concept
+:bulb:               | A tip that can improve your understanding about a term/concept
+:warning:            | A warning that you should take note of  
+
+## 3. Setting Up
+### 3.1. Prerequisites
+1. [**JDK 11**](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase11-5116896.html) or later
+2. [**IntelliJ** IDE](https://www.jetbrains.com/store/?fromNavMenu#personal?billing=yearly)
+
+|-|-|
+|---------------------|-----------------------------|
+|:information_source: | **IntelliJ** by default has **Gradle** and **JavaFx** plugins installed. Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.|
+
+
+### 3.2. Setting up the Project in your Computer
+1. Fork this repo, and clone the fork to your computer. 
+
+2. Open **IntelliJ** (if you are not in the welcome screen, click `File` > `Close Project` to close your existing project dialogue first)
+
+3. Set up the correct **JDK** version for Gradle  
+    
+    1. Click `Configure` > `Project Defaults` > `Project Structure`  
+    
+    2. Click `New...` and find the directory of the **JDK**.
+    
+4. Click `Import Project`.
+
+5. Locate the `build.gradle` file and select it. Click `OK`.
+
+6. Click `Open as Project`
+
+7. Click `OK` to accept the default settings. 
+
+8. Use `Gradle` to run the project. 
+    
+    1. Click on the small `Gradle` icon at the top right of your screen. It should open up the `Gradle` sidebar.
+        <img src="images/DG_locating_gradle.png" alt="Locating gradle icon" width="800"/>
+    
+    2. Click on the small `Gradle` icon at the centre of the `Gradle` sidebar.
+        <img src="images/DG_2nd_gradle.png" alt="Locating gradle icon on sidebar" width="800"/>
+        
+    3. Type `gradle run` to run the project.
+    
+    4. The **GUI** should show up in a few seconds. Try running a few commands.
+    
+9. Observe for any code errors displayed in the **console** of the **IntelliJ** IDE. 
+
+### 3.3. Verifying the Setup
+
+1. Run the project using `gradle run`. Try a few commands in the **GUI**.
+
+2. [Run the tests](/docs/DeveloperGuide.md#7-testing) to ensure that they all pass. 
+
+### 3.4. Configurations to do before Writing Code
+
+## 4. Design
+
+## 5. Implementation
+
+## 6. Documentation
+
+## 7. Testing
+
+## 8. Dev Ops
 
 ## Appendix A: User Profile
 
-**System**: ComPal
+**System**: **COMPal**
 
 **Target User Profile**: Students who
 -   want to better organize their time not just according to deadlines but by perceived priorities
@@ -38,7 +131,7 @@ ComPal is a desktop application specifically designed with busy, disorganized st
 **Value Proposition**: Students wanting to be more organized without going through too much of a hassle can now better manage their schedules and tasks with Compal’s clean and intuitive user-interface and user-defined priority-based organization.
 
 
-## Appendix C: User Stories
+## Appendix B: User Stories
 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -79,7 +172,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 
-## Appendix D: Use Cases
+## Appendix C: Use Cases
 
 
 
@@ -87,7 +180,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enters command to store timetable
     
-2.  ComPal prompts you for the timetable details
+2.  COMPal prompts you for the timetable details
 
 		    
 		1.  Number of Modules
@@ -98,7 +191,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 4.  User enters in timetable manually
     
-5.  ComPal displays the timetable
+5.  COMPal displays the timetable
     
 
   
@@ -107,7 +200,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enters command to store a schedule
     
-2.  compal prompts for the task type.
+2.  COMPal prompts for the task type.
     
 
 1.  Assignment(DEADLINE)
@@ -116,15 +209,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 4.  User enters task type.
     
-5.  compal prompts for description.
+5.  COMPal prompts for description.
     
 6.  User enters description.
     
-7.  compal ask for importance level of schedule
+7.  COMPal ask for importance level of schedule
     
 8.  User enter (Enum high,med,low)
     
-9.  If the task is of low priority, compal prompts user whether to allow task to increase in priority.
+9.  If the task is of low priority, COMPal prompts user whether to allow task to increase in priority.
     
 
   
@@ -135,15 +228,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User inputs command to edit task/schedule.
     
-2.  compal prompts for task ID.
+2.  COMPal prompts for task ID.
     
 3.  User enters task ID.
     
-4.  compal returns task
+4.  COMPal returns task
     
 5.  User edits task parameter.
     
-6.  compal displays edited task.
+6.  COMPal displays edited task.
     
 
   
@@ -154,7 +247,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User inputs command to edit academic schedule.
     
-2.  compal prompts for academic schedule name.
+2.  COMPal prompts for academic schedule name.
     
 
   
@@ -163,7 +256,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enters command to change view
     
-2.  compal displays the selected view on GUI.
+2.  COMPal displays the selected view on GUI.
     
 
 **Use Case 6: Mark Task as Done**
@@ -172,7 +265,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enters command to mark task as done
     
-2.  compal reflects task status changes
+2.  COMPal reflects task status changes
     
 
   
@@ -181,31 +274,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enter search command
     
-2.  compal prompts for keyword
+2.  COMPal prompts for keyword
     
 3.  User input keyword
     
-4.  compal reflects search results
+4.  COMPal reflects search results
 
-## Appendix E: Non-Functional Requirements
-1.  ComPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
+## Appendix D: Non-Functional Requirements
+1.  COMPal stores the academic calendar of NUS for up to 10 years, provided that NUS does not update its calendar.
     
-2.  ComPal prompts for academic time table at the beginning of every semester.
+2.  COMPal prompts for academic time table at the beginning of every semester.
     
-3.  Compal can store up to 1,000,000 tasks in a clear text file.
+3.  COMPal can store up to 1,000,000 tasks in a clear text file.
     
-4.  Compal must respond fast, within 2 seconds so that the user does not have to wait too long.
+4.  COMPal must respond fast, within 2 seconds so that the user does not have to wait too long.
     
-5.  Compal system application does not take up much space on the local machine.
+5.  COMPal system application does not take up much space on the local machine.
     
-6.  ComPal’s GUI must be intuitive and pleasant to the eyes
+6.  COMPal’s GUI must be intuitive and pleasant to the eyes
     
-7.  Compal consistently performs specified function without failure
+7.  COMPal consistently performs specified function without failure
     
-8.  The user’s OS must provide the correct time and date for Compal.
+8.  The user’s OS must provide the correct time and date for COMPal.
 
 
 
-## Appendix F: Glossary
-**Task**:  A generic term used to refer to any instance of an object in the user's schedule
+## Appendix E: Glossary
+**Task**:  A generic term used to refer to any instance of an object in the user's schedule  
 **View**: The layout in which the schedule is displayed to the user (Daily/Weekly/Monthly)

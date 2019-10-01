@@ -95,19 +95,19 @@ public class FixedDurationTaskTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, fixedDurationTask.getTime());
+        assertEquals(t, fixedDurationTask.getStartTime());
     }
 
     @Test
     void setTimeTest() {
-        Date t = fixedDurationTask.getTime();
-        fixedDurationTask.setTime(time);
-        assertEquals(t, fixedDurationTask.getTime());
+        Date t = fixedDurationTask.getStartTime();
+        fixedDurationTask.setStartTime(time);
+        assertEquals(t, fixedDurationTask.getStartTime());
     }
 
     @Test
     void getStringTime() {
-        assertEquals(time, fixedDurationTask.getStringTime());
+        assertEquals(time, fixedDurationTask.getStringStartTime());
     }
 
     @Test
@@ -124,11 +124,11 @@ public class FixedDurationTaskTest {
     @Test
     void toStringTest() {
         assertEquals("[" + fixedDurationTask.getSymbol() + "]"
-                        + "[" + fixedDurationTask.getStatusIcon() + "] "
-                        + fixedDurationTask.getDescription()
-                        + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
-                        + fixedDurationTask.getDurationHour()
-                        + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
-                        + fixedDurationTask.getPriority(), fixedDurationTask.toString());
+                + "[" + fixedDurationTask.getStatusIcon() + "] "
+                + fixedDurationTask.getDescription()
+                + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
+                + fixedDurationTask.getDurationHour()
+                + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
+                + fixedDurationTask.getPriority(), fixedDurationTask.toString());
     }
 }

@@ -74,7 +74,7 @@ class DeadlineTest {
 
     @Test
     void getTime() {
-        assertNull(deadline.getTime());
+        assertNull(deadline.getStartTime());
     }
 
     @Test

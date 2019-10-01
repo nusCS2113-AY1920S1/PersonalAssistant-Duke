@@ -1,6 +1,6 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.TaskList;
 
@@ -8,9 +8,9 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_INVALID_TASK_NUMBER;
-import static compal.compal.Messages.MESSAGE_INVALID_TASK;
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_TASK_NUMBER;
+import static compal.commons.Messages.MESSAGE_INVALID_TASK;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "remind".
@@ -31,11 +31,11 @@ public class SetReminderCommand extends Command implements CommandParser {
 
     /**
      * Marks task as has reminder based on user task number input and
-     *      * prints confirmation message to user.
+     * * prints confirmation message to user.
      *
      * @param userIn Entire user input string.
      * @throws Compal.DukeException If user task number input is invalid or missing.
-     * @throws ParseException If date is in invalid format.
+     * @throws ParseException       If date is in invalid format.
      */
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
