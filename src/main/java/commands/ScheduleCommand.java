@@ -4,22 +4,28 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
-import Exception.DukeException;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Lists out all the tasks the user has on the specified day.
+ */
 public class ScheduleCommand extends Command {
-    //format for the command: schedule <date>
+    //format for the command: schedule <yyyy-MM-dd>
     protected LocalDate date;
-
+    /**
+     * This is the main body of the schedule command.
+     *
+     * @param list the tasks list.
+     * @param ui the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data to the Save.txt file.
+     * @throws NullPointerException if tDate doesn't get updated.
+     */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             date = LocalDate.parse(ui.FullCommand.trim().split(" ")[1], fmt);
@@ -36,7 +42,7 @@ public class ScheduleCommand extends Command {
             if (t.getClass().getName().equals("Tasks.Event")) {
                 tDate = ((Event) t).date;
             } else if (t.getClass().getName().equals("Tasks.Deadline")) {
-                tDate = ((Deadline) t).by.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                tDate = ((Deadline) t).by.toLocalDate();
             }
             if (date.equals(tDate)) {
                 schedule.add(t);
@@ -51,9 +57,16 @@ public class ScheduleCommand extends Command {
             }
         }
     }
+
+    /**
+     * Tells the main Duke class that the system should not exit and continue running
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
 }
+
+

@@ -4,6 +4,8 @@ import UI.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+import java.util.Date;
 
 public class Timebound extends Task {
     public LocalDate dateStart;
@@ -14,23 +16,27 @@ public class Timebound extends Task {
 
         try {
             DateTimeFormatter fmtED = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String[] dateTime = period.split(" and ");
+            String[] date = period.split(" and ");
 
-            this.dateStart = LocalDate.parse(dateTime[0], fmtED);
-            this.dateEnd = LocalDate.parse(dateTime[1], fmtED);
+            this.dateStart = LocalDate.parse(date[0], fmtED);
+            this.dateEnd = LocalDate.parse(date[1], fmtED);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             Ui.showEventDateFormatError();
         }
     }
     @Override
     public String toString() {
-
-        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + "between: " + dateStart + " and " + dateEnd;
+        String dateStartString = dateStart.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        String dateEndString = dateEnd.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + "between: " + dateStartString + " and " + dateEndString;
     }
 
     @Override
 
     public String listFormat(){
-        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + "(between: " + dateStart + " and " + dateEnd + ")";
+        String dateStartString = dateStart.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        String dateEndString = dateEnd.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+
+        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + "(between: " + dateStartString + " and " + dateEndString + ")";
     }
 }

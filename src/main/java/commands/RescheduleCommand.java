@@ -8,7 +8,6 @@ import UI.Ui;
 import java.io.IOException;
 import java.text.ParseException;
 import Exception.DukeException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RescheduleCommand extends Command {
@@ -24,12 +23,11 @@ public class RescheduleCommand extends Command {
             System.out.println("Please type in your new timeline");
             ui.ReadCommand();
             String time = ui.FullCommand;
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("Are you sure you want to reschedule this task? (yes/no)");
             ui.ReadCommand();
             if (ui.FullCommand.equals("yes")) {
                 if (list.get(index).listFormat().contains("by")) {
-                    Task RescheduledDeadline = new Deadline(Decription, fmt.parse(time));
+                    Task RescheduledDeadline = new Deadline(Decription, time);
                     list.remove(index);
                     list.add(RescheduledDeadline);
                     System.out.println("Noted. I've changed this task's timeline: ");
@@ -44,13 +42,7 @@ public class RescheduleCommand extends Command {
 
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                        sb.append(list.get(i).toString() + "\n");
-                    } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                        sb.append(list.get(i).toString() + "\n");
-                        } else {
-                            sb.append(list.get(i).toString() + "\n");
-                        }
+                    sb.append(list.get(i).toString() + "\n");
                     }
                     storage.Storages(sb.toString());
                 } else {

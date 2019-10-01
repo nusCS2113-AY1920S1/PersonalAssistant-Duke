@@ -35,19 +35,22 @@ public class SnoozeCommand extends Command {
             int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
 
             if (list.get(index).listFormat().contains("by")) {
-                SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
-//                System.out.println("Success" + initial);
-                    Calendar rightNow = Calendar.getInstance();
-                    rightNow.setTime(initial);
-                    if (year > 0) rightNow.add(Calendar.YEAR, year);
-                    if (month > 0) rightNow.add(Calendar.MONTH, month);
-                    if (day > 0) rightNow.add(Calendar.DAY_OF_YEAR, day);
-                    if (hour > 0) rightNow.add(Calendar.HOUR, hour);
-                    Date after = rightNow.getTime();
+//                SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+//                Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
+////                System.out.println("Success" + initial);
+//                    Calendar rightNow = Calendar.getInstance();
+//                    rightNow.setTime(initial);
+//                    if (year > 0) rightNow.add(Calendar.YEAR, year);
+//                    if (month > 0) rightNow.add(Calendar.MONTH, month);
+//                    if (day > 0) rightNow.add(Calendar.DAY_OF_YEAR, day);
+//                    if (hour > 0) rightNow.add(Calendar.HOUR, hour);
+//                    Date after = rightNow.getTime();
 //                System.out.println("Success"+after);
-
-                Task snoozedDeadline = new Deadline(Description,after);
+                String date = list.get(index).toString().split("\\|")[3].substring(4);
+                LocalDateTime newDate  = LocalDateTime.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                newDate.plusYears(year).plusMonths(month).plusDays(day);
+                String newBy= newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                Task snoozedDeadline = new Deadline(Description,newBy);
                 list.remove(index);
                 list.add(snoozedDeadline);
                 System.out.println("Okay. I've prolonged this task's deadline: ");
@@ -73,14 +76,7 @@ public class SnoozeCommand extends Command {
             }
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getClass().getName().equals("Tasks.Deadline")) {
-                    sb.append(list.get(i).toString() + "\n");
-                } else if (list.get(i).getClass().getName().equals("Tasks.Event")) {
-                    sb.append(list.get(i).toString() + "\n");
-
-                    } else {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
+                sb.append(list.get(i).toString() + "\n");
                 }
                 storage.Storages(sb.toString());
             }
