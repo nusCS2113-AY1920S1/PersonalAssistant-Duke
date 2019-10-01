@@ -14,7 +14,11 @@ public class Expenditure {
         this.category = category;
     }
 
-    public String toString() {
+    public double getAmount() {
+        return this.amount;
+    }
+
+    protected String getDetails() {
         return "Description: " + this.description + "\nAmount: " + this.amount + "\nDate: " + this.date.toString()
                 + "\nCategory: " + category;
     }

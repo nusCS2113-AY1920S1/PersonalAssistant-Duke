@@ -12,12 +12,20 @@ abstract class Parser {
     }
     //added /test to list all banks for testing
     String removeFirstField(String input, String firstField) throws ParserException {
-        if(firstField.equals("/exit") || firstField.equals("/test")) {
+        if(firstField.equals("/exit")) {
             return input.substring(firstField.length());
         } else if(firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
         } else {
             throw new ParserException("Incomplete command provided");
+        }
+    }
+
+    String removeListFirstField(String input, String firstField) throws ParserException {
+        if(firstField.equals("/savings")) {
+            return "";
+        } else {
+            return input.substring(firstField.length() + SPACE_LENGTH);
         }
     }
 }

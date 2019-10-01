@@ -2,6 +2,7 @@ package owlmoney.model.bank;
 
 import owlmoney.model.expenditure.Expenditure;
 import owlmoney.model.expenditure.ExpenditureList;
+import owlmoney.ui.Ui;
 
 public class Saving extends Bank{
 
@@ -18,19 +19,22 @@ public class Saving extends Bank{
     }
 
     @Override
-    public void getDescription() {
-        super.getDescription();
-        System.out.println(income);
-        System.out.println(type);
+    public String getDescription() {
+        return super.getDescription() + "\nIncome: " + income + "\nType: " + type;
     }
 
     @Override
-    public void addInExpenditure(Expenditure exp) {
-        myExpenditure.addToList(exp);
+    public void addInExpenditure(Expenditure exp, Ui ui) {
+        myExpenditure.addToList(exp, ui);
     }
 
     @Override
-    public void listAllExpenditure() {
-        myExpenditure.listExpenditure();
+    public void listAllExpenditure(Ui ui) {
+        myExpenditure.listExpenditure(ui);
+    }
+
+    @Override
+    public void deleteExpend(int exId, Ui ui) {
+        myExpenditure.deleteFromList(exId, ui);
     }
 }

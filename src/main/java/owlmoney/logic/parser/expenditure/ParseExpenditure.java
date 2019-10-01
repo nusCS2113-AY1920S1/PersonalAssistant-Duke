@@ -9,12 +9,14 @@ public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
-    static final String[] SAVINGS_KEYWORD = new String[] {"/name", "/amount", "/date", "/description", "/category"};
+    static final String[] SAVINGS_KEYWORD = new String[] {"/name", "/amount", "/date", "/description", "/category",
+            "/from", "/expno"};
     static final String AMOUNT = "/amount";
     static final String DATE = "/date";
     static final String DESCRIPTION = "/description";
     static final String CATEGORY = "/category";
-    static final String ACCNAME = "/name";
+    static final String FROM = "/from";
+    static final String EXPNO = "/expno";
 
     ParseExpenditure(String data) {
         this.rawData = data;
@@ -29,8 +31,10 @@ public abstract class ParseExpenditure {
                 parseRawData.extractParameter(rawData,DESCRIPTION, SAVINGS_KEYWORD));
         expendituresParameters.put(CATEGORY,
                 parseRawData.extractParameter(rawData,CATEGORY, SAVINGS_KEYWORD));
-        expendituresParameters.put(ACCNAME,
-                parseRawData.extractParameter(rawData,ACCNAME, SAVINGS_KEYWORD));
+        expendituresParameters.put(FROM,
+                parseRawData.extractParameter(rawData,FROM, SAVINGS_KEYWORD));
+        expendituresParameters.put(EXPNO,
+                parseRawData.extractParameter(rawData,EXPNO, SAVINGS_KEYWORD));
     }
 
     void checkIfDouble(String valueString) throws ParserException {
@@ -41,5 +45,5 @@ public abstract class ParseExpenditure {
         }
     }
 
-    abstract void checkParameter() throws ParserException;
+    public abstract void checkParameter() throws ParserException;
 }

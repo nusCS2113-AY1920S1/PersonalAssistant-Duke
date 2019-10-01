@@ -1,10 +1,12 @@
 package owlmoney.logic.command.bank;
 
+import owlmoney.logic.command.OwlMoneyCommand;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.Saving;
 import owlmoney.model.profile.Profile;
+import owlmoney.ui.Ui;
 
-public class AddSavingsCommand {
+public class AddSavingsCommand extends OwlMoneyCommand {
     private final String name;
     private final double income;
     private final double amount;
@@ -18,9 +20,9 @@ public class AddSavingsCommand {
         this.name = name;
     }
 
-    public void execute(Profile profile) {
+    public void execute(Profile profile, Ui ui) {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
         //newSaving.getDescription();
-        profile.addNewBank(newSaving);
+        profile.addNewBank(newSaving, ui);
     }
 }

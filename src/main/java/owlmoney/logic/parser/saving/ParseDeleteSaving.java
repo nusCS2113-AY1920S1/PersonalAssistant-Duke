@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Map;
 
+import owlmoney.logic.command.OwlMoneyCommand;
 import owlmoney.logic.command.bank.DeleteSavingsCommand;
 import owlmoney.model.profile.Profile;
 
@@ -30,9 +31,9 @@ public class ParseDeleteSaving extends ParseSaving {
         }
     }
 
-    public void passToCommand(Profile profile) {
+    public OwlMoneyCommand getCommand() {
         DeleteSavingsCommand newDeleteSavingsCommand = new DeleteSavingsCommand(savingsParameters.get(NAME));
-        newDeleteSavingsCommand.execute(profile);
+        return newDeleteSavingsCommand;
     }
 
 }
