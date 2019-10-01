@@ -57,6 +57,8 @@ public class Parser {
             return new RescheduleCommand(ParserUtil.getSafeIndex(userInput), ParserUtil.getScheduleDate(userInput));
         case "repeat":
             return new AddCommand(ParserUtil.createRecurringTask(userInput));
+        case "fixed":
+            return new AddCommand(ParserUtil.createFixed(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }

@@ -6,6 +6,7 @@ import duke.commons.MessageUtil;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Event;
+import duke.tasks.Fixed;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -113,6 +114,41 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
+    }
+
+    /**
+     * Parses the userInput and return a new Fixed constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new Fixed object.
+     */
+    protected static Fixed createFixed(String userInput) throws  DukeException {
+        String[] fixedDetails = userInput.substring("fixed".length()).strip().split("needs");
+        if (fixedDetails.length != 2 || fixedDetails[1] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (fixedDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        try {
+            int hour = 0;
+            int min = 0;
+
+            String[] timeDetails = fixedDetails[1].strip().split("hours");
+
+            if (timeDetails.length == 2) {
+                hour = Integer.parseInt(timeDetails[0].strip());
+                min = Integer.parseInt(timeDetails[1].replaceAll("mins","").strip());
+            } else if (timeDetails[0].contains("mins")) {
+                min = Integer.parseInt(timeDetails[0].replaceAll("mins","").strip());
+            } else {
+                hour = Integer.parseInt(timeDetails[0].strip());
+            }
+            return new Fixed(fixedDetails[0].strip(),hour,min);
+        } catch (NumberFormatException e) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+
     }
 
     /**
