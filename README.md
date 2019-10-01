@@ -4,7 +4,7 @@ For executable Jar files, please visit the [releases](https://github.com/AY1920S
 
 
 # Developer Guide
-[GDocs](https://docs.google.com/document/d/1z7G7jJNlerA23xnoJGRRZuASt6qZzny-Ek-UfLWL4c0/edit?usp=sharing) 
+[hackmd](https://hackmd.io/@cCavNghrQpmWYXAaTaB_CQ/rk1rcMluS)
 
 
 # Setting up
