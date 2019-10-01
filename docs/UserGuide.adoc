@@ -1,4 +1,4 @@
-= Duke - User Guide
+= SGTravel - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-Duke is for those who *prefer to use a desktop app for scheduling tasks*. Duke is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, Duke is the best application for planning your vacation plans in Singapore! More importantly, Duke is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Duke can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SGTravel is for those who *prefer to use a desktop app for scheduling tasks*. SGTravel is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, SGTravel is the best application for planning your vacation plans in Singapore! More importantly, SGTravel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SGTravel can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -28,8 +28,8 @@ Duke is for those who *prefer to use a desktop app for scheduling tasks*. Duke i
 Only Java 11+ is supported. +
 This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 +
-.  Download the latest `duke.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Duke.
+.  Download the latest `SGTravel.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your SGTravel.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.PNG[width="600" height="400"]
@@ -38,7 +38,7 @@ image::Ui.PNG[width="600" height="400"]
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks
-* **`todo`**`Go Jurong Regional Library` : adds a task named `Go Jurong Regional Library` to Duke.
+* **`todo`**`Go Jurong Regional Library` : adds a task named `Go Jurong Regional Library` to SGTravel.
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
@@ -56,7 +56,7 @@ image::Ui.PNG[width="600" height="400"]
 
 === Adding a task: `todo`
 
-Adds a task to Duke +
+Adds a task to SGTravel +
 Format: `todo TASK`
 
 Examples:
@@ -65,7 +65,7 @@ Examples:
 
 === Adding a deadline: `deadline`
 
-Adds a deadline to Duke +
+Adds a deadline to SGTravel +
 Format: `deadline TASK /by DESCRIPTOR`
 
 Examples:
@@ -74,7 +74,7 @@ Examples:
 
 === Adding an event: `event`
 
-Adds an event to Duke +
+Adds an event to SGTravel +
 Format: `event TASK /at DESCRIPTOR`
 
 Examples:
@@ -83,7 +83,7 @@ Examples:
 
 === Adding a recurring: `recurring`
 
-Adds a recurring task to Duke +
+Adds a recurring task to SGTravel +
 Format: `repeat TASK /at DATE /every INTERVAL`
 
 Examples:
@@ -92,7 +92,7 @@ Examples:
 
 === Adding a Do Within: `within`
 
-Adds a task that has to do be done over a period of time to Duke. +
+Adds a task that has to do be done over a period of time to SGTravel. +
 Format: `within TASK between DATE and DATE`
 
 Examples:
@@ -101,7 +101,7 @@ Examples:
 
 === Adding a destination: `dest`
 
-Adds a destination location to Duke +
+Adds a destination location to SGTravel +
 Format: `dest LOCATION`
 
 Examples:
@@ -110,7 +110,7 @@ Examples:
 
 === Updating a destination: `update`
 
-Duke updates a destination location +
+SGTravel updates a destination location +
 Format: `update INDEX LOCATION`
 
 ****
@@ -123,11 +123,11 @@ Examples:
 
 * `list` +
 `update 2 Chinatown` +
-Marks the 2nd destination to Italy in Duke.
+Marks the 2nd destination to Italy in SGTravel.
 
 === Deleting a task/destination : `delete`
 
-Deletes the specified task/destination from Duke. +
+Deletes the specified task/destination from SGTravel. +
 Format: `delete INDEX`
 
 ****
@@ -140,11 +140,11 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd task/destination in Duke.
+Deletes the 2nd task/destination in SGTravel.
 
 === Marking a task : `done`
 
-Mark the specified task as done on Duke. +
+Mark the specified task as done on SGTravel. +
 Format: `done INDEX`
 
 ****
@@ -157,11 +157,11 @@ Examples:
 
 * `list` +
 `done 2` +
-Marks the 2nd task as done in Duke.
+Marks the 2nd task as done in SGTravel.
 
 === Reminder of upcoming events/deadline : `reminder`
 
-Duke shows a list of upcoming events, deadlines & tasks including destinations. +
+SGTravel shows a list of upcoming events, deadlines & tasks including destinations. +
 Format: `reminder`
 
 Examples:
@@ -170,7 +170,7 @@ Examples:
 
 === Find available time slots: `findtime`
 
-Duke searches for free time in the current list of destinations/tasks to allow users to schedule their trips. +
+SGTravel searches for free time in the current list of destinations/tasks to allow users to schedule their trips. +
 Format: `findtime DURATION`
 
 Examples:
@@ -179,7 +179,7 @@ Examples:
 
 === Listing all tasks/destinations : `list`
 
-Shows a list of all the tasks/destinations in Duke. +
+Shows a list of all the tasks/destinations in SGTravel. +
 Format: `list`
 
 === Locating tasks/destinations by name: `find`
@@ -203,7 +203,7 @@ Returns any tasks containing names `Mexico`, `Laos`, or `Singapore`
 
 === List nearby bus stops of destination: `busstop`
 
-Duke recommends nearby bus stops of a certain location. +
+SGTravel recommends nearby bus stops of a certain location. +
 Format: `busstop LOCATION`
 
 Examples:
@@ -213,7 +213,7 @@ Examples:
 
 === List nearby MRT stops of destination: `mrtstop`
 
-Duke recommends nearby MRT stops of a certain location. +
+SGTravel recommends nearby MRT stops of a certain location. +
 Format: `mrtstop LOCATION`
 
 Examples:
@@ -223,7 +223,7 @@ Examples:
 
 === Shows the bus route of a bus service: `busroute`
 
-Duke finds the bus route of a given bus service given the bus service number. +
+SGTravel finds the bus route of a given bus service given the bus service number. +
 Format: `busroute BUS_NUMBER`
 
 Examples:
@@ -233,7 +233,7 @@ Examples:
 
 === Create a bus travel plan for user: `bustour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destinations. +
+SGTravel recommends a travelling plan (short path) based on the user's input of destinations. +
 Format: `bustour`
 
 Examples:
@@ -242,7 +242,7 @@ Examples:
 
 === Create a mrt travel plan for user: `mrttour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destinations. +
+SGTravel recommends a travelling plan (short path) based on the user's input of destinations. +
 Format: `mrttour`
 
 Examples:
@@ -251,7 +251,7 @@ Examples:
 
 === Create a travel plan for user: `tour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destinations which may include both bus and train services. +
+SGTravel recommends a travelling plan (short path) based on the user's input of destinations which may include both bus and train services. +
 Format: `tour`
 
 Examples:
@@ -260,7 +260,7 @@ Examples:
 
 === Bus arrivals of queried bus stop: `buscome`
 
-Duke provides bus arrival information of a given bus stop provided by user. +
+SGTravel provides bus arrival information of a given bus stop provided by user. +
 Format: `buscome BUS_STOP`
 
 Examples:
@@ -269,7 +269,7 @@ Examples:
 
 === List the fastest bus route, time and cost from a given location to destination: `busride`
 
-Duke provides fastest bus route, time and cost to destination. +
+SGTravel provides fastest bus route, time and cost to destination. +
 Format: `busride START DESTINATION`
 
 Examples:
@@ -278,7 +278,7 @@ Examples:
 
 === List the fastest mrt route, time and cost from a given location to destination: `mrtride`
 
-Duke provides fastest mrt route, time and cost to destination. +
+SGTravel provides fastest mrt route, time and cost to destination. +
 Format: `mrtride START DESTINATION`
 
 Examples:
@@ -287,7 +287,7 @@ Examples:
 
 === List the fare and time taken for a taxi ride to destination: `taxiride`
 
-Duke provides cost of taxi trip amd time taken for the ride to destination. +
+SGTravel provides cost of taxi trip amd time taken for the ride to destination. +
 Format: `taxiride DESTINATION`
 
 Examples:
@@ -296,7 +296,7 @@ Examples:
 
 === List all the available taxis nearby: `taxi`
 
-Duke provides taxi information of nearby taxis. +
+SGTravel provides taxi information of nearby taxis. +
 Format: `taxi`
 
 Examples:
@@ -305,7 +305,7 @@ Examples:
 
 === Train alerts: `train`
 
-Duke informs user of train services that are not in operation due to track faults and other incidents. +
+SGTravel informs user of train services that are not in operation due to track faults and other incidents. +
 
 Examples:
 
@@ -313,7 +313,7 @@ Examples:
 
 === PSI alerts: `psi`
 
-Duke provides user with information on PSI-levels of all destinations in Singapore. +
+SGTravel provides user with information on PSI-levels of all destinations in Singapore. +
 
 Examples:
 
@@ -321,7 +321,7 @@ Examples:
 
 === UVI alerts: `uvi`
 
-Duke provides user with information on Ultra-violet Index of Singapore. +
+SGTravel provides user with information on Ultra-violet Index of Singapore. +
 
 Examples:
 
@@ -329,7 +329,7 @@ Examples:
 
 === PM2.5 alerts: `pm2.5`
 
-Duke provides user with information on PM2.5-levels of all destinations in Singapore. +
+SGTravel provides user with information on PM2.5-levels of all destinations in Singapore. +
 
 Examples:
 
@@ -337,7 +337,7 @@ Examples:
 
 === Weather alerts: `weather`
 
-Duke provides user with information on weather of all destinations in Singapore. +
+SGTravel provides user with information on weather of all destinations in Singapore. +
 
 Examples:
 
@@ -345,7 +345,7 @@ Examples:
 
 === Undo: `undo`
 
-Duke undos the last command. +
+SGTravel undos the last command. +
 
 Examples:
 
@@ -353,7 +353,7 @@ Examples:
 
 === Redo: `redo`
 
-Duke redos the last undo. +
+SGTravel redos the last undo. +
 
 Examples:
 
@@ -361,7 +361,7 @@ Examples:
 
 === Help: `help`
 
-Duke shows this page to the user. +
+SGTravel shows this page to the user. +
 Format: `help`
 
 Examples:
@@ -375,24 +375,28 @@ Format: `bye`
 
 === Saving the data
 
-Duke data are saved in the hard disk automatically after any command that changes the data. +
+SGTravel data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Viewing calendar
 
-Duke will automatically display calendar when the relevant commands are invoke. +
+SGTravel will automatically display calendar when the relevant commands are invoke. +
 There is also a button located at the top left corner of the application to call the calendar manually.
 
 === Viewing Singapore map
 
-Duke will automatically display Singapore map when the relevant commands are invoke. +
+SGTravel will automatically display Singapore map when the relevant commands are invoke. +
 There is also a button located at the top left corner of the application to call the map manually.
+
+=== Autocorrect
+
+SGTravel will help you autocorrect your spelling mistakes and users can tab to autocomplete!
 
 == Features that are coming in version 2.0!
 
 === Create a travel plan for user: `worldtour`
 
-Duke recommends a travelling plan (short path) based on the user's input of destinations. +
+SGTravel recommends a travelling plan (short path) based on the user's input of destinations. +
 Format: `worldtour`
 
 Examples:
@@ -401,7 +405,7 @@ Examples:
 
 === Weather forecast of destinations: `weather`
 
-Duke provides weather forecast for all destinations (including outside of Singapore) user have added. +
+SGTravel provides weather forecast for all destinations (including outside of Singapore) user have added. +
 Format: `weather`
 
 Examples:
@@ -410,7 +414,7 @@ Examples:
 
 === Exchange rate: `rate`
 
-Duke provides the currency exchange rate of the 2 currency user stated. +
+SGTravel provides the currency exchange rate of the 2 currency user stated. +
 Format: `rate CURRENCY /to CURRENCY`
 
 Examples:
@@ -419,7 +423,7 @@ Examples:
 
 === Listing popular places of a destination: `recommend`
 
-Duke recommends popular places of visit at a given location. +
+SGTravel recommends popular places of visit at a given location. +
 Format: `recommend LOCATION`
 
 Examples:
@@ -428,7 +432,7 @@ Examples:
 
 === Listing nearby hotels of a destination: `recommendhotel`
 
-Duke recommends hotels to stay at a given location. +
+SGTravel recommends hotels to stay at a given location. +
 Format: `recommendhotel LOCATION`
 
 Examples:
@@ -437,7 +441,7 @@ Examples:
 
 === Listing flight information from home location to destination: `flight`
 
-Duke recommends flights from current home location to the given destination. +
+SGTravel recommends flights from current home location to the given destination. +
 Format: `flight LOCATION`
 
 Examples:
@@ -447,7 +451,7 @@ Examples:
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SGTravel folder.
 
 == Command Summary
 
