@@ -8,14 +8,16 @@ import java.util.ArrayList;
  * respond to the user based on the user's input.
  */
 public class Ui {
+    private final String logo = " ____        _        \n"
+
     private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private String welcomeMessage = "Hello! I'm Duke\n"
+    private final String welcomeMessage = "Hello! I'm Duke\n"
             + "What can I do for you?\n";
-    private String byeMessage = "Bye. Hope to see you again soon!\n";
+    private final String byeMessage = "Bye. Hope to see you again soon!\n";
     protected String line = "____________________________________________________________\n";
 
     /**
@@ -78,8 +80,7 @@ public class Ui {
     public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
             return "There are no matching tasks in your list.\n";
-        }
-        else {
+        } else {
             String findMessage = "Here are the matching tasks in your list:\n";
             for (int i = 1; i <= list.taskListSize(); i++) {
                 findMessage = findMessage + i + "." + list.taskToString(i - 1) + "\n";
@@ -89,7 +90,6 @@ public class Ui {
     }
 
     public String showFreeTimes(String message){
-
         return ("You are available at: \n" + message);
     }
 
@@ -99,8 +99,7 @@ public class Ui {
     public String showReminder(TaskList list){
         if(list.taskListSize() == 0) {
             return "There are no upcoming tasks this week.\n";
-        }
-        else {
+        } else {
             String remindMessage = "Here are your tasks for this week:\n";
             for (int i = 1; i <= list.taskListSize(); i++) {
                 remindMessage = remindMessage + i + "." + list.taskToString(i - 1) + "\n";
@@ -125,7 +124,8 @@ public class Ui {
 
 
     public String showUserSchedule(String finalSchedule) {
-        return finalSchedule;
+        return "Here is your schedule which have been categorised into TODO, DEADLINE and EVENTS\n" +
+                finalSchedule;
     }
 
     /**
@@ -134,5 +134,30 @@ public class Ui {
     public String showSnooze(int index, int listSize, ArrayList<Task> list) {
         return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+    }
+
+    /**
+     * Displays the show reminder message when user enter a task with a period to do within
+     * @param TaskDescription The description of the task entered
+     * @param startDate The start date for task
+     * @param endDate The end date for task
+     * @param isValid determine if user's input date is entered correctly
+     * @return This returns the reminder message which contain the task description and the start
+     * and end date
+     */
+    public String showReminder(String TaskDescription, String startDate, String endDate, boolean isValid) {
+        if (!isValid) {
+            return "Please enter another valid date in format of DD/MM/yyyy";
+        } else {
+            return "Reminder have been set for: " + TaskDescription + "." + " Start Date: " + startDate +
+                    " End Date: " + endDate + "\n";
+        }
+    public String showTentativeSchedule(TaskList tentativeDates){
+        String out = "Here is your tentative schedule. \n" ;
+        for (int i = 0; i< tentativeDates.taskListSize(); i++){
+            out += i+1 + "." + tentativeDates.taskToString(i ) + "\n";
+        }
+
+        return  out;
     }
 }

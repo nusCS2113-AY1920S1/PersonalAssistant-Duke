@@ -22,7 +22,7 @@ public class Storage {
     private String filePathEvent;
     private String filePathTodo;
     private String filePathDeadline;
-
+    private static String filePathTentativeDates;
     /**
      * Creates Storage object.
      */
@@ -32,6 +32,7 @@ public class Storage {
         filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
         filePathTodo = System.getProperty("user.dir") + "\\data\\todo.txt";
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
+        filePathTentativeDates = System.getProperty("user.dir") + "\\data\\TentativeDates.txt";
     }
 
     public void updateTodoList(TaskList list) throws FileNotFoundException {
@@ -81,8 +82,22 @@ public class Storage {
             list.addTask(stringToTask(string));
         }
     }
+    public static void updateTentativeDates(TaskList list) throws FileNotFoundException {
+        PrintWriter outputStream = new PrintWriter(filePathTentativeDates);
+        ArrayList<Task> temp = list.getList();
+        for(Task task : temp){
+            outputStream.println(task.toString());
+        }
+        outputStream.close();
+    }
+    public void readTentativeDates(TaskList list) throws IOException, ParseException {
+        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathTentativeDates)));
+        for(String string : temp){
+            list.addTask(stringToTask(string));
+        }
+    }
 
-    private Task stringToTask(String string) throws ParseException {
+    private static Task stringToTask(String string) throws ParseException {
         if (string.trim().isEmpty()) {
             System.out.println("Error");
             System.exit(5);

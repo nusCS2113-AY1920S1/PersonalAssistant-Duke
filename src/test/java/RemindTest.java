@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RemindTest {
     Ui ui = new Ui();
-    Storage storage = new Storage(System.getProperty("user.dir") + "\\data\\duke.txt");
+    Storage storage = new Storage();
 
     @Test
     public void remindTestTodo() throws Exception {
@@ -18,7 +18,7 @@ public class RemindTest {
         TaskList temp = new TaskList();
         temp.addTask(new Todo("buy bread"));
         Command c = Parser.parse("remind");
-        String actual = c.execute(temp, ui, storage);
+        String actual = c.execute(temp,temp,temp, ui, storage);
         assertEquals(expected, actual);
     }
 
@@ -29,9 +29,9 @@ public class RemindTest {
         String currentDate = format.format(date);
         String expected ="Here are your tasks for this week:\n" + "1.[E][\u2718] exam (at: " + currentDate + ")\n";
         TaskList temp = new TaskList();
-        temp.addTask(new Event("exam", currentDate));
+        temp.addTask(new Event("exam", currentDate,"1200","1400"));
         Command c = Parser.parse("remind");
-        String actual = c.execute(temp, ui, storage);
+        String actual = c.execute(temp,temp,temp, ui, storage);
         assertEquals(expected, actual);
     }
 
@@ -42,10 +42,10 @@ public class RemindTest {
         String currentDate = format.format(date);
         String expected = "There are no upcoming tasks this week.\n";
         TaskList temp = new TaskList();
-        temp.addTask(new Event("exam", currentDate));
+        temp.addTask(new Event("exam", currentDate,"1200","1400"));
         temp.markAsDone(0);
         Command c = Parser.parse("remind");
-        String actual = c.execute(temp, ui, storage);
+        String actual = c.execute(temp,temp,temp, ui, storage);
         assertEquals(expected, actual);
     }
 }
