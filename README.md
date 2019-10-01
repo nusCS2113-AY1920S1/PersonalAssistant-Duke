@@ -1,7 +1,19 @@
-# Duke 2.0
+# DIYeats
 ![travis](https://travis-ci.com/AY1920S1-CS2113T-W13-4/main.svg?branch=master)
-![GUI](docs/images/GUI.png)
+  
+  ![GUI](docs/images/Ui.png)
 
+# Introduction
+
+*DIYeats* is an application designed to help NUS students plan out their diet in order to maintain a healthy lifestyle,
+which can often times be a challenging endeavour amidst the intense academic rigour associated with university life.
+
+*DIYeats* utilizes a command line interface, and is compatible with most modern OSes
+(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+unfamiliar with the command line interface can use it with ease.
+
+*DIYeats* also comes with a Graphical User Interface. Which will allow even users who are not familiar with the command
+interface to use our application.
 # Setting up
 
 **Prerequisites**

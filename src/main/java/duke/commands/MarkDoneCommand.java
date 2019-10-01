@@ -1,11 +1,12 @@
 package duke.commands;
 
-import duke.tasks.Schedule;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.tasks.Meal;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+
 import java.util.ArrayList;
+import duke.user.User;
 
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
@@ -30,11 +31,11 @@ public class MarkDoneCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        Task currentTask = currentTasks.get(index - 1);
-        currentTask.markAsDone();
-        storage.updateFile(currentTasks);
-        ui.showDone(currentTask);
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
+        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        Meal currentMeal = currentMeals.get(index - 1);
+        currentMeal.markAsDone();
+        storage.updateFile(tasks.getMealTracker());
+        ui.showDone(currentMeal);
     }
 }

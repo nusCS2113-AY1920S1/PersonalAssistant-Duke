@@ -1,11 +1,12 @@
 package duke.commands;
 
-import duke.tasks.Schedule;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.tasks.Meal;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+
 import java.util.ArrayList;
+import duke.user.User;
 
 /**
  * The FindCommand is a public class that extends from the abstract class Command.
@@ -29,15 +30,15 @@ public class FindCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        for (Task element: currentTasks) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
+        ArrayList<Meal> matchingMeals = new ArrayList<>();
+        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {
-                matchingTasks.add(element);
+                matchingMeals.add(element);
             }
         }
-        ui.showList(matchingTasks);
+        ui.showList(matchingMeals);
     }
 }

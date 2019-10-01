@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.tasks.Schedule;
-import duke.tasks.TaskList;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.user.User;
 
 /**
  * ExitCommand is a public class that extends from the abstract class Command.
@@ -24,7 +24,7 @@ public class ExitCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
         ui.showBye();
     }
 }

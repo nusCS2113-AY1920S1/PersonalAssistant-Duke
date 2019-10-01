@@ -1,46 +1,46 @@
 package duke.commands;
 
 import java.util.ArrayList;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.Schedule;
+
+import duke.tasks.Meal;
+import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.user.User;
 
 /**
- * AddCommand is a public class that inherits from abstract class Command
+ * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current task that is to be added.
  * @author Ivan Andika Lie
  */
 public class AddCommand extends Command {
-    private Task task;
+    private Meal meal;
 
     /**
      * This is a constructor for AddCommand which create a new AddCommand object with
      * the task specified as the instance field task.
-     * @param task The task to be added.
+     * @param meal The task to be added.
      */
-    public AddCommand(Task task) {
-        this.task = task;
+    public AddCommand(Meal meal) {
+        this.meal = meal;
     }
 
     /**
      * The object will execute the "add" command, updating the current tasks, ui, and storage in the process.
-     * @param tasks the TaskList object in which the task is supposed to be added
+     * @param meals the TaskList object in which the task is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
+  
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Schedule schedule) {
-        boolean toAdd;
-        ArrayList<Task> currentTasks = tasks.getTasks();
-        toAdd = schedule.update(task);
-        if (toAdd) {
-            currentTasks.add(task);
-            schedule.doAfter(task);
-            ui.showAdded(task, currentTasks);
-            storage.updateFile(currentTasks);
+    public void execute(MealList meals, Ui ui, Storage storage, User user) {
+        if (!meals.checkDate(this.meal.getDate())) {
+            meals.setMeals(this.meal.getDate());
         }
+        ArrayList<Meal> currentMeals = meals.getMeals(this.meal.getDate());
+        System.out.println(this.meal.getDate());
+        currentMeals.add(this.meal);
+        ui.showAdded(this.meal, currentMeals, user, this.meal.getDate());
+        storage.updateFile(meals.getMealTracker());
     }
-
 }

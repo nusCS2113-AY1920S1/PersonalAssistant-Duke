@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 3
 :toc-placement: preamble
 :sectnums:
 :imagesDir: Images
@@ -77,6 +78,15 @@ on their website
 .  Type `gradlew -run` and press kbd:[Enter]
 .  *DIYeats* should start running on your computer. You can now
 enter commands in the CLI and press kbd:[Enter] to execute them
+====
+** If this is the first time you are launching our application on your computer, you will be prompted with the following
+text:
++
+image::startup1.png[]
++
+If so, please follow the instructions provided by the application. The data collected by our application will be used to create a
+personalized user experience tailored specifically to you!
+====
 
 . Now you can try entering some commands! Refer to <<Features>> for details of each command.
 
@@ -134,11 +144,20 @@ Now that you have familiarized yourself with the command syntax that will be use
 Lost? Simply open up this user guide from inside the application by entering the command `help` in the CLI.
 
 ==== Undo previous command: `undo`
-Accidentally entered an erroneous command? Simply revert the command by entering the command `undo` in the CLI.
+Accidentally entered an erroneous command? Revert the command by entering the command `undo` in the CLI.
 
 [WARNING]
 ====
 You can only undo commands that were entered in the *current session* of the application.
+====
+
+==== Viewing command history : `history`
+Lost track of your commands in the middle of a session? Use the history command to double check. Upon entering the command
+`history` into the CLI, all of your previously entered commands will be displayed in a easy to read list.
+
+[WARNING]
+====
+You can only view commands that were entered in the *current session* of the application.
 ====
 
 ==== Clear all data in a time period: `clear` `START_DATE` `END_DATE`
@@ -248,41 +267,50 @@ Examples:
 * Dates should be entered in the following format: day/month/year.
 ====
 
+==== Editing a meal: `edit`
 
-=== Recalling all tasks within X hours: `remindme`
-(this should be morphed to a function that reminds you how much nutrition u should intake to reach the target nutrient intake for the month)
+Format: `edit DESCRIPTION [/TAG]<QUANTITY>... [/date]<DATE>`
 
-Finds all deadline and event tasks that are scheduled within NUMBER_OF_HOURS of the current system time. +
-Format: `remindme NUMBER_OF_HOURS`
+Accidentally entered the wrong details for a  meal item? Use the `edit` command! Simply enter the description of the meal that you wish to edit
+after the edit command, along with the tagged values that you wish to edit.
+
+The command also supports the editing of data in other dates: simply specify the date after adding a /date flag at the end of the statement
 
 Examples:
 
-* `remindme 20` +
-Prints to the screen the list of events and deadlines that are scheduled for the next 20 hours, in chronological order
+* You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50`
+** You want to change the value of fats and calcium to 50g
+*** `edit hamburger /fats 50 /calcium 50`
+* You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50 /date 1/1/2019`
 
-=== Locating a task by keyword: `find`
-(this should be morphed to a function???)
-
-Finds tasks whose descriptions contain any of the given keywords. +
-Format: `find KEYWORD`
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+==== Locating a meal by keyword: `find`
+Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
+Simply enter the `find` command, followed by the description of the meal you had. Our application will automatically sieve through
+all your past meals, and present you with all the results that are relevant to the description you have provided
 
 ****
-* The search is case sensitive. e.g `hans` will not match `Hans`
-* The order of the keywords does matter. e.g. `Hans Bo` will not match `Bo Hans`
-* Only the description is searched.
+* The search is case sensitive. e.g `Ham` will not match `ham`
+* Only the description of the meal is searched.
 * Substrings will be matched e.g. `Han` will match `Hans`
 ****
 
 Examples:
 
-* `find hello` +
-Returns `hello world` and `helloworld`
+* `find fish` +
+Returns meals with possible descriptions `steamed fish` and `fish and chips`
 
-// tag::delete[]
-=== Deleting a task : `delete`
-(should be morphed to delete a meal from a day, but how??)
-Deletes the specified task from the tasklist. +
-Format: `delete INDEX`
+==== Deleting a meal from a day : `delete`
+
+Format: `delete INDEX [/date]<DATE>`
 
 ****
 * Deletes the task at the specified `INDEX`.
@@ -290,15 +318,71 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-== Things to morph
+==== Adding/modifying a fixed food item: `add`
+
+Format: `add DESCRIPTION [/TAG]<QUANTITY>... `
+
+Tired of entering the same nutritional values for a recurring dish repeatedly? By using the `add` command, you can set default
+nutritional values for food items that have the same description.
+
+==== Setting a nutritional goal to be met : `goal`
+
+Format: `goal END_DATE [/TAGS] <QUANTITY>...`
+
+Want to set a nutritional goal to be met at the end of a set timeframe, e.g: consuming at most a certain amount of calories worth of foods
+by the end of the month? Use the `goal` command!
+
+[NOTE]
 ====
-. B-Reminders (morph to to a function that reminds you how much nutrition u should intake to reach the target nutrient intake for the month)
-. B-FindFreeTimes (obsolete?)
-. B-ViewSchedules (EPIC: Gui implementation? days where u exceed average required to meet target marked red, days where quota is hit marked green, etc)
-. B-DetectAnomalies (detect when a planned meal in the future is higher than the average required to hit the monthly target and warn the user)
-. B-Snooze (reschedule meals? might be obsolete)
-. B-TentativeScheduling (obsolete)
-. B-RecurringTasks (recurring meals of the same dish makes sense)
-. B-DoAfterTasks (maybe morph to something like calorie burning activities after meals, like running and working out)
-. B-DoWithinPeriodTasks (obsolete)
-. B-FixedDurationTasks (might be obsolete)
+* The number of user input tags should at least number 1
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+=== Data analysis commands
+==== Displaying nutrition track record: `stats`
+
+Format: `stats [/date]<START_DATE> <END_DATE>`
+
+Want to know if you are meeting your nutritional quota for the month? Your average nutrient intake across each of your
+three meals for the past month, or what is the average nutritional intake you will need to maintain in order to hit your set quota for the month?
+Simply enter the `stats` command, and our application will compute all the necessary data for you, and display them to you in a clear and
+concise manner
+
+==== Graph nutrition track record: `graph`
+
+Format: `graph [/date]<START_DATE> <END_DATE>`
+
+Want to monitor trends in your diet in a graphical form? By using the `graph` command, you will be able to see your nutritional
+intake across a time period charted as a graph.
+
+==== Suggest potential food items: `suggest`
+
+Format: `suggest [/date]<DATE>`
+
+Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggest` command, which will automatically suggest
+a meal that will conform to your set nutritional goals based on the recurring meals that you have entered so far.
+
+==== Formulate exercise plan: `exercise`
+
+Format: `exercise`
+
+Accidentally exceeded your nutritional quota, but dont want to skim on your next meal? No worries, for the application is also able to suggest an exercise plan for you to
+work off those extra calories, keeping you on track to your goal.
+
+== Features to come (v2.0)
+
+=== Enable users to add their own custom exercises
+
+=== Integrated database of default food items
+
+== Frequently Asked Questions
+*Q: How do I save my data?*
+
+A: Whenever you run any commands that makes changes to the data stored in the application, DIYeats will automatically save the data in the Data directory.
+
+*Q: How do I migrate my data in between computers?*
+
+A: If you wish to migrate your data to another computer, simply copy and paste the entire directory of the application over to the new computer.
+
+

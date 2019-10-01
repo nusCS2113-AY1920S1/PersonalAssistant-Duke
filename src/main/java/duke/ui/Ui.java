@@ -1,23 +1,23 @@
 package duke.ui;
 
-import duke.tasks.Task;
+import duke.tasks.Meal;
+import duke.user.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-
-    private static final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
+    private static final String logo = padding + " ____        _        \n"
+            + padding + "|  _ \\ _   _| | _____ \n"
+            + padding + "| | | | | | | |/ / _ \\\n"
+            + padding + "| |_| | |_| |   <  __/\n"
+            + padding + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String boundary = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println(padding + "Hello from\n" + logo);
         System.out.println(boundary);
         System.out.println(padding + "Hello! I'm Duke");
         System.out.println(padding + "What can I do for you?");
@@ -37,64 +37,38 @@ public class Ui {
         System.out.println("     " + "Bye. Hope to see you again soon!");
     }
 
-    public void showList(ArrayList<Task> tasks) {
+    public void showList(ArrayList<Meal> meals) {
         showPadding();
         System.out.println("Here are the tasks in your list: ");
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
+        for (int i = 1; i <= meals.size(); i++) {
+            Meal currentMeal = meals.get(i - 1);
             showPadding();
-            String[] toPrint = currentTask.toString().split("\n");
-            System.out.println(i + ". " + toPrint[0]);
-            for (int j = 1; j < toPrint.length; j += 1) {
-                showPadding();
-                showPadding();
-                System.out.println(i + "." + j + toPrint[j]);
-            }
+            System.out.println(i + ". " + currentMeal);
         }
     }
 
-    public void showRemind(ArrayList<Task> tasks) {
-        showPadding();
-        System.out.println("Here are the upcoming tasks: ");
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
-            showPadding();
-            System.out.println(i + ". " + currentTask);
-        }
-    }
-
-    public void showDone(Task currentTask) {
+    public void showDone(Meal currentMeal) {
         showPadding();
         System.out.println("Nice! I've marked this task as done:");
         showPadding();
-        System.out.println("  " + currentTask);
+        System.out.println("  " + currentMeal);
     }
 
-    public void showAdded(Task currentTask, ArrayList<Task> tasks) {
-        System.out.println(padding + "Got it. I've added this task:");
-        System.out.println(padding + currentTask);
-        System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
-        System.out.println(padding + "Noted. I've removed this task:");
-        System.out.println(padding + currentTask);
-        System.out.println(padding + "Now you have " + tasks.size()  + " tasks in the list.");
-    }
-
-    public void showSchedule(ArrayList<Task> tasks, String day) {
-        System.out.println(padding + "These are the tasks for " + day);
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task currentTask = tasks.get(i - 1);
-            showPadding();
-            String[] toPrint = currentTask.toString().split("\n");
-            System.out.println(i + ". " + toPrint[0]);
-            for (int j = 1; j < toPrint.length; j += 1) {
-                showPadding();
-                showPadding();
-                System.out.println(i + "." + j + toPrint[j]);
-            }
+    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String date) {
+        System.out.println(padding + "Got it. I've added this meal:");
+        System.out.println(padding + currentMeal);
+        int totalConsume = 0;
+        for (int i = 0; i < meals.size(); i += 1) {
+            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
         }
+        System.out.println(padding + "Now you have " + (user.getDailyCalorie()
+                - totalConsume) + " calories left on " + date);
+    }
+
+    public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {
+        System.out.println(padding + "Noted. I've removed this task:");
+        System.out.println(padding + currentMeal);
+        System.out.println(padding + "Now you have " + meals.size()  + " tasks in the list.");
     }
 
     public String readCommand(Scanner in) {
@@ -106,15 +80,41 @@ public class Ui {
         System.out.println(padding + message);
     }
 
-    public void showDoAfter(ArrayList<Task> task) {
-        for (int i = 0; i < task.size(); i += 1) {
-            System.out.println(task.get(i));
-        }
-    }
-
     public void showLoadingError() {
         System.out.println(padding + "Failed to load file.");
     }
 
+    public void showUserLoadingError() {
+        System.out.println(padding + "Unable to load user file.");
+    }
 
+    public void showWelcomeNew() {
+        System.out.println(padding + "Welcome!");
+        System.out.println(padding + "I see that you're new.");
+        System.out.println(padding + "Please enter your particulars to get started!");
+    }
+
+    public void showWelcomeBack(User user) {
+        System.out.println(padding + "Welcome back, "  + user.getName());
+    }
+
+    public void showUserSetupDone(User user) {
+        System.out.println(padding + "Thanks, " + user.getName() + "!");
+        System.out.println(padding + "We are done setting up!");
+    }
+
+    public void showCalorie(User user) {
+        System.out.println(padding + "This is your daily limit");
+        System.out.println(padding + user.getDailyCalorie());
+    }
+
+    public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user) {
+        System.out.println(padding + "You can consume this many calorie today");
+        int limit = user.getDailyCalorie();
+        int consumeTotal = 0;
+        for (int i = 0; i < mealsOfDay.size(); i += 1) {
+            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+        }
+        System.out.println(padding + Integer.toString(limit - consumeTotal));
+    }
 }

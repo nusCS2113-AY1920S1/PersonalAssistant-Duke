@@ -12,11 +12,11 @@ class ParserTest {
     void parse() {
         try {
             assertTrue(Parser.parse("bye") instanceof ExitCommand);
-            assertTrue(Parser.parse("todo hackathon") instanceof AddCommand);
-            assertTrue(Parser.parse("todo hackathon /needs 3 hours") instanceof AddCommand);
-            assertTrue(Parser.parse("todo hackathon /between 1/1/2019 1800, 2/1/2019 1900") instanceof AddCommand);
-            assertTrue(Parser.parse("deadline homework /by sunday") instanceof AddCommand);
-            assertTrue(Parser.parse("event exam /at classroom") instanceof AddCommand);
+            assertTrue(Parser.parse("todo hackathon") instanceof addCommand);
+            assertTrue(Parser.parse("todo hackathon /needs 3 hours") instanceof addCommand);
+            assertTrue(Parser.parse("todo hackathon /between 1/1/2019 1800, 2/1/2019 1900") instanceof addCommand);
+            assertTrue(Parser.parse("deadline homework /by sunday") instanceof addCommand);
+            assertTrue(Parser.parse("event exam /at classroom") instanceof addCommand);
             assertTrue(Parser.parse("list") instanceof ListCommand);
             assertTrue(Parser.parse("done 1") instanceof MarkDoneCommand);
             assertTrue(Parser.parse("schedule 12/12/2012 1212") instanceof ScheduleCommand);
