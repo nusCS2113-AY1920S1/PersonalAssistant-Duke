@@ -24,6 +24,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public Event(String description) {
+        super(description);
+    }
+
+
     public Date checkDate() { return this.at; }
 
     @Override
