@@ -576,7 +576,7 @@ All transactions related to the bank account will be deleted.
 
 *Example*
 
-* `/delete /investment /name DB Vickers Account`
+* `/delete /investment /name DBB Vickers Account`
 
 Deletes an investment account named `DBB Vickers Account`.
 
@@ -642,7 +642,7 @@ To find out which expenditure to delete, use the /list or /find function to find
 
 * `/delete /expenditure /from /JunBank Savings Account /expno 1`
 
-Deletes an expenditure from `JunBank Savings Account with expenditure number `1`.
+Deletes an expenditure from `JunBank Savings Account with expenditure number` `1`.
 
 ===== `/recurexpenditure`
 
@@ -695,20 +695,26 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 *Command Syntax*
 
-`/list /savings /name BANK_NAME [/num NUMBER]`
+`/list /savings`
 
-`/list /investment /name BANK_NAME [/num NUMBER]`
+`/list /expenditure /from BANK_NAME [/num NUMBER]`
 
-`/list /card /name CARD_NAME [/num NUMBER]`
+`/list /bonds /from BANK_NAME [/num NUMBER]`
+
+`/list /expenditure /from CARD_NAME [/num NUMBER]`
 
 
 *Example*
 
-* /list /name JunBank Savings Account /num 60
+* `/list /savings`
+
+Lists all savings accounts
+
+* `/list /expenditure /from JunBank Savings Account /num 60`
 
 Lists the most recent 60 transactions linked to JunBank Savings Account.
 
-* /list /name POBB Tomorrow Card
+* `/list /expenditure /from POBB Tomorrow Card`
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
@@ -738,7 +744,7 @@ Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
 == FAQ
 *Q*: How do I save my data in the application? +
-*A*: You do need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
+*A*: You do not need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
 == Command Summary
