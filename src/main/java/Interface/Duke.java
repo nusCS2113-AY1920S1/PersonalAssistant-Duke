@@ -43,7 +43,9 @@ public class Duke extends Application {
             ui.showLoadingError(e);
         }
     }
-
+    /**
+     * This method returns the loaded Tentative Dates.
+     */
     public static TaskList getTentativeDates() {
         return  tentativeDates;
     }

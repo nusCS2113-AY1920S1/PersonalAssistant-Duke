@@ -154,7 +154,9 @@ public class Parser {
                 }
             } else if (fullCommand.equals("show schedule")) {
                 return new ViewSchedulesCommand();
-            } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+            }else if (fullCommand.equals("confirm")) {
+                return new ConfirmCommand();
+            }else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
                     arr = activity.split("/to");
@@ -236,9 +238,6 @@ public class Parser {
                             "Tentative Schedule name_of_event /at dd/MM/yyyy from HHmm to HHmm /at dd/MM/yyyy from HHmm to HHmm ... \n" +
                             "For example: event project meeting /at 1/1/2020 from 1500 to 1600 /at 1/2/2020 from 1500 to 1600\n ");
                 }
-            } else if (fullCommand.trim().substring(0,7).equalsIgnoreCase("Confirm")) {
-                return new ConfirmCommand();
-
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
