@@ -73,10 +73,7 @@ public class CLIView {
         System.out.println(horiLine);
         System.out.println("\tGot it. I've added this task:");
         System.out.print("\t  ");
-        System.out.println("[" + newTask.getInitials() + "]"
-                + "[" + newTask.getStatusIcon() + "] "
-                + newTask.getDescription()
-        );
+        System.out.println(newTask.getFullDescription());
         String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
         System.out.println("\tNow you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in your list.");
         System.out.println(horiLine);
@@ -91,11 +88,8 @@ public class CLIView {
         System.out.println(horiLine);
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < taskList.getAllTasks().size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + taskList.getAllTasks().get(i).getInitials() + "]"
-                    + "[" + taskList.getAllTasks().get(i).getStatusIcon() + "] "
-                    + taskList.getAllTasks().get(i).getDescription()
-            );
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(taskList.getAllTasks().get(i).getFullDescription());
         }
         System.out.println(horiLine);
     }
@@ -144,11 +138,8 @@ public class CLIView {
         System.out.println("\tHere are the matching tasks in your list:");
         ArrayList<ITask> results = taskList.getSearchedTasks(input);
         for (int i = 0; i < results.size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + results.get(i).getInitials() + "]"
-                    + "[" + results.get(i).getStatusIcon() + "] "
-                    + results.get(i).getDescription()
-            );
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(results.get(i).getFullDescription());
         }
         System.out.println(horiLine);
     }
@@ -174,11 +165,8 @@ public class CLIView {
 
         ArrayList<ITask> results = taskList.getUpcomingTasks(limit);
         for (int i = 0; i < results.size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + results.get(i).getInitials() + "]"
-                + "[" + results.get(i).getStatusIcon() + "] "
-                + results.get(i).getDescription()
-            );
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(results.get(i).getFullDescription());
         }
         System.out.println(horiLine);
     }
@@ -206,11 +194,8 @@ public class CLIView {
         } else {
             System.out.println("\tHere is the schedule for the specified date:");
             for (int i = 0; i < results.size(); i++) {
-                System.out.print("\t" + (i + 1));
-                System.out.println(".[" + results.get(i).getInitials() + "]"
-                        + "[" + results.get(i).getStatusIcon() + "] "
-                        + results.get(i).getDescription()
-                );
+                System.out.print("\t" + (i + 1) + ".");
+                System.out.println(results.get(i).getFullDescription());
             }
         }
         System.out.println(horiLine);
