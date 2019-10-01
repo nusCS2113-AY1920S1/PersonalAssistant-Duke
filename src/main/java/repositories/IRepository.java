@@ -1,17 +1,13 @@
 package repositories;
 
-import models.tasks.ITask;
+import models.data.IProject;
 
 import java.util.ArrayList;
 
-public interface IRepository {
-    ArrayList<ITask> getAllTasks();
+public interface IRepository <T> {
+    ArrayList<T> getAllTasks();
 
-    void addToRepo();
+    boolean addToRepo(String input);
 
-    ITask getTask();
-
-    int getNumTasks();
-
-    void markDone();
+    void deleteItem();
 }

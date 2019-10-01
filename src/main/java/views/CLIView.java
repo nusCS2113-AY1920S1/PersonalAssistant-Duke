@@ -42,11 +42,7 @@ public class CLIView {
 
         while (true) {
             String command = sc.nextLine();
-            try {
-                consoleInputController.onCommandReceived(command);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            consoleInputController.onCommandReceived(command);
         }
     }
 
@@ -251,6 +247,12 @@ public class CLIView {
     public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
         System.out.println(horiLine);
         rescheduleCommand.execute(taskList);
+        System.out.println(horiLine);
+    }
+
+    public void consolePrint(String message) {
+        System.out.println(horiLine);
+        System.out.println(message);
         System.out.println(horiLine);
     }
 }
