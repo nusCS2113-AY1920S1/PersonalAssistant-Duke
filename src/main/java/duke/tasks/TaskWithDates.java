@@ -11,6 +11,11 @@ public class TaskWithDates extends Task {
     public TaskWithDates(String description, LocalDateTime startDate) {
         super(description);
         this.startDate = startDate;
+        this.hasDate = true;
+    }
+
+    public void updateDate(LocalDateTime newDate) {
+        this.startDate = newDate;
     }
 
     /**

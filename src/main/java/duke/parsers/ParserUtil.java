@@ -1,5 +1,6 @@
 package duke.parsers;
 
+import duke.Duke;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
@@ -71,6 +72,45 @@ public class ParserUtil {
         } catch (DukeDateTimeParseException e) {
             return new Event(eventDetails[0].strip(), eventDetails[1].strip());
         }
+    }
+
+    protected static RecurringTask createRecurringTask(String userInput) throws DukeException {
+        String[] eventDetails = userInput.substring("repeat".length()).strip().split("/at");
+        String[] dateDetails = eventDetails[1].split("/every");
+        if (dateDetails.length != 2 || dateDetails[1] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (eventDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        try {
+            return new RecurringTask(eventDetails[0].strip(), ParserTimeUtil.parseStringToDate(dateDetails[0].strip()),
+                    Integer.parseInt(dateDetails[1].strip()));
+        } catch (DukeDateTimeParseException e) {
+            return new RecurringTask(eventDetails[0].strip(), dateDetails[0].strip(),
+                    Integer.parseInt(dateDetails[1].strip()));
+        }
+
+
+    }
+
+    /**
+     * Parses the userInput and return a new DoWithin constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new DoWithin object.
+     */
+    protected static DoWithin createWithin(String userInput) throws DukeException {
+        String[] withinDetails = userInput.substring("within".length()).strip().split("between|and");
+        if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (withinDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
+        return new DoWithin(withinDetails[0].strip(), start, end);
     }
 
     /**

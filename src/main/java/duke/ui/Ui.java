@@ -106,4 +106,17 @@ public class Ui {
     public void showCalendar(UniqueTaskList tasks) {
         new CalendarWindow(tasks).show();
     }
+
+    public String getUpdateDate(Task task) {
+        return (MESSAGE_UPDATE + task);
+    }
+
+    public void setResponse(String message) {
+        response = message;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
 }

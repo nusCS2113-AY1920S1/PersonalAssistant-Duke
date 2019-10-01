@@ -162,6 +162,15 @@ task headless {
     }
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'duke.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 // Makes sure that headless properties are set before running tests
 test.mustRunAfter headless
 
