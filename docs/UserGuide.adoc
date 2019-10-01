@@ -311,11 +311,11 @@ e.g. `page 3`
 e.g. `remove 3`
 * `*modify*` `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
-* `*sort /date* ascending/descending` +
+* `*sort /date*` `sort /date ascending/descending` +
 e.g. sort /date ascending
-* `*sort /tag* ascending/descending` +
+* `*sort /tag*` `sort /tag ascending/descending` +
 e.g. sort /tag descending
-* `*sort /amount* ascending/descending` +
+* `*sort /amount*` `sort /amount ascending/descending` +
 e.g. sort /amount ascending
 * `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
