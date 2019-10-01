@@ -23,8 +23,8 @@ Role: Lecturer / Project Supervisor
 image::gowgos5.png[width="150", align="left"]
 {empty}[https://github.com/gowgos5[github]] [<<portfolio#, portfolio>>]
 
-Role: TBC +
-Responsibilities: TBC
+Role: Team Lead +
+Responsibilities: Scheduling and tracking, Deliverables and deadlines, In charge of UI
 
 '''
 
@@ -32,8 +32,8 @@ Responsibilities: TBC
 image::aquohn.png[width="150", align="left"]
 {empty}[http://github.com/aquohn[github]] [<<portfolio#, portfolio>>]
 
-Role: TBC +
-Responsibilities: TBC
+Role: Integration Lead +
+Responsibilities: Documentation, Integration, In charge of Logic
 
 '''
 
@@ -41,8 +41,8 @@ Responsibilities: TBC
 image::jacobtoresson.png[width="150", align="left"]
 {empty}[http://github.com/JacobToresson[github]] [<<portfolio#, portfolio>>]
 
-Role: TBC +
-Responsibilities: TBC
+Role: Devops Lead +
+Responsibilities: Code quality, Devops, In charge of Storage
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: TBC
 image::jeremykwok.png[width="150", align="left"]
 {empty}[http://github.com/JeremyKwok[github]] [<<portfolio#, portfolio>>]
 
-Role: TBC +
-Responsibilities: TBC
+Role: Test Lead +
+Responsibilities: Testing, In charge of Model
 
 '''
