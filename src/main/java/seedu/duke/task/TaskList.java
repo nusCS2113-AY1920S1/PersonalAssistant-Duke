@@ -166,6 +166,43 @@ public class TaskList {
                     ui.wrong_description_error();
                     return;
                 }
+            } else if (taskType.equals("recur")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String taskTime = taskDescriptionFull.split("/",2)[1].substring(3).split(" every")[0];
+                    LocalDateTime dateTime = getDateTime(taskTime);
+                    String[] inputWords = taskDescriptionFull.split(" ");
+                    int num = Integer.parseInt(inputWords[inputWords.length - 2]);
+                    String frequency = inputWords[inputWords.length - 1];
+                    int periodInMin = 0;
+
+                    switch (frequency) {
+                    case "minutes":
+                        periodInMin = num;
+                        break;
+                    case "hours":
+                        periodInMin = num * 60;
+                        break;
+                    case "days":
+                        periodInMin = num * 60 * 24;
+                        break;
+                    case "weeks":
+                        periodInMin = num * 60 * 24 * 7;
+                        break;
+                    case "months":
+                        periodInMin = num * 60 * 24 * 7 * 4;
+                        break;
+                    default:
+                        System.out.println("You have typed in the wrong format. Please re-add the recurring task.");
+                    }
+                    if (!DetectAnomalies.test(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin),list)) {
+                        list.add(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin));
+                        checkAnomaly = false;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                }
             }
         }
         if (!checkAnomaly) {
@@ -242,7 +279,7 @@ public class TaskList {
             System.out.println("\tYou are requesting to snooze the following task:");
             System.out.println("\t" + list.get(i).toString() + "\n");
             System.out.println("\tPlease choose one of the following way to snooze this task.");
-            System.out.println("\t1) Enter a number followed by min/hour/day/week/month");
+            System.out.println("\t1) Enter a number followed by minutes/hours/days/weeks/months");
             System.out.println("\t2) Enter the new date and time in the following format (dd/MM/yyyy HHmm)");
             System.out.println("\t_____________________________________");
 
@@ -259,19 +296,19 @@ public class TaskList {
                 LocalDateTime ldt = list.get(i).getDateTime();
 
                 switch (userInput[1]) {
-                case "min":
+                case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
-                case "hour":
+                case "hours":
                     list.get(i).setDateTime(ldt.plusHours(num));
                     break;
-                case "day":
+                case "days":
                     list.get(i).setDateTime(ldt.plusDays(num));
                     break;
-                case "week":
+                case "weeks":
                     list.get(i).setDateTime(ldt.plusWeeks(num));
                     break;
-                case "month":
+                case "months":
                     list.get(i).setDateTime(ldt.plusMonths(num));
                     break;
                 default:
