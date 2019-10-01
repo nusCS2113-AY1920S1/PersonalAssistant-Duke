@@ -240,6 +240,7 @@ public class Ui {
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
     public TabPane tabWindow;
+    public String dateState;
     private ArrayList<Task> arrlist;
     private Compal compal;
     private String username;

@@ -6,9 +6,13 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -61,13 +65,16 @@ public class DailyCal {
 
     /**
      * Create an array list of type task of that specific day.
+     * Sorted by starting time.
      */
     private void createDailyArrayList() {
+        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getStringStartTime);
         for (Task t : tempList) {
             if (t.getStringDate().equals(dateToDisplay)) {
                 arrList.add(t);
             }
         }
+        Collections.sort(arrList, compareByStartTime);
     }
 
     /**
@@ -207,9 +214,10 @@ public class DailyCal {
                     double heightYHour = pixelBlock * totalHour;
                     Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
                     rectangle.setFill(colorFill(task));
-                    rectangle.setStroke(Color.CORNFLOWERBLUE);
+                    rectangle.setStroke(Color.BLACK);
                     final StackPane stack = new StackPane();
                     final Text text = new Text(desc);
+                    text.setFont(Font.font("Georgia Italic", 12));
                     stack.getChildren().addAll(rectangle, text);
                     stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
                     stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
@@ -222,19 +230,30 @@ public class DailyCal {
 
     /**
      * Set color of rectangle to depending on the scenario below.
-     * If task is done, color is set to DARKSEAGREEN.
-     * if is off school related event, color is set to DEEPPINK.
      */
     private Color colorFill(Task t) {
         if (t.getisDone().equals("true")) {
             return Color.DARKSEAGREEN;
-        } else if (t.getSymbol().matches("LECT|TUT|SECT|LAB|RT")) {
-            return Color.DEEPPINK;
-        } else if (t.getSymbol().equals("E")) {
+        } else if (t.getSymbol().equals("LECT")) {
             return Color.GOLDENROD;
+        } else if (t.getSymbol().equals("TUT")) {
+            return Color.DEEPPINK;
+        } else if (t.getSymbol().equals("SECT")) {
+            return Color.VIOLET;
+        } else if (t.getSymbol().equals("LAB")) {
+            return Color.INDIANRED;
+        } else if (t.getSymbol().equals("RT")) {
+            return Color.LEMONCHIFFON;
+        } else if (t.getSymbol().equals("E")) {
+            return Color.CADETBLUE;
         }
         return Color.BLUE;
     }
+
+    /**
+     * Set stroke fill of rectangle to the color depending priority ranking.
+     */
+
 
     /**
      * Store schedule axis of current time.
@@ -271,32 +290,23 @@ public class DailyCal {
                 //store a Rectangle location.
                 if (prevX == 0 && prevY == 0) {
                     storedXAxis[currentTime][eventCounter] += horizontalXLayout + moveRight;
-                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX -50;
+                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX - 50;
                     prevX = horizontalXLayout + moveRight;
-                    prevY = horizontalYLayout + downPX ;
+                    prevY = horizontalYLayout + downPX;
+                    moveRight += 100;
                 } else {
-                    System.out.println("TESTR");
                     storedXAxis[currentTime][eventCounter] += prevX + moveRight;
-                    storedYAxis[currentTime][eventCounter] += prevY  - 50;
+                    storedYAxis[currentTime][eventCounter] += prevY - 50;
                     prevX = horizontalXLayout + moveRight;
-                    prevY = horizontalYLayout + downPX ;
+                    prevY = horizontalYLayout + downPX;
+                    moveRight += 100;
                 }
 
                 int futureEndTime = Integer.parseInt(task.getStringEndTime().substring(0, 2));
-                System.out.println(currentTime);
-                System.out.println(futureEndTime);
                 for (int futureTime = currentTime + 1; futureTime < futureEndTime; futureTime++) {
-                    System.out.println(futureTime);
                     storedXAxis[futureTime][eventCounter] += 100;
                 }
 
-
-                if(currentTime==13){
-                    System.out.println(storedXAxis[currentTime][eventCounter]);
-                    System.out.println(storedYAxis[currentTime][eventCounter]);
-                    System.out.println();
-                }
-                moveRight += 100;
                 eventCounter += 1;
             }
         }

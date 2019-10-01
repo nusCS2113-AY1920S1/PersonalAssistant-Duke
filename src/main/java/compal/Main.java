@@ -65,11 +65,11 @@ public class Main extends Application {
             //Create DailyCal Pane
             DailyCal dc = new DailyCal();
             String datePattern = "dd/MM/yyyy";
-            String todayDate = new SimpleDateFormat(datePattern).format(new Date());
-            ScrollPane dailyPane = dc.init(todayDate);
+            compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
+            ScrollPane dailyPane = dc.init(compal.ui.dateState);
 
             Tab dailyTab = new Tab();
-            dailyTab.setText(todayDate);
+            dailyTab.setText(compal.ui.dateState);
             dailyTab.setContent(dailyPane);
             tabReference.getTabs().add(1, dailyTab);
 
