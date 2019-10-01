@@ -6,11 +6,9 @@ import leduc.storage.Storage;
 import leduc.task.TaskList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class SetWelcomeCommand extends Command{
 

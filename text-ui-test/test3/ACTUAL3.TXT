@@ -5,8 +5,8 @@
 |____/ \__,_|_|\_\___|
 
 	---------------------------------------------------------------------------------
-	 Hello I'm Duke
-	 What can I do for you ?
+	test welcome message
+
 	---------------------------------------------------------------------------------
 	 MeaningLessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("

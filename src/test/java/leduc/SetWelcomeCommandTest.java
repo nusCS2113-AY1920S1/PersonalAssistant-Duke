@@ -24,7 +24,7 @@ public class SetWelcomeCommandTest {
     @Test
     public void SetWelcomeCommandTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/data/duke.txt");
+        Storage storage = new Storage(System.getProperty("user.dir")+ "/text-ui-test/test7/data/duke.txt");
         SetWelcomeCommand swc = new SetWelcomeCommand("setwelcome welcometest");
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try {
@@ -34,7 +34,7 @@ public class SetWelcomeCommandTest {
             ui.showError(e);
         }
         try {
-            File file = SetWelcomeCommand.openFile(System.getProperty("user.dir")+ "/data/welcome.txt");
+            File file = SetWelcomeCommand.openFile(System.getProperty("user.dir")+ "/text-ui-test/test7/data/welcome.txt");
             //create Scanner object to read file
             Scanner sc2 = null;
             try {

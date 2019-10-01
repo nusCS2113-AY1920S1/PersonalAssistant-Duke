@@ -9,7 +9,7 @@ checkstyle {
     toolVersion = '8.23'
 }
 
-group 'seedu.duke'
+group 'leduc.Duke'
 version '0.1.0'
 
 repositories {

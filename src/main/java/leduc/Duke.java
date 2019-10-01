@@ -2,7 +2,6 @@ package leduc;
 
 import leduc.command.Command;
 import leduc.exception.DukeException;
-import leduc.exception.FileException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 

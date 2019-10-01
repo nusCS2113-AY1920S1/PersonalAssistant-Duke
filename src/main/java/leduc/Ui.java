@@ -1,6 +1,5 @@
 package leduc;
 
-import leduc.command.Command;
 import leduc.command.SetWelcomeCommand;
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
@@ -8,8 +7,6 @@ import leduc.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.

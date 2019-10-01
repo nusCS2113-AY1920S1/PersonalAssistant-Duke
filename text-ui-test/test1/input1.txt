@@ -1,2 +1,1 @@
-list
-bye
+setwelcome test welcome message

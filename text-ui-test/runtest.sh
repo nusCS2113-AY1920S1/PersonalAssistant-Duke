@@ -28,10 +28,10 @@ java -classpath ../bin leduc.Duke test1/test1.txt < test1/input1.txt > test1/ACT
 diff test1/ACTUAL1.TXT test1/EXPECTED1.TXT
 if [ $? -eq 0 ]
 then
-    echo "TEST list // Test result: PASSED"
+    echo "TEST setWelcomeCommand // Test result: PASSED"
     echo ""
 else
-    echo "TEST list // Test result: FAILED"
+    echo "TEST setWelcomeCommand // Test result: FAILED"
     exit 1
 fi
 
@@ -74,7 +74,7 @@ then
     echo ""
 else
     echo "TEST todo/deadline/event + delete  // Test result: FAILED"
-    exit 1
+
 fi
 
 #                 TEST find
