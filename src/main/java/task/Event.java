@@ -1,9 +1,6 @@
 package task;
 
 import exception.DukeException;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 public class Event extends Task {
     protected String atStart;
     protected String atEnd;
+    protected Date dateTimeStart;
     protected Date dateTimeEnd;
 
     /**
@@ -26,7 +24,7 @@ public class Event extends Task {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(atStart);
+            this.dateTimeStart = sdf.parse(atStart);
             this.dateTimeEnd = sdf.parse(atEnd);
         } catch (ParseException e) {
             throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
@@ -47,7 +45,7 @@ public class Event extends Task {
         super(description);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            this.dateTime = sdf.parse(atStart);
+            this.dateTimeStart = sdf.parse(atStart);
             this.dateTimeEnd = sdf.parse(atEnd);
         } catch (ParseException e) {
             throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
@@ -65,8 +63,21 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + dateTime
+        return "[E]" + super.toString() + " (at: " + dateTimeStart
                 + " to " + dateTimeEnd + ")";
+    }
+
+    @Override
+    public Date getDateTime() {
+        return this.dateTimeStart;
+    }
+
+    public Date getDateTimeStart() {
+        return this.dateTimeStart;
+    }
+
+    public Date getDateTimeEnd() {
+        return this.dateTimeEnd;
     }
 
     /**

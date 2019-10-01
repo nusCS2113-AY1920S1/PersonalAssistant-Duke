@@ -50,4 +50,8 @@ public class Ui {
     public void showBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    public void indent() {
+        System.out.print("    ");
+    }
 }

@@ -32,6 +32,14 @@ public class TaskList extends ArrayList<Task> {
                 this.add(new FixedDuration(splitStr[Constants.ISDONE],
                         splitStr[Constants.DESCRIPTION], splitStr[Constants.NEEDS], splitStr[4]));
                 break;
+            case "R":
+                this.add(new Recurring(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIME],
+                        splitStr[4], splitStr[5]));
+                break;
+            case "DA":
+                this.add(new DoAfter(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIME],
+                        splitStr[4]));
+                break;
             default:
                 throw new DukeException("File format incorrect");
             }
