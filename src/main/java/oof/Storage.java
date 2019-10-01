@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Represents a Storage class to store and read
- * Task objects to/from hard disk.
+ * Represents a Storage class to store and read Task objects to/from hard disk.
  */
 public class Storage {
+
+    private ArrayList<Task> arr = new ArrayList<>();
 
     /**
      * Writes Task objects to hard disk.
@@ -37,8 +38,6 @@ public class Storage {
         }
     }
 
-    protected ArrayList<Task> arr = new ArrayList<Task>();
-
     /**
      * Reads Task objects that were previously saved to hard disk.
      *
@@ -53,15 +52,15 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             counter += 1;
             if (isTodo(line)) {
-                line = line.substring(7).trim();
-                Task task = new Todo(line);
+                String description = line.substring(7).trim();
+                Task task = new Todo(description);
                 arr.add(task);
                 if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
             } else if (isDeadline(line)) {
-                line = line.substring(7).trim();
-                String[] lineSplit = line.split("\\(by:");
+                String details = line.substring(7).trim();
+                String[] lineSplit = details.split("\\(by:");
                 String start = lineSplit[0].trim();
                 String end = lineSplit[1].trim();
                 end = end.substring(0, end.length() - 1);
@@ -71,8 +70,8 @@ public class Storage {
                     arr.get(counter - 1).setStatus();
                 }
             } else if (isEvent(line)) {
-                line = line.substring(7).trim();
-                String[] lineSplit = line.split(" \\(from: ");
+                String details = line.substring(7).trim();
+                String[] lineSplit = details.split(" \\(from: ");
                 String description = lineSplit[0].trim();
                 String[] dateSplit = lineSplit[1].split(" to: ");
                 dateSplit[1] = dateSplit[1].substring(0, dateSplit[1].length() - 1);
@@ -87,14 +86,32 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Checks if entry in save file is an Event.
+     *
+     * @param line Entry in save file.
+     * @return true if entry starts with [E].
+     */
     private boolean isEvent(String line) {
         return line.startsWith("[E]");
     }
 
+    /**
+     * Checks if entry in save file is a Deadline.
+     *
+     * @param line Entry in save file.
+     * @return true if entry starts with [D].
+     */
     private boolean isDeadline(String line) {
         return line.startsWith("[D]");
     }
 
+    /**
+     * Checks if entry in save file is a Todo.
+     *
+     * @param line Entry in save file.
+     * @return true if entry starts with [T].
+     */
     private boolean isTodo(String line) {
         return line.startsWith("[T]");
     }
@@ -106,6 +123,6 @@ public class Storage {
      * @return true if the Task object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        return line.charAt(4) == '\u2713'; //u2713 is a tick emoticon
+        return line.charAt(4) == 'Y'; //u2713 is a tick emoticon
     }
 }

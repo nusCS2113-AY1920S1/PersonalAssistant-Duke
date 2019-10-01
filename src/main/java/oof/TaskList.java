@@ -9,22 +9,22 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    protected ArrayList<Task> arr;
+    protected ArrayList<Task> taskList;
 
     /**
      * Constructor for TaskList.
      *
-     * @param arr TaskList that contains Task objects.
+     * @param taskList TaskList that contains Task objects.
      */
-    public TaskList(ArrayList<Task> arr) {
-        this.arr = arr;
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     /**
      * Constructor for TaskList.
      */
     public TaskList() {
-        this.arr = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -33,7 +33,7 @@ public class TaskList {
      * @return TaskList containing all its Task objects.
      */
     public ArrayList<Task> getTasks() {
-        return arr;
+        return taskList;
     }
 
     /**
@@ -42,7 +42,7 @@ public class TaskList {
      * @return Number of Task objects in the TaskList.
      */
     public int getSize() {
-        return arr.size();
+        return taskList.size();
     }
 
     /**
@@ -52,7 +52,7 @@ public class TaskList {
      * @return Task object at a particular index.
      */
     public Task getTask(int index) {
-        return arr.get(index);
+        return taskList.get(index);
     }
 
     /**
@@ -61,7 +61,7 @@ public class TaskList {
      * @param task Task object to be added to TaskList.
      */
     public void addTask(Task task) {
-        arr.add(task);
+        taskList.add(task);
     }
 
     /**
@@ -71,15 +71,25 @@ public class TaskList {
      * @param task  Task to be added.
      */
     public void addTaskToIndex(int index, Task task) {
-        arr.add(index, task);
+        taskList.add(index, task);
     }
 
     /**
      * Deletes a Task object from the TaskList.
      *
-     * @param index Index of Task object, specified by the user
+     * @param index Index of Task object, specified by the user.
      */
     public void deleteTask(int index) {
-        arr.remove(index);
+        taskList.remove(index);
+    }
+
+    /**
+     * Checks if index is within bounds of TaskList.
+     *
+     * @param index Index of TaskList.
+     * @return True if index is within bounds of TaskList, false otherwise.
+     */
+    public boolean isIndexValid(int index) {
+        return index < this.getSize() && index >= 0;
     }
 }

@@ -147,17 +147,15 @@ public class Ui {
     /**
      * Prints a continue prompt and waits for user input.
      *
-     * @return true if user inputs "Y", false if user inputs "N"
+     * @return User input if it is equals to "Y" or "N"
      */
-    public boolean printContinuePrompt() {
+    public String printContinuePrompt() {
         String input = "";
         while (true) {
             System.out.println("Continue anyway? (Y/N)");
             input = scanLine();
-            if (input.equals("Y")) {
-                return true;
-            } else if (input.equals("N")) {
-                return false;
+            if (input.equals("Y") || input.equals("N")) {
+                return input;
             }
         }
     }

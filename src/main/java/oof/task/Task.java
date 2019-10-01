@@ -18,18 +18,14 @@ public abstract class Task {
         this.status = false;
     }
 
-    /**
-     * Sets the task as done.
-     */
     public void setStatus() {
         this.status = true;
     }
 
-    /**
-     * Retrieves the description of the Task.
-     *
-     * @return Description of the Task.
-     */
+    public boolean getStatus() {
+        return status;
+    }
+
     public String getLine() {
         return line;
     }
@@ -40,7 +36,7 @@ public abstract class Task {
      * @return Status icon of the Task.
      */
     public String getStatusIcon() {
-        return (status ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (status ? "Y" : "N"); //return tick or X symbols
     }
 
     /**

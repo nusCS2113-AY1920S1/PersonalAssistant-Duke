@@ -1,16 +1,16 @@
 package oof;
 
-import oof.command.Command;
-import oof.command.CompleteCommand;
-import oof.command.ExitCommand;
-import oof.command.ListCommand;
-import oof.command.AddToDoCommand;
 import oof.command.AddDeadlineCommand;
 import oof.command.AddEventCommand;
+import oof.command.AddToDoCommand;
+import oof.command.Command;
+import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
+import oof.command.ExitCommand;
 import oof.command.FindCommand;
-import oof.command.SnoozeCommand;
+import oof.command.ListCommand;
 import oof.command.ScheduleCommand;
+import oof.command.SnoozeCommand;
 import oof.exception.OofException;
 
 /**
@@ -26,42 +26,45 @@ public class CommandParser {
      * @throws OofException Catches invalid commands given by user.
      */
     public static Command parse(String line) throws OofException {
-        if (line.equals("bye")) {
+        String[] arr = line.split(" ");
+        switch (arr[0]) {
+        case "bye":
             return new ExitCommand();
-        } else if (line.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (line.startsWith("done")) {
-            String[] arr = line.split(" ");
+        case "done":
             if (arr.length == 1) {
                 throw new OofException("OOPS!!! Please enter a number!");
             }
-            String num = arr[1];
-            return new CompleteCommand(num);
-        } else if (line.startsWith("todo")) {
-            line = line.replaceFirst("todo", "");
+            int completeIndex = Integer.parseInt(arr[1]) - 1;
+            return new CompleteCommand(completeIndex);
+        case "todo":
+            line = line.replaceFirst("todo ", "");
             return new AddToDoCommand(line);
-        } else if (line.startsWith("deadline")) {
-            line = line.replaceFirst("deadline", "");
+        case "deadline":
+            line = line.replaceFirst("deadline ", "");
             return new AddDeadlineCommand(line);
-        } else if (line.startsWith("event")) {
-            line = line.replaceFirst("event", "");
+        case "event":
+            line = line.replaceFirst("event ", "");
             return new AddEventCommand(line);
-        } else if (line.startsWith("delete")) {
-            int num = Integer.parseInt(line.split(" ")[1]) - 1;
-            return new DeleteCommand(num);
-        } else if (line.startsWith("find")) {
-            return new FindCommand(line);
-        } else if (line.startsWith("snooze")) {
-            String[] arr = line.split(" ");
+        case "delete":
             if (arr.length == 1) {
                 throw new OofException("OOPS!!! Please enter a number!");
             }
-            String num = arr[1];
-            return new SnoozeCommand(num);
-        } else if (line.startsWith("schedule")) {
-            line = line.replaceFirst("schedule", "");
+            int deleteIndex = Integer.parseInt(arr[1]) - 1;
+            return new DeleteCommand(deleteIndex);
+        case "find":
+            return new FindCommand(line);
+        case "snooze":
+            if (arr.length == 1) {
+                throw new OofException("OOPS!!! Please enter a number!");
+            }
+            int snoozeIndex = Integer.parseInt(arr[1]) - 1;
+            return new SnoozeCommand(snoozeIndex);
+        case "schedule":
+            line = line.replaceFirst("schedule ", "");
             return new ScheduleCommand(line);
-        } else {
+        default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

@@ -53,12 +53,11 @@ public class AddEventCommand extends Command {
         } else if (!hasEndDate(lineSplit)) {
             throw new OofException("OOPS!!! The event needs an end date.");
         }
-
         String description = lineSplit[0].trim();
         String[] dateSplit = lineSplit[1].split(" /to ");
         String startDate = parseTimeStamp(dateSplit[0]);
         String endDate = parseTimeStamp(dateSplit[1]);
-        if (hasValidDate(startDate) && hasValidDate(endDate)) {
+        if (isDateValid(startDate) && isDateValid(endDate)) {
             ArrayList<Event> eventClashes = new ArrayList<>();
             SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
             try {
@@ -77,7 +76,8 @@ public class AddEventCommand extends Command {
                         }
                     }
                 }
-                if (hasClashes(eventClashes)) {
+                boolean hasClashes = !eventClashes.isEmpty();
+                if (hasClashes) {
                     ui.printClashWarning(eventClashes);
                     if (!isContinue(ui)) {
                         return;
@@ -90,41 +90,64 @@ public class AddEventCommand extends Command {
             arr.addTask(task);
             ui.addTaskMessage(task, arr.getSize());
             storage.writeToFile(arr);
-        } else if (hasValidDate(startDate)) {
+        } else if (isDateValid(startDate)) {
             throw new OofException("OOPS!!! The end date is invalid.");
-        } else if (hasValidDate(endDate)) {
+        } else if (isDateValid(endDate)) {
             throw new OofException("OOPS!!! The start date is invalid.");
         } else {
             throw new OofException("OOPS!!! The start and end dates are invalid.");
         }
     }
 
-    private boolean hasClashes(ArrayList<Event> eventClashes) {
-        return !eventClashes.isEmpty();
-    }
 
-
+    /**
+     * Checks if input has a description.
+     * @param lineSplit processed user input.
+     * @return true if description is more than length 0 and is not whitespace.
+     */
     private boolean hasDescription(String[] lineSplit) {
-        return lineSplit[0].trim().length() != 0;
+        return lineSplit[0].trim().length() > 0;
     }
 
+    /**
+     * Checks if input has a start date (argument given before "/to").
+     * @param lineSplit processed user input.
+     * @return true if there is a start date and start date is not whitespace.
+     */
     private boolean hasStartDate(String[] lineSplit) {
-        return lineSplit.length > 1 && lineSplit[1].split(" /to ")[0].trim().length() != 0;
+        return lineSplit.length > 1 && lineSplit[1].split(" /to ")[0].trim().length() > 0;
     }
 
+    /**
+     * Checks if input has an end date (argument given after "/to").
+     * @param lineSplit processed user input.
+     * @return true if there is an end date and end date is not whitespace.
+     */
     private boolean hasEndDate(String[] lineSplit) {
         String[] dateSplit = lineSplit[1].split(" /to ");
-        return dateSplit.length > 1 && dateSplit[1].trim().length() != 0;
+        return dateSplit.length > 1 && dateSplit[1].trim().length() > 0;
     }
 
-    private boolean hasValidDate(String date) {
-        return !date.equals("failed");
-    }
-
+    /**
+     * Checks if start and end date are chronologically accurate.
+     *
+     * @param newEventStartTime Start time of event being added.
+     * @param newEventEndTime   End time of event being added.
+     * @return true if start date occurs before end date, false otherwise.
+     */
     private boolean isStartDateBeforeEndDate(Date newEventStartTime, Date newEventEndTime) {
         return newEventStartTime.compareTo(newEventEndTime) <= 0;
     }
 
+    /**
+     * Checks if there is an overlap of event timing.
+     *
+     * @param newEventStartTime  Start time of event being added.
+     * @param newEventEndTime    End time of event being added.
+     * @param currEventStartTime Start time of event being compared.
+     * @param currEventEndTime   End time of event being added.
+     * @return true if there is an overlap of event timing.
+     */
     private boolean isClash(Date newEventStartTime, Date newEventEndTime, Date currEventStartTime,
                             Date currEventEndTime) {
         return (newEventStartTime.compareTo(currEventStartTime) >= 0
@@ -133,8 +156,15 @@ public class AddEventCommand extends Command {
                 && newEventEndTime.compareTo(currEventEndTime) <= 0);
     }
 
+    /**
+     * Checks if user wants to continue adding an event when there is a clash in events.
+     *
+     * @param ui Instance of Ui that is responsible for visual feedback.
+     * @return true if response equals "Y", false otherwise.
+     */
     private boolean isContinue(Ui ui) {
-        return ui.printContinuePrompt();
+        String response = ui.printContinuePrompt();
+        return response.equals("Y");
     }
 
     /**

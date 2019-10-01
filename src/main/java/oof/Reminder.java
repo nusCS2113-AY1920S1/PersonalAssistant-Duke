@@ -1,6 +1,7 @@
 package oof;
 
 
+import oof.task.Deadline;
 import oof.task.Task;
 
 import java.text.ParseException;
@@ -23,7 +24,7 @@ public class Reminder {
         int count = 1;
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            if (isDeadline(task)) {
+            if (task instanceof Deadline) {
                 String[] lineSplit = task.toString().split("by:");
                 String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
                 result = result.trim();
@@ -43,13 +44,16 @@ public class Reminder {
         ui.printLine();
     }
 
+    /**
+     * Checks if deadline is within the next 24 hours.
+     *
+     * @param dueDate Due date of current deadline.
+     * @param now     Current time.
+     * @return true if due date of current deadline is within 24 hours of current time.
+     */
     private boolean isUpcoming(Date dueDate, Date now) {
         long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
         long diffHours = diff / (60 * 60 * 1000);
         return diffHours <= 24;
-    }
-
-    private boolean isDeadline(Task task) {
-        return task.toString().startsWith("[D]");
     }
 }

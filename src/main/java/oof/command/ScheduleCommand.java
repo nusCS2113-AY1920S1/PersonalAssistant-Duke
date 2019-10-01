@@ -21,6 +21,13 @@ public class ScheduleCommand extends Command {
         this.date = date;
     }
 
+    /**
+     * Checks if input date and date of Task are equal.
+     *
+     * @param input date from user input.
+     * @param date  date from existing Task.
+     * @return true if they are equal, false otherwise.
+     */
     private boolean compareDate(String input, String date) {
         return input.equals(date);
     }
@@ -28,8 +35,8 @@ public class ScheduleCommand extends Command {
     /**
      * Checks TaskList for Tasks associated to indicated date.
      *
-     * @param arr   ArrayList of Task objects.
-     * @return      ArrayList of Task objects associated to given date.
+     * @param arr ArrayList of Task objects.
+     * @return ArrayList of Task objects associated to given date.
      */
     private TaskList scheduleByDate(TaskList arr) {
         TaskList scheduledTasks = new TaskList();
@@ -37,8 +44,7 @@ public class ScheduleCommand extends Command {
             if (arr.getTask(i) instanceof Deadline) {
                 Deadline d = (Deadline) arr.getTask(i);
                 String date = d.getBy().substring(0, 10);
-                String input = this.date.substring(1);
-                if (compareDate(input, date)) {
+                if (compareDate(this.date, date)) {
                     scheduledTasks.addTask(d);
                 }
             }
@@ -49,11 +55,11 @@ public class ScheduleCommand extends Command {
     /**
      * Executes Schedule Command.
      *
-     * @param arr           ArrayList of Task objects
-     * @param ui            Instance of Ui that is responsible for visual feedback.
-     * @param storage       Instance of Storage that enables the reading and writing of Task
-     *                      objects to hard disk.
-     * @throws OofException Catches invalid commands given by user and dates with no scheduled tasks
+     * @param arr     ArrayList of Task objects.
+     * @param ui      Instance of Ui that is responsible for visual feedback.
+     * @param storage Instance of Storage that enables the reading and writing of Task
+     *                objects to hard disk.
+     * @throws OofException Catches invalid commands given by user and dates with no scheduled tasks.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
         if (this.date.isEmpty()) {

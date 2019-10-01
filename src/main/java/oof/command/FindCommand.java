@@ -51,6 +51,11 @@ public class FindCommand extends Command {
         ui.printMatchingTasks(matchedTasks);
     }
 
+    /**
+     * Checks if input has a description.
+     * @param lineSplit processed user input.
+     * @return true if description is more than length 0 and is not whitespace.
+     */
     private boolean hasDescription(String[] lineSplit) {
         return lineSplit.length != 1;
     }

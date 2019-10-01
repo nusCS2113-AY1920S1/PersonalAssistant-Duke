@@ -53,6 +53,16 @@ public abstract class Command {
     }
 
     /**
+     * Checks if date is valid.
+     *
+     * @param date String processed by ParseTimeStamp method.
+     * @return true if date is not equals to "failed", false otherwise.
+     */
+    protected boolean isDateValid(String date) {
+        return !date.equals("failed");
+    }
+
+    /**
      * Checks if ExitCommand is called for Oof to terminate.
      *
      * @return true if ExitCommand is called, false otherwise.

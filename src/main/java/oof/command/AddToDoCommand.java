@@ -46,8 +46,13 @@ public class AddToDoCommand extends Command {
         ui.addTaskMessage(task, arr.getSize());
     }
 
+    /**
+     * Checks if input has a description.
+     *
+     * @return true if description is more than length 0 and is not whitespace.
+     */
     private boolean hasDescription() {
-        return line.trim().length() != 0;
+        return this.line.trim().length() > 0;
     }
 
     /**
