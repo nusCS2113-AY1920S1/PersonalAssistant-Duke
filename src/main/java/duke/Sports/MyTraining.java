@@ -10,11 +10,10 @@ public class MyTraining {
     private int reps;
     private String intensity;
 
-    public MyTraining(String name, int sets, int reps, String intensity) {
+    public MyTraining(String name, int sets, int reps) {
         this.name = name;
         this.sets = sets;
         this.reps = reps;
-        this.intensity = intensity;
     }
 
     public String getName() {
@@ -32,21 +31,23 @@ public class MyTraining {
     public String getIntensity() {
         return this.intensity;
     }
-
-    public void changeName(String newName) {
-        this.name = newName;
-    }
-
-    public void changeSets(int newSets) {
-        this.sets = newSets;
-    }
-
-    public void changeReps(int newReps) {
-        this.reps = newReps;
+    public String toString() {
+        return getName() + ", sets of " + getSets() + " with " + getReps() + "reps each";
     }
 
     public void changeIntensity(String newIntensity) {
         this.intensity = newIntensity;
     }
 
+    public void changeReps(int newReps) {
+        this.reps = newReps;
+    }
+
+    public void changeSets(int newSets) {
+        this.sets = newSets;
+    }
+
+    public void changeName(String newName) {
+        this.name = newName;
+    }
 }
