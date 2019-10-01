@@ -257,7 +257,7 @@ Exits the program.
 
 Format: `bye`
 
-=== Add estimated time taken: `estimate [coming soon in v2.0]`
+=== Add estimated time taken: `estimate [_coming soon in v2.0_]`
 Adds the estimated time taken to complete a task.
 
 Format: `estimate INDEX HH`
@@ -270,7 +270,7 @@ Example:
 * `estimate 1 48` +
 Adds to the 1st task the estimated time taken of 48 hours to complete it.
 
-=== Adding a task: `range [coming soon in v2.0]`
+=== Adding a task: `range [_coming soon in v2.0_]`
 Adds a task that needs to be completed within a certain time period 
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
@@ -283,12 +283,12 @@ Example:
 * `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` +
 Adds a task with description and time period to be `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
 
-=== View two different calendars side-by-side: `viewDual [coming soon in v2.0]`
+=== View two different calendars side-by-side: `viewDual [_coming soon in v2.0_]`
 Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
 
 Format: `viewDual`
 
-=== Export calendar: `export [coming soon in v2.0]`
+=== Export calendar: `export [_coming soon in v2.0_]`
 Export all current tasks recorded into a shareable format in calendar view.  
 
 Format: `export`
