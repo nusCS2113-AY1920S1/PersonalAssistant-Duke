@@ -1,10 +1,13 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList implements Serializable {
+public class TaskList {
     private List<Task> tasks;
 
     public TaskList() {
@@ -19,8 +22,14 @@ public class TaskList implements Serializable {
         tasks.add(task);
     }
 
+    @JsonGetter("tasks")
     public List<Task> getTasks() {
-        return tasks;
+        return this.tasks;
+    }
+
+    @JsonSetter("tasks")
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Task get(int i) {

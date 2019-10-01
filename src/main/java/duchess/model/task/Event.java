@@ -1,5 +1,8 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
@@ -14,7 +17,6 @@ public class Event extends Task {
     private String description;
     private Date end;
     private Date start;
-    private SimpleDateFormat formatter;
 
     /**
      * Create an event task from user input.
@@ -28,7 +30,7 @@ public class Event extends Task {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         }
 
-        formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         formatter.setLenient(false);
 
         try {
@@ -70,14 +72,48 @@ public class Event extends Task {
         return new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
-                formatter.format(this.start), formatter.format(this.end));
+    /**
+     * Constructor for Jackson.
+     *
+     * @param description description
+     * @param start       start time
+     * @param end         end time
+     */
+    @JsonCreator
+    public Event(
+            @JsonProperty("description") String description,
+            @JsonProperty("start") Date start,
+            @JsonProperty("end") Date end
+    ) {
+        this.description = description;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public TimeFrame getTimeFrame() {
         return new TimeFrame(this.start, this.end);
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
+                formatter.format(this.start), formatter.format(this.end));
+    }
+
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonGetter("end")
+    public Date getEnd() {
+        return end;
+    }
+
+    @JsonGetter("start")
+    public Date getStart() {
+        return start;
     }
 }

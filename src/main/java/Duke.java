@@ -50,7 +50,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("tasks.dat").run();
+        new Duke("data.json").run();
     }
 
 }

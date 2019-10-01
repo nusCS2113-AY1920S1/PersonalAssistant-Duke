@@ -1,12 +1,13 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
-import java.io.Serializable;
 import java.util.List;
 
-public abstract class Task implements Serializable, Comparable<Task> {
+public abstract class Task implements Comparable<Task> {
     private boolean isDone;
 
     public Task() {
@@ -38,4 +39,14 @@ public abstract class Task implements Serializable, Comparable<Task> {
     public abstract List<Task> getReminders();
 
     public abstract boolean containsKeyword(String keyword);
+
+    @JsonGetter("isDone")
+    public boolean isDone() {
+        return isDone;
+    }
+
+    @JsonSetter("isDone")
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 }

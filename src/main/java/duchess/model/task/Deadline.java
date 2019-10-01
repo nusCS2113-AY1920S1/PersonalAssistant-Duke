@@ -1,5 +1,8 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
@@ -13,7 +16,6 @@ import java.util.List;
 public class Deadline extends Task {
     private String description;
     private Date deadline;
-    private SimpleDateFormat formatter;
 
     /**
      * Creates a deadline task from user input.
@@ -22,7 +24,7 @@ public class Deadline extends Task {
      * @throws DukeException an error if user input is invalid
      */
     public Deadline(List<String> input) throws DukeException {
-        formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         formatter.setLenient(false);
         int separatorIndex = input.indexOf("/by");
         if (input.size() == 0 || separatorIndex <= 0) {
@@ -58,13 +60,33 @@ public class Deadline extends Task {
         return list;
     }
 
-    @Override
-    public String toString() {
-        return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
+    @JsonCreator
+    public Deadline(
+            @JsonProperty("description") String description,
+            @JsonProperty("deadline") Date deadline
+    ) {
+        this.description = description;
+        this.deadline = deadline;
     }
 
     @Override
     public TimeFrame getTimeFrame() {
         return TimeFrame.ofInstantaneousTask(this.deadline);
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
+    }
+
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonGetter("deadline")
+    public Date getDeadline() {
+        return deadline;
     }
 }

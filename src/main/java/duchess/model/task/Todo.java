@@ -1,5 +1,8 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
@@ -16,10 +19,11 @@ public class Todo extends Task {
      * @throws DukeException the error if user input is invalid
      */
     public Todo(List<String> input) throws DukeException {
-        this.description = String.join(" ", input);
         if (input.size() == 0) {
             throw new DukeException("Format for todo: todo <task>");
         }
+
+        this.description = String.join(" ", input);
     }
 
     @Override
@@ -45,5 +49,15 @@ public class Todo extends Task {
     @Override
     public List<Task> getReminders() {
         return new ArrayList<>();
+    }
+
+    @JsonCreator
+    public Todo(@JsonProperty("description") String description) {
+        this.description = description;
+    }
+
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
     }
 }
