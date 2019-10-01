@@ -12,7 +12,19 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 == User Profile 
+
+*Target user profile*:
+
+* has a need to manage a large number of school-related tasks
+* prefer desktop apps over other types
+* can type fast
+* is reasonably comfortable using CLI and GUI apps
+* is currently studying a course related to engineering
+* likes to be efficient
+
 == Value Proposition
+*Value proposition*: manage school-related tasks better than an average task scheduler app
+
 == Appendix A
 === User Stories
 
@@ -63,16 +75,56 @@ For all use cases, the System is Duke Manager (DM) and the Actor is Student unle
 
 [discrete]
 === Use Case: Show command tutorial
-
-*MSS*
-
 1.  Student launches Duke Manager.
 2.  DM welcomes student.
 3.  Student requests to show tutorial on commands.
 4.  DM shows the command tutorial as well as the format of the commands.
 5.  Student enters command to exit.
-6.  DM bids student farewell.
+6.  DM bids student farewell. 
 +
 Use case ends.
 
+[discrete]
+=== Use Case: Adds a task
+*MSS*
+
+1.  Student enters the task to be done.
+2.  DM stores the task and updates list of student task. +
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. DM detects an error in the commands used.
+[none]
+** 1a1. DM alerts student of mistake.
+** 1a2. DM requests for correct data.
+** 1a3. Student enters new data.
+
+[discrete]
+=== Use Case: List Available Tasks
+1. Student Requests for list access.
+2. DM loads and shows list of completed and uncompleted tasks. +
+Use case ends.
+
+[discrete]
+=== Use Case:  Delete a Task
+1. Student requests to list tasks.
+2. DM shows a list of tasks.
+3. Student requests to delete a specific task in the list.
+4. DM finds the task and delete it from the list. +
+Use case ends.
+
+[discrete]
+=== Use Case:  Find a Task
+1. Student requests to find tasks with a specific keyword.
+2. DM finds the tasks with the keyword and shows student. +
+Use case ends.
+
+
 === Non Functional Requirements
+
+1. Should be able to respond to requests in less than 2 seconds.
+2. A user should be able to accomplish the majority of the tasks faster using commands.
+3. Should be able to be used on every computer that supports Java 11 or above.
+4. Should be less than 500MB.
