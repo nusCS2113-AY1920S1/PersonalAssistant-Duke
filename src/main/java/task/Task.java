@@ -3,7 +3,7 @@ package task;
 import java.util.Date;
 
 /**
- * Class from which task.Todo, task.Deadline and task.Event are extended from.
+ * Class from which task. To do, task.Deadline and task.Event are extended from.
  */
 public abstract class Task {
     protected Date dateTime;
