@@ -1,4 +1,20 @@
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoAfterCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.FindFreeTimesCommand;
+import command.FixedDurationCommand;
+import command.ListCommand;
+import command.RecurringCommand;
+import command.SnoozeCommand;
+import command.TodoCommand;
+import command.UnSnoozeCommand;
+import command.UpcomingCommand;
+import command.ViewScheduleCommand;
 import exception.DukeException;
 
 /**
