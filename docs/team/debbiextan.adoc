@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Duke
+== PROJECT: OOF
 
 ---
 
 == Overview
 
-Duke is a desktop application used for storing tasks and viewing them in a calender view. The user interacts with it using a CLI. It is written in Java.
+OOF is a desktop application used for storing tasks and viewing them in a calender view. The user interacts with it using a CLI. It is written in Java.
 
 == Summary of contributions
 

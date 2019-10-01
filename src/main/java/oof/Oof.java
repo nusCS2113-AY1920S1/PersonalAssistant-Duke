@@ -34,14 +34,13 @@ public class Oof {
      * Runs the Personal Assistant.
      */
     public void run() {
-        ui.printWelcomeMessage();
         ui.hello();
         reminder.checkDeadline(arr, ui);
         boolean isExit = false;
         while (!isExit) {
             try {
                 String line = ui.scanLine();
-                Command command = ChooseCommand.choose(line);
+                Command command = CommandParser.parse(line);
                 command.execute(arr, ui, storage);
                 isExit = command.isExit();
             } catch (OofException exception) {

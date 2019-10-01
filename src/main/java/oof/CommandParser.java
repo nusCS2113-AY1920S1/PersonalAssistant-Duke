@@ -16,7 +16,7 @@ import oof.exception.OofException;
 /**
  * Represents a parser to process the commands inputted by the user.
  */
-public class ChooseCommand {
+public class CommandParser {
     /**
      * Parses the input given by user and calls specific Commands
      * after checking the validity of the input.
@@ -25,7 +25,7 @@ public class ChooseCommand {
      * @return Command based on the user input.
      * @throws OofException Catches invalid commands given by user.
      */
-    public static Command choose(String line) throws OofException {
+    public static Command parse(String line) throws OofException {
         if (line.equals("bye")) {
             return new ExitCommand();
         } else if (line.equals("list")) {

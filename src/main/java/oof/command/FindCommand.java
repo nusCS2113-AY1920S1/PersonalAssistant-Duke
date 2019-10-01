@@ -38,8 +38,8 @@ public class FindCommand extends Command {
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split(" ");
-        if (lineSplit.length == 1) {
-            throw new OofException("OOPS!!! The description of a find cannot be empty.");
+        if (!hasDescription(lineSplit)) {
+            throw new OofException("OOPS!!! The find command needs a description.");
         }
         String item = lineSplit[1].trim();
         ArrayList<Task> matchedTasks = new ArrayList<>();
@@ -49,6 +49,10 @@ public class FindCommand extends Command {
             }
         }
         ui.printMatchingTasks(matchedTasks);
+    }
+
+    private boolean hasDescription(String[] lineSplit) {
+        return lineSplit.length != 1;
     }
 
     /**
