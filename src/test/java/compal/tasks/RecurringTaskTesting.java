@@ -9,7 +9,6 @@ import java.util.Date;
 
 import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RecurringTaskTesting {
     private String description = "Test content";
@@ -136,7 +135,7 @@ public class RecurringTaskTesting {
 
     @Test
     void toStringTest() {
-        assertEquals("\n" + "[" + symbol + "]" + "[\u2718] " + description
+        assertEquals("\n" + "[" + symbol + "]" + "[" + "\u2718" + "] " + description
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
                 + "\n***************", recurringTask.toString());

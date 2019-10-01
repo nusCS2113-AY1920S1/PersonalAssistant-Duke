@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static compal.tasks.Task.Priority.high;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -120,7 +121,7 @@ class DeadlineTest {
 
     @Test
     void toStringTest() {
-        assertEquals("\n" + "[D]" + "[\u2718] " + description
+        assertEquals("\n" + "[D]" + "[" + "\u2718" + "] " + description
                 + " \nDate: " + date + " \nEnd Time: " + endTime
                 + " \nPriority: " + priority + "\n***************", deadline.toString());
     }

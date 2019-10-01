@@ -134,7 +134,7 @@ public class FixedDurationTaskTest {
 
     @Test
     void toStringTest() {
-        assertEquals("\n" + "[FDT]" + "[\u2718] " + description
+        assertEquals("\n" + "[FDT]" + "[" + "\u2718" + "] " + description
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
                 + "\n***************", fdt.toString());

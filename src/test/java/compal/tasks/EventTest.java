@@ -7,9 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static compal.tasks.Task.Priority.*;
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EventTest {
     private String description = "Test content";
@@ -135,7 +134,7 @@ public class EventTest {
 
     @Test
     void toStringTest() {
-        assertEquals("\n" + "[E]" + "[\u2718] " + description
+        assertEquals("\n" + "[E]" + "[" + "\u2718" + "] " + description
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
                 + "\n***************", event.toString());
