@@ -101,6 +101,43 @@ Example:
 * `todo withdraw money` + 
 Adds a task called `withdraw money`.
 
+=== Adding a task: `do-after`
+Adds a task that needs to be done after a specified task.
+
+Format: `do-after INDEX DESCRIPTION`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `do-after 1 buy groceries` +
+Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
+
+=== Adding a task: `recurring`
+Adds a task that match the description given that will be repeated every week.
+
+Format: `reccuring DESCRIPTION`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `recurring math lecture` +
+Adds a recurring task called `math lecture` that will be repeated every week.
+
+=== Adding a task: `tentative`
+Adds a task that match the description given that can be confirmed at a later time.
+
+Format: `tentative DESCRIPTION`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `tentative group lunch` +
+Adds a tentative task called `group lunch`.
+
 === Listing tasks: `list`
 Lists all the tasks that are currently saved in *OOF*.
 
@@ -142,6 +179,43 @@ Example:
 * `find withdraw money` +
 Finds tasks with `withdraw money` in the description.
 
+=== Filter tasks by categories: `filter`
+Filter tasks by matching the category given.
+
+Format: `filter CATEGORY`
+
+* `Cateogry` of the task can be any one of the following: todo, deadline, event, recurring.
+
+Example:
+
+* `filter todo` +
+Displays all todo tasks.
+
+=== Choose threshold for tasks: `threshold`
+Adjusts the threshold of tasks to the duration given.
+
+Format: `threshold HH`
+
+* `time` has to *strictly* be in the format as stated above.
+
+Example:
+
+* `threshold 48` +
+Changes the threshold of the program to 48 hours.
+
+=== Color code tasks: `colorcode`
+Changes the entire task font color to the one given.
+
+Format: `colorcode INDEX #RRGGBB`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `#RRGGBB` refers to the hex color codes corresponding to the html color names.
+
+Examples:
+
+* `colorcode 1 #008000` +
+Color codes the 1st task in the list of tasks to a green color.
+
 === Viewing a summary of the next day’s task: `summary`
 Gives a summary of all the tasks to be done for the next day.
 
@@ -151,6 +225,21 @@ Format: `summary`
 Sorts and displays all current deadlines recorded by chronological order.
 
 Format: `sort`
+
+=== View undone tasks brought forward to the next day: `viewUndone`
+Gives a list of all the tasks not done that were brought forward to the next day.
+
+Format: `viewUndone`
+
+=== View free time slots: `viewFree`
+Gives a list of free time slots for the next 7 days.
+
+Format: `viewFree`
+
+=== View all tasks in week view: `viewWeek`
+Transforms all current tasks recorded into a week view to plan for the week. 
+
+Format: `viewWeek`
 
 ===  Viewing all tasks in calendar view: `viewCalendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
@@ -191,6 +280,15 @@ e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 * *Todo*: `todo DESCRIPTION` +
 e.g. `todo withdraw money`
 
+* *Do-after*: `Do-after INDEX DESCRIPTION` +
+e.g. `do-after 1 buy groceries`
+
+* *Recurring*: `recurring DESCRIPTION` +
+e.g. `recurring math lecture`
+
+* *Tentative*: `tentative DESCRIPTION` +
+e.g. `tentative group lunch`
+
 * *List*: `list` 
 
 * *Done*: `done INDEX` +
@@ -202,9 +300,24 @@ e.g. `delete 1`
 * *Find*: `find DESCRIPTION` +
 e.g. `find withdraw money`  
 
+* *Filter*: `filter CATEGORY` +
+e.g. `filter todo` 
+
+* *Threshold*: `threshold HH` +
+e.g. `threshold 48`
+
+* *Colorcode*: `colorcode INDEX #RRGGBB` +
+e.g. `colorcode 1 #008000` 
+
 * *Summary*: `summary` 
 
 * *Sort*: `sort` 
+
+* *ViewUndone*: `viewUndone`
+
+* *ViewFree*: `viewFree`
+
+* *ViewWeek*: `viewWeek`
 
 * *ViewCalendar*: `viewCalendar`
 
