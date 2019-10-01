@@ -14,7 +14,7 @@ image::nicholasnovakovic.png[width="150", align="left"]
 {empty}[https://github.com/nicholasnovakovic[github]] 
 
 Role: Team Lead + 
-Responsibilities: UI
+Responsibilities: Documentation, Data Models, Unit Tests
 
 '''
 
@@ -23,15 +23,15 @@ image::shaun97.png[width="150", align="left"]
 {empty}[http://github.com/shaun97[github]] 
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:  Architecture, Documentation, Data Models
 
 '''
 
 === Jun Liang
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/nimiew[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Unit Tests, Logic, Documentation
 
 '''
