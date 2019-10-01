@@ -142,7 +142,7 @@ Need a reminder for a task? Enter `set-reminder TASK_INDEX` in the **command box
 <img src="images/set-reminder.png" alt="set-reminder command" width="800"/>
 
 #### 4.1.9. Exiting **COMPal**: `bye`
-Bye-Bye! Enter `bye` in the **command box** will quit the **COMPal**. Have a nice day! :blush:
+Bye-Bye! Enter `bye` in the **command box** will quit **COMPal**. Have a nice day! :blush:
 
 ### 4.2. Detailed Management Commands
 
