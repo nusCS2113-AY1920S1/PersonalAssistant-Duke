@@ -1,5 +1,5 @@
 package Enums;
 
 public enum TimeUnit {
-    year, month, day, hour, minute
+    year, month, day, hours, minutes, seconds
 }
