@@ -28,7 +28,7 @@ Responsibilities:  Architecture, Documentation, Data Models
 '''
 
 === Jun Liang
-image::nimiew.jpg[width="150", align="left"]
+image::nimiew.png[width="150", align="left"]
 {empty}[https://github.com/nimiew[github]] 
 
 Role: Developer +
