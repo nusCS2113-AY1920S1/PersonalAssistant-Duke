@@ -6,10 +6,37 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
 [**1. Introduction**](/docs/UserGuide.md#1-introduction)
 
 [**2. Understanding This User Guide**](/docs/UserGuide.md#2-understanding-this-user-guide) 
++ [2.1. Basic Information]()
++ [2.2. Navigating Around Our Application]()
 
 [**3. Quick Start**](/docs/UserGuide.md#3-quick-start)
 
 [**4. Features**](/docs/UserGuide.md#4-features)
++ [4.1. General Commands](/docs/UserGuide.md#41-general-commands)
+    - [4.1.1. Viewing help: `help`](/docs/UserGuide.md#411-viewing-help-help)
+    - [4.1.2. Listing all Tasks: `list`](/docs/UserGuide.md#412-listing-all-tasks-list)
+    - [4.1.3. Deleting a Task: `delete`](/docs/UserGuide.md#413-deleting-a-task-delete)
+    - [4.1.4. Completing a Task: `done`](/docs/UserGuide.md#414-completing-a-task-done)
+    - [4.1.5. Finding a Task: `find`](/docs/UserGuide.md#415-finding-a-task-find)
+    - [4.1.6. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#416-viewing-tasks-on-a-specified-date-view)
+    - [4.1.7. View Reminder: `view-reminder`](/docs/UserGuide.md#417-view-reminder-view-reminder)
+    - [4.1.8. Set Reminder: `set-reminder`](/docs/UserGuide.md#418-set-reminder-set-reminder)
+    - [4.1.9. Exiting **COMPal**: `bye`](/docs/UserGuide.md#419-exiting-compal-bye)
++ [4.2. Detailed Management Commands](/docs/UserGuide.md#42-detailed-management-commands)
+    - [4.2.1. Adding **Deadline**: `deadline`](/docs/UserGuide.md#421-adding-deadline-deadline)
+    - [4.2.2. Adding **Event**: `event`](/docs/UserGuide.md#422-adding-event-event)
+    - [4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`](/docs/UserGuide.md#423-adding-task-with-fixed-duration-fixeddurationtask)
+    - [4.2.4. Adding **Recurring Task**: `recurtask`](/docs/UserGuide.md#424-adding-recurring-task-recurtask)
+    - [4.2.5. Adding **Lecture Session**: `lect`](/docs/UserGuide.md#425-adding-lecture-session-lect)
+    - [4.2.6. Adding **Tutorial Session**: `tut`](/docs/UserGuide.md#426-adding-tutorial-session-tut)
+    - [4.2.7. Adding **Sectional Session**: `sect`](/docs/UserGuide.md#427-adding-sectional-session-sect)
+    - [4.2.8. Adding **Lab Session**: `lab`](/docs/UserGuide.md#428-adding-lab-session-lab)
+
+[**5. Future Enhancements**](/docs/UserGuide.md#5-future-enhancements)
+
+[**6. Frequently-Asked Questions**](/docs/UserGuide.md#6-frequently-asked-questions)
+
+[**7. Command Summary**](/docs/UserGuide.md#7-command-summary)
 
 ## 1. Introduction
 Welcome to **COMPal**!
@@ -25,7 +52,7 @@ Take control with our [**Quick Start**](/docs/UserGuide.md#3-quick-start) guide.
 
 This guide explains how you can use **COMPal** to divide your time between your academic commitments and non-academic activities.
 
-You can find comprehensive steps on how to fully utilise **COMPal**'s extensive suite of time-management tools. **Frequently Asked Questions** can also clarify any pressing doubts that you may have. Our **Glossary** provides a concise, easy-to-read summary of our commands for your easy perusal. 
+You can find comprehensive steps on how to fully utilise **COMPal**'s extensive suite of time-management tools. **Frequently Asked Questions** can also clarify any pressing doubts that you may have. Our **Command Summary** provides a concise, easy-to-read summary of our commands for your easy perusal. 
 
 You can use the **Table of Contents** above to navigate effortlessly between each section.
 
@@ -66,20 +93,71 @@ Icon                 | What does it mean?
 This is the end of the **Quick Start** guide. Please refer to [4. Features](/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
 
 ## 4. Features 
+**Command format**  
+   * Words in UPPER_CASE are the parameters to be supplied by the user. E.g. in `delete TASK_INDEX`, `TASK_INDEX` is the index number of the task which the user wants to delete
+### 4.1. General Commands
 
-### Feature 1 
-Description of feature.
+#### 4.1.1. Viewing help: `help`
+Can't remember so many tedious commands? Enter `help` in the **command box**, you can see a list of all commands available.
+#### 4.1.2. Listing all Tasks: `list`
+To see all the tasks stored in **COMPal**, simply enter `list` . All tasks stored will be displayed.  
 
-## Usage
+<img src="images/list.png" alt="list command" width="800"/>
 
-### `Keyword` - Describe action
+:information_source: | The `TASK_INDEX` of a task could be found by `list`.          
+---------------------|-----------------
+#### 4.1.3. Deleting a Task: `delete`
+Don't like any task? Enter `delete TASK_INDEX` in the **command box** will delete the task you want to delete.
+* `TASK_INDEX` is the index shown when you do `list`.
 
-Describe action and its outcome.
+<img src="images/delete.png" alt="delete command" width="800"/>
 
-Example of usage: 
+#### 4.1.4. Completing a Task: `done`
+After Finishing a task, you may want to mark it as done. Enter `done TASK_INDEX` in the **command box** will mark the task as done.
+* `TASK_INDEX` is the index shown when you do `list`.
 
-`keyword (optional arguments)`
+<img src="images/done.png" alt="done command" width="800"/>
 
-Expected outcome:
+#### 4.1.5. Finding a Task: `find`
+Want to search for the task by it's key word? Enter `find KEY_WORD` in the **command box** will give you all the tasks including the key word.
+* `KEY_WORD` is the key word string you want to search for, the string should not contain any space.
 
-`outcome`
+<img src="images/find.png" alt="find command" width="800"/>
+
+#### 4.1.6. Viewing Tasks on a Specified Date: `view`
+Want to check if you are going to have a busy day? Enter `view /date DATE` in the **command box** will give you all the tasks on that day.
+* `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
+
+<img src="images/ViewDate.png" alt="view date command" width="800"/>
+
+#### 4.1.7. View Reminder: `view-reminder`
+Don't know what is inside this week's reminder list? Enter `View-reminder` in the **command box** to see all reminders in this week.
+
+<img src="images/View-Reminder.png" alt="view-reminder command" width="800"/>
+
+#### 4.1.8. Set Reminder: `set-reminder`
+Need a reminder for a task? Enter `set-reminder TASK_INDEX` in the **command box** will set a reminder for that task.
+* `TASK_INDEX` is the index shown when you do `list`.
+
+<img src="images/set-reminder.png" alt="set-reminder command" width="800"/>
+
+#### 4.1.9. Exiting **COMPal**: `bye`
+Bye-Bye! Enter `bye` in the **command box** will quit **COMPal**. Have a nice day! :blush:
+
+### 4.2. Detailed Management Commands
+
+#### 4.2.1. Adding **Deadline**: `deadline`
+#### 4.2.2. Adding **Event**: `event`
+#### 4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`
+#### 4.2.4. Adding **Recurring Task**: `recurtask`
+#### 4.2.5. Adding **Lecture Session**: `lect`
+#### 4.2.6. Adding **Tutorial Session**: `tut`
+#### 4.2.7. Adding **Sectional Session**: `sect`
+#### 4.2.8. Adding **Lab Session**: `lab`
+
+
+### **5. Future Enhancements**
+
+### **6. Frequently-Asked Questions**
+
+### **7. Command Summary**
