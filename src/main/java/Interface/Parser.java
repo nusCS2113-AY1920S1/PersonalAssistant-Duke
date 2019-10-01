@@ -1,6 +1,8 @@
 package Interface;
 import Commands.*;
+import JavaFx.AlertBox;
 import Tasks.*;
+import javafx.scene.control.Alert;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -100,7 +102,7 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
                 }
-            } else if (fullCommand.trim().substring(0,6).equals("remind")){
+            } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 return new RemindCommand();
             } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
@@ -140,13 +142,12 @@ public class Parser {
             } else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
                 try {
                     String duration = fullCommand;
+                    String type = "event";
                     duration = duration.replaceFirst("when is the nearest day in which I have a ", "");
                     duration = duration.replaceFirst(" hour free slot", "");
-                    //duration = duration.replaceAll("\\D", "");
-                    //duration = duration.replaceAll(".$", "");
                     duration = duration.substring(0, duration.indexOf('?'));
 
-                    return new FindEarliestFreeTimesCommand(duration);
+                    return new FindEarliestFreeTimesCommand(duration, type);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter find free time as follows:\n" +
                             " when is the nearest day in which I have a X hour free slot?\n" +
@@ -154,9 +155,7 @@ public class Parser {
                 }
             } else if (fullCommand.equals("show schedule")) {
                 return new ViewSchedulesCommand();
-            }else if (fullCommand.equals("confirm")) {
-                return new ConfirmCommand();
-            }else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+            } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
                     arr = activity.split("/to");
@@ -176,7 +175,7 @@ public class Parser {
                         arr3 = arr2[0].trim().split(" ");
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         Date date = formatter.parse(arr3[0].trim());
-                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm");
                         Date startTime = formatter1.parse(arr3[1].trim());
                         Date endTime = formatter1.parse(arr2[1].trim());
                         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
@@ -192,21 +191,58 @@ public class Parser {
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
                             "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
-            } else if(!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
-                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")){
+            } else if (!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
+                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")) {
                 try{
-                    int index = fullCommand.indexOf(" hours");
-                    fullCommand = fullCommand.substring(0,index); // e.g., reading the sales report (needs 2 hours) removes " hours"
+                    int index;
+                    String type;
+                    if (fullCommand.endsWith(" hours)")) {
+                        index = fullCommand.indexOf(" hours)");
+                        type = "event";
+
+                    } else {
+                        index = fullCommand.indexOf(" days)");
+                        type = "todo";
+                    }
+                    fullCommand = fullCommand.substring(0,index);
                     index = fullCommand.indexOf("(needs ");
                     String taskDescription = fullCommand.substring(0, index).trim();
                     String duration = fullCommand.substring(index+7).trim();
-                    return new FixedDurationTasksCommand(taskDescription, duration);
+                    return new FixedDurationTasksCommand(taskDescription, duration, type);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter Fixed Duration Task as follows:\n" +
                             "'Task Description' ' (needs x hours)'\n" +
                             "reading the sales report (needs 2 hours)");
                 }
-            }else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
+            } else if (fullCommand.contains("(from") && fullCommand.contains("to")) {
+                try {
+                    boolean isValid = true;
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String currentDate = formatter.format(date);
+                    int index = fullCommand.indexOf("(from");
+                    String taskDescription = fullCommand.substring(0, index);
+                    fullCommand = fullCommand.replace(taskDescription, "");
+                    fullCommand = fullCommand.replace("(from", "").trim();
+                    String[] startAndEndDate = fullCommand.split(" to ", 2);
+                    String startDate = startAndEndDate[0];
+                    String endDate = startAndEndDate[1].replace(")", "").trim();
+                    Date beginDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+                    Date newCurrentDate = new SimpleDateFormat("dd/MM/yyyy").parse(currentDate);
+
+                    if (beginDate.compareTo(newCurrentDate) < 0) { //date is wrong
+                        AlertBox.display("Warning message", "Invalid date", "Please enter another valid date",
+                                Alert.AlertType.WARNING);
+                        isValid = false;
+                    }
+                    System.out.println("value of isValid: " + isValid);
+                    System.out.println("start date: " + startDate + " Current date: " + currentDate);
+                    return new DoWithinPeriodTasksCommand(taskDescription, startDate, endDate, isValid);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
+                            " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
+                }
+            } else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
                 try {
                     String activity = fullCommand.trim().substring(18);
                     arr = activity.split("/at");
@@ -242,7 +278,7 @@ public class Parser {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
-        } catch (StringIndexOutOfBoundsException | FileNotFoundException e){
+        } catch (StringIndexOutOfBoundsException | FileNotFoundException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

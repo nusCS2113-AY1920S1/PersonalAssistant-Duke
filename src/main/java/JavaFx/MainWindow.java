@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,8 +61,6 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableView<DeadlineView> deadlineTable;
     @FXML
-    private Button cmdButton;
-    @FXML
     private DatePicker datePicker;
     private Duke duke;
     private Storage storage;
@@ -73,7 +70,6 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList todosList;
     private TaskList eventsList;
     private TaskList deadlinesList;
-    private Ui ui = new Ui();
 
     /**
      * This method initializes the display in the window of the GUI.
@@ -89,6 +85,7 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlineLabel.setText("Deadline");
             setClock();
             retrieveList();
+            openReminderBox();
 
             eventToColumn.setCellValueFactory(new PropertyValueFactory<>("to"));
             eventFromColumn.setCellValueFactory(new PropertyValueFactory<>("from"));
@@ -108,10 +105,17 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
+    /**
+     * Initialize Duke object in MainWindow controller with Duke object from Main.
+     * @param d Duke object from Main bridge
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
+    /**
+     * Animates the clock timer in MainWindow GUI.
+     */
     private void setClock() {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
@@ -121,6 +125,11 @@ public class MainWindow extends BorderPane implements Initializable {
         clock.play();
     }
 
+    /**
+     * Pulls the list from storage data and stores here.
+     * @throws IOException On input error reading lines in the file
+     * @throws ParseException On conversion error from string to Task object
+     */
     private void retrieveList() throws IOException, ParseException {
         storage = new Storage();
         todosList = new TaskList();
@@ -138,15 +147,14 @@ public class MainWindow extends BorderPane implements Initializable {
         String to;
         String from;
         String description;
-        String activity;
         ObservableList<TimetableView> timetables = FXCollections.observableArrayList();
-        for(Task task : events){
-            activity = task.toString();
+        for (Task task : events) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+            DateFormat endTimeFormat = new SimpleDateFormat("hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("HH:mm");
-            Date date = dateFormat.parse(activity.substring(activity.indexOf("at:") + 4, activity.indexOf(')')));
-            to = "";
-            from = timeFormat.format(date);
+            String arr[] = task.getDateTime().split("to");
+            to = timeFormat.format(endTimeFormat.parse(arr[1].trim()));
+            from = timeFormat.format(dateFormat.parse(arr[0].trim()));
             description = task.getDescription();
             timetables.add(new TimetableView(to, from, description));
         }
@@ -158,7 +166,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String description;
         String activity;
         ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
-        for(Task task : deadlines){
+        for (Task task : deadlines) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -175,7 +183,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String done;
         String activity;
         ObservableList<TodoView> todoViews = FXCollections.observableArrayList();
-        for(Task task : todos){
+        for (Task task : todos) {
             activity = task.toString();
             description = activity.substring(7);
             if (activity.contains("[\u2713[")) {
@@ -187,6 +195,10 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         return todoViews;
     }
+
+    /**
+     * This method sets the platform for CLI fxml.
+     */
     @FXML
     private void openCommandScene() {
         try {
@@ -201,4 +213,34 @@ public class MainWindow extends BorderPane implements Initializable {
             e.printStackTrace();
         }
     }
+
+     private void openReminderBox() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        for (int i = 0; i < todos.size(); i++) {
+            if (todos.get(i).getDescription().contains("(from") && todos.get(i).getDescription().contains("to")) {
+                String description = todos.get(i).getDescription();
+                int index = description.indexOf("(from");
+                String taskDescription = description.substring(0, index);
+                description = description.replace(taskDescription, "");
+                description = description.replace("(from", "").trim();
+                String[] dateString = description.split(" to ", 2);
+                String startDate = dateString[0];
+                String endDate = dateString[1].replace(")", "").trim();
+
+                if (formatter.format(date).equals(startDate)) {
+                    AlertBox.display("Reminder Alert", " To Do Within Period Task: " + taskDescription,
+                            "Reminder starts today. On: " + startDate, Alert.AlertType.INFORMATION);
+
+                } else if(formatter.format(date).equals(endDate)) {
+                    AlertBox.display("Reminder Alert", "To Do Within Period Task: " + taskDescription,
+                            "Reminder ends today. On: " + endDate, Alert.AlertType.INFORMATION);
+
+                }
+            }
+        }
+    }
+
+
+
 }

@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for ChatBot. Provides the layout for the other controls.
  */
 public class ChatBot extends BorderPane {
     @FXML
@@ -43,8 +44,8 @@ public class ChatBot extends BorderPane {
     }
 
     /**
-     * This method creates the Duke object.
-     * @param d The object of Duke
+     * Initialize Duke object in ChatBot controller with Duke object from MainWindow.
+     * @param d Duke object from Main bridge
      */
     public void setDuke(Duke d) {
         duke = d;
@@ -54,6 +55,7 @@ public class ChatBot extends BorderPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBoxUser.getUserDialog(input, userImage),
                 DialogBoxDuke.getDukeDialog(response, dukeImage)
