@@ -7,6 +7,7 @@ import duchess.storage.Storage;
 import duchess.ui.Ui;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class ReminderCommand extends Command {
 
     /**
-     * Displays Deadline objects to user.
+     * Displays Deadline objects to user in ascending order.
      *
      * @param taskList List containing tasks
      * @param ui Userinterface object
@@ -25,17 +26,18 @@ public class ReminderCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        List<Task> reminderList = getDeadlines(taskList);
+        List<Task> reminderList = addTimedActivities(taskList);
+        Collections.sort(reminderList);
         display(reminderList, ui);
     }
 
     /**
      * Returns a List of Task objects.
-     * Gets a list of deadlines from the tasklist.
+     * Adds objects of type Deadline and Event to reminderList.
      *
      * @param taskList of user inputs
      */
-    private List<Task> getDeadlines(TaskList taskList) {
+    private List<Task> addTimedActivities(TaskList taskList) {
         return taskList.getTasks().stream()
                 .map(Task::getReminders)
                 .flatMap(Collection::stream)

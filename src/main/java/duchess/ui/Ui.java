@@ -193,7 +193,7 @@ public class Ui {
      * @param tasks List of all tasks
      */
     public void showDeadlines(List<Task> tasks) {
-        printIndented("You currently have these deadlines.");
+        printIndented("You currently have these deadlines:");
         showTasks(tasks);
     }
 
