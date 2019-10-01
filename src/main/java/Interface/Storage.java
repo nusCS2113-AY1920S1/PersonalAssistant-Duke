@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -127,16 +128,23 @@ public class Storage {
         Task line;
         if(string.contains("[T]")){
             line = new Todo(string.substring(7));
-        } else if(string.contains("[D]")) {
+        }
+        else if(string.contains("[D]")) {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
             String dateString = format.format(date);
             line = new Deadline(string.substring(7, string.indexOf("by:") - 2), dateString);
-        } else {
-            DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
+        }
+        else {
+            DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+            Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf("time:")));
             String dateString = format.format(date);
-            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString);
+            Date startTime = timeFormat.parse(string.substring(string.indexOf("time:") + 6, string.indexOf("to")));
+            String startTimeString = timeFormat.format(startTime);
+            Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
+            String endTimeString = timeFormat.format(endTime);
+            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
         }
         if(string.contains("\u2713")){
             line.setDone(true);
