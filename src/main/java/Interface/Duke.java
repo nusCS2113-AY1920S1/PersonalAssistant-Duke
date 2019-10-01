@@ -20,6 +20,7 @@ public class Duke extends Application {
     private TaskList events;
     private TaskList todos;
     private TaskList deadlines;
+    private static TaskList tentativeDates;
     private Ui ui;
 
     /**
@@ -32,13 +33,21 @@ public class Duke extends Application {
         todos = new TaskList();
         events = new TaskList();
         deadlines = new TaskList();
+        tentativeDates = new TaskList();
         try {
+            //storage.readTentativeDates(tentativeDates);
             storage.readTodoList(todos);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
         } catch (IOException | ParseException e) {
             ui.showLoadingError(e);
         }
+    }
+    /**
+     * This method returns the loaded Tentative Dates.
+     */
+    public static TaskList getTentativeDates() {
+        return  tentativeDates;
     }
 
     @Override
@@ -71,4 +80,5 @@ public class Duke extends Application {
     public String getResponse(String input) {
         return run(input);
     }
+
 }

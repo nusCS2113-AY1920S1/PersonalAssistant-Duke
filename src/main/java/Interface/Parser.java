@@ -1,8 +1,11 @@
 package Interface;
 import Commands.*;
 import Tasks.*;
+
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -151,7 +154,9 @@ public class Parser {
                 }
             } else if (fullCommand.equals("show schedule")) {
                 return new ViewSchedulesCommand();
-            } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
+            }else if (fullCommand.equals("confirm")) {
+                return new ConfirmCommand();
+            }else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
                     arr = activity.split("/to");
@@ -201,13 +206,43 @@ public class Parser {
                             "'Task Description' ' (needs x hours)'\n" +
                             "reading the sales report (needs 2 hours)");
                 }
-            }
+            }else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
+                try {
+                    String activity = fullCommand.trim().substring(18);
+                    arr = activity.split("/at");
+                    ArrayList<String> dateString = new ArrayList<>();
+                    ArrayList<String> startTimeString = new ArrayList<>();
+                    ArrayList<String> endTimeString = new ArrayList<>();
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description cannot be empty.");
+                    }
 
-            else {
+                    for(int i = 1; i < arr.length;i++) {
+                        arr1 = arr[i].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                        Date date = formatter.parse(arr1[0].trim());
+                        arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                        Date startTime = formatter1.parse(arr2[0].trim());
+                        Date endTime = formatter1.parse(arr2[1].trim());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                        dateString.add(dateFormat.format(date));
+                        startTimeString.add(timeFormat.format(startTime));
+                        endTimeString.add(timeFormat.format(endTime));
+
+                    }
+                    return new TentativeSchedulingCommand(arr[0].trim(), dateString, startTimeString, endTimeString);
+                }catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please key in the format as follows:\n" +
+                            "Tentative Schedule name_of_event /at dd/MM/yyyy from HHmm to HHmm /at dd/MM/yyyy from HHmm to HHmm ... \n" +
+                            "For example: event project meeting /at 1/1/2020 from 1500 to 1600 /at 1/2/2020 from 1500 to 1600\n ");
+                }
+            } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
-        } catch (StringIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException | FileNotFoundException e){
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
