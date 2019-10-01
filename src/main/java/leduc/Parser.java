@@ -39,6 +39,9 @@ public class Parser {
         else if (user.matches("postpone \\d+ (.*)")){ //example: postpone 1 /by 12/12/2012 22:22
             c = new PostponeCommand(user);
         }
+        else if (user.trim().matches("edit")){
+            c = new EditCommand(user);
+        }
         else if (user.matches("delete \\d+")) {// if it is done and a number of task
             c = new DeleteCommand(user);
         }
@@ -54,11 +57,15 @@ public class Parser {
         else if (user.matches("reschedule \\d+ (.*)")) {
             c = new RescheduleCommand(user);
         }
+
         else if (user.matches("setwelcome (.*)")) {
             c = new SetWelcomeCommand(user);
         }
         else if (user.matches("remind")) {
             c = new RemindCommand(user);
+        }
+        else if(user.matches("help")){
+            c = new HelpCommand(user);
         }
         else if (user.matches(("bye"))){
             c = new ByeCommand(user);

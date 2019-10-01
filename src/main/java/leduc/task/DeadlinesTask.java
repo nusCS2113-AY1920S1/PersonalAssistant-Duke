@@ -49,6 +49,14 @@ public class DeadlinesTask extends Task {
     public Date getDeadlines(){ return this.deadlines;}
 
     /**
+     * Setter of deadline.
+     * @param deadlines the new deadline date of the task.
+     */
+    public void setDeadlines(Date deadlines){
+        this.deadlines = deadlines;
+    }
+
+    /**
      * Allows to snooze the deadline date
      */
     public void snoozeDeadline() {
