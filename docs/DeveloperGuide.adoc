@@ -14,6 +14,48 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 == User Profile 
 == Value Proposition
 == Appendix A
-=== User Guide
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *`|engineering undergraduate |  store multiple tasks and schedules | complete them before the deadline.
+|`* * *`|engineering undergraduate | set a list of goals for myself | be motivated to strive.
+|`* * *`|user |  have an undo function | undo in case i typed in something erroneous.
+|`* * *`|user| be able to mark a task as done | keep track of my progress. 
+|`* * *`|user| be able to delete a task | erase  unnecessary tasks
+|`* * *`|user| have a backup for my handbook| recover it in case I delete this program
+|`* * *`|user | be able to sort the handbook by priority | know which tasks to complete first.
+|`* *`|engineering undergraduate | keep track of my budget and expenditure | know when to not overspend.
+|`* *`|engineering undergraduate | receive notifications 3 days before it is due, | know the highest priority or urgent tasks to be completed.
+|`* *`|user | be able to delete multiple tasks | not have to repeat the delete action multiple times.
+|`* *`|user | be able to undo multiple tasks | not have to repeat the undo actions many times.
+|`* *`|user |  be able to write a long note | store my school notes.
+|`* *`|user | be able to import/export my handbook| transfer my handbook across devices.
+|`* *`|user | have an interactive tutorial of the features of the handbook | better understand the product
+|`* *`|user | have a list of commands available |refer to them in case I forget them due to long time no use
+|`* *`|user | be able to keep track of my examinations|   remember to revise them
+|`* *`|user | assign command shortcuts | type in my tasks faster
+|`* *`|user | create a list of ideas |implement them  progress 
+|`* *`|user | create appointments | be aware of what appointments (medical, interview etc) I have planned. 
+|`* *`|user | categorize the tasks to different categories | have an overview on a specific category on what is to be done.
+|`*`|engineering undergraduate | check if I have taken my pills | remember them if i am too engrossed in studies.
+|`*`|engineering undergraduate |  have a birthday reminder at least 2 weeks before | remember important dates about people I care.
+|`*`|engineering undergraduate | include emergency contacts|  know that people will know who to call during an emergency.
+|`*`|engineering undergraduate |keep track of my module grades| keep track of my current university progress
+|`*`|engineering undergraduate |keep track of my module credits|  keep track of my current university progress
+|`*`|user| print out my handbook | have a hardcopy to refer to.
+|`*`|user|  share my handbook with my friends | they are aware of what my current plans are
+|`*`|user|  customise my handbook | make it truly mine
+|`*`|user|  be able to use a command to enter the current date and time | choose not to refer to my clock and write out the time
+|`*`|user | be either in a viewer mode or admin mode | choose not to accidentally edit my stored tasks/notes in the handbook
+|`*`|user | be able to copy tasks in my handbook | paste them in my calendar/notes/other parallel todo trackers.
+|`*`|user | have a password system | ensure that only those who knows the password can have access to my handbook
+
+
+|=======================================================================
+
 === Use Cases
 === Non Functional Requirements
