@@ -131,7 +131,109 @@ checked to ensure it is of the right format | always be assured that I am inputt
 
 (For all use cases, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
 
+=== [[UC-1]] Use case: UC1 - Add a patient
 
+*MSS*
+
+. User requests to add a patient.
+. Dr. Duke requests for details of the patient.
+. User enters the requested details.
+. Dr. Duke creates a new profile for the patient according to the specified details.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. Dr. Duke detects an error in the entered details.
++
+** 3a1. Dr. Duke prompts the user with an error message and requests for the correct details.
+** 3a2. User enters correct details.
+** Steps 3a1 and 3a2 are repeated until the given details are valid.
+** Use case resumes from Step 4.
+
+=== [[UC-2]] Use case: UC2 - Edit a patient's details
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>>.
+. Dr. Duke requests for new details of the patient.
+. User enters new details of the patient.
+. Dr. Duke updates the profile for the patient.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. Dr. Duke detects an error in the entered details.
++
+** 3a1. Dr. Duke prompts the user with an error message and requests for the correct details.
+** 3a2. User enters correct details.
+** Steps 3a1 and 3a2 are repeated until the given details are valid.
+** Use case resumes from Step 4.
+
+=== [[UC-3]] Use case: UC3 - Search for a patient
+
+*MSS*
+
+. User enters the patient's name.
+. Dr. Duke returns list of all relevant results.
+. User selects the target patient in the list.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The returned list is empty.
++
+Use case ends.
+
+=== [[UC-4]] Use case: UC4 - View a patient's records
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>>.
+. Dr. Duke shows the detailed records of the patient.
++
+Use case ends.
+
+=== [[UC-5]] Use case: UC5 - Discharge a patient
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>> and requests to discharge him/her.
+. Dr. Duke shows the details of the patient and requests for a confirmation.
+. User confirms that the patient may be discharged.
+. Dr. Duke generates a discharge report for the patient and delete his/her record from the system.
+
+*Extensions*
+
+* a. At any time, User chooses to cancel the discharge operation.
++
+** a1. Dr. Duke requests to confirm the cancellation.
+** a2. User confirms the cancellation.
++
+Use case ends.
+
+=== [[UC-6]] Use case: UC6 - Generate a unified report for a patient
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>> and requests to generate a report on his/her current condition.
+. Dr. Duke generates a detailed report for the patient.
++
+Use case ends.
+
+=== [[UC-7]] Use case: UC7 - Undo previous command(s)
+*Preconditions*: At least 1 command in the command history.
+
+*MSS*
+
+. User requests to undo previous command(s).
+. Dr. Duke shows the list of command(s) to be reverted and requests for a confirmation.
+. User reviews the command(s) and confirms the undo operation.
+. Dr. Duke performs the undo operation and returns the system to an older state.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -156,4 +258,6 @@ checked to ensure it is of the right format | always be assured that I am inputt
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, macOS, Linux
+* Windows
+* macOS
+* Linux
