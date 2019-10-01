@@ -5,17 +5,21 @@
  */
 package cube;
 
-import cube.exception.*;
-import cube.task.TaskList;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
 import cube.ui.Ui;
-import cube.util.Parser;
-import cube.util.Storage;
-import cube.command.Command;
+import cube.logic.Parser;
+import cube.logic.command.Command;
+import cube.storage.*;
+import cube.exception.CubeException;
 
+/**
+ * the main class of Duke Programme
+ */
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
+    private StorageManager storageManager;
+    private FoodList foodList;
     private Ui ui;
 
     /**
@@ -25,13 +29,17 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        FoodStorage foodStorage = new FoodStorage(filePath);
+        RevenueStorage revenueStorage = new RevenueStorage(filePath);
+        storageManager = new StorageManager(foodStorage, revenueStorage);
+        //try {
+            foodList = new FoodList(storageManager.loadFood());
+            Food.updateRevenue(storageManager.loadRevenue());
+        /*} catch (LoadingException e) {
             ui.showLoadingError(filePath);
-            tasks = new TaskList();
-        }
+            foodList = new FoodList();
+            Food.updateRevenue(0);
+        } */
     }
 
     /**
@@ -46,8 +54,8 @@ public class Duke {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
-                c.execute(tasks, ui, storage);
-            } catch (DukeException e) {
+                c.execute(foodList, ui, storageManager);
+            } catch (CubeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

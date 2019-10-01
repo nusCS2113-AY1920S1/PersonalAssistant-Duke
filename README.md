@@ -1,5 +1,9 @@
 # Project Cube
 
+Cube is a simple Bookkeeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
+
+![Cube](docs/images/Cube.png)
+
 # Setting up
 
 **Prerequisites**
@@ -22,20 +26,32 @@
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
+# Launching Cube
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+Gradle has been integrated into Cube and can be easily used to run various functions.
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+**Launching from the Terminal or Command Prompt**
 
-# Feedback, Bug Reports
+Simply run the command `gradlew {taskName}` in the terminal and Gradle will run the task!
+* `gradlew run`: Launches Cube.
+* `gradlew test`: Launches JUnit Tests for testing & debugging Cube.
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+**Launching from Gradle within IntelliJ**
+
+1. Import the Cube project in IntelliJ as a Gradle project if you have not done so.
+![Gradle Import](docs/images/GradleImportIntelliJ.png)
+
+1. After importing, IntelliJ IDEA will identify your project as a Gradle project and you will gain access to the Gradle Toolbar.
+
+1. Through the Gradle Toolbar, you will then be able create new run configuration and launch Cube within IntelliJ.
+![Gradle Run](docs/images/GradleRunIntelliJ.png)
+
+# Copyright Notice 
+
+**Updated by the team repo creator, LL-Pengfei, on 2019/9/19 22:10PM**
+
+This is the Group Component for the Module Project of the Module CS2113T, Software Engineering & Object-Oriented Programming, in Academic Year AY19/20, Semester 1 (AY19/20S1), conducted in School of Computing (SoC), National University of Singapore (NUS).
+
+The authors and the copyright holder of this repository are the AY19/20S1 CS2113T students in the Group CS2113T-F09-2. The authors have built and constantly updated this repository after forking the original repository materials from the NUS SoC CS2113T learning materials ([PersonalAssistant-Duke at NUSCS2113-AY1920S1](https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke)).
+
+**Plagiarism is strictly prohibited under NUS rules and regulations. No copying of the codes/any of the code segments for any purposes.** Please kindly refer to [the CS2113T Module Policy on plagiarism](https://nuscs2113-ay1920s1.github.io/website/admin/appendixB-policies.html#policy-on-plagiarism) if you attempt to copy the codes/code segments from this repository.

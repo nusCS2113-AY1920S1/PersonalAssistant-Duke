@@ -28,11 +28,13 @@ public class Ui {
 	 * Prints the welcome screen of Duke.
 	 */
 	public void showWelcome(){
-	    String logo = " ____        _        \n"
-	            + "|  _ \\ _   _| | _____ \n"
-	            + "| | | | | | | |/ / _ \\\n"
-	            + "| |_| | |_| |   <  __/\n"
-	            + "|____/ \\__,_|_|\\_\\___|\n";
+	    String logo = " ________  ___  ___  ________  _______      \n" +
+				"|\\   ____\\|\\  \\|\\  \\|\\   __  \\|\\  ___ \\     \n" +
+				"\\ \\  \\___|\\ \\  \\\\\\  \\ \\  \\|\\ /\\ \\   __/|    \n" +
+				" \\ \\  \\    \\ \\  \\\\\\  \\ \\   __  \\ \\  \\_|/__  \n" +
+				"  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\_|\\ \\ \n" +
+				"   \\ \\_______\\ \\_______\\ \\_______\\ \\_______\\\n" +
+				"    \\|_______|\\|_______|\\|_______|\\|_______|\n";
 	    System.out.println("Hello from\n" + logo);
 	    System.out.println("What can I do for you?");
 	}
@@ -96,6 +98,18 @@ public class Ui {
 		System.out.println("Nice! I've marked this task as done:");
 		System.out.println(finished);
 	}
+
+	//@@author LL-Pengfei
+	/**
+	 * Show Snooze Message.
+	 *
+	 * @param snoozed the task snoozed.
+	 */
+	public void showSnooze(Task snoozed) {
+		System.out.println("Here is the task snoozed for 24 hours:");
+		System.out.println(snoozed);
+	}
+	//@@author
 
 	/**
 	 * Prints the list of tasks due in 10 days.

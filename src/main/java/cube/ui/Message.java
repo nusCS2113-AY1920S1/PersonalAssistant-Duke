@@ -10,7 +10,7 @@ public class Message {
 	public static final String EMPTY_DESCRIPTION
 			= "OOPS!!! The description of a task cannot be empty";
 	public static final String EMPTY_DATE
-			= "OOPS!!! The date cannot be empty. Please Add date after \\ Character";
+			= "OOPS!!! The date cannot be empty. Please Add date after / Character";
 	public static final String EMPTY_TASK_NUMBER
 			= "OOPS!!! The task number cannot be empty";
 	public static final String INVALID_TASK_NUMBER
@@ -25,4 +25,6 @@ public class Message {
 			= "OOPS!!! There is an existing task that contains the exact description!";
 	public static final String IO_ERROR
 			= "OOPS!!! The data file is deprecated. Unable to read or write in 'data/duke.txt'";
+	public static final String EMPTY_DURATION
+			= "OOPS!!! The duration cannot be empty. Please provide the duration of the task after \\ Character";
 }
