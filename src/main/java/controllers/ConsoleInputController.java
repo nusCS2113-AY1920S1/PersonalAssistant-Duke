@@ -202,6 +202,7 @@ public class ConsoleInputController implements IViewController {
         case "create":
             // Creation of a new project with a given name and a number of numbers
             boolean response = projectRepository.addToRepo(input);
+            break;
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
         }

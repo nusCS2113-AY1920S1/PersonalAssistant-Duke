@@ -222,7 +222,7 @@ public class CLIView {
     public void findFreeSlots(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         Scanner sc = new Scanner(input);
-        String tempDate = sc.next();
+        String tempDate;
         if (sc.hasNext()) {
             tempDate = sc.nextLine();
         } else {
@@ -231,8 +231,8 @@ public class CLIView {
 
         ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
         System.out.println("Here are the free time slots you have between your tasks:\n");
-        for (int i = 0; i < freeTimeSlots.size(); i++) {
-            System.out.println(freeTimeSlots.get(i));
+        for (String freeTimeSlot : freeTimeSlots) {
+            System.out.println(freeTimeSlot);
         }
     }
 
@@ -250,6 +250,10 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
+    /**
+     * Method that helps print out console messages with the relevant line decorations.
+     * @param message : Message that needs to be printed out to the user.
+     */
     public void consolePrint(String message) {
         System.out.println(horiLine);
         System.out.println(message);
