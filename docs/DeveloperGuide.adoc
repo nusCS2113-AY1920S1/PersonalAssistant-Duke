@@ -1,1 +1,151 @@
-Work in progress
+= Dr. Duke - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:xrefstyle: full
+:repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
+
+By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+Welcome to the *Dr. Duke* developer guide! This document assumes a familiarity with the link:UserGuide.adoc[user guide].
+
+In order to be a successful *Dr. Duke* developer, you need a general understanding of: +
+
+* *Dr. Duke*'s architecture and object model
+* The Java framework which *Dr. Duke* builds on
+
+== Setting up
+=== Prerequisites
+
+. *JDK `11`* or above
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+House officers, who are typically freshly-graduated medical students, play a vital role in managing hospital patients. They are responsible, among many other
+things, for collating all information regarding each hospital patient and organising it to provide a clear picture of the patient's situation, and for
+presenting that picture to senior doctors who can then make assessments and recommendations based on that picture. As much of this information needs to be
+exchanged at a rapid pace, Dr. Duke assists in quick, accurate and efficient recording and retrieval of the patient data required to provide effective care. 
+
+The house officers we are targeting with this app:
+
+* need to manage a significant number of patients
+* need to quickly input and organise patient data
+* prefer desktop apps over other types
+* prefer typing over mouse input
+* can type fast
+
+*Value proposition*: input, organise and access information about patients faster than with a typical mouse/GUI driven app
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="100%",cols="10%,30%,30%,30%",options="header"]
+|=======================================================================
+| Priority | As a ... | I want to ... | So that I can...
+| `* * *` | house officer | check my patients' allergies | issue them with the appropriate medicine
+
+| `* * *` | house officer who has to manage a lot of information | flag and view the critical issues to
+follow up for each patient | complete the follow-up(s) as soon as possible
+
+| `* * *` | house officer who has to manage many patients | view the previous medical history of my patients
+| understand what has been done to manage/treat their conditions
+
+| `* * *` | house officer who needs to input a lot of data quickly and is prone to mistyping | be able to make typing
+errors but still have my input recognised | avoid having to waste time to retype my command
+
+| `* * *` | house officer who needs to input a lot of data quickly and is prone to mistyping | confirm my input type and
+modify it quickly if it is incorrect | avoid having to retype or tediously transfer entries that were input in the
+wrong place
+
+| `* * *` | house officer who needs to upload records into the hospital's health system | generate unified reports that
+are fully compatible with the system | avoid having to manually input those records
+
+| `* * *` | house officer keeping track of information for my consultant | keep track of whether or not I've checked
+for the results of certain investigations | make sure the consultant is kept up-to-date
+
+| `* * *` | house officer who has to manage a lot of information | easily link new information and follow-up items to
+particular conditions | have a clearer picture of each condition and its corresponding management plan
+
+| `* *` | house officer with a consultant that talks too fast | differentiate the types of input with just a single
+control character | avoid having to waste time switching between windows
+
+| `* *` | house officer who has to manage a lot of information | easily view and navigate through data associated with
+particular conditions that particular patients have | have a clearer view of what that particular condition is
+
+| `* *` | house officer who needs to input a lot of data quickly and is prone to mistyping | undo my previous commands |
+quickly rectify mistakes made when inputting data
+
+| `*` | house officer who has to manage a lot of information | search through all of the records of a patient | find all
+the details relevant to a particular aspect of his/her care plan
+
+| `*` | house officer who has to manage many patients | easily view all critical issues all my patients are facing by
+level of importance | address them as soon as possible
+
+| `*` | house officer who needs to input a lot of data quickly and is prone to mistyping | have my input automatically
+checked to ensure it is of the right format | always be assured that I am inputting the right commands.
+|=======================================================================
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
+
+[appendix]
+== Non Functional Requirements
+
+.  The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or
+above installed.
+.  The software should be able to hold up to 500 patients without a noticeable reduction in performance for
+typical usage.
+.  A user with an above average typing speed for regular English text should be able to accomplish most of the intended
+tasks faster using commands than using the mouse.
+*  All data transactions should be atomic - either they succeed and the persistent data storage is immediately updated,
+or they fail and the user is notified of that event, with the data being unchanged.
+
+// TODO: Remove for final version
+References: https://requirementsquest.com/wp-content/uploads/2017/01/Nonfunctional-Requirement-EXAMPLES.pdf
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
