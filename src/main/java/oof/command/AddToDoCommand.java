@@ -37,14 +37,17 @@ public class AddToDoCommand extends Command {
      * @throws OofException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
-        line = line.trim();
-        if (line.length() == 0) {
-            throw new OofException("OOPS!!! The description of a todo cannot be empty.");
+        if (!hasDescription()) {
+            throw new OofException("OOPS!!! The todo needs a description.");
         }
         Task task = new Todo(line);
         arr.addTask(task);
         storage.writeToFile(arr);
         ui.addTaskMessage(task, arr.getSize());
+    }
+
+    private boolean hasDescription() {
+        return line.trim().length() != 0;
     }
 
     /**

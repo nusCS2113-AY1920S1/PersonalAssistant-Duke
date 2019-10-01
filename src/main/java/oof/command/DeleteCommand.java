@@ -24,8 +24,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes the specific Task defined by the user
-     * after confirming the validity of the Command inputted by the user.
+     * Deletes the specific Task defined by the user after confirming the validity of the Command inputted by the user.
      *
      * @param arr     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
@@ -34,18 +33,21 @@ public class DeleteCommand extends Command {
      * @throws OofException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
-        if (index >= arr.getSize() || index < 0) {
+        if (!isValid(arr)) {
             throw new OofException("OOPS!!! Invalid number!");
-        } else {
-            Task task = arr.getTask(index);
-            arr.deleteTask(index);
-            ui.deleteMessage(task, arr.getSize());
-            storage.writeToFile(arr);
         }
+        Task task = arr.getTask(index);
+        arr.deleteTask(index);
+        ui.deleteMessage(task, arr.getSize());
+        storage.writeToFile(arr);
+    }
+
+    private boolean isValid(TaskList arr) {
+        return index < arr.getSize() && index >= 0;
     }
 
     /**
-     * Checks if ExitCommand is called for Oof to terminate.
+     * Checks if ExitCommand is called for OOF to terminate.
      *
      * @return false.
      */

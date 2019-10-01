@@ -1,5 +1,4 @@
-[T][✘] borrow book
-[T][✘] borrow another book
-[T][✘] testing
-[D][✘] test (by: 2019-09-18T15:00:00)
-[D][✘] testing (by: 2019-09-18T16:16:00)
+[T][?] ] borrow book
+[T][?] ] borrow another book
+[T][?] ] testing
+[D][?] homework (by: 2019-10-01T23:59:00)
