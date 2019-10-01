@@ -61,13 +61,15 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 
 *Target user profile*:
 
-* has a need to manage a significant number of `patients`
-* prefer desktop apps over other types
-* prefers typing over mouse input
-* can type fast
-* is extremely comfortable with the usage of CLI apps
+*   has a need to manage a significant number of `patients`
+*   prefer desktop apps over other types
+*   prefers typing over mouse input
+*   can type fast
+*   is extremely comfortable with the usage of CLI apps
 
-*Value proposition*: manage `patients` faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+*   manage `patients` faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -123,24 +125,28 @@ checked to ensure it is of the right format | always be assured that I am inputt
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
+
 
 [appendix]
 == Non Functional Requirements
 
-.  The software should achieve 99% uptime.
-.  The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or
-above installed.
-.  The software should be able to hold up to 500 patients without a noticeable reduction in performance for
-typical usage.
-.  A user with an above average typing speed for regular English text should be able to accomplish most of the intended
-tasks faster using commands than using the mouse.
-
-// TODO: Remove for final version
-References: https://requirementsquest.com/wp-content/uploads/2017/01/Nonfunctional-Requirement-EXAMPLES.pdf
+.   The software should achieve 99% uptime.
+.   The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as the OS has Java `11` or
+    above installed.
+.   The software should be able to hold up to 500 patients without a noticeable reduction in performance for
+    typical usage.
+.   The software should work without internet access.
+.   The software should have good user documentation, which details all aspects of the software to assist new
+    users on how to use this software.
+.   The software should have good developer documentation to allow developers to understand the design of the
+    software easily so that they can further develop and enhance the software.
+.   The software should be easily testable.
+.   A user with an above average typing speed for regular English text should be able to accomplish most of his/her
+    intended tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, macOS, Linux
