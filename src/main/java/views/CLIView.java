@@ -5,6 +5,7 @@ import exceptions.DukeException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.commands.RescheduleCommand;
+import models.data.IProject;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
@@ -50,7 +51,9 @@ public class CLIView {
      * Method to be called when user says bye to exit the program.
      */
     public void end() {
+        System.out.println(horiLine);
         System.out.println("\t Bye. Hope to see you again soon!");
+        System.out.println(horiLine);
         System.exit(0);
     }
 
@@ -257,6 +260,17 @@ public class CLIView {
     public void consolePrint(String message) {
         System.out.println(horiLine);
         System.out.println(message);
+        System.out.println(horiLine);
+    }
+
+    public void viewAllProjects(ArrayList<IProject> allProjects) {
+        System.out.println(horiLine);
+        System.out.println("\tHere are all the Projects you are managing:");
+        for (int i = 0; i < allProjects.size(); i++) {
+            System.out.print("\t" + (i + 1));
+            System.out.println(". " + allProjects.get(i).getDescription()
+                            + " " + allProjects.get(i).getMembers());
+        }
         System.out.println(horiLine);
     }
 }

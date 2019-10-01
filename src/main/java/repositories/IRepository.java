@@ -5,7 +5,7 @@ import models.data.IProject;
 import java.util.ArrayList;
 
 public interface IRepository<T> {
-    ArrayList<T> getAllTasks();
+    ArrayList<T> getAll();
 
     boolean addToRepo(String input);
 

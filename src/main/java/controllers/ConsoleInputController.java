@@ -201,7 +201,16 @@ public class ConsoleInputController implements IViewController {
             break;
         case "create":
             // Creation of a new project with a given name and a number of numbers
-            boolean response = projectRepository.addToRepo(input);
+            boolean isProjectCreated = projectRepository.addToRepo(input);
+            if (!isProjectCreated) {
+                consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
+            } else {
+                consoleView.consolePrint("Project created!");
+            }
+            break;
+        case "view":
+            ArrayList<IProject> allProjects = projectRepository.getAll();
+            consoleView.viewAllProjects(allProjects);
             break;
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");

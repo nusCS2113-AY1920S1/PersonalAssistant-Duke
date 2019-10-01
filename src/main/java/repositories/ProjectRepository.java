@@ -16,14 +16,18 @@ public class ProjectRepository implements IRepository<IProject> {
     }
 
     @Override
-    public ArrayList<IProject> getAllTasks() {
+    public ArrayList<IProject> getAll() {
         return allProjects;
     }
 
     @Override
     public boolean addToRepo(String input) {
         IProject newProject = projectFactory.create(input);
-        return allProjects.add(newProject);
+        if (newProject.getDescription() == null || newProject.getMembers() == null) {
+            return false;
+        }
+        allProjects.add(newProject);
+        return true;
     }
 
     @Override
