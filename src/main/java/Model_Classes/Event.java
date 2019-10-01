@@ -31,6 +31,31 @@ public class Event extends Task {
 
     public Date checkDate() { return this.at; }
 
+    @Override
+    public void snoozeYear(int amount) {
+        this.at.setYear(this.at.getYear() + amount);;
+    }
+
+    @Override
+    public void snoozeMonth(int amount) {
+        this.at.setMonth(this.at.getMonth() + amount);;
+    }
+
+    @Override
+    public void snoozeDay(int amount) {
+        this.at.setDate(this.at.getDate() + amount);;
+    }
+
+    @Override
+    public void snoozeHour(int amount){
+        this.at.setHours(this.at.getHours() + amount);
+    }
+
+    @Override
+    public void snoozeMinute(int amount){
+        this.at.setMinutes(this.at.getMinutes() + amount);
+    }
+
     /**
      * Returns a string that has the full description of the vent including the occurrence time
      * @return A string indicating the task type, description and the occurrence of the task
