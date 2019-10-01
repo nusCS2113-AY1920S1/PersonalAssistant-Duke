@@ -1,13 +1,12 @@
 package Interface;
 import Tasks.*;
 
-import java.util.ArrayList;
-
 /**
  * Represents the user interface which displays the messages to
  * respond to the user based on the user's input.
  */
 public class Ui {
+    private static final String NO_FIELD = "void";
 
     private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -37,15 +36,9 @@ public class Ui {
      * Displays the list message when user inputs list.
      */
     public String showList(TaskList list){
-        ArrayList<Task> temp = list.getList();
-        String listMessage;
-        if (temp.isEmpty()) {
-            listMessage = "There are no available tasks in your list.";
-        } else {
-            listMessage = "Here are the tasks in your list:\n";
-            for (int i = 1; i <= list.taskListSize(); i++) {
-                listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
-            }
+        String listMessage = "Here are the tasks in your list:\n";
+        for (int i = 1; i <= list.taskListSize(); i++) {
+            listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
         }
         return listMessage;
     }
@@ -97,6 +90,15 @@ public class Ui {
     }
 
     /**
+     * Displays the chosen free time after the user select the best free time slot available.
+     * @param message The chosen free time
+     * @return The chosen free time. Otherwise, operation cancelled.
+     */
+    public String showFixedDurationTask(String message){
+        return message.equals(NO_FIELD) ? "Operation cancelled!\nPlease enter another command.": "Your selected task is been added.\n" + message;
+    }
+
+    /**
      * Displays the reminder message when user asks for a reminder.
      */
     public String showReminder(TaskList list){
@@ -138,9 +140,12 @@ public class Ui {
      * @param list The ArrayList
      * @return This returns the snooze message with the task and size of ArrayList after snoozing
      */
-    public String showSnooze(int index, int listSize, ArrayList<Task> list) {
+    /*public String showSnooze(int index, int listSize, ArrayList<Task> list) {
         return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+
+    }*/
+
     }
     public String showTentativeSchedule(TaskList tentativeDates){
         String out = "Here is your tentative schedule. \n" ;
@@ -150,4 +155,5 @@ public class Ui {
 
         return  out;
     }
+
 }
