@@ -53,6 +53,11 @@ public class PeriodTask implements ITask {
     }
 
     @Override
+    public String getFullDescription() {
+        return null;
+    }
+
+    @Override
     public Date getDateTimeObject() {
         return null;
     }

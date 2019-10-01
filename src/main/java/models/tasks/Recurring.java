@@ -52,6 +52,11 @@ public class Recurring implements ITask, IRecurring {
     }
 
     @Override
+    public String getFullDescription() {
+        return null;
+    }
+
+    @Override
     public Date getDateTimeObject() {
         return null;
     }

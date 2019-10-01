@@ -49,6 +49,11 @@ public class Deadline implements ITask, IDateSettable, Serializable {
     }
 
     @Override
+    public String getFullDescription() {
+        return "[" + getInitials() + "][" + getStatusIcon() + "] " + getDescription();
+    }
+
+    @Override
     public String getInitials() {
         return this.initials;
     }
