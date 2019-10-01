@@ -87,7 +87,8 @@ Example:
 === Remove a expense/income from the list : `remove`
 
 Remove a particular entry of expanse/income from the list base on the list number. +
-Format: `*remove* [LIST NO.]`
+Format: +
+`*remove* [LIST NO.]`
 
 *NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listing available.
 
@@ -271,11 +272,11 @@ Example:
 
 * `add shortcut 8`
 
-=== Modify a shortcut 'shortcut modify'
+=== Modify a shortcut `shortcut modify`
 
 Modify the whole or certain component of the task in the shortcut. +
 Format: +
-'*shortcut modify* [SHORTCUT NO.] {COMPONENT}'
+`*shortcut modify* [SHORTCUT NO.] {COMPONENT}`
 
 Examples:
 
@@ -304,10 +305,18 @@ Example:
 * `*add expenses/income*`  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 e.g. `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
 * `*list*`
+* `*page [PAGE NO.]` +
+e.g. `page 3`
 * `*remove*` `remove [LIST NO.]` +
 e.g. `remove 3`
-* `*modify*` `modify [LIST NO.]` +
-e.g. `modify 4`
+* `*modify*` `modify [LIST NO.] {COMPONENT}` +
+e.g. `modify 4 tag`
+* `*sort /date* ascending/descending` +
+e.g. sort /date ascending
+* `*sort /tag* ascending/descending` +
+e.g. sort /tag descending
+* `*sort /amount* ascending/descending` +
+e.g. sort /amount ascending
 * `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
@@ -321,6 +330,19 @@ e.g. `set limit /tag bubble tea $20`
 e.g. `owe xx $4 bubble tea`
 * `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `borrow xx $10 lunch`
-* `*stats*` `stats`
-* `*add favourite*` `add favourite [LIST NO.]` +
-e.g. `add favourite 3`
+* `*stats*` `stats [TAG] [DURATION] [CHART_TYPE]` +
+e.g. stats Food September histogram
+* `*stats*` `stats [DATE/MONTH/YEAR]` +
+e.g. stats today
+* `*view*` `view [DATE/MONTH/YEAR]` +
+e.g. view 11/11/2011
+* `*create shortcut*` `create shortcut [LIST NO.]` +
+e.g. `create shortcut 3`
+* `*create expense/income shortcut*` `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
+e.g. create shortcut expense ice-cream $5 food
+* `*add shortcut*` `add shortcut [SHORTCUT NO.]` +
+e.g. add shortcut 8
+* `*shortcut modify*` `shortcut modify [SHORTCUT NO.] {COMPONENT}` +
+e.g. shortcut modify 8 description
+* `*shortcut remove*` `shortcut remove [SHORTCUT NO.]` +
+e.g. shortcut remove 3
