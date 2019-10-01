@@ -15,6 +15,7 @@ import duke.command.DurationCommand;
 import duke.command.PeriodCommand;
 import duke.command.ViewScheduleCommand;
 import duke.command.RemindCommand;
+import duke.command.RecurringCommand;
 import duke.command.SnoozeCommand;
 
 import duke.exception.DukeException;
@@ -35,6 +36,7 @@ import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
 import static duke.common.Messages.COMMAND_PERIOD;
 import static duke.common.Messages.COMMAND_REMIND;
 import static duke.common.Messages.COMMAND_DURATION;
+import static duke.common.Messages.COMMAND_RECURRING;
 import static duke.common.Messages.COMMAND_SNOOZE;
 
 /**
@@ -130,6 +132,12 @@ public class Parser {
         } else if (userInputCommand.contains(COMMAND_CONFIRM)) {
             if (userInputCommand.trim().substring(0, 7).equals(COMMAND_CONFIRM)) {
                 return new ConfirmScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_RECURRING)) {
+            if (userInputCommand.trim().substring(0, 9).equals(COMMAND_RECURRING)) {
+                return new RecurringCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }

@@ -25,7 +25,7 @@ public class Period extends Task {
      */
     @Override
     public String toSaveString() {
-        return "P" + super.toSaveString() + " | " + startDate + " to " + endDate;
+        return "P" + super.toSaveString() + " | " + startDate + " | " + endDate;
     }
 
     /**

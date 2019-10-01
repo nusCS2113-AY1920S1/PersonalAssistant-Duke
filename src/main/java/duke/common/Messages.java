@@ -38,7 +38,7 @@ public class Messages {
     public static final String ERROR_MESSAGE_DO_AFTER = "       "
             + "OOPS!!! Please specify the todo details in this format: \n       "
             + "todo [do after description] /after [specific time or task]";
-    public static final String ERROR_MESSAGE_GENERAL = "       OOPS!!! The description cannot be empty.\n";
+    public static final String ERROR_MESSAGE_GENERAL = "     OOPS!!! The description cannot be empty.\n";
     public static final String ERROR_MESSAGE_INVALID_DATE = "       "
             + "OOPS!!! Please specify the date and time in this format: \n       "
             + "[day/month/year time] Eg: 28/8/2019 2359";
@@ -61,7 +61,13 @@ public class Messages {
     public static final String ERROR_MESSAGE_TENTATIVESCHEDULE = "       "
             + "OOPS!!! Please specify tentative scheduling in this format: \n       "
             + "tentativeschedule [task description] /on [day/month/year time], [day/month/year time], ......";
-
+    public static final String ERROR_MESSAGE_RECURRING_FREQUENCY_NULL = "     Please include the frequency of the recurrent task.\n"
+            + "     Duke supports recurring tasks in this format:\n"
+            + "     1. recurring [task description] /daily\n"
+            + "     2. recurring [task description] /weekly [day of week]\n"
+            + "     3. recurring [task description] /monthly [day of month 'dd']\n";
+            // + "     4. recurring [task description] /yearly [date of year 'dd/mm']";
+    public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     Please provide the task description and day or date of recurrence.";
 
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
@@ -79,5 +85,7 @@ public class Messages {
     public static final String COMMAND_TENTATIVESCHEDULE = "tentativeschedule";
     public static final String COMMAND_CONFIRMSCHEDULE = "confirmschedule";
     public static final String COMMAND_CONFIRM = "confirm";
+    public static final String COMMAND_RECURRING = "recurring";
+
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

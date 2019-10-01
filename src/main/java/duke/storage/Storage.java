@@ -2,9 +2,11 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.task.TentativeScheduling;
+import duke.task.Recurring;
+import duke.task.Period;
+import duke.task.Deadline;
 import duke.task.Duration;
 import duke.task.Todo;
-import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
@@ -26,7 +28,6 @@ public class Storage {
     private final String filePath;
 
     /**
-
      * Constructor for the class Storage.
      *
      * @param filePath String containing the directory in which the tasks are to be stored
@@ -85,25 +86,29 @@ public class Storage {
                 } else {
                     //need to escape character in string for "|" by adding "\\" in front of "|"
                     //if not the split will be on the wrong place
-                    String[] split = content.substring(8).split(" \\| ", 2);
+                    String[] split = content.substring(8).split(" \\| ");
                     if (content.charAt(0) == 'D') {
                         Task task = new Deadline(split[0], split[1]);
-                        if (content.charAt(4) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
+                        assignTaskMarker(content, task);
                     } else if (content.charAt(0) == 'E') {
                         Task task = new Event(split[0], split[1]);
-                        if (content.charAt(4) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
+                        assignTaskMarker(content, task);
                     } else if (content.charAt(0) == 'F') {
                         Task task = new Duration(split[0], split[1]);
-                        if (content.charAt(4) == '+') {
-                            task.markAsDone();
+                        assignTaskMarker(content, task);
+                    } else if (content.charAt(0) == 'P') {
+                        if (split.length == 3) {
+                            Task task = new Period(split[0], split[1], split[2]);
+                            assignTaskMarker(content, task);
                         }
-                        arrTaskList.add(task);
+                    } else if (content.charAt(0) == 'R') {
+                        if (split.length == 2) { // daily
+                            Task task = new Recurring(split[0], split[1], "");
+                            assignTaskMarker(content, task);
+                        } else if (split.length == 3) { // weekly, monthly, yearly
+                            Task task = new Recurring(split[0], split[1], split[2]);
+                            assignTaskMarker(content, task);
+                        }
                     }
                 }
             }
@@ -115,4 +120,11 @@ public class Storage {
         }
         return arrTaskList;
     }
+
+     private static void assignTaskMarker(String content, Task task) {
+         if (content.charAt(4) == '+') {
+             task.markAsDone();
+         }
+         arrTaskList.add(task);
+     }
 }
