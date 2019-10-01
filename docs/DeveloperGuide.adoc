@@ -12,15 +12,12 @@ By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-*Dr. Duke* is a command-line based personal assistant for doctors to manage their patients' data.
-
-It provides house officers with a streamlined notebook environment, which allows them to concentrate on the recording of
-patient data with a pre-defined structure.
+Welcome to the *Dr. Duke* developer guide! This document assumes a familiarity with the link:UserGuide.adoc[user guide].
 
 In order to be a successful *Dr. Duke* developer, you need a general understanding of: +
 
-*  *Dr. Duke*’s architecture and object model
-*  The Java framework on which *Dr. Duke* builds on
+* *Dr. Duke*'s architecture and object model
+* The Java framework which *Dr. Duke* builds on
 
 == Setting up
 === Prerequisites
@@ -61,13 +58,20 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 
 *Target user profile*:
 
-* has a need to manage a significant number of `patients`
-* prefer desktop apps over other types
-* prefers typing over mouse input
-* can type fast
-* is extremely comfortable with the usage of CLI apps
+House officers, who are typically freshly-graduated medical students, play a vital role in managing hospital patients. They are responsible, among many other
+things, for collating all information regarding each hospital patient and organising it to provide a clear picture of the patient's situation, and for
+presenting that picture to senior doctors who can then make assessments and recommendations based on that picture. As much of this information needs to be
+exchanged at a rapid pace, Dr. Duke assists in quick, accurate and efficient recording and retrieval of the patient data required to provide effective care. 
 
-*Value proposition*: manage `patients` faster than a typical mouse/GUI driven app
+The house officers we are targeting with this app:
+
+* need to manage a significant number of patients
+* need to quickly input and organise patient data
+* prefer desktop apps over other types
+* prefer typing over mouse input
+* can type fast
+
+*Value proposition*: input, organise and access information about patients faster than with a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -77,7 +81,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="100%",cols="10%,30%,30%,30%",options="header"]
 |=======================================================================
 | Priority | As a ... | I want to ... | So that I can...
-| `* * *` | house officer | check my patients’ allergies | issue them with the appropriate medicine
+| `* * *` | house officer | check my patients' allergies | issue them with the appropriate medicine
 
 | `* * *` | house officer who has to manage a lot of information | flag and view the critical issues to
 follow up for each patient | complete the follow-up(s) as soon as possible
@@ -92,10 +96,10 @@ errors but still have my input recognised | avoid having to waste time to retype
 modify it quickly if it is incorrect | avoid having to retype or tediously transfer entries that were input in the
 wrong place
 
-| `* * *` | house officer who needs to upload records into the hospital’s health system | generate unified reports that
+| `* * *` | house officer who needs to upload records into the hospital's health system | generate unified reports that
 are fully compatible with the system | avoid having to manually input those records
 
-| `* * *` | house officer keeping track of information for my consultant | keep track of whether or not I’ve checked
+| `* * *` | house officer keeping track of information for my consultant | keep track of whether or not I've checked
 for the results of certain investigations | make sure the consultant is kept up-to-date
 
 | `* * *` | house officer who has to manage a lot of information | easily link new information and follow-up items to
@@ -128,13 +132,14 @@ checked to ensure it is of the right format | always be assured that I am inputt
 [appendix]
 == Non Functional Requirements
 
-.  The software should achieve 99% uptime.
 .  The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or
 above installed.
 .  The software should be able to hold up to 500 patients without a noticeable reduction in performance for
 typical usage.
 .  A user with an above average typing speed for regular English text should be able to accomplish most of the intended
 tasks faster using commands than using the mouse.
+*  All data transactions should be atomic - either they succeed and the persistent data storage is immediately updated,
+or they fail and the user is notified of that event, with the data being unchanged.
 
 // TODO: Remove for final version
 References: https://requirementsquest.com/wp-content/uploads/2017/01/Nonfunctional-Requirement-EXAMPLES.pdf

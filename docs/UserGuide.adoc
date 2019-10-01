@@ -1,21 +1,45 @@
 = Dr. Duke - User Guide
+:site-section: DeveloperGuide
 :toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:xrefstyle: full
+:repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
 
-App-Specific Terms:
+By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+*Dr. Duke* is a command-line based personal assistant for doctors to manage their patients' data.
+
+It provides house officers with a streamlined notebook environment, which allows them to concentrate on quickly and accurately
+recording patient data in a standard format. If you're a house officer who types fast and doesn't mind learning how to use a
+keyboard-based app to type faster, then this app is for you!
+
+== Setting up
+=== Prerequisites
+
+* *JDK `11`* or above (get the latest version of Java https://www.oracle.com/technetwork/java/javase/downloads/index.html[here!])
+
+=== Getting Started
+
+. Download the latest `.jar` release file from our https://github.com/AY1920S1-CS2113-T14-1/main/releases[release page].
+. Move the `.jar` file to the folder which you want to use as *Dr. Duke*'s home.
+. Double click on the `.jar` file
+
+*Dr. Duke* should open shortly.
+
+== Usage
+
+App-specific terms:
 
 * This app manages multiple Patients. Each Patient has one or more Impressions (diagnoses), and each Impression is supported by Evidence and treated by Treatments. Evidence consists of Observations and Results. Treatments consist of Plans, Investigations and Medicine. 
-* The user navigates between different contexts. Each context is associated with a particular set of data to display - a particular display screen.
+* The different screens you can view are referred to as contexts. Each context is associated with a particular set of data to display.
 * `priority` refers to how critical a Treatment or Evidence is. 0 means not urgent, excluding the item from the criticality system, 1 means critical. The other values are not defined specifically but the greater they are, the lower the priority. These lower priority levels are meant to remain flexible for the user to provide his desired level of fine-graining and task management.
 ** `priority` 1 generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` 1 items will be displayed prominently to remind the user to respond to it when treating the patient. 
 * `status` refers to the stage of completion of a Treatment. The textual descriptions for each stage of completion are stored in the `statusArr` (and referred to as `<status name>`). 
-
-# Usage
-
-Comments/Notes:
-
-* Since there is a lot of fairly complex data to manage, the input system is stateful - different commands mean different things based on the current context. 
-* This would require some tracking and interfacing between the UI and the Logic (e.g. the internal logic needs to know which patient is being displayed as patient #1). This can be done by creating an array of integers mapping the on-screen indices to the internal ArrayList indices.
-* If user input is ambiguous, we can show a window of possible options to disambiguate between, or give the user the option to edit the text in a buffer. The disambiguation window and code can be reused - create an abstract DukeObject class for our data items.
 
 Specification syntax:
 
@@ -27,7 +51,7 @@ Specification syntax:
 
 Reused patterns:
 
-* _patient_id_: `(<patient index>|"part of name>"|-b <bed number>)`
+* _patient_id_: `(<patient index>|"<part of name>"|-b <bed number>)`
 * _string_or_idx_: `(<index>|"<search string>")`
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
 * _type_: (`-m[edicine]`|`-i[nv(x|estigation)]`|`-p[lan]`|`-o[bservation]`|`-r[esult]`)
@@ -35,16 +59,15 @@ Reused patterns:
 Parsing rules:
 
 * Switches can be in any order
-* Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`. Disambiguation can be used as confirmation if part of the input matches the first part of the switch, but subsequent parts are wrong.
-* We may implement a system similar to the above for command names
+* Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`. 
 
 ## Contexts
 
-Commands that are present in multiple contexts will be mentioned in just one context, and all contexts in which they are available will be listed.
+The sections below describe what will be displayed in each context, and the commands available in them.
 
 ### Home 
 
-Show several (10?) numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
+Shows up to 10 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
 #### `help` - Display a context-specific list of commands and options [[home-help]]
 
@@ -74,13 +97,9 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>
 
 For different contexts, scrolls backward in all lists that can be scrolled.
 
-#### `critical` - Display all critical observations and plans of all Patients [v2.0?]
-
-If used in current version, provide support for open command to open items retrieved in this way.
+#### `critical` - Display all critical observations and plans of all Patients [v2.0]
 
 Format: `critical`
-
-We can probably cheat and use the disambiguation engine to pull up a window of all critical dukeobjects, giving the user the choice to navigate to any particular one, or to close the window
 
 #### `discharge` - Generate a discharge report for the Patient and delete him from the system [[home-discharge]] 
 
@@ -96,7 +115,7 @@ Format: `archive`
 
 Format: `open _patient_id_ [-im[pression] [<impression index>]]`
 
-If a string is supplied, search for the name and present a list of results (either through the cli or just a pop-up search window). If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
+If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
 
 #### `new` - Add a new Patient to the system
 
@@ -120,7 +139,7 @@ Format: `undo <number of commands>`
 
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
-You can undo up to the last 10? commands. Only commands that affect the state of the system count against this limit.
+You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (i.e. adding new Patients, editing data).
 
 #### `redo` - Redo a command that has been undone [[home-redo]]
 
@@ -132,7 +151,7 @@ After undoing some commands, sending any command other than `undo` or `redo` wil
 
 ### Patient 
 
-Show a detailed view of a Patient, displaying in separate panels:
+Shows a detailed view of a Patient, displaying in separate panels:
 
 * All personal details
 * A list of critical Treatments and Evidence (`priority` 1)
@@ -223,7 +242,7 @@ An input mode designed for maximum speed input. Only the first word of the input
 
 ### Impression
 
-Show a detailed view of an Impression, displaying in separate panels:
+Shows a detailed view of an Impression, displaying in separate panels:
 
 * The name and full description of the Impression
 * A list of Evidence for the Impression, sorted by default with critical items first
@@ -236,7 +255,7 @@ Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<pa
 
 Format: `new _type_ <relevant switches> [-g[o]]`
 
-Opens the new Treatment or Evidence item's context if `-g[o]` is specified. Relevant switches for various types are as follows.
+Open the new Treatment or Evidence item's context if `-g[o]` is specified. Relevant switches for various types are as follows.
 
 [[type-table]]
 [cols=2*,options="header"]
@@ -271,7 +290,7 @@ a|
 a| 
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
-* `-(subj[ective]|obj[ective])` - Default: objective observations
+* `-(subj[ective]\|obj[ective])` - Default: objective observations
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-r[esult]`
@@ -384,3 +403,8 @@ Contains everything in <<Treatment and Evidence>>.
 Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
+
+== FAQ
+
+*Q*: How can I continue working with the same data on a different computer? +
+*A*: Install this app on the other computer. All your *Dr. Duke* data is stored persistently in the `data` folder, and can be transferred without any configuration to the `data` folder of the new installation.
