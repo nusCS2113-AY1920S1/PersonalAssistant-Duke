@@ -9,24 +9,25 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Nicholas
+image::nicholasnovakovic.png[width="150", align="left"]
+{empty}[https://github.com/nicholasnovakovic[github]] 
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
+Role: Team Lead + 
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== Shaun
+image::shaun97.png[width="150", align="left"]
+{empty}[http://github.com/shaun97[github]] 
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Jun Liang
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
