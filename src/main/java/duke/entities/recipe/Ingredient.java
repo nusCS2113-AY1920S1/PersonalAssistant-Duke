@@ -1,5 +1,6 @@
 package duke.entities.recipe;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
@@ -11,7 +12,7 @@ public class Ingredient {
     private int expiryPeriod;
     private double cost;
 
-    public Ingredient (String name) {
+    public Ingredient (@JsonProperty String name) {
         this.name = name;
     }
 

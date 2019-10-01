@@ -1,5 +1,7 @@
 package duke.entities.recipe;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Step {
     private List<Ingredient> ingredients;
     private int time; //in minutes
 
-    public Step (String description) {
+    public Step (@JsonProperty String description) {
         this.description = description;
         ingredients = parseIngredient(description);
         time = parseTime(description);

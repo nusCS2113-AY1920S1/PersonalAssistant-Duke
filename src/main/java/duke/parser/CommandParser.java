@@ -4,6 +4,7 @@ import duke.command.AddOrderCommand;
 import duke.command.Command;
 import duke.command.DeleteOrderCommand;
 import duke.command.EditOrderCommand;
+import duke.command.recipe.AddRecipeCommand;
 import duke.command.recipe.DeleteRecipeCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
@@ -49,5 +50,9 @@ public class CommandParser {
     //////////////////////////////////////////////////////////////////////////////////
     public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
         return new DeleteRecipeCommand(params);
+    }
+
+    public static Command parseRecipeAdd(Map<String, List<String>> params) {
+        return new AddRecipeCommand();
     }
 }

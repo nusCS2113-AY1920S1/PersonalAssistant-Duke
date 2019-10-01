@@ -2,6 +2,7 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import duke.entities.Order;
+import duke.entities.recipe.Recipe;
 import duke.logic.Duke;
 
 
@@ -130,6 +131,10 @@ public class MainWindow extends AnchorPane {
 
     void refreshOrderList(List<Order> orders, List<Order> all) {
         this.orderPage.refreshOrderList(orders, all);
+    }
+
+    void refreshRecipeListPage(List<Recipe> recipes) {
+        this.recipePage.refreshRecipeListPage(recipes);
     }
 
 

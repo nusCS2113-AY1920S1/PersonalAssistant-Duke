@@ -11,7 +11,7 @@ public class BakingList {
 
     private List<Order> orderList = new ArrayList<>();
 
-    private RecipeList recipeList = new RecipeList();
+    private List<Recipe> recipeList = new ArrayList<>();
 
     public List<Order> getOrderList() {
         return orderList;

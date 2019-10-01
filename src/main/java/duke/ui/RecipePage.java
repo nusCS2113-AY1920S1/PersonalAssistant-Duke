@@ -33,6 +33,8 @@ import javafx.util.Callback;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipePage extends AnchorPane {
 
@@ -69,9 +71,9 @@ public class RecipePage extends AnchorPane {
 
         Recipe recipe = new Recipe("");
         recipe.init();
-        RecipeList rpl = new RecipeList();
+        List<Recipe> rpl = new ArrayList<>();
         rpl.add(recipe);
-        showRecipeListPage(rpl);
+        refreshRecipeListPage(rpl);
 
 
     }
@@ -142,8 +144,8 @@ public class RecipePage extends AnchorPane {
     }
 
 
-
-    void showRecipeListPage(RecipeList rpl) {
+    //RecipeList
+    void refreshRecipeListPage(List<Recipe> rpl) {
         recipeListPane.setVisible(true);
         recipeShowPane.setVisible(false);
         ObservableList<Recipe> recipeObservableList = FXCollections.observableArrayList();

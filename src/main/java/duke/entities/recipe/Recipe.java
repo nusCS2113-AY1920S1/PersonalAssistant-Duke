@@ -1,9 +1,12 @@
 package duke.entities.recipe;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
+
 
     private String name;
     private List<Ingredient> ingredients;
@@ -12,7 +15,7 @@ public class Recipe {
     private int diffLevel;
     private int time;
 
-    public Recipe(String name) {
+    public Recipe(@JsonProperty String name) {
         this.name = name;
     }
 

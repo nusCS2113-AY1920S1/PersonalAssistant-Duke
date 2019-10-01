@@ -34,7 +34,19 @@ public class DeleteRecipeCommand extends UndoableCommand {
      */
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        this.recipe = getRecipe(bakingList.getRecipeList());
+        bakingList.getRecipeList().remove(recipe);
+        storage.serialize(bakingList);
+        ui.refreshRecipeListPage(bakingList.getRecipeList());
+    }
 
+    private Recipe getRecipe(List<Recipe> recipes) {
+        if (params.containsKey("secondary")) {
+            String indexParams = params.get("secondary").get(0);
+            return recipes.get(Integer.parseInt(indexParams));
+        }
+        System.out.println("DeleteRecipeCommand function getRecipe return null");
+        return null;
     }
 
     @Override
