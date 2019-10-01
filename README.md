@@ -1,7 +1,7 @@
 # DIYeats
 ![travis](https://travis-ci.com/AY1920S1-CS2113T-W13-4/main.svg?branch=master)
   
-  ![GUI](docs/images/Ui.PNG)
+  ![Ui](docs/images/Ui.PNG)
 
 # Introduction
 
