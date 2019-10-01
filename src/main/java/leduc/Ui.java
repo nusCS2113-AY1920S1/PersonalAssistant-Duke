@@ -7,6 +7,7 @@ import leduc.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
@@ -31,6 +32,22 @@ public class Ui {
         return this.sc.nextLine();
     }
 
+    /**
+     * Returns a File object
+     * @return a file object containing the welcome message
+     */
+    public static File openFile(String filepath) throws FileException {
+        //open file, throw exception if the file doesnt exist.
+        File file;
+        file = new File(filepath);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
+    }
 
     /**
      * Display the duke logo.
@@ -51,7 +68,7 @@ public class Ui {
 
         //open the file
         String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";
-        File file = SetWelcomeCommand.openFile(filepath);
+        File file = openFile(filepath);
 
         //create Scanner object to read file
         Scanner sc2 = null;
