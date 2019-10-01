@@ -118,10 +118,10 @@ public class TaskList {
             case day:
                 tasks.get(index - 1).snoozeDay(amount);
                 break;
-            case hour:
+            case hours:
                 tasks.get(index - 1).snoozeHour(amount);
                 break;
-            case minute:
+            case minutes:
                 tasks.get(index - 1).snoozeMinute(amount);
                 break;
         }

@@ -183,4 +183,24 @@ public class Ui {
         System.out.println("Great I've snoozed your task");
     }
 
+    /**
+     * Asks the user for the duration of the task
+     */
+    public void promptForDuration() {
+        System.out.println("How long is the duration for this event?");
+        System.out.println("Please specify hours, minutes, seconds");
+    }
+
+    /**
+     * Asks the user whehter the task has a duration
+     */
+    public void promptForReply() {
+        System.out.println("Does this task have a duration? (yes/no)");
+    }
+
+     * tells the user to input valid amount of time
+     */
+    public void showTimeError(){
+        System.out.println("Please indicate a valid amount of time");
+    }
 }
