@@ -15,7 +15,6 @@ Offer a more time efficient, and fun platform to learn and practice data structu
 
 [appendix]
 == Extras
-Ipsum
 
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
