@@ -9,12 +9,17 @@ public class Event extends Task {
     private String start;
     private String end;
 
+    @Override
+    public String getType() {
+        return "[E]";
+    }
+
     /**
      * Creates an Event object.
      * @param description Description of a task
-     * @param by Date of when a task should be done
-     * @param start Start time
-     * @param end End time
+     * @param by Date of task
+     * @param start Time of when a task starts
+     * @param end Time of when a task ends
      */
     public Event(String description, String by, String start, String end) {
         super(description);
@@ -23,11 +28,10 @@ public class Event extends Task {
         this.end = end;
     }
 
-    @Override
-    public String getType() {
-        return "[E]";
-    }
-
+    /**
+     * Converts the Event object to a string.
+     * @return This returns the string of the Event object
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + by + " time: " + start + " to " + end + ")";

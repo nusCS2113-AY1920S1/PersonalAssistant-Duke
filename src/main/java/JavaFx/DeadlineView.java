@@ -4,9 +4,6 @@ public class DeadlineView {
     private String date;
     private String task;
 
-    /**
-     * This creates DeadlineView object.
-     */
     public DeadlineView(String date, String task){
         this.date = date;
         this.task = task;
