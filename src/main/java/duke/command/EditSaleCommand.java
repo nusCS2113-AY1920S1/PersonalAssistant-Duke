@@ -12,8 +12,11 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class EditSaleCommand extends Command {
+public class EditSaleCommand extends UndoableCommand {
+
     private Map<String, List<String>> params;
+    private Sale sale;
+    private Sale unmodifiedSale = new Sale();
 
     public EditSaleCommand(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("i") == !params.containsKey("id"))) {
@@ -23,24 +26,38 @@ public class EditSaleCommand extends Command {
         this.params = params;
     }
 
-    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {
-        Sale sale = getSale(saleList);
-        modifySale(sale, params);
-        storage.serializeSaleList(saleList);
-        ui.refreshSaleList(saleList.getSaleList(), saleList.getSaleList());
+    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        sale = getSale(bakingList);
+        copySale(unmodifiedSale, sale);
+        CommandParser.modifySale(params, sale);
+        storage.serialize(bakingList);
+        ui.refreshSaleList(bakingList.getSaleList(), bakingList.getSaleList());
     }
 
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {}
+    @Override
+    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        copySale(sale, unmodifiedSale);
+        storage.serialize(bakingList);
+        ui.refreshSaleList(bakingList.getSaleList(), bakingList.getSaleList());
+    }
 
-    private Sale getSale(SaleList saleList) throws DukeException {
+    @Override
+    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        sale = getSale(bakingList);
+        CommandParser.modifySale(params, sale);
+        storage.serialize(bakingList);
+        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+    }
+
+    private Sale getSale(BakingList bakingList) throws DukeException {
         if (params.containsKey(("i"))) {
-            return getSaleByIndex(saleList, params.get("i").get(0));
+            return getSaleByIndex(bakingList, params.get("i").get(0));
         } else {
-            return getSaleById(saleList, params.get("id").get(0));
+            return getSaleById(bakingList, params.get("id").get(0));
         }
     }
 
-    private Sale getSaleById(SaleList saleList, String i) throws DukeException {
+    private Sale getSaleById(BakingList bakingList, String i) throws DukeException {
         long id;
         try {
             id = Long.parseLong(params.get("id").get(0));
@@ -48,7 +65,7 @@ public class EditSaleCommand extends Command {
             throw new DukeException("Please provide a valid order ID");
         }
 
-        for (Sale sale : saleList.getSaleList()) {
+        for (Sale sale : bakingList.getSaleList()) {
             if (sale.getId() == id) {
                 return sale;
             }
@@ -57,7 +74,7 @@ public class EditSaleCommand extends Command {
         throw new DukeException("Unknown ID");
     }
 
-    private Sale getSaleByIndex(SaleList saleList, String i) throws DukeException {
+    private Sale getSaleByIndex(BakingList bakingList, String i) throws DukeException {
         int index;
         try {
             index = Integer.parseInt(params.get("i").get(0)) - 1;
@@ -65,11 +82,11 @@ public class EditSaleCommand extends Command {
             throw new DukeException("Please provide a valid index");
         }
 
-        if (index < 0 || index >= saleList.getSaleList().size()) {
+        if (index < 0 || index >= bakingList.getSaleList().size()) {
             throw new DukeException("Index out of bound.");
         }
 
-        return saleList.getSaleList().get(index);
+        return bakingList.getSaleList().get(index);
     }
 
     private void modifySale(Sale sale, Map<String, List<String>> params) throws DukeException {
@@ -85,5 +102,13 @@ public class EditSaleCommand extends Command {
         if (params.containsKey("at")) {
             sale.setSaleDate(TimeParser.convertStringToDate(params.get("at").get(0)));
         }
+    }
+
+    private void copySale(Sale to, Sale from) {
+        to.setId(from.getId());
+        to.setDescription(from.getDescription());
+        to.setValue(from.getValue());
+        to.setSaleDate(from.getSaleDate());
+        to.setRemarks(from.getRemarks());
     }
 }

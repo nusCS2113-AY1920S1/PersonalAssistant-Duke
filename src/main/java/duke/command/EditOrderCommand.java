@@ -49,9 +49,6 @@ public class EditOrderCommand extends UndoableCommand {
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
-    @Override
-    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {}
-
     private Order getOrder(BakingList bakingList) throws DukeException {
         if (params.containsKey(("i"))) {
             return getOrderByIndex(bakingList, params.get("i").get(0));

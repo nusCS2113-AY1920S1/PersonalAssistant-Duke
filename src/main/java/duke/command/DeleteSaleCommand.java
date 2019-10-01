@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Sale;
+import duke.parser.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.SaleList;
 import duke.storage.Storage;
@@ -10,7 +11,7 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class DeleteSaleCommand extends Command {
+public class DeleteSaleCommand extends UndoableCommand {
 
     private Sale sale;
     private int index;
@@ -21,14 +22,25 @@ public class DeleteSaleCommand extends Command {
         checkParameters();
     }
 
-    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {
-        this.sale = getSale(saleList.getSaleList());
-        saleList.getSaleList().remove(sale);
-        storage.serializeSaleList(saleList);
-        ui.refreshSaleList(saleList.getSaleList(), saleList.getSaleList());
+    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        this.sale = CommandParser.getSaleByIndexOrId(bakingList.getSaleList(), params);
+        this.index = CommandParser.getSaleIndex(bakingList.getSaleList(), params);
+        bakingList.getSaleList().remove(sale);
+        storage.serialize(bakingList);
+        ui.refreshSaleList(bakingList.getSaleList(), bakingList.getSaleList());
     }
 
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {}
+    @Override
+    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        bakingList.getSaleList().add(index, sale);
+        storage.serialize(bakingList);
+        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+    }
+
+    @Override
+    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+        execute(bakingList, storage, ui);
+    }
 
     private void checkParameters() throws DukeException {
         if (!(params.containsKey("secondary")

@@ -31,6 +31,7 @@ public class Ui {
   
     public void showSalePage() {
         mainWindow.showSalePage();
+    }
   
     public void initializePages() {
         mainWindow.initializePages();

@@ -3,6 +3,7 @@ package duke.parser;
 import duke.command.*;
 import duke.commons.DukeException;
 import duke.entities.Order;
+import duke.entities.Sale;
 
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,18 @@ public class CommandParser {
             }
         }
         addItemsToOrder(params, order);
+    }
+
+    public static void modifySale(Map<String, List<String>> params, Sale sale) throws DukeException {
+        if (params.containsKey("desc")) {
+            sale.setDescription(params.get("desc").get(0));
+        }
+        if (params.containsKey("value")) {
+            sale.setValue(Double.parseDouble(params.get("value").get(0)));
+        }
+        if (params.containsKey("at")) {
+            sale.setSaleDate(TimeParser.convertStringToDate(params.get("at").get(0)));
+        }
     }
 
 
@@ -121,4 +134,37 @@ public class CommandParser {
         }
         return index;
     }
+
+    public static Sale getSaleByIndexOrId(List<Sale> sales, Map<String, List<String>> params) throws DukeException {
+        checkParameters(params);
+        if (params.containsKey("secondary") || params.containsKey("i")) {
+            int index = getSaleIndex(sales, params);
+            return sales.get(index);
+        } else if (params.containsKey("id")) {
+
+        } else {
+            throw new DukeException("Please specify an order");
+        }
+        return null;
+    }
+
+    public static int getSaleIndex(List<Sale> sales, Map<String, List<String>> params) throws DukeException {
+        String indexParameter;
+        if (params.containsKey("secondary")) {
+            indexParameter = params.get("secondary").get(0);
+        } else {
+            indexParameter = params.get("i").get(0);
+        }
+        int index;
+        try {
+            index = Integer.parseInt(indexParameter) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid index.");
+        }
+        if (index < 0 || index >= sales.size()) {
+            throw new DukeException("Index out of bound");
+        }
+        return index;
+    }
+
 }

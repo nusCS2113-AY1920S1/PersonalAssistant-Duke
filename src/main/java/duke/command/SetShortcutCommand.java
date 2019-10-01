@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.storage.BakingList;
+import duke.storage.SaleList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 

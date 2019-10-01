@@ -41,9 +41,6 @@ public class DeleteOrderCommand extends UndoableCommand {
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
-  
-    @Override
-    public void execute(SaleList saleList, Storage storage, Ui ui) throws DukeException {}
 
     private void checkParameters() throws DukeException {
         if (!(params.containsKey("secondary")

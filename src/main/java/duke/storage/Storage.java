@@ -60,40 +60,4 @@ public class Storage {
         }
     }
 
-    /**
-     * Serialize SaleList to json file.
-     * @param saleList the TaskList to serialize.
-     * @throws DukeException if fail to serialize due to IO exception.
-     */
-    public void serializeSaleList(SaleList saleList) throws DukeException {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            //mapper.setDateFormat(new SimpleDateFormat(TimeParser.getDatePattern()));
-            mapper.writerWithType(SaleList.class).writeValue(new File(path), saleList);
-        } catch (IOException i) {
-            throw new DukeException("IO Exception");
-        }
-    }
-
-    /**
-     * Deserializes SaleList from file. If the file is not found, creates new file and returns an empty SaleList.
-     * @return a SaleList object.
-     * @throws DukeException if file is damaged.
-     */
-    public SaleList deserializeSaleList() throws DukeException {
-        SaleList saleList = null;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            //mapper.setDateFormat(new SimpleDateFormat(TimeParser.getDatePattern()));
-            saleList = mapper.readValue(new File(path), SaleList.class);
-            return saleList;
-        } catch (IOException i) {
-            if (i instanceof FileNotFoundException) {
-                return new SaleList();
-            } else {
-                i.printStackTrace();
-                throw new DukeException("IO exception when loading data");
-            }
-        }
-    }
 }
