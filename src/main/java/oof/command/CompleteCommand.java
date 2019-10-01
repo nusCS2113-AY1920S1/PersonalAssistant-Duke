@@ -35,7 +35,7 @@ public class CompleteCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
             int num = Integer.parseInt(index) - 1;
-            if (num >= arr.getSize() || num < 0) {
+            if (!isValid(arr, num)) {
                 throw new OofException("OOPS!!! Invalid number!");
             } else {
                 Task task = arr.getTask(num);
@@ -45,6 +45,10 @@ public class CompleteCommand extends Command {
         } catch (OofException e) {
             ui.printOofException(e);
         }
+    }
+
+    private boolean isValid(TaskList arr, int num) {
+        return num < arr.getSize() && num >= 0;
     }
 
     /**

@@ -38,35 +38,35 @@ public class SnoozeCommand extends Command {
     public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
             int num = Integer.parseInt(index) - 1;
-            if (num >= arr.getSize() || num < 0) {
+            if (!isIndexValid(arr, num)) {
                 throw new OofException("\u2639 OOPS!!! Invalid number!"); //u2639 is a sad face emoticon
-            } else if (storage.taskHasTimestamp(num).equals("deadline")) {
+            } else if (isDeadline(arr, num)) {
                 Task task = arr.getTask(num);
                 String description = task.getLine();
                 String date = ui.getTimeStamp();
                 date = parseTimeStamp(date);
-                if (date.equals("failed")) {
-                    throw new OofException("Timestamp given is invalid! Please try again.");
-                } else {
+                if (isDateValid(date)) {
                     Task newTask = new Deadline(description, date);
                     arr.deleteTask(num);
                     arr.addTaskToIndex(num, newTask);
                     ui.printSnoozeMessage(newTask);
+                } else {
+                    throw new OofException("Timestamp given is invalid! Please try again.");
                 }
-            } else if (storage.taskHasTimestamp(num).equals("event")) {
+            } else if (isEvent(arr, num)) {
                 Task task = arr.getTask(num);
                 String description = task.getLine();
                 String startDate = ui.getTimeStamp();
                 String endDate = ui.getTimeStamp();
                 startDate = parseTimeStamp(startDate);
                 endDate = parseTimeStamp(endDate);
-                if (startDate.equals("failed") || endDate.equals("failed")) {
-                    throw new OofException("Timestamp given is invalid! Please try again.");
-                } else {
+                if (isDateValid(startDate) && isDateValid(endDate)) {
                     Task newTask = new Event(description, startDate, endDate);
                     arr.deleteTask(num);
                     arr.addTaskToIndex(num, newTask);
                     ui.printSnoozeMessage(newTask);
+                } else {
+                    throw new OofException("Timestamp given is invalid! Please try again.");
                 }
             } else {
                 throw new OofException("OOPS!!! Task does not have a timestamp!");
@@ -74,6 +74,22 @@ public class SnoozeCommand extends Command {
         } catch (OofException e) {
             ui.printOofException(e);
         }
+    }
+
+    private boolean isIndexValid(TaskList arr, int num) {
+        return num < arr.getSize() && num >= 0;
+    }
+
+    private boolean isDeadline(TaskList arr, int num) {
+        return arr.getTask(num) instanceof Deadline;
+    }
+
+    private boolean isDateValid(String date) {
+        return !date.equals("failed");
+    }
+
+    private boolean isEvent(TaskList arr, int num) {
+        return arr.getTask(num) instanceof Event;
     }
 
     /**

@@ -52,17 +52,14 @@ public class Storage {
         int counter = 0;
         while ((line = reader.readLine()) != null) {
             counter += 1;
-            boolean checker;
-            if (line.startsWith("[T]")) {
-                checker = checkDone(line);
+            if (isTodo(line)) {
                 line = line.substring(7).trim();
                 Task task = new Todo(line);
                 arr.add(task);
-                if (checker) {
+                if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
-            } else if (line.startsWith("[D]")) {
-                checker = checkDone(line);
+            } else if (isDeadline(line)) {
                 line = line.substring(7).trim();
                 String[] lineSplit = line.split("\\(by:");
                 String start = lineSplit[0].trim();
@@ -70,11 +67,10 @@ public class Storage {
                 end = end.substring(0, end.length() - 1);
                 Task task = new Deadline(start, end);
                 arr.add(task);
-                if (checker) {
+                if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
-            } else if (line.startsWith("[E]")) {
-                checker = checkDone(line);
+            } else if (isEvent(line)) {
                 line = line.substring(7).trim();
                 String[] lineSplit = line.split(" \\(from: ");
                 String description = lineSplit[0].trim();
@@ -82,13 +78,25 @@ public class Storage {
                 dateSplit[1] = dateSplit[1].substring(0, dateSplit[1].length() - 1);
                 Task task = new Event(description, dateSplit[0], dateSplit[1]);
                 arr.add(task);
-                if (checker) {
+                if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
             }
         }
         reader.close();
         return arr;
+    }
+
+    private boolean isEvent(String line) {
+        return line.startsWith("[E]");
+    }
+
+    private boolean isDeadline(String line) {
+        return line.startsWith("[D]");
+    }
+
+    private boolean isTodo(String line) {
+        return line.startsWith("[T]");
     }
 
     /**
@@ -99,34 +107,5 @@ public class Storage {
      */
     public boolean checkDone(String line) {
         return line.charAt(4) == '\u2713'; //u2713 is a tick emoticon
-    }
-
-    /**
-     * Checks if a Task has a Timestamp.
-     *
-     * @param index Index of the Task in the TaskList.
-     * @return True if Task has a Timestamp, false otherwise.
-     */
-    public String taskHasTimestamp(int index) {
-        try {
-            String filename = "output.txt";
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-            String line;
-            int counter = 0;
-            while ((line = reader.readLine()) != null) {
-                if ((counter == index) && (line.startsWith("[D]"))) {
-                    reader.close();
-                    return "deadline";
-                } else if ((counter == index) && (line.startsWith("[E]"))) {
-                    return "event";
-                }
-                counter += 1;
-            }
-            reader.close();
-            return "none";
-        } catch (Exception e) {
-            System.out.println("Something went wrong while checking if the task has a timestamp!");
-            return "none";
-        }
     }
 }

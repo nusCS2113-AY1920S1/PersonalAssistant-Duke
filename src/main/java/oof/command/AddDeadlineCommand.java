@@ -36,27 +36,41 @@ public class AddDeadlineCommand extends Command {
      * @param arr     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to harddisk.
+     *                objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split("/by");
-        if (lineSplit.length == 1) {
-            throw new OofException("OOPS!!! The description of a deadline needs a due date.");
+
+        if (!hasDescription(lineSplit)) {
+            throw new OofException("OOPS!!! The deadline needs a description.");
+        } else if (!hasDueDate(lineSplit)) {
+            throw new OofException("OOPS!!! The deadline needs a due date.");
         }
+
         String description = lineSplit[0].trim();
         String date = lineSplit[1].trim();
-        if (date.length() == 0) {
-            throw new OofException("OOPS!!! The datetime of a deadline cannot be empty.");
+        date = parseTimeStamp(date);
+        if (hasValidDueDate(date)) {
+            Task task = new Deadline(description, date);
+            arr.addTask(task);
+            ui.addTaskMessage(task, arr.getSize());
+            storage.writeToFile(arr);
         } else {
-            date = parseTimeStamp(date);
-            if (!date.equals("failed")) {
-                Task task = new Deadline(description, date);
-                arr.addTask(task);
-                ui.addTaskMessage(task, arr.getSize());
-                storage.writeToFile(arr);
-            }
+            throw new OofException("OOPS!!! The due date is invalid.");
         }
+    }
+
+    private boolean hasValidDueDate(String date) {
+        return !date.equals("failed");
+    }
+
+    private boolean hasDescription(String[] lineSplit) {
+        return lineSplit[0].trim().length() != 0;
+    }
+
+    private boolean hasDueDate(String[] lineSplit) {
+        return lineSplit.length != 1 && lineSplit[1].trim().length() != 0;
     }
 
     /**

@@ -1,6 +1,7 @@
 package oof;
 
 import oof.exception.OofException;
+import oof.task.Event;
 import oof.task.Task;
 
 import java.util.ArrayList;
@@ -23,31 +24,32 @@ public class Ui {
     }
 
     /**
-     * Shows the welcome logo and message for Oof.
+     * Prints 3D ascii logo OOF.
      */
-    public void printWelcomeMessage() {
-        String logo = " ________  ________  ________ \n"
-                + "|\\   __  \\|\\   __  \\|\\  _____\\\n"
-                + "\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
-                + " \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
-                + "  \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
-                + "   \\ \\_______\\ \\_______\\ \\__\\ \n"
-                + "    \\|_______|\\|_______|\\|__|\n";
-        System.out.println("Hello from\n" + logo);
+    public void printOofLogo() {
+        String logo = "\t ________  ________  ________ \n"
+                + "\t|\\   __  \\|\\   __  \\|\\  _____\\\n"
+                + "\t\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
+                + "\t \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
+                + "\t  \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
+                + "\t   \\ \\_______\\ \\_______\\ \\__\\ \n"
+                + "\t    \\|_______|\\|_______|\\|__|\n";
+        System.out.println(logo);
     }
 
     /**
-     * Shows preceding welcome messages after printWelcomeMessage() function.
+     * Prints welcome message for OOF.
      */
     public void hello() {
         printLine();
+        printOofLogo();
         System.out.println("\tHello! I'm OOF");
         System.out.println("\tWhat can I do for you?");
         printLine();
     }
 
     /**
-     * Shows termination message before Oof exits.
+     * Shows termination message before OOF exits.
      */
     public void printByeMessage() {
         System.out.println("\tBye. Hope to see you again soon!");
@@ -138,7 +140,7 @@ public class Ui {
      * @return Timestamp input by user.
      */
     public String getTimeStamp() {
-        System.out.print("\tPlease enter the new date: ");
+        System.out.println("\tPlease enter the new date: ");
         return scanLine();
     }
 
@@ -163,8 +165,11 @@ public class Ui {
     /**
      * Prints a warning regarding event clashes.
      */
-    public void printClashWarning() {
+    public void printClashWarning(ArrayList<Event> eventClashes) {
         System.out.println("Warning! Event being added clashes with the following events:");
+        for (Event e : eventClashes) {
+            System.out.println(e.toString());
+        }
     }
 
     /**
@@ -230,4 +235,5 @@ public class Ui {
         }
         printLine();
     }
+
 }

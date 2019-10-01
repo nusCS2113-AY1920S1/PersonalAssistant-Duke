@@ -23,16 +23,14 @@ public class Reminder {
         int count = 1;
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            if (task.toString().startsWith("[D]")) {
+            if (isDeadline(task)) {
                 String[] lineSplit = task.toString().split("by:");
                 String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
                 result = result.trim();
                 try {
                     Date dueDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(result);
                     Date now = new Date(); // current date time
-                    long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
-                    long diffHours = diff / (60 * 60 * 1000);
-                    if (diffHours <= 24) {
+                    if (isUpcoming(dueDate, now)) {
                         ui.printUpcomingDeadline(count, taskList.getTask(i));
                         count++;
                     }
@@ -43,5 +41,15 @@ public class Reminder {
             }
         }
         ui.printLine();
+    }
+
+    private boolean isUpcoming(Date dueDate, Date now) {
+        long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
+        long diffHours = diff / (60 * 60 * 1000);
+        return diffHours <= 24;
+    }
+
+    private boolean isDeadline(Task task) {
+        return task.toString().startsWith("[D]");
     }
 }
