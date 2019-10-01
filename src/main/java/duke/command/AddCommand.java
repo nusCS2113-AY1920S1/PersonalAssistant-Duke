@@ -6,6 +6,7 @@ import duke.task.*;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException {
         if (isRecurring) {
             tasks.add(new Recurring(description, taskType, tasks, ui, storage));
             return;
@@ -73,6 +74,7 @@ public class AddCommand extends Command {
                 }
                 break;
         }
+        storage.save(tasks);
     }
 
     @Override
