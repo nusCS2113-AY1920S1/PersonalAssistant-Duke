@@ -29,7 +29,7 @@ public class ScheduleCommand extends Command {
      * @param date  to display schedule for.
      * @return      ArrayList of Task objects associated to given date.
      */
-    public TaskList scheduleByDate(TaskList arr, String date) {
+    private TaskList scheduleByDate(TaskList arr, String date) {
         TaskList scheduledTasks = new TaskList();
         for (int i = 0; i < arr.getSize(); i++) {
             if (arr.getTask(i) instanceof Deadline) {
@@ -45,10 +45,10 @@ public class ScheduleCommand extends Command {
     /**
      * Executes Schedule Command.
      *
-     * @param arr     ArrayList of Task objects
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
+     * @param arr           ArrayList of Task objects
+     * @param ui            Instance of Ui that is responsible for visual feedback.
+     * @param storage       Instance of Storage that enables the reading and writing of Task
+     *                      objects to hard disk.
      * @throws OofException Catches invalid commands given by user and dates with no scheduled tasks
      */
     public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
