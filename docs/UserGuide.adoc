@@ -1,4 +1,4 @@
-= Dr Duke User Guide
+= Dr. Duke - User Guide
 :toc:
 
 App-Specific Terms:
