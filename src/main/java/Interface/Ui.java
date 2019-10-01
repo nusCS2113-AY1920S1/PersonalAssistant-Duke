@@ -90,7 +90,6 @@ public class Ui {
     }
 
     public String showFreeTimes(String message){
-
         return ("You are available at: \n" + message);
     }
 

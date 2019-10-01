@@ -219,7 +219,6 @@ public class TaskList {
                 availableTimeSlot.add(new Pair<Date, Date>(increaseDateTime(date1, k),increaseDateTime(date2, k)));
             }
         }
-
         return availableTimeSlot;
     }
 
@@ -283,23 +282,14 @@ public class TaskList {
         return finalSchedule;
     }
 
-    /**
-     * @return the TodoArrayList
-     */
     private ArrayList<String> getTodoArrList() {
         return this.todoArrList;
     }
 
-    /**
-     * @return the DeadlineArrayList
-     */
     private ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
-    /**
-     * @return the EventArrayList
-     */
     private ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }

@@ -224,7 +224,6 @@ public class Parser {
                         AlertBox.display("Warning message", "Invalid date", "Please enter another valid date",
                                 Alert.AlertType.WARNING);
                         isValid = false;
-
                     }
                     System.out.println("value of isValid: " + isValid);
                     System.out.println("start date: " + startDate + " Current date: " + currentDate);
@@ -234,11 +233,9 @@ public class Parser {
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
             }
-
             else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
         } catch (StringIndexOutOfBoundsException e){
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

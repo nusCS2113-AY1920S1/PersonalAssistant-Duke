@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -206,9 +205,9 @@ public class MainWindow extends BorderPane implements Initializable {
      private void openReminderBox() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        for (int i = 0; i < todo.size(); i++) {
-            if (todo.get(i).getDescription().contains("(from") && todo.get(i).getDescription().contains("to")) {
-                String description = todo.get(i).getDescription();
+        for (int i = 0; i < todos.size(); i++) {
+            if (todos.get(i).getDescription().contains("(from") && todos.get(i).getDescription().contains("to")) {
+                String description = todos.get(i).getDescription();
                 int index = description.indexOf("(from");
                 String taskDescription = description.substring(0, index);
                 description = description.replace(taskDescription, "");
