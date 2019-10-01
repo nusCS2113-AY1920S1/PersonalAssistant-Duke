@@ -16,8 +16,8 @@ public class SetWelcomeCommand extends Command{
        super(user);
     }
     /**
-     * Returns the String which will be displayed as the welcome message.
-     * @return the String representing the next line of command of the user.
+     * Returns a File object
+     * @return a file object containing the welcome message
      */
     public static File openFile(String filepath) throws FileException {
         //open file, throw exception if the file doesnt exist.
@@ -41,11 +41,11 @@ public class SetWelcomeCommand extends Command{
         FileWriter fileWriter = null;
         String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";//get location of welcome message file
         File file = openFile(filepath);
-        //write the new message to the file
+        //open fileWriter object
         try {
             fileWriter = new FileWriter(file);
             try {
-
+                //removes the first word of the user input
                 fileWriter.write(String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length)));
             }
             finally{
