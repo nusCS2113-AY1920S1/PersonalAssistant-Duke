@@ -7,6 +7,7 @@ import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;
 import duke.user.User;
+import duke.autocorrect.Autocorrect;
 
 import java.util.Scanner;
 
@@ -21,6 +22,7 @@ public class Duke {
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;
+    private Autocorrect autocorrect;
 
     /**
      * This is a constructor of Duke to start the program.
@@ -29,6 +31,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage();
         user = new User();
+        autocorrect = new Autocorrect();
         try {
             tasks = new MealList(storage.load());
         } catch (DukeException e) {
@@ -38,14 +41,19 @@ public class Duke {
         try {
             user = storage.loadUser();
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
             ui.showUserLoadingError();
+        }
+        try {
+            storage.loadWord(autocorrect);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         }
     }
 
     /**
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
+
     public void run() {
         if (user.getIsSetup() == false) {
             ui.showWelcomeNew();
@@ -67,7 +75,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand(in);
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(fullCommand, autocorrect);
                 c.execute(tasks, ui, storage, user);
                 isExit = c.isExit();
             } catch (DukeException e) {

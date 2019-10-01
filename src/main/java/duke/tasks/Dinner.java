@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.autocorrect.Autocorrect;
+
 /**
  * dinner is a public class that inherits from abstract class meal.
  * A dinner object encapsulates the String that express deadline date.
@@ -10,8 +12,8 @@ public class Dinner extends Meal {
      * This is the constructor of dinner object.
      * @param description the description of the dinner object
      */
-    public Dinner(String description, String details) {
-        super(description, details);
+    public Dinner(String description, String details, Autocorrect autocorrect) {
+        super(description, details, autocorrect);
         super.type = "D";
     }
 

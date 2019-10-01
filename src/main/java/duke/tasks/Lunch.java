@@ -1,6 +1,8 @@
 package duke.tasks;
 
 
+import duke.autocorrect.Autocorrect;
+
 import java.util.Date;
 
 /**
@@ -13,8 +15,8 @@ public class Lunch extends Meal {
      * This is the constructor of lunch object.
      * @param description the description of the lunch object
      */
-    public Lunch(String description, String details) {
-        super(description, details);
+    public Lunch(String description, String details, Autocorrect autocorrect) {
+        super(description, details, autocorrect);
         super.type = "L";
     }
 

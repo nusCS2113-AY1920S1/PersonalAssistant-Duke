@@ -38,7 +38,6 @@ public class AddCommand extends Command {
             meals.setMeals(this.meal.getDate());
         }
         ArrayList<Meal> currentMeals = meals.getMeals(this.meal.getDate());
-        System.out.println(this.meal.getDate());
         currentMeals.add(this.meal);
         ui.showAdded(this.meal, currentMeals, user, this.meal.getDate());
         storage.updateFile(meals.getMealTracker());
