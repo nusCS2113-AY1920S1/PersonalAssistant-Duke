@@ -7,7 +7,6 @@ public class Task {
     private boolean isDone;
     private String type;
 
-
     /**
      * Creates Task object.
      * @param description The description of the task

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import Interface.DukeException;
 import javafx.util.Pair;
-import java.util.ArrayList;
 
 /**
  * To keep track of the list of task input by user.
@@ -220,7 +219,6 @@ public class TaskList {
                 availableTimeSlot.add(new Pair<Date, Date>(increaseDateTime(date1, k),increaseDateTime(date2, k)));
             }
         }
-
         return availableTimeSlot;
     }
 
@@ -228,16 +226,14 @@ public class TaskList {
     /**
      * This method sort the tasks according to their categories.
      */
-    public void sortList() {
+    private void sortList() {
         for (int i = 0; i < list.size(); i++) {
             String description = list.get(i).toString();
             if (list.get(i).getType().equals("[T]")) {
                 this.todoArrList.add(description);
-            }
-            else if (list.get(i).getType().equals("[D]")) {
+            } else if (list.get(i).getType().equals("[D]")) {
                 this.deadlineArrList.add(description);
-            }
-            else if (list.get(i).getType().equals("[E]")){
+            } else if (list.get(i).getType().equals("[E]")){
                 this.eventArrList.add(description);
             }
         }
@@ -256,8 +252,8 @@ public class TaskList {
         if (sizeOfDeadlineArr != 0) {
             finalSchedule += "DEADLINE Task\n";
             int num = 1;
-            for (int i = 0; i < sizeOfDeadlineArr; i++) {
 
+            for (int i = 0; i < sizeOfDeadlineArr; i++) {
                 finalSchedule = finalSchedule + num + "." + getDeadlineArrList().get(i) + "\n";
                 num++;
             }
@@ -286,24 +282,15 @@ public class TaskList {
         return finalSchedule;
     }
 
-    /**
-     * @return the TodoArrayList
-     */
-    public ArrayList<String> getTodoArrList() {
+    private ArrayList<String> getTodoArrList() {
         return this.todoArrList;
     }
 
-    /**
-     * @return the DeadlineArrayList
-     */
-    public ArrayList<String> getDeadlineArrList() {
+    private ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
-    /**
-     * @return the EventArrayList
-     */
-    public ArrayList<String> getEventArrList() {
+    private ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }
 

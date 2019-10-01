@@ -5,9 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 /**
  * A program that manages tasks input by user
@@ -16,12 +14,20 @@ import java.util.ArrayList;
  */
 public class Duke extends Application {
 
+
+    private final Storage storage;
+    private final TaskList events;
+    private final TaskList todos;
+    private final TaskList deadlines;
+    private final Ui ui;
+
     private Storage storage;
     private TaskList events;
     private TaskList todos;
     private TaskList deadlines;
     private static TaskList tentativeDates;
     private Ui ui;
+
 
     /**
      * Creates Duke object.
