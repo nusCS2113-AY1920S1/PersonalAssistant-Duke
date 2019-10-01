@@ -76,8 +76,6 @@ public class Ui {
 
     /**
      * Displays the find message when a user wants to find tasks with a specific keyword.
-     * @param list The TaskList object with contents that contain the keyword
-     * @return This either returns a message indicating no content or a message with contents in the TaskList object
      */
     public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
@@ -132,10 +130,6 @@ public class Ui {
 
     /**
      * Displays the snooze message when a user wants to snooze a task.
-     * @param index The index of the task the user wants to snooze
-     * @param listSize The size of the ArrayList
-     * @param list The ArrayList
-     * @return This returns the snooze message with the task and size of ArrayList after snoozing
      */
     public String showSnooze(int index, int listSize, ArrayList<Task> list) {
         return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
