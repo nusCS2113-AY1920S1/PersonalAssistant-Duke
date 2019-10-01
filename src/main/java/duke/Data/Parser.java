@@ -1,5 +1,6 @@
 package duke.Data;
 
+
 import Menu.ManageStudents;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
@@ -215,25 +216,33 @@ public class Parser {
              // Choosing Option 1 wil direct to "Training Schedule"
              */
             case "1":
+                System.out.flush();
                 // Write go to direct to View Schedule (Scott)
+                Ui trainingSchedule = new Ui();
+                trainingSchedule.trainingScheduleHeading();
                 break;
 
             /**
              * Choosing option 2 will direct to "Manage Students"
              */
             case "2":
+                System.out.flush();
+                Ui manageStudents = new Ui();
+                manageStudents.manageStudentsHeading();
                 ManageStudents viewCategory = new ManageStudents();
                 viewCategory.manageStudentsCategory();
                 // Write Code to direct to manage Students (Danish)
                 break;
 
             /**
-             * Choosing 3 will direct to "Training Circuit"
+             * Choosing 3 will direct to "Training Program"
              */
-
             case "3":
+                System.out.flush();
+                Ui trainingProgram = new Ui();
+                trainingProgram.trainingProgramHeading();
                 //Write Code to direct to Training Circuits (JingSen)
-
+                break;
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
