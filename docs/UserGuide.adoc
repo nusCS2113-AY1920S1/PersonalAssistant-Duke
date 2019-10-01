@@ -59,17 +59,17 @@ Reused patterns:
 Parsing rules:
 
 * Switches can be in any order
-* Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`. 
+* Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`.
 
-## Contexts
+== Contexts
 
 The sections below describe what will be displayed in each context, and the commands available in them.
 
-### Home 
+=== Home
 
 Shows up to 10 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
-#### `help` - Display a context-specific list of commands and options [[home-help]]
+==== `help` - Display a context-specific list of commands and options [[home-help]]
 
 Format: `help`
 
@@ -77,15 +77,15 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-#### `next` - Display next page of Patients [[home-next]]
+==== `next` - Display next page of Patients [[home-next]]
 
 _Remove if we can have a scrolling display of Patients instead_
 
 Format: `next` 
 
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>> 
+_Available in:_ <<Home>>, <<Patient>>, <<Impression>>
 
-#### `prev` - Display previous page of Patients [[home-prev]]
+==== `prev` - Display previous page of Patients [[home-prev]]
 
 _Remove if we can have a scrolling display of Patients instead_
 
@@ -97,27 +97,27 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>
 
 For different contexts, scrolls backward in all lists that can be scrolled.
 
-#### `critical` - Display all critical observations and plans of all Patients [v2.0]
+==== `critical` - Display all critical observations and plans of all Patients [v2.0]
 
 Format: `critical`
 
-#### `discharge` - Generate a discharge report for the Patient and delete him from the system [[home-discharge]] 
+==== `discharge` - Generate a discharge report for the Patient and delete him from the system [[home-discharge]]
 
 Format: `discharge _patient_id_ [-sum[mary] <discharge summary>]`
 
 The discharge report will contain all information being tracked regarding the Patient, and an optional discharge summary that can be specified in the command. In v1.4, Patients will simply be deleted after the report is generated. In v2.0, they will be archived.
 
-#### `archive` - Display discharged Patients  [v2.0]
+==== `archive` - Display discharged Patients  [v2.0]
 
 Format: `archive`
 
-#### `open` - Go to a more detailed view of a particular Patient
+==== `open` - Go to a more detailed view of a particular Patient
 
 Format: `open _patient_id_ [-im[pression] [<impression index>]]`
 
-If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
+If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified.
 
-#### `new` - Add a new Patient to the system
+==== `new` - Add a new Patient to the system
 
 Format: `new -n[ame] "<name>" -b[ed] <bed number> -a[llergies] "<allergies>" [<optional switch>]*`
 
@@ -133,7 +133,7 @@ Optional switches:
 
 The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch opens the Patient's context after the Patient is created.
 
-#### `undo` - Undo the previous command [[home-undo]]
+==== `undo` - Undo the previous command [[home-undo]]
 
 Format: `undo <number of commands>`
 
@@ -141,7 +141,7 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 
 You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (i.e. adding new Patients, editing data).
 
-#### `redo` - Redo a command that has been undone [[home-redo]]
+==== `redo` - Redo a command that has been undone [[home-redo]]
 
 Format: `redo <number of commands>`
 
@@ -149,7 +149,7 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 
 After undoing some commands, sending any command other than `undo` or `redo` will clear the redo stack. The undone commands cannot be redone from that point onwards.
 
-### Patient 
+=== Patient
 
 Shows a detailed view of a Patient, displaying in separate panels:
 
@@ -158,9 +158,9 @@ Shows a detailed view of a Patient, displaying in separate panels:
 * A list of Investigations to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
 * Each Impression, with its name and an excerpt of its description
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
-#### `back` - Go back to previous context [[patient-back]]
+==== `back` - Go back to previous context [[patient-back]]
 
 Format: `back`
 
@@ -168,7 +168,7 @@ _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will go back to the context that the user came from. A context stack will be maintained.
 
-#### `up` - Go up to next-higher context [[patient-up]]
+==== `up` - Go up to next-higher context [[patient-up]]
 
 Format: `up`
 
@@ -176,17 +176,17 @@ _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will go to the context hierarchically above the user's context. In this case, it will go back to <<Home>>. For an <<Impression>>, it would go back to the <<Patient>> associated with it.
 
-#### `new` - Add a new Impression to this Patient
+==== `new` - Add a new Impression to this Patient
 
 Format: `new -n[ame] "<name>" -d[escription] "<description>" [-g[o]]`
 
 Opens the new Impression's context if `-g[o]` is specified.
 
-#### `open` - Open a critical or Investigation item listed on the page, or an Impression
+==== `open` - Open a critical or Investigation item listed on the page, or an Impression
 
 Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)] _string_or_idx_|-im[pression] _string_or_idx_)`
 
-#### `edit` - Edit one of the details of the Patient [[patient-edit]]
+==== `edit` - Edit one of the details of the Patient [[patient-edit]]
 
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]*`
 
@@ -204,27 +204,27 @@ Switches and corresponding new value format:
 * `-ad[dress] "<address>"`
 * `-hi[story] "<history>"`
 
-#### `delete` - Delete a critical or Investigation item listed on the page, or an Impression
+==== `delete` - Delete a critical or Investigation item listed on the page, or an Impression
 
 Format: `delete ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)] _string_or_idx_|-im[pression] _string_or_idx_)`
 
-#### `primary` - Set a particular Impression as the primary Impression for the Patient
+==== `primary` - Set a particular Impression as the primary Impression for the Patient
 
 Format: `primary -im[pression] _string_or_idx_`
 
-#### `find` - Find items matching certain criteria
+==== `find` - Find items matching certain criteria
 
 Format: `find ["<search string>"][-im[pressions]] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>"|<status idx>)]`
 
 Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search. If none of the `_type_` or `im[pression]` switches are used, all types of objects will be listed. If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
-#### `discharge` - Generate a discharge report for the Patient and delete him from the system
+==== `discharge` - Generate a discharge report for the Patient and delete him from the system
 
 Format: `discharge [-sum[mary] <discharge summary>]`
 
 Functionally the same as <<home-discharge,`discharge` in the Home context>>.
 
-#### `report` - Generate a text file containing all data on this patient [[patient-report]]
+==== `report` - Generate a text file containing all data on this patient [[patient-report]]
 
 Format: `report`
 
@@ -232,15 +232,15 @@ Report will be generated in the format required by the hospital's internal syste
 
 _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
-#### `round` - Ward round mode [v2.0] 
+==== `round` - Ward round mode [v2.0]
 
 Format: `round`
 
 _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>> [v2.0]
 
-An input mode designed for maximum speed input. Only the first word of the input, which should be a sequence of control characters, will determine where the input is directed. Everything else will be treated as input. 
+An input mode designed for maximum speed input. Only the first word of the input, which should be a sequence of control characters, will determine where the input is directed. Everything else will be treated as input.
 
-### Impression
+=== Impression
 
 Shows a detailed view of an Impression, displaying in separate panels:
 
@@ -249,9 +249,9 @@ Shows a detailed view of an Impression, displaying in separate panels:
 * A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
 * A small panel with the patient's allergies
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
+Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
-#### `new` - Add a new Treatment or Evidence item to this Impression
+==== `new` - Add a new Treatment or Evidence item to this Impression
 
 Format: `new _type_ <relevant switches> [-g[o]]`
 
@@ -303,13 +303,13 @@ a|
 
 `<status name>` is a case-insensitive substring of the `statusArr` entry of that particular object, while `<status idx>` is its numerical representation.
 
-#### `open` - Open a Treatment or Evidence item listed on this page
+==== `open` - Open a Treatment or Evidence item listed on this page
 
 Format: `open ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_)`
 
 This will open a new context for the specific Treatment or Evidence identified.
 
-#### `edit` - Edit one of the details of the Impression
+==== `edit` - Edit one of the details of the Impression
 
 Format: `edit [-a[ppend]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
 
@@ -322,83 +322,83 @@ Switches and corresponding new value formats:
 
 With this aditional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
 
-#### `delete` - Delete a Treatment or Evidence item listed on this page
+==== `delete` - Delete a Treatment or Evidence item listed on this page
 
 Format: `delete ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_)`
 
-#### `primary` - Set this Impression as the primary Impression for the Patient
+==== `primary` - Set this Impression as the primary Impression for the Patient
 
 Format: `primary`
 
-#### `move` - Move a Treatment or Evidence to a different Impression
+==== `move` - Move a Treatment or Evidence to a different Impression
 
 Format: `move ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_) [-im[pression] "<search string>"]`
 
 If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command. If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
 
-#### `priority` - Mark a Treatment or Evidence as a certain priority level
+==== `priority` - Mark a Treatment or Evidence as a certain priority level
 
 Format: `priority ("<search string>"|-e[vidence] _string_or_idx_|-t[reatment] _string_or_idx_) -s <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
-#### `status` - Update the completion status of a Treatment
+==== `status` - Update the completion status of a Treatment
 
 Format: `status _string_or_idx_ [-s ("<status name>"|<status idx>)]`
 
 If `-s` is not specified, `status` will be incremented by 1, unless it is at the maximum value.
 
-#### `result` - Convert an Investigation that has been completed into a Result
+==== `result` - Convert an Investigation that has been completed into a Result
 
 Format: `result _string_or_idx_ -sum[mary] "<result summary>"`
 
 _idx_ in this scope will refer to an index in the Treatment list. The result summary will be appended to the Investigation summary.
 
-#### `find` - Find items matching certain criteria
+==== `find` - Find items matching certain criteria
 
 Format: `find ["<search string>"] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>"|<status idx>)]`
 
 Display a list of all Treatments and Evidence matching the criteria specified in the search. If none of the `_type_` switches are used, all types of objects will be listed. If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
-### Treatment and Evidence
+=== Treatment and Evidence
 
 All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full. This section will list the commands that they have in common. Each individual Treatment and Evidence context is assumed to have all these commands, and all the commands in this inheritance list.
 
 Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
-#### `edit` - Edit one of the details of the Treatment or Evidence
+==== `edit` - Edit one of the details of the Treatment or Evidence
 
 Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
 
 The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new` in the Impression context.
 
-#### `move` - Move a Treatment or Evidence to a different Impression
+==== `move` - Move a Treatment or Evidence to a different Impression
 
 Format: `move [-im[pression] "<search string>"]`
 
 If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command. If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
 
-#### `priority` - Mark the Treatment or Evidence as a certain priority level
+==== `priority` - Mark the Treatment or Evidence as a certain priority level
 
 Format: `priority <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
-### Treatment
+=== Treatment
 
 Contains everything in <<Treatment and Evidence>>.
 
-#### `status` - Update the completion status of a Treatment
+==== `status` - Update the completion status of a Treatment
 
 Format: `status [("<status name>"|<status idx>)]`
 
 If no `<status name>` or `<status idx>` is specified, `status` will be incremented by 1, unless it is at the maximum value.
 
-### Investigation
+=== Investigation
 
 Contains everything in <<Treatment and Evidence>>.
 
-#### `result` - Convert the Investigation into a Result after completion
+==== `result` - Convert the Investigation into a Result after completion
 
 Format: `result -sum[mary] "<result summary>"`
 

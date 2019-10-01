@@ -58,10 +58,12 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 
 *Target user profile*:
 
-House officers, who are typically freshly-graduated medical students, play a vital role in managing hospital patients. They are responsible, among many other
-things, for collating all information regarding each hospital patient and organising it to provide a clear picture of the patient's situation, and for
-presenting that picture to senior doctors who can then make assessments and recommendations based on that picture. As much of this information needs to be
-exchanged at a rapid pace, Dr. Duke assists in quick, accurate and efficient recording and retrieval of the patient data required to provide effective care. 
+House officers, who are typically freshly-graduated medical students, play a vital role in managing hospital patients.
+They are responsible, among many other things, for collating all information regarding each hospital patient and
+organising it to provide a clear picture of the patient's situation, and for presenting that picture to senior doctors
+who can then make assessments and recommendations based on that picture. As much of this information needs to be
+exchanged at a rapid pace, Dr. Duke assists in quick, accurate and efficient recording and retrieval of the patient
+data required to provide effective care.
 
 The house officers we are targeting with this app:
 
@@ -127,25 +129,141 @@ checked to ensure it is of the right format | always be assured that I am inputt
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== [[UC-1]] Use case: UC1 - Add a patient
+
+*MSS*
+
+. User requests to add a patient.
+. Dr. Duke requests for details of the patient.
+. User enters the requested details.
+. Dr. Duke creates a new profile for the patient according to the specified details.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. Dr. Duke detects an error in the entered details.
++
+** 3a1. Dr. Duke prompts the user with an error message and requests for the correct details.
+** 3a2. User enters correct details.
+** Steps 3a1 and 3a2 are repeated until the given details are valid.
+** Use case resumes from Step 4.
+
+[discrete]
+=== [[UC-2]] Use case: UC2 - Edit a patient's details
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>>.
+. Dr. Duke requests for new details of the patient.
+. User enters new details of the patient.
+. Dr. Duke updates the profile for the patient.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. Dr. Duke detects an error in the entered details.
++
+** 3a1. Dr. Duke prompts the user with an error message and requests for the correct details.
+** 3a2. User enters correct details.
+** Steps 3a1 and 3a2 are repeated until the given details are valid.
+** Use case resumes from Step 4.
+
+[discrete]
+=== [[UC-3]] Use case: UC3 - Search for a patient
+
+*MSS*
+
+. User enters the patient's name.
+. Dr. Duke returns list of all relevant results.
+. User selects the target patient in the list.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The returned list is empty.
++
+Use case ends.
+
+[discrete]
+=== [[UC-4]] Use case: UC4 - View a patient's records
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>>.
+. Dr. Duke shows the detailed records of the patient.
++
+Use case ends.
+
+[discrete]
+=== [[UC-5]] Use case: UC5 - Discharge a patient
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>> and requests to discharge him/her.
+. Dr. Duke shows the details of the patient and requests for a confirmation.
+. User confirms that the patient may be discharged.
+. Dr. Duke generates a discharge report for the patient and delete his/her record from the system.
+
+*Extensions*
+
+* a. At any time, User chooses to cancel the discharge operation.
++
+** a1. Dr. Duke requests to confirm the cancellation.
+** a2. User confirms the cancellation.
++
+Use case ends.
+
+[discrete]
+=== [[UC-6]] Use case: UC6 - Generate a unified report for a patient
+
+*MSS*
+
+. User searches for the patient <<UC-3,(UC-3)>> and requests to generate a report on his/her current condition.
+. Dr. Duke generates a detailed report for the patient.
++
+Use case ends.
+
+[discrete]
+=== [[UC-7]] Use case: UC7 - Undo previous command(s)
+*Preconditions*: At least 1 command in the command history.
+
+*MSS*
+
+. User requests to undo previous command(s).
+. Dr. Duke shows the list of command(s) to be reverted and requests for a confirmation.
+. User reviews the command(s) and confirms the undo operation.
+. Dr. Duke performs the undo operation and returns the system to an older state.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or
-above installed.
-.  The software should be able to hold up to 500 patients without a noticeable reduction in performance for
-typical usage.
-.  A user with an above average typing speed for regular English text should be able to accomplish most of the intended
-tasks faster using commands than using the mouse.
-*  All data transactions should be atomic - either they succeed and the persistent data storage is immediately updated,
-or they fail and the user is notified of that event, with the data being unchanged.
-
-// TODO: Remove for final version
-References: https://requirementsquest.com/wp-content/uploads/2017/01/Nonfunctional-Requirement-EXAMPLES.pdf
+. The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as the OS has Java `11` or
+  above installed.
+. The software should be able to hold up to 500 patients without a noticeable reduction in performance for
+  typical usage.
+. The software should work without internet access.
+. The software should have good user documentation, which details all aspects of the software to assist new
+  users on how to use this software.
+. The software should have good developer documentation to allow developers to understand the design of the
+  software easily so that they can further develop and enhance the software.
+. The software should be easily testable.
+. A user with an above average typing speed for regular English text should be able to accomplish most of his/her
+  intended tasks faster using commands than using the mouse.
+. All data transactions should be atomic - either they succeed and the persistent data storage is immediately updated,
+  or they fail and the user is notified of that event, with the data being unchanged.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+* Windows
+* macOS
+* Linux
