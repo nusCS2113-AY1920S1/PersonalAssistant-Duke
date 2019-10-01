@@ -2,8 +2,8 @@ package duke;
 
 import duke.command.Command;
 import duke.exceptions.DukeException;
-import duke.util.DukeParser;
 import duke.util.ParserWrapper;
+import duke.util.RequestsData;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -19,6 +19,8 @@ public class Duke {
     private TaskList tasks;
     private ParserWrapper parser;
 
+    private RequestsData requestsData;
+
     /**
      * Constructor for Duke class.
      */
@@ -27,6 +29,7 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
+        requestsData = new RequestsData();
     }
 
     /**
@@ -40,6 +43,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                requestsData.setRequest(fullCommand);
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store);
