@@ -21,20 +21,24 @@ public class ScheduleCommand extends Command {
         this.date = date;
     }
 
+    private boolean compareDate(String input, String date) {
+        return input.equals(date);
+    }
 
     /**
      * Checks TaskList for Tasks associated to indicated date.
      *
      * @param arr   ArrayList of Task objects.
-     * @param date  to display schedule for.
      * @return      ArrayList of Task objects associated to given date.
      */
-    private TaskList scheduleByDate(TaskList arr, String date) {
+    private TaskList scheduleByDate(TaskList arr) {
         TaskList scheduledTasks = new TaskList();
         for (int i = 0; i < arr.getSize(); i++) {
             if (arr.getTask(i) instanceof Deadline) {
                 Deadline d = (Deadline) arr.getTask(i);
-                if (d.getBy().substring(0, 10).equals(this.date.substring(1))) {
+                String date = d.getBy().substring(0, 10);
+                String input = this.date.substring(1);
+                if (compareDate(input, date)) {
                     scheduledTasks.addTask(d);
                 }
             }
@@ -55,11 +59,9 @@ public class ScheduleCommand extends Command {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
-        TaskList scheduledTasks = scheduleByDate(arr, this.date);
-        System.out.println(scheduledTasks.getTasks());
-
+        TaskList scheduledTasks = scheduleByDate(arr);
         if (scheduledTasks.getSize() == 0) {
-            throw new OofException("There are no Tasks scheduled on " + this.date);
+            throw new OofException("There are no Tasks scheduled on" + this.date + ".");
         }
         ui.printScheduledTasks(scheduledTasks, this.date);
     }
