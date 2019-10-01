@@ -1,24 +1,18 @@
-import command.ByeCommand;
-import command.Command;
-import command.DeadlineCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.EventCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.TodoCommand;
-import command.ViewScheduleCommand;
+import command.*;
 import exception.DukeException;
+
+import java.text.ParseException;
 
 /**
  * Parse input and execute respective user command.
  */
 public class Parser {
+
     /**
-     * Parses user commands.
+     * Converts user input into commands for Duke.
      * @param input from user
      * @return Command to be executed
-     * @throws DukeException if user input is in wrong format
+     * @throws DukeException if user enters wrong input format
      */
     public static Command parse(String input) throws DukeException {
         String[] splitStr = input.split(" ");
@@ -39,14 +33,23 @@ public class Parser {
             return new DeleteCommand(splitStr);
         case "find":
             return new FindCommand(input, splitStr);
+        case "upcoming":
+            return new UpcomingCommand();
         case "viewschedule":
-            return new ViewScheduleCommand();
+            return new ViewScheduleCommand(input);
         case "snooze":
             return new SnoozeCommand(splitStr);
         case "unsnooze":
-            return new UnSnoozeCommand(splitStr);    
+            return new UnSnoozeCommand(splitStr);
+        case "duration" :
+            return new FixedDurationCommand(input, splitStr);
+        case "findfree" :
+            return new FindFreeTimesCommand(splitStr);
+                        case "recurring":
+                return new RecurringCommand(input, splitStr);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
         }
     }
 }

@@ -23,7 +23,8 @@ public abstract class Command {
      * @throws DukeException if Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
     }
 
     public boolean isExit() {

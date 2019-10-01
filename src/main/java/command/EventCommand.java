@@ -12,7 +12,8 @@ import java.io.IOException;
  * command.Command to create and save events
  */
 public class EventCommand extends Command {
-    String[] splitD;
+    String[] splitE;
+    String[] startEnd;
 
     /**
      * Create new Event object.
@@ -28,15 +29,25 @@ public class EventCommand extends Command {
         if (!tempD.contains(" /at ")) {
             throw new DukeException("☹ OOPS!!! Please add a event for the task.");
         }
-        this.splitD = tempD.split(" /at ");
-        if (!isValidDateTime(splitD[1])) {
-            throw  new DukeException("Please enter correct date time format: dd/mm/yyyy hhmm");
+        this.splitE = tempD.split(" /at ");
+        if (splitE.length == 1) {
+            throw new DukeException("☹ OOPS!!! Please add start and end times for the task.");
+        }
+        this.startEnd = splitE[1].split(" to ");
+        if (startEnd.length == 1) {
+            throw new DukeException("☹ OOPS!!! Please add start and end times for the task.");
+        }
+        if (!isValidDateTime(startEnd[0])) {
+            throw  new DukeException("Please enter correct date time format: dd/mm/yyyy hhmm to dd/mm/yyyy");
+        }
+        if (!isValidDateTime(startEnd[1])) {
+            throw  new DukeException("Please enter correct date time format: dd/mm/yyyy hhmm to dd/mm/yyyy");
         }
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        Event event = new Event(splitD[0], splitD[1]);
+        Event event = new Event(splitE[0], startEnd[0], startEnd[1]);
         tasks.add(event);
         storage.saveToFile(tasks);
         ui.showString("Got it. I've added this task:\n"
