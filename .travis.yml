@@ -10,4 +10,4 @@ before_install:
 install: gradle wrapper --gradle-version 5.2
 
 script:
-  - "./gradlew test"
+  - "./gradlew build"

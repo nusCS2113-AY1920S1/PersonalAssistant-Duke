@@ -34,6 +34,7 @@
   - Period task: `add period [description] /from [start time] /to [end time]`
   - Todo task: `add todo [description]`
 - delete command: `delete [index of the task]`
+- do-after task: `[add command] /after [prerequsite tasks indexs]`
 - done command: `done [index of the task]`
 - find command: `find [keyword]`
 - list command: `list`
