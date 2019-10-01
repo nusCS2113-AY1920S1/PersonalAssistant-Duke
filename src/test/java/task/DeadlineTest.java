@@ -40,9 +40,9 @@ public class DeadlineTest {
         testDeadline.markAsDone();
         assertEquals("D | 1 | 0 | do the homework | 01/05/2019 1800 | 02/05/2019 1800 | NONE",
                 testDeadline.toStorageString());
-
-
     }
+
+
 
     @Test
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")

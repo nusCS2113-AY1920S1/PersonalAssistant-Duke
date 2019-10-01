@@ -15,7 +15,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "V1.1.0"
+    archiveVersion = "V1.1"
     archiveClassifier = null
     archiveAppendix = null
     mainClassName = 'main.java.Duke'
