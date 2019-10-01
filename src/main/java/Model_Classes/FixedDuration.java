@@ -1,15 +1,18 @@
 package Model_Classes;
 
+import Enums.TimeUnit;
+
 import java.util.Date;
 
 public class FixedDuration extends Event {
+    private final TimeUnit timeUnit;
     private int duration;
-    private Date at;
 
 
-    public FixedDuration(String description, Date at, int duration) {
+    public FixedDuration(String description, Date at, int duration, TimeUnit timeUnit) {
         super(description, at);
         this.duration = duration;
+        this.timeUnit = timeUnit;
     }
 
     public Date getDate() {
@@ -23,5 +26,6 @@ public class FixedDuration extends Event {
 
     @Override
     public String toString() {
-        return super.toString() + " (done in: " + duration + " seconds )"; }
+        return super.toString() + " (done in: " + duration + " " + timeUnit + " ) ";
+    }
 }
