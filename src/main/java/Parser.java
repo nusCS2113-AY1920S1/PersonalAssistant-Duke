@@ -57,8 +57,11 @@ public class Parser {
             return new FixedDurationCommand(input, splitStr);
         case "findfree" :
             return new FindFreeTimesCommand(splitStr);
+                        case "recurring":
+                return new RecurringCommand(input, splitStr);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
         }
     }
 }
