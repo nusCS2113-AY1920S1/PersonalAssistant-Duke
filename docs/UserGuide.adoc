@@ -744,7 +744,7 @@ Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
 == FAQ
 *Q*: How do I save my data in the application? +
-*A*: You do need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
+*A*: You do not need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
 == Command Summary
