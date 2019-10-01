@@ -4,7 +4,7 @@ By: `W13-1`   Since: `16 September 2019`
 ## Introduction
 Sports Manager is an app designed for coaches and trainers. 
 ## User Interface
-![UI Example](https://github.com/Sfloydzy/main/blob/master/doc/images/UIMainMenu.png)
+![UI Example](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/images/Ui.png)
 
 ## Features 
 

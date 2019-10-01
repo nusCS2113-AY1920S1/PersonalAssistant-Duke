@@ -5,7 +5,7 @@ By: `W13-1`   Since: `16 September 2019`
 Sports Manager is an app designed for use by busy sports trainers in charge of multiple classes and many students. The app is optimized to keep track of the classes and students a trainer is in charge of. The schedule and lessons to be taught can be viewed by the trainer, and training plans can even be adjusted as per requirements. In addition, the planner helps the trainer track the progress of the students by making comparisons between their current standards to past records or personal best.
 
 ## User Interface
-![UI Example](https://github.com/Sfloydzy/main/blob/master/doc/images/UIMainMenu.png)
+![UI Example](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/images/Ui.png)
 
 ## Features 
 
@@ -29,54 +29,9 @@ The trainer is able to create general training regimes for his classes that are 
 The trainer is able to navigate across the different features of the app easily. He may also see the list of commands for each feature menu.
 
 
-## Usage
+## Site Map
+[About Us](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/AboutUs.adoc)
 
-**Command Summary**
+[User Document](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/UserDoc.adoc)
 
-* `e/` represents event
-
-* `c/` represents class
-
-* `d/` represents day
-
-* `loc/` represents location of class
-
-* `stu/` represents name of student
-
-* `det/` represents details of student
-
-* `|` represents a delimiter between every usage of the command
-
-
-
-**View**
-* `Schedule`: e/competition | d/monday c/beginner-swimming | d/monday c/beginner-swimming stu/Scott
-
-**Edit**
-* `Class`: edit d/monday c/beginner-swimming
-
-* `Student Details`: edit d/monday c/beginner-swimming stu/Scott det/now-engineering-student
-
-**Add**
-* `Class`: add d/monday c/beginner-swimming
-
-* `Location`: add d/monday c/beginner-swimming loc/swimming-pool
-
-* `Student`: add d/monday c/beginner-swimming stu/Scott
-
-* `Student Details`: add d/monday c/beginner-swimming stu/Scott det/computing-student
-
-**Delete**
-* `Class`: delete d/monday c/beginner-swimming
-
-* `Student`: delete d/monday c/beginner-swimming stu/Scott
-
-* `Student Details`: delete d/monday c/beginner-swimming stu/Scott det/no-longer-engineer
-
-**Menu**
-
-* `Home`: menu home
-
-* `List`: menu list
-
-* `Help`: menu help
+[Developer Guide](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/DeveloperGuide.adoc)
