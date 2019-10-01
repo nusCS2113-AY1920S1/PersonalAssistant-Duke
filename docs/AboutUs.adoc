@@ -20,7 +20,7 @@ image::images/nicholasliu97.png[width="150", align="left"]
 
 Role: Developer
 
-Responsibilities: Detail Design & Implementation
+Responsibilities: UI
 
 ### Tian Chang
 Role: Developer
