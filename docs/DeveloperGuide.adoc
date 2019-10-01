@@ -20,16 +20,16 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 
 *ModPlan*
 
-ModPlan is a module planning system that expands on NUSMODS to help NUS students to plan their modules for all four years of their bachelor’s degree. +
+ModPlan is a module planning system that expands on NUSMODS to help NUS students to plan their modules for all four years of their bachelor’s degree.  +
 ModPlan is currently only designed to work for Computer Engineering students, and the requisite modules for graduation. +
-ModPlan uses NUSMODS API to extract module data from the official NUS Registrar's Office, 
-This Developer Guide is meant for any software developer who wishes to contribute to or test the ModPlan project, and can find architecture, implementation methods and high-level design considerations within this file.
+ModPlan uses NUSMODS API to extract official module data from the NUS Registrar's Office. + 
+This Developer Guide is meant for any software developer who wishes to contribute to or test ModPlan, and can find architecture, implementation methods and high-level design considerations within this file.
 
 == Setting up
 
 **Prerequisites**
 
-* At least JDK version:  `11`
+* JDK version:  `11` or above
 * Recommended IDE: `IntelliJ IDEA`
 * Fork this repo to your GitHub account and clone the fork to your computer
 
@@ -46,3 +46,22 @@ This Developer Guide is meant for any software developer who wishes to contribut
 6. Rename the project if you want. Click `Next`.
 7. Ensure that your src folder is checked. Keep clicking `Next`.
 8. Click `Finish`.
+
+**Running the Project**
+***
+*If you are not using `gradle`, simply locate the `Duke.java` file under `PROJECT_DIRECTORY/src/main/java/Duke.java`, and run it in your IDE.
+
+*If you are using `gradle`, import the project as a `gradle project` using the `Import Gradle Project` function in IntelliJ, and run `Duke.java` from the Gradle toolbar
+***
+
+[appendix]
+== Product Scope
+
+[appendix]
+== User Stories
+
+[appendix]
+== Use Cases
+
+[appendix]
+== Glossary
