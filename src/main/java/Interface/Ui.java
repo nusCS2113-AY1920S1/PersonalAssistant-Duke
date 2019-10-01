@@ -9,8 +9,6 @@ import java.util.ArrayList;
  */
 public class Ui {
     private final String logo = " ____        _        \n"
-
-    private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
@@ -152,12 +150,12 @@ public class Ui {
             return "Reminder have been set for: " + TaskDescription + "." + " Start Date: " + startDate +
                     " End Date: " + endDate + "\n";
         }
-    public String showTentativeSchedule(TaskList tentativeDates){
+    }
+    public String showTentativeSchedule(TaskList tentativeDates) {
         String out = "Here is your tentative schedule. \n" ;
         for (int i = 0; i< tentativeDates.taskListSize(); i++){
             out += i+1 + "." + tentativeDates.taskToString(i ) + "\n";
         }
-
         return  out;
     }
 }
