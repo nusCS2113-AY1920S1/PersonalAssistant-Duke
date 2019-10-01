@@ -15,7 +15,7 @@ image::chengweixuan.png[width="150", align="left"]
 {empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Documentation + Intergration
 
 '''
 
@@ -24,7 +24,7 @@ image::therealnickcheong.png[width="150", align="left"]
 {empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Dev Ops + Data
+Responsibilities: Deliverables and deadlines + Scheduling and Tracking
 
 '''
 
@@ -33,7 +33,7 @@ image::chenchao19.png[width="150", align="left"]
 {empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Code Quality + Model
 
 '''
 
@@ -51,6 +51,6 @@ image::chianhaoplanks.png[width="150", align="left"]
 {empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage + Testing
 
 '''
