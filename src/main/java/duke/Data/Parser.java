@@ -7,6 +7,7 @@ import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -16,7 +17,10 @@ import java.util.List;
  * Parser is the controller for the string inputs received by the standard input.
  */
 public class Parser {
-
+    /**
+     * scheduler to organise all schedules
+     */
+    private Schedule schedule = new Schedule();
 
     /**
      * This function takes the standard input defined by the user and
@@ -163,18 +167,31 @@ public class Parser {
          * Command should be in form schedule view-day|month|year.
          */
         case "schedule":
-            Schedule schedule = new Schedule();
             if (word[1].equals("view-week")) {
                 System.out.println(schedule.getWeek());
             } else if (word[1].equals("view-month")) {
                 System.out.println(schedule.getMonth());
             } else if (word[1].equals("view-day")) {
                 try {
-                    System.out.println(schedule.getDay(Integer.parseInt(word[2])));
+                    System.out.println(schedule.getDay(word[2]));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.err.println("Enter a date please.");
                 }
+            } else if (word[1].equals("add")) {
+                try {
+                    String startTime = word[2] + " " + word[3];
+                    String endTime = word[4] + " " + word[5];
+                    String location = word[6];
+                    String className = word[7];
+                    System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
+                } catch (ParseException e) {
+                    System.err.println("Wrong format");
+                }
+            } else if (word[1].equals("delete")) {
+                String name = word[2];
+                System.out.println(schedule.delClass(name));
             }
+
             break;
 
         /**
