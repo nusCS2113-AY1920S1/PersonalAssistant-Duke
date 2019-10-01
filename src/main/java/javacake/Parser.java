@@ -30,7 +30,7 @@ public class Parser {
      * @throws DukeException Shows error when unknown command is inputted
      */
     public static Command parse(String input) throws DukeException {
-        if (input.equals("bye")) {
+        if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();

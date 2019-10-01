@@ -2,8 +2,6 @@ package javacake;
 
 import javacake.commands.Command;
 
-import java.io.IOException;
-
 public class Duke {
     private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
