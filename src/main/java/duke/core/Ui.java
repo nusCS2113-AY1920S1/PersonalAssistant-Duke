@@ -62,6 +62,16 @@ public class Ui {
         System.out.println("\t" + line);
     }
 
+    public void printScheduleArray(String command, ArrayList<String> inputs) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + command);
+        for (int i = 0; i < inputs.size(); i++) {
+            System.out.println("\t" + inputs.get(i));
+        }
+        System.out.println("\t____________________________________________________________");
+    }
+
+
     /**
      * Prints a single String in the required Duke format.
      * @param input the String to be printed.
@@ -116,6 +126,29 @@ public class Ui {
      * Prints a welcome message when Duke is started up.
      */
     public void welcome() {
+        String logo = "\n" + "          _____                    _____                    _____          \n"
+                + "         /\\    \\                  /\\    \\                  /\\    \\         \n"
+                + "        /::\\    \\                /::\\    \\                /::\\____\\        \n"
+                + "       /::::\\    \\               \\:::\\    \\              /::::|   |        \n"
+                + "      /::::::\\    \\               \\:::\\    \\            /:::::|   |        \n"
+                + "     /:::/\\:::\\    \\               \\:::\\    \\          /::::::|   |        \n"
+                + "    /:::/__\\:::\\    \\               \\:::\\    \\        /:::/|::|   |        \n"
+                + "   /::::\\   \\:::\\    \\              /::::\\    \\      /:::/ |::|   |        \n"
+                + "  /::::::\\   \\:::\\    \\    ____    /::::::\\    \\    /:::/  |::|___|______  \n"
+                + " /:::/\\:::\\   \\:::\\____\\  /\\   \\  /:::/\\:::\\    \\  /:::/   |::::::::\\    \\ \n"
+                + "/:::/  \\:::\\   \\:::|    |/::\\   \\/:::/  \\:::\\____\\/:::/    |:::::::::\\____\\\n"
+                + "\\::/   |::::\\  /:::|____|\\:::\\  /:::/    \\::/    /\\::/    / ~~~~~/:::/    /\n"
+                + " \\/____|:::::\\/:::/    /  \\:::\\/:::/    / \\/____/  \\/____/      /:::/    / \n"
+                + "       |:::::::::/    /    \\::::::/    /                       /:::/    /  \n"
+                + "       |::|\\::::/    /      \\::::/____/                       /:::/    /   \n"
+                + "       |::| \\::/____/        \\:::\\    \\                      /:::/    /    \n"
+                + "       |::|  ~|               \\:::\\    \\                    /:::/    /     \n"
+                + "       |::|   |                \\:::\\    \\                  /:::/    /      \n"
+                + "       \\::|   |                 \\:::\\____\\                /:::/    /       \n"
+                + "        \\:|   |                  \\::/    /                \\::/    /        \n"
+                + "         \\|___|                   \\/____/                  \\/____/         \n"
+                + "                                                      ";
+        System.out.println(logo);
         printArray(new ArrayList<String>(Arrays.asList("Hello. I am RIM.", "Resource & Inventory Management",
                 "The facilities and logistics management system.", "What can I do for you?")));
     }

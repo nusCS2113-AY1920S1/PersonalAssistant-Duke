@@ -21,7 +21,11 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+
     protected String after;
+    protected String day;
+    protected String time;
+
 
     /**
      * Constructor for a new basic Task.
@@ -93,11 +97,24 @@ public class Task {
         return isDone;
     }
 
+    public String getDayString() {
+        return day;
+    }
+
+    public String getTimeString() {
+        return time;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+
     /**
      * Converts the saved Date of the Task to a String format, and returns it.
      * @return a String version of the saved Date.
      */
-    public String getDate() {
+    public String getDateToPrint() {
         DateFormat dayFormat = new SimpleDateFormat("d");
         int day = Integer.parseInt(dayFormat.format(date)) % 10;
         String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
@@ -110,7 +127,7 @@ public class Task {
      * is converting existing Tasks to a text format to save into a file.
      * @return a String version of the saved Date.
      */
-    public String getDateToSave() {
+    public String getDateAsString() {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
         String stringDate = format.format(date);
         return stringDate;
@@ -155,7 +172,7 @@ public class Task {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = Calendar.getInstance().getTime(); //Declaration of a new Date object has default value of today's date
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((date.getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
-        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0)){
+        if ((daysLeftToDue > givenDaysToDue) || (daysLeftToDue < 0) || (daysLeftToDue == 0 && (date.getTime() - currentDate.getTime() < 0))) {
             return -1; //Not due yet or overdue
         } else { //daysLeftToDue <= givenDaysToDue
             return daysLeftToDue;

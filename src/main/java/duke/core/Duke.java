@@ -25,11 +25,11 @@ public class Duke {
      * @throws FileNotFoundException if file path is invalid
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
-    public Duke(String filePath) throws FileNotFoundException, ParseException {
+    public Duke(String filePath) throws DukeException, FileNotFoundException, ParseException {
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.getItems());
-        parser = new Parser();
         ui = new Ui();
+        tasks = new TaskList(storage.getItems(), ui);
+        parser = new Parser();
     }
 
     /**
@@ -40,13 +40,6 @@ public class Duke {
      * @throws IOException if there is an error in reading input or printing output
      */
     public void run() throws ParseException, IOException {
-        int daysDue = 4;
-        if ((tasks.searchItemsDue(daysDue).isEmpty())) {
-            ui.print("No tasks due today!");
-        } else {
-            ui.printTaskArray("REMINDER--The following deadlines below are due soon:", tasks.searchItemsDue(daysDue));
-        }
-
         Boolean toExit = false;
         while (!toExit) {
             try {
@@ -68,30 +61,6 @@ public class Duke {
      * @throws DukeException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, DukeException {
-        String logo = "\n" +
-                "          _____                    _____                    _____          \n" +
-                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
-                "        /::\\    \\                /::\\    \\                /::\\____\\        \n" +
-                "       /::::\\    \\               \\:::\\    \\              /::::|   |        \n" +
-                "      /::::::\\    \\               \\:::\\    \\            /:::::|   |        \n" +
-                "     /:::/\\:::\\    \\               \\:::\\    \\          /::::::|   |        \n" +
-                "    /:::/__\\:::\\    \\               \\:::\\    \\        /:::/|::|   |        \n" +
-                "   /::::\\   \\:::\\    \\              /::::\\    \\      /:::/ |::|   |        \n" +
-                "  /::::::\\   \\:::\\    \\    ____    /::::::\\    \\    /:::/  |::|___|______  \n" +
-                " /:::/\\:::\\   \\:::\\____\\  /\\   \\  /:::/\\:::\\    \\  /:::/   |::::::::\\    \\ \n" +
-                "/:::/  \\:::\\   \\:::|    |/::\\   \\/:::/  \\:::\\____\\/:::/    |:::::::::\\____\\\n" +
-                "\\::/   |::::\\  /:::|____|\\:::\\  /:::/    \\::/    /\\::/    / ~~~~~/:::/    /\n" +
-                " \\/____|:::::\\/:::/    /  \\:::\\/:::/    / \\/____/  \\/____/      /:::/    / \n" +
-                "       |:::::::::/    /    \\::::::/    /                       /:::/    /  \n" +
-                "       |::|\\::::/    /      \\::::/____/                       /:::/    /   \n" +
-                "       |::| \\::/____/        \\:::\\    \\                      /:::/    /    \n" +
-                "       |::|  ~|               \\:::\\    \\                    /:::/    /     \n" +
-                "       |::|   |                \\:::\\    \\                  /:::/    /      \n" +
-                "       \\::|   |                 \\:::\\____\\                /:::/    /       \n" +
-                "        \\:|   |                  \\::/    /                \\::/    /        \n" +
-                "         \\|___|                   \\/____/                  \\/____/         \n" +
-                "                                                      ";
-        System.out.println(logo);
         new Duke("data/duke.txt").run();
     }
 
