@@ -27,7 +27,7 @@ public class DeleteOneCommand extends Command {
 			shows.remove(showLocalDate, showToDelete);
 			message.append(String.format("Noted. The show <%s> scheduled on <%s> has been removed.\n", showName, showDate));
 		} else {
-			message.append(String.format("Unable to find show called <%s> schedule on <%s>\n", showName, showDate));
+			message.append(String.format("Unable to find show called <%s> scheduled on <%s>.\n", showName, showDate));
 		}
 		ui.setMessage(message.toString());
 	}

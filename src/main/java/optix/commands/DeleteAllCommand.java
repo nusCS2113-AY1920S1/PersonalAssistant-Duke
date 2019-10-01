@@ -29,7 +29,7 @@ public class DeleteAllCommand extends Command {
             ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
             for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
                 if (entry.getValue().hasSameName(show.trim())) {
-                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().toString();
+                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().getShowName();
                     entryArrayList.add(entry);
                     deletedShows.add(showDescription);
                     isFound = true;
@@ -45,7 +45,7 @@ public class DeleteAllCommand extends Command {
             }
         }
         if (!deletedShows.isEmpty()) {
-            message.append("Noted. These are the deleted entries.\n");
+            message.append("Noted. These are the deleted entries:\n");
             for (String infoStrings: deletedShows) {
                 message.append(infoStrings).append('\n');
             }
