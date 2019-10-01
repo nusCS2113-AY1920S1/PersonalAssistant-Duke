@@ -15,7 +15,6 @@ Offer a more time efficient, and fun platform to learn and practice data structu
 
 [appendix]
 == Extras
-
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -57,7 +56,71 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 === Use cases
-abc
+(For all use cases below, the System is `AlgoSenpai` and the Actor is the `User`, unless specified otherwise)
+
+[discrete]
+==== UC01: Play through a story
+MSS:
+
+. User launches the game
+. System starts and displays a welcome message
+. User requests for the list of available stories
+. System displays the list of stories
+. User chooses a story to play
+. System starts displaying questions from the story
+. System displays the next question
+. User enters this answer
+. Steps 7 - 8 repeat until the game is over
+. System shows the result and returns to the main menu
+
+Use case ends.
+
+[discrete]
+===== Extensions
+ - 8a. User enters an invalid command/answer.
+
+. System shows an error message and prompts the user to input a valid command
+. User inputs a new command
+. Steps 1&2 repeat until the user has entered a valid command
+. System resumes from step 7
+
+ - 8b. User enters a command (pause,undo,back etc)
+. System executes the command
+. System resumes from step 7
+
+[discrete]
+==== UC02: Get Help
+. User enters the `help` command
+. System shows a list of valid commands
+
+Use case ends.
+
+[discrete]
+==== UC03: See previous results
+. User enters the `history` command
+. System shows the user's previous results
+
+Use case ends.
+
+[discrete]
+==== UC04: Share the game
+. User enters the `share` command
+. System asks user to pick their choice of social media platform
+. User chooses one
+. System opens a browser window through which the user can share their results in the game on the social media platform.
+
+Use case ends.
+
+
+
+
+
+
+
+
 
 === Non-Functional Requirements
-abc
+ - Should work on any mainstream OS as long it has Java 11 or above installed.
+ - A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+ - The randomly generated questions should have a consistent level of difficulty
+
