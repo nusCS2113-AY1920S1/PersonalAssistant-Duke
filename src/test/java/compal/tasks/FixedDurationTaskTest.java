@@ -124,11 +124,11 @@ public class FixedDurationTaskTest {
     @Test
     void toStringTest() {
         assertEquals("[" + fixedDurationTask.getSymbol() + "]"
-                        + "[" + fixedDurationTask.getStatusIcon() + "] "
-                        + fixedDurationTask.getDescription()
-                        + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
-                        + fixedDurationTask.getDurationHour()
-                        + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
-                        + fixedDurationTask.getPriority(), fixedDurationTask.toString());
+                + "[" + fixedDurationTask.getStatusIcon() + "] "
+                + fixedDurationTask.getDescription()
+                + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
+                + fixedDurationTask.getDurationHour()
+                + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
+                + fixedDurationTask.getPriority(), fixedDurationTask.toString());
     }
 }

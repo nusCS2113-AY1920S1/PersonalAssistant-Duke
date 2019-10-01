@@ -1,6 +1,6 @@
 package compal.logic.parser;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.DeadlineCommand;
@@ -13,13 +13,12 @@ import compal.logic.commands.FixedDurationCommand;
 import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
 import compal.logic.commands.SetReminderCommand;
-import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
 import compal.logic.commands.ViewReminderCommand;
 import compal.tasks.TaskList;
 
-import static compal.compal.Messages.MESSAGE_INVALID_COMMAND;
-import static compal.compal.Messages.MESSAGE_MISSING_INPUT;
+import static compal.commons.Messages.MESSAGE_INVALID_COMMAND;
+import static compal.commons.Messages.MESSAGE_MISSING_INPUT;
 
 import java.text.ParseException;
 import java.util.Scanner;

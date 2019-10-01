@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -44,12 +44,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
 
             TabPane tabReference = (TabPane) ap.getChildren().get(2);
-            compal.ui.TabRef =tabReference;
+            compal.ui.tabWindow = tabReference;
 
             //Create MainWindow Pane
             VBox root = new VBox();
@@ -59,16 +60,18 @@ public class Main extends Application {
             Tab mainTab = new Tab();
             mainTab.setText("Main Window");
             mainTab.setContent(mainPane);
-            tabReference.getTabs().add(0,mainTab);
+            tabReference.getTabs().add(0, mainTab);
 
             //Create DailyCal Pane
             DailyCal dc = new DailyCal();
-            ScrollPane dailyPane = dc.init();
+            String datePattern = "dd/MM/yyyy";
+            compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
+            ScrollPane dailyPane = dc.init(compal.ui.dateState);
 
             Tab dailyTab = new Tab();
-            dailyTab.setText("Daily Window");
+            dailyTab.setText(compal.ui.dateState);
             dailyTab.setContent(dailyPane);
-            tabReference.getTabs().add(1,dailyTab);
+            tabReference.getTabs().add(1, dailyTab);
 
             compal.ui.mainWindow = mainPane; //gets a reference to the main display viewport
             compal.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
