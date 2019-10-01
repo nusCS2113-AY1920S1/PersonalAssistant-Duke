@@ -24,7 +24,7 @@ public class Duke {
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public Duke() {
+    public Duke() throws DukeException {
         ui = new Ui();
         ui.startUp();
         storage = new Storage();
@@ -47,7 +47,7 @@ public class Duke {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws DukeException {
         boolean isExit = false;
         boolean isExitRecur = false;
         while (!isExit) {
@@ -204,7 +204,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
 }
