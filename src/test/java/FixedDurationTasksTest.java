@@ -2,6 +2,7 @@ import Commands.Command;
 import Interface.Parser;
 import Interface.Storage;
 import Interface.Ui;
+import Tasks.Task;
 import Tasks.TaskList;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +17,9 @@ public class FixedDurationTasksTest {
     Ui ui = new Ui();
     Storage storage = new Storage(System.getProperty("user.dir") + "\\data\\duke.txt");
 
-   // @Test
-    //GUI testcase TBC after clarification
-    /*public void FindEarliestFreeTimesTestEmptyList() throws Exception {
+    @Test
+   // GUI testcase TBC after clarification
+    public void FindEarliestFreeTimesTestEmptyList() throws Exception {
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         Calendar calendar = Calendar.getInstance();
@@ -28,10 +29,12 @@ public class FixedDurationTasksTest {
         String startDate = format.format(date);
         String endDate = format.format(outDate);
         String expected ="You are available at: \n" + startDate + "until" + endDate;
-        TaskList temp = new TaskList();
+        TaskList todoList = new TaskList();
+        TaskList eventList = new TaskList();
+        TaskList deadlineList = new TaskList();
         Command c = Parser.parse("when is the nearest day in which I have a 2 hour free slot?");
-        String actual = c.execute(temp, ui, storage);
+        String actual = c.execute(todoList,eventList,deadlineList, ui, storage);
         actual = actual.substring(0,"You are available at: \n".length()) + startDate + "until" + endDate;
         assertEquals(expected, actual);
-    }*/
+    }
 }

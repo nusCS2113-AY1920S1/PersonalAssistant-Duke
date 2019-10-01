@@ -30,54 +30,53 @@ public class FixedDurationTask {
     private TextField periodTextField;
 
     private ArrayList< Pair<Date, Date>> freeTimes = new ArrayList<>();
-
     private String taskDescription;
-    private Pair<String, String> commandAndTaskDetails = new Pair<>(NO_FIELD,NO_FIELD);
-
-    private final ObservableList<String> taskTypeList = FXCollections.observableArrayList("[T] Todo", "[D] Deadline", "[E] Event");
+    private String taskType;
+    private String taskDetails = new String(NO_FIELD);
     private final ObservableList<String> freeTimesList = FXCollections.observableArrayList();
 
     /**
-     * This method initializes the display in the window of the GUI.
-     */
-    @FXML
-    public void initialize() {
-        taskTypeChoiceBox.setValue(taskTypeList.get(0));
-        taskTypeChoiceBox.setItems(taskTypeList);
-    }
-
-    /**
-     * This function gets data from previous window
-     * @param availableTimeSlot All free times found in  start and end pairs
+     * This function gets data from previous window.
+     * @param availableTimeSlot Contains all free times found in start and end pairs
      * @param task The task input by user
+     * @param type The task type based on the user's input
      */
-    public void getData(ArrayList<Pair<Date, Date>> availableTimeSlot, String task){
+    public void getData(ArrayList<Pair<Date, Date>> availableTimeSlot, String task, String type){
         freeTimes = availableTimeSlot;
         taskDescription = task;
+        taskType = type;
         taskDescriptionTextField.setText(taskDescription);
         populateFreeTimesList();
+        if(type.equals("event")){
+            taskTypeChoiceBox.getItems().add("[E] Event");
+            taskTypeChoiceBox.setValue("[E] Event");
+        } else if (type.equals("todo")) {
+            taskTypeChoiceBox.getItems().add("[T] Todo");
+            taskTypeChoiceBox.setValue("[T] Todo");
+        }
     }
 
-
     /**
-     * This function populates data into FreeTimeList ObservableList
+     * This function populates data into FreeTimeList ObservableList.
      */
     private void populateFreeTimesList(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         for(Pair<Date, Date> date: freeTimes){
-            String startEnd = "Start: " + dateFormat.format(date.getKey()) + "\nEnd: " + dateFormat.format(date.getValue());
+            String startEnd = "";
+            if(taskType.equals("event")) startEnd = "Start: " + dateTimeFormat.format(date.getKey()) + "\nEnd: " + dateTimeFormat.format(date.getValue());
+            else if(taskType.equals("todo")) startEnd = "Start: " + dateFormat.format(date.getKey()) + "\nEnd: " + dateFormat.format(date.getValue());
             freeTimesList.add(startEnd);
         }
         periodListView.setItems(freeTimesList);
     }
 
-
     /**
-     * This function returns data processed in current window to previous window
+     * This function returns data processed in current window to previous window.
      * @return The command and message to display to the ChatBot
      */
-    public Pair<String, String> returnData(){
-        return commandAndTaskDetails;
+    public String returnData(){
+        return taskDetails;
     }
 
     /**
@@ -87,7 +86,7 @@ public class FixedDurationTask {
      * @return The processed data command and task details in a pair
      * @throws ParseException e
      */
-    private Pair<String, String> sortByTaskType(String taskType, String date) throws ParseException {
+    private String sortByTaskType(String taskType, String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
 
@@ -100,25 +99,22 @@ public class FixedDurationTask {
 
         String typeTypeCommand = taskType.trim().substring(4).toLowerCase();
         if (taskType.substring(0,3).trim().equals("[T]")){
-            command = typeTypeCommand + " " + taskDescription + " "+ startDate + " until " + endDate;
-            details = taskType.trim().substring(0,3) + CROSS + " " + taskDescription + " " + startDate + " until " + endDate;
-        } else if (taskType.substring(0,3).trim().equals("[D]")){
-            command = typeTypeCommand + " " + taskDescription + " /by " + formatter.format(dateFormat.parse(startDate));
-            details = taskType.trim().substring(0,3) + CROSS + " " + taskDescription + " (by: " + startDate + " until " + endDate + ")";
+            //command = typeTypeCommand + " " + taskDescription + " "+ startDate + " until " + endDate;
+            taskDetails = taskType.trim().substring(0,3) + CROSS + " " + taskDescription + " " + startDate + " until " + endDate;
         } else if (taskType.substring(0,3).trim().equals("[E]")){
-            command = typeTypeCommand + " " + taskDescription + " /at " + formatter.format(dateFormat.parse(startDate));
-            details = taskType.trim().substring(0,3) + CROSS + " " + taskDescription + " (at: " + startDate + " until " + endDate + ")";
+            //command = typeTypeCommand + " " + taskDescription + " /at " + formatter.format(dateFormat.parse(startDate));
+            taskDetails = taskType.trim().substring(0,3) + CROSS + " " + taskDescription + " (at: " + startDate + " until " + endDate + ")";
         }
-        return new Pair<>(command, details);
+        return taskDetails;
     }
 
     /**
-     * This function checks if is selected parameter valid, then prompts the user to confirm
+     * This function checks if is selected parameter valid, then prompts the user to confirm.
      */
     @FXML
     private void handleAdd() throws ParseException {
         if(!periodTextField.getText().isEmpty()){
-            commandAndTaskDetails = sortByTaskType((taskTypeChoiceBox.getValue()), periodTextField.getText());
+            taskDetails = sortByTaskType((taskTypeChoiceBox.getValue()), periodTextField.getText());
             boolean isOk = AlertBox.display("Confirmation Dialog", "Add Task", "Press OK to add task.\nPress Cancel to change your options.", Alert.AlertType.CONFIRMATION);
             Stage stage = (Stage) addButton.getScene().getWindow();
             if (isOk) {
@@ -131,7 +127,7 @@ public class FixedDurationTask {
     }
 
     /**
-     * This function prompts the user to confirm cancel operation
+     * This function prompts the user to confirm cancel operation.
      */
     @FXML
     private void handleCancel() {
@@ -144,14 +140,13 @@ public class FixedDurationTask {
     }
 
     /**
-     * This function updates periodTextField when mouse clicked on ListView
+     * This function updates periodTextField when mouse clicked on ListView.
      */
     @FXML
     private void updatePeriod (){
         String temp = periodListView.getSelectionModel().getSelectedItem();
         int index = temp.indexOf("End:");
         String period = temp.substring(0,index) + " " + temp.substring(index);
-
         periodListView.refresh();
         periodListView.setItems(freeTimesList);
         periodTextField.setText(period);

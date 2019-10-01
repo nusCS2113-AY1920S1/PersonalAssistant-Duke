@@ -1,9 +1,9 @@
 package Tasks;
+
 /**
  * Represents a task called to-do.
  */
 public class Todo extends Task {
-
 
     @Override
     public String getType() {
@@ -16,7 +16,6 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
-
     }
 
     /**
