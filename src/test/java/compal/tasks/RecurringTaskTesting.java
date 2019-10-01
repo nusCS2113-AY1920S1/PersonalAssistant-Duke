@@ -15,13 +15,13 @@ public class RecurringTaskTesting {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String time = "1230";
+    private String symbol = "LAB";
     private Task.Priority priority = high;
     private RecurringTask recurringTask;
 
-
     @BeforeEach
     public void setup() {
-        recurringTask = new RecurringTask(description, high, date, time);
+        recurringTask = new RecurringTask(description, high, date, time, symbol);
     }
 
     @Test
