@@ -29,7 +29,7 @@ keyboard-based app to type faster, then this app is for you!
 . Move the `.jar` file to the folder which you want to use as *Dr. Duke*'s home.
 . Double click on the `.jar` file
 
-*Dr Duke* should open shortly.
+*Dr. Duke* should open shortly.
 
 == Usage
 
