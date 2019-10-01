@@ -14,6 +14,10 @@ Role: Developer
 Responsibilities: Detail Design & Implementation
 
 ### Nicholas Liu
+
+image::images/nicholasliu97.png[width="150", align="left"]
+{empty}[https://https://github.com/NicholasLiu97[github]]
+
 Role: Developer
 
 Responsibilities: Detail Design & Implementation
@@ -24,9 +28,10 @@ Role: Developer
 Responsibilities: Detail Design & Implementation
 
 ### Brian
-Role: Developer
 
 image::images/BrianLim.png[width ="150", align="left"]
 {empty}[https://https://github.com/CheeSengg[github]]
+
+Role: Developer
 
 Responsibilities: UI
