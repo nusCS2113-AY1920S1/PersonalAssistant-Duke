@@ -1,8 +1,11 @@
 package models.tasks;
 
+import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
-
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Deadline implements ITask, IDateSettable, Serializable {
     /**
@@ -11,19 +14,23 @@ public class Deadline implements ITask, IDateSettable, Serializable {
     private String description;
     private boolean isDone;
     private String initials;
-    private String dueDate;
+    private String dueDateTimeString;
+    private Date dueDateTimeObject;
 
-    /**\
+
+    /**
      * Constructor of Deadline data model.
-     *
-     * @param description : Description of new task
-     * @param dueDate : Due date of deadline
+     * @param description Description or name of deadline/
+     * @param dateTimeString Formatted due date of deadline, in String format
+     * @param dateTimeObject Due date of deadline, as a Date object
+     * @throws InvalidDateTimeException If user input date is not in correct format.
      */
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, String dateTimeString, Date dateTimeObject) throws InvalidDateTimeException {
         this.description = description;
         this.isDone = false;
         this.initials = "D";
-        this.dueDate = dueDate;
+        this.dueDateTimeString = dateTimeString;
+        this.dueDateTimeObject = dateTimeObject;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class Deadline implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDescription() {
-        return this.description + " (by: " + this.dueDate + ")";
+        return this.description + " (by: " + this.dueDateTimeString + ")";
     }
 
     @Override
@@ -48,11 +55,15 @@ public class Deadline implements ITask, IDateSettable, Serializable {
 
     @Override
     public String getDateTime() {
-        return this.dueDate;
+        return this.dueDateTimeString;
     }
 
     @Override
+    public Date getDateTimeObject() {
+        return this.dueDateTimeObject;
+    }
+
     public void setDateTime(String newDueDate) {
-        this.dueDate = newDueDate;
+        this.dueDateTimeString = newDueDate;
     }
 }

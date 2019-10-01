@@ -42,7 +42,11 @@ public class CLIView {
 
         while (true) {
             String command = sc.nextLine();
-            consoleInputController.onCommandReceived(command);
+            try {
+                consoleInputController.onCommandReceived(command);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -191,7 +195,9 @@ public class CLIView {
      */
     public void listSchedule(TaskList taskList, String input) throws ParseException {
         // Correct format as 2 December 2019 6 PM
-        String tempDate = input.substring(9);
+        Scanner sc = new Scanner(input);
+        String dummy = sc.next();
+        String tempDate = sc.nextLine();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = formatter.parse(tempDate);
         String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);
@@ -213,6 +219,28 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
+    /**
+     * Prints tasks sorted by deadline/event time with free time slots in between.
+     * @param taskList Current list of tasks.
+     * @param input The full command by the user.
+     * @throws ParseException parsing error if date and time are not in correct format.
+     */
+    public void findFreeSlots(TaskList taskList, String input) throws ParseException {
+        System.out.println(horiLine);
+        Scanner sc = new Scanner(input);
+        String tempDate = sc.next();
+        if (sc.hasNext()) {
+            tempDate = sc.nextLine();
+        } else {
+            tempDate = "";
+        }
+
+        ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
+        System.out.println("Here are the free time slots you have between your tasks:\n");
+        for (int i = 0; i < freeTimeSlots.size(); i++) {
+            System.out.println(freeTimeSlots.get(i));
+        }
+    }
 
     /**
      * Method that is called when user wishes to reschedule a task.

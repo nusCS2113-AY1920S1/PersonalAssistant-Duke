@@ -1,11 +1,15 @@
 package controllers;
 
 import exceptions.DukeException;
+import exceptions.InvalidInputException;
+import java.util.Scanner;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
-import models.tasks.IRecurring;
+
 import models.commands.RescheduleCommand;
+import models.tasks.IRecurring;
 import models.tasks.ITask;
+import models.tasks.PeriodTask;
 import models.tasks.Recurring;
 import models.tasks.TaskList;
 import views.CLIView;
@@ -21,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ConsoleInputController implements IViewController {
@@ -29,6 +32,7 @@ public class ConsoleInputController implements IViewController {
     private CLIView consoleView;
     private TaskFactory taskFactory;
     private RecurringFactory recurringFactory;
+    private PeriodTaskFactory periodTaskFactory;
     private TaskList taskList;
     private String filePath = "src/main/saves/savefile.txt";
 
@@ -41,6 +45,7 @@ public class ConsoleInputController implements IViewController {
         this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
         this.recurringFactory = new RecurringFactory();
+        this.periodTaskFactory = new PeriodTaskFactory();
     }
 
     private void checkRecurring() {
@@ -99,40 +104,57 @@ public class ConsoleInputController implements IViewController {
      * @param input : Input typed by user into CLI
      */
     @Override
-    public void onCommandReceived(String input) {
+    public void onCommandReceived(String input) throws DukeException {
         checkRecurring();
+        Scanner scanner = new Scanner(input);
+        String command = scanner.next();
 
-        if (input.equals("bye")) {
+        switch (command) {
+        case "bye":
             consoleView.end();
-        } else if (input.equals("list")) {
+            break;
+        case "list":
             consoleView.printAllTasks(taskList);
-        } else if (input.contains("done")) {
+            break;
+        case "done":
             DoneCommand doneCommand = new DoneCommand(input);
             consoleView.markDone(taskList, doneCommand);
             saveData();
-        } else if (input.contains("delete")) {
+            break;
+        case "delete":
             DeleteCommand deleteCommand = new DeleteCommand(input);
             consoleView.deleteTask(taskList, deleteCommand);
             saveData();
-        } else if (input.contains("find")) {
+            break;
+        case "find":
             try {
                 consoleView.findTask(taskList, input);
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.contains("remind")) {
+            break;
+        case "remind":
             try {
                 consoleView.remindTask(taskList, input);
             } catch (ParseException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() >= 9 && input.substring(0,9).equals("schedule ")) {
+            break;
+        case "schedule":
             try {
                 consoleView.listSchedule(taskList, input);
             } catch (ParseException e) {
-                System.out.println("error in scheduling");
+                System.out.println("Error in scheduling");
             }
-        } else if (input.contains("reschedule")) {
+            break;
+        case "free":
+            try {
+                consoleView.findFreeSlots(taskList, input);
+            } catch (ParseException e) {
+                System.out.print("Wrong date time input format");
+            }
+            break;
+        case "reschedule":
             try {
                 RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
                 consoleView.rescheduleTask(taskList, rescheduleCommand);
@@ -140,7 +162,8 @@ public class ConsoleInputController implements IViewController {
             } catch (ArrayIndexOutOfBoundsException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else if (input.length() >= 10 && input.substring(0, 10).equals("recurring ")) {
+            break;
+        case "recurring":
             try {
                 Recurring newRecurringTask = recurringFactory.createTask(input);
                 boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
@@ -149,7 +172,20 @@ public class ConsoleInputController implements IViewController {
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
-        } else {
+            break;
+        case "period":
+            try {
+                PeriodTask newPeriodTask = periodTaskFactory.createTask(input);
+                boolean anomaly = taskList.addToList(newPeriodTask);
+                consoleView.addMessage(newPeriodTask, taskList, anomaly);
+                saveData();
+            } catch (DukeException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+            break;
+        case "event":
+        case "todo":
+        case "deadline":
             try {
                 ITask newTask = taskFactory.createTask(input);
                 boolean anomaly = taskList.addToList(newTask);
@@ -158,6 +194,9 @@ public class ConsoleInputController implements IViewController {
             } catch (DukeException newException) {
                 consoleView.invalidCommandMessage(newException);
             }
+            break;
+        default:
+            throw new InvalidInputException(input);
         }
     }
     // TODO refactor saving data and reading data to repository/database

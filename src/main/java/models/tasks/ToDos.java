@@ -1,6 +1,7 @@
 package models.tasks;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ToDos implements ITask, Serializable {
     /**
@@ -65,6 +66,11 @@ public class ToDos implements ITask, Serializable {
     }
 
     @Override
+    public Date getDateTimeObject() {
+        return null;
+    }
+
     public void setDateTime(String newDateTime) {
+
     }
 }
