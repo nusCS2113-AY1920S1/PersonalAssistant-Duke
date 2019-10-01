@@ -58,4 +58,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 === Use Cases
+
+For all use cases, the System is Duke Manager (DM) and the Actor is Student unless otherwise specified.
+
+[discrete]
+=== Use Case: Show command tutorial
+
+*MSS*
+
+1.  Student launches Duke Manager.
+2.  DM welcomes student.
+3.  Student requests to show tutorial on commands.
+4.  DM shows the command tutorial as well as the format of the commands.
+5.  Student enters command to exit.
+6.  DM bids student farewell.
++
+Use case ends.
+
 === Non Functional Requirements
