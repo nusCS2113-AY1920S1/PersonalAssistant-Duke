@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class User {
-    private ArrayList<tuple> weight = new ArrayList();
+    private ArrayList<Tuple> weight = new ArrayList();
     private int height = 0;
     private int age;
     private Gender sex;
@@ -99,7 +99,7 @@ public class User {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendarDate.getTime());
-        this.weight.add(new tuple(currentDate, weight));
+        this.weight.add(new Tuple(currentDate, weight));
     }
 
     public void setWeight(int weight, String date) throws DukeException {
@@ -111,7 +111,7 @@ public class User {
             throw new DukeException(e.getMessage());
         }
         String currentDate = dateFormat.format(temp.getTime());
-        this.weight.add(new tuple(currentDate, weight));
+        this.weight.add(new Tuple(currentDate, weight));
     }
 
     public void setHeight(int height) {
@@ -146,7 +146,7 @@ public class User {
         return this.weight.get(this.weight.size() - 1).weight;
     }
 
-    public ArrayList<tuple> getAllWeight() {
+    public ArrayList<Tuple> getAllWeight() {
         return this.weight;
     }
 

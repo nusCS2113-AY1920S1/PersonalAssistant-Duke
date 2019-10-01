@@ -13,7 +13,7 @@ import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
 import duke.user.Gender;
-import duke.user.tuple;
+import duke.user.Tuple;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
@@ -174,7 +174,7 @@ public class Storage {
         } else {
             toWrite += "F";
         }
-        ArrayList<tuple> allWeight = user.getAllWeight();
+        ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";
             String date = allWeight.get(i).date;
