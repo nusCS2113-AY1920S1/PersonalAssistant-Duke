@@ -362,3 +362,12 @@ e.g. `colorcode 1 #008000`
 
 * *Bye*: `bye` 
 
+* *Estimate*: `estimate [_coming soon in v2.0_]` +
+e.g. `estimate 1 48` 
+
+* *Range*: `range [_coming soon in v2.0_]` +
+e.g. `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` 
+
+* *ViewDual*: `viewDual [_coming soon in v2.0_]`
+
+* *Export*: `export [_coming soon in v2.0_]`
