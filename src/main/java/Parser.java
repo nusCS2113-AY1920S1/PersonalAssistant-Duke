@@ -45,6 +45,10 @@ public class Parser {
             return new FixedDurationCommand(input, splitStr);
         case "findfree" :
             return new FindFreeTimesCommand(splitStr);
+        case "dowithin":
+            return new DoWithinPeriodCommand(input, splitStr);
+
+
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
