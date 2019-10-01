@@ -339,6 +339,25 @@ by the end of the month? Use the `goal` command!
 * Dates should be entered in the following format: day/month/year.
 ====
 
+==== Updating personal info: `update`
+
+Format: `update [/reset] [/TAG]<VALUE>...`
+
+Accidentally entered the wrong personal information during setup, or simply wish to update your body weight at the end of each date
+for tracking purposes? By using the `update` command, along with the respective tags, you can easily change the information stored
+on the application. A reset tag can also be used reset all of your tracked progress in the app so far.
+
+Examples:
+
+* Tags you can use
+** `/name` `/age` `/weight` `/gender`
+* You want to update your body weight for the day to 50 kg:
+** `update /weight 50`
+* You want to update your body weight and age to be 50 kg and 20 respectively:
+** `update /weight 50 /age 50`
+* You want to reset your personal information to a clean slate:
+** `update /reset`
+
 === Data analysis commands
 ==== Displaying nutrition track record: `stats`
 
@@ -375,6 +394,8 @@ work off those extra calories, keeping you on track to your goal.
 === Enable users to add their own custom exercises
 
 === Integrated database of default food items
+
+=== Food items can be tagged to location. GPS tracking then allows the application to suggest meals based on proximity
 
 == Frequently Asked Questions
 *Q: How do I save my data?*
