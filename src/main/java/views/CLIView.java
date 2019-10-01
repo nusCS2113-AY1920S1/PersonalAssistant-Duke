@@ -263,6 +263,10 @@ public class CLIView {
         System.out.println(horiLine);
     }
 
+    /**
+     * Method called when users wishes to view all Projects that are currently created or stored.
+     * @param allProjects List of Projects returned to View model by the Controller from the Repository
+     */
     public void viewAllProjects(ArrayList<IProject> allProjects) {
         System.out.println(horiLine);
         System.out.println("\tHere are all the Projects you are managing:");
