@@ -1,17 +1,19 @@
 package Model_Classes;
 
-public class FixedDuration extends Task {
-    private String duration;
+import java.util.Date;
+
+public class FixedDuration extends Event {
+    private int duration;
+    private Date at;
 
 
-    public FixedDuration(String name, String duration) {
-        super(name);
+    public FixedDuration(String description, Date at, int duration) {
+        super(description, at);
         this.duration = duration;
     }
 
 
     @Override
     public String toString() {
-        return "[TT] " + super.toString() + " (done in: " + duration + " seconds )";
-    }
+        return super.toString() + " (done in: " + duration + " seconds )"; }
 }
