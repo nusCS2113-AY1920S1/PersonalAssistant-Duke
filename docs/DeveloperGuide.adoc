@@ -1,4 +1,4 @@
-ModPlanner - Developer Guide
+= ModPlan v1.1 - Developer's Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -6,8 +6,8 @@ ModPlanner - Developer Guide
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:experimental:
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
