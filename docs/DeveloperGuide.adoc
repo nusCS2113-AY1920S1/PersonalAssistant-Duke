@@ -1,0 +1,48 @@
+ModPlanner - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-1/main
+
+By: `AY1920S1-CS2113T-F10-1`      Project Started: `Aug 2019`
+
+== Introduction
+
+*ModPlan*
+
+ModPlan is a module planning system that expands on NUSMODS to help NUS students to plan their modules for all four years of their bachelor’s degree. +
+ModPlan is currently only designed to work for Computer Engineering students, and the requisite modules for graduation. +
+ModPlan uses NUSMODS API to extract module data from the official NUS Registrar's Office, 
+This Developer Guide is meant for any software developer who wishes to contribute to or test the ModPlan project, and can find architecture, implementation methods and high-level design considerations within this file.
+
+== Setting up
+
+**Prerequisites**
+
+* At least JDK version:  `11`
+* Recommended IDE: `IntelliJ IDEA`
+* Fork this repo to your GitHub account and clone the fork to your computer
+
+**Importing the project into IntelliJ**
+
+1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+2. Set up the correct JDK version.
+   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
+   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
+   * Click `OK`.
+3. Click `Import Project`.
+4. Locate the project directory and click `OK`.
+5. Select `Create project from existing sources` and click `Next`.
+6. Rename the project if you want. Click `Next`.
+7. Ensure that your src folder is checked. Keep clicking `Next`.
+8. Click `Finish`.
