@@ -3,9 +3,11 @@ import Commands.*;
 import JavaFx.AlertBox;
 import Tasks.*;
 import javafx.scene.control.Alert;
+
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -137,7 +139,7 @@ public class Parser {
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
                             "For example: deadline return book /by 2/12/2019 1800");
                 }
-            }  else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
+            } else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
                 try {
                     String duration = fullCommand;
                     String type = "event";
@@ -189,7 +191,8 @@ public class Parser {
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
                             "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
-            } else if (fullCommand.trim().contains("(needs ") && (fullCommand.trim().endsWith(" days)") | fullCommand.trim().endsWith(" hours)"))) {
+            } else if (!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
+                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")) {
                 try{
                     int index;
                     String type;
@@ -263,9 +266,18 @@ public class Parser {
                         dateString.add(dateFormat.format(date));
                         startTimeString.add(timeFormat.format(startTime));
                         endTimeString.add(timeFormat.format(endTime));
-            else {
+
+                    }
+                    return new TentativeSchedulingCommand(arr[0].trim(), dateString, startTimeString, endTimeString);
+                }catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please key in the format as follows:\n" +
+                            "Tentative Schedule name_of_event /at dd/MM/yyyy from HHmm to HHmm /at dd/MM/yyyy from HHmm to HHmm ... \n" +
+                            "For example: event project meeting /at 1/1/2020 from 1500 to 1600 /at 1/2/2020 from 1500 to 1600\n ");
+                }
+            } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+
         } catch (StringIndexOutOfBoundsException | FileNotFoundException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
