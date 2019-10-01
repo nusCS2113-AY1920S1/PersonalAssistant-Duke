@@ -17,7 +17,7 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
     - [4.1.2. Listing all Tasks: `list`](/docs/UserGuide.md#412-listing-all-tasks-list)
     - [4.1.3. Deleting a Task: `delete`](/docs/UserGuide.md#413-deleting-a-task-delete)
     - [4.1.4. Completing a Task: `done`](/docs/UserGuide.md#414-completing-a-task-done)
-    - [4.1.5. Deleting a Task: `delete`](/docs/UserGuide.md#415-deleting-a-task-delete)
+    - [4.1.5. Finding a Task: `find`](/docs/UserGuide.md#415-finding-a-task-find)
     - [4.1.6. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#416-viewing-tasks-on-a-specified-date-view)
     - [4.1.7. View Reminder: `view-reminder`](/docs/UserGuide.md#417-view-reminder-view-reminder)
     - [4.1.8. Set Reminder: `set-reminder`](/docs/UserGuide.md#418-set-reminder-set-reminder)
@@ -92,17 +92,56 @@ Icon                 | What does it mean?
 This is the end of the **Quick Start** guide. Please refer to [4. Features](/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
 
 ## 4. Features 
+**Command format**  
+   * Words in UPPER_CASE are the parameters to be supplied by the user. E.g. in `delete TASK_INDEX`, `TASK_INDEX` is the index number of the task which the user wants to delete
 ### 4.1. General Commands
 
 #### 4.1.1. Viewing help: `help`
+Can't remember so many tedious commands? Enter `help` in the **command box**, you can see a list of all commands available.
 #### 4.1.2. Listing all Tasks: `list`
+To see all the tasks stored in **COMPal**, simply enter `list` . All tasks stored will be displayed.  
+
+<img src="images/list.png" alt="list command" width="800"/>
+
+:information_source: | The `TASK_INDEX` of a task could be found by `list`.          
+---------------------|-----------------
 #### 4.1.3. Deleting a Task: `delete`
+Don't like any task? Enter `delete TASK_INDEX` in the **command box** will delete the task you want to delete.
+* `TASK_INDEX` is the index shown when you do `list`.
+
+<img src="images/delete.png" alt="delete command" width="800"/>
+
 #### 4.1.4. Completing a Task: `done`
-#### 4.1.5. Deleting a Task: `delete`
+After Finishing a task, you may want to mark it as done. Enter `done TASK_INDEX` in the **command box** will mark the task as done.
+* `TASK_INDEX` is the index shown when you do `list`.
+
+<img src="images/done.png" alt="done command" width="800"/>
+
+#### 4.1.5. Finding a Task: `find`
+Want to search for the task by it's key word? Enter `find KEY_WORD` in the **command box** will give you all the tasks including the key word.
+* `KEY_WORD` is the key word string you want to search for, the string should not contain any space.
+
+<img src="images/find.png" alt="find command" width="800"/>
+
 #### 4.1.6. Viewing Tasks on a Specified Date: `view`
+Want to check if you are going to have a busy day? Enter `view /date DATE` in the **command box** will give you all the tasks on that day.
+* `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
+
+<img src="images/ViewDate.png" alt="view date command" width="800"/>
+
 #### 4.1.7. View Reminder: `view-reminder`
+Don't know what is inside this week's reminder list? Enter `View-reminder` in the **command box** to see all reminders in this week.
+
+<img src="images/View-Reminder.png" alt="view-reminder command" width="800"/>
+
 #### 4.1.8. Set Reminder: `set-reminder`
+Need a reminder for a task? Enter `set-reminder TASK_INDEX` in the **command box** will set a reminder for that task.
+* `TASK_INDEX` is the index shown when you do `list`.
+
+<img src="images/set-reminder.png" alt="set-reminder command" width="800"/>
+
 #### 4.1.9. Exiting **COMPal**: `bye`
+Bye-Bye! Enter `bye` in the **command box** will quit **COMPal**. Have a nice day! :blush:
 
 ### 4.2. Detailed Task Management Commands
 In this section, you will be taken through the various types of tasks that **COMPal** can track for you. 
