@@ -1,0 +1,19 @@
+= DUKE Manager - Developer Guide
+:site-section: UserGuide
+:toc:
+:toclevels: 4 
+:toc-title: Table of Contents
+:toc-placement: preamble
+:sectnums:
+:hardbreaks:
+:repoURL: https://github.com/AY1920S1-CS2113-T13-4/main
+
+By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
+
+== Setting up
+== User Profile 
+== Value Proposition
+== Appendix A
+=== User Guide
+=== Use Cases
+=== Non Functional Requirements
