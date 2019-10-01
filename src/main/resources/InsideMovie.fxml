@@ -71,9 +71,20 @@
                 <VBox fx:id="vBox1" minHeight="95.0" prefHeight="99.0" prefWidth="125.0">
                     <children>
                         <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
-                        <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: -" />
-                        <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: -" />
-                        <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Language" />
+                        <HBox prefHeight="8.0" prefWidth="125.0">
+                            <children>
+                                <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                                <Label fx:id="userNameLabel" text="Label" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="13.0" prefWidth="125.0">
+                            <children>
+                                <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
+                                <Label fx:id="userAgeLabel" text="Label" />
+                            </children>
+                        </HBox>
+                        <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: " />
+                        <ListView fx:id="genreList" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </VBox>
                 <VBox fx:id="vBox2" prefHeight="200.0" prefWidth="100.0">

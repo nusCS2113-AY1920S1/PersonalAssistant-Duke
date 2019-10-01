@@ -1,3 +1,6 @@
+import EPstorage.Commands;
+import EPstorage.ProfileStorage;
+import EPstorage.UserProfile;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,15 +44,24 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     private MovieInfoObject mMovie;
 
+    @FXML Label userNameLabel;
+    @FXML Label userAgeLabel;
+    //    @FXML ListView genreList;
+    private ProfileStorage profileStorage;
+    private UserProfile userProfile;
+
     // Set the movie for this controller
-    public void setMovie(MovieInfoObject movie)
-    {
+    public void setMovie(MovieInfoObject movie) throws IOException {
         mMovie = movie;
         initialize();
     }
 
-    @FXML public void initialize() {
+    @FXML public void initialize() throws IOException {
 
+        profileStorage = new ProfileStorage();
+        userProfile = profileStorage.load();
+        userNameLabel.setText(userProfile.getUserName());
+        userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
 
         //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set
@@ -120,19 +132,44 @@ public class MovieInfoController extends Controller implements RequestListener {
         t.start();
     }
 
-    @FXML private void searchButtonClicked() {
-        if (mSearchTextField.getText().equals("show current movie")) {
+    private void clearText(TextField textField){
+        textField.setText("");
+    }
+
+    @FXML private void searchButtonClicked() throws IOException {
+        String userInput = mSearchTextField.getText();
+        //for setting up profile preferences
+        String[] tokens = userInput.split((" "), 3);
+        if (tokens.length == 3) {
+            Commands command = new Commands();
+            if (tokens[0].equals("set") && tokens[1].equals("name")) {
+                command.setName(tokens[2]);
+                clearText(mSearchTextField);
+                initialize();
+            } else if (tokens[0].equals("set") && tokens[1].equals("age")) {
+                command.setAge(tokens[2]);
+                clearText(mSearchTextField);
+                initialize();
+            } else if (tokens[0].equals("set") && tokens[1].equals("preference")) {
+                command.setPreference(tokens[2]);
+                clearText(mSearchTextField);
+                initialize();
+            }
+        }
+        //for searching movies
+        else if (userInput.equals("show current movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-        } else if (mSearchTextField.getText().equals("show upcoming movie")) {
+        } else if (userInput.equals("show upcoming movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-        } else if (mSearchTextField.getText().equals("show popular movie")) {
+        } else if (userInput.equals("show popular movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-        } else if (mSearchTextField.getText().equals("show current tv")) {
+        } else if (userInput.equals("show current tv")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-        } else if (!mSearchTextField.getText().isEmpty()) {
-            mMovieRequest.beginSearchRequest(mSearchTextField.getText());
+        } else if (!userInput.isEmpty()) {
+            mMovieRequest.beginSearchRequest(userInput);
         }
     }
+
 
     // Menu item events
     @FXML public void exitMenuItemClicked()

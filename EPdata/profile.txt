@@ -1,0 +1,6 @@
+//name
+ohohoh
+//age
+1
+//genre
+10749 , 878
