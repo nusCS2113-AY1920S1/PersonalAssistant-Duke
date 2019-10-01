@@ -79,7 +79,7 @@ public class Storage {
                         Pair<Date, Date> tempDate = new Pair<>(startDate, endDate);
                         dates.add(tempDate);
                     }
-                    t = new MultipleEvent(info[2], dates);
+                    t = new MultipleEvent(info[2], dates, info[4]);
                     break;
                 default:
                     break;
@@ -148,6 +148,10 @@ public class Storage {
                                 + ((Periods) t).getFrom() + " | " + ((Periods) t).getTo() + "\n");
                     }
                 } else if (t instanceof MultipleEvent) {
+                    String isChosen = "0";
+                    if (((MultipleEvent) t).getChosenStatus()) {
+                        isChosen = "1";
+                    }
                     if (t.getStatus()) {
                         String possibleDates = "";
                         for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
@@ -155,7 +159,7 @@ public class Storage {
                                     + simpleDateFormat.format(date.getValue()) + " /or ";
                         }
                         bufferedWriter.write("M | 1 | " + t.getDescription() + " | "
-                                + possibleDates + "\n");
+                                + possibleDates + "| " + isChosen + "\n");
                     } else {
                         String possibleDates = "";
                         for (Pair<Date, Date> date : ((MultipleEvent) t).getDates()) {
@@ -163,7 +167,7 @@ public class Storage {
                                     + " to " + simpleDateFormat.format(date.getValue()) + " /or ";
                         }
                         bufferedWriter.write("M | 0 | " + t.getDescription() + " | "
-                                + possibleDates + "\n");
+                                + possibleDates + "| " + isChosen + "\n");
                     }
                 }
             }

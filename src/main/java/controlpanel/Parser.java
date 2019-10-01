@@ -52,7 +52,7 @@ public class Parser {
             int serialNo = Integer.parseInt(temp);
             command = new DeleteCommand(serialNo);
         } else if (cmd.startsWith("reminders")) {
-            String keyword = cmd.split(" ")[0];
+            String keyword = cmd.split(" ")[1];
             command = new RemindersCommand(keyword);
         } else if (cmd.startsWith("schedule")) {
             command  = new ViewScheduleCommand(cmd);

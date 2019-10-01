@@ -26,6 +26,21 @@ public class MultipleEvent extends Task {
         simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
     }
 
+    public MultipleEvent(String description, ArrayList<Pair<Date, Date>> dates, String chosenStatus) {
+        super(description);
+        this.dates = dates;
+        //this.beenChosen = false;
+        super.type = "M";
+
+        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy HHmm");
+
+        if (chosenStatus.equals("1")) {
+            this.beenChosen = true;
+        } else {
+            this.beenChosen = false;
+        }
+    }
+
     @Override
     public String toString() {
         String possibleDates = "";
@@ -49,11 +64,23 @@ public class MultipleEvent extends Task {
         return beenChosen;
     }
 
+    public void setChosenStatusTrue(){
+        this.beenChosen = true;
+    }
+
     @Override
     public void chooseDate(int index) {
         Pair<Date, Date> temp =  getDate(index);
         dates.clear();
         dates.add(temp);
         beenChosen = true;
+    }
+
+    public Date getStartDateAt() {
+        return dates.get(0).getKey();
+    }
+
+    public Date getEndDateAt() {
+        return dates.get(0).getValue();
     }
 }

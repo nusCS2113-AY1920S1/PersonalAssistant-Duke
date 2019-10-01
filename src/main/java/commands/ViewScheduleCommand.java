@@ -2,11 +2,7 @@ package commands;
 
 import controlpanel.Storage;
 import controlpanel.Ui;
-import tasks.Deadline;
-import tasks.Events;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Periods;
+import tasks.*;
 
 
 import java.text.ParseException;
@@ -55,6 +51,13 @@ public class ViewScheduleCommand extends Command {
                 isToday = (startDate.after(startDay) && startDate.before(endDay))
                         || (endDate.after(startDay) && endDate.before(endDay))
                         || (startDay.after(startDate) && endDay.before(endDate));
+            } else if (t instanceof MultipleEvent) {
+                Date startDate = ((MultipleEvent) t).getStartDateAt();
+                Date endDate = ((MultipleEvent) t).getEndDateAt();
+                isToday = ((startDate.after(startDay) && startDate.before(endDay))
+                        || (endDate.after(startDay) && endDate.before(endDay))
+                        || (startDay.after(startDate) && endDay.before(endDate))
+                        && ((MultipleEvent) t).getChosenStatus());
             }
 
             if (isToday && !t.getStatus()) {
