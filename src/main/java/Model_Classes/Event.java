@@ -25,12 +25,6 @@ public class Event extends Task {
         this.at = at;
     }
 
-    public Event(String description, Date at, Date end) {
-        super(description);
-        this.at = at;
-        this.end = end;
-    }
-
     public Date checkDate() { return this.at; }
 
     /**
