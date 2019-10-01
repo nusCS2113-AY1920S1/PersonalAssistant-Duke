@@ -62,7 +62,7 @@ Format: `next`
 
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>> 
 
-#### `prev` - Display next page of Patients [[home-prev]]
+#### `prev` - Display previous page of Patients [[home-prev]]
 
 _Remove if we can have a scrolling display of Patients instead_
 
