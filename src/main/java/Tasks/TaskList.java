@@ -1,21 +1,17 @@
 package Tasks;
-//import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-//import java.time.*;
-//import org.joda.time.DateTime;
-//import org.joda.time.Days;
-//import org.joda.time.Hours;
-//import org.joda.time.Minutes;
-//import org.joda.time.Seconds;
 import Interface.DukeException;
+import javafx.util.Pair;
 import java.util.ArrayList;
 
 /**
  * To keep track of the list of task input by user.
  */
 public class TaskList {
+    private static final String NO_FIELD = new String ("void");
+
     private ArrayList<Task> list;
     private ArrayList<String> todoArrList = new ArrayList<>();
     private ArrayList<String> deadlineArrList = new ArrayList<>();
@@ -88,117 +84,146 @@ public class TaskList {
     }
 
     /**
-     * This method finds the tasks in the ArrayList that contains the keyword.
-     * @param key The keyword input by the user
-     * @return This returns a TaskList object containing all the tasks with the keyword
+     * This method generates a increased a dateTime given and a given duration and returns the new dateTime
+     * @param inDate The dateTime given
+     * @param duration The duration given
+     * @return The new dateTime after increasing the inDate
      */
-    public TaskList findTask(String key) {
-        TaskList temp = new TaskList();
-        for (Task task : list) {
-            if (task.getDescription().contains(key)) {
-                temp.addTask(task);
-            }
-        }
-        return temp;
+    public Date increaseDateTime(Date inDate, int duration){
+        Calendar c = Calendar.getInstance();
+        c.setTime(inDate);
+        c.add(Calendar.HOUR, duration);
+        Date outDate = c.getTime();
+
+        return outDate;
     }
 
     /**
-     * This method retrieves the earliest possible block period
-     * @param duration The period indicated by the user
-     * @return This returns a string in the format "datetime until datetime"
+     * This method sort and removes duplicated Dates of the list
+     * @param date The current datetime instance which locks the time
+     * @return A list of dates combining data from taskList
      * @throws ParseException
      */
-    public String findFreeTimes(String duration) throws ParseException {
-        int intDuration = Integer.parseInt(duration);
-        /* Method 1: Manual Calculations */
-        {
-            //Date pattern formats
-            SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    public Set<Date> sortAndRemoveDuplicatedDates(Date date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
 
-            Date date = new Date();
-            String strCurrent = dateFormat.format(date);
-            if (list.size() == 0) return (strCurrent + " for " + duration + "hours.");
+        Set<Date> dateTime = new HashSet<>();
+        dateTime.add(date);
 
-            Set<Date> dateTime = new HashSet<>();
-            dateTime.add(date);
-
-            for (Task task : list) {
+        for (Task task : list) {
+            if(!task.getDateTime().equals(NO_FIELD)) {
                 Date dateFromList = dateFormat.parse(task.getDateTime()); // string -> date
 
-                if (!task.getDateTime().equals("void") && (dateFromList.compareTo(date) > 0)) //check if date from list after current(getDateTime) date time
+                if (!task.getDateTime().equals(NO_FIELD) && (dateFromList.compareTo(date) > 0)) //check if date from list after current(getDateTime) date time
                     dateTime.add(dateFromList);
             }
-            //sorts set
-            Set<Date> sortedDateTime = new TreeSet<>(dateTime);
-
-            Iterator i = sortedDateTime.iterator();
-            i.next();
-            for (Date set1 : sortedDateTime) {
-                if (i.hasNext()) {
-                    Date set2 = (Date) (i.next());
-                    long diff = set2.getTime() - set1.getTime();
-
-                    //long diffSeconds = diff / 1000 % 60;
-                    //long diffMinutes = diff / (60 * 1000) % 60;
-                    long diffHours = diff / (60 * 60 * 1000) % 24;
-                    long diffDays = diff / (24 * 60 * 60 * 1000);
-
-                    if (diffDays > 0 || diffHours >= (long) intDuration)
-                        return (dateFormat.format(set1) + " for " + duration + "hours.");
-
-                }
-            }
-            return (dateFormat.format(((TreeSet<Date>) sortedDateTime).last()) + " for " + duration + "hours.");
         }
+        Set<Date> sortedDateTime = new TreeSet<>(dateTime);
+        return sortedDateTime;
     }
 
-        /* Method 2: Joda
-        {
-            //Date pattern formats
-            SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
 
-            Date date = new Date();
-            DateTime current = new DateTime(date);
-            DateTime currentPlusDuration = current.plusHours(intDuration);
-            String strCurrent = dateFormat.format(date);
-            String strCurrentPlusDuration = dateFormat.format(currentPlusDuration.toDate());
+    /**
+     * This method retrieves the earliest possible block period with the duration given.
+     * @param duration The period indicated by the user
+     * @return This returns a pair in the format datetime then datetime plus duration
+     * @throws ParseException
+     */
+    public Pair<Date, Date> findEarliestFreeTime (String duration) throws ParseException {
+        int intDuration = Integer.parseInt(duration);
 
-            if (list.size() == 0) return (strCurrent + " until " + strCurrentPlusDuration);
-            //removes duplicated values
-            Set<Date> dateTime = new HashSet<Date>();
-            dateTime.add(date);
+        //Date pattern formats
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        //SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
 
-            for (Task task : list) {
-                Date dateFromList = dateFormat.parse(task.getDateTime()); // string -> date
+        Date date = new Date();
+        if (list.size() == 0) return new Pair <Date, Date> (date, increaseDateTime(date, intDuration));
+        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList< Pair<Date, Date>>();
 
-                if (!task.getDateTime().equals("void") && dateFromList.compareTo(date) > 0) //check if date from list after current(getDateTime) date time
-                    dateTime.add(dateFromList);
-            }
-            //sorts set
-            Set<Date> sortedDateTime = new TreeSet<Date>(dateTime);
+        Set<Date> sortedDateTime = sortAndRemoveDuplicatedDates(date);
 
-            Iterator i = sortedDateTime.iterator();
-            i.next();
-            for (Date set : sortedDateTime) {
-                if (i.hasNext()) {
-                    DateTime dt1 = new DateTime((Date) i.next());
-                    DateTime dt2 = new DateTime(set);
-                    long diffHours = Hours.hoursBetween(dt2, dt1).getHours();
+        Iterator i = sortedDateTime.iterator();
+        i.next();
+        for (Date Date1 : sortedDateTime) {
+            if (i.hasNext()) {
+                Date Date2 = (Date) (i.next());
+                long diff = Date2.getTime() - Date1.getTime();
 
-                    if (diffHours >= (long) intDuration) {
-                        DateTime dt3 = dt2.plusHours(intDuration);
-                        return dateFormat.format(set) + " until " + dateFormat.format(dt3);
-                    }
+                //long diffSeconds = diff / 1000 % 60;
+                //long diffMinutes = diff / (60 * 1000) % 60;
+                long diffHours = diff / (60 * 60 * 1000) % 24;
+                long diffDays = diff / (24 * 60 * 60 * 1000);
+
+                if ((diffDays > 0 || diffHours >= (long) intDuration)) {
+                    Date2 = increaseDateTime(Date1, intDuration);
+                    return new Pair <Date,Date>(Date1, Date2);
                 }
             }
-            DateTime dt2 = new DateTime(((TreeSet<Date>) sortedDateTime).last());
-            DateTime dt3 = dt2.plusHours(intDuration);
+        }
+        if(availableTimeSlot.size() == 0) {
+            Date date1 = ((TreeSet<Date>) sortedDateTime).last();
+            Date date2 = increaseDateTime(date1, intDuration);
+            return new Pair<Date, Date> (date1, date2);
+        }
+        return new Pair<Date, Date> (date, increaseDateTime(date, intDuration));
+    }
 
-            return dateFormat.format(dt2.toDate()) + " until " + timeFormat.format(dt3.toDate());
-        }*/
+    /**
+     * This method retrieves the 5 earliest possible block period with the duration given
+     * @param duration The period indicated by the user
+     * @return This returns a ArrayList of pair in the format datetime then datetime plus duration
+     * @throws ParseException
+     */
+    public ArrayList <Pair<Date, Date>> findFreeTimes(String duration, int numOfTimeSlot) throws ParseException {
+        int intDuration = Integer.parseInt(duration);
+
+        //Date pattern formats
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        //SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+
+        Date date = new Date();
+        ArrayList< Pair<Date, Date>> availableTimeSlot = new ArrayList< Pair<Date, Date>>();
+        availableTimeSlot.add(new Pair <Date, Date> (date, increaseDateTime(date, intDuration)));
+        if (list.size() == 0) return availableTimeSlot;
+        availableTimeSlot = new ArrayList< Pair<Date, Date>>();
+
+        Set<Date> sortedDateTime = sortAndRemoveDuplicatedDates(date);
+
+        Iterator i = sortedDateTime.iterator();
+        i.next();
+        for (Date Date1 : sortedDateTime) {
+            if (i.hasNext()) {
+                Date Date2 = (Date) (i.next());
+                long diff = Date2.getTime() - Date1.getTime();
+
+                //long diffSeconds = diff / 1000 % 60;
+                //long diffMinutes = diff / (60 * 1000) % 60;
+                long diffHours = diff / (60 * 60 * 1000) % 24;
+                long diffDays = diff / (24 * 60 * 60 * 1000);
+
+                if ((diffDays > 0 || diffHours >= (long) intDuration) && numOfTimeSlot>0) {
+                    numOfTimeSlot--;
+                    Date2 = increaseDateTime(Date1, intDuration);
+
+                    //return (dateFormat.format(Date1) + " for " + duration + "hours.");
+                     availableTimeSlot.add(new Pair<Date, Date> (Date1, Date2));
+                }
+
+            }
+        }
+        if(availableTimeSlot.size() == 0) {
+            Date date1 = ((TreeSet<Date>) sortedDateTime).last();
+            Date date2 = increaseDateTime(date1, intDuration);
+            for(int k = 0; k < numOfTimeSlot; k++) {
+                availableTimeSlot.add(new Pair<Date, Date>(increaseDateTime(date1, k),increaseDateTime(date2, k)));
+            }
+        }
+
+        return availableTimeSlot;
+    }
+
         
     /**
      * This method sort the tasks according to their categories.
@@ -288,23 +313,20 @@ public class TaskList {
      * @return This returns the ArrayList
      * @throws DukeException On invalid input or when wrong input format is entered
      */
-    public ArrayList<Task> snoozeTask(int index, String dateString) throws DukeException {
+    public ArrayList<Task> snoozeTask(ArrayList<Task> list, int index, String dateString, String start, String end) throws DukeException {
         try {
-            TaskList temp1 = new TaskList();
-            for (Task task : list) {
-                temp1.addTask(task);
-            }
-            Task temp = temp1.getTask(index);
-            if (temp.toString().startsWith("[D]")) {
-                this.list.add(new Deadline(temp.getDescription(), dateString));
-                this.list.remove(index);
+            if (end == dateString) {
+                Task temp = list.get(index);
+                list.add(new Deadline(temp.getDescription(), dateString));
+                list.remove(index);
             } else {
-                this.list.add(new Event(temp.getDescription(), dateString));
-                this.list.remove(index);
+                Task temp = list.get(index);
+                list.add(new Event(temp.getDescription(), dateString, start, end));
+                list.remove(index);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(" OOPS!!! Please check that you only snoozed deadlines and events");
         }
-        return this.list;
+        return list;
     }
 }

@@ -1,5 +1,8 @@
 package Interface;
 import Tasks.*;
+
+import java.util.ArrayList;
+
 /**
  * Represents the user interface which displays the messages to
  * respond to the user based on the user's input.
@@ -33,9 +36,15 @@ public class Ui {
      * Displays the list message when user inputs list.
      */
     public String showList(TaskList list){
-        String listMessage = "Here are the tasks in your list:\n";
-        for (int i = 1; i <= list.taskListSize(); i++) {
-            listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
+        ArrayList<Task> temp = list.getList();
+        String listMessage;
+        if (temp.isEmpty()) {
+            listMessage = "There are no available tasks in your list.";
+        } else {
+            listMessage = "Here are the tasks in your list:\n";
+            for (int i = 1; i <= list.taskListSize(); i++) {
+                listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
+            }
         }
         return listMessage;
     }
@@ -128,8 +137,8 @@ public class Ui {
      * @param list The ArrayList
      * @return This returns the snooze message with the task and size of ArrayList after snoozing
      */
-    public String showSnooze(int index, int listSize, TaskList list) {
-        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.getTask(listSize-1) + "\n" +
+    public String showSnooze(int index, int listSize, ArrayList<Task> list) {
+        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 }
