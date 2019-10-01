@@ -1,4 +1,4 @@
-= OOF (Outstanding Organisation Friend) - Developer Guide
+﻿= OOF (Outstanding Organisation Friend) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -94,7 +94,7 @@ This will generate all resources required by the application and tests.
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-[cols="5%,5%,5%,10%,33%,42%"]
+[cols="5%,10%,10%,15%,30%,30%"]
 |===
 |*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
 |01|01|* * *|Computing Student|Add a task|Won’t forget the tasks I have to complete
