@@ -57,15 +57,6 @@ public class DoAfterTasksTest {
         assertEquals(date, doAfterTasks.getStringDate());
     }
 
-    @Test
-    void getDurationHour() {
-        assertNull(doAfterTasks.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertNull(doAfterTasks.getDurationMinute());
-    }
 
     @Test
     void hasReminder() {
@@ -86,12 +77,5 @@ public class DoAfterTasksTest {
     void markAsDoneTest() {
         doAfterTasks.markAsDone();
         assertEquals(true, doAfterTasks.isDone);
-    }
-
-    @Test
-    void toStringTest() {
-        assertEquals("[" + doAfterTasks.getSymbol() + "]" + "[" + doAfterTasks.getStatusIcon() + "] "
-                + doAfterTasks.getDescription() + " Date: " + doAfterTasks.getStringDate()
-                + " Priority: " + doAfterTasks.getPriority(), doAfterTasks.toString());
     }
 }

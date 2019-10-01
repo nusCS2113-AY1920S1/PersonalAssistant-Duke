@@ -13,26 +13,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FixedDurationTaskTest {
     private String description = "Test content";
     private String date = "01/10/2019";
-    private String time = "1230";
-    private int hour = 2;
-    private int minute = 25;
+    private String startTime = "1130";
+    private String endTime = "1230";
     private Task.Priority priority = high;
-    private FixedDurationTask fixedDurationTask;
-
+    private FixedDurationTask fdt;
 
     @BeforeEach
     public void setup() {
-        fixedDurationTask = new FixedDurationTask(description, priority, date, time, hour, minute);
+        fdt = new FixedDurationTask(description, priority, date, startTime, endTime);
+    }
+
+    @Test
+    void getPriority() {
+        assertEquals(priority, fdt.getPriority());
     }
 
     @Test
     void getStatusIcon() {
-        assertEquals("\u2718", fixedDurationTask.getStatusIcon());
+        assertEquals("\u2718", fdt.getStatusIcon());
+    }
+
+    @Test
+    void getIsDone() {
+        assertEquals("false", fdt.getisDone());
     }
 
     @Test
     void getSymbol() {
-        assertEquals("FDT", fixedDurationTask.getSymbol());
+        assertEquals("FDT", fdt.getSymbol());
     }
 
     @Test
@@ -44,91 +52,112 @@ public class FixedDurationTaskTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(d, fixedDurationTask.getDate());
+        assertEquals(d, fdt.getDate());
     }
 
     @Test
     void setDateTest() {
-        Date d = fixedDurationTask.getDate();
-        fixedDurationTask.setDate(date);
-        assertEquals(d, fixedDurationTask.getDate());
+        Date d = fdt.getDate();
+        fdt.setDate(date);
+        assertEquals(d, fdt.getDate());
     }
 
     @Test
     void getStringdate() {
-        assertEquals(date, fixedDurationTask.getStringDate());
+        assertEquals(date, fdt.getStringDate());
     }
 
     @Test
-    void getDurationHour() {
-        assertEquals(hour, fixedDurationTask.getDurationHour());
-    }
-
-    @Test
-    void setDurationHourTest() {
-        fixedDurationTask.setDurationHour(hour);
-        assertEquals(hour, fixedDurationTask.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertEquals(minute, fixedDurationTask.getDurationMinute());
-    }
-
-    @Test
-    void setDuraitonMinuteTest() {
-        fixedDurationTask.setDurationMinute(minute);
-        assertEquals(minute, fixedDurationTask.getDurationMinute());
-    }
-
-    @Test
-    void hasReminder() {
-        assertEquals(false, fixedDurationTask.hasReminder());
-    }
-
-    @Test
-    void getTime() {
+    void getStartTime() {
         SimpleDateFormat format = new SimpleDateFormat("HHmm");
-        Date t = null;
+        Date d = null;
         try {
-            t = format.parse(time);
+            d = format.parse(startTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, fixedDurationTask.getStartTime());
+        assertEquals(d, fdt.getStartTime());
     }
 
     @Test
-    void setTimeTest() {
-        Date t = fixedDurationTask.getStartTime();
-        fixedDurationTask.setStartTime(time);
-        assertEquals(t, fixedDurationTask.getStartTime());
+    void setStartTimeTest() {
+        Date d = fdt.getStartTime();
+        fdt.setStartTime(startTime);
+        assertEquals(d, fdt.getStartTime());
     }
 
     @Test
-    void getStringTime() {
-        assertEquals(time, fixedDurationTask.getStringStartTime());
+    void getStringStartTime() {
+        assertEquals(startTime, fdt.getStringStartTime());
+    }
+
+    @Test
+    void getEndTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date d = null;
+        try {
+            d = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, fdt.getEndTime());
+    }
+
+    @Test
+    void setEndTimeTest() {
+        Date d = fdt.getEndTime();
+        fdt.setEndTime(endTime);
+        assertEquals(d, fdt.getEndTime());
+    }
+
+    @Test
+    void getStringEndTime() {
+        assertEquals(endTime, fdt.getStringEndTime());
+    }
+
+    @Test
+    void sethasReminder() {
+        fdt.setHasReminder();
+        assertEquals(true, fdt.hasReminder());
     }
 
     @Test
     void getDescription() {
-        assertEquals(description, fixedDurationTask.getDescription());
+        assertEquals(description, fdt.getDescription());
     }
 
     @Test
     void markAsDoneTest() {
-        fixedDurationTask.markAsDone();
-        assertEquals(true, fixedDurationTask.isDone);
+        fdt.markAsDone();
+        assertEquals(true, fdt.isDone);
     }
 
     @Test
     void toStringTest() {
-        assertEquals("[" + fixedDurationTask.getSymbol() + "]"
-                + "[" + fixedDurationTask.getStatusIcon() + "] "
-                + fixedDurationTask.getDescription()
-                + " Date: " + fixedDurationTask.getStringDate() + " Hour: "
-                + fixedDurationTask.getDurationHour()
-                + " Min: " + fixedDurationTask.getDurationMinute() + " Priority: "
-                + fixedDurationTask.getPriority(), fixedDurationTask.toString());
+        assertEquals("\n" + "[FDT]" + "[\u2718] " + description
+                + " \nDate: " + date + " \nStart Time: " + startTime
+                + " \nEnd Time: " + endTime + " \nPriority: " + priority
+                + "\n***************", fdt.toString());
+    }
+
+    @Test
+    void getAllDetailsTest() {
+        StringBuilder list = new StringBuilder();
+        list.append("FDT");
+        list.append("_");
+        list.append(description);
+        list.append("_");
+        list.append(false);
+        list.append("_");
+        list.append(priority.toString());
+        list.append("_");
+        list.append(date);
+        list.append("_");
+        list.append(startTime);
+        list.append("_");
+        list.append(endTime);
+        list.append("_");
+        list.append(fdt.gethasReminder());
+        assertEquals(list.toString(), fdt.getAllDetailsAsString());
     }
 }

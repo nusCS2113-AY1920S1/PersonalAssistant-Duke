@@ -7,25 +7,36 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static compal.tasks.Task.Priority.high;
+import static compal.tasks.Task.Priority.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EventTest {
     private String description = "Test content";
     private String date = "01/10/2019";
-    private String time = "1230";
+    private String startTime = "1130";
+    private String endTime = "1230";
     private Task.Priority priority = high;
     private Event event;
 
     @BeforeEach
     public void setup() {
-        event = new Event(description, priority, date, time);
+        event = new Event(description, priority, date, startTime, endTime);
+    }
+
+    @Test
+    void getPriority() {
+        assertEquals(priority, event.getPriority());
     }
 
     @Test
     void getStatusIcon() {
         assertEquals("\u2718", event.getStatusIcon());
+    }
+
+    @Test
+    void getIsDone() {
+        assertEquals("false", event.getisDone());
     }
 
     @Test
@@ -58,42 +69,57 @@ public class EventTest {
     }
 
     @Test
-    void getDurationHour() {
-        assertNull(event.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertNull(event.getDurationMinute());
-    }
-
-    @Test
-    void hasReminder() {
-        assertEquals(false, event.hasReminder());
-    }
-
-    @Test
-    void getTime() {
+    void getStartTime() {
         SimpleDateFormat format = new SimpleDateFormat("HHmm");
-        Date t = null;
+        Date d = null;
         try {
-            t = format.parse(time);
+            d = format.parse(startTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, event.getStartTime());
+        assertEquals(d, event.getStartTime());
     }
 
     @Test
-    void setTimeTest() {
-        Date t = event.getStartTime();
-        event.setStartTime(time);
-        assertEquals(t, event.getStartTime());
+    void setStartTimeTest() {
+        Date d = event.getStartTime();
+        event.setStartTime(startTime);
+        assertEquals(d, event.getStartTime());
     }
 
     @Test
-    void getStringTime() {
-        assertEquals(time, event.getStringStartTime());
+    void getStringStartTime() {
+        assertEquals(startTime, event.getStringStartTime());
+    }
+
+    @Test
+    void getEndTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date d = null;
+        try {
+            d = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, event.getEndTime());
+    }
+
+    @Test
+    void setEndTimeTest() {
+        Date d = event.getEndTime();
+        event.setEndTime(endTime);
+        assertEquals(d, event.getEndTime());
+    }
+
+    @Test
+    void getStringEndTime() {
+        assertEquals(endTime, event.getStringEndTime());
+    }
+
+    @Test
+    void sethasReminder() {
+        event.setHasReminder();
+        assertEquals(true, event.hasReminder());
     }
 
     @Test
@@ -109,8 +135,30 @@ public class EventTest {
 
     @Test
     void toStringTest() {
-        assertEquals("[" + event.getSymbol() + "]" + "[" + event.getStatusIcon() + "] "
-                + event.getDescription() + " Date: " + event.getStringDate() + " Time: "
-                + event.getStringStartTime() + " Priority: " + event.getPriority(), event.toString());
+        assertEquals("\n" + "[E]" + "[\u2718] " + description
+                + " \nDate: " + date + " \nStart Time: " + startTime
+                + " \nEnd Time: " + endTime + " \nPriority: " + priority
+                + "\n***************", event.toString());
+    }
+
+    @Test
+    void getAllDetailsTest() {
+        StringBuilder list = new StringBuilder();
+        list.append("E");
+        list.append("_");
+        list.append(description);
+        list.append("_");
+        list.append(false);
+        list.append("_");
+        list.append(priority.toString());
+        list.append("_");
+        list.append(date);
+        list.append("_");
+        list.append(startTime);
+        list.append("_");
+        list.append(endTime);
+        list.append("_");
+        list.append(event.gethasReminder());
+        assertEquals(list.toString(), event.getAllDetailsAsString());
     }
 }
