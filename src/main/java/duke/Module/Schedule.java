@@ -18,7 +18,50 @@ public class Schedule {
         //do nothing
     }
 
+    /**
+     * Array of all possible monthes
+     */
+    private String[] months = {
+        "January", "February", "March",
+        "April", "May", "June",
+        "July", "August", "September",
+        "October", "November", "December"
+    };
 
+    /**
+     * Array of all days in each month
+     */
+    private int[] days = {
+        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+    };
+
+    /**
+     * Will print out a formatted calender.
+     *
+     * @param numberOfDays days in the month
+     * @param startDay beginning day in the month
+     */
+    private static void printMonth(int numberOfDays, int startDay) {
+        int weekdayIndex = 0;
+        System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
+
+        for (int day = 1; day < startDay; day++) {
+            System.out.print("    ");
+            weekdayIndex++;
+        }
+
+        for (int day = 1; day <= numberOfDays; day++) {
+            System.out.printf("%1$2d", day);
+            weekdayIndex++;
+            if (weekdayIndex == 7) {
+                weekdayIndex = 0;
+                System.out.println();
+            } else {
+                System.out.print("  ");
+            }
+        }
+        System.out.println();
+    }
 
     /**
      * Function gets the month of the current year.
@@ -34,11 +77,10 @@ public class Schedule {
         cal.set(Calendar.DAY_OF_MONTH, 1);
 
         // Print dates of the current week starting on Monday
-        DateFormat df = new SimpleDateFormat("EEE dd MMM");
-        for (int i = 0; i < numDays; i++) {
-            week.append("[").append(i + 1).append("]. ").append(df.format(cal.getTime())).append("\n");
-            cal.add(Calendar.DATE, 1);
-        }
+        DateFormat df = new SimpleDateFormat("MMM");
+        System.out.println("");
+        System.out.println(df.format(cal.getTime()) + " " + cal.get(Calendar.YEAR));
+        printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
         return week.toString();
     }
 
@@ -84,7 +126,7 @@ public class Schedule {
             dailySchedule.put(cal.getTime(), i);
             cal.add(Calendar.HOUR, 1);
         }
-        for (Date d: dailySchedule.keySet()) {
+        for (Date d : dailySchedule.keySet()) {
             System.out.println(df.format(d));
         }
 
