@@ -5,9 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 /**
  * A program that manages tasks input by user
@@ -16,11 +14,12 @@ import java.util.ArrayList;
  */
 public class Duke extends Application {
 
-    private Storage storage;
-    private TaskList events;
-    private TaskList todos;
-    private TaskList deadlines;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList events;
+    private final TaskList todos;
+    private final TaskList deadlines;
+    private final Ui ui;
+    private static TaskList tentativeDates;
 
     /**
      * Creates Duke object.
@@ -32,13 +31,21 @@ public class Duke extends Application {
         todos = new TaskList();
         events = new TaskList();
         deadlines = new TaskList();
+        tentativeDates = new TaskList();
         try {
+            storage.readTentativeDates(tentativeDates);
             storage.readTodoList(todos);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
         } catch (IOException | ParseException e) {
             ui.showLoadingError(e);
         }
+    }
+    /**
+     * This method returns the loaded Tentative Dates.
+     */
+    public static TaskList getTentativeDates() {
+        return tentativeDates;
     }
 
     @Override
@@ -62,13 +69,8 @@ public class Duke extends Application {
         }
    }
 
-    /**
-     * This method is to get the response to the user's input.
-     * When called, it calls on the run() method to run the Duke program.
-     * @param input The user's input to the Duke program
-     * @return It returns the result of the run() method
-     */
     public String getResponse(String input) {
         return run(input);
     }
+
 }
