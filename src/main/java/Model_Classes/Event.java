@@ -12,7 +12,6 @@ import java.util.Date;
  */
 public class Event extends Task {
     private Date at;
-    private Date end;
 
     /**
      * Constructor for Event object
@@ -28,7 +27,6 @@ public class Event extends Task {
     public Event(String description) {
         super(description);
     }
-
 
     public Date checkDate() { return this.at; }
 

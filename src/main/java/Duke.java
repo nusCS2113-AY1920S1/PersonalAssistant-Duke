@@ -56,6 +56,10 @@ public class Duke {
                 type = TaskType.others;
             }
             switch (type) {
+                case help:
+                    ui.help();
+                    break;
+
                 case list:
                     ui.showList();
                     taskList.list();
@@ -137,7 +141,14 @@ public class Duke {
                                 TimeUnit timeUnit = parser.getTimeUnit();
                                 int duration = parser.getAmount();
                                 FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
-                                taskList.add(fixedDuration);
+
+                                //checks for clashes
+                                if( CheckAnomaly.checkTime(fixedDuration) ) {
+                                    taskList.add(fixedDuration);
+                                } else {
+                                    throw new DukeException(ExceptionType.timeClash);
+                                }
+
                                 Timer timer = new Timer();
                                 class RemindTask extends TimerTask {
                                     public void run() {
@@ -153,21 +164,12 @@ public class Duke {
                                     case minutes:
                                         timer.schedule(rt, duration * 1000 * 60);
                                         break;
-                                    case seconds:
-                                        timer.schedule(rt, duration * 1000);
-                                        break;
                                 }
                                 ui.showAdd();
                             break;
                             case no:
-                                if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
-                                    Event temp = new Event(ar[0], at);
-                                    taskList.add(temp);
-                                    ui.showAdd();
-                                }
-                                else{
-                                    throw new DukeException(ExceptionType.timeClash);
-                                    }
+                                Event event = new Event(ar[0], at);
+                                taskList.add(event);
                             break;
                             default:
                                 ui.showCommandError();
