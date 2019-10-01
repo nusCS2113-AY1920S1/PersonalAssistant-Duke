@@ -1,6 +1,9 @@
 package Interface;
 import Commands.*;
+import JavaFx.AlertBox;
 import Tasks.*;
+import javafx.scene.control.Alert;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,7 +100,7 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
                 }
-            } else if (fullCommand.trim().substring(0,6).equals("remind")){
+            } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 return new RemindCommand();
             } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
@@ -186,7 +189,7 @@ public class Parser {
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
                             "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
-            } else if(fullCommand.trim().contains("(needs ") && (fullCommand.trim().endsWith(" days)") | fullCommand.trim().endsWith(" hours)")) ){
+            } else if (fullCommand.trim().contains("(needs ") && (fullCommand.trim().endsWith(" days)") | fullCommand.trim().endsWith(" hours)"))) {
                 try{
                     int index;
                     String type;
@@ -208,13 +211,62 @@ public class Parser {
                             "'Task Description' ' (needs x hours)'\n" +
                             "reading the sales report (needs 2 hours)");
                 }
-            }
+            } else if (fullCommand.contains("(from") && fullCommand.contains("to")) {
+                try {
+                    boolean isValid = true;
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String currentDate = formatter.format(date);
+                    int index = fullCommand.indexOf("(from");
+                    String taskDescription = fullCommand.substring(0, index);
+                    fullCommand = fullCommand.replace(taskDescription, "");
+                    fullCommand = fullCommand.replace("(from", "").trim();
+                    String[] startAndEndDate = fullCommand.split(" to ", 2);
+                    String startDate = startAndEndDate[0];
+                    String endDate = startAndEndDate[1].replace(")", "").trim();
+                    Date beginDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+                    Date newCurrentDate = new SimpleDateFormat("dd/MM/yyyy").parse(currentDate);
 
+                    if (beginDate.compareTo(newCurrentDate) < 0) { //date is wrong
+                        AlertBox.display("Warning message", "Invalid date", "Please enter another valid date",
+                                Alert.AlertType.WARNING);
+                        isValid = false;
+                    }
+                    System.out.println("value of isValid: " + isValid);
+                    System.out.println("start date: " + startDate + " Current date: " + currentDate);
+                    return new DoWithinPeriodTasksCommand(taskDescription, startDate, endDate, isValid);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
+                            " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
+                }
+            } else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
+                try {
+                    String activity = fullCommand.trim().substring(18);
+                    arr = activity.split("/at");
+                    ArrayList<String> dateString = new ArrayList<>();
+                    ArrayList<String> startTimeString = new ArrayList<>();
+                    ArrayList<String> endTimeString = new ArrayList<>();
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description cannot be empty.");
+                    }
+
+                    for(int i = 1; i < arr.length;i++) {
+                        arr1 = arr[i].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                        Date date = formatter.parse(arr1[0].trim());
+                        arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                        Date startTime = formatter1.parse(arr2[0].trim());
+                        Date endTime = formatter1.parse(arr2[1].trim());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                        dateString.add(dateFormat.format(date));
+                        startTimeString.add(timeFormat.format(startTime));
+                        endTimeString.add(timeFormat.format(endTime));
             else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException | FileNotFoundException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

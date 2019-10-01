@@ -91,12 +91,9 @@ public class FixedDurationTasksCommand extends Command {
             fxmlLoader.<FixedDurationTask>getController().getData(data, taskDescription, type);
             stage.setTitle("Hello Better options");
             stage.showAndWait();
-
             FixedDurationTask controller = fxmlLoader.getController();
             taskDetails = controller.returnData();
             addByType(todos, events, deadlines);
-
-
         } catch (IOException e){
             e.printStackTrace();
         }
