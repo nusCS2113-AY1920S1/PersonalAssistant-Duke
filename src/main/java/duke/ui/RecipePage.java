@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.entities.recipe.Ingredient;
+import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
 import duke.storage.recipe.RecipeList;

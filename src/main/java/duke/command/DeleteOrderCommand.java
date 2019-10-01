@@ -10,76 +10,49 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
+ */
 public class DeleteOrderCommand extends UndoableCommand {
 
-    private Order order;
-    private int index;
+    private List<Order> orders;
+    private List<Integer> indexes;
     private Map<String, List<String>> params;
 
+    /**
+     * Class constructor.
+     *
+     * @param params The parameters specifying details of the order.
+     */
     public DeleteOrderCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
     }
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        bakingList.getOrderList().add(index, order);
+        for (int i = 0; i < indexes.size(); i++) {
+            bakingList.getOrderList().add(indexes.get(i), orders.get(i));
+        }
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        ui.showMessage("Undo: Remove order");
     }
 
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         execute(bakingList, storage, ui);
+        ui.showMessage("Redo: Remove order");
     }
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        this.order = CommandParser.getOrderByIndexOrId(bakingList.getOrderList(), params);
-        this.index = CommandParser.getOrderIndex(bakingList.getOrderList(), params);
-        bakingList.getOrderList().remove(order);
+        this.orders = CommandParser.getOrders(bakingList.getOrderList(), params);
+        this.indexes = CommandParser.getOrderIndexes(params);
+        bakingList.getOrderList().removeAll(orders);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
+        ui.showMessage("Order removed");
     }
 
-    private void checkParameters() throws DukeException {
-        if (!(params.containsKey("secondary")
-                ^ params.containsKey("i")
-                ^ params.containsKey("id"))) {
-            throw new DukeException("Too many parameters");
-        }
-        if (!params.containsKey("secondary")
-                && !params.containsKey("i")
-                && !params.containsKey("id")) {
-            throw new DukeException("Too few parameters");
-        }
-    }
-
-    private Order getOrder(List<Order> orders) throws DukeException {
-        if (params.containsKey("secondary") || params.containsKey("i")) {
-            return getOrderByIndexParameter(orders);
-        } else if (params.containsKey("id")) {
-
-        } else {
-            throw new DukeException("Please specify an order");
-        }
-        return null;
-    }
-
-    private Order getOrderByIndexParameter(List<Order> orders) throws DukeException {
-        String indexParameter;
-        if (params.containsKey("secondary")) {
-            indexParameter = params.get("secondary").get(0);
-        } else {
-            indexParameter = params.get("i").get(0);
-        }
-        try {
-            index = Integer.parseInt(indexParameter) - 1;
-            return orders.get(index);
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index.");
-        } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Index out of bound");
-        }
-    }
 
 }

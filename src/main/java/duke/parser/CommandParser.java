@@ -5,6 +5,7 @@ import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.entities.Sale;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class CommandParser {
             order.setCustomerContact(params.get("contact").get(0));
         }
         if (params.containsKey("rmk")) {
-            order.setCustomerContact(params.get("rmk").get(0));
+            order.setRemarks(params.get("rmk").get(0));
         }
         if (params.containsKey("by")) {
             order.setDeliveryDate(TimeParser.convertStringToDate(params.get("by").get(0)));
@@ -92,47 +93,80 @@ public class CommandParser {
 
     private static void checkParameters(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("secondary")
-                ^ params.containsKey("i")
-                ^ params.containsKey("id"))) {
-            throw new DukeException("Too many parameters");
-        }
-        if (!params.containsKey("secondary")
-                && !params.containsKey("i")
+                || params.containsKey("i"))
                 && !params.containsKey("id")) {
-            throw new DukeException("Too few parameters");
+            throw new DukeException("must contain ids or indexes or both");
+        }
+
+        if (params.containsKey("secondary") && (params.containsKey("i") || params.containsKey("id"))) {
+            throw new DukeException("Primary parameter cannot co-exist with -i or -id.");
         }
     }
 
-    public static Order getOrderByIndexOrId(List<Order> orders, Map<String, List<String>> params) throws DukeException {
+    public static List<Order> getOrders(List<Order> orders, Map<String, List<String>> params) throws DukeException {
         checkParameters(params);
-        if (params.containsKey("secondary") || params.containsKey("i")) {
-            int index = getOrderIndex(orders, params);
-            return orders.get(index);
-        } else if (params.containsKey("id")) {
+        List<Order> result = new ArrayList<>();
+        List<Integer> indexes = getOrderIndexes(params);
+        for (int index : indexes) {
+            if (index >= orders.size() || index < 0) {
+                throw new DukeException("Invalid index");
+            }
 
-        } else {
-            throw new DukeException("Please specify an order");
+            result.add(orders.get(index));
         }
-        return null;
+        return result;
     }
 
-    public static int getOrderIndex(List<Order> orders, Map<String, List<String>> params) throws DukeException {
-        String indexParameter;
+    public static List<Integer> getOrderIndexes(Map<String, List<String>> params) throws DukeException {
+        List<Integer> indexes = new ArrayList<>();
         if (params.containsKey("secondary")) {
-            indexParameter = params.get("secondary").get(0);
+            if (params.get("secondary").get(0).contains("~")) {
+                indexes = getIndexesInInterval(params.get("secondary").get(0));
+            } else {
+                indexes = getIndexesFromString(params.get("secondary").get(0));
+            }
         } else {
-            indexParameter = params.get("i").get(0);
+            assert (params.get("i") != null);
+            if (params.get("i").get(0).contains("~")) {
+                indexes = getIndexesInInterval(params.get("i").get(0));
+            } else {
+                indexes = getIndexesFromString(params.get("i").get(0));
+            }
         }
-        int index;
+        return indexes;
+    }
+
+    private static List<Integer> getIndexesInInterval(String interval) throws DukeException {
+        String[] startAndEndIndexes = interval.split("~");
+        int start;
+        int end;
         try {
-            index = Integer.parseInt(indexParameter) - 1;
+            start = Integer.parseInt(startAndEndIndexes[0]) - 1;
+            end = Integer.parseInt(startAndEndIndexes[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index.");
+            throw new DukeException("Wrong number format");
         }
-        if (index < 0 || index >= orders.size()) {
-            throw new DukeException("Index out of bound");
+        if (start > end) {
+            throw new DukeException("Starting index should be no more than ending index");
         }
-        return index;
+        List<Integer> result = new ArrayList<>();
+        for (int i = start; i <= end; i++) {
+            result.add(i);
+        }
+        return result;
+    }
+
+    private static List<Integer> getIndexesFromString(String string) throws DukeException {
+        String[] indexStrings = string.split(",");
+        List<Integer> result = new ArrayList<>();
+        for (String indexString : indexStrings) {
+            try {
+                result.add(Integer.parseInt(indexString) - 1);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Wrong number format");
+            }
+        }
+        return result;
     }
 
     public static Sale getSaleByIndexOrId(List<Sale> sales, Map<String, List<String>> params) throws DukeException {
@@ -166,5 +200,4 @@ public class CommandParser {
         }
         return index;
     }
-
 }

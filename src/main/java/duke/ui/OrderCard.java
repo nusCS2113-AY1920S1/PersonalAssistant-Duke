@@ -10,6 +10,10 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer,
+ * items, delivery date, index, and status.
+ */
 public class OrderCard extends AnchorPane {
     @FXML
     private AnchorPane innerPane;
@@ -30,6 +34,12 @@ public class OrderCard extends AnchorPane {
     @FXML
     private Label status;
 
+    /**
+     * Constructor for OrderCard.
+     *
+     * @param order       The order to displayed.
+     * @param indexNumber The index of the order.
+     */
     public OrderCard(Order order, int indexNumber) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderCard.fxml"));
