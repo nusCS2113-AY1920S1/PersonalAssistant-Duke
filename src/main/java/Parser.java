@@ -36,6 +36,8 @@ public class Parser{
                 return new UnSnoozeCommand(splitStr);
             case "duration" :
                 return new FixedDurationCommand(input, splitStr);
+            case "doafter" :
+                return new DoAfterCommand(input, splitStr);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
