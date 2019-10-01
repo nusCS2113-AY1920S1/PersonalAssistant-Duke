@@ -131,6 +131,7 @@ checked to ensure it is of the right format | always be assured that I am inputt
 
 (For all use cases, the *System* is `Dr. Duke` and the *Actor* is the `user`, unless specified otherwise)
 
+[discrete]
 === [[UC-1]] Use case: UC1 - Add a patient
 
 *MSS*
@@ -151,6 +152,7 @@ Use case ends.
 ** Steps 3a1 and 3a2 are repeated until the given details are valid.
 ** Use case resumes from Step 4.
 
+[discrete]
 === [[UC-2]] Use case: UC2 - Edit a patient's details
 
 *MSS*
@@ -171,6 +173,7 @@ Use case ends.
 ** Steps 3a1 and 3a2 are repeated until the given details are valid.
 ** Use case resumes from Step 4.
 
+[discrete]
 === [[UC-3]] Use case: UC3 - Search for a patient
 
 *MSS*
@@ -187,6 +190,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === [[UC-4]] Use case: UC4 - View a patient's records
 
 *MSS*
@@ -196,6 +200,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === [[UC-5]] Use case: UC5 - Discharge a patient
 
 *MSS*
@@ -214,6 +219,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === [[UC-6]] Use case: UC6 - Generate a unified report for a patient
 
 *MSS*
@@ -223,6 +229,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === [[UC-7]] Use case: UC7 - Undo previous command(s)
 *Preconditions*: At least 1 command in the command history.
 
