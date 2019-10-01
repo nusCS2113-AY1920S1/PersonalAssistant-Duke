@@ -14,11 +14,6 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Customises the toString() method to print the Todo object.
-     *
-     * @return Customised String for Todo object.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

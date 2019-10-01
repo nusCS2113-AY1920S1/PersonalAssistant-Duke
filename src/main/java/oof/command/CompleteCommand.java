@@ -11,14 +11,14 @@ import oof.task.Task;
  */
 public class CompleteCommand extends Command {
 
-    private String index;
+    private int index;
 
     /**
      * Constructor for CompleteCommand.
      *
      * @param index Represents the index of the Task to be marked as done.
      */
-    public CompleteCommand(String index) {
+    public CompleteCommand(int index) {
         super();
         this.index = index;
     }
@@ -27,28 +27,27 @@ public class CompleteCommand extends Command {
      * Marks the specific Task defined by the user as done
      * after confirming the validity of the Command inputted by the user.
      *
-     * @param arr     Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
+     * @param taskList Instance of TaskList that stores Task objects.
+     * @param ui       Instance of Ui that is responsible for visual feedback.
+     * @param storage  Instance of Storage that enables the reading and writing of Task
+     *                 objects to hard disk.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int num = Integer.parseInt(index) - 1;
-            if (!isValid(arr, num)) {
-                throw new OofException("OOPS!!! Invalid number!");
+            if (!taskList.isIndexValid(this.index)) {
+                throw new OofException("OOPS!!! The index is invalid.");
+            } else if (taskList.getTask(this.index).getStatus()) {
+                throw new OofException("OOPS!!! The task is already marked as done.");
             } else {
-                Task task = arr.getTask(num);
+                Task task = taskList.getTask(this.index);
                 task.setStatus();
                 ui.completeMessage(task);
+                storage.writeToFile(taskList);
+                storage.checkDone(task.toString());
             }
         } catch (OofException e) {
             ui.printOofException(e);
         }
-    }
-
-    private boolean isValid(TaskList arr, int num) {
-        return num < arr.getSize() && num >= 0;
     }
 
     /**

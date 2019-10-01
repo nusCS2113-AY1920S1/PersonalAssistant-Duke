@@ -13,14 +13,14 @@ import oof.task.Task;
  */
 public class SnoozeCommand extends Command {
 
-    private String index;
+    private int index;
 
     /**
      * Constructor for SnoozeCommand.
      *
      * @param index Index of Task to be snoozed.
      */
-    public SnoozeCommand(String index) {
+    public SnoozeCommand(int index) {
         super();
         this.index = index;
     }
@@ -37,24 +37,24 @@ public class SnoozeCommand extends Command {
      */
     public void execute(TaskList arr, Ui ui, Storage storage) {
         try {
-            int num = Integer.parseInt(index) - 1;
-            if (!isIndexValid(arr, num)) {
+            if (!isIndexValid(arr, this.index)) {
                 throw new OofException("\u2639 OOPS!!! Invalid number!"); //u2639 is a sad face emoticon
-            } else if (isDeadline(arr, num)) {
-                Task task = arr.getTask(num);
+            }
+            Task task = arr.getTask(this.index);
+            if (task instanceof Deadline) {
                 String description = task.getLine();
                 String date = ui.getTimeStamp();
                 date = parseTimeStamp(date);
                 if (isDateValid(date)) {
                     Task newTask = new Deadline(description, date);
-                    arr.deleteTask(num);
-                    arr.addTaskToIndex(num, newTask);
+                    arr.deleteTask(this.index);
+                    arr.addTaskToIndex(this.index, newTask);
                     ui.printSnoozeMessage(newTask);
+                    storage.writeToFile(arr);
                 } else {
                     throw new OofException("Timestamp given is invalid! Please try again.");
                 }
-            } else if (isEvent(arr, num)) {
-                Task task = arr.getTask(num);
+            } else if (task instanceof Event) {
                 String description = task.getLine();
                 String startDate = ui.getTimeStamp();
                 String endDate = ui.getTimeStamp();
@@ -62,9 +62,10 @@ public class SnoozeCommand extends Command {
                 endDate = parseTimeStamp(endDate);
                 if (isDateValid(startDate) && isDateValid(endDate)) {
                     Task newTask = new Event(description, startDate, endDate);
-                    arr.deleteTask(num);
-                    arr.addTaskToIndex(num, newTask);
+                    arr.deleteTask(this.index);
+                    arr.addTaskToIndex(this.index, newTask);
                     ui.printSnoozeMessage(newTask);
+                    storage.writeToFile(arr);
                 } else {
                     throw new OofException("Timestamp given is invalid! Please try again.");
                 }
@@ -76,27 +77,18 @@ public class SnoozeCommand extends Command {
         }
     }
 
-    private boolean isIndexValid(TaskList arr, int num) {
-        return num < arr.getSize() && num >= 0;
-    }
-
-    private boolean isDeadline(TaskList arr, int num) {
-        return arr.getTask(num) instanceof Deadline;
-    }
-
-    private boolean isDateValid(String date) {
-        return !date.equals("failed");
-    }
-
-    private boolean isEvent(TaskList arr, int num) {
-        return arr.getTask(num) instanceof Event;
-    }
-
     /**
-     * Checks if ExitCommand is called for Oof to terminate.
+     * Checks if index is within bounds of TaskList.
      *
-     * @return false.
+     * @param arr   TaskList containing tasks.
+     * @param index Index of TaskList.
+     * @return True if index is within bounds of TaskList, false otherwise.
      */
+    private boolean isIndexValid(TaskList arr, int index) {
+        return index < arr.getSize() && index >= 0;
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }

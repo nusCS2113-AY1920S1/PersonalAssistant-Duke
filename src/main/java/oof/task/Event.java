@@ -29,12 +29,6 @@ public class Event extends Task {
         return endTiming;
     }
 
-    /**
-     * Customises the toString() method to print
-     * the Event object.
-     *
-     * @return Customised String for Event object.
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTiming + " to: " + endTiming + ")";

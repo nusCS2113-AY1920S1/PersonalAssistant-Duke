@@ -33,7 +33,7 @@ public class Oof {
     /**
      * Runs the Personal Assistant.
      */
-    public void run() {
+    private void run() {
         ui.hello();
         reminder.checkDeadline(arr, ui);
         boolean isExit = false;

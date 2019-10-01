@@ -22,11 +22,6 @@ public class Deadline extends Task {
         return by;
     }
 
-    /**
-     * Customises the toString() method to print the Deadline object.
-     *
-     * @return Customised String for Deadline object.
-     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

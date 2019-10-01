@@ -51,7 +51,7 @@ public class AddDeadlineCommand extends Command {
         String description = lineSplit[0].trim();
         String date = lineSplit[1].trim();
         date = parseTimeStamp(date);
-        if (hasValidDueDate(date)) {
+        if (isDateValid(date)) {
             Task task = new Deadline(description, date);
             arr.addTask(task);
             ui.addTaskMessage(task, arr.getSize());
@@ -61,16 +61,22 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
-    private boolean hasValidDueDate(String date) {
-        return !date.equals("failed");
-    }
-
+    /**
+     * Checks if input has a description.
+     * @param lineSplit processed user input.
+     * @return true if description is more than length 0 and is not whitespace
+     */
     private boolean hasDescription(String[] lineSplit) {
-        return lineSplit[0].trim().length() != 0;
+        return lineSplit[0].trim().length() > 0;
     }
 
+    /**
+     * Checks if input has a due date.
+     * @param lineSplit processed user input.
+     * @return true if there is a due date and due date is not whitespace.
+     */
     private boolean hasDueDate(String[] lineSplit) {
-        return lineSplit.length != 1 && lineSplit[1].trim().length() != 0;
+        return lineSplit.length != 1 && lineSplit[1].trim().length() > 0;
     }
 
     /**
