@@ -16,16 +16,27 @@ class DeadlineTest {
     private String date = "01/10/2019";
     private Deadline deadline;
     private Task.Priority priority = high;
+    private String endTime = "1230";
 
 
     @BeforeEach
     public void setup() {
-        deadline = new Deadline(description, priority, date);
+        deadline = new Deadline(description, priority, date, endTime);
+    }
+
+    @Test
+    void getPriority() {
+        assertEquals(priority, deadline.getPriority());
     }
 
     @Test
     void getStatusIcon() {
         assertEquals("\u2718", deadline.getStatusIcon());
+    }
+
+    @Test
+    void getIsDone() {
+        assertEquals("false", deadline.getisDone());
     }
 
     @Test
@@ -58,23 +69,43 @@ class DeadlineTest {
     }
 
     @Test
-    void getDurationHour() {
-        assertNull(deadline.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertNull(deadline.getDurationMinute());
-    }
-
-    @Test
-    void hasReminder() {
-        assertEquals(false, deadline.hasReminder());
-    }
-
-    @Test
-    void getTime() {
+    void getStartTime() {
         assertNull(deadline.getStartTime());
+    }
+
+    @Test
+    void getStringStartTime() {
+        assertEquals("-", deadline.getStringStartTime());
+    }
+
+    @Test
+    void getEndTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date d = null;
+        try {
+            d = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, deadline.getEndTime());
+    }
+
+    @Test
+    void setEndTimeTest() {
+        Date d = deadline.getEndTime();
+        deadline.setEndTime(endTime);
+        assertEquals(d, deadline.getEndTime());
+    }
+
+    @Test
+    void getStringEndTime() {
+        assertEquals(endTime, deadline.getStringEndTime());
+    }
+
+    @Test
+    void sethasReminder() {
+        deadline.setHasReminder();
+        assertEquals(true, deadline.hasReminder());
     }
 
     @Test
@@ -90,8 +121,28 @@ class DeadlineTest {
 
     @Test
     void toStringTest() {
-        assertEquals("[" + deadline.getSymbol() + "]" + "[" + deadline.getStatusIcon() + "] "
-                + deadline.getDescription() + " Date: " + deadline.getStringDate()
-                + " Priority: " + deadline.getPriority(), deadline.toString());
+        assertEquals("\n" + "[D]" + "[" + "\u2718" + "] " + description
+                + " \nDate: " + date + " \nEnd Time: " + endTime
+                + " \nPriority: " + priority + "\n***************", deadline.toString());
+    }
+
+    @Test
+    void getAllDetailsTest() {
+        StringBuilder list = new StringBuilder();
+        list.append("D");
+        list.append("_");
+        list.append(description);
+        list.append("_");
+        list.append("false");
+        list.append("_");
+        list.append(priority.toString());
+        list.append("_");
+        list.append(date);
+        list.append("_");
+        list.append("-_");
+        list.append(endTime);
+        list.append("_");
+        list.append(deadline.gethasReminder());
+        assertEquals(list.toString(), deadline.getAllDetailsAsString());
     }
 }
