@@ -1,49 +1,46 @@
-//import Storage.Storage;
-//import Tasks.Deadline;
-//import Tasks.Task;
-//import UI.Ui;
-//import commands.DeadlineCommand;
-//import commands.SnoozeCommand;
-//import org.junit.jupiter.api.Test;
-//import java.io.IOException;
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.*;
-//
-//import Exception.DukeException;
-//
-//import java.util.ArrayList;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//public class SnoozeCommandTest {
-//    @Test
-//    public void testExecuteSnooze() throws ParseException,IOException,DukeException{
-//        DeadlineCommand deadlineCommand = new DeadlineCommand();
-//        SnoozeCommand snoozeCommand = new SnoozeCommand();
-//        ArrayList<Task> tasks = new ArrayList<Task>();
-//        Ui ui = new Ui();
-//        Storage storage = new Storage();
-//        ui.FullCommand = "deadline return book /by 2008-07-07 3:3:3";
-//        deadlineCommand.execute(tasks,ui,storage);
-//        ui.FullCommand = "snooze 1 1 1 1 1";
-//        int index = Integer.parseInt(ui.FullCommand.split(" ")[1]) - 1;
-//        int year = Integer.parseInt(ui.FullCommand.split(" ")[2]);
-//        int day = Integer.parseInt(ui.FullCommand.split(" ")[4]);
-//        int month =Integer.parseInt(ui.FullCommand.split(" ")[3]);
-//        int hour = Integer.parseInt(ui.FullCommand.split(" ")[5]);
-//        String Decription = tasks.get(index).description;
-//        SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-//        Date initial = fmt.parse(tasks.get(index).toString().split("\\|")[3].substring(3).trim());
-//        Calendar rightNow = Calendar.getInstance();
-//        rightNow.setTime(initial);
-//        if(year >0) rightNow.add(Calendar.YEAR,year);
-//        if(month>0) rightNow.add(Calendar.MONTH,month);
-//        if(day > 0) rightNow.add(Calendar.DAY_OF_YEAR,day);
-//        if(hour > 0) rightNow.add(Calendar.HOUR,hour);
-//        Date after = rightNow.getTime();
-//        Task snoozedDeadline = new Deadline(Decription,after);
-//        tasks.add(snoozedDeadline);
-//        assertEquals(tasks.get(1).listFormat(),"[D]" + "[" + tasks.get(1).getStatusIcon() + "]" + "return book " + "(by:" + "Sat Aug 08 04:03:03 SGT 2009" + ")");
-//    }
-//}
+import Storage.Storage;
+import Tasks.Deadline;
+import Tasks.Task;
+import UI.Ui;
+import commands.DeadlineCommand;
+import commands.SnoozeCommand;
+import org.junit.jupiter.api.Test;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+import Exception.DukeException;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class SnoozeCommandTest {
+    @Test
+    public void testExecuteSnooze() throws ParseException,IOException,DukeException{
+        DeadlineCommand deadlineCommand = new DeadlineCommand();
+        SnoozeCommand snoozeCommand = new SnoozeCommand();
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
+        deadlineCommand.execute(tasks,ui,storage);
+        int index = 0;
+        int year = 1;
+        int day =1;
+        int month =1;
+        int hour = 1;
+        String Description = tasks.get(index).description;
+        String date = tasks.get(index).toString().split("\\|")[3].substring(4);
+        LocalDateTime newDate  = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        newDate = newDate.plusYears(year).plusMonths(month).plusDays(day).plusHours(hour);
+        String newBy= newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Task snoozedDeadline = new Deadline(Description,newBy);
+        tasks.remove(index);
+        tasks.add(snoozedDeadline);
+        assertEquals(tasks.get(0).toString(),"D|✘|return book |by: 2009-08-08 04:03:03");
+    }
+}

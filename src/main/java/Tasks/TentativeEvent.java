@@ -1,35 +1,26 @@
 package Tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TentativeEvent extends Task {
-    public ArrayList<Date> tentativeoptions ;
     public ArrayList<String> tentativetimes;
 
-    public TentativeEvent(String description, ArrayList<Date> tentativeoptions,ArrayList<String> tentativetimes) {
+    public TentativeEvent(String description,ArrayList<String> tentativetimes) {
         super(description);
-        this.tentativeoptions = tentativeoptions;
         this.tentativetimes = tentativetimes;
-    }
-
-    //    @Override
-//    public String toString() {
-//        return "E"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + "at: "+at;
-//    }
-    public StringBuilder showTentative(){
-        StringBuilder showlist = new StringBuilder();
-        showlist.append("Tentative time slots: \n");
-        for (int i = 0; i < tentativeoptions.size(); i++) {
-            showlist.append((i+1)+ ". "+tentativeoptions.get(i)+"\n");
-        }
-        return showlist;
     }
 
     @Override
     public String toString() {
-        String timeslots = "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | ";
-
+        String timeslots = "TE"+ "|" + super.getStatusIcon() + "|" + super.description ;
+        for (int i = 0; i < tentativetimes.size(); i++) {
+            timeslots +=  "|" + tentativetimes.get(i);
+        }
         return timeslots;
     }
 
@@ -37,10 +28,16 @@ public class TentativeEvent extends Task {
     public String listFormat(){
         String timeslots = "[TE]"+ "[" + super.getStatusIcon() + "] "+description+"\n" ;
         for (int i = 0; i < tentativetimes.size(); i++) {
+            DateTimeFormatter fmtED = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter fmtET = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String[] dateTime = tentativetimes.get(i).split(" ");
+            String[] time = dateTime[1].split("-");
+            String datestring = LocalDate.parse(dateTime[0], fmtED).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+            String output = datestring + " "+  LocalTime.parse(time[0], fmtET).format(fmtET) + "-" + LocalTime.parse(time[1], fmtET).format(fmtET) + ")";
             if(i==0){
-                timeslots += "at "+tentativetimes.get(i)+"\n";
+                timeslots += "at "+output+"\n";
             }else{
-                timeslots += "or "+tentativetimes.get(i)+"\n";
+                timeslots += "or "+output+"\n";
             }
         }
         return timeslots;

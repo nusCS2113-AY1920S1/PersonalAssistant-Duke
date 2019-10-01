@@ -18,22 +18,26 @@ public class ConfirmTentativeCommand extends Command{
 
                 } else {
                     int index = Integer.parseInt(ui.FullCommand.substring(7).trim()) - 1;
-                    String tempstring = list.get(index).listFormat();
-                    System.out.println("You are confirming this tentative event: " + list.get(index).description);
-                    System.out.println(tempstring);
-                    System.out.println("Please indicate which time slot you want to confirm");
-                    ui.ReadCommand();
-                    int WhichTimeSlot = Integer.parseInt(ui.FullCommand);
-                    String[] timeslots = tempstring.split("\n");
-                    SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Event ev = new Event(list.get(index).description, timeslots[WhichTimeSlot].substring(3));
-                    System.out.println("Are you sure you want to confirm this time slot: ");
-                    System.out.println(ev.listFormat());
-                    ui.ReadCommand();
-                    if (ui.FullCommand.equals("yes")) {
-                        list.add(ev);
-                        list.remove(index);
-                        System.out.println("Confirmed.");
+                    if(list.get(index).listFormat().getBytes()[1] !='T' && list.get(index).listFormat().getBytes()[2] != 'E'){
+                        throw new DukeException("OOPS!!! You can only confirm tentative event task.");
+                    }else {
+                        String tempstring = list.get(index).listFormat();
+                        System.out.println("You are confirming this tentative event: " + list.get(index).description);
+                        System.out.println(tempstring);
+                        System.out.println("Please indicate which time slot you want to confirm");
+                        ui.ReadCommand();
+                        int WhichTimeSlot = Integer.parseInt(ui.FullCommand);
+                        String[] timeslots = list.get(index).toString().split("\\|");
+                        System.out.println(timeslots[WhichTimeSlot+2]);
+                        Task ev = new Event(list.get(index).description, timeslots[WhichTimeSlot+2]);
+                        System.out.println("Are you sure you want to confirm this time slot: ");
+                        System.out.println(ev.listFormat());
+                        ui.ReadCommand();
+                        if (ui.FullCommand.equals("yes")) {
+                            list.add(ev);
+                            list.remove(index);
+                            System.out.println("Confirmed.");
+                        }
                     }
                 }
                 StringBuilder sb = new StringBuilder();
@@ -46,12 +50,6 @@ public class ConfirmTentativeCommand extends Command{
                     }
                 }
                 storage.Storages(sb.toString());
-//        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Event ev = new Event(description, fmt.parse(ui.FullCommand.split("/")[1].substring(3)));
-//        list.add(ev);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(ev.listformat());
-//        System.out.println("Now you have " + list.size() + " tasks in the list.");
 
             }
         catch (DukeException e) {

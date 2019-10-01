@@ -27,6 +27,7 @@ public class SnoozeCommand extends Command {
 
             int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
             String Description=list.get(index).description;
+            System.out.println("You are snoozing this task: "+list.get(index).description);
             System.out.println("Please indicate how much time you want to snooze");
             ui.ReadCommand();
             int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
@@ -35,20 +36,9 @@ public class SnoozeCommand extends Command {
             int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
 
             if (list.get(index).listFormat().contains("by")) {
-//                SimpleDateFormat fmt = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-//                Date initial = fmt.parse(list.get(index).toString().split("\\|")[3].substring(3).trim());
-////                System.out.println("Success" + initial);
-//                    Calendar rightNow = Calendar.getInstance();
-//                    rightNow.setTime(initial);
-//                    if (year > 0) rightNow.add(Calendar.YEAR, year);
-//                    if (month > 0) rightNow.add(Calendar.MONTH, month);
-//                    if (day > 0) rightNow.add(Calendar.DAY_OF_YEAR, day);
-//                    if (hour > 0) rightNow.add(Calendar.HOUR, hour);
-//                    Date after = rightNow.getTime();
-//                System.out.println("Success"+after);
                 String date = list.get(index).toString().split("\\|")[3].substring(4);
                 LocalDateTime newDate  = LocalDateTime.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                newDate.plusYears(year).plusMonths(month).plusDays(day);
+                newDate = newDate.plusYears(year).plusMonths(month).plusDays(day).plusHours(hour);
                 String newBy= newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 Task snoozedDeadline = new Deadline(Description,newBy);
                 list.remove(index);
@@ -65,10 +55,8 @@ public class SnoozeCommand extends Command {
                 newDate = newDate.plusYears(year).plusMonths(month).plusDays(day);
                 newStart = newStart.plusHours(hour);
                 newEnd = newEnd.plusHours(hour);
-
                 String newAt = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+newStart.format(DateTimeFormatter.ofPattern("HH:mm:ss"))+"-"+newEnd.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
                 Event snoozedEvent = new Event(Description,newAt);
-                System.out.println(snoozedEvent.listFormat());
                 list.remove(index);
                 list.add(snoozedEvent);
                 System.out.println("Okay. I've prolonged this task's time: ");

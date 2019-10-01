@@ -70,7 +70,19 @@ public class Storage {
                         DA.isDone = true;
                     } else
                         DA.isDone = false;
-                } else {
+                } else if(details[0].equals("TE")){
+                    ArrayList<String> timeslots = new ArrayList<String>();
+                   for(int i=3;i<details.length;i++){
+                       timeslots.add(details[i]);
+                   }
+                   TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
+                    if (details[1].equals("\u2713")) {
+                        TE.isDone = true;
+                    } else {
+                        TE.isDone = false;
+                    }
+                    tList.add(TE);
+                } else{
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("\u2713")) {
                         e.isDone = true;
