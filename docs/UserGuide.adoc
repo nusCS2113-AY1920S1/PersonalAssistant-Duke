@@ -115,7 +115,7 @@ Example:
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
 === Adding a task: `recurring`
-Adds a task that match the description given that will be repeated every week.
+Adds a task that will be repeated every week.
 
 Format: `reccuring DESCRIPTION`
 
@@ -127,7 +127,7 @@ Example:
 Adds a recurring task called `math lecture` that will be repeated every week.
 
 === Adding a task: `tentative`
-Adds a task that match the description given that can be confirmed at a later time.
+Adds a task that can be confirmed at a later time.
 
 Format: `tentative DESCRIPTION`
 
@@ -160,9 +160,10 @@ Deletes a task in the list of tasks.
 
 Format: `delete INDEX`
 
-The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
 
 Examples:
+
 * `delete 1` +
 Deletes the 1st task in the list of tasks.
 
@@ -255,6 +256,42 @@ Format: `reminder`
 Exits the program.
 
 Format: `bye`
+
+=== Add estimated time taken: `estimate [coming soon in v2.0]`
+Adds the estimated time taken to complete a task.
+
+Format: `estimate INDEX HH`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `time` has to *strictly* be in the format as stated above.
+
+Example:
+
+* `estimate 1 48` +
+Adds to the 1st task the estimated time taken of 48 hours to complete it.
+
+=== Adding a task: `range [coming soon in v2.0]`
+Adds a task that needs to be completed within a certain time period 
+
+Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` +
+Adds a task with description and time period to be `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
+
+=== View two different calendars side-by-side: `viewDual [coming soon in v2.0]`
+Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
+
+Format: `viewDual`
+
+=== Export calendar: `export [coming soon in v2.0]`
+Export all current tasks recorded into a shareable format in calendar view.  
+
+Format: `export`
 
 == FAQ
 
