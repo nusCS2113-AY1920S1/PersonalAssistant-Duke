@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for ChatBot. Provides the layout for the other controls.
  */
 public class ChatBot extends BorderPane {
     @FXML
@@ -43,8 +43,8 @@ public class ChatBot extends BorderPane {
     }
 
     /**
-     * This method creates the Duke object.
-     * @param d The object of Duke
+     * Initialize Duke object in ChatBot controller with Duke object from MainWindow.
+     * @param d Duke object from Main bridge
      */
     public void setDuke(Duke d) {
         duke = d;

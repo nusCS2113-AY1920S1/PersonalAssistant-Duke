@@ -22,6 +22,9 @@ public class  AddCommand extends Command {
     /**
      * Executes the adding of a Task object to a TaskList object
      * and displaying the add task response.
+     * @param todos The TaskList object for todos
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the add task message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display add task message
@@ -52,8 +55,7 @@ public class  AddCommand extends Command {
                     }
                 }
             }
-        }
-        else {
+        } else {
             if(task.getType().equals("[T]")) {
                 todos.addTask(this.task);
                 out = ui.showAdd(this.task, todos.taskListSize());

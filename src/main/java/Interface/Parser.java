@@ -97,7 +97,7 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
                 }
-            } else if (fullCommand.trim().substring(0,6).equals("remind")){
+            } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 return new RemindCommand();
             } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
                 try {
@@ -187,8 +187,8 @@ public class Parser {
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
                             "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
-            } else if(!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
-                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")){
+            } else if (!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
+                    fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")) {
                 try{
                     int index = fullCommand.indexOf(" hours");
                     fullCommand = fullCommand.substring(0,index); // e.g., reading the sales report (needs 2 hours) removes " hours"
@@ -201,13 +201,10 @@ public class Parser {
                             "'Task Description' ' (needs x hours)'\n" +
                             "reading the sales report (needs 2 hours)");
                 }
-            }
-
-            else {
+            } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-        } catch (StringIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

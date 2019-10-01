@@ -15,6 +15,9 @@ public class ViewSchedulesCommand extends Command{
     /**
      * Executes the display of all the task as a schedule,
      * differentiated by type.
+     * @param todos The TaskList object for todos
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the user schedule
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display user's schedule

@@ -23,6 +23,9 @@ public class FindEarliestFreeTimesCommand extends Command {
 
     /**
      * Executes the finding of earliest available block period inside the TaskList object with the given duration.
+     * @param todos The TaskList object for todos
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the earliest free time message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display find free time message
