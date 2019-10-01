@@ -4,6 +4,8 @@ import duke.Data.Parser;
 import duke.Task.TaskList;
 import duke.Data.Storage;
 
+import java.io.FileNotFoundException;
+
 public class Ui {
 
     /**
@@ -33,7 +35,7 @@ public class Ui {
      * into the Parser class
      * @param input This is the string input defined by the user
      */
-    public void readCommand(String input, TaskList tasks, Storage storage) {
+    public void readCommand(String input, TaskList tasks, Storage storage) throws FileNotFoundException {
         Parser parser = new Parser();
         parser.parseInput(input, tasks, storage);
     }

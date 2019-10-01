@@ -6,7 +6,9 @@ import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
+import duke.Sports.MyPlan;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage) {
+    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -145,6 +147,18 @@ public class Parser {
                 }
                 break;
 
+            /**
+             * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
+             *
+             */
+            case "plan":
+                MyPlan plan = new MyPlan();
+                if (word[1].equals("view")) {
+                    plan.loadPlan(word[2]);
+                } else if (word[1].equals("new")) {
+                    plan.createPlan(word[3]);
+                }
+                break;
 
             /**
              * Command should be in the form: class swimming /every monday
