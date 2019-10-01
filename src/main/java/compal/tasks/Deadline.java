@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * @param description Description of deadline.
      * @param priority    priority level of task type.
      * @param date        Due date of deadline.
-     * @param endTime       End time of deadline
+     * @param endTime     End time of deadline
      */
     public Deadline(String description, Priority priority, String date, String endTime) {
         super(description, priority);

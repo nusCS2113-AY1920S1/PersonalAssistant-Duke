@@ -11,8 +11,8 @@ public class FixedDurationTask extends Task {
      *
      * @param description Description of fixed duration task.
      * @param date        Starting date of fixed duration task.
-     * @param startTime       Starting time of fixed duration task.
-     * @param endTime       End time
+     * @param startTime   Starting time of fixed duration task.
+     * @param endTime     End time
      */
     public FixedDurationTask(String description, Priority priority, String date, String startTime, String endTime) {
         super(description, priority);

@@ -240,6 +240,7 @@ public class Ui {
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
     public TabPane tabWindow;
+    public String dateState;
     private ArrayList<Task> arrlist;
     private Compal compal;
     private String username;
@@ -425,7 +426,7 @@ public class Ui {
         DailyCal dc = new DailyCal();
         compal.ui.tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
-        dailyTab.setText("Daily Window");
+        dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }

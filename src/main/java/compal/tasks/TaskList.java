@@ -49,7 +49,9 @@ public class TaskList {
     public int addTask(Task task) {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
-        compal.ui.dateViewRefresh(task.getStringDate());
+        if (compal.ui.dateState.equals(task.getStringDate())) {
+            compal.ui.dateViewRefresh(task.getStringDate());
+        }
         compal.ui.showSize();
         return arrlist.size();
     }

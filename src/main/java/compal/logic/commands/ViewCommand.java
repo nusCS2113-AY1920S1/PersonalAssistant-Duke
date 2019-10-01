@@ -30,6 +30,7 @@ public class ViewCommand extends Command implements CommandParser {
 
     /**
      * Displays the tasks available on the user input date.
+     * Additionally set view state to set by user.
      *
      * @param userIn User string input.
      */
@@ -58,6 +59,9 @@ public class ViewCommand extends Command implements CommandParser {
 
             if (isEmpty) {
                 compal.ui.printg("No task found on " + dateInput);
+            } else {
+                compal.ui.dateState = dateInput;
+                compal.ui.dateViewRefresh(compal.ui.dateState);
             }
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
