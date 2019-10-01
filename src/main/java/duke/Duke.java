@@ -45,7 +45,7 @@ public class Duke extends Application {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
                     ui.goodbye();
-                    break;
+                    System.exit(0);
                 }
                 ui.readCommand(input, tasks, storage);
             }
