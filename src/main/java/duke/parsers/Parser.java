@@ -5,6 +5,7 @@ import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.ExitCommand;
+import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
@@ -59,6 +60,8 @@ public class Parser {
             return new AddCommand(ParserUtil.createRecurringTask(userInput));
         case "fixed":
             return new AddCommand(ParserUtil.createFixed(userInput));
+        case "help":
+            return new HelpCommand();
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
