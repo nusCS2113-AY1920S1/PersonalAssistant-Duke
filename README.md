@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main)
 
-# AY1920S1-CS2113T-T09-3
+# AlgoSenpai Adventures (ASA)
+A project by AY1920S1-CS2113T-T09-3
+
 Team Members:
 1) NG WEI JIE, BRANDON
 2) MATTHEW NATHANAEL SUGIRI
@@ -30,7 +32,10 @@ Team Members:
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
+# Documentation
+
+* [User Guide](docs/UserGuide.adoc)
+* [Developer's Guide](docs/DevelopersGuide.adoc)
 
 Duke Increment | Tutorial
 ---------------|---------------
@@ -45,5 +50,5 @@ Duke Increment | Tutorial
 
 # Feedback, Bug Reports
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
+* If you have feedback or bug reports, please post in [the issue tracker](https://github.com/AY1920S1-CS2113T-T09-3/main/issues).
 * We welcome pull requests too.
