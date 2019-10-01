@@ -1,15 +1,12 @@
 package leduc.command;
 
+import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Represents Reschedule command which reschedule the period of a event task.
@@ -37,10 +34,11 @@ public class RescheduleCommand extends Command {
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws DateComparisonEventException Exception caught when the second date is before the first one.
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
+     * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage) throws EmptyEventDateException,
             NonExistentTaskException, EventTypeException, NonExistentDateException,
-            DateComparisonEventException, FileException {
+            DateComparisonEventException, FileException, ConflictDateException {
         String[] rescheduleString = user.substring(11).split("/at");
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
@@ -68,17 +66,10 @@ public class RescheduleCommand extends Command {
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
                 throw new EmptyEventDateException();
             }
-            LocalDateTime d1 = null;
-            LocalDateTime d2 = null;
-            try{
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
-                d1 = LocalDateTime.parse(dateString[0].trim(), formatter);
-                d2 = LocalDateTime.parse(dateString[1].trim(), formatter);
-            }catch(Exception e){
-                throw new NonExistentDateException();
-            }
-
-            rescheduleEventTask.reschedule(d1,d2);
+            Date date1 = new Date(dateString[0]);
+            Date date2 = new Date(dateString[1]);
+            tasks.verifyConflictDate(date1, date2);
+            rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());
             ui.display("\t Noted. I've rescheduled this task: \n" +
                     "\t\t "+rescheduleEventTask.getTag() + rescheduleEventTask.getMark() + " " +

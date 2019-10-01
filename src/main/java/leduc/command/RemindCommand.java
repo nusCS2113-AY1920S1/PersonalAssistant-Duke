@@ -1,16 +1,12 @@
 package leduc.command;
-import leduc.Parser;
-import leduc.command.Command;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import leduc.task.EventsTask;
-import leduc.Date;
 import leduc.task.TodoTask;
 import leduc.task.DeadlinesTask;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
  * Represents a Remind Command.
@@ -34,7 +30,7 @@ public class RemindCommand extends Command {
     }
     /**
      * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
-     *@param Tasklist tasks is the list of tasks
+     *@param tasks tasks is the list of tasks
      */
     public static ArrayList filterTasks(TaskList tasks){
         ArrayList<Task> filteredTasklist = new ArrayList<Task>();
@@ -48,7 +44,7 @@ public class RemindCommand extends Command {
 
     /**
      * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
-     * @param Tasklist tasks is the list of tasks
+     * @param  tasks is the list of tasks
      */
     public static ArrayList extractTodo(TaskList tasks){
         ArrayList<Task> extractedTodos = new ArrayList<Task>();
@@ -61,7 +57,7 @@ public class RemindCommand extends Command {
     }
     /**
      * Helper method which returns the date from any task Object.
-     * @param Object task Task whos date field will get extracted.
+     * @param task  Task whos date field will get extracted.
      */
     public static LocalDateTime getDate(Object task){
         if (task instanceof DeadlinesTask) {
@@ -79,8 +75,8 @@ public class RemindCommand extends Command {
     }
     /**
      * Sorts the list of tasks by date.
-     * @param ArrayList<Task>filteredTasklist which filters out all Tasks that do not have a date field..
-     * @param ArrayList<Task>extractedTodos which is a list of all Todo objects, will get appended to the final sorted list.
+     * @param filteredTasklist which filters out all Tasks that do not have a date field..
+     * @param extractedTodos which is a list of all Todo objects, will get appended to the final sorted list.
      */
     public static ArrayList sort(ArrayList<Task> filteredTasklist, ArrayList<Task> extractedTodos){
         ArrayList<Task> sortedTasks = new ArrayList<Task>();

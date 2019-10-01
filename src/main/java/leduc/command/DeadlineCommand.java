@@ -7,10 +7,6 @@ import leduc.Ui;
 import leduc.task.DeadlinesTask;
 import leduc.task.TaskList;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Represents a deadline task Command.
@@ -50,14 +46,8 @@ public class DeadlineCommand extends Command {
                 throw new EmptyDeadlineDateException();
             }
             else {
-                LocalDateTime d1 = null;
-                try{
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
-                    d1 = LocalDateTime.parse(deadlineString.trim(), formatter);
-                }catch(Exception e){
-                    throw new NonExistentDateException();
-                }
-                DeadlinesTask newTask = new DeadlinesTask(description, new Date(d1));
+                Date d = new Date(deadlineString);
+                DeadlinesTask newTask = new DeadlinesTask(description, d);
                 tasks.add(newTask);
                 storage.save(tasks.getList());
                 ui.display("\t Got it. I've added this task:\n\t   "
