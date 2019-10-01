@@ -25,7 +25,6 @@ public class Event extends TaskWithDates {
     public Event(String description, String event) {
         super(description);
         this.event = event;
-        this.hasDate = true;
     }
 
     /**
@@ -35,8 +34,7 @@ public class Event extends TaskWithDates {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + (getStartDate() == null
-                ? event : getStartDate().toString().replace("T", " ")) + ")";
+        return "[E]" + super.toString() + " (at: " + (getStartDate() == null ? event : getStartDate()) + ")";
     }
 
     public String getEvent() {

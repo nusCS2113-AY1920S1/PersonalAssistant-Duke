@@ -2,9 +2,7 @@ package duke.commands;
 
 import duke.commons.DukeException;
 import duke.storage.Storage;
-import duke.tasks.Deadline;
 import duke.tasks.Task;
-import duke.tasks.TaskWithDates;
 import duke.ui.Ui;
 
 /**

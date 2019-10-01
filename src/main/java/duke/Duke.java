@@ -19,11 +19,9 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
-
     /**
      * Creates Duke instance.
      */
-
     public Duke(Main main, Ui ui) {
         this.ui = ui;
         this.main = main;
@@ -45,7 +43,6 @@ public class Duke {
             }
         } catch (DukeException e) {
             ui.showError(e.getMessage());
-
         }
     }
 

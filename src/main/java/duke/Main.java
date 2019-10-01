@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,7 +17,6 @@ public class Main extends Application {
     public void start(Stage stage) {
         System.out.println("Starting Duke...");
         try {
-
             MainWindow mainWindow = new MainWindow(stage);
             mainWindow.show();
             mainWindow.initialise(this);

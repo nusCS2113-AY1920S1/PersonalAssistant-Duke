@@ -1,11 +1,10 @@
 package duke.parsers;
 
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
-import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
-import duke.commands.FetchCommand;
-import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
@@ -38,8 +37,6 @@ public class Parser {
             return new AddCommand(ParserUtil.createDeadline(userInput));
         case "event":
             return new AddCommand(ParserUtil.createEvent(userInput));
-        case "within":
-            return new AddCommand(ParserUtil.createWithin(userInput));
         case "list":
             return new ListCommand();
         case "done":

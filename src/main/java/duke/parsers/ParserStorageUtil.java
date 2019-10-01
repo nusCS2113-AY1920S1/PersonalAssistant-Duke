@@ -8,12 +8,7 @@ import duke.tasks.DoWithin;
 import duke.tasks.Event;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
 import duke.tasks.Todo;
-import duke.tasks.DoWithin;
-
-import java.time.LocalDateTime;
 
 import java.time.LocalDateTime;
 

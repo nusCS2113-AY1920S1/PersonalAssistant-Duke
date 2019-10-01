@@ -25,7 +25,6 @@ public class Deadline extends TaskWithDates {
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
-        this.hasDate = true;
     }
 
     /**
@@ -35,8 +34,7 @@ public class Deadline extends TaskWithDates {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + (getStartDate() == null
-                ? deadline : getStartDate().toString().replace("T", " ")) + ")";
+        return "[D]" + super.toString() + " (by: " + (getStartDate() == null ? deadline : getStartDate()) + ")";
     }
 
     public String getDeadline() {
