@@ -36,7 +36,7 @@ public class Duke extends Application {
         new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt").run();
     }
 
-    public void run() {
+    public void run() throws FileNotFoundException {
         ui.welcome();
         tasks.addAllList(storage);
         while (true) {
@@ -45,7 +45,7 @@ public class Duke extends Application {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
                     ui.goodbye();
-                    break;
+                    System.exit(0);
                 }
                 ui.readCommand(input, tasks, storage);
             }

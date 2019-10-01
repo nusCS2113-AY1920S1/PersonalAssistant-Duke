@@ -107,10 +107,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * This function locates all tasks on a certain date as defined by the user
+     *
+     * @param word This parameter is the defined date that much be searched for
+     */
+
     public void findDate(String word) {
         int index = 1;
         String[] temp = word.split("/");
-        String dd = this.numOrdinal(Integer.parseInt(temp[0]));
+        String dd = numOrdinal(Integer.parseInt(temp[0]));
         Month mm = Month.of(Integer.parseInt(temp[1]));
         String yy = temp[2];
         String check = dd + " of " + mm + " " + yy;

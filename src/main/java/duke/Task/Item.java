@@ -1,5 +1,7 @@
 package duke.Task;
 
+import javafx.scene.layout.Pane;
+
 import java.util.Date;
 
 /**
@@ -19,6 +21,11 @@ public class Item {
      * type: the type of the Item created.
      */
     private String type;
+
+    /**
+     * Length of time of the item.
+     */
+    private String duration;
 
     /**
      * Constructor method for the Event class.
@@ -120,5 +127,22 @@ public class Item {
     public String toString() {
         String s = "[" + this.getStatusIcon() + "] " + this.getInfo();
         return s;
+    }
+
+    /**
+     * Set duration.
+     *
+     * @param length time of activity
+     */
+    public void setDuration (String length) {
+        duration = length;
+    }
+    /**
+     * Get duration.
+     *
+     * @param length time of activity
+     */
+    public String getDuration () {
+        return duration;
     }
 }

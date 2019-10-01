@@ -1,0 +1,2 @@
+dummy activity
+push-up | 10 | 6

@@ -4,13 +4,15 @@ import duke.Data.Parser;
 import duke.Task.TaskList;
 import duke.Data.Storage;
 
+import java.io.FileNotFoundException;
+
 public class Ui {
 
     /**
      * This function prints out the welcome message of Duke
      */
     public void welcome() {
-        System.out.println("Hello! I'm Duke\n" +
+        System.out.println("Hello! I'm Duke, your personal sports manager!\n" +
                 "What can I do for you?");
     }
 
@@ -56,7 +58,7 @@ public class Ui {
      * into the Parser class
      * @param input This is the string input defined by the user
      */
-    public void readCommand(String input, TaskList tasks, Storage storage) {
+    public void readCommand(String input, TaskList tasks, Storage storage) throws FileNotFoundException {
         Parser parser = new Parser();
         parser.parseInput(input, tasks, storage);
     }

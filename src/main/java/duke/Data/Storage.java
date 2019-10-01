@@ -67,7 +67,7 @@ public class Storage {
                     break;
 
                 case "T":
-                    Item todo = new ToDo(data[2], stat, dateRevert(data[3]));
+                    Item todo = new ToDo(data[2], stat, data[3]);
                     oldList.add(todo);
                     break;
 
@@ -77,8 +77,8 @@ public class Storage {
                     break;
 
                 case "C":
-                    Item myclass = new MyClass(data[2], stat, data[3]);
-                    oldList.add(myclass);
+                    Item myClass = new MyClass(data[2], stat, data[3]);
+                    oldList.add(myClass);
                     break;
 
                 default:
@@ -103,7 +103,7 @@ public class Storage {
         try {
             if (type.equals("T")) {
                 FileWriter fileWriter = new FileWriter(filePath, true);
-                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "\n");
+                fileWriter.write(type + "-" + e.checkStatus() + "-" + e.getInfo() + "-" + e.getDuration() + "\n");
                 fileWriter.close();
             } else if (type.equals("C")) {
                 FileWriter fileWriter = new FileWriter(filePath, true);
