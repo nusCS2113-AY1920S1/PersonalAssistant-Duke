@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SetWelcomeCommand extends Command{
@@ -46,7 +47,8 @@ public class SetWelcomeCommand extends Command{
         try {
             fileWriter = new FileWriter(file);
             try {
-                fileWriter.write(user.split(" ")[1]);
+
+                fileWriter.write(String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length)));
             }
             finally{
                 fileWriter.close();
