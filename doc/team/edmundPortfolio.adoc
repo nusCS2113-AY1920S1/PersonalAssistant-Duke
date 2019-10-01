@@ -1,4 +1,4 @@
-= NotTheRealEdmund - Project Portfolio
+= Edmund - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
