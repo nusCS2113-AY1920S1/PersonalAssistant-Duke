@@ -1,5 +1,6 @@
 package owlmoney;
 
+import owlmoney.logic.command.OwlMoneyCommand;
 import owlmoney.logic.parser.ParseCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
@@ -48,7 +49,8 @@ class Main {
         ui.greet(profile.getUsername());
         while (parser.hasNextLine()) {
             try {
-                parser.parseLine(profile);
+                OwlMoneyCommand nextCommand = parser.parseLine(profile);
+                nextCommand.execute(profile, ui);
             } catch (ParserException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }

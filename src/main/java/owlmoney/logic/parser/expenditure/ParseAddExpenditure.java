@@ -2,6 +2,7 @@ package owlmoney.logic.parser.expenditure;
 
 import java.util.Iterator;
 
+import owlmoney.logic.command.OwlMoneyCommand;
 import owlmoney.logic.command.expenditure.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
@@ -19,8 +20,13 @@ public class ParseAddExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if ((value.isBlank() || value.isEmpty())) {
+            if (EXPNO.equals(key)&& !value.isBlank() && !value.isEmpty()) {
+                throw new ParserException(key + "cannot be used when adding a new expenditure");
+            } else if (!EXPNO.equals(key) &&!CATEGORY.equals(key) &&
+                    (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
+            } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
+                expendituresParameters.put(CATEGORY, "miscellaneous");
             }
             if (AMOUNT.equals(key)) {
                 checkIfDouble(value);
@@ -30,12 +36,10 @@ public class ParseAddExpenditure extends ParseExpenditure {
 
     //current name is just a place holder. This is to create the command and execute it
     //might need to restructure in future
-    public void passToCommand(Profile profile) {
-        AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(ACCNAME),
+    public OwlMoneyCommand getCommand() {
+        AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(FROM),
                 Double.parseDouble(expendituresParameters.get(AMOUNT)), (expendituresParameters.get(DATE)),
                 (expendituresParameters.get(DESCRIPTION)), (expendituresParameters.get(CATEGORY)));
-        newAddExpenditureCommand.execute(profile);
+        return newAddExpenditureCommand;
     }
-
-
 }

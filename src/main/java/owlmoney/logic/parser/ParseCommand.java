@@ -2,6 +2,7 @@ package owlmoney.logic.parser;
 
 import java.util.Scanner;
 
+import owlmoney.logic.command.OwlMoneyCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
 
@@ -13,12 +14,12 @@ public class ParseCommand extends Parser {
         return scanner.hasNextLine();
     }
 
-    public void parseLine(Profile profile) throws ParserException {
+    public OwlMoneyCommand parseLine(Profile profile) throws ParserException {
         String input = scanner.nextLine();
         parseIsBlank(input);
         String command = parseFirstField(input);
         String data = removeFirstField(input,command);
-        parseCommandMenu(command, data, profile);
+        return parseCommandMenu(command, data);
     }
 
     private void parseIsBlank(String input) throws ParserException {
@@ -28,34 +29,29 @@ public class ParseCommand extends Parser {
     }
 
     //for now is pass profile all the way in. Double check if is correct structure
-    private void parseCommandMenu(String command, String data, Profile profile) throws ParserException{
+    private OwlMoneyCommand parseCommandMenu(String command, String data) throws ParserException{
         switch (command) {
         case "/add":
             System.out.println("You added");
-            parseType.parseData(command, data, profile);
-            break;
+            return parseType.parseData(command, data);
         case "/delete":
             System.out.println("You deleted");
-            parseType.parseData(command, data, profile);
-            break;
+            return parseType.parseData(command, data);
         case "/edit":
             System.out.println("You edited");
-            parseType.parseData(command, data, profile);
-            break;
-       /* case "/test": //for testing of output
-            profile.listBanks();
-            break;
-        */
+            return parseType.parseData(command, data);
+        case "/list":
+            System.out.println("You listed");
+            return parseType.parseData(command, data);
         /*case "/test": //for testing of output
             profile.listMyExpenditure();
             break;
          */
         case "/exit":
             System.exit(0);
-            break;
         default:
             System.out.println("You entered an invalid command");
-            break;
+            return parseType.parseData(command, data);
         }
     }
 }
