@@ -45,7 +45,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing DukeTest's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing DukeTest's
+     * reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -68,6 +69,8 @@ public class MainWindow extends AnchorPane {
     private void timeDelay(long t) {
         try {
             Thread.sleep(t);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
