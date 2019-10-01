@@ -60,7 +60,7 @@ Love eating pizza everyday but find it a chore to retype the same thing to keep 
 === Reminders
 Have Dolla let you know when an expense is coming up, and when a budget or saving is about to be exceeded!
 
-=== Settings
+=== Settings `[coming in v2.0]`
 Customise various features of Dolla, like how many items to show per page on a list, what kind of things Dolla will remind you about, or even the statistics that's pinned on the app!
 
 [[Commands]]
