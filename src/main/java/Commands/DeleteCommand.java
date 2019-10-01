@@ -35,21 +35,21 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        if(list.equals("todo")) {
+        if (list.equals("todo")) {
             listToChange = todos;
-        } else if(list.equals("event")) {
+        } else if (list.equals("event")) {
             listToChange = events;
-        } else if(list.equals("deadline")){
+        } else if (list.equals("deadline")) {
             listToChange = deadlines;
         }
         if (index >= 0 && index < listToChange.taskListSize()) {
             Task task = listToChange.getTask(index);
             listToChange.removeTask(this.index);
-            if(listToChange.equals("todo")) {
+            if (listToChange.equals("todo")) {
                 storage.updateTodoList(listToChange);
-            } else if(listToChange.equals("event")) {
+            } else if (listToChange.equals("event")) {
                 storage.updateEventList(listToChange);
-            } else if(listToChange.equals("deadline")){
+            } else if (listToChange.equals("deadline")) {
                 storage.updateDeadlineList(listToChange);
             }
             return ui.showDelete(task, listToChange.taskListSize());

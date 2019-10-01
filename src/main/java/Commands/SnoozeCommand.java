@@ -58,6 +58,5 @@ public class SnoozeCommand extends Command{
             storage.updateEventList(events);
             return ui.showSnooze(index, eventsList.size(), eventsList);
         }
-
     }
 }

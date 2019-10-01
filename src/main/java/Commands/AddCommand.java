@@ -56,7 +56,7 @@ public class  AddCommand extends Command {
                 }
             }
         } else {
-            if(task.getType().equals("[T]")) {
+            if (task.getType().equals("[T]")) {
                 todos.addTask(this.task);
                 out = ui.showAdd(this.task, todos.taskListSize());
                 storage.updateTodoList(todos);
