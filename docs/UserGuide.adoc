@@ -576,7 +576,7 @@ All transactions related to the bank account will be deleted.
 
 *Example*
 
-* `/delete /investment /name DB Vickers Account`
+* `/delete /investment /name DBB Vickers Account`
 
 Deletes an investment account named `DBB Vickers Account`.
 
@@ -642,7 +642,7 @@ To find out which expenditure to delete, use the /list or /find function to find
 
 * `/delete /expenditure /from /JunBank Savings Account /expno 1`
 
-Deletes an expenditure from `JunBank Savings Account with expenditure number `1`.
+Deletes an expenditure from `JunBank Savings Account with expenditure number` `1`.
 
 ===== `/recurexpenditure`
 
