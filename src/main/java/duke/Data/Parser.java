@@ -177,7 +177,12 @@ public class Parser {
             }
 
             else if (word[1].equals("view-day")) {
-                System.out.println(schedule.getDay());
+                try {
+                    System.out.println(schedule.getDay(Integer.parseInt(word[2])));
+                }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Enter a date please.");
+                }
             }
             break;
 
