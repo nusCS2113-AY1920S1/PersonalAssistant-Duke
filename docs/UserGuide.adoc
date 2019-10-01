@@ -57,7 +57,7 @@ Format: `*help*`
 
 === Adding expense/income: `add expense`, `add income`
 
-Add a expense or income on a particular date. +
+Add an expense or income on a particular date. +
 Format: +
 `*add expense* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}`
@@ -71,6 +71,16 @@ Examples:
 
 List all the expenses and income that you have stored in Dolla. +
 Format: `*list*`
+
+=== Change the page of the list: 'page'
+
+Each page of the list will only show 10 different tasks at a time. User can change the page of the list to check their tasks.
+
+Format: `*page* [PAGE NO.]`
+
+Example:
+
+* `page 3`
 
 === Remove a expense/income from the list : `remove`
 
@@ -98,7 +108,42 @@ Try using the same method as `*remove*` to find `*[LIST NO.]*`.
 Examples:
 
 * `modify 4`
+
 * `modify 3 tag`
+
+=== Sort the list by date `*sort /date*`
+
+Sort the list by date in ascending or descending order
+
+Format:
+
+`*sort /date* ascending/descending`
+
+Example:
+
+* `sort /date ascending`
+
+=== Sort the list by tag `*sort /tag`
+
+Sort the list by tag alphabetically in ascending or descending order
+
+Format:
+
+`*sort /tag* ascending/descending`
+
+Example:
+
+* `sort /tag descending`
+
+=== Sort the list by amount in ascending or descending order
+
+Format:
+
+`*sort /amount* ascending/descending`
+
+Example:
+
+* `sort /amount ascending`
 
 === Add recurring expenses or income : `add recurring expense`, `add recurring income`
 
@@ -112,6 +157,7 @@ Format: +
 Examples:
 
 * `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+
 * `add recurring income $800 part time job /every month`
 
 === Add duration-based expenses limit : `set limit`
@@ -206,17 +252,47 @@ Add an existing entry to the shortcut
 
 Format: `*create shortcut* [LIST NO.]`
 
-Add a new entry to the shortcut
-
-Format: `*create expense/income shortcut* [DESCRIPTION] [AMOUNT] {TAG}`
-
 Example:
 
 * `create shortcut 3`
 
-* `create expense shortcut ice-cream $5 Food`
+=== Add a new entry to the shortcut `create expense/income shortcut`
+
+Add a new expense or income to the shortcut `create shortcut expense/income`
+
+Format: `*create shortcut expense/income* [DESCRIPTION] [AMOUNT] {TAG}`
+
+Examples:
 
 * `create income shortcut tuition $100`
+
+* `create shortcut expense ice-cream $5 food`
+
+=== Add from a shortcut to expense/income list `add shortcut`
+
+Format: `*add shortcut* [SHORTCUT NO.]`
+
+Example:
+
+* `add shortcut 8`
+
+=== Modify a shortcut 'shortcut modify'
+
+Format: '*shortcut modify* [SHORTCUT NO.] {COMPONENT}'
+
+Examples:
+
+* `shortcut modify 6`
+
+* `shortcut modify 8 description`
+
+=== Remove a shortcut `shortcut remove`
+
+Format: `*shortcut remove* [SHORTCUT NO.]`
+
+Example:
+
+* `shortcut remove 3`
 
 == FAQ
 
