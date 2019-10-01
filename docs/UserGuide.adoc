@@ -66,13 +66,13 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a task : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified task from the address book. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -81,17 +81,17 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd task in the address book.
+* `find return book` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st task in the results of the `find` command.
 
 // end::delete[]
 
 
-=== Listing all persons : `list`
+=== Listing all tasks : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all tasks in the address book. +
 Format: `list`
 
 === Locating tasks in the list by name: `find`
@@ -109,6 +109,16 @@ Examples:
 
 * `find event` +
 Returns `event` and `this event`
+
+=== Marking a task as done: `done`
+
+Marks a certain task, which is completed, as done.
+Format: `done INDEX`
+
+****
+* Changes the status of completion of the task from [✗] to [✓].
+* The index of the task must be valid (i.e the task’s index must be in the task list).
+****
 
 === Rescheduling tasks: `reschedule`
 
@@ -139,6 +149,67 @@ Reminds the user upon startup of the program of any upcoming tasks.
 * Notifies for any task due within the next 6 hours.
 * Rechecks every hour for new upcoming tasks.
 ****
+
+=== Adding a Deadline task: `deadline`
+
+Adds a task which has a specific date and time to be completed by.
+Format: `deadline TASK_NAME /by DATE TIME`
+
+****
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+=== Adding a DoWithin task: `doWithin`
+
+Adds a task which has to be done within a specific time period.
+Format: `doWithin TASK_NAME /begin DATE TIME /end DATE TIME`
+
+****
+* The first date and time is the starting date.
+* The second date and time is the ending date.
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+Examples:
+
+* `doWithin write essay /begin 12-08-2019 12:00 /end 13-08-2019 12:00` +
+Adds a task, `write eassay` which has to be completed from 12/08/2019 12pm to 13/08/2019 12pm.
+
+=== Adding an Event task: `event`
+
+Adds a task which is occuring at a specific date and time.
+Format: `event TASK_NAME /at DATE TIME`
+
+****
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+=== Adding a FixedDuration task: `fixedDuration` 
+
+Adds a task which requires a fixed amount of time to be completed in, but does not have a fixed starting or end time.
+Format: `fixedDuration TASK_NAME /needs TIME`
+
+****
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+=== Adds a Recurring task: `recurring`
+
+Adds a task which occurs periodically.
+Format: `recurring TASK_NAME /every DAYS_NUMBER`
+
+Examples:
+
+* `recurring update diary /every 3`
+Adds a task, `update diary`, which occurs every 3 days.
+
+=== Adds a todo task: `todo`
+
+Adds a task which can be completed at any timing without restrictions.
+Format: `todo TASK_NAME`
 
 === Exiting the program : `bye`
 
