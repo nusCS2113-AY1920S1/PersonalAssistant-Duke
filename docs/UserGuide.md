@@ -108,14 +108,29 @@ This is the end of the **Quick Start** guide. Please refer to [4. Features](/doc
 ### 4.2. Detailed Management Commands
 
 #### 4.2.1. Adding **Deadline**: `deadline`
-#### 4.2.2. Adding **Event**: `event`
-#### 4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`
-#### 4.2.4. Adding **Recurring Task**: `recurtask`
-#### 4.2.5. Adding **Lecture Session**: `lect`
-#### 4.2.6. Adding **Tutorial Session**: `tut`
-#### 4.2.7. Adding **Sectional Session**: `sect`
-#### 4.2.8. Adding **Lab Session**: `lab`
+Dread it. Run from it. But **deadlines** still arrive.   
+Command Syntax: `deadline <task description> /end <date of deadline> `
 
+#### 4.2.2. Adding **Event**: `event`
+Command Syntax: `event <task description> /date <date of event> /start <start time of event> /end <end time of event>`
+
+#### 4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`
+Command Syntax: `fixeddurationtask <task description> /date  < date of the task> /start <the starting time of each task> /end <ending time of each task> `
+
+#### 4.2.4. Adding **Recurring Task**: `recurtask`
+Command Syntax: `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
+
+#### 4.2.5. Adding **Lecture Session**: `lect`
+Command Syntax: `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
+
+#### 4.2.6. Adding **Tutorial Session**: `tut`
+Command Syntax: `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
+
+#### 4.2.7. Adding **Sectional Session**: `sect`
+Command Syntax: `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
+
+#### 4.2.8. Adding **Lab Session**: `lab`
+Command Syntax: `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
 
 ### **5. Future Enhancements**
 
