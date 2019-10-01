@@ -59,7 +59,6 @@ public class ChooseCommand {
             String num = arr[1];
             return new SnoozeCommand(num);
         } else if (line.startsWith("schedule")) {
-            // View Schedule
             line = line.replaceFirst("schedule", "");
             return new ScheduleCommand(line);
         } else {
