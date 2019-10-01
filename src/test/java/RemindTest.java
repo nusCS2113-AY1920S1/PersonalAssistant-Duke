@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RemindTest {
     Ui ui = new Ui();
-    Storage storage = new Storage(System.getProperty("user.dir") + "\\data\\duke.txt");
+    Storage storage = new Storage();
 
     @Test
     public void remindTestTodo() throws Exception {
