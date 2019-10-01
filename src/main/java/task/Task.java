@@ -1,7 +1,5 @@
 package task;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -24,6 +22,11 @@ public abstract class Task {
      * Whether task is active or snooze
      */
     protected boolean isSnooze;
+
+    /**
+     * Frequency of a recurring task
+     */
+    protected String frequency;
 
     public Task (String description) {
         this.description = description;
@@ -53,7 +56,7 @@ public abstract class Task {
     public void markAsDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
+        System.out.println("    " + this.toString());
     }
 
     /**
@@ -86,7 +89,6 @@ public abstract class Task {
 
     public boolean containsDate(String s) { return this.description.contains(s); }
 
-
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + "[" + this.getActiveIcon() + "] " + this.description;
@@ -102,5 +104,29 @@ public abstract class Task {
 
     public Date getDateTime() {
         return this.dateTime;
+    }
+
+    /**
+     *
+     * @param description of recurring task
+     * @param dateTime of recurring task
+     * @param frequency of recurrence
+     * @return
+     */
+    public Recurring recreate(String description, String dateTime, String frequency){
+        Recurring recurring = new Recurring(description, dateTime, frequency);
+        return recurring;
+    }
+
+    public Date getBy() {
+        return this.dateTime;
+    }
+
+    public String getDesc() {
+        return description;
+    }
+
+    public String getFreq(){
+        return frequency;
     }
 }
