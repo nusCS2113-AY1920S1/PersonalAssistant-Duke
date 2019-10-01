@@ -197,4 +197,8 @@ public class Ui {
     public void promptForReply() {
         System.out.println("Does this task have a duration? (yes/no)");
     }
+
+    public void promptForTime() {
+        System.out.println("Enter the amount of time");
+    }
 }

@@ -135,8 +135,9 @@ public class Duke {
                             case yes:
                                 ui.promptForDuration();
                                 TimeUnit timeUnit = parser.getTimeUnit();
+                                ui.promptForTime();
                                 int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
+                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration, timeUnit);
                                 taskList.add(fixedDuration);
                                 Timer timer = new Timer();
                                 class RemindTask extends TimerTask {
