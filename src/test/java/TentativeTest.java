@@ -22,39 +22,35 @@ public class TentativeTest {
     private final PrintStream originalOut = System.out;
 
     public TentativeTest() {
-        ui = new Ui();
-        Path currentDir = Paths.get("data/tasks.txt");
+        Path currentDir = Paths.get("data/tasks-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
+        ui = new Ui();
     }
 
 
     @Test
     public void testMultiEventCreation() throws ParseException, DukeException {
-        System.setOut(new PrintStream(outContent));
+        ui.clearOutputString();
         Command addMultiEvent = new AddCommand("multiEvent", "multiEvent event name /at 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234");
         addMultiEvent.execute(tasks, ui, storage);
 
-        assertEquals(" Got it. I've added this task: \n" + System.getProperty("line.separator") +
+        assertEquals(" Got it. I've added this task: \n" +
                 "     [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 or 2/12/2009 2232 to 2/12/2009 2234 )\n"
-             + System.getProperty("line.separator") +
-                " Now you have 7 tasks in the list." + System.getProperty("line.separator"), outContent.toString());
-        System.setOut(originalOut);
+                + " Now you have " + tasks.lengthOfList() + " tasks in the list.\n", ui.getOutputString());
     }
 
     @Test
     public void chooseEventTime() throws ParseException, DukeException {
-        System.setOut(new PrintStream(outContent));
-        Command chooseTime = new ChooseEventTime("choose 7 1");
+        ui.clearOutputString();
+        Command chooseTime = new ChooseEventTime("choose " + tasks.lengthOfList() + " 1");
         chooseTime.execute(tasks, ui, storage);
 
         assertEquals(" Noted. The following timing has been chosen:\n" +
-                "\n" +
-                " [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 )\n" + System.getProperty("line.separator"), outContent.toString());
-        System.setOut(originalOut);
+                " [E][✘] event name (at: 1/12/2009 2232 to 1/12/2009 2234 )\n", ui.getOutputString());
 
-        Command clearChanges = new DeleteCommand(7);
+        Command clearChanges = new DeleteCommand(tasks.lengthOfList());
         clearChanges.execute(tasks, ui, storage);
     }
 

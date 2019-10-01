@@ -1,14 +1,8 @@
 T | 0 | sleep before midnight
 T | 0 | travel around the world
 D | 0 | Duke Documentation  | 17/9/2019 2359
-D | 1 | H2 math revision   | 13/2/2019 1200
-D | 1 | shitposting   | 16/9/2019 1800
 D | 0 | do UG and DG  | 1/10/2019 2359
 E | 0 | Game Night  | 22/2/2019 1800 | 22/2/2019 2100
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
-M | 0 | event name  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
+D | 0 | H2 math revision    | 16/9/2019 1800
+D | 0 | deadline 4   | 16/9/2019 1800
+D | 0 | shitposting    | 16/9/2019 1800

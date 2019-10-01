@@ -130,9 +130,9 @@ public class AddCommand extends Command {
             String[] dateStr = getDate[1].split("/or");
             ArrayList<Pair<Date, Date>> dates = new ArrayList<>();
             for (String choices : dateStr) {
-                String[] startendDate = choices.split("to ");
-                Date startDate = simpleDateFormat.parse(startendDate[0]);
-                Date endDate = simpleDateFormat.parse(startendDate[1]);
+                String[] startEndDate = choices.split("to ");
+                Date startDate = simpleDateFormat.parse(startEndDate[0]);
+                Date endDate = simpleDateFormat.parse(startEndDate[1]);
                 if (invalidDuration(startDate, endDate)) {
                     throw new DukeException("OOPS!!! The period of this event is invalid.");
                 }
