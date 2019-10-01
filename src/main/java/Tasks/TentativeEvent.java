@@ -25,6 +25,14 @@ public class TentativeEvent extends Task {
         }
         return showlist;
     }
+
+    @Override
+    public String toString() {
+        String timeslots = "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | ";
+
+        return timeslots;
+    }
+
     @Override
     public String listFormat(){
         String timeslots = "[TE]"+ "[" + super.getStatusIcon() + "] "+description+"\n" ;
