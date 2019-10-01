@@ -29,54 +29,7 @@ The trainer is able to create general training regimes for his classes that are 
 The trainer is able to navigate across the different features of the app easily. He may also see the list of commands for each feature menu.
 
 
-## Usage
-
-**Command Summary**
-
-* `e/` represents event
-
-* `c/` represents class
-
-* `d/` represents day
-
-* `loc/` represents location of class
-
-* `stu/` represents name of student
-
-* `det/` represents details of student
-
-* `|` represents a delimiter between every usage of the command
-
-
-
-**View**
-* `Schedule`: e/competition | d/monday c/beginner-swimming | d/monday c/beginner-swimming stu/Scott
-
-**Edit**
-* `Class`: edit d/monday c/beginner-swimming
-
-* `Student Details`: edit d/monday c/beginner-swimming stu/Scott det/now-engineering-student
-
-**Add**
-* `Class`: add d/monday c/beginner-swimming
-
-* `Location`: add d/monday c/beginner-swimming loc/swimming-pool
-
-* `Student`: add d/monday c/beginner-swimming stu/Scott
-
-* `Student Details`: add d/monday c/beginner-swimming stu/Scott det/computing-student
-
-**Delete**
-* `Class`: delete d/monday c/beginner-swimming
-
-* `Student`: delete d/monday c/beginner-swimming stu/Scott
-
-* `Student Details`: delete d/monday c/beginner-swimming stu/Scott det/no-longer-engineer
-
-**Menu**
-
-* `Home`: menu home
-
-* `List`: menu list
-
-* `Help`: menu help
+## Site Map
+1.[https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/AboutUs.adoc[About Us]]
+2.[https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/UserGuide.adoc[User Guide]]
+3.[https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/DeveloperGuide.adoc[Developer Guide]]
