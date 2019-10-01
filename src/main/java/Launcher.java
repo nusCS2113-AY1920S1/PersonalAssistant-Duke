@@ -7,7 +7,6 @@ import javafx.application.Application;
 public class Launcher {
     /**
      * To launch the GUI application for Duke.
-     * @param args Unused
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);

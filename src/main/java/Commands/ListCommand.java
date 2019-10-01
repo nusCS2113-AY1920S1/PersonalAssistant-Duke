@@ -14,6 +14,9 @@ public class ListCommand extends Command {
     }
     /**
      * Executes the display of all the task in the TaskList object
+     * @param todos The TaskList object for todos
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the list message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display list message
