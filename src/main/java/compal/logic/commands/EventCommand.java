@@ -1,13 +1,15 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.tasks.Event;
+import compal.tasks.Task;
 import compal.tasks.TaskList;
 
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "event".
@@ -46,9 +48,17 @@ public class EventCommand extends Command implements CommandParser {
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
+            Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getTime(restOfInput);
-            taskList.addTask(new Event(description, date, time));
+            String startTime = getStartTime(restOfInput);
+            String endTime = getEndTime(restOfInput);
+
+            if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
+                compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
+            }
+
+            taskList.addTask(new Event(description, priority, date, startTime, endTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

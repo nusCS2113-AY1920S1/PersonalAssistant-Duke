@@ -10,12 +10,15 @@ public class Event extends Task {
      *
      * @param description Description of event.
      * @param date        Starting date of event.
-     * @param time        Starting time of event.
+     * @param startTime   Starting time of event.
+     * @param priority    priority level of task type
+     * @param endTime     End time of deadline
      */
-    public Event(String description, String date, String time) {
-        super(description);
+    public Event(String description, Priority priority, String date, String startTime, String endTime) {
+        super(description, priority);
         super.symbol = "E";
         super.setDate(date);
-        super.setTime(time);
+        super.setStartTime(startTime);
+        super.setEndTime(endTime);
     }
 }

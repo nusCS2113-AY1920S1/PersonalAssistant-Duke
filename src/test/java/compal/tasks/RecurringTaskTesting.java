@@ -7,19 +7,26 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RecurringTaskTesting {
     private String description = "Test content";
     private String date = "01/10/2019";
-    private String time = "1230";
+    private String startTime = "1130";
+    private String endTime = "1230";
+    private String symbol = "RT";
+    private Task.Priority priority = high;
     private RecurringTask recurringTask;
-
 
     @BeforeEach
     public void setup() {
-        recurringTask = new RecurringTask(description, date, time);
+        recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
+    }
+
+    @Test
+    void getPriority() {
+        assertEquals(priority, recurringTask.getPriority());
     }
 
     @Test
@@ -28,8 +35,13 @@ public class RecurringTaskTesting {
     }
 
     @Test
+    void getIsDone() {
+        assertEquals("false", recurringTask.getisDone());
+    }
+
+    @Test
     void getSymbol() {
-        assertEquals("RT", recurringTask.getSymbol());
+        assertEquals(symbol, recurringTask.getSymbol());
     }
 
     @Test
@@ -57,42 +69,57 @@ public class RecurringTaskTesting {
     }
 
     @Test
-    void getDurationHour() {
-        assertNull(recurringTask.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertNull(recurringTask.getDurationMinute());
-    }
-
-    @Test
-    void isHasReminder() {
-        assertEquals(false, recurringTask.isHasReminder());
-    }
-
-    @Test
-    void getTime() {
+    void getStartTime() {
         SimpleDateFormat format = new SimpleDateFormat("HHmm");
-        Date t = null;
+        Date d = null;
         try {
-            t = format.parse(time);
+            d = format.parse(startTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(t, recurringTask.getTime());
+        assertEquals(d, recurringTask.getStartTime());
     }
 
     @Test
-    void setTimeTest() {
-        Date t = recurringTask.getTime();
-        recurringTask.setTime(time);
-        assertEquals(t, recurringTask.getTime());
+    void setStartTimeTest() {
+        Date d = recurringTask.getStartTime();
+        recurringTask.setStartTime(startTime);
+        assertEquals(d, recurringTask.getStartTime());
     }
 
     @Test
-    void getStringTime() {
-        assertEquals(time, recurringTask.getStringTime());
+    void getStringStartTime() {
+        assertEquals(startTime, recurringTask.getStringStartTime());
+    }
+
+    @Test
+    void getEndTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date d = null;
+        try {
+            d = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, recurringTask.getEndTime());
+    }
+
+    @Test
+    void setEndTimeTest() {
+        Date d = recurringTask.getEndTime();
+        recurringTask.setEndTime(endTime);
+        assertEquals(d, recurringTask.getEndTime());
+    }
+
+    @Test
+    void getStringEndTime() {
+        assertEquals(endTime, recurringTask.getStringEndTime());
+    }
+
+    @Test
+    void sethasReminder() {
+        recurringTask.setHasReminder();
+        assertEquals(true, recurringTask.hasReminder());
     }
 
     @Test
@@ -108,8 +135,30 @@ public class RecurringTaskTesting {
 
     @Test
     void toStringTest() {
-        assertEquals("[" + recurringTask.getSymbol() + "]" + "[" + recurringTask.getStatusIcon() + "] "
-                + recurringTask.getDescription() + " Date: " + recurringTask.getStringDate() + " Time: "
-                + recurringTask.getStringTime(), recurringTask.toString());
+        assertEquals("\n" + "[" + symbol + "]" + "[" + "\u2718" + "] " + description
+                + " \nDate: " + date + " \nStart Time: " + startTime
+                + " \nEnd Time: " + endTime + " \nPriority: " + priority
+                + "\n***************", recurringTask.toString());
+    }
+
+    @Test
+    void getAllDetailsTest() {
+        StringBuilder list = new StringBuilder();
+        list.append(symbol);
+        list.append("_");
+        list.append(description);
+        list.append("_");
+        list.append(false);
+        list.append("_");
+        list.append(priority.toString());
+        list.append("_");
+        list.append(date);
+        list.append("_");
+        list.append(startTime);
+        list.append("_");
+        list.append(endTime);
+        list.append("_");
+        list.append(recurringTask.gethasReminder());
+        assertEquals(list.toString(), recurringTask.getAllDetailsAsString());
     }
 }

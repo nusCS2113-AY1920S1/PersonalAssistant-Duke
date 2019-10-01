@@ -1,6 +1,6 @@
 package compal.logic.parser;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.DeadlineCommand;
@@ -12,12 +12,13 @@ import compal.logic.commands.FindCommand;
 import compal.logic.commands.FixedDurationCommand;
 import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
-import compal.logic.commands.ReminderCommand;
+import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
+import compal.logic.commands.ViewReminderCommand;
 import compal.tasks.TaskList;
 
-import static compal.compal.Messages.MESSAGE_INVALID_COMMAND;
-import static compal.compal.Messages.MESSAGE_MISSING_INPUT;
+import static compal.commons.Messages.MESSAGE_INVALID_COMMAND;
+import static compal.commons.Messages.MESSAGE_MISSING_INPUT;
 
 import java.text.ParseException;
 import java.util.Scanner;
@@ -39,7 +40,12 @@ public class ParserManager {
     static final String CMD_RECUR_TASK = "recurtask";
     static final String CMD_VIEW = "view";
     static final String CMD_FIND = "find";
-    static final String CMD_REMINDER = "reminder";
+    static final String CMD_SET_REMINDER = "set-reminder";
+    static final String CMD_VIEW_REMIND = "view-reminder";
+    static final String CMD_LECT = "lect";
+    static final String CMD_TUT = "tut";
+    static final String CMD_SECT = "sect";
+    static final String CMD_LAB = "lab";
 
     /*
      * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
@@ -134,6 +140,10 @@ public class ParserManager {
                     fixedduration.parseCommand(userInput);
                     break;
                 case CMD_RECUR_TASK:
+                case CMD_LECT:
+                case CMD_TUT:
+                case CMD_SECT:
+                case CMD_LAB:
                     RecurTaskCommand recurTask = new RecurTaskCommand(compal);
                     recurTask.parseCommand(userInput);
                     break;
@@ -145,9 +155,13 @@ public class ParserManager {
                     ViewCommand viewCommand = new ViewCommand(compal);
                     viewCommand.parseCommand(userInput);
                     break;
-                case CMD_REMINDER:
-                    ReminderCommand reminderCommand = new ReminderCommand(compal);
-                    reminderCommand.parseCommand(cmd);
+                case CMD_VIEW_REMIND:
+                    ViewReminderCommand viewReminderCommand = new ViewReminderCommand(compal);
+                    viewReminderCommand.parseCommand(cmd);
+                    break;
+                case CMD_SET_REMINDER:
+                    SetReminderCommand setReminderCommand = new SetReminderCommand(compal);
+                    setReminderCommand.parseCommand(userInput);
                     break;
                 default:
                     compal.ui.printg(MESSAGE_INVALID_COMMAND);

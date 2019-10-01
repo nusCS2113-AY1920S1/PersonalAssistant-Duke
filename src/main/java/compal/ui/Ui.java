@@ -1,7 +1,9 @@
 package compal.ui;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.tasks.Task;
+
+import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
 import java.io.File;
 import java.text.ParseException;
@@ -9,20 +11,236 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+
+/*
+List of Fonts:
+Agency FB
+Agency FB Bold
+Arial
+Arial Black
+Arial Black Italic
+Arial Bold
+Arial Bold Italic
+Arial Italic
+Arial Narrow
+Arial Narrow Bold
+Arial Narrow Bold Italic
+Arial Narrow Italic
+Arial Rounded MT Bold
+Arial-SM
+Blackadder ITC
+Bodoni MT
+Bodoni MT Black
+Bodoni MT Black Italic
+Bodoni MT Bold
+Bodoni MT Bold Italic
+Bodoni MT Condensed
+Bodoni MT Condensed Bold
+Bodoni MT Condensed Bold Italic
+Bodoni MT Condensed Italic
+Bodoni MT Italic
+Book Antiqua
+Book Antiqua Bold
+Book Antiqua Bold Italic
+Book Antiqua Italic
+Bookman Old Style
+Bookman Old Style Bold
+Bookman Old Style Bold Italic
+Bookman Old Style Italic
+Bookshelf Symbol 7
+Bradley Hand ITC
+Calisto MT
+Calisto MT Bold
+Calisto MT Bold Italic
+Calisto MT Italic
+Castellar
+Century Gothic
+Century Gothic Bold
+Century Gothic Bold Italic
+Century Gothic Italic
+Century Schoolbook
+Century Schoolbook Bold
+Century Schoolbook Bold Italic
+Century Schoolbook Italic
+Comic Sans MS
+Comic Sans MS Bold
+Copperplate Gothic Bold
+Copperplate Gothic Light
+Courier New
+Courier New Bold
+Courier New Bold Italic
+Courier New Italic
+Curlz MT
+Dialog.bold
+Dialog.bolditalic
+Dialog.italic
+Dialog.plain
+DialogInput.bold
+DialogInput.bolditalic
+DialogInput.italic
+DialogInput.plain
+Edwardian Script ITC
+Elephant
+Elephant Italic
+Engravers MT
+Eras Bold ITC
+Eras Demi ITC
+Eras Light ITC
+Eras Medium ITC
+Estrangelo Edessa
+Felix Titling
+Forte
+Franklin Gothic Book
+Franklin Gothic Book Italic
+Franklin Gothic Demi
+Franklin Gothic Demi Cond
+Franklin Gothic Demi Italic
+Franklin Gothic Heavy
+Franklin Gothic Heavy Italic
+Franklin Gothic Medium
+Franklin Gothic Medium Cond
+Franklin Gothic Medium Italic
+French Script MT
+Garamond
+Garamond Bold
+Garamond Italic
+Gautami
+Georgia
+Georgia Bold
+Georgia Bold Italic
+Georgia Italic
+Gigi
+Gill Sans MT
+Gill Sans MT Bold
+Gill Sans MT Bold Italic
+Gill Sans MT Condensed
+Gill Sans MT Ext Condensed Bold
+Gill Sans MT Italic
+Gill Sans Ultra Bold
+Gill Sans Ultra Bold Condensed
+Gloucester MT Extra Condensed
+Goudy Old Style
+Goudy Old Style Bold
+Goudy Old Style Italic
+Goudy Stout
+Haettenschweiler
+Impact
+Imprint MT Shadow
+Kartika
+Latha
+Lucida Bright Demibold
+Lucida Bright Demibold Italic
+Lucida Bright Italic
+Lucida Bright Regular
+Lucida Console
+Lucida Sans Demibold
+Lucida Sans Demibold Italic
+Lucida Sans Demibold Roman
+Lucida Sans Italic
+Lucida Sans Regular
+Lucida Sans Typewriter Bold
+Lucida Sans Typewriter Bold Oblique
+Lucida Sans Typewriter Oblique
+Lucida Sans Typewriter Regular
+Lucida Sans Unicode
+MS Outlook
+MS Reference Sans Serif
+MS Reference Specialty
+MV Boli
+Maiandra GD
+Mangal
+Marlett
+Microsoft Sans Serif
+Monospaced.bold
+Monospaced.bolditalic
+Monospaced.italic
+Monospaced.plain
+Monotype Corsiva
+OCR A Extended
+Palace Script MT
+Palatino Linotype
+Palatino Linotype Bold
+Palatino Linotype Bold Italic
+Palatino Linotype Italic
+Papyrus
+Perpetua
+Perpetua Bold
+Perpetua Bold Italic
+Perpetua Italic
+Perpetua Titling MT Bold
+Perpetua Titling MT Light
+Pristina
+Raavi
+Rage Italic
+Rockwell
+Rockwell Bold
+Rockwell Bold Italic
+Rockwell Condensed
+Rockwell Condensed Bold
+Rockwell Extra Bold
+Rockwell Italic
+SansSerif.bold
+SansSerif.bolditalic
+SansSerif.italic
+SansSerif.plain
+Script MT Bold
+Serif.bold
+Serif.bolditalic
+Serif.italic
+Serif.plain
+Shruti
+Sylfaen
+Symbol
+Tahoma
+Tahoma Bold
+Tera Special
+Times New Roman
+Times New Roman Bold
+Times New Roman Bold Italic
+Times New Roman Italic
+Trebuchet MS
+Trebuchet MS Bold
+Trebuchet MS Bold Italic
+Trebuchet MS Italic
+Tunga
+Tw Cen MT
+Tw Cen MT Bold
+Tw Cen MT Bold Italic
+Tw Cen MT Condensed
+Tw Cen MT Condensed Bold
+Tw Cen MT Condensed Extra Bold
+Tw Cen MT Italic
+Verdana
+Verdana Bold
+Verdana Bold Italic
+Verdana Italic
+Vrinda
+Webdings
+Wingdings
+Wingdings 2
+Wingdings 3
+
+ */
+
+
 /**
- * Represents user.
+ * Represents userinterface.
  */
 public class Ui {
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public ScrollPane mainWindow;
     public ScrollPane secondaryWindow;
+    public TabPane tabWindow;
+    public String dateState;
     private ArrayList<Task> arrlist;
     private Compal compal;
     private String username;
@@ -57,15 +275,27 @@ public class Ui {
     }
 
     /**
+     * Overloaded version of printg which allows you to customize style of text.
+     * e.g usage; printg("hello world!", "verdana", 12, Color.RED);
+     *
+     * @param text Input object received to be print on gui. Any object type can be used, as long as
+     *             it has a 'toString()' function defined.
+     */
+    public void printg(Object text, String font, int size, Color color) {
+        VBox vbox = (VBox) mainWindow.getContent();
+        vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
+    }
+
+    /**
      * Converts the object into string form using toString()
      * and prints it onto the GUI's secondary display box.
      *
      * @param text Input object received to be print on gui. Any object type can be used, as long as
      *             it has a 'toString()' function defined.
      */
-    public void printSecondaryg(Object text) {
+    public void printSecondaryg(Object text, String font, int size, Color color) {
         VBox vbox = (VBox) secondaryWindow.getContent();
-        vbox.getChildren().addAll(getDialogLabel(text.toString(), "verdana", 12, Color.RED));
+        vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
     }
 
     /**
@@ -76,17 +306,7 @@ public class Ui {
         compal.ui.printg("Now you have " + arrlist.size() + " tasks in the list");
     }
 
-    /**
-     * Prints array of tasks.
-     *
-     * @param viewDay Input array to print.
-     */
-    public void printTemp(ArrayList<Task> viewDay) {
-        int count = 1;
-        for (Task t : viewDay) {
-            printg(count++ + "." + t.toString());
-        }
-    }
+
     //----------------------->
 
     //***MISC FUNCTIONS***----------------------------------------------------------------------------------------------
@@ -146,31 +366,13 @@ public class Ui {
      * @throws Compal.DukeException If an error is encountered.
      */
     public void checkInit() throws ParseException, Compal.DukeException {
-        //print the changelog for developers. todo: Remove when releasing build.
-        printSecondaryg("CHANGELOG V1.1:\n (REMOVE BEFORE PACKAGING AS JAR)");
-        printSecondaryg("\n+ viewing of tasks on a specific date\n"
-                + "   displays the tasks for that date\n"
-                + "   usage: view <dd/mm/yyyy>\n\n\n"
-                + "+ reminders\n"
-                + "   ComPAL shows reminders of tasks due within a week and tasks with reminders set\n"
-                + "   NOTE: setting reminders is not yet implemented\n\n\n"
-                + "+ new task type added: doaftertask\n"
-                + "   task that can be done only after a certain date\n"
-                + "   usage: doaftertask < descriptive name> /after <dd/mm/yyyy hhmm>\n\n\n"
-                + "+ clearing terminal\n"
-                + "   clears Compal's primary terminal\n"
-                + "   usage: clear\n\n\n"
-                + "+ new task type added: fixeddurationtask\n"
-                + "  task that have a fixed duration\n"
-                + "   usage: fixeddurationtask < descriptive name> /on <dd/mm/yyyy hhmm> /for "
-                + "< number of hours> hours < number of minutes> minutes");
 
         File tmpDir = new File("./prefs.txt");
         boolean saveFileExists = tmpDir.exists();
 
         if (!saveFileExists) {
             compal.parser.setStatus("init");
-            printg("Hello! I'm COMPal\n");
+            printg("Hello! I'm Compal!!", "verdana", 23, Color.BLACK);
             printg("What is your name?");
         } else {
             username = compal.storage.getUserName();
@@ -178,8 +380,10 @@ public class Ui {
                     + username
                     + "! "
                     +
-                    "Here are your tasks that are due within a week: \n");
-            compal.parser.processCmd("reminder");
+                    "Here are your tasks that are due within a week: \n", "verdana", 15, Color.BLACK);
+
+            //initiate the showing of reminders
+            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
     }
 
@@ -211,6 +415,20 @@ public class Ui {
         default:
             System.out.println("Unknown init stage");
         }
+    }
+
+    /**
+     * Refresh view date.
+     *
+     * @param dateToStore date to view of daily calender
+     */
+    public void dateViewRefresh(String dateToStore) {
+        DailyCal dc = new DailyCal();
+        compal.ui.tabWindow.getTabs().remove(1);
+        Tab dailyTab = new Tab();
+        dailyTab.setText(dateToStore);
+        dailyTab.setContent(dc.init(dateToStore));
+        compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }
     //----------------------->
 }

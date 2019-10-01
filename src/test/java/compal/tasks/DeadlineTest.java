@@ -3,6 +3,7 @@ package compal.tasks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static compal.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,16 +15,28 @@ class DeadlineTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private Deadline deadline;
+    private Task.Priority priority = high;
+    private String endTime = "1230";
 
 
     @BeforeEach
     public void setup() {
-        deadline = new Deadline(description, date);
+        deadline = new Deadline(description, priority, date, endTime);
+    }
+
+    @Test
+    void getPriority() {
+        assertEquals(priority, deadline.getPriority());
     }
 
     @Test
     void getStatusIcon() {
         assertEquals("\u2718", deadline.getStatusIcon());
+    }
+
+    @Test
+    void getIsDone() {
+        assertEquals("false", deadline.getisDone());
     }
 
     @Test
@@ -56,23 +69,43 @@ class DeadlineTest {
     }
 
     @Test
-    void getDurationHour() {
-        assertNull(deadline.getDurationHour());
+    void getStartTime() {
+        assertNull(deadline.getStartTime());
     }
 
     @Test
-    void getDurationMinute() {
-        assertNull(deadline.getDurationMinute());
+    void getStringStartTime() {
+        assertEquals("-", deadline.getStringStartTime());
     }
 
     @Test
-    void isHasReminder() {
-        assertEquals(false, deadline.isHasReminder());
+    void getEndTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        Date d = null;
+        try {
+            d = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, deadline.getEndTime());
     }
 
     @Test
-    void getTime() {
-        assertNull(deadline.getTime());
+    void setEndTimeTest() {
+        Date d = deadline.getEndTime();
+        deadline.setEndTime(endTime);
+        assertEquals(d, deadline.getEndTime());
+    }
+
+    @Test
+    void getStringEndTime() {
+        assertEquals(endTime, deadline.getStringEndTime());
+    }
+
+    @Test
+    void sethasReminder() {
+        deadline.setHasReminder();
+        assertEquals(true, deadline.hasReminder());
     }
 
     @Test
@@ -88,7 +121,28 @@ class DeadlineTest {
 
     @Test
     void toStringTest() {
-        assertEquals("[" + deadline.getSymbol() + "]" + "[" + deadline.getStatusIcon() + "] "
-                + deadline.getDescription() + " Date: " + deadline.getStringDate(), deadline.toString());
+        assertEquals("\n" + "[D]" + "[" + "\u2718" + "] " + description
+                + " \nDate: " + date + " \nEnd Time: " + endTime
+                + " \nPriority: " + priority + "\n***************", deadline.toString());
+    }
+
+    @Test
+    void getAllDetailsTest() {
+        StringBuilder list = new StringBuilder();
+        list.append("D");
+        list.append("_");
+        list.append(description);
+        list.append("_");
+        list.append("false");
+        list.append("_");
+        list.append(priority.toString());
+        list.append("_");
+        list.append(date);
+        list.append("_");
+        list.append("-_");
+        list.append(endTime);
+        list.append("_");
+        list.append(deadline.gethasReminder());
+        assertEquals(list.toString(), deadline.getAllDetailsAsString());
     }
 }

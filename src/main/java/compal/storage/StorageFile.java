@@ -1,16 +1,17 @@
 package compal.storage;
 
+import compal.tasks.FixedDurationTask;
+import compal.tasks.Deadline;
+import compal.tasks.DoAfterTasks;
+import compal.tasks.Event;
+import compal.tasks.RecurringTask;
 import compal.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -20,8 +21,16 @@ import java.util.ArrayList;
 public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./Compal.txt";
-    private static final String binarySaveFilePath = "binary";
     private static final String userPreferencesFilePath = "./prefs.txt";
+    private static final String SYMBOL_LECT = "LECT";
+    private static final String SYMBOL_TUT = "TUT";
+    private static final String SYMBOL_SECT = "SECT";
+    private static final String SYMBOL_LAB = "LAB";
+    private static final String SYMBOL_RECUR = "RT";
+    private static final String SYMBOL_DEADLINE = "D";
+    private static final String SYMBOL_DOAFTER = "DAT";
+    private static final String SYMBOL_EVENT = "E";
+    private static final String SYMBOL_FIXEDD = "FDT";
 
     /**
      * Prints message of storage initialized.
@@ -32,20 +41,76 @@ public class StorageFile implements Storage {
 
 
     /**
-     * Loads the arrayList as a binary stream.
+     * Creates and loads task objects based on save text file into arraylist, then returns arraylist.
      *
      * @return ArrayList of stored item found in file.
+     * @author jaedonkey
      */
     @Override
     public ArrayList<Task> loadCompal() {
-        ArrayList<Task> tempList = null;
+        ArrayList<Task> tempList = new ArrayList<>();
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(binarySaveFilePath));
-            tempList = (ArrayList<Task>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Storage:WARNING: Binary save-file not found");
+            File f = new File("duke.txt");
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String st;
+            while ((st = br.readLine()) != null) {
+                Task t;
+                System.out.println("StorageFile:LOG: Task read:" + st);
+                String[] parts = st.split("_");
+                String taskType = parts[0];
+                switch (taskType) {
+                case SYMBOL_DEADLINE:
+                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[5]);
+                    break;
+                case SYMBOL_DOAFTER:
+                    t = new DoAfterTasks(parts[1], stringToPriority(parts[3]), parts[4]);
+                    break;
+                case SYMBOL_RECUR:
+                case SYMBOL_LECT:
+                case SYMBOL_TUT:
+                case SYMBOL_SECT:
+                case SYMBOL_LAB:
+                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
+                    break;
+                case SYMBOL_EVENT:
+                    t = new Event(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
+                    break;
+                case SYMBOL_FIXEDD:
+                    t = new FixedDurationTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
+                    break;
+                default:
+                    System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
+                    return tempList;
+
+                }
+
+                //set tasks completion and reminder status
+                if (parts[2].equals("true")) {
+                    t.markAsDone();
+                }
+                if (parts[7].equals("true")) {
+                    t.setHasReminder();
+                }
+
+                //add created task to list
+                tempList.add(t);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return tempList;
+    }
+
+    /**
+     * Returns Priority from a String describing the priority level.
+     *
+     * @param priority task priority string
+     * @return Priority enum
+     */
+    public Task.Priority stringToPriority(String priority) {
+        return Task.Priority.valueOf(priority.toLowerCase());
     }
 
     /**
@@ -63,23 +128,23 @@ public class StorageFile implements Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Unknown User";
+        return "";
     }
 
     /**
      * Saves ArrayList of tasks into file.
      *
      * @param tasks ArrayList of task stored.
+     * @author jaedonkey
      */
     @Override
     public void saveCompal(ArrayList<Task> tasks) {
-        try {
-            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(binarySaveFilePath));
-            ois.writeObject(tasks);
-            ois.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        StringBuilder sb = new StringBuilder();
+        for (Task t : tasks) {
+            sb.append(t.getAllDetailsAsString());
+            sb.append("\n");
         }
+        saveString(sb.toString(), "duke.txt");
     }
 
     /**
@@ -87,6 +152,7 @@ public class StorageFile implements Storage {
      *
      * @param toSave   String to save into file.
      * @param filePath File path of file.
+     * @author jaedonkey
      */
     @Override
     public void saveString(String toSave, String filePath) {
@@ -105,26 +171,12 @@ public class StorageFile implements Storage {
      * File is prefs.txt.
      *
      * @param name Username to store into file.
+     * @author jaedonkey
      */
     @Override
     public void storeUserName(String name) {
         saveString(name, userPreferencesFilePath);
     }
 
-    /**
-     * Takes in varargs strings containing details of a task (DateAndTime, Task ID, Task Type, Task Name and etc).
-     * Returns a fully joined string (each component string is joined by underscores).
-     *
-     * @param properties Varargs strings that contain different properties of a task.
-     * @return Joined string of all properties.
-     */
-    @Override
-    public String generateStorageString(String... properties) {
-        StringBuilder sb = new StringBuilder();
-        for (String property : properties) {
-            sb.append("_");
-            sb.append(property);
-        }
-        return sb.toString();
-    }
+
 }

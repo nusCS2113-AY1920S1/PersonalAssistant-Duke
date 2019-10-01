@@ -10,12 +10,16 @@ public class RecurringTask extends Task {
      *
      * @param description Description of recurring task.
      * @param date        Starting date of recurring task.
-     * @param time        Starting time of recurring task.
+     * @param startTime   Starting time of recurring task.
+     * @param priority    priority level of task type
+     * @param endTime     End time of deadline
      */
-    public RecurringTask(String description, String date, String time) {
-        super(description);
-        super.symbol = "RT";
+    public RecurringTask(String description, Priority priority, String date,
+                         String startTime, String endTime, String symbol) {
+        super(description, priority);
+        super.symbol = symbol;
         super.setDate(date);
-        super.setTime(time);
+        super.setStartTime(startTime);
+        super.setEndTime(endTime);
     }
 }
