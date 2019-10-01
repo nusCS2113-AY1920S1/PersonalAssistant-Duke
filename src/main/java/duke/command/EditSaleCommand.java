@@ -5,7 +5,6 @@ import duke.entities.Sale;
 import duke.parser.CommandParser;
 import duke.parser.TimeParser;
 import duke.storage.BakingList;
-import duke.storage.SaleList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 

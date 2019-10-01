@@ -3,8 +3,6 @@ package duke.command;
 import duke.commons.DukeException;
 import duke.entities.Sale;
 import duke.parser.CommandParser;
-import duke.parser.TimeParser;
-import duke.storage.SaleList;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -22,6 +20,7 @@ public class AddSaleCommand extends UndoableCommand {
 
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         sale = new Sale();
+        CommandParser.modifySale(params, sale);
         addSale(sale, bakingList);
         storage.serialize(bakingList);
         ui.refreshSaleList(bakingList.getSaleList(), bakingList.getSaleList());

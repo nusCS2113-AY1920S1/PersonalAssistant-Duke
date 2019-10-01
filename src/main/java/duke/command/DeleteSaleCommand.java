@@ -4,7 +4,6 @@ import duke.commons.DukeException;
 import duke.entities.Sale;
 import duke.parser.CommandParser;
 import duke.storage.BakingList;
-import duke.storage.SaleList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
