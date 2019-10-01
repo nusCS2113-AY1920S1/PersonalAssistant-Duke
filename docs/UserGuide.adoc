@@ -6,10 +6,15 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
 :experimental:
-:repoURL: https://github.com/se-edu/duke
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-3/main
 
-By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
+By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -338,6 +343,22 @@ Examples:
 
 * `weather`
 
+=== Undo: `undo`
+
+Duke undos the last command. +
+
+Examples:
+
+* `undo`
+
+=== Redo: `redo`
+
+Duke redos the last undo. +
+
+Examples:
+
+* `redo`
+
 === Help: `help`
 
 Duke shows this page to the user. +
@@ -472,6 +493,8 @@ e.g. `taxiride Harbourfront`
 * *Taxi* : `taxi`
 * *Train* : `train`
 * *Weather* : `weather`
+* *Undo* : `undo`
+* *Redo* : `redo`
 * *Help* : `help`
 * *Bye* : `bye`
 * *Recommend* : `recommend LOCATION` +
