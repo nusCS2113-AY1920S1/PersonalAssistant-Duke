@@ -1,9 +1,39 @@
 = Dr. Duke - User Guide
+:site-section: DeveloperGuide
 :toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:xrefstyle: full
+:repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
 
-# Usage
+By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
-App-Specific Terms:
+== Introduction
+
+*Dr. Duke* is a command-line based personal assistant for doctors to manage their patients' data.
+
+It provides house officers with a streamlined notebook environment, which allows them to concentrate on quickly and accurately
+recording patient data in a standard format. If you're a house officer who types fast and doesn't mind learning how to use a
+keyboard-based app to type faster, then this app is for you!
+
+== Setting up
+=== Prerequisites
+
+* *JDK `11`* or above (get the latest version of Java https://www.oracle.com/technetwork/java/javase/downloads/index.html[here!])
+
+=== Getting Started
+
+. Download the latest `.jar` release file from our https://github.com/AY1920S1-CS2113-T14-1/main/releases[release page].
+. Move the `.jar` file to the folder which you want to use as *Dr. Duke*'s home.
+. Double click on the `.jar` file
+
+*Dr Duke* should open shortly.
+
+== Usage
+
+App-specific terms:
 
 * This app manages multiple Patients. Each Patient has one or more Impressions (diagnoses), and each Impression is supported by Evidence and treated by Treatments. Evidence consists of Observations and Results. Treatments consist of Plans, Investigations and Medicine. 
 * The different screens you can view are referred to as contexts. Each context is associated with a particular set of data to display.
@@ -33,7 +63,7 @@ Parsing rules:
 
 ## Contexts
 
-Commands that are present in multiple contexts will be mentioned in just one context, and all contexts in which they are available will be listed.
+The sections below describe what will be displayed in each context, and the commands available in them.
 
 ### Home 
 
@@ -260,7 +290,7 @@ a|
 a| 
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
-* `-(subj[ective]|obj[ective])` - Default: objective observations
+* `-(subj[ective]\|obj[ective])` - Default: objective observations
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-r[esult]`
@@ -373,3 +403,8 @@ Contains everything in <<Treatment and Evidence>>.
 Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
+
+== FAQ
+
+*Q*: How can I continue working with the same data on a different computer? +
+*A*: Install this app on the other computer. All your *Dr. Duke* data is stored persistently in the `data` folder, and can be transferred without any configuration to the `data` folder of the new installation.

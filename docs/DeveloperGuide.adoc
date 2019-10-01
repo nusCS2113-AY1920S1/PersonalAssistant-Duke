@@ -12,14 +12,11 @@ By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-*Dr. Duke* is a command-line based personal assistant for doctors to manage their patients' data.
-
-It provides house officers with a streamlined notebook environment, which allows them to concentrate on the recording of
-patient data with a pre-defined structure.
+Welcome to the *Dr. Duke* developer guide! This document assumes a familiarity with the link:UserGuide.adoc[user guide].
 
 In order to be a successful *Dr. Duke* developer, you need a general understanding of: +
 
-*  *Dr. Duke*’s architecture and object model
+*  *Dr. Duke*'s architecture and object model
 *  The Java framework on which *Dr. Duke* builds on
 
 == Setting up
@@ -65,7 +62,6 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 * prefer desktop apps over other types
 * prefers typing over mouse input
 * can type fast
-* is extremely comfortable with the usage of CLI apps
 
 *Value proposition*: manage `patients` faster than a typical mouse/GUI driven app
 
@@ -128,7 +124,6 @@ checked to ensure it is of the right format | always be assured that I am inputt
 [appendix]
 == Non Functional Requirements
 
-.  The software should achieve 99% uptime.
 .  The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or
 above installed.
 .  The software should be able to hold up to 500 patients without a noticeable reduction in performance for
