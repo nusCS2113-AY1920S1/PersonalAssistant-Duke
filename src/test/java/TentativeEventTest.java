@@ -3,6 +3,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import Exception.DukeException;
 
@@ -12,26 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TentativeEventTest {
     @Test
-    public void testTentativeEvent() throws ParseException,IOException,DukeException{
+    public void testListFormat() throws ParseException,IOException,DukeException{
         String description = "return book";
-        ArrayList<Date> tentativeoptions = new ArrayList<Date>();
         ArrayList<String> tentativetimes = new ArrayList<String>();
-
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        tentativeoptions.add(fmt.parse("2008-6-7 5:5:5"));
-        tentativeoptions.add(fmt.parse("2007-3-2 4:4:4"));
-        tentativetimes.add("2008-6-7 5:5:5");
-        tentativetimes.add("2007-3-2 4:4:4");
-        TentativeEvent newtentative = new TentativeEvent(description, tentativeoptions,tentativetimes);
+        tentativetimes.add("2008-06-07 05:05:05-08:08:08");
+        tentativetimes.add("2007-03-02 04:04:04-10:10:10");
+        TentativeEvent newtentative = new TentativeEvent(description,tentativetimes);
         String timeslots = "[TE]"+ "[" + newtentative.getStatusIcon() + "] "+description+"\n" ;
         for (int i = 0; i < tentativetimes.size(); i++) {
+            DateTimeFormatter fmtED = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter fmtET = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String[] dateTime = tentativetimes.get(i).split(" ");
+            String[] time = dateTime[1].split("-");
+            String datestring = LocalDate.parse(dateTime[0], fmtED).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+            String output = datestring + " "+  LocalTime.parse(time[0], fmtET).format(fmtET) + "-" + LocalTime.parse(time[1], fmtET).format(fmtET) + ")";
             if(i==0){
-                timeslots += "at "+tentativetimes.get(i)+"\n";
+                timeslots += "at "+output+"\n";
             }else{
-                timeslots += "or "+tentativetimes.get(i)+"\n";
+                timeslots += "or "+output+"\n";
             }
         }
-
         assertEquals(newtentative.listFormat(),timeslots);
     }
 }
