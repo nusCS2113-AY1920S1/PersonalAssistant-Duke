@@ -16,7 +16,7 @@ class MarkDoneCommandTest {
     void execute() throws DukeException {
         UiStub ui = new UiStub(new VBox());
         Storage storage = new Storage("tasks.txt", ui);
-        Task task = new Todo("homework");
+        Task task = new Todo("homework1");
         AddCommand addCommand = new AddCommand(task);
         addCommand.execute(ui, storage);
         MarkDoneCommand markDoneCommand = new MarkDoneCommand(0);
@@ -24,6 +24,5 @@ class MarkDoneCommandTest {
         assertTrue(storage.getTasks().get(0).isDone());
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(ui, storage);
-
     }
 }
