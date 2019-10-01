@@ -61,13 +61,14 @@ public class Messages {
     public static final String ERROR_MESSAGE_TENTATIVESCHEDULE = "       "
             + "OOPS!!! Please specify tentative scheduling in this format: \n       "
             + "tentativeschedule [task description] /on [day/month/year time], [day/month/year time], ......";
-    public static final String ERROR_MESSAGE_RECURRING_FREQUENCY_NULL = "     Please include the frequency of the recurrent task.\n"
+    public static final String ERROR_MESSAGE_RECURRING_FREQUENCY_NULL = "     "
+            + "Please include the frequency of the recurrent task.\n"
             + "     Duke supports recurring tasks in this format:\n"
             + "     1. recurring [task description] /daily\n"
-            + "     2. recurring [task description] /weekly [day of week]\n"
-            + "     3. recurring [task description] /monthly [day of month 'dd']\n";
-            // + "     4. recurring [task description] /yearly [date of year 'dd/mm']";
-    public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     Please provide the task description and day or date of recurrence.";
+            + "     2. recurring [task description] /weekly [day of week] Eg: thurs\n"
+            + "     3. recurring [task description] /monthly [day of month 'dd'] Eg: 01\n";
+    public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     "
+            + "Please provide the task description and day or date of recurrence.";
 
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
@@ -86,6 +87,7 @@ public class Messages {
     public static final String COMMAND_CONFIRMSCHEDULE = "confirmschedule";
     public static final String COMMAND_CONFIRM = "confirm";
     public static final String COMMAND_RECURRING = "recurring";
+    public static final String COMMAND_DETECTCLASHES = "detectclashes";
 
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

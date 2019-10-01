@@ -121,10 +121,10 @@ public class Storage {
         return arrTaskList;
     }
 
-     private static void assignTaskMarker(String content, Task task) {
-         if (content.charAt(4) == '+') {
-             task.markAsDone();
-         }
-         arrTaskList.add(task);
-     }
+    private static void assignTaskMarker(String content, Task task) {
+        if (content.charAt(4) == '+') {
+            task.markAsDone();
+        }
+        arrTaskList.add(task);
+    }
 }

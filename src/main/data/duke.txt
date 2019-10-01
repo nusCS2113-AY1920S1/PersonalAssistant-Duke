@@ -26,3 +26,8 @@ P | - | task | 2/2/2019 | 3/3/2019
 R | - | task | daily
 R | - | task | weekly | Thursday
 R | - | task | monthly | 2
+R | - | task | daily
+R | - | task | monthly | 1
+R | - | task | weekly | Friday
+R | - | task | weekly | Thursday
+R | - | task | weekly | Thursday
