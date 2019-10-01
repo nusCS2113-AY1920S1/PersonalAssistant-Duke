@@ -5,6 +5,7 @@ import exceptions.DukeException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.commands.RescheduleCommand;
+import models.data.IProject;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
@@ -42,11 +43,7 @@ public class CLIView {
 
         while (true) {
             String command = sc.nextLine();
-            try {
-                consoleInputController.onCommandReceived(command);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            consoleInputController.onCommandReceived(command);
         }
     }
 
@@ -228,7 +225,7 @@ public class CLIView {
     public void findFreeSlots(TaskList taskList, String input) throws ParseException {
         System.out.println(horiLine);
         Scanner sc = new Scanner(input);
-        String tempDate = sc.next();
+        String tempDate;
         if (sc.hasNext()) {
             tempDate = sc.nextLine();
         } else {
@@ -237,8 +234,8 @@ public class CLIView {
 
         ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
         System.out.println("Here are the free time slots you have between your tasks:\n");
-        for (int i = 0; i < freeTimeSlots.size(); i++) {
-            System.out.println(freeTimeSlots.get(i));
+        for (String freeTimeSlot : freeTimeSlots) {
+            System.out.println(freeTimeSlot);
         }
     }
 
@@ -253,6 +250,31 @@ public class CLIView {
     public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
         System.out.println(horiLine);
         rescheduleCommand.execute(taskList);
+        System.out.println(horiLine);
+    }
+
+    /**
+     * Method that helps print out console messages with the relevant line decorations.
+     * @param message : Message that needs to be printed out to the user.
+     */
+    public void consolePrint(String message) {
+        System.out.println(horiLine);
+        System.out.println(message);
+        System.out.println(horiLine);
+    }
+
+    /**
+     * Method called when users wishes to view all Projects that are currently created or stored.
+     * @param allProjects List of Projects returned to View model by the Controller from the Repository
+     */
+    public void viewAllProjects(ArrayList<IProject> allProjects) {
+        System.out.println(horiLine);
+        System.out.println("\tHere are all the Projects you are managing:");
+        for (int i = 0; i < allProjects.size(); i++) {
+            System.out.print("\t" + (i + 1));
+            System.out.println(". " + allProjects.get(i).getDescription()
+                            + " " + allProjects.get(i).getMembers());
+        }
         System.out.println(horiLine);
     }
 }
