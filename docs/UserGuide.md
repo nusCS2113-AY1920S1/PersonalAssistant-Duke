@@ -52,7 +52,7 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 outputs an exit message to the user and terminates the program
 
-Format: `bye` 
+Format: `bye` 
 
 ### 3.2 list: Show all the tasks. [Level-2]
 
@@ -109,9 +109,7 @@ eg. `event birthday /at multi purpose hall`, stores E|0|submit review|multi purp
 	 Got it. I've added this task:
 	 [E][✘] birthday(at: multi purpose hall)
 	 Now you have 4 tasks in the list.
-### 3.8 Load and save tasks to hard disk. [Level-7]
 
-### 3.9 Identify dates and times. [Level-8]
 
 ### 3.10 delete: Delete a task. [Level-6]
 
