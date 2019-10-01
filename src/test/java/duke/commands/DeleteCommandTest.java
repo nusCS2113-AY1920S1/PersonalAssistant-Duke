@@ -8,7 +8,7 @@ import duke.tasks.Todo;
 import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class DeleteCommandTest {
 
@@ -19,6 +19,6 @@ class DeleteCommandTest {
         Task task = new Todo("homework");
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(ui, storage);
-        assertTrue(!storage.getTasks().contains(task));
+        assertFalse(storage.getTasks().contains(task));
     }
 }
