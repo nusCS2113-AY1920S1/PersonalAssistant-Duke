@@ -245,7 +245,6 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-. The software should achieve 99% uptime.
 . The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as the OS has Java `11` or
   above installed.
 . The software should be able to hold up to 500 patients without a noticeable reduction in performance for
