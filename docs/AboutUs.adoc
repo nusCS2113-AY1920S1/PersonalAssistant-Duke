@@ -28,8 +28,8 @@ Responsibilities:  Architecture, Documentation, Data Models
 '''
 
 === Jun Liang
-image::yijinl.jpg[width="150", align="left"]
-{empty}[https://github.com/nimiew[github]] [<<johndoe#, portfolio>>]
+image::nimiew.jpg[width="150", align="left"]
+{empty}[https://github.com/nimiew[github]] 
 
 Role: Developer +
 Responsibilities: Unit Tests, Logic, Documentation
