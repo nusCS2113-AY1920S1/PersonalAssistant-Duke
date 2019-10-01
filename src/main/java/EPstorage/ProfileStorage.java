@@ -31,18 +31,17 @@ public class ProfileStorage {
     public void readFile(UserProfile userProfile){
         while (scan.hasNextLine()){
             String dataType = scan.nextLine();
-            System.out.println(dataType);
             if (dataType.equals("//name")){
                 userProfile.setUserName(scan.nextLine());
             } else if (dataType.equals("//age")){
                 userProfile.setUserAge(Integer.parseInt(scan.nextLine()));
-//            } else if (dataType.equals("//genre")){
-//                String[] tokens = scan.nextLine().split(Pattern.quote(" , "));
-//                ArrayList<Integer> inputGenre = new ArrayList<>(50);
-//                for (String log : tokens){
-//                    inputGenre.add(Integer.parseInt(log));
-//                }
-//                userProfile.setGenreId(inputGenre);
+            } else if (dataType.equals("//genre")){
+                String[] tokens = scan.nextLine().split(Pattern.quote(" , "));
+                ArrayList<Integer> inputGenre = new ArrayList<>(50);
+                for (String log : tokens){
+                    inputGenre.add(Integer.parseInt(log));
+                }
+                userProfile.setGenreId(inputGenre);
             }
         }
     }

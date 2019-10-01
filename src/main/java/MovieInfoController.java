@@ -46,7 +46,7 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
-    //    @FXML ListView genreList;
+    @FXML Label genreListLabel;
     private ProfileStorage profileStorage;
     private UserProfile userProfile;
 
@@ -60,8 +60,11 @@ public class MovieInfoController extends Controller implements RequestListener {
 
         profileStorage = new ProfileStorage();
         userProfile = profileStorage.load();
+        Commands command = new Commands();
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
+
 
         //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set

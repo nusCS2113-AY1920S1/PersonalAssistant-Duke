@@ -84,7 +84,7 @@ public class MovieHandler extends Controller implements RequestListener{
         Commands command = new Commands();
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
-//        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
+        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
 
         mMovieRequest = new RetrieveRequest(this);
