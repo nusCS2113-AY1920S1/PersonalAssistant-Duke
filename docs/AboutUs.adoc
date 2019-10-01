@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Nicholas
 image::nicholasnovakovic.png[width="150", align="left"]
-{empty}[https://github.com/nicholasnovakovic[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/nicholasnovakovic[github]] 
 
 Role: Team Lead + 
 Responsibilities: Documentation, Data Models, Unit Tests
@@ -20,7 +20,7 @@ Responsibilities: Documentation, Data Models, Unit Tests
 
 === Shaun
 image::shaun97.png[width="150", align="left"]
-{empty}[http://github.com/shaun97[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/shaun97[github]] 
 
 Role: Developer +
 Responsibilities:  Architecture, Documentation, Data Models
@@ -29,7 +29,7 @@ Responsibilities:  Architecture, Documentation, Data Models
 
 === Jun Liang
 image::nimiew.png[width="150", align="left"]
-{empty}[https://github.com/nimiew[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/nimiew[github]] 
 
 Role: Developer +
 Responsibilities: Unit Tests, Logic, Documentation
