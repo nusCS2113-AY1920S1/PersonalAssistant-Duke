@@ -7,6 +7,7 @@ import Tasks.*;
  */
 public class Ui {
     private static final String NO_FIELD = "void";
+
     private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -142,5 +143,17 @@ public class Ui {
     /*public String showSnooze(int index, int listSize, ArrayList<Task> list) {
         return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+
     }*/
+
+    }
+    public String showTentativeSchedule(TaskList tentativeDates){
+        String out = "Here is your tentative schedule. \n" ;
+        for (int i = 0; i< tentativeDates.taskListSize(); i++){
+            out += i+1 + "." + tentativeDates.taskToString(i ) + "\n";
+        }
+
+        return  out;
+    }
+
 }
