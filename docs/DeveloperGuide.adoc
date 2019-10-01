@@ -105,7 +105,7 @@ This will generate all resources required by the application and tests.
 [appendix]
 == User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-[cols="3%,5%,10%,37%,45%"]
+[cols="5%,10%,10%,35%,35%"]
 |===
 |*S/N*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
 |1|* * *|new user|create my own profile|start keeping track of my finances
