@@ -10,6 +10,7 @@ public class ByeCommand extends  Command {
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         storage.write(shows);
         ui.setMessage(new OptixResponse().BYE);
+        ui.exitOptix();
     }
 
     @Override

@@ -102,8 +102,12 @@ public class Parser {
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
         String buyerName = splitStr[2].trim();
-        String seats = splitStr[3].trim();
+        if(splitStr.length == 4) {
+            String seats = splitStr[3].trim();
+            return new SellSeatCommand(showName, showDate, buyerName, seats);
 
-        return new SellSeatCommand(showName, showDate, buyerName, seats);
+        }
+
+        return new SellSeatCommand(showName, showDate, showName);
     }
 }
