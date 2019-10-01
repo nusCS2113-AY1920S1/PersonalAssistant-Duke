@@ -36,7 +36,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * *  | User | Share and spread this game to my friends | Invite them to learn together
 | * *  | Average User | Get feedback on my performance | Identify my common misconceptions and work on those areas
 | * *  | User | Provide feedback to developers | Give them suggestions on what they can improve on
-| * *  | User | Receive notifications and reminders to complete a few quizzes a day | Be more consistent with my learning |
+| * *  | User | Receive notifications and reminders to complete a few quizzes a day | Be more consistent with my learning
 | * *  | User | Experience a storyline | Learn in a less boring manner
 | * *  | Weak User | Have visual aids for the questions | Understand the topic better
 | * *  | Weak User | Have an explanation for any wrong answers | Learn faster from my mistakes
