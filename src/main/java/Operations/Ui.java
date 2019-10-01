@@ -198,6 +198,10 @@ public class Ui {
         System.out.println("Does this task have a duration? (yes/no)");
     }
 
+    public void promptForTime() {
+        System.out.println("Enter the amount of time");
+    }
+
      * tells the user to input valid amount of time
      */
     public void showTimeError(){
