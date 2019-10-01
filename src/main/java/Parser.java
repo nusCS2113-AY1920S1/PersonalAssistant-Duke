@@ -1,7 +1,19 @@
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.FindFreeTimesCommand;
+import command.FixedDurationCommand;
+import command.ListCommand;
+import command.SnoozeCommand;
+import command.TodoCommand;
+import command.UnSnoozeCommand;
+import command.UpcomingCommand;
+import command.ViewScheduleCommand;
 import exception.DukeException;
-
-import java.text.ParseException;
 
 /**
  * Parse input and execute respective user command.
@@ -36,7 +48,7 @@ public class Parser {
         case "upcoming":
             return new UpcomingCommand();
         case "viewschedule":
-            return new ViewScheduleCommand(input);
+            return new ViewScheduleCommand(splitStr);
         case "snooze":
             return new SnoozeCommand(splitStr);
         case "unsnooze":
