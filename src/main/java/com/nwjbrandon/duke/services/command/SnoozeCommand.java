@@ -87,8 +87,8 @@ public class SnoozeCommand extends Command {
             int taskIndex = this.getTaskIndex();
             Date snoozedDate = snoozeTime(taskList.getTask(taskIndex));
             taskList.snoozeTask(taskIndex, snoozedDate);
-        } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException |
-                DukeNullDateException e) {
+        } catch (DukeEmptyCommandException | DukeTypeConversionException | DukeOutOfBoundException
+                | DukeNullDateException e) {
             e.showError();
         }
     }
