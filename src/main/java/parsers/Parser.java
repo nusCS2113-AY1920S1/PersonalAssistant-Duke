@@ -7,8 +7,20 @@ import Exception.DukeException;
 public class Parser {
     public static Command parse(String command) throws DukeException {
         if (command.contains("list")) {
-            return new ListCommand();
-        } else if (command.contains("done")) {
+            if (command.contains("event")) {
+                return new CategoryListCommand();
+            } else if (command.contains("deadline")) {
+                return new CategoryListCommand();
+            } else if (command.contains("todo")) {
+                return new CategoryListCommand();
+            } else if (command.contains("fixed")) {
+                return new CategoryListCommand();
+            } else if (command.contains("timebound")) {
+                return new CategoryListCommand();
+            } else {
+                return new ListCommand();
+            }
+        }else if (command.contains("done")) {
             return new DoneCommand();
         } else if (command.contains("delete")) {
             return new DeleteCommand();
@@ -20,9 +32,11 @@ public class Parser {
             return new EventCommand();
         } else if (command.contains("todo")) {
             return new TodoCommand();
-        } else if (command.contains("/between")) {
-            return new TimeboundCommand();
-        } else if (command.contains("find")) {
+        }
+//        else if (command.contains("/between")) {
+//            return new TimeboundCommand();
+//        }
+        else if (command.contains("find")) {
             return new FindCommand();
         } else if (command.contains("bye")) {
             return new ByeCommand();

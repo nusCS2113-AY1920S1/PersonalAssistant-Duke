@@ -48,15 +48,17 @@ public class Storage {
                         d.isDone = false;
                     }
                     tList.add(d);
-                } else if (details[0].equals("P")) {
-                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
-                    if (details[1].equals("\u2713")) {
-                        tb.isDone = true;
-                    } else {
-                        tb.isDone = false;
-                    }
-                    tList.add(tb);
-                } else if (details[0].equals("FD")) {
+                }
+//                else if (details[0].equals("P")) {
+//                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
+//                    if (details[1].equals("\u2713")) {
+//                        tb.isDone = true;
+//                    } else {
+//                        tb.isDone = false;
+//                    }
+//                    tList.add(tb);
+//                }
+                else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("\u2713")) {
                         FD.isDone = true;
