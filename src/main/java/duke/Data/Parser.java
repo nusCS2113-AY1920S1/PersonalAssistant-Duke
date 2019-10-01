@@ -1,13 +1,16 @@
 package duke.Data;
 
+
 import Menu.ManageStudents;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
+import duke.Sports.MyPlan;
 
 import java.text.ParseException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -28,7 +31,7 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage) {
+    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -131,10 +134,24 @@ public class Parser {
             storage.updateFile(tasks.getList());
             break;
 
+
         case "find":
             String searchWord = input.substring(5);
             tasks.findTask(searchWord);
             break;
+
+            /**
+             * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
+             *
+             */
+            case "plan":
+                MyPlan plan = new MyPlan();
+                if (word[1].equals("view")) {
+                    plan.loadPlan(word[2]);
+                } else if (word[1].equals("new")) {
+                    plan.createPlan(word[3]);
+                }
+                break;
 
         case "date":
             String searchDate = input.substring(5);
@@ -191,46 +208,53 @@ public class Parser {
                 String name = word[2];
                 System.out.println(schedule.delClass(name));
             }
-
             break;
+            
+            /**
+             *  Cmd "home" will list the menu items;
+             *  1. View Schedule
+             *  2. Manage Students
+             *  3. Training Circuits
+             */
+            case "home":
+                Ui viewMenu = new Ui();
+                viewMenu.mainMenu();
+                break;
+            
+            /**
+             // Choosing Option 1 wil direct to "Training Schedule"
+             */
+            case "1":
+                System.out.flush();
+                // Write go to direct to View Schedule (Scott)
+                Ui trainingSchedule = new Ui();
+                trainingSchedule.trainingScheduleHeading();
+                break;
 
-        /**
-         *  Cmd "home" will list the menu items;
-         *  1. View Schedule
-         *  2. Manage Students
-         *  3. Training Circuits
-         */
-        case "home":
-            Ui viewMenu = new Ui();
-            viewMenu.mainMenu();
-            break;
+            /**
+             * Choosing option 2 will direct to "Manage Students"
+             */
+            case "2":
+                System.out.flush();
+                Ui manageStudents = new Ui();
+                manageStudents.manageStudentsHeading();
+                ManageStudents viewCategory = new ManageStudents();
+                viewCategory.manageStudentsCategory();
+                // Write Code to direct to manage Students (Danish)
+                break;
 
-        /**
-         // Choosing Option 1 wil direct to "Training Schedule"
-         */
-        case "1":
-            // Write go to direct to View Schedule (Scott)
-            break;
-
-        /**
-         * Choosing option 2 will direct to "Manage Students"
-         */
-        case "2":
-            ManageStudents viewCategory = new ManageStudents();
-            viewCategory.manageStudentsCategory();
-            // Write Code to direct to manage Students (Danish)
-            break;
-
-        /**
-         * Choosing 3 will direct to "Training Circuit"
-         */
-
-        case "3":
-            //Write Code to direct to Training Circuits (JingSen)
-
-        default:
-            System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
-            break;
+            /**
+             * Choosing 3 will direct to "Training Program"
+             */
+            case "3":
+                System.out.flush();
+                Ui trainingProgram = new Ui();
+                trainingProgram.trainingProgramHeading();
+                //Write Code to direct to Training Circuits (JingSen)
+                break;
+            default:
+                System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                break;
         }
     }
 }
