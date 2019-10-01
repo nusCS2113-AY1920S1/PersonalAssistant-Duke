@@ -1,13 +1,11 @@
 package duchess.logic.commands;
 
-import duchess.storage.Storage;
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.model.task.Deadline;
 import duchess.model.task.Task;
 import duchess.model.task.TaskList;
+import duchess.storage.Storage;
 import duchess.ui.Ui;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,19 +25,19 @@ public class ReminderCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        List<Task> reminderList = addDeadlines(taskList);
+        List<Task> reminderList = getDeadlines(taskList);
         display(reminderList, ui);
     }
 
     /**
      * Returns a List of Task objects.
-     * Adds objects of type Deadline to reminderList.
+     * Gets a list of deadlines from the tasklist.
      *
      * @param taskList of user inputs
      */
-    private List<Task> addDeadlines(TaskList taskList) {
+    private List<Task> getDeadlines(TaskList taskList) {
         return taskList.getTasks().stream()
-                .map(task -> task.getReminders())
+                .map(Task::getReminders)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
