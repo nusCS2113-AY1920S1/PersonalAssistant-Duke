@@ -2,7 +2,8 @@ package com.nwjbrandon.duke.exceptions;
 
 import com.nwjbrandon.duke.services.ui.Terminal;
 
-public class DukeException extends Exception {
+public class
+DukeException extends Exception {
 
     /**
      * Error message for general command.
