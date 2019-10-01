@@ -6,10 +6,37 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
 [**1. Introduction**](/docs/UserGuide.md#1-introduction)
 
 [**2. Understanding This User Guide**](/docs/UserGuide.md#2-understanding-this-user-guide) 
++ [2.1. Basic Information]()
++ [2.2. Navigating Around Our Application]()
 
 [**3. Quick Start**](/docs/UserGuide.md#3-quick-start)
 
 [**4. Features**](/docs/UserGuide.md#4-features)
++ [4.1. General Commands](/docs/UserGuide.md#41-general-commands)
+    - [4.1.1. Viewing help: `help`](/docs/UserGuide.md#411-viewing-help-help)
+    - [4.1.2. Listing all Tasks: `list`](/docs/UserGuide.md#412-listing-all-tasks-list)
+    - [4.1.3. Deleting a Task: `delete`](/docs/UserGuide.md#413-deleting-a-task-delete)
+    - [4.1.4. Completing a Task: `done`](/docs/UserGuide.md#414-completing-a-task-done)
+    - [4.1.5. Deleting a Task: `delete`](/docs/UserGuide.md#415-deleting-a-task-delete)
+    - [4.1.6. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#416-viewing-tasks-on-a-specified-date-view)
+    - [4.1.7. View Reminder: `view-reminder`](/docs/UserGuide.md#417-view-reminder-view-reminder)
+    - [4.1.8. Set Reminder: `set-reminder`](/docs/UserGuide.md#418-set-reminder-set-reminder)
+    - [4.1.9. Exiting **COMPal**: `bye`](/docs/UserGuide.md#419-exiting-compal-bye)
++ [4.2. Detailed Management Commands](/docs/UserGuide.md#42-detailed-management-commands)
+    - [4.2.1. Adding **Deadline**: `deadline`](/docs/UserGuide.md#421-adding-deadline-deadline)
+    - [4.2.2. Adding **Event**: `event`](/docs/UserGuide.md#422-adding-event-event)
+    - [4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`](/docs/UserGuide.md#423-adding-task-with-fixed-duration-fixeddurationtask)
+    - [4.2.4. Adding **Recurring Task**: `recurtask`](/docs/UserGuide.md#424-adding-recurring-task-recurtask)
+    - [4.2.5. Adding **Lecture Session**: `lect`](/docs/UserGuide.md#425-adding-lecture-session-lect)
+    - [4.2.6. Adding **Tutorial Session**: `tut`](/docs/UserGuide.md#426-adding-tutorial-session-tut)
+    - [4.2.7. Adding **Sectional Session**: `sect`](/docs/UserGuide.md#427-adding-sectional-session-sect)
+    - [4.2.8. Adding **Lab Session**: `lab`](/docs/UserGuide.md#428-adding-lab-session-lab)
+
+[**5. Future Enhancements**](/docs/UserGuide.md#5-future-enhancements)
+
+[**6. Frequently-Asked Questions**](/docs/UserGuide.md#6-frequently-asked-questions)
+
+[**7. Command Summary**](/docs/UserGuide.md#7-command-summary)
 
 ## 1. Introduction
 Welcome to **COMPal**!
@@ -25,7 +52,7 @@ Take control with our [**Quick Start**](/docs/UserGuide.md#3-quick-start) guide.
 
 This guide explains how you can use **COMPal** to divide your time between your academic commitments and non-academic activities.
 
-You can find comprehensive steps on how to fully utilise **COMPal**'s extensive suite of time-management tools. **Frequently Asked Questions** can also clarify any pressing doubts that you may have. Our **Glossary** provides a concise, easy-to-read summary of our commands for your easy perusal. 
+You can find comprehensive steps on how to fully utilise **COMPal**'s extensive suite of time-management tools. **Frequently Asked Questions** can also clarify any pressing doubts that you may have. Our **Command Summary** provides a concise, easy-to-read summary of our commands for your easy perusal. 
 
 You can use the **Table of Contents** above to navigate effortlessly between each section.
 
@@ -66,20 +93,32 @@ Icon                 | What does it mean?
 This is the end of the **Quick Start** guide. Please refer to [4. Features](/docs/UserGuide.md#4-features) for more details on more commands. Enjoy planning your life with **COMPal**!
 
 ## 4. Features 
+### 4.1. General Commands
 
-### Feature 1 
-Description of feature.
+#### 4.1.1. Viewing help: `help`
+#### 4.1.2. Listing all Tasks: `list`
+#### 4.1.3. Deleting a Task: `delete`
+#### 4.1.4. Completing a Task: `done`
+#### 4.1.5. Deleting a Task: `delete`
+#### 4.1.6. Viewing Tasks on a Specified Date: `view`
+#### 4.1.7. View Reminder: `view-reminder`
+#### 4.1.8. Set Reminder: `set-reminder`
+#### 4.1.9. Exiting **COMPal**: `bye`
 
-## Usage
+### 4.2. Detailed Management Commands
 
-### `Keyword` - Describe action
+#### 4.2.1. Adding **Deadline**: `deadline`
+#### 4.2.2. Adding **Event**: `event`
+#### 4.2.3. Adding **Task** with **Fixed Duration**: `fixeddurationtask`
+#### 4.2.4. Adding **Recurring Task**: `recurtask`
+#### 4.2.5. Adding **Lecture Session**: `lect`
+#### 4.2.6. Adding **Tutorial Session**: `tut`
+#### 4.2.7. Adding **Sectional Session**: `sect`
+#### 4.2.8. Adding **Lab Session**: `lab`
 
-Describe action and its outcome.
 
-Example of usage: 
+### **5. Future Enhancements**
 
-`keyword (optional arguments)`
+### **6. Frequently-Asked Questions**
 
-Expected outcome:
-
-`outcome`
+### **7. Command Summary**
