@@ -18,6 +18,8 @@ public class Schedule {
         //do nothing
     }
 
+
+
     /**
      * Function gets the month of the current year.
      *
