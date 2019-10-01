@@ -28,7 +28,6 @@ public class Event extends Task {
         super(description);
     }
 
-
     public Date checkDate() { return this.at; }
 
     @Override

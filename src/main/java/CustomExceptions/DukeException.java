@@ -3,7 +3,9 @@ package CustomExceptions;
 import Enums.ExceptionType;
 
 public class DukeException extends Exception {
-    public String anomaly = "Anomaly Detected";
+    private String anomaly_Text = "Anomaly Detected";
+    private String emptylist_Text = "List is empty";
+    private String timeclash_Text = "Time Clash Detected";
 
     public DukeException(){
      System.out.println();
@@ -11,8 +13,16 @@ public class DukeException extends Exception {
 
     public DukeException(ExceptionType type){
         switch(type) {
+            case emptylist:
+                System.out.println(emptylist_Text);
+                break;
+
+            case timeClash:
+                System.out.println(timeclash_Text);
+                break;
+
             default:
-                System.out.println(anomaly);
+                System.out.println(anomaly_Text);
                 break;
         }
     }

@@ -21,7 +21,7 @@ public class Duke {
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public Duke() {
+    public Duke() throws DukeException {
         ui = new Ui();
         ui.startUp();
         storage = new Storage();
@@ -44,7 +44,7 @@ public class Duke {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws DukeException {
         boolean isExit = false;
         boolean isExitRecur = false;
         while (!isExit) {
@@ -56,6 +56,10 @@ public class Duke {
                 type = TaskType.others;
             }
             switch (type) {
+                case help:
+                    ui.help();
+                    break;
+
                 case list:
                     ui.showList();
                     taskList.list();
@@ -137,8 +141,15 @@ public class Duke {
                                 TimeUnit timeUnit = parser.getTimeUnit();
                                 ui.promptForTime();
                                 int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration, timeUnit);
-                                taskList.add(fixedDuration);
+                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
+
+                                //checks for clashes
+                                if( CheckAnomaly.checkTime(fixedDuration) ) {
+                                    taskList.add(fixedDuration);
+                                } else {
+                                    throw new DukeException(ExceptionType.timeClash);
+                                }
+
                                 Timer timer = new Timer();
                                 class RemindTask extends TimerTask {
                                     public void run() {
@@ -154,21 +165,12 @@ public class Duke {
                                     case minutes:
                                         timer.schedule(rt, duration * 1000 * 60);
                                         break;
-                                    case seconds:
-                                        timer.schedule(rt, duration * 1000);
-                                        break;
                                 }
                                 ui.showAdd();
                             break;
                             case no:
-                                if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
-                                    Event temp = new Event(ar[0], at);
-                                    taskList.add(temp);
-                                    ui.showAdd();
-                                }
-                                else{
-                                    throw new DukeException(ExceptionType.timeClash);
-                                    }
+                                Event event = new Event(ar[0], at);
+                                taskList.add(event);
                             break;
                             default:
                                 ui.showCommandError();
@@ -239,7 +241,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
 }

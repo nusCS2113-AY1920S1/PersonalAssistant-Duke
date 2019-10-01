@@ -15,6 +15,14 @@ public class FixedDuration extends Event {
         this.timeUnit = timeUnit;
     }
 
+    public Date getDate() {
+        return at;
+    }
+
+    public int getDuration(){
+        return duration;
+    }
+
 
     @Override
     public String toString() {
