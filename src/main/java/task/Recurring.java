@@ -15,7 +15,7 @@ public class Recurring extends Task {
     protected String by;
 
     /**
-     * task.Deadline Constructor.
+     * Recurring task which will add a new task when the previous task is completed.
      * @param description task description
      * @param by task deadline
      */
@@ -32,7 +32,7 @@ public class Recurring extends Task {
     }
 
     /**
-     *
+     * Make a recurring task when reading from storage.
      * @param i isDone status
      * @param description of recurring task
      * @param by dateTime of recurring task
@@ -51,6 +51,7 @@ public class Recurring extends Task {
         this.by = by;
         this.isDone = i.equals("1");
         this.isSnooze = Snooze.equals("1");
+        this.frequency = frequency;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class Recurring extends Task {
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
         int snoozebooltoInt = this.isSnooze ? 1 : 0;
-        return "R | " + frequency + " | " + boolToInt + " | " + this.description + " | " + this.by + " | " + snoozebooltoInt + "\n";
+        return "R | "  + boolToInt + " | " + this.description + " | " + this.by + " | " + frequency + " | " + snoozebooltoInt + "\n";
     }
 
     @Override

@@ -7,21 +7,10 @@ import java.util.Date;
  */
 public abstract class Task {
     protected Date dateTime;
-
-    /**
-     * task.Task description
-     */
     protected String description;
-
-    /**
-     * Whether task has been completed.
-     */
     protected boolean isDone;
-
-    /**
-     * Whether task is active or snooze.
-     */
     protected boolean isSnooze;
+    protected String frequency;
 
     /**
 
