@@ -29,8 +29,8 @@ public class Duke {
 
     /**
      * A constructor which applies the file path to load previous data
-     * @param filePath
-     *                  the file path
+     *
+     * @param filePath the file path
      */
     public Duke(String filePath) {
         storage = new Storage(filePath);
@@ -59,8 +59,8 @@ public class Duke {
 
     /**
      * Main method of the entire project.
-     * @param args
-     *              command line arguments, not used here
+     *
+     * @param args command line arguments, not used here
      */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();

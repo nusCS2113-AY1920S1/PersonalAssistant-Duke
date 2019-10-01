@@ -1,7 +1,12 @@
 package commands;
 
 import core.Ui;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Last;
+import tasks.Period;
+import tasks.ToDo;
+import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
@@ -62,10 +67,11 @@ public class ViewScheCommand extends Command {
                 Period temp = (Period) toFilter.get(i);
                 calTest.setTime(temp.getStart());
             }
-            boolean sameDay = calAim.get(Calendar.DAY_OF_YEAR) == calTest.get(Calendar.DAY_OF_YEAR) &&
-                    calAim.get(Calendar.YEAR) == calTest.get(Calendar.YEAR);
-            if (!sameDay)
+            boolean sameDay = calAim.get(Calendar.DAY_OF_YEAR) == calTest.get(Calendar.DAY_OF_YEAR)
+                    && calAim.get(Calendar.YEAR) == calTest.get(Calendar.YEAR);
+            if (!sameDay) {
                 toDelete.add(i);
+            }
         }
 
         for (int i = toDelete.size() - 1; i >= 0; ) {

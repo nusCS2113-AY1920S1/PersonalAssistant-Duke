@@ -34,9 +34,9 @@ public class Ui {
     public static void print(String toPrint) {
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
-        for (int i = 0;i < toPrint.length();i++) {
+        for (int i = 0; i < toPrint.length(); i++) {
             if (toPrint.charAt(i) == '\n') {
-                toPrint = toPrint.substring(0, i + 1) + "\t" + toPrint.substring(i + 1, toPrint.length());
+                toPrint = toPrint.substring(0, i + 1) + "\t" + toPrint.substring(i + 1);
             }
         }
         System.out.println(toPrint);
@@ -45,6 +45,7 @@ public class Ui {
 
     /**
      * This method is used to read a line from Scanner in.
+     *
      * @param in the instantiated Scanner object
      * @return the String read
      */

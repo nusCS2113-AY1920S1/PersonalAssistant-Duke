@@ -15,6 +15,7 @@ public class DoneCommand extends Command {
 
     /**
      * This is a class for command DONE, which mark one task in the task list as done.
+     *
      * @param line the serial number of task to be marked as done
      */
     public DoneCommand(String line) {
@@ -28,7 +29,7 @@ public class DoneCommand extends Command {
             tasks.get(order - 1).markAsDone();
             storage.store(tasks);
             Ui.print("Nice! I've marked this task as done: \n" + tasks.get(order - 1));
-        } catch (DukeException e){
+        } catch (DukeException e) {
             Ui.print(e.getMessage());
         } catch (Exception e) {
             throw new DukeException("Not a valid task number");

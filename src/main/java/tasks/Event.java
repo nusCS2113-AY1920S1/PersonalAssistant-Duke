@@ -18,7 +18,8 @@ public class Event extends Task {
     /**
      * default constructor of Event
      */
-    public Event() {}
+    public Event() {
+    }
 
 
     public Event(String description, Date at) {
@@ -31,7 +32,7 @@ public class Event extends Task {
         this.at = at;
     }
 
-    public Date getTime()   {
+    public Date getTime() {
         return at;
     }
 
@@ -43,25 +44,34 @@ public class Event extends Task {
      *              how task list will print out in console
      */
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")" + (isRecurring?" recurring: " + this.recurringWeeks + " weeks" : "");
+        return "[E]"
+                + super.toString()
+                + " (at: " + at + ")"
+                + (isRecurring ? " recurring: "
+                + this.recurringWeeks
+                + " weeks" : "");
     }
 
     /**
+     * @return string
+     * a string which will show in data file that store the task list
      * @Override dataString() in Task
      * a method to format the data list data store in file
-     * @return string
-     *              a string which will show in data file that store the task list
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.at);
+        return "E | "
+                + (this.isDone ? 1 : 0)
+                + " | " + this.description
+                + " | " + getPrecondition()
+                + " | " + ft.format(this.at);
     }
 
     /**
      * @author Justin Chia
      * Getter for date object
-     * */
-    public Date getAt(){
+     */
+    public Date getAt() {
         return this.at;
     }
 
