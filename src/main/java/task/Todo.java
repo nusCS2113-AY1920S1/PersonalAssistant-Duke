@@ -18,10 +18,10 @@ public class Todo extends Task {
      * @param i isDone status
      * @param description task description
      */
-    public Todo(String i, String description, String Snooze) {
+    public Todo(String i, String description, String snooze) {
         super(description);
         this.isDone = i.equals("1");
-        this.isSnooze= Snooze.equals("1");
+        this.isSnooze = snooze.equals("1");
     }
 
     @Override
