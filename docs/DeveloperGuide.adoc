@@ -16,4 +16,21 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 == Appendix A
 === User Guide
 === Use Cases
+
+For all use cases, the System is Duke Manager (DM) and the Actor is Student unless otherwise specified.
+
+[discrete]
+=== Use Case: Show command tutorial
+
+*MSS*
+
+1.  Student launches Duke Manager.
+2.  DM welcomes student.
+3.  Student requests to show tutorial on commands.
+4.  DM shows the command tutorial as well as the format of the commands.
+5.  Student enters command to exit.
+6.  DM bids student farewell.
++
+Use case ends.
+
 === Non Functional Requirements
