@@ -6,12 +6,19 @@ public class ListIndex2 extends ListFormat {
 
     public ArrayList<String> listIndex2SubList = new ArrayList<String>();
 
+    /**
+     * List at Index 2.
+     */
     public ListIndex2() {
         listIndex2SubList.add("Inheritance");
         listIndex2SubList.add("Encapsulation");
         listIndex2SubList.add("Abstration");
         listIndex2SubList.add("Polymorphism");
     }
+
+    /**
+     * Method to print the contents of the list.
+     */
     public void printList() {
         int indexCount = 1;
         System.out.println("Here are the " + listIndex2SubList.size() + " subtopics available.");

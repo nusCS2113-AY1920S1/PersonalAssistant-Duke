@@ -1,6 +1,9 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.ProgressStack;
+import javacake.Profile;
+import javacake.Ui;
+import javacake.Storage;
 
 public class ExitCommand extends Command {
     public ExitCommand() {

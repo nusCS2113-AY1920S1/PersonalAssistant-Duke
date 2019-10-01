@@ -6,11 +6,18 @@ public class ListIndex3 extends ListFormat {
 
     public ArrayList<String> listIndex3SubList = new ArrayList<String>();
 
+    /**
+     * List at Index 3.
+     */
     public ListIndex3() {
         listIndex3SubList.add("Enumerations");
         listIndex3SubList.add("Varargs");
         listIndex3SubList.add("Exceptions");
     }
+
+    /**
+     * Method to print the contents of the list.
+     */
     public void printList() {
         int indexCount = 1;
         System.out.println("Here are the " + listIndex3SubList.size() + " subtopics available.");

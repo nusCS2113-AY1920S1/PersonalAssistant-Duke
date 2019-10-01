@@ -18,7 +18,7 @@ public class Storage {
     private TaskType dataType;
 
     public enum TaskType {
-        TODO, DEADLINE, EVENT, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
+        TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
     }
 
     /**
@@ -61,10 +61,6 @@ public class Storage {
                             finalOutput = new StringBuilder("deadline ");
                             this.dataType = TaskType.DEADLINE;
                             break;
-                        case "E":
-                            finalOutput = new StringBuilder("event ");
-                            this.dataType = TaskType.EVENT;
-                            break;
                         case "d":
                             finalOutput = new StringBuilder("todo ");
                             this.dataType = TaskType.TODO_DAILY;
@@ -87,9 +83,6 @@ public class Storage {
                         switch (this.dataType) {
                         case DEADLINE:
                             finalOutput.append(" /by ").append(currStr);
-                            break;
-                        case EVENT:
-                            finalOutput.append(" /at ").append(currStr);
                             break;
                         case TODO_DAILY:
                             finalOutput.append(" /daily ").append(currStr);
@@ -119,13 +112,6 @@ public class Storage {
                         Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
                         Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.DONE);
-                    }
-                    break;
-                case EVENT:
-                    if (!isChecked) {
-                        Parser.runEvent(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
-                    } else {
-                        Parser.runEvent(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
                 case TODO_DAILY:
