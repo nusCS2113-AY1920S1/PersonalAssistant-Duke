@@ -236,13 +236,7 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            }
-            else {
-                throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-        } catch (StringIndexOutOfBoundsException e){
-
-            }else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
+            } else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
                 try {
                     String activity = fullCommand.trim().substring(18);
                     arr = activity.split("/at");

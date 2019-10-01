@@ -14,20 +14,12 @@ import java.text.ParseException;
  */
 public class Duke extends Application {
 
-
     private final Storage storage;
     private final TaskList events;
     private final TaskList todos;
     private final TaskList deadlines;
     private final Ui ui;
-
-    private Storage storage;
-    private TaskList events;
-    private TaskList todos;
-    private TaskList deadlines;
     private static TaskList tentativeDates;
-    private Ui ui;
-
 
     /**
      * Creates Duke object.
@@ -41,7 +33,7 @@ public class Duke extends Application {
         deadlines = new TaskList();
         tentativeDates = new TaskList();
         try {
-            //storage.readTentativeDates(tentativeDates);
+            storage.readTentativeDates(tentativeDates);
             storage.readTodoList(todos);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
@@ -53,7 +45,7 @@ public class Duke extends Application {
      * This method returns the loaded Tentative Dates.
      */
     public static TaskList getTentativeDates() {
-        return  tentativeDates;
+        return tentativeDates;
     }
 
     @Override
