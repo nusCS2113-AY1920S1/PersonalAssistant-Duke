@@ -14,7 +14,7 @@ public class RequestsData {
 
     /**
      * With reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
-     * Using the NUSMODS V2 API : https://api.nusmods.com/v2/
+     * Using the nusMods V2 API : https://api.nusmods.com/v2/
      */
     public void setRequest(String mod) {
         HttpClient client = HttpClient.newHttpClient();
