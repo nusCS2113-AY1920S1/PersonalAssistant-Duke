@@ -26,7 +26,7 @@ Responsibilities: Project development
 
 '''
 
-=== Ivan Andika
+=== Ivan Andika Lie
 image::garystu.png[width="150", align="left"]
 {empty}[http://github.com/garystu[github]]
 
@@ -36,7 +36,7 @@ Responsibilities: Project development
 '''
 
 === Foo Chi Hen
-image::koushireo.png[width="150", align="left"]
+image::koushireo.PNG[width="150", align="left"]
 {empty}[http://github.com/koushireo[github]]
 
 Role: Developer +

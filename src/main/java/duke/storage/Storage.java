@@ -15,8 +15,9 @@ import duke.user.User;
 import duke.user.Gender;
 import duke.user.tuple;
 import duke.autocorrect.Autocorrect;
+
 /**
- * Storage is a public class, a storage class encapsulates the filePath to read from and write to.
+ * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  * @author Ivan Andika Lie
  */
 public class Storage {
@@ -62,7 +63,7 @@ public class Storage {
     /**
      * This function acts as a line by line parser from the text file which is used to load a particular type of task.
      * @param line the line input from the input file
-     * @param meals the task arraylist that will store the tasks from the input file
+     * @param mealTracker the task arraylist that will store the tasks from the input file
      */
     private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker) {
         String[] splitLine = line.split("\\|",4);
@@ -176,7 +177,7 @@ public class Storage {
         } else {
             toWrite += "F";
         }
-        ArrayList<tuple> allWeight = user.getAllWeight();
+        ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";
             String date = allWeight.get(i).date;
