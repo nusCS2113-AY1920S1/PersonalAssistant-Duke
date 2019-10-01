@@ -2,12 +2,7 @@ package commands;
 
 import controlpanel.Storage;
 import controlpanel.Ui;
-import tasks.Deadline;
-import tasks.Events;
-import tasks.Periods;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDos;
+import tasks.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +52,9 @@ public class RemindersCommand extends Command {
                 } else if (t instanceof Periods) {
                     Date dueDate = ((Periods) t).getDateFrom();
                     isAfter = dueDate.after(endDay);
+                } else if (t instanceof MultipleEvent) {
+                    Date dueDate = ((MultipleEvent) t).getStartDateAt();
+                    isAfter = (dueDate.after(endDay) && ((MultipleEvent) t).getChosenStatus());
                 }
                 if (isAfter && !t.getStatus()) {
                     ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
@@ -78,6 +76,9 @@ public class RemindersCommand extends Command {
                 } else if (t instanceof Periods) {
                     Date dueDate = ((Periods) t).getDateTo();
                     isBefore = dueDate.before(startDay);
+                } else if (t instanceof MultipleEvent) {
+                    Date dueDate = ((MultipleEvent) t).getEndDateAt();
+                    isBefore = (dueDate.before(startDay) && ((MultipleEvent) t).getChosenStatus());
                 }
                 if (isBefore && !t.getStatus()) {
                     ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
@@ -105,6 +106,13 @@ public class RemindersCommand extends Command {
                     isToday = (startDate.after(startDay) && startDate.before(endDay))
                             || (endDate.after(startDay) && endDate.before(endDay))
                             || (startDay.after(startDate) && endDay.before(endDate));
+                } else if (t instanceof MultipleEvent) {
+                    Date startDate = ((MultipleEvent) t).getStartDateAt();
+                    Date endDate = ((MultipleEvent) t).getEndDateAt();
+                    isToday = ((startDate.after(startDay) && startDate.before(endDay))
+                            || (endDate.after(startDay) && endDate.before(endDay))
+                            || (startDay.after(startDate) && endDay.before(endDate))
+                            && ((MultipleEvent) t).getChosenStatus());
                 }
                 if (isToday && !t.getStatus()) {
                     ui.appendToOutput(" " + counter++ + "." + t.toString() + "\n");
