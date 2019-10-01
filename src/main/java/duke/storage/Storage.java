@@ -1,11 +1,12 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
+import duke.task.TentativeScheduling;
 import duke.task.Duration;
+import duke.task.Todo;
+import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 import duke.tasklist.TaskList;
 
 import java.io.FileReader;
@@ -66,12 +67,21 @@ public class Storage {
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 if (content.charAt(0) == 'T') {
-                    String details = content.substring(8);
-                    Task task = new Todo(details);
-                    if (content.charAt(4) == '+') {
-                        task.markAsDone();
+                    if (content.charAt(1) == 'S') {
+                        String[] split = content.substring(9).split(" \\| ", 2);
+                        Task task = new TentativeScheduling(split[0], split[1]);
+                        if (content.charAt(5) == '+') {
+                            task.markAsDone();
+                        }
+                        arrTaskList.add(task);
+                    } else {
+                        String details = content.substring(8);
+                        Task task = new Todo(details);
+                        if (content.charAt(4) == '+') {
+                            task.markAsDone();
+                        }
+                        arrTaskList.add(task);
                     }
-                    arrTaskList.add(task);
                 } else {
                     //need to escape character in string for "|" by adding "\\" in front of "|"
                     //if not the split will be on the wrong place

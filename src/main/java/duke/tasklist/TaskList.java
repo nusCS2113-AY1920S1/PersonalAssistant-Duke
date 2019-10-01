@@ -1,16 +1,19 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
+import duke.task.TentativeScheduling;
+import duke.task.Period;
 import duke.task.DoAfter;
 import duke.task.Duration;
-import duke.task.Event;
-import duke.task.Period;
-import duke.task.Task;
 import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.MESSAGE_ADDED;
@@ -18,8 +21,10 @@ import static duke.common.Messages.MESSAGE_DELETE;
 import static duke.common.Messages.MESSAGE_ITEMS1;
 import static duke.common.Messages.MESSAGE_ITEMS2;
 import static duke.common.Messages.MESSAGE_MARKED;
-import static duke.common.Messages.MESSAGE_SNOOZE;
 import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
+import static duke.common.Messages.MESSAGE_TENTATIVE;
+import static duke.common.Messages.MESSAGE_SCHEDULED;
+import static duke.common.Messages.MESSAGE_SNOOZE;
 
 /**
  * Handles all the operations for the task in the list.
@@ -196,12 +201,56 @@ public class TaskList {
     }
 
     /**
-     * Mark the task as completed.
+     * Adds tentative schedule task to taskList.
+     * @param description String containing the description of the task
+     * @param on String containing the multiple dates and time
+     */
+    public void addTentativeSchedulingTask(String description, String on) throws ParseException {
+        String[] items = on.split(",");
+        ArrayList<Task> tentativeTasks = new ArrayList<>();
+        for (int i = 0; i < items.length; i++) {
+            tentativeTasks.add(new TentativeScheduling(description, items[i].trim()));
+            taskList.add(new TentativeScheduling(description, items[i].trim()));
+        }
+        int i = 1;
+        System.out.println(MESSAGE_TENTATIVE);
+        for (Task task : tentativeTasks) {
+            System.out.println("      " + i++ + ". " + task.toString());
+        }
+        System.out.println("      Pls confirm the scheduling anytime with the command: confirmschedule");
+    }
+
+    /**
+     * Marks the task as completed.
      * @param i index of the task in taskList
      */
     public void doneTask(int i) {
         taskList.get(i).markAsDone();
         System.out.println(MESSAGE_MARKED + "       " + taskList.get(i));
+    }
+
+    /**
+     * Schedules task in one of the slots.
+     * @param i index of the task in taskList
+     */
+    public void scheduledTask(int i) {
+        String description = taskList.get(i).getDescription();
+        // to avoid concurrent modification exception.
+        List<Task> myList = new CopyOnWriteArrayList<Task>();
+        myList.addAll(taskList);
+        myList.get(i).markAsDone();
+        for (Task task : myList) {
+            if (task.getTaskType() == Task.TaskType.TENTATIVESCHEDULING) {
+                if (task.getDescription().equals(description)) {
+                    if (task.getStatusIcon().equals("-")) {
+                        myList.remove(task);
+                    }
+                }
+            }
+        }
+        System.out.println(MESSAGE_SCHEDULED + "       " + taskList.get(i));
+        taskList.clear();
+        taskList.addAll(myList);
     }
 
     /**
@@ -225,7 +274,7 @@ public class TaskList {
     }
 
     /**
-     * Get the current taskList in file
+     * Get the current taskList in file.
      * @return ArrayList containing tasks
      */
     public ArrayList<Task> getTaskList() {
