@@ -58,7 +58,10 @@ public class Parser {
             c = new RescheduleCommand(user);
         }
         else if (user.matches("remind \\d+ (.*)")) {
-            c = new RescheduleCommand(user);
+            c = new RemindCommand(user);
+        }
+        else if(user.matches("help")){
+            c = new HelpCommand(user);
         }
         else if (user.matches(("bye"))){
             c = new ByeCommand(user);
