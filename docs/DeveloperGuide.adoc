@@ -381,9 +381,11 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 === Use case: Finding a task from tags
 
-====MSS
-
 ----
+
+==== MSS
+
+-----
 
 1. User searches a tag.
 
@@ -391,17 +393,19 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 3. Use case ends.
 
-----
+-----
 
 ==== Extensions
 
-----
+-----
 
 1a. The tag does not exist in any task.
 
 - 1a1. Hstle shows an empty list.
 
 - Use case ends.
+
+-----
 
 ----
 
@@ -435,7 +439,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Appendix D: Non Functional Requirements
+== Appendix D: Non Functional Requirements
 
 Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
 
