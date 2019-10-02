@@ -43,7 +43,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * *  | Weak User | Have a multiple choice option rather than open-ended | Practice on my concepts before attempting harder questions
 | * *  | User | Have a reset option | Replay the game if I'm done with the storyline.
 | *  | Weak User | Clarify certain concepts with a virtual agent | Build a stronger foundation
-| *  | User | Invite friends to join me in a multiplayer quiz | Challenge them while progressing together
+| *  | User | Invite friends to join me in a multi-player quiz | Challenge them while progressing together
 | *  | Advanced User | Get updates whenever the program has new levels | Keep up with the game and maintain my rank
 | * | Advanced User | Get updates whenever another user overtook me | Challenge myself to beat them
 | *  | User | Customise my own questions | Test myself on questions I know I'm weak at.
@@ -56,68 +56,273 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 === Use cases
-(For all use cases below, the System is `AlgoSenpai` and the Actor is the `User`, unless specified otherwise)
+(For all use cases below, the System is `AlgoSenpai` and the Actor is the `Student`, unless specified otherwise)
 
 [discrete]
-==== UC01: Play through a story
-MSS:
-
+==== Play through a story
 . User launches the game
 . System starts and displays a welcome message
 . User requests for the list of available stories
 . System displays the list of stories
 . User chooses a story to play
 . System starts displaying questions from the story
+. User enters an answer
 . System displays the next question
-. User enters this answer
-. Steps 7 - 8 repeat until the game is over
+. User enters an answer
+. Steps 8 - 9 repeats until the game is over
 . System shows the result and returns to the main menu
 
-Use case ends.
 
 [discrete]
 ===== Extensions
- - 8a. User enters an invalid command/answer.
+ - User enters an invalid command/answer.
 
 . System shows an error message and prompts the user to input a valid command
 . User inputs a new command
-. Steps 1&2 repeat until the user has entered a valid command
-. System resumes from step 7
+. Steps 1 and 2 repeats till the user has entered a valid command
 
- - 8b. User enters a command (pause,undo,back etc)
-. System executes the command
-. System resumes from step 7
 
 [discrete]
-==== UC02: Get Help
-. User enters the `help` command
-. System shows a list of valid commands
+==== UC01: Have a summary of commands
+. User enters the `menu` command
+    - System displays a list of commands
 
 Use case ends.
 
 [discrete]
-==== UC03: See previous results
+==== UC02: Start quiz
+. User enters the `start` command
+    - System displays the first question of the quiz
+
+Use case ends.
+
+[discrete]
+==== UC03: Pause quiz
+. User enters the `pause` command
+    - System pauses the ongoing quiz
+
+Use case ends.
+
+[discrete]
+==== UC04: End quiz
+. User enters the `end` command
+    - System exits user from the current quiz and shows him/her the results
+
+Use case ends.
+
+[discrete]
+==== UC05: Revisit attempted questions
+. User enters the `previous` command
+    - System displays the previous question
+
+Use case ends.
+
+[discrete]
+==== UC06: Move to the next question
+. User enters the `next` command
+    - System displays the next question
+
+Use case ends.
+
+[discrete]
+==== UC07: View the history of the attempted quizzes
 . User enters the `history` command
-. System shows the user's previous results
+    - System displays the results of all the quizzes attempted by the user
 
 Use case ends.
 
 [discrete]
-==== UC04: Share the game
-. User enters the `share` command
-. System asks user to pick their choice of social media platform
-. User chooses one
-. System opens a browser window through which the user can share their results in the game on the social media platform.
+==== UC08: Attempt quiz of a topic
+. User enters the `chapters` command
+    - System displays the list of chapters
+    - User enters the number corresponding to the topic he/she would like to attempt
+    - System displays the first question of the selected chapter
 
 Use case ends.
 
+[discrete]
+==== UC09: Resume quiz
+. User enters the `resume` command
+    - System displays the next question from the uncompleted quiz
 
+Use case ends.
 
+[discrete]
+==== UC10: Undo my answers
+. User enters the `undo` command
+    - System  the previous action done by the user
 
+Use case ends.
 
+[discrete]
+==== UC11: Share this game with my friends
+. User enters the `share` command
+    - System displays the social media platforms for the user to choose from
+    - User selects one
+    - System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
+    - User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
+    - User then selects the contact he/she wishes to send the invite to
 
+Use case ends.
 
+[discrete]
+==== UC12: Get review on my performance
+. User enters the `review` command
+    - System displays the review generated by a virtual agent
 
+Use case ends.
+
+[discrete]
+==== UC13: Provide feedback to developers
+. User enters the `feedback` command
+    - System displays "A separate window will be opened, do you wish to continue? Y/N"
+    - User enters "Y" (If the user accidentally enters "N", he/she will be redirected to the menu)
+    - A google form window is opened for the user to fill up
+
+Use case ends.
+
+[discrete]
+==== UC14: Receive remainders for quizzes
+. User enters the `settings` command
+    - System displays the settings menu
+    - User enters the timing(s) he/she would like to receive the reminders under the "reminder" window
+    - System will display a pop-up reminding the user to complete the quizzes at the specified timings
+
+Use case ends.
+
+[discrete]
+==== UC15: Get help
+. User enters the `help` command
+    - System displays the help menu
+
+Use case ends.
+
+[discrete]
+==== UC16: Learn through animations
+. User enters the `settings` command
+    - System displays the settings menu
+    - User clicks on for the animation section
+    - System turns on animations and returns to the quiz
+
+Use case ends
+
+[discrete]
+==== UC17: View explanations for wrong answers
+. User enters `help` command
+    - System displays the help menu
+    - User clicks on "explanation" and enters the question number he requires explanation for
+    - System displays the explanation for the selected question
+
+Use case ends
+
+[discrete]
+==== UC18: Set time limit
+. User enters `settings` command
+    - System displays the settings menu
+    - User inputs a number under the time limit section
+
+Use case ends
+
+[discrete]
+==== UC19: Have a quest to complete
+. User enters `quest` command
+    - System displays the list of quests available
+
+Use case ends
+
+[discrete]
+==== UC20: Have MCQ instead of open-ended ones
+. User enters `mode` command
+    - System displays the mode menu
+    - User clicks on "MCQ"
+
+Use case ends
+
+[discrete]
+==== UC21: Have a reset option
+. User enters `reset` command
+    - System clears all existing answers
+    - System displays the first question of the current quiz
+
+Use case ends
+
+[discrete]
+==== UC22: Clarify concepts with an agent 24/7
+. User enters `help` command
+    - System displays the help menu
+    - User opts for a live agent
+    - System starts a live chat with a live agent
+
+Use case ends
+
+[discrete]
+==== UC23: Share my highest score with my friends
+. User enters `history` command
+    - User enters `share` command
+    - System displays the social media platforms for the user to choose from
+    - User selects one
+    - System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
+    - User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
+    - System displays a default post on the selected social media platform
+    - User can type his/her own caption and proceed to upload it
+
+Use case ends
+
+[discrete]
+==== UC24: Print the quiz to pdf
+. User enters `print` command
+    - System converts file to pdf and proceeds with the command
+
+Use case ends
+
+[discrete]
+==== UC25: Listen to music during the quiz
+. User enters `settings` command
+    - System displays settings menu
+    - User selects a playlist
+    - System starts to play the playlist and returns back to the menu/quiz
+
+Use case ends
+
+[discrete]
+==== UC26: Archive difficult questions
+. User enters `help` command
+    - System displays the help menu
+    - User clicks on "archive"
+    - System automatically archives the question the user is on
+
+[discrete]
+==== UC27: Take screenshots of the students' results
+Actor: Tutor
+
+. User enters `screenshot` command
+    - System automatically saves the screenshot into the user's hard disk
+
+Use case ends
+
+[discrete]
+==== UC28: Interact with characters in the game
+. User enters `interact` command
+    - System displays the list of users who are online
+    - User selects another user and a chat page pops up
+
+Use case ends
+
+[discrete]
+==== UC29: Refer to the algorithms
+. User enters `settings` command
+    - System displays the settings menu
+    - User selects "algorithm" option
+
+Use case ends
+
+[discrete]
+==== UC30: Choose an answer verbally
+. User enters `settings` command
+    - System displays the settings menu
+    - User selects "microphone" option
+
+Use case ends
 
 === Non-Functional Requirements
  - Should work on any mainstream OS as long it has Java 11 or above installed.
