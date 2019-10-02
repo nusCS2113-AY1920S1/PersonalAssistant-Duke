@@ -1,14 +1,14 @@
 = Appendix A: Product Scope
 
 == Target User Profile:
-● Highly motivated but is distracted easily.
-● Likes to work towards small milestones than large ones.
-● Likes gamifying mundane tasks.
-● Prefers if people tell them what to work towards.
-● Can type fast.
-● Prefers typing and using arrow keys to navigate over mouse input.
-● Is reasonably comfortably with command line integrated with GUI apps.
-● Prefers desktop apps over other types.
+- Highly motivated but is distracted easily.
+- Likes to work towards small milestones than large ones.
+- Likes gamifying mundane tasks.
+- Prefers if people tell them what to work towards.
+- Can type fast.
+- Prefers typing and using arrow keys to navigate over mouse input.
+- Is reasonably comfortably with command line integrated with GUI apps.
+- Prefers desktop apps over other types.
 
 == Value proposition: We strive to adhere our product to two main principles:
 1) Gamify tasks to make completing them more engaging than a typical
