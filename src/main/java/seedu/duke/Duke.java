@@ -1,8 +1,13 @@
 package seedu.duke;
 
+import seedu.duke.client.Http;
+import seedu.duke.client.SimpleServer;
 import seedu.duke.command.Command;
 import seedu.duke.command.ExitCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.EmailStorage;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -10,6 +15,7 @@ import java.util.Scanner;
  */
 public class Duke {
     private static TaskList taskList;
+    private static EmailList emailList;
     private static UI ui;
 
     /**
@@ -19,11 +25,21 @@ public class Duke {
      */
     public static void main(String[] args) {
         ui = new UI();
+        ui.setDebug(true);
+        Http.getAuth();
         run();
     }
 
     public static TaskList getTaskList() {
         return taskList;
+    }
+
+    public static EmailList getEmailList() {
+        return emailList;
+    }
+
+    public static void setEmailList(EmailList emailList) {
+        Duke.emailList = emailList;
     }
 
     public static UI getUI() {
@@ -32,6 +48,7 @@ public class Duke {
 
     private static void run() {
         taskList = Storage.readTasks();
+        emailList = EmailStorage.readEmails();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         Command command = Parser.parseCommand(input);
@@ -41,6 +58,7 @@ public class Duke {
             command = Parser.parseCommand(input);
         }
         Storage.saveTasks(taskList);
+        EmailStorage.saveEmails(emailList);
         ui.showMessage("Bye. Hope to see you again!");
     }
 

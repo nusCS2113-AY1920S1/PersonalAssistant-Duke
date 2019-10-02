@@ -19,8 +19,8 @@ public class ReminderCommand extends Command {
     }
 
     /**
-     * Instantiation of the ReminderCommand which can be used to print all the tasks near. This overload
-     * uses the default dayLimit instead.
+     * Instantiation of the ReminderCommand which can be used to print all the tasks near. This overload uses
+     * the default dayLimit instead.
      *
      * @param taskList the TaskList where the near command is looked up
      */

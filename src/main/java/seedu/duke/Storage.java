@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Storage class contains the helper functions that is used to interact with the file storing the task
- * information.
+ * Interacts with the file storing the task information.
  */
 public class Storage {
     private static String getSaveFileDir() {
@@ -33,9 +32,8 @@ public class Storage {
 
     /**
      * This function clears the content of the file and write all the information of the tasks in the task
-     * list
-     * to that file. This file follows similar structure as the user input and can be used to re-construct the
-     * task list later.
+     * list to that file. This file follows similar structure as the user input and can be used to
+     * re-construct the task list later.
      *
      * @param taskList the list of task that is to be written to the file
      */
@@ -99,7 +97,7 @@ public class Storage {
                     taskList.get(i).markDone();
                 }
             }
-            Duke.getUI().showMessage("Save file successfully loaded...");
+            Duke.getUI().showMessage("Saved task file successfully loaded...");
             in.close();
             new ReminderCommand(taskList).execute();
         } catch (FileNotFoundException e) {

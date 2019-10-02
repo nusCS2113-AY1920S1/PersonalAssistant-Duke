@@ -11,6 +11,10 @@ import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
 import seedu.duke.command.SnoozeCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.emailcommand.ListEmailCommand;
+import seedu.duke.email.emailcommand.ShowEmailCommand;
+import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
@@ -31,7 +35,7 @@ public class Parser {
     public static Command parseCommand(String input) {
         UI ui = Duke.getUI();
         TaskList taskList = Duke.getTaskList();
-
+        EmailList emailList = Duke.getEmailList();
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -87,7 +91,7 @@ public class Parser {
             }
         } else if (input.startsWith("doafter")) {
             if (input.length() < 8) {
-                ui.showError("Please enter item number");
+                ui.showError("Please enter index of task after \'doafter\'");
             } else if (input.length() < 11) {
                 ui.showError("Please enter description for do-after task");
             } else {
@@ -113,6 +117,12 @@ public class Parser {
                     ui.showError("Please enter correct task index");
                 }
             }
+        }  else if (input.startsWith("email")) {
+            try {
+                return parseEmail(emailList, input);
+            } catch (UserInputException e) {
+                ui.showError(e.toString());
+            }
         } else {
             try {
                 return parseTask(taskList, input);
@@ -129,6 +139,47 @@ public class Parser {
             throw new UserInputException("Please enter task index");
         }
         return Integer.parseInt(splited[1]) - 1;
+    }
+
+    /**
+     * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
+     * returns an email-relevant Command.
+     *
+     * @param emailList target email list from Duke.
+     * @param input user/file input ready to be parsed.
+     * @return an email-relevant Command.
+     * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
+     *                            input
+     */
+    public static Command parseEmail(EmailList emailList, String input) throws UserInputException {
+        if (input.length() <= 7) {
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+                    + "email.");
+        }
+        String emailCommand = input.split(" ")[1];
+        switch (emailCommand) {
+        case "-list":
+            return new ListEmailCommand(emailList);
+        case "-show":
+            if (input.length() <= 12) {
+                throw new Parser.UserInputException("Please enter index of email to be shown after \'email "
+                        + "-show\'");
+            }
+            try {
+                String parsedInput = input.substring(12, 13).strip();
+                int index = Integer.parseInt(parsedInput) - 1;
+                return new ShowEmailCommand(emailList, index);
+            } catch (NumberFormatException e) {
+                throw new Parser.UserInputException(e.toString());
+            } catch (Exception e) {
+                throw new Parser.UserInputException(e.toString());
+            }
+        case "-fetch":
+            return new FetchEmailCommand(emailList);
+        default:
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+                    + "email.");
+        }
     }
 
     /**
@@ -154,7 +205,7 @@ public class Parser {
             }
             name = input.substring(5);
             if (input.contains(" /doafter ")) {
-                name = name.split(" /doafter ",2)[0];
+                name = name.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
         } else if (input.startsWith("deadline")) {
@@ -170,7 +221,7 @@ public class Parser {
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
             if (input.contains(" /doafter ")) {
-                timeString = timeString.split(" /doafter ",2)[0];
+                timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
             try {
@@ -191,7 +242,7 @@ public class Parser {
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
             if (input.contains(" /doafter ")) {
-                timeString = timeString.split(" /doafter ",2)[0];
+                timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
             try {

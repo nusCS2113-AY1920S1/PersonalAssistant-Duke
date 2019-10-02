@@ -33,8 +33,8 @@ public class Deadline extends Task {
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
      * cannot be changed later. This method accepts another task to be done after the first task.
      *
-     * @param name name of the Deadline
-     * @param time time of the Deadline
+     * @param name    name of the Deadline
+     * @param time    time of the Deadline
      * @param doAfter task to be done after main task
      */
     public Deadline(String name, Date time, String doAfter) {
