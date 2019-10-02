@@ -18,7 +18,7 @@ By: `[AY1920S1-CS2113-T16-1] Le Duc`
 
 == Introduction
 
-Le Duc (The Duke in French) is for student who have multiple life and have to manage them all. Outside, they have to go to school, work part-time, attend club and have fun at some party. At home, they have to do homework, undertake a project, do some chore, cook some nice food. Pretty busy, right ? With this new tool, a student can manage and organise his time more efficiently.
+Le Duc ("The Duke" in French) is for students who have both academic and extracurricular lives and have to manage them both. Outside, they have to go to school, work part-time, attend club and have fun at some party. At home, they have to do homework, undertake a project, do some chore, cook some nice food. Pretty busy, right ? With this new tool, a student can manage and organise his time more efficiently.
 
 == Quick Start
 
@@ -179,6 +179,10 @@ Example:
 
 * setwelcome `hello World`
 
+Be careful:
+
+*Reverting to the revious welome message is not possible once a new message is set.
+*Ensure the directory data is in the correct location
 === Exit the program : `bye`
 
 To exit the program : `bye`
@@ -253,7 +257,7 @@ For each command, the console will output the command name.
 
 The user (you) have to input the shortcut you want.
 
-If the shortcut already exist, the console will tell you to assign another shortcu
+If the shortcut already exist, the console will tell you to assign another shortcut
 
 === Import other task list (not implemented yet)
 
