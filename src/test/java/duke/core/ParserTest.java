@@ -1,6 +1,13 @@
 package duke.core;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.ViewCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,7 +28,6 @@ public class ParserTest {
         Command c7 = Parser.parse("event Meeting /at 27/07/2020 1630");
         Command c8 = Parser.parse("deadline event Homework ABC /by 27/07/2020 1630");
         Command c9 = Parser.parse("view 16/09/2019");
-
 
         assertTrue(c1 instanceof ExitCommand, "The command type should be ");
         assertTrue(c2 instanceof DoneCommand, "The command type should be 'DoneCommand'");

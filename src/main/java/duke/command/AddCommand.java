@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Duke;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
@@ -8,9 +7,7 @@ import duke.core.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 

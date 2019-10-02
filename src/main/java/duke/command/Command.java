@@ -27,7 +27,7 @@ public abstract class Command {
      * Decide whether duke should exist.
      *
      * @return A boolean. True if the command tells Duke to exit, false
-     * otherwise.
+     *         otherwise.
      */
     public abstract boolean isExit();
 
