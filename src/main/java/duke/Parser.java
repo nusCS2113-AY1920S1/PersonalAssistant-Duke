@@ -2,14 +2,14 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
+import duke.commands.ListCommand;
 import duke.commands.NumCommand;
-import duke.commands.RecurCommand;
-import duke.commands.ViewScheduleCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 import duke.enums.CommandType;
-
 
 /**
  * Interprets command strings by the user.
@@ -112,7 +112,7 @@ public class Parser {
         switch (keyword[0]) {
         //Commands which are single words.
         case "list":
-            command = new Command(CommandType.LIST);
+            command = new ListCommand(CommandType.LIST);
             break;
         case "bye":
             command = new Command(CommandType.BYE);
@@ -120,13 +120,10 @@ public class Parser {
 
         //Commands which require numerical input.
         case "done":
-            command = new NumCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
+            command = new DoneCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
         case "delete":
-            command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
-            break;
-        case "snooze":
-            command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
+            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
 
         //Commands which require string input.
@@ -135,17 +132,14 @@ public class Parser {
             command = new AddCommand(CommandType.TODO, todoTemp[0],
                     (todoTemp.length > 1) ? todoTemp[1] : "");
             break;
-
-        case "deadline": {
-            String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1]);
+        case "deadline":
+            String[] deadlineTemp = addDeadline(keyword[1]);
+            command = new AddCommand(CommandType.DEADLINE, deadlineTemp[0], deadlineTemp[1]);
             break;
-        }
-        case "event": {
-            String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(CommandType.EVENT, temp[0], temp[1]);
+        case "event":
+            String[] eventTemp = addEvent(keyword[1]);
+            command = new AddCommand(CommandType.EVENT, eventTemp[0], eventTemp[1]);
             break;
-        }
         case "find": {
             String description = keyword[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
@@ -154,37 +148,6 @@ public class Parser {
                 command = new Command();
                 throw new BadInputException("Please enter the search description.");
             }
-            break;
-        }
-        case "recur": {
-            //Input format: recur 5 12 deadline description /by dd/mm/yyyy HHMM
-            //Event: recur 5 12 event description /at dd/mm/yyyy HHMM to dd/nn/yyyy HHMM
-            String taskInput = keyword[1].trim();
-            String[] newKeyword = taskInput.split(" ", 3);
-            int recurInterval = Integer.parseInt(newKeyword[0]);
-            int numberOfRecur = Integer.parseInt(newKeyword[1]);
-            String[] finalKeyword = newKeyword[2].split(" ", 2);
-            switch (finalKeyword[0]) {
-            case "deadline": {
-                String[] temp = addDeadline(finalKeyword[1]);
-                command = new RecurCommand(CommandType.DEADLINE, temp[0], temp[1],
-                        recurInterval, numberOfRecur);
-                break;
-            }
-            case "event": {
-                String[] temp = addEvent(finalKeyword[1]);
-                command = new RecurCommand(CommandType.EVENT, temp[0], temp[1], recurInterval, numberOfRecur);
-                break;
-            }
-            default:
-                command = new Command();
-                throw new BadInputException("Sorry, I don't recognise that input keyword");
-            }
-            break;
-        }
-
-        case "view": {
-            command = new ViewScheduleCommand(CommandType.VIEW, keyword[1]);
             break;
         }
 

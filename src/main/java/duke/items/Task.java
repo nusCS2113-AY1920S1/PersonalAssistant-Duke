@@ -79,10 +79,6 @@ public class Task {
         this.isDone = true;
     }
 
-    //    public Date getDate() {
-    //        return null;
-    //    }
-
     public Calendar getDate() {
         return null;
     }
