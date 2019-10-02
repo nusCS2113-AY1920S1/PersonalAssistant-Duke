@@ -111,7 +111,7 @@ public class Duke {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
-                    storage.write(items);
+                    cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
