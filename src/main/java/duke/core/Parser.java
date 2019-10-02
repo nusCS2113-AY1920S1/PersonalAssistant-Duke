@@ -120,6 +120,9 @@ public class Parser {
                 } catch (Exception e) {
                     throw new DukeException("Failed to make your task recurring." + e.getMessage());
                 }
+
+            case "help":
+                return new HelpCommand();
             case "bye":
                 return new ExitCommand();
             default:

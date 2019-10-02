@@ -196,7 +196,24 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n\n");
+        System.out.println("Enter 'help' to show a list of commands ");
+    }
+
+    public void showHelpCommand () {
+        System.out.println("1. list - to show a list of tasks\n");
+        System.out.println("2. delete - to delete a task\n");
+        System.out.println("3. done - to set a task as completed\n");
+        System.out.println("4. find - to find a task from the list\n");
+        System.out.println("5. todo - to add a todo task\n");
+        System.out.println("6. fixeddurationtask - to add a fixed duration task\n");
+        System.out.println("7. deadline - to add a deadline task\n");
+        System.out.println("8. event - to add a event task\n");
+        System.out.println("9. period - to add a period task\n");
+        System.out.println("10. reschedule  - to reschedule a task\n");
+        System.out.println("11. view - to see a task of a specific date\n");
+        System.out.println("12. recurring - to make a task recurring\n");
+        System.out.println("13. bye - to quit Dukepital\n");
     }
 
     /**
