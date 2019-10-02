@@ -3,7 +3,9 @@
 == Appendix A: Product Scope
 
 Target User Profile:
+
 - Highly motivated but is distracted easily.
+
 - Likes to work towards small milestones than large ones.
 - Likes gamifying mundane tasks.
 - Prefers if people tell them what to work towards.
