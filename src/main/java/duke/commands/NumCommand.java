@@ -23,9 +23,5 @@ public class NumCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        if (type == CommandType.SNOOZE) {
-            /*list.snoozeTask(itemIndex);*/
-        }
-    }
+    public void execute(TaskList list, Ui ui, Storage storage) {}
 }

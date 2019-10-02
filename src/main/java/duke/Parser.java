@@ -125,9 +125,6 @@ public class Parser {
         case "delete":
             command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
-        case "snooze":
-            command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
-            break;
 
         //Commands which require string input.
         case "todo":
