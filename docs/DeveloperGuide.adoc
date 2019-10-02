@@ -461,7 +461,7 @@ NFRs marked with an asterisk(s) are backed by research. Links to said research a
 
 ---
 
-Research:
+==== Research:
 
 https://www.freecodecamp.org/news/top-reasons-why-your-mobile-app-is-slow-and-how-to-fix-it-f0f7ce524934/#targetText=The%20root%20cause%20to%20all,for%20most%20of%20its%20tasks.&targetText=Try%20to%20take%20some%20load,an%20extra%20reverse%20proxy%20server. (*)
 
