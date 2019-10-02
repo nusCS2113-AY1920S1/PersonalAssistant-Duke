@@ -15,8 +15,11 @@ import commands.ViewCommand;
 import commands.ViewScheduleCommand;
 
 
-
+import java.awt.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The class which analyze the input command line and initialize a command.
@@ -116,5 +119,74 @@ public class Parser {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
         return moneyCommand;
+    }
+
+    /**
+     * Takes user input of date for add commands and checks for shortcut dates.
+     * If shortcut is found, converts to the correct date according to shortcut.
+     * Returns the formatted Date from user inputted date.
+     * @param dateStr user input of date
+     * @return formatted Date based on user inputted date
+     * @throws ParseException if invalid date is parsed
+     */
+    public static Date shortcutTime(String dateStr) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
+        String time = dateStr.replaceAll(" ", "");
+
+        if (time.equals("now")) {
+            Date currDate = new Date();
+            String passDate = simpleDateFormat.format(currDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("ytd")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -1);
+            Date ytdDate = cal.getTime();
+            String passDate = simpleDateFormat.format(ytdDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("tmr")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, +1);
+            Date tmrDate = cal.getTime();
+            String passDate = simpleDateFormat.format(tmrDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("lstwk")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -7);
+            Date lastWeekDate = cal.getTime();
+            String passDate = simpleDateFormat.format(lastWeekDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("nxtwk")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, +7);
+            Date nextWeekDate = cal.getTime();
+            String passDate = simpleDateFormat.format(nextWeekDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("lstmth")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            Date lastMonthDate = cal.getTime();
+            String passDate = simpleDateFormat.format(lastMonthDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("nxtmth")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, +1);
+            Date nextMonthDate = cal.getTime();
+            String passDate = simpleDateFormat.format(nextMonthDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("lstyr")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, -1);
+            Date lastYearDate = cal.getTime();
+            String passDate = simpleDateFormat.format(lastYearDate);
+            return simpleDateFormat.parse(passDate);
+        } else if (time.equals("nxtyr")) {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, +1);
+            Date nextYearDate = cal.getTime();
+            String passDate = simpleDateFormat.format(nextYearDate);
+            return simpleDateFormat.parse(passDate);
+        } else {
+            return simpleDateFormat.parse(dateStr);
+        }
     }
 }
