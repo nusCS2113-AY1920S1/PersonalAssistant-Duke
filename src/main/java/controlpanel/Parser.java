@@ -83,17 +83,19 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if(cmd.equals("start")){
+        if(cmd.equals("start")) {
             moneyCommand = new startCommand(isNewUser);
-        }
-        else if (cmd.startsWith("init")) {
+        } else if (cmd.startsWith("init")) {
             moneyCommand = new initCommand(cmd, isNewUser);
-        } else if(cmd.equals("bye")){
+        } else if(cmd.equals("bye")) {
             moneyCommand = new ExitMoneyCommand();
-        } else if(isNewUser){
+        } else if(isNewUser) {
             throw new DukeException("You are a new user please type: init [existing savings] [Avg Monthly Expenditure]");
-        }
-        else if (cmd.startsWith("goal-short")) {
+        } else if (cmd.startsWith("bank-account")) {
+            moneyCommand = new CreateBankAccountCommand(cmd);
+        } else if (cmd.equals("list bank trackers")) {
+            moneyCommand = new ListBankTrackerCommand();
+        } else if (cmd.startsWith("goal-short")) {
             moneyCommand = new AddShortGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {
             moneyCommand = new ListGoalsCommand();
@@ -113,13 +115,9 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
-
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
-
-
-
         return moneyCommand;
     }
 
