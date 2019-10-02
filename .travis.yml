@@ -15,8 +15,8 @@ script:
 before_deploy:
   - ./gradlew clean
   - ./gradlew build
-  - git config --local user.name "nwjbrandon"
-  - git config --local user.email "nwjbrandon@gmail.com"
+  - git config --local user.name "jwyf"
+  - git config --local user.email "e0311252@u.nus.edu"
 
 deploy:
   provider: releases
