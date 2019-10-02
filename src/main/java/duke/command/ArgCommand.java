@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeContext;
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,8 +11,9 @@ import java.util.HashMap;
  */
 public abstract class ArgCommand extends Command {
 
-    protected String arg = null; //argument supplied to the command
-    protected String emptyArgMsg; //error message if the argument is empty
+    protected String arg = null; //argument supplied to the command itself, not its flags
+    protected boolean requiresArg; //whether the command itself requires an argument, or just flags
+    protected String emptyArgMsg; //error message if the argument is missing
     protected HashMap<String, String> switchVals; //hashmap of switch parameters
     protected HashMap<String, ArgLevel> switches; //list of recognised switches
 
@@ -33,13 +35,15 @@ public abstract class ArgCommand extends Command {
      */
     public void parse(String inputStr) throws DukeException {
         if (inputStr.length() == 0) {
-            throw new DukeException(emptyArgMsg);
+            throw new DukeException("You didn't tell me how to do that!");
+            //TODO: print help passage, possibly with a "HelpDukeException"?
         }
 
         //find initial tokens
-
+        initTokens(inputStr);
 
         while (Tokens.spaceIdx >= 0) {
+            //string encountered
             if (Tokens.quoteIdx < Tokens.spaceIdx) {
 
             }
@@ -53,25 +57,47 @@ public abstract class ArgCommand extends Command {
         }
     }
 
-    protected void complain(String complaint, String ...issues) throws DukeException {
-        StringBuilder complaintBuilder = new StringBuilder(complaint).append(": ");
-        for (String issue : issues) {
-            complaintBuilder.append(issue)
+    protected void complain(String complaint, ArrayList<String> issues) throws DukeException {
+        if (issues.size() == 0) { //shouldn't happen
+            throw new DukeException(complaint + ": no details specified!");
         }
-       throw new DukeException(complaint + ": ")
+        StringBuilder complaintBuilder = new StringBuilder(complaint).append(": ").append(issues.get(0));
+        for (int i = 1; i < issues.size(); ++i) {
+            complaintBuilder.append(", ").append(issues.get(i));
+        }
+        throw new DukeException(complaintBuilder.append(System.lineSeparator()).toString());
     }
 
-    private void initTokens(String inputStr) {
+    private void initTokens(String inputStr) throws DukeException {
         Tokens.spaceIdx = inputStr.indexOf(" ");
         Tokens.dashIdx = inputStr.indexOf("-");
         Tokens.quoteIdx = inputStr.indexOf("\"");
         Tokens.endQuoteIdx = inputStr.indexOf("\"", Tokens.quoteIdx + 1);
         Tokens.currSwitch = null;
 
-        if (Tokens.spaceIdx == -1 && switches.size() != 0) {
-            //search pairs instead and complain with names
-            for (ArgLevel level : switches.values()) {
-                if (level != ArgLevel.NONE) {
+        //TODO: refactor out when usage is clearer
+        //handle single word arguments
+        if (Tokens.spaceIdx == -1) {
+            if (Tokens.dashIdx == 0) {
+               if (switches.get(inputStr.substring(Tokens.dashIdx + 1)) == null) {
+
+               }
+            } else if {
+
+            }
+
+            if ()
+
+            if (switches.size() != 0) {
+                //search pairs instead and complain with names
+                ArrayList<String> problemArrList = new ArrayList<String>();
+                for (HashMap.Entry<String, ArgLevel> switchEntry : switches.entrySet()) {
+                    if (switchEntry.getValue() != ArgLevel.NONE) {
+                        problemArrList.add(switchEntry.getKey());
+                    }
+                }
+                if (problemArrList.size() != 0) {
+                    complain("You didn't give me these switches", problemArrList);
                 }
             }
         }
