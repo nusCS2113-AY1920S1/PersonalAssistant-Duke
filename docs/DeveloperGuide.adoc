@@ -103,9 +103,9 @@ have. 1 star (★) is unlikely to have.
 
 Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
 
-Use case: Adding tasks
+=== Use case: Adding tasks
 
-MSS
+==== MSS
 
 1. User inputs the task to add into Hstle.
 
@@ -119,7 +119,7 @@ MSS
 
 6. Use case ends.
 
-Extensions
+==== Extensions
 
 2a. The given input is invalid.
 
