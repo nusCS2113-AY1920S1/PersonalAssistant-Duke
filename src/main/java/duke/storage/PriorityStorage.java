@@ -41,6 +41,7 @@ public class PriorityStorage {
         return items;
     }
 
+
     public void write(PriorityList priorityList) throws IOException {
         String fileContent = "";
         for (int i = 0; i < priorityList.getSize(); i++) {

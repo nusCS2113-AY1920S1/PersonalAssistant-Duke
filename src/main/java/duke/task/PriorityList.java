@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.command.AddCommand;
-import duke.storage.PriorityStorage;
 
 import java.util.Scanner;
 import java.util.ArrayList;

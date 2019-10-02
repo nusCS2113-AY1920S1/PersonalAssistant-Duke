@@ -93,12 +93,13 @@ public class Ui {
      * Outputs all the tasks of the task list to the user.
      *
      * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities associated with each task.
      */
     public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
         for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
-            out.printf("        [%d]\t  |\t%s\n", priorities.getList().get(i), items.get(i));
+            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i+1, items.get(i));
         }
     }
 
