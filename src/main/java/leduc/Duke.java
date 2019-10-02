@@ -44,7 +44,12 @@ public class Duke {
      * Method which run the duke program.
      */
     public void run() {
-        this.ui.showWelcome();
+        try {
+            this.ui.showWelcome();
+        }
+        catch (DukeException e){
+            ui.showError(e);
+        }
         boolean isExit = false;
         while (!isExit){
             try {
