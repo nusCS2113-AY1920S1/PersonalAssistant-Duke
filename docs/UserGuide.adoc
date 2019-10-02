@@ -36,7 +36,35 @@ e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 
 [[Features]]
 == Features
+=== Expense and Income Tracking
+image::Ui/List.png[width="500", align="center"]
+{nbsp} +
+Look through, edit and modify all the income and expenses that you have added.
+Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily spendings!
 
+=== Limits
+image::Ui/Limits.png[width="500", align="center"]
+{nbsp} +
+Find out your daily, monthly, or yearly progress in cutting down your spending on certain products, or see how much more you can spend before you break the savings goal you set for that new speaker!
+
+=== Debts
+image::Ui/Debts.png[width="500", align="center"]
+{nbsp} +
+Do you lend or borrow money from friends a lot? Keep track of all your money circulation and mark them as done when the debts are repaid!
+
+=== Shortcuts
+image::Ui/Shortcuts.png[width="500", align="center"]
+{nbsp} +
+Love eating pizza everyday but find it a chore to retype the same thing to keep track of your spendings? Add a shortcut so you need to type less to add frequent expenses or incomes!
+
+=== Reminders
+Have Dolla let you know when an expense is coming up, and when a budget or saving is about to be exceeded!
+
+=== Settings `[coming in v2.0]`
+Customise various features of Dolla, like how many items to show per page on a list, what kind of things Dolla will remind you about, or even the statistics that's pinned on the app!
+
+[[Commands]]
+== Commands
 ====
 *Command Format*
 
