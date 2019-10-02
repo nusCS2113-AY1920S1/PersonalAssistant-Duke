@@ -18,7 +18,8 @@ public class Event extends Task {
     /**
      * default constructor of Event
      */
-    public Event() {}
+    public Event() {
+    }
 
 
     public Event(String description, Date at) {
@@ -31,7 +32,7 @@ public class Event extends Task {
         this.at = at;
     }
 
-    public Date getTime()   {
+    public Date getTime() {
         return at;
     }
 
@@ -41,7 +42,12 @@ public class Event extends Task {
      * @return a string which will be printed out in console when listing this event
      */
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")" + (isRecurring?" recurring: " + this.recurringWeeks + " weeks" : "");
+        return "[E]"
+                + super.toString()
+                + " (at: " + at + ")"
+                + (isRecurring ? " recurring: "
+                + this.recurringWeeks
+                + " weeks" : "");
     }
 
     @Override
@@ -51,7 +57,11 @@ public class Event extends Task {
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.at);
+        return "E | "
+                + (this.isDone ? 1 : 0)
+                + " | " + this.description
+                + " | " + getPrecondition()
+                + " | " + ft.format(this.at);
     }
 
     /**
@@ -59,7 +69,7 @@ public class Event extends Task {
      * Getter for date object
      * @return the request date object
      */
-    public Date getAt(){
+    public Date getAt() {
         return this.at;
     }
 

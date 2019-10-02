@@ -9,7 +9,7 @@ import java.util.Date;
  * command is "add period [description] /from [time] /to [time]"
  */
 
-public class Period extends Task{
+public class Period extends Task {
 
     /**
      * the start time of the task
@@ -24,18 +24,17 @@ public class Period extends Task{
     /**
      * default constructor of Period
      */
-    public Period(){}
+    public Period() {
+    }
 
     /**
      * another constructor of Period
-     * @param description
-     *                  the description of this task
-     * @param start
-     *                  the starting time of this task
-     * @param end
-     *                  the end time of this task
+     *
+     * @param description the description of this task
+     * @param start       the starting time of this task
+     * @param end         the end time of this task
      */
-    public Period(String description, Date start, Date end){
+    public Period(String description, Date start, Date end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -43,35 +42,34 @@ public class Period extends Task{
 
     /**
      * set the start time
-     * @param start
-     *              starting time
+     *
+     * @param start starting time
      */
-    public void setStart(Date start){
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public Date getStart(){
+    public Date getStart() {
         return this.start;
     }
 
-    public Date getEnd(){
+    public Date getEnd() {
         return this.end;
     }
 
     /**
      * set the end time
-     * @param end
-     *              end time
+     *
+     * @param end end time
      */
-    public void setEnd(Date end){
+    public void setEnd(Date end) {
         this.end = end;
     }
 
     @Override
     /**
      * a method to format the output of the task list
-     * @return string
-     *              how task list will print out in console
+     * @return a string which will be printed out in console when listing this Period task
      */
     public String toString() {
         return "[P]" + super.toString() + " (from: " + start + " to: " + end + ")";
@@ -84,6 +82,13 @@ public class Period extends Task{
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "P | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + ft.format(this.start)+" | " + ft.format(this.end);
+        return "P | "
+                + (this.isDone ? 1 : 0)
+                + " | "
+                + this.description
+                + " | "
+                + ft.format(this.start)
+                + " | "
+                + ft.format(this.end);
     }
 }

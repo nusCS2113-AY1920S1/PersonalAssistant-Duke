@@ -10,7 +10,9 @@ import java.util.Date;
 
 public class Deadline extends Task {
 
-    public Date getTime() { return this.by; }
+    public Date getTime() {
+        return this.by;
+    }
 
     protected Date by;
 
@@ -18,10 +20,12 @@ public class Deadline extends Task {
     /**
      * default constructor of Deadline
      */
-    public Deadline() { }
+    public Deadline() {
+    }
 
     /**
      * another constructor of Deadline
+     *
      * @param description The description, or content of deadline
      * @param by the time when this task due
      */
@@ -32,6 +36,7 @@ public class Deadline extends Task {
 
     /**
      * set the deadline
+     *
      * @param by the deadline of this task
      */
     public void setTime(Date by) {
@@ -40,9 +45,8 @@ public class Deadline extends Task {
 
     @Override
     /**
-     * a method to format the output of the task list
      * @return string
-     *              how task list will print out in console
+     * how task list will print out in console
      */
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
@@ -52,10 +56,14 @@ public class Deadline extends Task {
     /**
      * a method to format the data list data store in file
      * @return string
-     *              a string which will show in data file that store the task list
+     * a string which will show in data file that store the task list
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + getPrecondition() + " | " + ft.format(this.by);
+        return "D | "
+                + (this.isDone ? 1 : 0) + " | "
+                + this.description + " | "
+                + getPrecondition()
+                + " | " + ft.format(this.by);
     }
 }

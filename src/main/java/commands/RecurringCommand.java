@@ -13,8 +13,7 @@ import java.util.Date;
 /**
  * This is a class for handling recurring events command.
  *
- * @author Justin Chia
- * This class handles the change to recurring command
+ *  @author Justin Chia
  */
 public class RecurringCommand extends Command {
     protected int index;
@@ -47,7 +46,10 @@ public class RecurringCommand extends Command {
             }
             tasks.get(index - 1).setRecurring(numWeeks);
             storage.store(tasks);
-            Ui.print("The task " + tasks.get(index - 1).getDescription() + " has been converted to recur for " + numWeeks + " weeks");
+            Ui.print("The task "
+                    + tasks.get(index - 1).getDescription()
+                    +
+                    " has been converted to recur for " + numWeeks + " weeks");
         } catch (Exception e) {
             throw new DukeException("Not a valid recurrence command, recurrence can only be used on events");
         }

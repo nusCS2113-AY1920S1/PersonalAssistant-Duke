@@ -73,7 +73,7 @@ public abstract class Task {
     /**
      * set the description of task
      *
-     * @param description the description to be set
+     * @param description the description, or the content of a task
      */
     public void setDescription(String description) {
         this.description = description;
@@ -92,7 +92,9 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size() == 0) ? "" : (" (Precondition: " + this.getPrecondition() + ")"));
+        return "[" + this.getStatusIcon() + "] "
+                + this.description
+                + ((this.precondition.size() == 0) ? "" : (" (Precondition: " + this.getPrecondition() + ")"));
     }
 
     /**
@@ -124,7 +126,8 @@ public abstract class Task {
 
     /**
      * This method marks the task status as 'done'
-     * @throws DukeException if the preconditions (if it has) are not satisfied, that is, this task cannot be marked as 'done' at this point
+     * @throws DukeException if the preconditions (if it has) are not satisfied,
+     * that is, this task cannot be marked as 'done' at this point
      */
     public void markAsDone() throws DukeException {
         boolean preconditionDone = true;
@@ -176,6 +179,13 @@ public abstract class Task {
         this.precondition.add(precondition);
     }
 
+    /**
+     * This method add prerequisite task to the precondition list
+     *
+     * @param preconditionString the prerequisite task to be added, represented by indexes of prerequisite tasks,
+     *                           separated by space, for example: 1 2 10 11
+     * @throws DukeException when the format of preconditions is not valid
+     */
     public void addPrecondition(String preconditionString) throws DukeException {
         preconditionString = preconditionString.trim();
         if (preconditionString.equals("0")) {
@@ -200,6 +210,11 @@ public abstract class Task {
         }
     }
 
+    /**
+     * This method gets prerequisite task to the precondition list.
+     * @return the string of precondition, represented by indexes of prerequisite tasks,
+     * separated by space, for example: 1 2 10 11
+     */
     public String getPrecondition() {
         if (precondition.size() == 0) {
             return "0";

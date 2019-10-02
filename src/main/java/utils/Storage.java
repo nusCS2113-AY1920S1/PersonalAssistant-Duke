@@ -29,8 +29,8 @@ public class Storage {
 
     /**
      * constructor of Storage, pass the data to dataFile by file path
-     * @param filePath
-     *              path of the file that store the task list
+     *
+     * @param filePath path of the file that store the task list
      */
     public Storage(String filePath) {
         dataFile = new File(filePath);
@@ -38,6 +38,7 @@ public class Storage {
 
     /**
      * Read the data stored in hard disk to taskList.
+     *
      * @return an ArrayList of Task, which is the task list
      */
     public ArrayList<Task> load() {
@@ -60,12 +61,13 @@ public class Storage {
 
     /**
      * Save the tasks data to the hard disk.
+     *
      * @param taskList the array list of tasks to be saved.
      * @return if this method executed successfully
      */
     public boolean store(ArrayList<Task> taskList) {
         String output = "";
-        for (int i = 0; i < taskList.size();i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output += taskList.get(i).dataString() + "\n";
         }
         try {
