@@ -28,12 +28,6 @@ public class TaskList {
 	 */
 	public TaskList(ArrayList<Task> tasks) {
 		taskList = tasks;
-		//TODO Fix this part (possibly because of how json works?
-		//TODO change the deadline to one day later ot smth
-		//TODO exceptions
-//		for(Task t: taskList) {
-//			t.recurringTaskChecker();
-//		}
 	}
 
 	/**
