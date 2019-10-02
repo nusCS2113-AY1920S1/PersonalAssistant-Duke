@@ -10,3 +10,5 @@ list all income
 list all expenditure
 start (only works if is a new user)
 init 30000 200 (only works if is a new user)
+bank-account OCBC /amt 0 /at 27/7/2017 /rate 0.005
+bank-account DBS /amt 100 /at 14/8/2018 /rate 0
