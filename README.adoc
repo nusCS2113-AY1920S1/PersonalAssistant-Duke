@@ -14,13 +14,13 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is an application used mainly for the nurse at the hospital. It has a GUI but most of the user interactions happen using CLI.
-* The purpose of this application is to help the nurse to manage their tasks better.
-* It is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC)than what students usually write in beginner-level SE modules
+* This is an application intended for nurses within hospitals. It has a GUI, but most of the user interactions occurring will be using CLI.
+* The purpose of this application is to provide an organizational tool for nurses, allowing them to categorize tasks/information based on their patients, encouraging timeliness and higher quality of provided care.
+* Dukepital is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC) than what students usually write in beginner-level SE modules.
 == Site Map
 
 * https://docs.google.com/document/d/15969Buo0Dh4mI4GDn84tlGQ11MAjgxQQq0f9qB4-0z4/edit?usp=sharing[User Guide]
-* «DeveloperGuide#, Developer Guide»
+* https://docs.google.com/document/d/1G6Bvc2kW0bpxYXVxCz2mC2vUknmPyHRZJHdE9Et25LQ/edit?usp=sharing[Developer Guide]
 * «LearningOutcomes#, Learning Outcomes»About
 * https://github.com/AY1920S1-CS2113-T13-2/main/blob/master/docs/AboutUs.adoc[About Us]
 * «ContactUs#, Contact Us»
