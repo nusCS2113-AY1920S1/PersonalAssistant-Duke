@@ -225,30 +225,52 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
 *Actor*: Theatre Manager
 
 *MSS*:
+
 1. User enters the help command.
 2. Optix responds by displaying all available commands and their usage.
 
+
+
+
 === Use case: UC09 - Postpone shows to a later date
+
 *Actor*: Theatre manager
+
+----
 *MSS*:
+
 1. User enters the postpone command, followed by the name of the show, the current-date of the show to postpone and the new-date.
+
 2. Optix responds by displaying the new-date for the show.
          Use case ends.
 
 *Extensions*:
+
       1a. Optix detects an error in the details entered.
+      
       1a1. Optix informs the user that the show has passed.
+      
       1a2. Optix requests command from user again.
+      
       1a3. User re-enters command. 
+      
       Steps 1a1-1a3 are repeated until the command entered is correct.
+      
       Use case resumes from step 2.
+      
           Use case ends.
 
       1b. Optix detects that  there is no show of the given input in the list.
+      
       1b1. Optix informs the user that the show does not exist.
+      
       1b2. Optix requests command from user again.
+      
       1b3. User re-enters command. 
+      
       Steps 1b1-1b3 are repeated until the command entered is correct.
+      
       Use case resumes from step 2.
+      
           Use case ends.
-
+----
