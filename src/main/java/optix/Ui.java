@@ -25,11 +25,13 @@ public class Ui {
      */
     private OptixResponse or = new OptixResponse();
 
+    private Scanner sc = new Scanner(System.in);
+
     /**
      * Read in the command by user.
      * @return String input by user.
      */
-    public String readCommand(Scanner sc) {
+    public String readCommand() {
         return sc.nextLine();
     }
 
@@ -55,5 +57,9 @@ public class Ui {
      */
     public String showLine() {
         return this.message;
+    }
+
+    public void exitOptix() {
+        sc.close();
     }
 }

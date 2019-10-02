@@ -6,10 +6,14 @@ import optix.core.Storage;
 import optix.util.ShowMap;
 
 public class ByeCommand extends  Command {
+
+    private OptixResponse response = new OptixResponse();
+
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         storage.write(shows);
-        ui.setMessage(new OptixResponse().BYE);
+        ui.setMessage(response.BYE);
+        ui.exitOptix();
     }
 
     @Override

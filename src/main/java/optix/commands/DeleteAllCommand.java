@@ -1,8 +1,8 @@
 package optix.commands;
 
 import optix.Ui;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
@@ -26,10 +26,10 @@ public class DeleteAllCommand extends Command {
         ArrayList<String> missingShows = new ArrayList<>();
         for (String show: this.showNames) {
             boolean isFound = false;
-            ArrayList<Map.Entry<LocalDate, Show>> entryArrayList = new ArrayList<>();
-            for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-                if (entry.getValue().toString().equals(show)) {
-                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().toString();
+            ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
+            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
+                if (entry.getValue().hasSameName(show.trim())) {
+                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().getShowName();
                     entryArrayList.add(entry);
                     deletedShows.add(showDescription);
                     isFound = true;
@@ -40,12 +40,12 @@ public class DeleteAllCommand extends Command {
                 missingShows.add(show);
             }
             // remove entry from shows.
-            for (Map.Entry<LocalDate,Show> entry: entryArrayList) {
+            for (Map.Entry<LocalDate, Theatre> entry: entryArrayList) {
                 shows.remove(entry.getKey(), entry.getValue());
             }
         }
         if (!deletedShows.isEmpty()) {
-            message.append("Noted. These are the deleted entries.\n");
+            message.append("Noted. These are the deleted entries:\n");
             for (String infoStrings: deletedShows) {
                 message.append(infoStrings).append('\n');
             }
@@ -57,9 +57,5 @@ public class DeleteAllCommand extends Command {
             }
         }
         ui.setMessage(message.toString());
-
     }
-
-
-
 }
