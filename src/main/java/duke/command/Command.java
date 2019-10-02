@@ -19,4 +19,5 @@ public abstract class Command {
      * @throws DukeException If the execution fails.
      */
     public abstract void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
+
 }

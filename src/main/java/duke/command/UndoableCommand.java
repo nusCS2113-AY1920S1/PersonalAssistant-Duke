@@ -29,4 +29,5 @@ public abstract class UndoableCommand extends Command {
      * @throws DukeException If data file is damaged.
      */
     public abstract void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
+
 }
