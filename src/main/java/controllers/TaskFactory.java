@@ -11,6 +11,7 @@ import models.tasks.Deadline;
 import models.tasks.ToDos;
 import models.tasks.Event;
 import models.tasks.DoAfter;
+import models.tasks.Tentative;
 
 
 import java.awt.image.ImagingOpException;
@@ -85,6 +86,22 @@ public class TaskFactory {
                 return new DoAfter(doAfterTask, doBeforeTask);
             } catch (Exception e) {
                 throw new DukeException("OOPS! The format of the doAfter task was incorrect!");
+            }
+        case "tentative":
+            splitInput(taskDetails, "/at");
+            String[] inputDateTimeStrings = this.inputDateTime.split(" or ");
+            String[] tentativeDateTimeStrings = new String[inputDateTimeStrings.length];
+            Date[] tentativeDateTimeObjects = new Date[inputDateTimeStrings.length];
+            try {
+                for (int i = 0; i < inputDateTimeStrings.length; i++) {
+                    Date dateTimeObject = getTaskDateTime(inputDateTimeStrings[i]);
+                    tentativeDateTimeObjects[i] = dateTimeObject;
+                    String dateTimeString = getTaskDateTimeString(dateTimeObject);
+                    tentativeDateTimeStrings[i] = dateTimeString;
+                }
+                return new Tentative(this.taskName, tentativeDateTimeStrings, tentativeDateTimeObjects);
+            } catch (ParseException e) {
+                throw new InvalidDateTimeException();
             }
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

@@ -1,15 +1,16 @@
 package views;
 
 import controllers.ConsoleInputController;
+import models.commands.RescheduleCommand;
+import models.data.IProject;
+import models.tasks.ITask;
+import models.tasks.TaskList;
+import models.tasks.Tentative;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import models.commands.RescheduleCommand;
-import models.data.IProject;
-import models.tasks.ITask;
-import models.tasks.TaskList;
 
 public class CLIView {
     public static final String horiLine = "\t____________________________________________________________";
@@ -259,5 +260,41 @@ public class CLIView {
                 + allProjects.get(i).getMembers());
         }
         consolePrint(toPrint.toArray(new String[0]));
+    }
+
+    /**
+     * Method called to confirm the date and time of a tentative task.
+     * @param taskList list of all tasks
+     * @param input index of tentative task in taskList
+     * @throws ClassCastException Exception thrown if input is not of correct class (Tentative class)
+     * @throws ArrayIndexOutOfBoundsException Exception thrown if index given is not within what is available
+     */
+    public void confirmTentativeTask(TaskList taskList, String input) throws ClassCastException,
+            ArrayIndexOutOfBoundsException {
+        Scanner sc = new Scanner(input);
+        String dummy = sc.next();
+        int taskIndex = Integer.parseInt(sc.next()) - 1;
+        Tentative taskToBeConfirmed = (Tentative) taskList.getTask(taskIndex);
+        String[] tentativeDateTimeStrings = taskToBeConfirmed.getTentativeDateTimeStrings();
+        System.out.println(horiLine);
+        System.out.println("\tWhich timing do you want to confirm?");
+        for (int i = 0; i < tentativeDateTimeStrings.length; i++) {
+            System.out.println((i + 1) + ". " + tentativeDateTimeStrings[i]);
+        }
+        System.out.println(horiLine);
+
+        Scanner sc1 = new Scanner(System.in);
+        String inputForChosenTiming = sc1.nextLine();
+        String description = taskToBeConfirmed.getDescriptionOnly();
+
+        int indexOfChosenTiming = Integer.parseInt(inputForChosenTiming) - 1;
+        Date[] tentativeDateTimeObjects = taskToBeConfirmed.getTentativeDateTimeObjects();
+        Date chosenDateTimeObject = tentativeDateTimeObjects[indexOfChosenTiming];
+        taskList.deleteFromList(taskToBeConfirmed);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        String formattedInputDate = formatter.format(chosenDateTimeObject);
+        String newEventInput = "event " + description + " /at " + formattedInputDate;
+        consoleInputController.onCommandReceived(newEventInput);
     }
 }
