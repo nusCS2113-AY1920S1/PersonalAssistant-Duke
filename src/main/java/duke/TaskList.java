@@ -93,24 +93,7 @@ public class TaskList {
      *
      * @param i the index of the task to be deleted.
      */
-    public void deleteTask(int i) {
-        try {
-            Task item = taskList.get(i);
-            taskList.remove(i); //The original copy is gone.
-
-            System.out.print("Okay! I've deleted this task: ");
-            System.out.println(item.getDescription());
-
-            if (item.getIsDone()) {
-                System.out.println("The task was completed.");
-            } else {
-                System.out.println("The task was not completed.");
-            }
-
-        } catch (IndexOutOfBoundsException e) {
-            printTaskNonexistent();
-        }
-    }
+    public void deleteTask(int i) { taskList.remove(i); }
 
     /**
      * Prints error message if a nonexistent task index is accessed.

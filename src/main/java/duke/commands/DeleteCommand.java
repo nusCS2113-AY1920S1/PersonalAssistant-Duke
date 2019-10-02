@@ -1,14 +1,20 @@
 package duke.commands;
 
+import duke.items.Task;
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
 import duke.enums.CommandType;
 
-public class DoneCommand extends Command {
+/**
+ * Command objects for marking tasks as done, or deleting them.
+ * Requires the index of the task.
+ */
+public class DeleteCommand extends Command {
+
     private int itemIndex;
 
-    public DoneCommand(CommandType type, int index) {
+    public DeleteCommand(CommandType type, int index) {
         super(type);
         this.itemIndex = index - 1;
     }
@@ -16,9 +22,10 @@ public class DoneCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         try {
-            list.getTask(itemIndex).markAsDone();
-            ui.print("Nice! I've marked this task as done:\n"
-                    + list.getTask(itemIndex).toString());
+            Task item = list.getTask(itemIndex);
+            list.deleteTask(itemIndex);
+            ui.print("Okay! I've deleted this task:\n" + item.toString());
+
         } catch(IndexOutOfBoundsException e) {
             ui.printError(new IndexOutOfBoundsException("That task doesn't exist! Please check"
                     + " the available tasks again: "));

@@ -2,6 +2,7 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
@@ -123,7 +124,7 @@ public class Parser {
             command = new DoneCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
         case "delete":
-            command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
+            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
         case "snooze":
             command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
