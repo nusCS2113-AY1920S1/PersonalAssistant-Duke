@@ -26,9 +26,13 @@ public abstract class ArgCommand extends Command {
         if (arg.length() == 0) {
             throw new DukeException(emptyArgMsg);
         }
-        int i = inputStr.indexOf(" ");
-        while (i >= 0) {
-            i = inputStr.indexOf(" ", i + 1);
+        int spaceIdx = inputStr.indexOf(" ");
+        int dashIdx = inputStr.indexOf("-");
+        int quoteIdx = inputStr.indexOf("\"");
+        while (spaceIdx >= 0) {
+            spaceIdx = inputStr.indexOf(" ", spaceIdx + 1);
+            dashIdx = inputStr.indexOf("-", spaceIdx);
+            quoteIdx = inputStr.indexOf("\"", spaceIdx);
         }
     }
 
