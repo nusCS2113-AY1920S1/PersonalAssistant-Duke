@@ -1,4 +1,4 @@
-package optix.parser;
+package optix.util;
 
 import optix.commands.AddCommand;
 import optix.commands.ByeCommand;

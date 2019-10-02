@@ -1,7 +1,7 @@
 import optix.Ui;
 import optix.commands.Command;
 import optix.core.Storage;
-import optix.parser.Parser;
+import optix.util.Parser;
 import optix.util.ShowMap;
 
 import java.io.File;
