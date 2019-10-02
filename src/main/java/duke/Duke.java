@@ -1,17 +1,15 @@
 package duke;
 
 import duke.commands.Command;
-
 import duke.commands.RemindCommand;
 
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Duke {
     /**
-     * A chat bot cum task management application that can handle events, deadlines and normal to-do tasks,
+     * Chat bot cum task management application that can handle events, deadlines and normal to-do tasks,
      * as well as basic exception handling.
      */
     private Storage storage;
