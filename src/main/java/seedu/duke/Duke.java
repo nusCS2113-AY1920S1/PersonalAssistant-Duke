@@ -1,6 +1,5 @@
 package seedu.duke;
 
-import a.i.P;
 import seedu.duke.client.Http;
 import seedu.duke.client.SimpleServer;
 import seedu.duke.command.Command;
@@ -65,9 +64,18 @@ public class Duke {
         ui.showMessage("Bye. Hope to see you again!");
     }
 
+    public Duke() {
+        ui = new UI();
+        parser = new Parser();
+        ui.setDebug(true);
+        taskList = Storage.readTasks();
+        emailList = EmailStorage.readEmails();
+    }
+
     public String getResponse(String input) {
         try {
             Command command = parser.parseCommand(input);
+            command.execute();
             return command.toString();
         } catch (Exception e) {
             return e.getMessage();

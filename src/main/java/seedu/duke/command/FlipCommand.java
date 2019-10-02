@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.Duke;
 import seedu.duke.Parser;
 
 public class FlipCommand extends Command{
@@ -12,11 +13,15 @@ public class FlipCommand extends Command{
 
     @Override
     public boolean execute() {
+        String msg = "Input type flipped to ";
         if (inputType == Parser.InputType.TASK) {
             Parser.setInputType(Parser.InputType.EMAIL);
+            msg += "EMAIL.";
         } else {
             Parser.setInputType(Parser.InputType.TASK);
+            msg += "TASK.";
         }
+        Duke.getUI().showResponse(msg);
         return true;
     }
 }
