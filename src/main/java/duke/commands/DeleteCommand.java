@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
             list.deleteTask(itemIndex);
             ui.print("Okay! I've deleted this task:\n" + item.toString());
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
                     + " the available tasks again: ");
         }

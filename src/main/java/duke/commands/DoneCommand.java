@@ -19,7 +19,7 @@ public class DoneCommand extends Command {
             list.getTask(itemIndex).markAsDone();
             ui.print("Nice! I've marked this task as done:\n"
                     + list.getTask(itemIndex).toString());
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
                     + " the available tasks again: ");
         }
