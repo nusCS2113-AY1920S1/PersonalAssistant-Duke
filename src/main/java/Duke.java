@@ -1,6 +1,7 @@
 import duchess.logic.commands.Command;
 import duchess.logic.parser.Parser;
 import duchess.storage.Storage;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.task.TaskList;
@@ -8,7 +9,7 @@ import duchess.model.task.TaskList;
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    private Store store;
     private Ui ui;
 
     /**
@@ -21,10 +22,10 @@ public class Duke {
         storage = new Storage(filePath);
 
         try {
-            tasks = storage.load();
+            store = storage.load();
         } catch (DukeException e) {
             ui.showError(e.getMessage());
-            tasks = new TaskList();
+            store = new Store();
         }
     }
 
@@ -39,7 +40,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.beginBlock();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(store, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

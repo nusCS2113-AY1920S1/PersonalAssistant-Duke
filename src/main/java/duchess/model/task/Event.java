@@ -8,13 +8,12 @@ import duchess.model.TimeFrame;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class Event extends Task {
-    private String description;
     private Date end;
     private Date start;
 
@@ -50,8 +49,8 @@ public class Event extends Task {
     }
 
     @Override
-    public boolean containsKeyword(String keyword) {
-        return this.description.contains(keyword);
+    public TimeFrame getTimeFrame() {
+        return new TimeFrame(start, end);
     }
 
     @Override
@@ -68,45 +67,23 @@ public class Event extends Task {
     }
 
     @Override
-    public List<Task> getReminders() {
-        List<Task> list = new ArrayList<>();
-        list.add(this);
-        return list;
+    public Optional<Task> getReminder() {
+        return Optional.of(this);
     }
 
     /**
      * Constructor for Jackson.
      *
-     * @param description description
-     * @param start       start time
-     * @param end         end time
+     * @param start start time
+     * @param end   end time
      */
     @JsonCreator
     public Event(
-            @JsonProperty("description") String description,
             @JsonProperty("start") Date start,
             @JsonProperty("end") Date end
     ) {
-        this.description = description;
         this.start = start;
         this.end = end;
-    }
-
-    @Override
-    public TimeFrame getTimeFrame() {
-        return new TimeFrame(this.start, this.end);
-    }
-
-    @Override
-    public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
-                formatter.format(this.start), formatter.format(this.end));
-    }
-
-    @JsonGetter("description")
-    public String getDescription() {
-        return description;
     }
 
     @JsonGetter("end")

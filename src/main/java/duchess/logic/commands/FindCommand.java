@@ -4,6 +4,7 @@ import duchess.storage.Storage;
 import duchess.model.task.Task;
 import duchess.model.task.TaskList;
 import duchess.logic.commands.exceptions.DukeException;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.util.List;
@@ -17,11 +18,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
         if (words.size() > 0) {
             String searchTerm = String.join(" ", words.subList(0, words.size()));
             List<Task> filteredTasks =
-                    taskList.getTasks().stream()
+                    store.getTaskList().stream()
                             .filter(task -> task.containsKeyword(searchTerm))
                             .collect(Collectors.toList());
             if (filteredTasks.size() > 0) {

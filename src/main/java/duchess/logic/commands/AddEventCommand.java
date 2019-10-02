@@ -4,6 +4,7 @@ import duchess.storage.Storage;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.task.Event;
 import duchess.model.task.TaskList;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.util.List;
@@ -16,13 +17,13 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
         Event task = new Event(words.subList(0, words.size()));
-        if (taskList.isClashing(task)) {
+        if (store.isClashing(task)) {
             throw new DukeException("Unable to add event - clash found.");
         }
-        taskList.add(task);
-        ui.showTaskAdded(taskList.getTasks(), task);
-        storage.save(taskList);
+        store.getTaskList().add(task);
+        ui.showTaskAdded(store.getTaskList(), task);
+        storage.save(store);
     }
 }

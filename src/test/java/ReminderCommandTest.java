@@ -2,6 +2,7 @@ import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.parser.Parser;
 import duchess.storage.Storage;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.task.TaskList;
@@ -33,7 +34,7 @@ public class ReminderCommandTest {
         String secondDeadline = "deadline school project tasks /by 01/11/2020 0900";
 
         String filename = "text_file";
-        TaskList taskList = new TaskList();
+        Store store = new Store();
         Ui ui = new Ui();
         Storage storage = new Storage(filename);
         Parser parser = new Parser();
@@ -41,15 +42,15 @@ public class ReminderCommandTest {
         // Adding the firstDeadline
         List<String> firstWords = Arrays.asList(firstDeadline.split(" "));
         AddDeadlineCommand addDeadlineCommand = new AddDeadlineCommand(firstWords);
-        addDeadlineCommand.execute(taskList, ui, storage);
+        addDeadlineCommand.execute(store, ui, storage);
 
 
         // Adding the firstDeadline
         List<String> secondWords = Arrays.asList(firstDeadline.split(" "));
         addDeadlineCommand = new AddDeadlineCommand(secondWords);
-        addDeadlineCommand.execute(taskList, ui, storage);
+        addDeadlineCommand.execute(store, ui, storage);
 
-        assertTrue(taskList.getTasks().size() == 2);
+        assertTrue(store.getTaskList().size() == 2);
         ReminderCommand reminderCommand = new ReminderCommand();
     }
 }

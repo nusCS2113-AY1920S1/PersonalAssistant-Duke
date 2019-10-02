@@ -1,17 +1,24 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.logic.commands.exceptions.DukeException;
+import duchess.model.Module;
 import duchess.model.TimeFrame;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Task implements Comparable<Task> {
     private boolean isDone;
+    protected String description;
+    private Optional<Module> module;
 
     public Task() {
         this.isDone = false;
+        this.module = Optional.empty();
     }
 
     public void markAsDone() {
@@ -32,21 +39,41 @@ public abstract class Task implements Comparable<Task> {
         return this.getTimeFrame().clashesWith(that.getTimeFrame());
     }
 
-    public abstract TimeFrame getTimeFrame();
+    @JsonCreator
+    public Task(
+            @JsonProperty("module") Module module,
+            @JsonProperty("description") String description) {
+        this.module = Optional.ofNullable(module);
+        this.description = description;
+    }
 
-    public abstract void snooze() throws DukeException;
+    @JsonGetter("module")
+    public Module getModule() {
+        return this.module.orElse(null);
+    }
 
-    public abstract List<Task> getReminders();
-
-    public abstract boolean containsKeyword(String keyword);
-
-    @JsonGetter("isDone")
+    @JsonGetter("done")
     public boolean isDone() {
         return isDone;
     }
 
-    @JsonSetter("isDone")
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonSetter("done")
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    public abstract TimeFrame getTimeFrame();
+
+    public abstract void snooze() throws DukeException;
+
+    public abstract Optional<Task> getReminder();
 }

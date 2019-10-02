@@ -5,6 +5,7 @@ import duchess.model.TimeFrame;
 import duchess.model.task.Task;
 import duchess.model.task.TaskList;
 import duchess.storage.Storage;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.text.ParseException;
@@ -56,9 +57,9 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
         List<Task> tasksForToday =
-                taskList.getTasks().stream()
+                store.getTaskList().stream()
                         .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))
                         .collect(Collectors.toList());
 

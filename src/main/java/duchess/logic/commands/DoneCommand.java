@@ -4,6 +4,7 @@ import duchess.storage.Storage;
 import duchess.model.task.TaskList;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.task.Task;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.util.List;
@@ -16,13 +17,13 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
         try {
             int taskNo = Integer.parseInt(words.get(0)) - 1;
-            Task task = taskList.get(taskNo);
+            Task task = store.getTaskList().get(taskNo);
             task.markAsDone();
             ui.showDoneTask(task);
-            storage.save(taskList);
+            storage.save(store);
         } catch (NumberFormatException e) {
             throw new DukeException("Please supply a number. Eg: done 2");
         } catch (IndexOutOfBoundsException e) {

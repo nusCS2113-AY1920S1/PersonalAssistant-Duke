@@ -2,7 +2,7 @@ package duchess.logic.commands;
 
 import duchess.storage.Storage;
 import duchess.logic.commands.exceptions.DukeException;
-import duchess.model.task.TaskList;
+import duchess.storage.Store;
 import duchess.ui.Ui;
 
 public abstract class Command {
@@ -12,5 +12,5 @@ public abstract class Command {
         return this.isExit;
     }
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(Store store, Ui ui, Storage storage) throws DukeException;
 }
