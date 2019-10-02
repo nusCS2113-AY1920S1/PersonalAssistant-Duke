@@ -1,0 +1,7 @@
+list
+done 2
+todo finish assignment
+deadline do chores /by Saturday
+event hackathon /at Fri 8am-5pm
+delete 3
+bye

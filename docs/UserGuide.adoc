@@ -1,0 +1,388 @@
+= DIYeats - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toclevels: 3
+:toc-placement: preamble
+:sectnums:
+:imagesDir: Images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-4/main
+
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+*DIYeats* is an application designed to help NUS students plan out their diet in order to maintain a healthy lifestyle,
+which can often times be a challenging endeavour amidst the intense academic rigour associated with university life.
+
+*DIYeats* utilizes a command line interface, and is compatible with most modern OSes
+(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+unfamiliar with the command line interface can use it with ease.
+
+*DIYeats* also comes with a Graphical User Interface. Which will allow even users who are not familiar with the command
+interface to use our application.
+
+== How to use this user guide
+
+=== Basic information
+
+To jump to a specific topic immediately, simply click on the topic in the <<toc, Table of Contents>> at the top
+
+To improve the navigability and readability of this user guide, multiple styles will be used, which will
+include the following:
+
+* User commands and parameters will displayed as: `format`
+* Important keywords will be displayed as: *format*
+* Keyboard buttons will be displayed as: kbd:[format]
+
+
+Additionally, the following annotations will be used throughout this user guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
+Now that you have familiarized yourself with the style used in this guide, lets move on to how to setup *DIYeats*!
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+..  Open up your the command line interface (CLI) of your OS
+    (command prompt for Windows, Terminal for Macintosh)
+..  Type `java -version` and press kbd:[Enter]
+..  You should see something similar to the image below
++
+image::javademo.png[width=""]
++
+..  If your indicated version of java is an older version than 11.0.0,
+please download and install the newest version of java available
+on their website
+.  Using CLI, navigate to the root directory of *DIYeats*
+.  Type `gradlew -run` and press kbd:[Enter]
+.  *DIYeats* should start running on your computer. You can now
+enter commands in the CLI and press kbd:[Enter] to execute them
+====
+** If this is the first time you are launching our application on your computer, you will be prompted with the following
+text:
++
+image::startup1.png[]
++
+If so, please follow the instructions provided by the application. The data collected by our application will be used to create a
+personalized user experience tailored specifically to you!
+====
+
+. Now you can try entering some commands! Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+In this section, you will be introduced to the various command formats that will be used in *DIYeats*, along with their associated syntax.
+
+[TIP]
+====
+Don't worry if you don't understand the usage of the commands at a glance.
+Examples will be provided to aid in your understanding of the commands.
+====
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+**  For example, the command `add n/ MEAL` can be entered as the following:
+.. `add n/ burger`
+.. `add n/ fries`
+.. `add n/ burger and fries`
+** But not:
+.. `add n/{nbsp}` (The user defined field is empty)
+* Fields in square brackets `[]` are optional, and can be omitted from the input statement if unnecessary
+** For example, `n/ MEAL [t/ TAG]` can be entered as:
+.. `n/ burger t/ calories`
+.. `n/ fries t/ sodium`
+.. `n/ burger`
+* Fields in arrow brackets `<>` are required after its preceding  optional tag
+** For example, `[t/ TAG]` `<QUANTITY>` can be entered as:
+.. `t/ calories` `100`
+.. `t/ sodium` `10`
+.. `{nbsp}` (The optional tag is not present)
+** But not:
+.. `t/calories` `{nbsp}` (The required user defined field is empty)
+* Fields with `…`​ after them can be used multiple times including zero times
+ ** For example, `[t/ TAG]...` can be entered as:
+ .. `{nbsp}` (i.e. 0 times)
+ .. `t/ calories`
+ .. `t/ calcium t/ sodium`,  etc.
+====
+
+[WARNING]
+====
+* Commands demonstrated in the user guide only accept numerical inputs in the *integer format*, unless otherwise stated
+** For example, `20` should be entered instead of `twenty` when trying to input a number
+* Parameter values should not be *empty or negative* (unless otherwise stated).
+* All commands to be entered in the CLI should be proceeded with the kbd:[Enter] key,
+====
+
+Now that you have familiarized yourself with the command syntax that will be used, lets move on to the actual commands that can be used in *DIYeats*!
+
+=== General commands
+==== Viewing help : `help`
+Lost? Simply open up this user guide from inside the application by entering the command `help` in the CLI.
+
+==== Undo previous command: `undo`
+Accidentally entered an erroneous command? Revert the command by entering the command `undo` in the CLI.
+
+[WARNING]
+====
+You can only undo commands that were entered in the *current session* of the application.
+====
+
+==== Viewing command history : `history`
+Lost track of your commands in the middle of a session? Use the history command to double check. Upon entering the command
+`history` into the CLI, all of your previously entered commands will be displayed in a easy to read list.
+
+[WARNING]
+====
+You can only view commands that were entered in the *current session* of the application.
+====
+
+==== Clear all data in a time period: `clear` `START_DATE` `END_DATE`
+Need to clear all the data from a single month without the hassle of entering the delete command multiple times?
+Simply enter the `clear` command followed by a start date and the end date, and the application will take care of the rest!
+
+[NOTE]
+====
+The dates entered which are marked for deletion are *inclusive*. E.g `clear` `today` `tomorrow` will delete all data inclusive of today and tomorrow.
+====
+
+==== Exiting the application: `exit`
+
+To exit the application, simply enter `exit` in the CLI. All of your changes are automatically saved, before ending the current session.
+
+=== Functional commands
+
+==== Listing nutritional intake for the day: `list`
+Format: `list [/date] <DATE>`
+
+Want to view your current nutritional intake for today? Simply enter the command `list` to show your current recorded nutritional intake for breakfast, lunch and dinner.
+
+The command also supports the viewing of data from other dates: simply specify the date after adding a /date flag.
+
+Examples:
+
+* You want to view your data today:
+** `list`
+* You want to view your data from 26th of December, 2019:
+** `list /date 26/12/2019`
+* You want to view your data from 1st of January, 2018:
+** `list /date 1/1/2018`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+==== Adding a breakfast item: `breakfast`
+
+Format: `breakfast DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a breakfast item with its associated nutritional information? Use the `breakfast` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `breakfast hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `breakfast hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `breakfast hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+==== Adding a lunch item: `lunch`
+
+Format: `lunch DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a lunch item with its associated nutritional information? Use the `lunch` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `lunch hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `lunch hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `lunch hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+
+==== Adding a dinner item: `dinner`
+
+Format: `dinner DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a dinner item with its associated nutritional information? Use the `dinner` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `dinner hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `dinner hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `dinner hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+==== Editing a meal: `edit`
+
+Format: `edit DESCRIPTION [/TAG]<QUANTITY>... [/date]<DATE>`
+
+Accidentally entered the wrong details for a  meal item? Use the `edit` command! Simply enter the description of the meal that you wish to edit
+after the edit command, along with the tagged values that you wish to edit.
+
+The command also supports the editing of data in other dates: simply specify the date after adding a /date flag at the end of the statement
+
+Examples:
+
+* You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50`
+** You want to change the value of fats and calcium to 50g
+*** `edit hamburger /fats 50 /calcium 50`
+* You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the value of fats to 50g:
+*** `edit hamburger /fats 50 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+==== Locating a meal by keyword: `find`
+Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
+Simply enter the `find` command, followed by the description of the meal you had. Our application will automatically sieve through
+all your past meals, and present you with all the results that are relevant to the description you have provided
+
+****
+* The search is case sensitive. e.g `Ham` will not match `ham`
+* Only the description of the meal is searched.
+* Substrings will be matched e.g. `Han` will match `Hans`
+****
+
+Examples:
+
+* `find fish` +
+Returns meals with possible descriptions `steamed fish` and `fish and chips`
+
+==== Deleting a meal from a day : `delete`
+
+Format: `delete INDEX [/date]<DATE>`
+
+****
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tasklist.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Adding/modifying a fixed food item: `add`
+
+Format: `add DESCRIPTION [/TAG]<QUANTITY>... `
+
+Tired of entering the same nutritional values for a recurring dish repeatedly? By using the `add` command, you can set default
+nutritional values for food items that have the same description.
+
+==== Setting a nutritional goal to be met : `goal`
+
+Format: `goal END_DATE [/TAGS] <QUANTITY>...`
+
+Want to set a nutritional goal to be met at the end of a set timeframe, e.g: consuming at most a certain amount of calories worth of foods
+by the end of the month? Use the `goal` command!
+
+[NOTE]
+====
+* The number of user input tags should at least number 1
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+=== Data analysis commands
+==== Displaying nutrition track record: `stats`
+
+Format: `stats [/date]<START_DATE> <END_DATE>`
+
+Want to know if you are meeting your nutritional quota for the month? Your average nutrient intake across each of your
+three meals for the past month, or what is the average nutritional intake you will need to maintain in order to hit your set quota for the month?
+Simply enter the `stats` command, and our application will compute all the necessary data for you, and display them to you in a clear and
+concise manner
+
+==== Graph nutrition track record: `graph`
+
+Format: `graph [/date]<START_DATE> <END_DATE>`
+
+Want to monitor trends in your diet in a graphical form? By using the `graph` command, you will be able to see your nutritional
+intake across a time period charted as a graph.
+
+==== Suggest potential food items: `suggest`
+
+Format: `suggest [/date]<DATE>`
+
+Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggest` command, which will automatically suggest
+a meal that will conform to your set nutritional goals based on the recurring meals that you have entered so far.
+
+==== Formulate exercise plan: `exercise`
+
+Format: `exercise`
+
+Accidentally exceeded your nutritional quota, but dont want to skim on your next meal? No worries, for the application is also able to suggest an exercise plan for you to
+work off those extra calories, keeping you on track to your goal.
+
+== Features to come (v2.0)
+
+=== Enable users to add their own custom exercises
+
+=== Integrated database of default food items
+
+== Frequently Asked Questions
+*Q: How do I save my data?*
+
+A: Whenever you run any commands that makes changes to the data stored in the application, DIYeats will automatically save the data in the Data directory.
+
+*Q: How do I migrate my data in between computers?*
+
+A: If you wish to migrate your data to another computer, simply copy and paste the entire directory of the application over to the new computer.
+
+

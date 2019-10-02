@@ -1,0 +1,6 @@
+B|0|fried rice |date|30/09/2019|calorie|200
+L|0|fried rice |date|30/09/2019|calorie|300
+B|0|kaya |date|28/09/2019|calorie|300
+D|0|kaya toast  |date|28/09/2019|calcium|3000|calorie|300
+D|0|kaya toast  |date|29/09/2019|calcium|3000|calorie|300
+B|0|kueh |date|29/09/2019|calorie|300

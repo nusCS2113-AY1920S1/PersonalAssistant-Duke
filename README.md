@@ -1,3 +1,19 @@
+# DIYeats
+![travis](https://travis-ci.com/AY1920S1-CS2113T-W13-4/main.svg?branch=master)
+  
+  ![Ui](https://github.com/AY1920S1-CS2113T-W13-4/main/blob/master/docs/Images/UI.PNG?raw=true)
+
+# Introduction
+
+*DIYeats* is an application designed to help NUS students plan out their diet in order to maintain a healthy lifestyle,
+which can often times be a challenging endeavour amidst the intense academic rigour associated with university life.
+
+*DIYeats* utilizes a command line interface, and is compatible with most modern OSes
+(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+unfamiliar with the command line interface can use it with ease.
+
+*DIYeats* also comes with a Graphical User Interface. Which will allow even users who are not familiar with the command
+interface to use our application.
 # Setting up
 
 **Prerequisites**
@@ -20,20 +36,10 @@
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
+# Site Map 
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+* [About Us](docs/AboutUs.adoc)
+* [User Guide](docs/UserGuide.adoc)
 
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+# Licence : [MIT](LICENSE)
