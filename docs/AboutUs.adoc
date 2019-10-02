@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Li Jiayu
-image::dummy.png[width="150", align="left"]
+image::lijiayu980606.png[width="150", align="left"]
 {empty}[http://github.com/lijiayu980606[github]] [<<lijiayu#, portfolio>>]
 
 Role: Deliverables and deadlines, Integration +
@@ -47,7 +47,7 @@ Responsibilities: Storage
 '''
 
 === Karan Sarat
-image::dummy.png[width="150", align="left"]
+image::karansarant.png[width="150", align="left"]
 {empty}[http://github.com/karansarat[github]] [<<karansarat#, portfolio>>]
 
 Role: Scheduling and tracking,  +
