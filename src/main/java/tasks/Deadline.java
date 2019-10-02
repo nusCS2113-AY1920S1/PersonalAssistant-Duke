@@ -32,15 +32,14 @@ public class Deadline extends Task {
 
     /**
      * set the deadline
-     * @param by
-     *          deadline of this task
+     * @param by the deadline of this task
      */
     public void setTime(Date by) {
         this.by = by;
     }
 
+    @Override
     /**
-     * @Override toString() in Task
      * a method to format the output of the task list
      * @return string
      *              how task list will print out in console
@@ -49,8 +48,8 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    @Override
     /**
-     * @Override dataString() in Task
      * a method to format the data list data store in file
      * @return string
      *              a string which will show in data file that store the task list

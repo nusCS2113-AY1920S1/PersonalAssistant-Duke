@@ -37,20 +37,17 @@ public class Event extends Task {
 
     @Override
     /**
-     * @Override toString() in Task
      * Format the output of the task list
-     * @return string
-     *              how task list will print out in console
+     * @return a string which will be printed out in console when listing this event
      */
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")" + (isRecurring?" recurring: " + this.recurringWeeks + " weeks" : "");
     }
 
+    @Override
     /**
-     * @Override dataString() in Task
      * a method to format the data list data store in file
-     * @return string
-     *              a string which will show in data file that store the task list
+     * @return a string which will show in data file that store the task list
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
@@ -60,7 +57,8 @@ public class Event extends Task {
     /**
      * @author Justin Chia
      * Getter for date object
-     * */
+     * @return the request date object
+     */
     public Date getAt(){
         return this.at;
     }

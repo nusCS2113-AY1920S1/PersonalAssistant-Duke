@@ -73,7 +73,7 @@ public abstract class Task {
     /**
      * set the description of task
      *
-     * @param description
+     * @param description the description to be set
      */
     public void setDescription(String description) {
         this.description = description;
@@ -123,7 +123,8 @@ public abstract class Task {
 
 
     /**
-     * This method mark the task status as DONE.
+     * This method marks the task status as 'done'
+     * @throws DukeException if the preconditions (if it has) are not satisfied, that is, this task cannot be marked as 'done' at this point
      */
     public void markAsDone() throws DukeException {
         boolean preconditionDone = true;
@@ -152,6 +153,7 @@ public abstract class Task {
     /**
      * @author Justin Chia
      * Toggle the recurrence flag
+     * @param numWeeks the number (quantity) of weeks for the recurrence task
      */
     public void setRecurring(int numWeeks) {
         this.isRecurring = true;

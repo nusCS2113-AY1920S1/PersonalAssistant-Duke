@@ -41,24 +41,21 @@ public class Last extends Task{
         this.duration = duration;
     }
 
+    @Override
     /**
-     * @Override toString() in Task
      * a method to format the output of the task list
-     * @return string
-     *              how task list will print out in console
+     * @return a string which will be printed out in console when listing this Last task
      */
     public String toString() {
         return "[L]" + super.toString() + " (last: " + duration + ")";
     }
 
+    @Override
     /**
-     * @Override dataString() in Task
      * a method to format the data list data store in file
-     * @return string
-     *              a string which will show in data file that store the task list
+     * @return a string which will show in data file that store the task list
      */
     public String dataString() {
-
         return "L | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + this.duration;
     }
 
