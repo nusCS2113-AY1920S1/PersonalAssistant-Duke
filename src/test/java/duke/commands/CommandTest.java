@@ -33,7 +33,6 @@ class CommandTest {
         assertEquals(CommandType.DONE, new Command(CommandType.DONE).getType());
         assertEquals(CommandType.SNOOZE, new Command(CommandType.SNOOZE).getType());
         assertEquals(CommandType.LIST, new Command(CommandType.LIST).getType());
-        assertEquals(CommandType.VIEW, new Command(CommandType.VIEW).getType());
         assertEquals(CommandType.BYE, new Command(CommandType.BYE).getType());
     }
 
