@@ -43,7 +43,7 @@
 
 |Must-have |user |set the tiers of the seats |set different prices depending on the popularity of the seats.
 
-|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. | |
+|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. | 
 
 Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction.
 
