@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 checkstyle {
@@ -10,13 +11,18 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion = "0.1.3"
+    archiveBaseName = "AlgoSenpai"
+    archiveVersion = "0.1.0"
     archiveClassifier = null
     archiveAppendix = null
 }
 
-group 'com.nwjbrandon.duke'
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+group 'com.algosenpai.app'
 version '0.1.0'
 
 repositories {
@@ -25,7 +31,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "com.nwjbrandon.duke.Duke"
+    mainClassName = "com.algosenpai.app.Launcher"
 }
 
 run {
@@ -33,9 +39,10 @@ run {
 }
 
 dependencies {
-    implementation 'com.joestelmach:natty:0.13'
-    compile "org.slf4j:slf4j-simple:1.7.9"
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    testImplementation 'org.testfx:openjfx-monocle:jdk-11+23'
 }
 
 test {
@@ -43,4 +50,10 @@ test {
     testLogging {
         exceptionFormat = 'full'
     }
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'testfx.robot', 'glass'
+    systemProperty 'testfx.headless', 'true'
+    systemProperty 'prism.order', 'sw'
+    systemProperty 'prism.text', 't2k'
+    systemProperty 'testfx.setup.timeout', '2500'
 }
