@@ -34,7 +34,7 @@
 
 ### 2. Design 
 
-#### 2.1  Architecture
+#### 2.1  Architecture
 
 ![architecture]()
 
@@ -77,7 +77,7 @@ The Application consist of 6 other components
 
 
 
-### 4. Documentation
+### 4. Documentation
 
 
 
@@ -96,8 +96,7 @@ Target user profile: Restaurant Chef
 - needs to manage all the ingredients for his dishes  
 - prefers a desktop application with GUI
 - prefers to keep everything neat in terms of viewing information
-- can also use CLI if needed 
-
+- can also use CLI if needed
 ### Appendix B: User Stories
 
 ​	Priorities: High (must have), Medium (nice to have), Low (may not have)
@@ -115,8 +114,6 @@ Target user profile: Restaurant Chef
 | Low      |                    |                                               |                                             |
 |          |                    |                                               |                                             |
 |          |                    |                                               |                                             |
-
-
 
 ### Appendix C: Use Case
 
