@@ -5,6 +5,7 @@ import optix.commands.ByeCommand;
 import optix.commands.Command;
 import optix.commands.DeleteAllCommand;
 import optix.commands.DeleteOneCommand;
+import optix.commands.HelpCommand;
 import optix.commands.ListCommand;
 import optix.commands.ListShowCommand;
 import optix.commands.PostponeCommand;
@@ -22,6 +23,8 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 return new ListCommand();
+            case "help":
+                return new HelpCommand();
             default:
                 return null;
             }
