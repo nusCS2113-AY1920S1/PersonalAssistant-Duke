@@ -41,7 +41,8 @@ Role: Project Coder
 '''
 
 === Mao Kang
-
+image::Dou-Maokang.png[width="150", align="left"]
+{empty}[https://github.com/Dou-Maokang[github]] [https://github.com/Dou-Maokang[portfolio]]
 Role: Project Coder
 
 '''
