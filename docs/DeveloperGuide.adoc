@@ -26,23 +26,61 @@ have. 1 star (★) is unlikely to have.
 
 | Priority | As a... | I want to... | So that I can...
 
-| ★★★ | User | See usage instructions in the app | Refer to instructions in the app without reading the User Guide
+| ★★★ | User | See usage instructions in the app | Refer to instructions in the app without reading the User Guide.
 
-| ★★★ | User ||
+| ★★★ | User | Add a task | Know what tasks I need to complete.
 
-| ★★★ | User ||
+| ★★★ | User | Delete a task | Remove entries I no longer need.
 
-| ★★★ | User ||
+| ★★★ | User | Find a task using a keyword | Locate the relevant tasks
 
-| ★★★ | User ||
+| ★★★ | User | Find a task with my own tags | Locate the releant tasks
 
-| ★★★ | User ||
+| ★★★ | User | Automatically create tasks that are performed routinely | Spend less time in adding the tasks manually.
 
-| ★★★ | User ||
+| ★★★ | User | Start the app quick without much set up | Dive straight into the app.
 
-| ★★★ | User ||
+| ★★★ | User | Postpone or reschedule unimportant tasks | Focus on more pressing tasks.
 
-| ★★★ | User ||
+| ★★★ | Impatient User | Type as little as possible | Input commands easily without memorizing a long proper format.
+
+| ★★★ | Motivated Student | Get a reward in completing my tasks | Have a sense of achievement.
+
+| ★★★ | Forgetful Student | Be alerted of my upcoming and exceeded deadlines | Quickly sort out my outstanding assignments.
+
+| ★★★ | Analytical Student | Have interesting statistics about my usage | Be more engaged and encourage myself to be more productive.
+
+| ★★★ | Fast-typing Student | Navigate around the interface by typing mainly | Access to the functions as quickly as possible.
+
+| ★★ | Picky User | Have clean user interface | Spend less time navigating the software and focus on adding my tasks.
+
+| ★★ | Student | Have a calendar that tracks my tasks | Be organized and plan out my day.
+
+| ★★ | Busy User | Sort my numerous tasks in priority level | Remember which task to focus on.
+
+| ★★ | User | Sort my tasks based on tags | See which aspect to focus on.
+
+| ★★ | Forgetful Student | Set a reminder on my tasks | Ensure I finish my tasks on time.
+
+| ★★ | Indecisive Student | Have the app tell me what task to do | Waste less time on planning what to start on.
+
+| ★★ | User | Save my custom settings on my software | Have a more personalized and more enjoyable experience.
+
+| ★★ | Tech-savvy Student | Be able to auto-complete inputs | Have a more convenient and pleasant experience.
+
+| ★★ | User | Have a “today” tab | Concentrate on all tasks on the particular given.
+
+| ★★ | Absent-minded User |
+
+| ★★ | Reward-hungry User |
+
+| ★★ | User |
+
+| ★★ | User |
+
+| ★★ | User |
+
+| ★★ | User |
 
 |===
 // end::base-alt[]
