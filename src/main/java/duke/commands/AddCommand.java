@@ -141,6 +141,7 @@ public class AddCommand extends Command {
                             event.setDone();
                         }
                         taskList.remove(itemToDelete);
+
                         taskList.add(event);
                         storage.updateFile(taskList);
                         return ui.formatAdd(taskList.getTaskList(), event);
@@ -151,6 +152,7 @@ public class AddCommand extends Command {
                         try {
                             deadline = new Deadline(itemDescription, sections[1]);
                             taskList.remove(itemToDelete);
+
                             if (status == "v") {
                                 deadline.setDone();
                             }
@@ -164,6 +166,7 @@ public class AddCommand extends Command {
                     } else {
                         //not a event or deadline so we need either
                         throw new DukeException(message, "event");
+
                     }
                 } else {
                     throw new DukeException(message, "event");
@@ -175,6 +178,7 @@ public class AddCommand extends Command {
         }
         case "betw": {
             if (message.length() < 8 || !message.substring(4, 8).equals("een ")) {
+
                 throw new DukeException(message);
             }
             BetweenTask betweenTask;

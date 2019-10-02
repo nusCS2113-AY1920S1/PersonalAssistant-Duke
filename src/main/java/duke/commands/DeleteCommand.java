@@ -1,6 +1,5 @@
 package duke.commands;
 
-
 import duke.tasks.DoAfter;
 import duke.tasks.Task;
 import duke.DoAfterList;
@@ -51,7 +50,6 @@ public class DeleteCommand extends Command {
             throw new DukeException("","index");
         } else {
             int counter = 0;
-
             Set<Integer> indexSet = new HashSet<>();
 
             ArrayList<Task> finalTasksRemoveList = getRemovedTasks(index, taskList);
@@ -121,9 +119,9 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Returns a list of tasks that are linked to the current task being removed.
-     * @param removedIndex The integer representing the index of the current task being removed.
-     * @param taskList The general list of tasks.
+     * Returns a list of tasks that are linked to the current task being removed
+     * @param removedIndex The integer representing the index of the current task being removed
+     * @param taskList The general list of tasks
      * @return
      */
     private ArrayList<Task> getRemovedTasks(int removedIndex, TaskList taskList) {

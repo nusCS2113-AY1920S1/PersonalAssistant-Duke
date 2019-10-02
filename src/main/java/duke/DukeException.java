@@ -44,6 +44,7 @@ public class DukeException extends Exception {
 
         if (input.trim().equals("todo") || input.trim().equals("event")
                 || input.trim().equals("deadline") || input.trim().equals("doafter")) {
+
             message = "OOPS!!! The description of "
                     + word
                     + input.trim()

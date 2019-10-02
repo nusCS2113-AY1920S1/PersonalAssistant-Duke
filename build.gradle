@@ -39,7 +39,6 @@ application {
 
     mainClassName = "duke.Duke"
 
-
 }
 
 run {
