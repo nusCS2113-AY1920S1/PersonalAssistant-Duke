@@ -2,11 +2,13 @@ package MoneyCommands;
 
 import Money.Account;
 import Money.BankTracker;
+import controlpanel.Parser;
 import controlpanel.Storage;
 import controlpanel.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreateBankAccountCommand extends MoneyCommand {
 
@@ -18,8 +20,9 @@ public class CreateBankAccountCommand extends MoneyCommand {
         String info = inputString.split(" /amt ")[1];
         desc = desc.replaceFirst("bank-account ","");
         String[] words = info.split(" ");
+        Date initialDate = Parser.shortcutTime(words[2]);
         newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
-                simpleDateFormat.parse(words[2]), Double.parseDouble(words[4]));
+                initialDate, Double.parseDouble(words[4]));
     }
 
     @Override
