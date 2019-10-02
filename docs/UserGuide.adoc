@@ -1,20 +1,147 @@
 = OPTIX - User Guide
 
-== Introduction
+== 1. Introduction
 
 Optix is a command line interface for theatre managers. It allows users to add theatre bookings by performance groups to the selection. It also allows users to allocate seats to audience members. Finally, the finances can be tracked and tabulated for accounting.
 
-== Quick Start
+== 2. Quick Start
 
-  1. Ensure that Java 11 or above is installed on your computer.
-  2. Download the latest optix.jar here.
-  3. Copy the file to the folder you want to use as the home folder for your theatre bookings.
-  4. Double-click the file to start the application. The GUI should appear in a few seconds.
-  5. Type the command in the command box and press Enter to execute it (e.g. type help and press enter to open the help window.)
-  6. Some example commands you can try:
+  2.1. Ensure that Java 11 or above is installed on your computer.
+  2.2. Download the latest optix.jar here.
+  2.3. Copy the file to the folder you want to use as the home folder for your theatre bookings.
+  2.4. Double-click the file to start the application. The GUI should appear in a few seconds.
+  2.5. Type the command in the command box and press Enter to execute it (e.g. type help and press enter to open the help window.)
+  2.6. Some example commands you can try:
     a. *`add`* `Phantom of the Opera|5/5/2020|2000` : adds a show called `Phantom of the Opera` to be scheduled on the `5th of May 2020`, with a payment of `$2000` for the booking.
     b. *`list`*: `list` all shows currently added.
     c. *`delete-one`* `Phantom of the Opera|5/5/2020` : finds a show called `Phantom of the Opera` scheduled on the `5th of May 2020` within the current list of shows, and deletes it.
     d. *`bye`*: exits the application
 
+== 3. Features
 
+==== Command Format
+
+---
+Words in UPPER_CASE are the parameters to be supplied by the user 
+e.g.in add SHOW_NAME|SCHEDULED_DATE|PRICE the SHOW_NAME, SCHEDULED_DATE, and PRICE are parameters that can be used such as add Phantom of the Opera|5/5/2020|2000.
+---
+
+=== 3.1. Viewing Help: *`help`*
+
+Display a description of all the available commands.
+
+Format: `help`
+
+=== 3.2. Adding a show: *`add`*
+
+Adds a show to the current show list. The date of the show to add cannot coincide with the dates of all other shows in the show list. The date must be in the future. The date is in the format of day, month, year. Shows of the same name can be added.
+
+Format: `add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE`
+
+Examples:
+  * `add Phantom of the Opera|5/5/2020|2000|20`
+  * `add Lion King|6/5/2020|3000|30`
+  
+=== 3.3. Sell seats: *`sell`*
+
+Sells seats to a particular show with the corresponding date. The seats’ row are labelled alphabetically and column are labelled numerically. The seats cannot coincide with seats that have been purchased by other people.
+
+Format: `sell SHOW_NAME|SHOW_DATE|BUYER_NAME|SEAT1 SEAT2 SEAT3 ...`
+
+Examples:
+  * `sell Phantom of the Opera|5/5/2020|Mary Lim| C1 D6 E10`
+  * `sell Lion King|6/5/2020|John Tan| A1 A2 A3 A4`
+
+=== 3.4. Listing all shows: *`list`*
+
+Lists all current shows in the show list.
+
+Format: `list`
+
+=== 3.5. Listing all available dates for a specific show: *`list`*
+
+Lists all available dates for a specific show that can be purchased.
+
+Format: `list SHOW_NAME`
+
+Examples:
+  * `list Phantom of the Opera`
+  * `list Lion King`
+
+=== 3.6. Deleting all specified shows: *`delete-all`*
+
+Deletes all shows with the same name specified. Multiple shows can be deleted at once by separating the show names with the pipe “|”  symbol. Only show names that match shows found within the show list will be deleted.
+
+Format: `delete-all SHOW_NAME_1|SHOW_NAME_2|...`
+
+Examples:
+  * `delete-all Phantom of the Opera|Lion King`
+  
+=== 3.7. Deleting a show at a specific timing: *`delete`*
+
+Deletes a show with a specified date. No show will be deleted if a show with the corresponding date is not found.
+
+Format: `delete SHOW_NAME_1|SHOW_DATE`
+
+Examples:
+  * `delete Phantom of the Opera|5/5/2020`  
+  
+=== 3.8. Postpone a show to a later date: *`postpone`*
+
+Changes the date of a current show in the showlist to a specified date. The change will not be done if the new date has passed.
+
+Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
+
+Examples:
+  * `postpone Phantom of the Opera|5/5/2020|10/5/2020`   
+
+=== 3.9. Viewing the seats for a show: *`view`*
+
+Changes the date of a current show in the showlist to a specified date. The change will not be done if the new date has passed.
+
+Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
+
+Examples:
+  * `postpone Phantom of the Opera|5/5/2020|10/5/2020` 
+  
+=== 3.10. Exiting the program: *`bye`*
+
+Saves all the shows and status of the seats within the showlist, then exits the program. 
+
+Format: `bye`  
+
+== 4. FAQ
+
+*Q*: How do I transfer my data to another computer?
+*A*: Install the app in the other computer and replace the empty data file created with the file that contains the data of your previous Optix folder.
+
+== Command Summary
+
+* *Add*: `add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE`
+  Eg. add Phantom of the Opera|5/5/2020|2000|20
+
+* *Bye*
+
+* *Delete-all*: `delete-all SHOW_NAME_1|SHOW_NAME_2 | ...`
+  Eg. delete-all Phantom of the Opera | Lion King
+
+* *Delete*: `delete SHOW_NAME|SHOW_DATE`
+  Eg. delete-one Phantom of the Opera|5/5/2020
+
+* *List*: `list`
+
+* *List*: `list SHOW_NAME`
+  Eg. list Phantom of the Opera
+
+* *Postpone*: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
+  Eg. postpone Phantom of the Opera|5/5/2020|10/5/2020
+
+* *Sell*: `sell SHOW_NAME|SHOW_DATE|BUYER_NAME|SEAT1 SEAT2 SEAT3 …`
+  Eg. sell Phantom of the Opera|5/5/2020|Mary Lim| C1 D6 E10
+  Alternatively : `sell SHOW_NAME | SHOW_DATE | BUYER_NAME`
+  Eg. sell Phantom of the Opera|5/5/2020|Mary Lim
+
+* *View*: `view SHOW_NAME | SHOW_DATE`
+  Eg. View Phantom of the Opera | 5/5/2020
+
+* *Help*
