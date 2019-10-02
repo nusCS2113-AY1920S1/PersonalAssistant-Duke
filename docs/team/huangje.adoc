@@ -1,0 +1,36 @@
+= Jérôme Huang (huangje) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Le Duc
+
+---
+
+== Overview
+
+Le Duc is a task management application geared to help high school students manage their academic and extracurricular workloads. The user enters commands via the command line, and is able to perform a vast array of operations.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability see all the command (help command)*
+** What it does: allows the user to see all the existing commands.
+** Justification: This feature help new user to get familiar with the application by showing all the commands with the description.
+** Highlights: This enhancement allow the application to become more user-friendly. As new commands will be added, the help command will be completed.
+
+* *Minor enhancement*: solved the date conflict for the event task.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HelpCommand.java[Help Functional code]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HelpCommand.java[Event Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1`
+** Review the code:
+*** Review the code and modify a big part of it (Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/commit/c7a66a8343e6830f7bd7c4437f73b4570bfe70fe[#10])
+** Documentation:
+*** Wrote contents of the User Guide (most part of the feature)
+*** Wrote the Developer Guide (after a meet up)
+*** Wrote the AboutUs
+
+---

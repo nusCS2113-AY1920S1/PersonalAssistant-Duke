@@ -1,0 +1,39 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Le Duc -  was developed by the https://github.com/AY1920S1-CS2113-T16-1/main[AY1920S1-CS2113-T16-1] team. +
+_{Le Duc (The Duke in french) is for student who have multiple life and have to manage them all. Outside, they have to go to school, work part-time, attend club and have fun at some party. At home, they have to do homework, undertake a project, do some chore, cook some nice food. Pretty busy, right ? With this new tool, a student can manage and organise his time more efficiently.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Laurent Huang
+image::laurenthg.png[width="150", align="left"]
+{empty}[https://github.com/laurenthg[github]] [<<laurenthg#, portfolio>>]
+
+Role: Team Lead +
+Responsabilities: Testing, Deliverables and deadlines
+
+'''
+
+=== Jérôme Huang
+image::huangje.png[width="150", align="left"]
+{empty}[https://github.com/huangje/[github]] [<<huangje#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Code quality
+
+'''
+
+=== Rahul Shah
+image::rshah918.png[width="150", align="left"]
+{empty}[https://github.com/rshah918[github]] [<<rshah918#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Scheduling and tracking
+
+'''
