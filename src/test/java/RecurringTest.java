@@ -1,10 +1,7 @@
 import duke.storage.Storage;
-import duke.task.Recurring;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RecurringTest {
     private Ui ui = new Ui();
