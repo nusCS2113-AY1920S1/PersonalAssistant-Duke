@@ -38,6 +38,9 @@ public class Storage {
                 } else if (data[0].equals("R ")) {
                     Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
+                } else if (data[0].equals("F ")) {
+                    FixedDuration t = new FixedDuration(data[2], data[3], data[1].contains("1"));
+                    listContent.add(t);
                 }
                 line = br.readLine();
             }

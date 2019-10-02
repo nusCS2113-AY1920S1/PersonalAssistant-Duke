@@ -86,6 +86,16 @@ public class Parser {
                     //create event object
                     Recurring t = new Recurring(dateInfo.get(0), temp);
                     return new AddCommand(t);
+                } else if (taskInfo[0].equals("fixed")) {
+                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    ArrayList<String> dateInfo = parseDate("fixed", taskInfo);
+                    if ((dateInfo.isEmpty() || (dateInfo.size() < 2))) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    Date d = new Date();
+                    dateInfo.set(1, d.getDuration(dateInfo.get(1)));
+                    if (dateInfo.get(1) == null) { throw new DukeException(DukeException.ErrorType.FORMAT_FIXED); }
+                    //create event object
+                    FixedDuration t = new FixedDuration(dateInfo.get(0), dateInfo.get(1));
+                    return new AddCommand(t);
                 }
                 else if(taskInfo[0].equals("view")){
                     //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
@@ -144,6 +154,10 @@ public class Parser {
             //tell AddCommand to go add itself
             a = taskInfo[1].split("/every ");
             dateInfo.addAll(Arrays.asList(a));
+        } else if (type.equals("fixed")) {
+            a = taskInfo[1].split("/take ");
+            dateInfo.addAll(Arrays.asList(a));
+            //tell AddCommand to go add itself
         }
         return dateInfo;
     }
