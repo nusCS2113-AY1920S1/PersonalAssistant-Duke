@@ -98,23 +98,6 @@ public class TaskList {
         return true;
     }
 
-
-    /**
-     * Prints the whole list of items with index numbers.
-     */
-    public void printList() {
-        int max = taskList.size();
-        if (max == 0) {
-            System.out.println("The list is currently empty.");
-            return;
-        }
-
-        for (int i = 0; i < max; i++) { //Index starts from 0.
-            System.out.print(i + 1 + ". "); //Add 1 to follow natural numbers.
-            taskList.get(i).printTaskDetails();
-        }
-    }
-
     public Task getTask(int i) {
         return taskList.get(i);
     }
