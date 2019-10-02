@@ -13,12 +13,11 @@ public class FixedDuration extends Task {
         this.needs = needs;
     }
 
-    public FixedDuration(String isDone, String description, String needs, String snooze) {
+    public FixedDuration(String isDone, String description, String needs) {
         super(description);
         this.description = description;
         this.needs = needs;
         this.isDone = isDone.equals("1");
-        this.isSnooze = snooze.equals("1");
     }
 
     @Override
@@ -29,8 +28,7 @@ public class FixedDuration extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        int snoozeBoolToInt = isSnooze ? 1 : 0;
-        return "F | " + boolToInt + " | " + this.description + " | " + this.needs + " | " + snoozeBoolToInt + "\n";
+        return "F | " + boolToInt + " | " + this.description + " | " + this.needs + " | " + "\n";
     }
 }
 
