@@ -11,6 +11,7 @@ public class Account {
     private ArrayList<Expenditure> ExpListCurrMonth;
     private ArrayList<Goal> ShortTermGoals;
     private ArrayList<Installment> Installments;
+    private ArrayList<BankTracker> BankTrackerList;
     private float TotalSavings;
     private float CurrMonthSavings;
     private float BaseSavings;
@@ -24,6 +25,7 @@ public class Account {
         ExpListCurrMonth = new ArrayList<>();
         ShortTermGoals = new ArrayList<>();
         Installments = new ArrayList<>();
+        BankTrackerList = new ArrayList<>();
         toInitialize = true;
     }
 
@@ -66,6 +68,10 @@ public class Account {
 
     public ArrayList<Installment> getInstallments() {
         return Installments;
+    }
+
+    public ArrayList<BankTracker> getBankTrackerList() {
+        return BankTrackerList;
     }
 
     public float getTotalIncome() {
