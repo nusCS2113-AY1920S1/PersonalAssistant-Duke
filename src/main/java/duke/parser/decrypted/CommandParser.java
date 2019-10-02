@@ -1,6 +1,8 @@
 package duke.parser.decrypted;
 
 import duke.command.*;
+import duke.command.recipe.AddRecipeCommand;
+import duke.command.recipe.DeleteRecipeCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.entities.Sale;
@@ -28,7 +30,7 @@ public class CommandParser {
     public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
         return new EditSaleCommand(params);
     }
-  
+
     public static void modifyOrdrer(Map<String, List<String>> params, Order order) throws DukeException {
         if (params.containsKey("name")) {
             order.setCustomerName(params.get("name").get(0));
@@ -84,6 +86,16 @@ public class CommandParser {
                 throw new DukeException("Quantity should be an integer");
             }
         }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+    public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
+        return new DeleteRecipeCommand(params);
+    }
+
+    public static Command parseRecipeAdd(Map<String, List<String>> params) {
+        return new AddRecipeCommand(params);
     }
 
     private static void checkParameters(Map<String, List<String>> params) throws DukeException {

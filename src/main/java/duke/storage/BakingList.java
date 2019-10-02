@@ -3,6 +3,7 @@ package duke.storage;
 import duke.command.ExecuteShortcutCommand;
 import duke.entities.Order;
 import duke.entities.Sale;
+import duke.entities.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +16,14 @@ public class BakingList {
     private List<Sale> saleList = new ArrayList<>();
     private Map<String, ExecuteShortcutCommand> shortcuts = new HashMap<>();
 
+    private List<Recipe> recipeList = new ArrayList<>();
+
     public List<Order> getOrderList() {
         return orderList;
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
     }
 
     public List<Sale> getSaleList() {
@@ -33,6 +40,10 @@ public class BakingList {
 
     public Map<String, ExecuteShortcutCommand> getShortcuts() {
         return shortcuts;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     public void setShortcuts(Map<String, ExecuteShortcutCommand> shortcuts) {

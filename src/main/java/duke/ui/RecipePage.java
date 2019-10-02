@@ -3,32 +3,28 @@ package duke.ui;
 import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
-import duke.storage.recipe.RecipeList;
 import duke.ui.recipe.IngredientBox;
-
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipePage extends AnchorPane {
 
@@ -44,7 +40,7 @@ public class RecipePage extends AnchorPane {
     @FXML
     private HBox ingredients;
     @FXML
-    private VBox steps;
+    private ListView<String> steps;
     @FXML
     private VBox recipeList;
     @FXML
@@ -53,6 +49,7 @@ public class RecipePage extends AnchorPane {
     private TableView<Recipe> recipeTable;
 
     private Recipe rcp;
+
     public RecipePage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/RecipePage.fxml"));
@@ -65,9 +62,9 @@ public class RecipePage extends AnchorPane {
 
         Recipe recipe = new Recipe("");
         recipe.init();
-        RecipeList rpl = new RecipeList();
+        List<Recipe> rpl = new ArrayList<>();
         rpl.add(recipe);
-        showRecipeListPage(rpl);
+        refreshRecipeListPage(rpl);
 
 
     }
@@ -88,7 +85,7 @@ public class RecipePage extends AnchorPane {
         try {
             Image image1 = new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\star.png"));
             difficultyLevel.getChildren().clear();
-            for (int i = 0; i < recipe.getDiffLevel(); i++) {
+            for (int i = 0; i < recipe.getDifficultyLevel(); i++) {
                 ImageView star = new ImageView();
                 star.setImage(image1);
                 star.setFitHeight(28);
@@ -106,24 +103,42 @@ public class RecipePage extends AnchorPane {
             ingredient.init();
             ingredients.getChildren().add(ingredientBox);
         }
-
-        steps.getChildren().clear();
-        steps.setSpacing(10);
+        steps.getItems().clear();
         int index = 1;
-        for (Step step: recipe.getSteps()) {
-            Label newLabel = new Label();
-            newLabel.setText("Step " + index + ". " + step.getDescription());
-            newLabel.setWrapText(true);
-            newLabel.setFont(new Font("Arial", 20));
-            newLabel.setBackground(new Background(new BackgroundFill(Color.web("#96663b20"),null, null)));
-            steps.getChildren().add(newLabel);
+        //Solution taken from: https://stackoverflow.com/questions/13869013/how-to-automatically-wrap-javafx-2-listview
+        {
+            steps.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                @Override
+                public ListCell<String> call(ListView<String> list) {
+                    final ListCell cell = new ListCell() {
+                        private Text text;
+
+                        @Override
+                        public void updateItem(Object item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (!isEmpty()) {
+                                text = new Text(item.toString());
+                                text.setWrappingWidth(steps.getPrefWidth());
+                                setGraphic(text);
+                                setFont(new Font("Arial", 15));
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            });
+        }
+
+        for (Step step : recipe.getSteps()) {
+            steps.getItems().add("Step " + index++ + ". " + step.getDescription());
         }
         timeLabel.setText(recipe.getTime() + " mins");
+        timeLabel.setFont(new Font("Gabriola", 20));
     }
 
 
-
-    void showRecipeListPage(RecipeList rpl) {
+    //RecipeList
+    void refreshRecipeListPage(List<Recipe> rpl) {
         recipeListPane.setVisible(true);
         recipeShowPane.setVisible(false);
         ObservableList<Recipe> recipeObservableList = FXCollections.observableArrayList();
@@ -142,21 +157,23 @@ public class RecipePage extends AnchorPane {
 
             //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
             ///////////////////////////////////////////////////////index column
-            {indexColumn.setCellFactory(col -> {
+            {
+                indexColumn.setCellFactory(col -> {
 
-                // just a default table cell:
-                TableCell<Recipe, Void> cell = new TableCell<>();
+                    // just a default table cell:
+                    TableCell<Recipe, Void> cell = new TableCell<>();
 
-                cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                    if (cell.isEmpty()) {
-                        return null ;
-                    } else {
-                        return Integer.toString(cell.getIndex() + 1);
-                    }
-                }, cell.emptyProperty(), cell.indexProperty()));
+                    cell.textProperty().bind(Bindings.createStringBinding(() -> {
+                        if (cell.isEmpty()) {
+                            return null;
+                        } else {
+                            return Integer.toString(cell.getIndex() + 1);
+                        }
+                    }, cell.emptyProperty(), cell.indexProperty()));
 
-                return cell ;
-            });}
+                    return cell;
+                });
+            }
             ////////////////////////////////index column created
 
             TableColumn<Recipe, String> nameColumn = new TableColumn<>("Name");

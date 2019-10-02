@@ -17,8 +17,8 @@ public class Sale {
     }
 
     public Sale(@JsonProperty("description") String description,
-                 @JsonProperty("value") double value,
-                 @JsonProperty("saleDate") Date saleDate) {
+                @JsonProperty("value") double value,
+                @JsonProperty("saleDate") Date saleDate) {
         this.description = description;
         this.value = value;
         this.saleDate = saleDate;

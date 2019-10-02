@@ -1,7 +1,9 @@
 package duke.ui;
+
 import duke.entities.Order;
 import duke.entities.Sale;
-import duke.storage.recipe.RecipeList;
+import duke.entities.recipe.Recipe;
+
 import java.util.List;
 
 public class Ui {
@@ -27,11 +29,11 @@ public class Ui {
     public void showRecipePage() {
         mainWindow.showRecipePage();
     }
-  
+
     public void showSalePage() {
         mainWindow.showSalePage();
     }
-  
+
     public void initializePages() {
         mainWindow.initializePages();
     }
@@ -40,15 +42,14 @@ public class Ui {
         mainWindow.refreshOrderList(orders, all);
     }
 
+    public void refreshRecipeListPage(List<Recipe> recipeList) {
+        mainWindow.refreshRecipeListPage(recipeList);
+    }
+
     public void refreshSaleList(List<Sale> sale, List<Sale> all) {
         mainWindow.refreshSaleList(sale, all);
     }
 
-    /*
-    public void refreshRecipeList(RecipeList recipeList) {
-        mainWindow.refreshRecipeList(recipeList);
-    }
-    */
     public void disableInput() {
         mainWindow.disableInput();
     }
