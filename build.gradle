@@ -8,7 +8,7 @@ checkstyle {
     toolVersion = '8.23'
 }
 
-group 'seedu.duke'
+group 'dukemasters'
 version '1.0'
 
 task fatJar(type: Jar) {
@@ -27,8 +27,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile 'com.google.code.gson:gson:2.8.5'
 }
 
 application {
