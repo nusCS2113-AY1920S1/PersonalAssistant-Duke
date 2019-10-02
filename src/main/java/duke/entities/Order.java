@@ -60,11 +60,19 @@ public class Order {
     }
 
     public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+        if (customerName.equals("")) {
+            this.customerName = "N/A";
+        } else {
+            this.customerName = customerName;
+        }
     }
 
     public void setCustomerContact(String customerContact) {
-        this.customerContact = customerContact;
+        if (customerContact.equals("")) {
+            this.customerContact = "N/A";
+        } else {
+            this.customerContact = customerContact;
+        }
     }
 
     public void setDeliveryDate(Date deliveryDate) {
@@ -76,7 +84,11 @@ public class Order {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks;
+        if (remarks.equals("")) {
+            this.remarks = "N/A";
+        } else {
+            this.remarks = remarks;
+        }
     }
 
     public long getId() {

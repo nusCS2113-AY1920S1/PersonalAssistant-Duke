@@ -2,7 +2,7 @@ package duke.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.commons.DukeException;
-import duke.parser.Parser;
+import duke.parser.decrypted.OldParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -31,7 +31,7 @@ public class ExecuteShortcutCommand extends UndoableCommand {
         this.lines = lines;
         for (String line : lines) {
             try {
-                Command command = Parser.getCommand(line.strip(), new HashMap<String, ExecuteShortcutCommand>());
+                Command command = OldParser.getCommand(line.strip(), new HashMap<String, ExecuteShortcutCommand>());
                 commands.add(command);
             } catch (DukeException e) {
                 //TODO: Improve catching

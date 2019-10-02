@@ -2,11 +2,10 @@ package duke.logic;
 
 import duke.command.Command;
 import duke.commons.DukeException;
-import duke.entities.recipe.Recipe;
-import duke.parser.Parser;
+import duke.parser.BakingHomeParser;
+import duke.parser.exceptions.ParseException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.storage.recipe.RecipeList;
 import duke.ui.Ui;
 
 public class Duke {
@@ -36,9 +35,9 @@ public class Duke {
 
     public void executeInput(String input) {
         try {
-            Command command = Parser.getCommand(input, bakingList.getShortcuts());
+            Command command = new BakingHomeParser().parseCommand(input);
             commandManager.execute(command);
-        } catch (DukeException e) {
+        } catch (DukeException | ParseException e) {
             ui.showError(e.getMessage());
         }
     }

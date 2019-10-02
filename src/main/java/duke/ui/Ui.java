@@ -1,8 +1,8 @@
 package duke.ui;
 
 import duke.entities.Order;
-import duke.entities.recipe.Recipe;
 import duke.entities.Sale;
+import duke.entities.recipe.Recipe;
 
 import java.util.List;
 

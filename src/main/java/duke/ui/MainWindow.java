@@ -2,8 +2,8 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import duke.entities.Order;
-import duke.entities.recipe.Recipe;
 import duke.entities.Sale;
+import duke.entities.recipe.Recipe;
 import duke.logic.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

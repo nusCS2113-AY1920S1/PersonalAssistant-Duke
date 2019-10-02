@@ -2,8 +2,8 @@ package duke.storage;
 
 import duke.command.ExecuteShortcutCommand;
 import duke.entities.Order;
-import duke.entities.recipe.Recipe;
 import duke.entities.Sale;
+import duke.entities.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +40,10 @@ public class BakingList {
 
     public Map<String, ExecuteShortcutCommand> getShortcuts() {
         return shortcuts;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     public void setShortcuts(Map<String, ExecuteShortcutCommand> shortcuts) {

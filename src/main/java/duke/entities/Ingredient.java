@@ -1,11 +1,7 @@
 package duke.entities;
 
-import javafx.scene.image.Image;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.image.Image;
 
 public class Ingredient {
     private String name;
