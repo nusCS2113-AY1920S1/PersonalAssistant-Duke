@@ -25,7 +25,7 @@ public class FixDurationCommand extends Command {
         String description = "";
         String duration = "";
         String[] splitstring;
-        splitstring = ui.FullCommand.split("/require");
+        splitstring = ui.FullCommand.split("/requires");
         description = splitstring[0];
         duration = splitstring[1];
 

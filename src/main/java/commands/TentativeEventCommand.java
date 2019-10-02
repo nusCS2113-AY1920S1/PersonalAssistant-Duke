@@ -22,23 +22,22 @@ public class TentativeEventCommand extends Command{
                 System.out.println("You are creating a tentative event: " + description);
                 System.out.println("Please enter possible time slots of the event");
                 System.out.println("When you are done, key in '/'.");
-                ArrayList<Date> tentativeoptions = new ArrayList<Date>();
                 ArrayList<String> tentativetimes = new ArrayList<String>();
                 ui.ReadCommand();
-//            System.out.println(ui.FullCommand);
                 while (!ui.FullCommand.equals("/")) {
-                    SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    tentativeoptions.add(fmt.parse(ui.FullCommand));
                     tentativetimes.add(ui.FullCommand);
                     ui.ReadCommand();
-//                System.out.println(ui.FullCommand);
-
-            }
-            TentativeEvent newtentative = new TentativeEvent(description, tentativeoptions,tentativetimes);
-            System.out.println("Got it. I've added this tentative event:");
-            System.out.println(newtentative.listFormat());
-            System.out.println("You could confirm one of the slots later.");
-            list.add(newtentative);
+                }
+                TentativeEvent newtentative = new TentativeEvent(description,tentativetimes);
+                System.out.println("Got it. I've added this tentative event:");
+                System.out.println(newtentative.listFormat());
+                System.out.println("You could confirm one of the slots later.");
+                list.add(newtentative);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+                storage.Storages(sb.toString());
 
             }
         }

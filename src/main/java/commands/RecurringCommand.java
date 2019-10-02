@@ -32,13 +32,10 @@ public class RecurringCommand {
                 String conc_time = newDate + " " + hour_min_sec;
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
-
                 Event new_weeklyEvent = new Event(description, (conc_time));
                 list.add(new_weeklyEvent);
-                System.out.println("");
-                System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_weeklyEvent.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this weekly task again:\n" + new_weeklyEvent.listFormat()
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
@@ -53,12 +50,10 @@ public class RecurringCommand {
                 String conc_time = newDate + " " + hour_min_sec;
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
-
                 Deadline new_weeklyDeadline = new Deadline(description, (conc_time));
                 list.add(new_weeklyDeadline);
-                System.out.println("\nI've automatically added this weekly task again:");
-                System.out.println(new_weeklyDeadline.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this weekly task again:\n" + new_weeklyDeadline.listFormat()
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
@@ -77,10 +72,8 @@ public class RecurringCommand {
                 String description = toget_description[toget_description.length - 1];
                 Event new_monthlyEvent = new Event(description, (conc_time));
                 list.add(new_monthlyEvent);
-                System.out.println("");
-                System.out.println("I've automatically added this monthly task again:");
-                System.out.println(new_monthlyEvent.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this monthly task again:\n" + new_monthlyEvent.listFormat()
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
@@ -95,12 +88,10 @@ public class RecurringCommand {
                 String conc_time = newDate + " " + hour_min_sec;
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
-
                 Deadline new_monthlyDeadline = new Deadline(description, (conc_time));
                 list.add(new_monthlyDeadline);
-                System.out.println("\nI've automatically added this weekly task again:");
-                System.out.println(new_monthlyDeadline.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this monthly task again:\n" + new_monthlyDeadline.listFormat()
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
@@ -117,13 +108,10 @@ public class RecurringCommand {
                 String conc_time = newDate + " " + hour_min_sec;
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
-
                 Event new_yearlyEvent = new Event(description, (conc_time));
                 list.add(new_yearlyEvent);
-                System.out.println("");
-                System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_yearlyEvent.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this yearly task again:\n" + new_yearlyEvent.listFormat()
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
@@ -140,10 +128,8 @@ public class RecurringCommand {
                 String description = toget_description[toget_description.length - 1];
                 Deadline new_yearlyDeadline = new Deadline(description, (conc_time));
                 list.add(new_yearlyDeadline);
-                System.out.println("");
-                System.out.println("I've automatically added this weekly task again:");
-                System.out.println(new_yearlyDeadline.listFormat());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.print("\nI've automatically added this yearly task again:\n" + new_yearlyDeadline.listFormat()
+                + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
