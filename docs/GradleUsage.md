@@ -1,6 +1,6 @@
 ## Gradle Usage
 
-This assumes the project has been imported as a gradle project. If not, follow the instructions at [Gradle Tutorial](tutorials/gradleTutorial.md).
+This assumes the project has been imported as a gradle project. If not, follow the instructions at [Gradle Tutorial](../tutorials/gradleTutorial.md).
 
 Gradle Commands | Usage
 -----------------|--------------------
