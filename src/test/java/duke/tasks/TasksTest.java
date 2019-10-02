@@ -1,5 +1,9 @@
 package duke.tasks;
 
+import duke.exceptions.DukeCommandException;
+import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.DukeMissingArgumentException;
+import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,6 +54,21 @@ public class TasksTest {
             assertEquals(expectedPrintTodo, test.toString());
             assertEquals(expectedWriteTodo, test.writingFile());
         } catch (DukeInvalidTimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRecurringTask() {
+        String taskLabel = "RecurringTaskTest";
+        String dateLabel = "1";
+        String expectedPrintTodo = "[R][✗] RecurringTaskTest (every: 1 days)";
+        String expectedWriteTodo = "R|RecurringTaskTest|0|1";
+        try {
+            Task test = new RecurringTask(taskLabel, dateLabel);
+            assertEquals(expectedPrintTodo, test.toString());
+            assertEquals(expectedWriteTodo, test.writingFile());
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
