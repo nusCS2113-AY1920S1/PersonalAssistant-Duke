@@ -7,13 +7,10 @@ import java.util.regex.Pattern;
 
 public class ProfileStorage {
     private Scanner scan;
-    private Writer output;
-//    private File dataFile;
     private File data;
 
-    public ProfileStorage(){
-//        this.dataFile = dataFile;
-        this.data = new File("/Users/wenhui/main/EPdata/profile.txt");
+    public ProfileStorage() {
+        data = new File("EPdata/profile.txt");
     };
 
     public void openFile() throws IOException{
@@ -52,7 +49,7 @@ public class ProfileStorage {
 
     public void changeName(String name) throws IOException {
         File oldFile = data;
-        File newFile = new File("/Users/wenhui/main/EPdata/tempProfile.txt");
+        File newFile = new File("EPdata/tempProfile.txt");
 
         FileWriter fw = new FileWriter(newFile, true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -77,7 +74,7 @@ public class ProfileStorage {
 
     public void changeAge(String age) throws IOException {
         File oldFile = data;
-        File newFile = new File("/Users/wenhui/main/EPdata/tempProfile.txt");
+        File newFile = new File("EPdata/tempProfile.txt");
 
         FileWriter fw = new FileWriter(newFile, true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -102,7 +99,7 @@ public class ProfileStorage {
 
     public void addGenre(String genre) throws IOException {
         File oldFile = data;
-        File newFile = new File("tempProfile.txt");
+        File newFile = new File("EPdata/tempProfile.txt");
 
         FileWriter fw = new FileWriter(newFile, true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -126,7 +123,7 @@ public class ProfileStorage {
 
     public void deleteGenre(String genre) throws IOException {
         File oldFile = data;
-        File newFile = new File("tempProfile.txt");
+        File newFile = new File("EPdata/tempProfile.txt");
 
         FileWriter fw = new FileWriter(newFile, true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -161,7 +158,7 @@ public class ProfileStorage {
 
     public void changeGenre(ArrayList<Integer> genreList) throws IOException {
         File oldFile = data;
-        File newFile = new File("tempProfile.txt");
+        File newFile = new File("EPdata/tempProfile.txt");
 
         FileWriter fw = new FileWriter(newFile, true);
         BufferedWriter bw = new BufferedWriter(fw);

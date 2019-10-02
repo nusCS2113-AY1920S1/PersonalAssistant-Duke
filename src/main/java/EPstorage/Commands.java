@@ -3,6 +3,7 @@ package EPstorage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -12,7 +13,7 @@ public class Commands {
     private ProfileStorage profileStorage;
     private UserProfile userProfile;
 
-    public Commands(){
+    public Commands()  {
         genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
         profileStorage = new ProfileStorage();
         userProfile = new UserProfile();

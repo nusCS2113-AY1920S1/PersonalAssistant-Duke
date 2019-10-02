@@ -1,6 +1,6 @@
 //name
-test
+oofsie
 //age
-1
+420
 //genre
-35
+14 , 12 , 28 , 10749 , 35

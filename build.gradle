@@ -40,7 +40,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "Launcher"
+    mainClassName = "Duke"
 }
 
 run {

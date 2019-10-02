@@ -8,6 +8,7 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Main extends Application {
     private Stage mainWindow;

@@ -19,6 +19,7 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class MovieInfoController extends Controller implements RequestListener {

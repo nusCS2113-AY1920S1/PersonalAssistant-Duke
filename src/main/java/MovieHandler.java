@@ -20,6 +20,7 @@ import ui.Ui;
 
 import javax.swing.text.html.ListView;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
