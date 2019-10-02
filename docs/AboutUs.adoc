@@ -1,0 +1,57 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke was developed by the https://github.com/AY1920S1-CS2113-T14-3[T14-3] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Tran Quang Thanh
+image::tran-quang-thanh.png[width="150", align="left"]
+{empty}[https://github.com/tran-quang-thanh[github]] 
+
+Role: Developer
+Responsibilities:
+
+'''
+
+=== Cheng Pai Kai 
+image::kevin996231.png[width="150", align="left"]
+{empty}[https://github.com/kevin996231[github]] 
+
+Role: Developer
+Responsibilities: 
+
+'''
+
+=== Zhang Yue Han
+image::tessa-z.png[width="150", align="left"]
+{empty}[https://github.com/tessa-z[github]] 
+
+Role: Developer
+Responsibilities: 
+
+'''
+
+=== Ng Jian Wei
+image::njw95.png[width="150", align="left"]
+{empty}[https://github.com/njw95[github]] 
+
+Role: Developer
+Responsibilities: 
+
+'''
+
+=== Hsu Hui Neng
+image::chelsea148629.png[width="150", align="left"]
+{empty}[https://github.com/chelsea148629[github]] 
+
+Role: Developer
+Responsibilities: 
+
+'''
