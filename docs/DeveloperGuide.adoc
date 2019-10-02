@@ -440,3 +440,34 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
 
 NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
+
+Learning requirements:
+
+- The app’s user interface should be uncomplicated and easy to use even for first-timers
+
+- The app’s commands should be intuitive, so much so that users need not memorise long command formats
+
+Design requirements:
+
+Keep supplementary features to a minimum
+
+- Performance requirements:
+
+- The app should load in less than 2 seconds.*
+
+- The app should take less than 0.2 seconds to register and respond to a user’s actions.**
+
+- For any responses > 5 sec, the app should provide feedback indicating when it expects to be done, otherwise users will not know what to expect.**
+
+Other requirements:
+
+- The game elements of the app should not overly distract users from completing their tasks.
+
+---
+
+Research:
+
+https://www.freecodecamp.org/news/top-reasons-why-your-mobile-app-is-slow-and-how-to-fix-it-f0f7ce524934/#targetText=The%20root%20cause%20to%20all,for%20most%20of%20its%20tasks.&targetText=Try%20to%20take%20some%20load,an%20extra%20reverse%20proxy%20server. (*)
+
+https://github.com/Tendrl/documentation/wiki/Best-Practices-for-Response-Times-and-Latency#targetText=10%20sec%20is%20about%20the,computer%20expects%20to%20be%20done. (**)
+
