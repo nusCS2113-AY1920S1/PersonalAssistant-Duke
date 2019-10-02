@@ -379,7 +379,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Finding a task from tags
+=== `Use case: Finding a task from tags`
 
 ==== MSS
 
@@ -405,9 +405,9 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
----
 
-=== Use case: Displaying User statistics
+
+=== `Use case: Displaying User statistics`
 
 ==== MSS
 
