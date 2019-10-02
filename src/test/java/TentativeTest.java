@@ -36,15 +36,5 @@ public class TentativeTest {
             e.printStackTrace();
         }
     }
-
-    void confirmTentativeTaskTest() {
-        try {
-            String input = "tentative do Tutorial /at 23/09/2019 1600 or 19/10/2019 1200";
-            ITask tentativeTask = taskFactory.createTask(input);
-
-        } catch (DukeException e) {
-            e.printStackTrace();
-        }
-
-    }
+    
 }
