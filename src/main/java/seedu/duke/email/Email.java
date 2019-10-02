@@ -2,10 +2,15 @@ package seedu.duke.email;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.Duke;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -86,16 +91,26 @@ public class Email {
 
     /**
      * Outputs a string with all the information of this email to be stored in a file for future usage.
+     * The subject of the email is hashed and combined with date time to produce the filename.
      *
      * @return a string with all the information of this email.
      */
     public String toFileString() {
-        String filestring = this.subject + " | ";  // to add on info such as tags.
-        return filestring;
+        String fileString = this.subject + " | ";  // to add on info such as tags.
+        return fileString;
+    }
+
+    public String getFilename() {
+        String filename = ShaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
+        return filename;
     }
 
     private String getDateTimeString() {
         return EmailParser.formatEmailDateTime(receivedDateTime);
+    }
+
+    private String getDateTimePlainString() {
+        return EmailParser.formatEmailDateTimePlain(receivedDateTime);
     }
 
     public String toCliString() {
@@ -107,5 +122,21 @@ public class Email {
 
     public String getBody() {
         return body;
+    }
+
+    private String ShaHash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            // Change this to UTF-16 if needed
+            md.update(input.getBytes(StandardCharsets.UTF_8));
+            byte[] digest = md.digest();
+
+            String hex = String.format("%064x", new BigInteger(1, digest));
+            return hex;
+        } catch (NoSuchAlgorithmException e) {
+            Duke.getUI().showError("Hashing email name error");
+        }
+        return input;
     }
 }

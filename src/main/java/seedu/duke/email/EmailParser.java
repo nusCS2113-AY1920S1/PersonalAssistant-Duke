@@ -3,19 +3,24 @@ package seedu.duke.email;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.Duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class EmailParser {
-    protected static DateTimeFormatter foramt = DateTimeFormatter
+    protected static DateTimeFormatter format = DateTimeFormatter
                     .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
                     .withResolverStyle(ResolverStyle.STRICT);;
+    //plain format is for filename without special characters
+    protected static DateTimeFormatter formatPlain = DateTimeFormatter
+            .ofPattern("uuuu-MM-dd-HHmmss", Locale.ENGLISH)
+            .withResolverStyle(ResolverStyle.STRICT);;
 
     public static EmailList parseFetchResponse(String response) throws EmailParsingException {
+        Duke.getUI().showDebug(response);
         EmailList emailList = new EmailList();
         try {
             JSONObject responseJson = new JSONObject(response);
@@ -36,11 +41,15 @@ public class EmailParser {
     }
 
     public static LocalDateTime parseEmailDateTime(String dateTimeString) {
-        return LocalDateTime.parse(dateTimeString, foramt);
+        return LocalDateTime.parse(dateTimeString, format);
     }
 
     public static String formatEmailDateTime(LocalDateTime dateTime) {
-        return dateTime.format(foramt);
+        return dateTime.format(format);
+    }
+
+    public static String formatEmailDateTimePlain(LocalDateTime dateTime) {
+        return dateTime.format(formatPlain);
     }
 
     public static class Sender {

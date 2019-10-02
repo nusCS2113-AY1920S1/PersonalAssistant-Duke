@@ -44,11 +44,11 @@ public class EmailStorage {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "emails";
+            dir = ".." + File.separator + "data" + File.separator + "emails" + File.separator;
         } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "emails";
+            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
         } else {
-            dir = "." + File.separator + "emails";
+            dir = "." + File.separator + "emails" + File.separator;
         }
         return dir;
     }
@@ -100,27 +100,27 @@ public class EmailStorage {
      * @param emailList the emailList to be saved before exiting the app.
      */
     public static void saveEmails(EmailList emailList) {
-        FileOutputStream out;
         try {
             String folderDir = getFolderDir();
             String indexDir = getSaveEmailDir();
             File indexFile = new File(indexDir);
             indexFile.createNewFile();
-            out = new FileOutputStream(indexFile, false);
+            FileOutputStream indexOut = new FileOutputStream(indexFile, false);
             String content = "";
             for (Email email : emailList) {
                 content += email.toFileString() + "\n";
+            }
+            indexOut.write(content.getBytes());
+            indexOut.close();
+            for (Email email : emailList) {
                 if (email.getBody() != null) {
-                    File emailSource = new File(folderDir + File.separator + email.getSubject() + ".htm");
-                    Duke.getUI().showDebug(folderDir + File.separator + email.getSubject() + ".htm");
+                    File emailSource = new File(folderDir + email.getFilename());
                     emailSource.createNewFile();
                     FileOutputStream emailOut = new FileOutputStream(emailSource, false);
                     emailOut.write(email.getBody().getBytes());
                     emailOut.close();
                 }
             }
-            out.write(content.getBytes());
-            out.close();
         } catch (IOException e) {
             e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");

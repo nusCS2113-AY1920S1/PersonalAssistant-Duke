@@ -62,7 +62,7 @@ public class Http {
         try {
             apiParams.put("select", "subject,from,body,receivedDateTime");
             apiParams.put("top", Integer.toString(limit));
-            apiParams.put("orderby", "receivedDateTime");
+            apiParams.put("orderby", "receivedDateTime%20desc");
         } catch (JSONException e) {
             Duke.getUI().showError("Api parameter error...");
         }
