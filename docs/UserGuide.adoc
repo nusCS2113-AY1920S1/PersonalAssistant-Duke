@@ -31,6 +31,9 @@ keyboard-based app to type faster, then this application is for you!
 
 *Dr. Duke* should open shortly.
 
+.UI
+image::Ui.png[]
+
 == Usage
 
 App-specific terms:
