@@ -27,6 +27,9 @@ import java.util.Date;
  */
 public class Parser {
 
+    /**
+     * Two types of input, prefix will be displayed according to this in the userInput text field.
+     */
     public enum InputType {
         TASK,
         EMAIL
@@ -34,14 +37,39 @@ public class Parser {
 
     private static InputType inputType;
 
+    /**
+     * Constructor that initializes the input type to TASK.
+     *
+     */
     public Parser() {
         this.inputType = InputType.TASK;    // default input type when initiating the program.
     }
 
-    public static InputType getInputType() {
-        return inputType;
+    /**
+     * Get input prefix for userInput text field in GUI.
+     *
+     * @return current prefix.
+     */
+    public static String getInputPrefix() {
+        String prefix = "";
+        switch (inputType) {
+        case TASK:
+            prefix = "task ";
+            break;
+        case EMAIL:
+            prefix = "email ";
+            break;
+        default:
+            prefix = "";
+        }
+        return prefix;
     }
 
+    /**
+     * Set to the new input type when it is toggled by "flip" command.
+     *
+     * @param newInputType
+     */
     public static void setInputType(InputType newInputType) {
         inputType = newInputType;
     }
