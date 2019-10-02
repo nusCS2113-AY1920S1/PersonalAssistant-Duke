@@ -33,6 +33,7 @@ public class DeleteCommand extends Command {
         try {
             String msg = taskList.delete(index);
             if (!silent) {
+                responseMsg = msg;
                 Duke.getUI().showResponse(msg);
             }
             return true;

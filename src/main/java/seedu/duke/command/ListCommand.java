@@ -26,7 +26,9 @@ public class ListCommand extends Command {
     @Override
     public boolean execute() {
         if (!silent) {
-            Duke.getUI().showResponse(this.taskList.toString());
+            String msg = this.taskList.toString();
+            responseMsg = msg;
+            Duke.getUI().showResponse(msg);
         }
         return true;
     }

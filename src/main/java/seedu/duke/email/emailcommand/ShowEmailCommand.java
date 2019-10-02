@@ -19,7 +19,7 @@ public class ShowEmailCommand extends Command {
     @Override
     public boolean execute() {
         try {
-            String responseMsg =  emailList.show(index);
+            responseMsg =  emailList.show(index);
             Duke.getUI().showResponse(responseMsg);
             return true;
         } catch (Parser.UserInputException | IOException e) {

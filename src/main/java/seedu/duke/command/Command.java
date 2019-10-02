@@ -9,6 +9,7 @@ public abstract class Command {
      * A flag whether UI output is turned off. Default to be false, so UI output is default to be turned on.
      */
     protected boolean silent = false;
+    protected String responseMsg = "";
 
     /**
      * Executes the command. This method is to be overridden to specific functionality by different types of
@@ -23,5 +24,9 @@ public abstract class Command {
      */
     public void setSilent() {
         this.silent = true;
+    }
+
+    public String getResponseMsg() {
+        return responseMsg;
     }
 }
