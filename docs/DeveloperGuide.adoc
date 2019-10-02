@@ -21,13 +21,13 @@ By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
 *Target user profile*:
 
-* has a need to manage a significant number of payments for events
+* has a need to manage a significant number of payment forms
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage payments faster than a typical mouse/GUI driven app
+*Value proposition*: Manage payments faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -53,7 +53,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |NUS Treasurer |find my forms easily |locate details of an event without going through the whole list
 
-|`*` |NUS Treasurer |submit my payment forms |get approval from my superiors
+|`*` |NUS Treasurer |Approve my payment forms |track which payment forms have been approved
 |=======================================================================
 
 [appendix]
@@ -61,32 +61,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Weeaboo` and the *Actor* is the `NUS Treasurer`, unless specified otherwise)
 
-=== Use case: Add a new reminder
+=== Use case: Add a new deadline
 
 *MSS*
 
-1.  User logins.
-2.  Weeaboo shows a command line along with different sections such as “Reminders”, “Payments” and “Payment History”.
-3.  User types in the command line the reminder description and time.
-4.  Weeaboo adds the reminder.
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User types in the command line the deadline description and time.
+4.  Weeaboo adds the deadline.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. User types in an invalid reminder command.
-** 3a1. Weeaboo shows an error message and the correct reminder input format.
-** 3a2. User types in the correct command.
+* 3a. User types in an invalid deadline command.
+** 3a1. Weeaboo shows an error message and the correct deadline input format.
 +
-Use case resumes from step 4.
+Use case ends.
 
-=== Use case: Add payment form
+=== Use case: Add a new payment form
 
 *MSS*
 
-1.  User logins.
-2.  Weeaboo shows a command line along with different sections such as “Reminders”, “Payments” and “Payment History”.
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User types in the command line the payment description, items and the cost of each item.
 4.  Weeaboo adds the payment form.
 +
@@ -97,18 +96,17 @@ Use case ends.
 [none]
 * 3a. User types in an invalid payment command.
 ** 3a1. Weeaboo shows an error message and the correct payment input format.
-** 3a2. User types in the correct command.
 +
-Use case resumes from step 4.
+Use case ends.
 
-=== Use case: Find a payment form or reminder
+=== Use case: Find a payment form or deadline
 
 *MSS*
 
-1.  User logins.
-2.  Weeaboo shows a command line along with different sections such as “Reminders”, “Payments” and “Payment History”.
-3.  User types in the command line the command to find and a keyword containing part of the description of a reminder or payment form.
-4.  Weeaboo lists the reminders and payment forms with descriptions that matches the keyword.
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User types in the command line the command to find and a keyword containing part of the description of a deadline or payment form.
+4.  Weeaboo lists the deadlines and payment forms with descriptions that matches the keyword.
 +
 Use case ends.
 
@@ -117,9 +115,8 @@ Use case ends.
 [none]
 * 3a. User types in an invalid find command.
 ** 3a1. Weeaboo shows an error message and the correct find input format.
-** 3a2. User types in the correct command.
 +
-Use case resumes from step 4.
+Use case ends.
 
 [none]
 * 3b. User types in a keyword that returns no match.
@@ -127,12 +124,118 @@ Use case resumes from step 4.
 +
 Use case ends.
 
+=== Use case: Edit the description of a payment form or a deadline
+
+*MSS*
+
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User types in command line the command to edit a payment form or deadline with a new description.
+4.  Weeaboo updates the payment form/deadline with the new description.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in a non-existing id.
+** 3a1. Weeaboo shows a non-existing id error message.
++
+Use case ends.
+
+=== Use case: Edit the time of a deadline
+
+*MSS*
+
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User requests to reschedule a deadline to a new time.
+4.  Weeaboo updates the deadline with the new time.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in a non-existing id for a deadline.
+** 3a1. Weeaboo shows a non-existing id error message.
++
+Use case ends.
+
+[none]
+* 3b. User types in an invalid time.
+** 3b1. Weeaboo shows an invalid time error message.
++
+Use case ends.
+
+[none]
+* 3c. User requests to snooze the deadline.
+** 3c1. Weeaboo snoozes the deadline by 1 hour.
++
+Use case ends.
+
+[none]
+* 3d. User requests to [.underline]#find the deadline# first.
+** 3d1. Weeaboo lists the deadlines that match the keyword searched.
++
+Use case resumes from step 3.
+
+=== Use case: Edit the <<payment-details, payment details>> of a payment form
+
+*MSS*
+
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User requests to redetail a payment form.
+4.  Weeaboo updates the payment form with its new payment details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in a non-existing id for a payment form.
+** 3a1. Weeaboo shows a non-existing id error message.
++
+Use case ends.
+
+[none]
+* 3d. User requests to [.underline]#find the payment form# first.
+** 3d1. Weeaboo lists the payment forms that match the keyword searched.
++
+Use case resumes from step 3.
+
+
+=== Use case: Approve a payment form
+
+*MSS*
+
+1.  User opens the JAR file.
+2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User requests to approve a payment form.
+4.  Weeaboo sets the payment form to approved.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in a non-existing id for a payment form.
+** 3a1. Weeaboo shows a non-existing id error message.
++
+Use case ends.
+
+[none]
+* 3d. User requests to [.underline]#find the payment form# first.
+** 3d1. Weeaboo lists the payment forms that match the keyword searched.
++
+Use case resumes from step 3.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to support up to 1000 payment forms and deadlines without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
@@ -141,5 +244,5 @@ Use case ends.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[payment-details]] Payment Details::
+The item name and its cost in a payment form.
