@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
