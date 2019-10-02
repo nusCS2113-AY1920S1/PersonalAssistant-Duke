@@ -34,17 +34,44 @@
 
 ### 2. Design 
 
-#### 	2.1  Architecture
+#### 2.1  Architecture
 
-#### 	2.2 UI
+![architecture]()
 
-#### 	2.3 Logic Component
+`main` has 1 class called `Duke`. It is responsible for,
 
-#### 	2.4 Model Component
+- at app launch: Loads all the data in storage into the application, initialize the  components, reads the commands and executes them correctly.
+- at shut down: shuts down all component and exits the application
 
-#### 	2.5 Storage Component
+The Application consist of 6 other components 
 
-#### 	2.6 Common Classes
+- `command`: executes the command that is read from the user
+
+- `exception`: handle error messages 
+- `parser`: determine the next course of action from the user command
+- `storage`: Reads, writes data from and to the hard disk
+- `task`: stores a list of deadline/event/todo that needs to be done
+- `ui`: The UI of the application
+
+#### 2.2 UI
+
+
+
+#### 2.3 Logic Component
+
+
+
+#### 2.4 Model Component
+
+
+
+#### 2.5 Storage Component
+
+
+
+#### 2.6 Common Classes
+
+
 
 ### 3. Implementation
 
@@ -67,11 +94,15 @@
 Target user profile: Restaurant Chef
 
 - needs to manage all the ingredients for his dishes  
-- 
+- prefers a desktop application with GUI
+- prefers to keep everything neat in terms of viewing information
+- can also use CLI if needed 
 
 ### Appendix B: User Stories
 
 ​	Priorities: High (must have), Medium (nice to have), Low (may not have)
+
+*the user stories might change as our user profile may become kitchen chef instead of restaurant manager* 
 
 | Priority | As a ...           | I want to ...                                 | So that ...                                 |
 | -------- | ------------------ | --------------------------------------------- | ------------------------------------------- |
