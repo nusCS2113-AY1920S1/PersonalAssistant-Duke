@@ -9,8 +9,6 @@ import java.util.Date;
  * Events are tasks with a start and end time.
  */
 public class Event extends Task {
-    protected String atStart;
-    protected String atEnd;
     protected Date dateTimeStart;
     protected Date dateTimeEnd;
 
@@ -29,8 +27,6 @@ public class Event extends Task {
         } catch (ParseException e) {
             throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
         }
-        this.atStart = atStart;
-        this.atEnd = atEnd;
     }
 
     /**
@@ -39,26 +35,12 @@ public class Event extends Task {
      * @param description of event
      * @param atStart event date and time start
      * @param atEnd event date and time end
-     * @param snooze snooze status
      */
-    public Event(String i, String description, String atStart, String atEnd, String snooze) throws DukeException {
+    public Event(String i, String description, String atStart, String atEnd) throws DukeException {
         super(description);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        try {
-            this.dateTimeStart = sdf.parse(atStart);
-            this.dateTimeEnd = sdf.parse(atEnd);
-        } catch (ParseException e) {
-            throw new DukeException("Please enter date time format correctly: dd/mm/yyyy hhmm");
-        }
-        this.atStart = atStart;
-        this.atEnd = atEnd;
+        this.dateTimeStart = new Date(Long.parseLong(atStart));
+        this.dateTimeEnd = new Date(Long.parseLong(atEnd));
         this.isDone = i.equals("1");
-        this.isSnooze = snooze.equals("1");
-    }
-
-    @Override
-    public boolean containsDate(String s) {
-        return this.atStart.contains(s);
     }
 
     @Override
@@ -87,8 +69,15 @@ public class Event extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        int snoozebooltoInt = this.isSnooze ? 1 : 0;
-        return "E | " + boolToInt + " | " + this.description + " | " + this.atStart + " | "
-                + this.atEnd + " | " + snoozebooltoInt + "\n";
+        return "E | " + boolToInt + " | " + this.description + " | " + this.dateTimeStart.getTime() + " | "
+                + this.dateTimeEnd.getTime() + "\n";
+    }
+
+    public void setDateTimeStart(Date newDateTimeStart) {
+        this.dateTimeStart = newDateTimeStart;
+    }
+
+    public void setDateTimeEnd(Date newDateTimeEnd) {
+        this.dateTimeEnd = newDateTimeEnd;
     }
 }
