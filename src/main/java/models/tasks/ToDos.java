@@ -66,6 +66,11 @@ public class ToDos implements ITask, Serializable {
     }
 
     @Override
+    public String getFullDescription() {
+        return "[" + getInitials() + "][" + getStatusIcon() + "] " + getDescription();
+    }
+
+    @Override
     public Date getDateTimeObject() {
         return null;
     }

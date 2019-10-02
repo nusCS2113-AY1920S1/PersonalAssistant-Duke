@@ -2,28 +2,28 @@ package models.tasks;
 
 import java.util.Date;
 
-public class Recurring implements ITask, IRecurring {
+public class PeriodTask implements ITask {
     private boolean isDone;
     private String initials;
     private String description;
-    private String dueDate;
-    private int daysLeft;
+    private String taskDuration;
     private Date startDate;
-
+    private Date endDate;
+    
     /**
      * Constructor of the Recurring data model.
      *
-     * @param description : Description of the new Recurring task
-     * @param dueDate : Due date of this recurring task.
-     *                Will also be the last day before recurring task recreates itself
+     * @param description : Description of the new period task
+     * @param startDate : Start date of this period Task
+     * @param endDate : End date of this period Task
      */
-    public Recurring(String description, String dueDate, Date date) {
+    public PeriodTask(String description, String taskDuration,Date startDate, Date endDate) {
         this.isDone = false;
-        this.initials = "R";
+        this.initials = "P";
         this.description = description;
-        this.dueDate = dueDate;
-        this.daysLeft = 7;
-        this.startDate = date;
+        this.taskDuration = taskDuration;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Recurring implements ITask, IRecurring {
 
     @Override
     public String getDescription() {
-        return this.description + " (by: " + this.dueDate + ")";
+        return this.description + " between " + taskDuration;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Recurring implements ITask, IRecurring {
 
     @Override
     public String getDateTime() {
-        return this.dueDate;
+        return null;
     }
 
     @Override
@@ -62,21 +62,7 @@ public class Recurring implements ITask, IRecurring {
     }
 
     @Override
-    public int getDaysLeft() {
-        return this.daysLeft;
-    }
-
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    @Override
-    public String getRecurringDescription() {
-        return this.description;
-    }
-
-    @Override
     public void setDateTime(String newDateTime) {
-        this.dueDate = newDateTime;
+
     }
 }

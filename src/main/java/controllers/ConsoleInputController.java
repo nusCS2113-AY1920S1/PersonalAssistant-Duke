@@ -1,16 +1,19 @@
 package controllers;
 
 import exceptions.DukeException;
-import exceptions.InvalidInputException;
-import exceptions.NoCommandDetailsException;
+
 import java.util.Scanner;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
-import models.tasks.IRecurring;
+
 import models.commands.RescheduleCommand;
+import models.data.IProject;
+import models.tasks.IRecurring;
 import models.tasks.ITask;
+import models.tasks.PeriodTask;
 import models.tasks.Recurring;
 import models.tasks.TaskList;
+import repositories.ProjectRepository;
 import views.CLIView;
 
 import java.io.FileInputStream;
@@ -24,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ConsoleInputController implements IViewController {
@@ -32,8 +34,10 @@ public class ConsoleInputController implements IViewController {
     private CLIView consoleView;
     private TaskFactory taskFactory;
     private RecurringFactory recurringFactory;
+    private PeriodTaskFactory periodTaskFactory;
     private TaskList taskList;
     private String filePath = "src/main/saves/savefile.txt";
+    private ProjectRepository projectRepository;
 
     /**
      * Constructor.
@@ -44,6 +48,8 @@ public class ConsoleInputController implements IViewController {
         this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
         this.recurringFactory = new RecurringFactory();
+        this.periodTaskFactory = new PeriodTaskFactory();
+        this.projectRepository = new ProjectRepository();
     }
 
     private void checkRecurring() {
@@ -102,10 +108,10 @@ public class ConsoleInputController implements IViewController {
      * @param input : Input typed by user into CLI
      */
     @Override
-    public void onCommandReceived(String input) throws DukeException {
+    public void onCommandReceived(String input) {
         checkRecurring();
-        Scanner scanner = new Scanner(input);
-        String command = scanner.next();
+        Scanner inputReader = new Scanner(input);
+        String command = inputReader.next();
 
         switch (command) {
         case "bye":
@@ -171,9 +177,20 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
             break;
+        case "period":
+            try {
+                PeriodTask newPeriodTask = periodTaskFactory.createTask(input);
+                boolean anomaly = taskList.addToList(newPeriodTask);
+                consoleView.addMessage(newPeriodTask, taskList, anomaly);
+                saveData();
+            } catch (DukeException newException) {
+                consoleView.invalidCommandMessage(newException);
+            }
+            break;
         case "event":
         case "todo":
         case "deadline":
+        case "doafter":
             try {
                 ITask newTask = taskFactory.createTask(input);
                 boolean anomaly = taskList.addToList(newTask);
@@ -183,8 +200,21 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
             break;
+        case "create":
+            // Creation of a new project with a given name and a number of numbers
+            boolean isProjectCreated = projectRepository.addToRepo(input);
+            if (!isProjectCreated) {
+                consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
+            } else {
+                consoleView.consolePrint("Project created!");
+            }
+            break;
+        case "view":
+            ArrayList<IProject> allProjects = projectRepository.getAll();
+            consoleView.viewAllProjects(allProjects);
+            break;
         default:
-            throw new InvalidInputException(input);
+            consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
         }
     }
     // TODO refactor saving data and reading data to repository/database

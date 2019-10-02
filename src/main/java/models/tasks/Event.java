@@ -58,6 +58,11 @@ public class Event implements ITask, IDateSettable, Serializable {
     }
 
     @Override
+    public String getFullDescription() {
+        return "[" + getInitials() + "][" + getStatusIcon() + "] " + getDescription();
+    }
+
+    @Override
     public Date getDateTimeObject() {
         return this.eventDateTimeObject;
     }

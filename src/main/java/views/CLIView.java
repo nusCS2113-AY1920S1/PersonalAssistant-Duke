@@ -1,10 +1,10 @@
 package views;
 
 import controllers.ConsoleInputController;
-import exceptions.DukeException;
 import models.commands.DeleteCommand;
 import models.commands.DoneCommand;
 import models.commands.RescheduleCommand;
+import models.data.IProject;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 
@@ -16,10 +16,24 @@ import java.util.Scanner;
 
 public class CLIView {
     public static final String horiLine = "\t____________________________________________________________";
+    public static final String indentation = "\t";
+
     private ConsoleInputController consoleInputController;
 
     public CLIView() {
         this.consoleInputController = new ConsoleInputController(this);
+    }
+
+    /**
+     * Prints an indented and formatted message with a top and bottom border.
+     * @param lines The lines to be printed in between the border.
+     */
+    public void consolePrint(String... lines) {
+        System.out.println(horiLine);
+        for (String message : lines) {
+            System.out.println(indentation + message);
+        }
+        System.out.println(horiLine);
     }
 
     /**
@@ -29,18 +43,11 @@ public class CLIView {
         Scanner sc = new Scanner(System.in);
         consoleInputController.readData();
 
-        System.out.println(horiLine);
-        System.out.println("\tHello! I'm Duke");
-        System.out.println("\tWhat can I do for you?");
-        System.out.println(horiLine);
+        consolePrint("Hello! I'm Duke", "What can I do for you?");
 
         while (true) {
             String command = sc.nextLine();
-            try {
-                consoleInputController.onCommandReceived(command);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            consoleInputController.onCommandReceived(command);
         }
     }
 
@@ -48,7 +55,7 @@ public class CLIView {
      * Method to be called when user says bye to exit the program.
      */
     public void end() {
-        System.out.println("\t Bye. Hope to see you again soon!");
+        consolePrint("Bye. Hope to see you again soon!");
         System.exit(0);
     }
 
@@ -60,21 +67,12 @@ public class CLIView {
      */
     public void addMessage(ITask newTask, TaskList taskList, boolean anomaly) {
         if (anomaly) {
-            System.out.println(CLIView.horiLine);
-            System.out.println("\tAnomalies with the schedule detected.");
-            System.out.println(CLIView.horiLine);
+            consolePrint("Anomalies with the schedule detected.");
             return;
         }
-        System.out.println(horiLine);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.print("\t  ");
-        System.out.println("[" + newTask.getInitials() + "]"
-                + "[" + newTask.getStatusIcon() + "] "
-                + newTask.getDescription()
-        );
-        String grammerTasks = taskList.getNumOfTasks() > 1 ? "tasks" : "task";
-        System.out.println("\tNow you have " + taskList.getNumOfTasks() + " " + grammerTasks + " in your list.");
-        System.out.println(horiLine);
+        String grammarTasks = taskList.getNumOfTasks() == 1 ? "task" : "tasks";
+        consolePrint("Got it. I've added this task:", newTask.getFullDescription(),
+            "Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in your list.");
     }
 
     /**
@@ -83,16 +81,12 @@ public class CLIView {
      * @param taskList : List of tasks.
      */
     public void printAllTasks(TaskList taskList) {
-        System.out.println(horiLine);
-        System.out.println("\tHere are the tasks in your list:");
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getAllTasks().size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + taskList.getAllTasks().get(i).getInitials() + "]"
-                    + "[" + taskList.getAllTasks().get(i).getStatusIcon() + "] "
-                    + taskList.getAllTasks().get(i).getDescription()
-            );
+            toPrint.add("" + (i + 1) + "." + taskList.getAllTasks().get(i).getFullDescription());
         }
-        System.out.println(horiLine);
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -110,9 +104,7 @@ public class CLIView {
      * @param newException : Exception that is thrown when an Invalid Command is detected
      */
     public void invalidCommandMessage(Exception newException) {
-        System.out.println(horiLine);
-        System.out.println("\t" + newException.getMessage());
-        System.out.println(horiLine);
+        consolePrint(newException.getMessage());
     }
 
     /**
@@ -135,17 +127,13 @@ public class CLIView {
      * @param input : Full command that user has keyed into CLI.
      */
     public void findTask(TaskList taskList, String input) {
-        System.out.println(horiLine);
-        System.out.println("\tHere are the matching tasks in your list:");
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Here are the matching tasks in your list:");
         ArrayList<ITask> results = taskList.getSearchedTasks(input);
         for (int i = 0; i < results.size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + results.get(i).getInitials() + "]"
-                    + "[" + results.get(i).getStatusIcon() + "] "
-                    + results.get(i).getDescription()
-            );
+            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
         }
-        System.out.println(horiLine);
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -156,26 +144,22 @@ public class CLIView {
      * @throws ParseException : Parsing error (If the date and time is not entered in dd/MM/yyyy HHmm)
      */
     public void remindTask(TaskList taskList, String input) throws ParseException {
-        System.out.println(horiLine);
-        System.out.println("\tHere are the upcoming tasks in your list:");
         String limit;
         Scanner sc = new Scanner(input);
-        String dummy = sc.next();
+        sc.next();
         if (sc.hasNext()) {
             limit = sc.nextLine();
         } else {
             limit = "";
         }
 
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Here are the upcoming tasks in your list:");
         ArrayList<ITask> results = taskList.getUpcomingTasks(limit);
         for (int i = 0; i < results.size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(".[" + results.get(i).getInitials() + "]"
-                + "[" + results.get(i).getStatusIcon() + "] "
-                + results.get(i).getDescription()
-            );
+            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
         }
-        System.out.println(horiLine);
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -188,27 +172,23 @@ public class CLIView {
     public void listSchedule(TaskList taskList, String input) throws ParseException {
         // Correct format as 2 December 2019 6 PM
         Scanner sc = new Scanner(input);
-        String dummy = sc.next();
+        sc.next();
         String tempDate = sc.nextLine();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = formatter.parse(tempDate);
         String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);
-
-        System.out.println(horiLine);
         ArrayList<ITask> results = taskList.getSchedule(formattedDate);
+
+        ArrayList<String> toPrint = new ArrayList<>();
         if (results.isEmpty()) {
-            System.out.println("\tYour schedule for " + formattedDate + " is empty.");
+            toPrint.add("Your schedule for " + formattedDate + " is empty.");
         } else {
-            System.out.println("\tHere is the schedule for the specified date:");
+            toPrint.add("Here is the schedule for the specified date:");
             for (int i = 0; i < results.size(); i++) {
-                System.out.print("\t" + (i + 1));
-                System.out.println(".[" + results.get(i).getInitials() + "]"
-                        + "[" + results.get(i).getStatusIcon() + "] "
-                        + results.get(i).getDescription()
-                );
+                toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
             }
         }
-        System.out.println(horiLine);
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -218,20 +198,21 @@ public class CLIView {
      * @throws ParseException parsing error if date and time are not in correct format.
      */
     public void findFreeSlots(TaskList taskList, String input) throws ParseException {
-        System.out.println(horiLine);
         Scanner sc = new Scanner(input);
-        String tempDate = sc.next();
+        String tempDate;
         if (sc.hasNext()) {
             tempDate = sc.nextLine();
         } else {
             tempDate = "";
         }
 
+        ArrayList<String> toPrint = new ArrayList<>();
         ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
-        System.out.println("Here are the free time slots you have between your tasks:\n");
-        for (int i = 0; i < freeTimeSlots.size(); i++) {
-            System.out.println(freeTimeSlots.get(i));
+        toPrint.add("Here are the free time slots you have between your tasks:");
+        for (String freeTimeSlot : freeTimeSlots) {
+            toPrint.add(freeTimeSlot);
         }
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -246,5 +227,19 @@ public class CLIView {
         System.out.println(horiLine);
         rescheduleCommand.execute(taskList);
         System.out.println(horiLine);
+    }
+
+    /**
+     * Method called when users wishes to view all Projects that are currently created or stored.
+     * @param allProjects List of Projects returned to View model by the Controller from the Repository
+     */
+    public void viewAllProjects(ArrayList<IProject> allProjects) {
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Here are all the Projects you are managing:");
+        for (int i = 0; i < allProjects.size(); i++) {
+            toPrint.add("" + (i + 1) + ". " + allProjects.get(i).getDescription() + " "
+                + allProjects.get(i).getMembers());
+        }
+        consolePrint(toPrint.toArray(new String[0]));
     }
 }
