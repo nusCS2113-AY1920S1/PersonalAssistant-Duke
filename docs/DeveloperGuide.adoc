@@ -1,1 +1,74 @@
+= OPTIX - Developer Guide
+
+
+== Appendix A: Product Scope
+
+*Target user profile*:
+
+* Stakeholders like SISTIC theatre managers who need to track a large number of theatre bookings as well as seat bookings for each show.
+* Prefers CLI to mouse input.
+
+*Product*:
+
+* New shows by performers can be added to the list.
+* Seats requested by customers for a show can be booked by the theatre manager.
+* Program is desgined to price the seats according to the different tiers.
+* Revenue earned from a show can be calculated based on the seats booked.
+
+*Value proposition*: manage seats and finances faster than an average GUI-based app.
+
+== Appendix B: User stories
+
+// tag::base-alt[]
+[width="90"]
+|===
+|Priority |As a ... |I want to ... |So that I can ...
+|Must-have |new user |see the command summary |refer to them when I forgot how to use the system.
+
+|Must-have |user |book seats for customers and process the transaction |track my sales and avoid double-selling the same seat.
+
+|Must-have |user |add new shows to my current list |record the booking of the venue on a particular date.
+
+|Must-have |user |view all the seats of a particular show |inform my customers on the availability of seats.
+
+|Must-have |user |view the finances from each show |calculate my profit from my business.
+
+|Must-have |user |set the prices of the seats |vary seat prices depending on the popularity of the show.
+
+|Must-have |user |assign seats to customers |check where the customers are sitting.
+
+|Must-have |user |remove a particular show from my listing |free up the cancelled slot to other performers.
+
+|Must-have |freqeunt user |remove shows that have passed from my listing |reduce the quantity of shows in the listing to make it more tidy.
+
+|Must-have |user |set the tiers of the seats |set different prices depending on the popularity of the seats.
+
+|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. |
+
+Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction.
+
+Nice-to-have |user |refund seats before a certain date |resell the seats to other customers to increase profit.
+
+Nice-to-have |user |keep track of payments |track the expenditure by each customer and find out the specific amount for a refund(if applicable).
+
+Nice-to-have |user |reassign seats booked by customers |fulfill customers'requests to change seats.
+
+Nice-to-have |user |blacklist customers who break the rules |serve as a deterrent for potential troublemakers and avoid further losses.
+
+Nice-to-have |user |know the number of available seats in each tier for a particular show |get a rough idea of the number of seats left to sell from each tier.
+
+Nice-to-have |user |modify the prices of the seats relative to the date of the show |sell off the seats and maximise my profits.
+
+Nice-to-have |user |keep track of the number of tickets each customer can buy |limit the number of tickets a customer can buy to avoid ticket scalping.
+
+Nice-to-have |user |customer rewards system |encourage customers to visit more often and thank loyal customers for their patronage.
+
+Nice-to-have |user |view monthly revenue |compare earnings and make new policies to improve my business.
+
+Unlikely-to-have |user |put seats on hold |give customers more time to decide if they want to purchase the seats.
+
+Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support.
+
+
+
 
