@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.DateTime;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -71,12 +72,12 @@ public class SnoozeCommand extends Command {
             }
             if (isEvent) {
                 Event snoozeEvent = (Event) indexedTask;
-                snoozeEvent.setStartDate(startDate);
-                snoozeEvent.setEndDate(endDate);
+                snoozeEvent.setStartDate(new DateTime(startDate));
+                snoozeEvent.setEndDate(new DateTime(endDate));
             }
             if (isDeadline) {
                 Deadline snoozeDeadline = (Deadline) indexedTask;
-                snoozeDeadline.setStartDate(startDate);
+                snoozeDeadline.setStartDate(new DateTime(startDate));
             }
             List<String> formattedOutput = new ArrayList<>();
             formattedOutput.add("Noted. I've rescheduled this task:\n" + indexedTask.toString());
