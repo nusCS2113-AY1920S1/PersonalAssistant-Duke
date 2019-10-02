@@ -12,3 +12,12 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#data and test files
+/storeData.txt
+/text-ui-test/ACTUAL.TXT
+/text-ui-test/EXPECTED.txt
+/text-ui-test/input.txt
+/text-ui-test/storeData.txt
+
+

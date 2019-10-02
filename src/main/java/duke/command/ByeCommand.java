@@ -8,7 +8,7 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, FileHandling storage) {
-        isExit = true;
+        this.isExit = true;
         ui.exitDuke();
     }
 }
