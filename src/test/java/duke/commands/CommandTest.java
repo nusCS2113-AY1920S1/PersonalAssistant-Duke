@@ -35,6 +35,7 @@ class CommandTest {
         assertEquals(CommandType.BYE, new Command(CommandType.BYE).getType());
     }
 
+    /*
     @Test
     void execute_printList_empty() throws BadInputException {
         OutputStream os = new ByteArrayOutputStream();
@@ -54,5 +55,5 @@ class CommandTest {
         new AddCommand(CommandType.TODO, "Test TODO", "").execute(newList, ui, storage);
         new Command(CommandType.LIST).execute(newList, ui, storage);
         assertEquals("1. [T] [X] Test TODO\n", os.toString());
-    }
+    }*/
 }
