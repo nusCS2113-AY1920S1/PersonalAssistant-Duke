@@ -255,7 +255,7 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1. User does something that unlocks an achievement.
 
-2. Hstle will display a congratulatory message to the User and notify the achievement unlocked.
+2. Hustler will display a congratulatory message to the User and notify the achievement unlocked.
 
 3. Coins will be added to the User’s accumulated coins.
 
@@ -273,9 +273,9 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1. User completes a task.
 
-2. Hstle tells User about the task that he keyed as completed.
+2. Hustler tells User about the task that he keyed as completed.
 
-3. Hstle shows User experience points obtained from completing said task and his total accumulated points.
+3. Hustler shows User experience points obtained from completing said task and his total accumulated points.
 
 4. Use case ends.
 
@@ -287,15 +287,15 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1a. The given index is invalid.
 
-- 1a1. Hstle shows an error message, prompting User to type a valid number, given the size of the task list.
+- 1a1. Hustler shows an error message, prompting User to type a valid number, given the size of the task list.
 
 - Use case resumes at step 1.
 
 4a. User levels up from the completion.
 
-- 4a1. Hstle increases User’s level by 1.
+- 4a1. Hustler increases User’s level by 1.
 
-- 4a2. Hstle informs User on their current level and progress towards the next level.
+- 4a2. Hustler informs User on their current level and progress towards the next level.
 
 - Use case ends.
 
@@ -349,9 +349,9 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1. User inputs a duration to complete the tasks.
 
-2. Hstle will determine the recommended tasks to complete based on task’s priority and the hours needed to complete them.
+2. Hustler will determine the recommended tasks to complete based on task’s priority and the hours needed to complete them.
 
-3. Hstle will prompt the User if he wants to follow the recommended schedule.
+3. Hustler will prompt the User if he wants to follow the recommended schedule.
 
 4. Use case ends.
 
@@ -363,13 +363,13 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1a. The tasks do not have any hours given.
 
-- 1a1. Hstle prompts the User to first add the hours needed to complete each task.
+- 1a1. Hustler prompts the User to first add the hours needed to complete each task.
 
 - Use case ends.
 
 1b. The duration given fall short of every task’s allocated duration.
 
-- 1b1. Hstle prompts the User to increase the time allocated to complete the tasks.
+- 1b1. Hustler prompts the User to increase the time allocated to complete the tasks.
 
 - Use case resumes at step 1.
 
@@ -385,7 +385,7 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1. User searches a tag.
 
-2. Hstle shows all tasks that inherit the given tag.
+2. Hustler shows all tasks that inherit the given tag.
 
 3. Use case ends.
 
@@ -397,7 +397,7 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1a. The tag does not exist in any task.
 
-- 1a1. Hstle shows an empty list.
+- 1a1. Hustler shows an empty list.
 
 - Use case ends.
 
@@ -413,7 +413,7 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 1. User types the command to navigate to the statistics page.
 
-2. Hstle shows the current statistics of the User.
+2. Hustler shows the current statistics of the User.
 
 3. Use case ends.
 
