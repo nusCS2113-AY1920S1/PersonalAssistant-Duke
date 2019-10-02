@@ -31,7 +31,8 @@ public class SnoozeCommand extends Command {
         }
         this.split = temp.split(" /by ");
         try {
-            this.num = Integer.parseInt(splitStr[0]);
+            this.num = Integer.parseInt(split[0]) - 1;
+            this.hours = Integer.parseInt(split[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("☹ OOPS!!! Please input an integer for the task index!");
         }
@@ -46,7 +47,7 @@ public class SnoozeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        if (this.num < 1 || this.num > tasks.size()) {
+        if (this.num < 0 || this.num >= tasks.size()) {
             throw new DukeException("☹ OOPS!!! That task is not in your list");
         }
         if (tasks.get(num) instanceof Deadline) {
@@ -64,6 +65,8 @@ public class SnoozeCommand extends Command {
             throw new DukeException("☹ OOPS!!! This task cannot be postponed!");
         }
         storage.saveToFile(tasks);
+        ui.showString("Got it. I have postponed this task by " + hours + " hours.");
+        ui.showString(tasks.get(num).toString());
     }
 
     public Date addHoursToDate(Date date, int hours) {
