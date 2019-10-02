@@ -34,8 +34,10 @@ public class Duke {
         }
         ui.initializePages();
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        ui.showOrderPage();
+        ui.refreshInventoryList(bakingList.getInventoryList());
 
+        ui.showOrderPage();
+        ui.showInventoryPage();
         //////////
         ui.showRecipePage();
         //////////

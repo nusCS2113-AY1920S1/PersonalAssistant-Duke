@@ -17,7 +17,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="inventoryTable" prefHeight="162.0" prefWidth="594.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                              <TableView fx:id="inventoryListTable" prefHeight="162.0" prefWidth="594.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
                                 <columns>
                                     <TableColumn fx:id="inventoryListNum" prefWidth="75.0" text="S/N" />
                                   <TableColumn fx:id="inventoryListIngredient" prefWidth="425.0" text="Ingredient" />
@@ -39,7 +39,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="shoppingTable" prefHeight="165.33333333333334" prefWidth="596.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                              <TableView fx:id="shoppingListTable" prefHeight="165.33333333333334" prefWidth="596.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
                                 <columns>
                                     <TableColumn fx:id="shoppingListNum" prefWidth="75.0" text="S/N" />
                                   <TableColumn fx:id="shoppingListIngredient" prefWidth="325.0" text="Ingredient" />

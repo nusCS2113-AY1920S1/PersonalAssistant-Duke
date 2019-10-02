@@ -1,7 +1,9 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import duke.entities.Ingredient;
 import duke.entities.Order;
+import duke.entities.inventory.Inventory;
 import duke.logic.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MainWindow extends AnchorPane {
@@ -130,6 +133,9 @@ public class MainWindow extends AnchorPane {
         this.orderPage.refreshOrderList(orders, all);
     }
 
+    void refreshInventoryList(List<Inventory> inventory) {
+        this.inventoryPage.refreshInventoryList(inventory);
+    }
 
     void showOrderPage() {
         pagePane.getChildren().clear();

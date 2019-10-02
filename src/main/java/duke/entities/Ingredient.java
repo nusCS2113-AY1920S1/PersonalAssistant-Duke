@@ -9,11 +9,13 @@ public class Ingredient {
     private int expiryPeriod;
     private double cost;
 
-    public Ingredient (String name) {
+    public Ingredient() {}
+
+    public Ingredient(String name) {
         this.name = name;
     }
 
-    public Ingredient (String name, double cost) {
+    public Ingredient(String name, double cost) {
         this.name = name;
         this.cost = cost;
     }

@@ -1,7 +1,10 @@
 package duke.ui;
 
+import duke.entities.Ingredient;
 import duke.entities.Order;
+import duke.entities.inventory.Inventory;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Ui {
@@ -43,4 +46,11 @@ public class Ui {
         mainWindow.disableInput();
     }
 
+    public void refreshInventoryList(List<Inventory> inventory) {
+        mainWindow.refreshInventoryList(inventory);
+    }
+
+    public void showInventoryPage() {
+        mainWindow.showInventoryPage();
+    }
 }

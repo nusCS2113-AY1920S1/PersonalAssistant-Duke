@@ -34,7 +34,7 @@ public class AddOrderCommand extends UndoableCommand {
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         order = new Order();
-        CommandParser.modifyOrdrer(params, order);
+        CommandParser.modifyOrder(params, order);
         addOrder(order, bakingList);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());

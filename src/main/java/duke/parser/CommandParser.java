@@ -6,6 +6,8 @@ import duke.command.DeleteOrderCommand;
 import duke.command.EditOrderCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
+import duke.command.inventory.AddInventoryCommand;
+import duke.entities.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class CommandParser {
         return new EditOrderCommand(params);
     }
 
-    public static void modifyOrdrer(Map<String, List<String>> params, Order order) throws DukeException {
+    public static void modifyOrder(Map<String, List<String>> params, Order order) throws DukeException {
         if (params.containsKey("name")) {
             order.setCustomerName(params.get("name").get(0));
         }
@@ -146,4 +148,39 @@ public class CommandParser {
         return result;
     }
 
+    public static Command parseInventoryAdd(Map<String, List<String>> params) throws DukeException {
+        return new AddInventoryCommand(params);
+    }
+
+    public static void modifyInventory(Map<String, List<String>> params, Inventory inventory) {
+        if (params.containsKey("ingredient")) {
+            inventory.setName(params.get("ingredient").get(0));
+        }
+        if (params.containsKey("quantity")) {
+            inventory.setQuantity(Integer.parseInt(params.get("quantity").get(0)));
+        }
+        if (params.containsKey("cost")) {
+            inventory.setCost(Double.parseDouble(params.get("cost").get(0)));
+        }
+    }
+
+    /*
+    public static Command parseInventoryDelete(Map<String, List<String>> params) {
+    }
+
+    public static Command parseInventoryEdit(Map<String, List<String>> params) {
+    }
+
+    public static Command parseShoppingListAdd(Map<String, List<String>> params) {
+    }
+
+    public static Command parseShoppingListDelete(Map<String, List<String>> params) {
+    }
+
+    public static Command parseShoppingListEdit(Map<String, List<String>> params) {
+    }
+
+    public static Command parseShoppingListBuy(Map<String, List<String>> params) {
+    }
+     */
 }

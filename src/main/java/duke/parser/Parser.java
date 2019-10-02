@@ -15,6 +15,7 @@ public class Parser {
     private static final Set<String> reservedParameters = new HashSet<>(Arrays.asList(
             "line", "primary", "secondary", "cmd"
     ));
+    //Commands for order manager
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_ORDER = "order";
@@ -23,6 +24,14 @@ public class Parser {
     private static final String COMMAND_ORDER_EDIT = "edit";
     private static final String COMMAND_ORDER_COMPLETE = "done";
     private static final String COMMAND_SHORTCUT = "short";
+
+    //Commands for inventory manager
+    private static final String COMMAND_INVENTORY = "inv";
+    private static final String COMMAND_SHOPPING_LIST = "shop";
+    private static final String COMMAND_INVENTORY_ADD = "add";
+    private static final String COMMAND_INVENTORY_DELETE = "remove";
+    private static final String COMMAND_INVENTORY_EDIT = "edit";
+    private static final String COMMAND_INVENTORY_BUY = "buy";
 
     /**
      * Parses user input into a <code>Command</code> object.
@@ -43,6 +52,8 @@ public class Parser {
         switch (commandWord) {
             case COMMAND_ORDER:
                 return parseOrder(line);
+            case COMMAND_INVENTORY:
+                return parseInventory(line);
             case COMMAND_UNDO:
                 return parseUndo(line);
             case COMMAND_REDO:
@@ -155,6 +166,41 @@ public class Parser {
         }
     }
 
+    private static Command parseInventory(String line) throws DukeException {
+        Map<String, List<String>> params = parseCommandAndParams(line);
+        assert params.size() > 0;
+        switch (params.get("primary").get(0)) {
+            case COMMAND_INVENTORY_ADD:
+                return CommandParser.parseInventoryAdd(params);
+                /*
+            case COMMAND_INVENTORY_DELETE:
+                return CommandParser.parseInventoryDelete(params);
+            case COMMAND_INVENTORY_EDIT:
+                return CommandParser.parseInventoryEdit(params);
+                 */
+            default:
+                throw new DukeException("Invalid command");
+        }
+    }
+
+    /*
+    private static Command parseShoppingList(String line) throws DukeException {
+        Map<String, List<String>> params = parseCommandAndParams(line);
+        assert params.size() > 0;
+        switch (params.get("primary").get(0)) {
+            case COMMAND_INVENTORY_ADD:
+                return CommandParser.parseShoppingListAdd(params);
+            case COMMAND_INVENTORY_DELETE:
+                return CommandParser.parseShoppingListDelete(params);
+            case COMMAND_INVENTORY_EDIT:
+                return CommandParser.parseShoppingListEdit(params);
+            case COMMAND_INVENTORY_BUY:
+                return CommandParser.parseShoppingListBuy(params);
+            default:
+                throw new DukeException("Invalid command");
+        }
+    }
+    */
     private static Command parseUndo(String line) throws DukeException {
         return new UndoCommand();
     }

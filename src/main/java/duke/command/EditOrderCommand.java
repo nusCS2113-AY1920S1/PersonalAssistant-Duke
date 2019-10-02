@@ -42,7 +42,7 @@ public class EditOrderCommand extends UndoableCommand {
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         order = getOrder(bakingList);
-        CommandParser.modifyOrdrer(params, order);
+        CommandParser.modifyOrder(params, order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
@@ -51,7 +51,7 @@ public class EditOrderCommand extends UndoableCommand {
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         order = getOrder(bakingList);
         copyOrder(unmodifiedOrder, order);
-        CommandParser.modifyOrdrer(params, order);
+        CommandParser.modifyOrder(params, order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
