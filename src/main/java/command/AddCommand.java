@@ -1,8 +1,3 @@
-/**
- * Represents a command from user to add a task.
- * Inherits from Command class.
- * @author Zhang Yue Han
- */
 package command;
 
 import storage.Storage;
@@ -10,7 +5,11 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-
+/**
+ * Represents a command from user to add a task.
+ * Inherits from Command class.
+ * @author Zhang Yue Han
+ */
 public class AddCommand extends Command {
 
     /**

@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Represents the object that manages todo tasks.
+ * Inherits from Task class.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

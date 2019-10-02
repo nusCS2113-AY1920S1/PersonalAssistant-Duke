@@ -1,4 +1,5 @@
 package task;
+
 public class FixedDuration extends Task {
     public FixedDuration(String description, String date) {
         super(description);
@@ -15,7 +16,8 @@ public class FixedDuration extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + "(needs: " + getDate() + ")";
+        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription()
+                + "(needs: " + getDate() + ")";
     }
 
     @Override

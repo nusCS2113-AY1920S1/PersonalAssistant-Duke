@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
      * @param num the index of the task specified by the user
      */
     public DoneCommand(int num) {
-        index = num-1;
+        index = num - 1;
     }
 
     /**
@@ -38,7 +38,9 @@ public class DoneCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            if (index > tasks.getSize() || tasks.getList().isEmpty()) { throw new DukeException(DukeException.ErrorType.INDEX_EXCEEDED); }
+            if (index > tasks.getSize() || tasks.getList().isEmpty()) {
+                throw new DukeException(DukeException.ErrorType.INDEX_EXCEEDED);
+            }
             tasks.markItemDone(index);
             storage.writeFile(tasks.getArrayData(), false, "src/main/data/duke.txt");
             ui.showDone(tasks.getTaskItem(index));

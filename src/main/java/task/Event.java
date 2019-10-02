@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Represents the object that manages event tasks.
+ * Inherits from Task class.
+ */
 public class Event extends Task {
 
     public Event(String description, String date) {
@@ -17,7 +21,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + "(at: " + getDate() + ")";
+        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription()
+                + "(at: " + getDate() + ")";
     }
 
     @Override
