@@ -1,11 +1,16 @@
 # Eggventory Systems Ltd.
 
+<p align = "center"> <img src="./images/Raghav-B.png" alt="Temp"> </p>
+*Insert Image here*
+
 ## Introduction
+For far too long the Faculty of Engineering's (FoE) lab technicians have had to deal with convoluted and time-consuming methods of tracking their inventory through Excel sheets or even sometimes using pen and paper!
 
+Worse still, when it comes to loaning out items to students, items often go missing without any system to remind lab technicians to recollect items or renew loans.
 
+The time spent on this administrative burden could be better spent on continually improving lab facilities, and even opening up the lab to more students to support an improved culture of innovation within FoE!
 
-
-
+We hope to drive this change by creating an inventory management system that is specialized and technical enough to meet the requirements of lab technicians, while being general enough to be used across multiple Engineering labs.
 
 ## Project scope
 
