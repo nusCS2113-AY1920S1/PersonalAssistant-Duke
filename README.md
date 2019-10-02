@@ -2,7 +2,7 @@
 
 A java program for those who prefer to use a desktop app for researching on degrees from NUS' Faculty of Engineering. 
 
-## Scope of Functionalities
+## Features
 * Scrapes course information from the NUS database
 * Ranking system for courses
 * Display course information and module information
@@ -33,4 +33,6 @@ Currently, this project only contains a task manager. We are currently in the pr
 ## UI
 
 ![UI](docs/images/UI.png)
+
+## Contributers
 
