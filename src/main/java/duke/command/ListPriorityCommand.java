@@ -25,6 +25,7 @@ public class ListPriorityCommand extends Command{
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the list of tasks stored in task list.
+     * @param priorities The list of priorities.
      */
 
     public void execute(TaskList items, PriorityList priorities, Ui ui) {
