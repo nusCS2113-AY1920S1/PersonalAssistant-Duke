@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'application'
     id 'checkstyle'
 
 }
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
@@ -23,13 +23,6 @@ repositories {
     mavenCentral()
 }
 
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.sourceSets' ]
-}
-
-fxml.main.java.srcDirs = ['src']
-
 shadowJar {
     archiveBaseName = "duke"
     archiveVersion = "0.1.3"
@@ -43,6 +36,13 @@ checkstyle {
 
 application {
     // Change this to your main class.
+
     mainClassName = "duke.Duke"
+
+
+}
+
+run {
+    standardInput = System.in
 }
 

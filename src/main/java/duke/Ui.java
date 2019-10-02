@@ -126,7 +126,7 @@ public class Ui {
      */
     public String formatDone(ArrayList<Task> list, int index) {
         String result;
-        if(list.get(index - 1) instanceof RecurringTask){
+        if (list.get(index - 1) instanceof RecurringTask) {
             result = "Nice! I've marked this task as done:\n "
                     + ((RecurringTask)list.get(index - 1)).toOldString()
                     + "\n";
@@ -147,13 +147,13 @@ public class Ui {
      * @param index the index of the item that was deleted
      * @return the formatted String to be displayed
      */
-    public String formatDelete(ArrayList<Task> list, int index) {
+    public String formatDelete(ArrayList<Task> list,ArrayList<Task> newList, int index) {
         String word = (list.size() == 2) ? "task" : "tasks";
         String result = "Noted! I've removed this task:\n "
                 + list.get(index - 1).toString()
                 + "\n"
                 + "Now you have "
-                + (list.size() - 1)
+                + (newList.size())
                 + " "
                 + word
                 + " in the list.";
@@ -180,6 +180,12 @@ public class Ui {
         return wrap(result);
     }
 
+    /**
+     * Returns a String for the items that need to be reminded from a list.
+     *
+     * @param list the task list.
+     * @return the formatted String to be displayed.
+     */
     public String formatReminder(ArrayList<Task> list) {
         if (list.size() == 0) {
             return "";
