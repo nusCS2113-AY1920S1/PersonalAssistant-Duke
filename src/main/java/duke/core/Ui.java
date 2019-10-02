@@ -201,19 +201,21 @@ public class Ui {
     }
 
     public void showHelpCommand () {
-        System.out.println("1. list - to show a list of tasks\n");
-        System.out.println("2. delete - to delete a task\n");
+        System.out.println("Here are the things you can do with Dukepital:\n");
+        System.out.println("1. list - to show a list of all the tasks\n");
+        System.out.println("2. delete - to delete a task in the list\n");
         System.out.println("3. done - to set a task as completed\n");
-        System.out.println("4. find - to find a task from the list\n");
+        System.out.println("4. find - to find a task based on keywords from the list\n");
         System.out.println("5. todo - to add a todo task\n");
-        System.out.println("6. fixeddurationtask - to add a fixed duration task\n");
-        System.out.println("7. deadline - to add a deadline task\n");
-        System.out.println("8. event - to add a event task\n");
+        System.out.println("6. fixeddurationtask - to add a task with fixed duration\n");
+        System.out.println("7. deadline - to add a task with a deadline\n");
+        System.out.println("8. event - to add a task with date ad time\n");
         System.out.println("9. period - to add a period task\n");
         System.out.println("10. reschedule  - to reschedule a task\n");
-        System.out.println("11. view - to see a task of a specific date\n");
+        System.out.println("11. view - to check a task of a specific date\n");
         System.out.println("12. recurring - to make a task recurring\n");
-        System.out.println("13. bye - to quit Dukepital\n");
+        System.out.println("13. bye - to exit Dukepital\n");
+        System.out.println("If you have any further enquiries, please contact us directly.\n");
     }
 
     /**
