@@ -13,8 +13,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::nwjbrandon.png[width="150", align="left"]
 {empty}[http://github.com/nwjbrandon[github]] [<<nwjbrandon#, portfolio>>]
 
-Role: ???
-Responsibilities: ???
+Role: Software Developer
+Responsibilities: Game scene and sound effect
 
 '''
 
@@ -22,8 +22,8 @@ Responsibilities: ???
 image::sevenmatt7.png[width="150", align="left"]
 {empty}[http://github.com/sevenmatt7[github]] [<<sevenmatt7#, portfolio>>]
 
-Role: ???
-Responsibilities: ???
+Role: Software Developer
+Responsibilities: Game inputs and animation
 
 '''
 
@@ -31,8 +31,8 @@ Responsibilities: ???
 image::modakshantanu.png[width="150", align="left"]
 {empty} [https://github.com/modakshantanu[github]] [<<modakshantanu#, portfolio>>]
 
-Role: ???
-Responsibilites: ???
+Role: Software Developer
+Responsibilites: Content for data structures and algorithms
 
 '''
 
@@ -40,8 +40,8 @@ Responsibilites: ???
 image::therealcs1010.png[width="150", align="left"]
 {empty}[http://github.com/therealcs1010[github]] [<<therealcs1010#, portfolio>>]
 
-Role: ???
-Responsibilities: ???
+Role: Software Developer
+Responsibilities: Questions on data structures and algorithms
 
 '''
 
@@ -49,7 +49,7 @@ Responsibilities: ???
 image::carrieng0323852.png[width="150", align="left"]
 {empty}[http://github.com/carrieng0323852[github]] [<<carrieng0323852#, portfolio>>]
 
-Role: ???
-Responsibilities: ???
+Role: Software Developer
+Responsibilities: Input parser and data handling
 
 '''
