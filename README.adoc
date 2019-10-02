@@ -15,7 +15,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * This is an application intended for nurses within hospitals. It has a GUI, but most of the user interactions occurring will be using CLI.
-* The purpose of this application is to provide an organizational tool for nurses, allowing them to categorize tasks/information based on their patients, encouraging timeliness and higher quality of provided care.
+* The purpose of this application is to provide an organizational tool for nurses, allowing them to categorize tasks/information based on their patients. This encourages timeliness and higher quality of provided care.
 * Dukepital is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC) than what students usually write in beginner-level SE modules.
 == Site Map
 
