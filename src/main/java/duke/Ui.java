@@ -50,6 +50,13 @@ public class Ui {
     }
 
     /**
+     * Prints error message to CLI
+     */
+    public void printError(Exception e) {
+        System.out.println("Parser error: \n" + e);
+    }
+
+    /**
      * Prints the duke exit message.
      */
     public void printExitMessage() {

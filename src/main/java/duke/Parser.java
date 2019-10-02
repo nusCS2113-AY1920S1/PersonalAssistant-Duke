@@ -122,14 +122,12 @@ public class Parser {
         case "done":
             command = new NumCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
-        case "delete": {
+        case "delete":
             command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
-        }
-        case "snooze": {
+        case "snooze":
             command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
             break;
-        }
 
         //Commands which require string input.
         case "todo":
@@ -203,25 +201,17 @@ public class Parser {
      *
      * @return an array where the first item is the command word and the second item is the rest of the text.
      */
-    public Command parse(String userInput) {
+    public Command parse(String userInput) throws Exception {
 
         Command userCommand;
 
         //TODO: Make this a do-while that waits for a good input?
-        //TODO: Shift this implementation to the Ui class
         try {
             userCommand = handleListInput(userInput);
         } catch (NumberFormatException e) {
-            System.out.println("Please input only an integer after the command.");
-            userCommand = new Command();
-
-        } catch (Exception e) {
-            System.out.println("Parser error: ");
-            System.out.println(e);
-            userCommand = new Command();
+            throw new NumberFormatException("Please input only an integer after the command.");
         }
 
         return userCommand;
     }
-
 }
