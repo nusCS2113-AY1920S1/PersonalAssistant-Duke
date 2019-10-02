@@ -62,4 +62,12 @@ public class Duke {
         ui.showMessage("Bye. Hope to see you again!");
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.toString();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
