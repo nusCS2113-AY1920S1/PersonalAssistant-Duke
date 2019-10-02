@@ -1,7 +1,9 @@
 package duke.core;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 public class DateTimeParser {
 
@@ -12,7 +14,7 @@ public class DateTimeParser {
      * @return A LocalDateTime object that contains date and time information.
      */
     public static LocalDateTime convertToLocalDateTime(String timeBeforeFormat) throws DukeException {
-        java.time.format.DateTimeFormatter parser = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime localDateTime;
         try {
             localDateTime = LocalDateTime.parse(timeBeforeFormat, parser);
@@ -30,10 +32,10 @@ public class DateTimeParser {
      * @return A String that provides date and time in English
      */
     public static String convertToEnglishDateTime(String timeBeforeFormat) throws DukeException {
-        java.time.format.DateTimeFormatter stFormatter = java.time.format.DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
-        java.time.format.DateTimeFormatter ndFormatter = java.time.format.DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
-        java.time.format.DateTimeFormatter rdFormatter = java.time.format.DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
-        java.time.format.DateTimeFormatter thFormatter = java.time.format.DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
+        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
+        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
+        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
+        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
 
         try{
             LocalDateTime localDateTime;

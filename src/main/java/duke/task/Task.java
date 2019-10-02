@@ -3,15 +3,9 @@ package duke.task;
 import duke.core.DateTimeParser;
 import duke.core.DukeException;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
+
 
 /**
  * Represents a task.  Task is an abstract class that can not be
@@ -25,12 +19,12 @@ public abstract class Task {
     protected String description;
 
     /**
-     * A boolean that represents the status of the task( 1 means done, 0 means not yet)
+     * A boolean that represents the status of the task( 1 means done, 0 means not yet).
      */
     protected boolean isDone;
 
     /**
-     * a localDateTime constructor to save the date and time
+     * a localDateTime constructor to save the date and time.
      */
     protected LocalDateTime ld = null;
 
@@ -69,7 +63,7 @@ public abstract class Task {
     }
 
     /**
-     * Check if the task isDone
+     * Check if the task isDone.
      *
      * @return boolean value of isDone
      */
@@ -78,7 +72,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string with the following format to be stored in a local file
+     * Returns a string with the following format to be stored in a local file.
      *
      * @return A string in a specific format to be stored in a local file.
      */
@@ -97,17 +91,18 @@ public abstract class Task {
     public void makeTaskRecurring(RecurringFrequency frequency) {
         isRecurring = true;
         switch (frequency) {
-            case DAILY:
-                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
-                break;
-            case WEEKLY:
-                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.WEEKLY);
-                break;
-            case MONTHLY:
-                this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.MONTHLY);
-                break;
-            case ONCE:
-                break;
+        case DAILY:
+            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
+            break;
+        case WEEKLY:
+            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.WEEKLY);
+            break;
+        case MONTHLY:
+            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.MONTHLY);
+            break;
+        case ONCE:
+            break;
+            //Do at in a default case here
         }
         if (this.recurringTask != null) {
             this.recurringTask.recurringTaskTimeUpdate(this);
@@ -137,35 +132,6 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
-
-
-
-//    /**
-//     * Returns a string that representing the data and time for the task
-//     * in a predefined date time format.
-//     * @param timeBeforeFormat a string that provides the data and time information.
-//     * @return A string that represents the specific activity associated with
-//     * the task.
-//     */
-//    public String timeFormatter(String timeBeforeFormat) {
-//        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
-//        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
-//        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
-//        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
-//
-//        String output;
-//
-//        if ((ld.getDayOfMonth() % 10) == 1) {
-//            output = ld.format(stFormatter);
-//        } else if ((ld.getDayOfMonth() % 10) == 2) {
-//            output = ld.format(ndFormatter);
-//        } else if ((ld.getDayOfMonth() % 10) == 3) {
-//            output = ld.format(rdFormatter);
-//        } else {
-//            output = ld.format(thFormatter);
-//        }
-//        return output;
-//    }
 
     /**
      * update the <code>LocalDateTime</> constructor to save the date and time

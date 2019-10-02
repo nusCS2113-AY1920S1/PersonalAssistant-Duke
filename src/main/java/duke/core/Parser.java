@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
  * type of Command.
  */
 public class Parser {
-    private static String[] substring;
 
     /**
      * Parses a Task from a string array.

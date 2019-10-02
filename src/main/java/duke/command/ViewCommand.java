@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
@@ -39,7 +38,7 @@ public class ViewCommand extends Command {
      * @param storage object that handles local text file update
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showSchedules(tasks.fullTaskList(), date);
     }
 
