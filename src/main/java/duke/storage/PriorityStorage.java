@@ -41,7 +41,12 @@ public class PriorityStorage {
         return items;
     }
 
-
+    /**
+     * Updates the text file from interpreting the priorities of the priorityList
+     *
+     * @param priorityList The list of priorities associated with each task.
+     * @throws IOException  If there is an error writing the text file.
+     */
     public void write(PriorityList priorityList) throws IOException {
         String fileContent = "";
         for (int i = 0; i < priorityList.getSize(); i++) {
