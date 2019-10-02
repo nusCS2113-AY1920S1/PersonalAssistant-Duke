@@ -21,7 +21,7 @@ public class EventTest {
      */
     @Test
     public void writeFormatTest() throws DukeException {
-        assertEquals( "E | 0 | test | 02/12/1996 1235 | false",new Event("test", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "E | 0 | test | 02/12/1996 1235 | ONCE",new Event("test", "02/12/1996 1235").writeTxt(), "The writeToFile format is not expected");
     }
 
     /**
@@ -48,12 +48,12 @@ public class EventTest {
         Event event = new Event("eventTest", "02/12/1996 1235");
         assertFalse(event.isDone(), "The newly created event should not be done");
         assertEquals( "[E][\u2718] eventTest (at: 2nd of December 1996, 12PM)",event.toString(), "The writeToFile format is not expected");
-        assertEquals( "E | 0 | eventTest | 02/12/1996 1235 | false",event.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "E | 0 | eventTest | 02/12/1996 1235 | ONCE",event.writeTxt(), "The writeToFile format is not expected");
 
         // Mark the event as done and check its toString() and writeTxt()
         event.markAsDone();
         assertTrue(event.isDone(), "The event should be marked as done");
         assertEquals("[E][\u2713] eventTest (at: 2nd of December 1996, 12PM)", event.toString(), "The event.toString() is not expected");
-        assertEquals( "E | 1 | eventTest | 02/12/1996 1235 | false",event.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "E | 1 | eventTest | 02/12/1996 1235 | ONCE",event.writeTxt(), "The writeToFile format is not expected");
     }
 }

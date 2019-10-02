@@ -21,7 +21,7 @@ public class TodoTest {
      */
     @Test
     public void writeFormatTest() {
-        assertEquals( "T | 0 | todoTest | false",new Todo("todoTest").writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "T | 0 | todoTest | ONCE",new Todo("todoTest").writeTxt(), "The writeToFile format is not expected");
     }
 
     /**
@@ -48,12 +48,12 @@ public class TodoTest {
         Todo todo = new Todo("todoTest");
         assertFalse(todo.isDone(), "The newly created todo should not be done");
         assertEquals( "[T][\u2718] todoTest",todo.toString(), "The writeToFile format is not expected");
-        assertEquals( "T | 0 | todoTest | false",todo.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "T | 0 | todoTest | ONCE",todo.writeTxt(), "The writeToFile format is not expected");
 
         // Mark the task as done and check its toString() and writeTxt()
         todo.markAsDone();
         assertTrue(todo.isDone(), "The todo should be marked as done");
         assertEquals("[T][\u2713] todoTest", todo.toString(), "The todo.toString() is not expected");
-        assertEquals( "T | 1 | todoTest",todo.writeTxt(), "The writeToFile format is not expected");
+        assertEquals( "T | 1 | todoTest | ONCE",todo.writeTxt(), "The writeToFile format is not expected");
     }
 }
