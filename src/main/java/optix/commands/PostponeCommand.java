@@ -32,9 +32,11 @@ public class PostponeCommand extends Command {
         LocalDate localOldDate = formatter.toLocalDate(oldDate);
         LocalDate localNewDate = formatter.toLocalDate(newDate);
 
-        if (localOldDate.compareTo(today) > 0) {
+
+        if (localOldDate.compareTo(today) <= 0) {
             message = response.SHOW_OVER;
-        } else if (localNewDate.compareTo(today) > 0) {
+        } else if (localNewDate.compareTo(today) <= 0) {
+
             message = response.POSTPONE_PAST;
         } else {
             if (!shows.containsKey(localOldDate)) {

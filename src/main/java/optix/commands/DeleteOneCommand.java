@@ -14,7 +14,9 @@ public class DeleteOneCommand extends Command {
 
 	private OptixDateFormatter formatter = new OptixDateFormatter();
 
-	public DeleteOneCommand(String showDate, String showName) {
+
+	public DeleteOneCommand(String showName, String showDate) {
+
 		this.showDate = showDate;
 		this.showName = showName;
 	}

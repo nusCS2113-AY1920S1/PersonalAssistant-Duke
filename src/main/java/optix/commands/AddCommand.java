@@ -34,7 +34,7 @@ public class AddCommand extends Command {
 
         if (showLocalDate.compareTo(today) <= 0) {
             ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
-        } else if (shows.containsKey(date)) {
+        } else if (shows.containsKey(showLocalDate)) {
             // to abstract the  date formatting in the future extensions
             ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
                     + "Please try again. \n");

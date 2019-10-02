@@ -11,9 +11,12 @@ import optix.commands.ListShowCommand;
 import optix.commands.PostponeCommand;
 import optix.commands.SellSeatCommand;
 import optix.commands.ViewSeatsCommand;
+import optix.exceptions.OptixException;
+import optix.exceptions.OptixInvalidCommandException;
 
 public class Parser {
-    public static Command parse(String fullCommand) {
+    public static Command parse(String fullCommand) throws OptixException {
+
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
       
@@ -26,9 +29,10 @@ public class Parser {
             case "help":
                 return new HelpCommand();
             default:
-                return null;
+                throw new OptixInvalidCommandException();
             }
-        } else {
+        } else if (splitStr.length == 2) {
+
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
             switch (splitStr[0].toLowerCase()) {
             case "sell":
@@ -47,15 +51,23 @@ public class Parser {
                 return parseDeleteAllOfShow(splitStr[1]);
             case "delete": // e.g. delete 2/10/2019|poto
                 return parseDeleteOneOfShow(splitStr[1]);
+            case "help":
+                return new HelpCommand(splitStr[1].trim());
             default:
-                return null;
+                throw new OptixInvalidCommandException();
             }
+        } else {
+            throw new OptixInvalidCommandException();
         }
     }
 
-    private static Command parsePostpone(String postponeDetails) {
+    private static Command parsePostpone(String postponeDetails) throws OptixInvalidCommandException {
         String[] splitStr = postponeDetails.trim().split("\\|", 3);
-        // need to check if size of array is 3, if not throw exception
+
+        if (splitStr.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+
         String showName = splitStr[0].trim();
         String oldDate = splitStr[1].trim();
         String newDate = splitStr[2].trim();
@@ -63,25 +75,32 @@ public class Parser {
         return new PostponeCommand(showName, oldDate, newDate);
     }
 
-    private static Command parseAddShow(String showDetails) {
+    private static Command parseAddShow(String showDetails) throws OptixInvalidCommandException, NumberFormatException {
         String[] splitStr = showDetails.trim().split("\\|", 4);
-        // need to check if size of array is 3, if not throw exception
+
+        if (splitStr.length != 4) {
+            throw new OptixInvalidCommandException();
+        }
+
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
-        // need to add a NumberFormatException here
         double showCost = Double.parseDouble(splitStr[2]);
         double seatBasePrice = Double.parseDouble(splitStr[3]);
 
         return new AddCommand(showName, showDate, showCost, seatBasePrice);
-
     }
 
     // delete a single show on a particular date
-    private static Command parseDeleteOneOfShow(String showDetails) {
+    private static Command parseDeleteOneOfShow(String showDetails) throws OptixInvalidCommandException {
         String[] splitStr = showDetails.trim().split("\\|");
-        String showName = splitStr[0];
-        String showDate = splitStr[1];
-        // should add exception when no date is entered.
+
+        if (splitStr.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+
+        String showName = splitStr[0].trim();
+        String showDate = splitStr[1].trim();
+
         return new DeleteOneCommand(showName, showDate);
     }
 
@@ -92,25 +111,37 @@ public class Parser {
         return new DeleteAllCommand(splitStr);
     }
 
-    private static Command parseViewSeating(String showDetails) {
+    private static Command parseViewSeating(String showDetails) throws OptixInvalidCommandException {
         String[] splitStr = showDetails.trim().split("\\|");
+
+        if (splitStr.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
 
         return new ViewSeatsCommand(showName, showDate);
     }
 
-    private static Command parseSellSeats(String details) {
+    private static Command parseSellSeats(String details) throws OptixInvalidCommandException {
         String[] splitStr = details.trim().split("\\|");
+
+        if (splitStr.length < 3 || splitStr.length > 4) {
+            throw new OptixInvalidCommandException();
+        }
+
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
         String buyerName = splitStr[2].trim();
+
         if(splitStr.length == 4) {
             String seats = splitStr[3].trim();
-            return new SellSeatCommand(showName, showDate, buyerName, seats);
 
+            return new SellSeatCommand(showName, showDate, buyerName, seats);
         }
 
-        return new SellSeatCommand(showName, showDate, showName);
+        return new SellSeatCommand(showName, showDate, buyerName);
+
     }
 }

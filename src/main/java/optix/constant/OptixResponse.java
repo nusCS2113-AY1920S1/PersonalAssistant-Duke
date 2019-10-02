@@ -40,12 +40,13 @@ public class OptixResponse {
     public final String ADD = "Got it. I've added this show:\n";
 
     public final String MENU = "Here are the Commands to use Optix: \n"
-                                + "To add a new show:                               add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE\n"
-                                + "To delete shows with particular name:            delete-all SHOW_NAME_1|SHOW_NAME_2 | ...\n"
-                                + "To delete shows with specific name and date:     delete SHOW_NAME|SHOW_DATE\n"
-                                + "To list all shows for viewing:                   list\n"
-                                + "To list all dates for a specific show:           list SHOW_NAME\n"
-                                + "To postpone a show to a later date:              postpone SHOW_NAME | OLD_DATE | NEW_DATE\n"
-                                + "To sell seats to the audience:                   sell SHOW_NAME | SHOW_DATE | BUYER_NAME\n"
-                                + "To view availability of seats for a show:        view SHOW_NAME | SHOW_DATE\n";
+                                + "To add a new show:                            add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE\n"
+                                + "To delete shows with particular name:         delete-all SHOW_NAME_1|SHOW_NAME_2 | ...\n"
+                                + "To delete shows with specific name and date:  delete SHOW_NAME|SHOW_DATE\n"
+                                + "To list all shows for viewing:                list\n"
+                                + "To list all dates for a specific show:        list SHOW_NAME\n"
+                                + "To postpone a show to a later date:           postpone SHOW_NAME | OLD_DATE | NEW_DATE\n"
+                                + "To sell seats to the audience:                sell SHOW_NAME | SHOW_DATE | BUYER_NAME\n"
+                                + "To view availability of seats for a show:     view SHOW_NAME | SHOW_DATE\n";
+
 }
