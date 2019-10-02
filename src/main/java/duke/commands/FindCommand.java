@@ -25,17 +25,21 @@ public class FindCommand extends Command {
         int max = list.getSize();
         boolean found = false;
 
+        String listString = "";
         for (int i = 0; i < max; i++) {
             if (list.getTask(i).getDescription().contains(search)) {
-                System.out.print(i + 1 + ". "); //Print the index of the task.
-                list.getTask(i).printTaskDetails();
+                // Adding task to print with associated index to final string
+                // TODO: Change to stringbuilder - Raghav
+                listString += (i + 1 + ". " + list.getTask(i).toString() + "\n");
                 found = true;
             }
         }
 
         if (!found) {
-            ui.print("Sorry, I could not find any tasks containing the description \"" + search + "\".\n" +
-                    "Please try a different search string.");
+            ui.print("Sorry, I could not find any tasks containing the description \"" +
+                    search + "\".\nPlease try a different search string.");
+        } else {
+            ui.print(listString);
         }
     }
 

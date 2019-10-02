@@ -43,6 +43,7 @@ public class Task {
         return isDone;
     }
 
+    // TODO: Deprecated, remove in future commit
     public void printTaskDetails() {
         System.out.println(toString());
     }
