@@ -10,7 +10,7 @@ class RecurringTaskTest {
 
     @Test
     void testToString() {
-        LocalDateTime startDate = LocalDateTime.of(2019, 10, 2, 8, 8);
+        LocalDateTime startDate = LocalDateTime.of(2219, 10, 2, 8, 8);
         RecurringTask recurringTask = new RecurringTask("Homework", startDate, 2);
         recurringTask.updateRecurringTask();
         assertEquals(recurringTask.toString(), "[R][✘] Homework by "
