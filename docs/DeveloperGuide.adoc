@@ -23,14 +23,17 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Target user profile
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* has a need to manage multiple projects
+* leader of the team
+* project manager
+* prefer desktop apps over other types and prefer typing over mouse input
+* is comfortable using CLI apps
+
 
 == Value proposition
- manage contacts faster than a typical mouse/GUI driven app
+ The Duke personal assistant application will enable team leader to efficiently plan schedules, save time, and assign proper amount of tasks to team members, while providing an intuitive GUI for them to visualise and easily keep track of the team progress.
+ User can use this app to manage projects faster than a typical mouse/GUI driven app.
+
 
 [appendix]
 
@@ -38,20 +41,30 @@ Refer to the guide <<SettingUp#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="95%",cols="10%,<23%,<37%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|Priority |As  ... |I want to ... |So that I can...
+| |an advanced user |use typed commands to interact with Duke Pro |
+| |an advanced user |Duke Pro’s saved data to be easily modifiable |
+| |a user with many different types of tasks |Duke Pro to be able to categorise tasks through tags|
+| |a busy user |an effective summary of the tasks that are coming up in the calendar |
+| |a user |Duke to be able to filter tasks based on a variety of factors |
+| |a user with many tasks |Duke Pro to have a calendar GUI for visualisation |
+| |a forgetful user |Duke Pro can notify me before the event or deadline |
+| |a new user |to be given suggestions on the types of commands I can use |
+| |a careless typer |Duke to give suggestions of closest matches to the wrong command I typed |
+| |a user |Duke to be able to accomodate recurring events |
+| |a non-computer savvy user |type natural language to manage my task list |
+| |a fast typer |Duke Pro can auto correct my typo-errors |
+| |a fast typer |Duke to be able to auto complete my commands |
+| |a user |Duke to incorporate different colour schemes, e.g dark mode |
+| |a power user |Duke to have a log of my previous commands(press up to see previous commands) |
+| |a user |Duke support shorter command. (e.g. list→ls) |
+| |a user |input the date conveniently |
+| |a user |use Duke to export my calendar to different formats, such as text, pdf, image, so that I can share it with my friends |
+| |a busy project manager |Duke can handle multiple projects at the same time |
+| |a fair manager |Duke to show every team members’ workload |won’t assign too much task to one person
+| |a manager |Duke can help me track the progress of the project |
 |=======================================================================
 
 _{More to be added}_
@@ -59,39 +72,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+* User enters Duke → searches for task by description/id → adds tag to class(e.g important).
+* User enters todo into command line → adds in remind me flag → enters command.
+* User enters Duke → types calendar command → Duke displays the calendar for an overview → User then types list → Duke displays tasks at a more detailed level.
 
-[discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* Login security, basic SHA256 protection of user’s password.
+* Storing the data.
+* Parsing the data into a readable text file so that power users can easily edit them.
+* Parsing user input.
+* Suggestion of relevant commands based on closest fit.
+* Duke can be used in any OS.
