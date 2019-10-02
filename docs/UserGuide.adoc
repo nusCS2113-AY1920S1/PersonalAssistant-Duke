@@ -119,38 +119,38 @@ Format: `bye`
 
 * *Add*: `add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE`
 
-Eg. add Phantom of the Opera|5/5/2020|2000|20
+  Eg. add Phantom of the Opera|5/5/2020|2000|20
 
 * *Bye*
 
 * *Delete-all*: `delete-all SHOW_NAME_1|SHOW_NAME_2 | ...`
 
-Eg. delete-all Phantom of the Opera | Lion King
+  Eg. delete-all Phantom of the Opera | Lion King
 
 * *Delete*: `delete SHOW_NAME|SHOW_DATE`
 
-Eg. delete-one Phantom of the Opera|5/5/2020
+  Eg. delete-one Phantom of the Opera|5/5/2020
 
 * *List*: `list`
 
 * *List*: `list SHOW_NAME`
 
-Eg. list Phantom of the Opera
+  Eg. list Phantom of the Opera
 
 * *Postpone*: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 
-Eg. postpone Phantom of the Opera|5/5/2020|10/5/2020
+  Eg. postpone Phantom of the Opera|5/5/2020|10/5/2020
 
 * *Sell*: `sell SHOW_NAME|SHOW_DATE|BUYER_NAME|SEAT1 SEAT2 SEAT3 …`
 
-Eg. sell Phantom of the Opera|5/5/2020|Mary Lim| C1 D6 E10
+  Eg. sell Phantom of the Opera|5/5/2020|Mary Lim| C1 D6 E10
   
-  Alternatively : `sell SHOW_NAME | SHOW_DATE | BUYER_NAME`
+  Alternatively: `sell SHOW_NAME | SHOW_DATE | BUYER_NAME`
 
-Eg. sell Phantom of the Opera|5/5/2020|Mary Lim
+  Eg. sell Phantom of the Opera|5/5/2020|Mary Lim
 
 * *View*: `view SHOW_NAME | SHOW_DATE`
 
-Eg. View Phantom of the Opera | 5/5/2020
+  Eg. View Phantom of the Opera | 5/5/2020
 
 * *Help*
