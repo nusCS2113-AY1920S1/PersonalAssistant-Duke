@@ -1,7 +1,6 @@
 package seedu.duke.email;
 
 import seedu.duke.Parser;
-import seedu.duke.email.Email;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class EmailList extends ArrayList<Email> {
         int index = 0;
         String listOfEmails = "This is your list of emails " + "(total of " + this.size() + "): ";
         for (Email email : this) {
-            listOfEmails += "\n" + (++index) + ". " + email.getTitle();
+            listOfEmails += "\n" + (++index) + ". " + email.getSubject();
         }
         return listOfEmails;
     }
@@ -41,7 +40,7 @@ public class EmailList extends ArrayList<Email> {
         }
         Email email = this.get(index);
         email.showEmail();
-        String responseMsg = "Showing this email in browser: " + email.getTitle();
+        String responseMsg = "Showing this email in browser: " + email.getSubject();
         return responseMsg;
     }
 
