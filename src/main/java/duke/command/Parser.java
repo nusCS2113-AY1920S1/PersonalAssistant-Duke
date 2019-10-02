@@ -8,6 +8,17 @@ public class Parser {
     private final HashMap<String, Cmd> commandMap = new HashMap<String, Cmd>();
 
     /**
+     *  Inner class to hold variables required for current parse.
+     */
+    static class currParse {
+        //man I miss structs
+        static int spaceIdx, dashIdx, quoteIdx, endQuoteIdx;
+        static String currSwitch;
+        static HashMap<String, ArgLevel> switches;
+        static HashMap<String, String> switchVals;
+    }
+
+    /**
      * Constructs a new Parser, generating a HashMap from Cmd enum values to allow fast lookup of command types.
      */
     public Parser() {
@@ -36,9 +47,57 @@ public class Parser {
         // TODO: if possible, disambiguate using functions
         // trim command and first space after it from input if needed
         if (command instanceof ArgCommand) { // stripping not required otherwise
-            inputStr = inputStr.substring(cmdStr.length()).strip();
-            ((ArgCommand) command).parse(inputStr);
+            parseArgument(inputStr.substring(cmdStr.length()).strip(), (ArgCommand) command);
         }
         return command;
+    }
+
+    /**
+     * Parses the user's input and loads the parameters for this Command from it.
+     *
+     * @param inputStr The input provided by the user for this command, without the command keyword and stripped.
+     * @throws DukeException If input was in the wrong format, contained invalid values, or was otherwise unable to be
+     *                       parsed.
+     */
+    private void parseArgument(String inputStr, ArgCommand command) throws DukeException {
+        if (inputStr.length() == 0) {
+            throw new DukeException(command.getEmptyArgMsg());
+        }
+
+        //find initial tokens
+        currParse.switches = command.getSwitches();
+        initParse(inputStr);
+
+        while (currParse.spaceIdx >= 0) {
+            if (currParse.quoteIdx < currParse.spaceIdx) {
+
+            }
+        }
+    }
+
+    private void initParse(String inputStr) {
+        currParse.spaceIdx = inputStr.indexOf(" ");
+        currParse.dashIdx = inputStr.indexOf("-");
+        currParse.quoteIdx = inputStr.indexOf("\"");
+        currParse.endQuoteIdx = inputStr.indexOf("\"", currParse.quoteIdx + 1);
+        currParse.currSwitch = null;
+
+        if (currParse.spaceIdx == -1 && currParse.switches.size() != 0) {
+            //find missing switch
+            for (HashMap.Entry<String, ArgLevel> switchEntry : currParse.switches.entrySet()) {
+                if (switchEntry.getValue() == ArgLevel.REQUIRED
+                        && currParse.switchVals.get(switchEntry.getKey()) == null) {
+
+                }
+            }
+        }
+    }
+
+    protected void complain(String complaint, String ...issues) throws DukeException {
+        StringBuilder complaintBuilder = new StringBuilder(complaint).append(": ");
+        for (String issue : issues) {
+            complaintBuilder.append(issue)
+        }
+        throw new DukeException(complaint + ": ")
     }
 }
