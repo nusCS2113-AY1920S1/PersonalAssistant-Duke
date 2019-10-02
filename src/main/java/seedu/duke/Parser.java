@@ -1,6 +1,5 @@
 package seedu.duke;
 
-import a.i.P;
 import seedu.duke.command.AddCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.DeleteCommand;
@@ -43,8 +42,8 @@ public class Parser {
         return inputType;
     }
 
-    public static void setInputType(InputType inputType) {
-        this.inputType = inputType;
+    public static void setInputType(InputType newInputType) {
+        inputType = newInputType;
     }
 
     /**
