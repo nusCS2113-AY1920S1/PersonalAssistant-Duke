@@ -3,6 +3,7 @@ package duke;
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
+import duke.commands.DeleteMultipleCommand;
 import duke.commands.DoneCommand;
 import duke.commands.ExitCommand;
 import duke.commands.UnknownCommand;
@@ -44,6 +45,10 @@ public class Parser {
 
             case "delete":
                 command = new DeleteCommand(Integer.parseInt(components[1]) - 1);
+                break;
+
+            case "delete-multiple":
+                command = new DeleteMultipleCommand(components[1], components.length);
                 break;
 
             case "find":
