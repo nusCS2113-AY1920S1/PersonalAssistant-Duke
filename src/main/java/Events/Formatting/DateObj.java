@@ -18,15 +18,8 @@ public class DateObj {
 
     protected Date dateObject;
 
-    protected UI ui;
+    protected String formattedDateString;
 
-    /**
-     * Stores the format type of the date input.
-     */
-    protected int format;
-
-    protected static int DATE_AND_TIME = 1;
-    protected static int DATE = 2;
 
     /**
      * Creates a custom "date object".
@@ -35,41 +28,33 @@ public class DateObj {
      */
     public DateObj(String splitDate) {
     	this.splitDate = splitDate;
-    	this.dateObject = new Date();
-    	this.format = 0;
-    	formatDate();
     }
 
-    public String formatDate() {
+    public void formatDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             dateFormat.setLenient(false);
-            Date taskJavaDate = dateFormat.parse(splitDate);
-            format = DATE_AND_TIME;
-            return taskJavaDate.toString();
+            this.dateObject = dateFormat.parse(splitDate);
+            this.formattedDateString = formatter.format(dateObject);
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
                 dateFormat.setLenient(false);
-                Date taskJavaDateNoTime = dateFormat.parse(splitDate);
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH);
-                String taskDateFormatNoTime = formatter.format(taskJavaDateNoTime);
-                format = DATE;
-                return taskDateFormatNoTime;
+                this.dateObject = dateFormat.parse(splitDate);
+                this.formattedDateString = formatter.format(dateObject);
             } catch (ParseException pe2) {
-                return splitDate;
+                this.formattedDateString = splitDate;
             }
         }
-    }
-
-    public int getFormat() {
-        return format;
     }
 
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.
      */
     public Date getCurrentJavaDate() {
+        dateObject = new Date();
         return dateObject;
     }
 
@@ -77,24 +62,17 @@ public class DateObj {
         return splitDate;
     }
 
+    public String getFormattedDateString() {
+        return this.formattedDateString;
+    }
+
     public Date getEventJavaDate() {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
-            dateFormat.setLenient(false);
-            dateObject = dateFormat.parse(splitDate);
-            format = DATE_AND_TIME;
-            return dateObject;
-        } catch (ParseException pe) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                dateFormat.setLenient(false);
-                dateObject = dateFormat.parse(splitDate);
-                format = DATE;
-                return dateObject;
-            } catch (ParseException pe2) {
-                return dateObject;
-            }
-        }
+        return this.dateObject;
+    }
+
+    public String formatToString(Date dateToBeFormatted) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+        return formatter.format(dateToBeFormatted);
     }
     
     /**
@@ -135,6 +113,8 @@ public class DateObj {
             c.set(Calendar.MINUTE, 59);
             c.set(Calendar.SECOND, 59);
             dateObject = c.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            splitDate = formatter.format(dateObject);
     	}
     }
   }

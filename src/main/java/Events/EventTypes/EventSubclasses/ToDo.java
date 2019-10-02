@@ -1,4 +1,4 @@
-package Events.EventTypes.EventSubClasses;
+package Events.EventTypes.EventSubclasses;
 
 import Events.EventTypes.Event;
 
@@ -19,6 +19,6 @@ public class ToDo extends Event {
 
     @Override
     public String toString() {
-        return "[" + getDoneSymbol() + "][T]" + getDescription() + " BY: " + this.getStartDate().formatDate();
+        return "[" + getDoneSymbol() + "][T]" + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
     }
 }

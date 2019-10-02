@@ -1,18 +1,16 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.EventSubClasses.Concert;
-import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Lesson;
-import Events.EventTypes.EventSubClasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubClasses.ToDo;
+import Events.EventTypes.EventSubclasses.Concert;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
+import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
@@ -52,7 +50,7 @@ public class EventList {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
 
-            if(eventType == TODO) { //for special todo type event (single date string)
+            if (eventType == TODO) { //for special todo type event (single date string)
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String date = splitString[2];
@@ -89,13 +87,23 @@ public class EventList {
      */
     public boolean addEvent(Event event) {
         if (event.getType() == 'T') {
-            this.eventArrayList.add(event);
+            DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
+            eventStartDate.formatDate();
+            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                this.eventArrayList.add(event);
+                DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
+                DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
+                eventStartDate.formatDate();
+                eventEndDate.formatDate();
+                if (event.getType() == 'L') {
+                    this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                } else if (event.getType() == 'P') {
+                    this.eventArrayList.add(new Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                }
                 return true;
             } else return false;
         }
@@ -110,18 +118,25 @@ public class EventList {
     public boolean addRecurringEvent(Event event, int period) {
         DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
         DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
+        eventStartDate.formatDate();
+        eventEndDate.formatDate();
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
         calendarStartDate.setTime(eventStartDate.getEventJavaDate());
         calendarEndDate.setTime(eventEndDate.getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            if (event.getStartDate().getFormat() == 1) {
-                this.eventArrayList.add(new Lesson(event.getDescription(), calendarStartDate.getTime().toString(), calendarEndDate.getTime().toString()));
-            } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("EEE MM dd yyyy", Locale.ENGLISH);
-                String taskStartDateFormatNoTime = formatter.format(calendarStartDate.getTime());
-                String taskEndDateFormatNoTime = formatter.format(calendarEndDate.getTime());
-                this.eventArrayList.add(new Lesson(event.getDescription(), taskStartDateFormatNoTime, taskEndDateFormatNoTime));
+            DateObj dateObjForFormattingStartDate = new DateObj(calendarStartDate.getTime().toString());
+            DateObj dateObjForFormattingEndDate = new DateObj(calendarEndDate.getTime().toString());
+            String toFormatStart = dateObjForFormattingStartDate.formatToString(calendarStartDate.getTime());
+            String toFormatEnd = dateObjForFormattingEndDate.formatToString(calendarEndDate.getTime());
+            DateObj formattingStartDate = new DateObj(toFormatStart);
+            formattingStartDate.formatDate();
+            DateObj formattingEndDate = new DateObj(toFormatEnd);
+            formattingEndDate.formatDate();
+            if (event.getType() == 'L') {
+                this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+            } else if (event.getType() == 'P') {
+                this.eventArrayList.add(new Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
@@ -210,7 +225,7 @@ public class EventList {
             if (eventArrayList.get(i) == null) {
             	continue;
             } else if (filterCode == DATE) {
-                if (eventArrayList.get(i) instanceof Event) {
+                if (eventArrayList.get(i) != null) {
                 	if (!predicate.check(eventArrayList.get(i).getStartDate())) {
                 		continue;
                 	}

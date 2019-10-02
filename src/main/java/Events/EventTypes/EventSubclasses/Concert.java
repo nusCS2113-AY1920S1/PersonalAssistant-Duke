@@ -1,4 +1,4 @@
-package Events.EventTypes.EventSubClasses;
+package Events.EventTypes.EventSubclasses;
 
 import Events.EventTypes.Event;
 
