@@ -2,11 +2,12 @@ package duke.command;
 
 import duke.extensions.AbnormalityChecker;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,55 +18,31 @@ import java.util.Date;
 public class AddCommand extends Command {
     String description;
     String taskType;
-    boolean isRecurring = false;
-    boolean hasDuration = false;
+    String recurringPeriod;
 
-    public AddCommand(String description, String taskType) {
+    public AddCommand(String description, String taskType, String recurringPeriod) {
         this.taskType = taskType;
         this.description = description;
-        checkForFlag();
-    }
-
-    private void checkForFlag() {
-        String[] flagArray = description.split("-");
-        if (flagArray.length != 1) {
-            switch (flagArray[1].charAt(0)) {
-                case 'r':
-                    isRecurring = true;
-                    break;
-                case 'd':
-                    hasDuration = true;
-            }
-        }
+        this.recurringPeriod = recurringPeriod;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException {
-        if (isRecurring) {
-            tasks.add(new Recurring(description, taskType, tasks, ui, storage));
-            return;
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException {
         switch (taskType) {
             case "todo":
-                if (hasDuration) {
-                    String[] flagArray = description.split(" -", 2);
-                    int duration = Integer.parseInt(flagArray[1].substring(2));
-                    tasks.add(new FixedDurationTask(flagArray[0], duration));
-                } else {
-                    tasks.add(new ToDo(description));
-                }
+                tasks.add(new ToDo(description, recurringPeriod));
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
                 SimpleDateFormat dFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date by = dFormat.parse(dInfo[1]);
-                tasks.add(new Deadline(dInfo[0], by));
+                tasks.add(new Deadline(dInfo[0], by, recurringPeriod));
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
                 SimpleDateFormat eFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date at = eFormat.parse(eInfo[1]);
-                Event newEvent = new Event(eInfo[0], at);
+                Event newEvent = new Event(eInfo[0], at, recurringPeriod);
                 AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
                 if (abnormalityChecker.checkEventClash(newEvent)) {
                     System.out.println("There is a clash with another event at the same time");
@@ -74,7 +51,6 @@ public class AddCommand extends Command {
                 }
                 break;
         }
-        storage.save(tasks);
     }
 
     @Override
