@@ -118,15 +118,15 @@ public class ConsoleInputController implements IViewController {
         case "delete":
             if (inputReader.hasNext()) {
                 switch (command) {
-                    case "done":
-                        consoleView.markDone(taskList, input);
-                        saveData();
-                        break;
-                    case "delete":
-                        consoleView.deleteTask(taskList, input);
-                        saveData();
-                        break;
-                    default:
+                case "done":
+                    consoleView.markDone(taskList, input);
+                    saveData();
+                    break;
+                case "delete":
+                    consoleView.deleteTask(taskList, input);
+                    saveData();
+                    break;
+                default:
                 }
             } else {
                 consoleView.consolePrint("Oops! Please enter task number.");
