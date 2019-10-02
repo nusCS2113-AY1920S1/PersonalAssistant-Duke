@@ -315,7 +315,7 @@ Switches and corresponding new value formats:
 * `-n[ame] "<name>"`
 * `-d[escription] "<description>"`
 
-With this aditional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
+With this additional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
 
 ==== `delete` - Delete a Treatment or Evidence item listed on this page
 
