@@ -43,31 +43,31 @@
 
 |Must-have |user |set the tiers of the seats |set different prices depending on the popularity of the seats.
 
-|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. | |
+|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. |. 
 
-Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction. |
+Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction.
 
-Nice-to-have |user |refund seats before a certain date |resell the seats to other customers to increase profit. |
+Nice-to-have |user |refund seats before a certain date |resell the seats to other customers to increase profit.
 
-Nice-to-have |user |keep track of payments |track the expenditure by each customer and find out the specific amount for a refund(if applicable). |
+Nice-to-have |user |keep track of payments |track the expenditure by each customer and find out the specific amount for a refund(if applicable).
 
-Nice-to-have |user |reassign seats booked by customers |fulfill customers'requests to change seats. |
+Nice-to-have |user |reassign seats booked by customers |fulfill customers'requests to change seats.
 
-Nice-to-have |user |blacklist customers who break the rules |serve as a deterrent for potential troublemakers and avoid further losses. |
+Nice-to-have |user |blacklist customers who break the rules |serve as a deterrent for potential troublemakers and avoid further losses.
 
-Nice-to-have |user |know the number of available seats in each tier for a particular show |get a rough idea of the number of seats left to sell from each tier. |
+Nice-to-have |user |know the number of available seats in each tier for a particular show |get a rough idea of the number of seats left to sell from each tier.
 
-Nice-to-have |user |modify the prices of the seats relative to the date of the show |sell off the seats and maximise my profits. |
+Nice-to-have |user |modify the prices of the seats relative to the date of the show |sell off the seats and maximise my profits.
 
-Nice-to-have |user |keep track of the number of tickets each customer can buy |limit the number of tickets a customer can buy to avoid ticket scalping. |
+Nice-to-have |user |keep track of the number of tickets each customer can buy |limit the number of tickets a customer can buy to avoid ticket scalping.
 
-Nice-to-have |user |customer rewards system |encourage customers to visit more often and thank loyal customers for their patronage. |
+Nice-to-have |user |customer rewards system |encourage customers to visit more often and thank loyal customers for their patronage.
 
-Nice-to-have |user |view monthly revenue |compare earnings and make new policies to improve my business. |
+Nice-to-have |user |view monthly revenue |compare earnings and make new policies to improve my business.
 
-Unlikely-to-have |user |put seats on hold |give customers more time to decide if they want to purchase the seats. |
+Unlikely-to-have |user |put seats on hold |give customers more time to decide if they want to purchase the seats.
 
-Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support. |
+Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support.
 
 
 == Appendix C: Use cases
