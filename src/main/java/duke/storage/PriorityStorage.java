@@ -21,10 +21,11 @@ public class PriorityStorage {
         this.filePath += filePath;
     }
 
+
     /**
      * Updates the task list from reading the contents of the text file.
      *
-     * @return ArrayList to update the task list.
+     * @return ArrayList to update the priorityList.
      * @throws IOException  If there is an error reading the text file.
      */
     public ArrayList<Integer> read() throws IOException {
