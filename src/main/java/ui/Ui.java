@@ -58,9 +58,10 @@ public class Ui {
         if (command.equals("list")) {
             System.out.print(line + "     Here are the tasks in your list:\n");
         } else {
-            System.out.print(line + "     Here are the matching tasks in your list:\n");
+            if (command.equals("find")) {
+                System.out.print(line + "     Here are the matching tasks in your list:\n");
+            }
         }
-
         for (int i = 0; i < listsize; i++) {
             int listnum = i + 1;
             System.out.print("     " + listnum + "." + list.get(i).giveTask() + "\n");
