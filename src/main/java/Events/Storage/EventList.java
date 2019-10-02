@@ -1,10 +1,6 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
-import Events.EventTypes.EventSubclasses.Concert;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
-import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
@@ -54,7 +50,7 @@ public class EventList {
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String date = splitString[2];
-                eventArrayList.add(new ToDo(description, isDone, date));
+                eventArrayList.add(new Events.EventTypes.EventSubclasses.ToDo(description, isDone, date));
             } else { //for all other events
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
@@ -68,11 +64,15 @@ public class EventList {
                 }
 
                 if (eventType == CONCERT) {
-                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                    eventArrayList.add(new Events.EventTypes.EventSubclasses.Concert(description, isDone, startDateAndTime, endDateAndTime));
                 } else if (eventType == LESSON) {
-                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                    eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson(description, isDone, startDateAndTime, endDateAndTime));
                 } else if (eventType == PRACTICE) {
-                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                    eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice(description, isDone, startDateAndTime, endDateAndTime));
+                } else if (eventType == EXAM) {
+                    eventArrayList.add(new Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam(description, isDone, startDateAndTime, endDateAndTime));
+                } else if (eventType == RECITAL) {
+                    eventArrayList.add(new Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital(description, isDone, startDateAndTime, endDateAndTime));
                 }
             }
         }
@@ -89,7 +89,7 @@ public class EventList {
         if (event.getType() == 'T') {
             DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
             eventStartDate.formatDate();
-            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
+            this.eventArrayList.add(new Events.EventTypes.EventSubclasses.ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
             return true;
         }
         else {
@@ -100,9 +100,13 @@ public class EventList {
                 eventStartDate.formatDate();
                 eventEndDate.formatDate();
                 if (event.getType() == 'L') {
-                    this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
                 } else if (event.getType() == 'P') {
-                    this.eventArrayList.add(new Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                } else if (event.getType() == 'E') {
+                    this.eventArrayList.add(new Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                } else if (event.getType() == 'R') {
+                    this.eventArrayList.add(new Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
                 }
                 return true;
             } else return false;
@@ -134,9 +138,9 @@ public class EventList {
             DateObj formattingEndDate = new DateObj(toFormatEnd);
             formattingEndDate.formatDate();
             if (event.getType() == 'L') {
-                this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
             } else if (event.getType() == 'P') {
-                this.eventArrayList.add(new Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);

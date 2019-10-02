@@ -1,6 +1,8 @@
 package UserElements;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
@@ -103,6 +105,14 @@ public class Command {
                 createNewEvent(events, ui, 'P');
                 break;
 
+            case "exam":
+                createNewEvent(events, ui, 'E');
+                break;
+
+            case "recital":
+                createNewEvent(events, ui, 'R');
+                break;
+
             case "view":
                 viewEvents(events, ui);
                 changesMade = false;
@@ -159,8 +169,7 @@ public class Command {
                 dayToCheckIfFreeObject.formatDate();
                 daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
-            dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
-            nextDays += 1;
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(1);
         }
         ui.printFreeDays(daysFree);
     }
@@ -208,11 +217,13 @@ public class Command {
                                 entryForEvent.getEndDate());
                         break;
                     case 'E':
-
-
+                        newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
                     case 'R':
-
-
+                        newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
                 }
                 boolean succeeded;
 
