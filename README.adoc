@@ -15,3 +15,14 @@ endif::[]
 *Site Map*
 
 * <<docs/[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc#, User Guide>>
+* Developper Guide
+* About Us
+
+
+*Quick Start*
+
+.  Please ensure that you have Java `11` or above installed.
+.  Download the latest leduc jar file.
+.  Execute the jar file.
+.  Type the command in the shell.
+.  Please refer to our <<docs/[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc#, User Guide>> for details of each command.
