@@ -21,13 +21,13 @@ keyboard-based app to type faster, then this app is for you!
 == Setting up
 === Prerequisites
 
-* *JDK `11`* or above (get the latest version of Java https://www.oracle.com/technetwork/java/javase/downloads/index.html[here!])
+* *JDK 11* or above (get the latest version of Java https://www.oracle.com/technetwork/java/javase/downloads/index.html[here]!)
 
 === Getting Started
 
 . Download the latest `.jar` release file from our https://github.com/AY1920S1-CS2113-T14-1/main/releases[release page].
 . Move the `.jar` file to the folder which you want to use as *Dr. Duke*'s home.
-. Double click on the `.jar` file
+. Double click on the `.jar` file.
 
 *Dr. Duke* should open shortly.
 
@@ -77,26 +77,6 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-#### `next` - Display next page of Patients [[home-next]]
-
-_Remove if we can have a scrolling display of Patients instead_
-
-Format: `next` 
-
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>> 
-
-#### `prev` - Display previous page of Patients [[home-prev]]
-
-_Remove if we can have a scrolling display of Patients instead_
-
-For different contexts, scrolls forward in all lists that can be scrolled.
-
-Format: `prev`
-
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>>
-
-For different contexts, scrolls backward in all lists that can be scrolled.
-
 #### `critical` - Display all critical observations and plans of all Patients [v2.0]
 
 Format: `critical`
@@ -113,9 +93,9 @@ Format: `archive`
 
 #### `open` - Go to a more detailed view of a particular Patient
 
-Format: `open _patient_id_ [-im[pression] [<impression index>]]`
+Format: `open _patient_id_ [-im[pression]]` 
 
-If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
+If the `-b` switch is used, open the patient at that bed number. If the `-im` switch is used, go to the primary impression for that particular Patient.
 
 #### `new` - Add a new Patient to the system
 
@@ -132,6 +112,12 @@ Optional switches:
 * `-hi[story] "<history>"`
 
 The Patient's name, bed number and allergies must be specified. The other fields are assigned to `null` by default but can be edited later on. The `-g[o]` switch opens the Patient's context after the Patient is created.
+
+#### `history` - Add miscellaneous notes to a patient's history [[home-history]]
+
+Format: `history _patient_id_ "<additional notes>"`
+
+Quickly append additional notes to a patient's history. Note that this command will only append notes - it's meant for quickly jotting down uncategorised information, not for correcting serious mistakes that need the patient's entire history section to be written.
 
 #### `undo` - Undo the previous command [[home-undo]]
 
@@ -208,9 +194,15 @@ Switches and corresponding new value format:
 
 Format: `delete ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)] _string_or_idx_|-im[pression] _string_or_idx_)`
 
+#### `history` - Add miscellaneous notes to a patient's history
+
+Format: `history <additional notes>`
+
+Functionally the same as <<home-history,`history` in the Home context>>.
+
 #### `primary` - Set a particular Impression as the primary Impression for the Patient
 
-Format: `primary -im[pression] _string_or_idx_`
+Format: `primary _string_or_idx_`
 
 #### `find` - Find items matching certain criteria
 
