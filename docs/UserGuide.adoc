@@ -269,3 +269,4 @@ e.g.`clear 2`
 * *Save* : `save`
 * *Help* : `help`
 * *Exit* : `exit`
+* *Load* : `load`
