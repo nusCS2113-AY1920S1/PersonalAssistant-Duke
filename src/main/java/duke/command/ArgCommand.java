@@ -3,23 +3,32 @@ package duke.command;
 import duke.DukeContext;
 import duke.exception.DukeException;
 
+import java.util.HashMap;
+
 /**
  * Abstract class for commands that involve an argument.
  */
 public abstract class ArgCommand extends Command {
     protected String arg; //argument supplied to the command
     protected String emptyArgMsg; //error message if the argument is empty
+    protected String[] switches; //list of recognised switches
+    protected HashMap<String, String> switchVals; //hashmap of parameters
 
     /**
-     * Parse the input string entered by the user.
+     * Parses the user's input and loads the parameters for this Command from it.
      *
      * @param inputStr The input provided by the user for this command, without the command keyword and stripped.
-     * @throws DukeException If the input string entered is empty.
+     * @throws DukeException If input was in the wrong format, contained invalid values, or was otherwise unable to be
+     *                       parsed.
      */
     public void parse(String inputStr) throws DukeException {
         arg = inputStr.strip();
         if (arg.length() == 0) {
             throw new DukeException(emptyArgMsg);
+        }
+        int i = inputStr.indexOf(" ");
+        while (i >= 0) {
+            i = inputStr.indexOf(" ", i + 1);
         }
     }
 

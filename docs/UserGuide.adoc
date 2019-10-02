@@ -67,7 +67,7 @@ The sections below describe what will be displayed in each context, and the comm
 
 ### Home 
 
-Shows up to 10 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
+Shows up to 8 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
 #### `help` - Display a context-specific list of commands and options [[home-help]]
 
@@ -76,26 +76,6 @@ Format: `help`
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
-
-#### `next` - Display next page of Patients [[home-next]]
-
-_Remove if we can have a scrolling display of Patients instead_
-
-Format: `next` 
-
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>> 
-
-#### `prev` - Display previous page of Patients [[home-prev]]
-
-_Remove if we can have a scrolling display of Patients instead_
-
-For different contexts, scrolls forward in all lists that can be scrolled.
-
-Format: `prev`
-
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>>
-
-For different contexts, scrolls backward in all lists that can be scrolled.
 
 #### `critical` - Display all critical observations and plans of all Patients [v2.0]
 
@@ -139,7 +119,7 @@ Format: `undo <number of commands>`
 
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
-You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (i.e. adding new Patients, editing data).
+You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (e.g. adding new Patients or editing data, not navigating between contexts).
 
 #### `redo` - Redo a command that has been undone [[home-redo]]
 
@@ -156,9 +136,9 @@ Shows a detailed view of a Patient, displaying in separate panels:
 * All personal details
 * A list of critical Treatments and Evidence (`priority` 1)
 * A list of Investigations to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
-* Each Impression, with its name and an excerpt of its description
+* Each Impression, with its name and an excerpt of its description, and the number of critical items and follow-up investigations associated with it
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
+Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 #### `back` - Go back to previous context [[patient-back]]
 
@@ -249,7 +229,7 @@ Shows a detailed view of an Impression, displaying in separate panels:
 * A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
 * A small panel with the patient's allergies
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
+Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 #### `new` - Add a new Treatment or Evidence item to this Impression
 
@@ -364,7 +344,7 @@ Display a list of all Treatments and Evidence matching the criteria specified in
 
 All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full. This section will list the commands that they have in common. Each individual Treatment and Evidence context is assumed to have all these commands, and all the commands in this inheritance list.
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 #### `edit` - Edit one of the details of the Treatment or Evidence
 

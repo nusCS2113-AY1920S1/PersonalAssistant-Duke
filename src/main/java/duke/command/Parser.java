@@ -37,8 +37,8 @@ public class Parser {
         // trim command and first space after it from input if needed
         if (command instanceof ArgCommand) { // stripping not required otherwise
             inputStr = inputStr.substring(cmdStr.length()).strip();
+            ((ArgCommand) command).parse(inputStr);
         }
-        command.parse(inputStr);
         return command;
     }
 }
