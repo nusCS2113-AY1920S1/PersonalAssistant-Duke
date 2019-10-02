@@ -31,7 +31,7 @@ public class StorageManager {
 
 	}
 
-	public void storeRevenue(long revenue) {
+	public void storeRevenue(double revenue) {
 		
 	}
 }

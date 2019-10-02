@@ -25,7 +25,8 @@ public class FoodList {
 	}
 
 	public Food get(String foodName) {
-		return new Food();
+		//return new Food();
+		return null;
 	}
 
 	public void remove(int index) {
