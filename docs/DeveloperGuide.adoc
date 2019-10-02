@@ -299,3 +299,26 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
       Use case resumes from step 2.
           Use case ends.
 ----
+
+
+== Appendix D: Functional Requirements
+
+.Command to add shows
+.Command to Sell Tickets to audience.
+.Command to delete a particular show. 
+.Command to delete multiple shows (by showName).
+.Command to list all shows before date of showing. (Query for booking and check seat availability)
+.Command to list specific show to get date of showing (To check when the show is happening and check seat availability)
+.Command to refund ticket for the show.
+.Tutorial/ Help function
+.Command to postpone particular show to an empty slot
+
+
+== Appendix E: Non-functional Requirements
+
+.Should work on any OS as long as it has Java 11 or above installed.
+.The list should be able to hold at least 100 shows without reduction in performance.
+.The system should be usable by a novice who has never booked theatres/ theatre seats before. I.e. the commands should be intuitive for any user.
+.Parser to parse user input
+.Command class to execute add/ delete/ list tasks
+.UI class to format output 
