@@ -437,17 +437,17 @@ Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/pr
 
 NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
 
-Learning requirements:
+==== Learning requirements:
 
 - The app’s user interface should be uncomplicated and easy to use even for first-timers
 
 - The app’s commands should be intuitive, so much so that users need not memorise long command formats
 
-Design requirements:
+==== Design requirements:
 
 - Keep supplementary features to a minimum
 
-Performance requirements:
+==== Performance requirements:
 
 - The app should load in less than 2 seconds.*
 
@@ -455,7 +455,7 @@ Performance requirements:
 
 - For any responses > 5 sec, the app should provide feedback indicating when it expects to be done, otherwise users will not know what to expect.**
 
-Other requirements:
+==== Other requirements:
 
 - The game elements of the app should not overly distract users from completing their tasks.
 
