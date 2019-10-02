@@ -85,7 +85,7 @@ public class Storage {
                 }
                 input = input.split(" ", 2)[1];
                 try {
-                    Command adddCommand = Parser.parseTask(taskList, input);
+                    Command adddCommand = Parser.parseAddTaskCommand(taskList, input);
                     adddCommand.setSilent();
                     adddCommand.execute();
                 } catch (Parser.UserInputException e) {
