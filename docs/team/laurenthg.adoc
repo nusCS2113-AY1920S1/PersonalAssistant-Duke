@@ -1,0 +1,42 @@
+= Laurent Huang ( laurenthg )- Project Portfolio
+:site-section: AboutUs
+
+== Project: Le Duc
+
+== Overview
+
+Leduc is a task management application geared to help high school students manage their academic and extracurricular workloads. The user enters commands via the command line and is able to perform a vast array of operations.
+
+== Summary of contributions
+
+* *Features added:*
+** snooze and postpone a deadline task  [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PostponeCommand.java] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SnoozeCommand.java]
+*** This feature is important as a deadline could have to change.
+*** Verification of that the new date is after the old one is obviously made.
+*** JUnit test [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SnoozeCommandTest.java] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PostponeCommandTest.java]
+** reschedule a event task [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RescheduleCommand.java]
+*** This feature is important as a event could be moved to another date, could be extended ...
+*** Verification of that the new event period have not conflict with other tasks is made.
+*** JUnit test [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/RescheduleCommandTest.java]
+** Edit a task [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EditCommand.java]
+*** This feature allows the user to edit a task.
+*** This is a primary feature as a task description or date are very likely changed.
+*** This is managed in a interactive way
+*** Verification of conflict date for event task is made.
+*** A test-ui-text is made. [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/text-ui-test/runtest.sh]
+
+* *Gradle*
+** Set up of Gradle [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/build.gradle]
+*** Gradle allows to manage the build for running, automate the Junit test and so improve the team productivity.
+
+* *Manage releases*
+*** Managed releases mid-v1.1 with creation of jar file thanks to Gradle
+
+* *Manage Github*
+*** Set up the labels and milestone
+*** Set up the pull request for requiring reviews ...
+
+* *Documentation contribution* [https://github.com/AY1920S1-CS2113-T16-1/main/tree/master/docs]
+** Write the Readme file
+** Contribute to writing the User Guide file
+** Meet-up to contribute the main idea for writing the Developer Guide
