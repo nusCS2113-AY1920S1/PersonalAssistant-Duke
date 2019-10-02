@@ -89,7 +89,7 @@ public class CLIView {
         ArrayList<String> toPrint = new ArrayList<>();
         toPrint.add("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getAllTasks().size(); i++) {
-            toPrint.add("\t" + (i + 1) + "." + taskList.getAllTasks().get(i).getFullDescription());
+            toPrint.add("" + (i + 1) + "." + taskList.getAllTasks().get(i).getFullDescription());
         }
         consolePrint(toPrint.toArray(new String[0]));
     }
@@ -136,7 +136,7 @@ public class CLIView {
         toPrint.add("Here are the matching tasks in your list:");
         ArrayList<ITask> results = taskList.getSearchedTasks(input);
         for (int i = 0; i < results.size(); i++) {
-            toPrint.add("\t" + (i + 1) + "." + results.get(i).getFullDescription());
+            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
         }
         consolePrint(toPrint.toArray(new String[0]));
     }
@@ -162,7 +162,7 @@ public class CLIView {
         toPrint.add("Here are the upcoming tasks in your list:");
         ArrayList<ITask> results = taskList.getUpcomingTasks(limit);
         for (int i = 0; i < results.size(); i++) {
-            toPrint.add("\t" + (i + 1) + "." + results.get(i).getFullDescription());
+            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
         }
         consolePrint(toPrint.toArray(new String[0]));
     }
@@ -190,7 +190,7 @@ public class CLIView {
         } else {
             toPrint.add("Here is the schedule for the specified date:");
             for (int i = 0; i < results.size(); i++) {
-                toPrint.add("\t" + (i + 1) + "." + results.get(i).getFullDescription());
+                toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
             }
         }
         consolePrint(toPrint.toArray(new String[0]));
@@ -239,13 +239,12 @@ public class CLIView {
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
     public void viewAllProjects(ArrayList<IProject> allProjects) {
-        System.out.println(horiLine);
-        System.out.println("\tHere are all the Projects you are managing:");
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Here are all the Projects you are managing:");
         for (int i = 0; i < allProjects.size(); i++) {
-            System.out.print("\t" + (i + 1));
-            System.out.println(". " + allProjects.get(i).getDescription()
-                            + " " + allProjects.get(i).getMembers());
+            toPrint.add("" + (i + 1) + ". " + allProjects.get(i).getDescription() + " "
+                + allProjects.get(i).getMembers());
         }
-        System.out.println(horiLine);
+        consolePrint(toPrint.toArray(new String[0]));
     }
 }
