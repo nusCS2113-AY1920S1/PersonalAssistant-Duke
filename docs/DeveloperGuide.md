@@ -36,7 +36,7 @@
 
 #### 2.1  Architecture
 
-![architecture]()
+![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architecture.png)
 
 `main` has 1 class called `Duke`. It is responsible for,
 
