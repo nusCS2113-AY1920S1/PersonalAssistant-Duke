@@ -1,6 +1,5 @@
 package models.tasks;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class Tentative implements ITask {
@@ -52,6 +51,11 @@ public class Tentative implements ITask {
 
     @Override
     public String getDateTime() {
+        return null;
+    }
+
+    @Override
+    public String getFullDescription() {
         return null;
     }
 

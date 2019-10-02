@@ -17,5 +17,7 @@ public interface ITask extends Serializable, IDateSettable {
 
     String getDateTime();
 
+    String getFullDescription();
+
     Date getDateTimeObject();
 }

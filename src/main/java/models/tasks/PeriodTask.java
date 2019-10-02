@@ -9,8 +9,7 @@ public class PeriodTask implements ITask {
     private String taskDuration;
     private Date startDate;
     private Date endDate;
-
-
+    
     /**
      * Constructor of the Recurring data model.
      *
@@ -49,6 +48,11 @@ public class PeriodTask implements ITask {
 
     @Override
     public String getDateTime() {
+        return null;
+    }
+
+    @Override
+    public String getFullDescription() {
         return null;
     }
 

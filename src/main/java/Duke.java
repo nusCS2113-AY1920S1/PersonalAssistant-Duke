@@ -1,4 +1,3 @@
-import exceptions.DukeException;
 import views.CLIView;
 
 public class Duke {

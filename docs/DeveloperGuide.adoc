@@ -125,7 +125,7 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components. (Talk about the structure of our project)
+The rest of the App consists of four main components.
 
 * *`UI`*: The UI of the App.
 * *`Logic`*: The command executor.
@@ -179,19 +179,6 @@ The sections below give more details of each component.
 *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-// .  `Logic` uses the `AddressBookParser` class to parse the user command.
-// .  This results in a `Command` object which is executed by the `LogicManager`.
-// .  The command execution can affect the `Model` (e.g. adding a person).
-// .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-// .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-// Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-// image::DeleteSequenceDiagram.png[]
-
-// NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 // [[Design-Model]]
 === 2.4. Model component
 
@@ -221,15 +208,15 @@ The sections below give more details of each component.
 *API* : 
 // link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+//The `Storage` component,
 
 // * can save `UserPref` objects in json format and read it back.
 // * can save the Address Book data in json format and read it back.
 
-[[Design-Commons]]
-=== 2.6. Common classes
+//[[Design-Commons]]
+//=== 2.6. Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+//Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == 3. Implementation
 
@@ -532,7 +519,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User [underline]#selects a specific project to manage (UC03)#.
-2.  User requests to edit member specifying member index and fields that require editing
+2.  User requests to edit member specifying member index and fields that require editing.
 3.  ArchDuke edits specified fields of specified member in current project.
 +
 Use case ends.
@@ -541,7 +528,7 @@ Use case ends.
 
 [none]
 * 2a. The given index is invalid.
-** 2a1. ArchDuke shows an error message.
+** 2a1. ArchDuke shows an error message prompting user to check again and enter the correct index.
 +
 Use case resumes at step 1.
 
@@ -604,6 +591,17 @@ Use case ends.
 ** 2a1. ArchDuke shows an error message.
 +
 Use case resumes at step 1.
+
+[discrete]
+=== Use case: Generate report for a specific project (UC07)
+
+*MSS*
+
+1.  User [underline]#selects a specific project to manage (UC03)#.
+2.  User requests to generate a report of of the project and members' contributions.
+3.  ArchDuke gathers information from tasks, and presents it in a report.
+4.  ArchDuke saves a copy of the report in a readable format to the hard disk.
+
 
 // _{More to be added}_
 

@@ -1,11 +1,18 @@
 package controllers;
 
 import exceptions.DukeException;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
-import models.commands.DeleteCommand;
-import models.commands.DoneCommand;
-
 import models.commands.RescheduleCommand;
 import models.data.IProject;
 import models.tasks.IRecurring;
@@ -15,19 +22,6 @@ import models.tasks.Recurring;
 import models.tasks.TaskList;
 import repositories.ProjectRepository;
 import views.CLIView;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class ConsoleInputController implements IViewController {
 
@@ -121,14 +115,22 @@ public class ConsoleInputController implements IViewController {
             consoleView.printAllTasks(taskList);
             break;
         case "done":
-            DoneCommand doneCommand = new DoneCommand(input);
-            consoleView.markDone(taskList, doneCommand);
-            saveData();
-            break;
         case "delete":
-            DeleteCommand deleteCommand = new DeleteCommand(input);
-            consoleView.deleteTask(taskList, deleteCommand);
-            saveData();
+            if (inputReader.hasNext()) {
+                switch (command) {
+                case "done":
+                    consoleView.markDone(taskList, input);
+                    saveData();
+                    break;
+                case "delete":
+                    consoleView.deleteTask(taskList, input);
+                    saveData();
+                    break;
+                default:
+                }
+            } else {
+                consoleView.consolePrint("Oops! Please enter task number.");
+            }
             break;
         case "find":
             try {
