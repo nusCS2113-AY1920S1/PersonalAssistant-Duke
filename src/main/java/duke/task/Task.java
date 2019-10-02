@@ -14,8 +14,6 @@ public class Task {
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
 
-    public int priority;
-
     /**
      * Creates a task with the specified description.
      *
@@ -117,25 +115,6 @@ public class Task {
         }
         return false;
     }
-
-    /**
-     * Set the priority of one task.
-     *
-     * @param  priorityLevel The priority level of the task, 1 to 5, high to low.
-     */
-    public void setPriority(int priorityLevel) {
-        this.priority = priorityLevel;
-    }
-
-    /**
-     * Set the priority of one task.
-     *
-     * @return the priority of the task.
-     */
-    public int getPriority() {
-        return this.priority;
-    }
-
 
     /**
      * Extracting a task content into readable string.
