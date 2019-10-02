@@ -1,8 +1,12 @@
 package duke.Module;
 
 import duke.Task.TaskList;
-import javafx.concurrent.Task;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,30 +14,100 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
  * Class manages the timetable for the user.
  */
 public class Schedule {
+
+    private String filePath;
+    private Scanner fileInput;
+    private ArrayList<TimeSlot> list;
+
+    public Schedule(String filePath) throws FileNotFoundException, ParseException {
+        this.filePath = filePath;
+        File f = new File(filePath);
+        fileInput = new Scanner(f);
+        this.list = loadTimeSlot();
+    }
+
+    /**
+     * This function saves the newly created TimeSlot into timeslots.txt
+     * @param t The TimeSlot object created to be saved
+     */
+    public void saveTimeSlot(TimeSlot t) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            DateFormat df = new SimpleDateFormat("HHmm");
+            fileWriter.write(t.getClassName() + "-" + df.format(t.getStartTime()) + "-" + df.format(t.getEndTime()) + "-" + t.getLocation() + "\n");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+    }
+
+    /**
+     * Reads filePath, takes in Strings and turns them into a list of TimeSlot objects
+     */
+    public ArrayList<TimeSlot> loadTimeSlot() throws ParseException {
+        try {
+            ArrayList<TimeSlot> temp = new ArrayList<>();
+            while (fileInput.hasNextLine()) {
+                String s1 = fileInput.nextLine();
+                String[] data = s1.split("-");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                Date date1 = simpleDateFormat.parse(data[1]);
+                Date date2 = simpleDateFormat.parse(data[2]);
+                TimeSlot t = new TimeSlot(date1,date2,data[3],data[0]);
+                temp.add(t);
+            }
+            fileInput.close();
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This function updates the list of tasks.
+     * Erases the entire list that exists presently and rewrites the file.
+     * @param up The updated ArrayList that must be used to recreate the updated duke.txt
+     * @throws IOException io
+     */
+    public void updateTimeSlot(ArrayList<TimeSlot> up) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+
+        for (TimeSlot t : up) {
+            try {
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                fileWriter.write(t.getClassName() + "-" + df.format(t.getStartTime()) + "-" + df.format(t.getEndTime()) + "-" + t.getLocation() + "\n");
+                fileWriter.close();
+            } catch (IOException io) {
+                System.out.println("File not found:" + io.getMessage());
+            }
+        }
+    }
+
     /**
      * Defined day which a class needs to be made;
      */
     private String day;
-    private ArrayList<TimeSlot> list;
 
-    /**
-     * Constructor for schedule.
-     */
-    public Schedule() {
-        list = new ArrayList<>();
-    }
     public void setDay (String newDay) {
         day = newDay;
     }
 
     /**
-     * Array of all possible monthes
+     * Array of all possible months
      */
     private String[] months = {
         "January", "February", "March",
@@ -122,46 +196,48 @@ public class Schedule {
     /**
      * Function gets all the hours in the selected day.
      * Will load events if events have been allocated.
-     *
-     * @param dayOfClass The selected day of the month. e.g 23/09
+     * @param dayOfClass The selected day of the month. e.g 5/10/2019
      * @return String of every hour from 8am inside the day.
      */
-    public String getDay(String dayOfClass) {
-        setDay(dayOfClass);
-        int date = Integer.parseInt(dayOfClass.substring(0,1));
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.DATE, date);
-        Map<Date, Integer> dailySchedule = new TreeMap<>();
-        DateFormat df = new SimpleDateFormat("HH:mm");
-        for (int i = 0; i < 16; i++) {
-            dailySchedule.put(cal.getTime(), i);
-            cal.add(Calendar.HOUR, 1);
+    public String getDay(String dayOfClass) throws ParseException {
+        for (int i=0; i<=24; i++) {
+            String time = (i < 10) ? "0" + i + "00" : i + "00";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            Date now = simpleDateFormat.parse(dayOfClass + " " + time);
+            DateFormat df = new SimpleDateFormat("HH:mm");
+            boolean isAssignedClass = false;
+            for (TimeSlot t : this.list) {
+                if (now.equals(t.getStartTime())) {
+                    isAssignedClass = true;
+                    System.out.println(df.format(now) + " " + t.getClassName() + " from " + df.format(t.getStartTime()) + " to " + df.format(t.getEndTime()) + " at " + t.getLocation());
+                }
+            }
+            if (!isAssignedClass) {
+                System.out.println(df.format(now));
+            }
         }
-        for (Date d : dailySchedule.keySet()) {
-            System.out.println(df.format(d));
-        }
-
 
         return "--------------------------";
     }
 
-    public String addClass(String startTime, String endTime, String location, String className , TaskList taskList) throws ParseException {
+    public String addClass(String startTime, String endTime, String location, String className , TaskList taskList) {
         Date start = taskList.dateConvert(startTime);
         Date end = taskList.dateConvert(endTime);
         TimeSlot timeSlot = new TimeSlot(start, end, location, className);
-        list.add(timeSlot);
+        this.list.add(timeSlot);
+        saveTimeSlot(timeSlot);
+        updateTimeSlot(this.list);
         return "New training has been added";
     }
 
     public String delClass(String name) {
         int index = 0;
-        if (list.isEmpty())
+        if (this.list.isEmpty())
             return "No class available";
-        for (TimeSlot i: list) {
+        for (TimeSlot i: this.list) {
             if (i.getClassName().equals(name)){
-                list.remove(index);
+                this.list.remove(index);
+                updateTimeSlot(this.list);
                 return "Class removed";
             }
             ++index;
