@@ -253,7 +253,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-1.User does something that unlocks an achievement.
+1. User does something that unlocks an achievement.
 
 2. Hstle will display a congratulatory message to the User and notify the achievement unlocked.
 
@@ -436,8 +436,6 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
 
 NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
-
----
 
 Learning requirements:
 
