@@ -4,6 +4,8 @@ import duke.commons.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Abstract class representing individual duke.commands.
  */
@@ -14,5 +16,5 @@ public abstract class Command {
      * @param ui The user interface displaying events on the task list.
      * @param storage The duke.storage object containing task list.
      */
-    public abstract void execute(Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(Ui ui, Storage storage) throws DukeException, IOException;
 }
