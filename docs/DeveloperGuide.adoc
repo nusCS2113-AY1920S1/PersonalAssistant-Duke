@@ -101,7 +101,7 @@ have. 1 star (★) is unlikely to have.
 
 == Appendix C: Use Cases
 
-Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
+Several use cases are shown. For all use cases below, System is Hustler, Actor is User, unless specified otherwise).
 
 === 1. Use case: Adding tasks
 
@@ -109,15 +109,15 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-1. User inputs the task to add into Hstle.
+1. User inputs the task to add into Hustler.
 
-2. Hstle parses the logic of the input into a task class.
+2. Hustler parses the logic of the input into a task class.
 
 3. Task is added into the task list.
 
-4. Hstle informs the User that the task has been successfully added.
+4. Hustler informs the User that the task has been successfully added.
 
-5. Hstle repeats the description of the task added on the screen.
+5. Hustler repeats the description of the task added on the screen.
 
 6. Use case ends.
 
@@ -129,7 +129,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 2a. The given input is invalid.
 
-- 2a1. Hstle shows an error message, prompting User to type a valid task description.
+- 2a1. Hustler shows an error message, prompting User to type a valid task description.
 
 - Use case resumes at step 1.
 
@@ -151,11 +151,11 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-1. User inputs the index to remove from the task in Hstle.
+1. User inputs the index to remove from the task in Hustler.
 
-2. Hstle removes the task of the given index from the task list.
+2. Hustler removes the task of the given index from the task list.
 
-3. Hstle repeats the description of the task removed on the screen.
+3. Hustler repeats the description of the task removed on the screen.
 
 4. Use case ends.
 
@@ -167,13 +167,13 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 1a. The task list is empty
 
-- 1a1. Hstle displays an error message, prompting User to first add a task.
+- 1a1. Hustler displays an error message, prompting User to first add a task.
 
 - Use case ends.
 
 2a. The given index is invalid
 
-- 2a1. Hstle displays an error message, prompting User to type a valid number.
+- 2a1. Hustler displays an error message, prompting User to type a valid number.
 
 - Use case resumes at step 1.
 
