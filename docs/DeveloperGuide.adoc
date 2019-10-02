@@ -271,29 +271,172 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ==== MSS
 
-User completes a task.
+----
 
-Hstle tells User about the task that he keyed as completed.
+1. User completes a task.
 
-Hstle shows User experience points obtained from completing said task and his total accumulated points.
+2. Hstle tells User about the task that he keyed as completed.
 
-Use case ends.
+3. Hstle shows User experience points obtained from completing said task and his total accumulated points.
 
-Extensions
+4. Use case ends.
+
+----
+
+==== Extensions
+
+----
 
 1a. The given index is invalid.
 
-1a1. Hstle shows an error message, prompting User to type a valid number, given the size of the task list.
+- 1a1. Hstle shows an error message, prompting User to type a valid number, given the size of the task list.
 
-Use case resumes at step 1.
+- Use case resumes at step 1.
 
 4a. User levels up from the completion.
 
-4a1. Hstle increases User’s level by 1.
+- 4a1. Hstle increases User’s level by 1.
 
-4a2. Hstle informs User on their current level and progress towards the next level.
+- 4a2. Hstle informs User on their current level and progress towards the next level.
 
-Use case ends.
+- Use case ends.
 
+----
 
 ---
+
+=== Use case: Purchasing item from shop.
+
+==== MSS
+
+----
+
+1. User types the command to show things offered in the shop.
+
+2. Duke lists out the things that is currently available for purchase.
+
+3. User buys an item from the shop with his current points.
+
+4. Duke subtracts his accumulated points, and shows User that the purchase is successful.
+
+5. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+3a. The given index is invalid.
+
+- 3a1. Duke shows an error message, prompting User to type a valid number, given the size of the shop listing.
+
+- Use case resumes at step 1.
+
+3b. User does not have enough points for purchase.
+
+- 3b1. Duke shows an error message, prompting the User about his lack of points.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== Use case: Suggesting a recommended schedule
+
+==== MSS
+
+----
+
+1. User inputs a duration to complete the tasks.
+
+2. Hstle will determine the recommended tasks to complete based on task’s priority and the hours needed to complete them.
+
+3. Hstle will prompt the User if he wants to follow the recommended schedule.
+
+4. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The tasks do not have any hours given.
+
+- 1a1. Hstle prompts the User to first add the hours needed to complete each task.
+
+- Use case ends.
+
+1b. The duration given fall short of every task’s allocated duration.
+
+- 1b1. Hstle prompts the User to increase the time allocated to complete the tasks.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== Use case: Finding a task from tags
+
+====MSS
+
+----
+
+1. User searches a tag.
+
+2. Hstle shows all tasks that inherit the given tag.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The tag does not exist in any task.
+
+- 1a1. Hstle shows an empty list.
+
+- Use case ends.
+
+----
+
+---
+
+=== Use case: Displaying User statistics
+
+==== MSS
+
+----
+
+1. User types the command to navigate to the statistics page.
+
+2. Hstle shows the current statistics of the User.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. User prefers mouse input.
+
+- 1a1. User clicks the statistics icon.
+
+- Use case resumes at step 2.
+
+----
+
+---
+
+=== Appendix D: Non Functional Requirements
+
+Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
+
+NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
