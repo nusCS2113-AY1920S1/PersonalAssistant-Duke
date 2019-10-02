@@ -74,7 +74,7 @@ have. 1 star (★) is unlikely to have.
 
 | 21 | ★★ | Tech-savvy Student | Be able to auto-complete inputs | Have a more convenient and pleasant experience.
 
-| 22 | ★★ | User | Have a “today” tab | Concentrate on all tasks on the particular given.
+| 22 | ★★ | User | Have a “today” tab | Concentrate on all tasks on the particular given day.
 
 | 23 | ★★ | Absent-minded User | Be alerted of my duplicate tasks | Realize I have previously did that and add in other important tasks.
 
