@@ -19,7 +19,7 @@ public class DukeTest {
         file.delete();
 
         //Set pseudo-GUI mode to allow us to manually input commands
-        Duke test = new Duke("data/dukeTest.txt", false);
+        Duke test = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 1: Check for empty list (successful creation of new file)
         assertEquals(test.getResponse("list"),
@@ -34,7 +34,7 @@ public class DukeTest {
         test.getResponse("bye");
 
         //Step 4: Create a new instance of Duke
-        Duke test2 = new Duke("data/dukeTest.txt", false);
+        Duke test2 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 5: Check data persists across Duke instances.
         assertNotEquals(test.getResponse("list"),
@@ -49,7 +49,7 @@ public class DukeTest {
         file.delete();
 
         //Set pseudo-GUI mode to allow us to manually input commands
-        Duke test = new Duke("data/dukeTest.txt", false);
+        Duke test = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 1: Check for empty list (successful creation of new file)
         assertEquals(test.getResponse("list"),
@@ -88,7 +88,7 @@ public class DukeTest {
         file.delete();
 
         //Set pseudo-GUI mode to allow us to manually input commands
-        Duke test = new Duke("data/dukeTest.txt", false);
+        Duke test = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 1: Check for empty list (successful creation of new file)
         assertEquals(test.getResponse("list"),
@@ -107,7 +107,7 @@ public class DukeTest {
         test.getResponse("bye");
 
         //Step 5: Create a new instance of Duke
-        Duke test2 = new Duke("data/dukeTest.txt", false);
+        Duke test2 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
         assertNotEquals(test2.getResponse("list"), testList);
     }
 
@@ -117,7 +117,7 @@ public class DukeTest {
         file.delete();
 
         //Set pseudo-GUI mode to allow us to manually input commands
-        Duke test = new Duke("data/dukeTest.txt", false);
+        Duke test = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 1: Check for empty list (successful creation of new file)
         String testList = test.getResponse("list");
@@ -136,7 +136,7 @@ public class DukeTest {
         test.getResponse("bye");
 
         //Step 5: Create a new instance of Duke
-        Duke test2 = new Duke("data/dukeTest.txt", false);
+        Duke test2 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 6: Attempt to delete non-existent items
         assertEquals(test2.getResponse("delete 0"),
@@ -164,7 +164,7 @@ public class DukeTest {
         file.delete();
 
         //Set pseudo-GUI mode to allow us to manually input commands
-        Duke test = new Duke("data/dukeTest.txt", false);
+        Duke test = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 1: Check for empty list (successful creation of new file)
         String testList = test.getResponse("list");
@@ -183,7 +183,7 @@ public class DukeTest {
         test.getResponse("bye");
 
         //Step 5: Create a new instance of Duke
-        Duke test2 = new Duke("data/dukeTest.txt", false);
+        Duke test2 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 6: Delete added item
         test2.getResponse("delete 1");
@@ -192,7 +192,7 @@ public class DukeTest {
         test2.getResponse("bye");
 
         //Step 7: Create a new instance of Duke
-        Duke test3 = new Duke("data/dukeTest.txt", false);
+        Duke test3 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
         //Step 8: Verify that list is empty
         assertEquals(test3.getResponse("list"), testList);
