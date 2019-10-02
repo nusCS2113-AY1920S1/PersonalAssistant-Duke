@@ -25,10 +25,9 @@ public class RemindCommand extends Command {
             Date startDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date endDate = Date.from(date1.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            if(taskList.size() == 0) {
+            if (taskList.size() == 0) {
                 System.out.println("You have no upcoming events/deadlines/todos");
-            }
-            else {
+            } else {
                 System.out.println("These are your Tasks in the next 5 days");
                 for(int a = 0; a < taskList.size(); a++) {
                     Date taskDate = taskList.getTask(a).getCurrentDate();
@@ -39,10 +38,9 @@ public class RemindCommand extends Command {
                     }
                 }
             }
-        } catch ( Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private boolean isWithinRange(Date taskDate, Date endDate, Date startDate) {

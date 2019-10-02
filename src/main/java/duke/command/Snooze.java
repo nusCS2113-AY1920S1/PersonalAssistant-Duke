@@ -14,6 +14,12 @@ public class Snooze extends Command {
     private String until;
     private Date date;
 
+    /**
+     * The constructor method for snooze.
+     *
+     * @param taskNb task number
+     * @param until snooze until when
+     */
     public Snooze(int taskNb, String until) {
         this.taskNb = taskNb;
         this.until = until;
