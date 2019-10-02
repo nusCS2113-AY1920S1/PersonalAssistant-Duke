@@ -1,7 +1,6 @@
 package duke.commands;
 
-import duke.*;
-import duke.tasks.*;
+
 import duke.TaskList;
 import duke.Ui;
 import duke.DukeException;
@@ -10,8 +9,16 @@ import duke.Storage;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
-import duke.Conflict_checker;
+import duke.tasks.Event;
+import duke.ConflictChecker;
 import duke.tasks.Task;
+import duke.tasks.RecurringTask;
+import duke.tasks.FixedDurationTask;
+import duke.tasks.BetweenTask;
+
+import duke.tasks.DoAfter;
+import duke.DoAfterList;
+
 
 /**
  * A class representing the command to add tasks to the task list.
@@ -80,20 +87,18 @@ public class AddCommand extends Command {
             Event event;
             try {
                 String[] sections = message.substring(6).split(" /at ");
-                String[] start_end = sections[1].split("-");
-                String start =  start_end[0];
-                String end = start_end[1];
-                Conflict_checker conflict_checker = new Conflict_checker(taskList);
+                String[] startEnd = sections[1].split("-");
+                String start =  startEnd[0];
+                String end = startEnd[1];
+                ConflictChecker conflictChecker1 = new ConflictChecker(taskList);
                 event = (Event) taskList.get_first_e(sections,0);
-                if(event.has_date()) {
-                    if(conflict_checker.is_conflict(event)) {
+                if (event.has_date()) {
+                    if (conflictChecker1.is_conflict(event)) {
                         throw new DukeException("", "conflict");
-                    }
-                    else {
+                    } else {
                         taskList.add(event);
                     }
-                }
-                else {
+                } else {
                     taskList.add(event);
                 }
 
@@ -123,29 +128,31 @@ public class AddCommand extends Command {
         case "chan": {
             try {
                 String[] sections = message.substring(7).split(" /to ");
-                int item_to_delete = Integer.parseInt(sections[0]) - 1;
-                if (item_to_delete < taskList.getSize()) {
-                    Task item = taskList.getTaskIndex(item_to_delete);
+                int itemToDelete = Integer.parseInt(sections[0]) - 1;
+                if (itemToDelete < taskList.getSize()) {
+                    Task item = taskList.getTaskIndex(itemToDelete);
                     if (item.get_type() == "E") {
                         Event event;
-                        String item_description = item.getDescription();
+                        String itemDescription = item.getDescription();
                         String status = item.getStatusIcon();
-                        String[] sections_1 = {item_description, sections[1]};
-                        event = (Event) taskList.get_first_e(sections_1, 0);
+                        String[] sections1 = {itemDescription, sections[1]};
+                        event = (Event) taskList.get_first_e(sections1, 0);
                         if (status == "v") {
                             event.setDone();
                         }
-                        taskList.remove(item_to_delete);
+                        taskList.remove(itemToDelete);
+
                         taskList.add(event);
                         storage.updateFile(taskList);
                         return ui.formatAdd(taskList.getTaskList(), event);
                     } else if (item.get_type() == "D") {
-                        String item_description = item.getDescription();
+                        String itemDescription = item.getDescription();
                         String status = item.getStatusIcon();
                         Deadline deadline;
                         try {
-                            deadline = new Deadline(item_description, sections[1]);
-                            taskList.remove(item_to_delete);
+                            deadline = new Deadline(itemDescription, sections[1]);
+                            taskList.remove(itemToDelete);
+
                             if (status == "v") {
                                 deadline.setDone();
                             }
@@ -156,6 +163,10 @@ public class AddCommand extends Command {
                         } catch (Exception e) {
                             throw new DukeException(message, "deadline");
                         }
+                    } else {
+                        //not a event or deadline so we need either
+                        throw new DukeException(message, "event");
+
                     }
                 } else {
                     throw new DukeException(message, "event");
@@ -165,74 +176,80 @@ public class AddCommand extends Command {
                 throw new DukeException(message, "event");
             }
         }
-        case "betw":{
-            if(message.length() < 8 || !message.substring(4, 8).equals("een ")) {
+        case "betw": {
+            if (message.length() < 8 || !message.substring(4, 8).equals("een ")) {
+
                 throw new DukeException(message);
             }
             BetweenTask betweenTask;
-            try{
+            try {
                 String[] sections = message.substring(8).split("/between");
                 String[] periods = sections[1].split("and");
                 betweenTask = new BetweenTask(sections[0].trim(), periods[0].trim(), periods[1].trim());
                 taskList.add(betweenTask);
                 storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), betweenTask);
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new DukeException(message, "between");
             }
         }
         case "recu": {
-            if(message.length() < 5 || !message.substring(4, 6).equals("r ")){
+            if (message.length() < 5 || !message.substring(4, 6).equals("r ")) {
                 throw new DukeException(message);
             }
             RecurringTask recurringTask;
-            try{
+            try {
                 String[] sections = message.split(" ");
-                String frequency, description, date, time;
-                if(sections[1].equals("daily") ||
-                        sections[1].equals("weekly") ||
-                        sections[1].equals("monthly") ||
-                        sections[1].equals("yearly")) {
+                String frequency;
+                String description;
+                String date;
+                String time;
+                if (sections[1].equals("daily")
+                        || sections[1].equals("weekly")
+                        || sections[1].equals("monthly")
+                        || sections[1].equals("yearly")) {
                     frequency = sections[1];
 
                     //form back the content
                     String result = "";
-                    for(int i = 2; i < sections.length; i++){
+                    for (int i = 2; i < sections.length; i++) {
                         result += sections[i];
                     }
 
-                    String[] sub_content = result.split("/on");
-                    description = sub_content[0].trim();
-                    String[] sub_content_2 = sub_content[1].split("/at");
-                    date = sub_content_2[0].trim();  //this must be in dd/mm/yy specific format
-                    if(sub_content_2.length == 2){
-                        time = sub_content_2[1].trim();  //this could be anything
+                    String[] subContent = result.split("/on");
+                    description = subContent[0].trim();
+                    String[] subContent2 = subContent[1].split("/at");
+                    date = subContent2[0].trim();  //this must be in dd/mm/yy specific format
+                    if (subContent2.length == 2) {
+                        time = subContent2[1].trim();  //this could be anything
                     } else {
                         time = "";
                     }
-                    int day, month, year;
-                    String[] date_data = date.split("/");
-                    day = Integer.parseInt(date_data[0].trim());
-                    month = Integer.parseInt(date_data[1].trim());
-                    year = Integer.parseInt(date_data[2].trim());
-                    if(!RecurringTask.isDateVaid(day, month, year)){
+                    int day;
+                    int month;
+                    int year;
+                    String[] dateData = date.split("/");
+                    day = Integer.parseInt(dateData[0].trim());
+                    month = Integer.parseInt(dateData[1].trim());
+                    year = Integer.parseInt(dateData[2].trim());
+                    if (!RecurringTask.isDateVaid(day, month, year)) {
                         throw new DukeException("");
                     }
                     recurringTask = new RecurringTask(description, date, time, frequency);
                     taskList.add(recurringTask);
                     storage.updateFile(taskList);
                     return ui.formatAdd(taskList.getTaskList(), recurringTask);
-                }else {
+                } else {
                     //invalid frequency input
                     throw new DukeException("");
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new DukeException(message, "recur");
             }
 
         }
         case "fixe": {
-            if(message.length() < 14 || !message.substring(4, 14).equals("dDuration ")){
+            if (message.length() < 14 || !message.substring(4, 14).equals("dDuration ")) {
                 throw new DukeException(message);
             }
             try {

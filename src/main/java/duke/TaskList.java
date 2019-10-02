@@ -16,38 +16,36 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> list = new ArrayList<>();
-    public  Task get_first_e(String[] string_list,int first) throws DukeException{
+
+    /**
+     * Modifies the task with the end and start time.
+     *
+     * @param stringList the list of the string of the description of the event.
+     * @param first if its the first time you are creating it.
+     * @return the Task with the start and end date if possible to parse
+     * @throws DukeException if an exception occurs in the parsing of the message.
+     */
+    public  Task get_first_e(String[] stringList,int first) throws DukeException {
         Task c1;
         //System.out.println("help me");
         //System.out.println("here "+Arrays.toString(string_list));
-        try{
+        try {
             //System.out.println(Arrays.toString(string_list));
-            String[] timing = string_list[1].split("-");
-            if(timing.length>= 2 && !(timing[1].trim().equals("")) ){
+            String[] timing = stringList[1].split("-");
+            if (timing.length >= 2 && !(timing[1].trim().equals(""))) {
                 //System.out.println(Arrays.toString(timing));
-                LocalDateTime start_date = new ParseTime().parseStringToDate(timing[0].trim());
-                LocalDateTime end_date =  new ParseTime().parseStringToDate(timing[1].trim());
-
-                c1 = new duke.tasks.Event(string_list[0],start_date,end_date,timing[0],timing[1]);
+                LocalDateTime startDate = new ParseTime().parseStringToDate(timing[0].trim());
+                LocalDateTime endDate =  new ParseTime().parseStringToDate(timing[1].trim());
+                c1 = new duke.tasks.Event(stringList[0],startDate,endDate,timing[0],timing[1]);
                 //System.out.println("Before : " + c1);
-                if(first == 0 ){
-                  /*  if(conflict_checker.is_conflict((Event)c1)){
-                        throw new DukeException("there is a conflict in the timings, you already have an event that overlap!");
-                    }
-
-                   */
-                }
-            }
-            else{
+            } else {
                 throw new DukeException("Please give a starting and ending time!");
             }
-        }
-        catch (DukeTimeException e){
-            String[] timing = string_list[2].split("-");
-            if(timing.length>= 2 && !(timing[1].trim().equals("")) ){
-                c1 = new duke.tasks.Event(string_list[1],timing[0],timing[1]);
-            }
-            else{
+        } catch (DukeTimeException e) {
+            String[] timing = stringList[2].split("-");
+            if (timing.length >= 2 && !(timing[1].trim().equals(""))) {
+                c1 = new duke.tasks.Event(stringList[1],timing[0],timing[1]);
+            } else {
                 throw new DukeException("Please give a starting and ending time!");
             }
         }
@@ -58,6 +56,7 @@ public class TaskList {
      *
      * @param index the index of the duke.tasks.Task in the task list that is to be removed
      */
+
     public void remove(int index) {
         list.remove(index);
     }
@@ -97,12 +96,18 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Returns the Tasks that need to be done soon.
+     *
+     * @return an arraylist of the tasks that need to be done soon!
+     */
     public ArrayList<Task> getTasksDueSoon() {
         LocalDateTime now = LocalDateTime.now();
         ArrayList<Task> result = new ArrayList<>();
-        for (Task t: list){
-            if (t instanceof Deadline){
-                if ((((Deadline) t).getByLDT() != null) && (Duration.between(((Deadline) t).getByLDT(), now).toSeconds() <= 10800)){ // 3 hours
+        for (Task t: list) {
+            if (t instanceof Deadline) {
+                if ((((Deadline) t).getByLDT() != null)
+                        && (Duration.between(((Deadline) t).getByLDT(), now).toSeconds() <= 10800)) { // 3 hours
                     result.add(t);
                 }
             }
@@ -119,7 +124,9 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return list;
     }
-    public Task getTaskIndex(int num){
+
+
+    public Task getTaskIndex(int num) {
         return list.get(num);
     }
 

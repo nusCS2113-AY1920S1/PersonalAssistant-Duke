@@ -1,14 +1,21 @@
 package duke;
 
-import duke.commands.*;
-
+import duke.commands.ByeCommand;
+import duke.commands.ListCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.DoneCommand;
+import duke.commands.AddCommand;
+import duke.commands.Command;
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
+
 class Parser {
 
     /**
-     * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message, and throws a duke.DukeException otherwise.
+     * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message,
+     * and throws a duke.DukeException otherwise.
      *
      * @param message the input message to be parsed
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message

@@ -1,17 +1,16 @@
 package duke;
 
 import duke.commands.Command;
-
 import duke.commands.RemindCommand;
 
+
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Duke {
     /**
-     * A chat bot cum task management application that can handle events, deadlines and normal to-do tasks,
+     * Chat bot cum task management application that can handle events, deadlines and normal to-do tasks,
      * as well as basic exception handling.
      */
     private Storage storage;
@@ -26,7 +25,8 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         tasks = new TaskList();
-        storage = new Storage(Paths.get("data","todo_list.txt"));
+        System.out.println("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt");
+        storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
         try {
             storage.loadList(tasks);
         } catch (DukeException e) {
@@ -80,5 +80,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
+
 
 }
