@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.entities.recipe.Ingredient;
+import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
 import duke.storage.recipe.RecipeList;
@@ -94,7 +94,7 @@ public class RecipePage extends AnchorPane {
         try {
             Image image1 = new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\star.png"));
             difficultyLevel.getChildren().clear();
-            for (int i = 0; i < recipe.getDiffLevel(); i++) {
+            for (int i = 0; i < recipe.getDifficultyLevel(); i++) {
                 ImageView star = new ImageView();
                 star.setImage(image1);
                 star.setFitHeight(28);

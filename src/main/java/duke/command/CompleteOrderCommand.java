@@ -11,12 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
+ * A command to set the status of an <code>Order</code> object to <code>COMPLETED</code>.
  */
-public class DeleteOrderCommand extends UndoableCommand {
-
+public class CompleteOrderCommand extends UndoableCommand {
     private List<Order> orders;
-    private List<Integer> indexes;
     private Map<String, List<String>> params;
 
     /**
@@ -24,35 +22,27 @@ public class DeleteOrderCommand extends UndoableCommand {
      *
      * @param params The parameters specifying details of the order.
      */
-    public DeleteOrderCommand(Map<String, List<String>> params) throws DukeException {
+    public CompleteOrderCommand(Map<String, List<String>> params) {
         this.params = params;
     }
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        for (int i = 0; i < indexes.size(); i++) {
-            bakingList.getOrderList().add(indexes.get(i), orders.get(i));
-        }
-        storage.serialize(bakingList);
-        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        ui.showMessage("Undo: Remove order");
+
     }
 
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        execute(bakingList, storage, ui);
-        ui.showMessage("Redo: Remove order");
+
     }
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        this.orders = CommandParser.getOrders(bakingList.getOrderList(), params);
-        this.indexes = CommandParser.getOrderIndexes(params);
-        bakingList.getOrderList().removeAll(orders);
+        orders = CommandParser.getOrders(bakingList.getOrderList(), params);
+        for (Order order : orders) {
+            order.setStatus(Order.Status.COMPLETED);
+        }
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        ui.showMessage("Order removed");
     }
-
-
 }

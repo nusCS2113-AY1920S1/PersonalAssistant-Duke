@@ -1,6 +1,7 @@
 package duke.entities.recipe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import duke.entities.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class Recipe {
         this.name = name;
     }
 
+    public Recipe() {
+
+    }
     public Recipe init() {
         name = "Cheese Cake";
         List<Step> stepList = new ArrayList<>();
@@ -51,7 +55,7 @@ public class Recipe {
         return time;
     }
 
-    public int getDiffLevel() {
+    public int getDifficultyLevel() {
         return difficultyLevel;
     }
     public double getCost() {

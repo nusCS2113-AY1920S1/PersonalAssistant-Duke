@@ -2,8 +2,8 @@ package duke.logic;
 
 import duke.command.Command;
 import duke.commons.DukeException;
-import duke.parser.Parser;
 import duke.entities.recipe.Recipe;
+import duke.parser.Parser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.storage.recipe.RecipeList;
@@ -36,7 +36,7 @@ public class Duke {
 
     public void executeInput(String input) {
         try {
-            Command command = Parser.getCommand(input);
+            Command command = Parser.getCommand(input, bakingList.getShortcuts());
             commandManager.execute(command);
         } catch (DukeException e) {
             ui.showError(e.getMessage());

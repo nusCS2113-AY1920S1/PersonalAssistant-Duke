@@ -32,19 +32,22 @@
     -jfx-expanded: false;
 }
 
-.todo-label {
-    -fx-background-color: rgb(101, 203, 87);
-    -fx-background-radius: 25;
+.status-completed {
+    -fx-background-color: #00bfa5;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
 }
 
-.event-label {
-    -fx-background-color: rgb(246, 194, 81);
-    -fx-background-radius: 25;
+.status-active {
+    -fx-background-color: #32cb00;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
 }
 
-.deadline-label {
-    -fx-background-color: rgb(237, 107, 96);
-    -fx-background-radius: 25;
+.status-canceled {
+    -fx-background-color: #bdbdbd;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
 }
 
 .error-popup {
@@ -55,42 +58,10 @@
 
 .message-popup {
     -fx-background-radius: 25;
-    -fx-background-color: #f3f3f3;
-    -fx-text-fill: #000000;
+    -fx-background-color: #00bfa5;
+    -fx-text-fill: #ffffff;
 }
 
 
-.table-view{
-    -fx-background-color: transparent;
-    -fx-font-size: 25px;
-    -fx-font-weight:bold;
-    -fx-font-family: "Gabriola";
-    -fx-text-fill: #96663b;
-    -fx-table-header-border-color: #96663b;
- }
 
-.table-view .column-header-background{
-    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
-}
-
-.table-view .column-header-background .label{
-     -fx-background-color: #96663b;
-    -fx-font-weight:bold;
-    -fx-font-family: "Gabriola";
-     -fx-text-fill: white;
-}
-
-
-//Style of each column in the tableView
-.table-view .table-column{
-    -fx-alignment:center;
-
-}
-
-.table-view .table-cell{
-    -fx-font-weight:bold;
-    -fx-font-size:25px;
-    -fx-text-fill:#96663b;
-
-}
 

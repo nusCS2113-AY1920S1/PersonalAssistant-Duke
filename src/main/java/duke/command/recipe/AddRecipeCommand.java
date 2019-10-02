@@ -2,7 +2,7 @@ package duke.command.recipe;
 
 import duke.command.Command;
 import duke.commons.DukeException;
-import duke.entities.recipe.Ingredient;
+import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
 import duke.storage.BakingList;

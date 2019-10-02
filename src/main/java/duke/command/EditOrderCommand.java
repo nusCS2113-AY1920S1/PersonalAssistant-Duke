@@ -3,7 +3,6 @@ package duke.command;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.parser.CommandParser;
-import duke.parser.TimeParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -11,10 +10,20 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A command to edit the properties of an <code>Order</code> object.
+ */
 public class EditOrderCommand extends UndoableCommand {
 
     private Map<String, List<String>> params;
+    private Order order;
+    private Order unmodifiedOrder = new Order();
 
+    /**
+     * Class constructor.
+     *
+     * @param params the parameters specifying details of the order.
+     */
     public EditOrderCommand(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("i") == !params.containsKey("id"))) {
             throw new DukeException("Please specify order ID or index");
@@ -25,18 +34,24 @@ public class EditOrderCommand extends UndoableCommand {
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-
+        copyOrder(order, unmodifiedOrder);
+        storage.serialize(bakingList);
+        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-
+        order = getOrder(bakingList);
+        CommandParser.modifyOrdrer(params, order);
+        storage.serialize(bakingList);
+        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        Order order = getOrder(bakingList);
-        modifyOrder(order, params);
+        order = getOrder(bakingList);
+        copyOrder(unmodifiedOrder, order);
+        CommandParser.modifyOrdrer(params, order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
@@ -81,19 +96,17 @@ public class EditOrderCommand extends UndoableCommand {
         return bakingList.getOrderList().get(index);
     }
 
-    private void modifyOrder(Order order, Map<String, List<String>> params) throws DukeException {
-        if (params.containsKey("name")) {
-            order.setCustomerName(params.get("name").get(0));
+    private void copyOrder(Order to, Order from) {
+        to.setStatus(from.getStatus());
+        to.setDeliveryDate(from.getDeliveryDate());
+        to.setCustomerContact(from.getCustomerContact());
+        to.setCustomerName(from.getCustomerName());
+        to.setRemarks(from.getRemarks());
+        to.setId(from.getId());
+        to.getItems().clear();
+        for (Map.Entry<String, Integer> entry : from.getItems().entrySet()) {
+            to.addItem(entry.getKey(), entry.getValue());
         }
-        if (params.containsKey("contact")) {
-            order.setCustomerContact(params.get("contact").get(0));
-        }
-        if (params.containsKey("rmk")) {
-            order.setCustomerContact(params.get("rmk").get(0));
-        }
-        if (params.containsKey("by")) {
-            order.setDeliveryDate(TimeParser.convertStringToDate(params.get("by").get(0)));
-        }
-        CommandParser.addItemsToOrder(params, order);
     }
+
 }

@@ -1,6 +1,6 @@
 package duke.ui.recipe;
 
-import duke.entities.recipe.Ingredient;
+import duke.entities.Ingredient;
 import duke.ui.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

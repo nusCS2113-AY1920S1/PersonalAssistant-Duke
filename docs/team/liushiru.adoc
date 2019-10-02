@@ -1,0 +1,52 @@
+= Liu Shiru- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: BakingHome
+
+---
+
+== Overview
+
+BakingHome is an one-stop application for staff in small to medium-sized family baking businesses who prefer to use a desktop app and command line to manage their business, such as recipes, inventory, orders as well as revenue. BakingHome is optimized for those who prefer to work with a Command Line Interface (CLI) so that they can have a smoother experience with typing as compared to Graphic User Interface (GUI). 
+
+== Summary of contributions
+
+* *Major enhancement*: 
+
+* *Minor enhancement*: 
+
+* *Code contributed*:
+
+* *Other contributions*:
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: 
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

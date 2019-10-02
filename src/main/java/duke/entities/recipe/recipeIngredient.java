@@ -1,6 +1,7 @@
 package duke.entities.recipe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import duke.entities.Ingredient;
 
 public class recipeIngredient {
 
