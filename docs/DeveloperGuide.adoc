@@ -5,7 +5,6 @@
 Target User Profile:
 
 - Highly motivated but is distracted easily.
-
 - Likes to work towards small milestones than large ones.
 - Likes gamifying mundane tasks.
 - Prefers if people tell them what to work towards.
@@ -15,6 +14,7 @@ Target User Profile:
 - Prefers desktop apps over other types.
 
 Value proposition: We strive to adhere our product to two main principles:
+
 1) Gamify tasks to make completing them more engaging than a typical productivity/ study app.
 
 2) Recommend tasks for completion to simplify the user's life.
