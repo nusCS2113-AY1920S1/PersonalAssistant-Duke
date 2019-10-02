@@ -28,9 +28,6 @@ public class NumCommand extends Command {
             list.markTaskAsDone(itemIndex);
         } else if (type == CommandType.DELETE) {
             list.deleteTask(itemIndex);
-        } else if (type == CommandType.SNOOZE) {
-            /*list.snoozeTask(itemIndex);*/
         }
-
     }
 }
