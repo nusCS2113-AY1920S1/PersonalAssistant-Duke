@@ -30,27 +30,27 @@ public class Duke {
     private void run() {
         ui.printIntro();
         String userInput;
-        Command command;
 
-        //Should probably wrap this in the UI class.
-        do {
-            ui.printNewLine();
+        while (true) {
             userInput = ui.read();
-            command = parser.parse(userInput);
-            try {
-                command.execute(taskList, ui, storage);
-            } catch (BadInputException e) {
-                System.out.println(e);
-            }
-        } while (command.getType() != CommandType.BYE);
 
+            try {
+                Command command = parser.parse(userInput);
+                command.execute(taskList, ui, storage);
+
+                if (command.getType() == CommandType.BYE) {
+                    break;
+                }
+            } catch (Exception e) {
+                ui.printError(e);
+            }
+        }
     }
 
     /**
      * Main function that sets the save path and runs duke.
      */
     public static void main(String[] args) {
-
         String currentDir = System.getProperty("user.dir");
         String filePath = currentDir + "/data/saved_tasks.txt";
         new Duke(filePath).run();

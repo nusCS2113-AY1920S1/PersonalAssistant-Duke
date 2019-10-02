@@ -30,7 +30,6 @@ public class AddCommand extends Command {
         this.details = details;
 
         switch (type) {
-
         case DEADLINE:
             dateTimes[0] = new DateTime(details);
             break;
@@ -44,14 +43,11 @@ public class AddCommand extends Command {
                 throw new BadInputException("Improper datetime. "
                         + "Correct format: event <event name> /at <event start time> to <event end time>");
             }
-
             break;
 
         default:
             break;
-
         }
-
     }
 
     /**
@@ -88,7 +84,6 @@ public class AddCommand extends Command {
      * @throws BadInputException If a record is badly formatted, it should be ignored.
      */
     public void execute(TaskList list) throws BadInputException {
-
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));

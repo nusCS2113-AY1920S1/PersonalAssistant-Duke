@@ -2,12 +2,14 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
+import duke.commands.ListCommand;
 import duke.commands.NumCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 import duke.enums.CommandType;
-
 
 /**
  * Interprets command strings by the user.
@@ -110,7 +112,7 @@ public class Parser {
         switch (keyword[0]) {
         //Commands which are single words.
         case "list":
-            command = new Command(CommandType.LIST);
+            command = new ListCommand(CommandType.LIST);
             break;
         case "bye":
             command = new Command(CommandType.BYE);
@@ -118,12 +120,11 @@ public class Parser {
 
         //Commands which require numerical input.
         case "done":
-            command = new NumCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
+            command = new DoneCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
-        case "delete": {
-            command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
+        case "delete":
+            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
             break;
-        }
 
         //Commands which require string input.
         case "todo":
@@ -131,24 +132,21 @@ public class Parser {
             command = new AddCommand(CommandType.TODO, todoTemp[0],
                     (todoTemp.length > 1) ? todoTemp[1] : "");
             break;
-
-        case "deadline": {
-            String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1]);
+        case "deadline":
+            String[] deadlineTemp = addDeadline(keyword[1]);
+            command = new AddCommand(CommandType.DEADLINE, deadlineTemp[0], deadlineTemp[1]);
             break;
-        }
-        case "event": {
-            String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(CommandType.EVENT, temp[0], temp[1]);
+        case "event":
+            String[] eventTemp = addEvent(keyword[1]);
+            command = new AddCommand(CommandType.EVENT, eventTemp[0], eventTemp[1]);
             break;
-        }
         case "find": {
             String description = keyword[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
                 command = new Command();
-                System.out.println("Please enter the search description.");
+                throw new BadInputException("Please enter the search description.");
             }
             break;
         }
@@ -166,25 +164,18 @@ public class Parser {
      *
      * @return an array where the first item is the command word and the second item is the rest of the text.
      */
-    public Command parse(String userInput) {
-
+    public Command parse(String userInput) throws Exception {
         Command userCommand;
 
         //TODO: Make this a do-while that waits for a good input?
-        //TODO: Shift this implementation to the Ui class
         try {
             userCommand = handleListInput(userInput);
         } catch (NumberFormatException e) {
-            System.out.println("Please input only an integer after the command.");
-            userCommand = new Command();
-
-        } catch (Exception e) {
-            System.out.println("Parser error: ");
-            System.out.println(e);
-            userCommand = new Command();
+            throw new NumberFormatException("Please input only an integer after the command.");
+        } catch (Exception e) { // Redundant code, but demonstrates throwing all other exceptions higher
+            throw e;
         }
 
         return userCommand;
     }
-
 }

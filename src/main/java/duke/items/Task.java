@@ -43,6 +43,7 @@ public class Task {
         return isDone;
     }
 
+    // TODO: Deprecated, remove in future commit
     public void printTaskDetails() {
         System.out.println(toString());
     }
@@ -77,10 +78,6 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
-
-    //    public Date getDate() {
-    //        return null;
-    //    }
 
     public Calendar getDate() {
         return null;
