@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Entertainment Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+Entertainment-Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -19,15 +19,7 @@ Responsibilities: Documentation + Code Quality
 '''
 
 === Marc
-<<<<<<< HEAD
-<<<<<<< HEAD
-image::lejolly.jpg[width="150", align="left"]
-=======
 image::Hotspur1997.jpg[width="150", align="left"]
->>>>>>> upstream/master
-=======
-image::Hotspur1997.jpg[width="150", align="left"]
->>>>>>> upstream/master
 {empty}[http://github.com/Hotspur1997[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -36,7 +28,7 @@ Responsibilities: Integration + Storage
 '''
 
 === Wen Hui
-image::yijinl.jpg[width="150", align="left"]
+image::nwenhui.png[width="150", align="left"]
 {empty}[http://github.com/nwenhui[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
