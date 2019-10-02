@@ -95,6 +95,7 @@ public class TaskList {
      */
     public void deleteTask(int i) { taskList.remove(i); }
 
+    // TODO: Deprecated, remove in future commit - Raghav
     /**
      * Prints error message if a nonexistent task index is accessed.
      * Prints the task list for user to choose again.
