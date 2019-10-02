@@ -129,7 +129,8 @@ public class RecurringCommand {
                 Deadline new_yearlyDeadline = new Deadline(description, (conc_time));
                 list.add(new_yearlyDeadline);
                 System.out.print("\nI've automatically added this yearly task again:\n" + new_yearlyDeadline.listFormat()
-                + "\nNow you have " + list.size() + " tasks in the list.\n");
+                        + "\nNow you have " + list.size() + " tasks in the list.\n");
+
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
