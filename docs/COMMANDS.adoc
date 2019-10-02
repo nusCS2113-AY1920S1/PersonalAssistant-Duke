@@ -1,0 +1,108 @@
+= COMMAND LIST
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
+
+* *`help`* : Pull out the instruction manual
+* *`select`* : Select a specific list
+* *`add`* : Add a person/ event
+* *`delete`* : Remove a person/ event
+* *`modify`* : Modify a person/ event
+* *`find`* : Find a person/ event
+* *`sort`* : Sort the name/ event list
+
+=== User manual: `help`
+This will pull out the instruction manual and list out the available instructions in the personal assistant +
+Format: `help`
+
+=== Selecting a instruction: `select`
+Selecting a instruction listed in the user manual +
+Format: `*select* + "n/NUMBER"`
+
+Examples:
+
+* `select 0` will pull out the instruction manual
+* `select 5` will pull out the inventory
+
+=== Adding a person or event : `add`
+
+Adding a person to the address book +
+Format: `*add* + n/NAME` +
+
+Adding an event to the calendar +
+Format: `*add* + n/EVENT`
+
+Examples:
+
+* `add Johnson` will add Johnson's name into the address book
+* `add birthday party at 10/12/2020` will add event "birthday party" into the calendar
+
+=== Removing a person or event : `delete`
+
+Removing a person from the address book +
+Format: `*delete* + n/NAME` +
+
+Removing an event from the calendar +
+Format: `*delete* + n/EVENT`
+
+Examples:
+
+* `delete Cindy` will remove Cindy's name from the address book
+* `delete swimming` will add event "swimming" from the calendar
+
+=== Modifying a person or event : `modify`
+
+Modifying a person in the address book +
+Format: `*modify* + n/NAME + n/TAG to n/TAG_DESCRIPTION` +
+
+Modifying an event in the calendar +
+Format: `*modify* + n/EVENT + n/TAG to n/TAG_DESCRIPTION`
+
+Examples:
+
+* `modify John name to Johnathan` will change John's name to Johnathan
+* `modify John gender to M` will change John's gender to male
+* `modify hiking date to 05/07/2021` will change the date of event "hiking" to 05/07/2021
+* `modify basketball location to MPSH2` will change the location of event "basketball" to MPSH2
+
+=== Finding a person or event : `find`
+
+Finding a person from the address book and listing out the details +
+Format: `*find* + n/NAME` +
+
+Finding all people that qualifies with specific tags from the address book +
+Format: `*find* + n/TAG + n/TAG` +
+
+Finding an event from the calendar and listing out the details +
+Format: `*find* + n/EVENT`
+
+Finding all events happening on a specific date from the calendar +
+Format: `*find* + dd/mm/yy`
+
+Examples:
+
+* `find Jack` will find Jack and list out his details
+* `find exchange` will list out all the members that are exchange students
+* `find year2 female` will list out all the members that are year2 students and female
+* `find CSfinals` will find the finals date for CS module and list out its details
+* `find 25/03/2022` will find all events happening on 25/03/2022
+
+=== Sorting the name list or event calendar : `sort`
+
+Sorting the name list +
+Format: `*sort* + NAMES` +
+
+Sorting the event calendar +
+Format: `*sort* + EVENTS` +
+
