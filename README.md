@@ -8,7 +8,7 @@ For those who wish to use Duke 2.0 as-is, please refer to the [User Guide](docs/
 
 ## For Developers
 
-For those who wish to modify the source files for their own project, or just to see how Duke 2.0 works, refer to [here](docs/Installation.md).
+For those who wish to modify the source files for their own project, or just to see how Duke 2.0 works, refer to [here](docs/DeveloperGuide.adoc).
 
 ## UI
 
