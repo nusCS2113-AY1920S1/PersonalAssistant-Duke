@@ -15,7 +15,7 @@ endif::[]
 *Site Map*
 
 * <<docs/[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc#, User Guide>>
-* <<docs/[AY1920S1-CS2113-T16-1]-[Le Duc]-DG.pdf#, Developper Guide>>
+* <<docs/[AY1920S1-CS2113-T16-1]-[Le Duc]-DG.adoc#, Developer Guide>>
 * <<docs/AboutUs.adoc#, About us>>
 
 
