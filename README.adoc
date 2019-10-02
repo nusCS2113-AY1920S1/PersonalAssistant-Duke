@@ -1,4 +1,5 @@
 = OPTIX - An easy way to manage theatre bookings
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 
 ifdef::env-github[]
