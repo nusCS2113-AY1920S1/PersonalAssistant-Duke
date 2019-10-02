@@ -171,7 +171,7 @@ Extensions
 
 === Use case: Alert on duplicate tasks
 
----
+-----
 
 ==== MSS
 
@@ -197,4 +197,4 @@ Extensions
 
 ----
 
----
+-----
