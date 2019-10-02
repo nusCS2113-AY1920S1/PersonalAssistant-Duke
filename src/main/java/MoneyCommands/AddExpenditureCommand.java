@@ -1,8 +1,6 @@
 package MoneyCommands;
 
-import controlpanel.DukeException;
-import controlpanel.Storage;
-import controlpanel.Ui;
+import controlpanel.*;
 import Money.Account;
 import Money.Expenditure;
 import controlpanel.DukeException;
@@ -13,11 +11,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This command adds an expenditure to the Total Expenditure List
+ */
 public class AddExpenditureCommand extends MoneyCommand {
 
     private String inputString;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * Constructor of the command which initialises the add expenditure command
+     * with the expenditure data within the user input
+     * @param command add command inputted from user
+     */
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
         simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
@@ -28,6 +34,15 @@ public class AddExpenditureCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * This method executes the add expenditure command. Takes the input from user
+     * and adds an expenditure to the Total Expenditure List
+     * @param account Account object containing all financial info of user saved on the programme
+     * @param ui Handles interaction with the user
+     * @param storage Saves and loads data into/from the local disk
+     * @throws ParseException If invalid date is parsed
+     * @throws DukeException When the command is invalid
+     */
     @Override
     public void execute(Account account, Ui ui, Storage storage) throws ParseException, DukeException {
         String[] splitStr = inputString.split("/amt ", 2);
@@ -36,14 +51,9 @@ public class AddExpenditureCommand extends MoneyCommand {
         float price = Float.parseFloat(furSplit[0]);
         String[] morSplit = furSplit[1].split("/on", 2);
         String category = morSplit[0];
-        Date boughtTime = simpleDateFormat.parse(morSplit[1]);
+        Date boughtTime = Parser.shortcutTime(morSplit[1]);
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
-
-
-//        System.out.println(" Got it. I've added this to your total spending: \n");
-//        System.out.println("     " + account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");
-//        System.out.println(" Now you have " + account.getExpListTotal().size() + " expenses listed");
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     " + account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");
