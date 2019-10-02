@@ -22,8 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * The class which analyze the input command line and initialize a command.
- * according to its type.
+ * This class which takes in the user input from command line and identifies the
+ * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
     public Parser() throws DukeException, ParseException {
@@ -80,6 +80,14 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Constructor which runs the parser to parse all commands
+     * @param cmd Original input command from the user
+     * @param isNewUser Boolean to identify if the user if a new or returning user
+     * @return MoneyCommand to be called according to the user commands
+     * @throws DukeException If the user input is invalid
+     * @throws ParseException If invalid date is parsed
+     */
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
