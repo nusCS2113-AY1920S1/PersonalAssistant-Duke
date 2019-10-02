@@ -113,7 +113,11 @@ Use case ends.
 Use case ends.
 
 === Non-Functional Requirements
- - Should work on any mainstream OS as long it has Java 11 or above installed.
- - A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
- - The randomly generated questions should have a consistent level of difficulty
+ - The application should work on any mainstream OS with Java 11 installed to run the game. 
+ - The computer should have a minimum of 320 by 300 screen resolution for the game to display. 
+ - The computer should have soundcards and audio speakers for the game music to play. 
+ - The computer should have a minimum of Intel I3 dual core processors for the game to run without notable sluggish. 
+ - The user should be able to read, understand, and write English to complete the storyline in the game. 
+ - The computer should have minimum 4GB of RAM to load the game. 
+ - The user should be at least 16 years of age due to mature content. 
 
