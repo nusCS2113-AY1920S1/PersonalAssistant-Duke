@@ -6,6 +6,7 @@ import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -22,7 +23,7 @@ public class Duke {
     private Ui ui;
 
     private PriorityStorage priorityStorage;
-    private ArrayList<Integer> priorityList;
+    private PriorityList priorityList;
 
 
     /**
@@ -39,17 +40,16 @@ public class Duke {
 
         try {
             items = new TaskList(storage.read());
-            priorityList = priorityStorage.read();
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
         }
 
         try {
-            priorityList = priorityStorage.read();
+            priorityList = new PriorityList(priorityStorage.read());
         } catch (IOException e) {
             ui.showLoadingError();
-            priorityList = new ArrayList<>();
+            priorityList = new PriorityList();
         }
 
     }
@@ -105,6 +105,7 @@ public class Duke {
         ui.showWelcome();
         ui.showReminder(items);
         String sentence;
+        int priority;
 
         while (true) {
             sentence = ui.readCommand();
@@ -112,10 +113,12 @@ public class Duke {
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
-                    cmd.executeStorage(items,ui,storage);
                     break;
                 } else {
                     cmd.execute(items,ui);
+                    ui.showLine();
+                    priorityList = priorityList.addPriority(cmd);
+
                 }
             } catch (DukeException e) {
                 ui.showErrorMsg(e.getMessage());
