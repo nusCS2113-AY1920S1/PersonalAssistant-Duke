@@ -50,7 +50,7 @@ Find out your daily, monthly, or yearly progress in cutting down your spending o
 === Debts
 image::Ui/Debts.png[width="500", align="center"]
 {nbsp} +
-Do you lend or borrow money from friends a lot? Keep track of all your money circulation and mark them when they any debts are repaid!
+Do you lend or borrow money from friends a lot? Keep track of all your money circulation and mark them as done when the debts are repaid!
 
 === Shortcuts
 image::Ui/Shortcuts.png[width="500", align="center"]
