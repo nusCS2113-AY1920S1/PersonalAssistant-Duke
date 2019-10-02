@@ -70,17 +70,25 @@ have. 1 star (★) is unlikely to have.
 
 | ★★ | User | Have a “today” tab | Concentrate on all tasks on the particular given.
 
-| ★★ | Absent-minded User |
+| ★★ | Absent-minded User | Be alerted of my duplicate tasks | Realize I have previously did that and add in other important tasks.
 
-| ★★ | Reward-hungry User |
+| ★★ | Reward-hungry User | Translate my statistics obtained from the app | Be satisfied of my progression.
 
-| ★★ | User |
+| ★★ | User | Customize my date/time inputs | Type the input to my liking.
 
-| ★★ | User |
+| ★★ | User | Delete all my tasks with one input | Spend less time manually deleting everything.
 
-| ★★ | User |
+| ★★ | User | Have quote of the day when starting the app | Get a boost of motivation to start the day.
 
-| ★★ | User |
+| ★★ | User | Keep track of how many times I have used the app | Feel good in knowing that I spend time on a productivity app.
+
+| ★ | Clumsy Student | Undo my inputs | Spend less time deleting unwanted inputs.
+
+| ★ | Sociable Student | Share my schedule with my friends through the app | Easily organize events with them.
+
+| ★ | Competitive Student | Battle my friends against their avatar | Have fun and compare myself with others.
+
+| ★ | Meticulous Student | Add notes and comments on my tasks | Remember what additional information I require for that task.
 
 |===
 // end::base-alt[]
