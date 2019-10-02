@@ -3,7 +3,6 @@ package leduc.task;
 import leduc.Date;
 import leduc.exception.PostponeDeadlineException;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents a deadline Task.
@@ -49,7 +48,7 @@ public class DeadlinesTask extends Task {
     public Date getDeadlines(){ return this.deadlines;}
 
     /**
-     * Setter of deadline.
+     * Setter of deadlines.
      * @param deadlines the new deadline date of the task.
      */
     public void setDeadlines(Date deadlines){
@@ -83,15 +82,15 @@ public class DeadlinesTask extends Task {
     /**
      * Allow postpone the deadline of the deadline task.
      * With verification that the new deadline should be after the old one.
-     * @param d LocalDateTime d : the new deadline
+     * @param d Date d : the new deadline
      * @throws PostponeDeadlineException Exception caught when the new deadline is before the old one.
      */
-    public void postponeDeadline(LocalDateTime d) throws PostponeDeadlineException {
-        if (d.isBefore(this.deadlines.getD())){
+    public void postponeDeadline(Date d) throws PostponeDeadlineException {
+        if (d.getD().isBefore(this.deadlines.getD())){
             throw new PostponeDeadlineException();
         }
         else{
-            this.deadlines.setD(d);
+            this.deadlines = d;
         }
     }
 }

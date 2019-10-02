@@ -1,6 +1,7 @@
 package leduc.task;
 
 import leduc.Date;
+import leduc.exception.ConflictDateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +74,12 @@ public class TaskList {
     }
 
     /**
-     * Search the event that are in conflict with the date
+     * Verify if there are event that are in conflict with the date
      * @param date1 the start date
      * @param date2 the end date
-     * @return the list of all the event task that are in conflict with these two dates
+     * @throws  ConflictDateException Exception thrown when the new event is in conflict with others event.
      */
-    public ArrayList<Task> searchConflictDate(Date date1, Date date2){
+    public void verifyConflictDate(Date date1, Date date2) throws ConflictDateException {
         ArrayList<Task> conflictTasks = new ArrayList<>();
         for (Task t : tasks){
             if(t.isEvent()){
@@ -93,6 +94,8 @@ public class TaskList {
                 }
             }
         }
-        return conflictTasks;
+        if(!conflictTasks.isEmpty()){
+            throw new ConflictDateException(conflictTasks);
+        }
     }
 }
