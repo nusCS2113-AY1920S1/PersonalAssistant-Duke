@@ -44,16 +44,16 @@ public class Storage {
                 switch (item[0]) {
                 case "T":
                     cmd = new AddCommand(CommandType.TODO, item[2], "");
-
                     break;
+
                 case "D":
                     cmd = new AddCommand(CommandType.DEADLINE, item[2],item[3]);
-
                     break;
+
                 case "E":
                     cmd = new AddCommand(CommandType.EVENT, item[2],item[3]);
-
                     break;
+
                 default:
                     //TODO: throw an exception
                     System.out.println("An exception will be thrown here eventually.");

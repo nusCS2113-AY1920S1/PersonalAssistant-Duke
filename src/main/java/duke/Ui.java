@@ -41,6 +41,15 @@ public class Ui {
     }
 
     /**
+     * Primary function that handles printing to the CLI
+     *
+     * @param printString String to print (passed in from external objects accessing UI)
+     */
+    public void print(String printString) {
+        System.out.println(printString);
+    }
+
+    /**
      * Prints the duke exit message.
      */
     public void printExitMessage() {

@@ -30,7 +30,6 @@ public class AddCommand extends Command {
         this.details = details;
 
         switch (type) {
-
         case DEADLINE:
             dateTimes[0] = new DateTime(details);
             break;
@@ -44,14 +43,11 @@ public class AddCommand extends Command {
                 throw new BadInputException("Improper datetime. "
                         + "Correct format: event <event name> /at <event start time> to <event end time>");
             }
-
             break;
 
         default:
             break;
-
         }
-
     }
 
     /**
