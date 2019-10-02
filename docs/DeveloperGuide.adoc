@@ -92,3 +92,8 @@ have. 1 star (★) is unlikely to have.
 
 |===
 // end::base-alt[]
+
+= Appendix C: Use Cases
+
+Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
+
