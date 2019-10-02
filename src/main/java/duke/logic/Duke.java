@@ -3,7 +3,8 @@ package duke.logic;
 import duke.command.Command;
 import duke.commons.DukeException;
 import duke.entities.recipe.Recipe;
-import duke.parser.Parser;
+import duke.parser.BakingHomeParser;
+import duke.parser.exceptions.ParseException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.storage.recipe.RecipeList;
@@ -14,7 +15,6 @@ public class Duke {
     private static final Storage STORAGE = new Storage("baking.json");
     private static BakingList bakingList = new BakingList();
     private static RecipeList recipeList = new RecipeList();
-  //  private static Recipe recipe;
     private Ui ui;
     private CommandManager commandManager;
 
@@ -44,9 +44,9 @@ public class Duke {
 
     public void executeInput(String input) {
         try {
-            Command command = Parser.getCommand(input, bakingList.getShortcuts());
+            Command command = new BakingHomeParser().parseCommand(input);
             commandManager.execute(command);
-        } catch (DukeException e) {
+        } catch (DukeException | ParseException e) {
             ui.showError(e.getMessage());
         }
     }

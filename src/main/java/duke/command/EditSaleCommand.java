@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Sale;
-import duke.parser.CommandParser;
 import duke.parser.TimeParser;
+import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;

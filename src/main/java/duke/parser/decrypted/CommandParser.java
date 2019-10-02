@@ -1,26 +1,21 @@
-package duke.parser;
+package duke.parser.decrypted;
 
 import duke.command.*;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.entities.Sale;
+import duke.parser.TimeParser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class CommandParser {
-    public static Command parseOrderAdd(Map<String, List<String>> params) throws DukeException {
-        return new AddOrderCommand(params);
-    }
 
     public static Command parseSaleAdd(Map<String, List<String>> params) throws DukeException {
         return new AddSaleCommand(params);
     }
 
-    public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
-        return new DeleteOrderCommand(params);
-    }
 
     public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
         return new DeleteSaleCommand(params);

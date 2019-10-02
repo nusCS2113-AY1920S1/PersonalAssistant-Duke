@@ -1,6 +1,8 @@
 package duke.parser;
 
 import duke.commons.DukeException;
+import duke.commons.Message;
+import duke.parser.exceptions.ParseException;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
@@ -36,10 +38,10 @@ public class TimeParser {
      * @return a Date object.
      * @throws DukeException if the String is of incorrect format.
      */
-    public static Date convertStringToDate(String str) throws DukeException {
+    public static Date convertStringToDate(String str) throws ParseException {
         List<Date> dates = prettyTimeParser.parse(str);
         if (dates.isEmpty()) {
-            throw new DukeException("Invalid date");
+            throw new ParseException(Message.MESSAGE_INVALID_DATE);
         }
         return dates.get(0);
     }
