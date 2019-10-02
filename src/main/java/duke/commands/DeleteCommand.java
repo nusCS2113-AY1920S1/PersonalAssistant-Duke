@@ -20,15 +20,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
             Task item = list.getTask(itemIndex);
             list.deleteTask(itemIndex);
             ui.print("Okay! I've deleted this task:\n" + item.toString());
 
         } catch(IndexOutOfBoundsException e) {
-            ui.printError(new IndexOutOfBoundsException("That task doesn't exist! Please check"
-                    + " the available tasks again: "));
+            throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
+                    + " the available tasks again: ");
         }
     }
 }

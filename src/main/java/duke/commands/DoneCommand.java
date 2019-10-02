@@ -14,14 +14,14 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
             list.getTask(itemIndex).markAsDone();
             ui.print("Nice! I've marked this task as done:\n"
                     + list.getTask(itemIndex).toString());
         } catch(IndexOutOfBoundsException e) {
-            ui.printError(new IndexOutOfBoundsException("That task doesn't exist! Please check"
-                    + " the available tasks again: "));
+            throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
+                    + " the available tasks again: ");
         }
     }
 }

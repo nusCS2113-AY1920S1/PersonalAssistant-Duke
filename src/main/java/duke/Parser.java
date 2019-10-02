@@ -5,12 +5,12 @@ import duke.commands.AddCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
+import duke.commands.ListCommand;
 import duke.commands.NumCommand;
 import duke.commands.RecurCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 import duke.enums.CommandType;
-
 
 /**
  * Interprets command strings by the user.
@@ -113,7 +113,7 @@ public class Parser {
         switch (keyword[0]) {
         //Commands which are single words.
         case "list":
-            command = new Command(CommandType.LIST);
+            command = new ListCommand(CommandType.LIST);
             break;
         case "bye":
             command = new Command(CommandType.BYE);
@@ -136,17 +136,14 @@ public class Parser {
             command = new AddCommand(CommandType.TODO, todoTemp[0],
                     (todoTemp.length > 1) ? todoTemp[1] : "");
             break;
-
-        case "deadline": {
-            String[] temp = addDeadline(keyword[1]);
-            command = new AddCommand(CommandType.DEADLINE, temp[0], temp[1]);
+        case "deadline":
+            String[] deadlineTemp = addDeadline(keyword[1]);
+            command = new AddCommand(CommandType.DEADLINE, deadlineTemp[0], deadlineTemp[1]);
             break;
-        }
-        case "event": {
-            String[] temp = addEvent(keyword[1]);
-            command = new AddCommand(CommandType.EVENT, temp[0], temp[1]);
+        case "event":
+            String[] eventTemp = addEvent(keyword[1]);
+            command = new AddCommand(CommandType.EVENT, eventTemp[0], eventTemp[1]);
             break;
-        }
         case "find": {
             String description = keyword[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
