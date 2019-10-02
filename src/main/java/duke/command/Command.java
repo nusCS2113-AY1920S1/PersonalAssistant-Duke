@@ -29,4 +29,9 @@ public abstract class Command {
     public String silentExecute(DukeContext ctx) throws DukeException {
         return null;
     }
+
+    //TODO: replace with abstract function that actually prints excerpts from the user guide
+    public String getHelp() {
+       return "https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/UserGuide.adoc";
+    }
 }

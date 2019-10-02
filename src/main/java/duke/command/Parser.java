@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ public class Parser {
         static String currSwitch;
         static HashMap<String, ArgLevel> switches;
         static HashMap<String, String> switchVals;
+        static ArgCommand command;
     }
 
     /**
@@ -47,7 +49,8 @@ public class Parser {
         // TODO: if possible, disambiguate using functions
         // trim command and first space after it from input if needed
         if (command instanceof ArgCommand) { // stripping not required otherwise
-            parseArgument(inputStr.substring(cmdStr.length()).strip(), (ArgCommand) command);
+            currParse.command = (ArgCommand) command;
+            parseArgument(inputStr.substring(cmdStr.length()).strip(), currParse.command);
         }
         return command;
     }
@@ -75,7 +78,7 @@ public class Parser {
         }
     }
 
-    private void initParse(String inputStr) {
+    private void initParse(String inputStr) throws DukeException {
         currParse.spaceIdx = inputStr.indexOf(" ");
         currParse.dashIdx = inputStr.indexOf("-");
         currParse.quoteIdx = inputStr.indexOf("\"");
@@ -83,21 +86,17 @@ public class Parser {
         currParse.currSwitch = null;
 
         if (currParse.spaceIdx == -1 && currParse.switches.size() != 0) {
-            //find missing switch
-            for (HashMap.Entry<String, ArgLevel> switchEntry : currParse.switches.entrySet()) {
-                if (switchEntry.getValue() == ArgLevel.REQUIRED
-                        && currParse.switchVals.get(switchEntry.getKey()) == null) {
-
-                }
-            }
+            checkMissingSwitches();
         }
     }
 
-    protected void complain(String complaint, String ...issues) throws DukeException {
-        StringBuilder complaintBuilder = new StringBuilder(complaint).append(": ");
-        for (String issue : issues) {
-            complaintBuilder.append(issue)
+    private void checkMissingSwitches() throws DukeException {
+        for (HashMap.Entry<String, ArgLevel> switchEntry : currParse.switches.entrySet()) {
+            if (switchEntry.getValue() == ArgLevel.REQUIRED
+                    && currParse.switchVals.get(switchEntry.getKey()) == null) {
+                throw new DukeHelpException("You need to give me this switch: "
+                        + switchEntry.getKey(), currParse.command);
+            }
         }
-        throw new DukeException(complaint + ": ")
     }
 }
