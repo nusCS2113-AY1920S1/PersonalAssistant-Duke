@@ -90,6 +90,8 @@ public class Parser {
             throw new DukeException("You are a new user please type: init [existing savings] [Avg Monthly Expenditure]");
         } else if (cmd.startsWith("bank-account")) {
             moneyCommand = new CreateBankAccountCommand(cmd);
+        } else if (cmd.equals("list bank trackers")) {
+            moneyCommand = new ListBankTrackerCommand();
         } else if (cmd.startsWith("goal-short")) {
             moneyCommand = new AddShortGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {

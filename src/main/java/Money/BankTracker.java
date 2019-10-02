@@ -21,23 +21,7 @@ public class BankTracker {
     }
 
     public String getBankAccountInfo() {
-        return "Name: " + description + " Balance: " + Integer.toString(amt) + " Initial Date: "
-                + simpleDateFormat.format(latestDate) + " Interest Rate: " + Double.toString(rate);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getAmt() {
-        return amt;
-    }
-
-    public Date getLatestDate() {
-        return latestDate;
-    }
-
-    public double getRate() {
-        return rate;
+        return "  Name: " + description + "\n  Balance: " + amt + "\n  Initial Date: "
+                + simpleDateFormat.format(latestDate) + "\n  Interest Rate: " + rate;
     }
 }
