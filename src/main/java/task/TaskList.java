@@ -39,6 +39,9 @@ public class TaskList extends ArrayList<Task> {
             case "DA":
                 this.add(new DoAfter(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIME]));
                 break;
+            case "DW":
+                this.add(new DoWithinPeriod(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIMESTART], splitStr[Constants.TIMEEND]));
+                break;
             default:
                 throw new DukeException("File format incorrect");
             }
