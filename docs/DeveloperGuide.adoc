@@ -105,6 +105,8 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 === Use case: Adding tasks
 
+----
+
 ==== MSS
 
 1. User inputs the task to add into Hstle.
@@ -134,3 +136,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 - 6ab. Task is deleted from the task list.
 
 - Use case resumes at step 1.
+
+----
+
+Hey!
