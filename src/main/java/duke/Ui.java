@@ -27,17 +27,8 @@ public class Ui {
                 + "  \\_, / \n"
                 + "                                                  /___//___/                           /___/  \n";
 
-
-        printNewLine();
-        System.out.println(logo);
-        System.out.println("Hello! I'm Humpty Dumpty\n" + "What can I do for you?");
-    }
-
-    /**
-     * Prints the standard newline.
-     */
-    public void printNewLine() {
-        System.out.println("____________________________________________________________");
+        System.out.print(logo);
+        print("Hello! I'm Humpty Dumpty\n" + "What can I do for you?");
     }
 
     /**
@@ -46,23 +37,28 @@ public class Ui {
      * @param printString String to print (passed in from external objects accessing UI)
      */
     public void print(String printString) {
-        System.out.println(printString);
+        printNewLine();
+
+        String[] linesToPrint = printString.split("\n", 0);
+        for (int i = 0; i < linesToPrint.length; i++) {
+            System.out.println(addIndent() + linesToPrint[i]);
+        }
+
+        printNewLine();
     }
 
     /**
      * Prints error message to CLI
      */
     public void printError(Exception e) {
-        System.out.println("Parser error: \n" + e);
+        print("Parser error: \n" + e);
     }
 
     /**
      * Prints the duke exit message.
      */
     public void printExitMessage() {
-        printNewLine();
-        System.out.println("Bye! Hope to see you again soon!");
-        printNewLine();
+        print("Bye! Hope to see you again soon!");
         System.exit(0);
     }
 
@@ -70,4 +66,14 @@ public class Ui {
         return in.nextLine();
     }
 
+    public static String addIndent() {
+        return "        ";
+    }
+
+    /**
+     * Prints the standard newline.
+     */
+    private void printNewLine() {
+        System.out.println(addIndent() + "____________________________________________________________");
+    }
 }

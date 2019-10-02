@@ -30,20 +30,18 @@ public class Duke {
     private void run() {
         ui.printIntro();
         String userInput;
-        Command command = null;
+        //Command command;
 
         //Should probably wrap this in the UI class.
         while (true) {
-            ui.printNewLine();
             userInput = ui.read();
 
             try {
-                command = parser.parse(userInput);
+                Command command = parser.parse(userInput);
                 command.execute(taskList, ui, storage);
 
                 if (command.getType() == CommandType.BYE)
                     break;
-
             } catch (Exception e) {
                 ui.printError(e);
             }

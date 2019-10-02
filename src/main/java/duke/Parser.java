@@ -202,7 +202,6 @@ public class Parser {
      * @return an array where the first item is the command word and the second item is the rest of the text.
      */
     public Command parse(String userInput) throws Exception {
-
         Command userCommand;
 
         //TODO: Make this a do-while that waits for a good input?
