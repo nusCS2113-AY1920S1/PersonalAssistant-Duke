@@ -2,7 +2,6 @@ package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
-import duke.task.Recurring;
 
 /**
  * duke.parser.Parser class that deals with making sense of user commands
