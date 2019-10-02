@@ -43,31 +43,31 @@
 
 |Must-have |user |set the tiers of the seats |set different prices depending on the popularity of the seats.
 
-|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. |. 
+|Must-have |user |postpone shows as performers might have encountered unforseen circumstances. | |
 
-Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction.
+Nice-to-have |user |add seats from different shows to a customer's purchase |manage bookings across multiple shows in one transaction. |
 
-Nice-to-have |user |refund seats before a certain date |resell the seats to other customers to increase profit.
+Nice-to-have |user |refund seats before a certain date |resell the seats to other customers to increase profit. |
 
-Nice-to-have |user |keep track of payments |track the expenditure by each customer and find out the specific amount for a refund(if applicable).
+Nice-to-have |user |keep track of payments |track the expenditure by each customer and find out the specific amount for a refund(if applicable). |
 
-Nice-to-have |user |reassign seats booked by customers |fulfill customers'requests to change seats.
+Nice-to-have |user |reassign seats booked by customers |fulfill customers'requests to change seats. |
 
-Nice-to-have |user |blacklist customers who break the rules |serve as a deterrent for potential troublemakers and avoid further losses.
+Nice-to-have |user |blacklist customers who break the rules |serve as a deterrent for potential troublemakers and avoid further losses. |
 
-Nice-to-have |user |know the number of available seats in each tier for a particular show |get a rough idea of the number of seats left to sell from each tier.
+Nice-to-have |user |know the number of available seats in each tier for a particular show |get a rough idea of the number of seats left to sell from each tier. |
 
-Nice-to-have |user |modify the prices of the seats relative to the date of the show |sell off the seats and maximise my profits.
+Nice-to-have |user |modify the prices of the seats relative to the date of the show |sell off the seats and maximise my profits. |
 
-Nice-to-have |user |keep track of the number of tickets each customer can buy |limit the number of tickets a customer can buy to avoid ticket scalping.
+Nice-to-have |user |keep track of the number of tickets each customer can buy |limit the number of tickets a customer can buy to avoid ticket scalping. |
 
-Nice-to-have |user |customer rewards system |encourage customers to visit more often and thank loyal customers for their patronage.
+Nice-to-have |user |customer rewards system |encourage customers to visit more often and thank loyal customers for their patronage. |
 
-Nice-to-have |user |view monthly revenue |compare earnings and make new policies to improve my business.
+Nice-to-have |user |view monthly revenue |compare earnings and make new policies to improve my business. |
 
-Unlikely-to-have |user |put seats on hold |give customers more time to decide if they want to purchase the seats.
+Unlikely-to-have |user |put seats on hold |give customers more time to decide if they want to purchase the seats. |
 
-Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support.
+Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support. |
 
 |===
 // end::base-alt[]
@@ -76,6 +76,7 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
 == Appendix C: Use cases
 
 === Use case: UC01 - Add new shows to list of shows
+
 *Actor*: Theatre manager
 *MSS*:
 1. User enters the add command, followed by the name of the show, the date, the cost of the show and the base selling price of the seats.
@@ -95,6 +96,7 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
  
 
 === Use case: UC02 - Sell seats to buyer
+
 *Actor*: Theatre manager
 *MSS*:
 1. User enters the sell command, followed by the name of the show, the date, the name of the buyer and lastly the seats requested by the buyer.
@@ -118,7 +120,9 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
           Use case ends.
 
 
+
 === Use case: UC03 - Delete a single show scheduled on a particular date
+
 *Actor*: Theatre manager
 *MSS*:
 1. User enters the delete command followed by the date of the show, and the show name. 
@@ -133,8 +137,12 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
       Use case resumes from step 2.
           Use case ends.
 
+
+
 === Use case: UC04 - Delete multiple shows by show name
+
 *Actor*: Theatre manager
+
 *MSS*:
 1. User enters the delete command followed by the names of the shows to delete.
 2. Optix searches through the list of shows for all shows with the specified name, and deletes them.
@@ -149,15 +157,23 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
       Use case resumes from step 2.
           Use case ends.
 
+
+
 === Use case: UC05 - View the entire list of shows
+
 *Actor*: Theatre manager
+
 *MSS*:
 1. User enters the list command.
 2. Optix responds by displaying the list of shows available for booking.
          Use case ends.
 
+
+
 === Use case: UC06- View available seats of a show
+
 *Actor*: Theatre Manager
+
 *MSS*:
 1. User enters the view command, followed by the show name and date of the show.
 2. Optix responds by displaying the available seats of the theatre for the show, by marking reserved seats with a cross, and available seats with a tick.
@@ -172,8 +188,12 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
       Use case resumes from step 2.
           Use case ends.
 
+
+
 === Use Case: UC07 - Refund ticket for seat
+
 *Actor*: Theatre manager
+
 *MSS*:
 1. User enters the refund command, followed by show name, show date, and seat number.
 2. Optix responds by querying if the ticket for the seat was purchased. If it is, then the seat is marked as available again.
@@ -198,8 +218,12 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
       Use case resumes from step 3.
           Use case ends.
 
+
+
 === Use case: UC08- Tutorial/ Help Command
+
 *Actor*: Theatre Manager
+
 *MSS*:
 1. User enters the help command.
 2. Optix responds by displaying all available commands and their usage.
