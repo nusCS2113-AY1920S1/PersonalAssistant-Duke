@@ -2,6 +2,7 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
+import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
 import duke.commands.RecurCommand;
@@ -120,7 +121,7 @@ public class Parser {
 
         //Commands which require numerical input.
         case "done":
-            command = new NumCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
+            command = new DoneCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
             break;
         case "delete":
             command = new NumCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));

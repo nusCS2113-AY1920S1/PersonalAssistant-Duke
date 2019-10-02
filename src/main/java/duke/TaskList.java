@@ -20,21 +20,13 @@ import duke.enums.TaskType;
 public class TaskList {
     private ArrayList<Task> taskList;
 
-    public TaskList(ArrayList<Task> savedFile) {
-        taskList = savedFile;
-    }
+    public TaskList(ArrayList<Task> savedFile) { taskList = savedFile; }
 
-    public TaskList() {
-        taskList = new ArrayList<Task>();
-    }
+    public TaskList() { taskList = new ArrayList<Task>(); }
 
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
+    public ArrayList<Task> getTaskList() { return taskList; }
 
-    public int getSize() {
-        return taskList.size();
-    }
+    public int getSize() { return taskList.size(); }
 
     /**
      * Adds a task to the tasklist.
@@ -43,7 +35,6 @@ public class TaskList {
      */
     public boolean addItem(TaskType type, String description) {
         taskList.add(new Todo(description));
-
         return true;
     }
 
@@ -72,8 +63,7 @@ public class TaskList {
      * @param dateTimes   Vararg of DateTimes that are to be added.
      * @return true if item was added successfully.
      */
-    public boolean addItem(TaskType type, String description, DateTime... dateTimes) {
-        try {
+    public boolean addItem(TaskType type, String description, DateTime... dateTimes) throws BadInputException {
             switch (type) {
             case TODO:
                 taskList.add(new Todo(description));
@@ -83,17 +73,13 @@ public class TaskList {
                 taskList.add(new Deadline(description, dateTimes[0]));
                 break;
 
-            case EVENT:
+            case EVENT: // Throws the BadInputException
                 taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
                 break;
 
             default:
                 return false;
             }
-
-        } catch (BadInputException e) {
-            System.out.println(e);
-        }
 
         return true;
     }
@@ -127,28 +113,13 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done.
-     *
-     * @param i the index of the task to be marked as done.
-     */
-    public void markTaskAsDone(int i) {
-
-        try {
-            taskList.get(i).markAsDone(); //Mark task as done.
-            System.out.print("Nice! I've marked this task as done: ");
-            System.out.println(taskList.get(i).getDescription()); //Prints task name
-        } catch (IndexOutOfBoundsException e) {
-            printTaskNonexistent();
-        }
-    }
-
-    /**
      * Prints error message if a nonexistent task index is accessed.
      * Prints the task list for user to choose again.
      */
     private void printTaskNonexistent() {
         System.out.println("That task doesn't exist! Please check the available tasks again: ");
-        printList();
+        // TODO: I don't even know how to begin explaining the changes to make here..
+        //printList();
     }
 
     /**

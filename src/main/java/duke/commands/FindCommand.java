@@ -42,6 +42,5 @@ public class FindCommand extends Command {
             ui.print(listString);
         }
     }
-
 }
 

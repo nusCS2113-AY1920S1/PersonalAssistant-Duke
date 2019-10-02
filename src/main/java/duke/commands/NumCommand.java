@@ -24,9 +24,7 @@ public class NumCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        if (type == CommandType.DONE) {
-            list.markTaskAsDone(itemIndex);
-        } else if (type == CommandType.DELETE) {
+        if (type == CommandType.DELETE) {
             list.deleteTask(itemIndex);
         } else if (type == CommandType.SNOOZE) {
             /*list.snoozeTask(itemIndex);*/
