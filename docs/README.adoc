@@ -1,3 +1,4 @@
+:imagesDir: images
 = Entertainment Pro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
