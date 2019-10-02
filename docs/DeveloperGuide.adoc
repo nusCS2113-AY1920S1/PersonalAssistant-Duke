@@ -26,9 +26,23 @@ have. 1 star (★) is unlikely to have.
 
 | Priority | As a... | I want to... | So that I can...
 
-| Cell in column 1, row 2 | Cell in column 2, row 2
+| ★★★ | User | See usage instructions in the app | Refer to instructions in the app without reading the User Guide
 
-| Cell in column 1, row 3 | Cell in column 2, row 3
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
+
+| ★★★ | User ||
 
 |===
 // end::base-alt[]
