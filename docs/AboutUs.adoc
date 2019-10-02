@@ -4,9 +4,14 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-DukeMods was developed by the https://github.com/orgs/AY1920S1-CS2113T-F10-1/teams/developers[github] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+# Module planner for NUS CEG Students
+
+**ModPlan**
+
+Your one stop solution to module planning through out your university tenure!
+
+ModPlan was developed by the https://github.com/orgs/AY1920S1-CS2113T-F10-1/teams/developers[github] team. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
