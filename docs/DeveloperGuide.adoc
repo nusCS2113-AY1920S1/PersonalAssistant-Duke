@@ -1,6 +1,8 @@
-= Appendix A: Product Scope
+= Developer Guide
 
-== Target User Profile:
+== Appendix A: Product Scope
+
+Target User Profile:
 - Highly motivated but is distracted easily.
 - Likes to work towards small milestones than large ones.
 - Likes gamifying mundane tasks.
@@ -10,12 +12,12 @@
 - Is reasonably comfortably with command line integrated with GUI apps.
 - Prefers desktop apps over other types.
 
-== Value proposition: We strive to adhere our product to two main principles:
+Value proposition: We strive to adhere our product to two main principles:
 1) Gamify tasks to make completing them more engaging than a typical productivity/ study app.
 
 2) Recommend tasks for completion to simplify the user's life.
 
-= Appendix B: User Stories
+== Appendix B: User Stories
 
 Priority is sorted based on stars ★. 3 stars (★★★) is a must-have. 2 stars (★★) is good to
 have. 1 star (★) is unlikely to have.
