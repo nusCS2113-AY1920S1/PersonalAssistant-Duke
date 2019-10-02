@@ -249,7 +249,22 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Yes. You can enter the command `back` to redo the last question.
 
 *Q*: What is the difference between `undo` and `back`?  +
-*A*:`undo` will reverse the decision made by the user while “-back” simply returns to the previous question. `undo` will not reverse any answer input given by the user, but rather any other console commands given.
+*A*: `undo` will reverse the decision made by the user while “-back” simply returns to the previous question. `undo` will not reverse any answer input given by the user, but rather any other console commands given.
+
+*Q*: How can I keep a copy of the questions?  +
+*A*: You can either archive the questions in the game with the command `archive` or print the questions into PDF with the command `print`. 
+
+*Q*: Will the questions in each quiz be repeated?   +
+*A*: Each question will be phrased the same; however, the list of numbers for the question are randomly generated.
+
+*Q*: Can I challenge friends in a multiplayer mode?   +
+*A*: Unfortunately, you can’t. However, you still can share your scores with your friends through email.
+
+*Q*: Are there automatic software updates?    +
+*A*: There is no automatic software updates. To get the updates, you need to redownload the latest version of the software.
+
+*Q*: How do I get technical support?  +
+*A*: You can send an email to the technical team for technical assistance.
 
 == Command Summary
 
@@ -269,3 +284,4 @@ e.g.`clear 2`
 * *Save* : `save`
 * *Help* : `help`
 * *Exit* : `exit`
+* *Load* : `load`
