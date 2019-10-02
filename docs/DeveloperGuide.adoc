@@ -21,16 +21,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-| * * * | New User | see a summary of the commands available in the program | Have a brief idea of how to navigate through the program
-| * * * | New User | Start the game |
-| * * * | New User | Pause the game | To pause the game and save the current quiz records
+| * * * | New User | See a summary of the commands available in the program | Have a brief idea of how to navigate through the program
+| * * * | New User | Start the game | Start learning concepts immediately 
+| * * * | New User | Pause the game | Pause the game and save the current quiz records
 | * * * | New User | End the game | See the results for the current quiz
 | * * * | New User | Go back to the previous question | Review the question and change my answer if necessary
 | * * * | New User | Skip to the next question of the game | Move on to other questions that I am more confident in to avoid spending too much time on a single question
 | * * * | New User | See the results of the previous games I have played | Can see a tangible improvement in my quiz scores
 | * * * | Weak User | Choose to attempt the game only on a certain chapter | Work on my weaker areas
 | * * * | New User | Continue the game which I have previously ended off with | Save time on trying to find out where I last ended off
-| * * * | User | Have an undo button | I can reverse my actions if I typed the wrong command
+| * * * | User | Have an undo button | Reverse my actions if I typed the wrong command
 | * *  | User | Share and spread this game to my friends | Invite them to learn together
 | * *  | Average User | Get feedback on my performance | Identify my common misconceptions and work on those areas
 | * *  | User | Provide feedback to developers | Give them suggestions on what they can improve on
@@ -43,12 +43,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * *  | Weak User | Have a multiple choice option rather than open-ended | Practice on my concepts before attempting harder questions
 | * *  | User | Have a reset option | Replay the game if I'm done with the storyline.
 | *  | Weak User | Clarify certain concepts with a virtual agent/chatbot | Build a stronger foundation
-| *  | User | be challenged every time I play the game | improve incrementally as I play it more
+| *  | User | Be challenged every time I play the game | improve incrementally as I play it more
 | *  | Advanced User | Get updates whenever the program has new levels | Keep up with the game and maintain my rank
-| *  | User | enjoy playing the game  | have fun as I learn
+| *  | User | enjoy playing the game  | Have fun as I learn
 | * * * | Tutor | Track my students’ progress | Cater my teaching style according to the weak chapters.
 | *  | User | Customise my own questions `in version 2.0` | Test myself on questions I know I'm weak at.
-| *  | User | choose which character to play in the game `in version 2.0` | To vary the experience I have in every game
+| *  | User | Choose which character to play in the game `in version 2.0` | Vary the experience I have in every game
 | * *  | Tutor | See which students are in dire need of help `in version 2.0`| Focus more attention on weaker students
 | * | Tutor | Set my own questions `in version 2.0`| Test my students’ understanding on the current topic
 | * | Tutor | Set my own storyline `in version 2.0`| Make assignments more enjoyable.
