@@ -4,7 +4,6 @@ import duke.extensions.AbnormalityChecker;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Recurring;
 import duke.task.ToDo;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -19,45 +18,31 @@ import java.util.Date;
 public class AddCommand extends Command {
     String description;
     String taskType;
-    boolean isRecurring = false;
+    String recurringPeriod;
 
-    public AddCommand(String description, String taskType) {
+    public AddCommand(String description, String taskType, String recurringPeriod) {
         this.taskType = taskType;
         this.description = description;
-        checkForFlag();
-    }
-
-    private void checkForFlag() {
-        String flagArray[] = description.split("-");
-        if (flagArray.length != 1) {
-            switch (flagArray[1].charAt(0)) {
-                case 'r':
-                    isRecurring = true;
-            }
-        }
+        this.recurringPeriod = recurringPeriod;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException {
-        if (isRecurring) {
-            tasks.add(new Recurring(description, taskType, tasks, ui, storage));
-            return;
-        }
         switch (taskType) {
             case "todo":
-                tasks.add(new ToDo(description));
+                tasks.add(new ToDo(description, recurringPeriod));
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
                 SimpleDateFormat dFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date by = dFormat.parse(dInfo[1]);
-                tasks.add(new Deadline(dInfo[0], by));
+                tasks.add(new Deadline(dInfo[0], by, recurringPeriod));
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
                 SimpleDateFormat eFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date at = eFormat.parse(eInfo[1]);
-                Event newEvent = new Event(eInfo[0], at);
+                Event newEvent = new Event(eInfo[0], at, recurringPeriod);
                 AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
                 if (abnormalityChecker.checkEventClash(newEvent)) {
                     System.out.println("There is a clash with another event at the same time");

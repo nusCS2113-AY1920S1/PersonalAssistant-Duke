@@ -10,8 +10,8 @@ public class ToDo extends Task {
 	 * Works similarly as superclass duke.task.Task
 	 * @param description the description of the duke.task.ToDo
 	 */
-	public ToDo(String description) {
-		super(description);
+	public ToDo(String description, String recurringPeriod) {
+		super(description, recurringPeriod);
 		this.type = "[T]";
 	}
 
