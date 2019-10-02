@@ -1,5 +1,6 @@
 package controlpanel;
 
+import MoneyCommands.*;
 import commands.AddCommand;
 import commands.ChooseEventTime;
 import commands.Command;
@@ -74,5 +75,48 @@ public class Parser {
             command = new AddCommand(keyword, cmd);
         }
         return command;
+    }
+
+    public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
+        MoneyCommand moneyCommand = null;
+
+        if(cmd.equals("start")){
+            moneyCommand = new startCommand(isNewUser);
+        }
+        else if (cmd.startsWith("init")) {
+            moneyCommand = new initCommand(cmd, isNewUser);
+        } else if(cmd.equals("bye")){
+            moneyCommand = new ExitMoneyCommand();
+        } else if(isNewUser){
+            throw new DukeException("You are a new user please type: init [existing savings] [Avg Monthly Expenditure]");
+        }
+        else if (cmd.startsWith("goal-short")) {
+            moneyCommand = new AddShortGoalCommand(cmd);
+        } else if (cmd.equals("list goals")) {
+            moneyCommand = new ListGoalsCommand();
+        } else if (cmd.startsWith("delete goal")) {
+            String temp = cmd.replaceAll("[^0-9]", "");
+            int serialNo = Integer.parseInt(temp);
+            moneyCommand = new DeleteGoalCommand(serialNo);
+        } else if (cmd.startsWith("add income")) {
+            moneyCommand = new AddIncomeCommand(cmd);
+        } else if (cmd.startsWith("spent")) {
+            moneyCommand = new AddExpenditureCommand(cmd);
+        } else if (cmd.equals("list all income")) {
+            moneyCommand = new ListTotalIncomeCommand();
+        } else if (cmd.equals("list all expenditure")) {
+            moneyCommand = new ListTotalExpenditureCommand();
+        } else if (cmd.startsWith("delete income")) {
+            moneyCommand = new DeleteIncomeCommand(cmd);
+        } else if (cmd.startsWith("delete expenditure")) {
+            moneyCommand = new DeleteExpenditureCommand(cmd);
+
+        } else {
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
+        }
+
+
+
+        return moneyCommand;
     }
 }

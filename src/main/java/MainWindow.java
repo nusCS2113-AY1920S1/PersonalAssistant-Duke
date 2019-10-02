@@ -1,3 +1,4 @@
+import Money.Account;
 import controlpanel.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,7 +37,7 @@ public class MainWindow extends AnchorPane {
         mainWindowUi = new Ui();
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcomeDuke, dukeImage));
+                DialogBox.getDukeDialog("enter start to begin", dukeImage));
     }
 
     public void setDuke(Duke d) {

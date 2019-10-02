@@ -1,3 +1,5 @@
+import Money.Account;
+import MoneyCommands.MoneyCommand;
 import commands.Command;
 import controlpanel.DukeException;
 import controlpanel.Parser;
@@ -17,6 +19,7 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private Account account;
 
     /**
      * Duke class acts as a constructor to initialize and setup
@@ -29,6 +32,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            account = new Account();//need to load from storage on program init
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -62,13 +66,12 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-            if (input.equals("greeting")) {
-                return ui.showWelcome();
-            }
+
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
-            Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            boolean isNewUser = account.isToInitialize();
+            MoneyCommand c = Parser.moneyParse(input, isNewUser);
+            c.execute(account, ui, storage);
 
             if (c.isExit()) {
                 System.exit(0);
@@ -83,4 +86,5 @@ public class Duke {
         }
         return ui.getOutputString();
     }
+
 }
