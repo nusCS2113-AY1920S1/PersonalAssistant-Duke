@@ -24,7 +24,7 @@ public class Duke {
      *
      * @param args the arguments from the console when running
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Parser.UserInputException {
         ui = new UI();
         parser = new Parser();
         ui.setDebug(true);
@@ -48,7 +48,7 @@ public class Duke {
         return ui;
     }
 
-    private static void run() {
+    private static void run() throws Parser.UserInputException {
         taskList = Storage.readTasks();
         emailList = EmailStorage.readEmails();
         Scanner scanner = new Scanner(System.in);
@@ -68,6 +68,7 @@ public class Duke {
         ui = new UI();
         parser = new Parser();
         ui.setDebug(true);
+        Http.getAuth();
         taskList = Storage.readTasks();
         emailList = EmailStorage.readEmails();
     }
@@ -76,7 +77,7 @@ public class Duke {
         try {
             Command command = parser.parseCommand(input);
             command.execute();
-            return command.toString();
+            return command.toString() + "\n" ;//+ command.getRespondMsg();
         } catch (Exception e) {
             return e.getMessage();
         }
