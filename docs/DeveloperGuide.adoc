@@ -69,6 +69,9 @@ Unlikely-to-have |user |put seats on hold |give customers more time to decide if
 
 Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as a reward for their support.
 
+|===
+// end::base-alt[]
+
 
 == Appendix C: Use cases
 
