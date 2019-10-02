@@ -17,14 +17,16 @@ public class Duke {
     private static TaskList taskList;
     private static EmailList emailList;
     private static UI ui;
+    private static Parser parser;
 
     /**
      * The main function of the program, which is the entry point.
      *
      * @param args the arguments from the console when running
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Parser.UserInputException {
         ui = new UI();
+        parser = new Parser();
         ui.setDebug(true);
         Http.getAuth();
         run();
@@ -46,26 +48,36 @@ public class Duke {
         return ui;
     }
 
-    private static void run() {
+    private static void run() throws Parser.UserInputException {
         taskList = Storage.readTasks();
         emailList = EmailStorage.readEmails();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        Command command = Parser.parseCommand(input);
+        Command command = parser.parseCommand(input);
         while (!(command instanceof ExitCommand)) {
             command.execute();
             input = scanner.nextLine();
-            command = Parser.parseCommand(input);
+            command = parser.parseCommand(input);
         }
         Storage.saveTasks(taskList);
         EmailStorage.saveEmails(emailList);
         ui.showMessage("Bye. Hope to see you again!");
     }
 
+    public Duke() {
+        ui = new UI();
+        parser = new Parser();
+        ui.setDebug(true);
+        Http.getAuth();
+        taskList = Storage.readTasks();
+        emailList = EmailStorage.readEmails();
+    }
+
     public String getResponse(String input) {
         try {
-            Command command = Parser.parseCommand(input);
-            return command.toString();
+            Command command = parser.parseCommand(input);
+            command.execute();
+            return command.toString() + "\n" + command.getResponseMsg();
         } catch (Exception e) {
             return e.getMessage();
         }

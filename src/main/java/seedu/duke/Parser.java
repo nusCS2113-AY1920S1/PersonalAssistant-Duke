@@ -7,6 +7,7 @@ import seedu.duke.command.DoAfterCommand;
 import seedu.duke.command.DoneCommand;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.FindCommand;
+import seedu.duke.command.FlipCommand;
 import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
@@ -17,15 +18,61 @@ import seedu.duke.email.emailcommand.ShowEmailCommand;
 import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * A class that contains helper functions used to process user inputs. It also contains UserInputException
  * that is used across the project to handle the unexpected user input.
  */
 public class Parser {
+
+    /**
+     * Two types of input, prefix will be displayed according to this in the userInput text field.
+     */
+    public enum InputType {
+        TASK,
+        EMAIL
+    }
+
+    private static InputType inputType;
+
+    /**
+     * Constructor that initializes the input type to TASK.
+     *
+     */
+    public Parser() {
+        this.inputType = InputType.TASK;    // default input type when initiating the program.
+    }
+
+    /**
+     * Get input prefix for userInput text field in GUI.
+     *
+     * @return current prefix.
+     */
+    public static String getInputPrefix() {
+        String prefix = "";
+        switch (inputType) {
+        case TASK:
+            prefix = "task ";
+            break;
+        case EMAIL:
+            prefix = "email ";
+            break;
+        default:
+            prefix = "";
+        }
+        return prefix;
+    }
+
+    /**
+     * Set to the new input type when it is toggled by "flip" command.
+     *
+     * @param newInputType
+     */
+    public static void setInputType(InputType newInputType) {
+        inputType = newInputType;
+    }
+
     /**
      * Parses the user/file input as command. It returns a command that is not yet executed. It also needs to
      * get a UI from Duke to display the messages.
@@ -33,10 +80,33 @@ public class Parser {
      * @param input the user/file input that is to be parsed to a command
      * @return the parse result, which is a command ready to be executed
      */
-    public static Command parseCommand(String input) {
+    public static Command parseCommand(String input) throws UserInputException {
         UI ui = Duke.getUI();
         TaskList taskList = Duke.getTaskList();
         EmailList emailList = Duke.getEmailList();
+        if (inputType == InputType.TASK) {
+            return parseTaskCommand(input, ui, taskList);
+        } else if (inputType == InputType.EMAIL) {
+            try {
+                return parseEmailCommand(emailList, input);
+            } catch (UserInputException e) {
+                ui.showError(e.toString());
+                return new InvalidCommand();
+            }
+        } else {
+            return new InvalidCommand();
+        }
+    }
+
+    private static Command parseTaskCommand(String rawInput, UI ui, TaskList taskList) throws UserInputException {
+        if (rawInput.length() <= 5) {
+            return new InvalidCommand();
+            //return new HelpTaskCommand();
+        }
+        String input = rawInput.substring(5).strip();
+        if (input.equals("flip")) {
+            return new FlipCommand(inputType);
+        }
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -53,22 +123,62 @@ public class Parser {
             return parseDoAfterCommand(input, ui, taskList);
         } else if (input.startsWith("snooze ")) {
             return parseSnoozeCommand(input, ui, taskList);
-        }  else if (input.startsWith("email")) {
-            try {
-                return parseEmail(emailList, input);
-            } catch (UserInputException e) {
-                ui.showError(e.toString());
-            }
-            return new InvalidCommand();
-        } else {
-            try {
-                return parseTask(taskList, input);
-            } catch (UserInputException e) {
-                ui.showError(e.toString());
-            }
         }
-        return new InvalidCommand();
+        return parseAddTaskCommand(taskList, input);
     }
+
+    /**
+     * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
+     * returns an email-relevant Command.
+     *
+     * @param emailList target email list from Duke.
+     * @param rawInput user/file input ready to be parsed.
+     * @return an email-relevant Command.
+     * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
+     *                            input
+     */
+    public static Command parseEmailCommand(EmailList emailList, String rawInput) throws UserInputException {
+        if (rawInput.length() <= 6) {
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+                    + "email.");
+            // return new InvalidCommand();
+            //return new HelpTaskCommand();
+        }
+        String input = rawInput.substring(6).strip();
+        String emailCommand = input.split(" ")[0];
+        switch (emailCommand) {
+        case "flip":
+            return new FlipCommand(inputType);
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListEmailCommand(emailList);
+        case "show":
+            return parseShowEmailCommand(emailList, input);
+        case "fetch":
+            return new FetchEmailCommand(emailList);
+        default:
+            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email help\' to get list of methods for "
+                    + "email.");
+        }
+    }
+
+    private static Command parseShowEmailCommand(EmailList emailList, String input) throws UserInputException {
+        if (input.length() <= 4) {
+            throw new UserInputException("Please enter index of email to be shown after \'email "
+                    + "show\'");
+        }
+        try {
+            String parsedInput = input.substring(4).strip();
+            int index = Integer.parseInt(parsedInput) - 1;
+            return new ShowEmailCommand(emailList, index);
+        } catch (NumberFormatException e) {
+            throw new UserInputException(e.toString());
+        } catch (Exception e) {
+            throw new UserInputException(e.toString());
+        }
+    }
+
 
     private static Command parseSnoozeCommand(String input, UI ui, TaskList taskList) {
         if (input.length() <= 7) {
@@ -174,47 +284,6 @@ public class Parser {
     }
 
     /**
-     * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
-     * returns an email-relevant Command.
-     *
-     * @param emailList target email list from Duke.
-     * @param input user/file input ready to be parsed.
-     * @return an email-relevant Command.
-     * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
-     *                            input
-     */
-    public static Command parseEmail(EmailList emailList, String input) throws UserInputException {
-        if (input.length() <= 7) {
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
-                    + "email.");
-        }
-        String emailCommand = input.split(" ")[1];
-        switch (emailCommand) {
-        case "-list":
-            return new ListEmailCommand(emailList);
-        case "-show":
-            if (input.length() <= 12) {
-                throw new Parser.UserInputException("Please enter index of email to be shown after \'email "
-                        + "-show\'");
-            }
-            try {
-                String parsedInput = input.substring(12, 13).strip();
-                int index = Integer.parseInt(parsedInput) - 1;
-                return new ShowEmailCommand(emailList, index);
-            } catch (NumberFormatException e) {
-                throw new Parser.UserInputException(e.toString());
-            } catch (Exception e) {
-                throw new Parser.UserInputException(e.toString());
-            }
-        case "-fetch":
-            return new FetchEmailCommand(emailList);
-        default:
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
-                    + "email.");
-        }
-    }
-
-    /**
      * Parses the specific part of a user/file input that is relevant to a task. A successful parsing always
      * returns an AddCommand, as it is assumed that an input starting with a task name is an add command.
      *
@@ -224,7 +293,7 @@ public class Parser {
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
      *                            input
      */
-    public static Command parseTask(TaskList taskList, String input) throws UserInputException {
+    public static Command parseAddTaskCommand(TaskList taskList, String input) throws UserInputException {
         Task.TaskType taskType;
         String name;
         LocalDateTime time = null;

@@ -4,10 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
+import seedu.duke.Parser;
+
+import java.util.function.UnaryOperator;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -36,6 +40,24 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    @FXML
+    private void getstring() {
+        userInput.setText("123");
+    }
+    @FXML
+    public TextFormatter<String> getTextFormatter() {
+        String prefix = Parser.getInputPrefix();
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            if (c.getCaretPosition() < prefix.length() ) {
+                return null ;
+            } else {
+                return c ;
+            }
+        };
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        return textFormatter;
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -48,6 +70,34 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        setInputPrefix();
+    }
+
+    /**
+     * To begin the userInput textfield with a prefix either as "task" or "email".
+     * The prefix is non-deletable, enter "flip" to toggle between them.
+     */
+    private void setInputPrefix() {
+        // To apply a no_filter to userInput to remove the effect of the previous filter so that clear()
+        // can work properly.
+        UnaryOperator<TextFormatter.Change> no_filter = c -> {
+                return c ;
+        };
+        userInput.setTextFormatter(new TextFormatter<String>(no_filter));
+
         userInput.clear();
+        String prefix = Parser.getInputPrefix();
+        userInput.setText(prefix);
+
+        // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            if (c.getCaretPosition() < prefix.length() ) {
+                return null ;
+            } else {
+                return c ;
+            }
+        };
+        userInput.setTextFormatter(new TextFormatter<String>(filter));
+        userInput.positionCaret(prefix.length());
     }
 }

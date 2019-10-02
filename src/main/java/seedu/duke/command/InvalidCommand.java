@@ -15,6 +15,7 @@ public class InvalidCommand extends Command {
         //if (!silent) {
         //    Duke.getUI().showError("Invalid Command Received");
         //}
+        responseMsg = "This is an invalid command. Enter \'help\' for more information.";
         return false;
     }
 }
