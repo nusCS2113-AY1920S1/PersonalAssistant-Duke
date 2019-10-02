@@ -12,7 +12,7 @@ import task.Deadline;
 import task.Event;
 import task.Recurring;
 import task.Todo;
-import task.ViewSchedule;
+import command.ViewSchedule;
 import task.FixedDuration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,10 +141,9 @@ public class Parser {
                     //create event object
                     FixedDuration t = new FixedDuration(dateInfo.get(0), dateInfo.get(1));
                     return new AddCommand(t);
-                }
-                else if(taskInfo[0].equals("view")){
+                } else if (taskInfo[0].equals("view")) {
                     //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
-                    if ((taskInfo.length <2) || !(taskInfo[1].trim().length() > 0)) {
+                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
                         throw new DukeException(DukeException.ErrorType.FORMAT_VIEW);
                     }
                     String dateInfo = taskInfo[1];

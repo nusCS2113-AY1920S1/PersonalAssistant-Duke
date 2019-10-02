@@ -1,15 +1,30 @@
 package storage;
 
-import task.*;
+import task.Task;
+import task.Event;
+import task.Todo;
+import task.Recurring;
+import task.Deadline;
+import task.FixedDuration;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the object that reads and writes to the text files where data is stored.
+ */
 public class Storage {
 
     private static String FILE_PATH = "src/main/data/duke.txt";
 
-    public Storage() {}
+    public Storage() {
+    }
+
     public Storage(String filePath) {
         FILE_PATH = filePath;
     }

@@ -34,7 +34,7 @@ public class DukeException extends Exception {
     public void showError() {
         switch (error) {
         case LIST_EMPTY:
-            System.out.println("     ☹ OOPS: Task list is empty. Please input a task before\n             viewing list.");
+            System.out.println("     ☹ OOPS: Task list is empty. Please input a task before\n           viewing list.");
             break;
         case COMMAND_EMPTY:
             System.out.println("     ☹ OOPS: Command cannot be empty, please input a command.");
@@ -46,19 +46,19 @@ public class DukeException extends Exception {
             System.out.println("     ☹ OOPS: Missing task index. Please specify the index of the\n             task.");
             break;
         case INDEX_EXCEEDED:
-            System.out.println("     ☹ OOPS: Task not found. Index is out of range or the list\n             is empty.");
+            System.out.println("     ☹ OOPS: Task not found. Index is out of range or the list\n            is empty.");
             break;
         case SEARCHPHRASE_MISSING:
-            System.out.println("     ☹ OOPS: Please specify using keywords the task you would\n             like to search for.");
+            System.out.println("     ☹ OOPS: Please specify using keywords the task you would\n   like to search for.");
             break;
         case FORMAT_TODO:
             System.out.println("     ☹ OOPS: Expected format: \"todo [description of task]\"");
             break;
         case FORMAT_DEADLINE:
-            System.out.println("     ☹ OOPS: Expected format: \"deadline [description of task] /by\n             DD/MM/YYYY HHMM\"");
+            System.out.println("     ☹ OOPS: Expected format: \"deadline [description of task] /by\nDD/MM/YYYY HHMM\"");
             break;
         case FORMAT_EVENT:
-            System.out.println("     ☹ OOPS: Expected format: \"event [description of event] /at\n            DD/MM/YYYY HHMM");
+            System.out.println("     ☹ OOPS: Expected format: \"event [description of event] /at\n    DD/MM/YYYY HHMM");
             break;
         case FORMAT_RECURRING:
             System.out.println("     ☹ OOPS: Expected format: \"recurring [description of task] /every\"");

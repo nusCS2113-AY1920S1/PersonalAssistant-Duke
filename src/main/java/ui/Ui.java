@@ -6,6 +6,9 @@ import task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the object that displays prompts and feedback from the system to the user's commands.
+ */
 public class Ui {
 
     public String readCommand() {
@@ -20,12 +23,12 @@ public class Ui {
     public void greet() {
         showLine();
         System.out.println(
-                "     Hello! I'm" + "      ____        _        \n" +
-                        "                    |  _ \\ _   _| | _____ \n" +
-                        "                    | | | | | | | |/ / _ \\\n" +
-                        "                    | |_| | |_| |   <  __/\n" +
-                        "                    |____/ \\__,_|_|\\_\\___|\n\n" +
-                        "     What can I do for you?");
+                "     Hello! I'm" + "      ____        _        \n"
+                        +  "                    |  _ \\ _   _| | _____ \n"
+                        + "                    | | | | | | | |/ / _ \\\n"
+                        + "                    | |_| | |_| |   <  __/\n"
+                        + "                    |____/ \\__,_|_|\\_\\___|\n\n"
+                        + "     What can I do for you?");
         showLine();
     }
 

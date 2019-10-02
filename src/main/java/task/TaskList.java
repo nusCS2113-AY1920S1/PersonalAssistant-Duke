@@ -120,7 +120,9 @@ public class TaskList {
             String words = t.getDate();
             if (words != null) {
                 String[] words2 = words.split(",");
-                if (words2[0].equals(lookUpDate)) foundItems.add(t);
+                if (words2[0].equals(lookUpDate)) {
+                    foundItems.add(t);
+                }
             }
         }
         return foundItems;

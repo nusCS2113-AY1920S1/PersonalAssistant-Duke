@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
      * @param num the index of the task specified by the user
      */
     public DeleteCommand(int num) {
-        index = num-1;
+        index = num - 1;
     }
 
     /**

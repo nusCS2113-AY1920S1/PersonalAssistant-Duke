@@ -8,7 +8,6 @@ import ui.Ui;
 /**
  * Represents a command from user to lists current tasks.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 public class ListCommand extends Command {
 
@@ -24,7 +23,9 @@ public class ListCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            if (tasks.getList().isEmpty()) { throw new DukeException(DukeException.ErrorType.LIST_EMPTY); }
+            if (tasks.getList().isEmpty()) {
+                throw new DukeException(DukeException.ErrorType.LIST_EMPTY);
+            }
             ui.showList(tasks);
         } catch (DukeException e) {
             e.showError();
