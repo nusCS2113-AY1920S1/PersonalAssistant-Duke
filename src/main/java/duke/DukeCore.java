@@ -6,13 +6,13 @@ import duke.exception.DukeResetException;
 import duke.task.Storage;
 import duke.task.TaskList;
 
-public class DukeContext {
+public class DukeCore {
     public final Storage storage;
     public final Ui ui;
     public TaskList taskList;
 
     /**
-     * Create new DukeContext, generating taskList from the provided Ui and Storage objects.
+     * Create new DukeCore, generating taskList from the provided Ui and Storage objects.
      *
      * @param storage Storage object to use in this context.
      * @param ui      Ui object to use in this context.
@@ -21,7 +21,7 @@ public class DukeContext {
      * @see TaskList
      * @see Storage
      */
-    public DukeContext(Storage storage, Ui ui) throws DukeFatalException {
+    public DukeCore(Storage storage, Ui ui) throws DukeFatalException {
         this.storage = storage;
         this.ui = ui;
 

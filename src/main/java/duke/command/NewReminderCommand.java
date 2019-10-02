@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 import duke.task.Reminder;
 import duke.task.TimedTask;
@@ -44,11 +44,11 @@ public class NewReminderCommand extends MultiArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
-        super.execute(ctx);
+    public void execute(DukeCore core) throws DukeException {
+        super.execute(core);
         String remindStr = "Roger! I've set a reminder for this task." + System.lineSeparator()
-                + "  " + ctx.taskList.setReminder(argv[0], new Reminder(reminderDateTime));
-        ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(remindStr);
+                + "  " + core.taskList.setReminder(argv[0], new Reminder(reminderDateTime));
+        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.ui.print(remindStr);
     }
 }

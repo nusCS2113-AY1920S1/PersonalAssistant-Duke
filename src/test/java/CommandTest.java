@@ -1,4 +1,4 @@
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.command.Ui;
 import duke.exception.DukeFatalException;
 import duke.task.Storage;
@@ -14,16 +14,16 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class CommandTest {
-    protected static DukeContext ctx;
+    protected static DukeCore core;
     protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
     protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
 
     /**
-     * Create data directory if necessary and use a test task file to create test DukeContext, with output directed to
+     * Create data directory if necessary and use a test task file to create test DukeCore, with output directed to
      * testOut.
      */
     @BeforeAll
-    public static void setupCtx() {
+    public static void setupCore() {
         File dataDir = new File("data");
         if (!dataDir.exists() && !dataDir.mkdir()) {
             fail("Could not create data directory!");
@@ -31,8 +31,8 @@ public abstract class CommandTest {
 
         Ui ui = new Ui(System.in, testPrint);
         try {
-            ctx = new DukeContext(new Storage("data" + File.separator + "test.tsv"), ui);
-            ctx.storage.writeTaskFile("");
+            core = new DukeCore(new Storage("data" + File.separator + "test.tsv"), ui);
+            core.storage.writeTaskFile("");
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
         }
@@ -43,7 +43,7 @@ public abstract class CommandTest {
      */
     @AfterEach
     public void clearTaskList() {
-        ctx.taskList = new TaskList();
+        core.taskList = new TaskList();
         testPrint.flush();
         testOut.reset();
     }

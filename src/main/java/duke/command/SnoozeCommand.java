@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 import duke.task.TimedTask;
 
@@ -30,8 +30,8 @@ public class SnoozeCommand extends MultiArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
-        int idx = ctx.taskList.getTaskIdx(argv[0]);
+    public void execute(DukeCore core) throws DukeException {
+        int idx = core.taskList.getTaskIdx(argv[0]);
         String newDateTimeStr = arg.substring(argv[0].length() + 1); // +1 to exclude the task number from DateTime
         LocalDateTime newDateTime;
         try {
@@ -39,6 +39,6 @@ public class SnoozeCommand extends MultiArgCommand {
         } catch (DateTimeParseException excp) {
             throw new DukeException(invalidArgMsg);
         }
-        ctx.ui.print(ctx.taskList.snooze(idx, newDateTime));
+        core.ui.print(core.taskList.snooze(idx, newDateTime));
     }
 }

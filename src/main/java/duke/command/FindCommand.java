@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 public class FindCommand extends ArgCommand {
@@ -9,10 +9,10 @@ public class FindCommand extends ArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
+    public void execute(DukeCore core) throws DukeException {
         String findStr = "Here are the tasks that contain '" + arg + "':";
-        findStr = findStr + ctx.taskList.find(arg).replace(System.lineSeparator(),
+        findStr = findStr + core.taskList.find(arg).replace(System.lineSeparator(),
                 System.lineSeparator() + "  ");
-        ctx.ui.print(findStr);
+        core.ui.print(findStr);
     }
 }

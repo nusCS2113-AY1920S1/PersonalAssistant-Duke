@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 import duke.task.TimedTask;
 
@@ -23,8 +23,8 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
-        super.execute(ctx);
+    public void execute(DukeCore core) throws DukeException {
+        super.execute(core);
         Parser recurParser = new Parser();
         NewTimedTaskCommand refCommand;
         try {
@@ -85,10 +85,10 @@ public class NewRecurringTaskCommand extends MultiArgCommand {
         StringBuilder addStrBuilder = new StringBuilder();
         for (long i = 0; i < count; ++i) {
             addStrBuilder.append(System.lineSeparator()).append("  ")
-                    .append(refCommand.silentExecute(ctx));
+                    .append(refCommand.silentExecute(core));
             refCommand.taskDateTime = refCommand.taskDateTime.plus(1, period);
         }
-        ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(ctx.taskList.getAddReport(addStrBuilder.toString(), count));
+        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.ui.print(core.taskList.getAddReport(addStrBuilder.toString(), count));
     }
 }
