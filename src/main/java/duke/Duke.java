@@ -5,24 +5,30 @@ import duke.exceptions.DukeException;
 
 public class Duke {
     private TaskList tasks;
+    private TaskList files;
     private Ui userInterface;
     private Storage dukeData;
+    private Storage fileData;
     private boolean shutdown = false;
 
     /**
      * Full Constructor for CLI/GUI version of Duke.
-     * @param filePath A String representing path to the storage file on hard disk.
+     * @param dukeFilePath A String representing path to the storage file on hard disk for tasks data.
+     * @param filesFilePath A string representing path to the storage file on hard disk for files data.
      */
-    public Duke(String filePath, boolean cliMode) {
+    public Duke(String dukeFilePath, String filesFilePath, boolean cliMode) {
         userInterface = new Ui();
         try {
-            dukeData = new Storage(filePath);
+            dukeData = new Storage(dukeFilePath);
             tasks = new TaskList(dukeData.loadData());
+            fileData = new Storage(filesFilePath);
+            files = new TaskList(fileData.loadData());
         } catch (DukeException e) {
             if (cliMode) {
                 userInterface.print(userInterface.showFormatted(e.getMessage()));
             }
             tasks = new TaskList();
+            files = new TaskList();
         } finally {
             if (cliMode) {
                 this.startDukeCli();
@@ -34,14 +40,14 @@ public class Duke {
      * Default Constructor, Entry point into this java program, for CLI version.
      */
     public Duke() {
-        this("data/duke.txt", false);
+        this("data/duke.txt", "data/file.txt", false);
     }
 
     /**
      * Entry point into this java program, for CLI version.
      */
     public static void main(String[] args) {
-        new Duke("data/duke.txt", true);
+        new Duke("data/duke.txt", "data/file.txt", true);
     }
 
     /**
@@ -64,7 +70,12 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
-            String response = command.execute(tasks, dukeData, userInterface);
+            String response;
+            if (!command.isFileCommand()) {
+                response = command.execute(tasks, dukeData, userInterface);
+            } else {
+                response = command.execute(files, fileData, userInterface);
+            }
             this.setShutdown(command.isExit());
             return response;
         } catch (DukeException e) {

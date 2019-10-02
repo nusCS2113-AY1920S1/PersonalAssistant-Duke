@@ -9,6 +9,7 @@ import duke.commands.UnknownCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
 import duke.commands.ViewScheduleCommand;
+import duke.commands.FileCommand;
 import duke.commands.FindCommand;
 import duke.commands.SnoozeCommand;
 import duke.commands.SetCommand;
@@ -80,6 +81,10 @@ public class Parser {
                 command = new FindFreeCommand(components[1]);
                 break;
 
+            case "file":
+                command = new FileCommand(components[1], input);
+                break;
+
             default:
                 command = new UnknownCommand();
             }
@@ -87,7 +92,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InputException("Please provide an index. Eg. 'done 5' or 'delete 3'");
+            throw new InputException("Please provide an index or action. Eg. 'done 5', 'delete 3', 'file view'");
         }
     }
 }
