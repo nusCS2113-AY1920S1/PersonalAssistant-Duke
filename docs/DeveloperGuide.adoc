@@ -362,12 +362,11 @@ _{Explain here how the data encryption feature will be implemented}_
 *Target user profile*:
 
 * Team leaders of group projects
-// * prefer desktop apps over other types
-// * can type fast
-// * prefers typing over mouse input
-// * is reasonably comfortable using CLI apps
-
-// *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+* Group project team leaders who monitor contributions of team members
+* Project managers who track progress for multiple projects
+* Teachers who evaluate and act upon their students’ progress
+*  Technical professionals who keep track of task deadlines
+* Project planners who plan out priority and assignment of roles
 
 [appendix]
 == User Stories
