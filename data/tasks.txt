@@ -1,8 +1,7 @@
-T | 0 | shit
-E | 0 | shitposting  | 1/12/2009 2232 | 1/12/2009 2234
-D | 0 | Duke Documentation  | 17/9/2019 2359
+M | 0 | something  | 6/6/2011 1100 to 7/7/2011 1400 /or | 1
+P | 0 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
 E | 0 | code jam  | 6/6/2011 1100 | 7/7/2011 1400
+D | 0 | Duke Documentation  | 17/9/2020 2359
 T | 0 | some stuff
-E | 0 | board game party  | 18/9/2019 1900 | 18/9/2019 2100
-E | 0 | doint assignment  | 18/9/2019 1500 | 18/9/2019 1700
-E | 0 | OP rehearsal  | 18/9/2019 1300 | 18/9/2019 1400
+M | 0 | something  | 6/6/2011 1100 to 7/7/2020 1400 /or | 1
+M | 0 | something  | 6/6/2020 1100 to 7/7/2020 1400 /or | 1

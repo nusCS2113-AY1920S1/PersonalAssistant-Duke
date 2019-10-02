@@ -1,17 +1,18 @@
-import Commands.Command;
-import Commands.RemindersCommand;
-import Commands.ViewScheduleCommand;
-import ControlPanel.DukeException;
-import ControlPanel.Storage;
-import ControlPanel.Ui;
+import commands.Command;
+import commands.RemindersCommand;
+import commands.ViewScheduleCommand;
+import controlpanel.DukeException;
+import controlpanel.Storage;
+import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
+import tasks.TaskList;
 
-import Tasks.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,72 +30,77 @@ public class RemindTest {
     public void testRemindersUpcoming()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
-        System.setOut(new PrintStream(outContent));
         Command RemCmdUpcoming =  new RemindersCommand("upcoming");
+        ui.clearOutputString();
         RemCmdUpcoming.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Your Upcoming Reminders: \n" + System.getProperty("line.separator")
-                + " 1.[D][?] Duke Documentation (by: 17/9/2019 2359)\n" + System.getProperty("line.separator")
-                + " 2.[T][?] some stuff\n" + System.getProperty("line.separator")
-                + " 3.[P][?] IPPT (from: 18/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
-        System.setOut(originalOut);
+        assertEquals(" Got it. Your Upcoming Reminders: \n"
+                + " 1.[D][\u2718] Duke Documentation (by: 30/9/2019 2359)\n"
+                + " 2.[T][\u2718] some stuff\n"
+                + " 3.[P][\u2718] hackathon (from: 29/9/2019 1400 to 19/10/2019 1800)\n"
+                , ui.getOutputString());
     }
 
     @Test
     public void testRemindersPast()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
-        System.setOut(new PrintStream(outContent));
+
         Command RemCmdPast =  new RemindersCommand("past");
+        ui.clearOutputString();
         RemCmdPast.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Your Past Reminders: \n" + System.getProperty("line.separator")
-                        + " 1.[E][?] code jam (at: 6/6/2011 1100 to 7/7/2011 1400)\n" + System.getProperty("line.separator")
-                        + " 2.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
-        System.setOut(originalOut);
+        assertEquals(" Got it. Your Past Reminders: \n"
+                        + " 1.[E][\u2718] code jam (at: 6/6/2011 1100 to 7/7/2011 1400)\n"
+                        + " 2.[D][\u2718] IPPT  (by: 16/9/2019 1800)\n"
+                , ui.getOutputString());
+
     }
 
     @Test
     public void testRemindersToday()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
-        System.setOut(new PrintStream(outContent));
         Command RemCmdToday =  new RemindersCommand("today");
+        ui.clearOutputString();
         RemCmdToday.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Today's Reminders: \n" + System.getProperty("line.separator")
-                        + " 1.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
-        System.setOut(originalOut);
+        assertEquals(" Got it. Today's Reminders: \n"
+                        + " 1.[P][\u2718] H2 math revision (from: 12/9/2019 1400 to 30/9/2019 1800)\n"
+                , ui.getOutputString());
     }
 
     @Test
     public void testViewSchedule()throws ParseException, DukeException {
 
         ui = new Ui();
-        storage = new Storage("C:/Users/Lenovo/Documents/sem1 1920/CS2113T/main/data/tasks-test.txt");
+        Path currentDir = Paths.get("data/tasks-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
-        System.setOut(new PrintStream(outContent));
         Command viewSchedule =  new ViewScheduleCommand("schedule /on 14/09/2019");
+        ui.clearOutputString();
         viewSchedule.execute(tasks, ui, storage);
         //System.out.println("hello");
-        assertEquals(" Got it. Your schedule for 14/09/2019: \n" + System.getProperty("line.separator")
-                        + " 1.[P][?] H2 math revision (from: 12/9/2019 1400 to 14/9/2019 1800)\n" + System.getProperty("line.separator")
-                        + " 2.[P][?] hackathon (from: 12/9/2019 1400 to 19/9/2019 1800)\n" + System.getProperty("line.separator")
-                ,outContent.toString());
-        System.setOut(originalOut);
+        assertEquals(" Got it. Your schedule for 14/09/2019: \n"
+                        + " 1.[P][\u2718] H2 math revision (from: 12/9/2019 1400 to 30/9/2019 1800)\n"
+                , ui.getOutputString());
     }
 
 }
