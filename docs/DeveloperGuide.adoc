@@ -103,9 +103,9 @@ have. 1 star (★) is unlikely to have.
 
 Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
 
+---
+
 === Use case: Adding tasks
-
-
 
 ==== MSS
 
@@ -145,6 +145,8 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
+---
+
 === Use case: Deleting tasks
 
 ==== MSS
@@ -179,9 +181,11 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
+---
+
 === Use case: Alert on duplicate tasks
 
-- MSS
+==== MSS
 
 ----
 
@@ -193,7 +197,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-- Extensions
+==== Extensions
 
 ----
 
@@ -205,4 +209,4 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-
+---
