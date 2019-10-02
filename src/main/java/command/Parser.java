@@ -11,7 +11,9 @@ import ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -94,6 +96,10 @@ public class Parser {
             }else if (isReschedule(input)) {
                 processReschedule(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
+            }
+            else if (isViewSchedule(input)) {
+                processViewSchedule(input, tasklist, ui);
+                //storage.save(tasklist.returnArrayList());
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -119,6 +125,41 @@ public class Parser {
                 }
             }
             ui.printList(findlist, "find");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+        }
+    }
+    /**
+     * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processViewSchedule(String input, TaskList tasklist, Ui ui) {
+        try {
+            TaskList findlist = new TaskList();
+            String[] splitspace = input.split(" ", 3);
+            for (Task tasks : tasklist.returnArrayList()) {
+                if (tasks.giveTask().contains(splitspace[2])) {
+                    findlist.addTask(tasks);
+                }
+            }
+            ArrayList<String> time = new ArrayList<String>();
+            for(Task tasks: findlist.returnArrayList()){
+                String[] splitcolon = tasks.giveTask().split(":");
+                String[] splitspaces = splitcolon[1].split(" ");
+                time.add(splitspaces[2]);
+            }
+            Collections.sort(time);
+            TaskList finalList = new TaskList();
+            for(int i = 0; i < time.size(); i = i + 1){
+                for(Task tasks: findlist.returnArrayList()){
+                    if(tasks.giveTask().contains(time.get(i))){
+                        finalList.addTask(tasks);
+                    }
+                }
+            }
+            ui.printList(finalList, "View Schedule");
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
@@ -203,7 +244,7 @@ public class Parser {
     }
 
     /**
-     * Processes the event command and adds an event to the user's Tasklist.
+     * Processes the DoAfter command and adds a task, which has to be done after another task or a specific date and time, to the user's Tasklist.
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
@@ -420,5 +461,8 @@ public class Parser {
 
     private static boolean isReschedule(String input) {
         return input.startsWith("reschedule");
+    }
+    private static boolean isViewSchedule(String input) {
+        return input.startsWith("View Schedule");
     }
 }
