@@ -296,7 +296,7 @@ public class DailyCal {
                     moveRight += 100;
                 } else {
                     storedXAxis[currentTime][eventCounter] += prevX + moveRight;
-                    storedYAxis[currentTime][eventCounter] += prevY - 50;
+                    storedYAxis[currentTime][eventCounter] += prevY + downPX - 50;
                     prevX = horizontalXLayout + moveRight;
                     prevY = horizontalYLayout + downPX;
                     moveRight += 100;

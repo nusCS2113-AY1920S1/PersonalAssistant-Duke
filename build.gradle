@@ -4,6 +4,25 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'checkstyle'
+    id 'jacoco'
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+
+jacoco {
+    toolVersion = "0.8.4"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
 }
 
 checkstyle {
