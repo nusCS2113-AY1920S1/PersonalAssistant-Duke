@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
+import duke.task.Recurring;
 
 /**
  * duke.parser.Parser class that deals with making sense of user commands
@@ -20,7 +21,6 @@ public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
-        String recurringPeriod = "none";
 
         switch (keyword) {
             case "bye":
@@ -48,12 +48,7 @@ public class Parser {
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");
                 }
-                String[] flagArray = fcArray[1].split("-r ");
-                if (flagArray.length != 1) {
-                    recurringPeriod = flagArray[1];
-                    fcArray[1] = flagArray[0];
-                }
-                return new AddCommand(fcArray[1], keyword, recurringPeriod);
+                return new AddCommand(fcArray[1], keyword);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

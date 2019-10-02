@@ -1,19 +1,12 @@
 package duke.task;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
  */
 public class Task {
-	enum RecurrencePeriod {NONE, DAILY, WEEKLY}
-
 	protected String description;
 	protected boolean isDone;
 	protected String type;
-	protected LocalDate dateCreated;
-	protected RecurrencePeriod recurrencePeriod;
-
 
 	/**
 	 * Constructor function for duke.task.Task
@@ -22,20 +15,10 @@ public class Task {
 	 * Default Tasks have no type
 	 * @param description the description of the task
 	 */
-	public Task(String description, String recurrencePeriod) {
+	public Task(String description) {
 		this.description = description;
 		this.isDone = false;
 		this.type = "";
-		this.dateCreated = LocalDate.now();
-		System.out.println(recurrencePeriod);
-		switch (recurrencePeriod) {
-			case "none":
-				this.recurrencePeriod = RecurrencePeriod.NONE;
-			case "daily":
-				this.recurrencePeriod = RecurrencePeriod.DAILY;
-			case "weekly":
-				this.recurrencePeriod = RecurrencePeriod.WEEKLY;
-		}
 	}
 
 	/**
@@ -56,27 +39,6 @@ public class Task {
 		System.out.println(this);
 	}
 
-	public void markAsUndone() {
-		isDone = false;
-	}
-
-	public void recurringTaskChecker() {
-		switch (recurrencePeriod) {
-			case DAILY:
-				if (ChronoUnit.HOURS.between(dateCreated, LocalDate.now()) % 24 == 0) {
-					markAsUndone();
-				}
-				break;
-			case WEEKLY:
-				if (ChronoUnit.DAYS.between(dateCreated, LocalDate.now()) % 7 == 0) {
-					markAsUndone();
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
 	/**
 	 * Returns a String which describes the task
 	 * @return the description of the task
@@ -87,16 +49,6 @@ public class Task {
 
 	@Override
 	public String toString() {
-		String recurringDescription = "";
-		String recurringIcon = "";
-		if (recurrencePeriod == RecurrencePeriod.DAILY) {
-			recurringDescription = "every day";
-			recurringIcon = "[R]";
-		} else if (recurrencePeriod == RecurrencePeriod.WEEKLY) {
-			recurringDescription = "every week";
-			recurringIcon = "[R]";
-		}
-
-		return recurringIcon + type + "[" + this.getStatusIcon() + "] " + description + recurringDescription;
+		return type + "[" + this.getStatusIcon() + "] " + description;
 	}
 }
