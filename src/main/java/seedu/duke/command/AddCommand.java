@@ -7,6 +7,7 @@ import seedu.duke.task.Task;
 import seedu.duke.TaskList;
 import seedu.duke.task.ToDo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class AddCommand extends Command {
     private TaskList taskList;
     private Task.TaskType taskType;
     private String name;
-    private Date time;
+    private LocalDateTime time;
     private String doAfter;
 
     /**
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
      *                 time attribute, so any Date can be passed in and will be ignored.
      */
-    public AddCommand(TaskList taskList, Task.TaskType taskType, String name, Date time, String doAfter) {
+    public AddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time, String doAfter) {
         this.taskList = taskList;
         this.taskType = taskType;
         this.name = name;

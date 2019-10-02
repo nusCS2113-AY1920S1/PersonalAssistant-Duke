@@ -18,6 +18,7 @@ import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -41,93 +42,124 @@ public class Parser {
         } else if (input.equals("list")) {
             return new ListCommand(taskList);
         } else if (input.startsWith("done ")) {
-            if (input.length() <= 5) {
-                ui.showError("Please enter index of task after \'done\'");
-                return new InvalidCommand();
-            } else {
-                try {
-                    int index = parseIndex(input);
-                    return new DoneCommand(index);
-                } catch (NumberFormatException e) {
-                    ui.showError(e.toString());
-                } catch (UserInputException e) {
-                    ui.showError("Please enter correct task index");
-                }
-            }
-        } else if (input.startsWith("delete")) {
-            if (input.length() <= 7) {
-                ui.showError("Please enter index of task after \'delete\'");
-                return new InvalidCommand();
-            } else {
-                try {
-                    int index = parseIndex(input);
-                    return new DeleteCommand(taskList, index);
-                } catch (NumberFormatException e) {
-                    ui.showError(e.toString());
-                } catch (UserInputException e) {
-                    ui.showError("Please enter correct task index");
-                }
-            }
+            return parseDoneCommand(input, ui);
+        } else if (input.startsWith("delete ")) {
+            return parseDeleteCommand(input, ui, taskList);
         } else if (input.startsWith("find ")) {
-            if (input.length() <= 5) {
-                ui.showError("Please enter keyword for searching after \'find\'");
-            } else {
-                String keyword = input.split(" ", 2)[1];
-                return new FindCommand(taskList, keyword);
-            }
+            return parseFindCommand(input, ui, taskList);
         } else if (input.startsWith("reminder")) {
-            int dayLimit = -1;
-            if (input.length() > 9 && input.charAt(8) == ' ') {
-                try {
-                    dayLimit = Integer.parseInt(input.substring(9));
-                } catch (NumberFormatException e) {
-                    ui.showError("Reminder day limit in wrong format. Default is used.");
-                }
-            }
-            if (dayLimit < 0) {
-                return new ReminderCommand(taskList);
-            } else {
-                return new ReminderCommand(taskList, dayLimit);
-            }
+            return parseReminderCommand(input, ui, taskList);
         } else if (input.startsWith("doafter")) {
-            if (input.length() < 8) {
-                ui.showError("Please enter index of task after \'doafter\'");
-            } else if (input.length() < 11) {
-                ui.showError("Please enter description for do-after task");
-            } else {
-                String[] splitInput = input.split(" /");
-                try {
-                    int itemNumber = Integer.parseInt(splitInput[1].trim());
-                    return new DoAfterCommand(taskList, itemNumber, splitInput[2]);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    ui.showError(e.toString());
-                }
-            }
+            return parseDoAfterCommand(input, ui, taskList);
         } else if (input.startsWith("snooze ")) {
-            if (input.length() <= 7) {
-                ui.showError("Please enter index of task after \'snooze\'");
-                return new InvalidCommand();
-            } else {
-                try {
-                    int index = parseIndex(input);
-                    return new SnoozeCommand(taskList, index);
-                } catch (NumberFormatException e) {
-                    ui.showError(e.toString());
-                } catch (UserInputException e) {
-                    ui.showError("Please enter correct task index");
-                }
-            }
+            return parseSnoozeCommand(input, ui, taskList);
         }  else if (input.startsWith("email")) {
             try {
                 return parseEmail(emailList, input);
             } catch (UserInputException e) {
                 ui.showError(e.toString());
             }
+            return new InvalidCommand();
         } else {
             try {
                 return parseTask(taskList, input);
             } catch (UserInputException e) {
                 ui.showError(e.toString());
+            }
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseSnoozeCommand(String input, UI ui, TaskList taskList) {
+        if (input.length() <= 7) {
+            ui.showError("Please enter index of task after \'snooze\'");
+            return new InvalidCommand();
+        } else {
+            try {
+                int index = parseIndex(input);
+                return new SnoozeCommand(taskList, index);
+            } catch (NumberFormatException e) {
+                ui.showError(e.toString());
+            } catch (UserInputException e) {
+                ui.showError("Please enter correct task index");
+            }
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseDoAfterCommand(String input, UI ui, TaskList taskList) {
+        if (input.length() < 8) {
+            ui.showError("Please enter index of task after \'doafter\'");
+        } else if (input.length() < 11) {
+            ui.showError("Please enter description for do-after task");
+        } else {
+            String[] splitInput = input.split(" /");
+            try {
+                int itemNumber = Integer.parseInt(splitInput[1].trim());
+                return new DoAfterCommand(taskList, itemNumber, splitInput[2]);
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                ui.showError(e.toString());
+                return new InvalidCommand();
+            }
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseReminderCommand(String input, UI ui, TaskList taskList) {
+        int dayLimit = -1;
+        if (input.length() > 9 && input.charAt(8) == ' ') {
+            try {
+                dayLimit = Integer.parseInt(input.substring(9));
+            } catch (NumberFormatException e) {
+                ui.showError("Reminder day limit in wrong format. Default is used.");
+            }
+        }
+        if (dayLimit < 0) {
+            return new ReminderCommand(taskList);
+        } else {
+            return new ReminderCommand(taskList, dayLimit);
+        }
+    }
+
+    private static Command parseFindCommand(String input, UI ui, TaskList taskList) {
+        if (input.length() <= 5) {
+            ui.showError("Please enter keyword for searching after \'find\'");
+        } else {
+            String keyword = input.split(" ", 2)[1];
+            return new FindCommand(taskList, keyword);
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseDeleteCommand(String input, UI ui, TaskList taskList) {
+        if (input.length() <= 7) {
+            ui.showError("Please enter index of task after \'delete\'");
+            return new InvalidCommand();
+        } else {
+            try {
+                int index = parseIndex(input);
+                return new DeleteCommand(taskList, index);
+            } catch (NumberFormatException e) {
+                ui.showError(e.toString());
+            } catch (UserInputException e) {
+                ui.showError("Please enter correct task index");
+            }
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseDoneCommand(String input, UI ui) {
+        if (input.length() <= 5) {
+            ui.showError("Please enter index of task after \'done\'");
+            return new InvalidCommand();
+        } else {
+            try {
+                int index = parseIndex(input);
+                return new DoneCommand(index);
+            } catch (NumberFormatException e) {
+                ui.showError(e.toString());
+            } catch (UserInputException e) {
+                ui.showError("Please enter correct task index");
             }
         }
         return new InvalidCommand();
@@ -195,7 +227,7 @@ public class Parser {
     public static Command parseTask(TaskList taskList, String input) throws UserInputException {
         Task.TaskType taskType;
         String name;
-        Date time = new Date();
+        LocalDateTime time = null;
         String doAfter = null;
 
         if (input.startsWith("todo")) {
@@ -224,12 +256,7 @@ public class Parser {
                 timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
-            try {
-                time = Task.parseDate(timeString);
-            } catch (ParseException e) {
-                throw new Parser.UserInputException("Wrong date/time format. Write date/time in dd/MM/yyyy "
-                        + "HHmm format.");
-            }
+            time = Task.parseDate(timeString);
         } else if (input.startsWith("event")) {
             taskType = Task.TaskType.Event;
             if (input.length() <= 6) {
@@ -245,12 +272,7 @@ public class Parser {
                 timeString = timeString.split(" /doafter ", 2)[0];
                 doAfter = input.split(" /doafter ", 2)[1];
             }
-            try {
-                time = Task.parseDate(timeString);
-            } catch (ParseException e) {
-                throw new Parser.UserInputException("Wrong date/time format. Write date/time in dd/MM/yyyy "
-                        + "HHmm format.");
-            }
+            time = Task.parseDate(timeString);
         } else {
             throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -279,6 +301,7 @@ public class Parser {
          *
          * @return the message of the exception
          */
+        @Override
         public String toString() {
             return msg;
         }
