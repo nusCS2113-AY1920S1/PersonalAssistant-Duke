@@ -103,8 +103,6 @@ have. 1 star (★) is unlikely to have.
 
 Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
 
----
-
 === Use case: Adding tasks
 
 ==== MSS
@@ -432,8 +430,6 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 - Use case resumes at step 2.
 
 ----
-
----
 
 == Appendix D: Non Functional Requirements
 
