@@ -29,7 +29,7 @@ Le Duc (The Duke in French) is for student who have multiple life and have to ma
 .  Please refer to <<Features>> part for details of each command.
 
 +
-image::leduc.png[width="790"]
+image::Ui.png[width="790"]
 +
 
 
