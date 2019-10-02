@@ -124,9 +124,9 @@ public class Parser {
     }
 
     /**
-     * Takes user input of date for add commands and checks for shortcut dates
-     * If shortcut is found, converts to the correct date according to shortcut
-     * Returns the formatted Date from user inputted date
+     * Takes user input of date for add commands and checks for shortcut dates.
+     * If shortcut is found, converts to the correct date according to shortcut.
+     * Returns the formatted Date from user inputted date.
      * @param dateStr user input of date
      * @return formatted Date based on user inputted date
      * @throws ParseException if invalid date is parsed
