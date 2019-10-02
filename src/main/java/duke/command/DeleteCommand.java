@@ -6,6 +6,8 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * duke.command.DeleteCommand which executes the procedure for deleting duke.task.Task objects from the duke.tasklist.TaskList
  */
@@ -17,7 +19,7 @@ public class DeleteCommand extends Command {
 	}
 
 	@Override
-	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
 		if (index > tasks.size()) {
 			throw new DukeException("There is no such task.");
 		}
@@ -30,6 +32,7 @@ public class DeleteCommand extends Command {
 		} else {
 			ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
 		}
+		storage.save(tasks);
 	}
 
 	@Override

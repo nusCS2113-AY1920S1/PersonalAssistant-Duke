@@ -2,13 +2,11 @@ package duke.command;
 
 import duke.extensions.AbnormalityChecker;
 import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Recurring;
-import duke.task.ToDo;
+import duke.task.*;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +18,7 @@ public class AddCommand extends Command {
     String description;
     String taskType;
     boolean isRecurring = false;
+    boolean hasDuration = false;
 
     public AddCommand(String description, String taskType) {
         this.taskType = taskType;
@@ -28,24 +27,33 @@ public class AddCommand extends Command {
     }
 
     private void checkForFlag() {
-        String flagArray[] = description.split("-");
+        String[] flagArray = description.split("-");
         if (flagArray.length != 1) {
             switch (flagArray[1].charAt(0)) {
                 case 'r':
                     isRecurring = true;
+                    break;
+                case 'd':
+                    hasDuration = true;
             }
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException {
         if (isRecurring) {
             tasks.add(new Recurring(description, taskType, tasks, ui, storage));
             return;
         }
         switch (taskType) {
             case "todo":
-                tasks.add(new ToDo(description));
+                if (hasDuration) {
+                    String[] flagArray = description.split(" -", 2);
+                    int duration = Integer.parseInt(flagArray[1].substring(2));
+                    tasks.add(new FixedDurationTask(flagArray[0], duration));
+                } else {
+                    tasks.add(new ToDo(description));
+                }
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
@@ -66,6 +74,7 @@ public class AddCommand extends Command {
                 }
                 break;
         }
+        storage.save(tasks);
     }
 
     @Override

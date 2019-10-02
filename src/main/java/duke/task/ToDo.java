@@ -8,6 +8,7 @@ public class ToDo extends Task {
 	/**
 	 * Constructor of duke.task.ToDo
 	 * Works similarly as superclass duke.task.Task
+	 * Constructs a task which has no fixed duration to complete
 	 * @param description the description of the duke.task.ToDo
 	 */
 	public ToDo(String description) {
