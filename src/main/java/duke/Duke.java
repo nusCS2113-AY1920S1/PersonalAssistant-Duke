@@ -43,7 +43,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                requestsData.setRequest(fullCommand);
+                requestsData.setRequestData(fullCommand, store);
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store);

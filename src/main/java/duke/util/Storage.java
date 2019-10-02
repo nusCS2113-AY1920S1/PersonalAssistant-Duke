@@ -30,6 +30,7 @@ public class Storage {
 
     /**
      * Constructor for storage class.
+     *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
@@ -91,7 +92,7 @@ public class Storage {
                     }
                 }
                 default: {
-                    continue;
+                    break;
                 }
             }
         }
@@ -112,18 +113,17 @@ public class Storage {
      * @param taskList The current taskList being saved into text file.
      */
     public void writeData(List<Task> taskList) {
-        List<String> store = new ArrayList<>();
+        List<String> stringListTask = new ArrayList<>();
         for (Task temp : taskList) {
-            store.add(temp.writingFile());
+            stringListTask.add(temp.writingFile());
         }
         try {
             if (fileExists) {
-                Files.write(path, store, StandardCharsets.UTF_8);
+                Files.write(path, stringListTask, StandardCharsets.UTF_8);
             } else {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
                 setFileExists();
-
             }
         } catch (IOException e) {
             e.printStackTrace();
