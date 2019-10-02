@@ -44,15 +44,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * *  | User | Have a reset option | Replay the game if I'm done with the storyline.
 | *  | Weak User | Clarify certain concepts with a virtual agent/chatbot | Build a stronger foundation
 | *  | User | be challenged every time I play the game | improve incrementally as I play it more
-| *  | User | Be challenged every time I play the game | improve incrementally as I play it more
 | *  | Advanced User | Get updates whenever the program has new levels | Keep up with the game and maintain my rank
 | *  | User | enjoy playing the game  | Have fun as I learn
 | * * * | Tutor | Track my students’ progress | Cater my teaching style according to the weak chapters.
-| *  | User | Customise my own questions `in version 2.0` | Test myself on questions I know I'm weak at.
-| *  | User | Choose which character to play in the game `in version 2.0` | Vary the experience I have in every game
-| * *  | Tutor | See which students are in dire need of help `in version 2.0`| Focus more attention on weaker students
-| * | Tutor | Set my own questions `in version 2.0`| Test my students’ understanding on the current topic
-| * | Tutor | Set my own storyline `in version 2.0`| Make assignments more enjoyable.
+| *  | User | Customise my own questions `[coming in v2.0]` | Test myself on questions I know I'm weak at.
+| *  | User | Choose which character to play in the game `[coming in v2.0]` | Vary the experience I have in every game
+| * *  | Tutor | See which students are in dire need of help `[coming in v2.0]`| Focus more attention on weaker students
+| * | Tutor | Set my own questions `[coming in v2.0]`| Test my students’ understanding on the current topic
+| * | Tutor | Set my own storyline `[coming in v2.0]`| Make assignments more enjoyable.
 
 
 |=======================================================================
@@ -326,9 +325,10 @@ Use case ends
 
 Use case ends
 
+[discrete]
 === Non-Functional Requirements
  - The application should work on any mainstream OS with Java 11 installed to run the game. 
- - The computer should have a minimum of 320 by 300 screen resolution for the game to display. 
+ - The computer should have a minimum of 320 by 300 screen resolution for the game to display.
  - The computer should have soundcards and audio speakers for the game music to play. 
  - The computer should have a minimum of Intel I3 dual core processors for the game to run without notable sluggish. 
  - The user should be able to read, understand, and write English to complete the storyline in the game. 
