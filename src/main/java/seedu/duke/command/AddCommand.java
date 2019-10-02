@@ -70,6 +70,7 @@ public class AddCommand extends Command {
             msg += "  " + task.toString() + "\n";
             msg += "Now you have " + taskList.size() + " task(s) in the list. ";
             msg += clashMsg;
+            responseMsg = msg;
             Duke.getUI().showResponse(msg);
         }
         return true;

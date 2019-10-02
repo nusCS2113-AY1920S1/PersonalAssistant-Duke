@@ -32,6 +32,7 @@ public class FindCommand extends Command {
     public boolean execute() {
         String msg = this.taskList.findKeyword(keyword);
         if (!silent) {
+            responseMsg = msg;
             Duke.getUI().showResponse(msg);
         }
         return true;

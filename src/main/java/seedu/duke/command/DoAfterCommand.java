@@ -34,6 +34,7 @@ public class DoAfterCommand extends Command {
     public boolean execute() {
         taskList.get(itemNumber - 1).setDoAfterDescription(doAfterDescription);
         String msg = "Do after task " + doAfterDescription + " has been added to task " + itemNumber;
+        responseMsg = msg;
         Duke.getUI().showResponse(msg);
         return true;
     }

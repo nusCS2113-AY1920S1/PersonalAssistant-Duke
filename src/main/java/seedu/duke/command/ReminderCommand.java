@@ -43,6 +43,7 @@ public class ReminderCommand extends Command {
             msg += "There are near events or deadlines within " + dayLimit + " days: \n";
             msg += nearTasks.toString();
         }
+        responseMsg = msg;
         Duke.getUI().showResponse(msg);
         return true;
     }

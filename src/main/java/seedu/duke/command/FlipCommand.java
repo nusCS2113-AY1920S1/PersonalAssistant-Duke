@@ -21,6 +21,7 @@ public class FlipCommand extends Command{
             Parser.setInputType(Parser.InputType.TASK);
             msg += "TASK.";
         }
+        responseMsg = msg;
         Duke.getUI().showResponse(msg);
         return true;
     }
