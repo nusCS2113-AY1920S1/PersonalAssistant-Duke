@@ -12,7 +12,9 @@ Target User Profile:
 - Prefers typing and using arrow keys to navigate over mouse input.
 - Is reasonably comfortably with command line integrated with GUI apps.
 - Prefers desktop apps over other types.
-\n
+
+
+
 Value proposition: We strive to adhere our product to two main principles:
 
 1) Gamify tasks to make completing them more engaging than a typical productivity/ study app.
