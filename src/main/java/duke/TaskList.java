@@ -20,13 +20,21 @@ import duke.enums.TaskType;
 public class TaskList {
     private ArrayList<Task> taskList;
 
-    public TaskList(ArrayList<Task> savedFile) { taskList = savedFile; }
+    public TaskList(ArrayList<Task> savedFile) {
+        taskList = savedFile;
+    }
 
-    public TaskList() { taskList = new ArrayList<Task>(); }
+    public TaskList() {
+        taskList = new ArrayList<Task>();
+    }
 
-    public ArrayList<Task> getTaskList() { return taskList; }
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
 
-    public int getSize() { return taskList.size(); }
+    public int getSize() {
+        return taskList.size();
+    }
 
     /**
      * Adds a task to the tasklist.
@@ -64,22 +72,22 @@ public class TaskList {
      * @return true if item was added successfully.
      */
     public boolean addItem(TaskType type, String description, DateTime... dateTimes) throws BadInputException {
-            switch (type) {
-            case TODO:
-                taskList.add(new Todo(description));
-                break;
+        switch (type) {
+        case TODO:
+            taskList.add(new Todo(description));
+            break;
 
-            case DEADLINE:
-                taskList.add(new Deadline(description, dateTimes[0]));
-                break;
+        case DEADLINE:
+            taskList.add(new Deadline(description, dateTimes[0]));
+            break;
 
-            case EVENT: // Throws the BadInputException
-                taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
-                break;
+        case EVENT: // Throws the BadInputException
+            taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
+            break;
 
-            default:
-                return false;
-            }
+        default:
+            return false;
+        }
 
         return true;
     }
@@ -93,7 +101,9 @@ public class TaskList {
      *
      * @param i the index of the task to be deleted.
      */
-    public void deleteTask(int i) { taskList.remove(i); }
+    public void deleteTask(int i) {
+        taskList.remove(i);
+    }
 
     // TODO: Deprecated, remove in future commit - Raghav
     /**

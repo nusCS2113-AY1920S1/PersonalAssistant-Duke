@@ -32,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * Primary function that handles printing to the CLI
+     * Primary function that handles printing to the CLI.
      *
      * @param printString String to print (passed in from external objects accessing UI)
      */
@@ -48,7 +48,7 @@ public class Ui {
     }
 
     /**
-     * Prints error message to CLI
+     * Prints error message to CLI.
      */
     public void printError(Exception e) {
         print("Parser error: \n" + e);

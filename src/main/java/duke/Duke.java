@@ -38,8 +38,9 @@ public class Duke {
                 Command command = parser.parse(userInput);
                 command.execute(taskList, ui, storage);
 
-                if (command.getType() == CommandType.BYE)
+                if (command.getType() == CommandType.BYE) {
                     break;
+                }
             } catch (Exception e) {
                 ui.printError(e);
             }

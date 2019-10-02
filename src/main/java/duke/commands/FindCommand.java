@@ -36,8 +36,8 @@ public class FindCommand extends Command {
         }
 
         if (!found) {
-            ui.print("Sorry, I could not find any tasks containing the description \"" +
-                    search + "\".\nPlease try a different search string.");
+            ui.print("Sorry, I could not find any tasks containing the description \""
+                    + search + "\".\nPlease try a different search string.");
         } else {
             ui.print(listString);
         }
