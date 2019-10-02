@@ -103,7 +103,7 @@ have. 1 star (★) is unlikely to have.
 
 Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
 
-=== Use case: Adding tasks
+=== 1. Use case: Adding tasks
 
 ==== MSS
 
@@ -145,7 +145,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Deleting tasks
+=== 2. Use case: Deleting tasks
 
 ==== MSS
 
@@ -181,7 +181,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Alert on duplicate tasks
+=== 3. Use case: Alert on duplicate tasks
 
 ==== MSS
 
@@ -209,7 +209,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Auto-completing words
+=== 4. Use case: Auto-completing words
 
 ==== MSS
 
@@ -247,7 +247,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Getting coins from unlocking achievements
+=== 5. Use case: Getting coins from unlocking achievements
 
 ==== MSS
 
@@ -265,7 +265,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Getting experience points from completing tasks
+=== 6. Use case: Getting experience points from completing tasks
 
 ==== MSS
 
@@ -303,7 +303,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Purchasing item from shop.
+=== 7. Use case: Purchasing item from shop.
 
 ==== MSS
 
@@ -341,7 +341,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Suggesting a recommended schedule
+=== 8. Use case: Suggesting a recommended schedule
 
 ==== MSS
 
@@ -377,7 +377,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Finding a task from tags
+=== 9. Use case: Finding a task from tags
 
 ==== MSS
 
@@ -405,7 +405,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ---
 
-=== Use case: Displaying User statistics
+=== 10. Use case: Displaying User statistics
 
 ==== MSS
 
