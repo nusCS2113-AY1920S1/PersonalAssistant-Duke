@@ -441,6 +441,14 @@ Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/pr
 
 NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
 
+--
+
+Hey kids!
+
+--
+
+---
+
 Learning requirements:
 
 - The app’s user interface should be uncomplicated and easy to use even for first-timers
@@ -449,7 +457,7 @@ Learning requirements:
 
 Design requirements:
 
-Keep supplementary features to a minimum
+- Keep supplementary features to a minimum
 
 - Performance requirements:
 
