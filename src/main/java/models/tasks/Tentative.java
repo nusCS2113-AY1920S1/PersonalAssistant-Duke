@@ -41,6 +41,10 @@ public class Tentative implements ITask {
         return this.description + " (at: " + dates + ")";
     }
 
+    public String getDescriptionOnly() {
+        return this.description;
+    }
+
     @Override
     public String getInitials() {
         return this.initials;
@@ -56,7 +60,7 @@ public class Tentative implements ITask {
         return null;
     }
 
-    public String[] getTentativeDateTime() {
+    public String[] getTentativeDateTimeStrings() {
         return this.tentativeDateTimeStrings;
     }
 

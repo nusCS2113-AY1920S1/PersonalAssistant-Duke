@@ -99,10 +99,14 @@ public class TaskList implements Serializable {
      */
     public ArrayList<ITask> getSchedule(String date) {
         schedule = new ArrayList<>();
-        for (ITask task : listOfTasks) {
-            if (task.getDateTime().contains(date)) {
-                schedule.add(task);
+        try {
+            for (ITask task : listOfTasks) {
+                if (task.getDateTime().contains(date)) {
+                    schedule.add(task);
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println("Schedule for that day is empty.");
         }
         return schedule;
     }
@@ -117,6 +121,9 @@ public class TaskList implements Serializable {
             return false;
         }
         schedule = getSchedule(newTask.getDateTime());
+        if (schedule.isEmpty()) {
+            return false;
+        }
         for (ITask task : schedule) {
             if (task.getDateTime().equals(newTask.getDateTime())) {
                 return true;
