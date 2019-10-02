@@ -6,7 +6,9 @@ import command.Command;
 import storage.Storage;
 import ui.Ui;
 
-/**@author Ng Jian Wei*/
+/**
+ * @author Ng Jian Wei
+ * */
 public class ViewSchedule extends Command {
 
     protected String searchPhrase;
