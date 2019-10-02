@@ -1,9 +1,12 @@
 package duke.commands;
 
-import duke.*;
 import duke.tasks.DoAfter;
 import duke.tasks.Task;
-
+import duke.DoAfterList;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Storage;
+import duke.Ui;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +50,6 @@ public class DeleteCommand extends Command {
             throw new DukeException("","index");
         } else {
             int counter = 0;
-            ArrayList<Task> oldList = new ArrayList<>(taskList.getTaskList());
             Set<Integer> indexSet = new HashSet<>();
 
             ArrayList<Task> finalTasksRemoveList = getRemovedTasks(index, taskList);
@@ -94,6 +96,7 @@ public class DeleteCommand extends Command {
                 }
             }
 
+            ArrayList<Task> oldList = new ArrayList<>(taskList.getTaskList());
             try {
                 storage.updateFile(taskList);
             } catch (Exception e) {

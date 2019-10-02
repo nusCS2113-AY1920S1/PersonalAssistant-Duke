@@ -1,6 +1,16 @@
 package duke;
 
-import duke.tasks.*;
+import duke.tasks.ToDo;
+
+import duke.tasks.Deadline;
+import duke.tasks.DoAfter;
+import duke.tasks.Event;
+import duke.tasks.BetweenTask;
+import duke.tasks.RecurringTask;
+import duke.tasks.Task;
+
+
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -105,7 +115,7 @@ public class Storage {
             boolean isDone = s.substring(4,5).equals("v");
             String description;
             String addendum;
-            //System.out.println("received"+type);
+
             switch (type) {
             case "T":
                 description = s.substring(7);
@@ -116,7 +126,6 @@ public class Storage {
                 taskList.add(todo);
                 break;
             case "E": {
-                //System.out.println("received1221"+s.substring(7));
                 String[] sections = s.substring(7).split("\\(from:");
 
                 sections[1] = sections[1].replace("to","-");
@@ -159,33 +168,33 @@ public class Storage {
             }
             case "B": {
                 String[] sections = s.substring(7).split("between");
-                description = sections[0].substring(0, sections[0].length() -2);
+                description = sections[0].substring(0, sections[0].length() - 2);
                 String[] sections2 = sections[1].split("and");
-                String start = sections2[0].substring(1, sections2[0].length()-1).trim();
-                String end = sections2[1].substring(0, sections2[1].length()-1).trim();
+                String start = sections2[0].substring(1, sections2[0].length() - 1).trim();
+                String end = sections2[1].substring(0, sections2[1].length() - 1).trim();
                 BetweenTask betweenTask = new BetweenTask(description, start, end);
-                if(isDone){
+                if (isDone) {
                     betweenTask.setDone();
                 }
                 taskList.add(betweenTask);
                 break;
             }
-            case "R":{
+            case "R": {
                 String[] sections = s.substring(7).split("\\(");
                 description = sections[0];
                 String frequency = sections[1].split(" ")[0];
 
-                String[] date_info = sections[1].split("on: ");
-                String[] date_new_info = date_info[1].split(" ");
-                String date = date_new_info[0];
+                String[] dateInfo = sections[1].split("on: ");
+                String[] dateNewInfo = dateInfo[1].split(" ");
+                String date = dateNewInfo[0];
                 String time;
-                if(date_new_info.length == 3){
-                    time = date_new_info[2].substring(0, date_new_info[2].length() -1);
+                if (dateNewInfo.length == 3) {
+                    time = dateNewInfo[2].substring(0, dateNewInfo[2].length() - 1);
                 } else {
                     time = "";
                 }
                 //String date = "";
-                 //       String time = "";
+                //       String time = "";
                 RecurringTask recurringTask = new RecurringTask(description, date, time, frequency);
                 taskList.add(recurringTask);
                 break;
