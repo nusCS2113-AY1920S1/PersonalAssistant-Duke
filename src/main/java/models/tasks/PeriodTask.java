@@ -9,8 +9,7 @@ public class PeriodTask implements ITask {
     private String taskDuration;
     private Date startDate;
     private Date endDate;
-
-
+    
     /**
      * Constructor of the Recurring data model.
      *
