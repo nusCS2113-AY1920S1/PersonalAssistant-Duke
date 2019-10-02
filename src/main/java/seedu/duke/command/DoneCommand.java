@@ -29,6 +29,7 @@ public class DoneCommand extends Command {
         try {
             String msg = Duke.getTaskList().markDone(index);
             if (!silent) {
+                responseMsg = msg;
                 Duke.getUI().showResponse(msg);
             }
             return true;
