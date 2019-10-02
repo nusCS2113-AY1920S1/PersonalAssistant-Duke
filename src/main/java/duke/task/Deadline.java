@@ -17,8 +17,8 @@ public class Deadline extends Task {
      * @param description the description of the deadline
      * @param by          the date and time which the deadline should be done by
      */
-    public Deadline(String description, Date by, String recurringPeriod) {
-        super(description, recurringPeriod);
+    public Deadline(String description, Date by, String recurrencePeriod) {
+        super(description, recurrencePeriod);
         this.datetime = by;
         this.type = "[D]";
     }

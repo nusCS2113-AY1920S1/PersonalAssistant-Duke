@@ -19,7 +19,8 @@ public class AddCommand extends Command {
     String taskType;
     boolean isRecurring = false;
     boolean hasDuration = false;
-    String recurringPeriod;
+    String recurrencePeriod;
+
 
     public AddCommand(String description, String taskType) {
         this.taskType = taskType;
@@ -34,7 +35,7 @@ public class AddCommand extends Command {
                 case 'r':
                     isRecurring = true;
                     description = flagArray[0];
-                    recurringPeriod = flagArray[1].substring(2);
+                    recurrencePeriod = flagArray[1].substring(2);
                     break;
                 case 'd':
                     hasDuration = true;
@@ -52,7 +53,7 @@ public class AddCommand extends Command {
                     int duration = Integer.parseInt(flagArray[1].substring(2));
                     tasks.add(new FixedDurationTask(flagArray[0], duration));
                 } else if (isRecurring) {
-                    tasks.add(new ToDo(description, recurringPeriod));
+                    tasks.add(new ToDo(description, recurrencePeriod));
                 } else {
                     tasks.add(new ToDo(description));
                 }
@@ -61,12 +62,12 @@ public class AddCommand extends Command {
                 String[] dInfo = description.split(" /by ");
                 SimpleDateFormat dFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date by = dFormat.parse(dInfo[1]);
-
                 if (isRecurring) {
-                    tasks.add(new Deadline(dInfo[0], by, recurringPeriod));
+                    tasks.add(new Deadline(dInfo[0], by, recurrencePeriod));
                 } else {
                     tasks.add(new Deadline(dInfo[0], by));
                 }
+
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
@@ -74,7 +75,7 @@ public class AddCommand extends Command {
                 Date at = eFormat.parse(eInfo[1]);
                 Event newEvent;
                 if (isRecurring) {
-                    newEvent = new Event(eInfo[0], at, recurringPeriod);
+                    newEvent = new Event(eInfo[0], at, recurrencePeriod);
                 } else {
                     newEvent = new Event(eInfo[0], at);
                 }

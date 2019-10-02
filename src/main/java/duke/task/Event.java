@@ -17,8 +17,8 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, Date at, String recurringPeriod) {
-		super(description, recurringPeriod);
+	public Event(String description, Date at, String recurrencePeriod) {
+		super(description, recurrencePeriod);
 		this.datetime = at;
 		this.type = "[E]";
 	}
