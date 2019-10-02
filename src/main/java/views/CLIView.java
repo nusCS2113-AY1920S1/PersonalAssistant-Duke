@@ -281,7 +281,7 @@ public class CLIView {
 
 
     /**
-     * Method called to confirm the date and time of a tentative task
+     * Method called to confirm the date and time of a tentative task.
      * @param taskList list of all tasks
      * @param input index of tentative task in taskList
      * @throws ClassCastException Exception thrown if input is not of correct class (Tentative class)
@@ -297,7 +297,7 @@ public class CLIView {
         System.out.println(horiLine);
         System.out.println("\tWhich timing do you want to confirm?");
         for (int i = 0; i < tentativeDateTimeStrings.length; i++) {
-            System.out.println((i+1) + ". " + tentativeDateTimeStrings[i]);
+            System.out.println((i + 1) + ". " + tentativeDateTimeStrings[i]);
         }
         System.out.println(horiLine);
 
