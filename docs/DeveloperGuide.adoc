@@ -58,9 +58,83 @@ This Developer Guide is meant for any software developer who wishes to contribut
 
 [appendix]
 == User Stories
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |NUS CEG Student |Search for a module's workload |Balance my workload for the current semester
+|`* * *` |NUS CEG Student |Monitor my total workload from my modules |Track my total workload for the current semester 
+|`* * *` |NUS Student |See my daily timetable |Keep a schedule of what classes and extra-curricular activities I have 
+|`* * *` |NUS CEG Student |Check if I have completed the required prerequisite modules |Plan ahead for what modules to take 
+|`* * *` |Forgetful NUS CEG Student |Add up my total number of MCs taken |Track my progress towards graduation 
+|`* * *` |NUS CEG Student |View the core modules required for graduation |Know what are the modules I still need to take to graduate 
+|`* *` |NUS Student |Add CCAs to my class timetable |Take CCAs that do not clash with my lessons 
+|`* *` |NUS Student |Create a custom module for my CCAs |Personalise the timing and location of my CCA in my timetable 
+|`* *` |NUS Undergraduate Student |Know requirements for a Master's/PHD at NUS |Plan my course of action if I wish to apply for post-graduate studies 
+|`* *` |NUS CEG Student |Easy access to my recommended study schedule |Know what modules I should prioritise bidding for 
+|`* *` |NUS CEG Student |Plan to take modules ahead of the current semester |Alter my holiday/graduation plans as required 
+|`* *` |NUS CEG Student |Know what GE modules I have not completed |Plan to take GE modules over a few semesters 
+|`* *` |NUS CEG Student |View the total number of Level-1000 modules taken |Check if I have exceeded the 60MC limit for Level-1000 modules
+|`*` |NUS CEG Student |Download my timetable as a photo |View it on other mediums such as my mobile phone 
+|`*` |NUS CEG Student |Know if the module has S/U options |Plan ahead for my S/U usage 
+|`*` |NUS CEG Student |Project my future CAP based on my expected and past grades |See how hard I must work to hit my target CAP 
+|`*` |NUS Student |Know my priority score when bidding for a module |Plan my module bidding appropriately 
+|`*` |NUS Student |See a list of my course's modules available in SEP/NOC |Plan what modules to take should I go for SEP/NOC 
+|`*` |Exchange Student |Know if a module can be mapped to my home university |Plan what modules to take in NUS 
+
+|=======================================================================
+(more to be added as necessary)
 
 [appendix]
 == Use Cases
 
+=== Use Case: Adding modules to user's timetable
+Actor: NUS CEG Student
+
+1. User inputs the module code
+2. ModPlan shows the module information to the user, such as description, number of MCs, prerequisite modules etc. and requests confirmation from the user to add this module
+3. User confirms they want to add the module 
+4. ModPlan shows the non-clashing available timings of the module to the user
+5. User confirms which class timing they wish to add to their timetable
+6. ModPlan adds that specific class to the user's timetable, and prints the user's updated timetable +
+Use case ends.
+
+*Extensions*
+
+2a. If the module is a Level-1000 module, ModPlan checks for the user's current number of Level-1000 modules taken +
+2b. If the limit is not exceeded, proceed to step 3 +
+2c. If the limit will be exceeded, warn the user, and prevent addition of the module +
+Return to step 3.
+
+=== Use Case: Viewing graduation requirements
+Actor: NUS CEG Undergraduate Student
+
+1. User inputs their course name
+2. ModPlan shows the courses that match the user's input
+3. User selects the correct course they wish to check graduation requirements for
+4. ModPlan displays all the modules required for graduation, and lists the number of MCs required for graduation +
+Use case ends.
+
+*Extensions*
+
+3a. User can input the modules they have taken already that count towards graduating that course
+3b. ModPlan will exclude these modules from the list and MC count +
+Return to Step 4.
+
+=== Use Case: Viewing class and CCA timetable
+Actor: NUS Student
+
+1. User inputs the command to `view timetable`
+2. ModPlan shows the user their current timetable, including class and CCA timings
+
+[appendix]
+== Non-Functional Requirements
+
+1. ModPlan should run on any machine with JDK `11` and above installed. 
+2. ModPlan should be fast to view and input commands.
+3. ModPlan should require as few steps as possible for the user to do what they want to do.
+
 [appendix]
 == Glossary
+*CEG* : Computer Engineering
