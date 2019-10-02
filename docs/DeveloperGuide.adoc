@@ -430,18 +430,6 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 - Use case resumes at step 2.
 
 ----
-
-==== Extensions
-
-----
-
-2a. User prefers mouse input.
-
-- 1a1. User clicks the statistics icon.
-
-- Use case resumes at step 2.
-
-----
 ---
 === 11. Use case: Finding a task using keyword 
 
