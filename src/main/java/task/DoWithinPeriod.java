@@ -18,17 +18,24 @@ public class DoWithinPeriod extends Task {
         this.end = Period2;
     }
 
+    public DoWithinPeriod(String isDone, String description, String start, String end) {
+        super(description);
+        this.start = start;
+        this.end = end;
+        this.isDone = isDone.equals("1");
+
+    }
+
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (from: " + start + " til " + end + ")";
+        return "[DW]" + super.toString() + " (from: " + start + " til " + end + ")";
     }
 
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        return "T | " + boolToInt + " | " + this.description + " | " + this.start + this.end + "\n";
+        return "DW | " + boolToInt + " | " + this.description + " | " + this.start + " | " + this.end + "\n";
     }
-
 }
 
 

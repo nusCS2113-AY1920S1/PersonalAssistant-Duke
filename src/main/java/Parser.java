@@ -1,4 +1,20 @@
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.DoAfterCommand;
+import command.DoWithinPeriodCommand;
+import command.DoneCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.FindFreeTimesCommand;
+import command.FixedDurationCommand;
+import command.ListCommand;
+import command.RecurringCommand;
+import command.SnoozeCommand;
+import command.TodoCommand;
+import command.UpcomingCommand;
+import command.ViewScheduleCommand;
 import exception.DukeException;
 
 import java.text.ParseException;
@@ -36,11 +52,9 @@ public class Parser {
         case "upcoming":
             return new UpcomingCommand();
         case "viewschedule":
-            return new ViewScheduleCommand(input);
+            return new ViewScheduleCommand(splitStr);
         case "snooze":
-            return new SnoozeCommand(splitStr);
-        case "unsnooze":
-            return new UnSnoozeCommand(splitStr);
+            return new SnoozeCommand(input, splitStr);
         case "duration" :
             return new FixedDurationCommand(input, splitStr);
         case "findfree" :
@@ -55,6 +69,7 @@ public class Parser {
 
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
         }
     }
 }

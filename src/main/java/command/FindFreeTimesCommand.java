@@ -93,5 +93,4 @@ public class FindFreeTimesCommand extends Command {
         calendar.add(Calendar.HOUR_OF_DAY, hours);
         return calendar.getTime();
     }
-
 }

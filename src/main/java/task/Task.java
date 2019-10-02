@@ -9,7 +9,6 @@ public abstract class Task {
     protected Date dateTime;
     protected String description;
     protected boolean isDone;
-    protected boolean isSnooze;
     protected String frequency;
 
     /**
@@ -20,7 +19,6 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.isSnooze = false;
     }
 
     /**
@@ -29,14 +27,6 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "✓" : "✘"); //return tick or X symbols
-    }
-
-    /**
-     * Get icon of snooze status.
-     * @return String snooze status icon of task
-     */
-    public String getActiveIcon() {
-        return (isSnooze ? "S" : "A");
     }
 
     /**
@@ -49,25 +39,6 @@ public abstract class Task {
     }
 
     /**
-     * Mark task as snooze.
-     */
-    public void markAsSnooze() {
-        this.isSnooze = true;
-        System.out.println("Nice! I've deactivated this task:");
-        System.out.println(this.toString());
-    }
-
-    /**
-     * Mark task as active.
-     */
-    public void markAsUnSnooze() {
-        this.isSnooze = false;
-        System.out.println("Nice! I've activated this task:");
-        System.out.println(this.toString());
-    }
-
-
-    /**
      * check if task description contains a certain string.
      * @param s string to find
      * @return true if description contains string
@@ -76,13 +47,9 @@ public abstract class Task {
         return this.description.contains(s);
     }
 
-    public boolean containsDate(String s) {
-        return this.description.contains(s);
-    }
-
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + "[" + this.getActiveIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
