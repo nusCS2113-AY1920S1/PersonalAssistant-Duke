@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Tran Quang Thanh
-image::1.jpg[width="150", align="left"]
+image::1.png[width="150", align="left"]
 {empty}[https://github.com/tran-quang-thanh[github]] 
 
 Role: 
@@ -20,7 +20,7 @@ Responsibilities:
 '''
 
 === Cheng Pai Kai 
-image::2.jpg[width="150", align="left"]
+image::2.png[width="150", align="left"]
 {empty}[https://github.com/kevin996231[github]] 
 
 Role: 
@@ -29,7 +29,7 @@ Responsibilities:
 '''
 
 === Zhang Yue Han
-image::3.jpg[width="150", align="left"]
+image::3.png[width="150", align="left"]
 {empty}[https://github.com/tessa-z[github]] 
 
 Role: 
@@ -38,7 +38,7 @@ Responsibilities:
 '''
 
 === Ng Jian Wei
-image::4.jpg[width="150", align="left"]
+image::4.png[width="150", align="left"]
 {empty}[https://github.com/njw95[github]] 
 
 Role: 
@@ -47,7 +47,7 @@ Responsibilities:
 '''
 
 === Hsu Hui Neng
-image::5.jpg[width="150", align="left"]
+image::5.png[width="150", align="left"]
 {empty}[https://github.com/chelsea148629[github]] 
 
 Role: 
