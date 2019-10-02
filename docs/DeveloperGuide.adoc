@@ -25,8 +25,8 @@ In order to be a successful *Dr. Duke* developer, you need a general understandi
 . *JDK `11`* or above
 . *IntelliJ* IDE
 +
-[NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+
+NOTE: IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === Setting up the project in your computer
@@ -41,6 +41,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+
 This will generate all resources required by the application and tests.
 
 == Design
@@ -53,16 +54,24 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
 
+[[Class-Diagram]]
+=== Class Diagram
+
+.Class Diagram
+image::ClassDiagram.png[]
+
+The *_Class Diagram_* shown above describes the relationship among the different classes used in *Dr. Duke*.
+
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-House officers, who are typically freshly-graduated medical students, play a vital role in managing hospital patients.
+*House officers*, who are typically freshly-graduated medical students, play a vital role in managing hospital patients.
 They are responsible, among many other things, for collating all information regarding each hospital patient and
 organising it to provide a clear picture of the patient's situation, and for presenting that picture to senior doctors
 who can then make assessments and recommendations based on that picture. As much of this information needs to be
-exchanged at a rapid pace, Dr. Duke assists in quick, accurate and efficient recording and retrieval of the patient
+exchanged at a rapid pace, *Dr. Duke* assists in quick, accurate and efficient recording and retrieval of the patient
 data required to provide effective care.
 
 The house officers we are targeting with this app:
@@ -73,7 +82,9 @@ The house officers we are targeting with this app:
 * prefer typing over mouse input
 * can type fast
 
-*Value proposition*: input, organise and access information about patients faster than with a typical mouse/GUI driven app
+*Value proposition*:
+
+* input, organise and access information about patients faster than with a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -209,6 +220,8 @@ Use case ends.
 . Dr. Duke shows the details of the patient and requests for a confirmation.
 . User confirms that the patient may be discharged.
 . Dr. Duke generates a discharge report for the patient and delete his/her record from the system.
++
+Use case ends.
 
 *Extensions*
 
@@ -224,7 +237,7 @@ Use case ends.
 
 *MSS*
 
-. User searches for the patient <<UC-3,(UC-3)>> and requests to generate a report on his/her current condition.
+. User searches for the patient <<UC-3,(UC-3)>> and requests to generate a report on his/her current health condition.
 . Dr. Duke generates a detailed report for the patient.
 +
 Use case ends.
