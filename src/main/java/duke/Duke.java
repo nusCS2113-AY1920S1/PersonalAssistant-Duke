@@ -1,14 +1,16 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.ExitCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
+import duke.storage.PriorityStorage;
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Represents a duke that controls the program.
@@ -19,20 +21,35 @@ public class Duke {
     private TaskList items;
     private Ui ui;
 
+    private PriorityStorage priorityStorage;
+    private PriorityList priorityList;
+
+
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
-     * @param filePath The location of the text file.
+     * @param filePath1 The location of the text file.
+     * @param filePath2 The location of the priority text file.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath1, String filePath2) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(filePath1);
+        priorityStorage = new PriorityStorage(filePath2);
+
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
         }
+
+        try {
+            priorityList = new PriorityList(priorityStorage.read());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            priorityList = new PriorityList();
+        }
+
     }
 
     /**
@@ -89,14 +106,22 @@ public class Duke {
 
         while (true) {
             sentence = ui.readCommand();
-            ui.showLine();
+
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
-                    cmd.executeStorage(items,ui,storage);
+                    priorityStorage.write(priorityList);
+                    storage.write(items);
                     break;
+                } else if (cmd instanceof ListPriorityCommand) {
+                    cmd.execute(items, priorityList, ui);
+                } else if (cmd instanceof AddMultipleCommand) {
+                    cmd.execute(items, priorityList, ui);
+                } else if (cmd instanceof DeleteCommand) {
+                    cmd.execute(items, priorityList, ui);
                 } else {
                     cmd.execute(items,ui);
+                    priorityList = priorityList.addPriority(cmd);
                 }
             } catch (DukeException e) {
                 ui.showErrorMsg(e.getMessage());
@@ -111,6 +136,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("data/duke.txt", "data/priority.txt").run();
     }
 }

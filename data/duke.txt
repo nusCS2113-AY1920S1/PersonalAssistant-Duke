@@ -1,6 +1,8 @@
-T|1|reading notes
-R|1|meet Christian|10/05/2019 1234
-A|0|swim|new things
-F|0|read|3 hours
-D|0|homework|17/09/2019 1223
-E|0|concert|17/09/2019 1222
+T|0|read a book
+D|0|submit homework|01/10/2019 2359
+E|0|concer|10/10/2019 1700
+F|0|take computing class|2 hours
+R|0|workout|10/10/2019 1000
+R|0|workout|11/10/2019 1000
+R|0|workout|12/10/2019 1000
+T|0|dance
