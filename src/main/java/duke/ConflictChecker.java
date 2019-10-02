@@ -1,13 +1,11 @@
 package duke;
 
 
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.TaskList;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ConflictChecker  {
     protected TaskList taskArrayList;
@@ -25,14 +23,14 @@ public class ConflictChecker  {
         //System.out.println(check_task);
         ArrayList<Task> taskTempList =  taskArrayList.getTaskList();
         for (Task temp : taskTempList) {
-            LocalDateTime startDateCheck = checkTask.get_start_date();
-            LocalDateTime endDateCheck = checkTask.get_end_date();
-            if (temp.get_type().equals("E")) {
+            LocalDateTime startDateCheck = checkTask.getStartDate();
+            LocalDateTime endDateCheck = checkTask.getEndDate();
+            if (temp.getType().equals("E")) {
                 //System.out.println("Hi i am checking for conflicts");
                 Event temp1 = (Event) temp;
-                if (temp1.has_date()) {
-                    LocalDateTime startDate = temp1.get_start_date();
-                    LocalDateTime endDate = temp1.get_end_date();
+                if (temp1.hasDate()) {
+                    LocalDateTime startDate = temp1.getStartDate();
+                    LocalDateTime endDate = temp1.getEndDate();
 
                     /*
                     1. if the start_date is before/equal to the start_date_check 
