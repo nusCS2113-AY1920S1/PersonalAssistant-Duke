@@ -56,20 +56,61 @@ The Application consist of 6 other components
 #### 2.2 UI
 
 
+API: `Ui.java`
 
-#### 2.3 Logic Component
+The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
+The Ui component,
 
+- reads and return s user input using `scanner.nextLine()`
+- outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
 
-#### 2.4 Model Component
+#### 2.3 Command Component
+
+API: `Command.java`
+
+The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes 
+
+- DoneCommand
+- ExitCommand
+- FindCommand
+- ListCommand
+- RemindCommand
+- Snooze
+- ViewCommand
+
+each of the above class has its own implementation of the `execute` method
+
+#### 2.4 Parser Component
+
+API: `Parser.java`
 
 
 
 #### 2.5 Storage Component
 
+only stores tasks in a certain format, eg,
+
+- T|1|read book
+- D|0|return book|Monday
+- E|0|meeting|U-Town
+- P|0|lecture|1600|1800
+
+first column is denotes the type of task, T for todo, D for deadline, etc. 
+
+the program can `load` or `generate` task from the storage and also `changeContent` and `addCommandInFile`
 
 
-#### 2.6 Common Classes
+
+#### 2.6 Task Component
+
+API: `Task.java`
+
+
+
+#### 2.7 Exception Component
+
+API: `DukeException.java`
 
 
 
