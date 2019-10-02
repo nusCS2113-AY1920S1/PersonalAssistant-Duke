@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113-T13-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113-T13-1/main)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d04f3f11b98408999c532f54b787d37)](https://www.codacy.com/manual/Lucria/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113-T13-1/main&amp;utm_campaign=Badge_Grade)
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113-T13-1/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113-T13-1/main?branch=master)
+
 # ArchDuke - A CLI Project Manager with Kanban board
 **Done by:**
 * Sean
