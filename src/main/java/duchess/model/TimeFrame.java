@@ -1,13 +1,13 @@
 package duchess.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class TimeFrame implements Comparable<TimeFrame> {
     /**
      * Start and end points of the timeframe.
      */
-    private Date start;
-    private Date end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Marks timeframe as indefinite, i.e. things that
@@ -26,14 +26,14 @@ public class TimeFrame implements Comparable<TimeFrame> {
      * @param start Starting time
      * @param end   Ending time
      */
-    public TimeFrame(Date start, Date end) {
+    public TimeFrame(LocalDateTime start, LocalDateTime end) {
         this.start = start;
         this.end = end;
         this.isIndefinite = false;
         this.isInstantaneous = false;
     }
 
-    private TimeFrame(Date time) {
+    private TimeFrame(LocalDateTime time) {
         this.start = time;
         this.end = time;
         this.isIndefinite = false;
@@ -45,7 +45,7 @@ public class TimeFrame implements Comparable<TimeFrame> {
         this.isInstantaneous = false;
     }
 
-    public static TimeFrame ofInstantaneousTask(Date time) {
+    public static TimeFrame ofInstantaneousTask(LocalDateTime time) {
         return new TimeFrame(time);
     }
 
@@ -63,7 +63,7 @@ public class TimeFrame implements Comparable<TimeFrame> {
             return false;
         }
 
-        return !(this.end.before(that.start) || that.end.before(this.start));
+        return !(this.end.isBefore(that.start) || that.end.isBefore(this.start));
     }
 
     /**

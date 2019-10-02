@@ -6,16 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.logic.commands.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Optional;
 
 public class Event extends Task {
-    private Date end;
-    private Date start;
+    private LocalDateTime end;
+    private LocalDateTime start;
 
     /**
      * Create an event task from user input.
@@ -29,21 +29,21 @@ public class Event extends Task {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        formatter.setLenient(false);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
+                .withResolverStyle(ResolverStyle.STRICT);
 
         try {
             this.description = String.join(" ", input.subList(0, separatorIndex));
             String strStart = String.join(" ", input.subList(separatorIndex + 1, separatorIndex + 3));
             String strEnd = String.join(" ", input.subList(separatorIndex + 4, separatorIndex + 6));
-            this.start = formatter.parse(strStart);
-            this.end = formatter.parse(strEnd);
-            if (end.before(start)) {
+            this.start = LocalDateTime.parse(strStart, formatter);
+            this.end = LocalDateTime.parse(strEnd, formatter);
+            if (end.isBefore(start)) {
                 throw new DukeException("Start datetime cannot be after end datetime.");
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
         }
     }
@@ -55,15 +55,8 @@ public class Event extends Task {
 
     @Override
     public void snooze() {
-        Calendar date = Calendar.getInstance();
-
-        date.setTime(start);
-        date.add(Calendar.DAY_OF_MONTH, 7);
-        start.setTime(date.getTimeInMillis());
-
-        date.setTime(end);
-        date.add(Calendar.DAY_OF_MONTH, 7);
-        end.setTime(date.getTimeInMillis());
+        start = start.plusWeeks(1);
+        end = end.plusWeeks(1);
     }
 
     @Override
@@ -79,20 +72,33 @@ public class Event extends Task {
      */
     @JsonCreator
     public Event(
-            @JsonProperty("start") Date start,
-            @JsonProperty("end") Date end
+            @JsonProperty("start") LocalDateTime start,
+            @JsonProperty("end") LocalDateTime end
     ) {
         this.start = start;
         this.end = end;
     }
 
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
+                .withResolverStyle(ResolverStyle.STRICT);
+        return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
+                formatter.format(this.start), formatter.format(this.end));
+    }
+
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
+    }
+
     @JsonGetter("end")
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
     @JsonGetter("start")
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 }

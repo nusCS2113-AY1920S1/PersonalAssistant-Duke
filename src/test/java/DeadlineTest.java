@@ -19,7 +19,8 @@ public class DeadlineTest {
                 "invalid string",
                 "invalid string /at 20/12/2019 1243",
                 "invalid string /by 20/12/2019 12:43",
-                "invalid string /by 20/12/2019 1293"
+                "invalid string /by 20/12/2019 1293",
+                "invalid string /by 31/11/2019 1243"
         ).forEach(str -> {
             assertThrows(DukeException.class, () -> {
                 List<String> invalidList = getList(str);
