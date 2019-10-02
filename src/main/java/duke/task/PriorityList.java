@@ -83,12 +83,18 @@ public class PriorityList {
         System.out.println("     Enter the priority for the above added task: (1-high ~ 5-low)");
         int priority;
         while (true) {
+            String input = sc.nextLine();
             try {
-                priority = sc.nextInt();
-                System.out.printf("     Set the priority to %d\n", priority);
-                break;
+                priority = Integer.parseInt(input.trim());
+                if ((1 <= priority) && (priority <=5)) {
+                    System.out.printf("     Set the priority to %d\n", priority);
+                    break;
+                } else {
+                    System.out.println("Wrong input! Please enter an integer between 1 and 5!");
+                }
             } catch (Exception e) {
                 System.out.println("Wrong input! Please enter an integer between 1 and 5!");
+                continue;
             }
         }
         return priority;
@@ -118,9 +124,8 @@ public class PriorityList {
      *
      * @return The empty priority list.
      */
-    public PriorityList clearList() {
+    private PriorityList clearList() {
         return new PriorityList(new ArrayList<Integer>());
     }
-
 
 }
