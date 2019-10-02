@@ -17,8 +17,6 @@ import command.UpcomingCommand;
 import command.ViewScheduleCommand;
 import exception.DukeException;
 
-import java.text.ParseException;
-
 /**
  * Parse input and execute respective user command.
  */
@@ -65,8 +63,6 @@ public class Parser {
             return new DoAfterCommand(input, splitStr);
         case "dowithin":
             return new DoWithinPeriodCommand(input, splitStr);
-
-
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
