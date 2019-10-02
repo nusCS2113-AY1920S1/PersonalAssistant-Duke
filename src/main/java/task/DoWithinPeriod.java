@@ -31,5 +31,4 @@ public class DoWithinPeriod extends Task {
 
 }
 
-//e.g., collect certificate between Jan 15 and 25th.
 
