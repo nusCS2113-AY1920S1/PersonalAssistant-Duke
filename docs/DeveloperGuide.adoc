@@ -58,7 +58,7 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 === Class Diagram
 
 .Class Diagram
-image::ClassDiagram.png[]
+image::ClassDiagram.svg[]
 
 The *_Class Diagram_* shown above describes the relationship among the different classes used in *Dr. Duke*.
 
