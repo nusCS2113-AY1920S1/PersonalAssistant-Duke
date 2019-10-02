@@ -14,4 +14,4 @@ src/main/resources/docs/
 bin/
 
 # User data
-./data/*
+/data/*
