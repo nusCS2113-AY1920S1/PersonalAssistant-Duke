@@ -51,7 +51,7 @@ public class Duke {
             ui.showLoadingError();
             priorityList = new ArrayList<>();
         }
-        
+
     }
 
     /**
@@ -130,6 +130,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("data/duke.txt", "data/priority.txt").run();
     }
 }
