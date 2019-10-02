@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -112,6 +113,8 @@ public class Duke {
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     break;
+                } else if (cmd instanceof ListPriorityCommand) {
+                    cmd.execute(items, priorityList, ui);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addPriority(cmd);

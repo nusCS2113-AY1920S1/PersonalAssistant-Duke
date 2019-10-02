@@ -1,18 +1,14 @@
 package duke.command;
 
-import duke.storage.PriorityStorage;
 import duke.storage.Storage;
 import duke.task.PriorityList;
-import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import duke.task.TaskList;
 
 /**
- * An abstract class that represents various kinds of commands.
+ * Representing a command that lists all tasks stored in task list.
  */
-public abstract class Command {
+public class ListPriorityCommand extends Command{
 
     /**
      * Executes a command with task list and ui.
@@ -20,38 +16,43 @@ public abstract class Command {
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
      */
-    public abstract void execute(TaskList items, Ui ui);
-
-    /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-
-    public void execute(TaskList items, PriorityList priorities, Ui ui) {
-
+    public void execute(TaskList items, Ui ui) {
     }
 
 
     /**
-     * Executes a command with task list and ui (GUI).
+     * Executes a command that gathers all tasks from task list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
+     * @param ui To tell the user the list of tasks stored in task list.
+     */
+
+    public void execute(TaskList items, PriorityList priorities, Ui ui) {
+        ui.showTaskListWithPriority(items, priorities);
+    }
+
+    /**
+     * Executes a command that gathers all tasks from task list and outputs the result (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user the list of tasks stored in task list.
      * @return String to be outputted to the user.
      */
-    public abstract String executeGui(TaskList items, Ui ui);
+
+    public String executeGui(TaskList items, Ui ui) {
+        String str = ui.showTaskListGui(items);
+        return str;
+    }
 
     /**
      * Executes a command that overwrites existing storage with the updated task list.
+     * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
      * @param storage The storage to be overwritten.
-     * @throws IOException  If there is an error reading the file.
      */
-    public abstract void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException;
 
+    public void executeStorage(TaskList items, Ui ui, Storage storage) {
+    }
 }
-

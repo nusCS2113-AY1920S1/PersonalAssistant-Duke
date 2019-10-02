@@ -95,9 +95,10 @@ public class Ui {
      * @param items The task list that contains a list of tasks.
      */
     public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
-        out.println("     Here are the tasks in your list with priority shown:");
-        for (int i = 0; i < items.size(); i++) {
-            out.printf("[%d] | %s", priorities.getList().get(i), items.get(i));
+        out.println("     Here are the tasks in your list with priority shown:\n");
+        out.printf("     Priority |\tTask\n");
+        for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
+            out.printf("        [%d]\t  |\t%s\n", priorities.getList().get(i), items.get(i));
         }
     }
 
