@@ -1,5 +1,9 @@
 # Entertainment Pro
 
+
+![Ui.png](docs/images/Ui.png)
+
+
 * This is a desktop application for managing maker spaces. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
 * It is a Java application intended for displaying movies and TV shows related stuff such as reviews and ratings for movies.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code that is based on https://github.com/se-edu/addressbook-level4[Address Book (level 4)].
