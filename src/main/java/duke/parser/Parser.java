@@ -44,6 +44,8 @@ public class Parser {
         boolean getDate = false;
         if (sentence.equals("list")) {
             return new ListCommand();
+        } else if (sentence.equals("priority")) {
+            return new duke.command.ListPriorityCommand();
         } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete") || arr[0].equals("del"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
