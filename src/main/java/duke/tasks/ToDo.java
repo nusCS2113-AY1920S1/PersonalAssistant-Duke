@@ -15,7 +15,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String get_type() {
+    public String getType() {
         return "T";
     }
 

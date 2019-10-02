@@ -61,7 +61,7 @@ public class Task {
         this.isDone = true;
     }
 
-    public String get_type() {
+    public String getType() {
         return "T";
     }
 }

@@ -1,23 +1,20 @@
 package duke.commands;
 
 
-import duke.TaskList;
-import duke.Ui;
+import duke.ConflictChecker;
+import duke.DoAfterList;
 import duke.DukeException;
 import duke.Storage;
-
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Event;
-import duke.ConflictChecker;
-import duke.tasks.Task;
-import duke.tasks.RecurringTask;
-import duke.tasks.FixedDurationTask;
+import duke.TaskList;
+import duke.Ui;
 import duke.tasks.BetweenTask;
-
+import duke.tasks.Deadline;
 import duke.tasks.DoAfter;
-import duke.DoAfterList;
+import duke.tasks.Event;
+import duke.tasks.FixedDurationTask;
+import duke.tasks.RecurringTask;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 
 /**
@@ -92,7 +89,7 @@ public class AddCommand extends Command {
                 String end = startEnd[1];
                 ConflictChecker conflictChecker1 = new ConflictChecker(taskList);
                 event = (Event) taskList.get_first_e(sections,0);
-                if (event.has_date()) {
+                if (event.hasDate()) {
                     if (conflictChecker1.is_conflict(event)) {
                         throw new DukeException("", "conflict");
                     } else {
@@ -131,7 +128,7 @@ public class AddCommand extends Command {
                 int itemToDelete = Integer.parseInt(sections[0]) - 1;
                 if (itemToDelete < taskList.getSize()) {
                     Task item = taskList.getTaskIndex(itemToDelete);
-                    if (item.get_type() == "E") {
+                    if (item.getType() == "E") {
                         Event event;
                         String itemDescription = item.getDescription();
                         String status = item.getStatusIcon();
@@ -145,7 +142,7 @@ public class AddCommand extends Command {
                         taskList.add(event);
                         storage.updateFile(taskList);
                         return ui.formatAdd(taskList.getTaskList(), event);
-                    } else if (item.get_type() == "D") {
+                    } else if (item.getType() == "D") {
                         String itemDescription = item.getDescription();
                         String status = item.getStatusIcon();
                         Deadline deadline;

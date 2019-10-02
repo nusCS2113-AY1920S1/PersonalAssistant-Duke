@@ -1,4 +1,5 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 
 /**
@@ -9,35 +10,47 @@ public class Event extends Task {
     
     private String at;
     protected String end;
-    protected LocalDateTime end_date;
+    protected LocalDateTime endDate;
     protected boolean date = false;
     protected String start;
-    protected LocalDateTime start_date;
+    protected LocalDateTime startDate;
 
     @Override
-    public String get_type() {
+    public String getType() {
         return "E";
     }
 
     /**
      * Constructor for the duke.tasks.Event object, which consists of the description of a task and a
-     * location that is associated with it.
+     * start and end date that is associated with it.
      *
      * @param description the description of the task
-     * @param at the location associated with the task
+     * @param start the start date of the event
+     * @param end the end date of the event
      */
-    public Event(String description,String start, String end) {
+    public Event(String description, String start, String end) {
         super(description);
         this.end = end;
         this.start = start;
     }
-    public Event(String description,LocalDateTime start_d,LocalDateTime end_d, String command_start, String command_end) {
+
+    /**
+     *  Constructor for the duke.tasks.Event object, which consists of the description of a task and a
+     *  start date, end date, start time and end time that is associated with it.
+     * @param description the description of the task
+     * @param startDate the start date of the event
+     * @param endDate the end date of the event
+     * @param commandStart the start time of the event
+     * @param commandEnd the end time of the event
+     */
+    public Event(String description, LocalDateTime startDate,LocalDateTime endDate, String commandStart,
+                 String commandEnd) {
         super(description);
-        end_date = end_d;
-        start_date = start_d;
+        endDate = endDate;
+        startDate = startDate;
         date = true;
-        this.end = command_end.trim();
-        this.start = command_start.trim();
+        this.end = commandEnd.trim();
+        this.start = commandStart.trim();
     }
 
 
@@ -51,14 +64,17 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start.trim() + " to " + end.trim() + ")";
     }
-    public boolean has_date(){
+
+    public boolean hasDate() {
         return date;
     }
-    public LocalDateTime get_start_date(){
-        return start_date;
+
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
-    public LocalDateTime get_end_date(){
-        return end_date;
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
 }
