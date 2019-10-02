@@ -431,6 +431,45 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 
 ----
 
+==== Extensions
+
+----
+
+2a. User prefers mouse input.
+
+- 1a1. User clicks the statistics icon.
+
+- Use case resumes at step 2.
+
+----
+---
+=== 11. Use case: Finding a task using keyword 
+
+==== MSS
+
+----
+
+1. User type in description/part of the description of a task.
+
+2. Hustler shows the all tasks that contains/matches what the user type in.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The task descriptions in the list do not contain/match the user input.
+
+- 1a1. Hustler shows an empty list.
+
+- Use case ends.
+
+----
+
+---
 == Appendix D: Non Functional Requirements
 
 Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
