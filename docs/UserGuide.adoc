@@ -121,12 +121,12 @@ Format : `help` +
 Terminates the game. +
 Format : `exit`
 
-=== Print questions : `print`
+=== Print questions : `print` `[coming in v2.0]`
 
 Provides the questions in a text file. +
 Format : `print`
 
-=== Archive questions : `archive`
+=== Archive questions : `archive` `[coming in v2.0]`
 
 Archives the current question. +
 Format: `archive`
