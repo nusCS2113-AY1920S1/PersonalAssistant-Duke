@@ -7,7 +7,6 @@ import duke.exceptions.BadInputException;
 import duke.items.DateTime;
 import duke.items.Deadline;
 import duke.items.Event;
-import duke.items.Snooze;
 import duke.items.Task;
 import duke.items.Todo;
 import duke.enums.TaskType;

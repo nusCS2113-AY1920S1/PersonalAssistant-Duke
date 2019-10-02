@@ -2,13 +2,10 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.AddCommand;
-import duke.commands.FindFreeTimeCommand;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
 import duke.commands.RecurCommand;
-import duke.commands.Command;
 import duke.commands.ViewScheduleCommand;
-import duke.commands.FindCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 import duke.enums.CommandType;
@@ -131,10 +128,6 @@ public class Parser {
         }
         case "snooze": {
             command = new NumCommand(CommandType.SNOOZE, Integer.parseInt(keyword[1]));
-            break;
-        }
-        case "findfreetime": {
-            command = new FindFreeTimeCommand(CommandType.FINDFREETIME, Integer.parseInt(keyword[1]));
             break;
         }
 
