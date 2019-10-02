@@ -1,1 +1,2 @@
 setwelcome test welcome message
+bye
