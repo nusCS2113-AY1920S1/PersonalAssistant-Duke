@@ -99,7 +99,25 @@ have. 1 star (★) is unlikely to have.
 |===
 // end::base-alt[]
 
-= Appendix C: Use Cases
+== Appendix C: Use Cases
 
 Several use cases are shown. For all use cases below, System is Hstle, Actor is User, unless specified otherwise).
 
+Use case: Adding tasks
+
+MSS
+1. User inputs the task to add into Hstle.
+2. Hstle parses the logic of the input into a task class.
+3. Task is added into the task list.
+4. Hstle informs the User that the task has been successfully added.
+5. Hstle repeats the description of the task added on the screen.
+6. Use case ends.
+
+Extensions
+2a. The given input is invalid.
+2a1. Hstle shows an error message, prompting User to type a valid task description.
+Use case resumes at step 1.
+6a. The given task is not in the right format to the User’s liking.
+6a1. User inputs an “undo”.
+6ab. Task is deleted from the task list.
+Use case resumes at step 1.
