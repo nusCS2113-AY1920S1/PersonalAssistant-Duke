@@ -159,7 +159,6 @@ public class TaskList {
         }
     }
 
-
     /**
      * Prints error message if a nonexistent task index is accessed.
      * Prints the task list for user to choose again.
@@ -167,28 +166,6 @@ public class TaskList {
     private void printTaskNonexistent() {
         System.out.println("That task doesn't exist! Please check the available tasks again: ");
         printList();
-    }
-
-    /**
-     * Allows the user to search for task descriptions that match a given string.
-     * Prints the list of tasks that match. Alternatively prints a message if none are found.
-     */
-    public void searchForTask(String search) {
-        int max = taskList.size();
-        boolean found = false;
-
-        for (int i = 0; i < max; i++) {
-            if (taskList.get(i).getDescription().contains(search)) {
-                System.out.print(i + 1 + ". "); //Print the index of the task.
-                taskList.get(i).printTaskDetails();
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Sorry, I could not find any tasks containing the description \"" + search + "\".");
-            System.out.println("Please try a different search string.");
-        }
     }
 
     /**

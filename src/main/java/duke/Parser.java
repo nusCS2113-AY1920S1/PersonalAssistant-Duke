@@ -152,7 +152,7 @@ public class Parser {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
                 command = new Command();
-                System.out.println("Please enter the search description.");
+                throw new BadInputException("Please enter the search description.");
             }
             break;
         }
@@ -209,6 +209,8 @@ public class Parser {
             userCommand = handleListInput(userInput);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Please input only an integer after the command.");
+        } catch (Exception e) { // Redundant code, but demonstrates throwing all other exceptions higher
+            throw e;
         }
 
         return userCommand;
