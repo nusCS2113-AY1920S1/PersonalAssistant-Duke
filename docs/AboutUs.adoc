@@ -11,34 +11,34 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Cheng Weixuan
-image::WX.png[width="150", align="left"]
+image::chengweixuan.png[width="150", align="left"]
 {empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Documentation + Intergration
 
 '''
 
 === Nicholas Cheong
-image::nic.png[width="150", align="left"]
+image::therealnickcheong.png[width="150", align="left"]
 {empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Dev Ops + Data
+Responsibilities: Deliverables and deadlines + Scheduling and Tracking
 
 '''
 
 === Chen Chao
-image::chao.png[width="150", align="left"]
+image::chenchao19.png[width="150", align="left"]
 {empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Code Quality + Model
 
 '''
 
 === Chen Tong
-image::Chen Tong.png[width="150", align="left"]
+image::cctt1014.png[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,10 +47,10 @@ Responsibilities: Data + UI
 '''
 
 === Aw Chian Hao
-image::haohao.png[width="150", align="left"]
+image::chianhaoplanks.png[width="150", align="left"]
 {empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage + Testing
 
 '''

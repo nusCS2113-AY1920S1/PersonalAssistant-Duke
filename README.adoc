@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifdef::env-github[]
-image::docs/images/front UI.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 

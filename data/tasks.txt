@@ -1,9 +1,7 @@
-T | 0 | shit
-E | 0 | shitposting  | 1/12/2009 2232 | 1/12/2009 2234
-D | 0 | Duke Documentation  | 17/9/2019 2359
-E | 0 | code jam  | 6/6/2011 1100 | 7/7/2011 1400
-T | 0 | some stuff
+M | 0 | something  | 6/6/2011 1100 to 7/7/2011 1400 /or | 1
 P | 0 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
-P | 0 | H2 math revision  | 12/9/2019 1400 | 14/9/2019 1800
-D | 0 | shitposting   | 12/2/2010 1200
-M | 0 | shitposting  | 1/12/2009 2232 to 1/12/2009 2234 /or 2/12/2009 2232 to 2/12/2009 2234 /or 
+E | 0 | code jam  | 6/6/2011 1100 | 7/7/2011 1400
+D | 0 | Duke Documentation  | 17/9/2020 2359
+T | 0 | some stuff
+M | 0 | something  | 6/6/2011 1100 to 7/7/2020 1400 /or | 1
+M | 0 | something  | 6/6/2020 1100 to 7/7/2020 1400 /or | 1
