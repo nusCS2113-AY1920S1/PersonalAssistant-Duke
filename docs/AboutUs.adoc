@@ -15,8 +15,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::tran-quang-thanh.png[width="150", align="left"]
 {empty}[https://github.com/tran-quang-thanh[github]] 
 
-Role: Developer
-Responsibilities:
+Role: Developer +
+Responsibilities: Testing
 
 '''
 
@@ -24,8 +24,8 @@ Responsibilities:
 image::kevin996231.png[width="150", align="left"]
 {empty}[https://github.com/kevin996231[github]] 
 
-Role: Developer
-Responsibilities: 
+Role: Developer +
+Responsibilities: Code quality
 
 '''
 
@@ -33,8 +33,8 @@ Responsibilities:
 image::tessa-z.png[width="150", align="left"]
 {empty}[https://github.com/tessa-z[github]] 
 
-Role: Developer
-Responsibilities: 
+Role: Developer +
+Responsibilities: Scheduling and tracking
 
 '''
 
@@ -42,8 +42,8 @@ Responsibilities:
 image::njw95.png[width="150", align="left"]
 {empty}[https://github.com/njw95[github]] 
 
-Role: Developer
-Responsibilities: 
+Role: Developer +
+Responsibilities: Integration
 
 '''
 
@@ -51,7 +51,7 @@ Responsibilities:
 image::chelsea148629.png[width="150", align="left"]
 {empty}[https://github.com/chelsea148629[github]] 
 
-Role: Developer
-Responsibilities: 
+Role: Developer +
+Responsibilities: Documentation
 
 '''
