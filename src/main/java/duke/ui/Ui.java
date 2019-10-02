@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -85,6 +86,19 @@ public class Ui {
     public void showTaskList(TaskList items) {
         out.println("     Here are the tasks in your list:");
         out.print(items.getList());
+    }
+
+
+    /**
+     * Outputs all the tasks of the task list to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     */
+    public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
+        out.println("     Here are the tasks in your list with priority shown:");
+        for (int i = 0; i < items.size(); i++) {
+            out.printf("[%d] | %s", priorities.getList().get(i), items.get(i));
+        }
     }
 
     /**
