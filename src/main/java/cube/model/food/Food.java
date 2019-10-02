@@ -12,31 +12,46 @@ public class Food implements Serializable {
 	protected Date expiryDate;
 
 	/**
-	 * Constructor with four arguments.
+	 * Constructor with one argument.
 	 *
 	 * @param name Name of the food product.
-	 * @param type Type of food product.
-	 * @param price Price of the product.
-	 * @param expiryDate Date on which the product expires.
 	 */
 
-	public Food(String name, String type, double price, Date expiryDate) {
+	public Food(String name) {
 		this.name = name;
-		this.type = type;
-		this.price = price;
-		this.expiryDate = expiryDate;
 		this.revenue = 0;
 		this.stock = 0;
 	}
 
 	/**
-	 * Function called when price of the product needs to be changed.
+	 * Sets the type of the product.
 	 *
-	 * @param newPrice New price of the product.
+	 * @param type The type of the product.
 	 */
 
-	public void updatePrice (double newPrice) {
-		price = newPrice;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * Gets the type of the product.
+	 *
+	 * @return the type of the product.
+	 */
+
+	public String getType() {
+		return type;
+	}
+
+
+	/**
+	 * Sets/changes the price of the product.
+	 *
+	 * @param price The price of the product.
+	 */
+
+	public void setPrice (double price) {
+		this.price = price;
 	}
 
 	/**
@@ -51,6 +66,16 @@ public class Food implements Serializable {
 
 
 	/**
+	 * Sets/updates the expiry date of the product.
+	 *
+	 * @param expiryDate The expiry date of the product.
+	 */
+
+	public void setExpiryDate (Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	/**
 	 * Gets the expiry date of the product.
 	 *
 	 * @return the expiry date of the product.
@@ -58,16 +83,6 @@ public class Food implements Serializable {
 
 	public Date getExpiryDate() {
 		return expiryDate;
-	}
-
-	/**
-	 * Updates the expiry date of the product.
-	 *
-	 * @param newExpiryDate New expiry date of the product.
-	 */
-
-	public void updateExpiryDate (Date newExpiryDate) {
-		expiryDate = newExpiryDate;
 	}
 
 
@@ -117,13 +132,18 @@ public class Food implements Serializable {
 	 * @return true
 	 */
 
-
 	public boolean exists(String foodName) {
 		if (foodName == this.name) {
 			return true;
 		}
 		return false;
 	}
+
+	/**
+	 * Casts the food product to String type.
+	 *
+	 * @return the String printout of the food product.
+	 */
 
 	public String toString() {
 		return name + "\n  Type: " + type +
