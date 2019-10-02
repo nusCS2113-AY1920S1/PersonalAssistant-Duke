@@ -1,0 +1,24 @@
+= MooMooMoney
+:site-section: ReadMe
+:imagesDir: images
+:stylesDir: stylesheets
+
+ifdef::env-github[]
+image::Ui.png[width="600"]
+endif::[]
+
+* This is a desktop Money Management application. It has a GUI, but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java application intended for university students who want to better manage day to day expenses. It is made as intuitively as possible so that even those who are not extremely familiar with CLI will be able to use the application.
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code that is *reasonable*.
+
+== Site Map
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<LearningOutcomes#, Learning Outcomes>>
+* <<AboutUs#, About Us>>
+
+== Acknowledgements
+
+* Libraries used: https://openjfx.io/[JavaFX]
+

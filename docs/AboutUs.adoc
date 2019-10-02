@@ -1,0 +1,51 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+MooMooMoney was developed by team https://github.com/AY1920S1-CS2113T-F14-1[CS2113T-F14-1]. +
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Shannon Lee
+image::shannonlee98.png[width="150", align="left"]
+{empty}[https://github.com/shannonlee98[github]] [<<shannonlee98#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Lindon Ng
+image::greatnest.png[width="150", align="left"]
+{empty}[http://github.com/Greatnest[github]] [<<greatnest#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Joshua Tam
+image::joshtam.png[width="150", align="left"]
+{empty}[http://github.com/JOSHTAM[github]] [<<joshtam#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Tay Jin Wen
+image::jinwentay.png[width="150", align="left"]
+{empty}[http://github.com/jinwentay[github]] [<<jinwentay#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Tan Guan Yew
+image::guanyewtan.png[width="150", align="left"]
+{empty}[http://github.com/guanyewtan[github]] [<<guanyewtan#, portfolio>>]
+
+Role: Developer
+
+'''

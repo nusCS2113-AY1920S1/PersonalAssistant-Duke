@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -57,6 +58,33 @@ public class Storage {
                             newDeadline.markAsDone();
                         }
                         taskList.add(newDeadline);
+                    } else if (value.charAt(0) == 'F') {
+                        FixedDuration newFixedDuration = new FixedDuration(splitInput[2],
+                                Duration.parse(splitInput[3]));
+                        if (splitInput[1].equals("1")) {
+                            newFixedDuration.markAsDone();
+                        }
+                        taskList.add(newFixedDuration);
+                    } else if (value.charAt(0) == 'W') {
+                        DoWithinPeriod newDoWithinPeriod = new DoWithinPeriod(splitInput[2],
+                                parseDate(splitInput[3]), parseDate(splitInput[4]));
+                        if (splitInput[1].equals("1")) {
+                            newDoWithinPeriod.markAsDone();
+                        }
+                        taskList.add(newDoWithinPeriod);
+                    } else if (value.charAt(0) == 'A') {
+                        DoAfter newDoAfter = null;
+                        if (parseDate(splitInput[3]) != null) {
+                            newDoAfter = new DoAfter(splitInput[2], parseDate(splitInput[3]), "");
+                        } else {
+                            newDoAfter = new DoAfter(splitInput[2],
+                                     null, splitInput[3]);
+                        }
+
+                        if (splitInput[1].equals("1")) {
+                            newDoAfter.markAsDone();
+                        }
+                        taskList.add(newDoAfter);
                     }
                 }
             } else {
@@ -88,7 +116,6 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateToParse, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date read from file.");
             return null;
         }
     }
@@ -117,6 +144,8 @@ public class Storage {
             int isDone = 0;
             String description = value.description;
             String newDate = "";
+            String endDate = "";
+            String newTask = "";
 
             if (className.equals("ToDo")) {
                 taskType = "T";
@@ -126,6 +155,20 @@ public class Storage {
             } else if (className.equals("Event")) {
                 taskType = "E";
                 newDate = unparseDate(((Event) value).at);
+            } else if (className.equals("FixedDuration")) {
+                taskType = "F";
+                newDate = ((FixedDuration) value).duration.toString();
+            } else if (className.equals("DoWithinPeriod")) {
+                taskType = "W";
+                newDate = unparseDate(((DoWithinPeriod) value).from);
+                endDate = unparseDate(((DoWithinPeriod) value).to);
+            }  else if (className.equals("DoAfter")) {
+                taskType = "A";
+                if (((DoAfter) value).afterDate != null) {
+                    newDate = unparseDate(((DoAfter) value).afterDate);
+                } else {
+                    newTask = ((DoAfter) value).afterTask;
+                }
             }
 
             if (value.isDone) {
@@ -134,9 +177,20 @@ public class Storage {
                 isDone = 0;
             }
             if (newDate != "") {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + " | " + newDate + "\n";
+                if (endDate != "") {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newDate + " | " + endDate + "\n";
+                } else {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newDate + "\n";
+                }
             } else {
-                toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
+                if (taskType.equals("A")) {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description
+                            + " | " + newTask + "|n";
+                } else {
+                    toSave += taskType + " | " + Integer.toString(isDone) + " | " + description + "\n";
+                }
             }
         }
         try {

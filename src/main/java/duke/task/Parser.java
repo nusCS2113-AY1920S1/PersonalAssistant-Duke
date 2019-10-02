@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.command.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -38,6 +37,12 @@ public class Parser {
             return new ViewSchedule(false, input);
         } else if (input.startsWith("snooze")) {
             return parseSnooze(input);
+        } else if (input.startsWith("fixed ")) {
+            return new AddFixedDurationCommand(false, input);
+        } else if (input.startsWith("dowithin ")) {
+            return new AddDoWithinPeriodCommand(false, input);
+        } else if (input.startsWith("doafter ")) {
+            return new AddDoAfterCommand(false, input);
         } else if (input.equals("bye")) {
             return new ExitCommand(true, "");
         } else {
