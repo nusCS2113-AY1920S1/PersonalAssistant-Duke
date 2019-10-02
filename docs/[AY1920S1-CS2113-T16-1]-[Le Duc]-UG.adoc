@@ -28,6 +28,11 @@ Le Duc (The Duke in French) is for student who have multiple life and have to ma
 .  Type the command in the shell.
 .  Please refer to <<Features>> part for details of each command.
 
++
+image::leduc.png[width="790"]
++
+
+
 [[Features]]
 == Features
 
@@ -276,7 +281,7 @@ Q) Will there be more feature ?
 A) Yes, if we have enough imagination and time and energy.
 
 
-== Command Summary 
+== Command Summary
 
 * *help* `help`
 * *todo* : `todo DESCRIPTION`
