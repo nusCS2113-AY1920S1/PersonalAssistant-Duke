@@ -1,22 +1,41 @@
 package seedu.duke.email;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import seedu.duke.Duke;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class Email {
     protected String filepath;
-    protected String title;
-    protected String sender;
+    protected String subject;
+    protected EmailParser.Sender from;
+    protected LocalDateTime receivedDateTime;
+    protected String body;
     protected Boolean hasHtml;
     protected String tag;
-    protected static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
-    public Email(String title) {
-        this.title = title;
+    public Email(String subject) {
+        this.subject = subject;
         this.filepath = getEmailFilePath();
+    }
+
+    public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
+        this.subject = subject;
+        this.from = from;
+        this.receivedDateTime = receivedDateTime;
+        this.body = body;
     }
 
     /**
@@ -24,8 +43,8 @@ public class Email {
      *
      * @return title of this email.
      */
-    public String getTitle() {
-        return this.title;
+    public String getSubject() {
+        return this.subject;
     }
 
     public void setTag(String tag) {
@@ -38,7 +57,7 @@ public class Email {
      * @return pathname for this email.
      */
     public String getEmailFilePath() {
-        return getFolderDir() + File.separator + this.title;
+        return getFolderDir() + File.separator + this.subject;
     }
 
     /**
@@ -72,11 +91,52 @@ public class Email {
 
     /**
      * Outputs a string with all the information of this email to be stored in a file for future usage.
+     * The subject of the email is hashed and combined with date time to produce the filename.
      *
      * @return a string with all the information of this email.
      */
     public String toFileString() {
-        String filestring = this.title + " | ";  // to add on info such as tags.
-        return filestring;
+        String fileString = this.subject + " | ";  // to add on info such as tags.
+        return fileString;
+    }
+
+    public String getFilename() {
+        String filename = ShaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
+        return filename;
+    }
+
+    private String getDateTimeString() {
+        return EmailParser.formatEmailDateTime(receivedDateTime);
+    }
+
+    private String getDateTimePlainString() {
+        return EmailParser.formatEmailDateTimePlain(receivedDateTime);
+    }
+
+    public String toCliString() {
+        String output = this.subject + "\n\t" + "From: " + this.from.toString() + "\n\t" +
+                "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
+                + "...\n";
+        return output;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    private String ShaHash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            // Change this to UTF-16 if needed
+            md.update(input.getBytes(StandardCharsets.UTF_8));
+            byte[] digest = md.digest();
+
+            String hex = String.format("%064x", new BigInteger(1, digest));
+            return hex;
+        } catch (NoSuchAlgorithmException e) {
+            Duke.getUI().showError("Hashing email name error");
+        }
+        return input;
     }
 }

@@ -1,8 +1,14 @@
 package seedu.duke.task;
 
+import seedu.duke.Parser;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Super class of all kinds of tasks, with the basic functionality that all tasks share.
@@ -28,8 +34,9 @@ public class Task {
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
-    protected static SimpleDateFormat format =
-            new SimpleDateFormat("dd/MM/yyyy HHmm");
+    protected static DateTimeFormatter format = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu HHmm", Locale.ENGLISH)
+            .withResolverStyle(ResolverStyle.STRICT);
 
 
     /**
@@ -110,11 +117,14 @@ public class Task {
      *
      * @param dateString an input string to be parsed
      * @return parsed result from the input string
-     * @throws ParseException an exception when the parsing is failed, most likely due to a wrong format
+     * @throws DateTimeParseException an exception when the parsing is failed, most likely due to a wrong format
      */
-    public static Date parseDate(String dateString) throws ParseException {
-        //System.out.println(dateString);
-        return format.parse(dateString);
+    public static LocalDateTime parseDate(String dateString) throws Parser.UserInputException {
+        try {
+            return LocalDateTime.parse(dateString, format);
+        } catch (DateTimeParseException e) {
+            throw new Parser.UserInputException("Wrong Date Time format");
+        }
     }
 
     /**
