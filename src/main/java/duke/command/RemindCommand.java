@@ -9,21 +9,21 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class RemindCommand extends Command{
+public class RemindCommand extends Command {
 
     public RemindCommand() {
 
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             int num = 1;
             LocalDate date = LocalDate.now();
-            LocalDate endDate = date.plusDays(5);
+            LocalDate date1 = date.plusDays(5);
 
-            Date StartDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date EndDate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date startDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date endDate = Date.from(date1.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             if(taskList.size() == 0) {
                 System.out.println("You have no upcoming events/deadlines/todos");
@@ -31,9 +31,9 @@ public class RemindCommand extends Command{
             else {
                 System.out.println("These are your Tasks in the next 5 days");
                 for(int a = 0; a < taskList.size(); a++) {
-                    Date TaskDate = taskList.getTask(a).getCurrentDate();
+                    Date taskDate = taskList.getTask(a).getCurrentDate();
 
-                    if((isWithinRange(TaskDate, EndDate, StartDate))) {
+                    if((isWithinRange(taskDate, endDate, startDate))) {
                         System.out.println(num + ": " + taskList.getTask(a).toString());
                         num++;
                     }
@@ -45,7 +45,7 @@ public class RemindCommand extends Command{
 
     }
 
-    private boolean isWithinRange(Date TaskDate, Date EndDate, Date StartDate) {
-        return TaskDate.before(EndDate) && TaskDate.after(StartDate);
+    private boolean isWithinRange(Date taskDate, Date endDate, Date startDate) {
+        return taskDate.before(endDate) && taskDate.after(startDate);
     }
 }
