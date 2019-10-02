@@ -43,28 +43,34 @@ and completed.
 
 === 1.1. Prerequisites
 
-. *JDK `11`* or above
-. *IntelliJ* IDE (Recomended)
+. *JDK `11`* or above is required
+. *IntelliJ* IDE is recommended
 +
 // [NOTE]
 // IntelliJ by default has Gradle and JavaFx plugins installed. +
 // Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-=== 1.2. Setting up the project in your computer
+=== 1.2. Setting up the project environment on your local machine.
 
-. Fork this repo, and clone the forked repo from your account to your local machine
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
+. Fork and clone the forked remote on your local machine.
+. Launch IntelliJ (If you’re not on the IntelliJ Welcome screen please close your  existing project by going to File > Close Project .)
+. Set up the correct JDK version for Gradle +
+.. Click `Configure` > `Structure for New Projects`
+.. Under `Project Settings` Click on `Project`
+.. Under `Project SDK` Click `New…` and point it to JDK 11 path.
+.. Click `OK` to save the configuration
 . Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings.
+.  Locate the `build.gradle` file and select it. Click `Open`.
+. Open the IntelliJ console/terminal and run the gradle command
+`./gradlew processResource` on *Mac/Linux* and `gradlew processResource` on *Windows*.
+(On Mac/Linux:./gradlew processResource If you are getting bash error: `./gradlew: Permission denied` change
+the permission of the shell script by executing `chmod 744 gradlew` in your terminal)
+It should finish with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
 
 === 1.3. Verifying the setup
 
-. Run the `src/java/Duke.java` and try a few commands
+. Run Duke to verify and try a few commands. (Refer here <insert link to the command page> the commands)
+. Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
 // . <<Testing#,Run the tests>> to ensure they all pass.
 
 === 1.4. Configurations to do before writing code
