@@ -101,6 +101,33 @@ Use case ends.
 +
 Use case resumes from step 4.
 
+=== Use case: Find a payment form or reminder
+
+*MSS*
+
+1.  User logins.
+2.  Weeaboo shows a command line along with different sections such as “Reminders”, “Payments” and “Payment History”.
+3.  User types in the command line the command to find and a keyword containing part of the description of a reminder or payment form.
+4.  Weeaboo lists the reminders and payment forms with descriptions that matches the keyword.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in an invalid find command.
+** 3a1. Weeaboo shows an error message and the correct find input format.
+** 3a2. User types in the correct command.
++
+Use case resumes from step 4.
+
+[none]
+* 3b. User types in a keyword that returns no match.
+** 3b1. Weeaboo shows a no-match error message.
++
+Use case ends.
+
+
 [appendix]
 == Non Functional Requirements
 
