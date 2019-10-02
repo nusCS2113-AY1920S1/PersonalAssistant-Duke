@@ -75,20 +75,20 @@ public class TaskList {
     public boolean addItem(TaskType type, String description, DateTime... dateTimes) {
         try {
             switch (type) {
-                case TODO:
-                    taskList.add(new Todo(description));
-                    break;
+            case TODO:
+                taskList.add(new Todo(description));
+                break;
 
-                case DEADLINE:
-                    taskList.add(new Deadline(description, dateTimes[0]));
-                    break;
+            case DEADLINE:
+                taskList.add(new Deadline(description, dateTimes[0]));
+                break;
 
-                case EVENT:
-                    taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
-                    break;
+            case EVENT:
+                taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
+                break;
 
-                default:
-                    return false;
+            default:
+                return false;
             }
 
         } catch (BadInputException e) {
