@@ -10,7 +10,7 @@ ifdef::env-github[]
 image::docs/images/MainPage.png[width="600"]
 endif::[]
 
-* This is a desktop Productivity Tracker application. It has a GUI but user will mostly type in the commands to navigate the application instead of clicking buttons.
+* This is a desktop productivity tracker application. It has a GUI but user will mostly type in the commands to navigate the application instead of clicking buttons.
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
 
