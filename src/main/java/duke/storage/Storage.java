@@ -1,7 +1,14 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.DoAfter;
+import duke.task.DoWithinPeriodTasks;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.ViewSchedules;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +42,6 @@ public class Storage {
 
     /**
      * Returns an {@link ArrayList} of {@link Task}s read from the text file indicated by the {@link Path}.
-     *
-     * @return List<Task> a list of all the tasks read from the hard disc
-     * @throws DukeException Could not create file in the specified directory.
      */
     public List<Task> load() throws DukeException {
         try {
@@ -58,9 +62,6 @@ public class Storage {
     /**
      * Part of the load method, taken out.
      * Generates tasks based on contentSoFar.
-     *
-     * @return List<Task> a list of all the tasks read from the hard disc
-     * @throws DukeException Error in extracting tasks from file.
      */
     private List<Task> generateTasks() throws DukeException {
         for (String next : contentSoFar) {
