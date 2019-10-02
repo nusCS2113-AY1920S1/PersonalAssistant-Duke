@@ -11,7 +11,9 @@ Optix is a command line interface for theatre managers. It allows users to add t
   3. Copy the file to the folder you want to use as the home folder for your theatre bookings.
   4. Double-click the file to start the application. The GUI should appear in a few seconds.
   
-  image::images/UI.png[width="150", align="left"]
+ifdef::env-github[]
+image::docs/images/UI.png[width="600"]
+endif::[]
   
   5. Type the command in the command box and press Enter to execute it (e.g. type help and press enter to open the help window.)
   6. Some example commands you can try:
