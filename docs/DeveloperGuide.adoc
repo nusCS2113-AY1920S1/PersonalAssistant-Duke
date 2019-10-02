@@ -171,9 +171,9 @@ Extensions
 
 === Use case: Alert on duplicate tasks
 
-----
+==== MSS
 
-MSS
+----
 
 1. User adds a task that occurs on the same day, with the same description.
 
@@ -181,7 +181,11 @@ MSS
 
 3. Use case ends.
 
-Extensions
+----
+
+==== Extensions
+
+----
 
 2a. User is adamant on adding the same task.
 
