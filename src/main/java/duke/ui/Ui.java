@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.task.ContactList;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -277,5 +278,11 @@ public class Ui {
      */
     public void showDuplicateMsg(){
         out.println("     The same task is already in the list!");
+    }
+
+    public void showAddedContact(ContactList contactList){
+        out.println("     Got it. Contact add:");
+        out.println("       " + contactList.get(contactList.size() - 1).toString());
+        out.println("     Now you have " + contactList.size() + " contacts.");
     }
 }

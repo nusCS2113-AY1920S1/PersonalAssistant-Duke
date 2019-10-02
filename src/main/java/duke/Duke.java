@@ -5,6 +5,7 @@ import duke.command.ExitCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
+import duke.task.Contacts;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -14,9 +15,9 @@ import java.io.IOException;
  * Represents a duke that controls the program.
  */
 public class Duke {
-
     private Storage storage;
     private TaskList items;
+    private Contacts contactStorage;
     private Ui ui;
 
     /**
@@ -24,14 +25,16 @@ public class Duke {
      *
      * @param filePath The location of the text file.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath, String filePathForContacts) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(filePath, filePathForContacts);
         try {
             items = new TaskList(storage.read());
+//            contactStorage = new ContactList(contactStorage.readContacts());
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
+//            contactStorage = new ContactList();
         }
     }
 
@@ -111,6 +114,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("data/duke.txt", "data/contacts.txt").run();
     }
 }
