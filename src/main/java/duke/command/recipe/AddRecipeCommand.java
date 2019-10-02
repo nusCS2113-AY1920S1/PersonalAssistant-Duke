@@ -20,6 +20,7 @@ public class AddRecipeCommand extends Command {
     public AddRecipeCommand(Map<String, List<String>> params) {
         this.params = params;
     }
+
     /**
      * Execute the command.
      *
@@ -28,6 +29,7 @@ public class AddRecipeCommand extends Command {
      * @param ui         A Ui object capable of controlling GUI.
      * @throws DukeException If the execution fails.
      */
+
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         recipe = getRecipe();
@@ -40,7 +42,7 @@ public class AddRecipeCommand extends Command {
         bakingList.getRecipeList().add(0, recipe);
     }
 
-    public Recipe getRecipe() {
+    private Recipe getRecipe() {
 
         if (params.containsKey("name")) {
             Recipe recipe = new Recipe(params.get("name").get(0));

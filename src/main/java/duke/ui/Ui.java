@@ -1,7 +1,9 @@
 package duke.ui;
+
 import duke.entities.Order;
 import duke.entities.recipe.Recipe;
 import duke.entities.Sale;
+
 import java.util.List;
 
 public class Ui {
@@ -27,11 +29,11 @@ public class Ui {
     public void showRecipePage() {
         mainWindow.showRecipePage();
     }
-  
+
     public void showSalePage() {
         mainWindow.showSalePage();
     }
-  
+
     public void initializePages() {
         mainWindow.initializePages();
     }

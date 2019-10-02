@@ -2,6 +2,7 @@ package duke.entities.recipe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.entities.Ingredient;
+
 import java.util.ArrayList;
 
 public class Step {
@@ -11,7 +12,8 @@ public class Step {
     public Step() {
 
     }
-    public Step (@JsonProperty String description) {
+
+    public Step(@JsonProperty String description) {
         this.description = description;
         time = parseTime(description);
     }
@@ -25,7 +27,7 @@ public class Step {
         return 1;
     }
 
-    public Step init () {
+    public Step init() {
         description = "add cream to cheese";
         time = 30;
         return this;
@@ -34,6 +36,7 @@ public class Step {
     public String getDescription() {
         return description;
     }
+
     public int getTime() {
         return time;
     }

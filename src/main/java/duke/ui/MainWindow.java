@@ -51,13 +51,11 @@ public class MainWindow extends AnchorPane {
     private SalePage salePage;
 
 
-
     public void initialize() {
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         popUp.setVisible(false);
     }
-
 
 
     @FXML

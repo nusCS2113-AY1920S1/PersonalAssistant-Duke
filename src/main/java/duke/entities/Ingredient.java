@@ -1,5 +1,7 @@
 package duke.entities;
+
 import javafx.scene.image.Image;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -14,11 +16,12 @@ public class Ingredient {
     public Ingredient(@JsonProperty String name) {
         this.name = name;
     }
+
     public Ingredient() {
 
     }
 
-    public Ingredient (String name, double cost) {
+    public Ingredient(String name, double cost) {
         this.name = name;
         this.cost = cost;
     }
@@ -53,7 +56,7 @@ public class Ingredient {
         return cost;
     }
 
-    public void setCost (double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

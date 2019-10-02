@@ -25,6 +25,7 @@ public class BakingList {
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
+
     public List<Sale> getSaleList() {
         return saleList;
     }

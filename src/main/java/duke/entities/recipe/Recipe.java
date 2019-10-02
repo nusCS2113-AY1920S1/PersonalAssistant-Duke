@@ -23,6 +23,7 @@ public class Recipe {
     public Recipe() {
 
     }
+
     public Recipe init() {
         name = "Cheese Cake";
         List<Step> stepList = new ArrayList<>();
@@ -49,7 +50,7 @@ public class Recipe {
 
     public int getTime() {
         int time = 0;
-        for (Step step: steps) {
+        for (Step step : steps) {
             time += step.getTime();
         }
         return time;
@@ -58,12 +59,15 @@ public class Recipe {
     public int getDifficultyLevel() {
         return difficultyLevel;
     }
+
     public double getCost() {
         return cost;
     }
+
     public List<Ingredient> getIngredients() {
         return this.ingredients;
     }
+
     public List<Step> getSteps() {
         return this.steps;
     }

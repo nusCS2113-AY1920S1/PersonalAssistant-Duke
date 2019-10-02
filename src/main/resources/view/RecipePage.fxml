@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXScrollPane?>
 <fx:root prefHeight="591.0" prefWidth="877.0" stylesheets="@../css/recipe.css" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
@@ -59,7 +58,7 @@
                 <children>
                     <SplitPane dividerPositions="0.15655577299412915" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="566.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="76.0" prefWidth="478.0" stylesheets="@../css/duke.css">
+                            <AnchorPane maxHeight="80.0" minHeight="80.0" minWidth="0.0" prefHeight="80.0" prefWidth="478.0" stylesheets="@../css/duke.css">
                                 <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="22.0" prefHeight="77.0" prefWidth="758.0" text="All Recipes" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         <font>
@@ -72,8 +71,7 @@
                                 <children>
                         <SplitPane dividerPositions="0.7871485943775101" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <items>
-                                          <ScrollPane fitToWidth="true" prefHeight="379.0"
-                                                         prefWidth="815.0">
+                                          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="379.0" prefWidth="815.0" vbarPolicy="NEVER">
                                               <content>
                                                   <TableView fx:id="recipeTable" stylesheets="@../css/duke.css">
                                                       <columnResizePolicy>

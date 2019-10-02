@@ -18,7 +18,7 @@ public class DeleteRecipeCommand extends UndoableCommand {
     private int index;
     private Map<String, List<String>> params;
 
-    public DeleteRecipeCommand (Map<String, List<String>> params) throws DukeException {
+    public DeleteRecipeCommand(Map<String, List<String>> params) throws DukeException {
         this.params = params;
 
     }

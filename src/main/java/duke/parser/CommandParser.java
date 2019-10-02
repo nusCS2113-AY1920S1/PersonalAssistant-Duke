@@ -39,7 +39,7 @@ public class CommandParser {
     public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
         return new EditSaleCommand(params);
     }
-  
+
     public static void modifyOrdrer(Map<String, List<String>> params, Order order) throws DukeException {
         if (params.containsKey("name")) {
             order.setCustomerName(params.get("name").get(0));
@@ -106,6 +106,7 @@ public class CommandParser {
     public static Command parseRecipeAdd(Map<String, List<String>> params) {
         return new AddRecipeCommand(params);
     }
+
     private static void checkParameters(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("secondary")
                 || params.containsKey("i"))

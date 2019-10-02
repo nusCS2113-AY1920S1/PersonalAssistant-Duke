@@ -32,6 +32,7 @@ public class TimeParser {
 
     /**
      * Converts a String representing the date to a Date object.
+     *
      * @param str a String representing the date. Must be in correct format: dd-MM-yyyy HHmm
      * @return a Date object.
      * @throws DukeException if the String is of incorrect format.

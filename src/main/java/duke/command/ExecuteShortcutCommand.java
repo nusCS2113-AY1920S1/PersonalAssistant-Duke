@@ -23,8 +23,8 @@ public class ExecuteShortcutCommand extends UndoableCommand {
     /**
      * Class constructor.
      *
-     * @param lines A list containing user inputs.
-     *              Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     * @param lines A list containing user inputs. Each entry represents a line of user input is to be
+     *              converted to a <code>Command</code> object.
      * @throws DukeException if fails to convert any line into a <code>Command</code> object.
      */
     public ExecuteShortcutCommand(@JsonProperty("lines") List<String> lines) throws DukeException {
@@ -69,8 +69,9 @@ public class ExecuteShortcutCommand extends UndoableCommand {
 
     /**
      * Returns a list containing user inputs.
-     * @return A list containing user inputs.
-     *         Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     *
+     * @return A list containing user inputs. Each entry represents a line of user input is to be converted to
+     * a <code>Command</code> object.
      */
     public List<String> getLines() {
         return lines;
@@ -78,8 +79,9 @@ public class ExecuteShortcutCommand extends UndoableCommand {
 
     /**
      * Sets a set of inputs to be converted to <code>Command</code> objects.
-     * @param lines A list containing user inputs.
-     *        Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     *
+     * @param lines A list containing user inputs. Each entry represents a line of user input is to be
+     *              converted to a <code>Command</code> object.
      */
     public void setLines(List<String> lines) {
         this.lines = lines;

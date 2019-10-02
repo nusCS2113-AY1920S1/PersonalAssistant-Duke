@@ -25,6 +25,7 @@ public class Storage {
 
     /**
      * Serialize BakingList to json file.
+     *
      * @param bakingList the TaskList to serialize.
      * @throws DukeException if fails to serialize due to IO exception.
      */
@@ -39,7 +40,9 @@ public class Storage {
     }
 
     /**
-     * Deserializes BakingList from file. If the file is not found, creates new file and returns an empty BakingList.
+     * Deserializes BakingList from file. If the file is not found, creates new file and returns an empty
+     * BakingList.
+     *
      * @return a BakingList object.
      * @throws DukeException if file is damaged.
      */
