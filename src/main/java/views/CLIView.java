@@ -1,18 +1,15 @@
 package views;
 
 import controllers.ConsoleInputController;
-import models.commands.DeleteCommand;
-import models.commands.DoneCommand;
-import models.commands.RescheduleCommand;
-import models.data.IProject;
-import models.tasks.ITask;
-import models.tasks.TaskList;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import models.commands.RescheduleCommand;
+import models.data.IProject;
+import models.tasks.ITask;
+import models.tasks.TaskList;
 
 public class CLIView {
     public static final String horiLine = "\t____________________________________________________________";
@@ -92,11 +89,21 @@ public class CLIView {
     /**
      * Method to be called when user prompts for a task to be marked as done.
      * @param taskList : list of tasks.
+     * @param input : Input containing task numbers to be marked as done by user.
      */
-    public void markDone(TaskList taskList, DoneCommand doneCommand) {
-        System.out.println(horiLine);
-        doneCommand.execute(taskList);
-        System.out.println(horiLine);
+    public void markDone(TaskList taskList, String input) {
+        String[] allInputs = input.split(" ");
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Nice! I've marked the following task(s) as done:");
+        for (String i : allInputs) {
+            if (!i.equals("done")) {
+                int index = Integer.parseInt(i) - 1;
+                ITask chosenToDos = taskList.getTask(index);
+                chosenToDos.markAsDone();
+                toPrint.add(chosenToDos.getFullDescription());
+            }
+        }
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -112,12 +119,23 @@ public class CLIView {
      * This method is responsible for handling printing of horizontal lines.
      * However, certain printing has been abstracted to DeleteCommand
      * @param taskList : List of tasks from which the chosen task should be deleted from.
-     * @param deleteCommand : Command that holds the logic for searching and printing certain delete messages.
+     * @param input : Input containing task numbers to delete as given by the user.
      */
-    public void deleteTask(TaskList taskList, DeleteCommand deleteCommand) {
-        System.out.println(horiLine);
-        deleteCommand.execute(taskList);
-        System.out.println(horiLine);
+    public void deleteTask(TaskList taskList, String input) {
+        ArrayList<String> toPrint = new ArrayList<>();
+        toPrint.add("Noted. I've removed the following task(s):");
+        String[] allInputs = input.split(" ");
+        for (String i : allInputs) {
+            if (!i.equals("delete")) {
+                int index = Integer.parseInt(i) - 1;
+                ITask chosenTask = taskList.getTask(index);
+                toPrint.add(chosenTask.getFullDescription());
+                taskList.deleteFromList(chosenTask);
+            }
+        }
+        String grammarTasks = taskList.getNumOfTasks() == 1 ? "tasks" : "task";
+        toPrint.add("Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in the list.");
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
