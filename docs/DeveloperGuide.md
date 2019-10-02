@@ -55,6 +55,7 @@ The Application consist of 6 other components
 
 #### 2.2 UI
 
+
 API: `Ui.java`
 
 The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
@@ -62,13 +63,13 @@ The Ui class consists of methods that outputs messages to the user as a response
 The Ui component,
 
 - reads and return s user input using `scanner.nextLine()`
-- outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
+- outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
 
 #### 2.3 Command Component
 
 API: `Command.java`
 
-The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes 
+The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes 
 
 - DoneCommand
 - ExitCommand
@@ -78,7 +79,7 @@ The Command class is used as an abstract class for other classes, its method `ex
 - Snooze
 - ViewCommand
 
-each of the above class has its own implementation of the `execute` method
+each of the above class has its own implementation of the `execute` method
 
 #### 2.4 Parser Component
 
@@ -87,8 +88,6 @@ API: `Parser.java`
 
 
 #### 2.5 Storage Component
-
-API: `Storage.java`
 
 only stores tasks in a certain format, eg,
 
