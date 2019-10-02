@@ -75,6 +75,8 @@ For all use cases, the System is Duke Manager (DM) and the Actor is Student unle
 
 [discrete]
 === Use Case: Show command tutorial
+*MSS*
+
 1.  Student launches Duke Manager.
 2.  DM welcomes student.
 3.  Student requests to show tutorial on commands.
@@ -89,7 +91,7 @@ Use case ends.
 *MSS*
 
 1.  Student enters the task to be done.
-2.  DM stores the task and updates list of student task. +
+2.  DM stores the task, mark it as undone and updates list of student task. +
 Use case ends.
 
 *Extensions*
@@ -121,6 +123,18 @@ Use case ends.
 2. DM finds the tasks with the keyword and shows student. +
 Use case ends.
 
+[discrete]
+=== Use Case:  Create a Task with Minimal Required Duration
+1. Student requests to input task with fixed duration but no start or end time.
+2. DM stores the task, mark it as undone and updates list of student task.
+   Use case ends.
+
+[discrete]
+=== Use Case:  Create a Repetitive Task
+1. Student requests to input repetitive task.
+2. DM stores the task and updates the deadline accordingly.
+3. DM mark them all as undone and updates list of student task.
+   Use case ends.
 
 === Non Functional Requirements
 
