@@ -322,3 +322,19 @@ Unlikely-to-have |user |reserve seats for VIPs |allow VIPs to enjoy benefits as 
 * Parser to parse user input
 * Command class to execute add/ delete/ list tasks
 * UI class to format output 
+
+
+== Appendix F: Glossary
+
+*Must-have*:
+
+A feature that is declared as must have is viewed as a priority for development
+
+*Nice-to-have*:
+
+A feature that is declared as nice-to-have is viewed as a non- priority. The feature with this label will not be completed with as much urgency, and may not even be developed at all if it is deemed unimportant.
+
+*Unlikely-to-have*:
+
+A feature that is declared as unlikely-to-have is viewed as the least priority. The features with this label are likely to be ignored and only be done should they be viewed as extensions that could add on to the functionality of the program.
+
