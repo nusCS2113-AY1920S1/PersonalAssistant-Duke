@@ -11,8 +11,8 @@ import javafx.scene.layout.FlowPane;
 import java.io.IOException;
 
 /**
- * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer,
- * items, delivery date, index, and status.
+ * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer, items,
+ * delivery date, index, and status.
  */
 public class OrderCard extends AnchorPane {
     @FXML

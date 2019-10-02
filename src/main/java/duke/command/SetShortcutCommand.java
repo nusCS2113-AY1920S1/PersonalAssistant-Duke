@@ -13,8 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A command to set a new shortcut.
- * A shortcut is a set of user-defined commands that can be executed by entering the shortcut keyword.
+ * A command to set a new shortcut. A shortcut is a set of user-defined commands that can be executed by
+ * entering the shortcut keyword.
  */
 public class SetShortcutCommand extends UndoableCommand {
     private String name;

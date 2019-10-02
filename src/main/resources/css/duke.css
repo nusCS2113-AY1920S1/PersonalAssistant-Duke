@@ -63,35 +63,5 @@
 }
 
 
-.table-view{
-    -fx-background-color: transparent;
-    -fx-font-size: 25px;
-    -fx-font-weight:bold;
-    -fx-font-family: "Gabriola";
-    -fx-text-fill: #96663b;
-    -fx-table-header-border-color: #96663b;
- }
 
-.table-view .column-header-background{
-    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
-}
-
-.table-view .column-header-background .label{
-     -fx-background-color: #96663b;
-    -fx-font-weight:bold;
-    -fx-font-family: "Gabriola";
-     -fx-text-fill: white;
-}
-
-.table-view .table-column{
-    -fx-alignment:center;
-
-}
-
-.table-view .table-cell{
-    -fx-font-weight:bold;
-    -fx-font-size:25px;
-    -fx-text-fill:#96663b;
-
-}
 
