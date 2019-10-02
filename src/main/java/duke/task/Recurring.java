@@ -28,7 +28,7 @@ public class Recurring extends Task {
             formattedDate = dateFormatter.format(date);
         } else if (frequency.equals("monthly")) {
             date = new SimpleDateFormat("dd").parse(dayOrDate);
-            dateFormatter = new SimpleDateFormat("d");
+            dateFormatter = new SimpleDateFormat("MMM");
             formattedDate = dateFormatter.format(date);
         }
         // include support for yearly recurring tasks.

@@ -7,20 +7,24 @@ public class Messages {
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String filePath = "/Users/jiawei/Desktop/main/src/main/data/duke.txt";
+    public static final String filePath = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\duke.txt";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
     public static final String MESSAGE_BYE = "     Bye. Hope to see you again soon!";
     public static final String MESSAGE_DELETE = "     Noted. I've removed this task:\n";
     public static final String MESSAGE_FIND = "     Here are the matching tasks in your list:";
     public static final String MESSAGE_FOLLOWUP_EMPTY_INDEX = "       Kindly enter the command again with an index.";
-    public static final String MESSAGE_FOLLOWUP_NUll = "     Kindly enter the command again with a description.";
+    public static final String MESSAGE_FOLLOWUP_NUll = "       Kindly enter the command again with a description.";
+    public static final String MESSAGE_FOLLOWUP_CONFIRM = "      "
+            + "Kindly enter command with the index of the tasks. Eg: confirm 2";
     public static final String MESSAGE_ITEMS1 = "     Now you have ";
     public static final String MESSAGE_ITEMS2 = " tasks in the list.";
     public static final String MESSAGE_MARKED = "     Nice! I've marked this task as done:\n";
+    public static final String MESSAGE_SCHEDULED = "     Nice! This task has been scheduled:\n";
     public static final String MESSAGE_TASKED = "     Here are the tasks in your list:";
     public static final String MESSAGE_SNOOZE = "     Noted. I've rescheduled this task:\n";
     public static final String MESSAGE_REMIND = "     Here are your upcoming deadlines:";
+    public static final String MESSAGE_TENTATIVE = "     Here are your tentative scheduled tasks: ";
 
     public static final String ERROR_MESSAGE_DEADLINE = "       "
             + "OOPS!!! Please specify the deadline in this format: \n       "
@@ -53,15 +57,18 @@ public class Messages {
             + "     Tasks to be completed within a time period should be entered in this format:\n"
             + "     period [task description] /between [start date] /and [end date]";
     public static final String ERROR_MESSAGE_PERIOD2 = "     Please provide both the start and end date for the task.";
-    public static final String ERROR_MESSAGE_VIEWSCHEDULE = "     Please specify date [day/month/year] in this format.         ";
-    public static final String ERROR_MESSAGE_RECURRING_FREQUENCY_NULL = "     Please include the frequency of the recurrent task.\n"
+    public static final String ERROR_MESSAGE_VIEWSCHEDULE = "     Please specify date [day/month/year] in this format.";
+    public static final String ERROR_MESSAGE_TENTATIVESCHEDULE = "       "
+            + "OOPS!!! Please specify tentative scheduling in this format: \n       "
+            + "tentativeschedule [task description] /on [day/month/year time], [day/month/year time], ......";
+    public static final String ERROR_MESSAGE_RECURRING_FREQUENCY_NULL = "     "
+            + "Please include the frequency of the recurrent task.\n"
             + "     Duke supports recurring tasks in this format:\n"
             + "     1. recurring [task description] /daily\n"
-            + "     2. recurring [task description] /weekly [day of week]\n"
-            + "     3. recurring [task description] /monthly [day of month 'dd']\n";
-            // + "     4. recurring [task description] /yearly [date of year 'dd/mm']";
-    public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     Please provide the task description and day or date of recurrence.";
-
+            + "     2. recurring [task description] /weekly [day of week] Eg: thurs\n"
+            + "     3. recurring [task description] /monthly [day of month 'dd'] Eg: 01\n";
+    public static final String ERROR_MESSAGE_RECURRING_DETAILS_NULL = "     "
+            + "Please provide the task description and day or date of recurrence.";
 
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DEADLINE = "deadline";
@@ -76,7 +83,11 @@ public class Messages {
     public static final String COMMAND_PERIOD = "period";
     public static final String COMMAND_REMIND = "reminders";
     public static final String COMMAND_VIEWSCHEDULE = "viewschedule";
+    public static final String COMMAND_TENTATIVESCHEDULE = "tentativeschedule";
+    public static final String COMMAND_CONFIRMSCHEDULE = "confirmschedule";
+    public static final String COMMAND_CONFIRM = "confirm";
     public static final String COMMAND_RECURRING = "recurring";
+    public static final String COMMAND_DETECTCLASHES = "detectclashes";
 
     public static final String DIVIDER = "   ____________________________________________________________\n";
 }

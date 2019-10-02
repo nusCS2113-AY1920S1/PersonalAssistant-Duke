@@ -2,13 +2,20 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import java.text.ParseException;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.COMMAND_SNOOZE;
+import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EMPTY_LIST;
+import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EVENT;
+import static duke.common.Messages.ERROR_MESSAGE_INVALID_DATE;
+import static duke.common.Messages.ERROR_MESSAGE_DEADLINE;
 
 import java.text.SimpleDateFormat;
 
@@ -17,7 +24,7 @@ public class SnoozeCommand extends Command {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/M/yyyy HHmm");
 
     /**
-     * Constructor for class SnoozeCommand
+     * Constructor for class SnoozeCommand.
      * @param userInputCommand String containing input command from user
      */
     public SnoozeCommand(String userInputCommand) {
@@ -25,7 +32,7 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Validate that user inputs an integer value for the index
+     * Validate that user inputs an integer value for the index.
      * @param input String containing integer input from user for the index
      * @return true if the user inputs an integer and false otherwise
      */
@@ -39,7 +46,7 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Processes the delete command to delete task in the task list
+     * Processes the delete command to delete task in the task list.
      * @param taskList contains the task list
      * @param ui deals with interactions with the user
      * @param storage deals with loading tasks from the file and saving tasks in the file
@@ -100,11 +107,11 @@ public class SnoozeCommand extends Command {
     }
 
     /**
-     * Validate the format of the input date
+     * Validate the format of the input date.
      * @param dateStr String containing user input date and time
      * @return true if user input the correct format for the date and time and false otherwise
      */
-    private static boolean isParseDate (String dateStr) {
+    private static boolean isParseDate(String dateStr) {
         try {
             simpleDateFormat.parse(dateStr);
             return true;

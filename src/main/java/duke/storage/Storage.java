@@ -1,13 +1,14 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.task.TentativeScheduling;
 import duke.task.Recurring;
 import duke.task.Period;
 import duke.task.Deadline;
 import duke.task.Duration;
+import duke.task.Todo;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 import duke.tasklist.TaskList;
 
 import java.io.FileReader;
@@ -67,43 +68,47 @@ public class Storage {
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 if (content.charAt(0) == 'T') {
-                    String details = content.substring(8);
-                    Task task = new Todo(details);
-                    assignTaskMarker(content, task);
-                }
-                //need to escape character in string for "|" by adding "\\" in front of "|"
-                //if not the split will be on the wrong place
-                // String[] split = content.substring(8).split(" \\| ", 2);
-                else if (content.charAt(0) == 'D') {
-                    String[] split = content.substring(8).split(" \\| ");
-                    Task task = new Deadline(split[0], split[1]);
-                    assignTaskMarker(content, task);
-                }
-                else if (content.charAt(0) == 'E') {
-                    String[] split = content.substring(8).split(" \\| ");
-                    Task task = new Event(split[0], split[1]);
-                    assignTaskMarker(content, task);
-                }
-                else if (content.charAt(0) == 'F') {
-                    String[] split = content.substring(8).split(" \\| ");
-                    Task task = new Duration(split[0], split[1]);
-                    assignTaskMarker(content, task);
-                }
-                else if (content.charAt(0) == 'P') {
-                    String[] split = content.substring(8).split(" \\| ");
-                    if (split.length == 3) {
-                        Task task = new Period(split[0], split[1], split[2]);
-                        assignTaskMarker(content, task);
+                    if (content.charAt(1) == 'S') {
+                        String[] split = content.substring(9).split(" \\| ", 2);
+                        Task task = new TentativeScheduling(split[0], split[1]);
+                        if (content.charAt(5) == '+') {
+                            task.markAsDone();
+                        }
+                        arrTaskList.add(task);
+                    } else {
+                        String details = content.substring(8);
+                        Task task = new Todo(details);
+                        if (content.charAt(4) == '+') {
+                            task.markAsDone();
+                        }
+                        arrTaskList.add(task);
                     }
-                }
-                else if (content.charAt(0) == 'R') {
+                } else {
+                    //need to escape character in string for "|" by adding "\\" in front of "|"
+                    //if not the split will be on the wrong place
                     String[] split = content.substring(8).split(" \\| ");
-                    if (split.length == 2) { // daily
-                        Task task = new Recurring(split[0], split[1], "");
+                    if (content.charAt(0) == 'D') {
+                        Task task = new Deadline(split[0], split[1]);
                         assignTaskMarker(content, task);
-                    } else if (split.length == 3) { // weekly, monthly, yearly
-                        Task task = new Recurring(split[0], split[1], split[2]);
+                    } else if (content.charAt(0) == 'E') {
+                        Task task = new Event(split[0], split[1]);
                         assignTaskMarker(content, task);
+                    } else if (content.charAt(0) == 'F') {
+                        Task task = new Duration(split[0], split[1]);
+                        assignTaskMarker(content, task);
+                    } else if (content.charAt(0) == 'P') {
+                        if (split.length == 3) {
+                            Task task = new Period(split[0], split[1], split[2]);
+                            assignTaskMarker(content, task);
+                        }
+                    } else if (content.charAt(0) == 'R') {
+                        if (split.length == 2) { // daily
+                            Task task = new Recurring(split[0], split[1], "");
+                            assignTaskMarker(content, task);
+                        } else if (split.length == 3) { // weekly, monthly, yearly
+                            Task task = new Recurring(split[0], split[1], split[2]);
+                            assignTaskMarker(content, task);
+                        }
                     }
                 }
             }
@@ -116,7 +121,7 @@ public class Storage {
         return arrTaskList;
     }
 
-    static void assignTaskMarker(String content, Task task) {
+    private static void assignTaskMarker(String content, Task task) {
         if (content.charAt(4) == '+') {
             task.markAsDone();
         }

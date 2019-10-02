@@ -11,7 +11,7 @@ public abstract class Task {
     protected TaskType taskType;
 
     public enum TaskType {
-        DEADLINE, EVENT, TODO
+        DEADLINE, TENTATIVESCHEDULING, EVENT, TODO
     }
 
     /**
@@ -69,5 +69,6 @@ public abstract class Task {
     public TaskType getTaskType() {
         return taskType;
     }
+
     public abstract Date getDateTime();
 }
