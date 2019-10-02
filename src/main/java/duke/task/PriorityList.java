@@ -1,6 +1,8 @@
 package duke.task;
 
 import duke.command.AddCommand;
+import duke.storage.PriorityStorage;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,14 +19,18 @@ public class PriorityList {
 
     public PriorityList addPriority(duke.command.Command cmd) {
         if (cmd instanceof AddCommand) {
+            duke.ui.Ui ui = new duke.ui.Ui();
+            ui.showLine();
             priorityList.add(this.getPriority());
         }
+
+
         return new PriorityList(priorityList);
     }
 
     public int getPriority() {
-
         Scanner sc = new Scanner(System.in);
+
         System.out.println("     Enter the priority for the above added task: (1-high ~ 5-low)");
         int priority;
         while (true) {
@@ -39,6 +45,18 @@ public class PriorityList {
         return priority;
     }
 
+
+    public int getSize() {
+        return priorityList.size();
+    }
+
+    public ArrayList<Integer> getList() {
+        return this.priorityList;
+    }
+
+    public PriorityList clearList() {
+        return new PriorityList(new ArrayList<Integer>());
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -40,10 +41,10 @@ public class PriorityStorage {
         return items;
     }
 
-    public void write(ArrayList<Integer> priorityList) throws IOException {
+    public void write(PriorityList priorityList) throws IOException {
         String fileContent = "";
-        for (int i = 0; i < priorityList.size(); i++) {
-            fileContent += priorityList.get(i) + "\n";
+        for (int i = 0; i < priorityList.getSize(); i++) {
+            fileContent += priorityList.getList().get(i) + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(fileContent);

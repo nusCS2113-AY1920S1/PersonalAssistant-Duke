@@ -35,7 +35,6 @@ public class Duke {
     public Duke(String filePath1, String filePath2) {
         ui = new Ui();
         storage = new Storage(filePath1);
-
         priorityStorage = new PriorityStorage(filePath2);
 
         try {
@@ -105,20 +104,17 @@ public class Duke {
         ui.showWelcome();
         ui.showReminder(items);
         String sentence;
-        int priority;
 
         while (true) {
             sentence = ui.readCommand();
-            ui.showLine();
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
+                    priorityStorage.write(priorityList);
                     break;
                 } else {
                     cmd.execute(items,ui);
-                    ui.showLine();
                     priorityList = priorityList.addPriority(cmd);
-
                 }
             } catch (DukeException e) {
                 ui.showErrorMsg(e.getMessage());
