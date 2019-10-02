@@ -11,7 +11,7 @@ import java.util.Date;
  * The save and print strings have been overridden to show more information.
  */
 
-public class Deadline extends Task /*implements Snooze*/ {
+public class Deadline extends Task {
 
     private DateTime doByDate;
 
