@@ -29,10 +29,10 @@ public class RemindCommand extends Command {
                 System.out.println("You have no upcoming events/deadlines/todos");
             } else {
                 System.out.println("These are your Tasks in the next 5 days");
-                for(int a = 0; a < taskList.size(); a++) {
+                for (int a = 0; a < taskList.size(); a++) {
                     Date taskDate = taskList.getTask(a).getCurrentDate();
 
-                    if((isWithinRange(taskDate, endDate, startDate))) {
+                    if ((isWithinRange(taskDate, endDate, startDate))) {
                         System.out.println(num + ": " + taskList.getTask(a).toString());
                         num++;
                     }
