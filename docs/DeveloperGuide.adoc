@@ -210,3 +210,90 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 ----
 
 ---
+
+=== Use case: Auto-completing words
+
+==== MSS
+
+----
+
+1. User wants to type out “/achievements” in the command.
+
+2. User types out “/a” and have not pressed enter.
+
+3. User presses TAB button.
+
+4. Duke will auto-complete the word, and “/achievements” will appear in the command.
+
+5. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+4a. User does not want this specific command (etc wanted to type “/all”).
+
+- 4a1. User presses TAB once more.
+
+- 4a2. Duke finds the next word in the dictionary.
+
+- 4a3. Duke handles auto-complete for the next word in the dictionary, and the next input that starts with “/a”, if any, will appear.
+
+- 4a4. Use case resumes to step 4a1 until User desires the input, or decides to type another thing.
+
+- Use case ends.
+
+----
+
+---
+
+=== Use case: Getting coins from unlocking achievements
+
+==== MSS
+
+----
+
+1.User does something that unlocks an achievement.
+
+2. Hstle will display a congratulatory message to the User and notify the achievement unlocked.
+
+3. Coins will be added to the User’s accumulated coins.
+
+4. Use case ends.
+
+----
+
+---
+
+=== Use case: Getting experience points from completing tasks
+
+==== MSS
+
+User completes a task.
+
+Hstle tells User about the task that he keyed as completed.
+
+Hstle shows User experience points obtained from completing said task and his total accumulated points.
+
+Use case ends.
+
+Extensions
+
+1a. The given index is invalid.
+
+1a1. Hstle shows an error message, prompting User to type a valid number, given the size of the task list.
+
+Use case resumes at step 1.
+
+4a. User levels up from the completion.
+
+4a1. Hstle increases User’s level by 1.
+
+4a2. Hstle informs User on their current level and progress towards the next level.
+
+Use case ends.
+
+
+---
