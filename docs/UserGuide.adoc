@@ -16,7 +16,7 @@ By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
 It provides house officers with a streamlined notebook environment, which allows them to concentrate on quickly and accurately
 recording patient data in a standard format. If you're a house officer who types fast and doesn't mind learning how to use a
-keyboard-based app to type faster, then this app is for you!
+keyboard-based app to type faster, then this application is for you!
 
 == Setting up
 === Prerequisites
@@ -407,4 +407,5 @@ The result summary will be appended to the Investigation summary.
 == FAQ
 
 *Q*: How can I continue working with the same data on a different computer? +
-*A*: Install this app on the other computer. All your *Dr. Duke* data is stored persistently in the `data` folder, and can be transferred without any configuration to the `data` folder of the new installation.
+*A*: Install this application on the other computer. All of your *Dr. Duke* data is stored persistently in the `data`
+     folder, and can be transferred without any configuration to the `data` folder of the new installation.
