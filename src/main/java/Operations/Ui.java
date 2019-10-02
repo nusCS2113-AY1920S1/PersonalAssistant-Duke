@@ -26,7 +26,7 @@ public class Ui {
 
     public void help() {
         System.out.println("List of Commands:\n" +
-                "todo\n" + "deadline\n" + "event\n" + "recur\n" + "snooze\n" + "list\n" + "done\n" + "find\n" + "bye\n" );
+                "todo\n" + "deadline\n" + "event\n" + "recur\n" + "snooze\n" + "list\n" + "done\n" + "find\n" + "bye" );
     }
 
     /**

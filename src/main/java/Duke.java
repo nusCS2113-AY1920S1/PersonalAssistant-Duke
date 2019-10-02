@@ -17,6 +17,7 @@ public class Duke {
     private TaskList taskList;
     private Parser parser;
     private RecurHandler recurHandler;
+
     /**
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
@@ -62,7 +63,11 @@ public class Duke {
 
                 case list:
                     ui.showList();
-                    taskList.list();
+                    try {
+                        taskList.list();
+                    } catch (DukeException e) {
+                        ui.showWriteError();
+                    }
                     break;
 
                 case bye:
@@ -230,7 +235,6 @@ public class Duke {
                     catch (IllegalArgumentException e){
                         ui.showTimeError();
                     }
-
                     break;
 
                     default:
@@ -240,6 +244,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Main function of Duke
+     * Creates a new instance of Duke class
+     * @param args command line arguments
+     * @throws DukeException Custom exception class within Duke program
+     */
     public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
