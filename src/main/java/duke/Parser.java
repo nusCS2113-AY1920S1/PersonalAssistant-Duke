@@ -6,7 +6,6 @@ import duke.commands.DoneCommand;
 import duke.commands.FindCommand;
 import duke.commands.NumCommand;
 import duke.commands.RecurCommand;
-import duke.commands.ViewScheduleCommand;
 import duke.exceptions.InsufficientInfoException;
 import duke.exceptions.BadInputException;
 import duke.enums.CommandType;
@@ -181,11 +180,6 @@ public class Parser {
                 command = new Command();
                 throw new BadInputException("Sorry, I don't recognise that input keyword");
             }
-            break;
-        }
-
-        case "view": {
-            command = new ViewScheduleCommand(CommandType.VIEW, keyword[1]);
             break;
         }
 
