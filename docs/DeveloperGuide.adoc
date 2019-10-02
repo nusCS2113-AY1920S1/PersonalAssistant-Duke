@@ -107,7 +107,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-==== MSS
+MSS
 
 1. User inputs the task to add into Hstle.
 
@@ -121,7 +121,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 6. Use case ends.
 
-==== Extensions
+Extensions
 
 2a. The given input is invalid.
 
@@ -139,4 +139,54 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-Hey!
+=== Use case: Deleting tasks
+
+----
+
+MSS
+
+1. User inputs the index to remove from the task in Hstle.
+
+2. Hstle removes the task of the given index from the task list.
+
+3. Hstle repeats the description of the task removed on the screen.
+
+4. Use case ends.
+
+Extensions
+
+1a. The task list is empty
+
+- 1a1. Hstle displays an error message, prompting User to first add a task.
+
+- Use case ends.
+
+2a. The given index is invalid
+
+- 2a1. Hstle displays an error message, prompting User to type a valid number.
+
+- Use case resumes at step 1.
+
+----
+
+=== Use case: Alert on duplicate tasks
+
+----
+
+MSS
+
+1. User adds a task that occurs on the same day, with the same description.
+
+2. Duke warns User that a duplicate task exists.
+
+3. Use case ends.
+
+Extensions
+
+2a. User is adamant on adding the same task.
+
+- 2a1. Duke suggests to the User to add it on another day.
+
+- Use case ends.
+
+----
