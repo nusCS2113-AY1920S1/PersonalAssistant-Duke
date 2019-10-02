@@ -181,7 +181,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 === Use case: Alert on duplicate tasks
 
-==== MSS
+- MSS
 
 ----
 
@@ -193,7 +193,7 @@ Several use cases are shown. For all use cases below, System is Hstle, Actor is 
 
 ----
 
-==== Extensions
+- Extensions
 
 ----
 
