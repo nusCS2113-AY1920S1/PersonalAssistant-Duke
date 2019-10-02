@@ -22,19 +22,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 | * * * | New User | see a summary of the commands available in the program | Have a brief idea of how to navigate through the program
-| * * * | New User | Start the quiz | Start learning as soon as possible
-| * * * | New User | Pause the quiz | To pause the game and save the current quiz records
-| * * * | New User | End the quiz | See the results for the current quiz
+| * * * | New User | Start the game |
+| * * * | New User | Pause the game | To pause the game and save the current quiz records
+| * * * | New User | End the game | See the results for the current quiz
 | * * * | New User | Go back to the previous question | Review the question and change my answer if necessary
-| * * * | New User | Skip to the next question of the quiz | Move on to other questions that I am more confident in to avoid spending too much time on a single question
-| * * * | New User | See the results of the previous quizzes I attempted | Can see a tangible improvement in my quiz scores
-| * * * | Weak User | Choose to attempt a quiz on a certain chapter | Work on my weaker areas
-| * * * | New User | Continue the quiz which I have previously ended off with | Save time on trying to find out where I last ended off
+| * * * | New User | Skip to the next question of the game | Move on to other questions that I am more confident in to avoid spending too much time on a single question
+| * * * | New User | See the results of the previous games I have played | Can see a tangible improvement in my quiz scores
+| * * * | Weak User | Choose to attempt the game only on a certain chapter | Work on my weaker areas
+| * * * | New User | Continue the game which I have previously ended off with | Save time on trying to find out where I last ended off
 | * * * | User | Have an undo button | I can reverse my actions if I typed the wrong command
 | * *  | User | Share and spread this game to my friends | Invite them to learn together
 | * *  | Average User | Get feedback on my performance | Identify my common misconceptions and work on those areas
 | * *  | User | Provide feedback to developers | Give them suggestions on what they can improve on
-| * *  | User | Receive notifications and reminders to complete a few quizzes a day | Be more consistent with my learning
+| * *  | User | Receive notifications and reminders to complete a few games a day | Be more consistent with my learning
 | * *  | User | Experience a storyline | Learn in a less boring manner
 | * *  | Weak User | Have visual aids for the questions | Understand the topic better
 | * *  | Weak User | Have an explanation for any wrong answers | Learn faster from my mistakes
@@ -42,15 +42,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * *  | Strong User | Have an arcade mode | Challenge myself to see how proficient I am in a topic
 | * *  | Weak User | Have a multiple choice option rather than open-ended | Practice on my concepts before attempting harder questions
 | * *  | User | Have a reset option | Replay the game if I'm done with the storyline.
-| *  | Weak User | Clarify certain concepts with a virtual agent | Build a stronger foundation
-| *  | User | Invite friends to join me in a multiplayer quiz | Challenge them while progressing together
+| *  | Weak User | Clarify certain concepts with a virtual agent/chatbot | Build a stronger foundation
+| *  | User | be challenged every time I play the game | improve incrementally as I play it more
 | *  | Advanced User | Get updates whenever the program has new levels | Keep up with the game and maintain my rank
-| * | Advanced User | Get updates whenever another user overtook me | Challenge myself to beat them
-| *  | User | Customise my own questions | Test myself on questions I know I'm weak at.
+| *  | User | enjoy playing the game  | have fun as I learn
 | * * * | Tutor | Track my students’ progress | Cater my teaching style according to the weak chapters.
-| * *  | Tutor | See which students are in dire need of help | Focus more attention on weaker students
-| * | Tutor | Set my own questions | Test my students’ understanding on the current topic
-| * | Tutor | Set my own storyline | Make assignments more enjoyable.
+| *  | User | Customise my own questions `in version 2.0` | Test myself on questions I know I'm weak at.
+| *  | User | choose which character to play in the game `in version 2.0` | To vary the experience I have in every game
+| * *  | Tutor | See which students are in dire need of help `in version 2.0`| Focus more attention on weaker students
+| * | Tutor | Set my own questions `in version 2.0`| Test my students’ understanding on the current topic
+| * | Tutor | Set my own storyline `in version 2.0`| Make assignments more enjoyable.
 
 
 |=======================================================================
@@ -110,14 +111,6 @@ Use case ends.
 . System opens a browser window through which the user can share their results in the game on the social media platform.
 
 Use case ends.
-
-
-
-
-
-
-
-
 
 === Non-Functional Requirements
  - Should work on any mainstream OS as long it has Java 11 or above installed.
