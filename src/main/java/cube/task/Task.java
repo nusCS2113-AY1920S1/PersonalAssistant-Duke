@@ -32,7 +32,7 @@ public class Task implements Serializable{
 	}
 
 	/**
-	 * Consturctor with two arguments.
+	 * Constructor with two arguments.
 	 * Sets isDone to false by default.
 	 *
 	 * @param description
