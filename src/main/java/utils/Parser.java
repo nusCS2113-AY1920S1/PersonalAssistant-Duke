@@ -1,8 +1,23 @@
 package utils;
 
-import commands.*;
+import commands.AddCommand;
+import commands.ByeCommand;
+import commands.CheckAnomaliesCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.RecurringCommand;
+import commands.SnoozeCommand;
+import commands.ViewScheCommand;
 import core.Ui;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Last;
+import tasks.Period;
+import tasks.ToDo;
+import tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,6 +146,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds the task to the database.
+     *
+     * @param line is the full command
+     * @return the corresponding Task.Task object
+     * @throws DukeException if the format of command cannot be parsed
+     */
     public static Task addCommand(String line) throws DukeException {
         String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].toUpperCase();

@@ -73,7 +73,7 @@ public abstract class Task {
     /**
      * set the description of task
      *
-     * @param description
+     * @param description the description, or the content of a task
      */
     public void setDescription(String description) {
         this.description = description;
@@ -92,7 +92,9 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + ((this.precondition.size() == 0) ? "" : (" (Precondition: " + this.getPrecondition() + ")"));
+        return "[" + this.getStatusIcon() + "] "
+                + this.description
+                + ((this.precondition.size() == 0) ? "" : (" (Precondition: " + this.getPrecondition() + ")"));
     }
 
     /**
@@ -174,6 +176,11 @@ public abstract class Task {
         this.precondition.add(precondition);
     }
 
+    /**
+     * This method add prerequisite task to the precondition list
+     *
+     * @param preconditionString the prerequisite task to be added
+     */
     public void addPrecondition(String preconditionString) throws DukeException {
         preconditionString = preconditionString.trim();
         if (preconditionString.equals("0")) {
@@ -198,6 +205,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * This method gets prerequisite task to the precondition list.
+     */
     public String getPrecondition() {
         if (precondition.size() == 0) {
             return "0";

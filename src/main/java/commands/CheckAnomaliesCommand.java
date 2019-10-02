@@ -1,7 +1,12 @@
 package commands;
 
 import core.Ui;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Last;
+import tasks.Period;
+import tasks.ToDo;
+import tasks.Task;
 import utils.DukeException;
 import utils.Storage;
 
@@ -13,6 +18,9 @@ public class CheckAnomaliesCommand extends Command {
     public CheckAnomaliesCommand() {
     }
 
+    /**
+     * Checks for scheduling clashes.
+     */
     public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
 
         ArrayList<Task> scheTasks = new ArrayList<Task>();
