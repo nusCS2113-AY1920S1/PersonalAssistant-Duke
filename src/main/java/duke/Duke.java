@@ -1,9 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -117,6 +114,8 @@ public class Duke {
                     storage.write(items);
                     break;
                 } else if (cmd instanceof ListPriorityCommand) {
+                    cmd.execute(items, priorityList, ui);
+                } else if (cmd instanceof AddMultipleCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof DeleteCommand) {
                     cmd.execute(items, priorityList, ui);

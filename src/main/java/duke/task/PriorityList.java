@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.command.AddCommand;
+import duke.command.AddMultipleCommand;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -40,12 +41,33 @@ public class PriorityList {
             ui.showLine();
             priorityList.add(this.getPriority());
         }
+        return new PriorityList(priorityList);
+    }
 
+    /**
+     * Add a priority associated with a task into the list.
+     *
+     * @param numOfTimes The number of times that one task is repeated.
+     * @return The updated Priority List.
+     */
+    public PriorityList addMultiPriority(int numOfTimes) {
+        duke.ui.Ui ui = new duke.ui.Ui();
+        ui.showLine();
+
+        int priority = this.getPriority();
+        for (int i = 0; i < numOfTimes; i++) {
+            priorityList.add(priority);
+        }
 
         return new PriorityList(priorityList);
     }
 
 
+    /**
+     * Remove a priority when the associated task is removed.
+     *
+     * @param index The index of the priority to be removed.
+     */
     public void remove(int index) {
         priorityList.remove(index);
     }

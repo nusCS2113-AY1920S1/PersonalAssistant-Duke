@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -34,6 +35,14 @@ public class AddMultipleCommand extends Command {
             items.add(curTask);
         }
         ui.showAdd(items);
+    }
+
+    public void execute(TaskList items, PriorityList priorities, Ui ui) {
+        for (Task curTask : tasks) {
+            items.add(curTask);
+        }
+        ui.showAdd(items);
+        priorities.addMultiPriority(tasks.size());
     }
 
     /**
