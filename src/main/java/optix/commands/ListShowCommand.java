@@ -1,6 +1,7 @@
 package optix.commands;
 
 import optix.Ui;
+import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
 import optix.util.ShowMap;
@@ -11,6 +12,8 @@ import java.util.Map;
 public class ListShowCommand extends Command {
     private String showName;
 
+    private OptixResponse response = new OptixResponse();
+
     public ListShowCommand(String showName) {
         this.showName = showName;
     }
@@ -19,7 +22,7 @@ public class ListShowCommand extends Command {
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder(String.format("The show %s is showing on the following following dates: \n", showName));
-        boolean existsShow = false;
+        boolean hasShow = false;
         String today = LocalDate.now().toString();
 
         int counter = 1;
@@ -33,14 +36,14 @@ public class ListShowCommand extends Command {
 
             // Can add to check whether the show has seats available. If not seats are available we can remove it from the listing.
             if (entry.getValue().hasSameName(showName.trim())) {
-                existsShow = true;
+                hasShow = true;
                 message.append(String.format("%d. %s\n", counter, showDate));
                 counter++;
             }
         }
         
-        if (!existsShow) { 
-            message = new StringBuilder("☹ OOPS!!! The show cannot be found.");
+        if (!hasShow) {
+            message = new StringBuilder(response.SHOW_NOT_FOUND);
         }
 
         ui.setMessage(message.toString());

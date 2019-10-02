@@ -13,6 +13,17 @@ public class OptixResponse {
 
     public final String LIST_NOT_FOUND = "☹ OOPS!!! There are no shows in the near future.\n";
 
+    public final String SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
+
+    public final String SHOW_OVER ="☹ OOPS!!! The show is already over.\n";
+
+    public final String POSTPONE_PAST = "☹ OOPS!!! It is not possible to postpone to the past.\n";
+
+    public final String POSTPONE_CLASH = "☹ OOPS!!! There exist a show for ";
+
+    public final String SHOW_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
+                                              + "Try again!\n";
+
     public final String DONE_FOUND = "Nice! I've marked this task as done:\n";
 
     public final String DONE_COMPLETED = "☹ OOPS!!! This task has already been completed\n";
@@ -27,16 +38,6 @@ public class OptixResponse {
             + "Please try again. \n";
 
     public final String ADD = "Got it. I've added this show:\n";
-
-    public final String REMINDERS_FOUND = "Here are your reminders:\n";
-
-    public final String REMINDERS_NOT_FOUND = "☹ OOPS!!! You currently do not have deadlines.\n";
-
-    public final String FREE_TIME_FOUND = "You next free time for the required period is:\n";
-
-    public final String WRONG_TASKTYPE = "☹ OOPS!!! Snooze cannot be used for Todos.\n";
-
-    public final String SNOOZE_SUCCESS = "Noted. I've snoozed this task:\n";
 
     public final String MENU = "Here are the Commands to use Optix: \n"
                                 + "To add a new show:                               add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE\n"

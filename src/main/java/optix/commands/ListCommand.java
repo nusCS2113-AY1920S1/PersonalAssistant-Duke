@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class ListCommand extends Command {
+    private OptixResponse response = new OptixResponse();
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
@@ -19,7 +20,7 @@ public class ListCommand extends Command {
         int counter = 1;
 
         if (!shows.isEmpty()) {
-            message.append(new OptixResponse().LIST_FOUND);
+            message.append(response.LIST_FOUND);
             for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
                 Theatre show = entry.getValue();
                 LocalDate showDate = entry.getKey();
@@ -32,7 +33,7 @@ public class ListCommand extends Command {
         }
 
         if (shows.isEmpty() || counter == 1) {
-            message = new StringBuilder(new OptixResponse().LIST_NOT_FOUND);
+            message = new StringBuilder(response.LIST_NOT_FOUND);
         }
 
         ui.setMessage(message.toString());

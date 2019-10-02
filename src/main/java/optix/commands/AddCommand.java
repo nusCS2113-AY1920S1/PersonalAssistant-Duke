@@ -15,6 +15,7 @@ public class AddCommand extends Command {
     private double cost;
     private double seatBasePrice;
 
+    private OptixResponse response = new OptixResponse();
 
     public AddCommand(String showName, String date, double cost, double seatBasePrice) {
         // need to check if it is a valid date if not need to throw exception
@@ -37,7 +38,7 @@ public class AddCommand extends Command {
                     + "Please try again. \n");
         } else {
             shows.put(date, theatre);
-            ui.setMessage(new OptixResponse().ADD + theatre.getShowName() + " at: " + this.date + "\n");
+            ui.setMessage(response.ADD + theatre.getShowName() + " at: " + this.date + "\n");
         }
 
     }

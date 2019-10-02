@@ -1,6 +1,7 @@
 package optix.commands;
 
 import optix.Ui;
+import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
 import optix.util.ShowMap;
@@ -15,6 +16,8 @@ public class SellSeatCommand extends Command {
     private String showDate;
     private String[] seats;
     private String buyerName;
+
+    private OptixResponse response = new OptixResponse();
 
     public SellSeatCommand(String showName, String showDate, String buyerName) {
         this.showName = showName;
@@ -44,7 +47,7 @@ public class SellSeatCommand extends Command {
                 message.append(show.sellSeats(buyerName, seats));
             }
         } else {
-            message = new StringBuilder("Sorry the show you are looking for does not exist");
+            message = new StringBuilder(response.SHOW_NOT_FOUND);
         }
 
         ui.setMessage(message.toString());

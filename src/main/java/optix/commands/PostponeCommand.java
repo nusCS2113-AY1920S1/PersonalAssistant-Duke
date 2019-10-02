@@ -1,6 +1,7 @@
 package optix.commands;
 
 import optix.Ui;
+import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
 import optix.util.ShowMap;
@@ -12,6 +13,8 @@ public class PostponeCommand extends Command {
     private String showName;
     private LocalDate oldDate;
     private LocalDate newDate;
+
+    private OptixResponse response = new OptixResponse();
 
     public PostponeCommand(String showName, String oldDate, String newDate) {
         // need to check if both dates are valid if not throw exception
@@ -27,17 +30,16 @@ public class PostponeCommand extends Command {
         LocalDate today = storage.getToday();
 
         if (oldDate.compareTo(today) > 0) {
-            message = "☹ OOPS!!! The show is already over.\n";
+            message = response.SHOW_OVER;
         } else if (newDate.compareTo(today) > 0) {
-            message = "☹ OOPS!!! It is not possible to postpone to the past.\n";
+            message = response.POSTPONE_PAST;
         } else {
             if (!shows.containsKey(oldDate)) {
-                message = "☹ OOPS!!! There isn't any show on " + oldDate + "\n";
+                message = response.SHOW_NOT_FOUND;
             } else if (shows.containsKey(newDate)) {
-                message = "☹ OOPS!!! There exist a show for " + newDate + "\n";
+                message = response.POSTPONE_CLASH + newDate + "\n";
             } else if (!shows.get(oldDate).hasSameName(showName)) {
-                message = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
-                        + "Try again!\n";
+                message = response.SHOW_DOES_NOT_MATCH;
             } else {
                 Theatre postponedShow = shows.removeShow(oldDate);
                 shows.put(newDate, postponedShow);
