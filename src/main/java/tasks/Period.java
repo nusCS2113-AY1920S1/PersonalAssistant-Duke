@@ -66,21 +66,19 @@ public class Period extends Task {
         this.end = end;
     }
 
+    @Override
     /**
-     * @return string
-     * how task list will print out in console
-     * @Override toString() in Task
      * a method to format the output of the task list
+     * @return a string which will be printed out in console when listing this Period task
      */
     public String toString() {
         return "[P]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    @Override
     /**
-     * @return string
-     * a string which will show in data file that store the task list
-     * @Override dataString() in Task
      * a method to format the data list data store in file
+     * @return a string which will show in data file that store the task list
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");

@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * another constructor of Deadline
      *
      * @param description The description, or content of deadline
-     * @param by          the time when this task due
+     * @param by the time when this task due
      */
     public Deadline(String description, Date by) {
         super(description);
@@ -37,27 +37,26 @@ public class Deadline extends Task {
     /**
      * set the deadline
      *
-     * @param by deadline of this task
+     * @param by the deadline of this task
      */
     public void setTime(Date by) {
         this.by = by;
     }
 
+    @Override
     /**
      * @return string
      * how task list will print out in console
-     * @Override toString() in Task
-     * a method to format the output of the task list
      */
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    @Override
     /**
+     * a method to format the data list data store in file
      * @return string
      * a string which will show in data file that store the task list
-     * @Override dataString() in Task
-     * a method to format the data list data store in file
      */
     public String dataString() {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");

@@ -125,7 +125,9 @@ public abstract class Task {
 
 
     /**
-     * This method mark the task status as DONE.
+     * This method marks the task status as 'done'
+     * @throws DukeException if the preconditions (if it has) are not satisfied,
+     * that is, this task cannot be marked as 'done' at this point
      */
     public void markAsDone() throws DukeException {
         boolean preconditionDone = true;
@@ -154,6 +156,7 @@ public abstract class Task {
     /**
      * @author Justin Chia
      * Toggle the recurrence flag
+     * @param numWeeks the number (quantity) of weeks for the recurrence task
      */
     public void setRecurring(int numWeeks) {
         this.isRecurring = true;
@@ -179,7 +182,9 @@ public abstract class Task {
     /**
      * This method add prerequisite task to the precondition list
      *
-     * @param preconditionString the prerequisite task to be added
+     * @param preconditionString the prerequisite task to be added, represented by indexes of prerequisite tasks,
+     *                           separated by space, for example: 1 2 10 11
+     * @throws DukeException when the format of preconditions is not valid
      */
     public void addPrecondition(String preconditionString) throws DukeException {
         preconditionString = preconditionString.trim();
@@ -207,6 +212,8 @@ public abstract class Task {
 
     /**
      * This method gets prerequisite task to the precondition list.
+     * @return the string of precondition, represented by indexes of prerequisite tasks,
+     * separated by space, for example: 1 2 10 11
      */
     public String getPrecondition() {
         if (precondition.size() == 0) {

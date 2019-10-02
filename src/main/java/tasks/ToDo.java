@@ -21,20 +21,20 @@ public class ToDo extends Task {
         super(description);
     }
 
+    @Override
     /**
      * @return string
      * how task list will print out in console
-     * @Override toString() in Task
      * a method to format the output of the task list
      */
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    @Override
     /**
      * @return string
      * a string which will show in data file that store the task list
-     * @Override dataString() in Task
      * a method to format the data list data store in file
      */
     public String dataString() {
