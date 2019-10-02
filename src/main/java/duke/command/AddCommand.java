@@ -19,6 +19,7 @@ public class AddCommand extends Command {
     String taskType;
     boolean isRecurring = false;
     boolean hasDuration = false;
+    String recurringPeriod;
 
     public AddCommand(String description, String taskType) {
         this.taskType = taskType;
@@ -32,6 +33,8 @@ public class AddCommand extends Command {
             switch (flagArray[1].charAt(0)) {
                 case 'r':
                     isRecurring = true;
+                    description = flagArray[0];
+                    recurringPeriod = flagArray[1].substring(2);
                     break;
                 case 'd':
                     hasDuration = true;
@@ -39,18 +42,17 @@ public class AddCommand extends Command {
         }
     }
 
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException {
-        if (isRecurring) {
-            tasks.add(new Recurring(description, taskType, tasks, ui, storage));
-            return;
-        }
         switch (taskType) {
             case "todo":
                 if (hasDuration) {
                     String[] flagArray = description.split(" -", 2);
                     int duration = Integer.parseInt(flagArray[1].substring(2));
                     tasks.add(new FixedDurationTask(flagArray[0], duration));
+                } else if (isRecurring) {
+                    tasks.add(new ToDo(description, recurringPeriod));
                 } else {
                     tasks.add(new ToDo(description));
                 }
@@ -59,13 +61,23 @@ public class AddCommand extends Command {
                 String[] dInfo = description.split(" /by ");
                 SimpleDateFormat dFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date by = dFormat.parse(dInfo[1]);
-                tasks.add(new Deadline(dInfo[0], by));
+
+                if (isRecurring) {
+                    tasks.add(new Deadline(dInfo[0], by, recurringPeriod));
+                } else {
+                    tasks.add(new Deadline(dInfo[0], by));
+                }
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
                 SimpleDateFormat eFormat = new SimpleDateFormat("ddMMyyyy HHmm");
                 Date at = eFormat.parse(eInfo[1]);
-                Event newEvent = new Event(eInfo[0], at);
+                Event newEvent;
+                if (isRecurring) {
+                    newEvent = new Event(eInfo[0], at, recurringPeriod);
+                } else {
+                    newEvent = new Event(eInfo[0], at);
+                }
                 AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
                 if (abnormalityChecker.checkEventClash(newEvent)) {
                     System.out.println("There is a clash with another event at the same time");
