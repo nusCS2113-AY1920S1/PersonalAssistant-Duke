@@ -29,9 +29,14 @@ public class DoneCommand extends Command {
         try {
             List<String> formattedOutput = new ArrayList<>();
             Task completed = taskList.markDone(index);
-            storage.setData(taskList.getTasks());
+            taskList.removeTask(index);
             formattedOutput.add("Nice! I've marked this task as done:");
             formattedOutput.add(completed.toString());
+            formattedOutput.add("This task has been removed from the list.");
+            storage.setData(taskList.getTasks());
+            List<Task> tasks = taskList.getTasks();
+            formattedOutput.add("You currently have " + tasks.size()
+                    + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));
             return ui.showFormatted(formattedOutput);
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");

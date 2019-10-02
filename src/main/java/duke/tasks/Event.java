@@ -5,8 +5,6 @@ import duke.DateTime;
 import java.util.Date;
 
 public class Event extends Task {
-    private DateTime endDate;
-
     /**
      * Constructor for Duke.Tasks.Event object.
      * @param description name of the event.
@@ -18,7 +16,6 @@ public class Event extends Task {
         this.startDate = new DateTime(startDate);
         this.endDate = new DateTime(endDate);
     }
-
 
     /**
      * This constructor is used for recreation of Duke.Tasks.Deadline from storage.
@@ -40,16 +37,18 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (at: " + this.getStartDateString() + " to " + this.getEndDateString() + ")";
-    }
-
-    private String getStartDateString() {
+    String getStartDateString() {
         return this.startDate.toString();
     }
 
-    private String getEndDateString() {
+    @Override
+    String getEndDateString() {
         return this.endDate.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (at: " + this.getStartDateString() + " to " + this.getEndDateString() + ")";
     }
 
     /**
@@ -68,17 +67,5 @@ public class Event extends Task {
     @Override
     public Boolean isOverlapping(Date startTime, Date endTime) {
         return startTime.before(endDate.getDateTime()) && startDate.getDateTime().before(endTime);
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = new DateTime(startDate);
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = new DateTime(endDate);
-    }
-
-    public DateTime getEndDate() {
-        return endDate;
     }
 }

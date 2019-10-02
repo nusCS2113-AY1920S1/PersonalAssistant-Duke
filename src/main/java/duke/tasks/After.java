@@ -35,6 +35,16 @@ public class After extends Task {
         return "A | " + super.storeString() + " | " + getDoAfter();
     }
 
+    @Override
+    String getStartDateString() {
+        return null;
+    }
+
+    @Override
+    String getEndDateString() {
+        return null;
+    }
+
     public String getDoAfter() {
         return this.doAfter;
     }

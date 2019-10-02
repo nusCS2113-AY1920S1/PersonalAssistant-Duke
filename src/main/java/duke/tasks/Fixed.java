@@ -35,6 +35,16 @@ public class Fixed extends Task {
         return "F | " + super.storeString() + " | " + getFixedDuration();
     }
 
+    @Override
+    String getStartDateString() {
+        return null;
+    }
+
+    @Override
+    String getEndDateString() {
+        return null;
+    }
+
     public String getFixedDuration() {
         return this.fixedDuration;
     }

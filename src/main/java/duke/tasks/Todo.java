@@ -19,4 +19,14 @@ public class Todo extends Task {
     public String storeString() {
         return "T | " + super.storeString();
     }
+
+    @Override
+    String getStartDateString() {
+        return null;
+    }
+
+    @Override
+    String getEndDateString() {
+        return null;
+    }
 }

@@ -5,7 +5,6 @@ import duke.DateTime;
 import java.util.Date;
 
 public class Tentative extends Task {
-    private DateTime endDate;
 
     /**
      * Constructor for Duke.Tasks.Tentative object.
@@ -40,18 +39,20 @@ public class Tentative extends Task {
     }
 
     @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return this.endDate.toString();
+    }
+
+    @Override
     public String toString() {
         return "[TE]" + super.toString() + " (around: "
                 + this.getStartDateString() + " to " + this.getEndDateString()
                 + " - date not fixed)";
-    }
-
-    private String getStartDateString() {
-        return this.startDate.toString();
-    }
-
-    private String getEndDateString() {
-        return this.endDate.toString();
     }
 
     public String getDescription() {

@@ -1,16 +1,13 @@
 package duke.tasks;
 
 import duke.DateTime;
-import javafx.util.Pair;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public abstract class Task {
     private String taskName;
     Boolean isDone;
     DateTime startDate;
+    DateTime endDate;
 
     /**
      * Constructor to initialize default values of any instances of children of Task.
@@ -19,6 +16,7 @@ public abstract class Task {
         this.taskName = taskName;
         this.isDone = false;
         this.startDate = null;
+        this.endDate = null;
     }
 
     protected String getStatusIcon() {
@@ -41,6 +39,18 @@ public abstract class Task {
         return startDate;
     }
 
+    public DateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setStartDate(DateTime startDate) {
+        this.startDate = startDate;
+    }
+
     public void markDone() {
         this.isDone = true;
     }
@@ -48,6 +58,10 @@ public abstract class Task {
     public Boolean getDone() {
         return isDone;
     }
+
+    abstract String getStartDateString();
+
+    abstract String getEndDateString();
 
     /**
      * Compare if input date is equals.

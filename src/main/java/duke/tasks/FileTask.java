@@ -24,4 +24,14 @@ public class FileTask extends Task {
     public String storeString() {
         return "FILE | " + super.storeString();
     }
+
+    @Override
+    String getStartDateString() {
+        return null;
+    }
+
+    @Override
+    String getEndDateString() {
+        return null;
+    }
 }

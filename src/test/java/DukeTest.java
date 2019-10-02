@@ -156,6 +156,12 @@ public class DukeTest {
                         + "Invalid Input\n\n"
                         + "Invalid index entered. Type 'list' to see your list.\n"
                         + "____________________________________________________________");
+
+        assertEquals(test2.getResponse("delete-multiple 1,2"),
+                "____________________________________________________________\n"
+                        + "Invalid Input\n\n"
+                        + "Invalid index entered. Type 'list' to see your list.\n"
+                        + "____________________________________________________________");
     }
 
     @Test
@@ -179,22 +185,37 @@ public class DukeTest {
         //Step 3: Check item is added to list
         assertNotEquals(test.getResponse("list"), testList);
 
-        //Step 4: Exit program
+        //Step 4: Add another item
+        test.getResponse("todo test2");
+
+        //Step 5: Check item is added to list
+        assertNotEquals(test.getResponse("list"), testList);
+
+        //Step 6: Add another item
+        test.getResponse("todo test3");
+
+        //Step 7: Check item is added to list
+        assertNotEquals(test.getResponse("list"), testList);
+
+        //Step 8: Exit program
         test.getResponse("bye");
 
-        //Step 5: Create a new instance of Duke
+        //Step 9: Create a new instance of Duke
         Duke test2 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
-        //Step 6: Delete added item
+        //Step 10: Delete added item
         test2.getResponse("delete 1");
+
+        //Step 11: Delete multiple added items
+        test2.getResponse("delete-multiple 1,2");
 
         // Exit program
         test2.getResponse("bye");
 
-        //Step 7: Create a new instance of Duke
+        //Step 12: Create a new instance of Duke
         Duke test3 = new Duke("data/dukeTest.txt", "data/fileTest.txt", false);
 
-        //Step 8: Verify that list is empty
+        //Step 13: Verify that list is empty
         assertEquals(test3.getResponse("list"), testList);
     }
 }
