@@ -20,6 +20,7 @@ public class Duke {
 
     /**
      * Constructs the Duke with the filePath of storage.txt
+     * If errors occur during the loading process, an empty taskList will be initialized instead.
      *
      * @param filePath The filePath of storage.txt
      */
@@ -36,6 +37,7 @@ public class Duke {
 
     /**
      * Runs the Duke.
+     * This terminates when the user typed in "bye" command.
      */
     public void run() {
         ui.showWelcome();
