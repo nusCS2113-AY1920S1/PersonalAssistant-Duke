@@ -1,7 +1,16 @@
 package duke.parser;
 
 import duke.Duke;
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.RemindCommand;
+import duke.command.Snooze;
+import duke.command.ViewCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
@@ -65,14 +74,10 @@ public class Parser {
                 checkLength(splitted);
                 return new FindCommand(splitted[1]);
             case "delete":
-                if (splitted.length == 2) {
-                    int taskNb = Integer.parseInt(splitted[1]);
-                    return new DeleteCommand(taskNb - 1);
-                } else throw new DukeException("Need a task number after done!");
+                checkLength(splitted);
+                return new DeleteCommand(checkNumber(splitted[1], size));
             case "remind":
-                if (splitted.length == 1) {
-                    return new RemindCommand();
-                }else throw new DukeException("no parameters after 'remind'");
+                return new RemindCommand();
             case "snooze":
                 checkLength(splitted);
                 String[] getUntil = splitAndCheck(splitted[1], " /until ");
@@ -100,6 +105,9 @@ public class Parser {
         }
     }
 
+    /**
+     * JAVADOC COMMENT.
+     */
     public static String[] splitAndCheck(String str, String regex) throws DukeException {
         String[] part = str.split(regex, 2);
         checkLength(part); //Throws DukeException
