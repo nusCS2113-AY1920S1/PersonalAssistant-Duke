@@ -1,6 +1,4 @@
-Welcome to T12-4 project!
-
-We are helping IT savvy private home chef to manage all the bookings!
+* ChefDuke is an administrative booking management system suitable for private home chef who is familiar with and prefer using the command line for managing the administrative tasks of their business.
 
 # Booking List
 
