@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String FILE_PATH = "/home/tessa/Documents/CS2113/main/src/main/data/duke.txt";
+    private static String FILE_PATH = "src/main/data/duke.txt";
 
     public Storage() {}
     public Storage(String filePath) {
@@ -37,6 +37,9 @@ public class Storage {
                     listContent.add(t);
                 } else if (data[0].equals("R ")) {
                     Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
+                    listContent.add(t);
+                } else if (data[0].equals("F ")) {
+                    FixedDuration t = new FixedDuration(data[2], data[3], data[1].contains("1"));
                     listContent.add(t);
                 }
                 line = br.readLine();

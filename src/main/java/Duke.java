@@ -49,7 +49,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("/home/tessa/Documents/CS2113/main/src/main/data/duke.txt").run();
+        new Duke("src/main/data/duke.txt").run();
     }
 }
 

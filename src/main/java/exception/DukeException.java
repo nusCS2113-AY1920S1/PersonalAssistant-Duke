@@ -18,6 +18,8 @@ public class DukeException extends Exception {
         FORMAT_RECURRING,
         FORMAT_RECURRING_DATE,
         FORMAT_VIEW,
+        INVALID_DATE_TIME,
+        FORMAT_FIXED,
     }
 
     public DukeException(ErrorType e) {
@@ -39,6 +41,8 @@ public class DukeException extends Exception {
             case FORMAT_RECURRING: System.out.println("     ☹ OOPS: Expected format: \"recurring [description of task] /every\""); break;
             case FORMAT_RECURRING_DATE: System.out.println("     ☹ OOPS: Recurring task cannot have a specific date"); break;
             case FORMAT_VIEW: System.out.println("     ☹ OOPS: Expected format: \"view DD/MM/YYYY"); break;
+            case INVALID_DATE_TIME: System.out.println("     ☹ OOPS: Your input date and time is not correct"); break;
+            case FORMAT_FIXED: System.out.println("     ☹ OOPS: Expected format: \"fixed [description of task] /take\n         HHMM"); break;
         }
     }
 }
