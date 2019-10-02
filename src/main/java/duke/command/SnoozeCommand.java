@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
  */
 public class SnoozeCommand extends Command {
 
-    int taskNumber;
-    LocalDateTime tillValue;
+    private int taskNumber;
+    private LocalDateTime tillValue;
 
     /**
      * Takes in a flag to represent if it should exit and the input given by the User.
@@ -26,7 +26,6 @@ public class SnoozeCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         super.execute(taskList, ui, storage);
-        ui.output = TaskList.getTask(taskNumber).toString();
         if (TaskList.getTask(taskNumber).toString().contains("[D]")) {
             ((Deadline)TaskList.getTask(taskNumber)).setBy(tillValue);
         } else if (TaskList.getTask(taskNumber) instanceof Event) {
@@ -34,5 +33,6 @@ public class SnoozeCommand extends Command {
         } else {
             throw new DukeException("Cannot snooze a ToDo task");
         }
+        ui.output = TaskList.getTask(taskNumber).toString();
     }
 }

@@ -5,6 +5,7 @@ import duke.command.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -54,7 +55,10 @@ public class Parser {
             LocalDateTime tillValue = LocalDateTime.parse(till, formatter);
             return new SnoozeCommand(false, input, taskNumber, tillValue);
         } catch (DateTimeParseException e) {
-            throw new DukeException("OOPS!!! Please format your date and time in \n this format \"20/12/2019 1859\"");
+            throw new DukeException("OOPS!! Please format your date and time in \n this format dd/mm/yyyy hhmm");
+        } catch (NoSuchElementException e) {
+            throw new DukeException("OOPS!! Please enter command in this format\n" +
+                    "snooze <task number> <dd/mm/yyyy hhmm");
         }
     }
 }
