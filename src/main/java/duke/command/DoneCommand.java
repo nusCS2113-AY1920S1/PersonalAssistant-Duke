@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
@@ -34,7 +35,7 @@ public class DoneCommand extends Command {
      *                  is not within the current range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeInvalidIndexException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeInvalidIndexException {
         if (index >= tasks.getTasks().size() || index < 0) {
             throw new DukeInvalidIndexException();
         } else {
