@@ -45,6 +45,11 @@ public class PriorityList {
         return new PriorityList(priorityList);
     }
 
+
+    public void remove(int index) {
+        priorityList.remove(index);
+    }
+
     /**
      * Get user input for the priority of a task.
      *

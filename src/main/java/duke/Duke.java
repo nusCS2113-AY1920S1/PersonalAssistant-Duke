@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
 import duke.dukeexception.DukeException;
@@ -108,12 +109,16 @@ public class Duke {
 
         while (true) {
             sentence = ui.readCommand();
+
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
+                    storage.write(items);
                     break;
                 } else if (cmd instanceof ListPriorityCommand) {
+                    cmd.execute(items, priorityList, ui);
+                } else if (cmd instanceof DeleteCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else {
                     cmd.execute(items,ui);
