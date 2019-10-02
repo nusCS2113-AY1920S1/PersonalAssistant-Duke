@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import a.i.P;
 import seedu.duke.client.Http;
 import seedu.duke.client.SimpleServer;
 import seedu.duke.command.Command;
@@ -17,6 +18,7 @@ public class Duke {
     private static TaskList taskList;
     private static EmailList emailList;
     private static UI ui;
+    private static Parser parser;
 
     /**
      * The main function of the program, which is the entry point.
@@ -25,6 +27,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         ui = new UI();
+        parser = new Parser();
         ui.setDebug(true);
         Http.getAuth();
         run();
@@ -51,11 +54,11 @@ public class Duke {
         emailList = EmailStorage.readEmails();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        Command command = Parser.parseCommand(input);
+        Command command = parser.parseCommand(input);
         while (!(command instanceof ExitCommand)) {
             command.execute();
             input = scanner.nextLine();
-            command = Parser.parseCommand(input);
+            command = parser.parseCommand(input);
         }
         Storage.saveTasks(taskList);
         EmailStorage.saveEmails(emailList);
@@ -64,7 +67,7 @@ public class Duke {
 
     public String getResponse(String input) {
         try {
-            Command command = Parser.parseCommand(input);
+            Command command = parser.parseCommand(input);
             return command.toString();
         } catch (Exception e) {
             return e.getMessage();

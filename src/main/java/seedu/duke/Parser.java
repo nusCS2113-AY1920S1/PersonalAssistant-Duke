@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import a.i.P;
 import seedu.duke.command.AddCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.DeleteCommand;
@@ -7,6 +8,7 @@ import seedu.duke.command.DoAfterCommand;
 import seedu.duke.command.DoneCommand;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.command.FindCommand;
+import seedu.duke.command.FlipCommand;
 import seedu.duke.command.InvalidCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.command.ReminderCommand;
@@ -25,6 +27,26 @@ import java.util.Date;
  * that is used across the project to handle the unexpected user input.
  */
 public class Parser {
+
+    public enum InputType {
+        TASK,
+        EMAIL
+    }
+
+    private static InputType inputType;
+
+    public Parser() {
+        this.inputType = InputType.TASK;    // default input type when initiating the program.
+    }
+
+    public static InputType getInputType() {
+        return inputType;
+    }
+
+    public static void setInputType(InputType inputType) {
+        this.inputType = inputType;
+    }
+
     /**
      * Parses the user/file input as command. It returns a command that is not yet executed. It also needs to
      * get a UI from Duke to display the messages.
@@ -36,7 +58,9 @@ public class Parser {
         UI ui = Duke.getUI();
         TaskList taskList = Duke.getTaskList();
         EmailList emailList = Duke.getEmailList();
-        if (input.equals("bye")) {
+        if (input.equals("flip")) {
+            return new FlipCommand(inputType);
+        } if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand(taskList);
