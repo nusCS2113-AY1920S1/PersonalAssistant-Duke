@@ -1,4 +1,5 @@
 = Duke Pro
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
