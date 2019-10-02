@@ -177,6 +177,15 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
             break;
+        case "confirm":
+            try {
+                consoleView.confirmTentativeTask(taskList, input);
+            } catch (ClassCastException e) {
+                System.out.println("This task is already confirmed!");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please input an available index!");
+            }
+            break;
         case "period":
             try {
                 PeriodTask newPeriodTask = periodTaskFactory.createTask(input);
@@ -191,6 +200,7 @@ public class ConsoleInputController implements IViewController {
         case "todo":
         case "deadline":
         case "doafter":
+        case "tentative":
             try {
                 ITask newTask = taskFactory.createTask(input);
                 boolean anomaly = taskList.addToList(newTask);
