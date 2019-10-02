@@ -1,6 +1,5 @@
 package duke.Data;
 
-
 import Menu.ManageStudents;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
@@ -181,7 +180,9 @@ public class Parser {
             break;
 
         /**
-         * Command should be in form schedule view-day|month|year.
+         * View: schedule view-week|schedule view-month|schedule view-day 2
+         * Add: schedule add 2/10/2019 1500 2/10/2019 1600 pool Swimming
+         * Delete: schedule delete Swimming
          */
         case "schedule":
             if (word[1].equals("view-week")) {
