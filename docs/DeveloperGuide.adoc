@@ -468,8 +468,32 @@ Several use cases are shown. For all use cases below, System is Hustler, Actor i
 - Use case ends.
 
 ----
-
 ---
+=== 12. Use case: Sort tasks by priority
+
+==== MSS
+
+----
+
+1. User type in command to see tasks listed out based on priority. 
+
+2. Hustler shows tasks that are listed in decreasing order of priority.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The task list is empty.
+
+- 1a1. Hustler displays an error message, prompting User to first add a task.
+
+- Use case ends.
+
+----
 == Appendix D: Non Functional Requirements
 
 Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
