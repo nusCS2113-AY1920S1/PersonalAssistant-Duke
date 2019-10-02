@@ -24,7 +24,7 @@ have. 1 star (★) is unlikely to have.
 [width="90"]
 |===
 
-| Cell in column 1, row 1 | Cell in column 2, row 1
+| Priority | As a... | I want to... | So that I can...
 
 | Cell in column 1, row 2 | Cell in column 2, row 2
 
