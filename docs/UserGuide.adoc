@@ -67,9 +67,9 @@ If it does, you have successfully run D2 on your machine!
 === Getting Used to D2
 Here are some other examples of commands you can try to get used to D2:
 
-* *`list`* : lists all tasks you have saved to it
-* **`event`**`University Talk at/25-09-2019 2359` : adds an event named `University Talk` to the Address Book.
-* **`delete`**`3` : deletes the 3rd task shown in the current list
+* *`list`* : lists all items in the current list
+* **`event`**`University Talk at/25-09-2019 2359` : adds an event named `University Talk` to the task list.
+* **`delete`**`3` : deletes the 3rd item shown in the current list
 * *`bye`* : exits the app
 
 .  Fore more detailed instructions and a full list of commands, refer to <<Features>>.
@@ -88,6 +88,7 @@ Here are some other examples of commands you can try to get used to D2:
 
 === Viewing Helpful Commands : `help`
 To view a full list of possible commands that D2 understands, you can call the help command.
+
 Format: `help`
 
 
@@ -99,7 +100,7 @@ Format: `detail DEGREE|MODULE`
 [TIP]
 The search is case insensitive. e.g `ceg` will match `CEG`
 
-Examples:
+Example:
 
 `detail CEG`
 
@@ -113,6 +114,8 @@ Links
 ...
 ----
 
+Example:
+
 `detail CS1010`
 
 Returns: 
@@ -123,9 +126,9 @@ Resources:
 ...
 ----
 
-=== Comparing differences between 2 degrees: `diff`
+=== Comparing differences between two degrees: `diff`
 
-Lists the differences between 2 degree programs given their keywords. +
+Lists the differences between two degree programs given their keywords. +
 Format: `diff DEGREE DEGREE`
 
 
@@ -136,7 +139,7 @@ Format: `diff DEGREE DEGREE`
 * This is followed by a list of modules which are different, shown in split view.
 ****
 
-Examples:
+Example:
 
 `diff CEG EE`
 
@@ -154,7 +157,7 @@ EE2027
 ----
 
 
-=== Adding a degree into your list: `add`
+=== Adding a degree into your degree list: `add`
 
 To add a newly chosen degree programme into your personalised degree list, use the command add.
 The format of the add command is as follows:
@@ -169,17 +172,17 @@ Examples:
 * `add CEG`
 * `add BME [t/tentative]`
 
-=== Listing all degrees in your list : `list`
+=== Listing all degrees in your degree list : `degreelist`
 
 Shows a list of all degrees in the list currently. +
-Format: `list`
+Format: `degreelist`
 
-=== Swapping degree in the list: `swap`
+=== Swapping degree in your degree list: `swap`
 
 Swaps the position of two degrees in the list currently. +
 Format `swap INDEX INDEX`
 
-=== Replacing a degree in the list : `replace`
+=== Replacing a degree in your degree list : `replace`
 
 Replaces an existing degree in the list with a new one. +
 Format: `replace INDEX NEWDEGREE`
@@ -198,23 +201,23 @@ Replaces whatever degree is in index 2 of the list with the new degree Electrica
 
 
 // tag::delete[]
-=== Deleting a degree in the list : `delete`
+=== Deleting an item in the current list : `delete`
 
-Deletes the specified degree from the list. +
+Deletes the specified item from the list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the task at the specified `INDEX`.
+* Deletes the item at the specified `INDEX`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `delete 2` +
-Deletes the 2nd degree in the list.
+Deletes the 2nd item in the list.
 
 // end::delete[]
-=== Clearing all entries in the list: `clear`
+=== Clearing all entries in the current list: `clear`
 
 Clears all degrees from the list. +
 Format: `clear`
@@ -225,8 +228,10 @@ User can customize a word to be evaluated as a phrase to be executed with additi
 Format: `custom KEYWORD KEYPHRASE`
 
 Examples:
+
 * `custom s2 swap 1 2` +
-When `s2` is called, `swap 1 2` is returned and executed. +
+When `s2` is called, `swap 1 2` is returned and executed.
+
 * `custom cC diff CEG` +
 When `cC EE` is called, `diff CEG EE` is returned and executed.
 
