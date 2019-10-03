@@ -132,33 +132,33 @@ public class Duke {
                             replyType = ReplyType.others;
                         }
                         switch (replyType) {
-                            case yes:
-                                ui.promptForDuration();
-                                TimeUnit timeUnit = parser.getTimeUnit();
-                                ui.promptForTime();
-                                int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration, timeUnit);
-                                taskList.add(fixedDuration);
-                                Timer timer = new Timer();
-                                class RemindTask extends TimerTask {
-                                    public void run() {
-                                        System.out.println(ar[0] + " is completed");
-                                        timer.cancel();
-                                    }
+                        case yes:
+                            ui.promptForDuration();
+                            TimeUnit timeUnit = parser.getTimeUnit();
+                            ui.promptForTime();
+                            int duration = parser.getAmount();
+                            FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration, timeUnit);
+                            taskList.add(fixedDuration);
+                            Timer timer = new Timer();
+                            class RemindTask extends TimerTask {
+                                public void run() {
+                                    System.out.println(ar[0] + " is completed");
+                                    timer.cancel();
                                 }
-                                RemindTask rt = new RemindTask();
-                                switch (timeUnit) {
-                                    case hours:
-                                        timer.schedule(rt, duration * 1000 * 60 * 60);
-                                        break;
-                                    case minutes:
-                                        timer.schedule(rt, duration * 1000 * 60);
-                                        break;
-                                    case seconds:
-                                        timer.schedule(rt, duration * 1000);
-                                        break;
-                                }
-                                ui.showAdd();
+                            }
+                            RemindTask rt = new RemindTask();
+                            switch (timeUnit) {
+                            case hours:
+                                timer.schedule(rt, duration * 1000 * 60 * 60);
+                                break;
+                            case minutes:
+                                timer.schedule(rt, duration * 1000 * 60);
+                                break;
+                            case seconds:
+                                timer.schedule(rt, duration * 1000);
+                                break;
+                            }
+                            ui.showAdd();
                             break;
                             case no:
                                 if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
@@ -191,22 +191,22 @@ public class Duke {
                             recurType = RecurTaskType.others;
                         }
                         switch (recurType) {
-                            case list:
-                                recurHandler.listRecurring();
-                                break;
-                            case find:
-                                recurHandler.findRecurring(parser.getKey());
-                                break;
-                            case exit:
-                                isExitRecur = true;
-                                ui.showExit();
-                                break;
-                            case add:
-                                recurHandler.addBasedOnOperation();
-                                break;
-                            default:
-                                ui.showCommandError();
-                                break;
+                        case list:
+                            recurHandler.listRecurring();
+                            break;
+                        case find:
+                            recurHandler.findRecurring(parser.getKey());
+                            break;
+                        case exit:
+                            isExitRecur = true;
+                            ui.showExit();
+                            break;
+                        case add:
+                            recurHandler.addBasedOnOperation();
+                            break;
+                        default:
+                            ui.showCommandError();
+                            break;
                         }
                     }
                     isExitRecur = false;

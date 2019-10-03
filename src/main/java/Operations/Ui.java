@@ -125,7 +125,6 @@ public class Ui {
 
     /**
      * Tells the user that they are in recurring mode to add or perform operations on recurring tasks
-     *
      */
     public void promptRecurringActions() {
         System.out.println("You have accessed Recurring Mode");
