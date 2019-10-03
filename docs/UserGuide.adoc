@@ -147,7 +147,7 @@ Examples:
 Sort the list by date in ascending or descending order. +
 Format: +
 `*sort* /date ascending` +
-`*sort*`/date descending`
+`*sort* /date descending`
 
 Example:
 
