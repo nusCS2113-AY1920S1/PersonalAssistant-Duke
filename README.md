@@ -32,7 +32,7 @@ Currently, this project only contains a task manager. We are currently in the pr
 
 ## UI Mock-ups
 
-![UI](docs/images/UI.png)
+![UI](docs/images/Ui.png)
 
 ![UI help](docs/images/UIhelp.png)
 
