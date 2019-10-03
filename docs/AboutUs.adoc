@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images/profile
+:imagesDir: images
 :stylesDir: stylesheets
 
 Cube is a collaborative project developed by Team CS2113T-F09-2 of the Module CS2113T, in Academic Year 2019/20 Semester 1, School of Computing (SoC), NUS (National University of Singapore).
@@ -17,7 +17,7 @@ Role: Developer
 '''
 
 === Ye Guoquan
-image::tygq13.jpg[width="150", align="left"]
+image::tygq13.png[width="150", align="left"]
 {empty}[http://github.com/tygq13[github]]
 
 Role: Developer
@@ -33,7 +33,7 @@ Role: Developer
 '''
 
 === Zheng Kaining
-image::ZKathrynx.jpg[width="150", align="left"]
+image::ZKathrynx.png[width="150", align="left"]
 {empty}[http://github.com/ZKathrynx[github]]
 
 Role: Developer
@@ -41,7 +41,7 @@ Role: Developer
 '''
 
 === Parvathi Ranjith Menon
-image::parvathi14.jpg[width="150", align="left"]
+image::parvathi14.png[width="150", align="left"]
 {empty}[http://github.com/parvathi14[github]]
 
 Role: Developer
