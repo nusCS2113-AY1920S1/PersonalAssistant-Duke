@@ -1,6 +1,6 @@
-package MoneyCommands;
+package moneycommands;
 
-import Money.Account;
+import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Storage;
 import controlpanel.Ui;
