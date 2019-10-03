@@ -29,7 +29,7 @@ Responsibilities: Regular Expression Matching
 '''
 
 === Yan Zhiwen
-image::JokerYan.png[width="150", align="left"]
+image::jokeryan.png[width="150", align="left"]
 {empty}[http://github.com/JokerYan[github]] [<<JokerYan#, portfolio>>]
 
 Role: Developer +
