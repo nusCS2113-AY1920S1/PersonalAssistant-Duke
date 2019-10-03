@@ -101,6 +101,7 @@ public class EmailStorage {
      */
     public static void saveEmails(EmailList emailList) {
         try {
+            prepareFolder();
             String folderDir = getFolderDir();
             String indexDir = getSaveEmailDir();
             File indexFile = new File(indexDir);
@@ -166,8 +167,6 @@ public class EmailStorage {
         return syncedEmailList;
     }
 
-    //
-
     /**
      * Get emailList according to html files present in local storage.
      * This method is not being used, but may be useful someday so it is kept here.
@@ -187,6 +186,15 @@ public class EmailStorage {
         return emailList;
     }
 
+    private static void prepareFolder() throws IOException {
+        File emailFolder = new File(getFolderDir());
+        if (!emailFolder.exists()) {
+            emailFolder.mkdir();
+        }
+        File indexFile = new File(getSaveEmailDir());
+        indexFile.createNewFile();
+    }
+
     /**
      * Get emailList according to previously saved information about emails from the data/email.txt at the
      * start of the app.
@@ -196,6 +204,7 @@ public class EmailStorage {
     public static EmailList readEmailFromFile() {
         EmailList emailList = new EmailList();
         try {
+            prepareFolder();
             String dir = getSaveEmailDir();
             FileInputStream in;
             File file = new File(dir);
