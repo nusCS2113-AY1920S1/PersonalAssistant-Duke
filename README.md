@@ -1,11 +1,9 @@
 # Eggventory Systems Ltd.
 
 ## Introduction
-
-
-
-
-
+<p align="center">
+    <img src="./docs/images/ui.png" width="400" height="349">
+</p>
 
 ## Project scope
 
