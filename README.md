@@ -1,6 +1,6 @@
 # Duke 2.0
 
-A java program for those who prefer to use a desktop app for researching on degrees from NUS' Faculty of Engineering. 
+A java program for prospective applicants who prefer to use a desktop app for researching on degrees from NUS' Faculty of Engineering. 
 
 ## Features
 * Scrapes course information from the NUS database
@@ -36,3 +36,4 @@ Currently, this project only contains a task manager. We are currently in the pr
 
 ## Contributers
 
+[About Us](docs/AboutUs.adoc)
