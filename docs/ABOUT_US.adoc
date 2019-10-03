@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === VASAVADA TEJAS SUDHIR
-
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/tejasvas123.png[width="250"]
 {empty}[https://github.com/Tejasvas123[GitHub]]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Responsibilities: Integration + UI
 '''
 
 === ALVAREZ NICOLE KEVIN TIMBOL
-
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/kevinalvarez7.png[width="250"]
 {empty}[https://github.com/KevinAlvarez7[GitHub]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Code Quality + Storage
 '''
 
 === WANG ZICONG
-
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/swang1997.png[width="250"]
 {empty}[https://github.com/swang1997[GitHub]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Documentation + Testing
 '''
 
 === ZHU BO
-
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/zhubo225.png[width="250"]
 {empty}[https://github.com/Zhubo225[GitHub]]
 
 Role: Developer +
