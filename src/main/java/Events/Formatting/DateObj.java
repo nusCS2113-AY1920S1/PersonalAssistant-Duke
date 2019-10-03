@@ -25,6 +25,7 @@ public class DateObj {
      */
     public DateObj(String splitDate) {
     	this.splitDate = splitDate;
+    	formatDate();
     }
 
     public void formatDate() {
