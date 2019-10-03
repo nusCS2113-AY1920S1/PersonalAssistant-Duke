@@ -13,7 +13,7 @@ import eggventory.enums.CommandType;
 import eggventory.items.Stock;
 
 /**
- * Handles reading and writing the tasklist to file.
+ * Handles reading and writing the stockList to file.
  */
 
 public class Storage {

@@ -7,8 +7,8 @@ import eggventory.enums.CommandType;
 import eggventory.items.Stock;
 
 /**
- * Command objects for marking tasks as done, or deleting them.
- * Requires the index of the task.
+ * Command objects for deleting stocks.
+ * Requires the index (as listed by the system) of the stock. //TODO: Change this to the stock code.
  */
 public class DeleteCommand extends Command {
 
@@ -24,11 +24,11 @@ public class DeleteCommand extends Command {
         try {
             Stock item = list.getStock(itemIndex);
             list.deleteStock(itemIndex);
-            ui.print("Okay! I've deleted this task:\n" + item.toString());
+            ui.print("Okay! I've deleted this stock:\n" + item.toString());
 
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
-                    + " the available tasks again: ");
+            throw new IndexOutOfBoundsException("That stock doesn't exist! Please check"
+                    + " the available stocks again: ");
         }
     }
 }

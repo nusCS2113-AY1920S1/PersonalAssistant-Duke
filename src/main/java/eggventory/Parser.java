@@ -11,7 +11,7 @@ import eggventory.exceptions.BadInputException;
 import eggventory.enums.CommandType;
 
 /**
- * Interprets command strings by the user, and converts them to command objects that can be executed. 
+ * Interprets command strings by the user, and converts them to command objects that can be executed.
  */
 public class Parser {
 

@@ -1,11 +1,8 @@
 package eggventory;
 
-import java.util.Date;
-import java.util.Calendar;
 import java.util.ArrayList;
 import eggventory.exceptions.BadInputException;
 import eggventory.items.Stock;
-import eggventory.enums.TaskType;
 
 /**
  * Manages the list of (different types of classes),
@@ -24,10 +21,18 @@ public class StockType {
         stockList = new ArrayList<>();
     }
 
+    /**
+     * Returns the entire stockList.
+     * @return the stockList.
+     */
     public ArrayList<Stock> getStockList() {
         return stockList;
     }
 
+    /**
+     * Gets the number of stocks in the stockList.
+     * @return the number of stocks in the stockList.
+     */
     public int getSize() {
         return stockList.size();
     }
@@ -41,12 +46,17 @@ public class StockType {
         return true;
     }
 
+    /**
+     * Returns a stock of the user's choice.
+     *
+     * @param i the index of the stock selected.
+     */
     public Stock getStock(int i) {
         return stockList.get(i);
     }
 
     /**
-     * Deletes a task of the user's choice.
+     * Deletes a stock of the user's choice.
      *
      * @param i the index of the task to be deleted.
      */
