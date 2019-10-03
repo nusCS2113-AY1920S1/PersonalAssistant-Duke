@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.command.ExecuteShortcutCommand;
+import duke.command.ExecuteShortcut;
 import duke.entities.Order;
 import duke.entities.Sale;
 import duke.entities.recipe.Recipe;
@@ -14,7 +14,7 @@ public class BakingList {
 
     private List<Order> orderList = new ArrayList<>();
     private List<Sale> saleList = new ArrayList<>();
-    private Map<String, ExecuteShortcutCommand> shortcuts = new HashMap<>();
+    private Map<String, ExecuteShortcut> shortcuts = new HashMap<>();
 
     private List<Recipe> recipeList = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class BakingList {
         this.saleList = saleList;
     }
 
-    public Map<String, ExecuteShortcutCommand> getShortcuts() {
+    public Map<String, ExecuteShortcut> getShortcuts() {
         return shortcuts;
     }
 
@@ -46,7 +46,7 @@ public class BakingList {
         this.recipeList = recipeList;
     }
 
-    public void setShortcuts(Map<String, ExecuteShortcutCommand> shortcuts) {
+    public void setShortcuts(Map<String, ExecuteShortcut> shortcuts) {
         this.shortcuts = shortcuts;
     }
 }

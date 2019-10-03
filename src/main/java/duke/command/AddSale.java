@@ -10,11 +10,11 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class AddSaleCommand extends UndoableCommand {
+public class AddSale implements Undoable {
     private Map<String, List<String>> params;
     private Sale sale;
 
-    public AddSaleCommand(Map<String, List<String>> params) throws DukeException {
+    public AddSale(Map<String, List<String>> params) throws DukeException {
         this.params = params;
     }
 

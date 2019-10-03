@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.command.Command;
-import duke.command.OrderCommand;
+import duke.command.order.OrderCommand;
 import duke.commons.Message;
 import duke.parser.exceptions.ParseException;
 import duke.parser.order.OrderCommandParser;

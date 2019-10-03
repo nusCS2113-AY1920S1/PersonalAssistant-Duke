@@ -3,7 +3,7 @@ package duke.logic;
 import duke.command.Command;
 import duke.command.RedoCommand;
 import duke.command.UndoCommand;
-import duke.command.UndoableCommand;
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
@@ -16,8 +16,8 @@ import java.util.List;
  * Manager class of commands. An undo stack and redo stack is managed by CommandManager.
  */
 public class CommandManager {
-    private List<UndoableCommand> undoStack = new ArrayList<>();
-    private List<UndoableCommand> redoStack = new ArrayList<>();
+    private List<Undoable> undoStack = new ArrayList<>();
+    private List<Undoable> redoStack = new ArrayList<>();
     private BakingList bakingList;
     private Storage storage;
     private Ui ui;
@@ -40,8 +40,8 @@ public class CommandManager {
             redo();
         } else {
             command.execute(bakingList, storage, ui);
-            if (command instanceof UndoableCommand) {
-                undoStack.add((UndoableCommand) command);
+            if (command instanceof Undoable) {
+                undoStack.add((Undoable) command);
             }
         }
     }

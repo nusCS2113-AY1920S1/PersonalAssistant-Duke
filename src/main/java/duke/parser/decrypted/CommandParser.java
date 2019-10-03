@@ -1,8 +1,7 @@
 package duke.parser.decrypted;
 
-import duke.command.*;
+import duke.command.Command;
 import duke.command.recipe.AddRecipeCommand;
-import duke.command.recipe.DeleteRecipeCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.entities.Sale;
@@ -14,22 +13,22 @@ import java.util.Map;
 
 public class CommandParser {
 
-    public static Command parseSaleAdd(Map<String, List<String>> params) throws DukeException {
-        return new AddSaleCommand(params);
-    }
-
-
-    public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
-        return new DeleteSaleCommand(params);
-    }
-
-    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
-        return new EditOrderCommand(params);
-    }
-
-    public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
-        return new EditSaleCommand(params);
-    }
+//    public static Command parseSaleAdd(Map<String, List<String>> params) throws DukeException {
+//        return new AddSaleCommand(params);
+//    }
+//
+//
+//    public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
+//        return new DeleteSaleCommand(params);
+//    }
+//
+//    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
+//        return new EditOrderCommand(params);
+//    }
+//
+//    public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
+//        return new EditSaleCommand(params);
+//    }
 
     public static void modifyOrdrer(Map<String, List<String>> params, Order order) throws DukeException {
         if (params.containsKey("name")) {
@@ -90,9 +89,9 @@ public class CommandParser {
 
 
     //////////////////////////////////////////////////////////////////////////////////
-    public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
-        return new DeleteRecipeCommand(params);
-    }
+//    public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
+//        //return new DeleteRecipeCommand(params);
+//    }
 
     public static Command parseRecipeAdd(Map<String, List<String>> params) {
         return new AddRecipeCommand(params);

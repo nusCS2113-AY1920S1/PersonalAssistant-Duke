@@ -1,6 +1,9 @@
 package duke.parser.decrypted;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ExecuteShortcut;
+import duke.command.RedoCommand;
+import duke.command.UndoCommand;
 import duke.commons.DukeException;
 import duke.commons.Message;
 
@@ -36,10 +39,10 @@ public class OldParser {
      * @return the command from user input.
      * @throws DukeException if input is not valid command or command parameters are invalid.
      */
-    public static Command getCommand(String line, Map<String, ExecuteShortcutCommand> shortcuts) throws DukeException {
+    public static Command getCommand(String line, Map<String, ExecuteShortcut> shortcuts) throws DukeException {
 
         if (shortcuts.containsKey(line.strip())) {
-            return shortcuts.get(line.strip());
+            //return shortcuts.get(line.strip());
         }
 
         Map<String, List<String>> params = parseCommandAndParams(line);
@@ -53,7 +56,7 @@ public class OldParser {
             case COMMAND_REDO:
                 return parseRedo(line);
             case COMMAND_SHORTCUT:
-                return new SetShortcutCommand(line);
+                //return new SetShortcutCommand(line);
             default:
                 throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -153,9 +156,9 @@ public class OldParser {
             case COMMAND_ORDER_DELETE:
                 //return CommandParser.parseOrderDelete(params);
             case COMMAND_ORDER_EDIT:
-                return CommandParser.parseOrderEdit(params);
+                //return CommandParser.parseOrderEdit(params);
             case COMMAND_ORDER_COMPLETE:
-                return new CompleteOrderCommand(params);
+                //return new CompleteOrderCommand(params);
             default:
                 throw new DukeException("Invalid command");
         }

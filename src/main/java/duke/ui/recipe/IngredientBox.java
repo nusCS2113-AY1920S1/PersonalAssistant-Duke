@@ -5,9 +5,8 @@ import duke.ui.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
@@ -35,7 +34,7 @@ public class IngredientBox extends AnchorPane {
         ingredient.init();
         this.ingredient = ingredient;
         this.ingredientName.setText(ingredient.getName());
-        this.ingredientPic.setImage(ingredient.getPicture());
+        //this.ingredientPic.setImage(ingredient.getPicture());
         this.ingredientPic.setFitHeight(50);
         this.ingredientPic.setPreserveRatio(true);
     }
