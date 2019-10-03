@@ -26,9 +26,12 @@ public class DeleteCommand extends Command {
             list.deleteStock(itemIndex);
             ui.print("Okay! I've deleted this stock:\n" + item.toString());
 
+            storage.save(list.getStockList());
+
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("That stock doesn't exist! Please check"
                     + " the available stocks again: ");
         }
+
     }
 }
