@@ -73,11 +73,10 @@ public class Ui {
     }
 
     /**
-     * Prints out message.
-     * @param s String to be printed
+     * Prints out response from command.
      */
-    public void showMessage(String s) {
-        System.out.println(s);
+    public void showResponse() {
+        System.out.println(this.output);
     }
 
     /**
