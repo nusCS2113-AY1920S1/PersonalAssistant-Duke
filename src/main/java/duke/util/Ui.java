@@ -74,18 +74,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints reminders for upcoming tasks.
-     * @param upcomingTasksList Task list containing tasks to be reminded of.
-     */
-    public void printUpcomingTasks(List<Task> upcomingTasksList) {
-        if (upcomingTasksList.size() > 0) {
-            System.out.println(LINE + "You have " + upcomingTasksList.size() + " upcoming tasks!\nHere's the list:");
-            this.printTaskList(upcomingTasksList);
-            System.out.println(LINE);
-        }
-    }
-
     public void printTask(Task task) {
         System.out.println(task);
     }

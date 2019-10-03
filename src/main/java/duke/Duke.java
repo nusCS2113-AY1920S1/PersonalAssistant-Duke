@@ -2,9 +2,8 @@ package duke;
 
 import duke.command.Command;
 import duke.exceptions.DukeException;
-import duke.exceptions.DukeTimeIntervalTooCloseException;
+import duke.util.DukeParser;
 import duke.util.ParserWrapper;
-import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -13,12 +12,11 @@ public class Duke {
     /**
      * Classes used for storage of data
      * Ui output and inputs and current
-     * active tasks in TaskList and reminder.
+     * active tasks in TaskList.
      */
     private Storage store;
     private Ui ui;
     private TaskList tasks;
-    private Reminder reminder;
     private ParserWrapper parser;
 
     /**
@@ -39,18 +37,12 @@ public class Duke {
     private void run() {
         ui.helloMsg();
         boolean isExit = false;
-        try {
-            reminder = new Reminder(tasks.getTasks());
-            reminder.run();
-        } catch (DukeTimeIntervalTooCloseException e) {
-            System.out.println(e.getMessage());
-        }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, store, reminder);
+                c.execute(tasks, ui, store);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
@@ -37,8 +36,7 @@ public class DeleteCommand extends Command {
      *              is not within the current range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws
-            DukeInvalidIndexException, DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeInvalidIndexException, DukeEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (index < 0 || index >= tasks.getTasks().size()) {
             throw new DukeInvalidIndexException();
