@@ -1,11 +1,16 @@
 package duke.command;
 
-import duke.task.*;
+import duke.task.DukeException;
+import duke.task.Storage;
+import duke.task.TaskList;
+import duke.task.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.time.LocalDateTime;
 
 /**
- * Represents a command to snooze a command
+ * Represents a command to snooze a command.
  */
 public class SnoozeCommand extends Command {
 

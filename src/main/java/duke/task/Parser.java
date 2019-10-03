@@ -1,6 +1,20 @@
 package duke.task;
 
-import duke.command.*;
+import duke.command.AddDeadLineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.Command;
+import duke.command.MarkTaskAsDoneCommand;
+import duke.command.ListTaskCommand;
+import duke.command.FindTaskCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ViewSchedule;
+import duke.command.AddFixedDurationCommand;
+import duke.command.AddDoAfterCommand;
+import duke.command.AddDoWithinPeriodCommand;
+import duke.command.SnoozeCommand;
+import duke.command.ExitCommand;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -62,8 +76,8 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new DukeException("OOPS!! Please format your date and time in \n this format dd/mm/yyyy hhmm");
         } catch (NoSuchElementException e) {
-            throw new DukeException("OOPS!! Please enter command in this format\n" +
-                    "snooze <task number> <dd/mm/yyyy hhmm");
+            throw new DukeException("OOPS!! Please enter command in this format\n"
+                    + "snooze <task number> <dd/mm/yyyy hhmm");
         }
     }
 }
