@@ -46,27 +46,6 @@ public class Duke {
     }
 
     /**
-     * Returns the response to the GUI when given an input by a user.
-     * @param input Input given by user in the GUI
-     * @return String Response to display on GUI by the bot.
-     */
-    protected String getResponse(String input) {
-        String response;
-        boolean isExit = false;
-        try {
-            Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
-            isExit = c.isExit;
-            if (isExit) {
-                return ui.showGoodByeMessage();
-            }
-            return ui.printToGui();
-        } catch (DukeException e) {
-            return ui.printException(e);
-        }
-    }
-
-    /**
      * Runs Duke.
      * @param args Argument values given when running the program
      */
