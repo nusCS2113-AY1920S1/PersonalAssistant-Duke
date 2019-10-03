@@ -37,7 +37,7 @@ Team Members:
 # Documentation
 
 * [User Guide](docs/UserGuide.adoc)
-* [Developer's Guide](docs/DevelopersGuide.adoc)
+* [Developer's Guide](docs/DeveloperGuide.adoc)
 
 # Resources
 - https://discuss.gradle.org/t/testfx-headless-java-options-from-cli-not-used-running-the-tests/28197
