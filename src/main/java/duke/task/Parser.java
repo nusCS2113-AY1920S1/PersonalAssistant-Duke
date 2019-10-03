@@ -3,16 +3,24 @@ package duke.task;
 import duke.command.AddDeadLineCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddToDoCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.FindTaskCommand;
-import duke.command.ListTaskCommand;
-import duke.command.MarkTaskAsDoneCommand;
 import duke.command.Command;
+import duke.command.MarkTaskAsDoneCommand;
+import duke.command.ListTaskCommand;
+import duke.command.FindTaskCommand;
+import duke.command.DeleteTaskCommand;
 import duke.command.ViewSchedule;
-import duke.command.AddDoWithinPeriodCommand;
 import duke.command.AddFixedDurationCommand;
 import duke.command.AddDoAfterCommand;
+import duke.command.AddDoWithinPeriodCommand;
+import duke.command.SnoozeCommand;
+import duke.command.ExitCommand;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 
 /**
  * Takes in a string and parses it to return a valid command to be ran.
@@ -41,6 +49,8 @@ public class Parser {
             return new DeleteTaskCommand(false, input);
         } else if (input.startsWith("view")) {
             return new ViewSchedule(false, input);
+        } else if (input.startsWith("snooze")) {
+            return parseSnooze(input);
         } else if (input.startsWith("fixed ")) {
             return new AddFixedDurationCommand(false, input);
         } else if (input.startsWith("dowithin ")) {
@@ -51,6 +61,23 @@ public class Parser {
             return new ExitCommand(true, "");
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private static Command parseSnooze(String input) throws DukeException {
+        Scanner scanner = new Scanner(input);
+        scanner.next();
+        try {
+            int taskNumber = scanner.nextInt() - 1;
+            String till = scanner.nextLine().trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime tillValue = LocalDateTime.parse(till, formatter);
+            return new SnoozeCommand(false, input, taskNumber, tillValue);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("OOPS!! Please format your date and time in \n this format dd/mm/yyyy hhmm");
+        } catch (NoSuchElementException e) {
+            throw new DukeException("OOPS!! Please enter command in this format\n"
+                    + "snooze <task number> <dd/mm/yyyy hhmm");
         }
     }
 }
