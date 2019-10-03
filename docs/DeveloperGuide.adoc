@@ -127,5 +127,44 @@ There are three main components in the overall architecture of the application.
 
 `UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
 
+== Instructions for Manual Testing
+
+=== Launch and Shutdown
+. Initial Launch
+.. Open Duke.java in src.
+.. Run the file +
+   Expected: The Welcome Message is printed in stdout and the system requests for an input.
+   
+. Shutdown
+.. Key in 'bye' as input. +
+   Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in stdout and the process exits.
+
+=== Obtain the list of items currently in stored in the system
+. Key in 'list' as input +
+  Expected: A list of items is printed in stdout.
 
 
+=== Add a Task
+. Add Todo
+.. Key in `Todo tdtask` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [T][x] tdtask +
+   Now you have <previous number of items + 1> items in your list. 
+
+. Add Deadline
+.. Key in `Deadline dlevent /by 10/10/2010 2200` +
+  Expected: Output should be +
+  Got it. I've added this task: +
+  [D][x] dltask (by: 10/10/2010 2200) +
+  Now you have <previous number of items + 1> tasks in the list.
+  
+. Add Event
+.. Key in `Event evttask /at 09/09/2009 0900` +
+  Expected: Output should be +
+  Got it. I've added this task: +
+  [E][x] evttask (by: 09/09/2009 0900) +
+  Now you have <previous number of items + 1> tasks in the list.
+
+
+  
