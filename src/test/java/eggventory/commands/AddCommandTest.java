@@ -20,16 +20,17 @@ public class AddCommandTest {
     private StockType testStockType = new StockType();
     private Ui testUi = new Ui();
     private Storage testStorage = new Storage("");
+    private String indent = "        ";
 
     @Test
     void execute() {
         System.setOut(ps);
         new AddCommand(CommandType.ADD, "testStockType", "t0000", 100,
                 "testDescription").execute(testStockType, testUi, testStorage);
-        assertEquals(testUi.addIndent() + "____________________________________________________________\n"
-                + testUi.addIndent() + "I have added the following stock to your list:\n"
-                + testUi.addIndent() + "testStockType | t0000 | 100 | testDescription\n"
-                + testUi.addIndent() + "____________________________________________________________\n", os.toString());
+        assertEquals(indent + "____________________________________________________________\n"
+                + indent + "I have added the following stock to your list:\n"
+                + indent + "testStockType | t0000 | 100 | testDescription\n"
+                + indent + "____________________________________________________________\n", os.toString());
     }
 
     @Test
