@@ -1,15 +1,27 @@
 import controlpanel.Ui;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.*;
+
+import java.awt.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -23,20 +35,24 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Ui mainWindowUi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
-
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         mainWindowUi = new Ui();
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
+        FileReader fileReader = new FileReader("data/iconPath.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String iconPath = bufferedReader.readLine();
+        userImage = new Image(this.getClass().getResourceAsStream(iconPath));
+        bufferedReader.close();
     }
 
     public void setDuke(Duke d) {
@@ -48,14 +64,36 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
-
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        if (input.equals("change icon")) {
+            FileWriter fileWriter = new FileWriter("data/iconPath.txt", false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Select a picture:");
+            File defaultDirectory = new File("D:/");
+            chooser.setInitialDirectory(defaultDirectory);
+            File selectedFile = chooser.showOpenDialog(null);
+            Path from = Paths.get(selectedFile.toURI());
+            Path to = Paths.get("src/main/resources/images/" + selectedFile.getName());
+            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+            userImage = new Image(this.getClass().getResourceAsStream("/images/" + selectedFile.getName()));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog("Done.", dukeImage)
+            );
+            bufferedWriter.write("/images/" + selectedFile.getName());
+            bufferedWriter.close();
+            userInput.clear();
+        } else {
+            String response = duke.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+        }
         userInput.clear();
     }
 }
