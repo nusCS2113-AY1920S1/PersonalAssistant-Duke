@@ -45,4 +45,16 @@ public abstract class Command {
             return false;
         }
     }
+
+    protected static boolean isAdd (String dateTime, TaskList tasks) {
+        SimpleDateFormat dateTimeFormat =  new SimpleDateFormat("d/M/yyyy HHmm");
+        boolean found = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(dateTime)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
 }
