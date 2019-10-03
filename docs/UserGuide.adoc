@@ -114,7 +114,7 @@ Example:
 
 === Remove a expense/income from the list : `remove`
 
-Remove a particular entry of expanse/income from the list base on the list number. +
+Remove a particular entry of expense/income from the list base on the list number. +
 Format: +
 `*remove* [LIST NO.]`
 
@@ -186,7 +186,7 @@ Format: +
 
 Examples:
 
-* `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 
 * `add recurring income $800 part time job /every month`
 
@@ -349,7 +349,7 @@ e.g. sort /tag descending
 * `*sort /amount*` `sort /amount ascending/descending` +
 e.g. sort /amount ascending
 * `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
-e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
 e.g. `set limit $50 every week`
 * `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
