@@ -97,7 +97,7 @@ public class Parser {
             command = new DoneCommand(CommandType.DONE, Integer.parseInt(inputArr[1]));
             break;
         case "delete":
-            inputArr[1] = inputArr[1].strip();
+            inputArr[1] = inputArr[1].strip(); //Removes whitespace after the integer so that it can parse correctly.
             command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(inputArr[1]));
             break;
 
