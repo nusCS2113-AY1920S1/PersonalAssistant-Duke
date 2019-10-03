@@ -17,11 +17,12 @@ public class Duke {
     private TaskList taskList;
     private Parser parser;
     private RecurHandler recurHandler;
+
     /**
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public Duke() {
+    public Duke() throws DukeException {
         ui = new Ui();
         ui.startUp();
         storage = new Storage();
@@ -44,7 +45,7 @@ public class Duke {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws DukeException {
         boolean isExit = false;
         boolean isExitRecur = false;
         while (!isExit) {
@@ -56,9 +57,17 @@ public class Duke {
                 type = TaskType.others;
             }
             switch (type) {
+                case help:
+                    ui.help();
+                    break;
+
                 case list:
                     ui.showList();
-                    taskList.list();
+                    try {
+                        taskList.list();
+                    } catch (DukeException e) {
+                        ui.showWriteError();
+                    }
                     break;
 
                 case bye:
@@ -135,9 +144,17 @@ public class Duke {
                             case yes:
                                 ui.promptForDuration();
                                 TimeUnit timeUnit = parser.getTimeUnit();
+                                ui.promptForTime();
                                 int duration = parser.getAmount();
                                 FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
-                                taskList.add(fixedDuration);
+
+                                //checks for clashes
+                                if( CheckAnomaly.checkTime(fixedDuration) ) {
+                                    taskList.add(fixedDuration);
+                                } else {
+                                    throw new DukeException(ExceptionType.timeClash);
+                                }
+
                                 Timer timer = new Timer();
                                 class RemindTask extends TimerTask {
                                     public void run() {
@@ -153,21 +170,12 @@ public class Duke {
                                     case minutes:
                                         timer.schedule(rt, duration * 1000 * 60);
                                         break;
-                                    case seconds:
-                                        timer.schedule(rt, duration * 1000);
-                                        break;
                                 }
                                 ui.showAdd();
                             break;
                             case no:
-                                if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
-                                    Event temp = new Event(ar[0], at);
-                                    taskList.add(temp);
-                                    ui.showAdd();
-                                }
-                                else{
-                                    throw new DukeException(ExceptionType.timeClash);
-                                    }
+                                Event event = new Event(ar[0], at);
+                                taskList.add(event);
                             break;
                             default:
                                 ui.showCommandError();
@@ -228,7 +236,6 @@ public class Duke {
                     catch (IllegalArgumentException e){
                         ui.showTimeError();
                     }
-
                     break;
 
                     default:
@@ -238,7 +245,13 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main function of Duke
+     * Creates a new instance of Duke class
+     * @param args command line arguments
+     * @throws DukeException Custom exception class within Duke program
+     */
+    public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
 }
