@@ -146,7 +146,6 @@ public class Command {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
         Queue<String> daysFree = new LinkedList<String>();
-        int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean flagFree = true;
             for (Event viewEvent : events.getEventArrayList()) {

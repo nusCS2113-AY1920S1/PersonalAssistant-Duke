@@ -196,15 +196,6 @@ public class UI {
     }
 
     /**
-     * prints message when format of input is wrong for adding new deadline
-     */
-    public void dateFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Sorry, please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'");
-        System.out.print(lineSeparation);
-    }
-
-    /**
      * prints message when input format is wrong for addition of new event type event.
      */
     public void eventFormatWrong() {

@@ -99,7 +99,11 @@ public class EventList {
                 DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
                 eventStartDate.formatDate();
                 eventEndDate.formatDate();
-                this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(),eventEndDate.getFormattedDateString()));
+                if (event.getType() == 'L') {
+                    this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                } else if (event.getType() == 'P') {
+                    this.eventArrayList.add(new Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                }
                 return true;
             } else return false;
         }
@@ -129,7 +133,11 @@ public class EventList {
             formattingStartDate.formatDate();
             DateObj formattingEndDate = new DateObj(toFormatEnd);
             formattingEndDate.formatDate();
-            this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+            if (event.getType() == 'L') {
+                this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+            } else if (event.getType() == 'P') {
+                this.eventArrayList.add(new Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+            }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
         }
