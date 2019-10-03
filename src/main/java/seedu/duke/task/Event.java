@@ -36,6 +36,7 @@ public class Event extends Task {
      * @param name    name of the Event
      * @param time    time of the Event that is going to happen
      * @param doAfter task to be done after the main task
+     * @param tag     tag associated with the task
      */
     public Event(String name, LocalDateTime time, String doAfter, String tag) {
         super(name);

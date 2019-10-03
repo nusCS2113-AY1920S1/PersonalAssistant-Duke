@@ -21,6 +21,7 @@ public class ToDo extends Task {
      *
      * @param name    name of the task
      * @param doAfter task to be done after the main task
+     * @param tag     tag associated with the task
      */
     public ToDo(String name, String doAfter, String tag) {
         super(name);
