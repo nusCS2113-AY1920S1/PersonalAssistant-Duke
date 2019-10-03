@@ -282,7 +282,7 @@ This error appears when the user does not input any tasks into the list or has d
 ****
 
 === `DukeMultipleValuesForSameArgumentException`
-
+This error appears when the user try to set multiple values for the same argument.
 ****
 * Example:  `doWithin study /begin 10:00 /begin 2pm /end 5:00pm` +
 Here, /begin is being parsed twice with conflicting values. Currently, this error is only applicable to doWithin command.
