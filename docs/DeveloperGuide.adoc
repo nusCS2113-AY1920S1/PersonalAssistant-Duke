@@ -51,7 +51,7 @@ _{Coming up soon!}_
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="20%,<20%,<35%,<35%",options="header",]
+[width="70%",cols="20%,<20%,<35%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the app
@@ -66,7 +66,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |frequent spender |get reminders from the app |be notified when my budget is running low
 
-|`* * *` |forgetful user |look up my expenses history |keep track of what I have spent money on
+|`* * *` |forgetful user |look up my expense history |keep track of what I have spent money on
 
 |`* *` |hall resident who buys groceries often |look at what groceries I have already bought during the week |not end up buying the same items
 
