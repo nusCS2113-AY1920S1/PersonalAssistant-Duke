@@ -17,28 +17,62 @@ endif::[]
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
+=== The Product
+Duke 2.0 (D2) is a desktop application that acts as an extended task manager for *prospective applicants of the various degreees offered by the NUS Faculty of Engineering*. 
 
-Duke 2.0 (D2) is for those who *prefer to use a desktop app for researching on degrees from NUS’ Faculty of Engineering*. More importantly, D2 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, D2 can handle your queries faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+D2 offers various functionalitites that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list. Moroever, as a task manager, D2 is suitable for use as a personal assistant; and lets you organise and remind yourself of important tasks pertaining to university application.
+
+D2 specifically fits users who prefer to work with a Command Line Interface (CLI) while still having the benefits of an appealing Graphical User Interface (GUI). Also, if you are particularly adept at typing fast, D2 will handle your commands more quickly than traditional GUI apps. 
+
+=== The Document
+The D2 Team is committed to ensuring that you have all the information you need for using D2 as effortlessly as possible. Therefore, this document describes all aspects of using D2 including installation, features, and commands. We have also included a Frequently Asked Questions if you have any doubts about D2 after reading the document. 
+
+To use Duke, you should have some basic knowledge of downloading, installing and running applications. You should also able to input simple text commands into a command line. You will not need any other technical knowledge to use D2 to its fullest potential.
+
+Jump straight to <<Quick Start>> to get started!
+
+If you already have D2, jump ahead to <<Features>>!
 
 == Quick Start
+=== Prerequisites
+In order to run D2, you should have Java `11` or above installed in your Computer.
 
-.  Ensure you have Java `11` or above installed in your Computer.
+* Instructions to installing Java `11` on your machine can be found here:
+** Windows: link:https://www.youtube.com/watch?v=1ZbHHLobt8A[How To Install Java JDK 11 On Windows 10]
+** Mac OS: link:https://www.youtube.com/watch?v=pNDLX2KUYwk[How to Install Oracle Java JDK 11 in MAC macOS Mojave - 2019]
+
+=== Getting D2
+Now that you've installed Java `11` on your computer, you can go ahead with getting D2 on your computer.
+
 .  Download the latest `duke2.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Copy the file to the folder you want to use as the home folder for 'D2'.
+.  Double-click the file to launch the application. D2 will appear in a few seconds
+
+=== Checking D2
+As D2 launches, you should see the following GUI:
+
+
 image::UI.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+
+
+To test that D2 is running as it should:
+
+. Type *`help`* in the command line
+. Hit kbd:[Enter] to execute it
+. Notice that the help window appears
+
+If it does, you have successfully run D2 on your machine!
+
+
+=== Getting Used to D2
+Here are some other examples of commands you can try to get used to D2:
 
 * *`list`* : lists all tasks you have saved to it
 * **`event`**`University Talk at/25-09-2019 2359` : adds an event named `University Talk` to the Address Book.
-* **`delete`**`3` : deletes the 3rd degree shown in the current list
+* **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Fore more detailed instructions and a full list of commands, refer to <<Features>>.
 
 [[Features]]
 == Features
