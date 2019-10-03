@@ -94,7 +94,7 @@ Format: +
 Examples:
 
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `add income $500 part time tution /on 01/09/2019`
+* `add income $500 part time tuition /on 01/09/2019`
 
 === List all expenses and income : `list`
 
