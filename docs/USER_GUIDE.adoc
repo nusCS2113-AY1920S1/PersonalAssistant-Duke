@@ -125,10 +125,10 @@ Sorting the event calendar +
 Format: `*sort* + EVENTS` +
 
 
-== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/FAQ.adoc[FAQs]
-
-*Q*:  +
-*A*:
+//== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/FAQ.adoc[FAQs]
+//
+//*Q*:  +
+//*A*:
 
 == https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/COMMANDS.adoc[Command Summary]
 
