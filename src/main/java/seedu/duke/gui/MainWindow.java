@@ -1,5 +1,6 @@
 package seedu.duke.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -71,6 +72,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
+        if(response.contains("Bye, hope to see you again.")) {
+            Platform.exit();
+        }
     }
 
     /**
