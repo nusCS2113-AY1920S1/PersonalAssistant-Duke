@@ -57,7 +57,7 @@ Format: `help`
 
 Shows a list of members +
 Format: `list 1` +
-Similarly you can list accounts/events/inventorty list/locker log by specifying their respective number
+Similarly you can list accounts/events/inventory list/locker log by specifying their respective number
 
 
 === Listing entered commands
@@ -78,9 +78,9 @@ Undoable commands: those commands that modify SpongeBob's content (`add`, `delet
 
 Examples:
 
-* `deletePerson 1` +
+* `deletemember 1` +
 `list 2` +
-`undo` (reverses the `deletePerson 1` command) +
+`undo` (reverses the `deletemember 1` command) +
 
 * `list 1` +
 `undo` +
@@ -115,7 +115,8 @@ Clears all entries from the specified list. +
 Format: `clear`
 
 Examples:
-*`clear 1`+
+
+*`clear 1` +
 Clears all the entries from the members list.
 
 === Clearing all entries from multiple lists at the same time
@@ -329,19 +330,22 @@ Example:
 Edit the venue and the date of the 1st event to `COM2-0201` and `06/12` respectively.
 
 
-==== Filtering an event by dates: `findtime`+
+==== Filtering an event by dates: `findtime`
 
 Finds all the events on the specified date.
+
 Examples: 
-*`findtime 12/12`+
+
+*`findtime 12/12`
 returns a list of all the events on that date.
 
-==== Filtering events by priorities: `findeventpriority`+
+==== Filtering events by priorities: `findeventpriority`
 
 Finds all the events that have priority tags attached to them.
 
 Examples:
-*`findeventpriority`+
+
+*`findeventpriority`
 returns all the events that have priority tags attached to them.
 *`findeventpriority [high],[medium],[low]`+
 Atleast one of the fields are compulsory.+
