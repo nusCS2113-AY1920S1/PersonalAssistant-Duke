@@ -14,7 +14,6 @@ public class AddTodoCommand extends AddCommand {
      * <p>
      *     If the task description is missing, return without doing anything.
      * </p>
-     * @param tasks The duke.task.TaskList where the todo task is to be added.
      */
     @Override
     public void execute() {

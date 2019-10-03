@@ -8,7 +8,7 @@ import dolla.task.TaskList;
 /**
  * duke.command.AddEventCommand is a command used to add an event task into the duke.task.TaskList.
  */
-public class AddEventCommand extends AddCommand {
+public abstract class AddEventCommand extends AddCommand {
 
     /**
      * Instantiates a new Add event command.
@@ -34,7 +34,6 @@ public class AddEventCommand extends AddCommand {
      * </p>
      * @param tasks The duke.task.TaskList where the event task is to be added.
      */
-    @Override
     public void execute(TaskList tasks) {
         if (!splitDescTime()) {
             return; // If error occurs, stop the method!
