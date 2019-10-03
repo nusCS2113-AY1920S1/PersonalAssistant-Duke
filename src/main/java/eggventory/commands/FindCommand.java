@@ -6,7 +6,7 @@ import eggventory.Storage;
 import eggventory.enums.CommandType;
 
 /**
- * Command objects for searching for tasks by name.
+ * Command objects for searching for stocks by name.
  */
 public class FindCommand extends Command {
     private String search;
@@ -17,8 +17,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Allows the user to search for task descriptions that match a given string.
-     * Prints the list of tasks that match. Alternatively prints a message if none are found.
+     * Allows the user to search for stock descriptions that match a given string.
+     * Prints the list of stocks that match. Alternatively prints a message if none are found.
      */
     @Override
     public void execute(StockType list, Ui ui, Storage storage) {
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
 
         String listString = "";
         for (int i = 0; i < max; i++) {
-            if (list.getStock(i).toString().contains(search)) {
+            if (list.getStock(i).getDescription().contains(search)) { //Only search the description.
                 // Adding task to print with associated index to final string
                 // TODO: Change to stringbuilder - Raghav
                 listString += (i + 1 + ". " + list.getStock(i).toString() + "\n");

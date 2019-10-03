@@ -1,10 +1,11 @@
 package eggventory.items;
 
 /**
- * Represents a stock of item in the inventory.
- * A type of item (eg. 560ohm resistor) may consist of many individual items (multiple resistors),
+ * Represents a stock of a particular item in the inventory.
+ * A type of stock (eg. 560ohm resistor) may consist of many individual items (multiple resistors),
  * but they are all considered interchangeable and are not individually identified.
- * Within a type of item, some of the items may be marked as 'on loan', or 'lost'.
+ * Within a stock, some of the items may be marked as 'on loan', or 'lost'.
+ * TODO: Finish up the comments on this class after finalising the glossary.
  */
 public class Stock {
 
@@ -16,7 +17,7 @@ public class Stock {
     private int lost;
 
     /**
-     * An stock is first added with its stockType, stockcode, description and quantity.
+     * An stock is first added with its stockType, stockCode, description and quantity.
      * By default the loaned and lost numbers are 0.
      */
     public Stock(String stockType, String stockCode, int quantity, String description) {
@@ -29,31 +30,31 @@ public class Stock {
     }
 
     /**
-     * Gets the name of the item.
-     * @return name the name of the item.
+     * Gets the name of the stock.
+     * @return the name of the stock.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Sets the name of the item.
-     * @param description the name of the item.
+     * Sets the name of the stock.
+     * @param description the name of the stock.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Gets the total number of this item. Includes items lost and on loan.
-     * @return total the name of the item.
+     * Gets the total number of this stock. Includes items lost and on loan.
+     * @return total the name of the stock.
      */
     public int getQuantity() {
         return quantity;
     }
 
     /**
-     * Sets the new total number of this item. To be used by 'change' or 'qty' commands to modify the number of items.
+     * Sets the new total number of this stock. To be used by 'change' or 'qty' commands to modify the number.
      * @param newTotal the new total number of items.
      */
     public void setQuantity(int newTotal) {
@@ -61,7 +62,7 @@ public class Stock {
     }
 
     /**
-     * Gets the number of this item that is on loan.
+     * Gets the number of this stock that is on loan.
      * @return loaned the number of loaned items.
      */
     public int getLoaned() {
@@ -69,7 +70,7 @@ public class Stock {
     }
 
     /**
-     * Sets the number of items on loan. To be used by the 'loan' command.
+     * Sets the number of this stock on loan. To be used by the 'loan' command.
      * @param loaned the number of items on loan.
      */
     public void setLoaned(int loaned) {
@@ -77,7 +78,7 @@ public class Stock {
     }
 
     /**
-     * Gets the number of this item that is lost.
+     * Gets the number of this stock that is lost.
      * @return lost the number of lost items.
      */
     public int getLost() {
@@ -85,7 +86,7 @@ public class Stock {
     }
 
     /**
-     * Sets the number of items that have been lost. To be used by the 'lost' command.
+     * Sets the number of this stock that have been lost. To be used by the 'lost' command.
      * @param lost the number of items lost.
      */
     public void setLost(int lost) {
@@ -93,7 +94,7 @@ public class Stock {
     }
 
     /**
-     * Calculates and returns the number of items available to the lab (not lost, not on loan).
+     * Calculates and returns the number of this stock available to the lab (not lost, not on loan).
      * @return the number of available items.
      */
     public int numAvailable() {
@@ -101,8 +102,8 @@ public class Stock {
     }
 
     /**
-     * Formats all task details appropriately for Ui output.
-     * @return the task details.
+     * Formats all stock details appropriately for Ui output.
+     * @return the stock details.
      */
     @Override
     public String toString() {

@@ -6,8 +6,7 @@ import eggventory.Storage;
 import eggventory.enums.CommandType;
 
 /**
- * Command objects for marking tasks as done, or deleting them.
- * Requires the index of the task.
+ * Currently not used.
  */
 public class NumCommand extends Command {
 
