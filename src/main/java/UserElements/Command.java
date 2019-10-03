@@ -146,17 +146,18 @@ public class Command {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
         Queue<String> daysFree = new LinkedList<String>();
-        int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean flagFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(dayToCheckIfFreeObject.formatDate())) {
+                dayToCheckIfFreeObject.formatDate();
+                if (viewEvent.toString().contains(dayToCheckIfFreeObject.getFormattedDateString())) {
                     flagFree = false;
                     break;
                 }
             }
             if (flagFree) {
-                daysFree.add(dayToCheckIfFreeObject.formatDate());
+                dayToCheckIfFreeObject.formatDate();
+                daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
             dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
             nextDays += 1;
@@ -173,7 +174,8 @@ public class Command {
             int viewIndex = 1;
             DateObj findDate = new DateObj(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(findDate.formatDate())) {
+                findDate.formatDate();
+                if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                     viewIndex++;
                 }
