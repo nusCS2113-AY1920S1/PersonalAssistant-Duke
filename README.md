@@ -2,7 +2,7 @@
 
 Cube is a simple Bookkeeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
 
-![Cube](docs/images/Cube.png)
+![Cube](docs/images/Ui.png)
 
 # Setting up
 
@@ -40,9 +40,7 @@ Simply run the command `gradlew {taskName}` in the terminal and Gradle will run 
 
 1. Import the Cube project in IntelliJ as a Gradle project if you have not done so.
 ![Gradle Import](docs/images/GradleImportIntelliJ.png)
-
 1. After importing, IntelliJ IDEA will identify your project as a Gradle project and you will gain access to the Gradle Toolbar.
-
 1. Through the Gradle Toolbar, you will then be able create new run configuration and launch Cube within IntelliJ.
 ![Gradle Run](docs/images/GradleRunIntelliJ.png)
 
