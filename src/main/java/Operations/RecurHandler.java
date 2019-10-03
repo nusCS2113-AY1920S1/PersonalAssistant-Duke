@@ -83,7 +83,7 @@ public class RecurHandler {
             try {
                 String[] eventArray = parser.getDescriptionWithDate();
                 Date at = parser.formatDate(eventArray[1]);
-                if(CheckAnomaly.checkTime(at, TaskList.currentList())){
+                if(CheckAnomaly.checkTime(at)) {
                     RecurringEvent temp = new RecurringEvent(eventArray[0], at, recurrence);
                     taskList.add(temp);
                     ui.showAddRecur();

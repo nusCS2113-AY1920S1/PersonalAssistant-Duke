@@ -9,8 +9,8 @@ import java.util.Date;
  */
 
 public class FixedDuration extends Event {
-    private final TimeUnit timeUnit;
     private int duration;
+    private Date at;
 
     /**
      * Constructor for fixed duration object
@@ -23,9 +23,15 @@ public class FixedDuration extends Event {
     public FixedDuration(String description, Date at, int duration, TimeUnit timeUnit) {
         super(description, at);
         this.duration = duration;
-        this.timeUnit = timeUnit;
     }
 
+    /**
+     * Returns duration
+     * @return duration of event in DD/MM/YYYY format
+     */
+    public int getDuration(){
+        return duration;
+    }
 
     /**
      * Returns a string that has the full description of the vent including the occurrence time
@@ -33,6 +39,5 @@ public class FixedDuration extends Event {
      */
     @Override
     public String toString() {
-        return super.toString() + " (done in: " + duration + " " + timeUnit + " ) ";
-    }
+        return super.toString() + " (done in: " + duration + " hours)"; }
 }
