@@ -24,7 +24,7 @@ public class TaskList {
      * @return the Task with the start and end date if possible to parse
      * @throws DukeException if an exception occurs in the parsing of the message.
      */
-    public  Task get_first_e(String[] stringList,int first) throws DukeException {
+    public Task get_first_e(String[] stringList,int first) throws DukeException {
         Task c1;
         //System.out.println("help me");
         //System.out.println("here "+Arrays.toString(string_list));
