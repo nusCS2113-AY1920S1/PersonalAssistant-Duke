@@ -82,7 +82,7 @@ public class TimePeriod {
     }
 
     /**
-     * Set period for this object
+     * Set period for this object.
      * @param begin Start date.
      * @param end End date.
      * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
