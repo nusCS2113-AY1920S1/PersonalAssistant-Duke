@@ -8,10 +8,29 @@
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
+== Setting up
+
+_{Coming up soon!}_
+
+== Design
+
+_{Coming up soon!}_
+
+== Implementation
+
+_{Coming up soon!}_
+
+== Documentation
+
+_{Coming up soon!}_
+
+== Testing
+
+_{Coming up soon!}_
+
 == Dev Ops
 
-_{To be edited}_
-
+_{Coming up soon!}_
 
 [appendix]
 == Product Scope
@@ -26,7 +45,6 @@ _{To be edited}_
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage expenses faster than a typical mouse/GUI driven app
-
 
 [appendix]
 == User Stories
@@ -109,7 +127,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |student who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
 
 |=======================================================================
-
 
 [appendix]
 == Use Cases
