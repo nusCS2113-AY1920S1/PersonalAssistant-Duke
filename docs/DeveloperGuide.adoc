@@ -136,11 +136,11 @@ There are three main components in the overall architecture of the application.
    Expected: The Welcome Message is printed in stdout and the system requests for an input.
    
 . Shutdown
-.. Key in 'bye' as input. +
+.. Key in `bye` as input. +
    Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in stdout and the process exits.
 
 === Obtain the list of items currently in stored in the system
-. Key in 'list' as input +
+. Key in `list` as input +
   Expected: A list of items is printed in stdout.
 
 
@@ -165,6 +165,26 @@ There are three main components in the overall architecture of the application.
   Got it. I've added this task: +
   [E][x] evttask (by: 09/09/2009 0900) +
   Now you have <previous number of items + 1> tasks in the list.
+
+. Add a recurring task
+.. Key in 
+
+=== Set a Task as done
+. Key in `done 1` +
+  Expected: Prints a message that the first task on the list has been marked as done.
+
+=== Find tasks that contains a certain keyword or key phrase
+. Key in `find <key>`, where `<key>' is the keyword or key phrase +
+  Expected: Prints a list of tasks that contains the <key>.
+
+=== Get reminder
+. Key in `reminder` +
+  Expected: Prints a list of tasks to be completed in the next three days.
+
+=== View all tasks in a certain day
+. Key in `view <date>` +
+  Expected: Prints a list of tasks that contains the date.
+  
 
 
   
