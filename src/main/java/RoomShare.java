@@ -101,7 +101,7 @@ public class RoomShare {
 
                 case find:
                     ui.showFind();
-                    taskList.find(parser.getKey());
+                    taskList.find(parser.getKey().toLowerCase());
                     break;
 
                 case todo:

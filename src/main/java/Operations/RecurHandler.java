@@ -125,7 +125,7 @@ public class RecurHandler {
         ui.showListRecur();
         int queryCount = 1;
         for (Task query : TaskList.currentList()) {
-            if (query.toString().toLowerCase().contains(key) && query.toString().contains(RECURRENCE_SYMBOL)) {
+            if (query.toString().toLowerCase().contains(key.trim()) && query.toString().contains(RECURRENCE_SYMBOL)) {
                 // task contains the keyword and is a recurring task.
                 System.out.println("\t" + queryCount + ". " + query.toString());
             }

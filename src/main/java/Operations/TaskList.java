@@ -81,7 +81,7 @@ public class TaskList {
     public void find (String key) {
         int queryCount = 1;
         for (Task query : tasks) {
-            if (query.toString().toLowerCase().contains(key)) {
+            if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("    " + queryCount + ". " + query.toString());
             }
             queryCount += 1;

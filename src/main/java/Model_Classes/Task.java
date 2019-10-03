@@ -25,13 +25,8 @@ public class Task{
     }
 
     /**
-<<<<<<< HEAD
-     * getter method for created.
-     * @return
-=======
      * Returns String of the time Task was created
      * @return time the task was created
->>>>>>> 61c92d7e89f193fc9fa8bb610b519e673aaa8909
      */
     public String getCreated() {
         return this.created;
