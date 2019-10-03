@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+import java.util.ArrayList;
+
 /**
  * ToDo class is a rather basic type of Task, which has only name and isDone status, without any date/time
  * involved.
@@ -21,13 +23,13 @@ public class ToDo extends Task {
      *
      * @param name    name of the task
      * @param doAfter task to be done after the main task
-     * @param tag     tag associated with the task
+     * @param tags     tag associated with the task
      */
-    public ToDo(String name, String doAfter, String tag) {
+    public ToDo(String name, String doAfter, ArrayList<String> tags) {
         super(name);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.ToDo;
-        getTag(tag);
+        setTags(tags);
     }
 
     /**
@@ -38,13 +40,15 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        if (this.doAfterDescription == null && this.hasTag == null) {
-            return "[T]" + this.getStatus();
-        } else if (this.hasTag == null) {
-            return "[T]" + this.getStatus() + "\n   After which: " + doAfterDescription;
-        } else {
-            return "[T]" + this.getStatus() + " #" + hasTag;
+        String output = "";
+        output = "[T]" + this.getStatus();
+        if (this.doAfterDescription != null) {
+            output += "\n\tAfter which: " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 
     /**
@@ -54,12 +58,14 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.doAfterDescription == null && this.hasTag == null) {
-            return (this.isDone ? "1" : "0") + " todo " + this.name;
-        } else if (this.hasTag == null) {
-            return (this.isDone ? "1" : "0") + " todo " + this.name + " /doafter " + doAfterDescription;
-        } else {
-            return (this.isDone ? "1" : "0") + " todo " + this.name + " #" + hasTag;
+        String output = "";
+        output = (this.isDone ? "1" : "0") + " event " + this.name;
+        if (this.doAfterDescription != null) {
+            output += " /doafter " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 }
