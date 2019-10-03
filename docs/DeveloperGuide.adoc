@@ -191,60 +191,70 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering|User types keyword “electrical” with search command|
 
-1. DukeJr. returns all the degrees with keyword “electrical”
-2. User types the index of the degree he wishes to view from the list of returned searches
-3. DukeJr. displays the Curriculum Structure, Specialisations and Minor, and Recommended Schedule for the degree
-4. User reads the data
+. DukeJr. returns all the degrees with keyword “electrical”
+. User types the index of the degree he wishes to view from the list of returned searches
+. DukeJr. displays the Curriculum Structure, Specialisations and Minor, and Recommended Schedule for the degree
+. User reads the data
 |===
 
 |===
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering|View the whole list of possible commands for D2|
 
-1. User requires help with command syntax
-2. User types in the command in the following manner: `help`
-3. D2 returns all the possible commands that it will accept
-4. User reads the information
+. User requires help with command syntax
+. User types in the command in the following manner: `help`
+. D2 returns all the possible commands that it will accept
+. User reads the information
 |===
 
 |===
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering|Check core modules for Bachelor of Engineering (Electrical Engineering)|
 
-1. User identifies a degree that he/she wishes to research
-2. User types in the command in the following manner: `details EE`
-3. D2 displays the degree requirements, including the core modules
-4. User reads the information
+. User identifies a degree that he/she wishes to research
+. User types in the command in the following manner: `details EE`
+. D2 displays the degree requirements, including the core modules
+. User reads the information
 |===
 
 |===
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering|Compare core modules for EE and CEG|
 
-1. User identifies two degrees he wishes to compare
-2. User types in the command in the following manner: `compare EE CEG`
-3. D2 displays similar and different modules from the two degrees
-4. User reads the information
+. User identifies two degrees he wishes to compare
+. User types in the command in the following manner: `compare EE CEG`
+. D2 displays similar and different modules from the two degrees
+. User reads the information
 |===
 
 |===
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering|Add CEG into degree list and view degree list|
 
-1. User identifies the degree he/she wishes to add to his/her list of possible degrees
-2. User types in the command in the following manner: `add EE`
-3. D2 adds Electrical Engineering to the user’s degree list
-4. User types in the command in the following manner: `degreelist`
-5. D2 returns the user’s degree list with Electrical Engineering added
+. User identifies the degree he/she wishes to add to his/her list of possible degrees
+. User types in the command in the following manner: `add EE`
+. D2 adds Electrical Engineering to the user’s degree list
+. User types in the command in the following manner: `degreelist`
+. D2 returns the user’s degree list with Electrical Engineering added
 |===
 
 |===
 |System|Actor|Use Case|Process
 |Duke2.0|Prospective Applicant to NUS Faculty of Engineering| Swap CEG with EE in degree|
 
-1. User identifies two degrees that he/she wishes to switch in the degree list
-2. User types in the command in the following manner: `swap CEG EE`
-3. D2 returns the user’s degree list with CEG and EE having switched indexes
+. User identifies two degrees that he/she wishes to switch in the degree list
+. User types in the command in the following manner: `swap CEG EE`
+. D2 returns the user’s degree list with CEG and EE having switched indexes
 |===
 
 == Appendix C: Non-Functional Requirements
+
+. D2 is a fast application.
+. It can be used on any platform (any PC), and is hence light-weight.
+. The information provided is accurate as of the latest semester.
+. The application has simple functions, with more options provided for advanced users.
+. The application is fairly easy and understandable to navigate through.
+. Multi-step commands are available for beginners, as compared to one step for advanced users.
+. The application provided tabular formatting of information for better analysis.
+. It is inviting to the eye with a well-designed graphical user interface. 
+
