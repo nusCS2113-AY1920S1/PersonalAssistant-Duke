@@ -160,19 +160,19 @@ public class Duke {
                             }
                             ui.showAdd();
                             break;
-                            case no:
-                                if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
-                                    Event temp = new Event(ar[0], at);
-                                    taskList.add(temp);
-                                    ui.showAdd();
+                        case no:
+                            if(CheckAnomaly.checkTime(at, TaskList.currentList())) {
+                                Event temp = new Event(ar[0], at);
+                                taskList.add(temp);
+                                ui.showAdd();
+                            }
+                            else{
+                                throw new DukeException(ExceptionType.timeClash);
                                 }
-                                else{
-                                    throw new DukeException(ExceptionType.timeClash);
-                                    }
+                        break;
+                        default:
+                            ui.showCommandError();
                             break;
-                            default:
-                                ui.showCommandError();
-                                break;
                         }
                     }
                     catch (DukeException e) {
