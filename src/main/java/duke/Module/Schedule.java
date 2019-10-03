@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -25,6 +26,11 @@ public class Schedule {
     private String filePath;
     private Scanner fileInput;
     private ArrayList<TimeSlot> list;
+
+    /**
+     * Optional goal of the day.
+     */
+    private HashMap<Date,String> goals = new HashMap<>();
 
     public Schedule(String filePath) throws FileNotFoundException, ParseException {
         this.filePath = filePath;
@@ -244,4 +250,16 @@ public class Schedule {
         }
         return "Class not found";
     }
+
+    public String addGoal(String date, String message) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = simpleDateFormat.parse(date);
+        setGoal(today, message);
+        return "New goal of the day has been added";
+    }
+
+    public void setGoal(Date day, String message) {
+        goals.put(day,message);
+    }
+
 }
