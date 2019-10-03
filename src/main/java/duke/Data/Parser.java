@@ -208,7 +208,7 @@ public class Parser {
             /**
              * View: goal view 5/10/2019
              * Add: goal add 5/10/2019 Makes sure every student masters freestyle
-             * Delete: goal delete 5/10/2019
+             * Delete: goal delete-all 5/10/2019|goal delete 5/10/2019 Makes sure every student masters freestyle
              */
             case "goal":
                 Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
@@ -219,10 +219,15 @@ public class Parser {
                     System.out.println(goal.addGoal(date,message));
                 } else if (word[1].equals("delete")) {
                     String date = word[2];
-                    System.out.println(goal.removeGoal(date));
+                    index = input.indexOf(word[3]);
+                    String message = input.substring(index);
+                    System.out.println(goal.removeGoal(date,message));
                 } else if (word[1].equals("view")) {
                     String date = word[2];
                     System.out.println(goal.viewGoal(date));
+                } else if (word[1].equals("delete-all")) {
+                    String date = word[2];
+                    System.out.println(goal.removeAllGoal(date));
                 }
                 break;
 

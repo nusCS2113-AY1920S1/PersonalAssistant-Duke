@@ -76,7 +76,7 @@ public class Goal {
             }
             fileWriter.close();
         } catch (IOException io) {
-                System.out.println("File not found:" + io.getMessage());
+            System.out.println("File not found:" + io.getMessage());
         }
     }
 
@@ -88,13 +88,16 @@ public class Goal {
         return "New goal of the day has been added";
     }
 
-    public String removeGoal(String day) throws ParseException {
+    public String removeGoal(String day, String message) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
-        for (Date d : goals.keySet()) {
-            if (d.equals(today)) {
-                goals.remove(d);
+        Iterator it = goals.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (pair.getKey().equals(today) && pair.getValue().equals(message)) {
+                goals.remove(pair.getKey());
             }
+            it.remove();
         }
         updateGoal(goals);
         return "Goal of the day on " + day + " has been removed";
@@ -118,5 +121,17 @@ public class Goal {
         } else {
             return message;
         }
+    }
+
+    public String removeAllGoal(String day) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = simpleDateFormat.parse(day);
+        for (Date d : goals.keySet()) {
+            if (d.equals(today)) {
+                goals.remove(d);
+            }
+        }
+        updateGoal(goals);
+        return "All the goals for the day " + day + " have been cleared";
     }
 }
