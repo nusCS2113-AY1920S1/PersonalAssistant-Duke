@@ -37,5 +37,5 @@ Team Members:
 # Documentation
 
 * [User Guide](docs/UserGuide.adoc)
-* [Developer's Guide](docs/DevelopersGuide.adoc)
+* [Developer's Guide](docs/DeveloperGuide.adoc)
 

@@ -19,7 +19,7 @@ Responsibilities: Game scene and sound effect
 '''
 
 === Matthew
-image::sevenmatt7.jpg[width="150", align="left"]
+image::sevenmatt7.png[width="150", align="left"]
 {empty}[http://github.com/sevenmatt7[github]] [<<sevenmatt7#, portfolio>>]
 
 Role: Software Developer (Team lead, scheduling and tracking, deliverables and deadlines)
