@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.ExceptionType;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
 
@@ -43,12 +44,17 @@ public class TaskList {
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
-    public void list() {
-        int listCount = 1;
-        for (Task output : tasks) {
-            System.out.println("    " + listCount + ". " + output.toString());
-            listCount += 1;
+    public void list() throws DukeException {
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            for (Task output : tasks) {
+                System.out.println("    " + listCount + ". " + output.toString());
+                listCount += 1;
+            }
+        } else {
+            throw new DukeException(ExceptionType.emptylist);
         }
+
     }
 
     /**
@@ -112,10 +118,10 @@ public class TaskList {
             case day:
                 tasks.get(index - 1).snoozeDay(amount);
                 break;
-            case hour:
+            case hours:
                 tasks.get(index - 1).snoozeHour(amount);
                 break;
-            case minute:
+            case minutes:
                 tasks.get(index - 1).snoozeMinute(amount);
                 break;
         }
