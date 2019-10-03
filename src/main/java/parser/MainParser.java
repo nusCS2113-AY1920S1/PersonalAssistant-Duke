@@ -64,8 +64,10 @@ public class MainParser {
         switch (mode) {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
+            //System.out.println("Running DollaParser...");
             return dollaParser.handleInput(inputLine);
         default:
+            Ui.printInvalidCommandError();
             return new ErrorCommand();
         }
 

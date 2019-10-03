@@ -25,6 +25,7 @@ public class DollaParser extends Parser {
                 splitDescTime();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidEntryFormatError();
+                return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand(); // If error occurs, stop the method!
             }
@@ -39,9 +40,10 @@ public class DollaParser extends Parser {
 //                    return new ErrorCommand();
 //            }
 
+        } else {
+            Ui.printInvalidCommandError();
+            return new ErrorCommand();
         }
-
-        return null;
     }
 
     private String verifyType(String s) throws Exception {

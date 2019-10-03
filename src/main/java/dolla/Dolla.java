@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class Dolla {
 
     private TaskList tasks = new TaskList(new ArrayList<Task>());
-    private String mode = "Dolla";
+    private String mode = "dolla";
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt

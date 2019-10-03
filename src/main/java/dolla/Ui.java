@@ -83,8 +83,8 @@ public class Ui {
      */
     public static void echoAddEntry(Entry currEntry) {
         System.out.println(line);
-        System.out.println("Got it. I've added this entry: ");
-        System.out.println(currEntry.getEntryText());
+        System.out.println("\tGot it. I've added this entry: ");
+        System.out.println("\t"+currEntry.getEntryText());
         System.out.println(line);
     }
 
@@ -218,7 +218,9 @@ public class Ui {
      * Prints error message when command given is invalid.
      */
     public static void printInvalidCommandError() {
+        System.out.println(line);
         System.out.println("\tOOPS! The command is invalid. Please enter a valid command");
+        System.out.println(line);
     }
 
     public static void printInvalidEntryType() {

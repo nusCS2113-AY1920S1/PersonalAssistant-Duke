@@ -35,7 +35,7 @@ public abstract class Parser {
      * @see AddEventCommand
      */
     public void splitDescTime() throws Exception {
-        String[] data = inputLine.split(" /at "); // data[0] os description, data[1] is the time
+        String[] data = inputLine.split(" /on "); // data[0] os description, data[1] is the time
         String dateString = (data[1].split("/tag"))[0];
         try {
             date = Time.readDateTime(dateString);
