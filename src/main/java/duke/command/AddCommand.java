@@ -12,6 +12,7 @@ import duke.util.TaskList;
 import duke.util.TimePeriod;
 import duke.util.Ui;
 import duke.util.Storage;
+import duke.util.Reminder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class AddCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeScheduleException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeScheduleException {
         if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
             tasks.add(task);
         } else {
@@ -51,7 +52,10 @@ public class AddCommand extends Command {
                 } else if (temp instanceof Events) {
                     Events hold = (Events) temp;
                     dateTimeSet.add(hold.getDateTime());
-                }  else if (temp instanceof DoWithin) {
+                } else if (temp instanceof FixedDurationTasks) {
+                    FixedDurationTasks hold = (FixedDurationTasks) temp;
+                    dateTimeSet.add(hold.getDateTime());
+                } else if (temp instanceof DoWithin) {
                     DoWithin hold = (DoWithin) temp;
                     timePeriodSet.add(hold.getPeriod());
                 }
@@ -67,6 +71,9 @@ public class AddCommand extends Command {
             } else if (task instanceof DoWithin) {
                 DoWithin hold = (DoWithin) task;
                 taskTimePeriod = hold.getPeriod();
+            } else if (task instanceof FixedDurationTasks) {
+                FixedDurationTasks hold = (FixedDurationTasks) task;
+                taskDateTime = hold.getDateTime();
             }
             if (taskTimePeriod == null) {
                 if (dateTimeSet.contains(taskDateTime)) {
@@ -98,6 +105,7 @@ public class AddCommand extends Command {
         ui.printTask(task);
         ui.currentTaskListSizeMsg(tasks.getSize());
         store.writeData(tasks.getTasks());
+        reminder.forceCheckReminder();
     }
 
     @Override
