@@ -3,7 +3,11 @@ package duke;
 import duke.command.Command;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeTimeIntervalTooCloseException;
-import duke.util.*;
+import duke.util.ParserWrapper;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+import duke.util.Reminder;
 
 public class Duke {
     /**
@@ -14,6 +18,7 @@ public class Duke {
     private Storage store;
     private Ui ui;
     private TaskList tasks;
+    private ParserWrapper parser;
     private Reminder reminder;
 
     /**
@@ -23,6 +28,7 @@ public class Duke {
         store = new Storage();
         ui = new Ui();
         tasks = new TaskList(store);
+        parser = new ParserWrapper();
     }
 
     /**
@@ -44,7 +50,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
                 isExit = c.isExit();
             } catch (DukeException e) {

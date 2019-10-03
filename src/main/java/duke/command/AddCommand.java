@@ -8,7 +8,11 @@ import duke.tasks.FixedDurationTasks;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.util.*;
+import duke.util.TaskList;
+import duke.util.TimePeriod;
+import duke.util.Ui;
+import duke.util.Storage;
+import duke.util.Reminder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -36,7 +40,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeScheduleException {
-        if (task instanceof Todo || task instanceof RecurringTask) {
+        if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
             tasks.add(task);
         } else {
             HashSet<LocalDateTime> dateTimeSet = new HashSet<>();

@@ -45,6 +45,16 @@ public class RescheduleCommand extends Command {
         return index;
     }
 
+    /**
+     * Execute the reschedule command.
+     * @param tasks TaskList object containing current active taskList.
+     * @param ui Ui object containing all output methods to user.
+     * @param store Storage object which updates stored data.
+     * @throws DukeInvalidIndexException If user inputs invalid index.
+     * @throws DukeInvalidTimeException If user inputs invalid date/time.
+     * @throws DukeNoTimeException If user inputs time based tasks without any time.
+     * @throws DukeInvalidTimePeriodException If user inputs an invalid time period.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws
             DukeInvalidIndexException,

@@ -64,7 +64,7 @@ public class Reminder {
                 catch (DukeInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
-                long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime.minusSeconds(1)).toDuration().getSeconds(), 0);
+                long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime).toDuration().getSeconds() - 1, 0);
                 try {
                     Thread.sleep(sleepSeconds * 1000);
                 }

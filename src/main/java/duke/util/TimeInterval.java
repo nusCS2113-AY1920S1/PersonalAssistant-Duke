@@ -74,8 +74,7 @@ public class TimeInterval implements TemporalAmount, Serializable {
     }
 
     public Period toPeriod() {
-        this.adjustDateTime();
-        return this.dateDuration;
+        return this.getDateDuration();
     }
 
     public Duration toDuration() { // Estimate

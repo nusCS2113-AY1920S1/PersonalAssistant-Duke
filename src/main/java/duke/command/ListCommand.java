@@ -25,6 +25,7 @@ public class ListCommand extends Command {
         if (isEmpty) {
             throw new DukeEmptyListException();
         } else {
+            ui.listMsg();
             ui.printTaskList(tasks.getTasks());
         }
     }
