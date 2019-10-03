@@ -15,7 +15,7 @@ run {
     standardInput = System.in
 }
 application {
-    mainClassName = "Launcher"
+    mainClassName = "MooMoo"
 }
 
 sourceSets.main.java.srcDirs = ['src/main/java/Commands','src/main/java','src/main/java/Classes']
