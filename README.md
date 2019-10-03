@@ -7,5 +7,3 @@
 
 ![](https://github.com/AY1920S1-CS2113T-F14-3/main/blob/master/ui-mockup.png)
 
-
-<h3> About Us </h3>
