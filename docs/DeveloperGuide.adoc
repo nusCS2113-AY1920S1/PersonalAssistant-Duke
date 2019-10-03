@@ -1,0 +1,520 @@
+= Developer Guide
+
+== Appendix A: Product Scope
+
+Target User Profile:
+
+- Highly motivated but is distracted easily.
+- Likes to work towards small milestones than large ones.
+- Likes gamifying mundane tasks.
+- Prefers if people tell them what to work towards.
+- Can type fast.
+- Prefers typing and using arrow keys to navigate over mouse input.
+- Is reasonably comfortably with command line integrated with GUI apps.
+- Prefers desktop apps over other types.
+
+
+
+Value proposition: We strive to adhere our product to two main principles:
+
+1) Gamify tasks to make completing them more engaging than a typical productivity/ study app.
+
+2) Recommend tasks for completion to simplify the user's life.
+
+== Appendix B: User Stories
+
+Priority is sorted based on stars ★. 3 stars (★★★) is a must-have. 2 stars (★★) is good to
+have. 1 star (★) is unlikely to have.
+
+// tag::base-alt[]
+[width="90"]
+|===
+
+| S/N | Priority | As a... | I want to... | So that I can...
+
+| 1 | ★★★ | User | See usage instructions in the app | Refer to instructions in the app without reading the User Guide.
+
+| 2 | ★★★ | User | Add a task | Know what tasks I need to complete.
+
+| 3 | ★★★ | User | Delete a task | Remove entries I no longer need.
+
+| 4 | ★★★ | User | Find a task using a keyword | Locate the relevant tasks
+
+| 5 | ★★★ | User | Find a task with my own tags | Locate the releant tasks
+
+| 6 | ★★★ | User | Automatically create tasks that are performed routinely | Spend less time in adding the tasks manually.
+
+| 7 | ★★★ | User | Start the app quick without much set up | Dive straight into the app.
+
+| 8 | ★★★ | User | Postpone or reschedule unimportant tasks | Focus on more pressing tasks.
+
+| 9 | ★★★ | Impatient User | Type as little as possible | Input commands easily without memorizing a long proper format.
+
+| 10 | ★★★ | Motivated Student | Get a reward in completing my tasks | Have a sense of achievement.
+
+| 11 | ★★★ | Forgetful Student | Be alerted of my upcoming and exceeded deadlines | Quickly sort out my outstanding assignments.
+
+| 12 | ★★★ | Analytical Student | Have interesting statistics about my usage | Be more engaged and encourage myself to be more productive.
+
+| 13 | ★★★ | Fast-typing Student | Navigate around the interface by typing mainly | Access to the functions as quickly as possible.
+
+| 14 | ★★ | Picky User | Have clean user interface | Spend less time navigating the software and focus on adding my tasks.
+
+| 15 | ★★ | Student | Have a calendar that tracks my tasks | Be organized and plan out my day.
+
+| 16 | ★★ | Busy User | Sort my numerous tasks in priority level | Remember which task to focus on.
+
+| 17 | ★★ | User | Sort my tasks based on tags | See which aspect to focus on.
+
+| 18 | ★★ | Forgetful Student | Set a reminder on my tasks | Ensure I finish my tasks on time.
+
+| 19 | ★★ | Indecisive Student | Have the app tell me what task to do | Waste less time on planning what to start on.
+
+| 20 | ★★ | User | Save my custom settings on my software | Have a more personalized and more enjoyable experience.
+
+| 21 | ★★ | Tech-savvy Student | Be able to auto-complete inputs | Have a more convenient and pleasant experience.
+
+| 22 | ★★ | User | Have a “today” tab | Concentrate on all tasks on the particular given day.
+
+| 23 | ★★ | Absent-minded User | Be alerted of my duplicate tasks | Realize I have previously did that and add in other important tasks.
+
+| 24 | ★★ | Reward-hungry User | Translate my statistics obtained from the app | Be satisfied of my progression.
+
+| 25 | ★★ | User | Customize my date/time inputs | Type the input to my liking.
+
+| 26 | ★★ | User | Delete all my tasks with one input | Spend less time manually deleting everything.
+
+| 27 | ★★ | User | Have quote of the day when starting the app | Get a boost of motivation to start the day.
+
+| 28 | ★★ | User | Keep track of how many times I have used the app | Feel good in knowing that I spend time on a productivity app.
+
+| 29 | ★ | Clumsy Student | Undo my inputs | Spend less time deleting unwanted inputs.
+
+| 30 | ★ | Sociable Student | Share my schedule with my friends through the app | Easily organize events with them.
+
+| 31 | ★ | Competitive Student | Battle my friends against their avatar | Have fun and compare myself with others.
+
+| 32 | ★ | Meticulous Student | Add notes and comments on my tasks | Remember what additional information I require for that task.
+
+|===
+// end::base-alt[]
+
+== Appendix C: Use Cases
+
+Several use cases are shown. For all use cases below, System is Hustler, Actor is User, unless specified otherwise).
+
+=== 1. Use case: Adding tasks
+
+==== MSS
+
+----
+
+1. User inputs the task to add into Hustler.
+
+2. Hustler parses the logic of the input into a task class.
+
+3. Task is added into the task list.
+
+4. Hustler informs the User that the task has been successfully added.
+
+5. Hustler repeats the description of the task added on the screen.
+
+6. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+2a. The given input is invalid.
+
+- 2a1. Hustler shows an error message, prompting User to type a valid task description.
+
+- Use case resumes at step 1.
+
+6a. The given task is not in the right format to the User’s liking.
+
+- 6a1. User inputs an “undo”.
+
+- 6ab. Task is deleted from the task list.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== 2. Use case: Deleting tasks
+
+==== MSS
+
+----
+
+1. User inputs the index to remove from the task in Hustler.
+
+2. Hustler removes the task of the given index from the task list.
+
+3. Hustler repeats the description of the task removed on the screen.
+
+4. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The task list is empty
+
+- 1a1. Hustler displays an error message, prompting User to first add a task.
+
+- Use case ends.
+
+2a. The given index is invalid
+
+- 2a1. Hustler displays an error message, prompting User to type a valid number.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== 3. Use case: Alert on duplicate tasks
+
+==== MSS
+
+----
+
+1. User adds a task that occurs on the same day, with the same description.
+
+2. Duke warns User that a duplicate task exists.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+2a. User is adamant on adding the same task.
+
+- 2a1. Duke suggests to the User to add it on another day.
+
+- Use case ends.
+
+----
+
+---
+
+=== 4. Use case: Auto-completing words
+
+==== MSS
+
+----
+
+1. User wants to type out “/achievements” in the command.
+
+2. User types out “/a” and have not pressed enter.
+
+3. User presses TAB button.
+
+4. Duke will auto-complete the word, and “/achievements” will appear in the command.
+
+5. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+4a. User does not want this specific command (etc wanted to type “/all”).
+
+- 4a1. User presses TAB once more.
+
+- 4a2. Duke finds the next word in the dictionary.
+
+- 4a3. Duke handles auto-complete for the next word in the dictionary, and the next input that starts with “/a”, if any, will appear.
+
+- 4a4. Use case resumes to step 4a1 until User desires the input, or decides to type another thing.
+
+- Use case ends.
+
+----
+
+---
+
+=== 5. Use case: Getting coins from unlocking achievements
+
+==== MSS
+
+----
+
+1. User does something that unlocks an achievement.
+
+2. Hustler will display a congratulatory message to the User and notify the achievement unlocked.
+
+3. Coins will be added to the User’s accumulated coins.
+
+4. Use case ends.
+
+----
+
+---
+
+=== 6. Use case: Getting experience points from completing tasks
+
+==== MSS
+
+----
+
+1. User completes a task.
+
+2. Hustler tells User about the task that he keyed as completed.
+
+3. Hustler shows User experience points obtained from completing said task and his total accumulated points.
+
+4. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The given index is invalid.
+
+- 1a1. Hustler shows an error message, prompting User to type a valid number, given the size of the task list.
+
+- Use case resumes at step 1.
+
+4a. User levels up from the completion.
+
+- 4a1. Hustler increases User’s level by 1.
+
+- 4a2. Hustler informs User on their current level and progress towards the next level.
+
+- Use case ends.
+
+----
+
+---
+
+=== 7. Use case: Purchasing item from shop.
+
+==== MSS
+
+----
+
+1. User types the command to show things offered in the shop.
+
+2. Duke lists out the things that is currently available for purchase.
+
+3. User buys an item from the shop with his current points.
+
+4. Duke subtracts his accumulated points, and shows User that the purchase is successful.
+
+5. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+3a. The given index is invalid.
+
+- 3a1. Duke shows an error message, prompting User to type a valid number, given the size of the shop listing.
+
+- Use case resumes at step 1.
+
+3b. User does not have enough points for purchase.
+
+- 3b1. Duke shows an error message, prompting the User about his lack of points.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== 8. Use case: Suggesting a recommended schedule
+
+==== MSS
+
+----
+
+1. User inputs a duration to complete the tasks.
+
+2. Hustler will determine the recommended tasks to complete based on task’s priority and the hours needed to complete them.
+
+3. Hustler will prompt the User if he wants to follow the recommended schedule.
+
+4. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The tasks do not have any hours given.
+
+- 1a1. Hustler prompts the User to first add the hours needed to complete each task.
+
+- Use case ends.
+
+1b. The duration given fall short of every task’s allocated duration.
+
+- 1b1. Hustler prompts the User to increase the time allocated to complete the tasks.
+
+- Use case resumes at step 1.
+
+----
+
+---
+
+=== 9. Use case: Finding a task from tags
+
+==== MSS
+
+----
+
+1. User searches a tag.
+
+2. Hustler shows all tasks that inherit the given tag.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The tag does not exist in any task.
+
+- 1a1. Hustler shows an empty list.
+
+- Use case ends.
+
+----
+
+---
+
+=== 10. Use case: Displaying User statistics
+
+==== MSS
+
+----
+
+1. User types the command to navigate to the statistics page.
+
+2. Hustler shows the current statistics of the User.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. User prefers mouse input.
+
+- 1a1. User clicks the statistics icon.
+
+- Use case resumes at step 2.
+
+----
+---
+=== 11. Use case: Finding a task using keyword 
+
+==== MSS
+
+----
+
+1. User type in description/part of the description of a task.
+
+2. Hustler shows the all tasks that contains/matches what the user type in.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The task descriptions in the list do not contain/match the user input.
+
+- 1a1. Hustler shows an empty list.
+
+- Use case ends.
+
+----
+---
+=== 12. Use case: Sort tasks by priority
+
+==== MSS
+
+----
+
+1. User type in command to see tasks listed out based on priority. 
+
+2. Hustler shows tasks that are listed in decreasing order of priority.
+
+3. Use case ends.
+
+----
+
+==== Extensions
+
+----
+
+1a. The task list is empty.
+
+- 1a1. Hustler displays an error message, prompting User to first add a task.
+
+- Use case ends.
+
+----
+== Appendix D: Non Functional Requirements
+
+Examples of NFRs: https://nuscs2113-ay1920s1.github.io/website/schedule/week5/project.html
+
+NFRs marked with an asterisk(s) are backed by research. Links to said research articles are provided at the very bottom.
+
+==== Learning requirements:
+
+- The app’s user interface should be uncomplicated and easy to use even for first-timers
+
+- The app’s commands should be intuitive, so much so that users need not memorise long command formats
+
+==== Design requirements:
+
+- Keep supplementary features to a minimum
+
+==== Performance requirements:
+
+- The app should load in less than 2 seconds.*
+
+- The app should take less than 0.2 seconds to register and respond to a user’s actions.**
+
+- For any responses > 5 sec, the app should provide feedback indicating when it expects to be done, otherwise users will not know what to expect.**
+
+==== Other requirements:
+
+- The game elements of the app should not overly distract users from completing their tasks.
+
+---
+
+==== Research:
+
+https://www.freecodecamp.org/news/top-reasons-why-your-mobile-app-is-slow-and-how-to-fix-it-f0f7ce524934/#targetText=The%20root%20cause%20to%20all,for%20most%20of%20its%20tasks.&targetText=Try%20to%20take%20some%20load,an%20extra%20reverse%20proxy%20server. (*)
+
+https://github.com/Tendrl/documentation/wiki/Best-Practices-for-Response-Times-and-Latency#targetText=10%20sec%20is%20about%20the,computer%20expects%20to%20be%20done. (**)
+
