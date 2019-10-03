@@ -24,8 +24,9 @@ public class Ui {
 		return in.nextLine();
 	}
 
+	//@@author LL-Pengfei
 	/**
-	 * Prints the welcome screen of Duke.
+	 * Prints the welcome screen of Cube.
 	 */
 	public void showWelcome(){
 	    String logo = " ________  ___  ___  ________  _______      \n" +
