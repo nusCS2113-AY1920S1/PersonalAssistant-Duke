@@ -5,7 +5,9 @@ import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.FixedDurationTasks;
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
+import duke.tasks.Todo;
 import duke.util.TaskList;
 import duke.util.TimePeriod;
 import duke.util.Ui;
@@ -37,7 +39,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeScheduleException {
-        if (task.getClass().toString().equals("class duke.tasks.Todo")) {
+        if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
             tasks.add(task);
         } else {
             HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
@@ -49,10 +51,7 @@ public class AddCommand extends Command {
                 } else if (temp instanceof Events) {
                     Events hold = (Events) temp;
                     dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof FixedDurationTasks) {
-                    FixedDurationTasks hold = (FixedDurationTasks) temp;
-                    dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof DoWithin) {
+                }  else if (temp instanceof DoWithin) {
                     DoWithin hold = (DoWithin) temp;
                     timePeriodSet.add(hold.getPeriod());
                 }
@@ -68,9 +67,6 @@ public class AddCommand extends Command {
             } else if (task instanceof DoWithin) {
                 DoWithin hold = (DoWithin) task;
                 taskTimePeriod = hold.getPeriod();
-            } else {
-                FixedDurationTasks hold = (FixedDurationTasks) task;
-                taskDateTime = hold.getDateTime();
             }
             if (taskTimePeriod == null) {
                 if (dateTimeSet.contains(taskDateTime)) {
