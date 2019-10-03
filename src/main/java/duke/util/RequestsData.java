@@ -34,6 +34,8 @@ public class RequestsData {
      * Using the nusMods V2 API : https://api.nusmods.com/v2/
      */
     public void setRequestData(String mod, Storage store) {
+        // Api calls only work with upper case module code
+        mod = mod.toUpperCase();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
@@ -50,6 +52,7 @@ public class RequestsData {
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
+            // If return status is not 200, and error request has been made
             if (response.statusCode() != 200) {
                 return;
             }
