@@ -38,6 +38,9 @@ public class TaskList {
      * @throws DukeException If the index cannot be found in the list of tasks.
      */
     public void delete(int index) throws DukeException {
+        if (index < 0 || index > tasks.size()) {
+            throw new DukeException(ExceptionType.outOfBounds);
+        }
         tasks.remove(index - 1);
     }
 
@@ -64,6 +67,9 @@ public class TaskList {
      * @throws DukeException If the index cannot be found in the list of tasks.
      */
     public void done(int index) throws DukeException{
+        if (index < 0 || index > tasks.size()) {
+            throw new DukeException(ExceptionType.outOfBounds);
+        }
         tasks.get(index - 1).setDone();
     }
 

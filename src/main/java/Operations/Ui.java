@@ -43,18 +43,14 @@ public class Ui {
     public void showDeleted (int index) {
         System.out.println("Deleted task number " + index + "!");
     }
-    public void showDeletedRecur (int index) {
-        System.out.println("Deleted recurring task number " + index + "!");
-    }
+
     /**
      * Tells the user that the search operation is executing
      */
     public void showFind () {
         System.out.println("Searching for item in task list...");
     }
-    public void showFindRecur () {
-        System.out.println("Searching for item in recurring task list...");
-    }
+
     /**
      * Tells the user that the task of index has been done and the list has been updated.
      */
@@ -205,16 +201,10 @@ public class Ui {
         System.out.println("Does this task have a duration? (yes/no)");
     }
 
-<<<<<<< HEAD
-=======
-
-     /* tells the user to input valid amount of time
     public void promptForTime() {
         System.out.println("Enter the amount of time");
     }
-     */
-  
->>>>>>> 61c92d7e89f193fc9fa8bb610b519e673aaa8909
+
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }

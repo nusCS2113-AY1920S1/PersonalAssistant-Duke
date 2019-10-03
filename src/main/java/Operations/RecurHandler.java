@@ -79,6 +79,7 @@ public class RecurHandler {
                 ui.showDateError();
             }
             break;
+
         case event:
             try {
                 String[] eventArray = parser.getDescriptionWithDate();
@@ -159,8 +160,10 @@ public class RecurHandler {
                     // extract the recurrence schedule.
                     recurrenceSchedule = array[3].substring(0, array[3].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
+
                     switch (type) {
                     case day:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), DAY, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, DAY);
                             taskList.replace(index, recurringToDo);
@@ -169,6 +172,7 @@ public class RecurHandler {
                         break;
 
                     case week:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), WEEK, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, WEEK);
                             taskList.replace(index, recurringToDo);
@@ -177,6 +181,7 @@ public class RecurHandler {
                         break;
 
                     case month:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), MONTH, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, MONTH);
                             taskList.replace(index, recurringToDo);
@@ -190,6 +195,7 @@ public class RecurHandler {
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
                     switch (type) {
                     case week:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), WEEK);
@@ -204,6 +210,7 @@ public class RecurHandler {
                         break;
 
                     case day:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), DAY);
@@ -218,6 +225,7 @@ public class RecurHandler {
                         break;
 
                     case month:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), MONTH);

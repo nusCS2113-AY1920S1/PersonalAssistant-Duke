@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import Enums.ExceptionType;
 import Enums.ReplyType;
 import Enums.TimeUnit;
 
@@ -50,7 +51,7 @@ public class Parser {
     public String getDescription() throws DukeException {
         String temp = scanner.nextLine().trim();
         if (temp.equals("")) {
-            throw new DukeException();
+            throw new DukeException(ExceptionType.empty);
         }
         return temp;
     }
@@ -61,7 +62,7 @@ public class Parser {
      *               index 1 stores the date String.
      */
     public String[] getDescriptionWithDate() {
-        String[] array = scanner.nextLine().split(" ", 1);
+        String[] array = scanner.nextLine().split("/", 1);
         return array;
     }
 
@@ -101,7 +102,7 @@ public class Parser {
         try {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
         } catch (ParseException e) {
-            throw new DukeException();
+            throw new DukeException(ExceptionType.wrongFormat);
         }
     }
 

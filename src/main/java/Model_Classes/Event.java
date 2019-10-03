@@ -19,21 +19,10 @@ public class Event extends Task {
         this.at = at;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Constructor for Event object
-     * @param description name and date of Event
-     */
-    public Event(String description) {
-        super(description);
-    }
-
     /**
      * Returns date of Event
      * @return date of Event
      */
->>>>>>> 61c92d7e89f193fc9fa8bb610b519e673aaa8909
     public Date checkDate() { return this.at; }
 
     /**
