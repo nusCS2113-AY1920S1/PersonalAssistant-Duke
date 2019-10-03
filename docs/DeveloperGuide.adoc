@@ -16,6 +16,13 @@ endif::[]
 
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
+
+== Introduction
+=== Purpose
+
+=== Scope
+
+
 == Setting Up
 === Prerequisites
 While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
