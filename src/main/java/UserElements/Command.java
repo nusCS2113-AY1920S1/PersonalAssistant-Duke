@@ -10,7 +10,7 @@ import Events.Storage.EventList;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -69,10 +69,10 @@ public class Command {
                 changesMade = false;
                 break;
 
-//            case "reminder":
-//                remindEvents(events, ui);
-//                changesMade = false;
-//                break;
+            case "reminder":
+                remindEvents(events, ui);
+                changesMade = false;
+                break;
 
             case "done":
                 markEventAsDone(events, ui);
@@ -82,11 +82,11 @@ public class Command {
                 deleteEvent(events, ui);
                 break;
 
-//            case "find":
-//                searchEvents(events, ui);
-//                changesMade = false;
-//                break;
-//
+            case "find":
+                searchEvents(events, ui);
+                changesMade = false;
+                break;
+
             case "todo":
                 createNewTodo(events, ui);
                 break;
@@ -103,15 +103,15 @@ public class Command {
                 createNewEvent(events, ui, 'P');
                 break;
 
-//            case "view":
-//                viewEvents(events, ui);
-//                changesMade = false;
-//                break;
-//
-//            case "check":
-//                checkFreeDays(events, ui);
-//                changesMade = false;
-//                break;
+            case "view":
+                viewEvents(events, ui);
+                changesMade = false;
+                break;
+
+            case "check":
+                checkFreeDays(events, ui);
+                changesMade = false;
+                break;
 
             default:
                 ui.printInvalidCommand();
@@ -123,23 +123,45 @@ public class Command {
         }
     }
 
+    private void searchEvents(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String searchKeyWords = continuation;
+            String foundEvent = "";
+            int viewIndex = 1;
+            for (Event viewEvent : events.getEventArrayList()) {
+                if (viewEvent.toString().contains(searchKeyWords)) {
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    viewIndex++;
+                }
+            }
+            boolean isEventsFound = !foundEvent.isEmpty();
+            ui.printFoundEvents(foundEvent, isEventsFound);
+        }
+    }
+
     public void checkFreeDays(EventList events, UI ui) {
-        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-        DateObj today = new DateObj(f.format(new Date()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar dayToCheckIfFree = Calendar.getInstance();
+        DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean flagFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(today.formatDate())) {
+                dayToCheckIfFreeObject.formatDate();
+                if (viewEvent.toString().contains(dayToCheckIfFreeObject.getFormattedDateString())) {
                     flagFree = false;
                     break;
                 }
             }
             if (flagFree) {
-                daysFree.add(today.formatDate());
+                dayToCheckIfFreeObject.formatDate();
+                daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
-            today.addDaysAndSetMidnight(nextDays);
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
+            nextDays++;
         }
         ui.printFreeDays(daysFree);
     }
@@ -153,13 +175,14 @@ public class Command {
             int viewIndex = 1;
             DateObj findDate = new DateObj(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.toString().contains(findDate.formatDate())) {
+                findDate.formatDate();
+                if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                     viewIndex++;
                 }
             }
             boolean isEventsFound = !foundEvent.isEmpty();
-            ui.searchEvents(foundEvent, isEventsFound);
+            ui.printFoundEvents(foundEvent, isEventsFound);
         }
     }
 
@@ -270,9 +293,9 @@ public class Command {
         }
     }
 
-//    public void remindEvents(EventList events, UI ui) {
-//        ui.printReminder(events);
-//    }
+    public void remindEvents(EventList events, UI ui) {
+        ui.printReminder(events);
+    }
 
     public void listEvents(EventList events, UI ui) {
         ui.printListOfEvents(events);

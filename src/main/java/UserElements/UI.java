@@ -60,18 +60,18 @@ public class UI {
      * @param events the EventList used in the Duke function.
      */
 
-//    public void printReminder(EventList events) {
-//        String systemDateAndTime = new Date().toString();
-//    	DateObj limit = new DateObj(systemDateAndTime);
-//    	limit.addDaysAndSetMidnight(3);
-//    	String reminderDeadline = limit.getCurrentJavaDate().toString();
-//    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-//    	System.out.print(lineSeparation);
-//    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-//    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-//    	System.out.print(events.filteredList(pred, DATE));
-//    	System.out.print(lineSeparation);
-//    }
+    public void printReminder(EventList events) {
+        String systemDateAndTime = new Date().toString();
+    	DateObj limit = new DateObj(systemDateAndTime);
+    	limit.addDaysAndSetMidnight(3);
+    	String reminderDeadline = limit.getEventJavaDate().toString();
+    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
+    	System.out.print(lineSeparation);
+    	System.out.print("The time now is " + systemDateAndTime + ".\n");
+    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
+    	System.out.print(events.filteredList(pred, DATE));
+    	System.out.print(lineSeparation);
+    }
 
     /**
      * Prints a message when an invalid command is entered.
@@ -114,10 +114,23 @@ public class UI {
      * @param numEvents  total number of events
      */
     public void eventAdded(Event eventAdded, int numEvents) {
-        System.out.println(lineSeparation + "Got it. I've added this event:");
-        System.out.println(eventAdded.toString());
-        System.out.println("Now you have " + numEvents + " events in the list.");
-        System.out.print(lineSeparation);
+        try {
+            eventAdded.getStartDate().formatDate();
+            eventAdded.getEndDate().formatDate();
+            System.out.println(lineSeparation + "Got it. I've added this event:");
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                    " END: " + eventAdded.getEndDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            eventAdded.getStartDate().formatDate();
+            System.out.println(lineSeparation + "Got it. I've added this event:");
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        }
     }
 
     /**
@@ -151,7 +164,7 @@ public class UI {
      * @param allFoundEvents string containing all the events found, separated by newline character
      * @param found         boolean signifying whether or not any events were found
      */
-    public void searchEvents(String allFoundEvents, boolean found) {
+    public void printFoundEvents(String allFoundEvents, boolean found) {
         if (found) {
             System.out.print(lineSeparation);
             System.out.println("Here are the matching events in your list:");
@@ -192,15 +205,6 @@ public class UI {
     }
 
     /**
-     * prints message when format of input is wrong for adding new deadline
-     */
-    public void deadlineFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Please enter the name of the event followed by the deadline, separated by /by");
-        System.out.print(lineSeparation);
-    }
-
-    /**
      * prints message when input format is wrong for addition of new event type event.
      */
     public void eventFormatWrong() {
@@ -220,8 +224,12 @@ public class UI {
      * prints message when recurring events are added to the list successfully
      */
     public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
+        eventAdded.getStartDate().formatDate();
+        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
-        System.out.println(eventAdded.toString() + " (every " + period + " days)");
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                " END: " + eventAdded.getEndDate().getFormattedDateString() + " (every " + period + " days)");
         System.out.println("Now you have " + numEvents + " events in the list.");
         System.out.print(lineSeparation);
     }

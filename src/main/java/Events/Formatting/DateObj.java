@@ -1,11 +1,10 @@
 package Events.Formatting;
 
-import UserElements.UI;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Model_Class.DateObj object stores the input date and time as a java object.
@@ -17,15 +16,7 @@ public class DateObj {
 
     protected Date dateObject;
 
-    protected UI ui;
-
-    /**
-     * Stores the format type of the date input.
-     */
-    protected int format;
-
-    protected static int DATE_AND_TIME = 1;
-    protected static int DATE = 2;
+    protected String formattedDateString;
 
     /**
      * Creates a custom "date object".
@@ -34,39 +25,53 @@ public class DateObj {
      */
     public DateObj(String splitDate) {
     	this.splitDate = splitDate;
-    	this.dateObject = new Date();
-    	this.format = 0;
-    	formatDate();
     }
 
-    public String formatDate() {
+    public void formatDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             dateFormat.setLenient(false);
-            Date taskJavaDate = dateFormat.parse(splitDate);
-            format = DATE_AND_TIME;
-            return taskJavaDate.toString();
+            this.dateObject = dateFormat.parse(splitDate);
+            this.formattedDateString = formatter.format(dateObject);
         } catch (ParseException pe) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
                 dateFormat.setLenient(false);
-                Date taskJavaDate = dateFormat.parse(splitDate);
-                format = DATE;
-                return taskJavaDate.toString();
+                this.dateObject = dateFormat.parse(splitDate);
+                this.formattedDateString = formatter.format(dateObject);
             } catch (ParseException pe2) {
-                return splitDate;
+                this.formattedDateString = splitDate;
             }
         }
     }
 
-    public int getFormat() {
-        return format;
+    public void formatToInputPattern() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            dateFormat.setLenient(false);
+            this.dateObject = dateFormat.parse(splitDate);
+            this.formattedDateString = formatter.format(dateObject);
+        } catch (ParseException pe) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+                dateFormat.setLenient(false);
+                this.dateObject = dateFormat.parse(splitDate);
+                this.formattedDateString = formatter.format(dateObject);
+            } catch (ParseException pe2) {
+                this.formattedDateString = splitDate;
+            }
+        }
     }
 
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.
      */
     public Date getCurrentJavaDate() {
+        dateObject = new Date();
         return dateObject;
     }
 
@@ -74,24 +79,18 @@ public class DateObj {
         return splitDate;
     }
 
-    public Date getEventJavaDate() {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
-            dateFormat.setLenient(false);
-            dateObject = dateFormat.parse(splitDate);
-            return dateObject;
-        } catch (ParseException pe) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                dateFormat.setLenient(false);
-                dateObject = dateFormat.parse(splitDate);
-                return dateObject;
-            } catch (ParseException pe2) {
-                return dateObject;
-            }
-        }
+    public String getFormattedDateString() {
+        return this.formattedDateString;
     }
 
+    public Date getEventJavaDate() {
+        return this.dateObject;
+    }
+
+    public String formatToString(Date dateToBeFormatted) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+        return formatter.format(dateToBeFormatted);
+    }
     
     /**
      * Compares this dateObj with another input dateObj
@@ -124,13 +123,13 @@ public class DateObj {
      * @param noOfDays numbers of days to add
      */
     public void addDaysAndSetMidnight(int noOfDays) {
-    	if (dateObject != null) {
-    		Calendar c = Calendar.getInstance();
-        	c.add(Calendar.DATE, noOfDays);
-            c.set(Calendar.HOUR_OF_DAY, 23);
-            c.set(Calendar.MINUTE, 59);
-            c.set(Calendar.SECOND, 59);
-            dateObject = c.getTime();
-    	}
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, noOfDays);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        this.dateObject = c.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        this.splitDate = formatter.format(dateObject);
     }
   }

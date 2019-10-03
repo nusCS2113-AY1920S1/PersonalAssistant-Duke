@@ -51,21 +51,24 @@ public abstract class Event {
      */
     public String toString() {
         if (getType() == 'T') { //if todo, then only one date entry
-            return "[" + getDoneSymbol() + "][T]" + getDescription() + " BY: " + this.getStartDate().formatDate();
+            return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
-            return "[" + getDoneSymbol() + "][" + getType() + "]" +
-                    getDescription() + " START: " + this.getStartDate().formatDate() +
-                    " END: " + this.getEndDate().formatDate();
+            return "[" + getDoneSymbol() + "][" + getType() + "] " +
+                    getDescription() + " START: " + startDateObj.getSplitDate() +
+                    " END: " + endDateObj.getSplitDate();
         }
     }
 
     public String toStringForFile() { //string that is to be saved to file.
         if (getEndDate() == null) {
+            getStartDate().formatToInputPattern();
             return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                    getStartDate().getSplitDate();
+                    getStartDate().getFormattedDateString();
         }
+        getStartDate().formatToInputPattern();
+        getEndDate().formatToInputPattern();
         return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                getStartDate().getSplitDate() + " " + getEndDate().getSplitDate();
+                getStartDate().getFormattedDateString() + " " + getEndDate().getFormattedDateString();
     }
     
     public char getType() {

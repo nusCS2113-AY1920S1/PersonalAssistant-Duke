@@ -1,0 +1,49 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+NAME was developed by team https://github.com/AY1920S1-CS2113T-F11-4[CS2113T-F11-4]. +
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Fei Dong
+image::dng132fei.png[width="150", align="left"]
+{empty}[https://github.com/Dng132FEI[github]]
+
+Role: Developer
+
+'''
+
+=== Wong Ren-Wei, Ryan
+image::ryan-wong-ren-wei.png[width="150", align="left"]
+{empty}[https://github.com/Ryan-Wong-Ren-Wei[github]]
+
+Role: Developer
+
+'''
+
+=== Yen Pei Chih
+image::yenpeichih.png[width="150", align="left"]
+{empty}[https://github.com/yenpeichih[github]]
+
+Role: Developer
+
+'''
+
+=== Yuan Jiayi
+image::yuanjiayi.png[width="150", align="left"]
+{empty}[https://github.com/YuanJiayi[github]]
+
+Role: Developer
+
+'''
+
+=== Zhang Yihan
+image::zhangyihannus.png[width="150", align="left"]
+{empty}[https://github.com/ZhangYihanNus[github]]
+
+Role: Developer
