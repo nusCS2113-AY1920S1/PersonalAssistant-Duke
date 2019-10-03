@@ -17,13 +17,19 @@ endif::[]
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
+=== The Product
+Duke 2.0 (D2) is a desktop application that acts as an extended task manager for *prospective applicants of the various degreees offered by the NUS Faculty of Engineering*. 
 
-Duke 2.0 (D2) is a desktop application that acts as an extended task manager for *prospective applicants of the various degreees offered by the NUS Faculty of Engineering*. D2 is built with extra functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list. Moroever, as a task manager, D2 is suitable for use as a personal assistant; that organises and reminds the user of important tasks pertaining to university application.
+D2 offers various functionalitites that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list. Moroever, as a task manager, D2 is suitable for use as a personal assistant; and lets you organise and remind yourself of important tasks pertaining to university application.
 
+D2 specifically fits users who prefer to work with a Command Line Interface (CLI) while still having the benefits of an appealing Graphical User Interface (GUI). Also, if you are particularly adept at typing fast, D2 will handle your commands more quickly than traditional GUI apps. 
 
-D2 has been optimized to fit users who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of an appealing Graphical User Interface (GUI). Therefore, for users that are *particularly adept at typing fast*, D2 will handle your commands more quickly than traditional GUI apps. 
+=== The Document
+The D2 Team is committed to ensuring that you have all the information you need for using D2 as effortlessly as possible. Therefore, this document describes all aspects of using D2 including installation, features, and commands. We have also included a Frequently Asked Questions if you have any doubts about D2 after reading the document. 
 
-This document has been written to guide you through all aspects of using D2. Jump straight to <<Quick Start>> to get started. Enjoy!
+To use Duke, you should have basic knowledge of downloading and running applications. You should able to input simple text commands into a command line. You will not need any other technical knowledge to use D2 to its fullest potential.
+
+Jump straight to <<Quick Start>> to get started!
 
 == Quick Start
 
