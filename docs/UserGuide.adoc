@@ -86,6 +86,8 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 Format: +
 `*help*`
+{nbsp} +
+{nbsp} +
 
 === Common Commands
 
@@ -166,6 +168,8 @@ Format: +
 Example:
 
 * `sort /amount ascending`
+
+{nbsp} +
 
 === Switch the mode to dolla: `dolla`
 
@@ -294,9 +298,11 @@ Examples:
 
 * `view 11/11/2011`
 
+{nbsp} +
+
 === Switch the mode to Entries: `entries`
 
-Users can check and edit the tasks in entries. +
+Users can look through, edit and remove entries in this mode. +
 Format: +
 `*entries*`
 
@@ -313,36 +319,42 @@ Example:
 
 * `create shortcut 3`
 
+{nbsp} +
+
 === Switch the mode to Limits: `limits`
 
-Users can check and edit the tasks in limits. +
+Users can look through, edit and remove limits in this mode. +
 Format: +
 `*limits*`
 
-Common Commands Available: +
+==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+{nbsp} +
 
 === Switch the mode to Debts: `debts`
 
-Users can check and edit the tasks in debts. +
+Users can look through, edit and remove debts in this mode. +
 Format: +
 `*debts*`
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
+{nbsp} +
+
 === Switch the mode to Shortcuts: `shortcuts`
 
-Users can check and edit the tasks in shortcuts. +
+Users can look through, edit and remove shortcuts in this mode. +
 Format: +
 `*shortcuts*`
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
-==== Add a task from a shortcut to entries `add shortcut`
+==== Add an entry from a shortcut to entries `add shortcut`
 
-Add a task from the shortcut to the expense/income list. +
+Add an entry from the shortcut to the expense/income list. +
 Format: +
 `*add shortcut* [SHORTCUT NO.]`
 
@@ -350,7 +362,7 @@ Example:
 
 * `add shortcut 8`
 
-
+{nbsp} +
 
 === Switch the mode to Settings: `settings` [coming in v2.0]
 
