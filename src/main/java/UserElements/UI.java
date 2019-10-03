@@ -114,14 +114,23 @@ public class UI {
      * @param numEvents  total number of events
      */
     public void eventAdded(Event eventAdded, int numEvents) {
-        eventAdded.getStartDate().formatDate();
-        eventAdded.getEndDate().formatDate();
-        System.out.println(lineSeparation + "Got it. I've added this event:");
-        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
-                eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
-                " END: " + eventAdded.getEndDate().getFormattedDateString());
-        System.out.println("Now you have " + numEvents + " events in the list.");
-        System.out.print(lineSeparation);
+        try {
+            eventAdded.getStartDate().formatDate();
+            eventAdded.getEndDate().formatDate();
+            System.out.println(lineSeparation + "Got it. I've added this event:");
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                    " END: " + eventAdded.getEndDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            eventAdded.getStartDate().formatDate();
+            System.out.println(lineSeparation + "Got it. I've added this event:");
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        }
     }
 
     /**
