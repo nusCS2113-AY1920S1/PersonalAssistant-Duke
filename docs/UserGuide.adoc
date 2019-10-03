@@ -6,7 +6,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/mid-v1.1
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
