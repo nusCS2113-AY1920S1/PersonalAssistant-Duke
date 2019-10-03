@@ -31,7 +31,7 @@ e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
 * `entries` : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
+* **`set budget`**`/tag food $300` : set a budget for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
 .  Refer to <<Features>> for the details of each command.
 
@@ -43,7 +43,7 @@ image::Ui/Entries.png[width="500", align="center"]
 Look through, edit and modify all the income and expenses that you have added.
 Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily spendings!
 
-=== Limits
+=== Budgets
 image::Ui/Limits.png[width="500", align="center"]
 {nbsp} +
 Find out your daily, monthly, or yearly progress in cutting down your spending on certain products, or see how much more you can spend before you break the savings goal you set for that new speaker!
@@ -91,7 +91,7 @@ Format: +
 
 === Common Commands
 
-These commands can be used in the modes `*entries*`, `*limits*`, `*debts*` and `*shortcuts*`.
+These commands can be used in the modes `*entries*`, `*budgets*`, `*debts*` and `*shortcuts*`.
 
 ==== Change the page of the list: `page`
 
@@ -253,7 +253,7 @@ Example:
 
 ==== Reminders: `reminder`
 
-Reminders for upcoming payments and limits that are about to be broken. +
+Reminders for upcoming payments and budgets that are about to be broken. +
 Format: +
 `*reminder*`
 
@@ -321,11 +321,11 @@ Example:
 
 {nbsp} +
 
-=== Switch the mode to Limits: `limits`
+=== Switch the mode to Budgets: `budgets`
 
-Users can look through, edit and remove limits in this mode. +
+Users can look through, edit and remove budgets in this mode. +
 Format: +
-`*limits*`
+`*budgets*`
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
@@ -380,7 +380,7 @@ Format: +
 
 * `dolla`
 * `entries`
-* `limits`
+* `budgets`
 * `debts`
 * `shortcuts`
 * `settings`
@@ -402,10 +402,10 @@ e.g. sort /tag descending
 e.g. sort /amount ascending
 * *add recurring expenses/income* `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
-* *set limit* `set limit [AMOUNT] /every [DURATION]` +
-* *set limit* `set limit /tag [TAG] [AMOUNT]` +
-e.g. `set limit /tag bubble tea $20`
-e.g. `set limit $50 every week`
+* *set budget* `set budget [AMOUNT] /every [DURATION]` +
+* *set budget* `set budget /tag [TAG] [AMOUNT]` +
+e.g. `set budget /tag bubble tea $20`
+e.g. `set budget $50 every week`
 * *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
 * *reminder* `reminder`
