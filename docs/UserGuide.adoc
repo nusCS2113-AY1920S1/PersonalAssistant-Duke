@@ -6,7 +6,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/mid-v1.1
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -31,7 +31,7 @@ e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
 * `entries` : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
+* **`set budget`**`/tag food $300` : set a budget for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
 .  Refer to <<Features>> for the details of each command.
 
@@ -91,7 +91,7 @@ Format: +
 
 === Common Commands
 
-These commands can be used in the modes `*entries*`, `*limits*`, `*debts*` and `*shortcuts*`.
+These commands can be used in the modes `*entries*`, `*budgets*`, `*debts*` and `*shortcuts*`.
 
 Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
@@ -219,27 +219,27 @@ Examples:
 
 * `add recurring income $800 part time job /every month`
 
-==== Add duration-based expense limit: `set limit`
+==== Add duration-based expenses budget: `set budget`
 
-Set the limit on the amount you can spend within the time period you have input. +
+Set the budget on the amount you can spend within the time period you have input. +
 Format: +
-`*set limit* [AMOUNT] /every [DURATION]`
+`*set budget* [AMOUNT] /every [DURATION]`
 
 *NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
 
 Example:
 
-* `set limit $50 every week`
+* `set budget $50 every week`
 
-==== Add tag-based expense limit: `set limit /tag`
+==== Add tag-based expense budget: `set budget`
 
-Set expense limit on particular types of spending. +
+Set expense budget on particular types of spending. +
 Format: +
-`*set limit /tag* [TAG] [AMOUNT]`
+`*set budget* /tag [TAG] [AMOUNT]`
 
 Example:
 
-* `set limit /tag bubble tea $20`
+* `set budget /tag bubble tea $20`
 
 ==== Set target saving: `set saving`
 
@@ -255,7 +255,7 @@ Example:
 
 ==== Reminders: `reminder`
 
-Reminders for upcoming payments and limits that are about to be exceeded. +
+Reminders for upcoming payments and budgets that are about to be broken. +
 Format: +
 `*reminder*`
 
@@ -323,11 +323,11 @@ Example:
 
 {nbsp} +
 
-=== Switch the mode to Limits: `limits`
+=== Switch the mode to Budgets: `budgets`
 
-Users can look through, edit and remove limits in this mode. +
+Users can look through, edit and remove budgets in this mode. +
 Format: +
-`*limits*`
+`*budgets*`
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
@@ -382,7 +382,7 @@ Format: +
 
 * `dolla`
 * `entries`
-* `limits`
+* `budgets`
 * `debts`
 * `shortcuts`
 * `settings` [coming in v2.0]
@@ -408,11 +408,11 @@ e.g. sort /amount ascending
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
-* *set limit:* `set limit [AMOUNT] /every [DURATION]` +
-e.g. `set limit $50 every week`
-* *set limit /tag:* `set limit /tag [TAG] [AMOUNT]` +
-e.g. `set limit /tag bubble tea $20`
-* *set saving:* `set saving [AMOUNT] /for [DURATION]` +
+* *set budget* `set budget [AMOUNT] /every [DURATION]` +
+* *set budget* `set budget /tag [TAG] [AMOUNT]` +
+e.g. `set budget /tag bubble tea $20`
+e.g. `set budget $50 every week`
+* *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
 * *reminder:* `reminder`
 * *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
