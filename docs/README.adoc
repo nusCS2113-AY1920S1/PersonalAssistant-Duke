@@ -1,4 +1,3 @@
-
 = SpongeBob - SOC Club Manager
 
 //* Add the GUI picture over here.
@@ -7,11 +6,11 @@ image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI
 manpower, logistics, finance, events and lockers. It is a Java application written in OOP fashion.
 * It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * What makes SpongeBob special:
-  - Integrates management, operations and logistics to one place
-  - Allows members to add various tags for club events,members and lockers
-  - Reminders that are auto-updated so that the members can keep track of all the club meetings
-  - Undo/Redo commands to enhance user-experience
-  - Auto-saving the SpongeBob data as easily-editable CSV files
+- Integrates management, operations and logistics to one place
+- Allows members to add various tags for club events,members and lockers
+- Reminders that are auto-updated so that the members can keep track of all the club meetings
+- Undo/Redo commands to enhance user-experience
+- Auto-saving the SpongeBob data as easily-editable CSV files
 
 
 == Site Map
