@@ -14,8 +14,7 @@ public class RemindCommand extends Command {
      * @param list list of tasks.
      */
     public void execute(TaskList list) {
-        Reminders reminders = new Reminders();
-        reminders.oneDay();
-        reminders.displayReminder();
+        Reminders.runAll(list);
+        Reminders.displayReminders();
     } 
 }

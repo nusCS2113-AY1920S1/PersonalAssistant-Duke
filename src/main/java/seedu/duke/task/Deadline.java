@@ -3,8 +3,8 @@ package seedu.duke.task;
 import seedu.duke.ui.Ui;
 import java.time.LocalDateTime;
 
-import static seedu.duke.command.DateTimeParser.convertDateTime;
-import static seedu.duke.command.DateTimeParser.toDateTimeString;
+import static seedu.duke.parser.DateTimeParser.convertDateTime;
+import static seedu.duke.parser.DateTimeParser.toDateTimeString;
 
 /**
  * This task type inherits from Task.
@@ -70,7 +70,5 @@ public class Deadline extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.by = localDateTime;
     }
-
-
 
 }

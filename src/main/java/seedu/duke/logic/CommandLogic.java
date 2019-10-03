@@ -1,11 +1,19 @@
 package seedu.duke.logic;
 
+import seedu.duke.parser.DateTimeParser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import seedu.duke.command.DateTimeParser;
+import seedu.duke.parser.DateTimeParser;
 
+/**
+ * Checks if the user input are desired by Duke by checking if the format of the String input is valid based off
+ * the command type.
+ */
 public class CommandLogic {
-
+    /**
+     * Types of prompts to alert the users of their errors in the input.
+     */
     private static final String WRONG_FORMAT_NO_DESCRIPTION = "Adding command description cannot be empty!";
     private static final String WRONG_FORMAT_LENGTH = "Please only type \"";
     private static final String WRONG_FORMAT_NO_TIME = "Todo does not need to have a time inputted!";
@@ -16,8 +24,13 @@ public class CommandLogic {
     private static final String INVALID_NUMBER = "Please enter a valid number!";
     private static final String INVALID_SNOOZE = "Please only snooze either a specific DD/MM/YYYY or \"<number> <time to delay>\"\n etc: 3 days";
 
-
-
+    /**
+     * Tries to check for errors for a deadline input.
+     * @param rawInput user's single line input
+     * @param userInput user's input split by spacing.
+     * @return boolean expression depends on if the input is valid.
+     * @throws CommandLineException for the Main class to catch.
+     */
     public static boolean validateDeadline(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);

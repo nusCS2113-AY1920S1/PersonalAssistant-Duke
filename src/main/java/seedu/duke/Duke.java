@@ -56,11 +56,11 @@ public class Duke {
      */
     public static void run() {
         ui.show_opening_string();
-        Reminders reminders = new Reminders();
-        reminders.oneDay();
-        reminders.displayReminder();
         list = new TaskList(storage.load());
 
+        // Display reminders at the start
+        Reminders.runAll(list);
+        Reminders.displayReminders();
         System.out.println();
 
         // Taking the the first raw input
