@@ -26,8 +26,6 @@ public class LocationSearchUrlReq extends UrlReq {
      */
     public LocationSearchUrlReq(String url, String param) {
         super(url, param);
-        this.url = url;
-        this.param = param;
     }
 
     /**
