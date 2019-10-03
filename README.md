@@ -1,4 +1,4 @@
-# DUKE - Your friendly personal assistant
+# ROOMSHARE - Your friendly personal assistant
 
 ---
 ## Introduction
