@@ -1,6 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 
@@ -106,8 +105,8 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
         for (Task t: list) {
             if (t instanceof Deadline) {
-                if ((((Deadline) t).getByLDT() != null)
-                        && (Duration.between(((Deadline) t).getByLDT(), now).toSeconds() <= 10800)) { // 3 hours
+                if ((((Deadline) t).getByLdt() != null)
+                        && (Duration.between(((Deadline) t).getByLdt(), now).toSeconds() <= 10800)) { // 3 hours
                     result.add(t);
                 }
             }

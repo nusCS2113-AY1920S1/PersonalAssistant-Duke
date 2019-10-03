@@ -15,14 +15,14 @@ script:
 before_deploy:
   - ./gradlew clean
   - ./gradlew build
-  - git config --local user.name "nwjbrandon"
-  - git config --local user.email "nwjbrandon@gmail.com"
+  - git config --local user.name "jwyf"
+  - git config --local user.email "e0311252@u.nus.edu"
 
 deploy:
   provider: releases
   api_key:
     secure: $GITHUB_DEPLOY_API
-  file: /home/travis/build/AY1920S1-CS2113T-T09-3/main/build/libs/duke-0.1.3.jar
+  file: /home/travis/build/AY1920S1-CS2113T-F09-4/main/build/libs/duke-0.1.3.jar
   file_glob: true
   skip_cleanup: true
   name: $TRAVIS_TAG

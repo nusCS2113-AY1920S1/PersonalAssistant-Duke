@@ -10,14 +10,15 @@ public class ToDo extends Task {
      *
      * @param description the description of the task
      */
-
     public ToDo(String description) {
         super(description);
     }
+
     @Override
-    public String get_type() {
+    public String getType() {
         return "T";
     }
+
     /**
      * Returns a String representation of the duke.tasks.ToDo object, displaying its type (duke.tasks.ToDo),
      * and description.

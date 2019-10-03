@@ -1,8 +1,7 @@
 package duke.commands;
 
 /**
- *
- * favourite short cuts
+ * Favourite short cuts.
  *  Alt + enter
  *  sout tab
  *  Alt + insert
@@ -11,13 +10,12 @@ package duke.commands;
  *  Ctrl + n -> *+"name of whatever u want"
  *  Shift + shift
  *  Ctrl + click -> go to method definition
- *
  *  Refactor -> abstract methods out, remove magic numbers/strings
  */
 public class Tutorial {
     private String rishi;
 
-    public void rishiF(){
+    public void rishiF() {
         System.out.println("woahh!");
     }
 

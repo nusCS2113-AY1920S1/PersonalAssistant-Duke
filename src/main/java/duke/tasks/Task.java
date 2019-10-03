@@ -10,7 +10,8 @@ public class Task {
 
     /**
      * Constructor for the duke.tasks.Task object, which is not used due to the further categorization
-     * of duke.tasks.Task objects into the inherited duke.tasks.ToDo, duke.tasks.Event and duke.tasks.Deadline objects that extend the duke.tasks.ToDo Object.
+     * of duke.tasks.Task objects into the inherited duke.tasks.ToDo, duke.tasks.Event and duke.tasks.Deadline objects
+     * that extend the duke.tasks.ToDo Object.
      *
      * @param description the description of the task
      */
@@ -60,7 +61,7 @@ public class Task {
         this.isDone = true;
     }
 
-    public String get_type(){
+    public String getType() {
         return "T";
     }
 }

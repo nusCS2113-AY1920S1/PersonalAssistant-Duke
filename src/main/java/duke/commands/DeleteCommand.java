@@ -119,7 +119,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Returns a list of tasks that are linked to the current task being removed
+     * Returns a list of tasks that are linked to the current task being removed.
      * @param removedIndex The integer representing the index of the current task being removed
      * @param taskList The general list of tasks
      * @return
