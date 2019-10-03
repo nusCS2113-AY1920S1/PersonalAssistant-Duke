@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
      * Executes the delete command by calling the delete function of task list.
      *
      * @return a flag whether deletion is done successfully. Returns false if the delete function of task list
-     *      throws an exception.
+     *         throws an exception.
      */
     @Override
     public boolean execute() {

@@ -20,7 +20,7 @@ public class EmailStorage {
     /**
      * Get the pathname of the data/email.txt.
      *
-     * @return  pathname of the email.txt file.
+     * @return pathname of the email.txt file.
      */
     private static String getSaveEmailDir() {
         String dir = "";
@@ -30,7 +30,7 @@ public class EmailStorage {
         } else if (workingDir.endsWith(File.separator + "main")) {
             dir = "." + File.separator + "data" + File.separator + "email.txt";
         } else {
-            dir = "." + File.separator + "email.txt";
+            dir = "." + File.separator + "data" + File.separator + "email.txt";
         }
         return dir;
     }
@@ -38,7 +38,7 @@ public class EmailStorage {
     /**
      * Get the pathname of the data/emails/ folder, in which all the html files are saved.
      *
-     * @return  pathname of the data/emails/ folder.
+     * @return pathname of the data/emails/ folder.
      */
     private static String getFolderDir() {
         String dir = "";
@@ -48,10 +48,24 @@ public class EmailStorage {
         } else if (workingDir.endsWith(File.separator + "main")) {
             dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
         } else {
-            dir = "." + File.separator + "emails" + File.separator;
+            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
         }
         return dir;
     }
+
+    private static String getUserInfoDir() {
+        String dir = "";
+        String workingDir = System.getProperty("user.dir");
+        if (workingDir.endsWith(File.separator + "text-ui-test")) {
+            dir = ".." + File.separator + "data" + File.separator + "user.txt";
+        } else if (workingDir.endsWith(File.separator + "main")) {
+            dir = "." + File.separator + "data" + File.separator + "user.txt";
+        } else {
+            dir = "." + File.separator + "data" + File.separator + "user.txt";
+        }
+        return dir;
+    }
+
 
     /**
      * Get the list of html filenames currently saved in the data/emails folder.
@@ -71,9 +85,8 @@ public class EmailStorage {
     }
 
     /**
-     * To implement with code to fetch emails from online server to local storage.
-     * May need to sync the current email list with local storage after that by calling
-     * syncEmailListWithHtml().
+     * To implement with code to fetch emails from online server to local storage. May need to sync the
+     * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
         EmailList serverEmailList = Http.fetchEmail(2);
@@ -89,9 +102,8 @@ public class EmailStorage {
                 Duke.getEmailList().add(serverEmail);
             }
         }
+        saveEmails(Duke.getEmailList());
     }
-
-    //
 
     /**
      * To save the information for the emailList including subject and tags(not implemented yet) for each
@@ -129,11 +141,11 @@ public class EmailStorage {
     }
 
     /**
-     * To sync the emailList with email html files saved in local storage.
-     * To prevent mismatch between emailList and existing emails in local storage.
-     * To be called for execution after fetching html files from server, to keep emailList updated.
-     * Creates a new emailList, which only adds email object from the input emailList that are present in
-     * the html lists, and html files that are not included in the input emailList.
+     * To sync the emailList with email html files saved in local storage. To prevent mismatch between
+     * emailList and existing emails in local storage. To be called for execution after fetching html files
+     * from server, to keep emailList updated. Creates a new emailList, which only adds email object from the
+     * input emailList that are present in the html lists, and html files that are not included in the input
+     * emailList.
      *
      * @param emailList is the current emailList from Duke to be synced with the html files in local storage.
      * @return the synced emailList.
@@ -168,8 +180,8 @@ public class EmailStorage {
     }
 
     /**
-     * Get emailList according to html files present in local storage.
-     * This method is not being used, but may be useful someday so it is kept here.
+     * Get emailList according to html files present in local storage. This method is not being used, but may
+     * be useful someday so it is kept here.
      *
      * @return EmailList created by according to html files present in local storage.
      */
@@ -241,7 +253,38 @@ public class EmailStorage {
      */
     public static EmailList readEmails() {
         EmailList emailList = readEmailFromFile();
-        EmailList syncedEmailList = syncEmailListWithHtml(emailList);;
+        EmailList syncedEmailList = syncEmailListWithHtml(emailList);
         return syncedEmailList;
+    }
+
+    public static void saveRefreshToken(String token) {
+        try {
+            prepareFolder();
+            File userInfoFile = new File(getUserInfoDir());
+            FileOutputStream out = new FileOutputStream(userInfoFile, false);
+            out.write(token.getBytes());
+            out.close();
+        } catch (IOException e) {
+            Duke.getUI().showError("Save refresh token failed");
+        }
+    }
+
+    public static String readRefreshToken() {
+        String token = "";
+        try {
+            prepareFolder();
+            File userInfoFile = new File(getUserInfoDir());
+            userInfoFile.createNewFile();
+            FileInputStream in = new FileInputStream(userInfoFile);
+            Scanner scanner = new Scanner(in);
+            while(scanner.hasNext()) {
+                token += scanner.next();
+            }
+        } catch (FileNotFoundException e) {
+            Duke.getUI().showError("User info file not found");
+        } catch (IOException e) {
+            Duke.getUI().showError("Read user info file IO Exception");
+        }
+        return token;
     }
 }

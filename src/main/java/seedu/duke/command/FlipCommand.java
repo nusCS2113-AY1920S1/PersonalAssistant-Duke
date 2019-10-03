@@ -3,7 +3,7 @@ package seedu.duke.command;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
 
-public class FlipCommand extends Command{
+public class FlipCommand extends Command {
     private Parser.InputType inputType;
 
 

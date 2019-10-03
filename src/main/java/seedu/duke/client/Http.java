@@ -31,9 +31,20 @@ import java.util.Iterator;
 public class Http {
     private static String authCode = null;
     private static String accessToken = null;
+    private static String refreshToken = null;
     private static String clientId = "feacc09e-5364-4386-92e5-78ee25d2188d";
     private static String clientSecret = "8dhu0-v80Ic-ZrQpACgWLEPg:??1MGkc";
     private static String redirect = "http://localhost:3000";
+    private static String scope = "openid+Mail.Read+offline_access";
+
+    public static void startAuthProcess() {
+        refreshToken = EmailStorage.readRefreshToken();
+        if (refreshToken == "") {
+            getAuth();
+        } else {
+            refreshAccess();
+        }
+    }
 
     /**
      * Sets the Authorization Code and then call the function to get the Access Token from Outlook.
@@ -57,6 +68,17 @@ public class Http {
         EmailStorage.syncWithServer();
     }
 
+    private static void setRefreshToken(String token) {
+        refreshToken = token;
+        EmailStorage.saveRefreshToken(token);
+    }
+
+    /**
+     * Fetches email from Outlook serer.
+     *
+     * @param limit the limit of number of emails to be fetched
+     * @return the list of emails fetched
+     */
     public static EmailList fetchEmail(int limit) {
         JSONObject apiParams = new JSONObject();
         try {
@@ -82,11 +104,11 @@ public class Http {
      * Fetches a new Authorization Code from Outlook. It also calls to start the server to prepare receiving
      * the code from Outlook redirection.
      */
-    public static void getAuth() {
+    private static void getAuth() {
         SimpleServer.startServer();
         openBrowser("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="
                 + clientId + "&response_type=code"
-                + "&redirect_uri=" + redirect + "&scope=openid+Mail.Read");
+                + "&redirect_uri=" + redirect + "&scope=" + scope);
     }
 
     /**
@@ -96,19 +118,38 @@ public class Http {
     // .com/questions/40574892/how-to-send-post-request-with-x-www-form-urlencoded-body
     public static void getAccess() {
         try {
-            String request = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
-            HttpURLConnection conn = setupAccessConnection(request);
+            String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+            HttpURLConnection conn = setupAccessConnection(requestUrl);
 
             StringBuffer content = getConnectionResponse(conn);
-            //Duke.getUI().showDebug(content.toString());
             JSONObject json = new JSONObject(content.toString());
             setAccessToken(json.getString("access_token"));
+            setRefreshToken(json.getString("refresh_token"));
         } catch (MalformedURLException e) {
             Duke.getUI().showError("Access Code url in wrong format...");
         } catch (IOException e) {
             Duke.getUI().showError("Access Code url failed to open...");
         } catch (JSONException e) {
             Duke.getUI().showError("Access code response in wrong format...");
+        }
+    }
+
+    private static void refreshAccess() {
+        try {
+            String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+            HttpURLConnection conn = setupRefreshConnection(requestUrl);
+
+            StringBuffer content = getConnectionResponse(conn);
+            Duke.getUI().showDebug(content.toString());
+            JSONObject json = new JSONObject(content.toString());
+            setAccessToken(json.getString("access_token"));
+            setRefreshToken(json.getString("refresh_token"));
+        } catch (MalformedURLException e) {
+            Duke.getUI().showError("Refresh Access Code url in wrong format...");
+        } catch (IOException e) {
+            Duke.getUI().showError("Refresh Access Code url failed to open...");
+        } catch (JSONException e) {
+            Duke.getUI().showError("Refresh Access code response in wrong format...");
         }
     }
 
@@ -167,12 +208,22 @@ public class Http {
         return conn;
     }
 
-    private static HttpURLConnection setupAccessConnection(String request) throws IOException {
+    private static HttpURLConnection setupAccessConnection(String requestUrl) throws IOException {
         String params = "client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + authCode
                 + "&redirect_uri=" + redirect + "&grant_type=authorization_code";
+        return setupPostRequestConnection(requestUrl, params);
+    }
+
+    private static HttpURLConnection setupRefreshConnection(String requestUrl) throws IOException {
+        String params = "client_id=" + clientId + "&client_secret=" + clientSecret
+                + "&refresh_token=" + refreshToken + "&scope=" + scope + "&grant_type=refresh_token";
+        return setupPostRequestConnection(requestUrl, params);
+    }
+
+    private static HttpURLConnection setupPostRequestConnection(String requestUrl, String params) throws IOException {
         byte[] postData = params.getBytes(StandardCharsets.UTF_8);
         int postDataLength = postData.length;
-        URL url = new URL(request);
+        URL url = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(false);

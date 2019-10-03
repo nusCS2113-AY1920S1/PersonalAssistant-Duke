@@ -38,7 +38,6 @@ public class Parser {
 
     /**
      * Constructor that initializes the input type to TASK.
-     *
      */
     public Parser() {
         this.inputType = InputType.TASK;    // default input type when initiating the program.
@@ -67,7 +66,7 @@ public class Parser {
     /**
      * Set to the new input type when it is toggled by "flip" command.
      *
-     * @param newInputType
+     * @param newInputType the input type that is going to be changed to
      */
     public static void setInputType(InputType newInputType) {
         inputType = newInputType;
@@ -132,7 +131,7 @@ public class Parser {
      * returns an email-relevant Command.
      *
      * @param emailList target email list from Duke.
-     * @param rawInput user/file input ready to be parsed.
+     * @param rawInput  user/file input ready to be parsed.
      * @return an email-relevant Command.
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
      *                            input
