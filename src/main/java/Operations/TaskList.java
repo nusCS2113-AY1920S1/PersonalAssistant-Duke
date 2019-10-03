@@ -99,7 +99,7 @@ public class TaskList {
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
         if (tasks.get(index - 1) instanceof ToDo){
-            System.out.println("Todo cannot be snoozed");
+            System.out.println("Todo cannot be snoozed\n");
             return;
         }
         switch (timeUnit) {

@@ -3,7 +3,7 @@ package CustomExceptions;
 import Enums.ExceptionType;
 
 public class DukeException extends Exception {
-    public String anomaly = "Anomaly Detected";
+    public String anomaly = "Anomaly Detected\n";
 
     public DukeException(){
      System.out.println();
