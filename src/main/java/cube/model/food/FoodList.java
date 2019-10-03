@@ -1,10 +1,11 @@
 package cube.model.food;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import cube.model.food.Food;
 
 // for testing only
-public class FoodList {
+public class FoodList implements Serializable {
 	public enum SortType {
 		
 	}
