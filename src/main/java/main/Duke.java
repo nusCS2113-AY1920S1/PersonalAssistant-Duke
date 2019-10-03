@@ -89,7 +89,7 @@ public class Duke extends Application {
     }
 
     private void run() {
-        ui.showWelcome();
+        ui.showWelcome(this.myList);
         boolean isExit = false;
         while (!isExit) {
             try {

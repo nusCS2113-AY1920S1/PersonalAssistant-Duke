@@ -1,7 +1,7 @@
 package ui;
 
 import exception.DukeException;
-
+import task.TaskList;
 import java.util.Scanner;
 
 /**
@@ -28,10 +28,11 @@ public class UI {
     /**
      * Displays Welcome message.
      */
-    public void showWelcome() {
+    public void showWelcome(TaskList task) {
         this.sc = new Scanner(System.in);
-        System.out.println("Hello! I'm Duke\n"
-                + "What can I do for you?\n");
+        System.out.println("Hello! I'm Duke\n");
+        task.printReminders();
+        System.out.println("What can I do for you?\n");
     }
 
     /**
