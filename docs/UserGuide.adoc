@@ -114,11 +114,11 @@ Example:
 
 === Remove a expense/income from the list : `remove`
 
-Remove a particular entry of expense/income from the list base on the list number. +
+Remove a particular entry of expense/income from the list based on the list number. +
 Format: +
 `*remove* [LIST NO.]`
 
-*NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listing available.
+*NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listings available.
 
 [TIP]
 Use the keyword `*list*` to list out the expenses and incomes to find the `*LIST NO.*` to be removed.
