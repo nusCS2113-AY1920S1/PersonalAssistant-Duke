@@ -1,18 +1,13 @@
 package command;
 
 import storage.Storage;
-import task.Deadline;
-import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,7 +17,7 @@ public class UpcomingCommand extends Command {
 
     /**
      * Based on current CPU Date, search for any tasks due in 7 days.
-     * @param tasks
+     * @param tasks tasklist
      */
 
     @Override
@@ -38,13 +33,12 @@ public class UpcomingCommand extends Command {
             LocalDateTime nextDay = dateNow.plusDays(i);
             String formattedNextDay = nextDay.format(myFormatObj);
 
-
             for (int j = 0; j < tasks.size(); j++) {
                 if (tasks.get(j).toString().contains(formattedNextDay)) {
                     Date dateBefore = sdf.parse(formattedDate);
                     Date dateAfter = sdf.parse(formattedNextDay);
                     long difference = dateAfter.getTime() - dateBefore.getTime();
-                    long daysTo = (difference/(1000*60*60*24));
+                    long daysTo = (difference/(1000 * 60 * 60 * 24));
 
                     counter++;
                     if (daysTo == 0) {
