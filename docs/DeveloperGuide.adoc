@@ -60,7 +60,7 @@ This Developer Guide is meant for any software developer who wishes to contribut
 
 *A better module planner*
 
-We aim to fullfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generation a projection report for CAP computation and CCA planning. 
+We aim to fullfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning. 
 
 [appendix]
 == User Stories
