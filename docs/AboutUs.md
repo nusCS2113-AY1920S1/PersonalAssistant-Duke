@@ -17,10 +17,12 @@ It is this change that we at Eggventory strive towards timelessly.
 
 **Roles:** 
 * Frontend Developer
+* Marketing Writer
 
 **Responsibilities:** 
 * GUI & CLI
 * Managing Git repo
+* Adorning the repo with marketing speech
 
 ---
 
