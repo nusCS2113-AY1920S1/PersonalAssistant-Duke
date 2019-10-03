@@ -238,6 +238,8 @@ image::DukeException.PNG[width="250"]
 === `DukeInvalidTimeException`
 This error appears when the user inputs a date or time that is not of an acceptable format.
 
+image::DukeInvalidTimeException.PNG[width="300"]
+
 ****
 * Example: `deadline assignment /by 30/9/2019 12 o'clock` + 
 Here 12 o'clock is not an acceptable format, instead use 1200.
@@ -296,6 +298,18 @@ image::DukeMultipleValuesForSameArgumentException.PNG[width="400"]
 ****
 * Example: `doWithin test /begin 10am /begin 2pm /end 3pm` +
 Here the `/begin` is repeated twice so the program is unable to determine which start time to be procesed.
+****
+
+=== `DukeScheduleException`
+This error appears when the user inputs a task that already exists in the task list.
+
+image::DukeScheduleException.PNG[width="400"]
+
+=== `DukeNoTimeException` 
+This error appears when the user reschedule a non-time-based task.
+
+****
+* This is only valid for rescheduling a todo task. 
 ****
 
 == FAQ
