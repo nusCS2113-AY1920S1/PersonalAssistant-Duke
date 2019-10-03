@@ -1,4 +1,4 @@
-= Duke v1.1 - User Guide
+= AlphaNUS - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team F10-3`      Since: `Aug 2019`
 
 == Introduction
 
-Duke is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
+AlphaNUS is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
 
 == Quick Start
 .  Some example commands you can try:
@@ -37,61 +37,133 @@ Duke is a personal assistant for NUS club treasurers to easily manage their paym
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add TASK_CONTENT`, `TASK_CONTENT` is a parameter which can be used as `add submission`.
 
+* Items in `square brackets` are optional e.g `d/DESCRIPTION [p/PAYMENT_DETAIL]` can be used as `d/welcome tea p/food 12` or as `d/welcome tea`
+
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[p/PAYMENT_DETAIL]…`​ can be used as `` ``(i.e. 0 times), `p/food 12`, `p/food 12 p/drinks 7` etc
 ====
-=== Adding a todo task: `todo`
 
-Adds a todo task in the task list +
-Format: `todo TASK_DESCRIPTION`
+=== List out all current deadlines/payment forms: `list`
 
-[TIP]
-there can have spaces in the task description
-
-Examples:
-
-* `todo submit forms`
-* `todo return books`
-
-=== Adding a deadline task: `deadline`
-
-Adds a deadline task in the task list +
-Format: `deadline TASK_DESCRIPTION /by TIME`
-
-[TIP]
-there can have spaces in the task description
-[TIP]
-the format of time should be DD/MM/YYYY HHMM
-
-Examples:
-
-* `deadline return books /by 07/10/2019 1200`
-
-=== Adding a event task: `event`
-
-Adds a deadline task in the task list +
-Format: `event TASK_DESCRIPTION /at TIME`
-
-[TIP]
-there can have spaces in the task description
-[TIP]
-the format of time should be DD/MM/YYYY HHMM
-
-Examples:
-
-* `event group meeting /at 07/10/2019 1200`
-
-=== List out all current tasks: `list`
-
-List out all tasks in the task list +
+List out all current items with their index number+
 Format: `list`
 
+=== Adding a deadline: `deadline`
+
+Adds a new deadline +
+Format: `deadline d/DESCRIPTION t/TIME`
+
+[TIP]
+there can have spaces in the deadline description +
+[TIP]
+the format of time should be DD/MM/YYYY HHMM
+
 Examples:
 
-* `list`
+* `deadline d/submit venue payment t/05/10/2019 1159`
 
-=== Delete a certain task: `delete`
+=== Adding a new payment: `payments`
 
-Delete a task from the task list +
-Format: `delete INDEX`
+Adds a new payment form with details +
+Format: `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
+
+[TIP]
+there can have spaces in the description and payment detail
+[TIP]
+there can be any number of payment details added
+
+Examples:
+
+* `payments d/welcome tea p/food 12`
+* `payments d/maintenance fee`
+
+=== Edit the deadline/payment form's description: `edit`
+
+Edit a previously added task's description and details +
+Format: `edit ID d/NEW_DESCRIPTION`
+
+[TIP]
+there can have spaces in the description
+[TIP]
+the id should not e out of range
+
+Examples:
+
+* `edit 2 d/welcome tea for freshmen`
+
+
+=== Edit the deadline time: `reschedule`
+
+Edit a previously added deadline's time +
+Format: `reschedule ID t/NEW_TIME`
+
+[TIP]
+the id input should not be out of range
+[TIP]
+the format of time should be DD/MM/YYYY HHMM
+[TIP]
+to postpone the deadline for a short time, use `snooze` could be easier(see 3.7)
+
+Examples:
+
+* `reschedule 2 07/10/2019 2359`
+
+=== snooze the deadline: `snooze`
+
+snooze the deadline time by 1 hour +
+Format: `snooze ID`
+
+[TIP]
+the id input should not be out of range
+
+
+Examples:
+
+* `snooze 5`
+
+=== Edit the payment details: `redetail`
+
+Edit a previously added payment's details +
+Format: `redetail ID [d/PAYMENT_DETAIL]...`
+
+[TIP]
+the id input should not be out of range
+[TIP]
+there can be any number of details
+
+Examples:
+
+* `redetail 2 d/drinks 8 d/snacks 20`
+* `redetail 2`(i.e. this operation removes all previous details)
+
+=== Find a payment or deadline based on its description: `find`
+
+Find a payment or deadline based on its description +
+Format: `find d/DESCRIPTION`
+
+[TIP]
+there can have spaces in the description
+
+Examples:
+
+* `find d/welcome tea`
+
+=== View deadline by schedule: `view`
+View current deadlines in a specific date +
+Format: `view t/DATE`
+
+[TIP]
+the results will be sorted based on their deadlines (i.e. the one with the earliest deadline will show on the top)
+[TIP]
+the format of the date should be DD/MM/YYYY
+
+Examples:
+
+* `view t/05/10/2019`
+
+=== Delete a deadline/payment form: `delete`
+
+Delete a deadline/payment from the task list +
+Format: `delete ID`
 
 [TIP]
 the index of the task should not be out of range
@@ -99,6 +171,35 @@ the index of the task should not be out of range
 Examples:
 * `delete 3`
 
+=== Approve a payment form: `approve`
+
+Approve a payment form with a message+
+Format: `approve ID [m/MESSAGE]`
+
+[TIP]
+the index of the task should not be out of range
+
+Examples:
+
+* `approve 3 m/approved by xxx on Monday`
+* `approve 3`
+
+=== Mark a deadline as done: `done`
+
+mark a deadline task as done +
+Format: `done ID`
+
+[TIP]
+the index of the task should not be out of range
+
+Examples:
+
+* `done 5`
+
+=== Exit command: `bye`
+
+exit from Duke +
+Format: `bye`
 
 === Saving the data
 
@@ -108,13 +209,16 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Todo* `todo TASK_DESCRIPTION` +
-e.g. `todo submit forms`
-* *Deadline* : `deadline TASK_DESCRIPTION /by TIME`+
-e.g. `deadline return books /by 07/10/2019 1200`
-* *Event* : `event TASK_DESCRIPTION /at TIME` +
-e.g. `event group meeting /by 07/10/2019 1200`
-* *list* : `list` +
-* *delete* : `delete [INDEX]` +
-e.g. `delete 3`
-
+* *list*: `list`
+* *deadline*: `deadline d/DESCRIPTION t/TIME`
+* *payments* : `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
+* *edit* : `edit ID d/NEW_DESCRIPTION`
+* *reschedule* : `reschedule ID t/NEW_TIME`
+* *snooze*: `snooze ID`
+* *redetail*: `redetail ID [d/PAYMENT_DETAIL]...`
+* *find* : `find d/DESCRIPTION`
+* *view* : `view t/DATE`
+* *delete* : `delete ID`
+* *approve*: `approve ID [m/MESSAGE]`
+* *done*: `done ID`
+* *exit*: `bye`
