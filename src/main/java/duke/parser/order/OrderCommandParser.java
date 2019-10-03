@@ -1,9 +1,9 @@
 package duke.parser.order;
 
-import duke.command.AddOrderCommand;
-import duke.command.DeleteOrderCommand;
-import duke.command.EditOrderCommand;
-import duke.command.OrderCommand;
+import duke.command.DeleteOrder;
+import duke.command.order.AddOrder;
+import duke.command.order.EditOrder;
+import duke.command.order.OrderCommand;
 import duke.parser.SubCommandParser;
 import duke.parser.exceptions.ParseException;
 
@@ -15,11 +15,11 @@ public class OrderCommandParser implements SubCommandParser<OrderCommand> {
         String args = SubCommandParser.getArgs(subCommandAndArgs);
 
         switch (subCommand) {
-            case AddOrderCommand.COMMAND_WORD:
+            case AddOrder.COMMAND_WORD:
                 return new AddOrderCommandParser().parse(args);
-            case DeleteOrderCommand.COMMAND_WORD:
+            case DeleteOrder.COMMAND_WORD:
                 return new DeleteOrderCommandParser().parse(args);
-            case EditOrderCommand.COMMAND_WORD:
+            case EditOrder.COMMAND_WORD:
                 return new EditOrderCommandParser().parse(args);
         }
         return null;

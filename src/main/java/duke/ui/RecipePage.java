@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -85,13 +84,13 @@ public class RecipePage extends AnchorPane {
         try {
             Image image1 = new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\star.png"));
             difficultyLevel.getChildren().clear();
-            for (int i = 0; i < recipe.getDifficultyLevel(); i++) {
-                ImageView star = new ImageView();
-                star.setImage(image1);
-                star.setFitHeight(28);
-                star.setPreserveRatio(true);
-                difficultyLevel.getChildren().add(star);
-            }
+//            for (int i = 0; i < recipe.getDifficultyLevel(); i++) {
+//                ImageView star = new ImageView();
+//                star.setImage(image1);
+//                star.setFitHeight(28);
+//                star.setPreserveRatio(true);
+//                difficultyLevel.getChildren().add(star);
+//            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -132,7 +131,7 @@ public class RecipePage extends AnchorPane {
         for (Step step : recipe.getSteps()) {
             steps.getItems().add("Step " + index++ + ". " + step.getDescription());
         }
-        timeLabel.setText(recipe.getTime() + " mins");
+        //timeLabel.setText(recipe.getTime() + " mins");
         timeLabel.setFont(new Font("Gabriola", 20));
     }
 

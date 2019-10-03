@@ -9,7 +9,7 @@ public class Ingredient {
     private int expiryPeriod;
     private double cost;
 
-    public Ingredient(@JsonProperty String name) {
+    public Ingredient(@JsonProperty("name") String name) {
         this.name = name;
     }
 
@@ -40,21 +40,21 @@ public class Ingredient {
         this.name = name;
     }
 
-    public int getExpiryPeriod() {
-        return expiryPeriod;
-    }
-
-    public void setExpiryPeriod(int expiryPeriod) {
-        this.expiryPeriod = expiryPeriod;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
+//    public int getExpiryPeriod() {
+//        return expiryPeriod;
+//    }
+//
+//    public void setExpiryPeriod(int expiryPeriod) {
+//        this.expiryPeriod = expiryPeriod;
+//    }
+//
+//    public double getCost() {
+//        return cost;
+//    }
+//
+//    public void setCost(double cost) {
+//        this.cost = cost;
+//    }
 
 /*
     public void setPicture (String pic_name) {
@@ -69,7 +69,7 @@ public class Ingredient {
     }
 */
 
-    public Image getPicture() {
-        return this.picture;
-    }
+//    public Image getPicture() {
+//        return this.picture;
+//    }
 }

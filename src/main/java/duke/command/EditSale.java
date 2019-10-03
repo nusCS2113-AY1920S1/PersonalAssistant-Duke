@@ -11,13 +11,13 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class EditSaleCommand extends UndoableCommand {
+public class EditSale implements Undoable {
 
     private Map<String, List<String>> params;
     private Sale sale;
     private Sale unmodifiedSale = new Sale();
 
-    public EditSaleCommand(Map<String, List<String>> params) throws DukeException {
+    public EditSale(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("i") == !params.containsKey("id"))) {
             throw new DukeException("Please specify order ID or index");
         }

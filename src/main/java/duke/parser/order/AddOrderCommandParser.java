@@ -1,6 +1,6 @@
 package duke.parser.order;
 
-import duke.command.AddOrderCommand;
+import duke.command.order.AddOrder;
 import duke.commons.Message;
 import duke.entities.Order;
 import duke.parser.*;
@@ -9,9 +9,9 @@ import duke.parser.exceptions.ParseException;
 import java.util.List;
 
 
-public class AddOrderCommandParser implements Parser<AddOrderCommand> {
+public class AddOrderCommandParser implements Parser<AddOrder> {
     @Override
-    public AddOrderCommand parse(String args) throws ParseException {
+    public AddOrder parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
                 CliSyntax.PREFIX_ORDER_NAME,
                 CliSyntax.PREFIX_ORDER_CONTACT,
@@ -34,7 +34,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         if (map.getValue(CliSyntax.PREFIX_ORDER_ITEM).isPresent()) {
             addItemsToOder(map.getAllValues(CliSyntax.PREFIX_ORDER_ITEM), order);
         }
-        return new AddOrderCommand(order);
+        return new AddOrder(order);
     }
 
     private static void addItemsToOder(List<String> itemArg, Order toAdd) throws ParseException {

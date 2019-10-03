@@ -10,13 +10,13 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class DeleteSaleCommand extends UndoableCommand {
+public class DeleteSale implements Undoable {
 
     private Sale sale;
     private int index;
     private Map<String, List<String>> params;
 
-    public DeleteSaleCommand(Map<String, List<String>> params) throws DukeException {
+    public DeleteSale(Map<String, List<String>> params) throws DukeException {
         this.params = params;
         checkParameters();
     }

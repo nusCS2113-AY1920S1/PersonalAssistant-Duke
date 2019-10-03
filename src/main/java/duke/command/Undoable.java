@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * UndoableCommand is the abstract base class for all commands that supports redo and undo operations.
  */
-public abstract class UndoableCommand extends Command {
+public interface Undoable {
 
     /**
      * Reverses the action of an earlier action.
