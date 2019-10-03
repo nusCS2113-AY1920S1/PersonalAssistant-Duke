@@ -1,0 +1,1093 @@
+= OwlMoney - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main/tree/master
+
+By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
+
+== Setting up
+
+=== Prerequisites
+. *JDK `11`*
++
+[NOTE]
+Only JDK 11 is officially supported
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project in your computer
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen,
+click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+=== Configurations to do before writing code
+
+== Design
+=== Architecture
+=== UI Component
+=== Logic Component
+=== Model Component
+=== Storage Component
+=== Common Classes
+
+== Implementation
+=== Undo/Redo feature
+
+== Documentation
+=== Editing Documentation
+=== Publishing Documentation
+=== Converting to PDF format
+=== Site-wide Documentation Settings
+=== Per-file Documentation Settings
+=== Site Template
+
+== Testing
+=== Running Tests
+=== Types of Tests
+=== Troubleshooting Tests
+
+== Dev Ops
+=== Build Automation
+=== Continuous Integration
+=== Coverage Reporting
+=== Documentation Previews
+=== Making a Release
+=== Managing Dependencies
+
+[appendix]
+== Product Scope
+*Target User Profile:*
+
+* Undergraduates and fresh graduates
+* Have some form of income in terms of allowance, pocket money or salary
+* Has interest in managing his finances
+* Prefers desktop applications over other types
+* Able to type fast
+* Prefers typing over other means of input
+* Is reasonably comfortable using CLI applications
+
+*Value Proposition:*
+
+* Helps the target user manage their finances as they start to take charge of more money
+* Helps the target user budget their expenses based on their goals
+* Automatically reminds you of upcoming bills that are due to pay
+* Automatically deducts or credit to account based on recurring income and expenses monthly
+* See everything from account balances and expenses to give target users a full picture of their financial health.
+* Works offline
+
+[appendix]
+== User Stories
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+[cols="5%,10%,10%,35%,35%"]
+|===
+|*S/N*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
+|1|* * *|new user|create my own profile|start keeping track of my finances
+|2|* * *|user|add saving accounts|categorise my finances
+|3|* * *|user|add income|calculate my recommended budget
+|4|* * *|existing user|edit my profile details|keep my details up to date
+|5|* * *|existing user|edit my saving account|correct any errors
+|6|* * *|existing user|edit my income |change it when there are changes to my income.
+|7|* * *|spendthrift|add expenditures|keep track of my spending
+|8|* * *|careless user|edit my expenditure|correct my errors.
+|9|* * *|careless user|delete my expenditure|remove wrongly added expenses
+|10|* * *|organised user|list my expenditure|have a view of my spending
+|11|* * *|existing user|search for specific expenditures by category and description|search and view specific expenditure records.
+|12|* *|existing user|set short and long term financial goals|I can achieve financial stability.
+|13|* *|indecisive user|edit my existing financial goals|adapt to any changes
+|14|* *|existing user|undo my last command|revert back to the previous state in the event of a mistake
+|15|* *|existing user|compare overall expenditure of different month|review my spending
+|16|* *|credit card user|add new credit cards to my account|credit my spending till the end of the month
+|17|* *|credit card user|charge my expenditures to my credit card|track my credit card rebates
+|18|* *|credit card user|edit my credit card details|update the details when there are changes to my card
+|19|* *|spendthrift|be warned when I am close to exceeding my budget or have exceeded my budget|reduce my spending
+|20|* *|existing user|recurring expenditures|relax and not need to enter it repeatedly for each month.
+|21|* *|user with income|set recurring income|relax and not need to enter it repeatedly for each month.
+|22|* *|existing user|view recurring expenditure|review it to check for error
+|23|* *|user with income|view recurring income|review it to check for error
+|24|* *|existing user|edit recurring expenditure|amend the recurring expenses when it increases or decreases
+|25|* *|user with income|edit recurring income|I can remove or change it accordingly
+|26|* *|existing user|be reminded when my payment is due|pay on time without penalties
+|27|* *|organised user|export to view my expenditures statement|review my monthly, quarterly and yearly expenses with ease
+|28|* *|achievement oriented user|gain achievements when I achieve system pre-defined goals|be motivated to pursue my financial goal
+|29|* *|achievement oriented user|view different types of achievements|view my achievement that has been attained or yet to be attained
+|30|* *|achievement oriented user|view the description of an achievement|understand how to achieve it
+|31|* *|existing user|add investment account (bond) |track my investment bond earnings.
+|32|* *|existing user|edit my investment account (bond)|amend any errors in my investment bond account
+|33|* *|existing user|delete my investment account (bond)|sell it before the maturity date.
+|34|* *|existing user|have my investment account’s (bond) interest being accumulated automatically every half yearly|do not have to go through the hassle of entering it manually
+|35|* *|existing user|have my money transfer from one bank account to another bank account|I can organize them as investment or saving account for ease in tracking different expenditure
+|===
+
+
+[appendix]
+== Use Cases
+(For all use cases below, the System is OwlMoney, unless specified otherwise)
+
+*Actor: First time user* +
+[[UC-1]] *Use case: UC1 - Create new profile* +
+*Main success scenario:*
+
+. User choose to setup account.
+. System requests personal details.
+. User enters personal details.
+. System requests for bank account details.
+. User enters bank account details <<UC-2,(UC-2)>>.
+. System requests for income details.
+. User enters income details <<UC-3,(UC-3)>>.
+. System will setup a profile tied to new bank account with the details specified.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+* 5a. System detects invalid user input in bank account details.
+** 5a1. System requests for the correct user input.
+** 5a2. User re-enters input.
+** Steps 5a1-5a2 are repeated until the input entered are correct.
+** Use case resumes from step 6.
+* 7a. System detects invalid user input in income details.
+** 7a1. System requests for the correct user input.
+** 7a2. User re-enters input.
+** Steps 7a1-7a2 are repeated until the input entered are correct.
+** Use case resumes from step 8.
+
+
+
+
+
+*Actor: User* +
+[[UC-2]] *Use case: UC2 - Add bank account* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to add a bank account.
+. System requests for bank account details.
+. User enters details for the new bank account.
+. System creates a new bank account with the details specified.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: User* +
+[[UC-3]] *Use case: UC3 - Add income* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to add income.
+. System requests for income details.
+. User enters income details.
+. System creates a new income with the details specified.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing User* +
+[[UC-4]] *Use case: UC4 - Edit profile details* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to edit his/her profile.
+. System requests for new profile details.
+. User enters new profile details.
+. System update the profile details
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing User* +
+[[UC-5]] *Use case: UC5 - Edit bank account details* +
+*Preconditions:*
+
+*  *User has a profile created* +
+*  *User has an existing bank account* +
+
+*Main success scenario:*
+
+. User chooses to edit his/her bank account details.
+. System requests for new bank account details.
+. User enters new bank account details.
+. System update the bank account details.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-6]] *Use case: UC6 - Edit income* +
+*Preconditions:*
+
+* * User has a profile created
+* * User has an existing income account
+
+*Main success scenario:*
+
+. User chooses to edit his/her income.
+. System requests new income details.
+. User enters new income details.
+. System updates the income details.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Spendthrift* +
+[[UC-7]] *Use case: UC7 - Add expenditures record* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to add new expenditure record.
+. System requests expenditure details.
+. User enters expenditure details.
+. System adds new expenditure record.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Careless user* +
+[[UC-8]] *Use case: UC8 - Edit expenditures record* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has existing expenditure records*
+
+*Main success scenario:*
+
+. User chooses to edit expenditure record.
+. System requests new expenditure details.
+. User enters new expenditure details.
+. System updates the expenditure record.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Careless user* +
+[[UC-9]] *Use case: UC9 -  Delete expenditure record* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has existing expenditure records*
+
+*Main success scenario:*
+
+. User chooses to delete expenditure record.
+. System requests expenditure to be deleted.
+. User specifies the expenditure to be deleted.
+. System deletes the specified record from the database.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Organized user* +
+[[UC-10]]  *Use case: UC10 -  List expenditure record* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has existing expenditure records*
+
+*Main success scenario:*
+
+. User chooses to list the expenditure record.
+. System requests the type of expenditure to be listed.
+. User specifies the type of expenditure to be listed.
+. System displays the expenditure records specified.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+*Actor: Existing user* +
+[[UC-11]] *Use case: UC11 -  Search for specific expenditure record* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has existing expenditure records*
+
+*Main success scenario:*
+
+. User chooses to search for expenditure record.
+. System requests the keyword to be search.
+. User specifies the keyword to be search.
+. System displays information found from the search.
+Use case ends.
++
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-12]] *Use case: UC12 - Set short or long term financial goal* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to set financial goals.
+. System requests the type of financial goal to be set.
+. User specifies the type of financial goal to be set.
+. System requests information for the financial goal.
+. User enters the information required for setting the financial goal.
+. System creates the financial goal.
++
+Use case ends.
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+* 5a. System detects invalid user input.
+** 5a1. System requests for the correct user input.
+** 5a2. User re-enters input.
+** Steps 5a1-5a2 are repeated until the input entered are correct.
+** Use case resumes from step 6.
+
+
+
+
+
+*Actor: Indecisive user* +
+[[UC-13]] *Use case: UC13 -  Edit existing financial goal* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has a financial goal set up*
+
+*Main success scenario:*
+
+. User chooses to edit existing financial goal.
+. System requests the financial goal to be edited.
+. User specifies the financial goal to be edited.
+. System requests the information to be edited.
+. User enters the information to be updated.
+. System updates existing financial goal.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+* 5a. System detects invalid user input.
+** 5a1. System requests for the correct user input.
+** 5a2. User re-enters input.
+** Steps 5a1-5a2 are repeated until the input entered are correct.
+** Use case resumes from step 6.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-14]] *Use case: UC14 -  Undo last command* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User entered at least one command in the system*
+
+*Main success scenario:*
+
+. User enters the undo command.
+. System returns to the state before the previous command is entered.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-15]] *Use case: UC15 - Compare overall expenditure of different month* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least two previous month expenditure to compare with*
+
+*Main success scenario:*
+
+. User chooses to compare overall expenditure of different months.
+. System requests the months to be compared.
+. User specifies the months to be compared.
+. System displays the compared result.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Credit card user* +
+[[UC-16]] *Use case: UC16 - Add credit card to account* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to add a credit card to his/her account.
+. System requests the details for creating credit card.
+. User enters the details for creating credit card.
+. System creates the credit card.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Credit card user* +
+[[UC-17]] *Use case: UC17 - Charge expenditure to credit card* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has credit card added to profile*
+
+*Main success scenario:*
+
+. User chooses to charge expenditure to credit card.
+. System requests the expenditure information.
+. User enters the expenditure information.
+. System creates the credit card expenditure record.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Credit card user* +
+[[UC-18]] *Use case: UC18 - Edit credit card details* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has credit card added to profile*
+
+*Main success scenario:*
+
+. User chooses to edit credit card details.
+. System requests for new credit card details.
+. User enters new credit card details.
+. System updates the credit card details.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Spendthrift user* +
+[[UC-19]] *Use case: UC19 - System warns user when exceeding or have exceeded budget* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User adds expenditure <<UC-7,(UC-7)>>.
+. System warns user if total expenditure is exceeding or have exceeded budget.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-20]] *Use case: UC20 - Set recurring expenditure* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User chooses to set recurring expenditure.
+. System requests for details of recurring expenditure.
+. User enters details of recurring expenditure.
+. System creates recurring expenditure.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: User with income* +
+[[UC-21]] *Use case: UC21 - Set recurring income* +
+*Preconditions:*
+
+* *User has a profile created*
+*Main success scenario:*
+
+. User chooses to set recurring income.
+. System requests for details of recurring income.
+. User enters details of recurring income.
+. System creates recurring income.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-22]] *Use case: UC22 - View recurring expenditure* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least a recurring expenditure.*
+
+*Main success scenario:*
+
+. User chooses to view recurring expenditure.
+. System displays all recurring payments in chronological order.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: User with income* +
+[[UC-23]] *Use case: UC23 - View recurring income* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least a recurring income.*
+
+*Main success scenario:*
+
+. User chooses to view recurring income.
+. System displays all recurring income in chronological order.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-24]] *Use case: UC24 - Edit recurring expenditure* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least a recurring expenditure.*
+
+*Main success scenario:*
+
+. User chooses to edit recurring expenditure.
+. System requests from user the recurring expenditure to be edited.
+. User specifies the recurring expenditure.
+. System requests for the new recurring expenditure details.
+. User enters the new recurring expenditure details.
+. System updates the recurring expenditure.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+* Use case resumes from step 4.
+** 5a. System detects invalid user input.
+** 5a1. System requests for the correct user input.
+** 5a2. User re-enters input.
+** Steps 5a1-5a2 are repeated until the input entered are correct.
+** Use case resumes from step 6.
+
+
+
+*Actor: User with income* +
+[[UC-25]] *Use case: UC25 - Edit recurring income*  +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least a recurring income.*
+
+*Main success scenario:*
+
+. User chooses to edit recurring income.
+. System requests from user the recurring income to be edited.
+. User specifies the recurring income.
+. System requests for the new recurring income details.
+. User enters the new recurring income details.
+. System updates the recurring income.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+* 5a. System detects invalid user input.
+** 5a1. System requests for the correct user input.
+** 5a2. User re-enters input.
+** Steps 5a1-5a2 are repeated until the input entered are correct.
+** Use case resumes from step 6.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-26]] *Use case: UC26 - Reminded of due payment* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has at least a recurring expenditure or credit card expenditure*
+
+*Main success scenario:*
+
+. User chooses to check for due payment.
+. System display due payment.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Organized user* +
+[[UC-27]] *Use case: UC27 - Export expenditures statement as HTML* +
+*Preconditions:*
+
+* *User has a profile created*
+*Main success scenario:*
+
+. User chooses to export expenditure statement.
+. System requests for which month expenditure statement to be exported.
+. User specifies the months.
+. System exports the specified expenditure statement as HTML.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+*Actor: Achievement oriented user* +
+[[UC-28]] *Use case: UC28 - Gain achievement* +
+*Preconditions:*
+
+* *User has a profile created*
+
+*Main success scenario:*
+
+. User meets a predefined achievement criteria.
+. System informs user that an achievement has been achieved.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Achievement oriented user* +
+[[UC-29]] *Use case: UC29 - View different types of achievements* +
+*Preconditions:*
+
+* *User has a profile created.*
+
+*Main success scenario:*
+
+. User chooses to view achievements.
+. System requests for types of achievement to view.
+. User specifies the type of achievement.
+. System displays all achievements of the specified type.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Achievement oriented user* +
+[[UC-30]] *Use case: UC30 - View description of an achievement* +
+*Preconditions:*
+
+* *User has a profile created.*
+*Main success scenario:*
+
+. User chooses to view achievement description.
+. System requests for which specific achievement to view.
+. User specifies the achievement.
+. System displays description of the achievement.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-31]] *Use case: UC31 - Add investment account (bond)* +
+*Main success scenario:*
+
+. User choose to add investment account.
+. System requests for investment account details.
+. User enters investment account details.
+. System creates an investment account.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+*Actor: Existing user* +
+[[UC-32]] *Use case: UC32 - Edit investment account (bond)* +
+*Main success scenario:*
+
+. User choose to edit investment account.
+. System requests for new investment account details.
+. User enters investment account details.
+. System updates the investment account.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+*Actor: Existing user* +
+[[UC-33]] *Use case: UC33 - Delete investment account (bond)* +
+*Main success scenario:*
+
+. User choose to delete investment account.
+. System requests for investment account to be deleted.
+. User selects the investment account to be deleted.
+. System deletes the investment account.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-34]] *Use case: UC34 - Automatically calculate half yearly interest for investment account (bond)* +
+*Main success scenario:*
+
+. User starts up the program.
+. System runs the check and calculate the interest accordingly.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Existing user* +
+[[UC-35]] *Use case: UC35 - Transfer money between different bank accounts* +
+*Main success scenario:*
+
+. User choose to transfer money to another bank account.
+. System requests for destination account and amount to transfer.
+. User enters the details of destination account and amount to transfer.
+. System transfers the amount to the specified account.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+[appendix]
+== Non Functional Requirements
+. The application should work on any computer running a <<mainstream-os, mainstream OS>> OS that has Java 11 installed.
+. The application should work on both 32-bit and 64-bit environments.
+. The application should work without requiring any internet access.
+. The application should work without requiring an installer.
+. The application should be able to store at least 3500 transactions per year.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using CLI than GUI.
+. The application should store relevant user data locally on the filesystem and should be persistent, ensuring that the data can be restored on the next startup of the application.
+. The application should have good user documentation, which details all aspects of the application to assist new users on how to use this application.
+. The application should have good developer documentation to allow developers to understand the design of the application easily so that they can further develop it.
+. The application should be easily testable.
+
+[appendix]
+== Glossary
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[appendix]
+== Instructions for Manual Testing

@@ -1,3 +1,6 @@
+#
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -5,10 +8,20 @@
 
 # Gradle build files
 /.gradle/
-/build/
+/build/classes/
+/build/generated/
+/build/reports/
+/build/test-results/
+/build/tmp/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
+
+# Data directory for data export
+/data/
+
+# Directory for javadoc
+/javadoc/

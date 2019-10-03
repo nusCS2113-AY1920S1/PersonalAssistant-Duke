@@ -1,0 +1,206 @@
+☹ OOPS!!! Could not read tasks from disk, will start with empty file
+Hello! I'm Duke
+What can I do for you?
+☹ OOPS!!! The list is empty
+Got it. I've added this task:
+[T][✘] read book
+You now have 1 tasks in the list
+Got it. I've added this task:
+[D][✘] return book (by: Thursday 06 June 2019 12:34 PM)
+You now have 2 tasks in the list
+Got it. I've added this task:
+[E][✘] project meeting (at: Tuesday 06 August 2019 02:00 PM)
+You now have 3 tasks in the list
+Got it. I've added this task:
+[T][✘] join sports club
+You now have 4 tasks in the list
+Got it. I've added this task:
+[T][✘] borrow book
+You now have 5 tasks in the list
+1.[T][✘] read book
+2.[D][✘] return book (by: Thursday 06 June 2019 12:34 PM)
+3.[E][✘] project meeting (at: Tuesday 06 August 2019 02:00 PM)
+4.[T][✘] join sports club
+5.[T][✘] borrow book
+☹ OOPS!!! list should not contain trailing arguments
+☹ OOPS!!! The description of a todo cannot be empty or blank spaces only
+☹ OOPS!!! The description of a todo cannot be empty or blank spaces only
+☹ OOPS!!! The description of a todo cannot be empty or blank spaces only
+☹ OOPS!!! The description of a todo cannot be empty or blank spaces only
+☹ OOPS!!! list should not contain trailing arguments
+☹ OOPS!!! list should not contain trailing arguments
+☹ OOPS!!! list should not contain trailing arguments
+☹ OOPS!!! list should not contain trailing arguments
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! The description of a deadline cannot be empty or space even when /by is correct
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! The deadline requires an end date/time after specifying /by. Make sure to use <space>/by<space><date>
+☹ OOPS!!! The time cannot be empty or space bar
+☹ OOPS!!! The time cannot be empty or space bar
+☹ OOPS!!! The format is wrong, please try in DD/MM/YYYY HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+Got it. I've added this task:
+[D][✘] buy fruits(should pass) (by: Tuesday 01 January 2019 12:34 PM)
+You now have 6 tasks in the list
+Got it. I've added this task:
+[D][✘] /by haha(should pass) (by: Friday 01 February 2019 06:00 PM)
+You now have 7 tasks in the list
+☹ OOPS!!! The format is wrong, please try in DD/MM/YYYY HHMM format
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Deadline must contain an end date using /by 
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Description or date cannot be empty or blank spaces only
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! The description of an event cannot be empty or space even when /at is correct
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! The event requires an end date/time after specifying /at. Make sure to use <space>/at<space><date>
+☹ OOPS!!! The time cannot be empty or space bar
+☹ OOPS!!! The time cannot be empty or space bar
+☹ OOPS!!! The format is wrong, please try in DD/MM/YYYY HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+☹ OOPS!!! The time format is wrong, please try again in HHMM format
+Got it. I've added this task:
+[E][✘] sing karaoke(should pass) (at: Tuesday 01 January 2019 12:34 PM)
+You now have 8 tasks in the list
+Got it. I've added this task:
+[E][✘] /at haha(should pass) (at: Friday 01 February 2019 06:00 PM)
+You now have 9 tasks in the list
+Got it. I've added this task:
+[E][✘] /at /at (at: Friday 01 February 2019 09:00 AM)
+You now have 10 tasks in the list
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! Event must contain an end date using /at 
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+Nice! I've marked this task as done:
+[T][✓] read book
+Nice! I've marked this task as done:
+[E][✓] /at haha(should pass) (at: Friday 01 February 2019 06:00 PM)
+☹ OOPS!!! Invalid task number, there are 10 tasks
+☹ OOPS!!! You entered: 0
+☹ OOPS!!! The task is already done
+[T][✓] read book
+Nice! I've marked this task as done:
+[T][✓] join sports club
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The number must be an integer and cannot exceed 9 digits
+☹ OOPS!!! The number must be an integer and cannot exceed 9 digits
+☹ OOPS!!! Invalid task number, there are 10 tasks
+☹ OOPS!!! You entered: 2147483647
+☹ OOPS!!! The number must be an integer and cannot exceed 9 digits
+☹ OOPS!!! Invalid task number, there are 10 tasks
+☹ OOPS!!! You entered: 2147483646
+1.[T][✓] read book
+2.[D][✘] return book (by: Thursday 06 June 2019 12:34 PM)
+3.[E][✘] project meeting (at: Tuesday 06 August 2019 02:00 PM)
+4.[T][✓] join sports club
+5.[T][✘] borrow book
+6.[D][✘] buy fruits(should pass) (by: Tuesday 01 January 2019 12:34 PM)
+7.[D][✘] /by haha(should pass) (by: Friday 01 February 2019 06:00 PM)
+8.[E][✘] sing karaoke(should pass) (at: Tuesday 01 January 2019 12:34 PM)
+9.[E][✓] /at haha(should pass) (at: Friday 01 February 2019 06:00 PM)
+10.[E][✘] /at /at (at: Friday 01 February 2019 09:00 AM)
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+☹ OOPS!!! The task number should be numeric only
+Noted. I've removed this task: 
+[T][✓] read book
+Now you have 9 tasks in the list.
+Noted. I've removed this task: 
+[E][✘] /at /at (at: Friday 01 February 2019 09:00 AM)
+Now you have 8 tasks in the list.
+☹ OOPS!!! Invalid task number, there are 8 tasks
+☹ OOPS!!! You entered: 0
+Noted. I've removed this task: 
+[D][✘] return book (by: Thursday 06 June 2019 12:34 PM)
+Now you have 7 tasks in the list.
+Noted. I've removed this task: 
+[T][✘] borrow book
+Now you have 6 tasks in the list.
+1.[E][✘] project meeting (at: Tuesday 06 August 2019 02:00 PM)
+2.[T][✓] join sports club
+3.[D][✘] buy fruits(should pass) (by: Tuesday 01 January 2019 12:34 PM)
+4.[D][✘] /by haha(should pass) (by: Friday 01 February 2019 06:00 PM)
+5.[E][✘] sing karaoke(should pass) (at: Tuesday 01 January 2019 12:34 PM)
+6.[E][✓] /at haha(should pass) (at: Friday 01 February 2019 06:00 PM)
+☹ OOPS!!! Keyword cannot be empty
+☹ OOPS!!! Keyword cannot be empty
+☹ OOPS!!! Keyword cannot be empty
+☹ OOPS!!! Keyword cannot be empty
+☹ OOPS!!! There are no tasks that match this keyword
+☹ OOPS!!! There are no tasks that match this keyword
+Here are the matching tasks in your list:
+1.[T][✓] join sports club
+Here are the matching tasks in your list:
+1.[D][✘] buy fruits(should pass) (by: Tuesday 01 January 2019 12:34 PM)
+☹ OOPS!!! bye should not contain trailing arguments
+Bye. Hope to see you again soon!

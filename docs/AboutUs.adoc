@@ -1,0 +1,55 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+OwlMoney was developed by the https://github.com/AY1920S1-CS2113T-W17-3[AY1920S1-CS2113T-W17-3] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Shamus Neo Zhi Kai
+image::shamussy.png[width="150", align="left"]
+{empty}[https://github.com/shamussy[github]] [<<shamussy#, portfolio>>]
+
+Role: Team Lead + Git Expert + AsciiDoc Expert +
+Responsibilities: Model + Logic
+
+'''
+
+=== Tan Kian Ming Brian
+image::briantkm.png[width="150", align="left"]
+{empty}[https://github.com/BrianTKM[github]] [<<briantkm#, portfolio>>]
+
+Role: Assistant Team Lead +
+Responsibilities: Code Maintainer + Logic + Storage
+
+'''
+
+=== Mong Zheng Wei
+image::mong-nus.png[width="150", align="left"]
+{empty}[https://github.com/mong-nus[github]] [<<mong-nus#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Logic + Storage
+
+'''
+
+=== Terence Tan Wee Theng
+image::terencetanwt.png[width="150", align="left"]
+{empty}[https://github.com/TerenceTanWT[github]] [<<terencetanwt#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Model + Ui
+
+'''
+
+=== Valerie Tan Yi Jia
+image::valerietyj.png[width="150", align="left"]
+{empty}[https://github.com/valerietyj[github]] [<<valerietyj#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Model + Ui
+
+'''

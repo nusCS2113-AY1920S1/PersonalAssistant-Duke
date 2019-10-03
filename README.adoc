@@ -1,0 +1,37 @@
+= OwlMoney
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+ifdef::env-github[]
+image::docs/images/Ui.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="970"]
+endif::[]
+
+
+* OwlMoney is a finance tracker desktop application. It has a Graphical User Interface (GUI) but most of the user
+interaction happens in the Command Line Interface (CLI).
+
+* OwlMoney is designed to help undergraduates and fresh graduates track and manage their finanaces.
+
+* OwlMoney is optimized for those who prefer using a CLI. The commands used to interact with the application
+are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with ease.
+
+* OwlMoney allows users to:
+** track their finances quickly and more conveniently.
+** track their finances in different currencies. _(coming soon)_
+** provide an informed decision so that the user is able to decide how much to spend and save.
+
+== Site Map
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
+
+== Acknowledgements
+* Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
+created by https://github.com/se-edu/[SE-EDU initiative]
+
+== Licence : link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/LICENSE[MIT]
