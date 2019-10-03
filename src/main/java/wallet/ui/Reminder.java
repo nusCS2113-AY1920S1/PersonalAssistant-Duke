@@ -2,7 +2,6 @@ package wallet.ui;
 
 import wallet.model.Wallet;
 import wallet.model.record.LoanList;
-import wallet.model.record.RecordList;
 
 public class Reminder {
 

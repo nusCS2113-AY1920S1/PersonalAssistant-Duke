@@ -1,5 +1,6 @@
 package wallet.storage;
 
+import wallet.model.record.Budget;
 import wallet.model.record.Expense;
 import wallet.model.task.Task;
 
@@ -12,6 +13,7 @@ public class StorageManager {
 
     private TaskStorage taskStorage;
     private ExpenseStorage expenseStorage;
+    private BudgetStorage budgetStorage;
 
     /**
      * Constructs a new StorageManager object with all storage classes.
@@ -20,6 +22,7 @@ public class StorageManager {
         createDir();
         this.taskStorage = new TaskStorage();
         this.expenseStorage = new ExpenseStorage();
+        this.budgetStorage = new BudgetStorage();
     }
 
     /**
@@ -55,4 +58,8 @@ public class StorageManager {
     public void addExpense(Expense expense) {
         expenseStorage.writeToFile(expense);
     }
+
+    public void addBudget(Budget budget) { budgetStorage.writeToFile(budget); }
+
+    public ArrayList<Budget> loadBudget() { return budgetStorage.loadFile(); }
 }
