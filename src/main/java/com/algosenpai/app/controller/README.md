@@ -1,3 +1,3 @@
-### Controller
+### Scene
 
-Package to process user request
+Package to store the different scenes

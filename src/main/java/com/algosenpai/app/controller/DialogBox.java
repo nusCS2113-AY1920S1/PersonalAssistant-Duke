@@ -1,4 +1,4 @@
-package com.algosenpai.app.scene;
+package com.algosenpai.app.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
