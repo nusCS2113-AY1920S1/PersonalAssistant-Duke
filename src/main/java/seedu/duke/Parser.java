@@ -297,6 +297,7 @@ public class Parser {
         String name;
         LocalDateTime time = null;
         String doAfter = null;
+        String tag = null;
 
         if (input.startsWith("todo")) {
             taskType = Task.TaskType.ToDo;
@@ -304,9 +305,13 @@ public class Parser {
                 throw new Parser.UserInputException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             name = input.substring(5);
+            if (input.contains(" #")) {
+                tag = input.split(" #", 2)[1];
+                name = name.split(" #",2)[0];
+            }
             if (input.contains(" /doafter ")) {
+                doAfter = name.split(" /doafter ", 2)[1];
                 name = name.split(" /doafter ", 2)[0];
-                doAfter = input.split(" /doafter ", 2)[1];
             }
         } else if (input.startsWith("deadline")) {
             taskType = Task.TaskType.Deadline;
@@ -320,9 +325,14 @@ public class Parser {
             }
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
+            if (input.contains(" #")) {
+                tag = timeString.split(" #", 2)[1];
+                timeString = timeString.split(" #",2)[0];
+            }
             if (input.contains(" /doafter ")) {
+                doAfter = timeString.split(" /doafter ", 2)[1];
                 timeString = timeString.split(" /doafter ", 2)[0];
-                doAfter = input.split(" /doafter ", 2)[1];
+
             }
             time = Task.parseDate(timeString);
         } else if (input.startsWith("event")) {
@@ -336,15 +346,19 @@ public class Parser {
             }
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
+            if (input.contains(" #")) {
+                tag = timeString.split(" #", 2)[1];
+                timeString = timeString.split(" #",2)[0];
+            }
             if (input.contains(" /doafter ")) {
+                doAfter = timeString.split(" /doafter ", 2)[1];
                 timeString = timeString.split(" /doafter ", 2)[0];
-                doAfter = input.split(" /doafter ", 2)[1];
             }
             time = Task.parseDate(timeString);
         } else {
             throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return new AddCommand(taskList, taskType, name, time, doAfter);
+        return new AddCommand(taskList, taskType, name, time, doAfter, tag);
     }
 
     /**
