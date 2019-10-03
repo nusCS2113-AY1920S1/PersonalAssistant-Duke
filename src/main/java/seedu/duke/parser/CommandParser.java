@@ -57,25 +57,18 @@ public class CommandParser extends Parser {
         String[] taskCommands = {"todo", "deadline", "event", "range", "doafter", "recur"};
         Arrays.sort(taskCommands);
         if (userInput[0].equals("find")) {
-            CommandLogic.validateFind(rawInput);
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
-            CommandLogic.validateNumberCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("list")) {
-            CommandLogic.validateOneWord(rawInput);
             return new ListCommand();
         } else if (userInput[0].equals("remind")) {
-            CommandLogic.validateOneWord(rawInput);
             return new RemindCommand();
         } else if (userInput[0].equals("done")) {
-            CommandLogic.validateOneWord(rawInput);
             return new DoneCommand(userInput);
         } else if (userInput[0].equals("show")) {
-            CommandLogic.validateShow(rawInput);
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
-            CommandLogic.validateSnooze(rawInput);
             return new SnoozeCommand(userInput);
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
             return new AddCommand(userInput);

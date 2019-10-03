@@ -1,13 +1,15 @@
 package seedu.duke.task;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
+import seedu.duke.data.AvatarStorage;
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
-
+import seedu.duke.Duke;
 import seedu.duke.ui.Ui;
 
 import static seedu.duke.parser.DateTimeParser.getDateTime;
@@ -241,9 +243,13 @@ public class TaskList {
                 System.out.println("\tNice! I've marked this task as done:");
                 System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
                 System.out.println("\t_____________________________________\n\n");
+                Duke.avatar.gainXp();
+                AvatarStorage.save(Duke.avatar);
             }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
+        } catch (IOException ignore) {
+            return;
         }
     }
 

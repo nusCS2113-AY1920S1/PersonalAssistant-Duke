@@ -1,9 +1,14 @@
 package seedu.duke;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import seedu.duke.avatar.Avatar;
 import seedu.duke.command.Command;
 /* import java.text.ParseException; */
 import java.util.Scanner;
+
+import seedu.duke.data.AvatarStorage;
 import seedu.duke.data.Schedule;
 import seedu.duke.logic.CommandLineException;
 import seedu.duke.task.Reminders;
@@ -41,9 +46,14 @@ public class Duke {
     private static CommandParser parser = new CommandParser();
 
     /**
+     * Avatar instance that keeps track of the User's progress.
+     */
+    public static Avatar avatar;
+
+    /**
      * Runs Duke which commences the user to machine
      * feedback loop until the user enters "bye".
-     * Loads existing tasklist and performs operations
+     * Loads existing tasklist and avatar, and performs operations
      * like list, find, delete and add on the tasklist. Adds
      * the Tasks in the TreeMap.
      * Saves the list to disk for next duke session inside
@@ -54,7 +64,7 @@ public class Duke {
      * @see Ui
      * @see Schedule
      */
-    public static void run() {
+    public static void run() throws IOException {
         ui.show_opening_string();
         list = new TaskList(storage.load());
 
@@ -62,6 +72,8 @@ public class Duke {
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
+        avatar = AvatarStorage.load();
+        AvatarStorage.save(avatar);
 
         // Taking the the first raw input
         String rawInput = ui.take_input();
@@ -92,7 +104,7 @@ public class Duke {
      *
      * @param args the command line parameters
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         Duke.run();
     }
 }
