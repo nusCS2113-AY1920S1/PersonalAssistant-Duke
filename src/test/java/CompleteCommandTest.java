@@ -1,7 +1,7 @@
-import duke.command.CompleteCommand;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.ToDo;
+import dolla.command.CompleteCommand;
+import dolla.task.Task;
+import dolla.task.TaskList;
+import dolla.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

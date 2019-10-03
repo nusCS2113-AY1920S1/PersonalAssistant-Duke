@@ -8,10 +8,29 @@
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
+== Setting up
+
+_{Coming up soon!}_
+
+== Design
+
+_{Coming up soon!}_
+
+== Implementation
+
+_{Coming up soon!}_
+
+== Documentation
+
+_{Coming up soon!}_
+
+== Testing
+
+_{Coming up soon!}_
+
 == Dev Ops
 
-_{To be edited}_
-
+_{Coming up soon!}_
 
 [appendix]
 == Product Scope
@@ -27,15 +46,14 @@ _{To be edited}_
 
 *Value proposition*: manage expenses faster than a typical mouse/GUI driven app
 
-
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="10%, 20%, 35%, 35%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
+|*Priority* |*As a ...* |*I want to ...* |*So that I can...*
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the app
 
 |`* * *` |user |track how much I have spent |be reminded not to overspend
@@ -48,7 +66,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |frequent spender |get reminders from the app |be notified when my budget is running low
 
-|`* * *` |forgetful user |look up my expenses history |keep track of what I have spent money on
+|`* * *` |forgetful user |look up my expense history |keep track of what I have spent money on
 
 |`* *` |hall resident who buys groceries often |look at what groceries I have already bought during the week |not end up buying the same items
 
@@ -106,10 +124,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clumsy user |edit or remove entries I’ve added |accurately track my finances
 
-|`*` |student who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
+|`*` |user who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
 
 |=======================================================================
-
 
 [appendix]
 == Use Cases
