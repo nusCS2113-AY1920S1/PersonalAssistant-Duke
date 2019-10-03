@@ -30,7 +30,7 @@ allowing the students to focus more on the important aspects of their education.
 . Copy the file to the folder you want to use as the home folder for your MisterMusik
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing `help` and pressing kbd:[Enter] will open the help window.
+E.g. typing `help` and pressing kbd:[Enter] will open the help window.
 +
 . Please refer to <<Features>> for details of each command.
 
