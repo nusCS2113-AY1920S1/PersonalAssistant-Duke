@@ -236,7 +236,7 @@ Example:
 
 * `set limit /tag bubble tea $20`
 
-=== Add loans an debts `owe` `borrow`
+=== Add loans and debts `owe` `borrow`
 
 Add loans and debts that are one off kind. +
 Format: +
