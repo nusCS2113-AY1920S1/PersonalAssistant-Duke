@@ -116,4 +116,19 @@ public class TasksTest {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void testFixedDurationTask() {
+        String taskLabel = "FixedDurationTaskTest";
+        String timeNeededLabel = "02:00";
+        String expectedPrint = "[F][✗] FixedDurationTaskTest (needs: 02:00)";
+        String expectedWrite = "F|FixedDurationTaskTest|0|02:00";
+        try {
+            Task test = new FixedDurationTasks(taskLabel, timeNeededLabel);
+            assertEquals(expectedPrint, test.toString());
+            assertEquals(expectedWrite, test.writingFile());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
