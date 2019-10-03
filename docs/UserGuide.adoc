@@ -272,6 +272,7 @@ This error appears when the user does not input anything after writing a valid c
 **** 
 * Example: `delete`  +
 Since there is no index specified after `delete`, the program is unable to process which task to delete.
+****
 
 === `DukeEmptyListException` 
 This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list. 
@@ -281,7 +282,10 @@ This error appears when the user does not input any tasks into the list or has d
 ****
 
 === `DukeMultipleValuesForSameArgumentException`
-This error.
+
+****
+* This error.
+****
 
 == FAQ
 
