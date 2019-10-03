@@ -1,5 +1,9 @@
 package duke.tasks;
 
+import duke.exceptions.DukeCommandException;
+import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.DukeMissingArgumentException;
+import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -82,7 +86,34 @@ public class TasksTest {
         }
     }
 
+    @Test
+    public void testRecurringTask() {
+        String taskLabel = "RecurringTaskTest";
+        String dateLabel = "1";
+        String expectedPrintTodo = "[R][✗] RecurringTaskTest (every: 1 days)";
+        String expectedWriteTodo = "R|RecurringTaskTest|0|1";
+        try {
+            Task test = new RecurringTask(taskLabel, dateLabel);
+            assertEquals(expectedPrintTodo, test.toString());
+            assertEquals(expectedWriteTodo, test.writingFile());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-
-
+    @Test
+    public void testDoWithinTask() {
+        String taskLabel = "DoWithinTaskTest";
+        String beginDateLabel = "02/11/2030 1730";
+        String endDateLabel = "03/11/2030 2am";
+        String expectedPrintTodo = "[W][✗] DoWithinTaskTest (begin: 02-11-2030 17:30, end: 03-11-2030 02:00)";
+        String expectedWriteTodo = "W|DoWithinTaskTest|0|02-11-2030 17:30|03-11-2030 02:00";
+        try {
+            Task test = new DoWithin(taskLabel, beginDateLabel, endDateLabel);
+            assertEquals(expectedPrintTodo, test.toString());
+            assertEquals(expectedWriteTodo, test.writingFile());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

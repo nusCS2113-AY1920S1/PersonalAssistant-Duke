@@ -7,12 +7,13 @@ import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.Task;
-import duke.util.DateTimeParser;
-import duke.util.TaskList;
-import duke.util.Storage;
-import duke.util.Ui;
 import duke.exceptions.DukeInvalidIndexException;
 
+import duke.util.DateTimeParser;
+import duke.util.Reminder;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 import java.util.Objects;
 
 public class RescheduleCommand extends Command {
@@ -59,7 +60,7 @@ public class RescheduleCommand extends Command {
      * @throws DukeInvalidTimePeriodException If user inputs an invalid time period.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws
             DukeInvalidIndexException,
             DukeInvalidTimeException,
             DukeNoTimeException,

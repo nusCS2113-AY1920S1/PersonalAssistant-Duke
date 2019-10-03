@@ -5,6 +5,7 @@ import duke.exceptions.DukeInvalidTimePeriodException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
+import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
@@ -74,6 +75,14 @@ public class Storage {
                         tempDeadline.setTaskDone();
                     }
                     list.add(tempDeadline);
+                    break;
+                }
+                case "R": {
+                    RecurringTask tempRecurringTask = new RecurringTask(hold[1], hold[3]);
+                    if (hold[2].equals("1")) {
+                        tempRecurringTask.setTaskDone();
+                    }
+                    list.add(tempRecurringTask);
                     break;
                 }
                 case "T": {
