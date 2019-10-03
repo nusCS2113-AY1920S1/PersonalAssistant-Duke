@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: screenshots
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -228,7 +228,8 @@ If you follow what the errors tell you to fix in your command, you can get the p
 
 === `DukeInvalidIndexException`
 This error appears when the user inputs a number that is out of bounds of the task list.
-(add screenshot here)
+
+image::DukeException.PNG[width="250"]
 
 ****
 * Example:  `delete -1`
@@ -256,6 +257,31 @@ This error appears when the user does not input valid parameters into the comman
 * Example: `deadline /by 30/9/2019 1245` + 
 Here the description is missing for the Deadline task, and the error message is shown.
 ****
+
+=== `DukeCommandException` 
+This error appears when the user does not input a valid command name into the command line. +
+
+****
+* Example: `activity finish writing book` +
+Since there is no such command for activity, the program will be unable to process the unknown command.
+****
+
+=== `DukeEmptyCommandException` 
+This error appears when the user does not input anything after writing a valid command into the command line.+
+
+**** 
+* Example: `delete`  +
+Since there is no index specified after `delete`, the program is unable to process which task to delete.
+
+=== `DukeEmptyListException` 
+This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list. 
+
+****
+* This is only valid for the `list` command
+****
+
+=== `DukeMultipleValuesForSameArgumentException`
+This error.
 
 == FAQ
 

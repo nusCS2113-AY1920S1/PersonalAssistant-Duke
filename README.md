@@ -35,3 +35,13 @@ Your one stop solution to module planning through out your university tenure!
 1. Rename the project if you want. Click `Next`.
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
+
+
+# External References
+
+External libraries used are [Natty](https://github.com/joestelmach/natty) and [Gson](https://github.com/google/gson).
+
+
+# License
+
+We will be using the MIT license upon completion.
