@@ -123,13 +123,15 @@ public class DateObj {
      * @param noOfDays numbers of days to add
      */
     public void addDaysAndSetMidnight(int noOfDays) {
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, noOfDays);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
-        this.dateObject = c.getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        this.splitDate = formatter.format(dateObject);
+    	if (dateObject != null) {
+    		Calendar c = Calendar.getInstance();
+        	c.add(Calendar.DATE, noOfDays);
+            c.set(Calendar.HOUR_OF_DAY, 23);
+            c.set(Calendar.MINUTE, 59);
+            c.set(Calendar.SECOND, 59);
+            dateObject = c.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            splitDate = formatter.format(dateObject);
+    	}
     }
   }
