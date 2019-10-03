@@ -16,8 +16,8 @@ image::Ui.png[width="800", align="center"]
 
 {nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
-more interactive and interesting user experience. Dolla will help the user to keep track of their spendings and incomes, set reminders, give suggestions
-or many more other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
+more interactive and interesting user experience. Dolla will help the user to keep track of their spending and income, set reminders, give suggestions
+and many other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
 <<Quick Start>> to get started!
 
 == Quick Start
