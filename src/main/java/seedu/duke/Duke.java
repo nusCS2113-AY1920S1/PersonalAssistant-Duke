@@ -20,7 +20,7 @@ public class Duke {
     private static Parser parser;
 
     /**
-     * The main function of the program, which is the entry point.
+     * The main function of the cli program, which is the entry point.
      *
      * @param args the arguments from the console when running
      */
@@ -28,7 +28,7 @@ public class Duke {
         ui = new UI();
         parser = new Parser();
         ui.setDebug(true);
-        Http.getAuth();
+        Http.startAuthProcess();
         run();
     }
 
@@ -65,15 +65,15 @@ public class Duke {
     }
 
     /**
-     * Main function that lines up all important functions in the app using process.
+     * Main function of the GUI program.
      */
     public Duke() {
         ui = new UI();
         parser = new Parser();
         ui.setDebug(true);
-        Http.getAuth();
         taskList = Storage.readTasks();
         emailList = EmailStorage.readEmails();
+        Http.startAuthProcess();
     }
 
     /**
