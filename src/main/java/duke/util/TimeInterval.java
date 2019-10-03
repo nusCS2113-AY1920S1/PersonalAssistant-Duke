@@ -77,6 +77,10 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return this.getDateDuration();
     }
 
+    /**
+     * Convert the time stored in this object to an equivalent Duration object
+     * @return a Duration object which represent the total time with seconds
+     */
     public Duration toDuration() { // Estimate
         double daysToAdd = TimeInterval.daysInYear * this.dateDuration.getYears()
                 + TimeInterval.daysInYear * this.dateDuration.getMonths() / 12
@@ -121,6 +125,12 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return new TimeInterval(this.dateDuration.multipliedBy(scalar), this.timeDuration.multipliedBy(scalar));
     }
 
+    /**
+     * Return the difference in time between two LocalDateTime epochs.
+     * @param begin the 1st epoch
+     * @param end the 2nd epoch
+     * @return a TimeInterval object representing the difference between the two epochs.
+     */
     public static TimeInterval between(LocalDateTime begin, LocalDateTime end) {
         Period dateDiff = Period.between(begin.toLocalDate(), end.toLocalDate());
         Duration timeDiff = Duration.between(begin.toLocalTime(), end.toLocalTime());
@@ -195,8 +205,7 @@ public class TimeInterval implements TemporalAmount, Serializable {
     public long get(TemporalUnit temporalUnit) {
         try {
             return this.dateDuration.get(temporalUnit);
-        }
-        catch (UnsupportedTemporalTypeException ex) {
+        } catch (UnsupportedTemporalTypeException ex) {
             return this.timeDuration.get(temporalUnit);
         }
     }

@@ -42,8 +42,7 @@ public class Duke {
         try {
             reminder = new Reminder(tasks.getTasks());
             reminder.run();
-        }
-        catch (DukeTimeIntervalTooCloseException e) {
+        } catch (DukeTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
         }
         while (!isExit) {

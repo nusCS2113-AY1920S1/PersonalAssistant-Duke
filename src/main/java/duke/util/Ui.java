@@ -74,6 +74,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints all tasks in upcomingTasksList.
+     * @param upcomingTasksList contains all upcoming tasks.
+     */
     public void printUpcomingTasks(List<Task> upcomingTasksList) {
         if (upcomingTasksList.size() > 0) {
             System.out.println(LINE + "You have " + upcomingTasksList.size() + " upcoming tasks!\nHere's the list:");

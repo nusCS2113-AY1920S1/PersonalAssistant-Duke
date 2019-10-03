@@ -16,7 +16,14 @@ public class Reminder {
     private Thread thread;
     private static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
 
-    public Reminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery) throws DukeTimeIntervalTooCloseException {
+    /**
+     * Constructor for Reminder.
+     * @param tasks TaskList object containing current active taskList.
+     * @param remindBefore TimeInterval object indicating the amount of time to start reminding beforehand
+     * @param checkEvery TimeInterval object indicating the amount of time to wait between reminds
+     */
+    public Reminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery)
+            throws DukeTimeIntervalTooCloseException {
         if (remindBefore.isLessThan(Reminder.minBefore)) {
             throw new DukeTimeIntervalTooCloseException();
         }
@@ -42,11 +49,13 @@ public class Reminder {
         this.thread.start();
     }
 
+    /**
+     * Force reminder to check upcoming tasks and remind immediately
+     */
     public void forceCheckReminder() {
         if (!this.thread.isAlive()) {
             this.thread.start();
-        }
-        else if (this.thread.getState().equals(Thread.State.TIMED_WAITING)) {
+        } else if (this.thread.getState().equals(Thread.State.TIMED_WAITING)) {
             this.thread.interrupt();
         }
     }
@@ -59,16 +68,17 @@ public class Reminder {
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
                 try {
-                    new Ui().printUpcomingTasks(this.getUpcomingTasks(new TimePeriod(now, now.plus(this.remindBefore))));
-                }
-                catch (DukeInvalidTimePeriodException e) {
+                    new Ui().printUpcomingTasks(
+                            this.getUpcomingTasks(
+                                    new TimePeriod(now, now.plus(this.remindBefore))));
+                } catch (DukeInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
-                long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime).toDuration().getSeconds() - 1, 0);
+                long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
+                        .toDuration().getSeconds() - 1, 0);
                 try {
                     Thread.sleep(sleepSeconds * 1000);
-                }
-                catch (InterruptedException ignored) {
+                } catch (InterruptedException ignored) {
                     targetTime = LocalDateTime.now();
                     continue;
                 }
@@ -79,10 +89,13 @@ public class Reminder {
     private List<Task> getUpcomingTasks(TimePeriod timePeriod) {
         List<Task> upcomingTasks = new ArrayList<>();
         for (Task task: this.tasks) {
-            /* TODO: Upon finishing implementing TimePeriod and getPeriod() for all task types, replace the if logic below with:
-                if (!task.isDone() && timePeriod.isClashing(task.getPeriod().getBegin())) {
+            /* TODO: Upon finishing implementing TimePeriod and getPeriod() for all task types,
+                replace the if logic below with:
+                    if (!task.isDone() && timePeriod.isClashing(task.getPeriod().getBegin())) {
              */
-            if (task instanceof DoWithin && !task.isDone() && timePeriod.isClashing(((DoWithin) task).getPeriod().getBegin())) {
+            if (task instanceof DoWithin &&
+                    !task.isDone() &&
+                    timePeriod.isClashing(((DoWithin) task).getPeriod().getBegin())) {
                 upcomingTasks.add(task);
             }
         }
