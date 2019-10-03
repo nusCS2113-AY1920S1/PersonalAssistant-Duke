@@ -31,117 +31,566 @@ details and thus hinder management. Our solution, is an approach to integrate th
 . You can download the latest https://github.com/AY1920S1-CS2113T-F11-1/main/releases[SpongeBob.jar] here.
 . Copy the file to the folder you want to use as your home folder for SpongeBob.
 . Double click the file to start the app. The GUI should appear in a few seconds. +
-image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"]
+image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"] +
 . To start with, you can type  **'help'** to check all the commands and press Enter
+.  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/COMMANDS.adoc[Features and Commands]
-Some example commands you can try:
+== General Features
 
-* *`help`* : Pull out the instruction manual
-* *`select`* : Select a specific list
-* *`add`* : Add a person/ event
-* *`delete`* : Remove a person/ event
-* *`modify`* : Modify a person/ event
-* *`find`* : Find a person/ event
-* *`sort`* : Sort the name/ event list
+====
+*Command Format*
 
-=== User manual: `help`
-This will pull out the instruction manual and list out the available instructions in the personal assistant +
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/President`, `t/friend, t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME y/YEAR`, `y/YEAR n/NAME` is also acceptable.
+====
+
+=== Viewing user manual
+
+Opens up this user guide so that the user can see all the valid user commands
 Format: `help`
 
-=== Selecting a instruction: `select`
-Selecting a instruction listed in the user manual +
-Format: `*select* + "n/NUMBER"`
+
+=== Listing members [1]/accounts [2]/events [3]/inventory list [4]/locker log[5]
+
+Shows a list of members +
+Format: `list 1` +
+Similarly you can list accounts/events/inventorty list/locker log by specifying their respective number
+
+
+=== Listing entered commands
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+// tag::undoredo[]
+=== Undoing previous command
+
+Restores SpongeBob to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify SpongeBob's content (`add`, `delete`, `edit` and `clear`).
+====
 
 Examples:
 
-* `select 0` will pull out the instruction manual
-* `select 5` will pull out the inventory
+* `deletePerson 1` +
+`list 2` +
+`undo` (reverses the `deletePerson 1` command) +
 
-=== Adding a person or event : `add`
+* `list 1` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
 
-Adding a person to the address book +
-Format: `*add* + n/NAME` +
+* `deletemember 1` +
+`clear 1` +
+`undo` (reverses the `clear 1` command) +
+`undo` (reverses the `deletePerson` command) +
 
-Adding an event to the calendar +
-Format: `*add* + n/EVENT`
+=== Redoing the previously undone command
 
-Examples:
-
-* `add Johnson` will add Johnson's name into the address book
-* `add birthday party at 10/12/2020` will add event "birthday party" into the calendar
-
-=== Removing a person or event : `delete`
-
-Removing a person from the address book +
-Format: `*delete* + n/NAME` +
-
-Removing an event from the calendar +
-Format: `*delete* + n/EVENT`
+Reverses the most recent `undo` command. +
+Format: `redo`
 
 Examples:
 
-* `delete Cindy` will remove Cindy's name from the address book
-* `delete swimming` will add event "swimming" from the calendar
+* `deletemember 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
 
-=== Modifying a person or event : `modify`
+* `deletemember 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
 
-Modifying a person in the address book +
-Format: `*modify* + n/NAME + n/TAG to n/TAG_DESCRIPTION` +
+// end::undoredo[]
 
-Modifying an event in the calendar +
-Format: `*modify* + n/EVENT + n/TAG to n/TAG_DESCRIPTION`
+
+=== Clearing all entries from the specified list (members[1]/accounts[2]/events[3]/inventory list [4]/locker log[5])
+
+Clears all entries from the specified list. +
+Format: `clear`
+
+Examples:
+*`clear 1`+
+Clears all the entries from the members list.
+
+=== Clearing all entries from multiple lists at the same time
+
+Clears all entries from multiples lists. +
+Format: `clear [1],[2],[3],[4],[5]`
 
 Examples:
 
-* `modify John name to Johnathan` will change John's name to Johnathan
-* `modify John gender to M` will change John's gender to male
-* `modify hiking date to 05/07/2021` will change the date of event "hiking" to 05/07/2021
-* `modify basketball location to MPSH2` will change the location of event "basketball" to MPSH2
+* `clear 1,2` +
+The clear command clears all the entries in members and accounts
 
-=== Finding a person or event : `find`
+* `clear 1,7` +
+The clear command clears all the entries in members and since 7 is an invalid number (valid numbers are from 1 to 5) it won't do anything.
 
-Finding a person from the address book and listing out the details +
-Format: `*find* + n/NAME` +
+=== Exiting the program
 
-Finding all people that qualifies with specific tags from the address book +
-Format: `*find* + n/TAG + n/TAG` +
+Exits the program. +
+Format: `exit` or `bye`
 
-Finding an event from the calendar and listing out the details +
-Format: `*find* + n/EVENT`
 
-Finding all events happening on a specific date from the calendar +
-Format: `*find* + dd/mm/yy`
+== Main Features
+
+//tag::member[]
+=== Members
+The members feature enables the user to view all the SoC club members as a list while providing details such as name, year of study, course of study, and additonal tags like 'President','Vice-President' etc. There are four basic commands add or delete a member from the list, edit any member's creadentials, find members based on various criterias which will be specified later, sort the members based on the heirarchical structure of the club (based on the tags)
+
+==== Adding a member: `addmember`
+
+Adds a person to SpongeBob +
+Format: `addmember n/NAME y/YEAR_OF_Study m/MAJOR e/EMAIL  [t/TAG]`
+
+[TIP]
+A person can have either one or no tags. Also there are restrictions imposed on the types of tags that one can add for the members. As of now, you can only the following tags (all the tags are case insensitive `president` is same as `President`: +
+President,+
+Vice-President,+
+Head of Marketing,+
+Head of Finance,+
+Head of Human Resources,+
+Head of Student Life,+
+<List to be updated later>+
 
 Examples:
 
-* `find Jack` will find Jack and list out his details
-* `find exchange` will list out all the members that are exchange students
-* `find year2 female` will list out all the members that are year2 students and female
-* `find CSfinals` will find the finals date for CS module and list out its details
-* `find 25/03/2022` will find all events happening on 25/03/2022
-
-=== Sorting the name list or event calendar : `sort`
-
-Sorting the name list +
-Format: `*sort* + NAMES` +
-
-Sorting the event calendar +
-Format: `*sort* + EVENTS` +
+* `addmember n/John Doe y/3 m/Computer engineering e/johnd@example.com t/President`
 
 
-//== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/FAQ.adoc[FAQs]
-//
-//*Q*:  +
-//*A*:
+==== Editing a member : `editmember`
 
-== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/COMMANDS.adoc[Command Summary]
+Edits an existing member in SpongeBob +
+Format: `editmember INDEX [n/NAME] [e/EMAIL] [m/MAJOR] [t/TAG]...`
 
-* *`help`* : Pull out the instruction manual
-* *`select`* : Select a specific list
-* *`add`* : Add a person/ event
-* *`delete`* : Remove a person/ event
-* *`modify`* : Modify a person/ event
-* *`find`* : Find a person/ event
-* *`sort`* : Sort the name/ event list
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed member list. The index *must be a positive integer* 1, 2, 3, ... and the INDEX must be less than or equal to the number of members.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove a member's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `editmember 1 y/2 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `editmember 2 n/John Doe t/` +
+Edits the name of the 2nd person to be `John Doe` and clears any existing tags.
+
+==== Filtering members by name: `findmembers`
+
+Finds members whose names contain any of the given keywords. +
+Format: `findmembers KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `Eric` will match `eRic`
+* The order of the keywords does not matter. e.g. `Yan Bo` will match `Bo Yan`
+* Only the name is searched.
+* Only full words will be matched e.g. `Tej` will not match `Tejas`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `findmembers John` +
+Returns `john` and `John Doe`
+* `findmembers Kevin Wang John` +
+Returns any person having names `Kevin`, `Wang`, or `John`
+
+==== Filtering members by major: `findmajor`
+
+Finds members whose course of study contain any of the given keywords. +
+Format: `findmajor KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `computer` will match `Computer`
+* The order of the keywords does not matter. e.g. `Engineering computer` will match `Computer engineering`
+* Only the name is searched.
+* Majors matching at least one keyword will be returned e.g ` Computer Engineering` will be listed when `Engineering` is searched
+* Only full words will be matched e.g. `Compute` will not match `Computer`
+****
+
+Examples:
+
+* `findmajor Computer Engineering` +
+Returns member(s) whose major is `Computer Engineering`
+* `findmajor Engineering` +
+Returns member(s) whose major contains the keyword `Engineering`
+
+==== Filtering members with tags: `findtag`
+
+Finds members whose description containt a tag. +
+Format: `findmembertag`
+
+****
+* It will output all the members with tags. In our case those would be the part of the SoC Management Committee
+****
+
+Examples:
+* `findmembertag`
+Returns all the members who contain tags.
+
+
+==== Sorting the members based on their heirarchical precedence in the SoC club
+Format: `sortmembers` or `sort 1`
+Returns the list of members in sorted according to their heirarchical precedence (President->VicePresident ...)
+
+
+==== Deleting a member : `deletemember`
+
+Deletes the specified member from SpongeBob. +
+Format: `deletemember INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* 1, 2, 3, ... and *should be less than or equal to the number of entries in the list*  
+****
+
+Examples:
+
+* `deletemember 2` +
+Deletes the 2nd person in SpongeBob.
+* `findmember Mars` +
+`deletemember 1` +
+Deletes the 1st person in the results of the `find` command.
+
+//end::member[]
+
+=== Accounts
+
+
+The accounts feature enables the user to distribute the budget between the various committees of the SoC club. The first entry in the list is by default the total income of the SoC club and the available funds that can be distributed
+
+==== Adding a ledger: `addLedger`
+Adds a ledger to the ledger column. +
+Format: `addLedger d/[DD/MM]`
+
+Example: `addLedger d/ 10/10`
+
+==== Deleting a ledger: `deleteLedger`
+Deletes a ledger from the log. +
+Format: `deleteLedger d/[DD/MM]`
+
+Example: `deleteLedger d/ 10/10`
+
+==== Crediting a ledger: `credit`
+Increase the balance of a ledger on a date indicated. +
+Format: `credit d/[DD/MM] b/[NUM]`
+
+Example: `credit d/ 10/10 b/ 100`
+
+==== Debiting a ledger: `debit`
+Decrease the balance of a ledger on a date indicated. +
+Format: `debit d/[DD/MM] b/[NUM]`
+
+Example: `debit d/ 10/10 b/ 100`
+
+
+// tag::Events[]
+=== Events
+The events feature enables the user to view all the events/meetings that are conducted by the SoC club as a list while providing details such as name of the event/meeting, venue, description and event date and [time] (optional) and [tags]. The tags are used to prioritize the events as per their importance. It consists of four basic commands: add or delete an event/meeting will either add or delete the event from the list of events, findevent can be used to filter events based on various criterias and sortevent will sort the events based on their priorities (most important to least important)
+
+==== Adding an event: `addevent`
+Adds an event to the list of events. +
+Format: `addevent n/EVENT_NAME v/VENUE D/DESCRIPTION d/EVENT_DATE [f/FROM_TIME t/TO_TIME] [p/priorities]`
+
+[TIP]
+The event name cannot be the same as an existing one (Two events are regarded as the same when they have the same name and date). You are allowed to add only one tag (priorities) per event. The only priority tags that are allowed are high,low and medium.
+
+Example:
+
+* `addevent n/Club meeting v/COM1-Level1-02 D/We will discuss about the upcoming career fair d/10/12 f/1730 t/1830 p/medium
+Adds an event with following specifications.
+
+
+==== Editing an event: `editevent`
+
+Edits an existing event in SpongeBob. +
+Format: `editevent INDEX [n/EVENT_NAME] [v/EVENT_VENUE] [D/EVENT_DESCRIPTION] [d/EVENT_DATE] [f/FROM_TIME] t/TO_TIME] [p/PRIORITIES]`
+
+****
+* Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ... *and should be a value that is less than the maximum number of entries in the event list* 
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Existing tags will be completely replaced.
+* To remove a tag you can just do `editevent 1 p/`
+****
+
+Example:
+
+* `editevent 1 v/COM2-0201 d/06/12+
+Edit the venue and the date of the 1st event to `COM2-0201` and `06/12` respectively.
+
+
+==== Filtering an event by dates: `findtime`+
+
+Finds all the events on the specified date.
+Examples: 
+*`findtime 12/12`+
+returns a list of all the events on that date.
+
+==== Filtering events by priorities: `findeventpriority`+
+
+Finds all the events that have priority tags attached to them.
+
+Examples:
+*`findeventpriority`+
+returns all the events that have priority tags attached to them.
+*`findeventpriority [high],[medium],[low]`+
+Atleast one of the fields are compulsory.+
+Returns all the events with all the priorities mentioned.
+
+==== Sorting events according to time `sortevent time`
+Returns the list of events sorted according to their dates. [Nearest to the farthest]
+
+
+==== Sorting events according to priorities `sortevent priority`
+Returns the list of events sorted according to their priorities. [High to Low]
+
+
+==== Deleting event: `deleteEvent`
+Deletes an existing event from SpongeBob. +
+Format: `deleteEvent [INDEX]`.
+
+Example:
+
+* `deleteEvent 1`+
+Delete the event who's index is 1.
+// end::Events[]
+
+// tag::itemlist[]
+=== Inventory List
+This feature enables the user to view all the club accessories available to the club in the form of a list and store details such as the item name, quantity and location. It consists of four basic commands add or delete an item which adds or deletes an item from the list respectively, edit a partciular item and increase or decrease thr quantity of a particular item.
+
+==== Adding an item: `additem`
+
+Adds a item to the Inventory List +
+Format: `additem n/ITEM_NAME q/ITEM_QUANTITY l/ITEM_LOCATION`
+
+Examples:
+
+* `additem n/Mic q/7 l/Storeroom`
+* `additem n/Chairs q/2 l/Clubroom`
+
+==== Deleting an item: `deleteitem`
+
+Deletes the specified item from the inventory list. +
+Format: `deleteitem INDEX`
+
+****
+* Deletes the item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* 1, 2, 3, ... and the index *must be lower than or equal to the number of entries in the list*
+****
+
+Examples:
+
+* `deleteitem 2` +
+Deletes the 2nd item in inventory list.
+* `deleteitem 13` +
+Deletes the 13th item in inventory list.
+
+==== Edit an item: `edititem`
+
+Edits an existing item in the inventory list.
+Format: `editItem INDEX [n/ITEM_NAME] [q/ITEM_QUANTITY] [l/ITEM_LOCATION]`
+
+****
+* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The index *must be a positive integer* 1, 2, 3, ... and the index should be *less than or equal to the number of entries in the list*
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edititem 2 l/Cabinet` +
+Edits the location of the 2nd item to be `Cabinet`.
+* `edititem 1 n/Pens q/4` +
+Edits the name and quantity of the 1st item to be `Pens` and `4` respectively.
+
+==== Increase quantity of an item: `increaseitem`
+
+Increases the quantity of existing item in the inventory list.
+Format: `increaseitem INDEX q/ITEM_QUANTITY`
+
+****
+* Increases the quantity of the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The index *must be a positive integer* 1, 2, 3, ... and the index must be *less than or equal to the number of entries in the list*
+* Input quantities will be added to the existing quantities.
+****
+
+Examples:
+
+* `increaseitem 2 q/1` +
+Increases the quantity of the 2nd item by `1`.
+
+==== Decrease quantity of an item: `decreaseitem`
+
+Decreases the quantity of existing item in the ItemList.
+Format: `decreaseitem INDEX q/ITEM_QUANTITY`
+
+****
+* Decreases the quantity of the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The index *must be a positive integer* 1, 2, 3, ... and the index *must be less than or equal to the number of entries in the inventory list* 
+* Existing quantities will be subtracted by the input quantities.
+* Input quantities must be lower than the existing quantities.
+****
+
+Examples:
+
+* `decreaseitem 2 q/1` +
+Decreases the quantity of the 2nd item by `1`.
+
+==== Locating items by name: `finditem`
+
+Finds items whose names contain any of the given keywords. +
+Format: `finditem KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `chairs` will match `Chairs`
+* The order of the keywords does not matter. e.g. `Chairs Tables` will match `Tables Chairs`
+* Only the name is searched.
+* Only full words will be matched e.g. `chair` will not match `chairs`
+* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Chairs Sofas` will return `Chairs`, `Cushion sofas`
+****
+
+Examples:
+
+* `finditem chairs` +
+Returns `chairs` and `rolling chairs`
+* `finditem chairs sofas tables` +
+Returns any item having names `chairs`, `Sofas`, or `tables`
+
+// end::itemlist[]
+
+//tag::locker[]
+=== Locker Management
+This feature enables the user to view all the lockers that are currently being used as a list with additonal details such as the name of the owner of the locker, his/her emailID, the time period for which he/she owns the locker along with tags suchs as unauthorized,broken,in-use. This feature contains five basic commands: add or delete entries into the locker log, find lockers based on various criterias which will be discussed later, update the size of the locker log, edit the locker log.
+
+==== adding an entry to the locker log: `addlocker`
+Adds an entry to loger log with the given specifications +
+Format: `addlocker n/NAME e/EMAIL f/DATE_FROM t/DATE_TO`+
+
+Examples: 
+*`addlocker n/John Doe e/sfgwgwar@sample.com f/12/02 t/13/02`+
+Adds an entry to the locker log with the following specifications.
+
+[TIP]
+You need not add any locker number as SpongeBob will automatically assign you a locker number that is not in-use,not unauthorized and not broken. While adding entries you dont need to enter any tags as it will automatically set it as in-use.
+
+==== updating the number of lockers available to the SoC club: `updatesize`
+Updates the size of the locker log+
+Format: `updatesize SIZE`
+
+****
+* The size entered should be a *positive number* which is *greater than 40*- the default size available
+****
+Examples:
+*`updatesize 30`+
+Returns an error as you cant have less than 40 lockers.
+*`updatesize 50`+
+Updates the number of lockers available in the locker log to 50.+
+
+==== editing tags such as unauthorized and broken: `editTag`
+edits the status of the given locker+
+Format:`editTag NUMBER [tag]`
+
+****
+* If a locker which is in-use is now tagged as broken then the owner of that locker will be assigned another locker which is not in-use, not broken and not unauthorized. If we are unable to find such locker then the owners details will be added to reminders stating that unfortunately we are unable to provide a locker at the moment.
+* The available tags are "not in-use","unauthorized","broken","in-use"
+* You cannot tag a in-use locker as unauthorized.
+* Editing an in-use locker as not-in-use will forcefully delete the current ownership of the locker
+****
+
+Examples:+
+*`editTag 1 broken`+
+Makes the locker number 1 broken and adds it to the Reminders list so that the respective authorities can be notified about it.
+
+==== edit the details of an in-use locker:`editlocker`
+edits the ownership details of the in-use lockers+
+Format: `editlocker INDEX [n/NAME] [e/EMAIL] [f/DATE_FROM] [t/TO_DATE]`+
+
+****
+* The index should be *positive* and *must represent a locker that is in-use*
+* Atleast one of the optional fields should be given
+****
+
+Example:
+*`editlocker 1 n/Tejas'+
+Changes the name of the owner to `Tejas`
+
+==== filter lockers based on the tags: `findlockers`
+finds all lockers that satisfy the given tags+
+Format: `findlockers [in-use] [not-in-use] [unauthorized] [broken]`
+
+****
+* Atleast one of the optional fields should be given.
+* In case of multiple fields, all the enteries with respect to the fields will be shown in a list so `findlockers in-use broken` will show all the lockers that are either in-use or broken.
+****
+
+// end::locker[]
+
+//tag::version2.0[]
+== Features coming up in version 2.0 `[coming in v2.0]`
+
+//tag::emailtemplates[]
+=== Email Templates
+This feature enables the user to send email templates as a mass emails to the specified user domain.
+
+For example: +
+`sendemail template1 domain1`+
+This command will send the template1 stored in an easily editable file to all the email-ids specified in domain1 (another easily editable file) and send it via outlook.
+
+//end::emailtemplates[]
+
+//tag::minutesofmeetings[]
+=== Minutes of meetings
+This feature enables the user to store minutes/details for various events/meetings.
+
+For example: +
+`addminutes 1 file_minutes`+
+This command will add minutes of the meetings from file_minutes into the event that is indexed as 1 in the event list
+//end::minutesofmeetings[]
+
+//end::version2.0[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SpongeBob folder.
+
+// tag::summary[]
+== Command Summary
+
+* *Help* : `help`
+* *list* : `select INDEX` +
+e.g.`list 2`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Addmember* : `addmember n/NAME y/YEAR m/MAJOR e/EMAIL [t/TAG]…​`
+* *Editmember* : `editmember INDEX [n/NAME] [y/YEAR] [e/EMAIL] [m/MAJOR] [t/TAG]…​`
+* *Findbyname* : `findmembers KEYWORD [MORE_KEYWORDS]`
+* *Findbymajor* : `findmajor KEYWORD [MORE_KEYWORDS]`
+* *Deletemember* : `deletemember INDEX`
+* *AddLedger*: `addLedger d/[DD/MM]`
+* *DeleteLedger* : `deleteLedger d/[DD/MM]`
+* *Credit*: `credit d/[DD/MM] b/[NUM]`
+* *Debit*: `debit d/[DD/MM] b/[NUM]`
+* *AddEvent* : `addevent n/EVENT_NAME v/VENUE d/DESCRIPTION D/EVENT_DATE`
+* *EditEvent* : `editevent INDEX to EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DESCRIPTION`
+* *DeleteEvent* : `deleteEvent INDEX`
+* *AddItem* : `addItem n/ITEM_NAME q/ITEM_QUANTITY l/ITEM_LOCATION`
+* *DeleteItem* : `deleteItem INDEX`
+* *EditItem* : `editItem INDEX [n/ITEM_NAME] [q/ITEM_QUANTITY] [l/ITEM_LOCATION]`
+* *IncreaseItem* : `increaseItem INDEX q/ITEM_QUANTITY`
+* *DecreaseItem* : `decreaseItem INDEX q/ITEM_QUANTITY`
+* *FindItem* : `findItem KEYWORD [MORE_KEYWORDS]`
+* *ListItem* : `listItems`
+// end::summary[]
+
