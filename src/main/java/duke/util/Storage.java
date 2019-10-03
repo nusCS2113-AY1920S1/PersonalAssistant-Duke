@@ -28,14 +28,20 @@ public class Storage {
      *
      */
     private Path path;
+    private Path dataPath;
+
+    private boolean dataPathExists;
     private boolean fileExists;
 
     /**
      * Constructor for storage class.
+     *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        fileExists = Files.isRegularFile(path);
+        dataPath = Paths.get("data/modsData.text");
+        setDataPathExists();
+        setFileExists();
     }
 
     /**
@@ -109,7 +115,7 @@ public class Storage {
                     break;
                 }
                 default: {
-                    continue;
+                    break;
                 }
             }
         }
@@ -120,9 +126,18 @@ public class Storage {
         return fileExists;
     }
 
+    boolean getDataPathExists() {
+        return dataPathExists;
+    }
+
     private void setFileExists() {
         fileExists = Files.isRegularFile(path);
     }
+
+    private void setDataPathExists() {
+        dataPathExists = Files.isRegularFile(dataPath);
+    }
+
 
     /**
      * Writes current state of the taskList to data file. Creates the desired
@@ -130,18 +145,35 @@ public class Storage {
      * @param taskList The current taskList being saved into text file.
      */
     public void writeData(List<Task> taskList) {
-        List<String> store = new ArrayList<>();
+        List<String> stringListTask = new ArrayList<>();
         for (Task temp : taskList) {
-            store.add(temp.writingFile());
+            stringListTask.add(temp.writingFile());
         }
         try {
             if (fileExists) {
-                Files.write(path, store, StandardCharsets.UTF_8);
+                Files.write(path, stringListTask, StandardCharsets.UTF_8);
             } else {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
                 setFileExists();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * Helper function to write nusMods data to file.
+     * @param data List of String of data from nusMods.
+     */
+    public void writeModsData(List<String> data) {
+        try {
+            if (dataPathExists) {
+                Files.write(dataPath, data, StandardCharsets.UTF_8);
+            } else {
+                Files.createDirectories(dataPath.getParent());
+                Files.createFile(dataPath);
+                setDataPathExists();
             }
         } catch (IOException e) {
             e.printStackTrace();
