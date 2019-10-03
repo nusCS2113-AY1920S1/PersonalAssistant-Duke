@@ -27,7 +27,7 @@ There are two reasons:
 *Insert UI image here*
 
 ### Seamless switching between CLI and GUI
-<p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching"  height=20% width=20%> </p>
+<p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching" height=20% width=20%> </p>
 Whether you're someone who wants more power at their fingertips, or someone just looking for an intuitive and minimalist interface for their inventory management, Eggventory has the tools for you. Choose between the Augmented CLI or the GUI, and switch seamlessly between them as and when you see fit.
  
 ### Inventory exporting to CSV
@@ -39,11 +39,14 @@ Need to use your inventory with another software? That's easy! Simply export you
 Eggventory is an in-house solution - made by NUS students, for NUS. This means that any bugs or feature requests can be met on a timely basis with utmost flexibility.
 
 ## Learn Eggventory
+<p align = "center"> <img src="./docs/assets/learn_icon.png" alt="Learn Eggventory" height=20% width=20%> </p>
 If you would like to learn how to use Eggventory to maximize its capabilities, or if you just need help, please view the [User Guide.](placeholder)
 
 ## Meet Team Eggventory
+<p align = "center"> <img src="./docs/assets/team_icon.png" alt="Meet Us" height=20% width=20%> </p>
 Please visit [here](./docs/AboutUs.md) if you would like to learn more about the members of Team Eggventory.
 
-## Contributing to Eggventory
+## Contribute to Eggventory
+<p align = "center"> <img src="./docs/assets/contribute_icon.png" alt="Contributing" height=20% width=20%> </p>
 We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing.](./CONTRIBUTING.md)
 If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](placeholder)
