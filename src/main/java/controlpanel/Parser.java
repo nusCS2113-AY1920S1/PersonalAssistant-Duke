@@ -1,6 +1,6 @@
 package controlpanel;
 
-import MoneyCommands.*;
+import moneycommands.*;
 import commands.AddCommand;
 import commands.ChooseEventTime;
 import commands.Command;
@@ -15,7 +15,6 @@ import commands.ViewCommand;
 import commands.ViewScheduleCommand;
 
 
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

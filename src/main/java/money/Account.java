@@ -1,4 +1,4 @@
-package Money;
+package money;
 
 import java.util.ArrayList;
 import java.util.Calendar;

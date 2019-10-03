@@ -1,4 +1,4 @@
-package Money;
+package money;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

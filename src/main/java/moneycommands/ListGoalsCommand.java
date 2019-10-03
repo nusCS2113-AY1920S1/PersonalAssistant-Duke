@@ -1,7 +1,7 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.*;
-import Money.Account;
+import money.Account;
 
 /**
  * This command lists all short-term goals within the Short-Term Goal List to the user

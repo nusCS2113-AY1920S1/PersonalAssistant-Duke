@@ -1,7 +1,7 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.*;
-import Money.Account;
+import money.Account;
 
 /**
  * This command deletes a short-term goal from the Short-Term Goal List according to index

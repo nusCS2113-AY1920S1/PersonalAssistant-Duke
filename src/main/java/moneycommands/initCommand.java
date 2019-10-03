@@ -1,7 +1,7 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.*;
-import Money.Account;
+import money.Account;
 
 public class initCommand extends MoneyCommand{
 

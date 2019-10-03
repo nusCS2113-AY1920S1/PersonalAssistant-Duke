@@ -1,9 +1,9 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.Storage;
 import controlpanel.Ui;
-import Money.Account;
+import money.Account;
 
 /**
  * This command deletes an income source from the Total Income List according to index.

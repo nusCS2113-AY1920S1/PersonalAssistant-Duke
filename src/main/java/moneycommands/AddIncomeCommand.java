@@ -1,8 +1,8 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.Parser;
-import Money.Account;
-import Money.Income;
+import money.Account;
+import money.Income;
 import controlpanel.DukeException;
 import controlpanel.Storage;
 import controlpanel.Ui;
