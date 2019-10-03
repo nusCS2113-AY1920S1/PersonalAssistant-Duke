@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.DukeException;
+import Enums.ExceptionType;
 import Enums.SaveType;
 import Model_Classes.*;
 
@@ -10,6 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static java.sql.Types.NULL;
 
 /**
  * Performs storage operations such as writing and reading from a .txt file
@@ -87,11 +90,20 @@ public class Storage {
                             break;
                         case E:
                             Date by = parser.formatDate(temp[3]);
-                            Event tempEvent = new Event(temp[2], by);
-                            if (temp[1].equals("y")) {
-                                tempEvent.setDone();
+                            if( temp.length == 5 ){
+                                FixedDuration tempEvent = new FixedDuration(temp[2], by, Integer.parseInt(temp[4]));
+                                if (temp[1].equals("y")) {
+                                    tempEvent.setDone();
+                                }
+                                taskArrayList.add(tempEvent);
+                            } else {
+                                Event tempEvent = new Event(temp[2], by);
+                                if (temp[1].equals("y")) {
+                                    tempEvent.setDone();
+                                }
+                                taskArrayList.add(tempEvent);
                             }
-                            taskArrayList.add(tempEvent);
+
                             break;
                         case D:
                             Date deadlineBy = parser.formatDate(temp[3]);
@@ -102,12 +114,12 @@ public class Storage {
                             taskArrayList.add(tempDeadline);
                             break;
                         default:
-                            throw new DukeException();
+                            throw new DukeException(ExceptionType.wrongFormat);
                     }
                 }
             }
         } catch (IOException e) {
-            throw new DukeException();
+            throw new DukeException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);
     }
@@ -129,17 +141,32 @@ public class Storage {
                 String type = String.valueOf(s.toString().charAt(1));
                 String description = s.getDescription();
                 String time = convertForStorage(s);
-                String out = type + "#" + done + "#" + description + "#" + time;
-                writer.write(out);
+                if( s instanceof FixedDuration ){
+                    String duration = Integer.toString(((FixedDuration) s).getDuration());
+                    String out = type + "#" + done + "#" + description + "#" + time + "#" + duration;
+                    writer.write(out);
+                } else {
+                    String out = type + "#" + done + "#" + description + "#" + time;
+                    writer.write(out);
+                }
                 writer.newLine();
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException();
+            throw new DukeException(ExceptionType.wrongFormat);
         }
     }
 
-    public String convertForStorage(Task task) throws DukeException {
+    /**
+     * Extracts and converts all the information in the task object for storage
+     * will format the time information for deadline and event tasks
+     * Additional formatting will be done for recurring tasks to include recurrence schedule
+     * returns a string with all the relevant information.
+     * @param task task object to be converted
+     * @return time A String containing all the relevant information
+     * @throws DukeException If there is any error in parsing the Date information.
+     */
+    String convertForStorage(Task task) throws DukeException {
         try {
             String type = String.valueOf(task.toString().charAt(1));
             String time = "";
@@ -151,7 +178,11 @@ public class Storage {
                     DateFormat dateFormat = new SimpleDateFormat("MM");
                     String dateOut = dateFormat.format(date);
                     String[] timeArray = tempString[6].split(":", 3);
-                    time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1];
+                    if( tempString.length == 14 ){
+                        time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1];
+                    } else {
+                        time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1];
+                    }
                 }
             } else {
                 String[] tempString = task.toString().split("\\s+");
@@ -162,14 +193,14 @@ public class Storage {
                     String dateOut = dateFormat.format(date);
                     String[] timeArray = tempString[6].split(":", 3);
                     String recurringFrame = tempString[10].substring(0, tempString[10].length() - 1);
-                    time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1] + "#" + recurringFrame;
+                     time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1] + "#" + recurringFrame;
                 } else {
                     time = tempString[3].substring(0, tempString[3].length() - 1);
                 }
             }
             return time;
         } catch (ParseException e) {
-            throw new DukeException();
+            throw new DukeException(ExceptionType.wrongFormat);
         }
     }
 }

@@ -2,12 +2,12 @@ package Operations;
 
 import CustomExceptions.DukeException;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
+import Enums.ReplyType;
 import Enums.TimeUnit;
 
 /**
@@ -74,7 +74,6 @@ public class Parser {
      * Returns an array with the task description stored as well as the duration of the task
      * @return array An array of Strings with description and duration both in index 0 of the array
      */
-
     public String[] getDescriptionWithDuration() {
         String[] array = scanner.nextLine().split(" ", 1);
         return array;
@@ -83,7 +82,7 @@ public class Parser {
     /**
      * Takes in the array containing both the description as well as the duration and splitting
      * them up
-     * @param ar An array containing botht the description and the duration
+     * @param ar An array containing both the description and the duration
      * @return array An array containing the description in the 0th index and the duration in the 1st index
      */
     public String[] getDuration(String[] ar) {
@@ -137,4 +136,14 @@ public class Parser {
         String temp = scanner.next();
         return TimeUnit.valueOf(temp);
     }
+
+    /**
+     * Gets a yes or no answer from the user
+     * @return the response of the user. Either yes or no.
+     */
+    public ReplyType getReply() {
+        String temp = scanner.next();
+        return ReplyType.valueOf(temp);
+    }
+
 }
