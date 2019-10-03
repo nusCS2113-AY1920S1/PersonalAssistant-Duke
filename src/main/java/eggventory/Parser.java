@@ -11,9 +11,8 @@ import eggventory.exceptions.BadInputException;
 import eggventory.enums.CommandType;
 
 /**
- * Interprets command strings by the user.
+ * Interprets command strings by the user, and converts them to command objects that can be executed.
  */
-
 public class Parser {
 
     private int processDoAfter(String input) throws BadInputException {
@@ -33,6 +32,27 @@ public class Parser {
     }
 
     /**
+     * Processes the contents of an add command (everything after the word "add").
+     * Splits up the input string into an array containing the various attributes of the stock being added.
+     *
+     * @param input String containing the attributes of the stock.
+     * @return an array consisting of StockType, StockCode, Quantity and Description.
+     * @throws InsufficientInfoException If any of the required attributes is missed out.
+     */
+    private String[] processAdd(String input) throws InsufficientInfoException {
+
+        String[] addInput = input.split(" ", 4); //There are 4 attributes for now.
+
+        if (addInput.length < 4 | addInput[0].isBlank() | addInput[1].isBlank()
+                | addInput[2].isBlank() | addInput[3].isBlank()) {
+            throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
+                    + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
+        }
+
+        return addInput;
+    }
+
+    /**
      * Checks if the command keyword (first word is valid).
      * Determines what to do with the remaining string depending on the command.
      * Also handles exceptions for bad description string inputs.
@@ -40,12 +60,14 @@ public class Parser {
      * @param listInput array containing the command and description from the user.
      * @return an array where the first item is the command word and the second item is the rest of the text.
      * @throws BadInputException If the first word is not one of the recognised commands.
+     * @throws InsufficientInfoException If any of the commands had compulsory parameters missed out.
+     * @throws NumberFormatException If non-integer inputs are received for numerical parameters.
      */
     private Command handleListInput(String listInput) throws BadInputException,
             InsufficientInfoException, NumberFormatException {
 
-        /*TODO: Update parser to handle Stock requests separately to process optional commands better
-            eg. doAfter or repeating tasks
+        /*TODO: Update parser to handle Stock requests separately to process optional commands
+          TODO: also split parser up into multiple parser modules depending on the first command.
         */
 
         int afterIndex;
@@ -55,7 +77,10 @@ public class Parser {
             listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
         }
 
-        String[] inputArr = listInput.split(" ", 0);
+        //Extract the first word.
+        //inputArr[0] is the main command word.
+        //inputArr[1] is the subsequent command string, and may also be empty.
+        String[] inputArr = listInput.split(" ", 2);
         Command command;
 
         switch (inputArr[0]) {
@@ -72,6 +97,7 @@ public class Parser {
             command = new DoneCommand(CommandType.DONE, Integer.parseInt(inputArr[1]));
             break;
         case "delete":
+            inputArr[1] = inputArr[1].strip(); //Removes whitespace after the integer so that it can parse correctly.
             command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(inputArr[1]));
             break;
 
@@ -79,13 +105,12 @@ public class Parser {
         case "add": {
             if (inputArr.length == 1) {
                 throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
-            } else if (inputArr[1].isBlank() || inputArr.length < 5) {
-                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                        + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
             }
 
-            command = new AddCommand(CommandType.ADD, inputArr[1], inputArr[2], Integer.parseInt(inputArr[3]),
-                    inputArr[4]);
+            String[] addInput = processAdd(inputArr[1]);
+
+            command = new AddCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]),
+                    addInput[3]);
             break;
         }
         case "find": {
@@ -111,10 +136,10 @@ public class Parser {
     }
 
     /**
-     * Reads in the command string from the user and looks at the first word.
-     * The first word and any remaining characters are separated and passed to the handler.
+     * Takes command string from the user and passes to the handleListInput method.
+     * Also catches exceptions for invalid commands.
      *
-     * @return an array where the first item is the command word and the second item is the rest of the text.
+     * @return A command object corresponding to the user's inputs.
      */
     public Command parse(String userInput) throws Exception {
         Command userCommand;

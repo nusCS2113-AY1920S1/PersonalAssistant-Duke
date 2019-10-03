@@ -5,6 +5,10 @@ import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
 
+/**
+ * Currently not in use.
+ * TODO: Modify this into the loan or lost command?
+ */
 public class DoneCommand extends Command {
     private int itemIndex;
 

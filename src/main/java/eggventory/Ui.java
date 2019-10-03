@@ -55,10 +55,10 @@ public class Ui {
     }
 
     /**
-     * Prints the eggventory exit message.
+     * Prints the EggVentory exit message.
      */
     public void printExitMessage() {
-        print("Bye! Hope to see you again soon!");
+        print("Bye! Your stocks are safe with me!");
         System.exit(0);
     }
 

@@ -9,7 +9,7 @@ import eggventory.enums.CommandType;
 /**
  * This is an abstract class.
  * Command objects are sent from the Parser and executed with StockType or Ui.
- * Commands include: adding, deleting, marking as done etc.
+ * Commands include: add, delete, find, list.
  */
 
 public class Command {
