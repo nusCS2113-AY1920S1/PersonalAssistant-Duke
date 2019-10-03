@@ -197,7 +197,7 @@ Key in `reminder` +
 Expected: Prints a list of tasks to be completed in the next three days.
 
 === View all tasks in a certain day
-Key in view `<date>`, where `<date>` has the format dd/MM/yyyy +
+Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
 
   
