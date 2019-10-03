@@ -153,7 +153,7 @@ public class OldParser {
             case COMMAND_ORDER_DELETE:
                 //return CommandParser.parseOrderDelete(params);
             case COMMAND_ORDER_EDIT:
-                return CommandParser.parseOrderEdit(params);
+                //return CommandParser.parseOrderEdit(params);
             case COMMAND_ORDER_COMPLETE:
                 return new CompleteOrderCommand(params);
             default:

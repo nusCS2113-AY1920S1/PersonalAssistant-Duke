@@ -1,6 +1,9 @@
 package duke.parser.decrypted;
 
-import duke.command.*;
+import duke.command.AddSaleCommand;
+import duke.command.Command;
+import duke.command.DeleteSaleCommand;
+import duke.command.EditSaleCommand;
 import duke.command.recipe.AddRecipeCommand;
 import duke.command.recipe.DeleteRecipeCommand;
 import duke.commons.DukeException;
@@ -21,10 +24,6 @@ public class CommandParser {
 
     public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
         return new DeleteSaleCommand(params);
-    }
-
-    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
-        return new EditOrderCommand(params);
     }
 
     public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {

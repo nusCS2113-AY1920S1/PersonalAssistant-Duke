@@ -9,7 +9,6 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
@@ -19,7 +18,6 @@ public class DeleteOrderCommand extends OrderCommand {
 
     private List<Order> toDelete = new ArrayList<>();
     private List<Integer> toDeleteIndexes;
-    private Map<String, List<String>> params;
 
     public DeleteOrderCommand(int... index) {
         for (int i = 0; i < index.length; i++) {

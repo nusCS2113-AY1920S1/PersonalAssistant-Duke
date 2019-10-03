@@ -2,13 +2,16 @@ package duke.command;
 
 import duke.commons.DukeException;
 import duke.entities.Order;
-import duke.parser.decrypted.CommandParser;
+import duke.parser.order.EditOrderCommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A command to edit the properties of an <code>Order</code> object.
@@ -16,24 +19,19 @@ import java.util.Map;
 public class EditOrderCommand extends OrderCommand {
 
     public static final String COMMAND_WORD = "edit";
-    private Map<String, List<String>> params;
+
+    private List<Order> toEdit = new ArrayList<>();
+    private List<Integer> toEditIndexes;
+    private EditOrderCommandParser.EditOrderMask editOrderMask;
     private Order order;
     private Order unmodifiedOrder = new Order();
 
-    /**
-     * Class constructor.
-     *
-     * @param params the parameters specifying details of the order.
-     */
-    public EditOrderCommand(Map<String, List<String>> params) throws DukeException {
-        if (!(params.containsKey("i") == !params.containsKey("id"))) {
-            throw new DukeException("Please specify order ID or index");
-        }
+    public EditOrderCommand(List<Integer> indexes, EditOrderCommandParser.EditOrderMask editOrderMask) {
+        requireNonNull(indexes);
+        requireNonNull(editOrderMask);
 
-        this.params = params;
-    }
-
-    public EditOrderCommand() {
+        this.editOrderMask = editOrderMask;
+        this.toEditIndexes = indexes;
     }
 
     @Override
@@ -46,16 +44,17 @@ public class EditOrderCommand extends OrderCommand {
     @Override
     public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
         order = getOrder(bakingList);
-        CommandParser.modifyOrdrer(params, order);
+        //CommandParser.modifyOrdrer(params, order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+
         order = getOrder(bakingList);
         copyOrder(unmodifiedOrder, order);
-        CommandParser.modifyOrdrer(params, order);
+        //CommandParser.modifyOrdrer(params, order);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
