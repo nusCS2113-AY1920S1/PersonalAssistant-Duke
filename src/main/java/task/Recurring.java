@@ -1,6 +1,6 @@
 package task;
 
-public class Recurring extends Task{
+public class Recurring extends Task {
     public Recurring(String description, String date) {
         super(description);
         this.type = "R";
@@ -16,7 +16,8 @@ public class Recurring extends Task{
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + " (every: " + super.getDate() + ")";
+        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription()
+                + " (every: " + super.getDate() + ")";
     }
 
     @Override

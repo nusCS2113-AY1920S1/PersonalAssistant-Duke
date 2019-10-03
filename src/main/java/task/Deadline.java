@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Represents the object that manages deadline tasks.
+ * Inherits from Task class.
+ */
 public class Deadline extends Task {
 
     public Deadline(String description, String date) {
@@ -24,7 +28,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + super.getDate() + ")";
+        return "[" + getType() + "]" + "[" + super.getStatusIcon() + "] " + super.getDescription()
+                + " (by: " + super.getDate() + ")";
     }
 
     @Override

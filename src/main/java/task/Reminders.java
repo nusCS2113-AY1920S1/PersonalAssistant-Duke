@@ -1,3 +1,5 @@
+package task;
+
 import storage.Storage;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ public class Reminders {
         String currentDate = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String currentTime = java.time.LocalTime.now().format(DateTimeFormatter.ofPattern("HHmm"));
         String currentDateTime = currentDate + " " + currentTime;
-//        System.out.println(currentDateTime);
 
         getRemindersList(storage);
         //check list of reminders
