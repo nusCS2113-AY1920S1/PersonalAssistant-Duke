@@ -1,6 +1,6 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.SaveType;
 import Model_Classes.*;
@@ -11,8 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static java.sql.Types.NULL;
 
 /**
  * Performs storage operations such as writing and reading from a .txt file
@@ -32,9 +30,9 @@ public class Storage {
      * Populates an ArrayList with these created tasks.
      *
      * @return taskArrayList An ArrayList of Tasks that is created from the .txt file.
-     * @throws DukeException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
+     * @throws RoomShareException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
      */
-    public ArrayList<Task> loadFile(String fileName) throws DukeException {
+    public ArrayList<Task> loadFile(String fileName) throws RoomShareException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -114,12 +112,12 @@ public class Storage {
                             taskArrayList.add(tempDeadline);
                             break;
                         default:
-                            throw new DukeException(ExceptionType.wrongFormat);
+                            throw new RoomShareException(ExceptionType.wrongFormat);
                     }
                 }
             }
         } catch (IOException e) {
-            throw new DukeException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);
     }
@@ -131,9 +129,9 @@ public class Storage {
      * Will not write any information if the there are mistakes in the ArrayList information.
      *
      * @param list ArrayList of Tasks to be stored on data.txt
-     * @throws DukeException If there are parsing errors in the ArrayList.
+     * @throws RoomShareException If there are parsing errors in the ArrayList.
      */
-    public void writeFile(ArrayList<Task> list, String fileName) throws DukeException {
+    public void writeFile(ArrayList<Task> list, String fileName) throws RoomShareException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             for (Task s : list) {
@@ -153,7 +151,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
 
@@ -164,9 +162,9 @@ public class Storage {
      * returns a string with all the relevant information.
      * @param task task object to be converted
      * @return time A String containing all the relevant information
-     * @throws DukeException If there is any error in parsing the Date information.
+     * @throws RoomShareException If there is any error in parsing the Date information.
      */
-    String convertForStorage(Task task) throws DukeException {
+    String convertForStorage(Task task) throws RoomShareException {
         try {
             String type = String.valueOf(task.toString().charAt(1));
             String time = "";
@@ -200,7 +198,7 @@ public class Storage {
             }
             return time;
         } catch (ParseException e) {
-            throw new DukeException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
 }

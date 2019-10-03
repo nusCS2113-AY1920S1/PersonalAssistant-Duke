@@ -2,18 +2,19 @@ package CustomExceptions;
 
 import Enums.ExceptionType;
 
-public class DukeException extends Exception {
-    private String anomaly_Text = "Anomaly Detected";
-    private String emptylist_Text = "List is empty";
-    private String timeclash_Text = "Time Clash Detected";
-    private String wrongFormat_Text = "Wrong Format Detected";
+public class RoomShareException extends Exception {
+    private static final String outOfBounds_Text = "Index is out of Bounds!";
+    private static final String anomaly_Text = "Anomaly Detected";
+    private static final String emptylist_Text = "List is empty";
+    private static final String timeclash_Text = "Time Clash Detected";
+    private static final String wrongFormat_Text = "Wrong Format Detected";
 
     /**
      * Constructor for DukeException Exception
      * Takes in the exception type thrown and prints out the specific error message
      * @param type type of exception detected
      */
-    public DukeException(ExceptionType type){
+    public RoomShareException(ExceptionType type){
         switch(type) {
             case emptylist:
                 System.out.println(emptylist_Text);
@@ -25,6 +26,10 @@ public class DukeException extends Exception {
 
             case wrongFormat:
                 System.out.println(wrongFormat_Text);
+                break;
+
+            case outOfBounds:
+                System.out.println(outOfBounds_Text);
                 break;
 
             default:

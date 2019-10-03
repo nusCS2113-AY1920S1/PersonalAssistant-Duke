@@ -1,6 +1,6 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.RecurrenceScheduleType;
 import Enums.TaskType;
@@ -63,7 +63,7 @@ public class RecurHandler {
                  RecurringToDo temp = new RecurringToDo(parser.getDescription(), recurrence);
                  taskList.add(temp);
                  ui.showAddRecur();
-             } catch (DukeException e) {
+             } catch (RoomShareException e) {
                  ui.showEmptyDescriptionError();
              }
              break;
@@ -75,10 +75,11 @@ public class RecurHandler {
                 RecurringDeadline temp = new RecurringDeadline(deadlineArray[0], by, recurrence);
                 taskList.add(temp);
                 ui.showAddRecur();
-            } catch (DukeException e) {
+            } catch (RoomShareException e) {
                 ui.showDateError();
             }
             break;
+
         case event:
             try {
                 String[] eventArray = parser.getDescriptionWithDate();
@@ -88,9 +89,9 @@ public class RecurHandler {
                     taskList.add(temp);
                     ui.showAddRecur();
                 } else {
-                    throw new DukeException(ExceptionType.timeClash);
+                    throw new RoomShareException(ExceptionType.timeClash);
                 }
-            } catch (DukeException e) {
+            } catch (RoomShareException e) {
                 ui.showDateError();
             }
             break;
@@ -159,8 +160,10 @@ public class RecurHandler {
                     // extract the recurrence schedule.
                     recurrenceSchedule = array[3].substring(0, array[3].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
+
                     switch (type) {
                     case day:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), DAY, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, DAY);
                             taskList.replace(index, recurringToDo);
@@ -169,6 +172,7 @@ public class RecurHandler {
                         break;
 
                     case week:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), WEEK, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, WEEK);
                             taskList.replace(index, recurringToDo);
@@ -177,6 +181,7 @@ public class RecurHandler {
                         break;
 
                     case month:
+                        // check if recurrence date has passed
                         if (dateHasPassedToDo(currentTime, check.getCreated(), MONTH, description, index, isEdited)) {
                             RecurringToDo recurringToDo = new RecurringToDo(description, MONTH);
                             taskList.replace(index, recurringToDo);
@@ -190,6 +195,7 @@ public class RecurHandler {
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
                     switch (type) {
                     case week:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), WEEK);
@@ -204,6 +210,7 @@ public class RecurHandler {
                         break;
 
                     case day:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), DAY);
@@ -218,6 +225,7 @@ public class RecurHandler {
                         break;
 
                     case month:
+                        // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
                             if (check.toString().contains(DEADLINE_MARKER)) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), MONTH);
@@ -265,7 +273,7 @@ public class RecurHandler {
                 // date has passed
                 isPassed = true;
             }
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println(DATE_ERROR_GENERATE_NEW_RECURRING_TASK);
             RecurringToDo recurringToDo = new RecurringToDo(description, recurrence);
             taskList.replace(index, recurringToDo);
@@ -290,7 +298,7 @@ public class RecurHandler {
             calendar.setTime(storedDate);
             calendar.add(Calendar.MONTH, 1);
             newDate = calendar.getTime();
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println();
         }
         return newDate;
@@ -314,7 +322,7 @@ public class RecurHandler {
                 // date has passed
                 isPassed = true;
             }
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println(DATE_ERROR_SET_AS_NOT_DONE);
             check.setNotDone();
             isEdited = true;
