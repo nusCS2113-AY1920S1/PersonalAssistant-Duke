@@ -87,16 +87,12 @@ public class Storage {
                     }
                 }
                 case "F": {
-                    try {
-                        FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
-                        if (hold[2].equals("1")) {
-                            tempFixedDuration.setTaskDone();
-                        }
-                        list.add(tempFixedDuration);
-                        break;
-                    } catch (DukeInvalidTimeException ex) {
-                        break;
+                    FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
+                    if (hold[2].equals("1")) {
+                        tempFixedDuration.setTaskDone();
                     }
+                    list.add(tempFixedDuration);
+                    break;
                 }
                 default: {
                     continue;
