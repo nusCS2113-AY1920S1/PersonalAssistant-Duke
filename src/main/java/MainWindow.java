@@ -11,17 +11,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -35,7 +37,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Ui mainWindowUi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
@@ -48,6 +50,7 @@ public class MainWindow extends AnchorPane {
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
+        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     }
 
     public void setDuke(Duke d) {
@@ -62,12 +65,26 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws IOException {
         String input = userInput.getText();
         if (input.startsWith("finance")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/NewWindow.fxml"));
-            Parent root = fxmlLoader.load();
+            Parent root = new FXMLLoader(getClass().getResource("/view/NewWindow.fxml")).load();
             Stage stage = new Stage();
             stage.setTitle("New Window");
             stage.setScene(new Scene(root, 600, 600));
             stage.show();
+        } else if (input.equals("change icon")) {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Select a picture:");
+            File defaultDirectory = new File("D:/");
+            chooser.setInitialDirectory(defaultDirectory);
+            File selectedFile = chooser.showOpenDialog(null);
+            Path from = Paths.get(selectedFile.toURI());
+            Path to = Paths.get("src/main/resources/images/" + selectedFile.getName());
+            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+            userImage = new Image(this.getClass().getResourceAsStream("/images/" + selectedFile.getName()));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog("Done.", dukeImage)
+            );
+            userInput.clear();
         } else {
             String response = duke.getResponse(input);
             dialogContainer.getChildren().addAll(
@@ -75,7 +92,6 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         }
-
         userInput.clear();
     }
 }
