@@ -30,7 +30,7 @@ public class EmailStorage {
         } else if (workingDir.endsWith(File.separator + "main")) {
             dir = "." + File.separator + "data" + File.separator + "email.txt";
         } else {
-            dir = "." + File.separator + "email.txt";
+            dir = "." + File.separator + "data" + File.separator + "email.txt";
         }
         return dir;
     }
@@ -48,10 +48,24 @@ public class EmailStorage {
         } else if (workingDir.endsWith(File.separator + "main")) {
             dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
         } else {
-            dir = "." + File.separator + "emails" + File.separator;
+            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
         }
         return dir;
     }
+
+    private static String getUserInfoDir() {
+        String dir = "";
+        String workingDir = System.getProperty("user.dir");
+        if (workingDir.endsWith(File.separator + "text-ui-test")) {
+            dir = ".." + File.separator + "data" + File.separator + "user.txt";
+        } else if (workingDir.endsWith(File.separator + "main")) {
+            dir = "." + File.separator + "data" + File.separator + "user.txt";
+        } else {
+            dir = "." + File.separator + "data" + File.separator + "user.txt";
+        }
+        return dir;
+    }
+
 
     /**
      * Get the list of html filenames currently saved in the data/emails folder.
@@ -240,7 +254,37 @@ public class EmailStorage {
     public static EmailList readEmails() {
         EmailList emailList = readEmailFromFile();
         EmailList syncedEmailList = syncEmailListWithHtml(emailList);
-        ;
         return syncedEmailList;
+    }
+
+    public static void saveRefreshToken(String token) {
+        try {
+            prepareFolder();
+            File userInfoFile = new File(getUserInfoDir());
+            FileOutputStream out = new FileOutputStream(userInfoFile, false);
+            out.write(token.getBytes());
+            out.close();
+        } catch (IOException e) {
+            Duke.getUI().showError("Save refresh token failed");
+        }
+    }
+
+    public static String readRefreshToken() {
+        String token = "";
+        try {
+            prepareFolder();
+            File userInfoFile = new File(getUserInfoDir());
+            userInfoFile.createNewFile();
+            FileInputStream in = new FileInputStream(userInfoFile);
+            Scanner scanner = new Scanner(in);
+            while(scanner.hasNext()) {
+                token += scanner.next();
+            }
+        } catch (FileNotFoundException e) {
+            Duke.getUI().showError("User info file not found");
+        } catch (IOException e) {
+            Duke.getUI().showError("Read user info file IO Exception");
+        }
+        return token;
     }
 }
