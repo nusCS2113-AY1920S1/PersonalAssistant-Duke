@@ -26,7 +26,7 @@ This document illustrates on the architecture designs and the software decisions
 
 This document describes the software architecture and various other software decisions undertaken for the implementation of D2. The intended audience of this document are developers, designers, software testers of D2 and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
 
-
+<<<
 == Setting Up
 === Prerequisites
 While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
@@ -67,7 +67,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 . Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
 . Test out basic Duke 2.0 commands by referring to the User Guide 
 
-
+<<<
 == Design
 
 
@@ -77,7 +77,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 == Documentation
 
-
+<<<
 == Appendix A: User Stories
 
 |===
@@ -184,7 +184,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 
-
+<<<
 == Appendix B: Use Cases
 
 [cols="4*"] 
@@ -250,6 +250,7 @@ User types in the command in the following manner: `swap CEG EE` +
 D2 returns the user’s degree list with CEG and EE having switched indexes
 |===
 
+<<<
 == Appendix C: Non-Functional Requirements
 
 . D2 is a fast application.
