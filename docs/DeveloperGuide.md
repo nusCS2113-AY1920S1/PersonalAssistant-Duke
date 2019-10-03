@@ -4,6 +4,14 @@
 
 2. Design 
 
+   1. Architecture
+   2. UI
+   3. Command Component
+   4. Parser Component
+   5. Storage Component
+   6. Task Component
+   7. Exception Component
+
 3. Implementation
 
 4. Documentation
@@ -142,23 +150,157 @@ Target user profile: Restaurant Chef
 
 ​	Priorities: High (must have), Medium (nice to have), Low (may not have)
 
-*the user stories might change as our user profile may become kitchen chef instead of restaurant manager* 
-
-| Priority | As a ...           | I want to ...                                 | So that ...                                 |
-| -------- | ------------------ | --------------------------------------------- | ------------------------------------------- |
-| High     |                    |                                               |                                             |
-| High     |                    |                                               |                                             |
-| High     |                    |                                               |                                             |
-| Medium   |                    |                                               |                                             |
-| Medium   |                    |                                               |                                             |
-| Low      | restaurant manager | note down customer feedbacks regarding dishes | i can tell if y recipe is doing well or not |
-| Low      |                    |                                               |                                             |
-|          |                    |                                               |                                             |
-|          |                    |                                               |                                             |
+| Priority | As a ...           | I want to ...                                                | So that ...                                          |
+| -------- | ------------------ | ------------------------------------------------------------ | ---------------------------------------------------- |
+| Epic     | restaurant manager | I want to be able to prepare the salary reports              | my employees could get the right salary              |
+| High     | restaurant manager | I want to ensure that data related to my restaurant is secure | not anyone can have access                           |
+| High     | restaurant manager | I want to keep track of food expiry dates                    | the restaurant will not serve expired food           |
+| High     | restaurant manager | I want to note down my part timer's available dates          | I can ensure there is enough manpower in the kitchen |
+| Medium   | restaurant manager | I want to keep track of my monthly expenses                  | I know whether I am making a profit or loss          |
+| Medium   | restaurant manager | I want to keep track of my monthly hygienic checks           | my restaurant could keep it's working license        |
+| Medium   | restaurant manager | I want to keep track of my company meetings                  | I am able to organize all my employees               |
+| Low      | restaurant manager | note down customer feedbacks regarding dishes                | I can tell if my recipe is doing well or not         |
+| Low      | restaurant manager | I want to keep track of holiday dates                        | I can prepare for special food menus                 |
 
 ### Appendix C: Use Case
 
+**Use case: Exit the program**
 
+​	1. User requests to exit the program
+
+​	2. Program exits
+
+​		Use case ends.
+
+**Extensions**
+
+- 2a. Incorrect syntax
+
+  - 2a1. Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+    
+
+**Use case:  Show all the tasks**
+
+​	1. User requests to view all the existing tasks
+
+​	2. Program loads up the lists of existing tasks
+
+​		Use case ends.
+
+**Extensions**
+
+- 2a. Task List is empty
+
+​		Use case ends.
+
+- 2b. Incorrect syntax
+
+  - 2c1. Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+    
+
+**Use case: Mark a task as done**
+
+​	1. User requests to mark a task as done
+
+​	2. Program marks the task as done
+
+​		Use case ends.
+
+**Extensions**
+
+- 2a. Given index is invalid
+
+  - 2a1. Program shows an error message
+
+    Use case resumes at step 2.
+
+- 2b. Incorrect syntax
+
+  - 2b1. Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+    
+
+**Use case: Create a new todo task**
+
+​	1. User requests to add a new todo task
+
+​	2. Program adds new todo task to Task List
+
+​		Use case ends.
+
+**Extensions**
+
+- 2a. Incorrect syntax
+
+  - 2a1. Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+    
+
+**Use case: Create a new deadline task**
+
+1. User requests to add a new deadline task
+
+2. Program adds new deadline task to Task List
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. Incorrect syntax
+
+  - Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+
+
+**Use case: Create a new event task**
+
+​	1. User request to add a new event task
+
+​	2. Program adds a new event task to Task List
+
+​		Use case ends.
+
+**Extensions**
+
+- ​	2a. Incorrect syntax
+
+  - Program prompts for correct syntax
+
+    Use case resumes at step 2.
+
+    
+
+**Use case: Find a task by searching for keyword**
+
+1. User requests to find tasks with the given keyword
+
+2. Program loads up and shows tasks with the given keyword
+
+**Extensions**
+
+- 2a. Task List is empty
+
+  - Program prompts for correct syntax
+
+    Use case ends.
+
+- 2b. Incorrect syntax
+
+  - Program prompts for correct syntax
+
+    Use case resumes at step 2.
 
 ### Appendix D: Non Functional Requirement
 
