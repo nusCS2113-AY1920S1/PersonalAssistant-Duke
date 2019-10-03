@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Kenneth Lee
-image::Kenlhc.png[width="150", align="left"]
+image::kenlhc.png[width="150", align="left"]
 {empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
 
 Role: Team lead + Time Keeper +
@@ -29,11 +29,11 @@ Responsibilities: Pull Requests maintainer + code maintainer
 '''
 
 === Kah Lok Kee
-image::KahLokKee.png[width="150", align="left"]
+image::kahlokkee.png[width="150", align="left"]
 {empty}[http://github.com/KahLokKee[github]] [<<KahLokKee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: code maintainer + logic + Quality Control
+Responsibilities: Code Maintainer + Logic + Quality Control
 
 '''
 
