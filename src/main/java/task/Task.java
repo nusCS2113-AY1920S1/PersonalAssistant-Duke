@@ -12,6 +12,7 @@ public class Task implements Serializable {
     protected String by;
     protected String at;
     protected String after;
+    protected String period;
 
     /**
      * Creates a Task instance and initialises the required attributes.
@@ -57,6 +58,13 @@ public class Task implements Serializable {
      */
     public void setAt(String at) {
         this.at = at;
+    }
+
+    /**
+     * Sets a new value to the description attribute.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
