@@ -11,9 +11,8 @@ import eggventory.exceptions.BadInputException;
 import eggventory.enums.CommandType;
 
 /**
- * Interprets command strings by the user.
+ * Interprets command strings by the user, and converts them to command objects that can be executed. 
  */
-
 public class Parser {
 
     private int processDoAfter(String input) throws BadInputException {
@@ -98,6 +97,7 @@ public class Parser {
             command = new DoneCommand(CommandType.DONE, Integer.parseInt(inputArr[1]));
             break;
         case "delete":
+            inputArr[1] = inputArr[1].strip();
             command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(inputArr[1]));
             break;
 
@@ -136,10 +136,10 @@ public class Parser {
     }
 
     /**
-     * Reads in the command string from the user and looks at the first word.
-     * The first word and any remaining characters are separated and passed to the handler.
+     * Takes command string from the user and passes to the handleListInput method.
+     * Also catches exceptions for invalid commands.
      *
-     * @return an array where the first item is the command word and the second item is the rest of the text.
+     * @return A command object corresponding to the user's inputs.
      */
     public Command parse(String userInput) throws Exception {
         Command userCommand;
