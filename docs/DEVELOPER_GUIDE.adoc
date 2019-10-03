@@ -1,0 +1,91 @@
+= Spongebob - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
+
+By: `Team F11-1/` +
+Updated As: `02/10/2019`
+
+== Setting Up
+Refer to the guide https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[here] for setting up.
+
+== Design
+Building in progress... :hammer:
+
+== Implementation
+Building in progress... :hammer:
+
+== Documentation
+Building in progress... :hammer:
+
+== Testing
+Building in progress... :hammer:
+
+[appendix]
+== User Profile
+An NUS School of Computing (SoC) club member who:
+
+* prefer desktop application over other platforms
+* prefer typing over mouse input
+* able to type fast
+
+[appendix]
+== Value Proposition
+Currently no platform/application for proper management of SoC club's:
+
+* Operations
+* Manpower
+* Logistics
+* Finance
+
+[appendix]
+== User Story
+Priorities:
+
+* High (Must-Have) - :star::star::star:
+* Medium (Nice-to-Have) - :star::star:
+* Low (Not-Useful) - :star:
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |**(user type)** |**(function)** |**(benefits)**
+|=======================================================================
+
+[appendix]
+== Use Case
+1. SpongeBob is an integrated solution for the SoC club that can be used for many club-related things like management, manpower, finance, logistics, and operations.
+2. It can be used to retrieve data about club members and their position in the club.
+3. It can be used to manage club finance by providing the budget available for the club.
+4. It can be used to store the minutes of the meeting (small description) after an meeting is over.
+5. After the meeting is over, it can be used to store the minutes of the meeting (small description).
+6. It can be used to tag various events according to their priority.
+7. It can be used to sort events/meetings as per their priority.
+8. It can be used to store email templates for various purposes like recruitment, club elections, and sponsorships.
+9. It can be used to manage the inventory list i.e look at the equipment available to the club, tag equipment based on their availability (used, available, broken).
+10. It can be used to maintain a register/log of the ownership of the SoC lockers (currently no present solution).
+11. It can be used to export a CSV file on the log maintaining the locker data.
+
+[appendix]
+== Non-functional Requirement
+1. The software should be portable. So moving from one OS to another shouldn't be a major issue.
+2. The end result of the software should be an executable .jar file available for users to download.
+3. The end software should provide a proper user interface for ease of navigation through the app.
+4. The software should not crash on any user command. If it does crash, it should maintain a proper log and give out an error message to the user.
+5. The software should be capable of storing enough data. However, there will be some restrictions imposed on the user when it comes to storing data on the hard disk like CSV files and email templates.
+6. The software should store every user command in a history of commands.
+7. The software should provide good user experience by providing CLI commands that are short and concise.
+
+
+
