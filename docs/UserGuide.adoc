@@ -1,6 +1,7 @@
 = Dolla - User Guide
 :site-section: UserGuide
 :imagesDir: images
+:experimental:
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -26,9 +27,9 @@ or many more other cool features. Users can interact with Dolla with the various
 .  Copy the file to the folder you want to use as the home folder for your Dolla.
 .  Double-click the file to start the app.The GUI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
+e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
-* *`list`* : List all the income and expense with the most recently added on the top
+* `entries` : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
 * **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
@@ -88,7 +89,7 @@ Format: +
 
 === Common Commands
 
-These commands can be used in the modes entries, limits, debts and shortcut.
+These commands can be used in the modes `*entries*`, `*limits*`, `*debts*` and `*shortcuts*`.
 
 ==== Change the page of the list: `page`
 
@@ -96,8 +97,9 @@ Each page of the list will only show 10 different tasks at a time. User can chan
 Format: +
 `*page* [PAGE NO.]`
 
-Example: +
-`page 3`
+Example:
+
+* `page 3`
 
 ==== Remove a task from the list: `remove`
 
@@ -107,8 +109,19 @@ Format: +
 
 *NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listings available.
 
-Example: +
-`remove 2`
+Example:
+
+* `remove 2`
+
+==== Find a task from the list: `find`
+
+Find tasks from the list based on the keyword(s) input by the user. +
+Format: +
+`*find* [KEYWORD(S)]`
+
+Example:
+
+* `find milk`
 
 ==== Modify a expense/income: `modify`
 
@@ -116,9 +129,10 @@ Modify the whole or a component of a particular entry in the list. +
 Format: +
 `*modify* [LIST NO.] {COMPONENT}`
 
-Examples: +
-`modify 3` +
-`modify 4 description`
+Examples:
+
+* `modify 3` +
+* `modify 4 description`
 
 ==== Sort the list by date: `sort /date`
 
@@ -127,8 +141,9 @@ Format: +
 `*sort* /date ascending` +
 `*sort* /date descending`
 
-Example: +
-`sort /date ascending`
+Example:
+
+* `sort /date ascending`
 
 ==== Sort the list by tag: `sort /tag`
 
@@ -137,18 +152,20 @@ Format: +
 `*sort* /tag ascending` +
 `*sort* /tag descending`
 
-Example: +
-`sort /tag descending`
+Example:
 
-==== Sort the list by amount in ascending or descending order: `sort /amount`
+* `sort /tag descending`
+
+==== Sort the list by amount: `sort /amount`
 
 Sort the list by the amount in ascending or descending order. +
 Format: +
 `*sort* /amount ascending` +
 `*sort* /amount descending`
 
-Example: +
-`sort /amount ascending`
+Example:
+
+* `sort /amount ascending`
 
 === Switch the mode to dolla: `dolla`
 
@@ -168,11 +185,12 @@ Examples:
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
 * `add income $500 part time tuition /on 01/09/2019`
 
-==== Add a new entry to the shortcut: `create expense/income shortcut`
+==== Add a new entry to the shortcut: `create shortcut expense/income`
 
 Add a new expense or income to the shortcut. +
 Format: +
-`*create shortcut expense/income* [DESCRIPTION] [AMOUNT] {TAG}`
+`*create shortcut expense* [DESCRIPTION] [AMOUNT] {TAG}` +
+`*create shortcut income* [DESCRIPTION] [AMOUNT] {TAG}`
 
 Examples:
 
@@ -241,7 +259,7 @@ Example:
 
 * `reminder`
 
-==== Add loans and debts: `owe` `borrow`
+==== Add loans and debts: `owe`, `borrow`
 
 Add loans and debts that are one off kind. +
 Format: +
@@ -254,7 +272,7 @@ Examples:
 
 * `borrow xx $10 lunch`
 
-==== View statistics: `stats` `view`
+==== View statistics: `stats`, `view`
 
 View spending statistics on a specific tag for a specified duration. +
 Format: +
@@ -283,7 +301,7 @@ Format: +
 `*entries*`
 
 ==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Add to shortcut: `create shortcut`
 
@@ -302,7 +320,7 @@ Format: +
 `*limits*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 === Switch the mode to Debts: `debts`
 
@@ -311,7 +329,7 @@ Format: +
 `*debts*`
 
 ==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 === Switch the mode to Shortcuts: `shortcuts`
 
@@ -320,7 +338,7 @@ Format: +
 `*shortcuts*`
 
 ==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Add a task from a shortcut to entries `add shortcut`
 
@@ -348,48 +366,50 @@ Format: +
 
 == Command Summary
 
-* `*dolla*`
-* `*entries*`
-* `*limits*`
-* `*debts*`
-* `*shortcuts*`
-* `*settings*`
-* `*add expenses/income*`  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
+* `dolla`
+* `entries`
+* `limits`
+* `debts`
+* `shortcuts`
+* `settings`
+* *add expenses/income*  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 e.g. `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `*page* [PAGE NO.]` +
+* *page* `[PAGE NO.]` +
 e.g. `page 3`
-* `*remove*` `remove [LIST NO.]` +
+* *remove* `remove [LIST NO.]` +
 e.g. `remove 3`
-* `*modify*` `modify [LIST NO.] {COMPONENT}` +
+* *find* `find [KEYWORD(S)]` +
+e.g. `find milk`
+* *modify* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
-* `*sort /date*` `sort /date ascending/descending` +
+* *sort /date* `sort /date ascending/descending` +
 e.g. sort /date ascending
-* `*sort /tag*` `sort /tag ascending/descending` +
+* *sort /tag* `sort /tag ascending/descending` +
 e.g. sort /tag descending
-* `*sort /amount*` `sort /amount ascending/descending` +
+* *sort /amount* `sort /amount ascending/descending` +
 e.g. sort /amount ascending
-* `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+* *add recurring expenses/income* `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
-* `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
-* `*set limit*` `set limit /tag [TAG] [AMOUNT]` +
+* *set limit* `set limit [AMOUNT] /every [DURATION]` +
+* *set limit* `set limit /tag [TAG] [AMOUNT]` +
 e.g. `set limit /tag bubble tea $20`
 e.g. `set limit $50 every week`
-* `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
+* *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
-* `*reminder*` `reminder`
-* `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *reminder* `reminder`
+* *owe* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `owe xx $4 bubble tea`
-* `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *borrow* `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `borrow xx $10 lunch`
-* `*stats*` `stats [TAG] [DURATION] [CHART_TYPE]` +
+* *stats* `stats [TAG] [DURATION] [CHART_TYPE]` +
 e.g. stats Food September histogram
-* `*stats*` `stats [DATE/MONTH/YEAR]` +
+* *stats* `stats [DATE/MONTH/YEAR]` +
 e.g. stats today
-* `*view*` `view [DATE/MONTH/YEAR]` +
+* *view* `view [DATE/MONTH/YEAR]` +
 e.g. view 11/11/2011
-* `*create shortcut*` `create shortcut [LIST NO.]` +
+* *create shortcut* `create shortcut [LIST NO.]` +
 e.g. `create shortcut 3`
-* `*create expense/income shortcut*` `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
+* *create shortcut expense/income* `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
 e.g. create shortcut expense ice-cream $5 food
-* `*add shortcut*` `add shortcut [SHORTCUT NO.]` +
+* *add shortcut* `add shortcut [SHORTCUT NO.]` +
 e.g. add shortcut 8
