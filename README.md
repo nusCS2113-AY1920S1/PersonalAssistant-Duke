@@ -2,8 +2,10 @@
 
 ## Introduction
 <p align="center">
-    <img src="./docs/images/ui.png" width="400" height="349">
+    <img src="./docs/images/ui.png" width="500" height="437">
 </p>
+
+Say bye to piles of paper records. Our inventory management system allows you to quickly and conveniently view all the stock and loan records. With our colour based status indicator, hours slicing through inevntory data have been cut down into seconds. As students we care, you wont have to stay back after 5pm to account for our lab logistics anymore!
 
 ## Project scope
 
