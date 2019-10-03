@@ -51,11 +51,11 @@ Now that you've installed Java `11` on your computer, you can go ahead with gett
 === Checking D2
 As D2 launches, you should see the following GUI:
 
-+
-----
-image::main/docs/images/UI.png[width="790"]
-----
-+
+
+
+image::UI.png[width="790"]
+
+
 
 To test that D2 is running as it should:
 
@@ -63,10 +63,10 @@ To test that D2 is running as it should:
 . Hit kbd:[Enter] to execute it
 . Notice that the help window appears
 
-If the help window does appear, D2 is successfully running on your machine.
+If it does, you have successfully run D2 on your machine!
 
 
-
+=== Getting Used to D2
 Here are some other examples of commands you can try to get used to D2:
 
 * *`list`* : lists all tasks you have saved to it
@@ -74,7 +74,7 @@ Here are some other examples of commands you can try to get used to D2:
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Fore more detailed instructions and a full list of commands, refer to <<Features>>.
 
 [[Features]]
 == Features
