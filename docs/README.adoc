@@ -2,6 +2,7 @@
 = SpongeBob - SOC Club Manager
 
 //* Add the GUI picture over here.
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"]
 * SpongeBob is a command lined based desktop application aimed at helping the NUS SOC Club with managing +
 manpower, logistics, finance, events and lockers. It is a Java application written in OOP fashion.
 * It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
@@ -12,7 +13,6 @@ manpower, logistics, finance, events and lockers. It is a Java application writt
   - Undo/Redo commands to enhance user-experience
   - Auto-saving the SpongeBob data as easily-editable CSV files
 
-image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"]
 
 == Site Map
 
