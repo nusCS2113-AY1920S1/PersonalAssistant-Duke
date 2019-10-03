@@ -21,6 +21,12 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("How may I serve you?");
+        System.out.println("Enter 'help' if you require assistance");
+    }
+
+    public void help() {
+        System.out.println("List of Commands:\n" +
+                "todo\n" + "deadline\n" + "event\n" + "recur\n" + "snooze\n" + "list\n" + "done\n" + "find\n" + "bye" );
     }
 
     /**
@@ -188,16 +194,27 @@ public class Ui {
      */
     public void promptForDuration() {
         System.out.println("How long is the duration for this event?");
-        System.out.println("Please specify hours, minutes, seconds");
+        System.out.println("Please specify hours, minutes");
+        System.out.println("\tE.g : hours 2");
     }
 
     /**
-     * Asks the user whehter the task has a duration
+     * Asks the user whether the task has a duration
      */
     public void promptForReply() {
         System.out.println("Does this task have a duration? (yes/no)");
     }
 
+<<<<<<< HEAD
+=======
+
+     /* tells the user to input valid amount of time
+    public void promptForTime() {
+        System.out.println("Enter the amount of time");
+    }
+     */
+  
+>>>>>>> 61c92d7e89f193fc9fa8bb610b519e673aaa8909
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }

@@ -25,8 +25,13 @@ public class Task{
     }
 
     /**
+<<<<<<< HEAD
      * getter method for created.
      * @return
+=======
+     * Returns String of the time Task was created
+     * @return time the task was created
+>>>>>>> 61c92d7e89f193fc9fa8bb610b519e673aaa8909
      */
     public String getCreated() {
         return this.created;
@@ -45,9 +50,7 @@ public class Task{
      * shows a tick if done, and a cross if not done.
      * @return A String showing a tick or X symbol.
      */
-    public String getStatusIcon() {
-        return (isDone ? "[\u2713] " : "[\u2718] "); //return tick or X symbols
-    }
+    public String getStatusIcon() { return (isDone ? "[\u2713] " : "[\u2718] "); } //return tick or X symbols
 
     /**
      * Returns the description of the task
@@ -64,6 +67,9 @@ public class Task{
         isDone = true;
     }
 
+    /**
+     * Sets the task to be not done
+     */
     public void setNotDone() {
         isDone = false;
     }
@@ -75,6 +81,7 @@ public class Task{
     public String toString() {
         return getStatusIcon() + getDescription();
     }
+
     /**
      * Snooze the task in year
      * @param amount number of years to snooze
