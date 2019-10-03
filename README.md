@@ -11,8 +11,8 @@ A java program for prospective applicants who prefer to use a desktop app for re
 
 ## Technologies Used
 Project is created with:
-* Java 11
-* JavaFX 11
+* Java Development Kit 11
+* JavaFX 11 (via Gradle openJFX)
 * Gradle
 * IntelliJ IDEA Community Edition 2019.2.1
 
