@@ -1,15 +1,13 @@
 package seedu.duke.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
+import seedu.duke.TaskList;
 
 import java.util.function.UnaryOperator;
 
@@ -17,6 +15,9 @@ import java.util.function.UnaryOperator;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private TaskList tasks;
+    @FXML
+    private VBox taskContainer;
     @FXML
     private ScrollPane scrollPane;
     @FXML
