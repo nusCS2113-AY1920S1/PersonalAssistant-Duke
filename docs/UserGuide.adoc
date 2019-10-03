@@ -87,10 +87,8 @@ Here are some other examples of commands you can try to get used to D2:
 ====
 
 === Viewing Helpful Commands : `help`
-If you require a full list of possible commands that D2 understands, you can call the help command
-The format of the help command is as follows:
-
-* `help`
+To view a full list of possible commands that D2 understands, you can call the help command.
+Format: `help`
 
 
 === Viewing detailed information about a degree: `detail`
@@ -98,23 +96,32 @@ The format of the help command is as follows:
 Lists all the information associated with a degree or module. +
 Format: `detail DEGREE|MODULE`
 
-****
-* The search is case insensitive. e.g `ceg` will match `CEG`
-****
+[TIP]
+The search is case insensitive. e.g `ceg` will match `CEG`
 
 Examples:
-* `detail CEG` +
-Returns: `Overview:` +
-`...` +
-`Modules:` +
-`...` +
-`Links` +
-`...` +
-* `detail CS1010` +
-Returns: `Overview:` +
-`...` +
-`Resources:` +
-`...`
+
+`detail CEG`
+
+Returns: 
+----
+Overview:
+...
+Modules:
+...
+Links
+...
+----
+
+`detail CS1010`
+
+Returns: 
+----
+Overview:
+...
+Resources:
+...
+----
 
 === Comparing differences between 2 degrees: `diff`
 
@@ -130,19 +137,24 @@ Format: `diff DEGREE DEGREE`
 ****
 
 Examples:
-* `diff CEG EE` +
-Returns: + 
-`Similarities:` +
-`EE2026` +
-`...`
 
-`Differences:` +
-`CS1010 EE2027` +
-`...`
+`diff CEG EE`
+
+Returns:
+----
+Similarities:
+EE2026
+MA1511
+...
+
+Differences:
+CS1010 
+EE2027
+...
+----
 
 
-
-=== Adding a degree programme into your list: `add`
+=== Adding a degree into your list: `add`
 
 To add a newly chosen degree programme into your personalised degree list, use the command add.
 The format of the add command is as follows:
@@ -150,65 +162,61 @@ The format of the add command is as follows:
 * `add DEGREE [t/TAG]...`
 
 [TIP]
-A degree programme can have any number of tags (including 0)
+A degree can have any number of tags (including 0)
 
 Examples:
 
 * `add CEG`
 * `add BME [t/tentative]`
 
-=== Listing all degree programmes in your list : `list`
+=== Listing all degrees in your list : `list`
 
 Shows a list of all degrees in the list currently. +
 Format: `list`
 
-=== Swapping degree programmes in the list: `swap`
+=== Swapping degree in the list: `swap`
 
 Swaps the position of two degrees in the list currently. +
 Format `swap INDEX INDEX`
 
-=== Editing a task : `edit`
+=== Replacing a degree in the list : `replace`
 
-Edits an existing degree programme into a new degree the task list. +
-Format: `edit INDEX NEWDEGREE`
+Replaces an existing degree in the list with a new one. +
+Format: `replace INDEX NEWDEGREE`
 
 ****
-* Edits the degree at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Replaces the degree at the specified `INDEX`. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `replace 1 BME` +
+Replaces whatever degree is in index 1 of the list with the new degree Biomedical Engineering
+* `replace 2 EE` +
+Replaces whatever degree is in index 2 of the list with the new degree Electrical Engineering
 
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a degree in the list : `delete`
 
-Deletes the specified task from the main task list. +
+Deletes the specified degree from the list. +
 Format: `delete INDEX`
 
 ****
 * Deletes the task at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `delete 2` +
-Deletes the 2nd task in the task list.
+Deletes the 2nd degree in the list.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Clearing all entries in the list: `clear`
 
-Clears all tasks from the task list. +
+Clears all degrees from the list. +
 Format: `clear`
 
 === Custom user commands: `custom`
