@@ -24,8 +24,8 @@ public class DateObj {
      * The output will include both the date and time.
      */
     public DateObj(String splitDate) {
-    	this.splitDate = splitDate;
-    	formatDate();
+        this.splitDate = splitDate;
+        formatDate();
     }
 
     public void formatDate() {
