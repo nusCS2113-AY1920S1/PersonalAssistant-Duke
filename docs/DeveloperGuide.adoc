@@ -128,6 +128,20 @@ Actor: NUS Student
 1. User inputs the command to `view timetable`
 2. ModPlan shows the user their current timetable, including class and CCA timings
 
+=== Use Case: Viewing of modules taken in past semester
+Actor: NUS Student
+
+1. User inputs the command to `view past modules`
+2. ModPlan shows the user a list of all modules taken, and those they are currently taking.
+
+=== Use Case: Generation of current CAP based on past modules
+Actor: NUS Student
+
+1. User inputs the command to `generate CAP report`
+2. ModPlan shows the user modules they had taken, and requests user to input their grades obtained
+3. After inputing the grades, ModPlan shows the user their current MCs accumulated and CAP.
+
+
 [appendix]
 == Non-Functional Requirements
 
