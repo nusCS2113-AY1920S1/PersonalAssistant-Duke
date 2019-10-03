@@ -37,7 +37,7 @@ e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
 [[Features]]
 == Features
 === Expense and Income Tracking
-image::Ui/List.png[width="500", align="center"]
+image::Ui/Entries.png[width="500", align="center"]
 {nbsp} +
 Look through, edit and modify all the income and expenses that you have added.
 Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily spendings!

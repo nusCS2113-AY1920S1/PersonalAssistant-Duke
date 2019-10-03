@@ -203,4 +203,14 @@ public class Ui {
     public static void printInvalidCommandError() {
         System.out.println("\tOOPS! The command is invalid. Please enter a valid command");
     }
+
+    public static void printInvalidEntryType() {
+        System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
+    }
+
+    public static void printInvalidEntryFormatError() {
+        System.out.println("\tplease follow the format " +
+                "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'" +
+                "");
+    }
 }
