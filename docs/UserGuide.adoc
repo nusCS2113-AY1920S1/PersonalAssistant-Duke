@@ -26,7 +26,7 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here]. (change this)
+.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ModPlan application.
 //.  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
