@@ -26,7 +26,7 @@ public class FindCommand extends Command {
      * shown by the UI.
      *
      * @return true after the look after is completed. Note that no result found will be reflected in the UI
-     *      output instead of the returned value of this function.
+     *         output instead of the returned value of this function.
      */
     @Override
     public boolean execute() {

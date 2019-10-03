@@ -40,7 +40,8 @@ public class AddCommand extends Command {
     /**
      * Executes the add command by instantiating the task first and then add the task to task list.
      *
-     * @return a flag whether the task is successfully added. Returns false if the taskType is not recognised.
+     * @return a flag whether the task is successfully added. Returns false if the taskType is not
+     *         recognised.
      */
     @Override
     public boolean execute() {

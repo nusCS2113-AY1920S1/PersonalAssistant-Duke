@@ -12,13 +12,20 @@ import java.util.Locale;
 
 public class EmailParser {
     protected static DateTimeFormatter format = DateTimeFormatter
-                    .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
-                    .withResolverStyle(ResolverStyle.STRICT);;
+            .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+            .withResolverStyle(ResolverStyle.STRICT);
     //plain format is for filename without special characters
     protected static DateTimeFormatter formatPlain = DateTimeFormatter
             .ofPattern("uuuu-MM-dd-HHmmss", Locale.ENGLISH)
-            .withResolverStyle(ResolverStyle.STRICT);;
+            .withResolverStyle(ResolverStyle.STRICT);
 
+    /**
+     * Parses the response of email fetching from Outlook server.
+     *
+     * @param response response from Outlook server
+     * @return a list of emails containing all the parsed email from the response
+     * @throws EmailParsingException the exception of the failure of the response parsing
+     */
     public static EmailList parseFetchResponse(String response) throws EmailParsingException {
         Duke.getUI().showDebug(response);
         EmailList emailList = new EmailList();
@@ -40,22 +47,49 @@ public class EmailParser {
         return emailList;
     }
 
+    /**
+     * Parses the email date time string to a LocalDateTime.
+     *
+     * @param dateTimeString string of the date time
+     * @return LocalDateTime object to be stored
+     */
     public static LocalDateTime parseEmailDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, format);
     }
 
+    /**
+     * Formats the email date time to a string.
+     *
+     * @param dateTime LocalDateTime object stored in the Email object
+     * @return String of the formatted date time.
+     */
     public static String formatEmailDateTime(LocalDateTime dateTime) {
         return dateTime.format(format);
     }
 
+    /**
+     * Formats the email date time to a plain string without any special character for filename.
+     *
+     * @param dateTime LocalDateTiem object stored in the Email object
+     * @return String of plain formatted date time.
+     */
     public static String formatEmailDateTimePlain(LocalDateTime dateTime) {
         return dateTime.format(formatPlain);
     }
 
+    /**
+     * Class of the email sender containing the name and address.
+     */
     public static class Sender {
         private String name;
         private String address;
 
+        /**
+         * Constructor of the sender class with the json object containing the information.
+         *
+         * @param senderInfo json object containing the information
+         * @throws JSONException exception of failure of parsing
+         */
         public Sender(JSONObject senderInfo) throws JSONException {
             this.name = senderInfo.getJSONObject("emailAddress").getString("name");
             this.address = senderInfo.getJSONObject("emailAddress").getString("address");
@@ -66,6 +100,9 @@ public class EmailParser {
         }
     }
 
+    /**
+     * Exception dedicated for failed email parsing.
+     */
     public static class EmailParsingException extends Exception {
         private String msg;
 

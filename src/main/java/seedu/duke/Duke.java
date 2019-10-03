@@ -64,6 +64,9 @@ public class Duke {
         ui.showMessage("Bye. Hope to see you again!");
     }
 
+    /**
+     * Main function that lines up all important functions in the app using process.
+     */
     public Duke() {
         ui = new UI();
         parser = new Parser();
@@ -73,6 +76,12 @@ public class Duke {
         emailList = EmailStorage.readEmails();
     }
 
+    /**
+     * Links up command output with GUI display.
+     *
+     * @param input user input
+     * @return the response from the parsed and executed command
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parseCommand(input);

@@ -1,7 +1,5 @@
 package seedu.duke.email;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import seedu.duke.Duke;
 
 import java.awt.Desktop;
@@ -11,11 +9,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 
 public class Email {
     protected String filepath;
@@ -31,6 +25,14 @@ public class Email {
         this.filepath = getEmailFilePath();
     }
 
+    /**
+     * Detailed constructor of Email class with more paramaters.
+     *
+     * @param subject subject of the email
+     * @param from the sender of the email
+     * @param receivedDateTime the date and time when the email is received
+     * @param body the body of the email
+     */
     public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
         this.subject = subject;
         this.from = from;
@@ -61,8 +63,7 @@ public class Email {
     }
 
     /**
-     * Show this email on browser.
-     * To be replaced by JavaFx code for UI display.
+     * Show this email on browser. To be replaced by JavaFx code for UI display.
      *
      * @throws IOException if fails to load the filepath or open the browser.
      */
@@ -90,8 +91,8 @@ public class Email {
     }
 
     /**
-     * Outputs a string with all the information of this email to be stored in a file for future usage.
-     * The subject of the email is hashed and combined with date time to produce the filename.
+     * Outputs a string with all the information of this email to be stored in a file for future usage. The
+     * subject of the email is hashed and combined with date time to produce the filename.
      *
      * @return a string with all the information of this email.
      */
@@ -101,7 +102,7 @@ public class Email {
     }
 
     public String getFilename() {
-        String filename = ShaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
+        String filename = shaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
         return filename;
     }
 
@@ -113,9 +114,14 @@ public class Email {
         return EmailParser.formatEmailDateTimePlain(receivedDateTime);
     }
 
+    /**
+     * Helper function for the email to be printed in command line.
+     *
+     * @return a string capturing the email info
+     */
     public String toCliString() {
-        String output = this.subject + "\n\t" + "From: " + this.from.toString() + "\n\t" +
-                "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
+        String output = this.subject + "\n\t" + "From: " + this.from.toString() + "\n\t"
+                + "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
                 + "...\n";
         return output;
     }
@@ -124,7 +130,7 @@ public class Email {
         return body;
     }
 
-    private String ShaHash(String input) {
+    private String shaHash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
