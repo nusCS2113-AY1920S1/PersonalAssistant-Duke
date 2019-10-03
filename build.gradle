@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+group 'dukemasters'
+version '1.0'
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Duke JAR',
+                'Implementation-Version': version,
+                'Main-Class': 'Duke'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile 'com.google.code.gson:gson:2.8.5'
+}
+
+application {
+    mainClassName = "Duke"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    standardInput = System.in
+}
