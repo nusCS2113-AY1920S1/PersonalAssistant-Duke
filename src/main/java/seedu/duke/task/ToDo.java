@@ -21,11 +21,13 @@ public class ToDo extends Task {
      *
      * @param name    name of the task
      * @param doAfter task to be done after the main task
+     * @param tag     tag associated with the task
      */
-    public ToDo(String name, String doAfter) {
+    public ToDo(String name, String doAfter, String tag) {
         super(name);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.ToDo;
+        getTag(tag);
     }
 
     /**
@@ -36,10 +38,12 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        if (doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return "[T]" + this.getStatus();
-        } else {
+        } else if (this.hasTag == null) {
             return "[T]" + this.getStatus() + "\n   After which: " + doAfterDescription;
+        } else {
+            return "[T]" + this.getStatus() + " #" + hasTag;
         }
     }
 
@@ -50,11 +54,12 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        if (doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return (this.isDone ? "1" : "0") + " todo " + this.name;
+        } else if (this.hasTag == null) {
+            return (this.isDone ? "1" : "0") + " todo " + this.name + " /doafter " + doAfterDescription;
         } else {
-            return (this.isDone ? "1" : "0") + " todo " + this.name + " /doafter " + this.doAfterDescription;
+            return (this.isDone ? "1" : "0") + " todo " + this.name + " #" + hasTag;
         }
-
     }
 }

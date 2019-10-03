@@ -35,12 +35,14 @@ public class Deadline extends Task {
      * @param name    name of the Deadline
      * @param time    time of the Deadline
      * @param doAfter task to be done after main task
+     * @param tag     tag associated with the task
      */
-    public Deadline(String name, LocalDateTime time, String doAfter) {
+    public Deadline(String name, LocalDateTime time, String doAfter, String tag) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Deadline;
+        getTag(tag);
     }
 
     /**
@@ -51,11 +53,14 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        if (this.doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
-        } else {
+        } else if (this.hasTag == null) {
             return "[D]" + this.getStatus() + " (by: " + formatDate() + ")"
                     + "\n   After which: " + doAfterDescription;
+        } else {
+            return "[D]" + this.getStatus() + " (by: " + formatDate() + ")"
+                    + " #" + hasTag;
         }
     }
 
@@ -66,12 +71,15 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
                     + formatDate();
-        } else {
+        } else if (this.hasTag == null) {
             return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
                     + formatDate() + " /doafter " + doAfterDescription;
+        } else {
+            return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
+                    + formatDate() + " #" + hasTag;
         }
     }
 
@@ -134,5 +142,4 @@ public class Deadline extends Task {
         }
         return false;
     }
-
 }

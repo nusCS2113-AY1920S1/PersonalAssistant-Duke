@@ -36,12 +36,14 @@ public class Event extends Task {
      * @param name    name of the Event
      * @param time    time of the Event that is going to happen
      * @param doAfter task to be done after the main task
+     * @param tag     tag associated with the task
      */
-    public Event(String name, LocalDateTime time, String doAfter) {
+    public Event(String name, LocalDateTime time, String doAfter, String tag) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Event;
+        getTag(tag);
     }
 
     /**
@@ -52,11 +54,14 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        if (this.doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
-        } else {
+        } else if (this.hasTag == null) {
             return "[E]" + this.getStatus() + " (by: " + formatDate() + ")"
                     + "\n   After which: " + doAfterDescription;
+        } else {
+            return "[E]" + this.getStatus() + " (by: " + formatDate() + ")"
+                    + " #" + hasTag;
         }
     }
 
@@ -67,12 +72,15 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.doAfterDescription == null) {
+        if (this.doAfterDescription == null && this.hasTag == null) {
             return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
                     + formatDate();
-        } else {
+        } else if (this.hasTag == null) {
             return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
                     + formatDate() + " /doafter " + doAfterDescription;
+        } else {
+            return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
+                    + formatDate() + " #" + hasTag;
         }
     }
 
@@ -135,5 +143,4 @@ public class Event extends Task {
         }
         return false;
     }
-
 }

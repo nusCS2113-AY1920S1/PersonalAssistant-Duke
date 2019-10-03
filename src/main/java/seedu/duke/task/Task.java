@@ -32,6 +32,11 @@ public class Task {
     protected String doAfterDescription;
 
     /**
+     * Whether the task has tag
+     */
+    protected String hasTag;
+
+    /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
     protected static DateTimeFormatter format = DateTimeFormatter
@@ -55,6 +60,7 @@ public class Task {
         this.name = name;
         this.isDone = false;
         this.doAfterDescription = null;
+        this.hasTag = null;
     }
 
     /**
@@ -158,5 +164,9 @@ public class Task {
 
     public boolean isClash(Task task) {
         return false;
+    }
+
+    public void getTag(String tag) {
+        this.hasTag = tag;
     }
 }
