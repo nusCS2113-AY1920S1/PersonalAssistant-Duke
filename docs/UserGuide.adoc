@@ -188,6 +188,7 @@ Format: `degreelist`
 Swaps the position of two degrees in the list currently. +
 Format `swap INDEX INDEX`
 
+<<<
 === Replacing a degree in your degree list : `replace`
 
 Replaces an existing degree in the list with a new one. +
@@ -228,6 +229,7 @@ Deletes the 2nd item in the list.
 Clears all degrees from the list. +
 Format: `clear`
 
+<<<
 === Custom user commands: `custom`
 
 User can customize a word to be evaluated as a phrase to be executed with additional parameters. +
@@ -272,7 +274,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Help* : `help`
 * *Information* : `detail DEGREE|MODULE` +
-e.g. 'detail ME'
+e.g. `detail ME`
 * *Comparison* : `compare DEGREE DEGREE` +
 e.g. `compare ME CEG`
 * *Add* : `add DEGREE` +
