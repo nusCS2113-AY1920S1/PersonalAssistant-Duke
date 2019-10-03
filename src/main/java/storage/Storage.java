@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * Represents the storage of Duke.
- * Stores the content of taskList of Duke in a text file.
+ * Stores the content of ExpenseList of Duke in a text file.
  */
 public class Storage {
     private File file;
@@ -26,11 +26,11 @@ public class Storage {
 
     /**
      * Creates new storage file if no file exists yet.
-     * Reads all strings representing tasks in storage format in the file and
+     * Reads all strings representing expensesList in storage format in the file and
      * returns the list of strings.
-     * Works as the parameter of the constructor of {@code taskList}.
+     * Works as the parameter of the constructor of {@code ExpenseList}.
      *
-     * @return List of information of stored tasks in storage format.
+     * @return List of information of stored expensesList in storage format.
      * @throws DukeException If errors occur in loading process.
      */
     public ArrayList<String> load() throws DukeException {
@@ -51,9 +51,9 @@ public class Storage {
 
     /**
      * Updates the storage text file by replacing original content
-     * with the given list of strings representing tasks.
+     * with the given list of strings representing expensesList.
      *
-     * @param taskStrings List of strings representing tasks in storage format.
+     * @param taskStrings List of strings representing expensesList in storage format.
      * @throws DukeException If errors occur when updating storage.
      */
     public void update(ArrayList<String> taskStrings) throws DukeException {

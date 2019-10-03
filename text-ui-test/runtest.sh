@@ -12,9 +12,9 @@
        rm ACTUAL.TXT
    fi
 
-   if [ -e "../data/TaskListStorage.txt" ]
+   if [ -e "../data/ExpenseListStorage.txt" ]
    then
-       rm ../data/TaskListStorage.txt
+       rm ../data/ExpenseListStorage.txt
    fi
 
    cd ..

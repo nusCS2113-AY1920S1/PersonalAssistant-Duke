@@ -15,7 +15,7 @@ public class EventTest {
         Event testEvent = new Event("do the homework",
                 "02/05/2019 1800",
                 "02/05/2019 1900",
-                new TaskList());
+                new ExpenseList());
         assertEquals("[E][\u2718] do the homework (at: 02/05/2019 1800 - 02/05/2019 1900)(NONE)",
                 testEvent.toString());
 
@@ -40,13 +40,13 @@ public class EventTest {
                 new Event("do the homework",
                         "02/05/2019 1800",
                         "02/05/2019 1900",
-                        new TaskList())
+                        new ExpenseList())
                         .toStorageString());
 
         Event testEvent = new Event("do the homework",
                 "02/05/2019 1800",
                 "02/05/2019 1900",
-                new TaskList());
+                new ExpenseList());
         assertEquals("E | 0 | 0 | do the homework | null | 02/05/2019 1800 | 02/05/2019 1900 | NONE",
                 testEvent.toStorageString());
 
@@ -68,7 +68,7 @@ public class EventTest {
                     new Event("do the homework",
                             "02/05/2019",
                             "02/05/2019",
-                            new TaskList())
+                            new ExpenseList())
                             .toString());
             fail();
         } catch (Exception e) {
@@ -79,17 +79,17 @@ public class EventTest {
     @Test
     @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
     public void testOverlappingTime() {
-        TaskList taskList = new TaskList();
+        ExpenseList ExpenseList = new ExpenseList();
         Event testEvent = new Event("do the homework",
                 "02/05/2019 1800",
                 "02/05/2019 1900",
-                taskList);
-        taskList.addTask(testEvent);
+                ExpenseList);
+        ExpenseList.addTask(testEvent);
         Event conflictingEvent = new Event("do something else",
                 "02/05/2019 1830",
                 "02/05/2019 1930",
-                taskList);
-        TaskList overlappedTasks = conflictingEvent.overlappingWithOtherEvents(taskList);
-        assertEquals(taskList.getTasks(), overlappedTasks.getTasks());
+                ExpenseList);
+        ExpenseList overlappedTasks = conflictingEvent.overlappingWithOtherEvents(ExpenseList);
+        assertEquals(ExpenseList.getTasks(), overlappedTasks.getTasks());
     }
 }

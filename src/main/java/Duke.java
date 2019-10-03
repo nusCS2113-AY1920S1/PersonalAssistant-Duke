@@ -1,7 +1,7 @@
+import DukeObjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
-import task.TaskList;
 import exception.DukeException;
 import command.Command;
 import parser.Parser;
@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    private ExpenseList expenseList;
     private Ui ui;
 
     /**
@@ -28,10 +28,10 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            expenseList = new ExpenseList(storage.load());
         } catch (DukeException e) {
             ui.showError(e);
-            tasks = new TaskList();
+            expenseList = new ExpenseList();
         }
     }
 
@@ -46,7 +46,7 @@ public class Duke {
             try {
                 CommandParams commandParams = new CommandParams(fullCommand);
                 Command command = Parser.getCommand(commandParams.getCommandName());
-                command.execute(commandParams, tasks, ui, storage);
+                command.execute(commandParams, expenseList, ui, storage);
             } catch (DukeException e) {
                 ui.showError(e);
             }
@@ -62,7 +62,7 @@ public class Duke {
         String storageFile = new StringJoiner(File.separator)
                 .add(System.getProperty("user.dir"))
                 .add("data")
-                .add("TaskListStorage.txt")
+                .add("ExpenseListStorage.txt")
                 .toString();
         new Duke(storageFile).run();
     }
