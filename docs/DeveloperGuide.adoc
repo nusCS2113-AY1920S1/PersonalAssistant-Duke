@@ -1,4 +1,4 @@
-= Weeaboo - Developer Guide
+= AlphaNUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -53,22 +53,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |NUS Treasurer |find my forms easily |locate details of an event without going through the whole list
 
-|`*` |NUS Treasurer |Approve my payment forms |track which payment forms have been approved
+|`* *` |NUS Treasurer |approve my payment forms |track which payment forms have been approved
+
+|`*` |NUS Treasurer |categorise the payment forms I submitted into projects |keep track of the payment forms belonging to a particular project
+
+|`*` |NUS Treasurer |share my payment forms |get approval from my superiors
 |=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Weeaboo` and the *Actor* is the `NUS Treasurer`, unless specified otherwise)
+(For all use cases below, the *System* is `AlphaNUS` and the *Actor* is the `NUS Treasurer`, unless specified otherwise)
 
 === Use case: Add a new deadline
 
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User types in the command line the deadline description and time.
-4.  Weeaboo adds the deadline.
+4.  AlphaNUS adds the deadline.
 +
 Use case ends.
 
@@ -76,7 +80,7 @@ Use case ends.
 
 [none]
 * 3a. User types in an invalid deadline command.
-** 3a1. Weeaboo shows an error message and the correct deadline input format.
+** 3a1. AlphaNUS shows an error message and the correct deadline input format.
 +
 Use case ends.
 
@@ -85,9 +89,9 @@ Use case ends.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User types in the command line the payment description, items and the cost of each item.
-4.  Weeaboo adds the payment form.
+4.  AlphaNUS adds the payment form.
 +
 Use case ends.
 
@@ -95,7 +99,7 @@ Use case ends.
 
 [none]
 * 3a. User types in an invalid payment command.
-** 3a1. Weeaboo shows an error message and the correct payment input format.
+** 3a1. AlphaNUS shows an error message and the correct payment input format.
 +
 Use case ends.
 
@@ -104,9 +108,9 @@ Use case ends.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User types in the command line the command to find and a keyword containing part of the description of a deadline or payment form.
-4.  Weeaboo lists the deadlines and payment forms with descriptions that matches the keyword.
+4.  AlphaNUS lists the deadlines and payment forms with descriptions that matches the keyword.
 +
 Use case ends.
 
@@ -114,13 +118,13 @@ Use case ends.
 
 [none]
 * 3a. User types in an invalid find command.
-** 3a1. Weeaboo shows an error message and the correct find input format.
+** 3a1. AlphaNUS shows an error message and the correct find input format.
 +
 Use case ends.
 
 [none]
 * 3b. User types in a keyword that returns no match.
-** 3b1. Weeaboo shows a no-match error message.
+** 3b1. AlphaNUS shows a no-match error message.
 +
 Use case ends.
 
@@ -129,9 +133,9 @@ Use case ends.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User types in command line the command to edit a payment form or deadline with a new description.
-4.  Weeaboo updates the payment form/deadline with the new description.
+4.  AlphaNUS updates the payment form/deadline with the new description.
 +
 Use case ends.
 
@@ -139,7 +143,7 @@ Use case ends.
 
 [none]
 * 3a. User types in a non-existing id.
-** 3a1. Weeaboo shows a non-existing id error message.
+** 3a1. AlphaNUS shows a non-existing id error message.
 +
 Use case ends.
 
@@ -148,9 +152,9 @@ Use case ends.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User requests to reschedule a deadline to a new time.
-4.  Weeaboo updates the deadline with the new time.
+4.  AlphaNUS updates the deadline with the new time.
 +
 Use case ends.
 
@@ -158,25 +162,25 @@ Use case ends.
 
 [none]
 * 3a. User types in a non-existing id for a deadline.
-** 3a1. Weeaboo shows a non-existing id error message.
+** 3a1. AlphaNUS shows a non-existing id error message.
 +
 Use case ends.
 
 [none]
 * 3b. User types in an invalid time.
-** 3b1. Weeaboo shows an invalid time error message.
+** 3b1. AlphaNUS shows an invalid time error message.
 +
 Use case ends.
 
 [none]
 * 3c. User requests to snooze the deadline.
-** 3c1. Weeaboo snoozes the deadline by 1 hour.
+** 3c1. AlphaNUS snoozes the deadline by 1 hour.
 +
 Use case ends.
 
 [none]
 * 3d. User requests to [.underline]#find the deadline# first.
-** 3d1. Weeaboo lists the deadlines that match the keyword searched.
+** 3d1. AlphaNUS lists the deadlines that match the keyword searched.
 +
 Use case resumes from step 3.
 
@@ -185,9 +189,9 @@ Use case resumes from step 3.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User requests to redetail a payment form.
-4.  Weeaboo updates the payment form with its new payment details.
+4.  AlphaNUS updates the payment form with its new payment details.
 +
 Use case ends.
 
@@ -195,13 +199,13 @@ Use case ends.
 
 [none]
 * 3a. User types in a non-existing id for a payment form.
-** 3a1. Weeaboo shows a non-existing id error message.
+** 3a1. AlphaNUS shows a non-existing id error message.
 +
 Use case ends.
 
 [none]
 * 3d. User requests to [.underline]#find the payment form# first.
-** 3d1. Weeaboo lists the payment forms that match the keyword searched.
+** 3d1. AlphaNUS lists the payment forms that match the keyword searched.
 +
 Use case resumes from step 3.
 
@@ -211,9 +215,9 @@ Use case resumes from step 3.
 *MSS*
 
 1.  User opens the JAR file.
-2.  Weeaboo shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
 3.  User requests to approve a payment form.
-4.  Weeaboo sets the payment form to approved.
+4.  AlphaNUS sets the payment form to approved.
 +
 Use case ends.
 
@@ -221,13 +225,13 @@ Use case ends.
 
 [none]
 * 3a. User types in a non-existing id for a payment form.
-** 3a1. Weeaboo shows a non-existing id error message.
+** 3a1. AlphaNUS shows a non-existing id error message.
 +
 Use case ends.
 
 [none]
 * 3d. User requests to [.underline]#find the payment form# first.
-** 3d1. Weeaboo lists the payment forms that match the keyword searched.
+** 3d1. AlphaNUS lists the payment forms that match the keyword searched.
 +
 Use case resumes from step 3.
 
