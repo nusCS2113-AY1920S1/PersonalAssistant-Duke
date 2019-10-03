@@ -1,6 +1,6 @@
 package duke.Data;
 
-import Menu.ManageStudents;
+import duke.Sports.ManageStudents;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
 import duke.Task.*;

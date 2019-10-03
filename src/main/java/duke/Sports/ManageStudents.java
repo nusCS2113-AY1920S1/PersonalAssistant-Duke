@@ -1,4 +1,4 @@
-package Menu;
+package duke.Sports;
 
 /**
  * This class is called when option 2 is chosen
