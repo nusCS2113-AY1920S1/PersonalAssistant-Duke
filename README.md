@@ -24,7 +24,11 @@ There are two reasons:
 **It is this change that we at Eggventory strive towards timelessly.**
 
 ## Eggventory in action
-*Insert UI image here*
+<p align="center">
+    <img src="./docs/images/ui.png" width="500" height="437">
+</p>
+
+Say bye to piles of paper records. Our inventory management system allows you to quickly and conveniently view all your stock and loan records. With the colour-based status indicator, hours spent slicing through inventory data can be cut down into seconds. As students we care, you won't have to stay back after 5pm to account for our lab logistics anymore!
 
 ### Seamless switching between CLI and GUI
 <p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching" height=20% width=20%> </p>
