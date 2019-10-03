@@ -29,7 +29,7 @@ public class RecurringTask extends Task {
 
     @Override
     public String writingFile() {
-        return "D"
+        return "R"
                 + "|"
                 + super.writingFile()
                 + "|"
@@ -38,7 +38,7 @@ public class RecurringTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]"
+        return "[R]"
                 + super.toString()
                 + " (every: "
                 + period
