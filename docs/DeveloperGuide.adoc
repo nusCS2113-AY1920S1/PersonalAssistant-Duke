@@ -51,7 +51,7 @@ _{Coming up soon!}_
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="20%,<20%,<35%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the app
@@ -124,7 +124,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clumsy user |edit or remove entries I’ve added |accurately track my finances
 
-|`*` |student who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
+|`*` |user who wants to buy gifts for my friends |specify the amount of money I want to save each month |purchase the gifts when their birthday arrives
 
 |=======================================================================
 
