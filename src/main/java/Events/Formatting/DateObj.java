@@ -1,7 +1,5 @@
 package Events.Formatting;
 
-import UserElements.UI;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,7 +17,6 @@ public class DateObj {
     protected Date dateObject;
 
     protected String formattedDateString;
-
 
     /**
      * Creates a custom "date object".
