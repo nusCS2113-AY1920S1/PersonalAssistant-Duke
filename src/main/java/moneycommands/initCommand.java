@@ -26,7 +26,7 @@ public class initCommand extends MoneyCommand{
         //String avgExp = inputString.split(" ")[2];
         float userSavings = Float.parseFloat(inputString.split(" ")[1]);
         float avgExp = Float.parseFloat(inputString.split(" ")[2]);
-        account.Initialize(userSavings,avgExp);
+        account.initialize(userSavings,avgExp);
         ui.appendToOutput("Initialised, you're ready to use Financial Ghosts\n");
         //ui.appendToOutput(avgExp + "\n");
     }

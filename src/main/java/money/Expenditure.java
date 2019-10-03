@@ -9,6 +9,13 @@ public class Expenditure extends Item {
     private Date boughtTime;
     private SimpleDateFormat simpleDateFormat;
 
+    /**
+     * Constructor of the Expenditure Object to record expenditure.
+     * @param price Price of the item spent on
+     * @param description info on the item
+     * @param category Category the item is grouped under
+     * @param boughtTime Date which the item is bought
+     */
     public Expenditure(float price, String description, String category, Date boughtTime) {
         super(price, description);
         this.category = category;
@@ -29,7 +36,7 @@ public class Expenditure extends Item {
         return boughtTime;
     }
 
-    public String getBoughtTime(){
+    public String getBoughtTime() {
         return simpleDateFormat.format(boughtTime);
     }
 }

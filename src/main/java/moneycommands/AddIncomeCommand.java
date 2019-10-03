@@ -1,6 +1,6 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.Parser;
 import money.Account;
 import money.Income;
 import controlpanel.DukeException;
@@ -12,21 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * This command adds an income source to the Total Income List
+ * This command adds an income source to the Total Income List.
  */
 public class AddIncomeCommand extends MoneyCommand {
 
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     /**
      * Constructor of the command which initialises the add income command
-     * with the income source data within the user input
+     * with the income source data within the user input.
      * @param command add command inputted from user
      */
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
-        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy");
     }
 
     @Override
@@ -36,7 +34,7 @@ public class AddIncomeCommand extends MoneyCommand {
 
     /**
      * This method executes the add income command. Takes the input data from user and
-     * adds an income source to the Total Income List
+     * adds an income source to the Total Income List.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk
@@ -54,7 +52,9 @@ public class AddIncomeCommand extends MoneyCommand {
         account.getIncomeListTotal().add(i);
 
         ui.appendToOutput(" Got it. I've added this income source: \n");
-        ui.appendToOutput("     " + account.getIncomeListTotal().get(account.getIncomeListTotal().size()-1).toString() + "\n");
+        ui.appendToOutput("     ");
+        ui.appendToOutput(account.getIncomeListTotal().get(account.getIncomeListTotal().size() - 1).toString()
+                + "\n");
         ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
     }
 }

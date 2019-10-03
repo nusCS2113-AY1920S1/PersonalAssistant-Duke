@@ -1,6 +1,6 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.Parser;
 import money.Account;
 import money.Expenditure;
 import controlpanel.DukeException;
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * This command adds an expenditure to the Total Expenditure List
+ * This command adds an expenditure to the Total Expenditure List.
  */
 public class AddExpenditureCommand extends MoneyCommand {
 
@@ -21,7 +21,7 @@ public class AddExpenditureCommand extends MoneyCommand {
 
     /**
      * Constructor of the command which initialises the add expenditure command
-     * with the expenditure data within the user input
+     * with the expenditure data within the user input.
      * @param command add command inputted from user
      */
     public AddExpenditureCommand(String command) {
@@ -36,7 +36,7 @@ public class AddExpenditureCommand extends MoneyCommand {
 
     /**
      * This method executes the add expenditure command. Takes the input from user
-     * and adds an expenditure to the Total Expenditure List
+     * and adds an expenditure to the Total Expenditure List.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk
@@ -56,7 +56,8 @@ public class AddExpenditureCommand extends MoneyCommand {
         account.getExpListTotal().add(e);
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
-        ui.appendToOutput("     " + account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");
+        ui.appendToOutput("     ");
+        ui.appendToOutput(account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
     }
 }
