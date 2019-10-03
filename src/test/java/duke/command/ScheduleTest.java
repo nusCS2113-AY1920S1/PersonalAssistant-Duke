@@ -46,7 +46,7 @@ public class ScheduleTest {
             System.setIn(inDeadline);
             System.setIn(inEvent);
             System.setIn(inContent);
-            assertEquals(expectedOutput, outContent.toString());
+            assertEquals(expectedOutput, outContent.toString().replace("\r", ""));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
