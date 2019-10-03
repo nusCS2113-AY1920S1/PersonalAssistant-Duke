@@ -17,7 +17,6 @@ import java.util.Date;
 public class AddIncomeCommand extends MoneyCommand {
 
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     /**
      * Constructor of the command which initialises the add income command
@@ -26,7 +25,6 @@ public class AddIncomeCommand extends MoneyCommand {
      */
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
-        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy");
     }
 
     @Override
