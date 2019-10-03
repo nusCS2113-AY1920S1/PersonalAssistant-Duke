@@ -20,6 +20,9 @@ public abstract class HttpReq {
      * @param param The parameters of the request
      */
     public HttpReq(String reqType, String url, String param) {
+        this.reqType = reqType;
+        this.url = url;
+        this.param = param;
     }
 
     /**
