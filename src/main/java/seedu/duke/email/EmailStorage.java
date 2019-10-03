@@ -20,7 +20,7 @@ public class EmailStorage {
     /**
      * Get the pathname of the data/email.txt.
      *
-     * @return  pathname of the email.txt file.
+     * @return pathname of the email.txt file.
      */
     private static String getSaveEmailDir() {
         String dir = "";
@@ -38,7 +38,7 @@ public class EmailStorage {
     /**
      * Get the pathname of the data/emails/ folder, in which all the html files are saved.
      *
-     * @return  pathname of the data/emails/ folder.
+     * @return pathname of the data/emails/ folder.
      */
     private static String getFolderDir() {
         String dir = "";
@@ -71,9 +71,8 @@ public class EmailStorage {
     }
 
     /**
-     * To implement with code to fetch emails from online server to local storage.
-     * May need to sync the current email list with local storage after that by calling
-     * syncEmailListWithHtml().
+     * To implement with code to fetch emails from online server to local storage. May need to sync the
+     * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
         EmailList serverEmailList = Http.fetchEmail(2);
@@ -128,11 +127,11 @@ public class EmailStorage {
     }
 
     /**
-     * To sync the emailList with email html files saved in local storage.
-     * To prevent mismatch between emailList and existing emails in local storage.
-     * To be called for execution after fetching html files from server, to keep emailList updated.
-     * Creates a new emailList, which only adds email object from the input emailList that are present in
-     * the html lists, and html files that are not included in the input emailList.
+     * To sync the emailList with email html files saved in local storage. To prevent mismatch between
+     * emailList and existing emails in local storage. To be called for execution after fetching html files
+     * from server, to keep emailList updated. Creates a new emailList, which only adds email object from the
+     * input emailList that are present in the html lists, and html files that are not included in the input
+     * emailList.
      *
      * @param emailList is the current emailList from Duke to be synced with the html files in local storage.
      * @return the synced emailList.
@@ -167,8 +166,8 @@ public class EmailStorage {
     }
 
     /**
-     * Get emailList according to html files present in local storage.
-     * This method is not being used, but may be useful someday so it is kept here.
+     * Get emailList according to html files present in local storage. This method is not being used, but may
+     * be useful someday so it is kept here.
      *
      * @return EmailList created by according to html files present in local storage.
      */
@@ -240,7 +239,8 @@ public class EmailStorage {
      */
     public static EmailList readEmails() {
         EmailList emailList = readEmailFromFile();
-        EmailList syncedEmailList = syncEmailListWithHtml(emailList);;
+        EmailList syncedEmailList = syncEmailListWithHtml(emailList);
+        ;
         return syncedEmailList;
     }
 }

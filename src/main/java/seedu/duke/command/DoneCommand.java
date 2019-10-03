@@ -22,7 +22,7 @@ public class DoneCommand extends Command {
      * Executes the done command by calling the markDone function of the task list.
      *
      * @return a flag whether the task is successfully marked as done. Returns false if the markDone function
-     *      throws exception.
+     *         throws exception.
      */
     @Override
     public boolean execute() {

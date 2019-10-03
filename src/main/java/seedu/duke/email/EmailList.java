@@ -32,7 +32,7 @@ public class EmailList extends ArrayList<Email> {
      * @param index of the email to be shown in the email list.
      * @return a string to inform the user that the particular email is being shown in browser.
      * @throws Parser.UserInputException thrown when index parsing failed or out of range
-     * @throws IOException if fails to load the filepath or open the browser.
+     * @throws IOException               if fails to load the filepath or open the browser.
      */
     public String show(int index) throws Parser.UserInputException, IOException {
         if (index < 0 || index >= this.size()) {

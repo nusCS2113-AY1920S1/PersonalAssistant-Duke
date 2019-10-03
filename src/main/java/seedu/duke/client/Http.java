@@ -57,6 +57,12 @@ public class Http {
         EmailStorage.syncWithServer();
     }
 
+    /**
+     * Fetches email from Outlook serer.
+     *
+     * @param limit the limit of number of emails to be fetched
+     * @return the list of emails fetched
+     */
     public static EmailList fetchEmail(int limit) {
         JSONObject apiParams = new JSONObject();
         try {
