@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
- * Testing for Schedule, currently failing due to IO issues
+ * Testing for Schedule, currently failing due to IO issues.
  */
 public class ScheduleTest {
 
