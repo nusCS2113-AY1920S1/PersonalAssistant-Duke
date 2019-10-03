@@ -16,9 +16,9 @@ public class DoneCommand extends Command {
     @Override
     public void execute(StockType list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
-            list.getTask(itemIndex).markAsDone();
+            //list.getStock(itemIndex).markAsDone();
             ui.print("Nice! I've marked this task as done:\n"
-                    + list.getTask(itemIndex).toString());
+                    + list.getStock(itemIndex).toString());
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("That task doesn't exist! Please check"
                     + " the available tasks again: ");

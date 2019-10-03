@@ -1,10 +1,10 @@
 package eggventory.commands;
 
-import eggventory.items.Task;
 import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
+import eggventory.items.Stock;
 
 /**
  * Command objects for marking tasks as done, or deleting them.
@@ -22,8 +22,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(StockType list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
-            Task item = list.getTask(itemIndex);
-            list.deleteTask(itemIndex);
+            Stock item = list.getStock(itemIndex);
+            list.deleteStock(itemIndex);
             ui.print("Okay! I've deleted this task:\n" + item.toString());
 
         } catch (IndexOutOfBoundsException e) {

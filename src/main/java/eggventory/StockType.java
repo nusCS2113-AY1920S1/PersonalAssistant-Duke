@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.ArrayList;
 import eggventory.exceptions.BadInputException;
-import eggventory.items.DateTime;
-import eggventory.items.Deadline;
-import eggventory.items.Event;
-import eggventory.items.Task;
-import eggventory.items.Todo;
+import eggventory.items.*;
 import eggventory.enums.TaskType;
 
 /**
@@ -18,17 +14,17 @@ import eggventory.enums.TaskType;
  */
 
 public class StockType {
-    private ArrayList<Task> stockList;
+    private ArrayList<Stock> stockList;
 
-    public StockType(ArrayList<Task> savedFile) {
+    public StockType(ArrayList<Stock> savedFile) {
         stockList = savedFile;
     }
 
     public StockType() {
-        stockList = new ArrayList<Task>();
+        stockList = new ArrayList<>();
     }
 
-    public ArrayList<Task> getStockList() {
+    public ArrayList<Stock> getStockList() {
         return stockList;
     }
 
@@ -37,62 +33,15 @@ public class StockType {
     }
 
     /**
-     * Adds a task to the stockList.
-     *
+     * Adds a stock to the stockList.
      * @return True if item was added successfully.
      */
-    public boolean addItem(TaskType type, String description) {
-        stockList.add(new Todo(description));
+    public boolean addStock(String stockType, String stockCode, int quantity, String description) {
+        stockList.add(new Stock(stockType, stockCode, quantity, description));
         return true;
     }
 
-    /**
-     * Adds a ToDo item to the list.
-     *
-     * @param type        TaskType enum MUST BE TODO.
-     * @param description User input description of task
-     * @param hrs         Duration of task.
-     * @return true if item was added successfully.
-     */
-    public boolean addItem(TaskType type, String description, int hrs) {
-        if (type != TaskType.TODO) {
-            return false;
-        }
-        stockList.add(new Todo(description, hrs));
-
-        return true;
-    }
-
-    /**
-     * Adds a TODO, DEADLINE or EVENT item to the list.
-     *
-     * @param type        TaskType enum of task to be added.
-     * @param description User input description of task.
-     * @param dateTimes   Vararg of DateTimes that are to be added.
-     * @return true if item was added successfully.
-     */
-    public boolean addItem(TaskType type, String description, DateTime... dateTimes) throws BadInputException {
-        switch (type) {
-        case TODO:
-            stockList.add(new Todo(description));
-            break;
-
-        case DEADLINE:
-            stockList.add(new Deadline(description, dateTimes[0]));
-            break;
-
-        case EVENT: // Throws the BadInputException
-            stockList.add(new Event(description, dateTimes[0], dateTimes[1]));
-            break;
-
-        default:
-            return false;
-        }
-
-        return true;
-    }
-
-    public Task getTask(int i) {
+    public Stock getStock(int i) {
         return stockList.get(i);
     }
 
@@ -101,37 +50,28 @@ public class StockType {
      *
      * @param i the index of the task to be deleted.
      */
-    public void deleteTask(int i) {
+    public void deleteStock(int i) {
         stockList.remove(i);
-    }
-
-    // TODO: Deprecated, remove in future commit - Raghav
-    /**
-     * Prints error message if a nonexistent task index is accessed.
-     * Prints the task list for user to choose again.
-     */
-    private void printTaskNonexistent() {
-        System.out.println("That task doesn't exist! Please check the available tasks again: ");
-        // TODO: I don't even know how to begin explaining the changes to make here..
-        //printList();
     }
 
     /**
      * Looks for undone deadlines within the next 5 Days and prints the task.
      */
-    public void printReminders() {
+    /*
+    private void printReminders() {
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
 
-        for (Task task : stockList) {
-            if (task instanceof Deadline && !task.getIsDone()) {
-                Deadline deadline = (Deadline) task;
+        for (Stock stock : stockList) {
+            if (stock instanceof Deadline && !stock.getIsDone()) {
+                Deadline deadline = (Deadline) stock;
                 long timeDifference = deadline.getDate().getTime().getTime() - now.getTime();
                 if (timeDifference <= millisInFiveDays && timeDifference > 0) {
-                    task.printTaskDetails();
+                    stock.printTaskDetails();
                 }
             }
         }
     }
+    */
 }

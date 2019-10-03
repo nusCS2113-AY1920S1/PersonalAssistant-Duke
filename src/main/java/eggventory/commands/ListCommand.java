@@ -21,7 +21,7 @@ public class ListCommand extends Command {
 
         for (int i = 0; i < max; i++) { //Index starts from 0.
             // TODO: Change to StringBuilder - Raghav
-            listString += (i + 1 + ". " + list.getTask(i).toString() + "\n");
+            listString += (i + 1 + ". " + list.getStock(i).toString() + "\n");
         }
         ui.print(listString);
     }

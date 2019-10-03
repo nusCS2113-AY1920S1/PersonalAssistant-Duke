@@ -1,24 +1,29 @@
 package eggventory.items;
 
 /**
- * Represents a type of item in the inventory.
+ * Represents a stock of item in the inventory.
  * A type of item (eg. 560ohm resistor) may consist of many individual items (multiple resistors),
  * but they are all considered interchangeable and are not individually identified.
  * Within a type of item, some of the items may be marked as 'on loan', or 'lost'.
  */
-public class Item {
+public class Stock {
 
-    private String name;
-    private int total;
+    private String stockType;
+    private String stockCode;
+    private int quantity;
+    private String description;
     private int loaned;
     private int lost;
 
     /**
-     * An item is first added with its name and total number. By default the loaned and lost numbers are 0.
+     * An stock is first added with its stockType, stockcode, description and quantity.
+     * By default the loaned and lost numbers are 0.
      */
-    public Item(String name, int total) {
-        this.name = name;
-        this.total = total;
+    public Stock(String stockType, String stockCode, int quantity, String description) {
+        this.stockType = stockType;
+        this.stockCode = stockCode;
+        this.quantity = quantity;
+        this.description = description;
         this.loaned = 0;
         this.lost = 0;
     }
@@ -27,32 +32,32 @@ public class Item {
      * Gets the name of the item.
      * @return name the name of the item.
      */
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     /**
      * Sets the name of the item.
-     * @param name the name of the item.
+     * @param description the name of the item.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
      * Gets the total number of this item. Includes items lost and on loan.
      * @return total the name of the item.
      */
-    public int getTotal() {
-        return total;
+    public int getQuantity() {
+        return quantity;
     }
 
     /**
      * Sets the new total number of this item. To be used by 'change' or 'qty' commands to modify the number of items.
      * @param newTotal the new total number of items.
      */
-    public void setTotal(int newTotal) {
-        this.total = newTotal;
+    public void setQuantity(int newTotal) {
+        this.quantity = newTotal;
     }
 
     /**
@@ -92,8 +97,23 @@ public class Item {
      * @return the number of available items.
      */
     public int numAvailable() {
-        return (total - loaned - lost);
+        return (quantity - loaned - lost);
     }
+
+    /**
+     * Formats all task details appropriately for Ui output.
+     * @return the task details.
+     */
+    @Override
+    public String toString() {
+        return stockType + " | " + stockCode + " | " + quantity + " | " + description;
+    }
+
+    public String saveDetailsString() {
+        return stockType + "/" + stockCode + "/" + quantity + "/" + description;
+    }
+
+    //TODO: Fix methods below for new UI.print() implementation.
 
     /**
      * Prints the complete details of all the items of this type.
@@ -101,8 +121,8 @@ public class Item {
      * To be used with the 'stock all' command.
      */
     public void printAll() {
-        System.out.println(name + ": " + numAvailable() + " available. " + loaned + " on loan. "
-                + lost + " lost. (" + total + " total.)");
+        System.out.println(description + ": " + numAvailable() + " available. " + loaned + " on loan. "
+                + lost + " lost. (" + quantity + " total.)");
     }
 
     /**
@@ -111,7 +131,7 @@ public class Item {
      * To be used with the 'stock' command.
      */
     public void printAvailable() {
-        System.out.println(name + ": " + numAvailable());
+        System.out.println(description + ": " + numAvailable());
     }
 
     /**
@@ -120,7 +140,7 @@ public class Item {
      * To be used with the 'stock loan' command.
      */
     public void printLoan() {
-        System.out.println(name + ": " + lost);
+        System.out.println(description + ": " + lost);
     }
 
     /**
@@ -129,7 +149,7 @@ public class Item {
      * To be used with the 'stock lost' command.
      */
     public void printLost() {
-        System.out.println(name + ": " + lost);
+        System.out.println(description + ": " + lost);
     }
 
 }

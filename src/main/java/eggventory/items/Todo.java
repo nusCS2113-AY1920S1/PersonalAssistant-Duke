@@ -5,7 +5,7 @@ import eggventory.enums.TaskType;
 /**
  * The least detailed task is the todo,
  * which consists of a deadline and done status.
- * It is effectively the (parent) Task class with a different print and save string.
+ * It is effectively the (parent) Stock class with a different print and save string.
  */
 
 public class Todo extends Task {
@@ -13,7 +13,7 @@ public class Todo extends Task {
     private int duration = 0;
 
     public Todo(String description) {
-        super(description, TaskType.TODO); //Using the Task constructor. isDone is set to false.
+        super(description, TaskType.TODO); //Using the Stock constructor. isDone is set to false.
     }
 
     public Todo(String description, int duration) {

@@ -2,11 +2,10 @@ package eggventory.items;
 
 import eggventory.exceptions.BadInputException;
 import java.util.Calendar;
-
 import eggventory.enums.TaskType;
 
 /**
- * In addition to the deadline and done status (inherited from Task),
+ * In addition to the deadline and done status (inherited from Stock),
  * the Event has a start time (and later, end time) that is represented by a date class.
  * The save and print strings have been overridden to show more information.
  */
@@ -20,7 +19,7 @@ public class Event extends Task {
      */
 
     public Event(String description, DateTime start, DateTime end) throws BadInputException {
-        super(description, TaskType.EVENT); //Using the Task constructor. isDone is set to false.
+        super(description, TaskType.EVENT); //Using the Stock constructor. isDone is set to false.
         try {
             this.eventStartTime = start;
             this.eventEndTime = end;

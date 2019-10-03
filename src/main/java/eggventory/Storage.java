@@ -6,10 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import eggventory.exceptions.BadInputException;
-import eggventory.items.Task;
 import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
+import eggventory.items.Stock;
+
 /**
  * Handles reading and writing the tasklist to file.
  */
@@ -22,7 +24,7 @@ public class Storage {
     }
 
     /**
-     * Converts save file details into Tasks.
+     * Converts save file details into Stocks.
      */
     public StockType load() {
 
@@ -34,41 +36,16 @@ public class Storage {
 
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
-                String[] item = itemRaw.split("/", 4);
-                AddCommand cmd = null;
+                String[] item = itemRaw.split("/", 0);
 
-                switch (item[0]) {
-                case "T":
-                    cmd = new AddCommand(CommandType.TODO, item[2], "");
-                    break;
-
-                case "D":
-                    cmd = new AddCommand(CommandType.DEADLINE, item[2],item[3]);
-                    break;
-
-                case "E":
-                    cmd = new AddCommand(CommandType.EVENT, item[2],item[3]);
-                    break;
-
-                default:
-                    //TODO: throw an exception
-                    System.out.println("An exception will be thrown here eventually.");
-                    break;
-                }
-
-                if (cmd != null) {
-                    cmd.execute(savedList);
-                }
-
-                // Saved item is a completed task
-                if (item[1].equals("1")) {
-                    savedList.getTask(savedList.getSize() - 1).markAsDone();
-                }
+                AddCommand cmd = new AddCommand(CommandType.ADD, item[0], item[1],
+                        Integer.parseInt(item[2]), item[3]);
+                cmd.execute(savedList);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found. New list will be created instead.");
-        } catch (BadInputException e) {
-            System.out.println("Save file format wrong. Please fix it manually or use a new list.");
+        //} catch (BadInputException e) {
+            //System.out.println("Save file format wrong. Please fix it manually or use a new list.");
         } catch (Exception e) {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
@@ -85,11 +62,11 @@ public class Storage {
     /**
      * Saves existing StockType to a text file.
      */
-    public void save(ArrayList<Task> taskList) {
+    public void save(ArrayList<Stock> stockList) {
         StringBuilder tasksToSave = new StringBuilder();
-        int max = taskList.size();
+        int max = stockList.size();
         for (int i = 0; i < max; i++) { //index starts from 0.
-            tasksToSave.append(taskList.get(i).saveDetailsString()).append(System.lineSeparator());
+            tasksToSave.append(stockList.get(i).saveDetailsString()).append(System.lineSeparator());
         }
 
         String taskListToSave = tasksToSave.toString();

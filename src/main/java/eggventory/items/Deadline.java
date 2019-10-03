@@ -5,7 +5,7 @@ import eggventory.exceptions.BadInputException;
 import java.util.Calendar;
 
 /**
- * In addition to the deadline and done status (inherited from Task),
+ * In addition to the deadline and done status (inherited from Stock),
  * the Deadline has a doByDate that is represented by a date class.
  * The save and print strings have been overridden to show more information.
  */
@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * Deadline object has a "by" string as well as a Date object.
      */
     public Deadline(String description, DateTime doByDate) throws BadInputException {
-        super(description, TaskType.DEADLINE); //Using the Task constructor. isDone is set to false.
+        super(description, TaskType.DEADLINE); //Using the Stock constructor. isDone is set to false.
         this.doByDate =  doByDate;
     }
 

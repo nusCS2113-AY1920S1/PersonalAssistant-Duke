@@ -16,56 +16,6 @@ import eggventory.enums.CommandType;
 
 public class Parser {
 
-    private String[] addTodo(String input) throws InsufficientInfoException {
-        if (input.isBlank()) {
-            throw new InsufficientInfoException("Sorry, the description of a Todo cannot be blank!");
-        }
-
-        String[] checkHours = input.split(" /needs ", -1);
-
-        return checkHours;
-
-    }
-
-    /**
-     * Splits the user input and checks for formatting errors inside input string.
-     * @param input User input with "deadline" token removed
-     * @return Array of size 2 with elem[0] being the description and elem[1] the formatted datetime.
-     * @throws InsufficientInfoException Thrown if user formatting is wrong.
-     */
-    private String[] addDeadline(String input) throws InsufficientInfoException {
-        String[] deadline = input.split("/by ");
-
-        //Checks if either field is blank.
-        if (deadline[0].isBlank()) {
-            throw new InsufficientInfoException("Sorry, the description of a Deadline cannot be blank!");
-        } else if ((deadline.length < 2) || deadline[1].isBlank()) { //If the field is empty or does not exist
-            throw new InsufficientInfoException("Sorry, the Deadline must have a date to be completed /by.");
-        } else {
-            return deadline;
-        }
-    }
-
-    /**
-     * Splits the user input and checks for formatting error inside input string.
-     *
-     * @param input User input with "event" token removed
-     * @return Array of size 2. elem[0] is the description and elem[1] is the datetime in format of
-     *      "dd/MM/YYYY HHmm to dd/MM/YYYY HHmm".
-     * @throws InsufficientInfoException Thrown if user formatting is wrong.
-     */
-    private String[] addEvent(String input) throws InsufficientInfoException {
-        String[] event = input.split("/at ");
-
-        if (event[0].length() == 0) {
-            throw new InsufficientInfoException("Sorry, the description of an Event cannot be blank!");
-        } else if ((event.length < 2) || event[1].length() == 0) {
-            throw new InsufficientInfoException("Sorry, the event must have a timeframe it happens /at.");
-        } else {
-            return event;
-        }
-    }
-
     private int processDoAfter(String input) throws BadInputException {
         String shortStr;
         String[] splitStr;
@@ -94,7 +44,7 @@ public class Parser {
     private Command handleListInput(String listInput) throws BadInputException,
             InsufficientInfoException, NumberFormatException {
 
-        /*TODO: Update parser to handle Task requests separately to process optional commands better
+        /*TODO: Update parser to handle Stock requests separately to process optional commands better
             eg. doAfter or repeating tasks
         */
 
@@ -105,10 +55,10 @@ public class Parser {
             listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
         }
 
-        String[] keyword = listInput.split(" ", 2);
+        String[] inputArr = listInput.split(" ", 0);
         Command command;
 
-        switch (keyword[0]) {
+        switch (inputArr[0]) {
         //Commands which are single words.
         case "list":
             command = new ListCommand(CommandType.LIST);
@@ -119,28 +69,31 @@ public class Parser {
 
         //Commands which require numerical input.
         case "done":
-            command = new DoneCommand(CommandType.DONE, Integer.parseInt(keyword[1]));
+            command = new DoneCommand(CommandType.DONE, Integer.parseInt(inputArr[1]));
             break;
         case "delete":
-            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(keyword[1]));
+            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(inputArr[1]));
             break;
 
         //Commands which require string input.
-        case "todo":
-            String[] todoTemp = addTodo(keyword[1]);
-            command = new AddCommand(CommandType.TODO, todoTemp[0],
-                    (todoTemp.length > 1) ? todoTemp[1] : "");
+        case "add": {
+            if (inputArr.length == 1) {
+                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+            } else if (inputArr[1].isBlank() || inputArr.length < 5) {
+                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
+                        + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
+            }
+
+            command = new AddCommand(CommandType.ADD, inputArr[1], inputArr[2], Integer.parseInt(inputArr[3]),
+                    inputArr[4]);
             break;
-        case "deadline":
-            String[] deadlineTemp = addDeadline(keyword[1]);
-            command = new AddCommand(CommandType.DEADLINE, deadlineTemp[0], deadlineTemp[1]);
-            break;
-        case "event":
-            String[] eventTemp = addEvent(keyword[1]);
-            command = new AddCommand(CommandType.EVENT, eventTemp[0], eventTemp[1]);
-            break;
+        }
         case "find": {
-            String description = keyword[1].trim(); //Might need to catch empty string exceptions?
+            if (inputArr.length == 1) {
+                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+            }
+
+            String description = inputArr[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
