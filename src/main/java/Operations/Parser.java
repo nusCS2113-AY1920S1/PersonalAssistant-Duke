@@ -62,32 +62,7 @@ public class Parser {
      *               index 1 stores the date String.
      */
     public String[] getDescriptionWithDate() {
-        String[] array = scanner.nextLine().split("/", 1);
-        return array;
-    }
-
-    public String[] getDate(String[] ar) {
-        String[] array = ar[0].trim().split("/", 2);
-        return array;
-    }
-
-    /**
-     * Returns an array with the task description stored as well as the duration of the task
-     * @return array An array of Strings with description and duration both in index 0 of the array
-     */
-    public String[] getDescriptionWithDuration() {
-        String[] array = scanner.nextLine().split(" ", 1);
-        return array;
-    }
-
-    /**
-     * Takes in the array containing both the description as well as the duration and splitting
-     * them up
-     * @param ar An array containing both the description and the duration
-     * @return array An array containing the description in the 0th index and the duration in the 1st index
-     */
-    public String[] getDuration(String[] ar) {
-        String[] array = ar[0].trim().split("/", 2);
+        String[] array = scanner.nextLine().trim().split("/", 2);
         return array;
     }
 

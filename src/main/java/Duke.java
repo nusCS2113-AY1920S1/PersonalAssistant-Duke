@@ -118,9 +118,8 @@ public class Duke {
                     try {
                         ui.showAdd();
                         String[] deadlineArray = parser.getDescriptionWithDate();
-                        String[] ar = parser.getDate(deadlineArray);
-                        Date by = parser.formatDate(ar[1]);
-                        Deadline temp = new Deadline(ar[0], by);
+                        Date by = parser.formatDate(deadlineArray[1]);
+                        Deadline temp = new Deadline(deadlineArray[0], by);
                         taskList.add(temp);
                     } catch (DukeException e) {
                         ui.showDateError();
@@ -130,8 +129,7 @@ public class Duke {
                 case event:
                     try {
                         String[] eventArray = parser.getDescriptionWithDate();
-                        String[] ar = parser.getDate(eventArray);
-                        Date at = parser.formatDate(ar[1]);
+                        Date at = parser.formatDate(eventArray[1]);
 
                         ui.promptForReply();
                         ReplyType replyType;
@@ -146,7 +144,7 @@ public class Duke {
                                 TimeUnit timeUnit = parser.getTimeUnit();
                                 ui.promptForTime();
                                 int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
+                                FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
 
                                 //checks for clashes
                                 if( CheckAnomaly.checkTime(fixedDuration) ) {
@@ -158,7 +156,7 @@ public class Duke {
                                 Timer timer = new Timer();
                                 class RemindTask extends TimerTask {
                                     public void run() {
-                                        System.out.println(ar[0] + " is completed");
+                                        System.out.println(eventArray[0] + " is completed");
                                         timer.cancel();
                                     }
                                 }
@@ -174,8 +172,9 @@ public class Duke {
                                 ui.showAdd();
                             break;
                             case no:
-                                Event event = new Event(ar[0], at);
+                                Event event = new Event(eventArray[0], at);
                                 taskList.add(event);
+                                ui.showAdd();
                             break;
                             default:
                                 ui.showCommandError();
