@@ -58,9 +58,10 @@ public class Ui {
         if (command.equals("list")) {
             System.out.print(line + "     Here are the tasks in your list:\n");
         } else {
-            System.out.print(line + "     Here are the matching tasks in your list:\n");
+            if (command.equals("find")) {
+                System.out.print(line + "     Here are the matching tasks in your list:\n");
+            }
         }
-
         for (int i = 0; i < listsize; i++) {
             int listnum = i + 1;
             System.out.print("     " + listnum + "." + list.get(i).giveTask() + "\n");
@@ -101,6 +102,36 @@ public class Ui {
         System.out.print("       " + task.giveTask() + "\n");
         int tasksize = tasklist.size();
         System.out.print("     Now you have " + tasksize + " tasks in the list." + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a Task being snoozed.
+     * @param task Task to be snoozed.
+     */
+        public void printSnoozeMessage(Task task) {
+        System.out.print(line + "     Got it. I've snoozed this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a Task being postponed.
+     * @param task Task to be postponed.
+     */
+    public void printPostponeMessage(Task task) {
+        System.out.print(line + "     Got it. I've postponed this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a Task being rescheduled.
+     * @param task Task to be snoozed.
+     */
+    public void printRescheduleMessage(Task task) {
+        System.out.print(line + "     Got it. I've rescheduled this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
         System.out.print(line);
     }
 

@@ -13,6 +13,7 @@ public class Todo extends Task implements Serializable {
      */
     public Todo(String description) {
         super(description);
+        this.type = "T";
     }
 
     /**

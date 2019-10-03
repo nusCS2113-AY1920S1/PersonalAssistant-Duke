@@ -1,0 +1,56 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AlphaNUS - mid v1.1 was developed by the CS2113T-F10-3 team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Akshay Narayan
+image::AkshayNarayan.png[width="150", align="left"]
+{empty}[https://www.comp.nus.edu.sg/~anarayan[homepage]] [github] [<<akshaynarayan#, portfolio>>]
+
+Role: Lecturer
+
+'''
+
+=== Leow Yong Heng
+image::leowyh.png[width="150", align="left"]
+{empty}[http://github.com/leowyh[github]] [<<leowyongheng#, portfolio>>]
+
+Role: Team Lead, Documentation +
+Responsibilities: UI
+
+'''
+
+=== Shriya Saxena
+image::e0373902.png[width="150", align="left"]
+{empty}[http://github.com/E0373902[github]] [<<shriyasaxena#, portfolio>>]
+
+Role: Testing, Code quality +
+Responsibilities: Data
+
+'''
+
+=== Li Jiayu
+image::lijiayu980606.png[width="150", align="left"]
+{empty}[http://github.com/lijiayu980606[github]] [<<lijiayu#, portfolio>>]
+
+Role: Deliverables and deadlines, Integration +
+Responsibilities: Storage
+
+'''
+
+=== Karan Sarat
+image::karansarant.png[width="150", align="left"]
+{empty}[http://github.com/karansarat[github]] [<<karansarat#, portfolio>>]
+
+Role: Scheduling and tracking,  +
+Responsibilities: UI
+
+'''
