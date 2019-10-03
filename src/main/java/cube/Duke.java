@@ -8,7 +8,7 @@ package cube;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.ui.Ui;
-import cube.logic.Parser;
+import cube.logic.parser.Parser;
 import cube.logic.command.Command;
 import cube.storage.*;
 import cube.exception.CubeException;
