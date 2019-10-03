@@ -50,7 +50,7 @@ public class Reminder {
     }
 
     /**
-     * Force reminder to check upcoming tasks and remind immediately
+     * Force reminder to check upcoming tasks and remind immediately.
      */
     public void forceCheckReminder() {
         if (!this.thread.isAlive()) {
@@ -93,9 +93,9 @@ public class Reminder {
                 replace the if logic below with:
                     if (!task.isDone() && timePeriod.isClashing(task.getPeriod().getBegin())) {
              */
-            if (task instanceof DoWithin &&
-                    !task.isDone() &&
-                    timePeriod.isClashing(((DoWithin) task).getPeriod().getBegin())) {
+            if (task instanceof DoWithin
+                    && !task.isDone()
+                    && timePeriod.isClashing(((DoWithin) task).getPeriod().getBegin())) {
                 upcomingTasks.add(task);
             }
         }

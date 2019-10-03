@@ -78,7 +78,7 @@ public class TimeInterval implements TemporalAmount, Serializable {
     }
 
     /**
-     * Convert the time stored in this object to an equivalent Duration object
+     * Convert the time stored in this object to an equivalent Duration object.
      * @return a Duration object which represent the total time with seconds
      */
     public Duration toDuration() { // Estimate
