@@ -1,7 +1,6 @@
-package commands;
+package eggventory.commands;
 
 import eggventory.TaskList;
-import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import org.junit.jupiter.api.Test;
