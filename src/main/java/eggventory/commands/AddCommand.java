@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(StockType list, Ui ui, Storage storage) {
         list.addStock(stockType, stockCode, quantity, description);
-        ui.print("I have adding the following stock to your list:\n"
+        ui.print("I have added the following stock to your list:\n"
                 + list.getStock(list.getSize() - 1).toString());
     }
 
