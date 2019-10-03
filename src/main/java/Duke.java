@@ -1,5 +1,5 @@
-import Money.Account;
-import MoneyCommands.MoneyCommand;
+import money.Account;
+import moneycommands.MoneyCommand;
 import commands.Command;
 import controlpanel.DukeException;
 import controlpanel.Parser;

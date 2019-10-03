@@ -1,7 +1,7 @@
-package MoneyCommands;
+package moneycommands;
 
-import Money.Account;
-import Money.BankTracker;
+import money.Account;
+import money.BankTracker;
 import controlpanel.Storage;
 import controlpanel.Ui;
 
