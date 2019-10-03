@@ -1,4 +1,7 @@
-import MooMoo.*;
+import moomoo.Command;
+import moomoo.MooMooException;
+import moomoo.Parser;
+import moomoo.Ui;
 
 public class MooMoo {
 
@@ -23,9 +26,10 @@ public class MooMoo {
         }
 
         ui.showGoodbye();
+
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new MooMoo().run();
     }
 

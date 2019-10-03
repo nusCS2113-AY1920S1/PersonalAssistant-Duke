@@ -1,11 +1,15 @@
-package MooMoo;
+package moomoo;
 
 import java.util.Scanner;
 
 public class Parser {
 
-    static public boolean isExit = false;
-
+    /**
+     * Processes command from user input.
+     * @param command user's input
+     * @return recognized command
+     * @throws MooMooException user input is not a valid command
+     */
     public static Command parseCommand(String command) throws MooMooException {
         Scanner scanner = new Scanner(command);
         String commandType = scanner.next();

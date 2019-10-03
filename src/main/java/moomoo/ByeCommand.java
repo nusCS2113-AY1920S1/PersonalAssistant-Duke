@@ -1,6 +1,6 @@
-package MooMoo;
+package moomoo;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     public ByeCommand() {
         super();

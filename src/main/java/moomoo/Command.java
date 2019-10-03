@@ -1,12 +1,14 @@
-package MooMoo;
+package moomoo;
 
 public class Command {
 
     public boolean isExit;
 
-    public Command(){
+    public Command() {
         isExit = false;
     }
 
-    public void execute(Ui ui){}
+    public void execute(Ui ui) {
+
+    }
 }

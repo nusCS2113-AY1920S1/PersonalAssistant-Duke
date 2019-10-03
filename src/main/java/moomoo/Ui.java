@@ -1,4 +1,4 @@
-package MooMoo;
+package moomoo;
 
 import java.util.Scanner;
 
@@ -10,15 +10,18 @@ public class Ui {
         input = new Scanner(System.in);
     }
 
+    /**
+     * Shows welcome message.
+     */
     public void showWelcome() {
-        print(  "   ^____^\n" +
-                "   ( oo )\\_______\n" +
-                "   (____)\\       )\\/\\\n" +
-                "         ||----w |\n" +
-                "         ||     ||\n" +
-                "MOOOOOOOO\n" +
-                "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n" +
-                "What can MooMoo do for you today?");
+        print("   ^____^\n"
+                + "   ( oo )\\_______\n"
+                + "   (____)\\       )\\/\\\n"
+                + "         ||----w |\n"
+                + "         ||     ||\n"
+                + "MOOOOOOOO\n"
+                + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
+                + "What can MooMoo do for you today?");
     }
 
     private void showLine() {
@@ -26,8 +29,8 @@ public class Ui {
     }
 
     public void showGoodbye() {
-        print("Hope you had a great time using MooMooMoney!\n" +
-                "See you next time :)");
+        print("Hope you had a great time using MooMooMoney!\n"
+                + "See you next time :)");
     }
 
     public String readCommand() {
