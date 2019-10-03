@@ -145,39 +145,39 @@ There are three main components in the overall architecture of the application.
 
 
 === Add a Task
-. Add Todo
-.. Key in `Todo tdtask` +
+. Add Todo +
+   Key in `Todo tdtask` +
    Expected: Output should be +
    Got it. I've added this task: +
    [T][x] tdtask +
    Now you have <previous number of items + 1> items in your list. 
 
-. Add Exam
+. Add Exam +
    Key in `exam Music Rudiments /08-08-2018 0800 0900` +
    Expected: Output should be +
    Got it. I've added this task: +
    [E][x] Music Rudiments (on 08-08-2018, 0800 - 0900) 
    Now you have <previous number of items + 1> tasks in the list.
    
-. Add Practice session
+. Add Practice session +
    Key in `practice morningprac /07-08-2018 0800 0900` +
    Expected: Added a recurring practice session that lasts for one semester.
    
-. Add Concert
+. Add Concert +
    Key in `concert Noon Concert /06-06-2016 1200 1400` +
    Expected: Output should be +
    Got it. I've added this task: +
    [C][x] Noon Concert (on 06-06-2016, 1200 - 1400) 
    Now you have <previous number of items + 1> tasks in the list.
 
-. Add Recital
+. Add Recital +
    Key in `recital Evening Recital /07-07-2017 1900 2100` +
    Expected: Output should be +
    Got it. I've added this task: +
    [R][x] Evening Recital (on 07-07-2017, 1900 - 2100) 
    Now you have <previous number of items + 1> tasks in the list.
 
-. Add Lesson
+. Add Lesson +
    Key in `lesson Class /09-09-2019 0900 0100` +
    Expected: Output should be +
    Got it. I’ve added this task: +
