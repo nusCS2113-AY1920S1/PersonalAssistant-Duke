@@ -30,9 +30,10 @@ For a quick guide to modifying gradle for this project, refer to [this guide](do
 
 Currently, this project only contains a task manager. We are currently in the process of designing a UI that best displays the course information and adding functions to manage the course data.
 
-## UI
+## UI Mock-ups
 
 ![UI](docs/images/UI.png)
+![UI](docs/images/UI help.png)
 
 ## Contributers
 
