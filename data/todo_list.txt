@@ -1,0 +1,16 @@
+[T][x] math1
+[E][x] math (from: 12/12/2018 1000 to 12/12/2018 1200)
+[E][x] math_1 (from: 12/12/2018 1900 to 12/12/2018 2000)
+[D][x] readings (by: 19/09/2019 07:00 PM)
+[E][x] math (from: 12/12/2018 1200 to 12/12/2018 1300)
+[E][x] watch_movie (from: 12/12/2018 1000 to 12/12/2018 1100)
+[E][x] watch_movie (from: 12/12/2018 1000 to 12/12/2018 1100)
+[B][x] complete your ippt (between: 19/05/2018 and 19/05/2019)
+[T][x] math
+[E][x] watch_movie (from: 12/12/2018 1000 to 12/12/2018 1100)
+[E][x] watch_movie (from: 12/12/2018 1000 to 12/12/2018 1100)
+[R][x] drinking (yearly on: 10/10/2024 at 1920)
+[B][x] complete your ippt (between: 19/05/2018 and 19/05/2019)
+[R][x] eatmacs (daily on: 19/12/2012 at evenings)
+[D][x] readings (by: 19/09/2019 07:00 PM)
+[E][x] math (from: 12/12/2018 1200 to 12/12/2018 1300)

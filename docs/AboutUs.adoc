@@ -1,0 +1,54 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+We are team CS2113T-F09-4. 
+
+== Project Team
+
+=== Rohan Arya Varma
+image::rohan-av.png[width="150", align="left"]
+{empty} [https://github.com/rohan-av[github]] [<<rohan#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Scheduling and tracking, Integration
+
+'''
+
+=== Suther David Samuel
+image::samuel787.png[width="150", align="left"]
+{empty}[http://github.com/Samuel787[github]] [<<samuel#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI, Storage
+
+'''
+
+=== Joseph Wong Yefeng
+image::jwyf.png[width="150", align="left"]
+{empty}[http://github.com/jwyf[github]] [<<joseph#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation, Testing
+
+'''
+
+=== Sha Long
+image::salonethegreat.png[width="150", align="left"]
+{empty}[http://github.com/SalonetheGreat[github]] [<<shalong#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Code Quality
+
+'''
+
+=== Rishi Mahadevan
+image::rishi12438.png[width="150", align="left"]
+{empty}[http://github.com/rishi12438[github]] [<<rishi#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Deliverables and deadlines
+
+'''

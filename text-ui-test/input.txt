@@ -1,0 +1,8 @@
+todo hello
+list
+todo hi
+done 1
+list
+delete 1
+delete 1
+bye
