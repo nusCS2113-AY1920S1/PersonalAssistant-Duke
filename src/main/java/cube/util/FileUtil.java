@@ -1,8 +1,7 @@
 /**
- * File storage utilities
+ * Handling of file operation utilities in Cube.
  *
  * @author tygq13
- * @author kuromono
  */
 package cube.util;
 
@@ -13,12 +12,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
-
-import cube.exception.DukeLoadingException;
+import cube.exception.CubeException;
+import cube.exception.CubeLoadingException;
 import cube.storage.FoodStorage;
 import cube.storage.RevenueStorage;
 import cube.storage.StorageManager;
-import cube.exception.DukeException;
 
 public class FileUtil {
     private String filePath;
@@ -39,14 +37,14 @@ public class FileUtil {
      * Creates the parent directory and file.
      *
      * @param file the file at which should be created.
-     * @throws DukeLoadingException exception occurs when unable to create new file.
+     * @throws CubeLoadingException exception occurs when unable to create new file.
      */
-    public void create(File file) throws DukeLoadingException {
+    public void create(File file) throws CubeLoadingException {
         file.getParentFile().mkdirs();
         try {
             file.createNewFile();
         } catch (IOException e) {
-            throw new DukeLoadingException(fileFullPath);
+            throw new CubeLoadingException(fileFullPath);
         }
     }
 
@@ -54,9 +52,9 @@ public class FileUtil {
      * Returns true if the data file is available, otherwise makes a new data file and returns false.
      *
      * @return true if data file available, otherwise false.
-     * @throws DukeLoadingException exception occurs when unable to create new file.
+     * @throws CubeLoadingException exception occurs when unable to create new file.
      */
-    public boolean checkFileAvailable() throws DukeLoadingException {
+    public boolean checkFileAvailable() throws CubeLoadingException {
         File file = new File(fileFullPath);
         if (file.exists()) {
             return true;
@@ -67,12 +65,12 @@ public class FileUtil {
     }
 
     /**
-     * Loads serialized tasks objects from data file to an ArrayList.
+     * Loads serialized StorageManager object from the file.
      *
      * @return the list of tasks.
-     * @throws DukeException exception occurs in reading from data file.
+     * @throws CubeLoadingException exception occurs in reading from data file.
      */
-    public StorageManager load() throws DukeException {
+    public StorageManager load() throws CubeException {
         FoodStorage foodStorage = new FoodStorage();
         RevenueStorage revenueStorage = new RevenueStorage();
         StorageManager storageManager = new StorageManager(foodStorage, revenueStorage);
@@ -88,20 +86,19 @@ public class FileUtil {
                 fileInput.close();
                 in.close();
             } catch (IOException | ClassNotFoundException e) {
-                //e.printStackTrace();
-                throw new DukeLoadingException(fileFullPath);
+                throw new CubeLoadingException(fileFullPath);
             }
         }
         return storageManager;
     }
 
     /**
-     * Saves the whole list of tasks into data file.
+     * Saves the StorageManage object into a file.
      *
      * @param storageManager containing FoodStorage & RevenueStorage data to save.
-     * @throws DukeException exception happens in writing to the data file.
+     * @throws CubeException exception happens in writing to the data file.
      */
-    public void save(StorageManager storageManager) throws DukeException {
+    public void save(StorageManager storageManager) throws CubeException {
         checkFileAvailable();
         try {
             FileOutputStream fileSave = new FileOutputStream(fileFullPath, false);
@@ -110,7 +107,7 @@ public class FileUtil {
             out.close();
             fileSave.close();
         } catch (IOException e) {
-            throw new DukeLoadingException(fileFullPath);
+            throw new CubeLoadingException(fileFullPath);
         }
     }
 }

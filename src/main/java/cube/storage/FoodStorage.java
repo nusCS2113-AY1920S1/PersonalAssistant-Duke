@@ -17,7 +17,7 @@ public class FoodStorage {
 	}
 
 	public ArrayList<Food> loadFood() {
-		return null;
+		return foodArrayList;
 	}
 
 	public void appendFood(Food food) {
@@ -25,6 +25,6 @@ public class FoodStorage {
 	}
 
 	public void storeFoodList(FoodList foodlist) {
-
+		
 	}
 }
