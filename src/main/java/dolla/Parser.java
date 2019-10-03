@@ -54,7 +54,9 @@ public class Parser {
 //            try {
 //                return new CompleteCommand(inputArray[1]);
 //            } catch (IndexOutOfBoundsException e) {
-//                ArrayList<String> msg = new ArrayList<String>(Arrays.asList("Please use the format 'done <number>'!"));
+//                ArrayList<String> msg = new ArrayList<String>(
+//                Arrays.asList("Please use the format 'done <number>'!"
+//                ));
 //                Ui.printMsg(msg);
 //                break;
 //            }
@@ -142,7 +144,6 @@ public class Parser {
 //            ));
 //            Ui.printMsg(msg);
 //        }
-//
 //        return commandToRun;
 //    }
 
