@@ -6,12 +6,12 @@ import Money.Account;
 import Money.Expenditure;
 
 /**
- * This command lists all expenditures within the Total Expenditure List to the user
+ * This command lists all expenditures within the Total Expenditure List to the user.
  */
-public class ListTotalExpenditureCommand extends MoneyCommand{
+public class ListTotalExpenditureCommand extends MoneyCommand {
 
     /**
-     * Constructor of the list command
+     * Constructor of the list command.
      */
     public ListTotalExpenditureCommand(){
     }
@@ -23,7 +23,7 @@ public class ListTotalExpenditureCommand extends MoneyCommand{
 
     /**
      * This method executes the list all expenditure command.
-     * Displays all expenditures in the Total Expenditure List to the user according to index
+     * Displays all expenditures in the Total Expenditure List to the user according to index.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk

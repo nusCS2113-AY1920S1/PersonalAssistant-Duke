@@ -5,122 +5,130 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Account {
-    private ArrayList<Income> IncomeListTotal;
-    private ArrayList<Expenditure> ExpListTotal;
-    private ArrayList<Income> IncomeListCurrMonth;
-    private ArrayList<Expenditure> ExpListCurrMonth;
-    private ArrayList<Goal> ShortTermGoals;
-    private ArrayList<Installment> Installments;
-    private ArrayList<BankTracker> BankTrackerList;
-    private float TotalSavings;
-    private float CurrMonthSavings;
-    private float BaseSavings;
-    private float GoalSavings;
+    private ArrayList<Income> incomeListTotal;
+    private ArrayList<Expenditure> expListTotal;
+    private ArrayList<Income> incomeListCurrMonth;
+    private ArrayList<Expenditure> expListCurrMonth;
+    private ArrayList<Goal> shortTermGoals;
+    private ArrayList<Installment> installments;
+    private ArrayList<BankTracker> bankTrackerList;
+    private float totalSavings;
+    private float currMonthSavings;
+    private float baseSavings;
+    private float goalSavings;
     private boolean toInitialize;
 
     public Account() {
-        IncomeListTotal = new ArrayList<>();
-        ExpListTotal = new ArrayList<>();
-        IncomeListCurrMonth = new ArrayList<>();
-        ExpListCurrMonth = new ArrayList<>();
-        ShortTermGoals = new ArrayList<>();
-        Installments = new ArrayList<>();
-        BankTrackerList = new ArrayList<>();
+        incomeListTotal = new ArrayList<>();
+        expListTotal = new ArrayList<>();
+        incomeListCurrMonth = new ArrayList<>();
+        expListCurrMonth = new ArrayList<>();
+        shortTermGoals = new ArrayList<>();
+        installments = new ArrayList<>();
+        bankTrackerList = new ArrayList<>();
         toInitialize = true;
     }
 
-    public void Initialize(float UserSavings, float AvgExp) {
+    public void initialize(float userSavings, float avgExp) {
         Date nowDate = new Date();
-        Income InitialSavings;
-        if(UserSavings > AvgExp * 6) {
-            this.BaseSavings = AvgExp * 6;
-            this.GoalSavings = UserSavings - BaseSavings;
-            InitialSavings = new Income(UserSavings, "InitialSavings", nowDate);
-            IncomeListTotal.add(InitialSavings);
+        Income initialSavings;
+        if (userSavings > avgExp * 6) {
+            this.baseSavings = avgExp * 6;
+            this.goalSavings = userSavings - baseSavings;
+            initialSavings = new Income(userSavings, "InitialSavings", nowDate);
+            incomeListTotal.add(initialSavings);
         } else {
-            InitialSavings = new Income(UserSavings, "InitialSavings", nowDate);
-            IncomeListTotal.add(InitialSavings);
-            this.BaseSavings = TotalSavings;
-            this.GoalSavings = 0;
+            initialSavings = new Income(userSavings, "InitialSavings", nowDate);
+            incomeListTotal.add(initialSavings);
+            this.baseSavings = totalSavings;
+            this.goalSavings = 0;
         }
         toInitialize = false;
     }
 
     public ArrayList<Income> getIncomeListTotal() {
-        return IncomeListTotal;
+        return incomeListTotal;
     }
 
     public ArrayList<Expenditure> getExpListTotal() {
-        return ExpListTotal;
+        return expListTotal;
     }
 
     public ArrayList<Income> getIncomeListCurrMonth() {
-        return IncomeListCurrMonth;
+        return incomeListCurrMonth;
     }
 
     public ArrayList<Expenditure> getExpListCurrMonth() {
-        return ExpListCurrMonth;
+        return expListCurrMonth;
     }
 
     public ArrayList<Goal> getShortTermGoals() {
-        return ShortTermGoals;
+        return shortTermGoals;
     }
 
     public ArrayList<Installment> getInstallments() {
-        return Installments;
+        return installments;
     }
 
     public ArrayList<BankTracker> getBankTrackerList() {
-        return BankTrackerList;
+        return bankTrackerList;
     }
 
     public float getTotalIncome() {
         float total = 0;
-        for(Income i : IncomeListTotal) total += i.getPrice();
+        for (Income i : incomeListTotal) {
+            total += i.getPrice();
+        }
         return total;
     }
 
     public float getTotalExp() {
         float total = 0;
-        for(Expenditure i : ExpListTotal) total += i.getPrice();
+        for (Expenditure i : expListTotal) {
+            total += i.getPrice();
+        }
         return total;
     }
 
     public float getCurrMonthIncome() {
         float total = 0;
-        for(Income i : IncomeListCurrMonth) total += i.getPrice();
+        for (Income i : incomeListCurrMonth) {
+            total += i.getPrice();
+        }
         return total;
     }
 
     public float getCurrMonthExp() {
         float total = 0;
-        for(Expenditure i : ExpListCurrMonth) total += i.getPrice();
+        for (Expenditure i : expListCurrMonth) {
+            total += i.getPrice();
+        }
         return total;
     }
 
     public float getTotalSavings() {
-        TotalSavings = getTotalIncome() - getTotalExp();
-        return TotalSavings;
+        totalSavings = getTotalIncome() - getTotalExp();
+        return totalSavings;
     }
 
     public float getCurrMonthSavings() {
-        CurrMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
-        return CurrMonthSavings;
+        currMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
+        return currMonthSavings;
     }
 
     public float getBaseSavings() {
-        return BaseSavings;
+        return baseSavings;
     }
 
     public float getGoalSavings() {
-        GoalSavings = getTotalSavings() - getBaseSavings();
-        return GoalSavings;
+        goalSavings = getTotalSavings() - getBaseSavings();
+        return goalSavings;
     }
 
     public void updateSavings() {
-        TotalSavings = getTotalIncome() - getTotalExp();
-        CurrMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
-        GoalSavings = getTotalSavings() - getBaseSavings();
+        totalSavings = getTotalIncome() - getTotalExp();
+        currMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
+        goalSavings = getTotalSavings() - getBaseSavings();
     }
 
     public boolean isToInitialize() {
@@ -132,15 +140,15 @@ public class Account {
         Calendar dateNow = Calendar.getInstance();
         int currMonth = currDate.getMonth(); // there's an issue here of depreciation
         int currYear = currDate.getYear();
-        for (Income i : IncomeListTotal) {
+        for (Income i : incomeListTotal) {
             Calendar cal = Calendar.getInstance();
             if (i.getPayday().getMonth() == currMonth && i.getPayday().getYear() == currYear) {
-                IncomeListCurrMonth.add(i);
+                incomeListCurrMonth.add(i);
             }
         }
-        for (Expenditure e : ExpListTotal) {
+        for (Expenditure e : expListTotal) {
             if (e.getDateBoughtTime().getMonth() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
-                ExpListCurrMonth.add(e);
+                expListCurrMonth.add(e);
             }
         }
     }
