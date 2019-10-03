@@ -35,4 +35,11 @@ public class ToDo extends Item {
         return "[T]" + super.toString() + "(needs" + taskDuration + " hours)";
     }
 
+    /**
+     * Gets the length of time of the activity.
+     */
+    @Override
+    public String getDuration () {
+        return this.taskDuration;
+    }
 }

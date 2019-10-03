@@ -32,12 +32,44 @@ public final class TimeSlot {
      * @param loc   the specified location of the event
      * @param name  the specified name of the event
      */
-    private TimeSlot(final Date start, final Date end,
+    public TimeSlot(final Date start, final Date end,
                      final String loc, final String name) {
-        startTime = start;
-        endTime = end;
-        location = loc;
-        className = name;
+        this.startTime = start;
+        this.endTime = end;
+        this.location = loc;
+        this.className = name;
+    }
+
+    public String getClassName() {
+        return this.className;
+    }
+
+    public Date getStartTime() {
+        return this.startTime;
+    }
+
+    public Date getEndTime() {
+        return this.endTime;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setClassName(String name) {
+        this.className = name;
+    }
+
+    public void setStartTime(Date date) {
+        this.startTime = date;
+    }
+
+    public void setEndTime(Date date) {
+        this.endTime = date;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
 }

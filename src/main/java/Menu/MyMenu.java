@@ -25,4 +25,17 @@ public class MyMenu {
     public String getMenu() {
         return menu;
     }
+
+//    public void trainingScheduleHeading() {
+//        System.out.flush();
+//        System.out.println("TRAINING SCHEDULE: \n");
+//    }
+//    public void manageStudentsHeading() {
+//        System.out.flush();
+//        System.out.println("MANAGE STUDENTS: \n");
+//    }
+//    public void trainingProgramHeading() {
+//        System.out.flush();
+//        System.out.println("TRAINING PROGRAM: \n");
+//    }
 }

@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import duke.Data.Storage;
@@ -32,11 +33,11 @@ public class Duke extends Application {
      * This program runs the main duke program
      * @param args expects array of string objects
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
         new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt").run();
     }
 
-    public void run() {
+    public void run() throws FileNotFoundException, ParseException {
         ui.welcome();
         tasks.addAllList(storage);
         while (true) {
