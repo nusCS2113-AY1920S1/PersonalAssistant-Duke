@@ -1,4 +1,4 @@
-= NAME - User Guide
+= MisterMusik - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,79 +18,91 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-<NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
-The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
+MisterMusik is a scheduler program created for serious music students
+pursuing a professional music career as a western classical music performer.
+The program is designed to automate and streamline most of the process in scheduling and organisation of materials,
+allowing the students to focus more on the important aspects of their education.
 
 == Quick Start
 
 . Ensure you have Java `11` or above installed in your computer
-. Download the latest `NAME.jar`
-. Copy the file to the folder you want to use as the home folder for your NAME
+. Download the latest `mistermusik.jar`
+. Copy the file to the folder you want to use as the home folder for your MisterMusik
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing `help` and pressing kbd:[Enter] will open the help window.
+E.g. typing `help` and pressing kbd:[Enter] will open the help window.
 +
-. Refer to <<Features>> for details of each command.
+. Please refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
-=== Help list : `help`
+=== Help list : `[coming v1.4]`
 
 Brings up a list of available commands that the user can input.
 It also displays a brief version of this user guide. +
+
 Format: `help`
 
-=== Reminders
+=== Reminders : `reminder`
 
-Automatically displays the list of tasks over the next three days immediately after the program launches. +
+Displays the list of tasks over the next three days. +
+
 Format: `reminder`
 
-=== Adding a to-do event : `todo`
+=== Adding a to-do task : `todo`
 
-Adds a task defined by the user to the to-do list. +
-Format: `todo <task name>`
+Adds a task defined by the user to the to-do list with a deadline. +
 
-=== Adding a concert event : ``
+Format: `todo <name of task> /dd-MM-yyyy` +
+E.g. `todo complete theory homework /10-10-2019`
+adds a deadline to complete the user's theory homework by 10 October 2019.
 
-=== Adding an assessment event :
+=== Adding an event task :
 
+Adds an event defined by the user to the list of tasks.
+The former and latter time inputs denote the start and end time respectively. +
+
+For recurring events, please see <<Recurring events :, Recurring events>>.
+
+. Practice sessions : `practice` +
+Format: `practice <name of practice> /dd-MM-yyyy HHmm HHmm`
++
 . Examinations: `exam` +
-Format: `exam /dd-MM-yyyy HHmm HHmm`
+Format: `exam <name of exam> /dd-MM-yyyy HHmm HHmm`
 +
 . Recitals: `recital` +
-Format: ``
-
-=== Adding recurring events :
-
-. Lessons: `lesson` +
-Format: ``
+Format: `recital <name of recital> /dd-MM-yyyy HHmm HHmm`
 +
-. Practice sessions: `practice` +
-Format: `practice /dd-MM-yyyy HHmm HHmm`
+. Concerts : `concert` +
+Format: `concert <name of concert> /dd-MM-yyyy HHmm HHmm`
 
-=== Finding a task: `find`
 
-Searches the list of stored tasks for keywords specified by the user.
-Any tasks containing said specified keywords will be displayed for the user. +
+=== Recurring events :
 
-Format: `find <keyword(s)>` +
-e.g. find concert
+MisterMusik allows the user to add recurring events (e.g. weekly lessons).
+The input format is as per normal with an extra recurring period input. +
 
-=== View all tasks on a particular: `view`
+Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)` +
+
+E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
+adds a weekly recurring event from 9:00am to 10:30am, starting on 18 September 2019.
+
+
+=== Viewing schedules : `view`
 
 Brings up a list of tasks for a particular date. +
 
 Format: `view dd/MM/yyyy` +
-e.g. “view 18/09/2019” displays all events/deadlines on/by the date 18 September 2019.
+E.g. “view 18/09/2019”
+displays all events/todos on/by the date 18 September 2019.
 
 
-=== Deleting a task: `delete`
+=== Checking for free days : `check`
 
-Requests for the deletion of a task in the program’s stored list. +
+The user can check for the nearest days that are free. +
 
-Format: `delete <task index>` +
-e.g. “delete 5” deletes the task indexed as 5. in the list.
+Format: `check`
 
 
 === Marking a task as done: `done`
@@ -98,54 +110,85 @@ e.g. “delete 5” deletes the task indexed as 5. in the list.
 Marks a task in the list as completed, denoted by a tick when displaying the task. +
 
 Format: `done <task index>` +
-e.g. “done 5” marks task number 5 as done.
+E.g. “done 5” marks task number 5 as done.
 
 
-=== Exiting the program: `bye`
+=== Rating a practice session : `[coming v1.4]`
+
+The user will be able to rate the efficiency of a particular practice session after completing it.
+When the practice session is marked as done,
+the user will be prompted to add an efficiency rating and any extra comments or feedback. +
+
+Format: `rate <task index>`
+
+
+=== Adding details to events : `[coming v1.4]`
+
+The user will be able to add any extra details to an event when adding it to the task list.
+For practice sessions or lessons,
+it can be used to take feedback from instructors and lesson notes respectively. +
+
+Format: `details <task index>` or `notes <task index>`
+
+
+=== Rescheduling events : `[coming v1.4]`
+
+The user will be able to reschedule an existing event. +
+
+Format: `reschedule <task index>`
+
+
+=== Searching for a free slot : `[coming v1.4]`
+
+The user will be able to search for any days within the next 2 weeks
+that contains a specified period of time that is free. +
+For example, searching for a 4h free slot
+will display all the dates within the 2 weeks with
+at least 4 hours of free time in the schedule. +
+
+Format: `searchfree 4h`
+
+
+=== Exiting the program : `bye`
 
 Exits the program. +
 
 Format: `bye`
 
-=== Saving the task list
 
-Each time the task list is modified, the task list is saved into a text file on the hard drive.
+== Additional Features
 
-=== Detect clashes
+=== Detecting Clashes : `[coming v2.0]`
 
-When the tasks are clash, the task list will not add the clash task.
+When the user inputs a new event, MisterMusik will check
+if it has any clashing date and time with existing events
+and warns the user of the clash.
 
-=== Checking for free days: `check`
+=== Sorting By Date : `[coming v1.4]`
 
-Check the schedule and give the next 3 free days.
+MisterMusik will automatically sort the list by the date and time of each task
+so the user will not have to manually prioritise each event and todo task.
+
+=== Search and edit : `[coming v2.0]`
+
+The user will be able to search for a specific task and edit its corresponding details.
+
+=== Reminder for specific task types : `[coming v2.0]`
+
+The user will be able to get reminders of specific task type using the reminder command
+and specifying which type they would like to be displayed. +
+
+E.g. “reminder exam”
+displays a reminder of all exam events within the next 3 days.
 
 == FAQ
 *Q:* How do I transfer my data to another Computer? +
-*A:* Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A:* Install the app in the other computer and overwrite the empty data file
+it creates with the file that contains the data of your previous MisterMusik folder.
 
-== Command Summary
 
-* *Bye :* `bye`
+== Glossary
+
+. Event: an event refers to any activity with a start time.
 +
-* *Check :* `check`
-+
-* *Delete :* `delete` +
-e.g. `delete 2`
-+
-* *Done :* `done INDEX` +
-e.g. `done 1`
-+
-* *Find :* `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find CS Project`
-+
-* *Help :* `help`
-+
-* *List :* `list`
-+
-* *Reminder :* `reminder`
-+
-* *Todo :* `todo NAME` +
-e.g. `todo CG homework`
-+
-* *View :* `view dd/MM/yyyy` +
-e.g. `view 25/09/2019`
+. To-do: a to-do refers to any activity with a deadline.

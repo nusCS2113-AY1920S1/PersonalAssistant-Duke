@@ -22,10 +22,10 @@ public class EventList {
      * list of Model_Class.Event objects currently stored.
      */
     private ArrayList<Event> eventArrayList;
-    
+
     /**
-	 * Filter type codes
-	 */
+     * Filter type codes
+     */
     static final int DATE = 0;
     static final int TYPE = 1;
 
@@ -213,7 +213,7 @@ public class EventList {
         }
         return allEvents;
     }
-    
+
     /**
      * Gets a filtered list of events based on a predicate.
      * @return String containing the filtered list of events, separated by a newline.
@@ -223,18 +223,18 @@ public class EventList {
         int j = 1;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) {
-            	continue;
+                continue;
             } else if (filterCode == DATE) {
                 if (eventArrayList.get(i) != null) {
-                	if (!predicate.check(eventArrayList.get(i).getStartDate())) {
-                		continue;
-                	}
+                    if (!predicate.check(eventArrayList.get(i).getStartDate())) {
+                        continue;
+                    }
                 } else {
-                	continue;
+                    continue;
                 }
             } else if (filterCode == TYPE) {
                 if (!predicate.check(eventArrayList.get(i).getType())) {
-                	continue;
+                    continue;
                 }
             }
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
