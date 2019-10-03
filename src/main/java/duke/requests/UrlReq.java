@@ -13,6 +13,8 @@ public abstract class UrlReq {
     protected String param;
 
     public UrlReq(String url, String param) {
+        this.url = url;
+        this.param = param;
     }
 
     /**
