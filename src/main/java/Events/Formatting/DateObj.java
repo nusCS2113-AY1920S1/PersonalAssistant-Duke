@@ -47,6 +47,26 @@ public class DateObj {
         }
     }
 
+    public void formatToInputPattern() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+            dateFormat.setLenient(false);
+            this.dateObject = dateFormat.parse(splitDate);
+            this.formattedDateString = formatter.format(dateObject);
+        } catch (ParseException pe) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
+                dateFormat.setLenient(false);
+                this.dateObject = dateFormat.parse(splitDate);
+                this.formattedDateString = formatter.format(dateObject);
+            } catch (ParseException pe2) {
+                this.formattedDateString = splitDate;
+            }
+        }
+    }
+
     /** Getter to obtain the stored built-in Java date object.
      * @return the Java date object stored in the DateObj.
      */
