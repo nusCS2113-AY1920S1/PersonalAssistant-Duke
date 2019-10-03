@@ -142,7 +142,7 @@ Examples:
 
 * `modify 3 tag`
 
-=== Sort the list by date `*sort /date*`
+=== Sort the list by date `sort /date`
 
 Sort the list by date in ascending or descending order. +
 Format: +
@@ -152,7 +152,7 @@ Example:
 
 * `sort /date ascending`
 
-=== Sort the list by tag `*sort /tag`
+=== Sort the list by tag `sort /tag`
 
 Sort the list by tag alphabetically in ascending or descending order. +
 Format: +
@@ -162,7 +162,7 @@ Example:
 
 * `sort /tag descending`
 
-=== Sort the list by amount in ascending or descending order
+=== Sort the list by amount in ascending or descending order `sort /amount`
 
 Sort the list by the amount in ascending or descending order. +
 Format: +
