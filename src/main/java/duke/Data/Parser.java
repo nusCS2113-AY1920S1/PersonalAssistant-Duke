@@ -3,6 +3,7 @@ package duke.Data;
 import duke.Sports.ManageStudents;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
+import duke.Sports.MyStudent;
 import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
@@ -209,7 +210,7 @@ public class Parser {
              */
             case "2":
                 ManageStudents viewCategory = new ManageStudents();
-                viewCategory.manageStudentsCategory();
+//                viewCategory.manageStudentsCategory();
                 // Write Code to direct to manage Students (Danish)
                 break;
 
@@ -219,6 +220,22 @@ public class Parser {
 
             case "3":
                 //Write Code to direct to Training Circuits (JingSen)
+                break;
+
+            /**
+             * When cmd is to add class or student
+             */
+            case "add":
+                if (word[1].equals("student")) {
+                    index = input.indexOf("student");
+                    String info = input.substring(4, index-1);
+                    String age = input.substring(index + 2);
+                    MyStudent myStudent = new MyStudent(info, age);
+                    ManageStudents student = new ManageStudents();
+                    student.addStudent(myStudent);
+                }
+                break;
+
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
