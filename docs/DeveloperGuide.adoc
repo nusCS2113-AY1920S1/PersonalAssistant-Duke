@@ -16,6 +16,13 @@ endif::[]
 
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
+
+== Introduction
+=== Purpose
+
+=== Scope
+
+
 == Setting Up
 === Prerequisites
 While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
@@ -175,6 +182,18 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 == Appendix B: Use Cases
+|===
+|System|Actor|Use Case|Process
+|Duke2.0|A-Level Graduate|User types keyword “electrical” with search command|
+
+DukeJr. returns all the degrees with keyword “electrical”
+
+User types the index of the degree he wishes to view from the list of returned searches
+
+DukeJr. displays the Curriculum Structure, Specialisations and Minor, and Recommended Schedule for the degree
+
+User reads the data
+|===
 
 
 == Appendix C: Non-Functional Requirements
