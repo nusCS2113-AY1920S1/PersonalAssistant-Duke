@@ -177,7 +177,7 @@ public class Parser {
                 break;
 
             /**
-             * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
+             * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019|schedule view-goal 5/10/2019
              * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming|schedule add-goal 5/10/2019 Makes sure every student masters freestyle
              * Delete: schedule delete Swimming|schedule delete-goal 5/10/2019
              */
@@ -209,6 +209,9 @@ public class Parser {
                 } else if (word[1].equals("delete-goal")) {
                     String date = word[2];
                     System.out.println(schedule.removeGoal(date));
+                } else if (word[1].equals("view-goal")) {
+                    String date = word[2];
+                    System.out.println(schedule.viewGoal(date));
                 }
                 break;
 

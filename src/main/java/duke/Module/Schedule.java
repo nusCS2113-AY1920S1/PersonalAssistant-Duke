@@ -273,4 +273,23 @@ public class Schedule {
         return "Goal of the day on " + day + " has been removed";
     }
 
+    public String viewGoal(String day) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = simpleDateFormat.parse(day);
+        String message = "";
+        boolean hasGoal = false;
+        for (Date d : goals.keySet()) {
+            if (d.equals(today)) {
+                if (!goals.get(d).isEmpty()) {
+                    hasGoal = true;
+                    message += goals.get(d);
+                }
+            }
+        }
+        if (!hasGoal) {
+            return "There is no goal of the day";
+        } else {
+            return message;
+        }
+    }
 }
