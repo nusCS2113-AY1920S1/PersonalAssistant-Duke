@@ -1,10 +1,5 @@
 package Model_Classes;
 
-import CustomExceptions.DukeException;
-import Enums.ExceptionType;
-import Operations.CheckAnomaly;
-import Operations.TaskList;
-
 import java.util.Date;
 /**
  * An object class representing types of tasks that are events.
@@ -23,11 +18,6 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
-
-    public Event(String description) {
-        super(description);
-    }
-
 
     public Date checkDate() { return this.at; }
 
