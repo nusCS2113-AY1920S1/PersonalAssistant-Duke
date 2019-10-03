@@ -2,12 +2,11 @@ package seedu.duke.task;
 
 import seedu.duke.Parser;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -32,9 +31,9 @@ public class Task {
     protected String doAfterDescription;
 
     /**
-     * Whether the task has tag
+     * The tag list that the task has
      */
-    protected String hasTag;
+        protected ArrayList<String> tags;
 
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
@@ -60,7 +59,7 @@ public class Task {
         this.name = name;
         this.isDone = false;
         this.doAfterDescription = null;
-        this.hasTag = null;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -166,7 +165,7 @@ public class Task {
         return false;
     }
 
-    public void getTag(String tag) {
-        this.hasTag = tag;
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 }

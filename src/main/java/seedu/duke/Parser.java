@@ -19,6 +19,7 @@ import seedu.duke.email.emailcommand.FetchEmailCommand;
 import seedu.duke.task.Task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * A class that contains helper functions used to process user inputs. It also contains UserInputException
@@ -297,22 +298,23 @@ public class Parser {
         String name;
         LocalDateTime time = null;
         String doAfter = null;
-        String tag = null;
+        ArrayList<String> tags = new ArrayList<>();
 
         if (input.startsWith("todo")) {
             taskType = Task.TaskType.ToDo;
             if (input.length() <= 5) {
                 throw new Parser.UserInputException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
-            name = input.substring(5);
-            if (input.contains(" #")) {
-                tag = input.split(" #", 2)[1];
-                name = name.split(" #",2)[0];
+            input = input.substring(5);
+            while (input.contains("#")) {
+                tags.add(input.split("#", 3)[1]);
+                input = input.split("#",3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
-                doAfter = name.split(" /doafter ", 2)[1];
-                name = name.split(" /doafter ", 2)[0];
+                doAfter = input.split(" /doafter ", 2)[1];
+                input = input.split(" /doafter ", 2)[0];
             }
+            name = input;
         } else if (input.startsWith("deadline")) {
             taskType = Task.TaskType.Deadline;
             if (input.length() <= 9) {
@@ -325,14 +327,13 @@ public class Parser {
             }
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
-            if (input.contains(" #")) {
-                tag = timeString.split(" #", 2)[1];
-                timeString = timeString.split(" #",2)[0];
+            while (input.contains("#")) {
+                tags.add(input.split("#", 3)[1]);
+                input = input.split("#",3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
                 doAfter = timeString.split(" /doafter ", 2)[1];
                 timeString = timeString.split(" /doafter ", 2)[0];
-
             }
             time = Task.parseDate(timeString);
         } else if (input.startsWith("event")) {
@@ -346,9 +347,9 @@ public class Parser {
             }
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
-            if (input.contains(" #")) {
-                tag = timeString.split(" #", 2)[1];
-                timeString = timeString.split(" #",2)[0];
+            while (input.contains("#")) {
+                tags.add(input.split("#", 3)[1]);
+                input = input.split("#",3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
                 doAfter = timeString.split(" /doafter ", 2)[1];
@@ -358,7 +359,7 @@ public class Parser {
         } else {
             throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return new AddCommand(taskList, taskType, name, time, doAfter, tag);
+        return new AddCommand(taskList, taskType, name, time, doAfter, tags);
     }
 
     /**
