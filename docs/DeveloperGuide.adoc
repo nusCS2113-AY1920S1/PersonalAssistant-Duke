@@ -21,8 +21,10 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 *ModPlan*
 
 ModPlan is a module planning system that expands on NUSMODS to help NUS students to plan their modules for all four years of their bachelor’s degree.  +
+
 ModPlan is currently only designed to work for Computer Engineering students, and the requisite modules for graduation. +
 ModPlan uses NUSMODS API to extract official module data from the NUS Registrar's Office. + 
+
 This Developer Guide is meant for any software developer who wishes to contribute to or test ModPlan, and can find architecture, implementation methods and high-level design considerations within this file.
 
 == Setting up
@@ -141,6 +143,11 @@ Actor: NUS Student
 2. ModPlan shows the user modules they had taken, and requests user to input their grades obtained
 3. After inputing the grades, ModPlan shows the user their current MCs accumulated and CAP.
 
+=== Use Case: Check Module information via input search
+Actor: NUS Student
+
+1. User inputs the command to `search module information`
+2. ModPlan shows the user key information regarding the module, if it is SU-able or if it has any prequisites.
 
 [appendix]
 == Non-Functional Requirements
