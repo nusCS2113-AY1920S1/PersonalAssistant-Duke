@@ -187,16 +187,68 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 == Appendix B: Use Cases
 
-====
-An admonition block may contain complex content.
+[cols="4*"] 
+|===
+|System
+|Actor
+|Use Case
+|Steps
 
-.A list
-- one
-- two
-- three
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|View the whole list of possible commands for D2
+|User requires help with command syntax +
+ +
+User types in the command in the following manner: `help` +
+ +
+D2 returns all the possible commands that it will accept +
+ +
+User reads the information
 
-Another paragraph.
-====
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Check core modules for Bachelor of Engineering (Electrical Engineering)
+|User identifies a degree that he/she wishes to research +
+ +
+User types in the command in the following manner: `details EE` +
+ +
+D2 displays the degree requirements, including the core modules +
+ +
+User reads the information
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Compare core modules for EE and CEG
+|User identifies two degrees she wishes to compare +
+ +
+User types in the command in the following manner: `compare EE CEG` +
+ +
+D2 displays similar and different modules from the two degrees +
+ +
+User reads the information
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Add CEG into degree list and view degree list
+|User identifies the degree he/she wishes to add to his/her list of possible degrees +
+ +
+User types in the command in the following manner: `add EE` +
+ +
+D2 adds Electrical Engineering to the user’s degree list +
+ +
+User types in the command in the following manner: `degreelist` +
+ +
+D2 returns the user’s degree list with Electrical Engineering added
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Swap CEG with EE in degree list
+|User identifies two degrees that he/she wishes to switch in the degree list +
+ +
+User types in the command in the following manner: `swap CEG EE` +
+ +
+D2 returns the user’s degree list with CEG and EE having switched indexes
+|===
 
 == Appendix C: Non-Functional Requirements
 
