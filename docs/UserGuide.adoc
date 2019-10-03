@@ -169,6 +169,7 @@ Format: `delete ID`
 the index of the task should not be out of range
 
 Examples:
+
 * `delete 3`
 
 === Approve a payment form: `approve`

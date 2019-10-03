@@ -90,9 +90,9 @@ public class Parser {
             }else if (isSnooze(input)) {
                 processSnooze(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
-            }else if (isPostpone(input)) {
-                processPostpone(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
+//            }else if (isPostpone(input)) {
+//                processPostpone(input, tasklist, ui);
+//                storage.save(tasklist.returnArrayList());
             }else if (isReschedule(input)) {
                 processReschedule(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
@@ -100,6 +100,8 @@ public class Parser {
             else if (isViewSchedule(input)) {
                 processViewSchedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
+            }else if(isEdit(input)){
+                processEdit(input,tasklist,ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -411,6 +413,20 @@ public class Parser {
         }
     }
 
+    private static void processEdit(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitedit = splitspace[1].split(" d/", 2);
+            int nedit = Integer.parseInt(splitedit[0]) - 1;
+            String description = splitedit[1];
+            tasklist.get(nedit).setDescription(description);
+            ui.printEditMessage(tasklist.get(nedit));
+        }catch(ArrayIndexOutOfBoundsException e){
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }catch(NumberFormatException e){
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
+    }
 
     private static boolean isBye(String input) {
         return input.equals("bye");
@@ -455,14 +471,19 @@ public class Parser {
         return input.startsWith("snooze");
     }
 
-    private static boolean isPostpone(String input) {
-        return input.startsWith("postpone");
-    }
+//    private static boolean isPostpone(String input) {
+//        return input.startsWith("postpone");
+//    }
 
     private static boolean isReschedule(String input) {
         return input.startsWith("reschedule");
     }
+
     private static boolean isViewSchedule(String input) {
         return input.startsWith("View Schedule");
+    }
+
+    private static boolean isEdit(String input) {
+        return input.startsWith("edit");
     }
 }
