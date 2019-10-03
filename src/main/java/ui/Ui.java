@@ -1,8 +1,9 @@
 package ui;
 
+import DukeObjects.Expense;
+import DukeObjects.ExpenseList;
 import exception.DukeException;
-import task.Task;
-import task.TaskList;
+
 
 import java.util.Scanner;
 
@@ -61,15 +62,15 @@ public class Ui {
     }
 
     /**
-     * Prints the {@code TaskList} given.
+     * Prints the {@code ExpenseList} given.
      *
-     * @param taskList {@code TaskList} that we want to be printed
+     * @param ExpenseList {@code ExpenseList} that we want to be printed
      */
-    public void printTaskList(TaskList taskList) {
-        if (taskList.getSize() > 0) {
+    public void printExpenseList(ExpenseList ExpenseList) {
+        if (ExpenseList.getSize() > 0) {
             int count = 1;
-            for (Task task : taskList.getTasks()) {
-                println(task.toString());
+            for (Expense expense : ExpenseList.getExpenseList()) {
+                println(expense.toString());
                 count++;
             }
         }

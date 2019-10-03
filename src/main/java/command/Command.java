@@ -1,8 +1,8 @@
 package command;
 
+import DukeObjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
 
 import java.util.Map;
@@ -52,9 +52,10 @@ public abstract class Command {
      * Executes the command with parameters given by the user.
      *
      * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
-     * @param tasks The taskList of Duke.
+     * @param expensesList The ExpenseList of Duke.
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
      */
-    public abstract void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage);
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    }
 }

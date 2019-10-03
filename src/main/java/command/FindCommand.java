@@ -1,8 +1,8 @@
 package command;
 
+import DukeObjects.ExpenseList;
 import exception.DukeException;
 import parser.CommandParams;
-import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a specified command as FindCommand by extending the {@code Command} class.
- * Finds all tasks relevant with the searched keyword.
+ * Finds all expensesList relevant with the searched keyword.
  * Responses with the result.
  */
 public class FindCommand extends Command {
@@ -24,28 +24,31 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds relevant tasks from taskList of Duke with the given keyword and
+     * Finds relevant expensesList from ExpenseList of Duke with the given keyword and
      * responses the result to user by using ui of Duke.
      *
-     * @param tasks The taskList of Duke.
+     * @param expensesList The ExpenseList of Duke.
      * @param ui The ui of Duke.
      * @param storage The storage of Duke.
      * @throws DukeException if a search string was not given.
      */
-    public void execute(CommandParams commandParams, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+        /*
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't what to find.");
         }
-        ArrayList<Integer> matchedList = tasks.find(commandParams.getMainParam());
+        ArrayList<Integer> matchedList = expensesList.find(commandParams.getMainParam());
         if (matchedList.size() == 0) {
             ui.println("No results found.");
             return;
         }
-        ui.println("Here are the matching tasks in your list:");
+        ui.println("Here are the matching expensesList in your list:");
         int count = 1;
         for (int i : matchedList) {
-            ui.println(count + "." + tasks.getTaskInfo(i));
+            ui.println(count + "." + expensesList.getTaskInfo(i));
             count++;
         }
+
+         */
     }
 }

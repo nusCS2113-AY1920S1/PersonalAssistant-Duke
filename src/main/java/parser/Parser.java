@@ -1,18 +1,7 @@
 package parser;
 
 
-import command.AddCommand;
-import command.Command;
-import command.ConflictCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.FreeCommand;
-import command.ListCommand;
-import command.RemindCommand;
-import command.RescheduleCommand;
-import command.ScheduleCommand;
+import command.*;
 import exception.DukeException;
 
 /**
@@ -30,16 +19,10 @@ public class Parser {
      */
     public static Command getCommand(String commandName) throws DukeException {
         switch (commandName) {
-        case "todo":
-        case "deadline":
-        case "event":
-            return new AddCommand();
-
+        case "add":
+            return new AddExpense();
         case "list":
             return new ListCommand();
-
-        case "done":
-            return new DoneCommand();
 
         case "delete":
             return new DeleteCommand();
@@ -50,20 +33,6 @@ public class Parser {
         case "bye":
             return new ExitCommand();
 
-        case "schedule":
-            return new ScheduleCommand();
-
-        case "remind":
-            return new RemindCommand();
-
-        case "reschedule":
-            return new RescheduleCommand();
-
-        case "free":
-            return new FreeCommand();
-
-        case "conflict":
-            return new ConflictCommand();
 
         default:
             throw new DukeException("☹ OOPS!!! I don't know what that means :-(");
