@@ -5,7 +5,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/B-RecurringTasks
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -22,7 +22,7 @@ or many more other cool features. Users can interact with Dolla with the various
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest Dolla.jar link:{repoURL}/release[here]. (change to release URL in the future)
+.  Download the latest Dolla.jar link:{repoURL}/release[here].
 .  Copy the file to the folder you want to use as the home folder for your Dolla.
 .  Double-click the file to start the app.The GUI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -94,7 +94,7 @@ Format: +
 Examples:
 
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `add income $500 part time tution /on 01/09/2019`
+* `add income $500 part time tuition /on 01/09/2019`
 
 === List all expenses and income : `list`
 
@@ -114,11 +114,11 @@ Example:
 
 === Remove a expense/income from the list : `remove`
 
-Remove a particular entry of expanse/income from the list base on the list number. +
+Remove a particular entry of expense/income from the list based on the list number. +
 Format: +
 `*remove* [LIST NO.]`
 
-*NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listing available.
+*NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listings available.
 
 [TIP]
 Use the keyword `*list*` to list out the expenses and incomes to find the `*LIST NO.*` to be removed.
@@ -142,31 +142,34 @@ Examples:
 
 * `modify 3 tag`
 
-=== Sort the list by date `*sort /date*`
+=== Sort the list by date `sort /date`
 
 Sort the list by date in ascending or descending order. +
 Format: +
-`*sort /date* ascending/descending`
+`*sort* /date ascending` +
+`*sort* /date descending`
 
 Example:
 
 * `sort /date ascending`
 
-=== Sort the list by tag `*sort /tag`
+=== Sort the list by tag `sort /tag`
 
 Sort the list by tag alphabetically in ascending or descending order. +
 Format: +
-`*sort /tag* ascending/descending`
+`*sort* /tag ascending` +
+`*sort* /tag descending`
 
 Example:
 
 * `sort /tag descending`
 
-=== Sort the list by amount in ascending or descending order
+=== Sort the list by amount in ascending or descending order `sort /amount`
 
 Sort the list by the amount in ascending or descending order. +
 Format: +
-`*sort /amount* ascending/descending`
+`*sort* /amount ascending` +
+`*sort* /amount descending`
 
 Example:
 
@@ -183,7 +186,7 @@ Format: +
 
 Examples:
 
-* `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 
 * `add recurring income $800 part time job /every month`
 
@@ -233,7 +236,7 @@ Example:
 
 * `set limit /tag bubble tea $20`
 
-=== Add loans an debts `owe` `borrow`
+=== Add loans and debts `owe` `borrow`
 
 Add loans and debts that are one off kind. +
 Format: +
@@ -346,7 +349,7 @@ e.g. sort /tag descending
 * `*sort /amount*` `sort /amount ascending/descending` +
 e.g. sort /amount ascending
 * `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
-e.g. `add recurring expanse $59 phone bill /every month /starting 01/01/2019 /tag bill`
+e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
 e.g. `set limit $50 every week`
 * `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
