@@ -1,7 +1,9 @@
 package cube.storage;
 
+import java.io.Serializable;
+
 // for testing only
-public class RevenueStorage {
+public class RevenueStorage implements Serializable {
     private double revenue;
 
     public RevenueStorage() {

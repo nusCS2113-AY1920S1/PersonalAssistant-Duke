@@ -35,13 +35,13 @@ public class Duke {
 
         try {
             storageManager = storage.load();
-            foodList = new FoodList(storageManager.loadFood());
+            foodList = storageManager.loadFood();
             Food.updateRevenue(storageManager.loadRevenue());
-        } catch (CubeException | NullPointerException e) {
-            e.printStackTrace();
+        } catch (CubeException e) {
             ui.showLoadingError(filePath);
             foodList = new FoodList();
             Food.updateRevenue(0);
+            storageManager = new StorageManager();
         }
     }
 
