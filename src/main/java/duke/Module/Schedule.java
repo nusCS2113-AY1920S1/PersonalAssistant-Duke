@@ -27,11 +27,6 @@ public class Schedule {
     private Scanner fileInput;
     private ArrayList<TimeSlot> list;
 
-    /**
-     * Optional goal of the day.
-     */
-    private HashMap<Date,String> goals = new HashMap<>();
-
     public Schedule(String filePath) throws FileNotFoundException, ParseException {
         this.filePath = filePath;
         File f = new File(filePath);
@@ -249,47 +244,5 @@ public class Schedule {
             ++index;
         }
         return "Class not found";
-    }
-
-    public String addGoal(String date, String message) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date today = simpleDateFormat.parse(date);
-        setGoal(today, message);
-        return "New goal of the day has been added";
-    }
-
-    public void setGoal(Date day, String message) {
-        goals.put(day,message);
-    }
-
-    public String removeGoal(String day) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date today = simpleDateFormat.parse(day);
-        for (Date d : goals.keySet()) {
-            if (d.equals(today)) {
-                goals.remove(d);
-            }
-        }
-        return "Goal of the day on " + day + " has been removed";
-    }
-
-    public String viewGoal(String day) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date today = simpleDateFormat.parse(day);
-        String message = "";
-        boolean hasGoal = false;
-        for (Date d : goals.keySet()) {
-            if (d.equals(today)) {
-                if (!goals.get(d).isEmpty()) {
-                    hasGoal = true;
-                    message += goals.get(d);
-                }
-            }
-        }
-        if (!hasGoal) {
-            return "There is no goal of the day";
-        } else {
-            return message;
-        }
     }
 }

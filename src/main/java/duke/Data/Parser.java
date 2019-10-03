@@ -1,5 +1,6 @@
 package duke.Data;
 
+import duke.Module.Goal;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
 import duke.Sports.MyClass;
@@ -177,9 +178,9 @@ public class Parser {
                 break;
 
             /**
-             * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019|schedule view-goal 5/10/2019
-             * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming|schedule add-goal 5/10/2019 Makes sure every student masters freestyle
-             * Delete: schedule delete Swimming|schedule delete-goal 5/10/2019
+             * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
+             * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
+             * Delete: schedule delete Swimming
              */
             case "schedule":
                 if (word[1].equals("view-week")) {
@@ -201,17 +202,27 @@ public class Parser {
                 } else if (word[1].equals("delete")) {
                     String name = word[2];
                     System.out.println(schedule.delClass(name));
-                } else if (word[1].equals("add-goal")) {
+                }
+                break;
+
+            /**
+             * View: goal view 5/10/2019
+             * Add: goal add 5/10/2019 Makes sure every student masters freestyle
+             * Delete: goal delete 5/10/2019
+             */
+            case "goal":
+                Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                if (word[1].equals("add")) {
                     String date = word[2];
                     index = input.indexOf(word[3]);
                     String message = input.substring(index);
-                    System.out.println(schedule.addGoal(date,message));
-                } else if (word[1].equals("delete-goal")) {
+                    System.out.println(goal.addGoal(date,message));
+                } else if (word[1].equals("delete")) {
                     String date = word[2];
-                    System.out.println(schedule.removeGoal(date));
-                } else if (word[1].equals("view-goal")) {
+                    System.out.println(goal.removeGoal(date));
+                } else if (word[1].equals("view")) {
                     String date = word[2];
-                    System.out.println(schedule.viewGoal(date));
+                    System.out.println(goal.viewGoal(date));
                 }
                 break;
 
