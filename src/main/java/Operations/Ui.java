@@ -131,6 +131,7 @@ public class Ui {
 
     /**
      * Tells the user that they are in recurring mode to add or perform operations on recurring tasks
+     *
      */
     public void promptRecurringActions() {
         System.out.println("You have accessed Recurring Mode");
@@ -209,9 +210,6 @@ public class Ui {
     public void promptForTime() {
         System.out.println("Enter the amount of time");
     }
-
-    /**
-     * tells the user to input valid amount of time
      */
   
     public void showTimeError(){
