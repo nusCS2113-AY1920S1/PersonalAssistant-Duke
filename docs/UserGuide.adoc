@@ -128,7 +128,7 @@ Resources:
 
 === Comparing two degrees: `compare`
 
-Lists the differences between two degree programs given their keywords. +
+Lists the module similarities and differences between two degree programs given their keywords. +
 Format: `compare DEGREE DEGREE`
 
 
@@ -262,7 +262,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Help* `help`
+* *Help* : `help`
 * *Information* : `detail DEGREE|MODULE` +
 e.g. 'detail ME'
 * *Comparison* : `compare DEGREE DEGREE` +
