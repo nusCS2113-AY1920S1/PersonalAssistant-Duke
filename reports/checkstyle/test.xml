@@ -27,7 +27,6 @@
 <file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\RecurringTest.java">
 </file>
 <file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\TaskListTest.java">
-<error line="4" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 </file>
 <file name="C:\Users\zhenyu\Desktop\main\src\test\java\task\TodoTest.java">
 </file>
