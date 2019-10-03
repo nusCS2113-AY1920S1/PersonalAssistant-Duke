@@ -134,12 +134,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `Dolla` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add a new income/expense entry.
+=== Use case: Switch the mode Dolla is on.
 
 *MSS*
 
-1. User requests to add a new income/expense entry.
-2. Dolla adds new income/expense entry.
+1. User requests to switch mode.
+2. Dolla switches mode successfully and notifies the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new expense entry.
+
+*MSS*
+
+1. User requests to add a new expense entry.
+2. Dolla adds a new expense entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input format is invalid.
++
+[none]
+** 1a1. Dolla shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new income entry.
+
+*MSS*
+
+1. User requests to add a new income entry.
+2. Dolla adds new income entry.
 +
 Use case ends.
 
