@@ -83,4 +83,8 @@ public class Task {
     public int hashCode() {
         return Objects.hash(task, done);
     }
+
+    public boolean isDone() {
+        return this.done;
+    }
 }
