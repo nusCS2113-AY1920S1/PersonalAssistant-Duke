@@ -18,7 +18,8 @@ public class DukeTest extends InputTest {
  public void testDuke() {
         final String test = "bye";
         provideInput(test);
-        Duke.main(new String[0]);
+        final String[] hold = { test, "what" };
+        Duke.main(hold);
         String expected =
                 LINE
                 + "Hello! I'm Duke\n"

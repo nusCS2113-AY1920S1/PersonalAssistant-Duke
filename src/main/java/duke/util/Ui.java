@@ -92,6 +92,10 @@ public class Ui {
         }
     }
 
+    public void listMsg() {
+        System.out.println("Here are the tasks in your list:");
+    }
+
     public void goodbyeMsg() {
         System.out.println("Bye. Hope to see you again soon!");
         closeScan();
