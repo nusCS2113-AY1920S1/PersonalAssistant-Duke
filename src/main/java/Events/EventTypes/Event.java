@@ -60,15 +60,17 @@ public abstract class Event {
     }
 
     public String toStringForFile() { //string that is to be saved to file.
+        getStartDate().formatToInputPattern();
+        getEndDate().formatToInputPattern();
         if (getEndDate() == null) {
             getStartDate().formatToInputPattern();
             return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                    getStartDate().getSplitDate();
+                    getStartDate().getFormattedDateString();
         }
         getStartDate().formatToInputPattern();
         getEndDate().formatToInputPattern();
         return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                getStartDate().getSplitDate() + " " + getEndDate().getSplitDate();
+                getStartDate().getFormattedDateString() + " " + getEndDate().getFormattedDateString();
     }
     
     public char getType() {
