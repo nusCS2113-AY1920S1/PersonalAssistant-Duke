@@ -5,7 +5,7 @@ public class MooMoo {
     private Ui ui;
     private boolean isExit;
 
-    private MooMoo() {
+    public MooMoo() {
         ui = new Ui();
         isExit = false;
     }
@@ -27,5 +27,9 @@ public class MooMoo {
 
     public static void main(String[] args){
         new MooMoo().run();
+    }
+
+    public String getResponse(String message) {
+        return message;
     }
 }
