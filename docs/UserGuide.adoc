@@ -76,6 +76,8 @@ e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add i
 e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
+
+*NOTE*: Dolla is a mode based bot, and will takes in different inputs depending on the mode the user is currently on.
 ====
 {nbsp} +
 
@@ -85,6 +87,8 @@ Format: +
 `*help*`
 
 === Common Commands
+
+These commands can be used in the modes entries, limits, debts and shortcut.
 
 ==== Change the page of the list: `page`
 
