@@ -354,42 +354,42 @@ Format: +
 * `*debts*`
 * `*shortcuts*`
 * `*settings*`
-* `*add expenses/income*`  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
+* *add expenses/income*  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 e.g. `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `*page* [PAGE NO.]` +
+* *page* [PAGE NO.]` +
 e.g. `page 3`
-* `*remove*` `remove [LIST NO.]` +
+* *remove* `remove [LIST NO.]` +
 e.g. `remove 3`
-* `*modify*` `modify [LIST NO.] {COMPONENT}` +
+* *modify* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
-* `*sort /date*` `sort /date ascending/descending` +
+* *sort /date* `sort /date ascending/descending` +
 e.g. sort /date ascending
-* `*sort /tag*` `sort /tag ascending/descending` +
+* *sort /tag* `sort /tag ascending/descending` +
 e.g. sort /tag descending
-* `*sort /amount*` `sort /amount ascending/descending` +
+* *sort /amount* `sort /amount ascending/descending` +
 e.g. sort /amount ascending
-* `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+* *add recurring expenses/income* `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
-* `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
-* `*set limit*` `set limit /tag [TAG] [AMOUNT]` +
+* *set limit* `set limit [AMOUNT] /every [DURATION]` +
+* *set limit* `set limit /tag [TAG] [AMOUNT]` +
 e.g. `set limit /tag bubble tea $20`
 e.g. `set limit $50 every week`
-* `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
+* *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
-* `*reminder*` `reminder`
-* `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *reminder* `reminder`
+* *owe* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `owe xx $4 bubble tea`
-* `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *borrow* `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `borrow xx $10 lunch`
-* `*stats*` `stats [TAG] [DURATION] [CHART_TYPE]` +
+* *stats* `stats [TAG] [DURATION] [CHART_TYPE]` +
 e.g. stats Food September histogram
-* `*stats*` `stats [DATE/MONTH/YEAR]` +
+* *stats* `stats [DATE/MONTH/YEAR]` +
 e.g. stats today
-* `*view*` `view [DATE/MONTH/YEAR]` +
+* *view* `view [DATE/MONTH/YEAR]` +
 e.g. view 11/11/2011
-* `*create shortcut*` `create shortcut [LIST NO.]` +
+* *create shortcut* `create shortcut [LIST NO.]` +
 e.g. `create shortcut 3`
-* `*create expense/income shortcut*` `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
+* *create expense/income shortcut* `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
 e.g. create shortcut expense ice-cream $5 food
-* `*add shortcut*` `add shortcut [SHORTCUT NO.]` +
+* *add shortcut* `add shortcut [SHORTCUT NO.]` +
 e.g. add shortcut 8
