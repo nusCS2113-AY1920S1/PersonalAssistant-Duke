@@ -14,8 +14,6 @@ import java.io.PrintStream;
  */
 public class InputTest {
 
-    protected final InputStream systemIn =  System.in;
-
     protected ByteArrayInputStream testIn;
     protected ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     protected ByteArrayOutputStream errContent = new ByteArrayOutputStream();
