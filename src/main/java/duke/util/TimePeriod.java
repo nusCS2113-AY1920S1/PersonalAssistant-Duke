@@ -19,6 +19,12 @@ public class TimePeriod {
         this.setPeriod(begin, end);
     }
 
+    /**
+     * Constructor for TimePeriod check.
+     * @param begin Start date.
+     * @param isInstantEnd Ends immediately or not.
+     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     */
     public TimePeriod(LocalDateTime begin, boolean isInstantEnd) throws DukeInvalidTimePeriodException {
         this(begin, null);
         if (isInstantEnd) {
@@ -75,6 +81,12 @@ public class TimePeriod {
         this.end = end;
     }
 
+    /**
+     * Set period for this object
+     * @param begin Start date.
+     * @param end End date.
+     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     */
     public void setPeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
         if (end != null && end.isBefore(begin)) {
             throw new DukeInvalidTimePeriodException("End before begin!");
@@ -96,6 +108,9 @@ public class TimePeriod {
         return TimeInterval.between(this.begin, this.end);
     }
 
+    /**
+     * Make period expire immediately.
+     */
     public void endsNow() {
         if (!this.isExpired()) {
             this.setEnd(LocalDateTime.now());

@@ -1,7 +1,8 @@
 package duke.tasks;
 
 import duke.exceptions.DukeInvalidTimePeriodException;
-import duke.util.*;
+import duke.util.TimeInterval;
+import duke.util.TimePeriod;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -53,12 +54,16 @@ public class Task {
     }
 
     public LocalDateTime getTime() {
-        return this.getBegin() != null ? this.getBegin() : this.getEnd();
+        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
     }
 
-    public LocalDateTime getBegin() {return this.period.getBegin();}
+    public LocalDateTime getBegin() {
+        return this.period.getBegin();
+    }
 
-    public LocalDateTime getEnd() {return this.period.getEnd();}
+    public LocalDateTime getEnd() {
+        return this.period.getEnd();
+    }
 
     public LocalDate getBeginDate() {
         return this.getBegin().toLocalDate();
