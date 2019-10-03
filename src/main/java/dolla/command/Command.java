@@ -1,7 +1,6 @@
 package dolla.command;
 
 import dolla.Ui;
-import dolla.task.TaskList;
 
 /**
  * Command is an abstract class which all types of command will inherit from.
@@ -12,7 +11,7 @@ public abstract class Command {
      * @param tasks duke.task.TaskList containing all the tasks stored.
      * @throws Exception handle exception
      */
-    public abstract void execute(TaskList tasks) throws Exception;
+    public abstract void execute() throws Exception;
 
     /**
      * Returns an integer variable from the specified string.

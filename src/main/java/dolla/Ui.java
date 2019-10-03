@@ -1,5 +1,6 @@
 package dolla;
 
+import dolla.task.Entry;
 import dolla.task.Task;
 
 import java.util.ArrayList;
@@ -69,6 +70,22 @@ public class Ui {
                 "Now you have " + listSize + " task(s) in the list."
         ));
         printMsg(msg);
+    }
+
+    /**
+     * This method prints the details of the specified entry.
+     * <p>
+     * This method is typically called when an entry is entered, so that the user can
+     * check the details of the created entry.
+     * </p>
+     *
+     * @param currEntry Entry to be printed.
+     */
+    public static void echoAddEntry(Entry currEntry) {
+        System.out.println(line);
+        System.out.println("Got it. I've added this entry: ");
+        System.out.println(currEntry.getEntryText());
+        System.out.println(line);
     }
 
     /**
@@ -209,8 +226,10 @@ public class Ui {
     }
 
     public static void printInvalidEntryFormatError() {
+        System.out.println(line);
         System.out.println("\tplease follow the format " +
                 "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'" +
                 "");
+        System.out.println(line);
     }
 }

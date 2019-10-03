@@ -11,9 +11,9 @@ import java.time.format.DateTimeParseException;
 
 public abstract class Parser {
 
-    private LocalDateTime date;
-    private String description;
-    private String inputLine;
+    protected LocalDateTime date;
+    protected String description;
+    protected String inputLine;
 
     public Parser(String inputLine) {
         this.inputLine = inputLine;

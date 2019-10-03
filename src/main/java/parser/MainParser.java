@@ -42,13 +42,13 @@ public class MainParser {
      *     If a number is not provided in a done or remove command, an error will be printed,
      *     and an ErrorCommand will be returned.
      * </p>
-     * @param inputLine The entire line input from the user.
+     * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
-    public static Command handleInput(String mode) { // TODO: Rename to something else
+    public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
 
-        Scanner input = new Scanner(System.in);
-        String inputLine = input.nextLine();
+//        Scanner input = new Scanner(System.in);
+//        String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
 
@@ -64,7 +64,7 @@ public class MainParser {
         switch (mode) {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
-            return dollaParser.handleInput();
+            return dollaParser.handleInput(inputLine);
         default:
             return new ErrorCommand();
         }
@@ -126,7 +126,6 @@ public class MainParser {
             return addToList(command, inputLine);
         }
         */
-        return new ErrorCommand();
     }
 
 

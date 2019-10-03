@@ -45,8 +45,8 @@ public class Dolla {
                     isExit = true;
                     MainParser.exit();
                 } else {
-                    Command c = MainParser.handleInput(mode);
-                    c.execute(tasks);
+                    Command c = MainParser.handleInput(mode, inputLine);
+                    c.execute();
                     //Storage.save(tasks.get());
                 }
             }
