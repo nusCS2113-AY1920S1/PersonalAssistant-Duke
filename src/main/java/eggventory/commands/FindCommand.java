@@ -27,7 +27,7 @@ public class FindCommand extends Command {
 
         String listString = "";
         for (int i = 0; i < max; i++) {
-            if (list.getStock(i).getDescription().contains(search)) {
+            if (list.getStock(i).toString().contains(search)) {
                 // Adding task to print with associated index to final string
                 // TODO: Change to stringbuilder - Raghav
                 listString += (i + 1 + ". " + list.getStock(i).toString() + "\n");
