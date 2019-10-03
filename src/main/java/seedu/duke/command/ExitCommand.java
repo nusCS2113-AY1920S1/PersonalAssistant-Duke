@@ -11,6 +11,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean execute() {
+        responseMsg = "Bye, hope to see you again.";
         return false;
     }
 }
