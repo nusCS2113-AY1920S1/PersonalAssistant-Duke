@@ -26,12 +26,12 @@ class UITest {
         System.setOut(originalOut);
     }
 
-    @Test
-    void testShowWelcome() {
-        testUi.showWelcome();
-        assertEquals("Hello! I'm Duke\n"
-                + "What can I do for you?\n\r\n", systemOutput.toString());
-    }
+//    @Test
+//    void testShowWelcome() {
+//        testUi.showWelcome();
+//        assertEquals("Hello! I'm Duke\n"
+//                + "What can I do for you?\n\r\n", systemOutput.toString());
+//    }
 
     /*
     @Test
