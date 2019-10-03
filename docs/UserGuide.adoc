@@ -1,0 +1,229 @@
+= RIMS User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir:
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W12-1/main
+
+By: `Team W12-1`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+
+RIMS (Resource and Inventory Management System) is a *command-line* logistic management system designed to manage an organisation’s facilities and inventory. It takes in user commands to *track the booking and loaning out of an organisation’s resources*. It is designed for logistics managers and executives aspiring to streamline and digitise the accounting  of their inventory. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `RIMS.jar` link:{repoURL}[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their status (booked/reserved/available).
+.  Some example commands you can try:
+
+* *`list`* : lists all items/rooms and their status (booked/reserved/available)
+* **`add`**`/item football /qty 2` : adds 2 footballs to RIMS.
+* *`bye`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* The first word of each input string is the *command* or *action* requested by the user.
++
+e.g. the word `*return*` in `*return* /room seminar room 1`
+* Words in `UPPER_CASE` are the *arguments* to be supplied by the user.
++
+e.g. in `return /room *ROOM*`, `*ROOM*` is a parameter which can be used as `return /room *seminar room 1*`.
+* Arguments always follow a *parameter*, which is denoted by a phrase starting with a forward slash `/`.
++
+e.g. in `deadline */date* _DATE_`, `*/date*` denotes that `_DATE_` is a parameter denoting a date and time, as in `deadline */date* _23/01/2020_`.
+* Different commands features different parameters.
+* Parameters can be in any order.
++
+e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUANTITY_ */item ITEM*` is also acceptable.
+
+====
+
+=== Adding or Removing Items/Rooms
+
+==== Add item/room: `add`
+Add new item(s) or a new room available for loan/booking in RIMS.
+
+.*Format*:
+. `add /item ITEM /qty QUANTITY`
+. `add /room ROOM /cap CAPACITY`
+* If the item or room already exists in RIMS, then its quantity will be updated accordingly.
+* Quantity or capacity must be a positive integer.
+
+.*Examples*:
+* `add /item book /qty 5`
+* `add /room multi purpose sports hall /cap 100`
+
+==== Add a borrowed item/room: `borrow`
+Add new item(s) or a new room available for loan/booking in RIMS for a limited time (borrowed/leased from third parties).
+
+.*Format*:
+. `add /item ITEM /qty QUANTITY /by DEADLINE`
+. `add /room ROOM /cap CAPACITY /by DEADLINE`
+* If the item or room already exists in RIMS, then its quantity will be updated accordingly.
+* Quantity or capacity must be a positive integer.
+* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+
+.*Examples*:
+* `add /item book /qty 5 /by 19/10/2019 2000`
+* `add /item multi purpose sports hall /cap 100 /by 01/01/2020 0000`
+
+==== Delete item/room: `delete`
+Delete item(s) or room available for loan/booking in RIMS.
+
+.*Format*:
+. `delete /item ITEM /qty QUANTITY`
+* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+* Quantity must be a positive integer.
+* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+
+.*Examples*:
+* `delete /item book /qty 5`
+* `delete /room multi purpose sports hall`
+
+=== Item/Room Status
+
+==== Loan out item/book room: `lend`
+Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
+
+.*Format*:
+. `lend /item ITEM /qty QUANTITY /by DEADLINE`
+. `lend /room ROOM /by DEADLINE`
+* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+* Quantity must be a positive integer.
+* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+
+.*Examples*:
+* `delete /item book /qty 5`
+* `delete /room multi purpose sports hall`
+
+==== Return an item / room: `return`
+Registers an item / room as having been returned, and is thus available to be loaned again.
+
+.*Format*:
+. `return /item ITEM /qty QUANTITY`
+. `return /room ROOM`
+* Quantity must be a positive integer.
+* Rooms are unique and thus do not require quantities.
+* If the user attempts to return a room / a quantity of items that have not been borrowed, the UI will send an error message to the user.
+
+
+.*Examples*:
+* `return /item frisbee /qty 3`
+* `return /room seminar room 1`
+
+==== Reserve an item / room: `reserve`
+Registers an item as having been reserved (loaned in advance) from a future date to another future date.
+
+.*Format*:
+. `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE`
+. `reserve /room ROOM /from DATE /to DEADLINE`
+* While loans take effect from the current date to a specified deadline, reservations specify a future time-frame for an item to be loaned out.
+* Quantity must be a positive integer.
+* If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
+* If the item or room does not exist in the inventory, the UI will send an error message to the user.
+* Rooms are unique and thus do not require quantities.
+* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+
+.*Examples*:
+* `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
+* `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
+
+==== Extend existing loan of an item / room: `extend`
+Extends the loan period of an item/room that is currently loaned out.
+
+.*Format*:
+. `extend /item ITEM /qty QUANTITY /by DEADLINE`
+. `extend /room ROOM /by DEADLINE`
+* Quantity must be a positive integer.
+* Rooms are unique and thus do not require quantities.
+* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+* If the extended deadline as specified by the user is not a date later than the current deadline, the UI will send an error message to the user.
+
+.*Examples*:
+* `extend /item basketball /qty 1 /by 05/10/2019 2300`
+* `extend /room basketball court /by 06/10/2019 0000`
+
+==== View deadline of item/room: `due`
+View which items/rooms are due on a certain date using this command.
+
+.*Format*:
+. `due DATE`
+* If the date is left blank then the UI will send a message to inform the user.
+* Date must be in DD/MM/YYYY format
+
+.*Examples*:
+* `due 07/10/2019`
+
+==== List items/rooms and their status: `list`
+View all items and rooms recorded and whether they are available or not.
+
+.*Format*:
+. `list`
+
+==== View calendar: `calendar`
+View a table-format calendar which shows when items/rooms are in use.
+
+.*Format*:
+. `calendar`
+
+=== Others
+
+==== Exiting the program: `bye`
+Terminates RIMS.
+
+.*Format*:
+. `bye`
+
+==== Reminders
+Reminds user about items or rooms due within a specific period of time, upon starting up RIMS.
+
+==== Saving data
+With the execution of any command, any changes in data on items, rooms and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
+
+== FAQ
+
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous RIMS folder.
+
+== Command Summary
+
+* *Add item/room*: `resource add /item ITEM /qty QUANTITY` +
+e.g. `add /item book /qty 5`
+* *Add a borrowed item/room*: `add /item ITEM /qty QUANTITY /by DEADLINE` +
+e.g. `add /item book /qty 5 /by 19/10/2019 2000`
+* *Delete item/room*: `delete /item ITEM /qty QUANTITY` +
+e.g. `delete /item book /qty 5`
+* *Loan out item/room*: `lend /item ITEM /qty QUANTITY /by DEADLINE` +
+e.g. `lend /item frisbee /qty 5 /by 01/10/2019 2300`
+* *Return item/room*: `return /item ITEM /qty QUANTITY` +
+e.g. `return /item frisbee /qty 3`
+* *Reserve item/room*: `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` +
+e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
+* *Extend an existing loan*: `extend /item ITEM /qty QUANTITY /by DEADLINE` +
+e.g. `extend /item basketball /qty 1 /by 05/10/2019 2300`
+* *View deadline of item/room*: `due DATE` +
+	e.g. `due 04/05/2019`
+* *List items/rooms and their status*: `list`
+* *View calendar*: `calendar`
+* *Exiting the program*: `bye`
