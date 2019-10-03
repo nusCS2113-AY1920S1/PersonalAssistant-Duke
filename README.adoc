@@ -3,7 +3,6 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
 https://travis-ci.org/AY1920S1-CS2113T-W17-2/main[image:https://travis-ci.org/AY1920S1-CS2113T-W17-2/main.svg?branch=master[Build Status]]
-https://coveralls.io/github/AY1920S1-CS2113T-W17-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2113T-W17-2/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/AY1920S1-CS2113T-W17-2/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2113T-W17-2/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/322986031c8f449895a76905dddb68dc[Codacy Badge]]
 https://opensource.org/licenses/MIT[image:https://img.shields.io/badge/License-MIT-yellow.svg[License: MIT]]
 
