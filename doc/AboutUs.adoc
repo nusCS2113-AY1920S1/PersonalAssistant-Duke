@@ -20,7 +20,7 @@ Responsibilities: Checkstyle + Timetable Feature
 
 === Danish
 image::danisheddie.png[width="150", align="left"]
-{empty}[http://github.com/danisheddie[github]] [<<portfolio#, portfolio>>]
+{empty}[https://github.com/AY1920S1-CS2113T-W13-1/main.git[homepage]] [https://github.com/danisheddie[github]] [<<danisheddiePortfolio#, Portfolio>>]
 
 Role: Developer
 Responsibilities: UI + Managing Students Feature
@@ -29,7 +29,7 @@ Responsibilities: UI + Managing Students Feature
 
 === Jing Sen
 image::eujingsen.png[width="150", align="left"]
-{empty}[http://github.com/eujingsen[github]] [<<portfolio#, portfolio>>]
+{empty}[http://github.com/eujingsen[github]] [<<eujingsenPortfolio#, portfolio>>]
 
 Role: Developer
 Responsibilities: Training Circuits Feature
@@ -38,7 +38,7 @@ Responsibilities: Training Circuits Feature
 
 === Edmund
 image::nottherealedmund.png[width="150", align="left"]
-{empty}[http://github.com/nottherealedmund[github]] [<<portfolio#, portfolio>>]
+{empty}[http://github.com/nottherealedmund[github]] [<<edmundPortfolio#, portfolio>>]
 
 Role: Developer \n
 Responsibilities: GUI + Sub-schedule Feature

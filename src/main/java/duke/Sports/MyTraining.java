@@ -31,23 +31,24 @@ public class MyTraining {
     public String getIntensity() {
         return this.intensity;
     }
-    public String toString() {
-        return getName() + ", sets of " + getSets() + " with " + getReps() + "reps each";
-    }
 
-    public void changeIntensity(String newIntensity) {
-        this.intensity = newIntensity;
-    }
-
-    public void changeReps(int newReps) {
-        this.reps = newReps;
-    }
+    public void changeName(String newName) {
+        this.name = newName;
+    }    
 
     public void changeSets(int newSets) {
         this.sets = newSets;
     }
-
-    public void changeName(String newName) {
-        this.name = newName;
+    
+    public void changeReps(int newReps) {
+        this.reps = newReps;
+    }    
+    public void changeIntensity(String newIntensity) {
+        this.intensity = newIntensity;
+    }    
+    
+    public String toString() {
+        return getName() + ", sets of " + getSets() + " with " + getReps() + "reps each";
     }
+    
 }

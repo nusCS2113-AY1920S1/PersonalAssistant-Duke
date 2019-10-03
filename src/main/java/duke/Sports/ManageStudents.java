@@ -1,4 +1,4 @@
-package Menu;
+package duke.Sports;
 
 /**
  * This class is called when option 2 is chosen
@@ -10,8 +10,7 @@ public class ManageStudents {
 //    }
 
     public void manageStudentsCategory() {
-        System.out.println("MANAGE STUDENTS:\n" +
-                "1. View all Students\n" +
+        System.out.println("1. View all Students\n" +
                 "2. Student Details\n" +
                 "3. Class Details\n" +
                 "4. Student Progress\n" +

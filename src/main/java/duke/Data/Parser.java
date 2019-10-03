@@ -1,7 +1,8 @@
 package duke.Data;
 
-import Menu.ManageStudents;
+import duke.Module.Goal;
 import duke.Module.Schedule;
+import duke.Sports.ManageStudents;
 import duke.Sports.MyClass;
 import duke.Task.*;
 import duke.Module.Reminder;
@@ -9,6 +10,7 @@ import duke.Ui;
 import duke.Sports.MyPlan;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,38 +21,38 @@ import java.util.List;
  */
 public class Parser {
 
-
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException {
+    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
         String cmd = word[0];
+        Schedule schedule = new Schedule(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
 
         switch (cmd) {
 
-        case "list":
-            tasks.showList();
-            break;
+            case "list":
+                tasks.showList();
+                break;
 
-        case "done":
-            try {
-                index = Integer.parseInt(input.substring(5)) - 1;
-                tasks.doneTask(index);
-                storage.updateFile(tasks.getList());
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The following task does not exist!");
-            }
-            break;
-        /**
-         * TODO Fix saving of ToDo class, is causing the load file error due to save formatting
-         */
-            
+            case "done":
+                try {
+                    index = Integer.parseInt(input.substring(5)) - 1;
+                    tasks.doneTask(index);
+                    storage.updateFile(tasks.getList());
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
+                    System.out.println("\u2639 OOPS!!! The following task does not exist!");
+                }
+                break;
+
+            /**
+             * Creates task with a duration
+             */
             case "todo":
                 try {
                     String[] tempString = input.split(" ");
@@ -60,7 +62,7 @@ public class Parser {
                     String[] parseString = info1.split("/in");
                     ToDo todo = new ToDo(parseString[0], false, parseString[1]);
                     tasks.addTask(todo, "T");
-                    storage.saveFile("T",todo,todo.getDate());
+                    storage.saveFile("T", todo, todo.getDate());
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -69,13 +71,12 @@ public class Parser {
             case "deadline":
                 try {
                     index = input.indexOf("/by");
-                    String info = input.substring(9, index-1);
+                    String info = input.substring(9, index - 1);
                     String endDate = input.substring(index + 4);
                     Deadline deadline = new Deadline(info, false, endDate);
                     tasks.addTask(deadline, "D");
-                    storage.saveFile("D",deadline,deadline.getDate());
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                    storage.saveFile("D", deadline, deadline.getDate());
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The task needs a deadline");
                 }
                 break;
@@ -83,13 +84,12 @@ public class Parser {
             case "event":
                 try {
                     index = input.indexOf("/at");
-                    String info = input.substring(6, index-1);
+                    String info = input.substring(6, index - 1);
                     String endDate = input.substring(index + 4);
                     Event event = new Event(info, false, endDate);
                     tasks.addTask(event, "E");
-                    storage.saveFile("E",event,event.getDate());
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                    storage.saveFile("E", event, event.getDate());
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! The task needs a deadline");
                 }
                 break;
@@ -98,13 +98,12 @@ public class Parser {
              * Push date before date into
              */
             case "reminder":
-                try{
+                try {
                     index = input.indexOf("before");
                     Date date = tasks.dateConvert(input.substring(index + 7));
                     Reminder reminder = new Reminder(date);
                     reminder.getReminders(tasks);
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                } catch (StringIndexOutOfBoundsException e) {
                     System.err.println("Incorrect format");
                 }
                 break;
@@ -116,13 +115,12 @@ public class Parser {
             case "aftertask":
                 try {
                     index = input.indexOf("/after");
-                    String info = input.substring(10, index-1);
+                    String info = input.substring(10, index - 1);
                     String endDate = input.substring(index + 7);
                     After after = new After(info, false, endDate);
                     tasks.addTask(after, "A");
-                    storage.saveFile("A",after,after.getDate());
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                    storage.saveFile("A", after, after.getDate());
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
                 }
                 break;
@@ -133,10 +131,24 @@ public class Parser {
                 storage.updateFile(tasks.getList());
                 break;
 
+
             case "find":
                 String searchWord = input.substring(5);
                 tasks.findTask(searchWord);
                 break;
+
+                /**
+                 * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
+                 *
+                 */
+                case "plan":
+                    MyPlan plan = new MyPlan();
+                    if (word[1].equals("view")) {
+                        plan.loadPlan(word[2]);
+                    } else if (word[1].equals("new")) {
+                        plan.createPlan(word[3]);
+                    }
+                    break;
 
             case "date":
                 String searchDate = input.substring(5);
@@ -147,18 +159,6 @@ public class Parser {
                 }
                 break;
 
-            /**
-             * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
-             *
-             */
-            case "plan":
-                MyPlan plan = new MyPlan();
-                if (word[1].equals("view")) {
-                    plan.loadPlan(word[2]);
-                } else if (word[1].equals("new")) {
-                    plan.createPlan(word[3]);
-                }
-                break;
 
             /**
              * Command should be in the form: class swimming /every monday
@@ -167,38 +167,64 @@ public class Parser {
             case "class":
                 try {
                     index = input.indexOf("/every");
-                    String info = input.substring(6, index-1);
+                    String info = input.substring(6, index - 1);
                     String day = input.substring(index + 7);
                     MyClass myclass = new MyClass(info, false, day);
                     tasks.addTask(myclass, "C");
-                    storage.saveFile("C",myclass,myclass.getDay());
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                    storage.saveFile("C", myclass, myclass.getDay());
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
                 }
                 break;
-            
-            /**
-            * Command should be in form schedule view-day|month|year.
-            */
-            case "schedule":
-            Schedule schedule = new Schedule();
-            if (word[1].equals("view-week")) {
-                System.out.println(schedule.getWeek());
-            }
-            else if (word[1].equals("view-month")) {
-                System.out.println(schedule.getMonth());
-            }
 
-            else if (word[1].equals("view-day")) {
-                try {
-                    System.out.println(schedule.getDay(Integer.parseInt(word[2])));
+            /**
+             * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
+             * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
+             * Delete: schedule delete Swimming
+             */
+            case "schedule":
+                if (word[1].equals("view-week")) {
+                    System.out.println(schedule.getWeek());
+                } else if (word[1].equals("view-month")) {
+                    System.out.println(schedule.getMonth());
+                } else if (word[1].equals("view-day")) {
+                    try {
+                        System.out.println(schedule.getDay(word[2]));
+                    } catch (ArrayIndexOutOfBoundsException | ParseException e) {
+                        System.err.println("Enter a date please.");
+                    }
+                } else if (word[1].equals("add")) {
+                    String startTime = word[2] + " " + word[3];
+                    String endTime = word[4] + " " + word[5];
+                    String location = word[6];
+                    String className = word[7];
+                    System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
+                } else if (word[1].equals("delete")) {
+                    String name = word[2];
+                    System.out.println(schedule.delClass(name));
                 }
-                catch (ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Enter a date please.");
+                break;
+
+            /**
+             * View: goal view 5/10/2019
+             * Add: goal add 5/10/2019 Makes sure every student masters freestyle
+             * Delete: goal delete 5/10/2019
+             */
+            case "goal":
+                Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                if (word[1].equals("add")) {
+                    String date = word[2];
+                    index = input.indexOf(word[3]);
+                    String message = input.substring(index);
+                    System.out.println(goal.addGoal(date,message));
+                } else if (word[1].equals("delete")) {
+                    String date = word[2];
+                    System.out.println(goal.removeGoal(date));
+                } else if (word[1].equals("view")) {
+                    String date = word[2];
+                    System.out.println(goal.viewGoal(date));
                 }
-            }
-            break;
+                break;
 
             /**
              *  Cmd "home" will list the menu items;
@@ -210,30 +236,38 @@ public class Parser {
                 Ui viewMenu = new Ui();
                 viewMenu.mainMenu();
                 break;
-            
+
             /**
              // Choosing Option 1 wil direct to "Training Schedule"
              */
             case "1":
+                System.out.flush();
                 // Write go to direct to View Schedule (Scott)
+                Ui trainingSchedule = new Ui();
+                trainingSchedule.trainingScheduleHeading();
                 break;
 
             /**
              * Choosing option 2 will direct to "Manage Students"
              */
             case "2":
+                System.out.flush();
+                Ui manageStudents = new Ui();
+                manageStudents.manageStudentsHeading();
                 ManageStudents viewCategory = new ManageStudents();
                 viewCategory.manageStudentsCategory();
                 // Write Code to direct to manage Students (Danish)
                 break;
 
             /**
-             * Choosing 3 will direct to "Training Circuit"
+             * Choosing 3 will direct to "Training Program"
              */
-
             case "3":
+                System.out.flush();
+                Ui trainingProgram = new Ui();
+                trainingProgram.trainingProgramHeading();
                 //Write Code to direct to Training Circuits (JingSen)
-
+                break;
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;

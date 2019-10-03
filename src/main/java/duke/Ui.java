@@ -5,6 +5,7 @@ import duke.Task.TaskList;
 import duke.Data.Storage;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 public class Ui {
 
@@ -31,11 +32,34 @@ public class Ui {
     }
 
     /**
+     * This function prints out the heading when option 1 is chosen
+     */
+    public void trainingScheduleHeading() {
+        System.out.flush();
+        System.out.println("TRAINING SCHEDULE:\n");
+    }
+
+    /**
+     * This function prints out the heading when option 2 is chosen
+     */
+    public void manageStudentsHeading() {
+        System.out.flush();
+        System.out.println("MANAGE STUDENTS:\n");
+    }
+
+    /**
+     * This function prints out the heading when option 3 is chosen
+     */
+    public void trainingProgramHeading() {
+        System.out.flush();
+        System.out.println("TRAINING PROGRAM:\n");
+    }
+    /**
      * This function takes the standard input defined by the user and passes it
      * into the Parser class
      * @param input This is the string input defined by the user
      */
-    public void readCommand(String input, TaskList tasks, Storage storage) throws FileNotFoundException {
+    public void readCommand(String input, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
         Parser parser = new Parser();
         parser.parseInput(input, tasks, storage);
     }
