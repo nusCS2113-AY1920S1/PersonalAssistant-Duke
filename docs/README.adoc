@@ -18,10 +18,10 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-Duke 2.0 (D2) is a desktop application that acts as an extended task manager for prospective applicants of the various degreees offered by the NUS Faculty of Engineering. D2 is built with extra functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list. Moroever, as a task manager, Duke 2.0 is suitable for use as a personal assistant; that organises and reminds the user of important tasks pertaining to university application.
+Duke 2.0 (D2) is a desktop application that acts as an extended task manager for *prospective applicants of the various degreees offered by the NUS Faculty of Engineering*. D2 is built with extra functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list. Moroever, as a task manager, D2 is suitable for use as a personal assistant; that organises and reminds the user of important tasks pertaining to university application.
 
 
-D2 has been optimized to fit users who prefer to work with a Command Line Interface (CLI) while still having the benefits of an appealing Graphical User Interface (GUI). Therefore, for users that are particularly adept at typing fast, D2 will handle your commands more quickly than traditional GUI apps. 
+D2 has been optimized to fit users who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of an appealing Graphical User Interface (GUI). Therefore, for users that are *particularly adept at typing fast*, D2 will handle your commands more quickly than traditional GUI apps. 
 
 This document has been written to guide you through all aspects of using D2. Jump straight to <<Quick Start>> to get started. Enjoy!
 
