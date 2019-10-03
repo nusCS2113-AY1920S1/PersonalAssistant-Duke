@@ -64,7 +64,7 @@ public class UI {
         String systemDateAndTime = new Date().toString();
     	DateObj limit = new DateObj(systemDateAndTime);
     	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getCurrentJavaDate().toString();
+    	String reminderDeadline = limit.getEventJavaDate().toString();
     	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
     	System.out.print("The time now is " + systemDateAndTime + ".\n");

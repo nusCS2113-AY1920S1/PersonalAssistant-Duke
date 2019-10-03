@@ -19,6 +19,6 @@ public class ToDo extends Event {
 
     @Override
     public String toString() {
-        return "[" + getDoneSymbol() + "][T]" + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
+        return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
     }
 }
