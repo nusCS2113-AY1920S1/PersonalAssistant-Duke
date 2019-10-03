@@ -14,6 +14,7 @@ import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
+import java.time.*;
 import java.util.Objects;
 
 public class RescheduleCommand extends Command {
@@ -70,13 +71,14 @@ public class RescheduleCommand extends Command {
         } else {
             Task task = tasks.access(index);
             if (task instanceof Deadline) {
-                ((Deadline)task).setDateTime(DateTimeParser.getStringToDate(this.time));
+                ((Deadline)task).setPeriod(LocalDateTime.now(), DateTimeParser.getStringToDate(this.time));
                 ui.rescheduleTaskMsg(task, this.time);
             } else if (task instanceof Events) {
-                ((Events)task).setDateTime(DateTimeParser.getStringToDate(this.time));
+                LocalDateTime dateTime = DateTimeParser.getStringToDate(this.time);
+                ((Events)task).setPeriod(dateTime, dateTime);
                 ui.rescheduleTaskMsg(task, this.time);
             } else if (task instanceof DoWithin) {
-                ((DoWithin)task).setDateTime(DateTimeParser.getStringToDate(this.begin),
+                ((DoWithin)task).setPeriod(DateTimeParser.getStringToDate(this.begin),
                         DateTimeParser.getStringToDate(this.end));
                 ui.rescheduleTaskMsg(task, "between " + this.begin + " and " + this.end);
             } else {

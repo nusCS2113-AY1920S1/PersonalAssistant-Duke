@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.*;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class TaskList {
         if (store.getFileExits()) {
             try {
                 tasks = store.readData();
-            } catch (DukeInvalidTimeException e) {
+            } catch (DukeInvalidTimeException | DukeInvalidTimePeriodException e) {
                 System.out.println(e.getMessage());
             }
         } else {

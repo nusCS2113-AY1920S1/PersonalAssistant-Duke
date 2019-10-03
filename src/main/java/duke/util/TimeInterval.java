@@ -18,8 +18,11 @@ public class TimeInterval implements TemporalAmount, Serializable {
     public static final TimeInterval ZERO = new TimeInterval();
 
     public TimeInterval(Period dateDuration, Duration timeDuration) {
-        this.dateDuration = dateDuration;
-        this.timeDuration = timeDuration;
+        this.setDuration(dateDuration, timeDuration);
+    }
+
+    public TimeInterval(LocalDateTime begin, LocalDateTime end) {
+        this.setInterval(begin, end);
     }
 
     public TimeInterval(Period dateDuration) {
@@ -66,6 +69,15 @@ public class TimeInterval implements TemporalAmount, Serializable {
 
     public void setTimeDuration(Duration timeDuration) {
         this.timeDuration = timeDuration;
+    }
+
+    public void setInterval(TimeInterval timeInterval) {
+        this.dateDuration = timeInterval.dateDuration;
+        this.timeDuration = timeInterval.timeDuration;
+    }
+
+    public void setInterval(LocalDateTime begin, LocalDateTime end) {
+        this.setInterval(TimeInterval.between(begin, end));
     }
 
     public void setDuration(Period dateDuration, Duration timeDuration) {
