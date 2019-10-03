@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
@@ -20,7 +19,7 @@ public class ListCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (isEmpty) {
             throw new DukeEmptyListException();

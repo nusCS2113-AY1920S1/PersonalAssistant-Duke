@@ -23,10 +23,6 @@ public class TimePeriod {
         this.end = end;
     }
 
-    public TimePeriod(LocalDateTime begin) throws DukeInvalidTimePeriodException {
-        this(begin, begin);
-    }
-
     /**
      * Checker function for clashing time periods.
      * @param localDateTime Given LocalDateTime.
@@ -56,25 +52,8 @@ public class TimePeriod {
         return this.end;
     }
 
-    public void setBegin(LocalDateTime begin) {
-        this.begin = begin;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-
-    public void setPeriod(LocalDateTime begin, LocalDateTime end) {
-        this.begin = begin;
-        this.end = end;
-    }
-
     public boolean isExpired() {
         LocalDateTime now = LocalDateTime.now();
         return this.end.isBefore(now) || this.end.isEqual(now);
-    }
-
-    public TimeInterval getInterval() {
-        return TimeInterval.between(this.begin, this.end);
     }
 }

@@ -7,7 +7,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.util.DateTimeParser;
-import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -46,7 +45,7 @@ public class ScheduleCommand extends Command {
      * @throws DukeEmptyListException When no tasks are found to match that date.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Reminder reminder) throws DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeEmptyListException {
         ArrayList<Task> printArray = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof Deadline) {

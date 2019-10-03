@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Ui;
 import duke.util.Storage;
@@ -15,7 +14,7 @@ public class ByeCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList task, Ui ui, Storage store, Reminder reminder) {
+    public void execute(TaskList task, Ui ui, Storage store) {
         store.writeData(task.getTasks());
         ui.goodbyeMsg();
     }

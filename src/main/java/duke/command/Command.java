@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exceptions.DukeException;
-import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -16,7 +15,7 @@ public abstract class Command {
      * @throws DukeException template to allow specified command methods
      *                       to throw specified exceptions when errors is encountered.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage store) throws DukeException;
 
     /**
      * Checks if the command is the exit command.
