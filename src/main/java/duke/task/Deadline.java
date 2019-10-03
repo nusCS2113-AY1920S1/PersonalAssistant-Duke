@@ -34,4 +34,8 @@ public class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return dateTime.format(formatter);
     }
+
+    public void setBy(LocalDateTime byValue) {
+        by = byValue;
+    }
 }

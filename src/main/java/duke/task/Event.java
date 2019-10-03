@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    protected LocalDateTime at;
+    LocalDateTime at;
 
     /**
      * Takes in the event descriptio and the start time of the event.
@@ -35,4 +35,7 @@ public class Event extends Task {
         return dateTime.format(formatter);
     }
 
+    public void setAt(LocalDateTime tillValue) {
+        at = tillValue;
+    }
 }
