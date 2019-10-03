@@ -1,4 +1,4 @@
-= Duke v2.0 - User Guide
+= AlphaNUS - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team F10-3`      Since: `Aug 2019`
 
 == Introduction
 
-Duke is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
+AlphaNUS is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
 
 == Quick Start
 .  Some example commands you can try:
@@ -76,7 +76,7 @@ Examples:
 * `payments d/welcome tea p/food 12`
 * `payments d/maintenance fee`
 
-=== Edit the task description: `edit`
+=== Edit the deadline/payment form's description: `edit`
 
 Edit a previously added task's description and details +
 Format: `edit ID d/NEW_DESCRIPTION`
@@ -101,21 +101,7 @@ the id input should not be out of range
 [TIP]
 the format of time should be DD/MM/YYYY HHMM
 [TIP]
-to postpone the deadline for a short time, use easier commands such as `postpone`(see 3.6) or `snooze`(see 3.7)
-
-Examples:
-
-* `reschedule 2 07/10/2019 2359`
-
-=== Postpone the deadline time: `postpone`
-
-postpone the deadline of a previously added task by certain hours +
-Format: `postpone ID n/NO_OF_HOURS`
-
-[TIP]
-the id input should not be out of range
-[TIP]
-the format of time should be DD/MM/YYYY HHMM
+to postpone the deadline for a short time, use `snooze` could be easier(see 3.7)
 
 Examples:
 
@@ -161,6 +147,18 @@ Examples:
 
 * `find d/welcome tea`
 
+=== View deadline by schedule: `view`
+View current deadlines in a specific date +
+Format: `view t/DATE`
+
+[TIP]
+the results will be sorted based on their deadlines (i.e. the one with the earliest deadline will show on the top)
+[TIP]
+the format of the date should be DD/MM/YYYY
+
+Examples:
+
+* `view t/05/10/2019`
 
 === Delete a deadline/payment form: `delete`
 
@@ -215,11 +213,11 @@ There is no need to save manually.
 * *deadline*: `deadline d/DESCRIPTION t/TIME`
 * *payments* : `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
 * *edit* : `edit ID d/NEW_DESCRIPTION`
-* *reschedule* : `reschedule ID t/NEW_TIME` +
-* *postpone* : `postpone ID n/NO_OF_HOURS`
+* *reschedule* : `reschedule ID t/NEW_TIME`
 * *snooze*: `snooze ID`
 * *redetail*: `redetail ID [d/PAYMENT_DETAIL]...`
 * *find* : `find d/DESCRIPTION`
+* *view* : `view t/DATE`
 * *delete* : `delete ID`
 * *approve*: `approve ID [m/MESSAGE]`
 * *done*: `done ID`
