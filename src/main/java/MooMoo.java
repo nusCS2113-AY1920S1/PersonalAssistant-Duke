@@ -20,7 +20,7 @@ public class MooMoo {
             } catch (MooMooException e) {
                 ui.showErrorMessage(e.getMessage());
             }
-        };
+        }
 
         ui.showGoodbye();
     }
