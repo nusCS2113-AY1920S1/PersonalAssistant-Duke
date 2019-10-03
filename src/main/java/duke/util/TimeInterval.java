@@ -11,18 +11,12 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 import java.util.List;
 
 public class TimeInterval implements TemporalAmount, Serializable {
-
     private Period dateDuration;
     private Duration timeDuration;
     private static final double daysInYear = 365.2422;
     private static final int secondsInDay = 86400;
     public static final TimeInterval ZERO = new TimeInterval();
 
-    /**
-     * Constructor for Time Interval.
-     * @param dateDuration The duration in dates.
-     * @param timeDuration The duration in time.
-     */
     public TimeInterval(Period dateDuration, Duration timeDuration) {
         this.dateDuration = dateDuration;
         this.timeDuration = timeDuration;
@@ -80,13 +74,12 @@ public class TimeInterval implements TemporalAmount, Serializable {
     }
 
     public Period toPeriod() {
-        this.adjustDateTime();
-        return this.dateDuration;
+        return this.getDateDuration();
     }
 
     /**
-     * Helper function to return time duration.
-     * @return Estimated time left.
+     * Convert the time stored in this object to an equivalent Duration object.
+     * @return a Duration object which represent the total time with seconds
      */
     public Duration toDuration() { // Estimate
         double daysToAdd = TimeInterval.daysInYear * this.dateDuration.getYears()
@@ -128,20 +121,15 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return this.minus(Period.ZERO, timeDuration);
     }
 
-    /**
-     * Returns the time interval multiplied by a scalar.
-     * @param scalar Integer scalar to be multiplied.
-     * @return The time interval after being multiplied.
-     */
     public TimeInterval multipliedBy(int scalar) {
         return new TimeInterval(this.dateDuration.multipliedBy(scalar), this.timeDuration.multipliedBy(scalar));
     }
 
     /**
-     * Returns the time interval between 2 dates.
-     * @param begin Start date.
-     * @param end End date.
-     * @return returns the time differences between the two dates.
+     * Return the difference in time between two LocalDateTime epochs.
+     * @param begin the 1st epoch
+     * @param end the 2nd epoch
+     * @return a TimeInterval object representing the difference between the two epochs.
      */
     public static TimeInterval between(LocalDateTime begin, LocalDateTime end) {
         Period dateDiff = Period.between(begin.toLocalDate(), end.toLocalDate());
@@ -212,7 +200,6 @@ public class TimeInterval implements TemporalAmount, Serializable {
     public static TimeInterval max(TimeInterval timeInterval1, TimeInterval timeInterval2) {
         return timeInterval1.isGreaterThan(timeInterval2) ? timeInterval1 : timeInterval2;
     }
-
 
     @Override
     public long get(TemporalUnit temporalUnit) {

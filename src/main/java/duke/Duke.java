@@ -4,10 +4,10 @@ import duke.command.Command;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeTimeIntervalTooCloseException;
 import duke.util.ParserWrapper;
-import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
+import duke.util.Reminder;
 
 public class Duke {
     /**
@@ -18,8 +18,8 @@ public class Duke {
     private Storage store;
     private Ui ui;
     private TaskList tasks;
-    private Reminder reminder;
     private ParserWrapper parser;
+    private Reminder reminder;
 
     /**
      * Constructor for Duke class.

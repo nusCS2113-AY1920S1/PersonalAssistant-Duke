@@ -8,12 +8,12 @@ import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.exceptions.DukeInvalidIndexException;
+
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-
 import java.util.Objects;
 
 public class RescheduleCommand extends Command {
