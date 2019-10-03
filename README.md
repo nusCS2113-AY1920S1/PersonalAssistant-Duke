@@ -34,7 +34,7 @@ Currently, this project only contains a task manager. We are currently in the pr
 
 ![UI](docs/images/UI.png)
 
-![UI help](docs/images/UI help.png)
+![UI help](docs/images/UIhelp.png)
 
 ## Contributers
 
