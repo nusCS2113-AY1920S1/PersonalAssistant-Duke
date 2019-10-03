@@ -48,7 +48,7 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the exit message of Duke.
+	 * Prints the exit message of Cube.
 	 */
 	public void showExit() {
 		System.out.println("Bye. Hope to see you again soon!");
