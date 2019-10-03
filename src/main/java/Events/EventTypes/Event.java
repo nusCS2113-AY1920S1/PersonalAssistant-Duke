@@ -60,6 +60,8 @@ public abstract class Event {
     }
 
     public String toStringForFile() { //string that is to be saved to file.
+        getStartDate().formatToInputPattern();
+        getEndDate().formatToInputPattern();
         if (getEndDate() == null) {
             getStartDate().formatToInputPattern();
             return getDoneSymbol() + getType() + " " + getDescription() + " " +
