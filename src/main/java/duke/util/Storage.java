@@ -6,6 +6,7 @@ import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.RecurringTask;
+import duke.tasks.FixedDurationTasks;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
