@@ -1,7 +1,7 @@
 package eggventory.commands;
 
+import eggventory.StockType;
 import eggventory.Storage;
-import eggventory.TaskList;
 import eggventory.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class NumCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage("");
-    TaskList newList = new TaskList();
+    StockType newList = new StockType();
 
     /*
     @Test

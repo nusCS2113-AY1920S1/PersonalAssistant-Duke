@@ -24,9 +24,9 @@ public class Storage {
     /**
      * Converts save file details into Tasks.
      */
-    public TaskList load() {
+    public StockType load() {
 
-        TaskList savedList = new TaskList();
+        StockType savedList = new StockType();
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -73,7 +73,7 @@ public class Storage {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return savedList; //Returns a TaskList.
+        return savedList; //Returns a StockType.
     }
 
     private void writeToFile(String textToAdd) throws IOException {
@@ -83,7 +83,7 @@ public class Storage {
     }
 
     /**
-     * Saves existing TaskList to a text file.
+     * Saves existing StockType to a text file.
      */
     public void save(ArrayList<Task> taskList) {
         StringBuilder tasksToSave = new StringBuilder();

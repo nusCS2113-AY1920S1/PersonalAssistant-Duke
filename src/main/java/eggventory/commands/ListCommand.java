@@ -1,6 +1,6 @@
 package eggventory.commands;
 
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(StockType list, Ui ui, Storage storage) {
         int max = list.getSize();
         String listString = "";
         if (max == 0) {

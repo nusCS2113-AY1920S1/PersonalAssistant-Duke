@@ -1,6 +1,6 @@
 package eggventory.commands;
 
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.items.DateTime;
@@ -51,14 +51,14 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the actual adding of task to the TaskList.
-     * @param list TaskList to add the item to.
+     * Executes the actual adding of task to the StockType.
+     * @param list StockType to add the item to.
      * @param ui Ui object to display output to.
      * @param storage Storage object to handle saving and loading of any data.
      * @throws BadInputException Thrown if user input is wrongly formatted.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
+    public void execute(StockType list, Ui ui, Storage storage) throws BadInputException {
         switch (super.type) {
         case TODO:
             if (!details.equals("")) {
@@ -79,11 +79,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the actual adding of task to the TaskList. Only to be used Storage.load().
-     * @param list TaskList to add the item to.
+     * Executes the actual adding of task to the StockType. Only to be used Storage.load().
+     * @param list StockType to add the item to.
      * @throws BadInputException If a record is badly formatted, it should be ignored.
      */
-    public void execute(TaskList list) throws BadInputException {
+    public void execute(StockType list) throws BadInputException {
         if (super.type == CommandType.TODO) {
             if (!details.equals("")) {
                 list.addItem(TaskType.TODO, description, Integer.parseInt(details));

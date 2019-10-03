@@ -17,32 +17,32 @@ import eggventory.enums.TaskType;
  * Adding each of the 3 types, print, delete, mark as done, search.
  */
 
-public class TaskList {
-    private ArrayList<Task> taskList;
+public class StockType {
+    private ArrayList<Task> stockList;
 
-    public TaskList(ArrayList<Task> savedFile) {
-        taskList = savedFile;
+    public StockType(ArrayList<Task> savedFile) {
+        stockList = savedFile;
     }
 
-    public TaskList() {
-        taskList = new ArrayList<Task>();
+    public StockType() {
+        stockList = new ArrayList<Task>();
     }
 
-    public ArrayList<Task> getTaskList() {
-        return taskList;
+    public ArrayList<Task> getStockList() {
+        return stockList;
     }
 
     public int getSize() {
-        return taskList.size();
+        return stockList.size();
     }
 
     /**
-     * Adds a task to the tasklist.
+     * Adds a task to the stockList.
      *
      * @return True if item was added successfully.
      */
     public boolean addItem(TaskType type, String description) {
-        taskList.add(new Todo(description));
+        stockList.add(new Todo(description));
         return true;
     }
 
@@ -58,7 +58,7 @@ public class TaskList {
         if (type != TaskType.TODO) {
             return false;
         }
-        taskList.add(new Todo(description, hrs));
+        stockList.add(new Todo(description, hrs));
 
         return true;
     }
@@ -74,15 +74,15 @@ public class TaskList {
     public boolean addItem(TaskType type, String description, DateTime... dateTimes) throws BadInputException {
         switch (type) {
         case TODO:
-            taskList.add(new Todo(description));
+            stockList.add(new Todo(description));
             break;
 
         case DEADLINE:
-            taskList.add(new Deadline(description, dateTimes[0]));
+            stockList.add(new Deadline(description, dateTimes[0]));
             break;
 
         case EVENT: // Throws the BadInputException
-            taskList.add(new Event(description, dateTimes[0], dateTimes[1]));
+            stockList.add(new Event(description, dateTimes[0], dateTimes[1]));
             break;
 
         default:
@@ -93,7 +93,7 @@ public class TaskList {
     }
 
     public Task getTask(int i) {
-        return taskList.get(i);
+        return stockList.get(i);
     }
 
     /**
@@ -102,7 +102,7 @@ public class TaskList {
      * @param i the index of the task to be deleted.
      */
     public void deleteTask(int i) {
-        taskList.remove(i);
+        stockList.remove(i);
     }
 
     // TODO: Deprecated, remove in future commit - Raghav
@@ -124,7 +124,7 @@ public class TaskList {
         Date now = calendar.getTime();
         long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
 
-        for (Task task : taskList) {
+        for (Task task : stockList) {
             if (task instanceof Deadline && !task.getIsDone()) {
                 Deadline deadline = (Deadline) task;
                 long timeDifference = deadline.getDate().getTime().getTime() - now.getTime();

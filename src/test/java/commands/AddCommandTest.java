@@ -1,6 +1,6 @@
 package commands;
 
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
@@ -15,14 +15,14 @@ public class AddCommandTest {
 
     @Test
     public void execute_addTodoTask_success() throws BadInputException {
-        TaskList newList = new TaskList();
+        StockType newList = new StockType();
         new AddCommand(CommandType.TODO, "Test TODO", "").execute(newList);
         assertEquals("Test TODO", newList.getTask(0).getDescription());
     }
 
     @Test
     public void execute_addDeadlineTask_success() throws BadInputException {
-        TaskList newList = new TaskList();
+        StockType newList = new StockType();
         new AddCommand(CommandType.DEADLINE, "Test DEADLINE", "15/12/2019 1500").execute(newList);
         SimpleDateFormat formatted = new SimpleDateFormat("EEE MMM d yyyy K:mm a");
         String startDate = formatted.format(newList.getTask(0).getDate().getTime());
@@ -32,7 +32,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_addEventTask_success() throws BadInputException {
-        TaskList newList = new TaskList();
+        StockType newList = new StockType();
         new AddCommand(CommandType.EVENT, "Test EVENT", "15/12/2019 1500 to 17/12/2019 1500").execute(newList);
         SimpleDateFormat formatted = new SimpleDateFormat("EEE MMM d yyyy K:mm a");
         String startDate = formatted.format(newList.getTask(0).getDate().getTime());

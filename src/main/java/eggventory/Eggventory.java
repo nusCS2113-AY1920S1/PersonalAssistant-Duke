@@ -12,7 +12,7 @@ import eggventory.enums.CommandType;
 public class Eggventory {
     private static Storage storage;
     private static Parser parser;
-    private static TaskList taskList;
+    private static StockType stockType;
     private static Ui ui;
 
     /**
@@ -22,7 +22,7 @@ public class Eggventory {
     public Eggventory(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = storage.load(); //Will always return the right object even if empty.
+        stockType = storage.load(); //Will always return the right object even if empty.
         parser = new Parser();
     }
 
@@ -35,7 +35,7 @@ public class Eggventory {
 
             try {
                 Command command = parser.parse(userInput);
-                command.execute(taskList, ui, storage);
+                command.execute(stockType, ui, storage);
 
                 if (command.getType() == CommandType.BYE) {
                     break;

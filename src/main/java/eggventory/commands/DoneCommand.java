@@ -1,6 +1,6 @@
 package eggventory.commands;
 
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
@@ -14,7 +14,7 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public void execute(StockType list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
             list.getTask(itemIndex).markAsDone();
             ui.print("Nice! I've marked this task as done:\n"

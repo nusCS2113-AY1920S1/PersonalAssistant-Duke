@@ -1,6 +1,6 @@
 package eggventory.commands;
 
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.exceptions.BadInputException;
@@ -8,7 +8,7 @@ import eggventory.enums.CommandType;
 
 /**
  * This is an abstract class.
- * Command objects are sent from the Parser and executed with TaskList or Ui.
+ * Command objects are sent from the Parser and executed with StockType or Ui.
  * Commands include: adding, deleting, marking as done etc.
  */
 
@@ -35,12 +35,12 @@ public class Command {
      * Prints the list or saves the list and sends exit message.
      * Might need to separate into bye and list commands.
      */
-    public void execute(TaskList list, Ui ui, Storage storage) throws BadInputException {
+    public void execute(StockType list, Ui ui, Storage storage) throws BadInputException {
         if (type == CommandType.REMINDER) {
             list.printReminders();
 
         } else if (type == CommandType.BYE) {
-            storage.save(list.getTaskList());
+            storage.save(list.getStockList());
             ui.printExitMessage();
         }
     }

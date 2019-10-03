@@ -1,7 +1,7 @@
 package eggventory.commands;
 
 import eggventory.items.Task;
-import eggventory.TaskList;
+import eggventory.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public void execute(StockType list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
             Task item = list.getTask(itemIndex);
             list.deleteTask(itemIndex);
