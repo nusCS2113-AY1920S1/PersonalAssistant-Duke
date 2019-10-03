@@ -86,52 +86,12 @@ Here are some other examples of commands you can try to get used to D2:
 * Items with `|` in between them indicate the user can choose to use either type of parameter e.g. `DEGREE|MODULE` will accept `CEG` or `CS1010`. 
 ====
 
-=== Viewing help : `help`
+=== Viewing Helpful Commands : `help`
+If you require a full list of possible commands that D2 understands, you can call the help command
+The format of the help command is as follows:
 
-Format: `help`
+* `help`
 
-=== Adding a SOMETHING: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all tasks : `list`
-
-Shows a list of all tasks in the list currently. +
-Format: `list`
-
-=== Swapping tasks in the list: `swap`
-
-Swaps the position of two tasks in the list currently. +
-Format `swap INDEX INDEX`
-
-=== Editing a task : `edit`
-
-Edits an existing task in the task list. +
-Format: `edit INDEX [d/DESCRIPTION] [d/DATE]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Viewing detailed information about a degree: `detail`
 
@@ -175,27 +135,58 @@ Returns: +
 `Similarities:` +
 `EE2026` +
 `...`
+
 `Differences:` +
 `CS1010 EE2027` +
 `...`
 
-=== Locating task by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYPHRASE`
+
+=== Adding a degree programme into your list: `add`
+
+To add a newly chosen degree programme into your personalised degree list, use the command add.
+The format of the add command is as follows:
+
+* `add DEGREE [t/TAG]...`
+
+[TIP]
+A degree programme can have any number of tags (including 0)
+
+Examples:
+
+* `add CEG`
+* `add BME [t/tentative]`
+
+=== Listing all degree programmes in your list : `list`
+
+Shows a list of all degrees in the list currently. +
+Format: `list`
+
+=== Swapping degree programmes in the list: `swap`
+
+Swaps the position of two degrees in the list currently. +
+Format `swap INDEX INDEX`
+
+=== Editing a task : `edit`
+
+Edits an existing degree programme into a new degree the task list. +
+Format: `edit INDEX NEWDEGREE`
 
 ****
-* The search is case sensitive. e.g `hans` will not match `Hans`
-* Descriptions and dates are searched.
-* Indicator words are not searched (by, at, on etc).
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Tasks matching the full keyphrase will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Edits the degree at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `find University` +
-Returns `University Talk` and `University Admissions`
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
 
 // tag::delete[]
 === Deleting a person : `delete`
