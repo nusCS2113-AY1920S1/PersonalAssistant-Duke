@@ -153,38 +153,57 @@ There are three main components in the overall architecture of the application.
    Now you have <previous number of items + 1> items in your list. 
 
 . Add Deadline
-.. Key in `Deadline dlevent /by 10/10/2010 2200` +
+.. Key in `Deadline dlevent /by 10-10-2010 2200` +
   Expected: Output should be +
   Got it. I've added this task: +
-  [D][x] dltask (by: 10/10/2010 2200) +
+  [D][x] dltask (by: 10-10-2010 2200) +
   Now you have <previous number of items + 1> tasks in the list.
   
 . Add Event
-.. Key in `Event evttask /at 09/09/2009 0900` +
+.. Key in `Event evttask /at 09-09-2009 0900` +
   Expected: Output should be +
   Got it. I've added this task: +
   [E][x] evttask (by: 09/09/2009 0900) +
   Now you have <previous number of items + 1> tasks in the list.
 
-. Add a recurring task
-.. Key in 
+. Add Exam
+.. Key in `exam Music Rudiments /08-08-2018 0800 0900` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [ex][x] Music Rudiments (on 08-08-2018, 0800 - 0900) 
+   Now you have <previous number of items + 1> tasks in the list.
+   
+. Add Practice session
+.. Key in `practice morningprac /07-08-2018 0800 0900` +
+   Expected: Added a recurring practice session that lasts for one semester.
+   
+. Add Concert
+.. Key in `concert Noon Concert /06-06-2016 1200 1400` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [C][x] Noon Concert (on 06-06-2016, 1200 - 1400) 
+   Now you have <previous number of items + 1> tasks in the list.
+
+. Add Recital
+.. Key in `recital Evening Recital /07-07-2017 1900 2100` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [R][x] Evening Recital (on 07-07-2017, 1900 - 2100) 
+   Now you have <previous number of items + 1> tasks in the list.
 
 === Set a Task as done
 . Key in `done 1` +
   Expected: Prints a message that the first task on the list has been marked as done.
 
 === Find tasks that contains a certain keyword or key phrase
-. Key in `find <key>`, where `<key>' is the keyword or key phrase +
-  Expected: Prints a list of tasks that contains the <key>.
+Key in `find <key>`, where `<key>' is the keyword or key phrase +
+Expected: Prints a list of tasks that contains the <key>.
 
 === Get reminder
-. Key in `reminder` +
-  Expected: Prints a list of tasks to be completed in the next three days.
+Key in `reminder` +
+Expected: Prints a list of tasks to be completed in the next three days.
 
 === View all tasks in a certain day
-. Key in `view <date>` +
-  Expected: Prints a list of tasks that contains the date.
-  
-
-
+Key in `view <date>` + 
+Expected: Prints a list of tasks that contains the date.
   
