@@ -27,22 +27,47 @@ D2 specifically fits users who prefer to work with a Command Line Interface (CLI
 === The Document
 The D2 Team is committed to ensuring that you have all the information you need for using D2 as effortlessly as possible. Therefore, this document describes all aspects of using D2 including installation, features, and commands. We have also included a Frequently Asked Questions if you have any doubts about D2 after reading the document. 
 
-To use Duke, you should have basic knowledge of downloading and running applications. You should able to input simple text commands into a command line. You will not need any other technical knowledge to use D2 to its fullest potential.
+To use Duke, you should have some basic knowledge of downloading, installing and running applications. You should also able to input simple text commands into a command line. You will not need any other technical knowledge to use D2 to its fullest potential.
 
 Jump straight to <<Quick Start>> to get started!
 
-== Quick Start
+If you already have D2, jump ahead to <<Features>>!
 
-.  Ensure you have Java `11` or above installed in your Computer.
+== Quick Start
+=== Prerequisites
+In order to run D2, you should have Java `11` or above installed in your Computer.
+
+* Instructions to installing Java `11` on your machine can be found here:
+** Windows: link:https://www.youtube.com/watch?v=1ZbHHLobt8A[How To Install Java JDK 11 On Windows 10]
+** Mac OS: link:https://www.youtube.com/watch?v=pNDLX2KUYwk[How to Install Oracle Java JDK 11 in MAC macOS Mojave - 2019]
+
+=== Getting D2
+Now that you've installed Java `11` on your computer, you can go ahead with getting D2 on your computer.
+
 .  Download the latest `duke2.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for 'Duke 2.0'.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for 'D2'.
+.  Double-click the file to launch the application. D2 will appear in a few seconds
+
+=== Checking D2
+As D2 launches, you should see the following GUI:
+
 +
-image::UI.png[width="790"]
+----
+image::main/docs/images/UI.png[width="790"]
+----
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+
+To test that D2 is running as it should:
+
+. Type *`help`* in the command line
+. Hit kbd:[Enter] to execute it
+. Notice that the help window appears
+
+If the help window does appear, D2 is successfully running on your machine.
+
+
+
+Here are some other examples of commands you can try to get used to D2:
 
 * *`list`* : lists all tasks you have saved to it
 * **`event`**`University Talk at/25-09-2019 2359` : adds an event named `University Talk` to the Address Book.
