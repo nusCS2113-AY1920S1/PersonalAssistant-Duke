@@ -2,103 +2,69 @@ import duke.DateTime;
 import duke.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DateTimeTest {
 
-//    @Test
-//    public void correctDateInputShouldCreateReusableString() throws DukeException {
-//        DateTime test = new DateTime("01/01/900 1200");
-//        DateTime test2 = new DateTime(test.toString());
-//        assertEquals(test2.toString(), "01/01/0900 1200");
-//
-//        DateTime test3 = new DateTime("01/01/1900 1200");
-//        DateTime test4 = new DateTime(test3.toString());
-//        assertEquals(test4.toString(), "01/01/1900 1200");
-//    }
-//
-//    @Test
-//    public void incorrectDateFormatsShouldThrowDateFormatException() {
-//        try {
-//            new DateTime("01011900 1200");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Format\n\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("01011900 2500");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Format\n\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("01/01/1900 2500");
-//        } catch (DukeException e) {
-//            assertNotEquals(e.getMessage(), "Invalid Date Format\n\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("12/10/1934 12:00");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Format\n\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("11.10.127 10:00");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Format\n\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//    }
-//
-//    @Test
-//    public void incorrectDateValuesShouldThrowDateValueException() {
-//
-//        try {
-//            new DateTime("00/01/1900 2359");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("10/13/1946 2459");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("10/13/1946 2259");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("10/11/001 2159");
-//        } catch (DukeException e) {
-//            assertNotEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("10/11/1946 2459");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//
-//        try {
-//            new DateTime("10/13/1946 0269");
-//        } catch (DukeException e) {
-//            assertEquals(e.getMessage(), "Invalid Date Values\n"
-//                    + "Please enter valid dates and times, as DD/MM/YYYY HHMM");
-//        }
-//    }
+    @Test
+    public void correctDateInputShouldCreateReusableString() throws DukeException {
+
+        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+        List dates = parser.parse("05/02/2020 12:00").get(0).getDates();
+        Date temp = (Date) dates.get(0);
+        DateTime test = new DateTime(temp);
+
+        assertEquals("05/02/2020 12:00", test.toString());
+
+        dates = parser.parse(test.toString()).get(0).getDates();
+        temp = (Date) dates.get(0);
+        DateTime test2 = new DateTime(temp);
+
+        assertEquals("05/02/2020 12:00", test2.toString());
+
+        dates = parser.parse("06/12/2300 5pm").get(0).getDates();
+        temp = (Date) dates.get(0);
+        DateTime test3 = new DateTime(temp);
+
+        assertEquals("06/12/2300 17:00", test3.toString());
+
+        dates = parser.parse(test3.toString()).get(0).getDates();
+        temp = (Date) dates.get(0);
+        DateTime test4 = new DateTime(temp);
+
+        assertEquals("06/12/2300 17:00", test4.toString());
+    }
+
+    @Test
+    public void parseDifferentDateFormattedString() throws DukeException {
+        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+        List dates = parser.parse("the day before 12/16/2019 4pm").get(0).getDates();
+        Date temp = (Date) dates.get(0);
+
+        DateTime test = new DateTime(temp);
+
+        assertEquals("12/15/2019 16:00", test.toString());
+
+        dates = parser.parse("16 December 1800 8am to 15th January 2019 9pm").get(0).getDates();
+        temp = (Date) dates.get(0);
+        DateTime test2 = new DateTime(temp);
+        temp = (Date) dates.get(1);
+        DateTime test3 = new DateTime(temp);
+
+        assertEquals("12/16/1800 08:00", test2.toString());
+        assertEquals("01/15/2019 21:00", test3.toString());
+
+
+        dates = parser.parse("from christmas 2019 6am to christmas eve 2020 23:59").get(0).getDates();
+        temp = (Date) dates.get(0);
+        DateTime santaVacationStartDate = new DateTime(temp);
+        temp = (Date) dates.get(1);
+        DateTime santaVacationEndDate = new DateTime(temp);
+
+        assertEquals("12/25/2019 06:00", santaVacationStartDate.toString());
+        assertEquals("12/24/2020 23:59", santaVacationEndDate.toString());
+    }
 }
