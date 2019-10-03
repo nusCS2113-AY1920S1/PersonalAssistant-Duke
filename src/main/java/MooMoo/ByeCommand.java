@@ -1,8 +1,8 @@
 package MooMoo;
 
-public class byeCommand extends Command{
+public class ByeCommand extends Command{
 
-    public byeCommand() {
+    public ByeCommand() {
         super();
         this.isExit = true;
     }

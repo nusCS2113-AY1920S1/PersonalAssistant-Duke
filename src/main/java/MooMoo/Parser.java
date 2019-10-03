@@ -10,7 +10,7 @@ public class Parser {
         Scanner scanner = new Scanner(command);
         String commandType = scanner.next();
         switch (commandType) {
-        case ("bye"): return new byeCommand();
+        case ("bye"): return new ByeCommand();
         default: throw new MooMooException("Sorry I did not recognize that command.");
         }
     }
