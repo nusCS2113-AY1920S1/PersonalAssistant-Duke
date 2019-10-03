@@ -150,7 +150,7 @@ public class Stock {
      * To be used with the 'stock lost' command.
      */
     public void printLost() {
-        System.out.println(description + ": " + lost +" lost.");
+        System.out.println(description + ": " + lost + " lost.");
     }
 
 }
