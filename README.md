@@ -46,7 +46,7 @@ Eggventory is an in-house solution - made by NUS students, for NUS. This means t
 ## Learn Eggventory
 <p align = "center"> <img src="./docs/assets/learn_icon.png" alt="Learn Eggventory" height=20% width=20%> </p>
 
-If you would like to learn how to use Eggventory to maximize its capabilities, or if you just need help, please view the [User Guide.](placeholder)
+If you would like to learn how to use Eggventory to maximize its capabilities, or if you just need help, please view the [User Guide.](./docs/CS2113T-F09-3-Eggventory-UG.docx)
 
 ## Meet Team Eggventory
 <p align = "center"> <img src="./docs/assets/team_icon.png" alt="Meet Us" height=20% width=20%> </p>
@@ -57,4 +57,4 @@ Please visit [here](./docs/AboutUs.md) if you would like to learn more about the
 <p align = "center"> <img src="./docs/assets/contribute_icon.png" alt="Contributing" height=20% width=20%> </p>
 
 We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing.](./CONTRIBUTING.md)
-If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](placeholder)
+If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](./docs/CS2113T-F09-3-Eggventory-DG.docx)
