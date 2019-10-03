@@ -262,4 +262,15 @@ public class Schedule {
         goals.put(day,message);
     }
 
+    public String removeGoal(String day) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = simpleDateFormat.parse(day);
+        for (Date d : goals.keySet()) {
+            if (d.equals(today)) {
+                goals.remove(d);
+            }
+        }
+        return "Goal of the day on " + day + " has been removed";
+    }
+
 }
