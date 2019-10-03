@@ -1,24 +1,24 @@
 
 = SpongeBob - SOC Club Manager
 
-* SpongeBob is a command line based personal assistant.
-//* *_It is ...._*
-//* *_It is ...._*
+//* Add the GUI picture over here.
+* SpongeBob is a command lined based desktop application aimed at helping the NUS SOC Club with managing +
+manpower, logistics, finance, events and lockers.
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). 
 
 //test image
 //image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/test.png[width="400"]
 
 == Site Map
 
-* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[Setting Up]
 * https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/USER_GUIDE.adoc[User Guide]
 * https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/DEVELOPER_GUIDE.adoc[Developer Guide]
-* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/LEARNING_OUTCOMES.adoc[Learning Outcomes]
 * https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/ABOUT_US.adoc[About Us]
 * https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/CONTACT_US.adoc[Contact Us]
 
 == Acknowledgements
 
+* This application is built for NUS CS2113T AY 2019/2020 Semester 1 and is morphed from https://github.com/nusCS2113-AY1920S1/duke[Duke]
 //* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 //_Marco Jakob_.
 
