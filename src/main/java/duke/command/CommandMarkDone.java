@@ -32,24 +32,24 @@ public class CommandMarkDone extends Command {
      * @param task The Task that has been completed
      * @param taskList The TaskList containing all tasks.
      */
-    private void releaseQueuedTasks(Task task, TaskList taskList) {
-        if (task.isQueuedTasks()) {
-            generateQueuedTasks(task, taskList);
-        }
-    }
-
-    /**
-     * Transfers all queued tasks from the trigger Task to the TaskList.
-     * @param task The triggering Task
-     * @param taskList The TaskList containing all tasks
-     */
-    private void generateQueuedTasks(Task task, TaskList taskList) {
-        TaskList newTasks = task.getQueuedTasks();
-        for (Task newTask : newTasks.getList()) {
-            taskList.addTask(newTask);
-        }
-        task.setQueuedTasks(null);
-    }
+//    private void releaseQueuedTasks(Task task, TaskList taskList) {
+//        if (task.isQueuedTasks()) {
+//            generateQueuedTasks(task, taskList);
+//        }
+//    }
+//
+//    /**
+//     * Transfers all queued tasks from the trigger Task to the TaskList.
+//     * @param task The triggering Task
+//     * @param taskList The TaskList containing all tasks
+//     */
+//    private void generateQueuedTasks(Task task, TaskList taskList) {
+//        TaskList newTasks = task.getQueuedTasks();
+//        for (Task newTask : newTasks.getList()) {
+//            taskList.addTask(newTask);
+//        }
+//        task.setQueuedTasks(null);
+//    }
 
     /**
      * Generates the standard duke reply to inform user that the Task is marked done.
