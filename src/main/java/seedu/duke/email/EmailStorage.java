@@ -89,9 +89,8 @@ public class EmailStorage {
                 Duke.getEmailList().add(serverEmail);
             }
         }
+        saveEmails(Duke.getEmailList());
     }
-
-    //
 
     /**
      * To save the information for the emailList including subject and tags(not implemented yet) for each
