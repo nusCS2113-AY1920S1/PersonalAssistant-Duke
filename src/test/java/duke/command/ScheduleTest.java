@@ -1,7 +1,9 @@
 package duke.command;
 
-import duke.tasks.*;
-import duke.util.*;
+import duke.tasks.Deadline;
+import duke.tasks.Events;
+import duke.tasks.Task;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -22,19 +24,24 @@ public class ScheduleTest {
         String deadlineDateTime = "02/09/2019 12:00";
         String eventDescription = "test2";
         String eventDateTime = "02/09/2019 00:00";
-        String expectedOutput = "_______________________________\n" +
-                "\n" +
-                "Here is your schedule for today:\n" +
-                "1. [E][✗] test2 (at: 09-02-2019 00:00)\n" +
-                "2. [D][✗] test1 (by: 09-02-2019 12:00)\n" +
+        String expectedOutput = "_______________________________\n"
+                +
+                "\n"
+                +
+                "Here is your schedule for today:\n"
+                +
+                "1. [E][✗] test2 (at: 09-02-2019 00:00)\n"
+                +
+                "2. [D][✗] test1 (by: 09-02-2019 12:00)\n"
+                +
                 "_______________________________";
         try {
             Task test1 = new Deadline(deadlineDescription, deadlineDateTime);
             Task test2 = new Events(eventDescription, eventDateTime);
-            final ByteArrayInputStream inDeadline = new ByteArrayInputStream("deadline test1 /by 09/02/2019 1200".getBytes());
-            final ByteArrayInputStream inEvent = new ByteArrayInputStream("event test2 /at 09/02/2019 0000".getBytes());
-            final ByteArrayInputStream inContent = new ByteArrayInputStream("schedule 09/02/2019".getBytes());
-            final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+            ByteArrayInputStream inDeadline = new ByteArrayInputStream("deadline test1 /by 09/02/2019 1200".getBytes());
+            ByteArrayInputStream inEvent = new ByteArrayInputStream("event test2 /at 09/02/2019 0000".getBytes());
+            ByteArrayInputStream inContent = new ByteArrayInputStream("schedule 09/02/2019".getBytes());
+            ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
             System.setIn(inDeadline);
             System.setIn(inEvent);
