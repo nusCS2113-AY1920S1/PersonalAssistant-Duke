@@ -317,11 +317,12 @@ public class TaskList {
             };
         }
 
-        int counter = 0;
+        int counter = 1;
         if (reminderList.size() > 0){
             System.out.println("Here are your reminders for upcoming tasks:");
-            for (Task task : list) {
-                System.out.println(counter++ + ". " + task.toList());
+            for (Task task : reminderList) {
+                System.out.println(counter + ". " + task.toList());
+                counter++;
             }
         }
     }
