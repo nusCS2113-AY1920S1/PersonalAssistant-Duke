@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * A command to edit the properties of an <code>Order</code> object.
  */
-public class EditOrder extends OrderCommand implements Undoable {
+public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
     private Map<String, List<String>> params;
@@ -26,7 +26,7 @@ public class EditOrder extends OrderCommand implements Undoable {
      *
      * @param params the parameters specifying details of the order.
      */
-    public EditOrder(Map<String, List<String>> params) throws DukeException {
+    public EditOrderCommand(Map<String, List<String>> params) throws DukeException {
         if (!(params.containsKey("i") == !params.containsKey("id"))) {
             throw new DukeException("Please specify order ID or index");
         }
@@ -34,7 +34,7 @@ public class EditOrder extends OrderCommand implements Undoable {
         this.params = params;
     }
 
-    public EditOrder() {
+    public EditOrderCommand() {
     }
 
     @Override

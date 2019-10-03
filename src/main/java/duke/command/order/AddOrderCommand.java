@@ -10,12 +10,12 @@ import duke.ui.Ui;
 /**
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
  */
-public class AddOrder extends OrderCommand implements Undoable {
+public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add";
     private final Order toAdd;
 
-    public AddOrder(Order toAdd) {
+    public AddOrderCommand(Order toAdd) {
         this.toAdd = toAdd;
     }
 

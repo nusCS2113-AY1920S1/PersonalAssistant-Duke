@@ -1,6 +1,6 @@
 package duke.parser.order;
 
-import duke.command.order.EditOrder;
+import duke.command.order.EditOrderCommand;
 import duke.parser.ArgumentMultimap;
 import duke.parser.ArgumentTokenizer;
 import duke.parser.CliSyntax;
@@ -10,9 +10,9 @@ import duke.parser.exceptions.ParseException;
 import java.util.Optional;
 
 
-public class EditOrderCommandParser implements Parser<EditOrder> {
+public class EditOrderCommandParser implements Parser<EditOrderCommand> {
     @Override
-    public EditOrder parse(String args) throws ParseException {
+    public EditOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
                 CliSyntax.PREFIX_ORDER_INDEX,
                 CliSyntax.PREFIX_ORDER_NAME,
@@ -22,7 +22,7 @@ public class EditOrderCommandParser implements Parser<EditOrder> {
                 CliSyntax.PREFIX_ORDER_STATUS,
                 CliSyntax.PREFIX_ORDER_REMARKS
         );
-        return new EditOrder();
+        return new EditOrderCommand();
     }
 
     public static class EditOrderMask {

@@ -29,7 +29,7 @@ public class CommandManager {
     }
 
     /*
-     * Runs a command. If the command is a subclass of <code>UndoableCommand<code>, puts it in undo stack.
+     * Runs a command. If the command is a subclass of <code>UndoableCommand</code>, puts it in undo stack.
      * @param command The command to be executed.
      * @throws DukeException if execution fails.
      */

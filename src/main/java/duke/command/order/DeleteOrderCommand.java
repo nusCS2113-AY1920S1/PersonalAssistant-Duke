@@ -1,6 +1,6 @@
-package duke.command;
+package duke.command.order;
 
-import duke.command.order.OrderCommand;
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.commons.Message;
 import duke.entities.Order;
@@ -14,25 +14,25 @@ import java.util.List;
 /**
  * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
  */
-public class DeleteOrder extends OrderCommand implements Undoable {
+public class DeleteOrderCommand extends OrderCommand implements Undoable {
     public static final String COMMAND_WORD = "remove";
 
     private List<Order> toDelete = new ArrayList<>();
     private List<Integer> toDeleteIndexes;
 
-    public DeleteOrder(int... index) {
+    public DeleteOrderCommand(int... index) {
         for (int i = 0; i < index.length; i++) {
             toDeleteIndexes.add(index[i]);
         }
     }
 
-    public DeleteOrder(int start, int end) {
+    public DeleteOrderCommand(int start, int end) {
         for (int i = start; i <= end; i++) {
             toDeleteIndexes.add(i);
         }
     }
 
-    public DeleteOrder(List<Integer> toDeleteIndexes) {
+    public DeleteOrderCommand(List<Integer> toDeleteIndexes) {
         this.toDeleteIndexes = toDeleteIndexes;
     }
 
