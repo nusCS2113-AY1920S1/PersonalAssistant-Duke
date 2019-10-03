@@ -17,7 +17,11 @@ public class Parser {
                 return new CategoryListCommand();
             } else if (command.contains("timebound")) {
                 return new CategoryListCommand();
-            } else {
+            }
+//            else if (command.contains("done")) {
+//                return new DoneListCommand();
+//            }
+            else {
                 return new ListCommand();
             }
         }else if (command.contains("done")) {
@@ -33,9 +37,9 @@ public class Parser {
         } else if (command.contains("todo")) {
             return new TodoCommand();
         }
-//        else if (command.contains("/between")) {
-//            return new TimeboundCommand();
-//        }
+        else if (command.contains("/between")) {
+            return new TimeboundCommand();
+        }
         else if (command.contains("find")) {
             return new FindCommand();
         } else if (command.contains("bye")) {

@@ -35,7 +35,7 @@ public class EditCommandTest {
 
 
     @Test
-    void testexecute() throws ParseException, IOException {
+    void testexecute() throws IOException {
         Ui ui = new Ui();
         Storage storage = new Storage();
         EditCommand test = new EditCommand();

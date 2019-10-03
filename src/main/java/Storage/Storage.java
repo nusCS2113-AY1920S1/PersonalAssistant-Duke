@@ -49,15 +49,24 @@ public class Storage {
                     }
                     tList.add(d);
                 }
-//                else if (details[0].equals("P")) {
-//                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
-//                    if (details[1].equals("\u2713")) {
-//                        tb.isDone = true;
-//                    } else {
-//                        tb.isDone = false;
-//                    }
-//                    tList.add(tb);
-//                }
+                else if (details[0].equals("E)")){
+                    Event e = new Event(details[2].trim(), details[3].substring(3).trim());
+                    if (details[1].equals("\u2713")) {
+                        e.isDone = true;
+                    } else {
+                        e.isDone = false;
+                    }
+                    tList.add(e);
+                }
+                else if (details[0].equals("P")) {
+                    Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
+                    if (details[1].equals("\u2713")) {
+                        tb.isDone = true;
+                    } else {
+                        tb.isDone = false;
+                    }
+                    tList.add(tb);
+                }
                 else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("\u2713")) {
@@ -74,24 +83,43 @@ public class Storage {
                         DA.isDone = false;
                 } else if(details[0].equals("TE")){
                     ArrayList<String> timeslots = new ArrayList<String>();
-                   for(int i=3;i<details.length;i++){
-                       timeslots.add(details[i]);
-                   }
-                   TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
+                    for(int i=3;i<details.length;i++){
+                        timeslots.add(details[i]);
+                    }
+                    TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
                     if (details[1].equals("\u2713")) {
                         TE.isDone = true;
                     } else {
                         TE.isDone = false;
                     }
                     tList.add(TE);
-                } else{
-                    Event e = new Event(details[2].trim(), details[3].substring(3).trim());
-                    if (details[1].equals("\u2713")) {
-                        e.isDone = true;
+                }
+                else {
+                    if(details[3].contains("at:") || details[3].contains("by:")) {
+                        Event e = new Event(details[2].trim(), details[3].substring(3).trim());
+                        if (details[1].equals("\u2713")) {
+                            e.isDone = true;
+                        } else {
+                            e.isDone = false;
+                        }
+                        tList.add(e);
+                    } else if(details[0].contains("P")) {
+                        Timebound tb = new Timebound(details[2].trim(), details[3].trim());
+                        if (details[1].equals("\u2713")) {
+                            tb.isDone = true;
+                        } else {
+                            tb.isDone = false;
+                        }
+                        tList.add(tb);
                     } else {
-                        e.isDone = false;
+                        FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                        if (details[1].equals("\u2713")) {
+                            FD.isDone = true;
+                        } else {
+                            FD.isDone = false;
+                        }
+                        tList.add(FD);
                     }
-                    tList.add(e);
                 }
             }
         }

@@ -36,7 +36,7 @@ public class DoneCommand extends Command {
                 }
             }
             /**
-             * Add some weekly task
+             * Add some recurring task
              */
 
             RecurringCommand rc = new RecurringCommand();
