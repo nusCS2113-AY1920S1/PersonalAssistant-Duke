@@ -11,15 +11,24 @@ public class Ui {
     }
 
     /**
-     * Shows the startup logo for Duke
+     * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " __________         _\n"
+                + "|          \\       / \\\n"
+                + "|    ___    \\     /   \\\n"
+                + "|   |___|    |   |  |  | \n"
+                + "|          _/    |  |  | \n"
+                + "|    ___    \\    \\  \\  /\n"
+                + "|   |   \\    \\    \\  \\/\n"
+                + "|   |    \\    \\   /\\  \\\n"
+                + "|___|     \\____\\ /  \\  \\\n"
+                + "                 |  |  |\n"
+                + "                 |  |  |\n"
+                + "                 \\     /\n"
+                + "                  \\   /\n"
+                + "                   \\_/";
+        System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
     }
@@ -78,7 +87,7 @@ public class Ui {
         System.out.println("You have exited recurring list mode");
     }
     /**
-     * tells the user that Duke is listing the tasks
+     * tells the user that RoomShare is listing the tasks
      */
     public void showList() {
         System.out.println("Listing tasks in your task list...");
@@ -101,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Tells the user that an invalid command has been input into Duke.
+     * Tells the user that an invalid command has been input into RoomShare.
      */
     public void showCommandError() {
         System.out.println("Sorry, I don't understand this command...");

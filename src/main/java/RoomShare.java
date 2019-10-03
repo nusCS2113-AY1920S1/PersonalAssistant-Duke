@@ -1,4 +1,4 @@
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.*;
 import Model_Classes.*;
 import Operations.*;
@@ -11,7 +11,7 @@ import java.util.TimerTask;
 /**
  * main class of the Duke program
  */
-public class Duke {
+public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
@@ -22,14 +22,14 @@ public class Duke {
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public Duke() throws DukeException {
+    public RoomShare() throws RoomShareException {
         ui = new Ui();
         ui.startUp();
         storage = new Storage();
         parser = new Parser();
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
@@ -45,7 +45,7 @@ public class Duke {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() throws DukeException {
+    public void run() {
         boolean isExit = false;
         boolean isExitRecur = false;
         while (!isExit) {
@@ -65,7 +65,7 @@ public class Duke {
                     ui.showList();
                     try {
                         taskList.list();
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showWriteError();
                     }
                     break;
@@ -74,7 +74,7 @@ public class Duke {
                     isExit = true;
                     try {
                         storage.writeFile(TaskList.currentList(), "data.txt");
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showWriteError();
                     }
                     ui.showBye();
@@ -84,7 +84,7 @@ public class Duke {
                     try {
                         ui.showDone();
                         taskList.done(parser.getIndex());
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showIndexError();
                     }
                     break;
@@ -94,7 +94,7 @@ public class Duke {
                         int index = parser.getIndex();
                         taskList.delete(index);
                         ui.showDeleted(index);
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showIndexError();
                     }
                     break;
@@ -109,7 +109,7 @@ public class Duke {
                         ui.showAdd();
                         ToDo temp = new ToDo(parser.getDescription());
                         taskList.add(temp);
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showEmptyDescriptionError();
                     }
                     break;
@@ -121,7 +121,7 @@ public class Duke {
                         Date by = parser.formatDate(deadlineArray[1]);
                         Deadline temp = new Deadline(deadlineArray[0], by);
                         taskList.add(temp);
-                    } catch (DukeException e) {
+                    } catch (RoomShareException e) {
                         ui.showDateError();
                     }
                     break;
@@ -150,7 +150,7 @@ public class Duke {
                                 if( CheckAnomaly.checkTime(fixedDuration) ) {
                                     taskList.add(fixedDuration);
                                 } else {
-                                    throw new DukeException(ExceptionType.timeClash);
+                                    throw new RoomShareException(ExceptionType.timeClash);
                                 }
 
                                 Timer timer = new Timer();
@@ -181,7 +181,7 @@ public class Duke {
                                 break;
                         }
                     }
-                    catch (DukeException e) {
+                    catch (RoomShareException e) {
                         ui.showDateError();
                     }
                     break;
@@ -248,9 +248,9 @@ public class Duke {
      * Main function of Duke
      * Creates a new instance of Duke class
      * @param args command line arguments
-     * @throws DukeException Custom exception class within Duke program
+     * @throws RoomShareException Custom exception class within Duke program
      */
-    public static void main(String[] args) throws DukeException {
-        new Duke().run();
+    public static void main(String[] args) throws RoomShareException {
+        new RoomShare().run();
     }
 }

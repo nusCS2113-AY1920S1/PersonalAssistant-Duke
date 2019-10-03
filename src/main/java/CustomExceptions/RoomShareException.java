@@ -2,7 +2,7 @@ package CustomExceptions;
 
 import Enums.ExceptionType;
 
-public class DukeException extends Exception {
+public class RoomShareException extends Exception {
     private static final String outOfBounds_Text = "Index is out of Bounds!";
     private static final String anomaly_Text = "Anomaly Detected";
     private static final String emptylist_Text = "List is empty";
@@ -14,7 +14,7 @@ public class DukeException extends Exception {
      * Takes in the exception type thrown and prints out the specific error message
      * @param type type of exception detected
      */
-    public DukeException(ExceptionType type){
+    public RoomShareException(ExceptionType type){
         switch(type) {
             case emptylist:
                 System.out.println(emptylist_Text);

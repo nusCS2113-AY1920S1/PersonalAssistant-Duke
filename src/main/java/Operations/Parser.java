@@ -1,6 +1,6 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,12 +46,12 @@ public class Parser {
     /**
      * Returns the description the user inputs for tasks. Will not accept empty descriptions
      * @return temp The description that the user has specified for the task. Cannot be null.
-     * @throws DukeException If temp is empty.
+     * @throws RoomShareException If temp is empty.
      */
-    public String getDescription() throws DukeException {
+    public String getDescription() throws RoomShareException {
         String temp = scanner.nextLine().trim();
         if (temp.equals("")) {
-            throw new DukeException(ExceptionType.empty);
+            throw new RoomShareException(ExceptionType.empty);
         }
         return temp;
     }
@@ -71,13 +71,13 @@ public class Parser {
      * If the format of the input string is unacceptable, will throw a DukeException and will not return anything.
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
-     * @throws DukeException If by is not in dd/MM/yyyy HH:mm format
+     * @throws RoomShareException If by is not in dd/MM/yyyy HH:mm format
      */
-    public Date formatDate(String by) throws DukeException{
+    public Date formatDate(String by) throws RoomShareException {
         try {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
         } catch (ParseException e) {
-            throw new DukeException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
 

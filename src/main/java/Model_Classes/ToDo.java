@@ -1,7 +1,5 @@
 package Model_Classes;
 
-import CustomExceptions.DukeException;
-
 /**
  * An object class that stores the description of tasks that needs to be done with no deadline.
  */

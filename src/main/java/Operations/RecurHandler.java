@@ -1,6 +1,6 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.RecurrenceScheduleType;
 import Enums.TaskType;
@@ -63,7 +63,7 @@ public class RecurHandler {
                  RecurringToDo temp = new RecurringToDo(parser.getDescription(), recurrence);
                  taskList.add(temp);
                  ui.showAddRecur();
-             } catch (DukeException e) {
+             } catch (RoomShareException e) {
                  ui.showEmptyDescriptionError();
              }
              break;
@@ -75,7 +75,7 @@ public class RecurHandler {
                 RecurringDeadline temp = new RecurringDeadline(deadlineArray[0], by, recurrence);
                 taskList.add(temp);
                 ui.showAddRecur();
-            } catch (DukeException e) {
+            } catch (RoomShareException e) {
                 ui.showDateError();
             }
             break;
@@ -89,9 +89,9 @@ public class RecurHandler {
                     taskList.add(temp);
                     ui.showAddRecur();
                 } else {
-                    throw new DukeException(ExceptionType.timeClash);
+                    throw new RoomShareException(ExceptionType.timeClash);
                 }
-            } catch (DukeException e) {
+            } catch (RoomShareException e) {
                 ui.showDateError();
             }
             break;
@@ -273,7 +273,7 @@ public class RecurHandler {
                 // date has passed
                 isPassed = true;
             }
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println(DATE_ERROR_GENERATE_NEW_RECURRING_TASK);
             RecurringToDo recurringToDo = new RecurringToDo(description, recurrence);
             taskList.replace(index, recurringToDo);
@@ -298,7 +298,7 @@ public class RecurHandler {
             calendar.setTime(storedDate);
             calendar.add(Calendar.MONTH, 1);
             newDate = calendar.getTime();
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println();
         }
         return newDate;
@@ -322,7 +322,7 @@ public class RecurHandler {
                 // date has passed
                 isPassed = true;
             }
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             System.out.println(DATE_ERROR_SET_AS_NOT_DONE);
             check.setNotDone();
             isEdited = true;
