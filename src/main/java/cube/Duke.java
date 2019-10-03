@@ -9,6 +9,7 @@ import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
+import cube.util.FileUtil;
 import cube.logic.command.Command;
 import cube.storage.*;
 import cube.exception.CubeException;
@@ -19,6 +20,7 @@ import cube.exception.CubeException;
 public class Duke {
 
     private StorageManager storageManager;
+    private FileUtil storage;
     private FoodList foodList;
     private Ui ui;
 
@@ -29,17 +31,18 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        FoodStorage foodStorage = new FoodStorage(filePath);
-        RevenueStorage revenueStorage = new RevenueStorage(filePath);
-        storageManager = new StorageManager(foodStorage, revenueStorage);
-        //try {
+        storage = new FileUtil(filePath);
+
+        try {
+            storageManager = storage.load();
             foodList = new FoodList(storageManager.loadFood());
             Food.updateRevenue(storageManager.loadRevenue());
-        /*} catch (LoadingException e) {
+        } catch (CubeException | NullPointerException e) {
+            e.printStackTrace();
             ui.showLoadingError(filePath);
             foodList = new FoodList();
             Food.updateRevenue(0);
-        } */
+        }
     }
 
     /**
@@ -55,6 +58,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
                 c.execute(foodList, ui, storageManager);
+                storage.save(storageManager);
             } catch (CubeException e) {
                 ui.showError(e.getMessage());
             } finally {
