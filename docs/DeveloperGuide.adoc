@@ -186,18 +186,26 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 == Appendix B: Use Cases
-|===
-|System|Actor|Use Case|Process
-|Duke2.0|A-Level Graduate|User types keyword “electrical” with search command|
 
-DukeJr. returns all the degrees with keyword “electrical”
+====
+An admonition block may contain complex content.
 
-User types the index of the degree he wishes to view from the list of returned searches
+.A list
+- one
+- two
+- three
 
-DukeJr. displays the Curriculum Structure, Specialisations and Minor, and Recommended Schedule for the degree
-
-User reads the data
-|===
-
+Another paragraph.
+====
 
 == Appendix C: Non-Functional Requirements
+
+. D2 is a fast application.
+. It can be used on any platform (any PC), and is hence light-weight.
+. The information provided is accurate as of the latest semester.
+. The application has simple functions, with more options provided for advanced users.
+. The application is fairly easy and understandable to navigate through.
+. Multi-step commands are available for beginners, as compared to one step for advanced users.
+. The application provided tabular formatting of information for better analysis.
+. It is inviting to the eye with a well-designed graphical user interface. 
+
