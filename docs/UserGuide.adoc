@@ -43,7 +43,7 @@ image::Ui/Entries.png[width="500", align="center"]
 Look through, edit and modify all the income and expenses that you have added.
 Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily spendings!
 
-=== Budgets
+=== Limits
 image::Ui/Limits.png[width="500", align="center"]
 {nbsp} +
 Find out your daily, monthly, or yearly progress in cutting down your spending on certain products, or see how much more you can spend before you break the savings goal you set for that new speaker!
@@ -217,27 +217,27 @@ Examples:
 
 * `add recurring income $800 part time job /every month`
 
-==== Add duration-based expenses limit: `set limit`
+==== Add duration-based expenses budget: `set budget`
 
-Set the limit on the amount you can spend within the time period you have input. +
+Set the budget on the amount you can spend within the time period you have input. +
 Format: +
-`*set limit* [AMOUNT] /every [DURATION]`
+`*set budget* [AMOUNT] /every [DURATION]`
 
 *NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
 
 Example:
 
-* `set limit $50 every week`
+* `set budget $50 every week`
 
-==== Add tag-based expense limit: `set limit`
+==== Add tag-based expense budget: `set budget`
 
-Set expense limit on particular types of spending. +
+Set expense budget on particular types of spending. +
 Format: +
-`*set limit* /tag [TAG] [AMOUNT]`
+`*set budget* /tag [TAG] [AMOUNT]`
 
 Example:
 
-* `set limit /tag bubble tea $20`
+* `set budget /tag bubble tea $20`
 
 ==== Set target saving: `set saving`
 
