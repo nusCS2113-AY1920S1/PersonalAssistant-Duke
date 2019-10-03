@@ -13,7 +13,7 @@ public class Step {
 
     }
 
-    public Step(@JsonProperty String description) {
+    public Step(@JsonProperty("description") String description) {
         this.description = description;
         time = parseTime(description);
     }
@@ -37,8 +37,15 @@ public class Step {
         return description;
     }
 
-    public int getTime() {
-        return time;
+//    public int getTime() {
+//        return time;
+//    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
+//    public void setTime(int time) {
+//        this.time = time;
+//    }
 }

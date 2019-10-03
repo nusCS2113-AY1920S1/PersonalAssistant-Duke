@@ -1,9 +1,9 @@
 package duke.parser.order;
 
-import duke.command.AddOrderCommand;
-import duke.command.DeleteOrderCommand;
-import duke.command.EditOrderCommand;
-import duke.command.OrderCommand;
+import duke.command.order.AddOrderCommand;
+import duke.command.order.DeleteOrderCommand;
+import duke.command.order.EditOrderCommand;
+import duke.command.order.OrderCommand;
 import duke.parser.SubCommandParser;
 import duke.parser.exceptions.ParseException;
 

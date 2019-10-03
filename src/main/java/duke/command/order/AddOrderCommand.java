@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.order;
 
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.storage.BakingList;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 /**
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
  */
-public class AddOrderCommand extends OrderCommand {
+public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add";
     private final Order toAdd;

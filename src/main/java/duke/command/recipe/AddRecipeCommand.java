@@ -1,10 +1,7 @@
 package duke.command.recipe;
 
-import duke.command.Command;
 import duke.commons.DukeException;
-import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
-import duke.entities.recipe.Step;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -12,7 +9,7 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class AddRecipeCommand extends Command {
+public class AddRecipeCommand extends RecipeCommand {
 
     private Map<String, List<String>> params;
     private Recipe recipe;
@@ -50,13 +47,13 @@ public class AddRecipeCommand extends Command {
             if (params.containsKey("ingt")) {
                 //check if it is in the existing ingredient list.
                 for (int i = 0; i < params.get("ingt").size(); i++) {
-                    recipe.addIngredient(new Ingredient(params.get("ingt").get(i)));
+                    //recipe.addIngredient(new Ingredient(params.get("ingt").get(i)));
                 }
             }
 
             if (params.containsKey("step")) {
                 for (int i = 0; i < params.get("step").size(); i++) {
-                    recipe.addStep(new Step(params.get("step").get(i)));
+                    //recipe.addStep(new Step(params.get("step").get(i)));
                 }
             }
 

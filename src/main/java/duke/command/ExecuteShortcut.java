@@ -15,7 +15,7 @@ import java.util.ListIterator;
 /**
  * A command to execute a user-defined set of commands.
  */
-public class ExecuteShortcutCommand extends UndoableCommand {
+public class ExecuteShortcut extends Command implements Undoable {
 
     private List<String> lines = new ArrayList<>();
     private List<Command> commands = new ArrayList<>();
@@ -27,11 +27,11 @@ public class ExecuteShortcutCommand extends UndoableCommand {
      *              converted to a <code>Command</code> object.
      * @throws DukeException if fails to convert any line into a <code>Command</code> object.
      */
-    public ExecuteShortcutCommand(@JsonProperty("lines") List<String> lines) throws DukeException {
+    public ExecuteShortcut(@JsonProperty("lines") List<String> lines) throws DukeException {
         this.lines = lines;
         for (String line : lines) {
             try {
-                Command command = OldParser.getCommand(line.strip(), new HashMap<String, ExecuteShortcutCommand>());
+                Command command = OldParser.getCommand(line.strip(), new HashMap<String, ExecuteShortcut>());
                 commands.add(command);
             } catch (DukeException e) {
                 //TODO: Improve catching
@@ -46,8 +46,8 @@ public class ExecuteShortcutCommand extends UndoableCommand {
         ListIterator<Command> itr = commands.listIterator(commands.size());
         while (itr.hasPrevious()) {
             Command command = itr.previous();
-            if (command instanceof UndoableCommand) {
-                ((UndoableCommand) command).undo(bakingList, storage, ui);
+            if (command instanceof Undoable) {
+                ((Undoable) command).undo(bakingList, storage, ui);
             }
         }
         ui.showMessage("Undo: Execute shortcut");

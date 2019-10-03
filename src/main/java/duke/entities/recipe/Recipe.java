@@ -16,7 +16,7 @@ public class Recipe {
     private int difficultyLevel;
     private int time;
 
-    public Recipe(@JsonProperty String name) {
+    public Recipe(@JsonProperty("name") String name) {
         this.name = name;
     }
 
@@ -48,35 +48,43 @@ public class Recipe {
         return name;
     }
 
-    public int getTime() {
-        int time = 0;
-        for (Step step : steps) {
-            time += step.getTime();
-        }
-        return time;
-    }
+//    public int getTime() {
+//        int time = 0;
+//        for (Step step : steps) {
+//            time += step.getTime();
+//        }
+//        return time;
+//    }
 
-    public int getDifficultyLevel() {
-        return difficultyLevel;
-    }
+//    public int getDifficultyLevel() {
+//        return difficultyLevel;
+//    }
 
-    public double getCost() {
-        return cost;
-    }
+//    public double getCost() {
+//        return cost;
+//    }
 
     public List<Ingredient> getIngredients() {
         return this.ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public List<Step> getSteps() {
         return this.steps;
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        this.ingredients.add(ingredient);
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 
-    public void addStep(Step step) {
-        steps.add(step);
-    }
+//    public void addIngredient(Ingredient ingredient) {
+//        this.ingredients.add(ingredient);
+//    }
+//
+//    public void addStep(Step step) {
+//        steps.add(step);
+//    }
 }

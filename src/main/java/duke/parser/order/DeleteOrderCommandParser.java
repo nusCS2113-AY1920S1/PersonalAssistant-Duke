@@ -1,6 +1,6 @@
 package duke.parser.order;
 
-import duke.command.DeleteOrderCommand;
+import duke.command.order.DeleteOrderCommand;
 import duke.parser.*;
 import duke.parser.exceptions.ParseException;
 

@@ -1,6 +1,6 @@
 package duke.parser.order;
 
-import duke.command.AddOrderCommand;
+import duke.command.order.AddOrderCommand;
 import duke.commons.Message;
 import duke.entities.Order;
 import duke.parser.*;

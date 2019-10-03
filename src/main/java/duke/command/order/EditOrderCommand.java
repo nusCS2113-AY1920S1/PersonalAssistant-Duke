@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.order;
 
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.parser.decrypted.CommandParser;
@@ -13,7 +14,7 @@ import java.util.Map;
 /**
  * A command to edit the properties of an <code>Order</code> object.
  */
-public class EditOrderCommand extends OrderCommand {
+public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
     private Map<String, List<String>> params;

@@ -1,6 +1,7 @@
 package duke.command.recipe;
 
-import duke.command.UndoableCommand;
+import duke.command.Command;
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.entities.recipe.Recipe;
 import duke.storage.BakingList;
@@ -10,13 +11,13 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Map;
 
-public class DeleteRecipeCommand extends UndoableCommand {
+public class DeleteRecipe extends Command implements Undoable {
 
     private Recipe recipe;
     private int index;
     private Map<String, List<String>> params;
 
-    public DeleteRecipeCommand(Map<String, List<String>> params) throws DukeException {
+    public DeleteRecipe(Map<String, List<String>> params) throws DukeException {
         this.params = params;
 
     }
@@ -32,10 +33,10 @@ public class DeleteRecipeCommand extends UndoableCommand {
      */
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        this.recipe = getRecipe(bakingList.getRecipeList());
-        bakingList.getRecipeList().remove(recipe);
+        //this.recipe = getRecipe(bakingList.getRecipeList());
+        //bakingList.getRecipeList().remove(recipe);
         storage.serialize(bakingList);
-        ui.refreshRecipeListPage(bakingList.getRecipeList());
+        //ui.refreshRecipeListPage(bakingList.getRecipeList());
     }
 
     private Recipe getRecipe(List<Recipe> recipes) {
