@@ -17,6 +17,7 @@ endif::[]
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
+<<<
 === The Product
 Duke 2.0 (D2) is a desktop application that acts as an extended task manager for *prospective applicants of the various degreees offered by the NUS Faculty of Engineering*. 
 
@@ -33,6 +34,7 @@ Jump straight to <<Quick Start>> to get started!
 
 If you already have D2, jump ahead to <<Features>>!
 
+<<<
 == Quick Start
 === Prerequisites
 In order to run D2, you should have Java `11` or above installed in your Computer.
@@ -48,11 +50,12 @@ Now that you've installed Java `11` on your computer, you can go ahead with gett
 .  Copy the file to the folder you want to use as the home folder for 'D2'.
 .  Double-click the file to launch the application. D2 will appear in a few seconds
 
+<<<
 === Checking D2
 As D2 launches, you should see the following GUI:
 
 
-image::UI.png[width="790"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UI.png[width="350"]
 
 
 To test that D2 is running as it should:
@@ -63,7 +66,7 @@ To test that D2 is running as it should:
 
 If it does, you have successfully run D2 on your machine!
 
-
+<<<
 === Getting Used to D2
 Here are some other examples of commands you can try to get used to D2:
 
@@ -74,6 +77,7 @@ Here are some other examples of commands you can try to get used to D2:
 
 .  Fore more detailed instructions and a full list of commands, refer to <<Features>>.
 
+<<<
 [[Features]]
 == Features
 
@@ -91,7 +95,7 @@ To view a full list of possible commands that D2 understands, you can call the h
 
 Format: `help`
 
-
+<<<
 === Viewing detailed information about a degree: `detail`
 
 Lists all the information associated with a degree or module. +
@@ -126,6 +130,7 @@ Resources:
 ...
 ----
 
+<<<
 === Comparing two degrees: `compare`
 
 Lists the module similarities and differences between two degree programs given their keywords. +
@@ -157,6 +162,7 @@ EE2027
 ----
 
 
+<<<
 === Adding a degree into your degree list: `add`
 
 To add a newly chosen degree programme into your personalised degree list, use the command add.
@@ -255,11 +261,13 @@ Duke 2.0 will suggest commands based on the frequency you have used certain comm
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+<<<
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+<<<
 == Command Summary
 
 * *Help* : `help`
