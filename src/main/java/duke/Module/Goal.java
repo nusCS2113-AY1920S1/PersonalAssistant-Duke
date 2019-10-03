@@ -21,7 +21,7 @@ public class Goal {
     /**
      * A list which holds the optional goal of the day for any day.
      */
-    private HashMap<Date,String> goals;
+    private Map<Date,String> goals;
 
     public Goal(String filePath) throws FileNotFoundException, ParseException {
         this.filePath = filePath;
@@ -33,9 +33,9 @@ public class Goal {
     /**
      * Reads filePath, takes in Strings and turns them into a hash map of goals.
      */
-    public HashMap<Date,String> loadGoal() throws ParseException {
+    public Map<Date,String> loadGoal() throws ParseException {
         try {
-            HashMap<Date,String> temp = new HashMap<>();
+            Map<Date,String> temp = new HashMap<>();
             while (fileInput.hasNextLine()) {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
@@ -56,7 +56,7 @@ public class Goal {
      * @param goals The updated hash map that must be used to recreate the updated goals.txt
      * @throws IOException io
      */
-    public void updateGoal(HashMap<Date,String> goals) {
+    public void updateGoal(Map<Date,String> goals) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -68,11 +68,8 @@ public class Goal {
         try {
             FileWriter fileWriter = new FileWriter(filePath, true);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            Iterator it = goals.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                fileWriter.write(df.format(pair.getKey()) + "-" + pair.getValue() + "\n");
-                it.remove();
+            for (Map.Entry<Date,String> entry : goals.entrySet()) {
+                fileWriter.write(df.format(entry.getKey()) + "-" + entry.getValue() + "\n");
             }
             fileWriter.close();
         } catch (IOException io) {
@@ -91,13 +88,10 @@ public class Goal {
     public String removeGoal(String day, String message) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
-        Iterator it = goals.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if (pair.getKey().equals(today) && pair.getValue().equals(message)) {
-                goals.remove(pair.getKey());
+        for (Map.Entry<Date,String> entry : goals.entrySet()) {
+            if (entry.getKey().equals(today) && entry.getValue().equals(message)) {
+                goals.remove(entry.getKey());
             }
-            it.remove();
         }
         updateGoal(goals);
         return "Goal of the day on " + day + " has been removed";
