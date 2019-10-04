@@ -3,8 +3,7 @@ package seedu.duke.task;
 import seedu.duke.Duke;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Event class is a typ of task with a date/time when the event is going to happen.
@@ -36,12 +35,14 @@ public class Event extends Task {
      * @param name    name of the Event
      * @param time    time of the Event that is going to happen
      * @param doAfter task to be done after the main task
+     * @param tags     tag associated with the task
      */
-    public Event(String name, LocalDateTime time, String doAfter) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Event;
+        setTags(tags);
     }
 
     /**
@@ -52,12 +53,15 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        if (this.doAfterDescription == null) {
-            return "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
-        } else {
-            return "[E]" + this.getStatus() + " (by: " + formatDate() + ")"
-                    + "\n   After which: " + doAfterDescription;
+        String output = "";
+        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
+        if (this.doAfterDescription != null) {
+            output += "\n\tAfter which: " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 
     /**
@@ -67,13 +71,16 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.doAfterDescription == null) {
-            return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
-                    + formatDate();
-        } else {
-            return (this.isDone ? "1" : "0") + " event " + this.name + " /at "
-                    + formatDate() + " /doafter " + doAfterDescription;
+        String output = "";
+        output = (this.isDone ? "1" : "0") + " event " + this.name + " /at "
+                + formatDate();
+        if (this.doAfterDescription != null) {
+            output += " /doafter " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 
     /**
@@ -135,5 +142,4 @@ public class Event extends Task {
         }
         return false;
     }
-
 }
