@@ -6,13 +6,16 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 
 class StockTypeTest {
 
     @Test
     void getStockList() {
-        ArrayList<Stock> testList = new ArrayList();
+
+        ArrayList<Stock> testList = new ArrayList<>();
         testList.add(new Stock("Resistor", "R50", 500, "Test Resistor"));
         StockType testStockType = new StockType(testList);
         assertEquals(testList, testStockType.getStockList());
@@ -29,7 +32,8 @@ class StockTypeTest {
     @Test
     void addStock() {
         StockType testStockType = new StockType();
-        assertEquals(true,testStockType.addStock("Resistor", "R50", 500,
+        assertTrue(testStockType.addStock("Resistor", "R50", 500,
+
                 "Test Resistor"));
 
     }
@@ -43,7 +47,7 @@ class StockTypeTest {
 
     @Test
     void deleteStock() {
-        ArrayList<Stock> testList = new ArrayList();
+        ArrayList<Stock> testList = new ArrayList<>();
         testList.add(new Stock("Resistor", "R50", 500, "Test Resistor"));
         StockType testStockType = new StockType(testList);
         assertEquals(1,testStockType.getSize());
