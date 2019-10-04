@@ -1,9 +1,12 @@
 package duke.parser.order;
 
-import duke.command.order.AddOrderCommand;
 import duke.commons.Message;
-import duke.entities.Order;
-import duke.parser.*;
+import duke.logic.command.order.AddOrderCommand;
+import duke.model.order.Order;
+import duke.parser.ArgumentMultimap;
+import duke.parser.ArgumentTokenizer;
+import duke.parser.CliSyntax;
+import duke.parser.Parser;
 import duke.parser.exceptions.ParseException;
 
 import java.util.List;
@@ -21,16 +24,16 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                 CliSyntax.PREFIX_ORDER_REMARKS
         );
         Order order = new Order();
-        order.setCustomerName(map.getValue(CliSyntax.PREFIX_ORDER_NAME).orElse(""));
-        order.setCustomerContact(map.getValue(CliSyntax.PREFIX_ORDER_CONTACT).orElse(""));
-        order.setRemarks(map.getValue(CliSyntax.PREFIX_ORDER_REMARKS).orElse(""));
-        order.setStatus(Order.Status.valueOf(map.getValue(
-                CliSyntax.PREFIX_ORDER_STATUS).orElse("ACTIVE")
-                .toUpperCase())
-        );
-        order.setDeliveryDate(TimeParser.convertStringToDate(
-                map.getValue(CliSyntax.PREFIX_ORDER_DEADLINE)
-                        .orElse("now")));
+//        order.setCustomerName(map.getValue(CliSyntax.PREFIX_ORDER_NAME).orElse(""));
+//        order.setCustomerContact(map.getValue(CliSyntax.PREFIX_ORDER_CONTACT).orElse(""));
+//        order.setRemarks(map.getValue(CliSyntax.PREFIX_ORDER_REMARKS).orElse(""));
+//        order.setStatus(Order.Status.valueOf(map.getValue(
+//                CliSyntax.PREFIX_ORDER_STATUS).orElse("ACTIVE")
+//                .toUpperCase())
+//        );
+//        order.setDeliveryDate(TimeParser.convertStringToDate(
+//                map.getValue(CliSyntax.PREFIX_ORDER_DEADLINE)
+//                        .orElse("now")));
         if (map.getValue(CliSyntax.PREFIX_ORDER_ITEM).isPresent()) {
             addItemsToOder(map.getAllValues(CliSyntax.PREFIX_ORDER_ITEM), order);
         }
@@ -50,7 +53,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                 throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
             }
             try {
-                toAdd.addItem(itemAndQty[0].strip(), Integer.parseInt(itemAndQty[1].strip()));
+                //toAdd.addItem(itemAndQty[0].strip(), Integer.parseInt(itemAndQty[1].strip()));
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
             }

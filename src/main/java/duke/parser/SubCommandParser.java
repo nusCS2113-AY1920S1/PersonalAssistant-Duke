@@ -1,7 +1,7 @@
 package duke.parser;
 
-import duke.command.Command;
 import duke.commons.Message;
+import duke.logic.command.commons.Command;
 import duke.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;

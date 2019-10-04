@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.entities.Order;
+import duke.model.order.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;

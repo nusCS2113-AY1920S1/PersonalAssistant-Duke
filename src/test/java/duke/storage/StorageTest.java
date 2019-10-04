@@ -1,11 +1,9 @@
 package duke.storage;
 
 import duke.commons.DukeException;
-import duke.entities.Order;
+import duke.model.order.Order;
 import duke.parser.TimeParser;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
 

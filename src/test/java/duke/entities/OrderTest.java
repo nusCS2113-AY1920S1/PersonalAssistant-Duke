@@ -1,5 +1,6 @@
 package duke.entities;
 
+import duke.model.order.Order;
 import duke.parser.TimeParser;
 import duke.parser.exceptions.ParseException;
 import org.junit.jupiter.api.Test;

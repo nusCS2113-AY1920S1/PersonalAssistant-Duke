@@ -1,7 +1,6 @@
 package duke.ui;
 
-import duke.entities.Order;
-import duke.parser.TimeParser;
+import duke.model.order.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -49,18 +48,18 @@ public class OrderCard extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        id.setText(Long.toString(order.getId()));
-        index.setText("#" + Integer.toString(indexNumber));
-        deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
-        name.setText(order.getCustomerName());
-        contact.setText(order.getCustomerContact());
-        remarks.setText(order.getRemarks());
-        status.setText(order.getStatus().toString().toLowerCase());
-        status.getStyleClass().clear();
-        status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
-        for (String itemName : order.getItems().keySet()) {
-            itemFlow.getChildren().add(new OrderItemBox(itemName, order.getItems().get(itemName)));
-        }
+//        id.setText(Long.toString(order.getId()));
+//        index.setText("#" + Integer.toString(indexNumber));
+//        deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
+//        name.setText(order.getCustomerName());
+//        contact.setText(order.getCustomerContact());
+//        remarks.setText(order.getRemarks());
+//        status.setText(order.getStatus().toString().toLowerCase());
+//        status.getStyleClass().clear();
+//        status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
+//        for (String itemName : order.getItems().keySet()) {
+//            itemFlow.getChildren().add(new OrderItemBox(itemName, order.getItems().get(itemName)));
+//        }
 
     }
 }
