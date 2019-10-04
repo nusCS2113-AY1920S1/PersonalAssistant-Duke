@@ -13,21 +13,21 @@ public class MainWindow extends BorderPane{
     @FXML
     public BorderPane main;
     @FXML
-    public TextField input;
+    public TextField inputField;
     @FXML
-    public Label output;
+    public Label lastCommandLabel;
     @FXML
-    public void onEnter(javafx.event.ActionEvent actionEvent) {
-        String userInput = input.getText();
+    public void onEnter() {
+        String userInput = inputField.getText();
         String response = duke.getResponse(userInput);
-        output.setText(response);
+        lastCommandLabel.setText(response);
         setExpensesList();
-        input.clear();
+        inputField.clear();
     }
 
 
-    public void setDuke(Duke duke) {
-        this.duke = duke;
+    public void setDuke(Duke d) {
+        this.duke = d;
     }
 
     private void setExpensesList(){
