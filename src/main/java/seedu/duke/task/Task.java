@@ -159,4 +159,8 @@ public class Task {
     public boolean isClash(Task task) {
         return false;
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -38,10 +38,11 @@
          <children>
             <ScrollPane prefHeight="760.0" prefWidth="300.0" AnchorPane.topAnchor="40.0">
                <content>
-                  <VBox prefHeight="760.0" prefWidth="300.0">
+                  <VBox>
                      <children>
-                        <ListView prefHeight="200.0" prefWidth="200.0" />
-                     </children></VBox>
+                        <ListView fx:id="taskListView" prefHeight="760.0" prefWidth="284.0" />
+                     </children>
+                  </VBox>
                </content>
             </ScrollPane>
             <Text layoutY="30.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="300.0" AnchorPane.topAnchor="5.0">

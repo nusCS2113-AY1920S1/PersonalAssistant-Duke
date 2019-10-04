@@ -1,13 +1,14 @@
 package seedu.duke.gui;
 
+import java.io.IOException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import seedu.duke.TaskList;
+
 import seedu.duke.task.Task;
 
 /**
@@ -23,7 +24,7 @@ public class TaskCard extends HBox {
      * or an exception will be thrown by JavaFX during runtime.
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-    public final TaskList tasks;
+    public final Task task;
 
     @FXML
     private HBox cardPane;
@@ -40,24 +41,38 @@ public class TaskCard extends HBox {
     @FXML
     private FlowPane tags;
 
-    public TaskCard(TaskList tasks, int displayedIndex) {
-//        super(FXML);
-        this.tasks = tasks;
+    private TaskCard(Task task, int displayedIndex) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TaskCard.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.task = task;
         id.setText(displayedIndex + ". ");
-//        taskName.setText(tasks.get(displayedIndex-1).Description);
-        taskType.setText(tasks.get(displayedIndex-1).getTaskType().toString());
-        if (tasks.get(displayedIndex-1).getTaskType().toString().equals("T")) {
-            date.setText(null);
-        } else {
-            date.setText(tasks.get(displayedIndex-1).getTaskType().toString());
+        taskName.setText(task.getName());
+        String type = task.getTaskType().toString();
+        taskType.setText(type);
+        switch (type) {
+            case "D":
+                date.setText("Deadline date");
+                break;
+            case "E":
+                date.setText("Event date");
+                break;
+            default:
+                date.setText(null);
         }
 //        task.getTags().stream()
 //                .sorted(Comparator.comparing(tag -> tag.tagName))
 //                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-    public static TaskCard getTaskCard(TaskList tasks, int displayedIndex) {
-        return new TaskCard(tasks, displayedIndex);
+    public static TaskCard getTaskCard(Task task, int displayedIndex) {
+        return new TaskCard(task, displayedIndex);
     }
 
 //    @Override
