@@ -78,8 +78,8 @@ public class TaskList {
      */
     public void add(String taskType, String taskDescriptionFull) {
         boolean checkAnomaly = true;
-        // if tasktype is not ToDo
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+            list.add(new ToDo(taskDescriptionFull));
             checkAnomaly = false;
         } else {
             // Extract task time and task description and initialize as deadline
@@ -102,37 +102,6 @@ public class TaskList {
                 } catch (ParseException ignore) {
                     return;
                 }
-            } else if (taskType.equals("doafter")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String indexString = taskDescriptionFull.split("/", 2)[1].substring(6);
-                    int indexInt = Integer.parseInt(indexString) - 1;
-                    String after = list.get(indexInt).description;
-                    boolean taskFound = false;
-
-                    for (Task j: list) {
-                        if (j.description.equals(after)) {
-                            if (!DetectAnomalies.test(new DoAfter(taskDescription, after),list)) {
-                                checkAnomaly = false;
-                                list.add(new DoAfter(taskDescription, after));
-                                taskFound = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!taskFound) {
-                        System.out.println();
-                        System.out.println("        _____________________________________");
-                        System.out.println("        Task: '" + after + "' not found!");
-                        System.out.println("        _____________________________________");
-                        System.out.println();
-                        System.out.println();
-                        return;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
-                    ui.wrong_description_error();
-                    return;
-                }
             } else if (taskType.equals("event")) {
                 try {
                     String taskDescription = taskDescriptionFull.split("/", 2)[0];
@@ -146,63 +115,10 @@ public class TaskList {
                             schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
                         }
                     }
-
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
                 } catch (ParseException ignore) {
-                    return;
-                }
-            } else if (taskType.equals("range")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String[] dateTime = taskTime.split(" and ");
-                    LocalDateTime from = getDateTime(dateTime[0]);
-                    LocalDateTime by = getDateTime(dateTime[1]);
-                    if (!DetectAnomalies.test(new RangedTask(taskDescription,from,by),list)) {
-                        list.add(new RangedTask(taskDescription, from, by));
-                        checkAnomaly = false;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
-                }
-            } else if (taskType.equals("recur")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/",2)[1].substring(3).split(" every")[0];
-                    LocalDateTime dateTime = getDateTime(taskTime);
-                    String[] inputWords = taskDescriptionFull.split(" ");
-                    int num = Integer.parseInt(inputWords[inputWords.length - 2]);
-                    String frequency = inputWords[inputWords.length - 1];
-                    int periodInMin = 0;
-
-                    switch (frequency) {
-                    case "minutes":
-                        periodInMin = num;
-                        break;
-                    case "hours":
-                        periodInMin = num * 60;
-                        break;
-                    case "days":
-                        periodInMin = num * 60 * 24;
-                        break;
-                    case "weeks":
-                        periodInMin = num * 60 * 24 * 7;
-                        break;
-                    case "months":
-                        periodInMin = num * 60 * 24 * 7 * 4;
-                        break;
-                    default:
-                        System.out.println("You have typed in the wrong format. Please re-add the recurring task.");
-                    }
-                    if (!DetectAnomalies.test(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin),list)) {
-                        list.add(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin));
-                        checkAnomaly = false;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
                     return;
                 }
             }
