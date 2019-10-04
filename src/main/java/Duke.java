@@ -1,20 +1,20 @@
+import Dictionary.WordBank;
 import command.Command;
 import exception.CommandEmptyException;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
 
 public class Duke {
 
     public Ui ui;
     public Storage storage;
-    public TaskList tasks;
+    public WordBank wordBank;
 
 
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadFile());
+        wordBank = new WordBank();
     }
 
     public void run() {
@@ -26,7 +26,7 @@ public class Duke {
                 ui.showLine();
                 if (fullCommand.equals("")) { throw new CommandEmptyException(); }
                 Command c = Parser.parse(fullCommand);
-                c.execute(ui, tasks, storage);
+                c.execute(ui, wordBank, storage);
                 isExit = c.isExit();
             } catch (CommandEmptyException e) {
                 e.showError();

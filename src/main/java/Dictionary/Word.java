@@ -1,5 +1,7 @@
 package Dictionary;
 
+import java.util.ArrayList;
+
 /**
  * Represents words stored in the Word Bank
  */
@@ -7,7 +9,7 @@ package Dictionary;
 public class Word {
     private String word;
     private String meaning;
-    private String tag;
+    private ArrayList<String> tags;
 
     /**
      * Number of times that a word is searched
@@ -23,13 +25,14 @@ public class Word {
     public Word(String word, String meaning) {
         this.word = word;
         this.meaning = meaning;
+        this.tags = new ArrayList<>();
         this.numberOfSearches = 1;
     }
 
-    public Word(String word, String meaning, String tag) {
+    public Word(String word, String meaning, ArrayList<String> tags) {
         this.word = word;
         this.meaning = meaning;
-        this.tag = tag;
+        this.tags = tags;
         this.numberOfSearches = 1;
     }
 
@@ -53,8 +56,16 @@ public class Word {
         return meaning;
     }
 
-    public String getTag() {
-        return tag;
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+
+    public void editMeaning(String newMeaning) {
+        this.meaning = newMeaning;
     }
 
     @Override
