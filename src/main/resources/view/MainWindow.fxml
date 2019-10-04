@@ -12,17 +12,14 @@
             fx:controller="MainWindow"
             prefHeight="400.0" prefWidth="600.0"
             fx:id="main">
-
     <top>
-        <ListView fx:id="expenseList" >
+        <ListView fx:id="expenseListView" >
         </ListView>
     </top>
     <bottom>
         <VBox>
-            <Label fx:id="output" text="Hello" prefWidth="Infinity"/>
-            <TextField fx:id="input" promptText="enter a command" onAction="#onEnter"/>
+            <Label fx:id="lastCommandLabel" text="Hello" prefWidth="Infinity"/>
+            <TextField fx:id="inputField" promptText="enter a command" onAction="#onEnter"/>
         </VBox>
-
     </bottom>
-
 </BorderPane>
