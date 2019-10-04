@@ -5,11 +5,9 @@ import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
 import wallet.model.record.*;
-import wallet.storage.Storage;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
-import wallet.storage.TaskStorage;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
@@ -48,5 +46,9 @@ public class LogicManager {
         }
 
         return isExit;
+    }
+
+    public Wallet getWallet(){
+        return this.wallet;
     }
 }

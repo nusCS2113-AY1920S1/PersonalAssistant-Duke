@@ -24,6 +24,7 @@ public class Main {
     public Main() {
         ui = new Ui();
         logicManager = new LogicManager();
+        reminder = new Reminder(logicManager.getWallet());
     }
 
     public static void main(String[] args) {
@@ -35,7 +36,6 @@ public class Main {
      */
     public void run() {
         ui.welcomeMsg();
-
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readLine();
@@ -44,5 +44,6 @@ public class Main {
             ui.printLine();
         }
         ui.byeMsg();
+        reminder.autoRemindStop();
     }
 }
