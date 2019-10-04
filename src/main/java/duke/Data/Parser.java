@@ -182,7 +182,7 @@ public class Parser {
             /**
              * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
              * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
-             * Delete: schedule delete Swimming
+             * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
                 if (word[1].equals("view-week")) {
@@ -202,8 +202,12 @@ public class Parser {
                     String className = word[7];
                     System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
                 } else if (word[1].equals("delete")) {
-                    String name = word[2];
-                    System.out.println(schedule.delClass(name));
+                    String startTime = word[2] + " " + word[3];
+                    String className = word[4];
+                    System.out.println(schedule.delClass(startTime, className));
+                } else if (word[1].equals("delete-all")) {
+                    String date = word[2];
+                    System.out.println(schedule.delAllClass(date));
                 }
                 break;
 
