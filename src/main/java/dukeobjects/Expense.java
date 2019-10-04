@@ -29,4 +29,5 @@ public class Expense {
     public String toString() {
         return "$" + amount + " " + description + " " + new LocalDateTimeParser().toString(time);
     }
+
 }
