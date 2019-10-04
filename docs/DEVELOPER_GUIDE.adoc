@@ -1,0 +1,214 @@
+= Spongebob - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
+
+By: `Team F11-1/` +
+Updated As: `02/10/2019`
+
+== Setting Up
+Refer to the guide https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[here] for setting up.
+
+== Design
+Building in progress... :hammer:
+
+== Implementation
+Building in progress... :hammer:
+
+== Documentation
+Building in progress... :hammer:
+
+== Testing
+Building in progress... :hammer:
+
+[appendix]
+== User Profile
+An NUS School of Computing (SoC) club member who:
+
+* prefer desktop application over other platforms
+* prefer typing over mouse input
+* able to type fast
+
+[appendix]
+== Value Proposition
+Currently no platform/application for proper management of SoC club's:
+
+* Operations
+* Manpower
+* Logistics
+* Finance
+
+[appendix]
+== User Story
+Priorities:
+
+* High (Must-Have) - :star::star::star:
+* Medium (Nice-to-Have) - :star::star:
+* Low (Not-Useful) - :star:
+
+[width="59%",cols="22%,<22%,<28%,<28%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|:star::star::star: |SoC club member |know the number of members in the club |account for the strength of the club
+|:star::star::star: |SoC club member |check the list of members |easily contact whoever I want to
+|:star::star::star: |SoC club member | know the hierarchical structure of the club |easily follow the chain of command
+|:star::star::star: |SoC club member |check the list of events/meetings organised by the SoC club |add them to my schedule
+|:star::star::star: |SoC club member |know the location and the description of the event/meeting |know what to expect from the meeting
+|:star::star::star: |SoC club member |be reminded of club events/meetings that are taking place within one week of the current date |remember to attend those events/meetings
+|:star::star::star: |SoC club member |keep track of the club inventory in the form of a list |access them whenever I want
+|:star::star::star: |SoC club member |have access to the user manual |check all the commands that I can use
+|:star::star::star: |SoC club member who is responsible for managing the inventory list |add/delete entries into the list |efficiently maintain a record of the club accessories
+|:star::star::star: |SoC club Head of Student Life |store some credentials of the owner of the locker |easily contact him in case of any unforeseen situations
+|:star::star::star: |SoC club Head of Student Life |tag labels as in-use, broken or unauthorized |track-down unauthorized lockers and repair the broken ones
+|:star::star::star: |SoC club Head of Student Life |keep proper track of the ownership of the lockers |track the status and availability of lockers
+|:star::star::star: |SoC club Head of Student Life |be reminded one day before the expiration of the ownership of a locker |efficiently mark the locker as unused
+|:star::star::star: |SoC club Head of Department |store details such as Year of Study and Major for all the members of the club |refer to members' details when needed
+|:star::star::star: |SoC club Head of Department |add/delete entries from the list of members |the club manpower information is accurate and to the point
+|:star::star::star: |SoC club Head of Finance |make sure that the club expenditure does not exceed the budget |ensure that the Club is never in debt
+|:star::star::star: |member of SoC club Finance Team |keep track of the division of the club budget among different cells |have an overview of the financial status of the fund
+|:star::star::star: |SoC club Head of Human Resources |tag events and meetings based on their priority |ensure that club members do not miss out on important meetings
+|:star::star::star: |member of SoC club Human Resources Team |add/delete events/meetings to the list of events |maintain an up-to-date schedule
+|:star::star: |SoC club member |sort the club members as per the hierarchical structure (President -> Vice President -> Various Committee heads) |easily follow the chain of command
+|:star::star: |SoC club member |easily update/modify the entries in SpongeBob |not to follow the delete-add cycle for small modifications
+|:star::star: |SoC club member |sort the events/meetings either according to their priorities or according to their dates |easily schedule my timetable
+|:star::star: |SoC club member |filter events/meetings based on their priorities |only attend the important ones when I'm busy
+|:star::star: |SoC club member |see the history of my commands |keep track of my activity in SpongeBob
+|:star::star: |SoC club member |store the Agenda and the minutes for each of the meetings |refer to them any time I want _[Version 2.0]_
+|:star::star: |Head within the SoC club |export the data in SpongeBob into humanly editable CSV files |easily send/analyze the Club data and activities
+|:star::star: |SoC club Head of Department |filter/find club members according to various criteria such as name, major, year of study, part of Exco committee |ease my administration process 
+|:star::star: |SoC club Head of Marketing |store email templates and email-ids of sponsors, students in SoC and various companies |send a mass mail just by one command
+|:star::star: |user who is prone to make mistakes while typing|be able to undo/redo my previous commands easily |change the mistakes easily
+|:star::star: |experienced user of SpongBob who prefer typing over mouse input |have single-line command syntax instead of multi-line command syntax |I'm able to accomplish tasks faster
+|:star: |SoC club member who is not fluent in English |translate the various details of the club in another language |clearly understand the contents in Spongebob
+|:star: |user who prefers good visuals |have a nice GUI experience |get the best of both worlds
+|:star: |tech-savvy user |save the club data over cloud |use less local memory
+|:star: |advanced user of Spongebob |add my own shortcuts/hot keys for various commands |I can do things faster
+|:star: |administrator of Spongebob |specify/restrict the access of information on SpongBob the club members |hide the non-essential features from them
+|=======================================================================
+
+[appendix]
+== Use Case
+
+(In all the use cases below, *System* is _SpongeBob_ and *Actor* is _User_, unless specified otherwise.)
+
+[none]
+=== *Use Case: View User Manual* 
+
+*MSS* 
+
+1. User enters command to view user manual. +
+2. SpongeBob displays the user manual with all the valid user commands. +
+Use Case Ends.
+
+[none]
+=== *Use Case: Show History* 
+
+*MSS*
+
+1. User enters command to view history. +
+2. SpongeBob displays the list containing all the valid user commands recently executed. +
+Use case ends.
+
+[none]
+=== *Use Case: Undo Command* 
+
+*MSS*
+
+1. User enters command to undo the previous command. +
+2. SpongeBob undos the previous command entered by the user. +
+
+*Extensions*
+
+* 2a. If there are no undoable commands then SpongeBob, displays the message “no undo commands”. +
+Use Case ends.
+
+[none]
+=== *Use Case: Delete a Person* 
+
+*MSS*
+
+1. User enters command to delete. +
+2. SpongeBob prompts the user to specify from where does he want to delete (members,accounts,calendar,inventory list,locker management). +
+3. User enters command to delete from members. +
+4. SpongeBob prompts the user to specify which entry does he want to delete. +
+5. User enters command to delete 3. +
+6. SpongeBob deletes the third person in the list of deletes. +
+     
+*Extensions*
+
+* 3a. User enters invalid entry. +
+** 3a1. Spongebob specifies the user to enter a valid entry (membesr/accounts/calendar/inventory list/locker management. +
+* 5a. User enters an invalide number. +
+** 5a1. SpongeBob prompts the user displaying invalid entry. +
+Use Case ends.
+
+[none]
+=== *Use Case: Clearing All Events*
+
+*MSS*
+
+1. User enters the command to clear all events.
+2. SpongeBob clears all the events.
+     
+*Extensions*
+           
+* 1a. The list is empty. +
+** 1a1. SpongeBob displays the message stating that the event list is empty. +
+Use Case ends.
+
+[none]
+=== *Use Case:Exporting the Financial Data*
+
+*MSS*
+
+1. User enters command to save and export the financial data of the SoC club.
+2. SpongeBob saves file. 
+3. SpongeBob requests for storage location. 
+4. User enters location of file to be saved. 
+5. SpongeBob saves file at specified location.
+    
+*Extensions*
+
+* 4a. User enters an invalid location. +
+** 4a1. SpongeBob requests the user to enter the location again. +
+Use Case ends.
+
+[none]
+=== *Use Case: Reminders for Events*
+
+*MSS*
+
+1. User adds an event to the list of events. +
+2. SpongeBob checks whether the event falls within one week from today and if it does, it automatically adds the event to the reminders list. +
+Use Case ends.
+
+[appendix]
+== Non-functional Requirement
+
+*Technical Requirements:*
+
+* The programs must run on common OS like Windows, Ubuntu and MacOS provided they have Java 11 or later versions installed.
+* The software should be able to store at least 200 entries.
+* Performance Requirements:
+* The application must respond to the user within two seconds of the user input valid, or otherwise.
+
+*Application Requirements:*
+
+* The end product must be an executable .jar file.
+* A proper logger should be maintained in case of unforeseen situations.
+
+*Quality Requirements:*
+
+* The product should provide with good user experience by providing simple and concise command syntax and GUI.
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.

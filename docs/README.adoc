@@ -1,0 +1,32 @@
+= SpongeBob - SOC Club Manager
+
+//* Add the GUI picture over here.
+image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"]
+* SpongeBob is a command lined based desktop application aimed at helping the NUS SOC Club with managing +
+manpower, logistics, finance, events and lockers. It is a Java application written in OOP fashion.
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* What makes SpongeBob special:
+- Integrates management, operations and logistics to one place
+- Allows members to add various tags for club events,members and lockers
+- Reminders that are auto-updated so that the members can keep track of all the club meetings
+- Undo/Redo commands to enhance user-experience
+- Auto-saving the SpongeBob data as easily-editable CSV files
+
+
+== Site Map
+
+* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/USER_GUIDE.adoc[User Guide]
+* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/DEVELOPER_GUIDE.adoc[Developer Guide]
+* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/ABOUT_US.adoc[About Us]
+* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/CONTACT_US.adoc[Contact Us]
+
+== Acknowledgements
+
+* This application is built for NUS CS2113T AY 2019/2020 Semester 1 and is morphed from https://github.com/nusCS2113-AY1920S1/duke[Duke]
+//* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+//_Marco Jakob_.
+
+* Libraries used:
+
+//== Licence
+//* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/CONTACT_US.adoc[MIT]
