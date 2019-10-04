@@ -48,6 +48,7 @@ public class Duke {
     public void run() throws DukeException {
         boolean isExit = false;
         boolean isExitRecur = false;
+        boolean isBroadCastExit = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
@@ -82,19 +83,19 @@ public class Duke {
 
                 case done:
                     try {
+                        taskList.done(parser.getIndexRange());
                         ui.showDone();
-                        taskList.done(parser.getIndex());
-                    } catch (DukeException e) {
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
                         ui.showIndexError();
                     }
                     break;
 
                 case delete:
                     try {
-                        int index = parser.getIndex();
+                        int index[] = parser.getIndexRange();
                         taskList.delete(index);
                         ui.showDeleted(index);
-                    } catch (DukeException e) {
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
                         ui.showIndexError();
                     }
                     break;

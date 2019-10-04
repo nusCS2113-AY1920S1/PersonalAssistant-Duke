@@ -33,12 +33,27 @@ public class Parser {
     }
 
     /**
-     * Returns the index number requested by the user for commands like 'done' and 'deleted'
+     * Returns the index number requested by the user for commands like 'snooze'
      * @return index Index the user wishes to perform operations on.
      */
     public Integer getIndex() {
         String temp = scanner.nextLine().trim();
         int index = Integer.parseInt(temp);
+        return index;
+    }
+
+    /**
+     * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
+     * @return a single index or a range of index
+     */
+    public int[] getIndexRange() {
+        String temp[] = scanner.nextLine().trim().split("-",2);
+        int[] index;
+        if (temp.length == 1) {
+            index = new int[]{Integer.parseInt(temp[0])};
+        }
+        else
+            index = new int[]{Integer.parseInt(temp[0]), Integer.parseInt(temp[1])};
         return index;
     }
 

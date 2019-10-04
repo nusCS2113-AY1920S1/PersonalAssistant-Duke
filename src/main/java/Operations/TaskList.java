@@ -37,10 +37,15 @@ public class TaskList {
      * @param index Index of task in the list to be deleted
      * @throws DukeException If the index cannot be found in the list of tasks.
      */
-    public void delete(int index) throws DukeException {
-        tasks.remove(index - 1);
+    public void delete(int[] index) throws DukeException {
+        int[] idx = index.clone();
+        if (idx.length == 1)
+            tasks.remove(idx[0] - 1);
+        else {
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--)
+                tasks.remove(i-1);
+        }
     }
-
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
@@ -63,8 +68,14 @@ public class TaskList {
      * @param index Index of the task to be marked as done.
      * @throws DukeException If the index cannot be found in the list of tasks.
      */
-    public void done(int index) throws DukeException{
-        tasks.get(index - 1).setDone();
+    public void done(int[] index) throws DukeException {
+        if (index.length == 1)
+            tasks.get(index[0] - 1).setDone();
+        else {
+            for (int i = index[0]; i <= index[1]; i++){
+                tasks.get(i - 1).setDone();
+            }
+        }
     }
 
     /**
