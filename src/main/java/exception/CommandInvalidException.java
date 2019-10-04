@@ -11,5 +11,6 @@ public class CommandInvalidException extends DukeException {
     @Override
     public void showError() {
         System.out.println(this.getMessage() + command);
+        System.out.println("     Please check help for more information on what command you can use.");
     }
 }
