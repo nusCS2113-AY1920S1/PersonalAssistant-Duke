@@ -1,11 +1,10 @@
-package DukeObjects;
+package dukeobjects;
 
 import parser.LocalDateTimeParser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 public class Expense {
     protected BigDecimal amount;
@@ -13,7 +12,12 @@ public class Expense {
     protected LocalDateTime time;
     protected boolean isTentative;
 
-    public Expense(String amount, String description){
+    /**
+     * Constructor for an Expense object, setting the default time as the current time.
+     * @param amount String of the amount that the user entered
+     * @param description String of the description of the Expense
+     */
+    public Expense(String amount, String description) {
         double amountDouble = Double.parseDouble(amount);
         time = LocalDateTime.now();
         this.amount = new BigDecimal(amountDouble).setScale(2, RoundingMode.HALF_UP);
@@ -23,6 +27,7 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "$"+ amount + " " + description + " " + new LocalDateTimeParser().toString(time);
+        return "$" + amount + " " + description + " " + new LocalDateTimeParser().toString(time);
     }
+
 }

@@ -13,3 +13,7 @@ ListView{
 Label{
     -fx-background-color: white;
 }
+
+#totalSpentLabel{
+    -fx-font-size: 3em;
+}
