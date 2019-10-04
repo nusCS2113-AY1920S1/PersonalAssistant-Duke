@@ -37,7 +37,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     @FXML
     private ListView<String> tasksListView;
-    private ObservableList<String> observableList;
+    @FXML
+    private ListView<String> emailsListView;
 
     private Duke duke;
 
@@ -90,7 +91,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
-        updateTaskList();
+        updateTasksList();
+        updateEmailsList();
         if (response.contains("Bye, hope to see you again.")) {
             Storage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
@@ -126,12 +128,21 @@ public class MainWindow extends AnchorPane {
         userInput.positionCaret(prefix.length());
     }
 
-    private void updateTaskList() {
+    private void updateTasksList() {
         ObservableList<String> observableList = FXCollections.observableArrayList(
                 "Task 1\nsomething", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6",
                 "Task 7", "Task 8", "Task 9\nAfter which: Task 9a", "Task 10", "Task 11", "Task 12", "Task 13",
                 "Task 14", "Task 15", "Task 16", "Task 17\nAfter which: Task 17a", "Task 18", "Task 19", "Task 20",
                 "Task 21", "Task 22", "Task 23", "Task 24", "Task 25", "Task 26", "Task 27", "Task 28");
         tasksListView.setItems(observableList);
+    }
+
+    private void updateEmailsList() {
+        ObservableList<String> observableList = FXCollections.observableArrayList(
+                "Email 1\nsomething", "Email 2", "Email 3", "Email 4", "Email 5", "Email 6",
+                "Email 7", "Email 8", "Email 9\nAfter which: Email 9a", "Email 10", "Email 11", "Email 12", "Email 13",
+                "Email 14", "Email 15", "Email 16", "Email 17\nAfter which: Email 17a", "Email 18", "Email 19", "Email 20",
+                "Email 21", "Email 22", "Email 23", "Email 24", "Email 25", "Email 26", "Email 27", "Email 28");
+        emailsListView.setItems(observableList);
     }
 }
