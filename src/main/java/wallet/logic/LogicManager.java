@@ -1,18 +1,17 @@
 package wallet.logic;
 
+import wallet.logic.parser.ExpenseParser;
 import wallet.model.contact.ContactList;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
+import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
-import wallet.model.record.ExpenseParser;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
-import wallet.storage.Storage;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
-import wallet.storage.TaskStorage;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
@@ -27,7 +26,8 @@ public class LogicManager {
      */
     public LogicManager() {
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()), new ContactList(),
+        this.wallet = new Wallet(new BudgetList(storageManager.loadBudget()), new RecordList(),
+                new ExpenseList(storageManager.loadExpense()), new ContactList(),
                 new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList());
         this.parserManager = new ParserManager();
     }

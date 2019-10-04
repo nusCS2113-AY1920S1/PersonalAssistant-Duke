@@ -4,7 +4,7 @@ import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
 import wallet.model.record.Expense;
 import wallet.model.record.ExpenseList;
-import wallet.model.record.ExpenseParser;
+import wallet.logic.parser.ExpenseParser;
 import wallet.model.record.RecordList;
 import wallet.model.task.Task;
 import wallet.model.task.TaskList;

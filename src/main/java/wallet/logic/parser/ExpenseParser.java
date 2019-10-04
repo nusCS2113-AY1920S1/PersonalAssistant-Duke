@@ -1,11 +1,12 @@
-package wallet.model.record;
+package wallet.logic.parser;
 
 import wallet.logic.command.AddCommand;
 import wallet.model.Wallet;
+import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
 import wallet.storage.StorageManager;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
