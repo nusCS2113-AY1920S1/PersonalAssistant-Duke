@@ -7,10 +7,10 @@ public class Budget {
     private int year;
 
     /**
-     * Constructs the Budget object
-     * @param amount amount of budget set
-     * @param month month which budget is set to
-     * @param year year which budget is set to
+     * Constructs the Budget object.
+     * @param amount amount of budget set.
+     * @param month month which budget is set to.
+     * @param year year which budget is set to.
      */
     public Budget(double amount, int month, int year) {
         this.amount = amount;

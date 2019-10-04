@@ -93,13 +93,14 @@ public class ExpenseList {
     }
 
     /**
-     *
-     * @param month month given by user input
-     * @param year year given by user input
-     * @return total expenses for the specific month and year
+     * Returns the monthly expenses.
+     * @param month month of user expenses.
+     * @param year year of user expenses.
+     * @return sum of expenses in a given month and year.
      */
     public double getMonthExpenses(int month, int year) {
-        int expenseMonth, expenseYear;
+        int expenseMonth;
+        int expenseYear;
         double totalExpenses = 0;
 
         for (Expense e : this.expenseList) {

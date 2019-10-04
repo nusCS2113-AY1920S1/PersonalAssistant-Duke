@@ -38,16 +38,14 @@ public class ViewCommand extends Command {
                     System.out.println(e.toString());
                 }
                 ui.printLine();
-            }
-            else {
+            } else {
                 System.out.println(MESSAGE_EMPTY_EXPENSES);
             }
 
             if (wallet.getLoanList().getSize() != 0) {
                 System.out.println(MESSAGE_VIEW_LOANS);
                 ui.printLine();
-            }
-            else {
+            } else {
                 System.out.println(MESSAGE_EMPTY_LOANS);
             }
             return false;

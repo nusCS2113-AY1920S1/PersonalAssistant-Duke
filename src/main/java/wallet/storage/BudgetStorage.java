@@ -11,8 +11,8 @@ public class BudgetStorage extends Storage<Budget> {
     public static final String DEFAULT_STORAGE_FILEPATH_BUDGET = "./data/budget.txt";
 
     /**
-     *
-     * @return list of set budget
+     * loads the list of Budget.
+     * @return list of set budget.
      */
     @Override
     public ArrayList<Budget> loadFile() {
@@ -25,7 +25,8 @@ public class BudgetStorage extends Storage<Budget> {
                 str = raf.readLine();
                 String[] data = str.split(",");
                 if (!data[0].isEmpty() && !data[1].isEmpty() && !data[2].isEmpty()) {
-                    Budget budget = new Budget(Double.parseDouble(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
+                    Budget budget = new Budget(Double.parseDouble(data[0]),
+                            Integer.parseInt(data[1]), Integer.parseInt(data[2]));
                     budgetList.add(budget);
                 }
             }
@@ -40,8 +41,8 @@ public class BudgetStorage extends Storage<Budget> {
     }
 
     /**
-     *
-     * @param budget Budget object
+     * Writes budget to file.
+     * @param budget Budget object.
      */
     @Override
     public void writeToFile(Budget budget) {

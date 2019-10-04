@@ -59,7 +59,11 @@ public class StorageManager {
         expenseStorage.writeToFile(expense);
     }
 
-    public void addBudget(Budget budget) { budgetStorage.writeToFile(budget); }
+    public void addBudget(Budget budget) {
+        budgetStorage.writeToFile(budget);
+    }
 
-    public ArrayList<Budget> loadBudget() { return budgetStorage.loadFile(); }
+    public ArrayList<Budget> loadBudget() {
+        return budgetStorage.loadFile();
+    }
 }

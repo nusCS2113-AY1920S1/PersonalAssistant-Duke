@@ -51,9 +51,13 @@ public class Wallet {
         this.loanList = loanList;
     }
 
-    public BudgetList getBudgetList() { return budgetList; }
+    public BudgetList getBudgetList() {
+        return budgetList;
+    }
 
-    public void setBudgetList(BudgetList budgetList) {this.budgetList = budgetList; }
+    public void setBudgetList(BudgetList budgetList) {
+        this.budgetList = budgetList;
+    }
 
     public RecordList getRecordList() {
         return recordList;
