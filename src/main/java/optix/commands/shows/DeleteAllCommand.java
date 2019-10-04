@@ -25,6 +25,7 @@ public class DeleteAllCommand extends Command {
         StringBuilder message = new StringBuilder();
         ArrayList<String> deletedShows = new ArrayList<>();
         ArrayList<String> missingShows = new ArrayList<>();
+
         for (String show: this.showNames) {
             boolean isFound = false;
             ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
@@ -48,13 +49,13 @@ public class DeleteAllCommand extends Command {
         if (!deletedShows.isEmpty()) {
             message.append("Noted. These are the deleted entries:\n");
             for (String infoStrings: deletedShows) {
-                message.append(infoStrings).append('\n');
+                message.append(infoStrings.trim()).append('\n');
             }
         }
         if (!missingShows.isEmpty()) {
             message.append("Sorry, these shows were not found:\n");
             for (String missingShow: missingShows) {
-                message.append(missingShow).append('\n');
+                message.append(missingShow.trim()).append('\n');
             }
         }
         ui.setMessage(message.toString());

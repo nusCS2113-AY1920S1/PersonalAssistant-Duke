@@ -8,8 +8,11 @@ import optix.util.ShowMap;
 
 import java.io.File;
 
-public class Optix {
 
+/**
+ * Software that stores all the finance for the Opera Hall.
+ */
+public class Optix {
     private ShowMap shows;
 
     private Ui ui;
@@ -28,6 +31,9 @@ public class Optix {
         new Optix(filePath).run();
     }
 
+    /**
+     * To boot up the software.
+     */
     public void run() {
 
         boolean isExit = false;

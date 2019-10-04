@@ -44,24 +44,24 @@ public class Theatre {
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
                 switch (i) {
-                    case 0:
-                    case 1:
-                        seats[i][j] = new Seat("1");
-                        tierOneSeats++;
-                        break;
-                    case 2:
-                    case 3:
-                        seats[i][j] = new Seat("2");
-                        tierTwoSeats++;
-                        break;
-                    case 4:
-                    case 5:
-                        seats[i][j] = new Seat("3");
-                        tierThreeSeats++;
-                        break;
-                    default:
-                        System.out.println("There shouldn't be anything here.");
-                        break;
+                case 0:
+                case 1:
+                    seats[i][j] = new Seat("1");
+                    tierOneSeats++;
+                    break;
+                case 2:
+                case 3:
+                    seats[i][j] = new Seat("2");
+                    tierTwoSeats++;
+                    break;
+                case 4:
+                case 5:
+                    seats[i][j] = new Seat("3");
+                    tierThreeSeats++;
+                    break;
+                default:
+                    System.out.println("There shouldn't be anything here.");
+                    break;
                 }
             }
         }
@@ -136,7 +136,7 @@ public class Theatre {
         return costOfSeat;
     }
 
-    public String sellSeats(String buyerName, String[] seats) {
+    public String sellSeats(String buyerName, String ... seats) {
         double totalCost = 0;
         ArrayList<String> seatsSold = new ArrayList<>();
         ArrayList<String> seatsNotSold = new ArrayList<>();

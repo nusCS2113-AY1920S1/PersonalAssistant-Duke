@@ -16,6 +16,9 @@ public class ByeCommand extends  Command {
         ui.exitOptix();
     }
 
+    /**
+     * Exits Optix.
+     */
     @Override
     public boolean isExit() {
         return true;

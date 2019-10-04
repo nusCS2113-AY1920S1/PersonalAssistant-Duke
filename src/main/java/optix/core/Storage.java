@@ -83,8 +83,6 @@ public class Storage {
         return theatre;
     }
 
-
-
     public void write(ShowMap shows) {
         try {
             filePath.delete();
@@ -118,6 +116,7 @@ public class Storage {
         wr.write("next\n");
     }
 
+
     private LocalDate localDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //Convert string to localdate
@@ -125,6 +124,9 @@ public class Storage {
         return localDate;
     }
 
+    /**
+     * Get today's date as LocalDate object.
+     */
     public LocalDate getToday() {
         return today;
     }

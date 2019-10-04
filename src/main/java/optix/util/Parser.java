@@ -14,7 +14,17 @@ import optix.commands.seats.ViewSeatsCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
+/**
+ * Parse input arguments and create a new Command Object
+ */
 public class Parser {
+
+    /**
+     * Parse input argument and create a new Command Object based on the first input word.
+     * @param fullCommand The entire input argument.
+     * @return Command Object based on the first input word.
+     * @throws OptixException if the Command word is not recognised by Optix.
+     */
     public static Command parse(String fullCommand) throws OptixException {
 
         // add exception for null pointer exception. e.g. postpone
@@ -61,6 +71,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse the remaining user input to its respective parameters for PostponeCommand.
+     * @param postponeDetails The details to create new PostponeCommand Object.
+     * @return new PostponeCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
     private static Command parsePostpone(String postponeDetails) throws OptixInvalidCommandException {
         String[] splitStr = postponeDetails.trim().split("\\|", 3);
 
@@ -75,6 +91,13 @@ public class Parser {
         return new PostponeCommand(showName, oldDate, newDate);
     }
 
+    /**
+     * Parse the remaining user input to its respective parameters for AddCommand.
+     * @param showDetails The details to create a new AddCommand Object.
+     * @return new AddCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     * @throws NumberFormatException if user attempt to convert String into double.
+     */
     private static Command parseAddShow(String showDetails) throws OptixInvalidCommandException, NumberFormatException {
         String[] splitStr = showDetails.trim().split("\\|", 4);
 
@@ -90,7 +113,12 @@ public class Parser {
         return new AddCommand(showName, showDate, showCost, seatBasePrice);
     }
 
-    // delete a single show on a particular date
+    /**
+     * Parse the remaining user input to its respective parameters for DeleteOneCommand.
+     * @param showDetails The details to create a new DeleteOneCommand Object.
+     * @return new DeleteOneCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
     private static Command parseDeleteOneOfShow(String showDetails) throws OptixInvalidCommandException {
         String[] splitStr = showDetails.trim().split("\\|");
 
@@ -104,13 +132,23 @@ public class Parser {
         return new DeleteOneCommand(showName, showDate);
     }
 
-    // delete all instances of shows with specified name. Can contain multiple names, separated by pipe.
+    /**
+     * Parse the remaining user input to its respective parameters for DeleteAllCommand.
+     * @param deleteDetails The name of all the shows being queried.
+     * @return new DeleteAllCommand Object.
+     */
     private static Command parseDeleteAllOfShow(String deleteDetails) {
         String[] splitStr = deleteDetails.trim().split("\\|");
 
         return new DeleteAllCommand(splitStr);
     }
 
+    /**
+     * Parse the remaining user input to its respective parameters for ViewSeatsCommand.
+     * @param showDetails The details to create a new ViewSeatsCommand Object.
+     * @return new ViewSeatsCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
     private static Command parseViewSeating(String showDetails) throws OptixInvalidCommandException {
         String[] splitStr = showDetails.trim().split("\\|");
 
@@ -124,6 +162,12 @@ public class Parser {
         return new ViewSeatsCommand(showName, showDate);
     }
 
+    /**
+     * Parse the remaining user input to its respective parameters for SellSeatsCommand
+     * @param details The details to create a new SellSeatsCommand Object.
+     * @return new SellSeatsCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
     private static Command parseSellSeats(String details) throws OptixInvalidCommandException {
         String[] splitStr = details.trim().split("\\|");
 
