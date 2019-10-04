@@ -1,12 +1,12 @@
-package seedu.duke.avatar;
+package seedu.duke.game.avatar;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *  Test class for Stats.
+ *  Test class for Level.
  */
-public class Stats {
+public class Level {
 
     @Test
     /**

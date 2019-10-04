@@ -1,6 +1,6 @@
 package seedu.duke.data;
 
-import seedu.duke.avatar.*;
+import seedu.duke.game.avatar.*;
 import java.io.*;
 import java.util.Formatter;
 import java.util.Scanner;
