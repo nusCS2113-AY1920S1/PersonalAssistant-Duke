@@ -6,6 +6,7 @@ import java.time.LocalDate;
  * The Record Class that is the parent of Loans, Notes, Expenses.
  */
 public abstract class Record {
+    private int id;
     private String description;
     private LocalDate date;
 
@@ -13,7 +14,7 @@ public abstract class Record {
      * Constructs a Record Object.
      *
      * @param description The String description.
-     * @param date The LocalDate object.
+     * @param date        The LocalDate object.
      */
 
     public Record(String description, LocalDate date) {
@@ -55,6 +56,19 @@ public abstract class Record {
      */
     public LocalDate getDate() {
         return this.date;
+    }
+
+    /**
+     * Sets the id of the Record Object.
+     *
+     * @param id The identity of the Record object.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     /**

@@ -88,12 +88,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "loan":
-            counter = 1;
-            System.out.println(MESSAGE_LIST_LOANS);
-            for (Loan l : wallet.getLoanList().getLoanList()) {
-                System.out.println(counter + ". " + l.toString());
-                counter++;
-            }
+            wallet.getLoanList().listLoanList();
             break;
 
         default:

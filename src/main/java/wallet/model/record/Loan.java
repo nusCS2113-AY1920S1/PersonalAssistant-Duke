@@ -89,16 +89,29 @@ public class Loan extends Record {
     @Override
     public String toString() {
         if (isLend) {
-            return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Lend] " + description + " Amount:$"
+            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Lend] " + description + " Amount:$"
                     + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate());
         } else { //isBorrow
-            return "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Borrow] " + description + " Amount:$"
+            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Borrow] " + description + " Amount:$"
                     + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate());
         }
     }
 
     @Override
     public String writeToFile() {
+        if (!isLend && !isSettled) {
+            return getId() + "," + getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "0" + "," + "0";
+        } else if (!isLend && isSettled) {
+            return getId() + "," + getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "0" + "," + "1";
+        } else if (isLend && !isSettled) {
+            return getId() + "," + getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "1" + "," + "0";
+        } else if(isLend && isSettled) {
+            return getId() + "," + getDescription() + "," + amount + ","
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "1" + "," + "1";
+        }
         return null;
     }
 }

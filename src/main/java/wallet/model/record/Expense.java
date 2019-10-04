@@ -93,10 +93,10 @@ public class Expense extends Record {
     @Override
     public String toString() {
         if (isRecurring) {
-            return "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         } else {
-            return getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + " " + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         }
     }
@@ -105,10 +105,10 @@ public class Expense extends Record {
     @Override
     public String writeToFile() {
         if (isRecurring) {
-            return getDescription() + "," + amount + ","
+            return getId() + "," + getDescription() + "," + amount + ","
                     + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category + "," + recFrequency;
         } else {
-            return getDescription() + "," + amount + ","
+            return getId() + "," + getDescription() + "," + amount + ","
                     + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category;
         }
     }

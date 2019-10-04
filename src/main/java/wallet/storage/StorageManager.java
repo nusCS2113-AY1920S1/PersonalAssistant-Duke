@@ -1,6 +1,7 @@
 package wallet.storage;
 
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.model.task.Task;
 
 import java.io.File;
@@ -12,6 +13,7 @@ public class StorageManager {
 
     private TaskStorage taskStorage;
     private ExpenseStorage expenseStorage;
+    private LoanStorage loanStorage;
 
     /**
      * Constructs a new StorageManager object with all storage classes.
@@ -20,6 +22,7 @@ public class StorageManager {
         createDir();
         this.taskStorage = new TaskStorage();
         this.expenseStorage = new ExpenseStorage();
+        this.loanStorage = new LoanStorage();
     }
 
     /**
@@ -54,5 +57,13 @@ public class StorageManager {
 
     public void addExpense(Expense expense) {
         expenseStorage.writeToFile(expense);
+    }
+
+    public ArrayList<Loan> loadLoan() {
+        return loanStorage.loadFile();
+    }
+
+    public void addLoan(Loan loan) {
+        loanStorage.writeToFile(loan);
     }
 }

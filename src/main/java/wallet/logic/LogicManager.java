@@ -4,10 +4,7 @@ import wallet.model.contact.ContactList;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
-import wallet.model.record.ExpenseList;
-import wallet.model.record.ExpenseParser;
-import wallet.model.record.LoanList;
-import wallet.model.record.RecordList;
+import wallet.model.record.*;
 import wallet.storage.Storage;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
@@ -27,8 +24,8 @@ public class LogicManager {
      */
     public LogicManager() {
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()), new ContactList(),
-                new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList());
+        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()),new ContactList(),
+                new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
     }
 
@@ -43,6 +40,8 @@ public class LogicManager {
             Command command = parserManager.parseCommand(fullCommand);
             isExit = command.execute(wallet, storageManager);
             ExpenseParser.updateRecurringRecords(wallet, storageManager);
+
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error encountered while executing command.");
