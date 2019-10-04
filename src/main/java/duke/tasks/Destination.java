@@ -22,6 +22,9 @@ public class Destination extends DoWithin {
         return "[DEST] temporary " + super.toString();
     }
 
+    /**
+     * Get coordinates of the destination.
+     */
     public Pair<Double, Double> getCoordinates() throws DukeException {
         if (coordinates == null) {
             coordinates = ApiParser.getLocationSearch(getDescription());

@@ -17,8 +17,8 @@ import duke.commons.MessageUtil;
  * URL request to OneMap API to get coordinates of location.
  */
 public class LocationSearchUrlReq extends UrlReq {
-    private final static String paramType = "searchVal";
-    private final static String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+    private static final String paramType = "searchVal";
+    private static final String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
 
     /**
      * Construct the URL Request.
