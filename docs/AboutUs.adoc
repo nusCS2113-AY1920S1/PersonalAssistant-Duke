@@ -29,7 +29,7 @@ Responsibilities: Debugging
 '''
 
 === Tay Ryan
-image::tyeryann.png[width="150", align="left"]
+image::tyeryan.png[width="150", align="left"]
 {empty}[https://github.com/tyeryan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
