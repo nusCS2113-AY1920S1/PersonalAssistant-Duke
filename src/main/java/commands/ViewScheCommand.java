@@ -19,9 +19,10 @@ public class ViewScheCommand extends Command {
     private String line;
 
     /**
-     * This is a class for command FIND, which search a keyword from the task list and print all results.
+     * This is a class for command SCHEDULE, which displays tasks that has DATETIME in chronological order.
+     * Optionally provided DATE allows filtering of tasks from that day only
      *
-     * @param line the keyword to be searched
+     * @param line the DATE to be filtered
      */
     public ViewScheCommand(String line) {
         this.line = line.trim();
@@ -49,6 +50,13 @@ public class ViewScheCommand extends Command {
         Ui.print(output);
     }
 
+
+    /**
+     * Removes and return list of tasks by provided date
+     * @param toFilter original list of tasks
+     * @param date date of tasks to be filtered by
+     * @return List of tasks filtered by date
+     */
     private ArrayList<Task> filterByDate(ArrayList<Task> toFilter, Date date) {
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
         Calendar calAim = Calendar.getInstance();
@@ -81,6 +89,12 @@ public class ViewScheCommand extends Command {
         return toFilter;
     }
 
+
+    /**
+     * Returns list of tasks provided without those that has no Date
+     * @param toFilter original list of tasks
+     * @return filtered task list
+     */
     private ArrayList<Task> removeNoTimeTask(ArrayList<Task> toFilter) {
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
 
@@ -101,6 +115,11 @@ public class ViewScheCommand extends Command {
         return toFilter;
     }
 
+    /**
+     * Sorts list of tasks into chronological order
+     * @param toSort list of tasks to by sorted
+     * @return list of tasks sorted by date
+     */
     private ArrayList<Task> sortByDate(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();
 
