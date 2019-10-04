@@ -6,6 +6,7 @@ import command.DoneCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.BadCommand;
+import exception.CommandInvalidException;
 import exception.DukeException;
 import storage.Storage;
 import task.Deadline;
@@ -31,30 +32,33 @@ public class Parser {
     public static Command parse(String input) {
         try {
             String[] taskInfo = input.split(" ", 2);
-            if (taskInfo[0].equals("bye")) {
+            if (taskInfo[0].equals("exit")) {
                 //create an ExitCommand
                 return new ExitCommand();
-            } else if (taskInfo[0].equals("done")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.INDEX_MISSING);
-                }
-                //create a DoneCommand object
-                return new DoneCommand(Integer.parseInt(taskInfo[1]));
+            } else if (taskInfo[0].equals("help")) {
+                // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
+                return null;
+            } else if (taskInfo[0].equals("add")) {
+                // FIX ADD COMMAND TO ADD TO DICTIONARY
+                return null;
             } else if (taskInfo[0].equals("delete")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.INDEX_MISSING);
-                }
-                //create a DeleteCommand
-                return new DeleteCommand(Integer.parseInt(taskInfo[1]));
-            } else if (taskInfo[0].equals("find")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.SEARCHPHRASE_MISSING);
-                }
-                //create a FindCommand
-                return new FindCommand(taskInfo[1]);
+                // FIX DELETE COMMAND TO DELETE WORD FROM DICTIONARY (BOTH TAG AND WORD)
+                return null;
+            } else if (taskInfo[0].equals("search")) {
+                // CREATE A SEARCH COMMAND TO SEARCH FOR A WORD
+                return null;
             } else if (taskInfo[0].equals("list")) {
+                //FIX LIST COMMAND TO MATCH THE TASK WE NEED TO DO
                 return new ListCommand();
-            } else {
+            } else if (taskInfo[0].equals("edit")) {
+                // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
+                return null;
+            } else if (taskInfo[0].equals("tag")) {
+                //CREATE TAG COMMAND TO ADD TAG TO A WORD
+                return null;
+            }
+            /*
+            else {
                 if (taskInfo[0].equals("todo")) {
                     //parse and throw into AddCommand
                     if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
@@ -155,21 +159,22 @@ public class Parser {
                     String lookUpDate = dateInfo;
                     return new ViewSchedule(lookUpDate);
                 }
-                else {
-                    try {
-                        throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
-                    } catch (DukeException e){
-                        e.showError();
-                        return new BadCommand();
-                    }
+            */
+            else {
+                try {
+                    throw new CommandInvalidException(input);
+                } catch (CommandInvalidException e){
+                    e.showError();
+                    return new BadCommand();
                 }
             }
-        } catch (DukeException e) {
-            e.showError();
+//            }
+        } catch (Exception e) {
             return new BadCommand();
         }
     }
 
+    /*
     public static ArrayList<String> parseDate(String type, String[] taskInfo) {
         ArrayList<String> dateInfo = new ArrayList<String>();
         String[] a;
@@ -208,4 +213,5 @@ public class Parser {
         }
         return dateInfo;
     }
+    */
 }

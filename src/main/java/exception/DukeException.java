@@ -5,7 +5,7 @@ package exception;
  * Inherits from the Exception class.
  */
 public class DukeException extends Exception {
-
+    /**
     protected ErrorType error;
     protected String errorType;
 
@@ -76,5 +76,18 @@ public class DukeException extends Exception {
             System.out.println("     ☹ OOPS: Expected format: \"fixed [description of task] /take\n         HHMM");
             break;
         }
+    }
+     */
+
+    public DukeException(String message) {
+        super(message);
+    }
+
+    public DukeException() {
+        super();
+    }
+
+    public void showError() {
+        System.out.println(this.getMessage());
     }
 }
