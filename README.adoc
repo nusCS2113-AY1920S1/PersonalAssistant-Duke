@@ -1,4 +1,4 @@
-= Productivity Tracker - A fun way to get yourself motivated!
+= Hustler - A fun way to get yourself motivated!
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
@@ -7,14 +7,10 @@ https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https:
 https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/MainPage.png[width="600"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
-
-* This is a desktop Productivity Tracker application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop productivity tracker application. It has a GUI but user will mostly type in the commands to navigate the application instead of clicking buttons.
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
 

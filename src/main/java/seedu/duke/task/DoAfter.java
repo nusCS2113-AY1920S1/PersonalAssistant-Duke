@@ -3,14 +3,14 @@ package seedu.duke.task;
 import seedu.duke.ui.Ui;
 import java.time.LocalDateTime;
 
-import static seedu.duke.command.DateTimeParser.convertDateTime;
-import static seedu.duke.command.DateTimeParser.toDateTimeString;
+import static seedu.duke.parser.DateTimeParser.convertDateTime;
+import static seedu.duke.parser.DateTimeParser.toDateTimeString;
 
 public class DoAfter extends Task {
     /**
      * LocalDateTime to store the DoAfter's date and time.
      */
-    protected LocalDateTime after;
+    protected String after;
 
     /**
      * Object of the Ui class that that is used to
@@ -18,7 +18,7 @@ public class DoAfter extends Task {
      */
     private Ui ui = new Ui();
 
-    public DoAfter(String description, LocalDateTime after) {
+    public DoAfter(String description, String after) {
         super(description);
         this.after = after;
     }
@@ -29,7 +29,7 @@ public class DoAfter extends Task {
      * @return a string with the target info.
      */
     public String toString() {
-        return "[A]" + super.toString() + " (after: " + toDateTimeString(after) + ")";
+        return "[A]" + super.toString() + " (after: " + after + ")";
     }
 
     /**
@@ -38,7 +38,7 @@ public class DoAfter extends Task {
      * @return a string with pipe separated info.
      */
     public String toSaveFormat() {
-        return "A|" + super.toSaveFormat() + "|" + convertDateTime(after);
+        return "A|" + super.toSaveFormat() + "|" + after;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DoAfter extends Task {
      */
     @Override
     public LocalDateTime getDateTime() {
-        return this.after;
+        return null;
     }
 
     /**
@@ -93,6 +93,6 @@ public class DoAfter extends Task {
      */
     @Override
     public void setDateTime(LocalDateTime localDateTime) {
-        this.after = localDateTime;
+
     }
 }

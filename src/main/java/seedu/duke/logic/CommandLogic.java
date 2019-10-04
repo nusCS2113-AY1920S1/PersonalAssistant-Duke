@@ -1,11 +1,19 @@
 package seedu.duke.logic;
 
+import seedu.duke.parser.DateTimeParser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import seedu.duke.command.DateTimeParser;
+import seedu.duke.parser.DateTimeParser;
 
+/**
+ * Checks if the user input are desired by Duke by checking if the format of the String input is valid based off
+ * the command type.
+ */
 public class CommandLogic {
-
+    /**
+     * Types of prompts to alert the users of their errors in the input.
+     */
     private static final String WRONG_FORMAT_NO_DESCRIPTION = "Adding command description cannot be empty!";
     private static final String WRONG_FORMAT_LENGTH = "Please only type \"";
     private static final String WRONG_FORMAT_NO_TIME = "Todo does not need to have a time inputted!";
@@ -17,9 +25,14 @@ public class CommandLogic {
     private static final String INVALID_NUMBER = "Please enter a valid number!";
     private static final String INVALID_SNOOZE = "Please only snooze either a specific DD/MM/YYYY or \"<number> <time to delay>\"\n etc: 3 days";
 
-
-
-    public static boolean validateDeadline(String rawInput) throws CommandLineException {
+    /**
+     * Tries to check for errors for a deadline input.
+     * @param rawInput user's single line input
+     * @param userInput user's input split by spacing.
+     * @return boolean expression depends on if the input is valid.
+     * @throws CommandLineException for the Main class to catch.
+     */
+    public static boolean validateDeadline(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/by")) {
@@ -31,7 +44,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateEvent(String rawInput) throws CommandLineException {
+    public static boolean validateEvent(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/at")) {
@@ -40,7 +53,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateToDo(String rawInput) throws CommandLineException {
+    public static boolean validateToDo(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (rawInput.contains("/")) {
@@ -49,7 +62,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateRange(String rawInput) throws CommandLineException {
+    public static boolean validateRange(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/in")) {
@@ -62,7 +75,7 @@ public class CommandLogic {
         return true;
     }
 
-    public static boolean validateDoAfter(String rawInput) throws CommandLineException {
+    public static boolean validateDoAfter(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
         } else if (!rawInput.contains("/after")) {
@@ -102,9 +115,8 @@ public class CommandLogic {
          */
         if (isTwoWord(command)) {
             try {
-                String[] splitCommand = command.split(" ");
-                int number = Integer.parseInt(splitCommand[0]);
-                    switch (splitCommand[1]) {
+                int number = Integer.parseInt(command.split(" ")[0]);
+                    switch (command.split(" ")[1]) {
                         case "minutes":
                         case "hours":
                         case "days":
@@ -118,7 +130,7 @@ public class CommandLogic {
                 throw new CommandLineException(INVALID_SNOOZE);
             }
         } else if (isOneWord(command)) {
-            DateTimeParser.getDateTime(command);
+            DateTimeParser.getDateTime(command.split(" ")[0]);
         } else {
             throw new CommandLineException(INVALID_SNOOZE);
         }
@@ -133,11 +145,10 @@ public class CommandLogic {
     }
 
     public static boolean validateShow(String rawInput) throws CommandLineException {
-        String[] splitInput = rawInput.split(" ");
         if(!isTwoWord(rawInput)) {
-            throw new CommandLineException(WRONG_FORMAT_LENGTH + splitInput[0] + " <DD/MM/YYYY>");
+            throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <DD/MM/YYYY>");
         } else {
-            DateTimeParser.getDateTime(splitInput[1]);
+            DateTimeParser.getDateTime(rawInput.split(" ")[1]);
         }
         return true;
     }
@@ -150,11 +161,11 @@ public class CommandLogic {
     }
 
     private static boolean isOneWord(String rawInput) {
-        return rawInput.length() == 1;
+        return rawInput.split(" ").length == 1;
     }
 
     private static boolean isTwoWord(String rawInput) {
-        return rawInput.length() == 2;
+        return rawInput.split(" ").length == 2;
     }
 
 

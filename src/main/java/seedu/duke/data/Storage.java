@@ -8,6 +8,7 @@ import seedu.duke.task.RangedTask;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.DoAfter;
 import seedu.duke.task.FixedDurationTask;
+import seedu.duke.task.RecurringTask;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * A class that stores current task list and loads it on request from disc.
@@ -74,9 +75,13 @@ public class Storage {
                     list.add(new RangedTask(taskString[2], from, by));
                 } else if (taskString[0].equals("A")) {
                     LocalDateTime localDateTime = getDateTime(taskString[3]);
-                    list.add(new DoAfter(taskString[2], localDateTime));
+                    list.add(new DoAfter(taskString[2], taskString[3]));
                 } else if (taskString[0].equals("F")) {
                     list.add(new FixedDurationTask(taskString[2], taskString[3]));
+                } else if (taskString[0].equals("RC")) {
+                    LocalDateTime on = getDateTime(taskString[3]);
+                    int periodInMin = Integer.parseInt(taskString[5]);
+                    list.add(new RecurringTask(taskString[2], on, taskString[4], periodInMin));
                 } else {
                     LocalDateTime at = getDateTime(taskString[3]);
                     list.add(new Event(taskString[2], at));

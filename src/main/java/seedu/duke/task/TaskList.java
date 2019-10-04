@@ -1,17 +1,18 @@
 package seedu.duke.task;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-import seedu.duke.command.DateTimeParser;
+import seedu.duke.data.AvatarStorage;
 import seedu.duke.data.Schedule;
 import java.util.Scanner;
-
+import seedu.duke.Duke;
 import seedu.duke.ui.Ui;
 
-import static seedu.duke.command.DateTimeParser.getDateTime;
+import static seedu.duke.parser.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods
@@ -75,9 +76,10 @@ public class TaskList {
      * @param taskDescriptionFull the description that follows the task type.
      */
     public void add(String taskType, String taskDescriptionFull) {
+        boolean checkAnomaly = true;
         // if tasktype is not ToDo
-        if (taskType.equals("todo")) {
-            list.add(new ToDo(taskDescriptionFull));
+        if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+            checkAnomaly = false;
         } else {
             // Extract task time and task description and initialize as deadline
             if (taskType.equals("deadline")) {
@@ -86,10 +88,12 @@ public class TaskList {
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
                     LocalDateTime localDateTime = getDateTime(taskTime);
-
-                    list.add(new Deadline(taskDescription,localDateTime));
-                    if (Schedule.isValidDate(taskDateOnly)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list)) {
+                        list.add(new Deadline(taskDescription,localDateTime));
+                        checkAnomaly = false;
+                        if (Schedule.isValidDate(taskDateOnly)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                        }
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
@@ -107,10 +111,12 @@ public class TaskList {
 
                     for (Task j: list) {
                         if (j.description.equals(after)) {
-                            LocalDateTime localDateTime = getDateTime(after);
-                            list.add(new DoAfter(taskDescription, localDateTime));
-                            taskFound = true;
-                            break;
+                            if (!DetectAnomalies.test(new DoAfter(taskDescription, after),list)) {
+                                checkAnomaly = false;
+                                list.add(new DoAfter(taskDescription, after));
+                                taskFound = true;
+                                break;
+                            }
                         }
                     }
                     if (!taskFound) {
@@ -132,10 +138,14 @@ public class TaskList {
                     String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
                     String taskDateOnly = taskTime.split(" ", 2)[0];
                     LocalDateTime localDateTime = getDateTime(taskTime);
-                    list.add(new Event(taskDescription, localDateTime));
-                    if (Schedule.isValidDate(taskDateOnly)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                    if (!DetectAnomalies.test(new Event(taskDescriptionFull,localDateTime), list)) {
+                        list.add(new Event(taskDescription, localDateTime));
+                        checkAnomaly = false;
+                        if (Schedule.isValidDate(taskDateOnly)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
+                        }
                     }
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
@@ -149,7 +159,47 @@ public class TaskList {
                     String[] dateTime = taskTime.split(" and ");
                     LocalDateTime from = getDateTime(dateTime[0]);
                     LocalDateTime by = getDateTime(dateTime[1]);
-                    list.add(new RangedTask(taskDescription, from, by));
+                    if (!DetectAnomalies.test(new RangedTask(taskDescription,from,by),list)) {
+                        list.add(new RangedTask(taskDescription, from, by));
+                        checkAnomaly = false;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.wrong_description_error();
+                    return;
+                }
+            } else if (taskType.equals("recur")) {
+                try {
+                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
+                    String taskTime = taskDescriptionFull.split("/",2)[1].substring(3).split(" every")[0];
+                    LocalDateTime dateTime = getDateTime(taskTime);
+                    String[] inputWords = taskDescriptionFull.split(" ");
+                    int num = Integer.parseInt(inputWords[inputWords.length - 2]);
+                    String frequency = inputWords[inputWords.length - 1];
+                    int periodInMin = 0;
+
+                    switch (frequency) {
+                    case "minutes":
+                        periodInMin = num;
+                        break;
+                    case "hours":
+                        periodInMin = num * 60;
+                        break;
+                    case "days":
+                        periodInMin = num * 60 * 24;
+                        break;
+                    case "weeks":
+                        periodInMin = num * 60 * 24 * 7;
+                        break;
+                    case "months":
+                        periodInMin = num * 60 * 24 * 7 * 4;
+                        break;
+                    default:
+                        System.out.println("You have typed in the wrong format. Please re-add the recurring task.");
+                    }
+                    if (!DetectAnomalies.test(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin),list)) {
+                        list.add(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin));
+                        checkAnomaly = false;
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ui.wrong_description_error();
                     return;
@@ -165,14 +215,17 @@ public class TaskList {
                 }
 	    }
         }
-
-        String output = "\t  " + list.get(list.size() - 1).toString();
-        System.out.println("\t_____________________________________");
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println(output);
-        // Printing number of items in list
-        System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-        System.out.println("\t_____________________________________\n\n");
+        if (!checkAnomaly) {
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            // Printing number of items in list
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        } else {
+            System.out.println("Task clashes with another existing task in the list!");
+        }
     }
 
     /**
@@ -198,9 +251,13 @@ public class TaskList {
                 System.out.println("\tNice! I've marked this task as done:");
                 System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
                 System.out.println("\t_____________________________________\n\n");
+                Duke.avatar.gainXp();
+                AvatarStorage.save(Duke.avatar);
             }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
+        } catch (IOException ignore) {
+            return;
         }
     }
 
@@ -236,7 +293,7 @@ public class TaskList {
             System.out.println("\tYou are requesting to snooze the following task:");
             System.out.println("\t" + list.get(i).toString() + "\n");
             System.out.println("\tPlease choose one of the following way to snooze this task.");
-            System.out.println("\t1) Enter a number followed by min/hour/day/week/month");
+            System.out.println("\t1) Enter a number followed by minutes/hours/days/weeks/months");
             System.out.println("\t2) Enter the new date and time in the following format (dd/MM/yyyy HHmm)");
             System.out.println("\t_____________________________________");
 
@@ -253,19 +310,19 @@ public class TaskList {
                 LocalDateTime ldt = list.get(i).getDateTime();
 
                 switch (userInput[1]) {
-                case "min":
+                case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
-                case "hour":
+                case "hours":
                     list.get(i).setDateTime(ldt.plusHours(num));
                     break;
-                case "day":
+                case "days":
                     list.get(i).setDateTime(ldt.plusDays(num));
                     break;
-                case "week":
+                case "weeks":
                     list.get(i).setDateTime(ldt.plusWeeks(num));
                     break;
-                case "month":
+                case "months":
                     list.get(i).setDateTime(ldt.plusMonths(num));
                     break;
                 default:
