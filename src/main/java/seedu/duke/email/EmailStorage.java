@@ -277,7 +277,7 @@ public class EmailStorage {
             userInfoFile.createNewFile();
             FileInputStream in = new FileInputStream(userInfoFile);
             Scanner scanner = new Scanner(in);
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 token += scanner.next();
             }
         } catch (FileNotFoundException e) {

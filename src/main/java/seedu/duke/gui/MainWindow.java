@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
+import seedu.duke.TaskList;
 import seedu.duke.Storage;
 import seedu.duke.email.EmailStorage;
 
@@ -20,6 +21,9 @@ import java.util.function.UnaryOperator;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private TaskList tasks;
+    @FXML
+    private VBox taskContainer;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -80,7 +84,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
-        if(response.contains("Bye, hope to see you again.")) {
+        if (response.contains("Bye, hope to see you again.")) {
             Storage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();

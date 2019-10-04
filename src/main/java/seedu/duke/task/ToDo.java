@@ -59,7 +59,7 @@ public class ToDo extends Task {
     @Override
     public String toFileString() {
         String output = "";
-        output = (this.isDone ? "1" : "0") + " event " + this.name;
+        output = (this.isDone ? "1" : "0") + " todo " + this.name;
         if (this.doAfterDescription != null) {
             output += " /doafter " + doAfterDescription;
         }
