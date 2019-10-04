@@ -28,6 +28,11 @@ public class DateObj {
         formatDate();
     }
 
+    public DateObj(Date dateClass) {
+        this.dateObject = dateClass;
+        formatDateClass();
+    }
+
     public void formatDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HHmm");
@@ -46,6 +51,11 @@ public class DateObj {
                 this.formattedDateString = splitDate;
             }
         }
+    }
+
+    public void formatDateClass() {
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
+        this.formattedDateString = formatter.format(dateObject);
     }
 
     public void formatToInputPattern() {
@@ -86,11 +96,6 @@ public class DateObj {
 
     public Date getEventJavaDate() {
         return this.dateObject;
-    }
-
-    public String formatToString(Date dateToBeFormatted) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
-        return formatter.format(dateToBeFormatted);
     }
     
     /**
