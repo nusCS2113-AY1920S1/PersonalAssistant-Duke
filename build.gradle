@@ -24,19 +24,11 @@ repositories {
     mavenCentral()
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 dependencies {
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
