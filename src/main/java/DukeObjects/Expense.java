@@ -13,6 +13,6 @@ public class Expense {
 
     @Override
     public String toString() {
-        return amount + " " + description;
+        return "$"+ amount + " " + description;
     }
 }

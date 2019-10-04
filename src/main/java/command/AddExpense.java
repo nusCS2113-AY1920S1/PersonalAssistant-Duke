@@ -3,6 +3,7 @@ package command;
 
 import DukeObjects.Expense;
 import DukeObjects.ExpenseList;
+import exception.DukeException;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -23,9 +24,17 @@ public class AddExpense extends Command {
     @Override
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
         String expenseString = commandParams.getMainParam();
-        Double expenseAmount = Double.valueOf(expenseString);
+        if(expenseString == null){
+            throw new DukeException("Empty amount!");
+        }
+        double expenseAmount = Double.parseDouble(expenseString);
         String expenseDescription = commandParams.getParam("d");
+        if(expenseDescription == null){
+            throw new DukeException("Empty description!");
+        }
         Expense expense = new Expense(expenseAmount, expenseDescription);
         expensesList.add(expense);
+        ui.println("Ok! Added $"+ expenseAmount + " " + expenseDescription);
     }
+
 }
