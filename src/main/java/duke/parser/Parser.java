@@ -1,19 +1,19 @@
-package parser;
+package duke.parser;
 
 
-import command.*;
-import exception.DukeException;
+import duke.command.*;
+import duke.exception.DukeException;
 
 /**
- * Parses the command line from user input to tokens and
+ * Parses the duke.command line from user input to tokens and
  * packages the tokens to {@code Command} object.
  */
 public class Parser {
 
     /**
-     * Returns the command with the name commandName.
+     * Returns the duke.command with the name commandName.
      *
-     * @param commandName The name of the command.
+     * @param commandName The name of the duke.command.
      * @return {@code Command} object converted from fullCommand.
      * @throws DukeException If user input is invalid.
      */
@@ -21,7 +21,7 @@ public class Parser {
         switch (commandName) {
         case "add":
             return new AddExpense();
-        case "list":
+        case "duke/list":
             return new ListCommand();
 
         case "delete":

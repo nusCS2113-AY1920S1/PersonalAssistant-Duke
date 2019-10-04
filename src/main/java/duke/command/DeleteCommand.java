@@ -1,14 +1,14 @@
-package command;
+package duke.command;
 
-import list.ExpenseList;
-import exception.DukeException;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.list.ExpenseList;
+import duke.exception.DukeException;
+import duke.parser.CommandParams;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 /**
- * Represents a specified command as DeleteCommand by extending the {@code Command} class.
- * Deletes the task with given index from the ExpenseList of Duke.
+ * Represents a specified duke.command as DeleteCommand by extending the {@code Command} class.
+ * Deletes the task with given index from the ExpenseList of duke.Duke.
  * Responses with the result.
  */
 public class DeleteCommand extends Command {
@@ -22,13 +22,13 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Lets the ExpenseList of Duke delete the task with the given index and
-     * updates content of storage file according to new ExpenseList.
-     * Responses the result to user by using ui of Duke.
+     * Lets the ExpenseList of duke.Duke delete the task with the given index and
+     * updates content of duke.storage file according to new ExpenseList.
+     * Responses the result to user by using duke.ui of duke.Duke.
      *
-     * @param expensesList The ExpenseList of Duke.
-     * @param ui The ui of Duke.
-     * @param storage The storage of Duke.
+     * @param expensesList The ExpenseList of duke.Duke.
+     * @param ui The duke.ui of duke.Duke.
+     * @param storage The duke.storage of duke.Duke.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
@@ -46,10 +46,10 @@ public class DeleteCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DukeException("☹ OOPS!!! The index be a number.");
         }
-        storage.update(expensesList.toStorageStrings());
-        ui.println("Noted. I've removed this task:");
-        ui.println(taskInfo);
-        ui.println("Now you have " + expensesList.getSize() + " expensesList in the list.");
+        duke.storage.update(expensesList.toStorageStrings());
+        duke.ui.println("Noted. I've removed this task:");
+        duke.ui.println(taskInfo);
+        duke.ui.println("Now you have " + expensesList.getSize() + " expensesList in the duke.list.");
 
          */
     }

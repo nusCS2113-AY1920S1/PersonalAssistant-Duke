@@ -1,11 +1,11 @@
-list
+duke.list
 todo go to study
 event attend the party /at 02/02/2019 1800 - 02/03/2019 0300
 deadline return the book /by 02/03/2019 1900
 done 2
 find attend
 find sdsds
-list
+duke.list
 delete 1
 bye
 

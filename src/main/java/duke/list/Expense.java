@@ -1,4 +1,4 @@
-package list;
+package duke.list;
 
 public class Expense {
     protected double amount;

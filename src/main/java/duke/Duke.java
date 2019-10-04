@@ -1,16 +1,18 @@
-import list.ExpenseList;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
-import exception.DukeException;
-import command.Command;
-import parser.Parser;
+package duke;
+
+import duke.list.ExpenseList;
+import duke.parser.CommandParams;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.exception.DukeException;
+import duke.command.Command;
+import duke.parser.Parser;
 
 import java.io.File;
 import java.util.StringJoiner;
 
 /**
- * Represents our Duke and contains the main program of Duke.
+ * Represents our duke.Duke and contains the main program of duke.Duke.
  */
 public class Duke {
 
@@ -19,10 +21,10 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructs the Duke with the filePath of storage.txt
+     * Constructs the duke.Duke with the filePath of duke.storage.txt
      * If errors occur during the loading process, an empty taskList will be initialized instead.
      *
-     * @param filePath The filePath of storage.txt
+     * @param filePath The filePath of duke.storage.txt
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -36,8 +38,8 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke.
-     * This terminates when the user typed in "bye" command.
+     * Runs the duke.Duke.
+     * This terminates when the user typed in "bye" duke.command.
      */
     public void run() {
         ui.showWelcome();
@@ -54,9 +56,9 @@ public class Duke {
     }
 
     /**
-     * Runs the main program of the Duke.
+     * Runs the main program of the duke.Duke.
      *
-     * @param args additional arguments provided by the user from the command line. Currently unused.
+     * @param args additional arguments provided by the user from the duke.command line. Currently unused.
      */
     public static void main(String[] args) {
         String storageFile = new StringJoiner(File.separator)

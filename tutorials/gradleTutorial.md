@@ -30,16 +30,16 @@ As a developer, you write a _build file_ that describes the project. A build fil
    git checkout master
    git merge gradle
    ```
-1. Open the `build.gradle` file in an editor. Update the following code block to point to the main class (i.e., the one containing the `main` method) of your application. The code below assumes your main class is `seedu.duke.Duke`
+1. Open the `build.gradle` file in an editor. Update the following code block to point to the main class (i.e., the one containing the `main` method) of your application. The code below assumes your main class is `seedu.duke.duke.Duke`
    ```groovy
    application {
-       mainClassName = "seedu.duke.Duke"
+       mainClassName = "seedu.duke.duke.Duke"
    }
    ```
-1. To check if Gradle has been added to the project correctly, open a terminal window, navigate to the root directory of your project and run the command `gradlew run`. This should result in Gradle running the main method of your project.
+1. To check if Gradle has been added to the project correctly, open a terminal window, navigate to the root directory of your project and run the duke.command `gradlew run`. This should result in Gradle running the main method of your project.
 
-:bulb: Simply run the command `gradlew {taskName}` in the terminal and Gradle will run the task! Here are some example commands:
-* `gradlew expensesList` (or `gradlew expensesList --all`): shows a list of expensesList available
+:bulb: Simply run the duke.command `gradlew {taskName}` in the terminal and Gradle will run the task! Here are some example commands:
+* `gradlew expensesList` (or `gradlew expensesList --all`): shows a duke.list of expensesList available
 * `gradlew run`: runs the main class of your project
 
 :bulb: Some plugins may add more helpful expensesList so be sure to check their documentation!
@@ -55,7 +55,7 @@ As a developer, you write a _build file_ that describes the project. A build fil
 
 After this, IntelliJ IDEA will identify your project as a Gradle project and you will gain access to the `Gradle Toolbar`. Through the toolbar, you run Gradle expensesList and view your project's dependencies.
 
-You can click on the Gradle icon in the Gradle toolbar and create a new run configuration for running Gradle expensesList without needing to type a `gradlew` command.
+You can click on the Gradle icon in the Gradle toolbar and create a new run configuration for running Gradle expensesList without needing to type a `gradlew` duke.command.
 
 ![Gradle icon](assets/GradleIcon.png)
 
@@ -85,7 +85,7 @@ checkstyle {
 Checkstyle expects configuration files for checkstyle to be in `./config/checkstyle/` by convention.
 A sample checkstyle rule configuration is provided in the branch.
 
-The plugin adds a few _tasks_ to your project. Run `gradlew checkstyleMain checkstyleTest` to verify that you have set up Checkstyle properly (the command will check your main code and test code against the style rules).
+The plugin adds a few _tasks_ to your project. Run `gradlew checkstyleMain checkstyleTest` to verify that you have set up Checkstyle properly (the duke.command will check your main code and test code against the style rules).
 
 **Resources**:
 * [Gradle documentation for CheckStyle plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
@@ -113,7 +113,7 @@ shadowJar {
 }
 ```
 
-Now you can run the command `gradlew shadowJar`.It publishes an executable jar to `./build/libs/`. You should be able to able to execute the created jar file by double-clicking it or using the command `java -jar {jarName}`?
+Now you can run the duke.command `gradlew shadowJar`.It publishes an executable jar to `./build/libs/`. You should be able to able to execute the created jar file by double-clicking it or using the duke.command `java -jar {jarName}`?
 
 **Resources**:
 * [Gradle documentation for Shadow plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
@@ -146,7 +146,7 @@ By convention, java tests belong in `src/test/java` folder. Create a new `test/j
 src
 ├─main
 │  └─java
-│     └─seedu/duke/Duke.java
+│     └─seedu/duke/duke.Duke.java
 └─test
     └─java
         └─seedu/duke/DukeTest.java
@@ -161,7 +161,7 @@ You can now write a test (e.g., `test/java/seedu/duke/DukeTest.java`) and run it
 
 ## Further Reading
 
-Now that you have a general idea of how to accomplish basic expensesList with Gradle, here's a list of material you can read to further your understanding.
+Now that you have a general idea of how to accomplish basic expensesList with Gradle, here's a duke.list of material you can read to further your understanding.
  
 * [Official Gradle Documentation](https://docs.gradle.org/current/userguide/userguide.html)
 

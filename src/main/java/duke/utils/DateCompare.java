@@ -1,4 +1,4 @@
-package utils;
+package duke.utils;
 
 import java.util.Calendar;
 import java.util.Date;
