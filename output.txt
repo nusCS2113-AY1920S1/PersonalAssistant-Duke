@@ -1,4 +1,7 @@
 [T][Y] borrow another book
 [T][N] testing
-[D][N] homework (by: 2019-10-02T21:00:00)
 [T][N] homework
+[D][N] [WEEKLY] do homework (by: 2019-04-03T12:34:00)
+[D][N] [WEEKLY] do homework (by: 2019-04-10T12:34:00)
+[D][N] [WEEKLY] do homework (by: 2019-04-17T12:34:00)
+[D][N] [WEEKLY] do homework (by: 2019-04-24T12:34:00)

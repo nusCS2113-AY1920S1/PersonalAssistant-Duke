@@ -30,6 +30,10 @@ public abstract class Task {
         return line;
     }
 
+    public void setLine(String newline) {
+        this.line = newline;
+    }
+
     /**
      * Retrieves the status icon of the Task.
      *
