@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -11,6 +13,7 @@ public class Task{
     private String description;
     private boolean isDone;
     private String created;
+    private Priority priority;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -22,6 +25,7 @@ public class Task{
         DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
         this.created = now.format(dateTimeFormatterNow);
+        this.priority = Priority.low;
     }
 
     /**
@@ -54,6 +58,12 @@ public class Task{
     public String getDescription() {
         return description;
     }
+
+    /**
+     * Returns the priority of the task
+     * @return priority of the task
+     */
+    public Priority getPriority() { return priority; }
 
     /**
      * Sets the task to be done

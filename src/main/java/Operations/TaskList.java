@@ -2,10 +2,13 @@ package Operations;
 
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
+import Enums.Priority;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import Enums.TimeUnit;
 
 /**
@@ -132,4 +135,38 @@ public class TaskList {
                 break;
         }
     }
+
+    /**
+     * Sets priority of task
+     */
+    public void setPriority(String[] info) {
+        int index = Integer.parseInt(info[0]);
+        Priority priority = Priority.valueOf(info[1]);
+        //tasks.get()
+    }
+
+    /**
+     * Sorts the list based on priority
+     */
+    public void sortPriority() {
+        tasks.sort(new Comparator<>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return Integer.compare(getValue(task1), getValue(task2));
+            }
+
+            public int getValue(Task t) {
+                if (t.getPriority().equals(Priority.high)) {
+                    return 2;
+                } else if (t.getPriority().equals(Priority.medium)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+
+    }
+
 }

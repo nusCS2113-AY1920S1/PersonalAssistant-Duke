@@ -104,6 +104,18 @@ public class RoomShare {
                     taskList.find(parser.getKey().toLowerCase());
                     break;
 
+                case priority:
+                    try {
+                        taskList.list();
+                        ui.priority();
+                        taskList.setPriority(parser.getPriority());
+                    } catch (RoomShareException e) {
+                        e.printStackTrace();
+                    } finally {
+                        taskList.sortPriority();
+                    }
+                    break;
+
                 case todo:
                     try {
                         ui.showAdd();
