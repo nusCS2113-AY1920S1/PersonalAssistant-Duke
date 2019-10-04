@@ -174,7 +174,8 @@ e.g. `select 3`
 e.g. `result 3`
 * *Report* : `report`
 * *Back* : `back`
-* *History* : `history`
+* *History* : `history NUMBER` +
+e.g. `history 5`
 * *Undo* : `undo`
 * *Clear* : `clear CHAPTER` +
 e.g.`clear 2`
@@ -182,4 +183,6 @@ e.g.`clear 2`
 * *Save* : `save`
 * *Help* : `help`
 * *Exit* : `exit`
-* *Load* : `load`
+* *Print* : `print`
+* *Archive* : `archive`
+
