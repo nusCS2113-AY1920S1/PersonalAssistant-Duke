@@ -165,7 +165,6 @@ public class Task {
         return false;
     }
 
-
     public String getName() {
         return name;
     }

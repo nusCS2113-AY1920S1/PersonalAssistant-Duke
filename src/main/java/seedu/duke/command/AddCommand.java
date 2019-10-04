@@ -9,6 +9,7 @@ import seedu.duke.task.ToDo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * AddCommand is a specific kind of command used to add task to the task list.

@@ -54,12 +54,15 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        if (this.doAfterDescription == null) {
-            return "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
-        } else {
-            return "[D]" + this.getStatus() + " (by: " + formatDate() + ")"
-                    + "\n   After which: " + doAfterDescription;
+        String output = "";
+        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        if (this.doAfterDescription != null) {
+            output += "\n\tAfter which: " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 
     /**
@@ -69,13 +72,16 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.doAfterDescription == null) {
-            return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
-                    + formatDate();
-        } else {
-            return (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
-                    + formatDate() + " /doafter " + doAfterDescription;
+        String output = "";
+        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " /at "
+                + formatDate();
+        if (this.doAfterDescription != null) {
+            output += " /doafter " + doAfterDescription;
         }
+        for (String tagName : tags) {
+            output += " #" + tagName + "#";
+        }
+        return output;
     }
 
     /**
@@ -137,5 +143,4 @@ public class Deadline extends Task {
         }
         return false;
     }
-
 }
