@@ -2,13 +2,15 @@ package duchess.logic.parser;
 
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.AddEventCommand;
+import duchess.logic.commands.AddModuleCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DeleteCommand;
 import duchess.logic.commands.DoneCommand;
 import duchess.logic.commands.FindCommand;
-import duchess.logic.commands.ListCommand;
+import duchess.logic.commands.ListModulesCommand;
+import duchess.logic.commands.ListTasksCommand;
 import duchess.logic.commands.LogCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
@@ -31,9 +33,35 @@ public class Parser {
         String keyword = words.get(0);
         List<String> arguments = words.subList(1, words.size());
 
+        // The entire parser is to be refactored
+        // when implementing interactive commands.
         switch (keyword) {
         case "list":
-            return new ListCommand();
+            try {
+                String secondKeyword = words.get(1);
+                switch (secondKeyword) {
+                case "tasks":
+                    return new ListTasksCommand();
+                case "modules":
+                    return new ListModulesCommand();
+                default:
+                    throw new IllegalArgumentException();
+                }
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                throw new DukeException("Usage: list (tasks | modules)");
+            }
+        case "add":
+            try {
+                String secondKeyword = words.get(1);
+                switch (secondKeyword) {
+                case "module":
+                    return new AddModuleCommand(words.subList(2, words.size()));
+                default:
+                    throw new IllegalArgumentException();
+                }
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                throw new DukeException("Usage: add module <module-code> <module-name>");
+            }
         case "find":
             return new FindCommand(arguments);
         case "delete":

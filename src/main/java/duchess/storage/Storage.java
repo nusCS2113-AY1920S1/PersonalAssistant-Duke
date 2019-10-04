@@ -30,7 +30,6 @@ public class Storage {
             fileStream.close();
             return store;
         } catch (IOException | ClassCastException e) {
-            System.err.println(e);
             throw new DukeException("Unable to read file, continuing with empty list.");
         }
     }
