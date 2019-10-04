@@ -1,8 +1,12 @@
 package duke.Data;
 
+
+import duke.Sports.ManageStudents;
+import duke.Module.Goal;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
 import duke.Sports.MyClass;
+import duke.Sports.MyStudent;
 import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
@@ -205,6 +209,41 @@ public class Parser {
                 break;
 
             /**
+             * View: goal view 5/10/2019
+             * Add: goal add 5/10/2019 Makes sure every student masters freestyle
+             * Delete: goal delete-all 5/10/2019|goal delete 5/10/2019 Makes sure every student masters freestyle
+             */
+            case "goal":
+                Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                switch (word[1]) {
+                    case "view": {
+                        String date = word[2];
+                        System.out.print(goal.viewGoal(date));
+                        break;
+                    }
+                    case "add": {
+                        String date = word[2];
+                        index = input.indexOf(word[3]);
+                        String message = input.substring(index);
+                        System.out.println(goal.addGoal(date, message));
+                        break;
+                    }
+                    case "delete": {
+                        String date = word[2];
+                        index = input.indexOf(word[3]);
+                        String message = input.substring(index);
+                        System.out.println(goal.removeGoal(date, message));
+                        break;
+                    }
+                    case "delete-all": {
+                        String date = word[2];
+                        System.out.println(goal.removeAllGoal(date));
+                        break;
+                    }
+                }
+                break;
+
+            /**
              *  Cmd "home" will list the menu items;
              *  1. View Schedule
              *  2. Manage Students
@@ -233,7 +272,7 @@ public class Parser {
                 Ui manageStudents = new Ui();
                 manageStudents.manageStudentsHeading();
                 ManageStudents viewCategory = new ManageStudents();
-                viewCategory.manageStudentsCategory();
+//                viewCategory.manageStudentsCategory();
                 // Write Code to direct to manage Students (Danish)
                 break;
 
@@ -246,6 +285,22 @@ public class Parser {
                 trainingProgram.trainingProgramHeading();
                 //Write Code to direct to Training Circuits (JingSen)
                 break;
+
+            /**
+             * When cmd is to add class or student
+             */
+            case "add":
+                if (word[1].equals("student")) {
+                    index = input.indexOf("student");
+                    String info = input.substring(4, index-1);
+                    String age = input.substring(index + 2);
+                    MyStudent myStudent = new MyStudent(info, age);
+                    ManageStudents student = new ManageStudents();
+                    student.addStudent(myStudent);
+                }
+                break;
+
+
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
