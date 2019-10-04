@@ -2,6 +2,7 @@ package duke.Sports;
 
 import duke.Data.Storage;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,7 +12,16 @@ import java.util.Objects;
  */
 public class ManageStudents {
 
-    private ArrayList<MyStudent> studentList = new ArrayList<>();
+
+    private ArrayList<MyStudent> studentList;
+
+    /**
+     * Constructor of Manage Students to initialise ManageStudent class
+     */
+    public ManageStudents() {
+        studentList = new ArrayList<MyStudent>();
+    }
+
 
 
     public void setStudentList(ArrayList<MyStudent> studentList) {
@@ -22,7 +32,7 @@ public class ManageStudents {
      *  To get retrieve the list of students in the storage
      */
     public ArrayList<MyStudent> getStudentList() {
-        return this.studentList;
+        return studentList;
     }
 
     public void addStudentList (Storage storage) {
@@ -33,10 +43,11 @@ public class ManageStudents {
 //        }
     }
 
-    public void allStudents() {
+    public void listAllStudents() {
+        System.out.println("Here are your list of students and their age: ");
         int index = 1;
         for (MyStudent i : getStudentList()) {
-            System.out.println(index++ + ". " + i.getName());
+            System.out.println(index++ + ". " + i.toString());
         }
     }
 
@@ -50,12 +61,12 @@ public class ManageStudents {
 
     /**
      * Adding a new student and listing the total number of students
-     * @param index of the new student added
+     * @param name of the new student added
      */
-    public void addStudent(MyStudent student) {
-        getStudentList().add(student);
+    public void addStudent(MyStudent name) {
+        studentList.add(name);
         System.out.println("Student have been added: \n" +
-                getStudentList().get(getStudentListSize()).toString() + "\n" +
+                getStudentList().get(getStudentListSize()-1).toString() + "\n" +
                 "Now you have " + getStudentListSize() + " students.");
     }
 
@@ -75,7 +86,7 @@ public class ManageStudents {
 /**
  * This class is called when option 2 is chosen
  */
-public class ManageStudents {
+//public class ManageStudents {
 
 //    public ManageStudents(String myCategory, String menu) {
 //        super(myCategory, menu);

@@ -14,7 +14,6 @@ public class MyStudent{
      *
      * @param name Name of the student
      * @param age age of the student
-     * @param address address of the student
      */
     public MyStudent(String name, String age) {
         this.name = name;
@@ -66,7 +65,7 @@ public class MyStudent{
      * @return
      */
     public String toString() {
-        return getName() + ", " + getAddress();
+        return getName() + ", " + getAge();
     }
 
 
