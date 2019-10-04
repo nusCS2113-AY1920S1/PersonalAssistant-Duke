@@ -16,7 +16,7 @@ public class DetectAnomalies {
      */
     public static Boolean test(Task task, ArrayList<Task> list) {
 
-        String[] descriptionToken = task.getDescription().split("/by|/at|/in");
+        String[] descriptionToken = task.getDescription().split("/by|/at");
         boolean check = false;
         for (int i = 0; i < list.size(); i++) {
 

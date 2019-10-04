@@ -5,8 +5,6 @@ import seedu.hustler.task.Task;
 import seedu.hustler.task.ToDo;
 import seedu.hustler.task.Event;
 import seedu.hustler.task.Deadline;
-import seedu.hustler.task.RecurringEvent;
-import seedu.hustler.task.RecurringDeadline;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

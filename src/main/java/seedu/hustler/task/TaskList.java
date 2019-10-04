@@ -30,6 +30,10 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
+
+    /**
+     * Schedule instance to plan schedule.
+     */
     private Schedule schedule = new Schedule();
 
 
@@ -79,48 +83,58 @@ public class TaskList {
     public void add(String taskType, String taskDescriptionFull) {
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-            list.add(new ToDo(taskDescriptionFull));
+            if (taskDescriptionFull.contains("/difficulty")) {
+                String[] tokens = taskDescriptionFull.split(" /difficulty ");
+                list.add(new ToDo(tokens[0], tokens[1]));
+            } else {
+                list.add(new ToDo(taskDescriptionFull));
+            }
             checkAnomaly = false;
-        } else {
-            // Extract task time and task description and initialize as deadline
-            if (taskType.equals("deadline")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String taskDateOnly = taskTime.split(" ", 2)[0];
-                    LocalDateTime localDateTime = getDateTime(taskTime);
-                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list)) {
-                        list.add(new Deadline(taskDescription,localDateTime));
-                        checkAnomaly = false;
-                        if (Schedule.isValidDate(taskDateOnly)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
-                        }
+        } else if (taskType.equals("deadline")) {
+            try {
+                String[] tokens = taskDescriptionFull.split(" /by | /difficulty ");
+                LocalDateTime by = getDateTime(tokens[1]);
+                if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                    if (taskDescriptionFull.contains("/difficulty")) {
+                        list.add(new Deadline(tokens[0], by, tokens[2]));
+                    } else {
+                        list.add(new Deadline(tokens[0], by));
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
-                } catch (ParseException ignore) {
-                    return;
-                }
-            } else if (taskType.equals("event")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String taskDateOnly = taskTime.split(" ", 2)[0];
-                    LocalDateTime localDateTime = getDateTime(taskTime);
-                    if (!DetectAnomalies.test(new Event(taskDescriptionFull,localDateTime), list)) {
-                        list.add(new Event(taskDescription, localDateTime));
-                        checkAnomaly = false;
-                        if (Schedule.isValidDate(taskDateOnly)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
-                        }
+
+                    String taskDate = tokens[1].split(" ")[0];
+                    if (Schedule.isValidDate(taskDate)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
-                } catch (ParseException ignore) {
-                    return;
+                    checkAnomaly = false;
                 }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.wrong_description_error();
+                return;
+            } catch (ParseException ignore) {
+                return;
+            }
+        } else if (taskType.equals("event")) {
+            try {
+                String[] tokens = taskDescriptionFull.split(" /at | /difficulty ");
+                LocalDateTime at = getDateTime(tokens[1]);
+                if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
+                    if (taskDescriptionFull.contains("/difficulty")) {
+                        list.add(new Event(tokens[0], at, tokens[2]));
+                    } else {
+                        list.add(new Event(tokens[0], at));
+                    }
+
+                    String taskDate = tokens[1].split(" ")[0];
+                    if (Schedule.isValidDate(taskDate)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
+                    }
+                    checkAnomaly = false;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.wrong_description_error();
+                return;
+            } catch (ParseException ignore) {
+                return;
             }
         }
         if (!checkAnomaly) {
@@ -128,7 +142,6 @@ public class TaskList {
             System.out.println("\t_____________________________________");
             System.out.println("\tGot it. I've added this task:");
             System.out.println(output);
-            // Printing number of items in list
             System.out.println("\tNow you have " + list.size() + " tasks in the list.");
             System.out.println("\t_____________________________________\n\n");
         } else {
@@ -297,7 +310,7 @@ public class TaskList {
     }
 
     /**
-     * Checks whether two instaces of TaskList are equal.
+     * Checks whether two instances of TaskList are equal.
      *
      * @param temp TaskList instance to compare against.
      * @return true or false to the comparison.

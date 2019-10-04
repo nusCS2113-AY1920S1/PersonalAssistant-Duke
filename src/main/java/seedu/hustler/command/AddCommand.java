@@ -3,6 +3,8 @@ package seedu.hustler.command;
 import seedu.hustler.Hustler;
 import seedu.hustler.ui.Ui;
 
+import java.util.Arrays;
+
 /**
  * Command that adds task to list.
  */
