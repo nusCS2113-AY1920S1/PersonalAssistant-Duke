@@ -1,11 +1,10 @@
 package seedu.duke.gui;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -15,7 +14,11 @@ import seedu.duke.TaskList;
 import seedu.duke.Storage;
 import seedu.duke.email.EmailStorage;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.function.UnaryOperator;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,6 +35,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private ListView<String> tasksListView;
+    private ObservableList<String> observableList;
 
     private Duke duke;
 
@@ -84,6 +90,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
+        updateTaskList();
         if (response.contains("Bye, hope to see you again.")) {
             Storage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
@@ -117,5 +124,14 @@ public class MainWindow extends AnchorPane {
         };
         userInput.setTextFormatter(new TextFormatter<String>(filter));
         userInput.positionCaret(prefix.length());
+    }
+
+    private void updateTaskList() {
+        ObservableList<String> observableList = FXCollections.observableArrayList(
+                "Task 1\nsomething", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6",
+                "Task 7", "Task 8", "Task 9\nAfter which: Task 9a", "Task 10", "Task 11", "Task 12", "Task 13",
+                "Task 14", "Task 15", "Task 16", "Task 17\nAfter which: Task 17a", "Task 18", "Task 19", "Task 20",
+                "Task 21", "Task 22", "Task 23", "Task 24", "Task 25", "Task 26", "Task 27", "Task 28");
+        tasksListView.setItems(observableList);
     }
 }

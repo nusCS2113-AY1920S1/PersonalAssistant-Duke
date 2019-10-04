@@ -73,9 +73,9 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fx:id="taskContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ListView VBox.vgrow="ALWAYS" />
+                                    <ListView fx:id="tasksListView" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
