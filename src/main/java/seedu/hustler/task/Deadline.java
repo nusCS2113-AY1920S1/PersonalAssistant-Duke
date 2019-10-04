@@ -1,14 +1,14 @@
 package seedu.hustler.task;
 
-import seedu.hustler.ui.Ui;
 import java.time.LocalDateTime;
 
 import static seedu.hustler.parser.DateTimeParser.convertDateTime;
 import static seedu.hustler.parser.DateTimeParser.toDateTimeString;
 
 /**
- * This task type inherits from Task.
- * It specifies a day before which a task should be completed.
+ * A class that inherits from the abstract class Task. This task
+ * type is a Deadline which specifies the date and time before
+ * which the Task should be completed.
  */
 public class Deadline extends Task {
     /**
@@ -17,18 +17,20 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Ui instance to communicate errors.
-     */
-    private Ui ui = new Ui();
-
-    /**
-     * Initializes description and by.
+     * Initializes description, default difficulty and by.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Initializes description, user input difficulty and by.
+     */
+    public Deadline(String description,  LocalDateTime by, String difficulty) {
+        super(description, difficulty);
+        this.by = by;
+    }
 
     /**
      * Overrides the toString method in Task to display task type and date time.
@@ -36,7 +38,7 @@ public class Deadline extends Task {
      * @return a string with the target info.
      */
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + toDateTimeString(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + toDateTimeString(getDateTime()) + ")";
     }
 
     /**
@@ -55,7 +57,7 @@ public class Deadline extends Task {
      * @return true or false to the comparison.
      */
     public boolean equals(Deadline temp) {
-        if (this.description == temp.description && this.by == temp.by) {
+        if (this.description.equals(temp.description) && this.by == temp.by) {
             return true;
         }
         return false;
@@ -70,5 +72,4 @@ public class Deadline extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.by = localDateTime;
     }
-
 }

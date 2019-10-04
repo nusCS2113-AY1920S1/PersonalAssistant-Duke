@@ -87,7 +87,8 @@ public class CommandLogic {
     public static boolean validateNumberCommand(String rawInput) throws CommandLineException {
         if (!isTwoWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <number ID of task>\"");
-        } try {
+        }
+        try {
             int number = Integer.parseInt(rawInput.split(" ")[1]);
         } catch (NumberFormatException e) {
             throw new CommandLineException(INVALID_NUMBER);
@@ -102,16 +103,16 @@ public class CommandLogic {
         if (isTwoWord(command)) {
             try {
                 int number = Integer.parseInt(command.split(" ")[0]);
-                    switch (command.split(" ")[1]) {
-                        case "minutes":
-                        case "hours":
-                        case "days":
-                        case "weeks":
-                        case "months":
-                            return true;
-                        default:
-                            throw new CommandLineException(INVALID_SNOOZE);
-                    }
+                switch (command.split(" ")[1]) {
+                case "minutes":
+                case "hours":
+                case "days":
+                case "weeks":
+                case "months":
+                    return true;
+                default:
+                    throw new CommandLineException(INVALID_SNOOZE);
+                }
             } catch (NumberFormatException e) {
                 throw new CommandLineException(INVALID_SNOOZE);
             }
@@ -131,7 +132,7 @@ public class CommandLogic {
     }
 
     public static boolean validateShow(String rawInput) throws CommandLineException {
-        if(!isTwoWord(rawInput)) {
+        if (!isTwoWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <DD/MM/YYYY>");
         } else {
             DateTimeParser.getDateTime(rawInput.split(" ")[1]);
@@ -153,7 +154,4 @@ public class CommandLogic {
     private static boolean isTwoWord(String rawInput) {
         return rawInput.split(" ").length == 2;
     }
-
-
-
 }

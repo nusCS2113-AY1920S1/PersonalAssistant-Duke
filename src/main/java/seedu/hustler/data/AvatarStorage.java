@@ -18,7 +18,7 @@ public class AvatarStorage {
      * Hustler app.
      * @return the Avatar that is currently loaded.
      * @throws FileNotFoundException when file is not found, will create a
-     * new txtfile to start data storage.
+     *     new txtfile to start data storage.
      */
     public static Avatar load() throws FileNotFoundException {
         try {

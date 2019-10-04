@@ -37,7 +37,7 @@ public class CommandParser extends Parser {
     public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
-        String[] taskCommands = {"todo", "deadline", "event", "range", "doafter", "recur"};
+        String[] taskCommands = {"todo", "deadline", "event"};
         Arrays.sort(taskCommands);
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
