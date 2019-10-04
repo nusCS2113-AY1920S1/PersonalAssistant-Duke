@@ -80,7 +80,7 @@ public class MyStudent {
      * name and address.
      */
     public String toString() {
-        return getName() + ", " + getAddress();
+        return getName() + ", " + getAge();
     }
 
 

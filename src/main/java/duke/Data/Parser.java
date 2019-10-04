@@ -30,13 +30,12 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
+    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
         String cmd = word[0];
         Schedule schedule = new Schedule(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
-
         switch (cmd) {
 
             case "list":
@@ -287,16 +286,19 @@ public class Parser {
                 break;
 
             /**
-             * When cmd is to add class or student
+             * When cmd student is called
+             * Format for adding student is: student add [age] [Name].
              */
-            case "add":
-                if (word[1].equals("student")) {
-                    index = input.indexOf("student");
-                    String info = input.substring(4, index-1);
-                    String age = input.substring(index + 2);
-                    MyStudent myStudent = new MyStudent(info, age);
-                    ManageStudents student = new ManageStudents();
-                    student.addStudent(myStudent);
+            case "student":
+                if (word[1].equals("add")) {
+                    String age = word[2];
+                    index = input.indexOf(word[3]);
+                    String name = input.substring(index);
+                    MyStudent myNewStudent = new MyStudent(name, age);
+                    students.addStudent(myNewStudent);
+                }
+                if (word[1].equals("list")) {
+                    students.listAllStudents();
                 }
                 break;
 
