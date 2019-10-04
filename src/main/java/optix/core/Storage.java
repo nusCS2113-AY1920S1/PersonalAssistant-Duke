@@ -49,6 +49,10 @@ public class Storage {
                     double revenue = Double.parseDouble(arrStr[4]);
                     double seatBasePrice = Double.parseDouble(arrStr[5]);
 
+                    if (date.compareTo(today) <= 0) {
+                        continue;
+                    }
+
                     Theatre theatre = new Theatre(showName, cost, revenue, seatBasePrice);
                     theatre = loadSeat(br, theatre);
 
