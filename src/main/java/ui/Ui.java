@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner dukeIn;
+    private String mostRecent;
 
     /**
      * Constructs an Ui object.
@@ -50,6 +51,7 @@ public class Ui {
      */
     public void println(String s) {
         System.out.println(s);
+        mostRecent = s;
     }
 
     /**
@@ -59,6 +61,7 @@ public class Ui {
      */
     public void showError(DukeException e) {
         System.out.println(e.getMessage());
+        mostRecent = e.getMessage();
     }
 
     /**
@@ -75,4 +78,10 @@ public class Ui {
             }
         }
     }
+
+    public String getMostRecent() {
+        return mostRecent;
+    }
+
+
 }

@@ -18,6 +18,23 @@ public class Duke {
     private ExpenseList expenseList;
     private Ui ui;
 
+
+    public Duke() {
+        ui = new Ui();
+        String filePath = new StringJoiner(File.separator)
+                .add(System.getProperty("user.dir"))
+                .add("data")
+                .add("ExpenseListStorage.txt")
+                .toString();
+        storage = new Storage(filePath);
+        try {
+            expenseList = new ExpenseList(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e);
+            expenseList = new ExpenseList();
+        }
+    }
+
     /**
      * Constructs the Duke with the filePath of storage.txt
      * If errors occur during the loading process, an empty taskList will be initialized instead.
@@ -53,6 +70,25 @@ public class Duke {
         }
     }
 
+    public String getResponse(String fullCommand){
+        try {
+            CommandParams commandParams = new CommandParams(fullCommand);
+            Command command = Parser.getCommand(commandParams.getCommandName());
+            command.execute(commandParams, expenseList, ui, storage);
+        } catch (DukeException e) {
+            ui.showError(e);
+        }
+
+        return ui.getMostRecent();
+    }
+
+    public ExpenseList getExpenseList(){
+        return expenseList;
+    }
+    /**
+     * Runs the Duke.
+     *
+
     /**
      * Runs the main program of the Duke.
      *
@@ -66,5 +102,5 @@ public class Duke {
                 .toString();
         new Duke(storageFile).run();
     }
-
 }
+

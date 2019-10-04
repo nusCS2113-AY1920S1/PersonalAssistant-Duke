@@ -1,18 +1,28 @@
 package DukeObjects;
 
+import parser.LocalDateTimeParser;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+
 public class Expense {
-    protected double amount;
+    protected BigDecimal amount;
     protected String description;
+    protected LocalDateTime time;
     protected boolean isTentative;
 
-    public Expense(double amount, String description){
-        this.amount = amount;
+    public Expense(String amount, String description){
+        double amountDouble = Double.parseDouble(amount);
+        time = LocalDateTime.now();
+        this.amount = new BigDecimal(amountDouble).setScale(2, RoundingMode.HALF_UP);
         this.description = description;
         this.isTentative = false;
     }
 
     @Override
     public String toString() {
-        return amount + " " + description;
+        return "$"+ amount + " " + description + " " + new LocalDateTimeParser().toString(time);
     }
 }
