@@ -27,17 +27,20 @@ public class MyClass extends Item {
     /**
      * Constructor method for MyClass.
      * @param info   This parameter is the name of the sports class.
-     * @param status This shows whether the sports class has been held this week or not.
-     * @param day  When it will be held. (i.e. Monday, Tuesday)
+     * @param status This shows whether the sports class has been held this week
+     *              or not.
+     * @param today  When it will be held. (i.e. Monday, Tuesday)
      */
-    public MyClass(final String info, final Boolean status, final String day) {
+    public MyClass(final String info, final Boolean status,
+                   final String today) {
         super(info, status);
         super.setType("C");     //Has its own item type "C"
-        this.day = day;
+        this.day = today;
     }
 
     /**
      * Get the day of the week this sports class is held.
+     * @return The day of the week this sports class is held.
      */
     public String getDay() {
         return this.day;
@@ -72,7 +75,7 @@ public class MyClass extends Item {
      * Add a training programme to the sports class.
      * @param training The training programme to add.
      */
-    public void addTraining(MyTraining training) {
+    public void addTraining(final MyTraining training) {
         trainings.add(training);
     }
 
@@ -81,7 +84,7 @@ public class MyClass extends Item {
      * @param training The name of the training programme to edit.
      * @param newName New name to change to.
      */
-    public void editTrainingName(String training, String newName) {
+    public void editTrainingName(final String training, final String newName) {
         for (MyTraining x : trainings) {
             if (x.getName().equals(training)) {
                 x.changeName(newName);
@@ -94,7 +97,7 @@ public class MyClass extends Item {
      * @param training The name of the training programme to edit.
      * @param newSets New number of sets to change to.
      */
-    public void editTrainingSets(String training, int newSets) {
+    public void editTrainingSets(final String training, final int newSets) {
         for (MyTraining x : trainings) {
             if (x.getName().equals(training)) {
                 x.changeSets(newSets);
@@ -107,7 +110,7 @@ public class MyClass extends Item {
      * @param training The name of the training programme to edit.
      * @param newReps New number of reps to change to.
      */
-    public void editTrainingReps(String training, int newReps) {
+    public void editTrainingReps(final String training, final int newReps) {
         for (MyTraining x : trainings) {
             if (x.getName().equals(training)) {
                 x.changeReps(newReps);
@@ -120,7 +123,8 @@ public class MyClass extends Item {
      * @param training The name of the training programme to edit.
      * @param newIntensity New intensity to change to.
      */
-    public void editTrainingIntensity(String training, String newIntensity) {
+    public void editTrainingIntensity(final String training,
+                                      final String newIntensity) {
         for (MyTraining x : trainings) {
             if (x.getName().equals(training)) {
                 x.changeIntensity(newIntensity);
