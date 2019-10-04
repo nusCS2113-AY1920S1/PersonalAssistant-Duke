@@ -60,22 +60,23 @@ public class BudgetStorage extends Storage<Budget> {
     }
 
     /**
-     *
+     * Updates Budget to file.
      * @param object  The object to be modified.
      * @param index The index of the object in the list.
      */
     @Override
     public void updateToFile(Budget object, int index) {
-
+        //Blank
     }
 
     /**
-     *
+     * Remove Budget from file.
      * @param objectList The list to update.
      * @param index The index of the object in the list to be deleted.
      */
     @Override
     public void removeFromFile(ArrayList<Budget> objectList, int index) {
+        //Blank
     }
 
 }
