@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
+import javafx.util.Pair;
 
 /**
  * Class representing a command to send the test URL connection.
@@ -26,11 +27,9 @@ public class LocationSearchCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage) throws IOException, DukeException {
-        ArrayList<String> result = ApiParser.getLocationSearch(param);
+        Pair<Double, Double> result = ApiParser.getLocationSearch(param);
 
         ui.show("These are the coordinates of your search:");
-        for (String output: result) {
-            ui.show(output);
-        }
+        ui.show(result.getKey() + " " + result.getValue());
     }
 }

@@ -11,13 +11,14 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import duke.commons.MessageUtil;
 
 /**
  * URL request to OneMap API to get coordinates of location.
  */
 public class LocationSearchUrlReq extends UrlReq {
-    private String paramType = "searchVal";
-    private String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+    private final static String paramType = "searchVal";
+    private final static String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
 
     /**
      * Construct the URL Request.
@@ -33,14 +34,20 @@ public class LocationSearchUrlReq extends UrlReq {
      * @return JSONObject The response from request
      */
     @Override
-    public JsonObject execute() throws DukeException, IOException {
-        URL url = new URL(this.url + paramType + "=" + param + optionalVariables);
-        URLConnection connection = url.openConnection();
+    public JsonObject execute() throws DukeException {
+        String response;
+        try {
+            URL url = new URL(this.url + paramType + "=" + param + optionalVariables);
+            URLConnection connection = url.openConnection();
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String response = in.readLine();
-        in.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            response = in.readLine();
+            in.close();
+        } catch (IOException e) {
+            throw new DukeException(MessageUtil.DATA_NOT_FOUND);
+        }
 
+        //TODO: if response == null/api call fail, do some handling
         JsonParser jp = new JsonParser();
         JsonElement root = jp.parse(response);
         JsonObject result = root.getAsJsonObject();
