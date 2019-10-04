@@ -28,6 +28,7 @@ public class DateObj {
     public DateObj(String userInputDateString) {
     	this.userInputDateString = userInputDateString;
     	formatDate(STRING_TO_DATE);
+
     }
 
     /**
