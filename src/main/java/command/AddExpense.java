@@ -23,18 +23,18 @@ public class AddExpense extends Command {
 
     @Override
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
-        String expenseString = commandParams.getMainParam();
-        if(expenseString == null){
+        String expenseAmount = commandParams.getMainParam();
+        if(expenseAmount == null){
             throw new DukeException("Empty amount!");
         }
-        double expenseAmount = Double.parseDouble(expenseString);
+
         String expenseDescription = commandParams.getParam("d");
         if(expenseDescription == null){
             throw new DukeException("Empty description!");
         }
         Expense expense = new Expense(expenseAmount, expenseDescription);
         expensesList.add(expense);
-        ui.println("Ok! Added $"+ expenseAmount + " " + expenseDescription);
+        ui.println("Ok! Added " + expense.toString());
     }
 
 }
