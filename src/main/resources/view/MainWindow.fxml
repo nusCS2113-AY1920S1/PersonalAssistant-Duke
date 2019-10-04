@@ -10,19 +10,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
    <children>
-      <AnchorPane layoutX="524.0" maxHeight="800.0" maxWidth="1024.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="524.0" maxHeight="800.0" maxWidth="1024.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="340.0" text="task " AnchorPane.bottomAnchor="1.0">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="sendButton" layoutX="340.0" layoutY="757.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="64.0" text="Send" />
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="756.0" prefWidth="400.0" vvalue="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="sendButton" layoutX="340.0" layoutY="757.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="64.0" text="Send" AnchorPane.bottomAnchor="1.0" />
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="678.0" prefWidth="400.0" vvalue="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <VBox fx:id="dialogContainer" alignment="TOP_CENTER" prefHeight="756.0" prefWidth="384.0" style="-fx-background-color: #ffffff;">
+                  <VBox fx:id="dialogContainer" alignment="TOP_CENTER" prefHeight="674.0" prefWidth="384.0" style="-fx-background-color: #ffffff;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -34,13 +34,13 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="800.0" prefWidth="300.0" AnchorPane.leftAnchor="410.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="720.0" prefWidth="300.0" AnchorPane.leftAnchor="410.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ScrollPane prefHeight="760.0" prefWidth="300.0" AnchorPane.topAnchor="40.0">
+            <ScrollPane prefHeight="680.0" prefWidth="300.0" AnchorPane.topAnchor="40.0">
                <content>
                   <VBox>
                      <children>
-                        <ListView fx:id="taskListView" prefHeight="760.0" prefWidth="284.0" />
+                        <ListView prefHeight="679.0" prefWidth="284.0" />
                      </children>
                   </VBox>
                </content>
@@ -52,16 +52,16 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="800.0" prefWidth="300.0" AnchorPane.leftAnchor="720.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="720.0" prefWidth="300.0" AnchorPane.leftAnchor="720.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emails" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <ScrollPane prefHeight="760.0" prefWidth="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+            <ScrollPane prefHeight="680.0" prefWidth="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
                <content>
-                  <VBox prefHeight="760.0" prefWidth="300.0" />
+                  <VBox prefHeight="679.0" prefWidth="290.0" />
                </content>
             </ScrollPane>
          </children>
