@@ -117,14 +117,14 @@ public class UI {
         try {
             System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
-                    eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getSplitDate() +
-                    " END: " + eventAdded.getEndDate().getSplitDate());
+                    eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                    " END: " + eventAdded.getEndDate().getFormattedDateString());
             System.out.println("Now you have " + numEvents + " events in the list.");
             System.out.print(lineSeparation);
         } catch (NullPointerException e) {
             System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
-                    eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getSplitDate());
+                    eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
             System.out.println("Now you have " + numEvents + " events in the list.");
             System.out.print(lineSeparation);
         }
@@ -221,8 +221,6 @@ public class UI {
      * prints message when recurring events are added to the list successfully
      */
     public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
-        eventAdded.getStartDate().formatDate();
-        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
         System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +

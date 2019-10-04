@@ -2,12 +2,12 @@ package UserElements;
 
 import Events.EventTypes.Event;
 import Events.EventTypes.EventSubclasses.Concert;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
-import Events.Storage.Storage;
 import Events.Storage.EventList;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
+import Events.Storage.Storage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -142,22 +142,21 @@ public class Command {
     }
 
     public void checkFreeDays(EventList events, UI ui) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Calendar dayToCheckIfFree = Calendar.getInstance();
-        DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDay = formatter.format(dayToCheckIfFree.getTime());
+        DateObj dayToCheckIfFreeObject = new DateObj(currentDay);
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
-            boolean flagFree = true;
+            boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                dayToCheckIfFreeObject.formatDate();
-                if (viewEvent.toString().contains(dayToCheckIfFreeObject.getFormattedDateString())) {
-                    flagFree = false;
+                if (viewEvent.getStartDate().getFormattedDateString().equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                    isFree = false;
                     break;
                 }
             }
-            if (flagFree) {
-                dayToCheckIfFreeObject.formatDate();
+            if (isFree) {
                 daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
             dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
@@ -175,7 +174,6 @@ public class Command {
             int viewIndex = 1;
             DateObj findDate = new DateObj(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
-                findDate.formatDate();
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                     viewIndex++;
