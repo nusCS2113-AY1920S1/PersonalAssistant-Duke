@@ -138,9 +138,7 @@ public class Item {
         duration = length;
     }
     /**
-     * Get duration.
-     *
-     * @param length time of activity
+     * Get duration for todo task.
      */
     public String getDuration () {
         return duration;

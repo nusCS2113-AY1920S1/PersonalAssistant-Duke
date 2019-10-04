@@ -1,3 +1,10 @@
+
+# Sports Manager 
+By: `W13-1`   Since: `16 September 2019`
+
+## Introduction
+Sports Manager is an app designed for coaches and trainers. 
+=======
 # Sports Manager
 By: `W13-1`   Since: `16 September 2019`
 
