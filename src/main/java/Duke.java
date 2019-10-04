@@ -1,4 +1,4 @@
-import DukeObjects.ExpenseList;
+import dukeobjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -13,12 +13,13 @@ import java.util.StringJoiner;
  * Represents our Duke and contains the main program of Duke.
  */
 public class Duke {
-
     private Storage storage;
     private ExpenseList expenseList;
     private Ui ui;
 
-
+    /**
+     * Constructor for duke when it launched from GUI.
+     */
     public Duke() {
         ui = new Ui();
         String filePath = new StringJoiner(File.separator)
@@ -36,7 +37,7 @@ public class Duke {
     }
 
     /**
-     * Constructs the Duke with the filePath of storage.txt
+     * Constructs the Duke with the filePath of storage.txt.
      *
      * @param filePath The filePath of storage.txt
      */
@@ -68,7 +69,12 @@ public class Duke {
         }
     }
 
-    public String getResponse(String fullCommand){
+    /**
+     * Gets the output from Duke's logic.
+     * @param fullCommand String of the full command that the user entered.
+     * @return String containing last output message of Duke.
+     */
+    public String getResponse(String fullCommand) {
         try {
             CommandParams commandParams = new CommandParams(fullCommand);
             Command command = Parser.getCommand(commandParams.getCommandName());
@@ -76,11 +82,10 @@ public class Duke {
         } catch (DukeException e) {
             ui.showError(e);
         }
-
         return ui.getMostRecent();
     }
 
-    public ExpenseList getExpenseList(){
+    public ExpenseList getExpenseList() {
         return expenseList;
     }
     /**

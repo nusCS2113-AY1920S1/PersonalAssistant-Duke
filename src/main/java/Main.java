@@ -6,10 +6,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Bridge between duke and MainWindow.
+ */
 public class Main extends Application {
+
 
     private Duke duke = new Duke();
 
+    /**
+     * Starts Duke with MainWindow.
+     * @param stage The main GUI of Duke
+     */
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -18,6 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(borderPane);
             scene.getStylesheets().add("/layout/MainWindow.css");
             stage.setScene(scene);
+            stage.setTitle("Duke++");
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {

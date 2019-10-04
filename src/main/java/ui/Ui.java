@@ -1,7 +1,7 @@
 package ui;
 
-import DukeObjects.Expense;
-import DukeObjects.ExpenseList;
+import dukeobjects.Expense;
+import dukeobjects.ExpenseList;
 import exception.DukeException;
 
 
@@ -67,10 +67,10 @@ public class Ui {
     /**
      * Prints the {@code ExpenseList} given.
      *
-     * @param ExpenseList {@code ExpenseList} that we want to be printed
+     * @param expenseList {@code ExpenseList} that we want to be printed
      */
-    public void printExpenseList(ExpenseList ExpenseList) {
-        if (ExpenseList.getSize() > 0) {
+    public void printExpenseList(ExpenseList expenseList) {
+        if (expenseList.getSize() > 0) {
             int count = 1;
             for (Expense expense : ExpenseList.getExpenseList()) {
                 println(expense.toString());
