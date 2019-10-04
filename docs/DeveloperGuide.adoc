@@ -176,7 +176,7 @@ Actor: NUS Student
 
 *Extensions*
 
-5a. User can cancel addition
+5a. User can cancel addition + 
 5b. ModPlan will cancel addition of custom module, and delete information inputted
 
 === Use Case C08: Checking number of MCs taken
@@ -187,7 +187,7 @@ Actor: NUS Student
 
 *Extensions*
 
-1a. User can specify additional parameters to check MCs completed for specific periods+
+1a. User can specify additional parameters to check MCs completed for specific periods +
 * eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 
 [appendix]
