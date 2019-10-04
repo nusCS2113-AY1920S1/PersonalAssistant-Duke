@@ -1,4 +1,4 @@
-package duke.list;
+package list;
 
 import java.io.Serializable;
 import java.util.Set;

@@ -1,19 +1,19 @@
-package duke.parser;
+package parser;
 
-import duke.exception.DukeException;
+import exception.DukeException;
 
 import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An object containing information about a duke.command's type and parameters.
+ * An object containing information about a command's type and parameters.
  */
 public class CommandParams {
     // Internal map that stores all secondary parameters
     private Map<String, String> secondaryParams;
 
-    // The duke.command type i.e. the first word in the duke.command
+    // The command type i.e. the first word in the command
     private String commandName;
 
     // The main parameter value i.e. everything after the first word, before any secondary parameters are declared
@@ -35,7 +35,7 @@ public class CommandParams {
      * the user. The {@code CommandParams} object cannot have two parameters of the same name, and
      * will throw a {@code DukeException} if the user tries to specify two parameters of the same name.
      *
-     * @param fullCommand the full duke.command input by the user, which will be parsed into parameters.
+     * @param fullCommand the full command input by the user, which will be parsed into parameters.
      * @throws DukeException if the user specified a parameter twice.
      */
     public CommandParams(String fullCommand) throws DukeException {

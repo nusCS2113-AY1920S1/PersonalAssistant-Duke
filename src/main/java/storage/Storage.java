@@ -1,6 +1,6 @@
-package duke.storage;
+package storage;
 
-import duke.exception.DukeException;
+import exception.DukeException;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,28 +9,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the duke.storage of duke.Duke.
- * Stores the content of ExpenseList of duke.Duke in a text file.
+ * Represents the storage of Duke.
+ * Stores the content of ExpenseList of Duke in a text file.
  */
 public class Storage {
     private File file;
 
     /**
-     * Constructs the duke.storage with given filePath of text file storing the data.
+     * Constructs the storage with given filePath of text file storing the data.
      *
-     * @param filePath The filePath of the duke.storage text file.
+     * @param filePath The filePath of the storage text file.
      */
     public Storage(String filePath) {
         file = new File(filePath);
     }
 
     /**
-     * Creates new duke.storage file if no file exists yet.
-     * Reads all strings representing expensesList in duke.storage format in the file and
-     * returns the duke.list of strings.
+     * Creates new storage file if no file exists yet.
+     * Reads all strings representing expensesList in storage format in the file and
+     * returns the list of strings.
      * Works as the parameter of the constructor of {@code ExpenseList}.
      *
-     * @return List of information of stored expensesList in duke.storage format.
+     * @return List of information of stored expensesList in storage format.
      * @throws DukeException If errors occur in loading process.
      */
     public ArrayList<String> load() throws DukeException {
@@ -50,11 +50,11 @@ public class Storage {
     }
 
     /**
-     * Updates the duke.storage text file by replacing original content
-     * with the given duke.list of strings representing expensesList.
+     * Updates the storage text file by replacing original content
+     * with the given list of strings representing expensesList.
      *
-     * @param taskStrings List of strings representing expensesList in duke.storage format.
-     * @throws DukeException If errors occur when updating duke.storage.
+     * @param taskStrings List of strings representing expensesList in storage format.
+     * @throws DukeException If errors occur when updating storage.
      */
     public void update(ArrayList<String> taskStrings) throws DukeException {
         try {
@@ -66,7 +66,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Errors occurred when updating duke.storage.");
+            throw new DukeException("☹ OOPS!!! Errors occurred when updating storage.");
         }
     }
 

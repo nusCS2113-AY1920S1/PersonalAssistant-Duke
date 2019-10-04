@@ -13,5 +13,5 @@
 *.iml
 /bin/
 
-# duke.Duke data files
+# Duke data files
 /data/

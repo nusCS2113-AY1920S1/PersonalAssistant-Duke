@@ -5,27 +5,27 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-I am duke.Duke. What can I do for you?
+I am Duke. What can I do for you?
 Ops, you haven't added any task!
 Got it. I've added this task:
 [T][✘] go to study
-Now you have 1 expensesList in the duke.list.
+Now you have 1 expensesList in the list.
 Got it. I've added this task:
 [E][✘] attend the party (at: 02/02/2019 1800 - 02/03/2019 0300)
-Now you have 2 expensesList in the duke.list.
+Now you have 2 expensesList in the list.
 Got it. I've added this task:
 [D][✘] return the book (by: 02/03/2019 1900)
-Now you have 3 expensesList in the duke.list.
+Now you have 3 expensesList in the list.
 Nice! I've marked this task as done:
 [E][✓] attend the party (at: 02/02/2019 1800 - 02/03/2019 0300)
-Here are the matching expensesList in your duke.list:
+Here are the matching expensesList in your list:
 1.[E][✓] attend the party (at: 02/02/2019 1800 - 02/03/2019 0300)
 No results found.
-Here are the expensesList in your duke.list:
+Here are the expensesList in your list:
 1.[T][✘] go to study
 2.[E][✓] attend the party (at: 02/02/2019 1800 - 02/03/2019 0300)
 3.[D][✘] return the book (by: 02/03/2019 1900)
 Noted. I've removed this task:
 [T][✘] go to study
-Now you have 2 expensesList in the duke.list.
+Now you have 2 expensesList in the list.
 Bye. Hope to see you again soon!

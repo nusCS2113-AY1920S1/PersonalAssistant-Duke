@@ -1,13 +1,13 @@
-package duke.command;
+package command;
 
-import duke.list.ExpenseList;
-import duke.parser.CommandParams;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import list.ExpenseList;
+import parser.CommandParams;
+import storage.Storage;
+import ui.Ui;
 
 /**
- * Represents a specified duke.command as ListCommand by extending the {@code Command} class.
- * Lists all expensesList in ExpenseList of duke.Duke.
+ * Represents a specified command as ListCommand by extending the {@code Command} class.
+ * Lists all expensesList in ExpenseList of Duke.
  * Responses with the result.
  */
 public class ListCommand extends Command {
@@ -19,17 +19,17 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Lists all expensesList in ExpenseList of duke.Duke by using duke.ui of duke.Duke.
+     * Lists all expensesList in ExpenseList of Duke by using ui of Duke.
      *
-     * @param expensesList   The ExpenseList of duke.Duke.
-     * @param ui      The duke.ui of duke.Duke.
-     * @param storage The duke.storage of duke.Duke.
+     * @param expensesList   The ExpenseList of Duke.
+     * @param ui      The ui of Duke.
+     * @param storage The storage of Duke.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
         if (expensesList.getSize() == 0) {
             ui.println("Ops, you haven't added any task!");
         } else {
-            ui.println("Here are the expensesList in your duke.list:");
+            ui.println("Here are the expensesList in your list:");
             for (int i = 0; i < expensesList.getSize(); i++) {
                 ui.println((i + 1) + ". " + expensesList.getExpense(i).toString());
             }
