@@ -3,23 +3,35 @@ package duke.Sports;
 /**
  * Represents a student.
  */
-public class MyStudent{
+public class MyStudent {
 
+    /**
+     * Represents the name of the student.
+     */
     private String name;
+
+    /**
+     * Represents the age of the student.
+     */
     private String age;
+
+    /**
+     * Represents the address of the student.
+     */
     private String address;
 
     /**
-     * Constructor for the students
+     * Constructor for the students.
      *
-     * @param name Name of the student
-     * @param age age of the student
-     * @param address address of the student
+     * @param myname Name of the student
+     * @param myage age of the student
+     * @param myaddress address of the student
      */
-    public MyStudent(String name, String age) {
-        this.name = name;
-        this.age = age;
-//        this.address = address;
+    public MyStudent(final String myname, final String myage,
+                     final String myaddress) {
+        this.name = myname;
+        this.age = myage;
+        this.address = myaddress;
     }
 
     /**
@@ -40,9 +52,9 @@ public class MyStudent{
 
     /**
      * This method is to edit the name of the student.
-     * @param newName
+     * @param newName Represents the name of the student to change to.
      */
-    public void changeName(String newName) {
+    public void changeName(final String newName) {
         this.name = newName;
     }
 
@@ -55,15 +67,17 @@ public class MyStudent{
 
     /**
      * This method is to retrieve the address of the student.
-     * @return
+     * @return Represents the address of the student.
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * This method prints out the student name and their address (Or any RELEVANT details)
-     * @return
+     * This method prints out the student name and their address.
+     * (Or any RELEVANT details)
+     * @return Represents a string containing the student details to be shown,
+     * name and address.
      */
     public String toString() {
         return getName() + ", " + getAddress();
