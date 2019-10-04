@@ -3,7 +3,6 @@ package duchess.model.task;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

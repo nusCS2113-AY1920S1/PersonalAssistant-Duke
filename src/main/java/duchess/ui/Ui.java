@@ -1,7 +1,6 @@
 
 package duchess.ui;
 
-import duchess.logic.commands.Command;
 import duchess.model.task.Task;
 
 import java.util.List;
@@ -95,9 +94,8 @@ public class Ui {
     /**
      * Displays schedule of a single day to user.
      * Informs user if there are ongoing events.
-     *
      * @param tasks List of tasks to show
-     * @param date  Date of choice
+     * @param date  Date
      */
     public void showScheduleResult(List<Task> tasks, String date) {
         printIndented("Here is your schedule for " + date + ":");
