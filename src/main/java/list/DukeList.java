@@ -3,12 +3,15 @@ package list;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 
 import exception.DukeException;
@@ -21,17 +24,22 @@ public abstract class DukeList<T extends DukeItem> {
     private byte[] currentState;
     private Stack<byte[]> redoStates;
 
-    protected List<T> internalList;
+    private List<T> internalList;
     protected List<T> externalList;
 
     /**
      * Creates a new {@code DukeList}, which saves its data to a file {@code file}.
      *
      * @param file The file to save to.
+     * @throws DukeException if the file cannot be created or read.
      */
-    public DukeList(File file) {
+    public DukeList(File file) throws DukeException {
         this.file = file;
         load();
+
+        undoStates = new Stack<byte[]>();
+        currentState = toByteArray(internalList);
+        redoStates = new Stack<byte[]>();
     }
 
     /**
@@ -49,7 +57,7 @@ public abstract class DukeList<T extends DukeItem> {
      * @param item the item to add.
      */
     public void add(T item) {
-
+        internalList.add(item);
     }
 
     /**
@@ -69,6 +77,7 @@ public abstract class DukeList<T extends DukeItem> {
 
     /**
      * Removes an item from {@code internalList} using its index in {@code externalList}.
+     *
      * @param index the index of the item to in {@code externalList}.
      * @throws DukeException if the index is out of bounds.
      */
@@ -77,13 +86,16 @@ public abstract class DukeList<T extends DukeItem> {
     }
 
     /**
-     * Indicates that the list has reached a new state for {@link #undo} {@link #redo}, and also
-     * calls {@link #save}. This method should be called whenever the list is changed.
+     * Calling this method indicates that {@code internalList} or one of its members has changed,
+     * that the file should be updated, and that the state has progressed such that all {@code redoStates}
+     * are now invalid and should be discarded.
+     *
+     * @throws DukeException if saving was unsuccessful.
      */
     public void update() throws DukeException {
         save();
         undoStates.push(currentState);
-        currentState = toByteArray();
+        currentState = toByteArray(internalList);
         redoStates.clear();
     }
 
@@ -93,18 +105,52 @@ public abstract class DukeList<T extends DukeItem> {
      * @throws DukeException if the file could not be saved to.
      */
     private void save() throws DukeException {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new DukeException("TODO"); // todo: update DukeException
+        }
 
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            for (T item : internalList) {
+                fileWriter.write(item.toStorageString());
+                fileWriter.write(STORAGE_DELIMITER);
+            }
+        } catch (IOException e) {
+            throw new DukeException("TODO"); // todo: update DukeException
+        }
     }
 
     /**
      * Loads the data contained in {@code file} into {@code internalList} and updates {@code externalList},
      * overwriting any existing information.
      *
-     * @throws DukeException if the file could not be accessed, or if the information in the file is invalid.
+     * @throws DukeException if the file could not be accessed, or if any information in the file is invalid.
      */
     public void load() throws DukeException {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new DukeException("TODO"); // todo: update DukeException
+        }
 
+        try (Scanner fileReader = new Scanner(file).useDelimiter(STORAGE_DELIMITER)) {
+            while (fileReader.hasNext()) {
+                internalList.add(itemFromStorageString(fileReader.next()));
+            }
+        } catch (FileNotFoundException e) {
+            throw new DukeException("TODO"); // todo: update DukeException
+        }
     }
+
+    /**
+     * Returns an item from its storage string. Although this method is present in the item builders,
+     * it is declared here to make it easier to implement (otherwise requires reflection).
+     *
+     * @param storageString the storage string of the item.
+     * @return the item.
+     */
+    protected abstract T itemFromStorageString(String storageString);
 
     /**
      * Reverts the state of {@code internalList} some number of times to an earlier state.
@@ -122,7 +168,7 @@ public abstract class DukeList<T extends DukeItem> {
             currentState = undoStates.pop();
         }
 
-        fromByteArray(currentState);
+        internalList = fromByteArray(currentState);
         save();
     }
 
@@ -143,7 +189,7 @@ public abstract class DukeList<T extends DukeItem> {
             currentState = redoStates.pop();
         }
 
-        fromByteArray(currentState);
+        internalList = fromByteArray(currentState);
         save();
     }
 
@@ -155,10 +201,10 @@ public abstract class DukeList<T extends DukeItem> {
      * @throws DukeException if an IO error occurs; this should never happen due to
      * the self-contained nature of this function.
      */
-    private byte[] toByteArray() {
+    private byte[] toByteArray(List<T> list) {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              ObjectOutput out = new ObjectOutputStream(bos)) {
-            out.writeObject(internalList);
+            out.writeObject(list);
             return bos.toByteArray();
         } catch (IOException e) {
             throw new DukeException("TODO"); // todo: update DukeException
@@ -167,19 +213,20 @@ public abstract class DukeList<T extends DukeItem> {
 
     /**
      * Taken from https://stackoverflow.com/a/30968827
-     * Restores an earlier state of {@code internalList}.
+     * Returns a list corresponding to a previous state of {@code internalList}.
      * Casting to {@code List<T>} causes the warning. As the code is self-contained, there is no risk of
      * the object in {@code bytes} not being one of type {@code List<T>}.
      *
-     * @param bytes a byte array corresponding to an earlier state of {@code internalList}.
+     * @param bytes a byte array corresponding to a previous state of {@code internalList}.
+     * @return the previous state of {@code internalList}.
      * @throws DukeException if an {@code IOException} or {@code ClassNotFoundException} occurs;
      * this should never happen due to the self-contained nature of this function.
      */
     @SuppressWarnings("unchecked")
-    private void fromByteArray(byte[] bytes) {
+    private List<T> fromByteArray(byte[] bytes) {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
              ObjectInput in = new ObjectInputStream(bis)) {
-            internalList = (List<T>) in.readObject();
+            return (List<T>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new DukeException("TODO"); // todo: update DukeException
         }
