@@ -1,4 +1,4 @@
-import DukeObjects.ExpenseList;
+import list.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;

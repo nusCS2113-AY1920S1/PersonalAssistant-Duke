@@ -1,7 +1,7 @@
 package ui;
 
-import DukeObjects.Expense;
-import DukeObjects.ExpenseList;
+import list.Expense;
+import list.ExpenseList;
 import exception.DukeException;
 
 
