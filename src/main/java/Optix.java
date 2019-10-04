@@ -1,11 +1,12 @@
 import optix.Ui;
 import optix.commands.Command;
 import optix.core.Storage;
-import optix.parser.Parser;
+
+import optix.exceptions.OptixException;
+import optix.util.Parser;
 import optix.util.ShowMap;
 
 import java.io.File;
-import java.util.Scanner;
 
 public class Optix {
 
@@ -28,19 +29,23 @@ public class Optix {
     }
 
     public void run() {
+
         boolean isExit = false;
-        Scanner sc = new Scanner(System.in);
         System.out.println(ui.showWelcome());
 
         while (!isExit) {
-            String fullCommand = ui.readCommand(sc);
-            Command c = Parser.parse(fullCommand);
-            c.execute(shows, ui, storage);
-            System.out.println(ui.showLine());
-            isExit = c.isExit();
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(shows, ui, storage);
+                isExit = c.isExit();
+            } catch (OptixException e) {
+                ui.setMessage(e.getMessage());
+            } finally {
+                System.out.println(ui.showLine());
+            }
         }
 
-        sc.close();
     }
 }
 

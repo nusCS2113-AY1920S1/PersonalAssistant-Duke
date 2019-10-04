@@ -1,4 +1,0 @@
-T | 0 | return book
-T | 1 | return book
-T | 0 | return
-D | 0 | bye | 13/02/1997 1305

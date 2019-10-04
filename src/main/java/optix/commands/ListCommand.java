@@ -2,40 +2,41 @@ package optix.commands;
 
 import optix.Ui;
 import optix.constant.OptixResponse;
-import optix.core.Show;
 import optix.core.Storage;
+import optix.core.Theatre;
 import optix.util.ShowMap;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public class ListCommand extends Command {
+    private OptixResponse response = new OptixResponse();
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
-        String message = "";
+        StringBuilder message = new StringBuilder();
         LocalDate today = storage.getToday();
 
         int counter = 1;
 
         if (!shows.isEmpty()) {
-            message += new OptixResponse().LIST_FOUND;
-            for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-                Show show = entry.getValue();
+            message.append(response.LIST_FOUND);
+            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
+                Theatre show = entry.getValue();
                 LocalDate showDate = entry.getKey();
 
                 if (showDate.compareTo(today) > 0) {
-                    message += String.format("%d. %s (on: %s)\n", counter, show.toString(), showDate);
+                    message.append(String.format("%d. %s (on: %s)\n", counter, show.getShowName(), showDate));
                     counter++;
                 }
             }
         }
 
         if (shows.isEmpty() || counter == 1) {
-            message = new OptixResponse().LIST_NOT_FOUND;
+            message = new StringBuilder(response.LIST_NOT_FOUND);
         }
 
-        ui.setMessage(message);
+        ui.setMessage(message.toString());
     }
 
     @Override
