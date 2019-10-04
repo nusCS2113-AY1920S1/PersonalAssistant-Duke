@@ -7,8 +7,17 @@ import Model_Classes.Task;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * This class checks if there are clashes in timings for events
+ */
 public class CheckAnomaly {
-
+    /**
+     * Checks if the FixedDuration task has any clashes with any other tasks in the task list
+     * If there is a clash, returns true
+     * If there is no clash, returns false
+     * @param currEvent FixedDuration being checked for time clashes
+     * @return true if there are time clashes, false if there are no time clashes
+     */
     public static Boolean checkTime(FixedDuration currEvent) {
         double currDuration;
         currDuration = currEvent.getDuration() * 3600000;

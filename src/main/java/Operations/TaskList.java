@@ -1,6 +1,6 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
@@ -35,16 +35,19 @@ public class TaskList {
      * Deletes a task from the list. Task to be deleted is specified by the index that is input into this method
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of task in the list to be deleted
-     * @throws DukeException If the index cannot be found in the list of tasks.
+     * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void delete(int index) throws DukeException {
+    public void delete(int index) throws RoomShareException {
+        if (index < 0 || index > tasks.size()) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
         tasks.remove(index - 1);
     }
 
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
-    public void list() throws DukeException {
+    public void list() throws RoomShareException {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
@@ -52,7 +55,7 @@ public class TaskList {
                 listCount += 1;
             }
         } else {
-            throw new DukeException(ExceptionType.emptylist);
+            throw new RoomShareException(ExceptionType.emptylist);
         }
 
     }
@@ -61,9 +64,12 @@ public class TaskList {
      * Sets a task in the list as 'done' to mark that the user has completed the task.
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of the task to be marked as done.
-     * @throws DukeException If the index cannot be found in the list of tasks.
+     * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void done(int index) throws DukeException{
+    public void done(int index) throws RoomShareException {
+        if (index < 0 || index > tasks.size()) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
         tasks.get(index - 1).setDone();
     }
 
@@ -75,7 +81,7 @@ public class TaskList {
     public void find (String key) {
         int queryCount = 1;
         for (Task query : tasks) {
-            if (query.toString().toLowerCase().contains(key)) {
+            if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("    " + queryCount + ". " + query.toString());
             }
             queryCount += 1;

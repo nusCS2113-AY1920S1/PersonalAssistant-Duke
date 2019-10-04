@@ -11,15 +11,24 @@ public class Ui {
     }
 
     /**
-     * Shows the startup logo for Duke
+     * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " __________         _\n"
+                + "|          \\       / \\\n"
+                + "|    ___    \\     /   \\\n"
+                + "|   |___|    |   |  |  | \n"
+                + "|          _/    |  |  | \n"
+                + "|    ___    \\    \\  \\  /\n"
+                + "|   |   \\    \\    \\  \\/\n"
+                + "|   |    \\    \\   /\\  \\\n"
+                + "|___|     \\____\\ /  \\  \\\n"
+                + "                 |  |  |\n"
+                + "                 |  |  |\n"
+                + "                 \\     /\n"
+                + "                  \\   /\n"
+                + "                   \\_/";
+        System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
     }
@@ -43,18 +52,14 @@ public class Ui {
     public void showDeleted (int index) {
         System.out.println("Deleted task number " + index + "!");
     }
-    public void showDeletedRecur (int index) {
-        System.out.println("Deleted recurring task number " + index + "!");
-    }
+
     /**
      * Tells the user that the search operation is executing
      */
     public void showFind () {
         System.out.println("Searching for item in task list...");
     }
-    public void showFindRecur () {
-        System.out.println("Searching for item in recurring task list...");
-    }
+
     /**
      * Tells the user that the task of index has been done and the list has been updated.
      */
@@ -82,7 +87,7 @@ public class Ui {
         System.out.println("You have exited recurring list mode");
     }
     /**
-     * tells the user that Duke is listing the tasks
+     * tells the user that RoomShare is listing the tasks
      */
     public void showList() {
         System.out.println("Listing tasks in your task list...");
@@ -105,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Tells the user that an invalid command has been input into Duke.
+     * Tells the user that an invalid command has been input into RoomShare.
      */
     public void showCommandError() {
         System.out.println("Sorry, I don't understand this command...");
@@ -205,13 +210,10 @@ public class Ui {
         System.out.println("Does this task have a duration? (yes/no)");
     }
 
-
-     /* tells the user to input valid amount of time
     public void promptForTime() {
         System.out.println("Enter the amount of time");
     }
-     */
-  
+
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }

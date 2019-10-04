@@ -1,12 +1,13 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import Enums.ExceptionType;
 import Enums.ReplyType;
 import Enums.TimeUnit;
 
@@ -45,12 +46,12 @@ public class Parser {
     /**
      * Returns the description the user inputs for tasks. Will not accept empty descriptions
      * @return temp The description that the user has specified for the task. Cannot be null.
-     * @throws DukeException If temp is empty.
+     * @throws RoomShareException If temp is empty.
      */
-    public String getDescription() throws DukeException {
+    public String getDescription() throws RoomShareException {
         String temp = scanner.nextLine().trim();
         if (temp.equals("")) {
-            throw new DukeException();
+            throw new RoomShareException(ExceptionType.empty);
         }
         return temp;
     }
@@ -61,32 +62,7 @@ public class Parser {
      *               index 1 stores the date String.
      */
     public String[] getDescriptionWithDate() {
-        String[] array = scanner.nextLine().split(" ", 1);
-        return array;
-    }
-
-    public String[] getDate(String[] ar) {
-        String[] array = ar[0].trim().split("/", 2);
-        return array;
-    }
-
-    /**
-     * Returns an array with the task description stored as well as the duration of the task
-     * @return array An array of Strings with description and duration both in index 0 of the array
-     */
-    public String[] getDescriptionWithDuration() {
-        String[] array = scanner.nextLine().split(" ", 1);
-        return array;
-    }
-
-    /**
-     * Takes in the array containing both the description as well as the duration and splitting
-     * them up
-     * @param ar An array containing both the description and the duration
-     * @return array An array containing the description in the 0th index and the duration in the 1st index
-     */
-    public String[] getDuration(String[] ar) {
-        String[] array = ar[0].trim().split("/", 2);
+        String[] array = scanner.nextLine().trim().split("/", 2);
         return array;
     }
 
@@ -95,13 +71,13 @@ public class Parser {
      * If the format of the input string is unacceptable, will throw a DukeException and will not return anything.
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
-     * @throws DukeException If by is not in dd/MM/yyyy HH:mm format
+     * @throws RoomShareException If by is not in dd/MM/yyyy HH:mm format
      */
-    public Date formatDate(String by) throws DukeException{
+    public Date formatDate(String by) throws RoomShareException {
         try {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
         } catch (ParseException e) {
-            throw new DukeException();
+            throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
 
