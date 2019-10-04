@@ -14,6 +14,7 @@ import seedu.duke.logic.CommandLineException;
 import seedu.duke.task.Reminders;
 import seedu.duke.ui.Ui;
 import seedu.duke.data.Storage;
+import seedu.duke.data.Folder;
 import seedu.duke.task.TaskList;
 import seedu.duke.parser.CommandParser;
 
@@ -66,6 +67,7 @@ public class Duke {
      */
     public static void run() throws IOException {
         ui.show_opening_string();
+        Folder.checkDirectory();
         list = new TaskList(storage.load());
 
         // Display reminders at the start
