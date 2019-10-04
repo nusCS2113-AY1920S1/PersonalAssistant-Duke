@@ -13,12 +13,15 @@
             prefHeight="400.0" prefWidth="600.0"
             fx:id="main">
     <top>
-        <ListView fx:id="expenseListView" >
-        </ListView>
+        <VBox alignment="CENTER">
+            <Label fx:id="totalSpentLabel" text="Total: $0.00"  />
+            <ListView fx:id="expenseListView" >
+            </ListView>
+        </VBox>
     </top>
     <bottom>
         <VBox>
-            <Label fx:id="lastCommandLabel" text="Hello" prefWidth="Infinity"/>
+            <Label fx:id="lastCommandLabel" text="Hello, welcome to Duke++!" prefWidth="Infinity"/>
             <TextField fx:id="inputField" promptText="enter a command" onAction="#onEnter"/>
         </VBox>
     </bottom>

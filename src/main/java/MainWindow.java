@@ -10,7 +10,8 @@ import javafx.scene.layout.BorderPane;
  * Controller for MainWindow.fxml
  */
 public class MainWindow extends BorderPane {
-    private Duke duke;
+    @FXML
+    public Label totalSpentLabel;
     @FXML
     public ListView<String> expenseListView;
     @FXML
@@ -19,6 +20,8 @@ public class MainWindow extends BorderPane {
     public TextField inputField;
     @FXML
     public Label lastCommandLabel;
+
+    private Duke duke;
 
     /**
      * Detects enter key and passes command entered in the TextField into Duke, and update the GUI accordingly.
@@ -31,14 +34,17 @@ public class MainWindow extends BorderPane {
         ExpenseList expenseList = (ExpenseList) duke.getExpenseList();
         setExpenseListView(expenseList);
         inputField.clear();
+        updateTotalSpentLabel(duke.getExpenseList());
     }
 
     /**
      * Sets the duke object in MainWindow.
+     *
      * @param d <code>Duke</code>Duke object
      */
     public void setDuke(Duke d) {
         this.duke = d;
+        updateTotalSpentLabel(d.getExpenseList());
     }
 
     /**
@@ -51,6 +57,15 @@ public class MainWindow extends BorderPane {
             expenseListView.getItems().add(count + ". " + expense.toString());
             count++;
         }
+    }
+
+    /**
+     * Updates the total amount label.
+     *
+     * @param expenseList The <code>ExpenseList</code> object stored in Duke
+     */
+    public void updateTotalSpentLabel(ExpenseList expenseList) {
+        totalSpentLabel.setText("Total: $" + expenseList.getTotalAmount());
     }
 }
 

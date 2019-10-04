@@ -23,4 +23,14 @@ public class ExpenseListTest {
         Assertions.assertEquals(expenseList.getSize(), 2);
         Assertions.assertEquals(expenseList.getExpense(1).toString(), "$52.50 bus concession " + timeNow);
     }
+
+    @Test
+    public void expenseListTotalExpenseTest() {
+        Expense expense = new Expense("45", "train concession");
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.add(expense);
+        Expense anotherExpense = new Expense("52.50", "bus concession");
+        expenseList.add(anotherExpense);
+        Assertions.assertEquals(expenseList.getTotalAmount().toString(), "97.50");
+    }
 }
