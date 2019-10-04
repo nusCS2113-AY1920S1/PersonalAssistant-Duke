@@ -1,6 +1,7 @@
 
 package duchess.ui;
 
+import duchess.logic.commands.Command;
 import duchess.model.task.Task;
 
 import java.util.List;
@@ -195,6 +196,19 @@ public class Ui {
     public void showDeadlines(List<Task> tasks) {
         printIndented("You currently have these deadlines:");
         showTasks(tasks);
+    }
+
+    /**
+     * Displays user history.
+     *
+     * @param log list of user log
+     */
+    public void showUserHistory(List<String> log) {
+        printIndented("These are the commands you entered:");
+        int counter = 1;
+        for (String userInput : log) {
+            printIndented(counter++ + ". " + userInput);
+        }
     }
 
     /**
