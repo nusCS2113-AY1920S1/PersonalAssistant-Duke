@@ -75,7 +75,7 @@ public class Level implements Convertible {
      * @return true if avatar can gain a level; false if otherwise.
      */
     public boolean canLevel() {
-        if(this.xp >= xpNeeded(this.level)) {
+        if (this.xp >= xpNeeded(this.level)) {
             return true;
         } else {
             return false;

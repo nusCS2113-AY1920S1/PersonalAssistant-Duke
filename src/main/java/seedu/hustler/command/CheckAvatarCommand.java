@@ -5,7 +5,7 @@ import seedu.hustler.Hustler;
 /**
  * Command that checks the avatar's current status.
  */
-public class CheckAvatarCommand extends Command{
+public class CheckAvatarCommand extends Command {
 
     public CheckAvatarCommand() {
 
