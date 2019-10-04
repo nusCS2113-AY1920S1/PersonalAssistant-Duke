@@ -12,7 +12,13 @@ import seedu.duke.Duke;
 import seedu.duke.Parser;
 import seedu.duke.TaskList;
 import seedu.duke.Storage;
+import seedu.duke.email.Email;
 import seedu.duke.email.EmailStorage;
+import seedu.duke.task.Deadline;
+import seedu.duke.task.Event;
+import seedu.duke.task.Task;
+import seedu.duke.task.ToDo;
+import seedu.duke.gui.TaskCard;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -129,20 +135,34 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateTasksList() {
-        ObservableList<String> observableList = FXCollections.observableArrayList(
-                "Task 1\nsomething", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6",
-                "Task 7", "Task 8", "Task 9\nAfter which: Task 9a", "Task 10", "Task 11", "Task 12", "Task 13",
-                "Task 14", "Task 15", "Task 16", "Task 17\nAfter which: Task 17a", "Task 18", "Task 19", "Task 20",
-                "Task 21", "Task 22", "Task 23", "Task 24", "Task 25", "Task 26", "Task 27", "Task 28");
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (int i = 0; i < Duke.getTaskList().size(); i++) {
+            Task task = Duke.getTaskList().get(i);
+            String output = (i+1) + ". " + task.getName() + "\n" +
+                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
+            switch (Duke.getTaskList().get(i).getTaskType()) {
+                case Deadline:
+                    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
+                    output += "\nBy: " + deadline.getTime();
+                    break;
+                case Event:
+                    Event event = (Event) Duke.getTaskList().get(i);
+                    output += "\nAt: " + event.getTime();
+                    break;
+            }
+            if (!(task.getDoAfterDescription() == null)) {
+                output += "\nAfter which: " + task.getDoAfterDescription();
+            }
+            observableList.add(output);
+        }
         tasksListView.setItems(observableList);
     }
 
     private void updateEmailsList() {
-        ObservableList<String> observableList = FXCollections.observableArrayList(
-                "Email 1\nsomething", "Email 2", "Email 3", "Email 4", "Email 5", "Email 6",
-                "Email 7", "Email 8", "Email 9\nAfter which: Email 9a", "Email 10", "Email 11", "Email 12", "Email 13",
-                "Email 14", "Email 15", "Email 16", "Email 17\nAfter which: Email 17a", "Email 18", "Email 19", "Email 20",
-                "Email 21", "Email 22", "Email 23", "Email 24", "Email 25", "Email 26", "Email 27", "Email 28");
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (int i = 0; i < Duke.getEmailList().size(); i++) {
+            observableList.add(Duke.getEmailList().get(i).toFileString());
+        }
         emailsListView.setItems(observableList);
     }
 }
