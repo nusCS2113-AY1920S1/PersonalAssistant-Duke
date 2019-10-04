@@ -3,6 +3,7 @@ package seedu.duke.task;
 import seedu.duke.Duke;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Deadline is a type of task with a date/time which is the deadline time.
@@ -35,12 +36,14 @@ public class Deadline extends Task {
      * @param name    name of the Deadline
      * @param time    time of the Deadline
      * @param doAfter task to be done after main task
+     * @param tags     tag associated with the task
      */
-    public Deadline(String name, LocalDateTime time, String doAfter) {
+    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Deadline;
+        setTags(tags);
     }
 
     /**

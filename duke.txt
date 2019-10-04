@@ -1,4 +1,5 @@
-0 todo a
-0 todo b
-0 todo c
-1 todo e /doafter f
+0 event a
+0 event b
+0 event c
+1 event e /doafter f
+0 deadline tutorial /by 29/10/2019 1100
