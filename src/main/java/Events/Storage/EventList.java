@@ -89,20 +89,16 @@ public class EventList {
         if (event.getType() == 'T') {
             DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
             eventStartDate.formatDate();
-            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
+            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getSplitDate()));
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
-                DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
-                eventStartDate.formatDate();
-                eventEndDate.formatDate();
                 if (event.getType() == 'L') {
-                    this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Lesson(event.getDescription(), event.getStartDate().getFormattedDateString(), event.getEndDate().getFormattedDateString()));
                 } else if (event.getType() == 'P') {
-                    this.eventArrayList.add(new Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Practice(event.getDescription(), event.getStartDate().getFormattedDateString(), event.getEndDate().getFormattedDateString()));
                 }
                 return true;
             } else return false;
@@ -116,27 +112,17 @@ public class EventList {
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) {
-        DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
-        DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
-        eventStartDate.formatDate();
-        eventEndDate.formatDate();
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
-        calendarStartDate.setTime(eventStartDate.getEventJavaDate());
-        calendarEndDate.setTime(eventEndDate.getEventJavaDate());
+        calendarStartDate.setTime(event.getStartDate().getEventJavaDate());
+        calendarEndDate.setTime(event.getEndDate().getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            DateObj dateObjForFormattingStartDate = new DateObj(calendarStartDate.getTime().toString());
-            DateObj dateObjForFormattingEndDate = new DateObj(calendarEndDate.getTime().toString());
-            String toFormatStart = dateObjForFormattingStartDate.formatToString(calendarStartDate.getTime());
-            String toFormatEnd = dateObjForFormattingEndDate.formatToString(calendarEndDate.getTime());
-            DateObj formattingStartDate = new DateObj(toFormatStart);
-            formattingStartDate.formatDate();
-            DateObj formattingEndDate = new DateObj(toFormatEnd);
-            formattingEndDate.formatDate();
+            DateObj toFormatCalendarStartDate = new DateObj(calendarStartDate.getTime());
+            DateObj toFormatCalendarEndDate = new DateObj(calendarEndDate.getTime());
             if (event.getType() == 'L') {
-                this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Lesson(event.getDescription(), toFormatCalendarStartDate.getFormattedDateString(), toFormatCalendarEndDate.getFormattedDateString()));
             } else if (event.getType() == 'P') {
-                this.eventArrayList.add(new Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Practice(event.getDescription(), toFormatCalendarStartDate.getFormattedDateString(), toFormatCalendarEndDate.getFormattedDateString()));
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
