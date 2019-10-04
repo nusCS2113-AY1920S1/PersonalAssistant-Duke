@@ -1,4 +1,4 @@
-package com.algosenpai.app;
+package com.algosenpai.app.chapters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.HashSet;
 
-class Chapter1 {
+class ChapterSorting {
 
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
