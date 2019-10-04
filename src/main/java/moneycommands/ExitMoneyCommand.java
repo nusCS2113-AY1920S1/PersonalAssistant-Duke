@@ -15,7 +15,7 @@ public class ExitMoneyCommand extends MoneyCommand {
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         ui.appendToOutput("     Bye. Hope to see you again soon!\n");
     }
 

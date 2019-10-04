@@ -1,11 +1,8 @@
 package moneycommands;
 
-import controlpanel.Parser;
+import controlpanel.*;
 import money.Account;
 import money.Expenditure;
-import controlpanel.DukeException;
-import controlpanel.Storage;
-import controlpanel.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +41,7 @@ public class AddExpenditureCommand extends MoneyCommand {
      * @throws DukeException When the command is invalid
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws ParseException, DukeException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/cat ", 2);
@@ -54,6 +51,7 @@ public class AddExpenditureCommand extends MoneyCommand {
         Date boughtTime = Parser.shortcutTime(morSplit[1]);
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
+        storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     ");

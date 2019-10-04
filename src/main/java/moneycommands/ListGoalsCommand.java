@@ -27,7 +27,7 @@ public class ListGoalsCommand extends MoneyCommand{
      * @param storage Saves and loads data into/from the local disk
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         for (int i = 1; i <= account.getShortTermGoals().size();i++) {
             //System.out.println(" " + i + "." + account.getShortTermGoals().get(i-1).toString() + "\n");
             ui.appendToOutput(" " + i + "." + account.getShortTermGoals().get(i-1).toString() + "\n");

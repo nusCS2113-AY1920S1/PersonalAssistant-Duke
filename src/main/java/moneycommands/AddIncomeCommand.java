@@ -1,11 +1,8 @@
 package moneycommands;
 
-import controlpanel.Parser;
+import controlpanel.*;
 import money.Account;
 import money.Income;
-import controlpanel.DukeException;
-import controlpanel.Storage;
-import controlpanel.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +39,7 @@ public class AddIncomeCommand extends MoneyCommand {
      * @throws DukeException When the command is invalid
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws ParseException, DukeException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/payday ", 2);
@@ -50,6 +47,7 @@ public class AddIncomeCommand extends MoneyCommand {
         Date payDay = Parser.shortcutTime(furSplit[1]);
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
+        storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this income source: \n");
         ui.appendToOutput("     ");

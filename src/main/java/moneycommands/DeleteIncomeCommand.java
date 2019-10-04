@@ -1,6 +1,7 @@
 package moneycommands;
 
 import controlpanel.DukeException;
+import controlpanel.MoneyStorage;
 import controlpanel.Storage;
 import controlpanel.Ui;
 import money.Account;
@@ -39,7 +40,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
      * @throws DukeException When the index given is out of bounds of the list
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws DukeException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         if (serialNo > account.getIncomeListTotal().size()) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
@@ -49,5 +50,6 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
         account.getIncomeListTotal().remove(serialNo - 1);
+        storage.writeToFile(account);
     }
 }

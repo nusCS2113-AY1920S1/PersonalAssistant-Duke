@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.MoneyStorage;
 import money.Account;
 import money.BankTracker;
 import controlpanel.Parser;
@@ -31,7 +32,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         account.getBankTrackerList().add(newTracker);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");

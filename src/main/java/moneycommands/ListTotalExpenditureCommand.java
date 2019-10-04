@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.MoneyStorage;
 import controlpanel.Storage;
 import controlpanel.Ui;
 import money.Account;
@@ -29,7 +30,7 @@ public class ListTotalExpenditureCommand extends MoneyCommand {
      * @param storage Saves and loads data into/from the local disk
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
             //System.out.println(" " + counter + "." + i.toString() + "\n");
