@@ -1,4 +1,4 @@
-package seedu.duke.avatar;
+package seedu.duke.game.avatar;
 
 /**
  * Class representing the level of the

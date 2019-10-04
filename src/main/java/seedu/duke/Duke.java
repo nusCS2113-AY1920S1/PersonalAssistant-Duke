@@ -1,9 +1,8 @@
 package seedu.duke;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import seedu.duke.avatar.Avatar;
+import seedu.duke.game.avatar.Avatar;
 import seedu.duke.command.Command;
 /* import java.text.ParseException; */
 import java.util.Scanner;

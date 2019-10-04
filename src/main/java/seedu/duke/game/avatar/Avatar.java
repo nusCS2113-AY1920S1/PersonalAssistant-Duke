@@ -1,4 +1,4 @@
-package seedu.duke.avatar;
+package seedu.duke.game.avatar;
 
 /**
  * A class for the avatar in Hustler.

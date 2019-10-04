@@ -1,4 +1,4 @@
-package seedu.duke.game;
+package seedu.duke.game.achievement;
 
 
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Achievements that the user can achieve in Hustler.
  */
-public class Achievements {
+public abstract class Achievements {
 
     /**
      * List of achievement that the user unlocked.

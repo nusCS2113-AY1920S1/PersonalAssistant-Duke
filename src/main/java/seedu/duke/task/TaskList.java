@@ -79,7 +79,6 @@ public class TaskList {
         boolean checkAnomaly = true;
         // if tasktype is not ToDo
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-            list.add(new ToDo(taskDescriptionFull));
             checkAnomaly = false;
         } else {
             // Extract task time and task description and initialize as deadline

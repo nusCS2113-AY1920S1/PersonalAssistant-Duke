@@ -1,4 +1,4 @@
-package seedu.duke.avatar;
+package seedu.duke.game.avatar;
 
 /**
  * Class that deals with the stats of avatar.

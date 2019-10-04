@@ -1,4 +1,4 @@
-package seedu.duke.avatar;
+package seedu.duke.game.avatar;
 
 /**
  * The interface that all classes in avatar must inherit to
