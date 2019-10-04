@@ -212,22 +212,31 @@ public class Parser {
              */
             case "goal":
                 Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
-                if (word[1].equals("add")) {
-                    String date = word[2];
-                    index = input.indexOf(word[3]);
-                    String message = input.substring(index);
-                    System.out.println(goal.addGoal(date,message));
-                } else if (word[1].equals("delete")) {
-                    String date = word[2];
-                    index = input.indexOf(word[3]);
-                    String message = input.substring(index);
-                    System.out.println(goal.removeGoal(date,message));
-                } else if (word[1].equals("view")) {
-                    String date = word[2];
-                    System.out.println(goal.viewGoal(date));
-                } else if (word[1].equals("delete-all")) {
-                    String date = word[2];
-                    System.out.println(goal.removeAllGoal(date));
+                switch (word[1]) {
+                    case "view": {
+                        String date = word[2];
+                        System.out.print(goal.viewGoal(date));
+                        break;
+                    }
+                    case "add": {
+                        String date = word[2];
+                        index = input.indexOf(word[3]);
+                        String message = input.substring(index);
+                        System.out.println(goal.addGoal(date, message));
+                        break;
+                    }
+                    case "delete": {
+                        String date = word[2];
+                        index = input.indexOf(word[3]);
+                        String message = input.substring(index);
+                        System.out.println(goal.removeGoal(date, message));
+                        break;
+                    }
+                    case "delete-all": {
+                        String date = word[2];
+                        System.out.println(goal.removeAllGoal(date));
+                        break;
+                    }
                 }
                 break;
 
