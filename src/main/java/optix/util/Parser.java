@@ -1,16 +1,16 @@
 package optix.util;
 
-import optix.commands.AddCommand;
+import optix.commands.shows.AddCommand;
 import optix.commands.ByeCommand;
 import optix.commands.Command;
-import optix.commands.DeleteAllCommand;
-import optix.commands.DeleteOneCommand;
+import optix.commands.shows.DeleteAllCommand;
+import optix.commands.shows.DeleteOneCommand;
 import optix.commands.HelpCommand;
-import optix.commands.ListCommand;
-import optix.commands.ListShowCommand;
-import optix.commands.PostponeCommand;
-import optix.commands.SellSeatCommand;
-import optix.commands.ViewSeatsCommand;
+import optix.commands.shows.ListCommand;
+import optix.commands.shows.ListShowCommand;
+import optix.commands.shows.PostponeCommand;
+import optix.commands.seats.SellSeatCommand;
+import optix.commands.seats.ViewSeatsCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 

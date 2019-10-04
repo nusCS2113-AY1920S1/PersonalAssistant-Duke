@@ -1,8 +1,8 @@
 package Optix.commands;
 
-import optix.commands.AddCommand;
+import optix.commands.shows.AddCommand;
 import optix.Ui;
-import optix.commands.DeleteAllCommand;
+import optix.commands.shows.DeleteAllCommand;
 import optix.core.Storage;
 import optix.util.ShowMap;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
-package optix.commands;
+package optix.commands.shows;
 
 import optix.Ui;
+import optix.commands.Command;
 import optix.core.Storage;
 import optix.core.Theatre;
 import optix.util.OptixDateFormatter;
