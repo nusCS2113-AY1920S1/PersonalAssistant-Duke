@@ -29,14 +29,6 @@ public class Event extends Task {
         return endTiming;
     }
 
-    public void setStartTiming(String newStartTiming) {
-        this.startTiming = newStartTiming;
-    }
-
-    public void setEndTiming(String newEndTiming) {
-        this.endTiming = newEndTiming;
-    }
-
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTiming + " to: " + endTiming + ")";

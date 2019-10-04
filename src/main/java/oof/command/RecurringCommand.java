@@ -34,6 +34,7 @@ public class RecurringCommand extends Command {
      * Constructor for RecurringCommand.
      * @param index Index of the task to be selected as a recurring task.
      * @param count Number of recurrences for the selected task.
+     * @param frequency Frequency of recurrences for the selected task.
      */
     public RecurringCommand(int index, int count, int frequency) {
         super();
@@ -73,6 +74,7 @@ public class RecurringCommand extends Command {
 
     /**
      * Sets the recurring task based on the number of recurrences and frequency.
+     * @param ui Instance of Ui to display relevant messages for recurring tasks.
      * @param taskList Instance of TaskList that stores Task objects.
      * @param index Index of the task.
      * @param count Number of recurrences for the recurring task.
@@ -89,6 +91,7 @@ public class RecurringCommand extends Command {
 
     /**
      * Increments the datetime of a task based on recurring frequency and adds the task to TaskList.
+     * @param ui Instance of Ui to display relevant messages for recurring tasks.
      * @param taskList Instance of TaskList that stores Task objects.
      * @param task Recurring task.
      * @param count Number of recurrences for the recurring task.
@@ -101,7 +104,7 @@ public class RecurringCommand extends Command {
         } else if (task instanceof Deadline) {
             for (int i = 1; i <= count; i++) {
                 String datetime = ((Deadline) task).getBy();
-                datetime = dateTimeIncrement(datetime, frequency, i);
+                datetime = dateTimeIncrement(task, datetime, frequency, i);
                 Task newtask = new Deadline(task.getLine(), datetime);
                 taskList.addTask(newtask);
             }
@@ -109,26 +112,31 @@ public class RecurringCommand extends Command {
             for (int i = 1; i <= count; i++) {
                 String startTiming = ((Event) task).getStartTiming();
                 String endTiming = ((Event) task).getEndTiming();
-                startTiming = dateTimeIncrement(startTiming, frequency, i);
-                endTiming = dateTimeIncrement(endTiming, frequency, i);
-                ((Event) task).setStartTiming(startTiming);
-                ((Event) task).setEndTiming(endTiming);
-                taskList.addTask(task);
+                startTiming = dateTimeIncrement(task, startTiming, frequency, i);
+                endTiming = dateTimeIncrement(task, endTiming, frequency, i);
+                Task newtask = new Event(task.getLine(), startTiming, endTiming);
+                taskList.addTask(newtask);
             }
         }
     }
 
     /**
      * Increments the datetime based on the frequency of recurrence.
+     * @param task Recurring task.
      * @param datetime Date and time.
      * @param frequency Frequency of recurrence of task.
      * @param increment Number of hops from the first recurrence.
      * @return New datetime after incrementation.
      * @throws OofException Throws an exception if datetime cannot be parsed.
      */
-    private String dateTimeIncrement(String datetime, int frequency, int increment) throws OofException {
+    private String dateTimeIncrement(Task task, String datetime, int frequency, int increment) throws OofException {
         try {
-            SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat format;
+            if (task instanceof Deadline) {
+                format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            } else {
+                format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
+            }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(format.parse(datetime));
             if (frequency == DAILY) {
@@ -182,11 +190,7 @@ public class RecurringCommand extends Command {
         return ((frequency >= DAILY) && (frequency <= YEARLY));
     }
 
-    /**
-     * Checks if ExitCommand is called for OOF to terminate.
-     *
-     * @return false.
-     */
+    @Override
     public boolean isExit() {
         return false;
     }
