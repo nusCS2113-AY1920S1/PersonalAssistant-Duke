@@ -48,7 +48,6 @@ public class Duke {
     public void run() throws DukeException {
         boolean isExit = false;
         boolean isExitRecur = false;
-        boolean isBroadCastExit = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
