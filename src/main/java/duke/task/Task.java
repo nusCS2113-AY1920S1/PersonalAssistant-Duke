@@ -1,11 +1,18 @@
 package duke.task;
 
+import java.util.Date;
+
 /**
  * Abstract class to represent task.
  */
 public abstract class Task {
     protected String description; //User input
     protected boolean isDone; //To check if the task is completed
+    protected TaskType taskType;
+
+    public enum TaskType {
+        DEADLINE, TENTATIVESCHEDULING, EVENT, TODO
+    }
 
     /**
      * Constructor for class Task.
@@ -54,4 +61,14 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Get the type of Task.
+     * @return Enumerated type of task which is declared
+     */
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public abstract Date getDateTime();
 }

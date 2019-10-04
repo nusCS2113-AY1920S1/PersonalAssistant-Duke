@@ -9,6 +9,15 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.TodoCommand;
+import duke.command.TentativeScheduleCommand;
+import duke.command.ConfirmScheduleCommand;
+import duke.command.DurationCommand;
+import duke.command.PeriodCommand;
+import duke.command.ViewScheduleCommand;
+import duke.command.RemindCommand;
+import duke.command.RecurringCommand;
+import duke.command.SnoozeCommand;
+import duke.command.DetectAnomaliesCommand;
 
 import duke.exception.DukeException;
 
@@ -21,6 +30,16 @@ import static duke.common.Messages.COMMAND_EVENT;
 import static duke.common.Messages.COMMAND_FIND;
 import static duke.common.Messages.COMMAND_LIST;
 import static duke.common.Messages.COMMAND_TODO;
+import static duke.common.Messages.COMMAND_TENTATIVESCHEDULE;
+import static duke.common.Messages.COMMAND_CONFIRM;
+import static duke.common.Messages.COMMAND_CONFIRMSCHEDULE;
+import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
+import static duke.common.Messages.COMMAND_PERIOD;
+import static duke.common.Messages.COMMAND_REMIND;
+import static duke.common.Messages.COMMAND_DURATION;
+import static duke.common.Messages.COMMAND_RECURRING;
+import static duke.common.Messages.COMMAND_SNOOZE;
+import static duke.common.Messages.COMMAND_DETECTCLASHES;
 
 /**
  * Making sense of the user input command.
@@ -67,6 +86,66 @@ public class Parser {
         } else if (userInputCommand.contains(COMMAND_FIND)) {
             if (userInputCommand.trim().substring(0, 4).equals(COMMAND_FIND)) {
                 return new FindCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_DURATION)) {
+            if (userInputCommand.trim().substring(0, 5).equals(COMMAND_DURATION)) {
+                return new DurationCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_SNOOZE)) {
+            if (userInputCommand.trim().substring(0, 6).equals(COMMAND_SNOOZE)) {
+                return new SnoozeCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_PERIOD)) {
+            if (userInputCommand.trim().substring(0, 6).equals(COMMAND_PERIOD)) {
+                return new PeriodCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_REMIND)) {
+            if (userInputCommand.trim().substring(0, 9).equals(COMMAND_REMIND)) {
+                return new RemindCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_VIEWSCHEDULE)) {
+            if (userInputCommand.trim().substring(0, 12).equals(COMMAND_VIEWSCHEDULE)) {
+                return new ViewScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_TENTATIVESCHEDULE)) {
+            if (userInputCommand.trim().substring(0, 17).equals(COMMAND_TENTATIVESCHEDULE)) {
+                return new TentativeScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_CONFIRMSCHEDULE)) {
+            if (userInputCommand.trim().substring(0, 15).equals(COMMAND_CONFIRMSCHEDULE)) {
+                return new ConfirmScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_CONFIRM)) {
+            if (userInputCommand.trim().substring(0, 7).equals(COMMAND_CONFIRM)) {
+                return new ConfirmScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_RECURRING)) {
+            if (userInputCommand.trim().substring(0, 9).equals(COMMAND_RECURRING)) {
+                return new RecurringCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains(COMMAND_DETECTCLASHES)) {
+            if (userInputCommand.trim().substring(0, 11).equals(COMMAND_DETECTCLASHES)) {
+                return new DetectAnomaliesCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }

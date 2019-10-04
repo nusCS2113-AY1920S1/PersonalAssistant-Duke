@@ -7,6 +7,7 @@ import duke.task.Task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
+
     @Test
     public void shouldTestDeadlineToSaveString() {
         // assert statements

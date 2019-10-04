@@ -36,10 +36,10 @@ public class TodoCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_TODO)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(4) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains("/after")) {
-                String details = description.trim().split("/after", 2)[0];
-                String doaftertask = description.trim().split("/after", 2)[1];
+                String details = description.split("/after", 2)[0].trim();
+                String doaftertask = description.split("/after", 2)[1].trim();
                 if (details.isEmpty() || doaftertask.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_DO_AFTER);
                 } else {

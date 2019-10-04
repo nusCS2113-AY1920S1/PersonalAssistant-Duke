@@ -2,18 +2,21 @@ package duke.task;
 
 import java.util.Date;
 
-public class DoAfter extends Task {
+public class Period extends Task {
 
-    protected String after;
+    protected String startDate;
+    protected String endDate;
 
     /**
-     * Constructor for class DoAfter.
+     * Constructor for class Period.
      * @param description String containing the description of the task
-     * @param after String containing the time or tasks to be met or done
+     * @param startDate String containing the initial date that a task should be done.
+     * @param endDate String containing the last date that a task should be done.
      */
-    public DoAfter(String description, String after) {
+    public Period(String description, String startDate, String endDate) {
         super(description);//super class constructor call to the Task(description) constructor
-        this.after = after;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -22,7 +25,7 @@ public class DoAfter extends Task {
      */
     @Override
     public String toSaveString() {
-        return "T" + super.toSaveString() + " | " + after;
+        return "P" + super.toSaveString() + " | " + startDate + " | " + endDate;
     }
 
     /**
@@ -31,7 +34,7 @@ public class DoAfter extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (after: " + after + ")";
+        return "[P]" + super.toString() + " (between: " + startDate + " and " + endDate + ")";
     }
 
     public Date getDateTime() {

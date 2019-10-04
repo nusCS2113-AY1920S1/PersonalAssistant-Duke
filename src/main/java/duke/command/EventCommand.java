@@ -34,10 +34,10 @@ public class EventCommand extends Command {
         if (userInputCommand.trim().equals(COMMAND_EVENT)) {
             throw new DukeException(ERROR_MESSAGE_EVENT);
         } else if (userInputCommand.trim().charAt(5) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains("/at")) {
-                String details = description.trim().split("/at", 2)[0];
-                String date = description.trim().split("/at", 2)[1];
+                String details = description.split("/at", 2)[0].trim();
+                String date = description.split("/at", 2)[1].trim();
                 if (details.isEmpty() || date.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_EVENT);
                 } else {

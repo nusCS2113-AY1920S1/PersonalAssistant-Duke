@@ -8,6 +8,7 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
+import java.text.ParseException;
 
 import static duke.common.Messages.filePath;
 
@@ -66,7 +67,7 @@ public class Duke {
 //        new Duke(filePath).run();
 //    }
 
-    public void runProgram(String fullCommand) throws DukeException {
+    public void runProgram(String fullCommand) throws DukeException, ParseException {
         Command c = Parser.parse(fullCommand);
         c.execute(tasks, ui, storage);
     }

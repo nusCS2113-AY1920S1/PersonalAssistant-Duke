@@ -5,6 +5,7 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static duke.common.Messages.COMMAND_DEADLINE;
@@ -37,14 +38,14 @@ public class DeadlineCommand extends Command {
      * @throws DukeException if Duke cannot recognize the user input or user inputs a wrong format for the date and time
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
         if (userInputCommand.trim().equals(COMMAND_DEADLINE)) {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(8) == ' ') {
-            String description = userInputCommand.trim().split("\\s",2)[1];
+            String description = userInputCommand.split("\\s",2)[1].trim();
             if (description.contains("/by")) {
-                String details = description.trim().split("/by", 2)[0];
-                String date = description.trim().split("/by", 2)[1];
+                String details = description.split("/by", 2)[0].trim();
+                String date = description.split("/by", 2)[1].trim();
                 if (details.isEmpty() || date.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_DEADLINE);
                 } else {

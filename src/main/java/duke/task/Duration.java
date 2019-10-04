@@ -3,20 +3,20 @@ package duke.task;
 import java.util.Date;
 
 /**
- * Represent an event task and inherits all the fields and methods of Task parent class.
+ * Represent a fixed duration task and inherits all the fields and methods of Task parent class.
  */
-public class Event extends Task {
+public class Duration extends Task {
 
-    protected String at;
+    protected String need; // private instance variables
 
     /**
-     * Constructor for class Event.
+     * Constructor for class Duration.
      * @param description String containing the description of the task
-     * @param at String containing the venue of the event
+     * @param need        String containing time needed for the task
      */
-    public Event(String description, String at) {
+    public Duration(String description, String need) {
         super(description);
-        this.at = at;
+        this.need = need;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return "E" + super.toSaveString() + " | " + at;
+        return "F" + super.toSaveString() + " | " + need;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[F]" + super.toString() + " (need: " + need + ")";
     }
 
     public Date getDateTime() {
