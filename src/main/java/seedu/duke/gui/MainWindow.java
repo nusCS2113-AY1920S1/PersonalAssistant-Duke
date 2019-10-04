@@ -84,7 +84,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
-        if(response.contains("Bye, hope to see you again.")) {
+        if (response.contains("Bye, hope to see you again.")) {
             Storage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();

@@ -31,9 +31,9 @@ public class Task {
     protected String doAfterDescription;
 
     /**
-     * The tag list that the task has
+     * The tag list that the task has.
      */
-        protected ArrayList<String> tags;
+    protected ArrayList<String> tags;
 
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
