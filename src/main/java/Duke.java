@@ -1,5 +1,5 @@
 import duchess.logic.commands.Command;
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 import duchess.logic.parser.Parser;
 import duchess.model.task.DuchessLog;
 import duchess.storage.Storage;

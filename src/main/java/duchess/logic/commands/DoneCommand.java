@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
 import duchess.storage.Store;

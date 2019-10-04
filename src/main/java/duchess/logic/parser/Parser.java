@@ -13,7 +13,7 @@ import duchess.logic.commands.LogCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
 import duchess.logic.commands.ViewScheduleCommand;
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 
 import java.util.Arrays;
 import java.util.List;

@@ -3,7 +3,7 @@ package duchess.model.task;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 import duchess.model.TimeFrame;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,5 @@
 import duchess.logic.commands.ViewScheduleCommand;
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

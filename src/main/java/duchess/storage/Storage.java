@@ -3,7 +3,7 @@ package duchess.storage;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import duchess.logic.commands.exceptions.DukeException;
+import duchess.exceptions.DukeException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
