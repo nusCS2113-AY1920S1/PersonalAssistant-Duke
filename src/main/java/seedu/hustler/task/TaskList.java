@@ -80,6 +80,7 @@ public class TaskList {
         boolean checkAnomaly = true;
         // if tasktype is not ToDo
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
+            list.add(new ToDo(taskDescriptionFull));
             checkAnomaly = false;
         } else {
             // Extract task time and task description and initialize as deadline
@@ -208,6 +209,11 @@ public class TaskList {
             }
         }
         if (!checkAnomaly) {
+            try {
+
+            } catch (IndexOutOfBoundsException e) {
+
+            }
             String output = "\t  " + list.get(list.size() - 1).toString();
             System.out.println("\t_____________________________________");
             System.out.println("\tGot it. I've added this task:");
