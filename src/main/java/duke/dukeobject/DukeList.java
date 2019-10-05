@@ -1,4 +1,4 @@
-package dukeobject;
+package duke.dukeobject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 /**
  * The generic parent list of all lists in Duke, which are responsible for saving their own information

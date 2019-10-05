@@ -1,6 +1,6 @@
-package storage;
+package duke.storage;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 import java.io.File;
 import java.io.IOException;

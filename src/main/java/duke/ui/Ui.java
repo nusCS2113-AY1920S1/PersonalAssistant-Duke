@@ -1,8 +1,8 @@
-package ui;
+package duke.ui;
 
-import dukeobject.Expense;
-import dukeobject.ExpenseList;
-import exception.DukeException;
+import duke.dukeobject.Expense;
+import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
 
 
 import java.util.Scanner;

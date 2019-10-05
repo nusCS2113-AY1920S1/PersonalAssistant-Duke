@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import dukeobject.ExpenseList;
-import exception.DukeException;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
+import duke.parser.CommandParams;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 /**
  * Represents a specified command as DeleteCommand by extending the {@code Command} class.

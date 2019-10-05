@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import dukeobject.ExpenseList;
-import exception.DukeException;
-import parser.CommandParams;
-import ui.Ui;
-import storage.Storage;
+import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
+import duke.parser.CommandParams;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 /**
  * Represents a specified command as FindCommand by extending the {@code Command} class.

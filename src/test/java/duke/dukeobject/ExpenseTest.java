@@ -1,8 +1,8 @@
-package dukeobject;
+package duke.dukeobject;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
-import parser.LocalDateTimeParser;
+import duke.parser.LocalDateTimeParser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

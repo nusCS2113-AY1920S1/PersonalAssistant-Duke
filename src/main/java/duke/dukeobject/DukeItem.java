@@ -1,6 +1,6 @@
-package dukeobject;
+package duke.dukeobject;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 import java.io.Serializable;
 import java.util.HashSet;

@@ -1,9 +1,9 @@
-package command;
+package duke.command;
 
-import dukeobject.ExpenseList;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.dukeobject.ExpenseList;
+import duke.parser.CommandParams;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.util.Map;
 

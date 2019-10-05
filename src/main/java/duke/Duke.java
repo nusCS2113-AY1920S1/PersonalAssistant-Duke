@@ -1,10 +1,12 @@
-import dukeobject.ExpenseList;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
-import exception.DukeException;
-import command.Command;
-import parser.Parser;
+package duke;
+
+import duke.dukeobject.ExpenseList;
+import duke.parser.CommandParams;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.exception.DukeException;
+import duke.command.Command;
+import duke.parser.Parser;
 
 import java.io.File;
 

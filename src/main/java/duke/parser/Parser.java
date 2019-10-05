@@ -1,12 +1,12 @@
-package parser;
+package duke.parser;
 
-import command.AddExpenseCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.ListCommand;
-import exception.DukeException;
+import duke.command.AddExpenseCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.exception.DukeException;
 
 /**
  * Parses the command line from user input to tokens and

@@ -1,6 +1,6 @@
-package dukeobject;
+package duke.dukeobject;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 import java.io.File;
 import java.math.BigDecimal;

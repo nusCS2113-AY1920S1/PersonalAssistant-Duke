@@ -1,7 +1,7 @@
-package dukeobject;
+package duke.dukeobject;
 
-import exception.DukeException;
-import parser.LocalDateTimeParser;
+import duke.exception.DukeException;
+import duke.parser.LocalDateTimeParser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
