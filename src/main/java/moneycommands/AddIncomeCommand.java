@@ -47,7 +47,7 @@ public class AddIncomeCommand extends MoneyCommand {
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/payday ", 2);
         float salary = Float.parseFloat(furSplit[0]);
-        LocalDate payDay = LocalDate.parse(furSplit[1], dateTimeFormatter);
+        LocalDate payDay = Parser.shortcutTime(furSplit[1]);
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);

@@ -23,7 +23,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
         String info = inputString.split(" /amt ")[1];
         desc = desc.replaceFirst("bank-account ","");
         String[] words = info.split(" ");
-        LocalDate initialDate = LocalDate.parse(words[2], dateTimeFormatter);
+        LocalDate initialDate = Parser.shortcutTime(words[2]);
         newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
                 initialDate, Double.parseDouble(words[4]));
     }
