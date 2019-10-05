@@ -3,8 +3,8 @@ package duke.commands;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.storage.Storage;
-import duke.tasks.Task;
-import duke.tasks.TaskWithDates;
+import duke.data.tasks.Task;
+import duke.data.tasks.TaskWithDates;
 import duke.ui.Ui;
 import javafx.collections.transformation.SortedList;
 

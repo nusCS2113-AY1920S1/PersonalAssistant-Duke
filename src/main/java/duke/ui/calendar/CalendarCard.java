@@ -1,7 +1,7 @@
 package duke.ui.calendar;
 
-import duke.tasks.Task;
-import duke.tasks.UniqueTaskList;
+import duke.data.tasks.Task;
+import duke.data.UniqueTaskList;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,7 +20,7 @@ public class CalendarCard extends UiPart<StackPane> {
 
     private final UniqueTaskList tasks;
     private static final String FXML = "CalendarCard.fxml";
-    private static final String CLASSNAME = "class duke.tasks.";
+    private static final String CLASSNAME = "class duke.data.tasks.";
     private static int currentIndex = 0;
     private boolean isCalendarCardClass = true;
 

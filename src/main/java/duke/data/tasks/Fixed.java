@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.data.tasks;
 
 public class Fixed extends Task {
     private int hour;

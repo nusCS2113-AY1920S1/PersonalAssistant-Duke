@@ -1,25 +1,23 @@
-package duke.requests;
+package duke.parsers.requests;
 
 import duke.commons.DukeException;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 
 /**
  * Abstract class representing individual HTTP requests.
  */
-public abstract class HttpReq {
+public abstract class HttpRequest {
     private String reqType;
     private String url;
     private String param;
 
     /**
      * Initialises HTTP Request parameters.
+     *
      * @param reqType The request type
      * @param url The request URL
      * @param param The parameters of the request
      */
-    public HttpReq(String reqType, String url, String param) {
+    public HttpRequest(String reqType, String url, String param) {
         this.reqType = reqType;
         this.url = url;
         this.param = param;
@@ -28,5 +26,5 @@ public abstract class HttpReq {
     /**
      * Executes the HTTP Request.
      */
-    public abstract void execute() throws DukeException, IOException;
+    public abstract void execute() throws DukeException;
 }
